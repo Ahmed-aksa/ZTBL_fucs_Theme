@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from "../../shared/shared.module";
 import {GeoFencingListComponent} from './geo-fencing-list/geo-fencing-list.component';
@@ -16,7 +16,8 @@ const routes = [
 
 @NgModule({
     declarations: [
-        GeoFencingListComponent,ViewGetFancingModalComponent
+        GeoFencingListComponent,
+        ViewGetFancingModalComponent
     ],
     imports: [
         CommonModule,
@@ -27,6 +28,9 @@ const routes = [
     ],
     entryComponents: [
         ViewGetFancingModalComponent
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
     ]
 })
 export class GeoFencingModule {

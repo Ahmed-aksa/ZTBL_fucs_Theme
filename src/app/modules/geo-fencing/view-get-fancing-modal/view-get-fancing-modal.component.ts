@@ -69,7 +69,7 @@ export class ViewGetFancingModalComponent implements OnInit {
     }
 
 
-    @ViewChild('search', null)
+    @ViewChild('search')
     public searchElementRef: ElementRef;
 
     constructor(
