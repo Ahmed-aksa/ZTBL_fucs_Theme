@@ -72,7 +72,7 @@ export class NavigationMockApi
                     200,
                     {
                        // compact   : cloneDeep(this._compactNavigation),
-                        default   : cloneDeep(this._defaultNavigation),
+                        default   : cloneDeep(JSON.parse(localStorage.getItem('ZTBLUser')).MenuBar),
                         //futuristic: cloneDeep(this._futuristicNavigation),
                         //horizontal: cloneDeep(this._horizontalNavigation)
                     }
