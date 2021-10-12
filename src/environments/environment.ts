@@ -4,7 +4,13 @@
 
 export const environment = {
     production: false,
-
+    userEmailKey: 'userEmail',
+    userName: 'userName',
+    userInfoKey: 'loginResponse',
+    menuBar: 'menuBar',
+    userActivities: 'userActivities',
+    isMockEnabled: true, // You have to switch this, when your real back-end is done
+    authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
     apiUrl: 'http://172.16.1.228:8070/ZTBL.Api', //admins
     ///apiUrl: 'https://localhost:44346/ZTBL.Api', //admins
 };
