@@ -1,0 +1,22 @@
+import { BaseModel } from "app/shared/models/base-model.model";
+
+
+export class Permission extends BaseModel {
+    id: number;
+    title: string;
+    level: number;
+    parentId: number;
+    isSelected: boolean;
+    name: string;
+    _children: Permission[];
+
+    clear(): void {
+        this.id = undefined;
+        this.title = '';
+        this.level = 1;
+        this.parentId = undefined;
+        this.isSelected = false;
+        this.name = '';
+        this._children = [];
+	}
+}

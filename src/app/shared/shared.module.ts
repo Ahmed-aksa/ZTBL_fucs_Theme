@@ -6,141 +6,58 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
-import {MatSelectModule} from '@angular/material/select';
-import {MatTableModule} from '@angular/material/table';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatIconModule} from "@angular/material/icon";
-import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatCardModule} from "@angular/material/card";
-import {MatSortModule} from "@angular/material/sort";
-import {MatCheckboxModule} from "@angular/material/checkbox";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {MatExpansionModule} from "@angular/material/expansion";
-import {MatTabsModule} from "@angular/material/tabs";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {MatDialogModule} from "@angular/material/dialog";
-import {MatListModule} from "@angular/material/list";
-import {MatChipsModule} from "@angular/material/chips";
-import {MatTreeModule} from "@angular/material/tree";
-import {NgxPaginationModule} from 'ngx-pagination';
-import {MatRadioModule} from "@angular/material/radio";
-import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
-import {NgxMaskModule} from 'ngx-mask';
-import {NgxSpinnerModule} from 'ngx-spinner';
-import {AgmCoreModule} from "@agm/core";
-import {
-    ActionNotificationComponent,
-    AlertComponent,
-    AlertDialogCaptureComponent, AlertDialogComponent,
-    AlertDialogConfirmationComponent,
-    AlertDialogSuccessComponent,
-    AlertDialogWarnComponent,
-    AlertMessageComponent,
-    DeleteEntityDialogComponent,
-    FetchEntityDialogComponent,
-    UpdateStatusDialogComponent,
-} from "./crud";
-import {MatNativeDateModule} from "@angular/material/core";
+import { AlertDialogComponent, AlertDialogSuccessComponent, AlertDialogWarnComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from './crud';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { ProfileService } from 'app/modules/user-management/activity/profile.service';
+import { HttpUtilsService } from './services/http_utils.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @NgModule({
     declarations: [
-        UpdateStatusDialogComponent,
-        FetchEntityDialogComponent,
-        DeleteEntityDialogComponent,
-        AlertMessageComponent,
-        AlertDialogWarnComponent,
-        AlertDialogSuccessComponent,
-        AlertDialogConfirmationComponent,
-        AlertDialogCaptureComponent,
         AlertDialogComponent,
-        AlertComponent,
-        ActionNotificationComponent,
+        AlertDialogSuccessComponent,
+        DeleteEntityDialogComponent,
+        AlertDialogWarnComponent,
+        FetchEntityDialogComponent,
+        UpdateStatusDialogComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         ToastrModule.forRoot(),
-        FormsModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatInputModule,
-        MatTableModule,
-        MatAutocompleteModule,
-        MatRadioModule,
-        MatIconModule,
-        MatNativeDateModule,
-        MatProgressBarModule,
-        MatDatepickerModule,
-        MatCardModule,
         MatPaginatorModule,
-        MatSortModule,
-        MatCheckboxModule,
+        MatInputModule,
+        ReactiveFormsModule,
         MatProgressSpinnerModule,
-        MatSnackBarModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatTooltipModule,
-        MatDialogModule,
         MatButtonModule,
-        MatListModule,
-        MatChipsModule,
-        MatTreeModule,
-        NgxMatSelectSearchModule,
-        NgxMaskModule.forRoot(),
-        NgxSpinnerModule,
-        NgxPaginationModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyC3SrcUt_3iPERnX-hk46YYsKJiCTzJ5z0',
-            libraries: ['places', 'drawing', 'geometry'],
-        }),
-    ],
+        MatFormFieldModule,
+        MatRippleModule,
+        MatDialogModule,
+        HttpClientModule,
+        MatSnackBarModule,
+        ],
     exports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MatSelectModule,
-        MatInputModule,
-        MatTableModule,
-        MatAutocompleteModule,
-        MatRadioModule,
-        MatIconModule,
-        MatNativeDateModule,
-        MatProgressBarModule,
-        MatDatepickerModule,
-        MatCardModule,
+        ToastrModule,
         MatPaginatorModule,
-        MatSortModule,
-        MatCheckboxModule,
+        MatInputModule,
+        ReactiveFormsModule,
         MatProgressSpinnerModule,
-        MatSnackBarModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatTooltipModule,
-        MatDialogModule,
         MatButtonModule,
-        MatListModule,
-        MatChipsModule,
-        MatTreeModule,
-        NgxMatSelectSearchModule,
-        NgxMaskModule,
-        NgxSpinnerModule,
-        NgxPaginationModule,
-        AgmCoreModule
+        MatFormFieldModule,
+        MatRippleModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        
     ],
-    entryComponents: [
-        UpdateStatusDialogComponent,
-        FetchEntityDialogComponent,
-        DeleteEntityDialogComponent,
-        AlertMessageComponent,
-        AlertDialogWarnComponent,
-        AlertDialogSuccessComponent,
-        AlertDialogConfirmationComponent,
-        AlertDialogCaptureComponent,
-        AlertDialogComponent,
-        AlertComponent,
-        ActionNotificationComponent,
+    providers:[
     ]
 })
 export class SharedModule {

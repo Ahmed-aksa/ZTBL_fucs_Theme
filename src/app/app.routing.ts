@@ -80,9 +80,9 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/dashboard/dashboard.module').then(m => m.DashboardModule)
             },
             {
-                path: 'geo-fencing',
-                loadChildren: () => import('app/modules/geo-fencing/geo-fencing.module').then(m => m.GeoFencingModule)
-            },
+                path: 'user-management',
+                loadChildren: () => import('app/modules/user-management/user-management.module').then(m => m.UserManagementModule)
+              },
         ]
     }
 ];

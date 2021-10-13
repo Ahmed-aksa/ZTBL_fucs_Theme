@@ -4,9 +4,9 @@
 
 export const environment = {
     production: false,
+    userInfoKey: 'loginResponse',
     userEmailKey: 'userEmail',
     userName: 'userName',
-    userInfoKey: 'loginResponse',
     menuBar: 'menuBar',
     userActivities: 'userActivities',
     isMockEnabled: true, // You have to switch this, when your real back-end is done
