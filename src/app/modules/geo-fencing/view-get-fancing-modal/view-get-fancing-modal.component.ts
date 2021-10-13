@@ -15,7 +15,6 @@ import {GeoFencingService} from "../service/geo-fencing-service.service";
 })
 export class ViewGetFancingModalComponent implements OnInit {
 
-    google = google.maps.Map;
     lat: number;
     lng: number;
     center: google.maps.LatLngLiteral
@@ -88,9 +87,6 @@ export class ViewGetFancingModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger;
-        console.log(this.data);
-
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
         navigator.geolocation.getCurrentPosition((position) => {
@@ -126,14 +122,12 @@ export class ViewGetFancingModalComponent implements OnInit {
     }
 
     getPoligonGetByIds() {
-        debugger;
         this.spinner.show()
         var request = {
             Circle: {
                 CircleIds: this.data.CircleIDs,
             }
         }
-        debugger;
         this._geoFencingService.CirclePoligonGetByIds(request)
             .pipe(
                 finalize(() => {

@@ -1,138 +1,177 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">List Geo Fencing</div>
 
-    <mat-drawer-container
-        class="flex-auto h-full bg-card dark:bg-transparent"
-      >
+    <!-- Header -->
+    <div
 
-        <!-- Drawer -->
-        <mat-drawer
-            class="w-full sm:w-128 dark:bg-gray-900"
-            [opened]="false"
-            [position]="'end'"
-            [disableClose]="true"
-            #matDrawer>
-        </mat-drawer>
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+        style="flex-wrap: wrap" [formGroup]="listForm">
+        <div
+            class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-        <mat-drawer-content class="flex flex-col">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">PP No.</mat-label>
+                <input matInput placeholder="PP No." formControlName="PPNo" maxlength="30"
+                       autocomplete="off"/>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <!-- Main -->
-            <div class="flex flex-col flex-auto">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                    <mat-option [value]="SelectedZones.ZoneId">
+                        {{SelectedZones.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-                <!-- Header -->
-                <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between py-8 px-6 md:px-8">
-                    <!-- Title -->
-                    <div>
-                        <div class="text-4xl font-extrabold tracking-tight leading-none">Tasks</div>
-                        <div class="ml-0.5 font-medium text-secondary">
-                            <span >All tasks completed!</span>
-                            <span >remaining tasks</span>
-                        </div>
-                    </div>
-                    <!-- Actions -->
-                    <div class="mt-4 sm:mt-0">
-                        <!-- Add section button -->
-                        <button
-                            mat-flat-button
-                            [color]="'accent'"
-                            [matTooltip]="'Shortcut: Ctrl + .'">
-                            <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-                            <span class="ml-2 mr-1">Add Section</span>
-                        </button>
-                        <!-- Add task button -->
-                        <button
-                            class="ml-3"
-                            mat-flat-button
-                            [color]="'primary'"
-                            [matTooltip]="'Shortcut: Ctrl + /'">
-                            <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-                            <span class="ml-2 mr-1">Add Task</span>
-                        </button>
-                    </div>
-                </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-                <!-- Tasks list -->
-                <ng-container >
-                    <div
-                        class="divide-y"
-                        cdkDropList>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                            *ngIf="!single_branch">
+                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch.BranchCode"
+                                [disabled]="disable_circle">
+                        {{branch.Name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                            *ngIf="single_branch">
+                    <mat-option [value]="SelectedBranches.BranchCode"
+                                [disabled]="disable_circle">
+                        {{SelectedBranches.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-                        <!-- Task -->
-                        <ng-container >
-                            <div
-                                cdkDrag
-                                [cdkDragLockAxis]="'y'">
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-                                <!-- Drag preview -->
-                                <div
-                                    class="flex flex-0 w-0 h-0"
-                                    *cdkDragPreview></div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Circle</mat-label>
 
-                                <!-- Task content -->
-                                <div class="relative flex items-center h-full pl-10">
+                <mat-select [(ngModel)]="selected_c" formControlName="CircleId">
+                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle.Id"
+                                [disabled]="disable_circle">
+                        {{circle.CircleCode}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-                                    <!-- Selected indicator -->
-                                    <ng-container>
-                                        <div class="z-10 absolute -top-px right-0 -bottom-px flex flex-0 w-1 bg-primary"></div>
-                                    </ng-container>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-                                    <!-- Drag handle -->
-                                    <div
-                                        class="md:hidden absolute flex items-center justify-center inset-y-0 left-0 w-8 cursor-move md:group-hover:flex"
-                                        cdkDragHandle>
-                                        <mat-icon
-                                            class="icon-size-5 text-hint"
-                                            [svgIcon]="'heroicons_solid:menu'"></mat-icon>
-                                    </div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label>Choose start date</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="StartDate"
+                       (dateChange)="comparisonStartdateValidator()" autocomplete="off">
 
-                                    <!-- Complete task button -->
-                                    <button
-                                        class="mr-2 -ml-2.5 leading-none"
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 
+                <mat-datepicker #picker1></mat-datepicker>
 
-                                        mat-icon-button>
-                                        <ng-container >
-                                            <mat-icon
-                                                class="text-primary"
-                                                [svgIcon]="'heroicons_outline:check-circle'"></mat-icon>
-                                        </ng-container>
-                                        <ng-container *>
-                                            <mat-icon
-                                                class="text-hint"
-                                                [svgIcon]="'heroicons_outline:check-circle'"></mat-icon>
-                                        </ng-container>
-                                    </button>
+                <mat-error *ngIf="listForm.controls['StartDate'].hasError('invaliddaterange')">
+                    <strong>Start date cannot be greater than end date</strong>
+                </mat-error>
+                <mat-error *ngIf="hasError('StartDate', 'required')">Start Date <strong>required</strong>
+                </mat-error>
 
-                                    <!-- Task link -->
-                                    <a
-                                        class="flex flex-auto items-center min-w-0 h-full pr-7"
-                                      >
-                                        <!-- Title & Placeholder -->
-                                        <div class="flex-auto mr-2 truncate">
+            </mat-form-field>
+        </div>
 
-                                        </div>
-                                        <!-- Priority -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4"
+        >
 
-                                    </a>
-                                </div>
-                            </div>
-                        </ng-container>
-                    </div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label>Choose end date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="EndDate"
+                       (dateChange)="comparisonEnddateValidator()" autocomplete="off">
 
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+
+                <mat-error *ngIf="listForm.controls['EndDate'].hasError('invaliddaterange')">
+                    <strong>End date cannot be earlier than start date</strong>
+                </mat-error>
+
+                <mat-error *ngIf="hasError('EndDate', 'required')">End Date <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <button mat-raised-button color="accent"
+                    type="button" (click)="find()">
+                <mat-icon>search</mat-icon>
+                Find
+            </button>
+        </div>
+
+    </div>
+    <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
+            <mat-table class="lmat-elevation-z8"
+                       #table
+                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
+                       matSort
+                       #sort1="matSort"
+                       matSortActive="id"
+                       matSortDirection="asc"
+                       matSortDisableClear>
+                <ng-container matColumnDef="PPNo">
+                    <mat-header-cell *matHeaderCellDef>PP No</mat-header-cell>
+                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.PPNo}}</mat-cell>
                 </ng-container>
 
-                <ng-template #noTasks>
-                    <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
-                        <mat-icon
-                            class="icon-size-24"
-                            [svgIcon]="'iconsmind:bulleted_list'"></mat-icon>
-                        <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">Add a task to start planning!</div>
-                    </div>
-                </ng-template>
+                <ng-container matColumnDef="BranchCode">
+                    <mat-header-cell *matHeaderCellDef>Branch Code</mat-header-cell>
+                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.BranchCode}}</mat-cell>
+                </ng-container>
 
-            </div>
+                <ng-container matColumnDef="CreatedDate">
+                    <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
+                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.CreatedDate}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="View">
+                    <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                    <mat-cell *matCellDef="let LocationHistories">
+                        <button mat-icon-button color="primary" (click)="view(LocationHistories)">
+                            <mat-icon title="View Vendor">visibility</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
 
-        </mat-drawer-content>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
 
-    </mat-drawer-container>
+        </div>
+        <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+            Items per page:
+            <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                        style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+                <mat-option [value]="5">5</mat-option>
+                <mat-option [value]="10">10</mat-option>
+                <mat-option [value]="25">25</mat-option>
+                <mat-option [value]="50">50</mat-option>
+            </mat-select>
+            <button (click)="paginate(1)">First</button>
+            <pagination-controls display="inline" (pageChange)="paginate($event)"
+                                 style="display: inline-block;"></pagination-controls>
+            <button (click)="paginate(MathCeil(totalItems/itemsPerPage))">Last</button>
+            <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+
+        </div>
+
+
+    </div>
+
 
 </div>

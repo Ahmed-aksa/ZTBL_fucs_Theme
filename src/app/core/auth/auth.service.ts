@@ -57,6 +57,7 @@ export class AuthService {
             {headers: this.getHTTPHeaders()}).pipe(
             map((response: BaseResponseModel) => {
                 localStorage.setItem('ZTBLUser', JSON.stringify(response));
+
                 this.accessToken = response.Token;
                 this._authenticated = true;
                 // this._userService.user = response.User;

@@ -20,8 +20,8 @@ export class GeoFencingService {
     }
 
     SearchGeoFensePoint(resquest: any): Observable<BaseResponseModel> {
-        var req = JSON.stringify(resquest);
-        return this.http.post(`${environment.apiUrl}/GeoFencingPoint/SearchGeoFensePoint`, req,
+        // var req = JSON.stringify(resquest);
+        return this.http.post(`${environment.apiUrl}/GeoFencingPoint/SearchGeoFensePoint`, resquest,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );

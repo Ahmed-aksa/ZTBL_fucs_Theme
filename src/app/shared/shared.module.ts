@@ -42,6 +42,9 @@ import {
     UpdateStatusDialogComponent,
 } from "./crud";
 import {MatNativeDateModule} from "@angular/material/core";
+import {HttpUtilsService} from "./services/http_utils.service";
+import {UserUtilsService} from "./services/users_utils.service";
+import {LayoutUtilsService} from "./services/layout_utils.service";
 
 @NgModule({
     declarations: [
@@ -141,6 +144,11 @@ import {MatNativeDateModule} from "@angular/material/core";
         AlertDialogComponent,
         AlertComponent,
         ActionNotificationComponent,
+    ],
+    providers: [
+        HttpUtilsService,
+        UserUtilsService,
+        LayoutUtilsService
     ]
 })
 export class SharedModule {

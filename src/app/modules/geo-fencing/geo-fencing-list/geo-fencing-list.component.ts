@@ -21,6 +21,15 @@ import {ViewGetFancingModalComponent} from '../view-get-fancing-modal/view-get-f
     styleUrls: ['./geo-fencing-list.component.scss']
 })
 export class GeoFencingListComponent implements OnInit {
+    disable_branch = true;
+    disable_circle = true;
+    disable_zone = true;
+
+    single_branch=true;
+    single_circle=true;
+    single_zone=true;
+    loaded = false;
+    products: any
     displayedColumns = ['PPNo', 'BranchCode', 'CreatedDate', 'View'];
     itemsPerPage = 30;
     pageIndex = 1;
@@ -67,8 +76,9 @@ export class GeoFencingListComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
-        this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.initValues();
+
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.Circles = this.LoggedInUserInfo.UserCircleMappings;
             this.SelectedCircles = this.Circles;
@@ -84,6 +94,22 @@ export class GeoFencingListComponent implements OnInit {
             this.selected_c = this.SelectedCircles.Id
             this.listForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.listForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
+        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && this.LoggedInUserInfo.UserCircleMappings) {
+            this.disable_circle = false;
+            this.Circles = this.LoggedInUserInfo.UserCircleMappings;
+            this.SelectedCircles = this.Circles;
+
+            this.Branches = this.LoggedInUserInfo.Branch;
+            this.SelectedBranches = this.Branches;
+            console.log(this.SelectedBranches);
+
+
+            this.Zone = this.LoggedInUserInfo.Zone;
+            this.SelectedZones = this.Zone;
+
+            this.selected_z = this.SelectedZones.ZoneId
+            this.selected_b = this.SelectedBranches.BranchCode
+            this.selected_c = this.SelectedCircles.Id
         }
     }
 
@@ -151,12 +177,11 @@ export class GeoFencingListComponent implements OnInit {
                 //this.user.BranchCode
             }
         }
-
         this._geoFencingService.SearchGeoFensePoint(request).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe((baseResponse: BaseResponseModel) => {
             if (baseResponse.Success === true) {
-                debugger;
+                this.loaded = true;
                 this.dataSource = baseResponse.LocationHistory.LocationHistories;
                 this.dv = this.dataSource;
                 // this.totalItems = baseResponse.LocationHistory.LocationHistories[0].TotalRecords

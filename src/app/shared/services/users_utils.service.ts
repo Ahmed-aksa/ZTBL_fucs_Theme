@@ -4,10 +4,94 @@ import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {environment} from "../../../environments/environment";
 import {BaseResponseModel} from "../models/base_response.model";
 import {Activity} from "../models/activity.model";
+
 @Injectable()
 export class UserUtilsService {
     loginResponse: BaseResponseModel;
     tempResponse: BaseResponseModel;
+    search_data: any = {Branch: null, UserCircleMappings: null, zone: null};
+
+
+    public getSearchResultsDataOfZonesBranchCircle() {
+
+        /**
+         * LOGIC:
+         *  CASE 1:
+         *      Zone, branch, circle !=null
+         *      zone disabled
+         *      branch disabled
+         *      circle enabled  --> SELECT OPTION
+         *          -> fetch mapping of circles from UserCircleMappings ( localstorage)
+         *  CASE 2:
+         *      Zone, branch !=null
+         *      Circle=null
+         *      Zone should be disabled
+         *      Branch Enabled with SELECT OPTION -->fetch branch from localstorage
+         *      Circle will be enabled w.r.t Branch from API
+         *  Case 3:
+         *      Zone !=null
+         *      Branch, Circle =null
+         *      Zone Enabled
+         *      Fetch Branch w.r.t Zone from API
+         *      Fetch Circle w.r.t Branch from API
+         *  Case 4:
+         *      Zone, Branch, Circle =null
+         *      First hit API  ---->getZone<----
+         *      All Will be enabled as discussed in Case 3
+         */
+        let user_data = JSON.parse(localStorage.getItem('ZTBLUser'));
+        /**
+         * Branch Data Manipulation
+         */
+        if (
+            user_data.Branch &&
+            user_data.UserCircleMappings &&
+            user_data.Zone) {
+
+            /**
+             * Case 1
+             */
+            this.search_data.Branch =  user_data.Branch;
+            this.search_data.UserCircleMappings = user_data.UserCircleMappings;
+            this.search_data.Zone =  user_data.Zone;
+        } else if (
+            (user_data.Branch != null || user_data.Branch != undefined) &&
+            (user_data.Zone != null || user_data.Zone != undefined) &&
+            user_data.UserCircleMappings == undefined) {
+            /**
+             * Case 2
+             */
+            this.search_data.Branch = user_data.Branch;
+            this.search_data.UserCircleMappings = true;
+            this.search_data.Zone = null;
+        } else if (
+            (user_data.Branch == null || user_data.Branch == undefined) &&
+            (user_data.UserCircleMappings == null || user_data.UserCircleMappings == undefined) &&
+            (user_data.Zone != null || user_data.Zone != undefined)
+        ) {
+            /**
+             * Case 3
+             */
+            this.search_data.Branch = true;
+            this.search_data.UserCircleMappings = true;
+            this.search_data.Zone = user_data.Zone;
+        } else if (
+            (user_data.Branch == null || user_data.Branch == undefined) &&
+            (user_data.UserCircleMappings == null || user_data.UserCircleMappings == undefined) &&
+            (user_data.Zone == null || user_data.Zone == undefined)
+        ) {
+
+            /**
+             * Case 4
+             */
+
+            this.search_data.branch = true;
+            this.search_data.UserCircleMappings = true;
+            this.search_data.zone = true;
+
+        }
+        return this.search_data;
+    }
 
     public getUserDetails(): BaseResponseModel {
 
@@ -52,8 +136,6 @@ export class UserUtilsService {
         Cookie.delete(environment.userInfoKey);
         //Cookie.deleteAll();
 
-        localStorage.removeItem(environment.menuBar);
-        localStorage.removeItem(environment.userName);
         localStorage.removeItem(environment.userActivities);
     }
 
@@ -62,16 +144,16 @@ export class UserUtilsService {
     }
 
     public getUserMenu() {
-        return JSON.parse(localStorage.getItem(environment.menuBar));
+        return JSON.parse(localStorage.getItem(environment.menuBar)).MenuBar;
     }
 
     public getUserActivities() {
-        return JSON.parse(localStorage.getItem(environment.userActivities));
+        return JSON.parse(localStorage.getItem(environment.userActivities)).Activities;
     }
 
     public getActivity(activityName: string): Activity {
         //this.getUserDetails();
-        var activities = JSON.parse(localStorage.getItem(environment.userActivities));
+        var activities = this.getUserActivities();
         var act = activities.filter(x => x.ActivityName == activityName)[0];
 
         act.C = act.C == '1' ? true : false

@@ -6,6 +6,8 @@ import {ViewGetFancingModalComponent} from "./view-get-fancing-modal/view-get-fa
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {RouterModule} from "@angular/router";
+import {GeoFencingService} from "./service/geo-fencing-service.service";
+import {AgmCoreModule} from "@agm/core";
 
 const routes = [
     {
@@ -24,13 +26,20 @@ const routes = [
         SharedModule,
         MatSidenavModule,
         DragDropModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyC3SrcUt_3iPERnX-hk46YYsKJiCTzJ5z0',
+            libraries: ['places', 'drawing', 'geometry'],
+        }),
     ],
     entryComponents: [
         ViewGetFancingModalComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
+    ],
+    providers: [
+        GeoFencingService
     ]
 })
 export class GeoFencingModule {

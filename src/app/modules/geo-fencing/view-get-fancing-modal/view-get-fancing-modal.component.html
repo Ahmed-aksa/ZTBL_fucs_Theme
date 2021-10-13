@@ -3,52 +3,47 @@
 
     <div class="kt-portlet">
         <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
-        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-            <div class="kt-portlet__head-label">
-                <h3 class="kt-portlet__head-title">Add Vendor's Location</h3>
-            </div>
+        <div style="display: flex;flex-direction: row;justify-content: space-between">
 
-            <div class="row">
-                <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table mt-3" style="margin-left: 12px">
-                    <button mat-raised-button class="org-button button-red" (click)="close(0)">Close</button>
-                </div>
-            </div>
+            <h3 class="kt-portlet__head-title">Add Vendor's Location</h3>
+
+
+            <button mat-icon-button color="accent" (click)="close(0)">
+                <mat-icon>cancel</mat-icon>
+            </button>
         </div>
     </div>
 
 
-    <form class="kt-form kt-form--group-seperator-dashed">
-        <div class="kt-form">
-            <div class="kt-portlet__body">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12  mat-elevation-z8">
+    <form>
+        <div class="row">
+            <div class="col-lg-12 col-md-12  mat-elevation-z8">
 
-                        <!--            <label>Search</label>-->
-                        <input type="text" class="form-control mb-2" (keydown.enter)="$event.preventDefault()"
-                               placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off"
-                               spellcheck="off" type="text"
-                               #search>
+                <!--            <label>Search</label>-->
+                <input type="text" class="form-control mb-2" (keydown.enter)="$event.preventDefault()"
+                       placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off"
+                       spellcheck="off" type="text"
+                       #search>
 
 
-                        <agm-map [latitude]="lat" [longitude]="lng"
-                                 [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true">
-                            <agm-marker *ngFor="let coordinate of start_end_mark; let i=index"
-                                        [latitude]="coordinate[0]"
-                                        [longitude]="coordinate[1]" [agmFitBounds]="true"></agm-marker>
-                            <agm-polyline [visible]="true" [strokeWeight]="3" [strokeColor]="'#07b57a'">
-                                <agm-polyline-point
-                                    *ngFor="let coordinate of latlng; let i=index"
-                                    [latitude]="coordinate[0]"
-                                    [longitude]="coordinate[1]">
+                <agm-map [latitude]="lat" [longitude]="lng"
+                         [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true"
+                         style="height: 500px">
+                    <agm-marker *ngFor="let coordinate of start_end_mark; let i=index"
+                                [latitude]="coordinate[0]"
+                                [longitude]="coordinate[1]" [agmFitBounds]="true"></agm-marker>
+                    <agm-polyline [visible]="true" [strokeWeight]="3" [strokeColor]="'#07b57a'">
+                        <agm-polyline-point
+                            *ngFor="let coordinate of latlng; let i=index"
+                            [latitude]="coordinate[0]"
+                            [longitude]="coordinate[1]">
 
-                                </agm-polyline-point>
-                            </agm-polyline>
-                        </agm-map>
+                        </agm-polyline-point>
+                    </agm-polyline>
+                </agm-map>
 
-                        <!-- <button (click)="addMarker()">Add marker</button> -->
+                <!-- <button (click)="addMarker()">Add marker</button> -->
 
-                    </div>
-                </div>
             </div>
         </div>
     </form>
