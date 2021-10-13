@@ -82,7 +82,12 @@ export const appRoutes: Route[] = [
             {
                 path: 'user-management',
                 loadChildren: () => import('app/modules/user-management/user-management.module').then(m => m.UserManagementModule)
-              },
+            },
+            {
+                path: 'geo-fencing',
+                loadChildren: () => import('app/modules/geo-fencing/geo-fencing.module').then(m => m.GeoFencingModule)
+
+            }
         ]
     }
 ];

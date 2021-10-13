@@ -4,6 +4,7 @@ import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {environment} from "../../../environments/environment";
 import {BaseResponseModel} from "../models/base_response.model";
 import {Activity} from "../models/activity.model";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class UserUtilsService {
@@ -11,6 +12,8 @@ export class UserUtilsService {
     tempResponse: BaseResponseModel;
     search_data: any = {Branch: null, UserCircleMappings: null, zone: null};
 
+    constructor(private http: HttpClient) {
+    }
 
     public getSearchResultsDataOfZonesBranchCircle() {
 
@@ -51,9 +54,9 @@ export class UserUtilsService {
             /**
              * Case 1
              */
-            this.search_data.Branch =  user_data.Branch;
+            this.search_data.Branch = user_data.Branch;
             this.search_data.UserCircleMappings = user_data.UserCircleMappings;
-            this.search_data.Zone =  user_data.Zone;
+            this.search_data.Zone = user_data.Zone;
         } else if (
             (user_data.Branch != null || user_data.Branch != undefined) &&
             (user_data.Zone != null || user_data.Zone != undefined) &&
@@ -76,18 +79,16 @@ export class UserUtilsService {
             this.search_data.UserCircleMappings = true;
             this.search_data.Zone = user_data.Zone;
         } else if (
-            (user_data.Branch == null || user_data.Branch == undefined) &&
-            (user_data.UserCircleMappings == null || user_data.UserCircleMappings == undefined) &&
-            (user_data.Zone == null || user_data.Zone == undefined)
-        ) {
-
+            !user_data.Branch &&
+            !user_data.UserCircleMappings &&
+            !user_data.Zone) {
             /**
              * Case 4
              */
 
-            this.search_data.branch = true;
-            this.search_data.UserCircleMappings = true;
-            this.search_data.zone = true;
+            this.search_data.branch = null;
+            this.search_data.UserCircleMappings = null;
+            this.search_data.zone = null;
 
         }
         return this.search_data;
@@ -192,5 +193,16 @@ export class UserUtilsService {
         return true;
     }
 
+    getCircle(branch) {
+        return this.http.post(`${environment.apiUrl}/Circle/GetCirclesByBranchCode`, branch);
+    }
+
+    getBranch(Zone) {
+        return this.http.post(`${environment.apiUrl}/Branch/GetBranchByZone`, Zone);
+    }
+
+    getZone() {
+        return this.http.post(`${environment.apiUrl}/Zone/GetZones`, null);
+    }
 }
 
