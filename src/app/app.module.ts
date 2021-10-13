@@ -13,6 +13,13 @@ import {LayoutModule} from 'app/layout/layout.module';
 import {AppComponent} from 'app/app.component';
 import {appRoutes} from 'app/app.routing';
 import {SharedModule} from "./shared/shared.module";
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { metaReducers, reducers } from './shared/reducers';
+import { HttpUtilsService } from './shared/services/http_utils.service';
+import { TypesUtilsService } from './shared/services/types-utils.service';
+import { LayoutUtilsService } from './shared/services/layout-utils.service';
+import { UserUtilsService } from './shared/services/user-utils.service';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -27,25 +34,26 @@ const routerConfig: ExtraOptions = {
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(appRoutes, routerConfig),
-
-        // Fuse, FuseConfig & FuseMockAPI
         FuseModule,
         FuseConfigModule.forRoot(appConfig),
         FuseMockApiModule.forRoot(mockApiServices),
-
-        // Core module of your application
         CoreModule,
-
-        // Layout module of your application
         LayoutModule,
-
-        // 3rd party modules that require global configuration via forRoot
         MarkdownModule.forRoot({}),
-        SharedModule
+        SharedModule,
+
+        StoreModule.forRoot(reducers, {metaReducers}),
+		EffectsModule.forRoot([]),
+    ],
+    providers: [
+        HttpUtilsService,
+        UserUtilsService,
+        LayoutUtilsService 
     ],
     bootstrap: [
         AppComponent
-    ]
+    ],
+  
 })
 export class AppModule {
 }

@@ -1,0 +1,131 @@
+<div class="kt-portlet"
+     [class]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+    <div class="kt-portlet__head-label">
+      <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+    </div>
+  </div>
+  <div>
+    <form [formGroup]="activityForm" class="kt-form kt-form--group-seperator-dashed">
+      <div class="kt-form">
+        <div class="kt-portlet__body">
+
+          <div class="kt-portlet__body-progress">
+            <mat-spinner [diameter]="20"></mat-spinner>
+          </div>
+
+          <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
+                    (close)="onAlertClose($event)">
+            Oh snap! Change a few things up and try submitting again.
+          </kt-alert>
+
+          <div class="form-group kt-form__group row">
+            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <input matInput placeholder="Enter Page Name" formControlName="ActivityName" maxlength="30"
+                       autocomplete="off"/>
+                <mat-error *ngIf="hasError('ActivityName', 'required')">Name <strong>required</strong></mat-error>
+                <mat-hint align="start">Please enter <strong>Page Name</strong></mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+
+              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label for="ActivityUrl">Enter URL</mat-label>
+
+                <input matInput placeholder="Enter URL" formControlName="ActivityUrl" maxlength="60"
+                       autocomplete="off"/>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="!isVisible">
+              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label for="PageIcon">Enter Icon</mat-label>
+                <input type="text" class="form-control"
+                       formControlName="PageIcon"
+                       maxlength="60"
+                       matInput
+                       style="height: 15px"
+                       autocomplete="off"
+                       [value]="activityForm.value.PageIcon"
+                       [iconPicker]="activityForm.value.PageIcon"
+                       [ipPosition]="'bottom'"
+                       [ipIconSize]="'16px'"
+                       [ipIconVerticalPadding]="'6px'"
+                       [ipIconHorizontalPadding]="'10px'"
+                       [ipKeepSearchFilter]="'false'"
+                       [ipPlaceHolder]="'Choose an icon'"
+                       [ipFallbackIcon]="activityForm.value.PageIcon"
+                       (iconPickerSelect)="onIconPickerSelect($event)"/>
+                <!--                <input  (iconPickerSelect)="onIconPickerSelect(newIcon)"/>-->
+
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="isVisible">
+              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <input matInput placeholder="Enter Tag" formControlName="TagName" maxlength="60"
+                       autocomplete="off"/>
+              </mat-form-field>
+            </div>
+            <div style="display: flex;flex-direction: column">
+
+              <div class="col-lg-1 kt-margin-bottom-20-mobile text-center" style="margin-top: 15px">
+                <mat-checkbox style="margin-top: 15px;" formControlName="IsParent"
+                              [checked]="this.data.activity.isParent"
+                              (change)="showOrHide($event)"><span>Is Parent?</span>
+                </mat-checkbox>
+              </div>
+              <div class="col-lg-1 kt-margin-bottom-20-mobile text-center" style="margin-top: 15px">
+                <mat-checkbox style="margin-top: 15px;" formControlName="IsActive"
+                              [checked]="this.data.activity.isActive"
+                              ><span>Is Active?</span>
+                </mat-checkbox>
+              </div>
+            </div>
+
+          </div>
+          <div *ngIf="isVisible">
+
+            <div class="row">
+              <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile">
+                <mat-error *ngIf="errorShow">
+                  <strong>Please Select Parent</strong>
+                </mat-error>
+              </div>
+            </div>
+
+            <div class="form-group kt-form__group row">
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-label>Parent</mat-label>
+                  <mat-select formControlName="ParentActivityID" name="ParentActivityID">
+                    <mat-option *ngFor="let item of parentActivities" [value]="item.ActivityID">
+                      {{item.ActivityName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
+          <div class="kt-form__actions kt-form__actions--solid">
+            <div class="row text-right">
+              <div class="col-lg-12">
+                <button type="button" class="button-red" mat-raised-button [mat-dialog-close]="data.animal"
+                        cdkFocusInitial>
+                  Cancel
+                </button>&nbsp;
+                <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="onSubmit()"
+                        [disabled]="viewLoading || submitted">
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
