@@ -128,63 +128,89 @@
 
     </div>
     <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
-        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
-            <mat-table class="lmat-elevation-z8"
-                       #table
-                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
-                       matSort
-                       #sort1="matSort"
-                       matSortActive="id"
-                       matSortDirection="asc"
-                       matSortDisableClear>
+        <div class="example-container mat-elevation-z8">
+            <div class="example-loading-shade"
+                 *ngIf="loaded">
+                <mat-spinner *ngIf="!loaded"></mat-spinner>
+            </div>
+        </div>
+
+        <div class="example-table-container">
+
+            <table mat-table
+                   [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
+                   class="example-table"
+                   matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+                <!-- Number Column -->
                 <ng-container matColumnDef="PPNo">
-                    <mat-header-cell *matHeaderCellDef>PP No</mat-header-cell>
-                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.PPNo}}</mat-cell>
+                    <th mat-header-cell *matHeaderCellDef>PP No</th>
+                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.PPNo}}</td>
                 </ng-container>
 
+                <!-- Title Column -->
                 <ng-container matColumnDef="BranchCode">
-                    <mat-header-cell *matHeaderCellDef>Branch Code</mat-header-cell>
-                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.BranchCode}}</mat-cell>
+                    <th mat-header-cell *matHeaderCellDef>Branch Code</th>
+                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.BranchCode}}</td>
                 </ng-container>
 
+                <!-- State Column -->
                 <ng-container matColumnDef="CreatedDate">
-                    <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
-                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.CreatedDate}}</mat-cell>
+                    <th mat-header-cell *matHeaderCellDef>Created Date</th>
+                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.CreatedDate}}</td>
                 </ng-container>
                 <ng-container matColumnDef="View">
-                    <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-                    <mat-cell *matCellDef="let LocationHistories">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let LocationHistories">
                         <button mat-icon-button color="primary" (click)="view(LocationHistories)">
                             <mat-icon title="View Vendor">visibility</mat-icon>
                         </button>
-                    </mat-cell>
+                    </td>
                 </ng-container>
-                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
-                                class="table-header-background"></mat-header-row>
 
-                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-            </mat-table>
 
-        </div>
-        <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
-            Items per page:
-            <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
-                        style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-                <mat-option [value]="5">5</mat-option>
-                <mat-option [value]="10">10</mat-option>
-                <mat-option [value]="25">25</mat-option>
-                <mat-option [value]="50">50</mat-option>
-            </mat-select>
-            <button (click)="paginate(1)">First</button>
-            <pagination-controls display="inline" (pageChange)="paginate($event)"
-                                 style="display: inline-block;"></pagination-controls>
-            <button (click)="paginate(MathCeil(totalItems/itemsPerPage))">Last</button>
-            <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
-
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
         </div>
 
-
+        <mat-paginator [length]="50" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 25]">
+        </mat-paginator>
     </div>
+    <!--        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">-->
+    <!--            <mat-table class="lmat-elevation-z8"-->
+    <!--                       #table-->
+    <!--                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}">-->
+    <!--                <ng-container matColumnDef="PPNo">-->
+    <!--                    <mat-header-cell *matHeaderCellDef>PP No</mat-header-cell>-->
+    <!--                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.PPNo}}</mat-cell>-->
+    <!--                </ng-container>-->
+
+    <!--                <ng-container matColumnDef="BranchCode">-->
+    <!--                    <mat-header-cell *matHeaderCellDef>Branch Code</mat-header-cell>-->
+    <!--                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.BranchCode}}</mat-cell>-->
+    <!--                </ng-container>-->
+
+    <!--                <ng-container matColumnDef="CreatedDate">-->
+    <!--                    <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>-->
+    <!--                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.CreatedDate}}</mat-cell>-->
+    <!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="View">-->
+    <!--                    <mat-header-cell *matHeaderCellDef>View</mat-header-cell>-->
+    <!--                    <mat-cell *matCellDef="let LocationHistories">-->
+    <!--                        <button mat-icon-button color="primary" (click)="view(LocationHistories)">-->
+    <!--                            <mat-icon title="View Vendor">visibility</mat-icon>-->
+    <!--                        </button>-->
+    <!--                    </mat-cell>-->
+    <!--                </ng-container>-->
+    <!--                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"-->
+    <!--                                class="table-header-background"></mat-header-row>-->
+
+    <!--                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>-->
+    <!--            </mat-table>-->
+
+    <!--        </div>-->
 
 
 </div>
+
+

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
@@ -14,6 +14,8 @@ import {Zone} from "../../../shared/models/zone.model";
 
 import {finalize} from "rxjs/operators";
 import {ViewGetFancingModalComponent} from '../view-get-fancing-modal/view-get-fancing-modal.component';
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
     selector: 'app-geo-fencing-list',
@@ -22,6 +24,11 @@ import {ViewGetFancingModalComponent} from '../view-get-fancing-modal/view-get-f
 })
 export class GeoFencingListComponent implements OnInit {
     disable_branch = true;
+
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+
     disable_circle = true;
     disable_zone = true;
 
@@ -34,10 +41,9 @@ export class GeoFencingListComponent implements OnInit {
     itemsPerPage = 30;
     pageIndex = 1;
     offSet = 0;
-    matTableLenght: boolean = false;
     totalItems: number | any;
     dv: number | any; //use later
-    dataSource: MatTableDataSource<GeoFencingList>
+    dataSource = new MatTableDataSource();
     listForm: FormGroup
     //Zone inventory
     Zones: any = [];
@@ -65,7 +71,6 @@ export class GeoFencingListComponent implements OnInit {
         private router: Router,
         private fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
-        private spinner: NgxSpinnerService,
         private _geoFencingService: GeoFencingService,
         private dialog: MatDialog,
         private layoutUtilsService: LayoutUtilsService,
@@ -126,19 +131,25 @@ export class GeoFencingListComponent implements OnInit {
         this.SearchGeoFensePoint()
     }
 
+
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    }
+
+
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
         this.itemsPerPage = pageSize;
         this.offSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
-        this.SearchGeoFensePoint();
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
-
     SearchGeoFensePoint() {
 
         this.offSet = 0;
         this.itemsPerPage = 10;
-        this.spinner.show();
+        this.loaded = false;
+        this.loaded = false;
 
         if (this.listForm.controls.ZoneId.value != null && this.listForm.controls.BranchCode.value != null) {
             this.user.ZoneId = this.listForm.controls.ZoneId.value;
@@ -168,16 +179,13 @@ export class GeoFencingListComponent implements OnInit {
             }
         }
         this._geoFencingService.SearchGeoFensePoint(request).pipe(finalize(() => {
-            this.spinner.hide()
+            this.loaded = true;
         })).subscribe((baseResponse: BaseResponseModel) => {
             if (baseResponse.Success === true) {
                 this.loaded = true;
                 this.dataSource = baseResponse.LocationHistory.LocationHistories;
                 this.dv = this.dataSource;
-                // this.totalItems = baseResponse.LocationHistory.LocationHistories[0].TotalRecords
-                this.matTableLenght = true
             } else {
-                this.matTableLenght = false;
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }
         });
@@ -194,13 +202,6 @@ export class GeoFencingListComponent implements OnInit {
                 return;
             }
         });
-    }
-
-
-    delete(data: any) {
-    }
-
-    edit(data: any) {
     }
 
     comparisonEnddateValidator(): any {
