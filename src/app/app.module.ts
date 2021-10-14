@@ -20,6 +20,8 @@ import { HttpUtilsService } from './shared/services/http_utils.service';
 import { TypesUtilsService } from './shared/services/types-utils.service';
 import { LayoutUtilsService } from './shared/services/layout-utils.service';
 import { UserUtilsService } from './shared/services/user-utils.service';
+import { TokenInterceptor } from './shared/httpInterceptor/httpconfig.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -48,7 +50,12 @@ const routerConfig: ExtraOptions = {
     providers: [
         HttpUtilsService,
         UserUtilsService,
-        LayoutUtilsService 
+        LayoutUtilsService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+          }
     ],
     bootstrap: [
         AppComponent

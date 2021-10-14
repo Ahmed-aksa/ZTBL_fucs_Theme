@@ -62,7 +62,6 @@ export class ActivityService {
     }, this.request.Circle = {
       CircleIds: '53444,53443,53442,53441'
     };
-    var req = JSON.stringify(this.request);
     this.request.User = this.activityUtilsService.getUserDetails().User;
     this.request.Zone = {
       Id: 0,
@@ -70,9 +69,7 @@ export class ActivityService {
       ZoneName: 'SAHIWAL'
     };
     this.request.Activity = activity;
-
-    var req = JSON.stringify(this.request);
-    return this.http.post(`${environment.apiUrl}/Activity/DeletePage`, req,
+    return this.http.post(`${environment.apiUrl}/Activity/DeletePage`, this.request,
       {headers: this.httpUtils.getHTTPHeaders()}).pipe(
       map((res: BaseResponseModel) => res)
     );

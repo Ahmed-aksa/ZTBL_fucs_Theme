@@ -25,13 +25,23 @@ export class AuthService {
     set accessToken(token: string) {
         if (typeof token != 'undefined') {
             localStorage.setItem('accessToken', token);
+            
         }
     }
 
     get accessToken(): string {
         return localStorage.getItem('accessToken') ?? '';
     }
+    set ZTBLUserRefreshToke(token: string) {
+        if (typeof token != 'undefined') {
+            localStorage.setItem('ZTBLUserRefreshToke', token);
+            
+        }
+    }
 
+    get ZTBLUserRefreshToke(): string {
+        return localStorage.getItem('ZTBLUserRefreshToke') ?? '';
+    }
 
     forgotPassword(email: string): Observable<any> {
         return this.httpUtils.post('api/auth/forgot-password', email);
@@ -47,18 +57,18 @@ export class AuthService {
         this.request = new BaseRequestModel();
         this.request.User = credentials;
         this.request.UserPasswordDetails = credentials;
-
-        // Throw error, if the user is already logged in
         if (this._authenticated) {
             return throwError('User is already logged in.');
         }
 
         return this.httpUtils.post(`${environment.apiUrl}/Account/Login`, this.request,
             {headers: this.getHTTPHeaders()}).pipe(
-            map((response: BaseResponseModel) => {
+                map((response: BaseResponseModel) => {
+                    debugger;
                 localStorage.setItem('ZTBLUser', JSON.stringify(response));
 
                 this.accessToken = response.Token;
+                this.ZTBLUserRefreshToke = response.RefreshToken;
                 this._authenticated = true;
                 // this._userService.user = response.User;
                 return response;
@@ -66,7 +76,16 @@ export class AuthService {
         );
 
     }
-
+    refreshToken(token: string) {
+        this.request = new BaseRequestModel();
+        const refreshToken = JSON.parse(localStorage.getItem('ZTBLUserRefreshToke'));
+        const expiredToken = JSON.parse(localStorage.getItem('ZTBLUserToken'));
+        this.request.Token=expiredToken;
+        this.request.RefreshToken=refreshToken;
+        var req = JSON.stringify(this.request);
+      
+        return this.httpUtils.post(`${environment.apiUrl}/Account/RefreshToken`, req);
+      }
 
     setAuthenticated(value: boolean) {
         this._authenticated = value;

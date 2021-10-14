@@ -86,8 +86,7 @@ export const appRoutes: Route[] = [
             {
                 path: 'geo-fencing',
                 loadChildren: () => import('app/modules/geo-fencing/geo-fencing.module').then(m => m.GeoFencingModule)
-
-            }
+            },
         ]
     }
 ];
