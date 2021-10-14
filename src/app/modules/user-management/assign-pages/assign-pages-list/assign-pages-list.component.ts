@@ -18,6 +18,7 @@ import { RolesDataSource } from 'app/shared/data-sources/roles.datasource';
 @Component({
 	selector: 'kt-assign-pages-list',
 	templateUrl: './assign-pages-list.component.html',
+	styleUrls: ['assign-pages-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssignPageListComponent implements OnInit, OnDestroy {

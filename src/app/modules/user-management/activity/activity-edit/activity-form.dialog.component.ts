@@ -33,7 +33,7 @@ export class ActivityFormDialogComponent implements OnInit {
               private _activityService: ActivityService,
               private formBuilder: FormBuilder,
              // private layoutUtilsService: LayoutUtilsService,
-              private ktDialogService: KtDialogService,
+              ///private ktDialogService: KtDialogService,
               private _snackBar: MatSnackBar) {
   }
 
@@ -110,7 +110,7 @@ export class ActivityFormDialogComponent implements OnInit {
 
 
     this.submitted = true;
-    this.ktDialogService.show();
+    //this.ktDialogService.show();
 
     if (this.data.activity && this.data.activity.ActivityID > 0) {
       this.activity = Object.assign(this.activity, this.activityForm.value);
@@ -120,7 +120,7 @@ export class ActivityFormDialogComponent implements OnInit {
         .pipe(
           finalize(() => {
             this.submitted = false;
-            this.ktDialogService.hide();
+            //this.ktDialogService.hide();
           })
         )
         .subscribe((baseResponse: BaseResponseModel) => {
@@ -139,7 +139,7 @@ export class ActivityFormDialogComponent implements OnInit {
         .pipe(
           finalize(() => {
             this.submitted = false;
-            this.ktDialogService.hide();
+           // this.ktDialogService.hide();
           })
         )
         .subscribe((baseResponse: BaseResponseModel) => {

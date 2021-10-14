@@ -38,10 +38,10 @@ export class GeoFencingListComponent implements OnInit {
     loaded = false;
     products: any
     displayedColumns = ['PPNo', 'BranchCode', 'CreatedDate', 'View'];
-    itemsPerPage = 30;
+    itemsPerPage = 5;
     pageIndex = 1;
     offSet = 0;
-    totalItems: number | any;
+    totalItems: number | any=50;
     dv: number | any; //use later
     dataSource = new MatTableDataSource();
     listForm: FormGroup
@@ -142,13 +142,11 @@ export class GeoFencingListComponent implements OnInit {
         this.itemsPerPage = pageSize;
         this.offSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
+        this.SearchGeoFensePoint();
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
-    }
+      }
+    
     SearchGeoFensePoint() {
-
-        this.offSet = 0;
-        this.itemsPerPage = 10;
-        this.loaded = false;
         this.loaded = false;
 
         if (this.listForm.controls.ZoneId.value != null && this.listForm.controls.BranchCode.value != null) {
@@ -184,7 +182,8 @@ export class GeoFencingListComponent implements OnInit {
             if (baseResponse.Success === true) {
                 this.loaded = true;
                 this.dataSource = baseResponse.LocationHistory.LocationHistories;
-                this.dv = this.dataSource;
+                this.dv = this.dataSource.data;
+               // this.totalItems = baseResponse.LocationHistory.LocationHistories.length;
             } else {
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }

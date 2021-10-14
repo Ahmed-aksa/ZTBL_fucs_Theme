@@ -97,6 +97,7 @@ export class ActivityListComponent implements OnInit {
   }
 
   addActivity() {
+    debugger;
     const newActivity = new Activity();
     newActivity.clear(); // Set all defaults fields
     this.editActivity(newActivity);
@@ -105,11 +106,9 @@ export class ActivityListComponent implements OnInit {
   }
 
   editActivity(activity: Activity) {
-
-
     const _saveMessage = activity.ActivityID ? 'New activity successfully has been added.' : 'Activity successfully has been updated.';
     const _messageType = activity.ActivityID ? MessageType.Update : MessageType.Create;
-    const dialogRef = this.dialog.open(ActivityFormDialogComponent, {data: {activity: activity}, disableClose: true});
+    const dialogRef = this.dialog.open(ActivityFormDialogComponent, {width :'840px', data: {activity: activity}, disableClose: true});
     dialogRef.afterClosed().subscribe(res => {
       this.getUserActivities();
       if (!res) {

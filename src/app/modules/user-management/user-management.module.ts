@@ -42,6 +42,7 @@ import { InterceptService } from 'app/shared/services/intercept.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TypesUtilsService } from 'app/shared/services/types-utils.service';
 import { LayoutUtilsService } from 'app/shared/services/layout-utils.service';
+import { ActivityListComponent } from './activity/activity-list/activity-list.component';
 
 
 const route = [
@@ -53,6 +54,11 @@ const route = [
     path: 'roles',
     component: RoleListComponent
   },
+  {
+    path: 'pages',
+    component: ActivityListComponent
+  },
+    
 ];
 
 @NgModule({
@@ -61,6 +67,7 @@ const route = [
     RoleListComponent,
     ActivityFormDialogComponent,
     CreateEditRoleComponent,
+    ActivityListComponent
   ],
   imports: [
     CommonModule,
