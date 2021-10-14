@@ -78,14 +78,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         return this._authService.check()
             .pipe(
                 switchMap(authenticated => {
-
-                    let general_check = false;
-                    JSON.parse(localStorage.getItem('ZTBLUser')).MenuBar.filter(
-                        (single_menu) => {
-                            if (this._router.url == single_menu.link) {
-                                general_check = true;
-                            }
-                        });
                     if (!authenticated) {
                         // Redirect to the sign-in page
                         this._router.navigate(['auth/sign-in'], {queryParams: {redirectURL}});

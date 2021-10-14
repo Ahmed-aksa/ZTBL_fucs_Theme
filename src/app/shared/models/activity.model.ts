@@ -1,5 +1,6 @@
 export class Activity {
     ActivityID: number;
+    ProfileID: number;
     ActivityName: string;
     ParentActivityName: string;
     ActivityUrl: string;

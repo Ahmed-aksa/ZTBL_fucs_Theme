@@ -19,24 +19,17 @@
                  </mat-error>
             </mat-form-field>
         </div>
-        <div class="flex gt-xs:flex-row">
-            <mat-form-field appearance="fill" class="flex-auto gt-xs:pl-3">
-                <mat-label> Group</mat-label>
-                <mat-select formControlName="ProfileID" required>
-                  <mat-option>--</mat-option>
-                  <mat-option  [value]="'Y'"  >
-                    {{'Yes'}}
-                  </mat-option>
-                  <mat-option  [value]="'N'"  >
-                    {{'No'}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="errorHandling('ProfileID', 'required')">
-                    You must provide Active
-                 </mat-error>
-              </mat-form-field>
-           
+        <div  class="col-lg-4 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
+            <mat-label>Group</mat-label>
+            <mat-select formControlName="ProfileID">
+              <mat-option *ngFor="let lov of LOVs" [value]="lov.Id">
+                {{lov.Name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
+      
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
