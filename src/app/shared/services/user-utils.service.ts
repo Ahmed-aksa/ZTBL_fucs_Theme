@@ -72,7 +72,7 @@ export class UserUtilsService {
 
   public getActivity(activityName: string): Activity {
     //this.getUserDetails();
-    var activities = JSON.parse(localStorage.getItem(environment.userActivities));
+    var activities = JSON.parse(localStorage.getItem(environment.userActivities)).Activities;
     var act = activities.filter(x => x.ActivityName == activityName)[0];
 
     act.C = act.C == '1' ? true : false
