@@ -5,10 +5,10 @@ import {map} from 'rxjs/operators';
 import {C} from '@angular/cdk/keycodes';
 import { BaseRequestModel } from 'app/shared/models/base_request.model';
 import { HttpUtilsService } from 'app/shared/services/http_utils.service';
-import { UserUtilsService } from 'app/shared/services/user-utils.service';
 import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { environment } from 'environments/environment';
 import { Profile } from './activity.model';
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 @Injectable({providedIn: 'root'})
 export class ProfileService {
@@ -124,7 +124,7 @@ export class ProfileService {
     }, this.request.Circle = {
       CircleIds: '53444,53443,53442,53441'
     };
-  
+
     this.request.User = this.userUtilsService.getUserDetails().User;
     this.request.Zone = {
       Id: 0,

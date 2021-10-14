@@ -43,7 +43,7 @@ export class ActivityListComponent implements OnInit {
   public activity = new Activity();
 
   constructor(
-   
+
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     private layoutUtilsService: LayoutUtilsService,
@@ -141,7 +141,6 @@ export class ActivityListComponent implements OnInit {
         if (baseResponse.Success) {
 
           this.userActivities = baseResponse.Activities;
-          console.log(JSON.stringify(this.userActivities))
           this.cdRef.detectChanges();
 
         }

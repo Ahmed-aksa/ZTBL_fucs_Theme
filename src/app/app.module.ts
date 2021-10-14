@@ -13,15 +13,16 @@ import {LayoutModule} from 'app/layout/layout.module';
 import {AppComponent} from 'app/app.component';
 import {appRoutes} from 'app/app.routing';
 import {SharedModule} from "./shared/shared.module";
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { metaReducers, reducers } from './shared/reducers';
-import { HttpUtilsService } from './shared/services/http_utils.service';
-import { TypesUtilsService } from './shared/services/types-utils.service';
-import { LayoutUtilsService } from './shared/services/layout-utils.service';
-import { UserUtilsService } from './shared/services/user-utils.service';
-import { TokenInterceptor } from './shared/_httpInterceptor/httpconfig.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {metaReducers, reducers} from './shared/reducers';
+import {HttpUtilsService} from './shared/services/http_utils.service';
+import {TypesUtilsService} from './shared/services/types-utils.service';
+import {LayoutUtilsService} from './shared/services/layout-utils.service';
+import {TokenInterceptor} from './shared/_httpInterceptor/httpconfig.interceptor';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {ConfigurationManagementComponent} from './modules/configuration-management/configuration-management.component';
+import {UserUtilsService} from "./shared/services/users_utils.service";
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -30,7 +31,7 @@ const routerConfig: ExtraOptions = {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         BrowserModule,
@@ -45,22 +46,23 @@ const routerConfig: ExtraOptions = {
         SharedModule,
 
         StoreModule.forRoot(reducers, {metaReducers}),
-		EffectsModule.forRoot([]),
+        EffectsModule.forRoot([]),
     ],
     providers: [
         HttpUtilsService,
         UserUtilsService,
         LayoutUtilsService,
+
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
             multi: true
-          }
+        }
     ],
     bootstrap: [
         AppComponent
     ],
-  
+
 })
 export class AppModule {
 }

@@ -41,7 +41,7 @@ export class GeoFencingListComponent implements OnInit {
     itemsPerPage = 5;
     pageIndex = 1;
     offSet = 0;
-    totalItems: number | any=50;
+    totalItems: number | any = 50;
     dv: number | any; //use later
     dataSource = new MatTableDataSource();
     listForm: FormGroup
@@ -81,6 +81,7 @@ export class GeoFencingListComponent implements OnInit {
     ngOnInit(): void {
         this.createForm();
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        console.log(this.LoggedInUserInfo);
         this.initValues();
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.Circles = this.LoggedInUserInfo.UserCircleMappings;
@@ -144,8 +145,8 @@ export class GeoFencingListComponent implements OnInit {
         this.pageIndex = pageIndex;
         this.SearchGeoFensePoint();
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
-      }
-    
+    }
+
     SearchGeoFensePoint() {
         this.loaded = false;
 
@@ -182,8 +183,9 @@ export class GeoFencingListComponent implements OnInit {
             if (baseResponse.Success === true) {
                 this.loaded = true;
                 this.dataSource = baseResponse.LocationHistory.LocationHistories;
+                this.totalItems = baseResponse.LocationHistory.LocationHistories[0].TotalRecords
                 this.dv = this.dataSource.data;
-               // this.totalItems = baseResponse.LocationHistory.LocationHistories.length;
+                // this.totalItems = baseResponse.LocationHistory.LocationHistories.length;
             } else {
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }

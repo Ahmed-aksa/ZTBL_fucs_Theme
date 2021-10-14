@@ -9,7 +9,7 @@ import {Profile} from 'app/modules/user-management/activity/activity.model';
 import {environment} from 'environments/environment';
 import {BaseResponseModel} from '../models/base_response.model';
 import {HttpUtilsService} from './http_utils.service';
-import {UserUtilsService} from './user-utils.service';
+import {UserUtilsService} from "./users_utils.service";
 
 @Injectable({providedIn: 'root'})
 export class ProfileService {
