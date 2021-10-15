@@ -87,6 +87,22 @@ export const appRoutes: Route[] = [
                 path: 'geo-fencing',
                 loadChildren: () => import('app/modules/geo-fencing/geo-fencing.module').then(m => m.GeoFencingModule)
             },
+            {
+                path: 'borrower-information',
+                loadChildren: () => import('app/modules/borrower-information/borrower-information.module').then(m => m.BorrowerInformationModule)
+            },
+            {
+                path: 'configuration-management',
+                loadChildren: () => import('app/modules/configuration-management/configuration-management.module').then(m => m.ConfigurationManagementModule)
+            },
+            {
+                path: 'report-management',
+                loadChildren: () => import('app/modules/report-managment/report-managment.module').then(m => m.ReportManagmentModule)
+            },
+            {
+                path: '**',
+                redirectTo: 'dashboard',
+            }
         ]
     }
 ];

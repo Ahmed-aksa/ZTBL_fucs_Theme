@@ -2,7 +2,11 @@
 import {
   Component,
   OnInit,
-  ChangeDetectorRef, 
+  ElementRef,
+  ViewChild,
+  ChangeDetectionStrategy,
+  OnDestroy,
+  ChangeDetectorRef, AfterViewInit
 } from '@angular/core';
 
 import {SelectionModel} from '@angular/cdk/collections';
@@ -14,7 +18,6 @@ import { Activity, Profile } from '../activity.model';
 import { finalize } from 'rxjs/operators';
 import { ActivityFormDialogComponent } from '../activity-edit/activity-form.dialog.component';
 import { ProfileService } from '../profile.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 ;
 
@@ -36,19 +39,18 @@ export class ActivityListComponent implements OnInit {
   activities: Activity[] = [];
   gridHeight: string;
   userActivities: any;
-  isLoading: boolean = false;
+
   public activity = new Activity();
 
   constructor(
+
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     private layoutUtilsService: LayoutUtilsService,
     private _cdf: ChangeDetectorRef,
     private _profileService: ProfileService,
     private _activityService: ActivityService,
-    private cdRef: ChangeDetectorRef,
-     private spinner :NgxSpinnerService
-  ) {
+    private cdRef: ChangeDetectorRef) {
 
   }
 
@@ -95,6 +97,7 @@ export class ActivityListComponent implements OnInit {
   }
 
   addActivity() {
+    debugger;
     const newActivity = new Activity();
     newActivity.clear(); // Set all defaults fields
     this.editActivity(newActivity);
@@ -131,16 +134,13 @@ export class ActivityListComponent implements OnInit {
   }
 
   getUserActivities() {
-    this.spinner.show();
-    this.isLoading = true;
     this.profile.ProfileID = 1;
     this._profileService
-      .getProfileByID(this.profile).pipe(finalize(() => { this.isLoading = false, this.spinner.hide();}))
+      .getProfileByID(this.profile)
       .subscribe((baseResponse: any) => {
         if (baseResponse.Success) {
 
           this.userActivities = baseResponse.Activities;
-          console.log(JSON.stringify(this.userActivities))
           this.cdRef.detectChanges();
 
         }

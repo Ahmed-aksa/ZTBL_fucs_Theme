@@ -7,7 +7,7 @@ import { Activity } from './activity.model';
 import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { environment } from 'environments/environment';
 import { HttpUtilsService } from 'app/shared/services/http_utils.service';
-import { UserUtilsService } from 'app/shared/services/user-utils.service';
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 
 @Injectable({providedIn: 'root'})
