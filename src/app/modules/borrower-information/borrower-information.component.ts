@@ -184,6 +184,10 @@ export class BorrowerInformationComponent implements OnInit {
             this.disable_circle = false;
         });
     }
+
+    MathCeil(value: any) {
+        return Math.ceil(value);
+    }
 }
 
 interface Borrowers {

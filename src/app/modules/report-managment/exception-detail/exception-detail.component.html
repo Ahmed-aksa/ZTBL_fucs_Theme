@@ -1,0 +1,20 @@
+<h3 class="kt-portlet__head-title">Error Log Details({{errorLogDetails.MethodName}})</h3>
+
+<table class="table ">
+    <thead class="bg-success">
+    <tr style="text-align: center">
+        <th scope="col">Input Parameters</th>
+        <th scope="col">ZTBL Input Parameters</th>
+        <th scope="col">Error Trace</th>
+        <th scope="col">Message</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>  {{errorLogDetails.InputParameters}}</td>
+        <td>    {{errorLogDetails.ZtblInputParams}}</td>
+        <td>{{errorLogDetails.ErrorTrace}}</td>
+        <td>  {{errorLogDetails.Message}}</td>
+    </tr>
+    </tbody>
+</table>

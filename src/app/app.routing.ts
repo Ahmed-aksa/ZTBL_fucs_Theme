@@ -96,6 +96,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/configuration-management/configuration-management.module').then(m => m.ConfigurationManagementModule)
             },
             {
+                path: 'report-management',
+                loadChildren: () => import('app/modules/report-managment/report-managment.module').then(m => m.ReportManagmentModule)
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             }
