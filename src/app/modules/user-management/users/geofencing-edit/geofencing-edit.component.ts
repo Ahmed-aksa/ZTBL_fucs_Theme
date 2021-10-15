@@ -18,7 +18,7 @@ import { MapsAPILoader } from '@agm/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
 import { CircleService } from 'app/shared/services/circle.service';
-import { UserUtilsService } from 'app/shared/services/user-utils.service';
+import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { BaseResponseModel } from 'app/shared/models/base_response.model';
 
 declare const google: any;

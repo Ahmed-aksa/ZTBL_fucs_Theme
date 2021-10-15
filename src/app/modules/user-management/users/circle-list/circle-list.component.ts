@@ -17,7 +17,7 @@ import { GeofencingEditComponent } from '../geofencing-edit/geofencing-edit.comp
 import { Zone } from '../utils/zone.model'
 import { DataService } from '../../../../shared/services/data-service.model'
 import { CircleService } from 'app/shared/services/circle.service';
-import { UserUtilsService } from 'app/shared/services/user-utils.service';
+import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 

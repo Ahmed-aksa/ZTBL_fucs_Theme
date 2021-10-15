@@ -10,7 +10,7 @@ import {HttpUtilsService} from "./http_utils.service";
 import {Branch} from "../models/branch.model";
 import {Circle} from "../models/circle.model";
 import {UserUtilsService} from "./users_utils.service";
-
+import { Zone } from '../../modules/user-management/users/utils/zone.model';
 @Injectable({
     providedIn: 'root'
 })
