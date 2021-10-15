@@ -97,29 +97,33 @@ export class UserUtilsService {
 
     public getUserDetails(): BaseResponseModel {
 
-        var userMenu = this.getUserMenu();
-        if (userMenu != undefined && userMenu != null) {
-            var data = Cookie.get(environment.userInfoKey);
-            if (data != undefined) {
-                this.loginResponse = JSON.parse(data);
-                this.loginResponse.MenuBar = this.getUserMenu();
-                this.loginResponse.Activities = this.getUserActivities();
-                this.loginResponse.Success = true;
-                return this.loginResponse;
-            }
-            return new BaseResponseModel();
+
+        var userMenu = localStorage.getItem(environment.ZTBLUser) //this.getUserMenu();
+        if (userMenu)
+        {
+            return JSON.parse(userMenu);
         }
+        return new BaseResponseModel();
+        // if (userMenu != undefined && userMenu != null) {
+        //     var data = Cookie.get(environment.userInfoKey);
+        //     if (data != undefined) {
+        //         this.loginResponse = JSON.parse(data);
+        //         this.loginResponse.MenuBar = this.getUserMenu();
+        //         this.loginResponse.Activities = this.getUserActivities();
+        //         this.loginResponse.Success = true;
+        //         return this.loginResponse;
+        //     }
+            
+        // }
     }
 
     public setUserDetails(response: BaseResponseModel) {
 
         localStorage.setItem(environment.menuBar, JSON.stringify(response.MenuBar));
         localStorage.setItem(environment.userActivities, JSON.stringify(response.Activities));
-
         this.tempResponse = new BaseResponseModel();
         this.tempResponse.User = response.User;
         this.tempResponse.User.App = 1;
-
         this.tempResponse.Token = response.Token;
         this.tempResponse.TokenExpirayTime = response.TokenExpirayTime;
         this.tempResponse.Zone = response.Zone;

@@ -1,0 +1,173 @@
+<form [formGroup]="applicationHeaderForm" class="kt-form kt-form--group-seperator-dashed">
+  <div class="kt-form">
+    <div class="kt-portlet__body">
+
+      <div class="form-group kt-form__group row">
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Zone <strong class="matMandatory">*</strong></mat-label>
+            <mat-select (selectionChange)="GetBranches($event)" formControlName="ZoneId" [disabled]="isZoneReadOnly">
+              <mat-option>
+                <ngx-mat-select-search placeholderLabel="Search Zone..." (focusout)="validateZoneOnFocusOut()" (keyup)="searchZone($event.target.value)" noEntriesFoundLabel="No Zone Found">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let zone of SelectedZones" [value]="zone.ZoneId">
+                {{zone.ZoneName }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+            <mat-select (selectionChange)="SetBranches($event)" formControlName="BranchID" [disabled]="isBranchReadOnly">
+              <mat-option>
+                <ngx-mat-select-search placeholderLabel="Search Branch..." (focusout)="validateBranchOnFocusOut()" noEntriesFoundLabel="No Branch Found" (keyup)="searchBranch($event.target.value)">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let branch of SelectedBranches" [value]="branch.BranchId">
+                {{branch.Name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('BranchID', 'required')">Branch <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Application Date <strong class="matMandatory">*</strong></mat-label>
+            <input readonly="readonly" matInput [matDatepicker]="picker3" formControlName="AppDate" [max]="today" autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+            <mat-error *ngIf="hasError('AppDate', 'required')">Application Date <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Loan Type <strong class="matMandatory">*</strong></mat-label>
+            <mat-select formControlName="DevProdFlag" (selectionChange)="onChangeLoanType($event)" >
+              <mat-option>
+                <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateLoanTypeOnFocusOut()" noEntriesFoundLabel="No Loan Type Found" (keyup)="searchLoanType($event.target.value)">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let loanType of SelectedLoanType" [value]="loanType.Id">
+                {{loanType.Name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('DevProdFlag', 'required')">LoanType <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group kt-form__group row">
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Development Loan Amount <strong class="matMandatory">*</strong></mat-label>
+            <input matInput placeholder="Enter Development Loan Amount" formControlName="DevAmount" appNumberOnly />
+            <mat-error *ngIf="hasError('DevAmount', 'required')">Development Loan Amount <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Production Loan Amount <strong class="matMandatory">*</strong></mat-label>
+            <input matInput placeholder="Enter Production Loan Amount" formControlName="ProdAmount" appNumberOnly />
+            <mat-error *ngIf="hasError('ProdAmount', 'required')">Production Loan Amount <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-2 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <input matInput placeholder="Enter Lc Old No" formControlName="LoanCaseNo" autocomplete="off" readonly/>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-1 kt-margin-bottom-20-mobile">
+          <button [disabled]="isCheckLcInProgress" type="button" class="btn btn-primary mt-10p" mat-raised-button color="primary" (click)="getLcNoAutoAssignedByApi()">
+            Check LC #
+          </button>
+        </div>
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">LA File/booklet No <strong class="matMandatory">*</strong></mat-label>
+            <input matInput placeholder="Enter Booklet No" formControlName="AppNumberManual" autocomplete="off" />
+            <mat-error *ngIf="hasError('AppNumberManual', 'required')">LA File/booklet No <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div class="form-group kt-form__group row">
+
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Loan Category <strong class="matMandatory">*</strong></mat-label>
+            <mat-select formControlName="CategoryID">
+              <mat-option>
+                <ngx-mat-select-search placeholderLabel="Search Loan Category..." (focusout)="validateLoanCategoryOnFocusOut()" noEntriesFoundLabel="No Loan Category Found" (keyup)="searchLoanCategory($event.target.value)">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let loanCategory of SelectedLoanCategory" [value]="loanCategory.Id">
+                {{loanCategory.Name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('CategoryID', 'required')">Loan Category <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <input matInput placeholder="LC NO" formControlName="LoanAutoNo" readonly="readonly" autocomplete="off" />
+            <mat-error *ngIf="hasError('LoanAutoNo', 'required')">"LC NO <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Circle <strong class="matMandatory">*</strong></mat-label>
+            <mat-select formControlName="CircleID">
+              <mat-option>
+                <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateircleOnFocusOut()" noEntriesFoundLabel="No Circle Found" (keyup)="searchircle($event.target.value)">
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let Circle of SelectedCircles" [value]="Circle.Id">
+                <!-- [value]="Circle.Id" -->
+                {{Circle.CircleCode }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('CircleID', 'required')">Circle <strong>required</strong></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Deposit Acc# <strong class="matMandatory">*</strong></mat-label>
+            <input matInput placeholder="Enter Deposit Account" formControlName="RefDepositAcc" maxlength="14" autocomplete="off" />
+            <mat-error *ngIf="hasError('RefDepositAcc', 'required')">Deposit Account <strong>required</strong></mat-error>
+            <mat-error *ngIf="hasError('RefDepositAcc', 'minLength')">Deposit Account minimum length <strong>14</strong></mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group kt-form__group row">
+    
+        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-label class="customMatLabel">Reference Number(PITB) </mat-label>
+            <input matInput placeholder="Enter Reference Number(PITB)" formControlName="ApplicantionTitle" />
+            <!--  <mat-error *ngIf="hasError('Zone', 'required')">Zone <strong>required</strong></mat-error>-->
+          </mat-form-field>
+        </div>
+        
+      </div>
+      <div class="form-group kt-form__group row">
+        <div class="col-lg-3 mt-1p">
+          <button [disabled]="isSaveApplicationHeaderInProgress" type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="onSaveApplicationHeader()">
+            Save
+          </button>
+          <button type="button" class="btn btn-outline-brand ml-1p" mat-raised-button color="danger"  (click)="onClearSavApplicationHeader()" >
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+             size="medium"
+             color="#ecbd00"
+             type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

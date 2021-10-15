@@ -1,0 +1,38 @@
+table > thead {
+  background-color: #00661a;
+  color: white;
+}
+
+table > tbody > tr{
+    background-color:white !important;
+}
+
+table > tbody > tr > td > span {
+  cursor: pointer;
+  color: #ecbd00;
+}
+
+.float-left {
+  float: left !important;
+}
+
+.float-right {
+  float: right !important;
+}
+
+
+.mt-1p {
+  margin-top: 1% !important;
+}
+
+.mt-10p {
+  margin-top: 10% !important;
+}
+
+.ml-1p {
+  margin-left: 1% !important;
+}
+
+.mr-1p {
+  margin-right: 1% !important;
+}

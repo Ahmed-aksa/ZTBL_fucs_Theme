@@ -1,0 +1,167 @@
+<div class="kt-portlet">
+  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+    <div class="kt-portlet__head-label">
+      <h5 class="kt-portlet__head-title">Loan Securities</h5>
+    </div>
+  </div>
+  <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="LoanSecuritiesForm">
+    <div class="kt-form">
+      <div class="kt-portlet__body">
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-3 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Security Type</mat-label>
+              <mat-select formControlName="CollTypeID" (selectionChange)="setSecurityTypeValue($event)">
+                <mat-option>
+                  <ngx-mat-select-search placeholderLabel="Search Security Type..." (focusout)="validateSecurityTypeOnFocusOut()" (keyup)="searchSecurityType($event.target.value)" noEntriesFoundLabel="No Security Type Found">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let securityType of SelectedSecurityType" [value]="securityType.LovId">
+                  {{securityType.Name }}
+                </mat-option>
+              </mat-select>
+              <!--<mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>-->
+            </mat-form-field>
+          </div>
+          <!--<div class="col-lg-2 kt-margin-bottom-20-mobile">
+           
+          </div>-->
+          <div class="col-lg-3 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Quantity/ Area Accepted <strong class="matMandatory">*</strong></mat-label>
+              <input matInput formControlName="Quantity" appNumberOnly>
+              <mat-error *ngIf="hasError('Quantity', 'required')">Area <strong>required</strong></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-2 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Quantity</mat-label>
+              <mat-select formControlName="QuantityUnit">
+                <mat-option>
+                  <ngx-mat-select-search placeholderLabel="Search Quantity..." (focusout)="validateAreaQuantitOnFocusOut()" (keyup)="validateAreaQuantitOnFocusOut()" noEntriesFoundLabel="No Quantity Found">
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let areaQuantity of SelectedAreaQuantities" [value]="areaQuantity.Id">
+                  {{areaQuantity.Name}}
+                </mat-option>
+              </mat-select>
+              
+            </mat-form-field>
+          </div>
+          <!--<div class="col-lg-2 kt-margin-bottom-20-mobile">
+           
+          </div>-->
+          <div class="col-lg-2 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Unit Price/Avg Sale Price <strong class="matMandatory">*</strong></mat-label>
+              <input matInput formControlName="UnitPrice" appNumberOnly>
+              <mat-error *ngIf="hasError('UnitPrice', 'required')">Unit Price <strong>required</strong></mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-3 mt-1p">
+            <button type="button" [disabled]="isSecuritiesFormInProgress" class="btn btn-primary" mat-raised-button color="primary" (click)="onSaveLoanSecurities()">
+              Save
+            </button>
+            <button type="button" class="btn btn-outline-brand ml-1p" mat-raised-button color="danger" (click)="clearLoanSecuritiesForm()" >
+              Clear
+            </button>
+          </div>
+        </div>
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr class="table-header-background">
+                    <th>Security Type</th>
+                    <th>Basis Of Valuation</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Accepted Value</th>
+                    <th>Max Credit Limit</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="">
+                  <tr *ngFor="let loan of loanSecuritiesArray; let i = index;">
+                    <td>{{loan.SecurityType}}</td>
+                    <td>{{loan.BasisofMutation}}</td>
+                    <td>{{loan.Quantity}}</td>
+                    <td>{{loan.UnitPrice}}</td>
+                    <td>{{loan.PludgedValue}}</td>
+                    <td>{{loan.MaxCreditLimit}}</td>
+                    <td><button class="btn btn-xs btn-primary" (click)="showUpdateSecuritiesForm(loan.AppSecurityID)">Edit</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+<div class="kt-portlet">
+  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+    <div class="kt-portlet__head-label">
+      <h5 class="kt-portlet__head-title">Customer Land</h5>
+    </div>
+  </div>
+  <div class="kt-portlet__body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr class="table-header-background">
+                <th>Passbook Number</th>
+                <th>Category</th>
+                <th>Area(Marla)</th>
+                <th>Address</th>
+                <th>Village</th>
+                <th>Attached</th>
+                <th>Select</th>
+              </tr>
+            </thead>
+            <tbody class="">
+              <tr *ngFor="let custLand of customerLandList">
+                <td>{{custLand.PassbookNo}}</td>
+                <td>{{custLand.LandTypeFlag}}</td>
+                <td>{{custLand.TotalArea}}</td>
+                <td>{{custLand.OwnAreaAddress}}</td>
+                <td>{{custLand.OwnAreaAddress}}</td>
+                <td>{{custLand.AttachedFlag}}</td>
+                <td>
+                  <mat-checkbox>
+                  </mat-checkbox>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <button type="button" class="btn btn-primary float-right" mat-raised-button color="primary" (click)="attachCustomerLandtoLoan()">
+          Attach
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+             size="medium"
+             color="#ecbd00"
+             type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+
+
