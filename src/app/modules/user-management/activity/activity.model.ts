@@ -1,4 +1,5 @@
 export class Activity {
+    ProfileID:any
     ActivityID: number;
     ActivityName: string;
     ParentActivityName: string;

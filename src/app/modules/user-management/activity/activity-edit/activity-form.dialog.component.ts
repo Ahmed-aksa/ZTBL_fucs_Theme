@@ -8,6 +8,7 @@ import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { Activity } from '../activity.model';
 import { ActivityService } from '../activity.serivce';
 import { KtDialogService } from 'app/shared/services/kt-dialog.service';
+import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
 @Component({
   selector: 'kt-activity-edit',
   templateUrl: './activity-form.dialog.component.html',
@@ -32,7 +33,7 @@ export class ActivityFormDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private _activityService: ActivityService,
               private formBuilder: FormBuilder,
-             // private layoutUtilsService: LayoutUtilsService,
+              private layoutUtilsService: LayoutUtilsService,
               ///private ktDialogService: KtDialogService,
               private _snackBar: MatSnackBar) {
   }
@@ -44,11 +45,10 @@ export class ActivityFormDialogComponent implements OnInit {
     this._activityService.getParentActivities().subscribe(
       baseResponse => {
         this.parentActivities = baseResponse.Activities;
-        console.log('this is parent activities');
-        console.log(this.parentActivities);
       }
     );
 
+    debugger;
     if (this.data.activity && this.data.activity.ActivityID) {
       this.activity = this.data.activity;
     }
@@ -78,8 +78,6 @@ export class ActivityFormDialogComponent implements OnInit {
   }
 
   onSubmit(): void {
-
-
     this.errorShow = false;
     this.hasFormErrors = false;
     if (this.activityForm.invalid) {
@@ -126,10 +124,10 @@ export class ActivityFormDialogComponent implements OnInit {
         .subscribe((baseResponse: BaseResponseModel) => {
           console.log(baseResponse);
           if (baseResponse.Success === true) {
-           // this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
+            this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
             this.close(this.activity);
           } else {
-            //this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
+            this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
           }
         });
     } else {
@@ -143,12 +141,8 @@ export class ActivityFormDialogComponent implements OnInit {
           })
         )
         .subscribe((baseResponse: BaseResponseModel) => {
-
-          debugger;
-          console.log('base response');
-          console.log(baseResponse);
           if (baseResponse.Success === true) {
-           // this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
+            this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
             this.close(this.activity);
           } else {
            // this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);

@@ -21,9 +21,7 @@ export class ActivityService {
   updateActivity(activity: Activity): Observable<BaseResponseModel> {
     this.request = new BaseRequestModel();
     this.request.Activity = activity;
-
-    var req = JSON.stringify(this.request);
-    return this.http.post(`${environment.apiUrl}/Activity/UpdateActivity`, req,
+    return this.http.post(`${environment.apiUrl}/Activity/UpdateActivity`, this.request,
       {headers: this.httpUtils.getHTTPHeaders()}).pipe(
       map((res: BaseResponseModel) => res)
     );
@@ -32,11 +30,7 @@ export class ActivityService {
   createActivity(activity: Activity): Observable<BaseResponseModel> {
     this.request = new BaseRequestModel();
     this.request.Activity = activity;
-
-    var req = JSON.stringify(this.request);
-
-    debugger;
-    return this.http.post(`${environment.apiUrl}/Activity/AddActivity`, req,
+    return this.http.post(`${environment.apiUrl}/Activity/AddActivity`, this.request,
       {headers: this.httpUtils.getHTTPHeaders()}).pipe(
       map((res: BaseResponseModel) => res)
     );

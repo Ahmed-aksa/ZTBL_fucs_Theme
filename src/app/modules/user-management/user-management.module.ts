@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'app/shared/shared.module';
 import { RouterModule } from '@angular/router';
@@ -36,19 +36,19 @@ import { StoreModule } from '@ngrx/store';
 import { usersReducer } from 'app/shared/reducers/user.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from 'app/shared/effects/user.effects';
-import { ProfileService } from './activity/profile.service';
-import { HttpUtilsService } from 'app/shared/services/http_utils.service';
-import { InterceptService } from 'app/shared/services/intercept.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TypesUtilsService } from 'app/shared/services/types-utils.service';
-import { LayoutUtilsService } from 'app/shared/services/layout-utils.service';
+
 import { ActivityListComponent } from './activity/activity-list/activity-list.component';
+import { ProfileFormDialogComponent } from './Profile/profile-edit/profile-form.dialog.component';
+import { RoleEditComponent } from './Profile/role-edit/role-edit.component';
+import { CircleListComponent } from './users/circle-list/circle-list.component';
+import { GeofencingEditComponent } from './users/geofencing-edit/geofencing-edit.component';
+import { CircleViewMapComponent } from './users/circle-view-map/circle-view-map.component';
 
 
 const route = [
   {
-      path: '',
-     // component: DashboardComponent
+    path: 'assign-pages',
+    component: ProfileFormDialogComponent
   },
   {
     path: 'roles',
@@ -58,7 +58,18 @@ const route = [
     path: 'pages',
     component: ActivityListComponent
   },
-    
+  {
+    path: 'circles',
+    component: CircleListComponent
+  },
+  {
+    path: 'geofencingedit/:id',
+    component: GeofencingEditComponent
+  },
+  {
+    path: 'viewCirclesfence',
+    component: CircleViewMapComponent
+  },
 ];
 
 @NgModule({
@@ -67,7 +78,12 @@ const route = [
     RoleListComponent,
     ActivityFormDialogComponent,
     CreateEditRoleComponent,
-    ActivityListComponent
+    ActivityListComponent,
+    ProfileFormDialogComponent,
+    RoleEditComponent,
+    CircleListComponent,
+    GeofencingEditComponent,
+    CircleViewMapComponent
   ],
   imports: [
     CommonModule,
@@ -109,6 +125,9 @@ const route = [
     MatPaginatorModule
 
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [
+	],
   providers: [
    
   ]

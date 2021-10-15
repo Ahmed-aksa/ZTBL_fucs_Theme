@@ -120,14 +120,13 @@ export class ProfileService {
         }, this.request.Circle = {
             CircleIds: '53444,53443,53442,53441'
         };
-        var req = JSON.stringify(this.request);
         this.request.User = this.userUtilsService.getUserDetails().User;
         this.request.Zone = {
             Id: 0,
             ZoneId: '50055',
             ZoneName: 'SAHIWAL'
         };
-        return this.http.post(`${environment.apiUrl}/Activity/GetAllPagesByRoleID`, req,
+        return this.http.post(`${environment.apiUrl}/Activity/GetAllPagesByRoleID`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );

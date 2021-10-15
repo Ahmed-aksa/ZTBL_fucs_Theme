@@ -9,11 +9,6 @@
     <form [formGroup]="activityForm" class="kt-form kt-form--group-seperator-dashed">
       <div class="kt-form">
         <div class="kt-portlet__body">
-
-          <div class="kt-portlet__body-progress">
-            <mat-spinner [diameter]="20"></mat-spinner>
-          </div>
-
           <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                     (close)="onAlertClose($event)">
             Oh snap! Change a few things up and try submitting again.
