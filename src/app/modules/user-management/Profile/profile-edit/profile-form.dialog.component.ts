@@ -16,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
-import { UserUtilsService } from 'app/shared/services/user-utils.service';
+import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
