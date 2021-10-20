@@ -50,11 +50,10 @@ export class LoanInquiryComponent implements OnInit {
     this.createForm();
     var LnTransactionID = this.route.snapshot.params['LnTransactionID'];
     var lcno = this.route.snapshot.params['Lcno'];
-    debugger;
     var userInfo = this.userUtilsService.getUserDetails();
 
-    this.RecoveryForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
-    this.RecoveryForm.controls.Branch.setValue(userInfo.Branch.Name);
+    this.RecoveryForm.controls.Zone.setValue(userInfo?.Zone?.ZoneName);
+    this.RecoveryForm.controls.Branch.setValue(userInfo?.Branch?.Name);
     this.RecoveryForm.controls.LoanCaseNo.setValue(lcno == "undefined" ? "" : lcno);
     this.RecoveryForm.controls.TransactionId.setValue(LnTransactionID == "undefined" ? "" : LnTransactionID);
 

@@ -104,7 +104,7 @@ export class ClUploadDocumentComponent implements OnInit {
     this.isBranchReadOnly = false;
     this.GetZones();
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
-    if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
+    if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
 
       this.isZoneReadOnly = true;
       this.isBranchReadOnly = true;
@@ -133,7 +133,7 @@ export class ClUploadDocumentComponent implements OnInit {
           })
           this.Zones = baseResponse.Zones;
           this.SelectedZones = this.Zones;
-          if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
+          if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
             this.PostDocument.controls['zone'].setValue(this.LoggedInUserInfo.Zone.ZoneId);
             this.GetBranches(this.LoggedInUserInfo.Zone.ZoneId);
           }

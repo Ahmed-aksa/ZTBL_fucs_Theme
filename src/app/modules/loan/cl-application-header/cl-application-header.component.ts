@@ -99,7 +99,7 @@ export class ClApplicationHeaderComponent implements OnInit {
 
     //-------------------------------Loading Circle-------------------------------//
     
-    if (this.LoggedInUserInfo.Branch.BranchCode != "All")
+    if (this.LoggedInUserInfo.Branch?.BranchCode != "All")
     {
       this.Circles = this.LoggedInUserInfo.UserCircleMappings;
       this.SelectedCircles = this.Circles;
@@ -113,7 +113,7 @@ export class ClApplicationHeaderComponent implements OnInit {
 
     //-------------------------------Creating Form-------------------------------//
     this.createForm();
-    if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
+    if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
       
       this.isZoneReadOnly = true;
       this.isBranchReadOnly = true;
@@ -124,12 +124,10 @@ export class ClApplicationHeaderComponent implements OnInit {
 
   //-------------------------------Form Level Functions-------------------------------//
   createForm() {
-    
     this.applicationHeaderForm = this.formBuilder.group({
       ZoneId: [this.loanApplicationHeader.ZoneId, [Validators.required]],
       BranchID: [this.loanApplicationHeader.BranchID, [Validators.required]],
-
-      AppDate: [this._common.stringToDate(this.LoggedInUserInfo.Branch.WorkingDate), [Validators.required]],
+      AppDate: [this._common.stringToDate(this.LoggedInUserInfo.Branch?.WorkingDate), [Validators.required]],
       DevProdFlag: [this.loanApplicationHeader.DevProdFlag, [Validators.required]],
       DevAmount: [this.loanApplicationHeader.DevAmount, [Validators.required]],
       ProdAmount: [this.loanApplicationHeader.ProdAmount, [Validators.required]],
@@ -144,7 +142,7 @@ export class ClApplicationHeaderComponent implements OnInit {
   }
 
   hasError(controlName: string, errorName: string): boolean {
-    return this.applicationHeaderForm.controls[controlName].hasError(errorName);
+    return this.applicationHeaderForm?.controls[controlName].hasError(errorName);
   }
 
 
@@ -163,7 +161,7 @@ export class ClApplicationHeaderComponent implements OnInit {
           this.Zones = baseResponse.Zones;
           this.SelectedZones = this.Zones;
           console.log("zone loaded")
-          if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
+          if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
             this.applicationHeaderForm.controls['ZoneId'].setValue(this.LoggedInUserInfo.Zone.ZoneId);
             this.GetBranches(this.LoggedInUserInfo.Zone.ZoneId);
           }

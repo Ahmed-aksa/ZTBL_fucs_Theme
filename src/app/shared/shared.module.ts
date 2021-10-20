@@ -45,6 +45,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {HttpUtilsService} from "./services/http_utils.service";
 import {UserUtilsService} from "./services/users_utils.service";
 import { LayoutUtilsService } from "./services/layout_utils.service";
+import { ViewFileComponent } from './component/view-file/view-file.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { LayoutUtilsService } from "./services/layout_utils.service";
         AlertDialogComponent,
         AlertComponent,
         ActionNotificationComponent,
+        ViewFileComponent,
     ],
     imports: [
         CommonModule,

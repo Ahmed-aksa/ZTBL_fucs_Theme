@@ -760,7 +760,6 @@ export class LoanService {
 
   getORRDropDowns() {
     this.request = new BaseRequestModel();
-
     this.request.TranId = 0;
     var userInfo = this.userUtilsService.getUserDetails();
     this.request.User = userInfo.User;
@@ -768,9 +767,6 @@ export class LoanService {
     this.request.Branch = userInfo.Branch;
     this.activity.ActivityID = 1;
     this.request.Activity = this.activity;
-    var req = JSON.stringify(this.request);
-
-
     return this.http.post(`${environment.apiUrl}/Loan/GetORRDropDowns`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -780,7 +776,6 @@ export class LoanService {
 
   saveOrr(orrRequest:any) {
     this.request = new BaseRequestModel();
-
     var loanInfo = new Loan();
     //var oRR = new ORR();
     //oRR = orrRequest;
@@ -793,9 +788,6 @@ export class LoanService {
     this.request.Branch = userInfo.Branch;
     this.activity.ActivityID = 1;
     this.request.Activity = this.activity;
-    var req = JSON.stringify(this.request);
-
-
     return this.http.post(`${environment.apiUrl}/Loan/SaveORR`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -804,8 +796,6 @@ export class LoanService {
   }
 
   getLoanDetails(LcNo: any, LoanAppID) {
-    debugger
-
     var userInfo = this.userUtilsService.getUserDetails();
     var branch = {
       BranchId: userInfo.Branch.BranchId
@@ -821,9 +811,6 @@ export class LoanService {
       Branch: userInfo.Branch,
       Loan: loan
     }
-
-    var req = JSON.stringify(request);
-     
     return this.http.post(`${environment.apiUrl}/Loan/GetLoanDetails`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -854,11 +841,9 @@ export class LoanService {
   }
 
   searchLoanDbr(loanFilter: SearchLoanDbr) {
-     
     var userInfo = this.userUtilsService.getUserDetails();
     var selectedCircleId = "";
-
-    if (userInfo.UserCircleMappings.length > 0) {
+    if (userInfo.UserCircleMappings?.length > 0) {
       userInfo.UserCircleMappings.forEach(function (value, key) {
         if (userInfo.UserCircleMappings.length == (key + 1)) {
           selectedCircleId += value.CircleId;

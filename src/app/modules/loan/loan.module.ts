@@ -38,6 +38,12 @@ import { ClLoanWitnessComponent } from './cl-loan-witness/cl-loan-witness.compon
 import { ClUploadDocumentComponent } from './cl-upload-document/cl-upload-document.component';
 import { ClGlSchemeCropConfigurationComponent } from './cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component';
 import { ClDocumentViewComponent } from './cl-document-view/cl-document-view.component';
+import { SaveOrrComponent } from './save-orr/save-orr.component';
+import { OrrListComponent } from './orr-list/orr-list.component';
+import { ClSearchLoanComponent } from './cl-search-loan/cl-search-loan.component';
+import { CalculateDbrComponent } from './calculate-dbr/calculate-dbr.component';
+import { SearchDbrComponent } from './search-dbr/search-dbr.component';
+import { ReferbackLoanUtilizationComponent } from './referback-loan-utilization/referback-loan-uti.component';
 
 const routing= [
     {
@@ -47,12 +53,35 @@ const routing= [
     {
       path: 'create/:transactionID/:lcno',
       component: CreateLoanComponent
-    },
+  },
+  {
+    path: 'save-orr',
+    component: SaveOrrComponent
+  },
+  {
+    path: 'orr-list',
+    component: OrrListComponent
+  },
+  {
+    path: 'search',
+    component: ClSearchLoanComponent
+  },
+  {
+    path: 'calculte-dbr',
+    component: CalculateDbrComponent
+  },
+  {
+    path: 'search-dbr',
+    component: SearchDbrComponent
+  },
+  {
+    path: 'referback-loan-uti',
+    component: ReferbackLoanUtilizationComponent
+  },
 ]
 
 @NgModule({
   declarations: [
-    
     CreateLoanComponent, 
     ClApplicationHeaderComponent, 
     ClCustomersComponent, 
@@ -63,7 +92,13 @@ const routing= [
     ClLoanWitnessComponent, 
     ClUploadDocumentComponent,
     ClGlSchemeCropConfigurationComponent,
-    ClDocumentViewComponent
+    ClDocumentViewComponent,
+    SaveOrrComponent,
+    OrrListComponent,
+    ClSearchLoanComponent,
+    CalculateDbrComponent,
+    SearchDbrComponent,
+    ReferbackLoanUtilizationComponent
   ],
   imports: [
     CommonModule,

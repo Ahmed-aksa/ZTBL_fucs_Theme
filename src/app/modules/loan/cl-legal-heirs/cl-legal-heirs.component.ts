@@ -6,13 +6,14 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatSelectChange } from '@angular/material/select';
 import { DateFormats, Lov, LovConfigurationKey, MaskEnum } from 'app/shared/classes/lov.class';
 import { LoanApplicationLegalHeirs } from 'app/shared/models/loan-application-header.model';
-import { Loan } from 'app/shared/models/Loan.model';
+import { CustomersLoanApp, Loan } from 'app/shared/models/Loan.model';
 import { CommonService } from 'app/shared/services/common.service';
 import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
 import { LoanService } from 'app/shared/services/loan.service';
 import { LovService } from 'app/shared/services/lov.service';
 import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { of } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 
@@ -85,11 +86,9 @@ export class ClLegalHeirsComponent implements OnInit {
   }
 
   loadCustomers(CustomersLoanAppList) {
-    debugger
-    this.loanDetail.CustomersLoanList = CustomersLoanAppList
+    this.loanDetail.CustomersLoanList = CustomersLoanAppList?? of([CustomersLoanApp])
     if (this.loanDetail != null) {
       if (this.loanDetail.CustomersLoanList.length > 0) {
-        debugger
         this.SelectedCustomersList = this.loanDetail.CustomersLoanList;
       }
     }

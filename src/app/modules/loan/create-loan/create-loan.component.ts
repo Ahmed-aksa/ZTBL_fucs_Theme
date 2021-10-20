@@ -97,7 +97,6 @@ export class CreateLoanComponent implements OnInit {
       this.securityComponent.getCustomerLand();
     }
     if ($event.index == 4) {
-      debugger
       this.legalHeirsComponent.loadCustomers(this.CustomersLoanAppList);
     }
     if ($event.index == 7) {

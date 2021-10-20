@@ -108,6 +108,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/loan/loan.module').then(m => m.LoanModule)
             },
             {
+                path: 'loan-utilization',
+                loadChildren: () => import('app/modules/loan-utilization/loan-utilization.module').then(m => m.LoanUtilizationModule)
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             }

@@ -196,15 +196,12 @@ export class ClPurposeComponent implements OnInit {
     for (var i = 0; i < this.editLoanApplicationPurpose.length; i++) {
 
       if (this.editLoanApplicationPurpose[i].GlSubID == GlSubID) {
-        
-
         if (this.editLoanApplicationPurpose[i] != null, this.editLoanApplicationPurpose[i] != undefined) {
           if (this.editLoanApplicationPurpose[i].GlSubID != null,  this.editLoanApplicationPurpose[i].GlSubID != undefined) {
             this.purposeForm.controls["GlSubID"].setValue(this.editLoanApplicationPurpose[i].GlSubID);
           }
           if (this.editLoanApplicationPurpose[i].FundNonFund != null, this.editLoanApplicationPurpose[i].FundNonFund != "", this.editLoanApplicationPurpose[i].FundNonFund != undefined) {
             //this.purposeForm.controls["FundNonFund"].setValue(this.editLoanApplicationPurpose[i].FundNonFund);
-            debugger
             this.Facility
           }
           if (this.editLoanApplicationPurpose[i].AmountInHand != null, this.editLoanApplicationPurpose[i].AmountInHand != undefined) {
@@ -249,7 +246,6 @@ export class ClPurposeComponent implements OnInit {
   }
 
   onDeletePurpose(GlSubID) {
-    debugger
     const _title = 'Confirmation';
     const _description = 'Do you really want to continue?';
     const _waitDesciption = '';
@@ -259,7 +255,6 @@ export class ClPurposeComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(res => {
-      debugger
       if (!res) {
         return;
       }
@@ -277,7 +272,6 @@ export class ClPurposeComponent implements OnInit {
             .pipe(
               finalize(() => {
                 this.spinner.hide();
-
               })
             )
             .subscribe(baseResponse => {
@@ -310,7 +304,6 @@ export class ClPurposeComponent implements OnInit {
   }
 
   onSavePurpose() {
-    debugger
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -354,16 +347,11 @@ export class ClPurposeComponent implements OnInit {
     if (this.purposeForm.controls["RequiredItem"].value == null || this.purposeForm.controls["RequiredItem"].value == undefined) {
       this.purposeForm.controls["RequiredItem"].setValue("0");
     }
-
     if (this.purposeForm.controls["SchemeID"].value == null || this.purposeForm.controls["SchemeID"].value == undefined) {
       this.purposeForm.controls["SchemeID"].setValue("0");
     }
-
     this.loanApplicationPurpose = Object.assign(this.loanApplicationPurpose, this.purposeForm.getRawValue());
-
-    
     if (this.isCheckedEquity == true) {
-       
       var MarketPrice = this.loanApplicationPurpose.TotalEstimatedCost;
       var SumEquityLoan = 0;
       SumEquityLoan = this.loanApplicationPurpose.AmountRequired + this.loanApplicationPurpose.AmountInHand;
@@ -376,7 +364,6 @@ export class ClPurposeComponent implements OnInit {
     }
 
     if (this.isCheckedEquity == false) {
-
       var MarketPriceValue = this.loanApplicationPurpose.TotalEstimatedCost;
       var LoanAppliedValue = this.loanApplicationPurpose.AmountRequired;
       if (MarketPriceValue != LoanAppliedValue) {
@@ -388,7 +375,6 @@ export class ClPurposeComponent implements OnInit {
     this.loanApplicationPurpose.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
     //this.loanApplicationPurpose.LoanAppID = 0;
     this.spinner.show();
-    debugger
     this._loanService.saveLoanApplicationPurpose(this.loanApplicationPurpose, this.loanDetail.TranId)
       .pipe(
         finalize(() => {
@@ -396,24 +382,19 @@ export class ClPurposeComponent implements OnInit {
         })
       )
       .subscribe(baseResponse => {
-        debugger
         if (baseResponse.Success) {
           const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         }
         else {
-
           this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
         }
       });
   }
 
   GlschemeCropConfiguration() {
-
-    
     this.loanApplicationPurpose = Object.assign(this.loanApplicationPurpose, this.purposeForm.getRawValue());
     const dialogRef = this.dialog.open(ClGlSchemeCropConfigurationComponent, { data: { glConfigrationsDetail: this.loanApplicationPurpose.GlSubID }, disableClose: true, panelClass: ['full-screen-modal'] });
     dialogRef.afterClosed().subscribe(res => {
-
       if (!res) {
         return;
       }
