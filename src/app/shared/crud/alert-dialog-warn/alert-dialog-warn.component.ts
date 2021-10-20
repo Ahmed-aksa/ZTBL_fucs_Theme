@@ -41,7 +41,7 @@ export class AlertDialogWarnComponent implements OnInit {
 
   getTitle() {
 
-    debugger;
+    
     if (this.data.bit > 0) {
       return 'Unblock';
     }

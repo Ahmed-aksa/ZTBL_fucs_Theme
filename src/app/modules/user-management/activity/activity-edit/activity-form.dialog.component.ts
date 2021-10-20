@@ -48,7 +48,7 @@ export class ActivityFormDialogComponent implements OnInit {
       }
     );
 
-    debugger;
+    
     if (this.data.activity && this.data.activity.ActivityID) {
       this.activity = this.data.activity;
     }
@@ -155,7 +155,7 @@ export class ActivityFormDialogComponent implements OnInit {
 
 
   showOrHide($event) {
-    debugger;
+    
     if ($event.checked === true) {
       this.isVisible = false;
     } else {

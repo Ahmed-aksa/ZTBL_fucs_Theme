@@ -1,0 +1,28 @@
+<h3 class="kt-portlet__head-title">View User Location History</h3>
+<div style="text-align:end;text-align:right;width:80%">
+    <button type="button" class="button-red" mat-raised-button cdkFocusInitial value="Cancel"
+            [mat-dialog-close]="false">
+        Cancel
+    </button>&nbsp;
+    <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="blockUser()"
+            [disabled]="viewLoading || submitted">
+        Block User
+    </button>
+</div>
+<agm-map [zoom]="zoom" style="width: 500px;height: 500px"
+         [latitude]="lat"
+         [longitude]="lng"
+         [mapTypeControl]="true"
+         (mapReady)="onMapReady($event)"
+         [restriction]="countryRestriction">
+
+    <agm-marker [latitude]="userHistory?.Latitude" style="width: 500px;height: 500px;"
+                [longitude]="userHistory?.Longitude"
+                [title]="userHistory?.UserId">
+
+        <agm-info-window [disableAutoPan]="true" [isOpen]="false">
+            <strong>{{userHistory?.UserId}}</strong>
+        </agm-info-window>
+
+    </agm-marker>
+</agm-map>

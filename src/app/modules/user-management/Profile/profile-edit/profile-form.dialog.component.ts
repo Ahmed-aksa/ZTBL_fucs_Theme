@@ -241,7 +241,7 @@ export class ProfileFormDialogComponent implements OnInit {
             }
 
           } else {
-            debugger;
+            
             this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
           }
         });
@@ -270,7 +270,7 @@ export class ProfileFormDialogComponent implements OnInit {
 
 
   changeActivityCheckbox(activityId: number, value: boolean) {
-    debugger;
+    
     this.isActivityStringValid = true;
     var activity = this.activities.filter(x => x.ActivityID == activityId)[0];
     if (activity.ParentActivityID == 0) {

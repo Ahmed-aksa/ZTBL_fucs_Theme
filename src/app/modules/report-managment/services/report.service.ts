@@ -31,6 +31,15 @@ export class ReportService {
         );
     }
 
+    getThirdPartyAPILogs(reportFilter: ReportFilters): Observable<BaseResponseModel> {
+        this.request = new BaseRequestModel();
+        this.request.ReportFilters = reportFilter;
+
+        return this.http.post(`${environment.apiUrl}/Report/GetTPAPILogs`, this.request,
+        ).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
 
     getAPIRequestResponse(reportFilter: ReportFilters): Observable<BaseResponseModel> {
 
@@ -75,9 +84,8 @@ export class ReportService {
 
         this.request = new BaseRequestModel();
         this.request.ReportFilters = reportFilter;
-        var req = JSON.stringify(this.request);
 
-        return this.http.post(`${environment.apiUrl}/Report/GetUsersNotifications`, req,
+        return this.http.post(`${environment.apiUrl}/Report/GetUsersNotifications`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -88,9 +96,7 @@ export class ReportService {
 
         this.request = new BaseRequestModel();
         this.request.ReportFilters = reportFilter;
-        var req = JSON.stringify(this.request);
-
-        return this.http.post(`${environment.apiUrl}/Report/GetUserHistory`, req,
+        return this.http.post(`${environment.apiUrl}/Report/GetUserHistory`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -120,16 +126,7 @@ export class ReportService {
     getEcibQeue() {
 
         this.request = new BaseRequestModel();
-
-        var req = JSON.stringify(this.request);
-
-        //return this.http.post(`${environment.apiUrl}/Report/GetEcibQeueAll`, req,
-        //  { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-        //    map((res: BaseResponseModel) => res)
-        //  );
-
-
-        var hello = this.http.post(`${environment.apiUrl}/Report/GetEcibQeueAll`, req,
+        var hello = this.http.post(`${environment.apiUrl}/Report/GetEcibQeueAll`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -137,6 +134,15 @@ export class ReportService {
         return hello;
     }
 
+    getThirdPartyApiDetails(reportFilter: ReportFilters): Observable<BaseResponseModel> {
+        this.request = new BaseRequestModel();
+        this.request.ReportFilters = reportFilter;
+
+        return this.http.post(`${environment.apiUrl}/Report/GetTPAPIRequestResponse`, this.request,
+        ).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
 
 }
 

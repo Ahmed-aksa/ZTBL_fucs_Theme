@@ -95,7 +95,7 @@ export class ActivityListComponent implements OnInit {
     }
 
     addActivity() {
-        debugger;
+        
         const newActivity = new Activity();
         newActivity.clear(); // Set all defaults fields
         this.editActivity(newActivity);

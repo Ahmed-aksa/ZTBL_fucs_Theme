@@ -3,15 +3,18 @@ import {MatTableDataSource} from '@angular/material/table';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ApilogDetailComponent} from "../apilog-detail/apilog-detail.component";
 import {Store} from "@ngrx/store";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatSort, Sort} from "@angular/material/sort";
 import {MatDialog} from "@angular/material/dialog";
-import {finalize} from "rxjs/operators";
+import {finalize, map} from "rxjs/operators";
 import {AppState} from "../../../shared/reducers";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {ReportService} from "../services/report.service";
 import {ReportFilters} from "../models/report-filters.model";
+import {NgxSpinnerService} from "ngx-spinner";
+import {Observable, of} from "rxjs";
+import {fromMatPaginator, fromMatSort, paginateRows, sortRows} from './datasource-utils';
 
 @Component({
     selector: 'app-apilogs-list',
@@ -25,34 +28,38 @@ export class ApilogsListComponent implements OnInit {
     @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
+    third_party_apis: any;
+    third_party_apis_details: any;
     loading: boolean = true;
-
+    displayedRows: any;
+    totalRows: any;
     displayedColumns = ['Id', 'TransactionId', 'ApiName', 'CallDateTime', 'ResponseDateTime', 'View'];
-    public _apiNameWidth = "350px";
-    public _dateWidth = "200px";
-    public _IdWidth = "100px";
     gridHeight: string;
-    gridmargintop: string;
     FilterForm: FormGroup;
     StartDate: Date;
     EndDate: Date;
     myDate = new Date().toLocaleDateString();
+    rows: any
+    private sortEvents$: Observable<Sort>;
+    private pageEvents$: Observable<PageEvent>;
 
     constructor(
-        //private datePipe: DatePipe,
         private store: Store<AppState>,
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
         private filterFB: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
-        private _reportservice: ReportService
+        private _reportservice: ReportService,
+        private spinner: NgxSpinnerService
     ) {
 
     }
 
     ngOnInit() {
+
         this.createForm();
         this.loadApiLogs();
+
 
     }
 
@@ -69,6 +76,10 @@ export class ApilogsListComponent implements OnInit {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
+        this.rows.filter = filterValue;
+
+        this.totalRows = this.rows.pipe(map((rows: any) => rows.length));
+        this.displayedRows = this.rows.pipe(sortRows(this.sortEvents$), paginateRows(this.pageEvents$));
     }
 
     loadApiLogsPage() {
@@ -126,34 +137,27 @@ export class ApilogsListComponent implements OnInit {
     loadApiLogs() {
 
         this.reportFilter = Object.assign(this.reportFilter, this.FilterForm.value);
-
+        this.spinner.show();
         this._reportservice.getAllAPILogs(this.reportFilter)
             .pipe(
                 finalize(() => {
-                    this.loading = false;
+                    this.spinner.hide();
                 })
             )
-            .subscribe(baseResponse => {
-                if (baseResponse.Success)
-                    this.dataSource.data = baseResponse._3RdPartyAPILogs;
-                else
+            .subscribe((baseResponse: any) => {
+                if (baseResponse.Success) {
+                    this.dataSource.data = baseResponse.ActivityLogs;
+
+                    this.sortEvents$ = fromMatSort(this.sort);
+                    this.pageEvents$ = fromMatPaginator(this.paginator);
+                    this.rows = of(this.dataSource.data);
+
+                    this.totalRows = this.rows.pipe(map((rows: any) => rows.length));
+                    this.displayedRows = this.rows.pipe(sortRows(this.sortEvents$), paginateRows(this.pageEvents$));
+                } else
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
 
             });
-    }
-
-
-    exportToExcel() {
-        //this.exportActivities = [];
-        //Object.assign(this.tempExportActivities, this.dataSource.data);
-        //this.tempExportActivities.forEach((o, i) => {
-        //  this.exportActivities.push({
-        //    activityName: o.activityName,
-        //    activityURL: o.activityURL,
-        //    parentActivityName: o.parentActivityName
-        //  });
-        //});
-        //this.excelService.exportAsExcelFile(this.exportActivities, 'activities');
     }
 
     filterConfiguration(): any {
@@ -163,31 +167,8 @@ export class ApilogsListComponent implements OnInit {
         return filter;
     }
 
-
-    ngOnDestroy() {
-        //this.subscriptions.forEach(el => el.unsubscribe());
-    }
-
-
-    //isAllSelected(): boolean {
-    //  //const numSelected = this.selection.selected.length;
-    //  //const numRows = this.cashrequestsResult.length;
-    //  //return numSelected === numRows;
-    //}
-
-    /**
-     * Toggle selection
-     */
-    masterToggle() {
-        //if (this.selection.selected.length === this.cashrequestsResult.length) {
-        //  this.selection.clear();
-        //} else {
-        //  this.cashrequestsResult.forEach(row => this.selection.select(row));
-        //}
-    }
-
-
-    viewRequestResponse(reportFilter: ReportFilters) {
+    viewRequestResponse(event: any, reportFilter: ReportFilters) {
+        event.stopPropagation();
         var width = (window.innerWidth - 170) + 'px';
         //var height = (window.innerHeight - 140) + 'px';
 
@@ -205,4 +186,34 @@ export class ApilogsListComponent implements OnInit {
         });
     }
 
+    fetch3rdAPI(event: Event, item: any) {
+        item.TranId = Number(item.Id);
+        item.Id = Number(item.Id);
+        this._reportservice.getThirdPartyAPILogs(item).subscribe((data: any) => {
+            this.third_party_apis = data._3RdPartyAPILogs;
+        })
+    }
+
+    toggleAccordion(event: Event, i: number, item) {
+        event.stopPropagation();
+        item.TranId = Number(item.Id);
+        item.Id = Number(item.Id);
+        this._reportservice.getThirdPartyApiDetails(item).subscribe((data: any) => {
+            this.third_party_apis_details = data._3RdPartyAPILog;
+        })
+
+        let down_arrow = document.getElementById('arrow_down_' + i).style.display;
+        if (down_arrow == 'block') {
+            document.getElementById('arrow_down_' + i).style.display = 'none';
+            document.getElementById('arrow_up_' + i).style.display = 'block';
+            document.getElementById('table_' + i).style.display = 'block';
+
+
+        } else {
+            document.getElementById('arrow_up_' + i).style.display = 'none';
+            document.getElementById('arrow_down_' + i).style.display = 'block';
+            document.getElementById('table_' + i).style.display = 'none';
+
+        }
+    }
 }

@@ -11,9 +11,9 @@ export class UserUtilsService {
     loginResponse: BaseResponseModel;
     tempResponse: BaseResponseModel;
     search_data: any = {Branch: null, UserCircleMappings: null, zone: null};
-    private http: HttpClient
 
-    constructor() {
+
+    constructor(private http: HttpClient = null) {
     }
 
     public getSearchResultsDataOfZonesBranchCircle() {

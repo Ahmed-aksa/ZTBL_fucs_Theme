@@ -31,7 +31,7 @@ export class AlertMessageComponent implements OnInit {
 	 * On init
 	 */
 	ngOnInit() {
-		debugger;
+		
 		if (this.data.code == "00" || this.data.code == "0")
 
     this.headerLogo = './assets/media/logos/ZTBL-logo.png';

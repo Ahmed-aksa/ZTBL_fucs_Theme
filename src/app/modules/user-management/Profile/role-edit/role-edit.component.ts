@@ -41,11 +41,11 @@ export class RoleEditComponent implements OnInit {
   ngOnInit() {
 
     this.getRoles();
-    debugger;
+    
     // var u = new UserUtilsService();
     //this._currentActivity = u.getActivity('Circles');
 
-    debugger;
+    
     if (this.data.profile && this.data.profile.ProfileID > 0) {
       this.profile = this.data.profile;
     }
@@ -66,21 +66,21 @@ export class RoleEditComponent implements OnInit {
     
           this.LOVs = baseResponse.LOVs;
              console.log(this.LOVs);
-            debugger
+           
        
       
             // this.dataSource = baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries;
             // console.log(this.dataSource);
             // this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
           } else {
-            debugger;
+            
             this.layoutUtilsService.alertElement(
               "",
               baseResponse.Message,
               baseResponse.Code
             );
           }
-          debugger
+         
         });
       }
 
@@ -138,7 +138,7 @@ console.log(this.profile)
         )
         .subscribe((baseResponse: BaseResponseModel) => {
 
-          debugger;
+          
           console.log('base response');
           console.log(baseResponse);
 
@@ -168,7 +168,7 @@ console.log(this.profile)
         )
         .subscribe((baseResponse: BaseResponseModel) => {
 
-          debugger;
+          
           console.log('base response');
           console.log(baseResponse);
 
