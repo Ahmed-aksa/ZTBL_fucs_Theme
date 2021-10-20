@@ -43,9 +43,7 @@ export class BorrowerInformationService {
                 Circle: circle
             },
             TranId: 0,
-            Branch: {
-                BranchCode: user.BranchCode
-            },
+            Branch: user.Branch[0] ? user.Branch[0] : user.Branch,
             User: userInfo.User,
             Zone: {
                 ZoneId: user.ZoneId

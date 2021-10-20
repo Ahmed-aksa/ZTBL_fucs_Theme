@@ -1,16 +1,18 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ReportManagmentComponent} from './report-managment.component';
 import {ApilogDetailComponent} from './apilog-detail/apilog-detail.component';
 import {ApilogsListComponent} from './apilogs-list/apilogs-list.component';
 import {EcibQueueComponent} from './ecib-queue/ecib-queue.component';
-import {LocationHistoryComponent} from './location-history/location-history.component';
 import {McoReoveryCountsComponent} from './mco-reovery-counts/mco-reovery-counts.component';
 import {SharedModule} from "../../shared/shared.module";
 import {NotificationHistoryComponent} from './notification-history/notification-history.component';
 import {RouterModule, Routes} from "@angular/router";
 import {ExceptionDetailComponent} from './exception-detail/exception-detail.component';
 import {ExceptionlogListComponent} from "./exception-log/exception-log.component";
+import {NotificationDetailsComponent} from "./notification-detail/notification-detail.component";
+import {LocationDetailsComponent} from './location-details/location-details.component';
+import {LocationHistoryListComponent} from "./location-history/location-history.component";
 
 const routes: Routes = [
     {
@@ -36,7 +38,7 @@ const routes: Routes = [
             },
             {
                 path: 'user-history',
-                component: LocationHistoryComponent
+                component: LocationHistoryListComponent
             },
 
             {
@@ -59,10 +61,12 @@ const routes: Routes = [
         ApilogsListComponent,
         EcibQueueComponent,
         ExceptionlogListComponent,
-        LocationHistoryComponent,
+        LocationHistoryListComponent,
         McoReoveryCountsComponent,
         NotificationHistoryComponent,
-        ExceptionDetailComponent
+        ExceptionDetailComponent,
+        NotificationDetailsComponent,
+        LocationDetailsComponent
     ],
     imports: [
         CommonModule,
@@ -72,8 +76,11 @@ const routes: Routes = [
     entryComponents:
         [
             ApilogDetailComponent,
-            ExceptionDetailComponent
-        ]
+            ExceptionDetailComponent,
+            NotificationDetailsComponent,
+            LocationDetailsComponent
+        ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ReportManagmentModule {
 }

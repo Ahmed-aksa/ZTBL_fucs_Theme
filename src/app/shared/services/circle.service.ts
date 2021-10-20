@@ -15,22 +15,27 @@ import { Zone } from '../../modules/user-management/users/utils/zone.model';
     providedIn: 'root'
 })
 export class CircleService {
+
     public request = new BaseRequestModel();
+
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
         console.log(this.userUtilsService.getUserDetails())
     }
 
 
     getAllCircles(): Observable<BaseResponseModel> {
+
         this.request = new BaseRequestModel();
-        return this.http.post(`${environment.apiUrl}/Circle/GetCircles`, this.request,
+        var req = JSON.stringify(this.request);
+
+        return this.http.post(`${environment.apiUrl}/Circle/GetCircles`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
     GetCircleByBranchId() {
-        debugger
+       
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         var circle = userInfo.UserCircleMappings;
@@ -55,26 +60,36 @@ export class CircleService {
             },
 
             this.request.doPerformOTP = false;
+       
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
-        return this.http.post(`${environment.apiUrl}/LoanUtilization/GetCircleByBranchId`,  this.request,
+        var req = JSON.stringify(this.request);
+       
+        return this.http.post(`${environment.apiUrl}/LoanUtilization/GetCircleByBranchId`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
     getCircleByBranchId(id, code) {
+       
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
+        //var circle = userInfo.UserCircleMappings;
+
+
         this.request.doPerformOTP = false;
+       
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = {
             BranchId: id,
             BranchCode: code,
         };
-        return this.http.post(`${environment.apiUrl}/LoanUtilization/GetCircleByBranchId`,  this.request,
+        var req = JSON.stringify(this.request);
+       
+        return this.http.post(`${environment.apiUrl}/LoanUtilization/GetCircleByBranchId`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -88,7 +103,9 @@ export class CircleService {
             branch.BranchCode = branchId
             this.request.Branch = branch
         }
-        return this.http.post(`${environment.apiUrl}/Circle/GetCirclesPoints`, this.request,
+        var req = JSON.stringify(this.request);
+
+        return this.http.post(`${environment.apiUrl}/Circle/GetCirclesPoints`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -96,11 +113,11 @@ export class CircleService {
 
 
     getZones(): Observable<BaseResponseModel> {
-    
+       
         this.request = new BaseRequestModel();
         var req = JSON.stringify(this.request);
 
-        return this.http.post(`${environment.apiUrl}/Zone/GetZones`, this.request,
+        return this.http.post(`${environment.apiUrl}/Zone/GetZones`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -108,12 +125,12 @@ export class CircleService {
 
 
     getBranchesByZone(zone: Zone): Observable<BaseResponseModel> {
-     
+       
         this.request = new BaseRequestModel();
         this.request.Zone = zone;
         var req = JSON.stringify(this.request);
 
-        return this.http.post(`${environment.apiUrl}/Branch/GetBranchByZone`, this.request,
+        return this.http.post(`${environment.apiUrl}/Branch/GetBranchByZone`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -125,7 +142,7 @@ export class CircleService {
         this.request.Branch = branch;
         var req = JSON.stringify(this.request);
 
-        return this.http.post(`${environment.apiUrl}/Circle/GetCirclesByBranchCode`, this.request,
+        return this.http.post(`${environment.apiUrl}/Circle/GetCirclesByBranchCode`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -138,14 +155,19 @@ export class CircleService {
         //this.request.Circle = circle;
         var req = JSON.stringify(request);
 
-        return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonAdd`, this.request,
+        return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonAdd`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
     CirclePoligonUpdate(request: BaseRequestModel): Observable<BaseResponseModel> {
-        return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonUpdate`, this.request,
+
+        //this.request = new BaseRequestModel();
+        //this.request.Circle = circle;
+        var req = JSON.stringify(request);
+
+        return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonUpdate`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -155,8 +177,9 @@ export class CircleService {
 
         this.request = new BaseRequestModel();
         this.request.Circle = circle;
+        var req = JSON.stringify(this.request);
 
-        return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonGet`, this.request,
+        return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonGet`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -168,9 +191,9 @@ export class CircleService {
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
         this.request.Circle = circle;
-       
+        var req = JSON.stringify(this.request);
 
-        return this.http.post(`${environment.apiUrl}/Circle/DeleteCirclePoligon`, this.request,
+        return this.http.post(`${environment.apiUrl}/Circle/DeleteCirclePoligon`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -180,7 +203,10 @@ export class CircleService {
 
         this.request = new BaseRequestModel();
         this.request.Circle = circle;
-        return this.http.post(`${environment.apiUrl}/Circle/GetAllCirclesPoints`, this.request,
+
+        var req = JSON.stringify(this.request);
+
+        return this.http.post(`${environment.apiUrl}/Circle/GetAllCirclesPoints`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -188,7 +214,8 @@ export class CircleService {
 
 
     GetUserHistory(request: BaseRequestModel): Observable<BaseResponseModel> {
-        return this.http.post(`${environment.apiUrl}/Report/GetUserCircleLocation`, this.request,
+
+        return this.http.post(`${environment.apiUrl}/Report/GetUserCircleLocation`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -196,7 +223,8 @@ export class CircleService {
 
     GetCricleFenceById(request: BaseRequestModel): Observable<BaseResponseModel> {
 
-        return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonGetById`, this.request,
+
+        return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonGetById`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );

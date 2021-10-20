@@ -104,7 +104,7 @@ export class GeofencingEditComponent implements OnInit {
       lng: event.coords.lng,
     });
     console.log(this.markers);
-    debugger
+   
   }*/
 
   Clear() {
@@ -393,7 +393,7 @@ export class GeofencingEditComponent implements OnInit {
       if (intersection.length > 0) {
         var polygon2 = []
         this.multiPolygonArray[index].circleFense.forEach((o, i) => {
-          debugger;
+          
           polygon2.push({ lat: o[0], lng: o[1] })
         });
         this.drawPolygonOnMap(polygon2, "#FF0000")
@@ -746,7 +746,7 @@ export class GeofencingEditComponent implements OnInit {
       status: google.maps.GeocoderStatus
     ) => {
       if (status === "OK") {
-        debugger
+       
       } else {
         window.alert("Geocoder failed due to: " + status);
       }

@@ -11,6 +11,7 @@ import {AppState} from "../../../shared/reducers";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {RequestResponse} from 'app/shared/models/request_response.model';
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-apilog-detail',
@@ -39,9 +40,8 @@ export class ApilogDetailComponent implements OnInit {
                 public dialog: MatDialog,
                 public snackBar: MatSnackBar,
                 private layoutUtilsService: LayoutUtilsService,
-                //private excelService: ExcelUtilsService,
-                //private auditService: AuditTrailService,
-                private _reportservice: ReportService
+                private _reportservice: ReportService,
+                private spinner: NgxSpinnerService
     ) {
     }
 
@@ -73,18 +73,18 @@ export class ApilogDetailComponent implements OnInit {
 
         this.reportFilter.clear();
         this.reportFilter.Id = this.data.reportFilter.Id;
-
+        this.spinner.show();
         this._reportservice.getAPIRequestResponse(this.reportFilter)
             .pipe(
                 finalize(() => {
-                    this.loading = false;
+                    this.spinner.hide();
                 })
             )
-            .subscribe(baseResponse => {
+            .subscribe((baseResponse: any) => {
 
                 if (baseResponse.Success) {
 
-                    this.RequestResponse = baseResponse._3RdPartyAPILog;
+                    this.RequestResponse = baseResponse.ActivityLog;
                 } else
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
 
@@ -97,29 +97,6 @@ export class ApilogDetailComponent implements OnInit {
         const searchText: string = this.searchInput.nativeElement.value;
         filter.title = searchText;
         return filter;
-    }
-
-
-    ngOnDestroy() {
-        //this.subscriptions.forEach(el => el.unsubscribe());
-    }
-
-
-    //isAllSelected(): boolean {
-    //  //const numSelected = this.selection.selected.length;
-    //  //const numRows = this.cashrequestsResult.length;
-    //  //return numSelected === numRows;
-    //}
-
-    /**
-     * Toggle selection
-     */
-    masterToggle() {
-        //if (this.selection.selected.length === this.cashrequestsResult.length) {
-        //  this.selection.clear();
-        //} else {
-        //  this.cashrequestsResult.forEach(row => this.selection.select(row));
-        //}
     }
 
 

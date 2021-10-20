@@ -92,14 +92,16 @@ export class BorrowerInformationComponent implements OnInit {
             this.selected_z = this.SelectedZones.ZoneId
             this.selected_b = this.SelectedBranches.BranchCode
             this.selected_c = this.SelectedCircles.Id
-            this.borrowerForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
-            this.borrowerForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
+            this.borrowerForm.controls["Zone"]?.setValue(this.SelectedZones.Id);
+            this.borrowerForm.controls["BranchCode"]?.setValue(this.SelectedBranches.Name);
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+            this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data.Zones;
-                this.SelectedZones = this.Zone;
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
                 this.single_zone = false;
                 this.disable_zone = false;
+                this.spinner.hide();
             });
 
         }
@@ -118,14 +120,19 @@ export class BorrowerInformationComponent implements OnInit {
 
     getBorrower() {
         var cnic = this.borrowerForm.controls.Cnic.value;
-
         this.user.ZoneId = this.borrowerForm.controls.Zone.value;
-        this.user.BranchCode = this.borrowerForm.controls.Branch.value;
+        if (this.SelectedBranches.length != undefined) {
+            this.user.Branch = this.SelectedBranches.filter((branch) => branch.BranchCode == this.borrowerForm.controls.Branch.value);
+        } else {
+            this.user.Branch = this.SelectedBranches;
+        }
         this.user.CircleId = this.borrowerForm.controls.Circle.value;
+        this.spinner.show();
         this._borrowerInfo.getBorrowerInformation(this.itemsPerPage, this.OffSet, cnic, this.user)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
+                    this.spinner.hide();
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
@@ -142,7 +149,7 @@ export class BorrowerInformationComponent implements OnInit {
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        debugger
+
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;

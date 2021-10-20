@@ -29,7 +29,7 @@ export class ProfileService {
     };
     this.request.User = this.userUtilsService.getUserDetails().User;
     var req = JSON.stringify(this.request);
-    debugger;
+    
     return this.http.post(`${environment.apiUrl}/Activity/AddPagesWithRoleMapping`, req,
       {headers: this.httpUtils.getHTTPHeaders()}).pipe(
       map((res: BaseResponseModel) => res)
@@ -56,7 +56,7 @@ export class ProfileService {
       this.request.doPerformOTP = false;
 
     var userInfo = this.userUtilsService.getUserDetails();
-    debugger
+   
     this.request.User = userInfo.User;
     this.request.Zone = userInfo.Zone;
     this.request.Branch = userInfo.Branch;

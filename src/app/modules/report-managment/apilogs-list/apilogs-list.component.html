@@ -3,10 +3,6 @@
     <!-- Header -->
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
          style="flex-wrap: wrap" [formGroup]="FilterForm">
-        <div
-            class="absolute inset-x-0 bottom-0">
-            <mat-progress-bar [mode]="'indeterminate'" *ngIf="loading"></mat-progress-bar>
-        </div>
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <mat-form-field appearance="outline">
                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" autocomplete="off"
@@ -56,71 +52,82 @@
             </button>
         </div>
     </div>
-    <div class="example-table-container">
-        <mat-table class="lmat-elevation-z8"
-                   #table
-                   [dataSource]="dataSource"
-                   matSort
-                   #sort1="matSort"
-                   matSortActive="id"
-                   matSortDirection="asc"
-                   matSortDisableClear>
 
-            <ng-container matColumnDef="Id">
-                <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
-                <mat-header-cell [style.min-width]="_IdWidth" *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-                <mat-cell [style.min-width]="_IdWidth" *matCellDef="let apiLog">{{apiLog.Id}}</mat-cell>
-            </ng-container>
+    <mat-paginator #paginator
+                   [length]="totalRows | async"
+                   [pageIndex]="0"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+    ></mat-paginator>
 
+    <mat-accordion displayMode="flat" multi class="mat-table" style="overflow-y:scroll;">
+        <section matSort class="mat-elevation-z2 mat-header-row">
+            <span class="mat-header-cell" mat-sort-header="Id">ID</span>
+            <span class="mat-header-cell" mat-sort-header="TransactionId">Transaction ID</span>
+            <span class="mat-header-cell" mat-sort-header="ApiName">API Name</span>
+            <span class="mat-header-cell" mat-sort-header="CallDateTime">Call Date Time</span>
+            <span class="mat-header-cell" mat-sort-header="ResponseDateTime">Response Date Time</span>
+            <span class="mat-header-cell" mat-sort-header="View">View</span>
+        </section>
 
-            <ng-container matColumnDef="TransactionId">
-                <mat-header-cell [style.min-width]="_IdWidth" *matHeaderCellDef mat-sort-header>Transaction Id
-                </mat-header-cell>
-                <mat-cell [style.min-width]="_IdWidth" *matCellDef="let apiLog">{{apiLog.TransactionId}}</mat-cell>
-            </ng-container>
+        <mat-expansion-panel *ngFor="let item of displayedRows | async" style="padding: 2%"
+                             (click)="fetch3rdAPI($event,item)">
+            <mat-expansion-panel-header class="mat-row">
+                <span class="mat-cell">{{item.Id}}</span>
+                <span class="mat-cell">{{item.TransactionId}}</span>
+                <span class="mat-cell">{{item.APIName}}</span>
+                <span class="mat-cell">{{item.CallDateTime}}</span>
+                <span class="mat-cell">{{item.ResponseDateTime}}</span>
+                <span class="mat-cell">
+                    <button mat-icon-button color="primary" (click)="viewRequestResponse($event,item)">
+                                            <mat-icon title="View">visibility</mat-icon>
+                                        </button>
+                </span>
+            </mat-expansion-panel-header>
+            <div>
+                <div class="custom-accordion" *ngFor="let activity of third_party_apis;let i=index">
+                    <div class="custom-accordion-head" (click)="toggleAccordion($event,i,activity)"
+                         style="cursor: pointer">
+                        <div class="custom-padding">
+                            <h3>
+                                {{activity.APIName}}
+                            </h3>
+                        </div>
 
-            <ng-container matColumnDef="ApiName">
-                <mat-header-cell [style.min-width]="_apiNameWidth" *matHeaderCellDef mat-sort-header>Api Name
-                </mat-header-cell>
-                <mat-cell [style.min-width]="_apiNameWidth" *matCellDef="let apiLog">{{apiLog.APIName}}</mat-cell>
-            </ng-container>
+                        <div class="custom-padding">
+                            <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
+                                <mat-icon>expand_more</mat-icon>
+                            </button>
+                            <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
+                                <mat-icon>expand_less</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">
+                        {{third_party_apis_details | json}}
+                        <table class="table table-responsive" style="display: inline-table !important;">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>API Name</th>
+                                <th>Request</th>
+                                <th>Response</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let child of third_party_apis_details">
+                                <td>{{child.APIName}}</td>
+                                <td>{{child.CallDateTime}}</td>
+                                <td>{{child.ResponseDateTime}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-            <ng-container matColumnDef="CallDateTime">
-                <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>Call DateTime
-                </mat-header-cell>
-                <mat-cell [style.min-width]="_dateWidth"
-                          *matCellDef="let apiLog">{{apiLog.CallDateTime |date:'medium'}}</mat-cell>
-            </ng-container>
+                </div>
+            </div>
 
-            <ng-container matColumnDef="ResponseDateTime">
-                <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>Response DateTime
-                </mat-header-cell>
-                <mat-cell [style.min-width]="_dateWidth"
-                          *matCellDef="let apiLog">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
-            </ng-container>
+        </mat-expansion-panel>
 
-            <ng-container matColumnDef="View">
-                <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-                <mat-cell *matCellDef="let apiLog">
-                    <button mat-icon-button color="primary"
-                            (click)="viewRequestResponse(apiLog)">
-                        <mat-icon title="View">info</mat-icon>
-                    </button>
-                </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
-                            class="table-header-background"></mat-header-row>
-
-            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-        </mat-table>
-
-        <div class="mat-table__message" *ngIf="dataSource.data.length==0">No records found</div>
-        <div class="mat-table__message" *ngIf="loading">Please wait....</div>
-    </div>
-    <div>
-        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"
-                       [showFirstLastButtons]="true"></mat-paginator>
-    </div>
+    </mat-accordion>
 </div>
 

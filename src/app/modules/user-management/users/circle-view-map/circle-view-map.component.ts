@@ -101,14 +101,14 @@ export class CircleViewMapComponent implements OnInit {
           this.loading = false;
         })
       ).subscribe(baseResponse => {
-        debugger;
+        
         if (baseResponse.Success) {
 
           this.deleteSelectedShape()
           this.circlesSinglePoint = baseResponse.circleSinglePoints;
           this.fenceMarkers = []
           this.circlesSinglePoint.forEach((o, i) => {
-            debugger;
+            
             if (o.Long != 0 && o.Lat != 0) {
               // for view only
               this.fenceMarkers.push({
@@ -142,7 +142,7 @@ export class CircleViewMapComponent implements OnInit {
           this.loading = false;
         })
       ).subscribe(baseResponse => {
-        debugger;
+        
         if (baseResponse.Success)
           this.Zones = baseResponse.Zones;
         else
@@ -155,7 +155,7 @@ export class CircleViewMapComponent implements OnInit {
   GetBranches(ZoneId) {
 
     this.Branches = [];
-    debugger;
+    
     this.Zone.ZoneId = ZoneId.value;
     this._circleService.getBranchesByZone(this.Zone)
       .pipe(
@@ -163,7 +163,7 @@ export class CircleViewMapComponent implements OnInit {
           this.loading = false;
         })
       ).subscribe(baseResponse => {
-        debugger;
+        
         if (baseResponse.Success)
           this.Branches = baseResponse.Branches;
         else
@@ -196,7 +196,7 @@ export class CircleViewMapComponent implements OnInit {
   }
 
   removeClickedMarker(index: number) {
-    debugger
+   
     if (this.selectedMarker == null) {
       this.selectedMarker = this.fenceMarkers[index]
       this.fenceMarkers.splice(index, 1)
@@ -231,7 +231,7 @@ export class CircleViewMapComponent implements OnInit {
         })
       )
       .subscribe(baseResponse => {
-        debugger
+       
         if (baseResponse.Success) {
 
           var OldFancPoints = baseResponse.GeoFancPoints;

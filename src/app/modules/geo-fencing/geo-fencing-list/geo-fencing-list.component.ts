@@ -10,7 +10,6 @@ import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Branch} from "../../../shared/models/branch.model";
 import {Circle} from "../../../shared/models/circle.model";
 import {MatTableDataSource} from "@angular/material/table";
-import {Zone} from "../../../shared/models/zone.model";
 
 import {finalize} from "rxjs/operators";
 import {ViewGetFancingModalComponent} from '../view-get-fancing-modal/view-get-fancing-modal.component';
@@ -75,13 +74,14 @@ export class GeoFencingListComponent implements OnInit {
         private dialog: MatDialog,
         private layoutUtilsService: LayoutUtilsService,
         private userUtilsService: UserUtilsService,
+        private spinner: NgxSpinnerService
     ) {
     }
 
     ngOnInit(): void {
         this.createForm();
+
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        console.log(this.LoggedInUserInfo);
         this.initValues();
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.Circles = this.LoggedInUserInfo.UserCircleMappings;
@@ -99,14 +99,20 @@ export class GeoFencingListComponent implements OnInit {
             this.listForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.listForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+            this.spinner.show();
+
             this.userUtilsService.getZone().subscribe((data: any) => {
                 this.Zone = data.Zones;
                 this.SelectedZones = this.Zone;
                 this.single_zone = false;
                 this.disable_zone = false;
+                this.spinner.hide();
+
             });
 
+
         }
+
     }
 
     initValues() {
@@ -177,16 +183,20 @@ export class GeoFencingListComponent implements OnInit {
                 //this.user.BranchCode
             }
         }
+        this.spinner.show();
         this._geoFencingService.SearchGeoFensePoint(request).pipe(finalize(() => {
             this.loaded = true;
         })).subscribe((baseResponse: BaseResponseModel) => {
+            this.spinner.hide();
+
             if (baseResponse.Success === true) {
                 this.loaded = true;
                 this.dataSource = baseResponse.LocationHistory.LocationHistories;
                 this.totalItems = baseResponse.LocationHistory.LocationHistories[0].TotalRecords
                 this.dv = this.dataSource.data;
-                // this.totalItems = baseResponse.LocationHistory.LocationHistories.length;
+
             } else {
+
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }
         });
