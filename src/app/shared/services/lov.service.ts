@@ -13,17 +13,17 @@ export class LovService {
 
   constructor(private http: HttpClient, private httpUtils: HttpUtilsService) { }
 
- 
+
 
   public async CallLovAPI(DataObj: Lov) {
-    
-    
+
+
     var req = { LovPagination: { TagName: DataObj.TagName } };
-    
+
     return this.http.post(`${environment.apiUrl}/LOV/GetLOVsByTag`, req,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
-       
+
       ).toPromise();
 
   }

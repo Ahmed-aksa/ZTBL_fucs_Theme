@@ -1,0 +1,194 @@
+<div id="Kt-portlet-margin-top">
+    <div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header" style="display: flex;flex-direction: row;justify-content: space-between">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">JV Codes</h3>
+            </div>
+            <!-- <span (click)="close(0)"><mat-icon>close</mat-icon></span> -->
+            <button mat-raised-button color="primary" class="btn center" style="width: 5px; height: 30px;" (click)="close(0)"><mat-icon>close</mat-icon></button>
+        </div>
+        <div>
+            <form [formGroup]="JvSearchForm" class="kt-form kt-form--group-seperator-dashed">
+                <div class="kt-form">
+                    <div class="kt-portlet__body">
+                        <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
+                            Please enter valid Input
+                        </kt-alert>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group kt-form__group row">
+
+                                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-label class="customMatLabel">Master Code</mat-label>
+                                            <input matInput placeholder="Master Code" formControlName="code" maxlength="50" autocomplete="off" />
+                                            <mat-error *ngIf="hasError('code', 'required')">Master Code <strong>required</strong></mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-label>Category</mat-label>
+                                            <mat-select formControlName="category">
+                                                <mat-option *ngFor="let list of JVCategories" [value]="list.Value">
+                                                    {{list.Name}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <!-- <mat-error *ngIf="hasError('category', 'required')">Category <strong>required</strong></mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-lg-3 " style="margin-top:5px;">
+                                        <button class="btn btn-secondary mt-19 kt-login__btn-primary btn-block" color="primary" type="button" (click)="find()"><span><i class="fa fa-search"> &nbsp;</i> Find</span></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+                            <div class="kt-portlet__head-label">
+                                <h5 class="kt-portlet__head-title">Master Codes</h5>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row" *ngIf="dataFetched && MasterCodeList.length>0" id="codeTable">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr class="table-header-background">
+                                            <th>Code</th>
+                                            <th>Description</th>
+                                            <th>Effective From</th>
+                                            <th>Valid Until</th>
+                                            <th>Active</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let transaction of MasterCodeList; let i = index; let even=even" [style.background-color]="rowClicked == i ? '#ecbd00' : (even ? '' : '')">
+                                            <td>{{transaction.TrMasterCode}}</td>
+                                            <td>{{transaction.Description}}</td>
+                                            <td>{{transaction.EffectiveFrom}}</td>
+                                            <td>{{transaction.ValidUntil}}</td>
+                                            <td>{{transaction.IsActive}}</td>
+                                            <td ><button  mat-raised-button color="primary" class="pull-right"  (click)="findDetail(transaction.TrMasterID, i)" >Details</button></td>
+                                            <td><button mat-raised-button color="primary" class="pull-right" (click)="close(transaction.TrMasterCode)">Select</button></td>
+                                            <!--<td>
+                                    <button *ngIf="isShowEditIcon(transaction.TransactionStatus,transaction.MakerID)" (click)="editLoadTransaction(transaction.TransactionID,transaction.LoanCaseNo,false)" mat-icon-button color="primary">
+                                      <mat-icon title="Edit">create</mat-icon>
+                                    </button>&nbsp;
+                                    &nbsp;&nbsp;&nbsp; <span (click)="editLoadTransaction(transaction.TransactionID,transaction.LoanCaseNo,true)">View</span>
+                                  </td>-->
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row" *ngIf="dataFetched && MasterCodeList.length==0 && !submitted">
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table">
+
+                                <h4>No Record found.</h4>
+                            </div>
+                        </div>
+                        <div class="form-group kt-form__group row" *ngIf="detailDataFetched && MasterCodeListDetail.length>0">
+
+                            <div class="kt-portlet__head kt-portlet__head__custom col-lg-12" id="list-header">
+                                <div class="kt-portlet__head-label">
+                                    <h5 class="kt-portlet__head-title">Transaction Codes</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr class="table-header-background">
+                                            <th>Transaction Master</th>
+                                            <th>TranCode</th>
+                                            <th>Start GL</th>
+                                            <th>End GL</th>
+                                            <th>Type</th>
+                                            <th>LC</th>
+                                            <th>DEP ACC</th>
+                                            <th>CN BR</th>
+                                            <th>ADV</th>
+                                            <th>BAL UP</th>
+                                            <th>LEG UP</th>
+                                            <th>D.D/P.O</th>
+                                            <th>Pay Branch</th>
+                                            <th>Payee Req</th>
+                                            <th>RO Flag</th>
+                                            <th>CN Update</th>
+                                            <th>Map(O)</th>
+                                            <th>CNT GL</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let transaction of MasterCodeListDetail | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index; let even=even" [style.background-color]="sRowClicked == i ? '#ecbd00' : (even ? '' : '')">
+                                            <td>{{transaction.MasterDesc}}</td>
+                                            <td>{{transaction.Code}}</td>
+                                            <td>{{transaction.GlStartCode}}</td>
+                                            <td>{{transaction.GlendCode}}</td>
+                                            <td>{{transaction.TransactionType}}</td>
+                                            <td>{{transaction.LoanCaseRequired}}</td>
+                                            <td>{{transaction.DepositAccRequired}}</td>
+                                            <td>{{transaction.ContraBranchRequired}}</td>
+                                            <td>{{transaction.AdviceRequired}}</td>
+                                            <td>{{transaction.UpdateAccBal}}</td>
+                                            <td>{{transaction.UpdateLedgerBal}}</td>
+                                            <td>{{transaction.DdPoInsType}}</td>
+                                            <td>{{transaction.PayeeOrgunitRequired}}</td>
+                                            <td>{{transaction.PayeeNameRequired}}</td>
+                                            <td>{{transaction.RoFlagRequired}}</td>
+                                            <td>{{transaction.AutoContraEntry}}</td>
+                                            <td>{{transaction.IsMappingDetailRequired}}</td>
+                                            <td>{{transaction.ContraGlCode}}</td>
+                                            <td><button  mat-raised-button color="primary" class="pull-right" (click)="detailCall(i)">Details</button></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <pagination-controls (pageChange)="paginate($event)"></pagination-controls>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row" *ngIf="dataFetched && MasterCodeListDetail.length==0 && !submitted">
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table">
+
+                                <h4>No Record found.</h4>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row" *ngIf="onDetailCall">
+
+                            <div class="kt-portlet__head kt-portlet__head__custom col-lg-12" id="list-header">
+                                <div class="kt-portlet__head-label">
+                                    <h5 class="kt-portlet__head-title">Transaction Mapping (Respond => Originate)</h5>
+                                </div>
+                            </div>
+
+                            <mat-form-field class="mat-form-field-fluid col-lg-12" appearance="outline">
+                                <mat-label class="customMatLabel">No Detail Exist</mat-label>
+                                <input matInput placeholder="No Detail Exist" maxlength="50" autocomplete="off"  readonly="readonly"/>
+                            </mat-form-field>
+
+                        </div>
+
+                        <div class="form-group kt-form__group row">
+                            <div class="col-lg-11 kt-margin-bottom-20-mobile mat-table">
+                                <button mat-raised-button color="primary" class="pull-right" (click)="close(0)">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

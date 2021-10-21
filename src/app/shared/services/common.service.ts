@@ -17,7 +17,7 @@ export class CommonService {
     }
     else {
 
-      if (regExps.sequentialsecond.test(Input)) 
+      if (regExps.sequentialsecond.test(Input))
         return true;
       else
       return false;

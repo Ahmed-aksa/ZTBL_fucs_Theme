@@ -52,6 +52,17 @@ export class ReportService {
             map((res: BaseResponseModel) => res)
         );
     }
+getThirdPartyRequestResponse(reportFilter: ReportFilters): Observable<BaseResponseModel> {
+
+
+        this.request = new BaseRequestModel();
+        this.request.ReportFilters = reportFilter;
+
+        return this.http.post(`${environment.apiUrl}/Report/GetTPAPIRequestResponse`, this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
 
 
     getAllErrorLogs(reportFilter: ReportFilters): Observable<BaseResponseModel> {

@@ -239,7 +239,7 @@ export class RecoveryService {
     this.request.Zone = userInfo.Zone;
     RecoveryData.UserID = userInfo.User.UserId;
 
-    
+
     var activity = { ActivityID: 1 };
     var recovery = { RecoveryData: RecoveryData };
 
@@ -260,12 +260,12 @@ export class RecoveryService {
       Zone: userInfo.Zone
     };
 
-   
+
 
     var req = JSON.stringify(request);
     console.log('saveRecoveryData request packet');
     console.log(request);
-   
+
     return this.http.post(`${environment.apiUrl}/Recovery/SaveRecoveryData`, req,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -298,7 +298,7 @@ export class RecoveryService {
   }
 
   getLoanApplicationsInquiry(lcNo: string, LnTransactionID: string): Observable<BaseResponseModel> {
-    var userInfo = this.userUtilsService.getUserDetails();    
+    var userInfo = this.userUtilsService.getUserDetails();
     var branch = { BranchId: userInfo.Branch.BranchId  };
     var recovery = { Lcno: lcNo, LnTransactionID: LnTransactionID };
     var request = { Branch: branch, Recovery: recovery };
@@ -342,17 +342,17 @@ export class RecoveryService {
   getReceiptDetail(recoveryData): Observable<BaseResponseModel> {
 
     var userInfo = this.userUtilsService.getUserDetails();
-    var request = { 
-      User: userInfo.User, Branch: 
-      userInfo.Branch, 
+    var request = {
+      User: userInfo.User, Branch:
+      userInfo.Branch,
       Recovery: {
         RecoveryData: {
           TransactionID : recoveryData.TransactionID,
           DisbursementID : recoveryData.DisbursementID,
           BranchWorkingDate : recoveryData.BranchWorkingDate,
           ReceiptNo: recoveryData.ReceiptId
-        } 
-      } 
+        }
+      }
     };
     return this.http.post(`${environment.apiUrl}/Recovery/GetReceiptDetail`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -363,17 +363,17 @@ export class RecoveryService {
   getReceiptDetailSubmit(recoveryData): Observable<BaseResponseModel> {
 
     var userInfo = this.userUtilsService.getUserDetails();
-    var request = { 
-      User: userInfo.User, Branch: 
-      userInfo.Branch, 
+    var request = {
+      User: userInfo.User, Branch:
+      userInfo.Branch,
       Recovery: {
         RecoveryData: {
           TransactionID : recoveryData.TransactionID,
           DisbursementID : recoveryData.DisbursementID,
           BranchWorkingDate : recoveryData.BranchWorkingDate,
           ReceiptNo: recoveryData.ReceiptId
-        } 
-      } 
+        }
+      }
     };
     return this.http.post(`${environment.apiUrl}/Recovery/GetReceiptDetail`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(

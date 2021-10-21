@@ -131,7 +131,7 @@
 
         <div class="example-table-container">
 
-            <table mat-table
+            <mat-table
                    [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
                    class="example-table"
                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
@@ -164,7 +164,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+            </mat-table>
         </div>
         <div class="mat-select" style="padding:5px;">
             Items per page:

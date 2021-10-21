@@ -94,6 +94,7 @@ export class BorrowerInformationComponent implements OnInit {
             this.selected_c = this.SelectedCircles.Id
             this.borrowerForm.controls["Zone"]?.setValue(this.SelectedZones.Id);
             this.borrowerForm.controls["BranchCode"]?.setValue(this.SelectedBranches.Name);
+            this.changeBranch(this.SelectedBranches.Name);
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
@@ -183,7 +184,14 @@ export class BorrowerInformationComponent implements OnInit {
 
 
     changeBranch(changedValue) {
-        let changedBranch = {Branch: {BranchCode: changedValue.value}}
+        let changedBranch = null;
+        console.log(changedValue);
+        if (typeof changedValue == 'string') {
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
+        } else {
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        }
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
             this.Circles = data.Circles;
             this.SelectedCircles = this.Circles;

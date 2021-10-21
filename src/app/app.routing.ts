@@ -112,6 +112,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/loan-utilization/loan-utilization.module').then(m => m.LoanUtilizationModule)
             },
             {
+                path: 'journal-voucher',
+                loadChildren: () => import('app/modules/journal-voucher/journal-voucher.module').then(m => m.JournalVoucherModule)
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             }
