@@ -12,7 +12,7 @@ import {mockApiServices} from 'app/mock-api';
 import {LayoutModule} from 'app/layout/layout.module';
 import {AppComponent} from 'app/app.component';
 import {appRoutes} from 'app/app.routing';
-import {SharedModule} from "./shared/shared.module";
+import {SharedModule} from  './shared/shared.module';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {metaReducers, reducers} from './shared/reducers';
@@ -21,8 +21,9 @@ import {TypesUtilsService} from './shared/services/types-utils.service';
 import {LayoutUtilsService} from './shared/services/layout-utils.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ConfigurationManagementComponent} from './modules/configuration-management/configuration-management.component';
-import {UserUtilsService} from "./shared/services/users_utils.service";
-import {TokenInterceptor} from "./shared/httpInterceptor/httpconfig.interceptor";
+import {UserUtilsService} from './shared/services/users_utils.service';
+import {TokenInterceptor} from './shared/httpInterceptor/httpconfig.interceptor';
+import {NdcRequestsModule} from './modules/ndc-requests/ndc-requests.module';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -44,6 +45,7 @@ const routerConfig: ExtraOptions = {
         LayoutModule,
         MarkdownModule.forRoot({}),
         SharedModule,
+        NdcRequestsModule,
 
         StoreModule.forRoot(reducers, {metaReducers}),
         EffectsModule.forRoot([]),
