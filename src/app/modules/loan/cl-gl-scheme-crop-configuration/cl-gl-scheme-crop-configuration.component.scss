@@ -1,0 +1,53 @@
+table > thead {
+  background-color: #00661a;
+  color: white;
+}
+
+.mt-10p {
+  margin-top: 3% !important;
+}
+
+
+
+.ngx-pagination li {
+  display: inline-block !important;
+  background-color: #f6fcf8 !important;
+  margin-left: 10px !important;
+  border: #c6ecd3 1px solid !important;
+}
+
+.my-pagination[_ngcontent-pcd-c37] .ngx-pagination .current {
+  z-index: 1 !important;
+  color: #FFFFFF !important;
+  background-color: #00661a !important;
+  padding: 4px 12px !important;
+}
+
+.mat-table__bottom {
+  float: left !important;
+  margin-top: 20px !important;
+}
+
+.mat-select {
+  margin-top: -10px !important;
+}
+
+
+/*.my-pagination > ng-deep {
+  .ngx-pagination {
+    .current {
+      z-index: 1;
+      color: #FFFFFF;
+      background-color: #00661a !important;
+      padding: 4px 12px !important;
+    }
+  }
+}
+
+
+.ngx-pagination .current {
+  padding: 0.1875rem 0.625rem;
+  background: #00661a !important;
+  color: #fefefe;
+  cursor: default;
+}*/

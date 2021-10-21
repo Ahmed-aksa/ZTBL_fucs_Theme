@@ -1,0 +1,253 @@
+
+<div class="kt-portlet">
+  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+    <div class="kt-portlet__head-label">
+      <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+    </div>
+  </div>
+  <form [formGroup]="glSchemeCropConfigForm" class="kt-form kt-form--group-seperator-dashed">
+    <div class="kt-form">
+      <div class="kt-portlet__body">
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">GL Code <strong class="matMandatory">*</strong></mat-label>
+              <input matInput placeholder="Enter GL Code" formControlName="GLCode" appNumberOnly />
+              <mat-error *ngIf="hasError('GLCode', 'required')">GL Code <strong>required</strong></mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Scheme Code <strong class="matMandatory"></strong></mat-label>
+              <input matInput placeholder="Scheme Code" formControlName="SchemeCode" appNumberOnly />
+              <!--<mat-error *ngIf="hasError('DevAmount', 'required')">GL Code <strong>required</strong></mat-error>-->
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Crop Code<strong class="matMandatory"></strong></mat-label>
+              <input matInput placeholder="Enter Crop Code" formControlName="CropCode" appNumberOnly />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <button type="button" (click)="SearchGLCode()" class="btn btn-primary mt-10p" mat-raised-button color="primary">
+              Find
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-12">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>GL Code</th>
+                  <th>Description</th>
+                  <th>Crop Req</th>
+                  <th>Qty Req</th>
+                  <th>Scheme Req</th>
+                  <th>Make Req</th>
+                  <th>Fin Tenure</th>
+                  <th>Grace Prd</th>
+                  <th>No of Inst</th>
+                  <th>Unit</th>
+                  <th>Rate</th>
+                  <th>Installment Freq</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                <tr *ngFor="let GlDetails of GLDetailList;">
+                  <td>{{GlDetails.SubCode}}</td>
+                  <td>{{GlDetails.Description}}</td>
+                  <td>{{GlDetails.CropRequired}}</td>
+                  <td>{{GlDetails.QuantityRequired}}</td>
+                  <td>{{GlDetails.SchemeRequired}}</td>
+                  <td>{{GlDetails.MakeCodeRequired}}</td>
+                  <td>{{GlDetails.FinancingTenure}}</td>
+                  <td>{{GlDetails.GraceMonths}}</td>
+                  <td>{{GlDetails.NOofInst}}</td>
+                  <td>{{GlDetails.TenureUnits}}</td>
+                  <td>{{GlDetails.Rate}}</td>
+                  <td>{{GlDetails.InstFreq}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-12">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Scheme Code</th>
+                  <th>Quantity Required</th>
+                  <th>Make Required</th>
+                  <th>Fin Tenure</th>
+                  <th>Grace Prd</th>
+                  <th>No of Inst</th>
+                  <th>Unit</th>
+                  <th>Rate</th>
+                  <th>Installment Freq</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                <tr *ngFor="let GlSchemeCrop of SchemeDetailList;">
+                  <td>{{GlSchemeCrop.SchemeCode}}</td>
+                  <td>{{GlSchemeCrop.QuantityRequired}}</td>
+                  <td>{{GlSchemeCrop.MakeCodeRequired}}</td>
+                  <td>{{GlSchemeCrop.FinancingTenure}}</td>
+                  <td>{{GlSchemeCrop.GraceMonths}}</td>
+                  <td>{{GlSchemeCrop.NoOfInstallment}}</td>
+                  <td>{{GlSchemeCrop.TenureUnits}}</td>
+                  <td>{{GlSchemeCrop.SchemeID}}</td>
+                  <td>{{GlSchemeCrop.InstallmentFreq}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-12">
+
+            <div class="mat-table__wrapper mat-elevation-z8">
+              <mat-table class="lmat-elevation-z8"
+                         #table
+                         [dataSource]="dataSource | paginate: {itemsPerPage: size, currentPage: pageIndex,totalItems: length}"
+                         matSort
+                         #sort1="matSort"
+                         matSortActive="id"
+                         matSortDirection="asc"
+                         matSortDisableClear
+                         matSortDisabled>
+
+                <ng-container matColumnDef="Id">
+                  <mat-header-cell [style.min-width]="_IdWidth" *matHeaderCellDef mat-sort-header>Crop Code</mat-header-cell>
+                  <mat-cell [style.min-width]="_IdWidth" *matCellDef="let crop">{{crop.CropCode}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="TransactionId">
+                  <mat-header-cell [style.min-width]="_IdWidth" *matHeaderCellDef mat-sort-header>Disbursement Months</mat-header-cell>
+                  <mat-cell [style.min-width]="_IdWidth" *matCellDef="let crop">{{crop.CropPeriods}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="ApiName">
+                  <mat-header-cell [style.min-width]="_apiNameWidth" *matHeaderCellDef mat-sort-header>Fin Tenure</mat-header-cell>
+                  <mat-cell [style.min-width]="_apiNameWidth" *matCellDef="let apiLog">{{apiLog.APIName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="CallDateTime">
+                  <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>Grac Prd</mat-header-cell>
+                  <mat-cell [style.min-width]="_dateWidth" *matCellDef="let apiLog">{{apiLog.CallDateTime |date:'medium'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="ResponseDateTime">
+                  <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>No of Inst</mat-header-cell>
+                  <mat-cell [style.min-width]="_dateWidth" *matCellDef="let apiLog">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Unit">
+                  <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>Unit</mat-header-cell>
+                  <mat-cell [style.min-width]="_dateWidth" *matCellDef="let apiLog">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Rate">
+                  <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>Rate</mat-header-cell>
+                  <mat-cell [style.min-width]="_dateWidth" *matCellDef="let apiLog">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="InstallmentFreq">
+                  <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>Installment Freq</mat-header-cell>
+                  <mat-cell [style.min-width]="_dateWidth" *matCellDef="let apiLog">{{apiLog.ResponseDateTime |date:'medium'}}</mat-cell>
+                </ng-container>        
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background"></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+              </mat-table>
+
+              <div class="mat-table__message" *ngIf="!loading ">No records found</div>
+              <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+            </div>
+
+            <div class="mat-table__bottom">
+              <pagination-controls class="my-pagination" (pageChange)="paginate($event)"></pagination-controls>
+              <mat-select [(value)]="size" (valueChange)="paginate(pageIndex)" style="width: 50px;margin-left: 15px">
+                <mat-option [value]="5">5</mat-option>
+                <mat-option [value]="10">10</mat-option>
+                <mat-option [value]="25">25</mat-option>
+                <mat-option [value]="50">50</mat-option>
+              </mat-select>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-12">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>GL Code</th>
+                  <th>Crop Code</th>
+                  <th>Scheme Code</th>
+                  <th>Parameter Assigned</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                <tr *ngFor="let GlSchemeCropDetails of GlSchemeCropDetailList;">
+                  <td>{{GlSchemeCropDetails.GlSubCode}}</td>
+                  <td>{{GlSchemeCropDetails.GlSubCode}}</td>
+                  <td>{{GlSchemeCropDetails.GlSubCode}}</td>
+                  <td>{{GlSchemeCropDetails.ParamName}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-12">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>GL Code</th>
+                  <th>Crop Code</th>
+                  <th>Resch From Range</th>
+                  <th>Resh To Rabge</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                <tr *ngFor="let GlRangeDetails of GlRangeDetailList;">
+                  <td>{{GlRangeDetails.GlCode}}</td>
+                  <td>{{GlRangeDetails.Name}}</td>
+                  <td>{{GlRangeDetails.ReschFromRange}}</td>
+                  <td>{{GlRangeDetails.ReschToRange}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
+        <div class="kt-form__actions kt-form__actions--solid">
+          <div class="row text-center">
+            <div class="col-lg-12">
+              <button mat-raised-button color="primary">Submit</button>&nbsp;&nbsp;
+              <button type="button" class="button-red" mat-raised-button cdkFocusInitial (click)="onCloseClick()">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+             size="medium"
+             color="#ecbd00"
+             type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

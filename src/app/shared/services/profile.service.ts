@@ -9,7 +9,7 @@ import {Profile} from 'app/modules/user-management/activity/activity.model';
 import {environment} from 'environments/environment';
 import {BaseResponseModel} from '../models/base_response.model';
 import {HttpUtilsService} from './http_utils.service';
-import {UserUtilsService} from './user-utils.service';
+import {UserUtilsService} from "./users_utils.service";
 
 @Injectable({providedIn: 'root'})
 export class ProfileService {
@@ -120,14 +120,13 @@ export class ProfileService {
         }, this.request.Circle = {
             CircleIds: '53444,53443,53442,53441'
         };
-        var req = JSON.stringify(this.request);
         this.request.User = this.userUtilsService.getUserDetails().User;
         this.request.Zone = {
             Id: 0,
             ZoneId: '50055',
             ZoneName: 'SAHIWAL'
         };
-        return this.http.post(`${environment.apiUrl}/Activity/GetAllPagesByRoleID`, req,
+        return this.http.post(`${environment.apiUrl}/Activity/GetAllPagesByRoleID`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );

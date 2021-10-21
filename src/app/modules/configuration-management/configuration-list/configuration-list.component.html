@@ -1,0 +1,94 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
+
+    <!-- Header -->
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Configurations List
+                </h2>
+            </div>
+        </div>
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button mat-stroked-button (click)="addNewConfiguration()">
+                <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                Configuration
+            </button>
+
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto">
+
+        <!-- CONTENT GOES HERE -->
+        <!-- CONTENT GOES HERE -->
+        <div class="form-group row">
+            <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8"
+                 id="custom-table-activity-list">
+                <div class="custom-accordion" *ngFor="let parent_configuration of configurations;let i=index">
+                    <div v class="custom-accordion-head" (click)="toggleAccordion(i)"
+                         style="cursor: pointer">
+                        <div class="custom-padding">
+                            <h3>
+                                {{parent_configuration.KeyName}}
+                            </h3>
+                        </div>
+                        <div class="custom-padding" style="display: flex;
+    margin-right: 10%;">
+                            <button mat-icon-button color="primary">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" style="margin-left: 10%;"
+                                    (click)="editConfiguration(parent_configuration)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
+                                <mat-icon>expand_more</mat-icon>
+                            </button>
+                            <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
+                                <mat-icon>expand_less</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">
+                        <table class="table table-responsive" style="display: inline-table !important;">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Sr.</th>
+                                <th>Key name</th>
+                                <th>Key Value</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let child of parent_configuration.ChildConfigurations;let i=index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{child.KeyName}}</td>
+                                <td>{{child.KeyValue}}</td>
+                                <td>
+                                    <div>
+                                        <button mat-icon-button color="primary">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="warn" style="margin-left: 10%;"
+                                                (click)="editConfiguration(child)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

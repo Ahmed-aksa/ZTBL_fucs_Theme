@@ -11,6 +11,7 @@ import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { AppState } from 'app/shared/reducers';
 import { LayoutUtilsService, MessageType } from 'app/shared/services/layout-utils.service';
 import { temperature } from 'chroma-js';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { Profile } from '../../activity/activity.model';
@@ -60,7 +61,8 @@ export class RoleListComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     private layoutUtilsService: LayoutUtilsService,
     private _cdf: ChangeDetectorRef,
-    private _activityService: ActivityService) {
+    private _activityService: ActivityService,
+    private spinner: NgxSpinnerService) {
   }
 
   ngOnInit() {
@@ -78,10 +80,13 @@ export class RoleListComponent implements OnInit, OnDestroy {
   }
 
   GetAllProfiles() {
+    this.spinner.show()
+    this.loading = true;
     this._profileService.getAllProfiles()
       .pipe(
         finalize(() => {
           this.loading = false;
+          this.spinner.hide()
         })
       )
       .subscribe(baseResponse => {
@@ -184,7 +189,7 @@ export class RoleListComponent implements OnInit, OnDestroy {
       }
       this.activity = new Activity();
       this.activity.ActivityID = _item.ProfileID;
-      debugger;
+      
       this._activityService.deleteActivity(this.activity).pipe(
         finalize(() => {
 

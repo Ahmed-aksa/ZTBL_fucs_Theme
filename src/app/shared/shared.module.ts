@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastrModule} from "ngx-toastr";
@@ -44,7 +44,9 @@ import {
 import {MatNativeDateModule} from "@angular/material/core";
 import {HttpUtilsService} from "./services/http_utils.service";
 import {UserUtilsService} from "./services/users_utils.service";
-import {LayoutUtilsService} from "./services/layout_utils.service";
+import { LayoutUtilsService } from "./services/layout_utils.service";
+import { ViewFileComponent } from './component/view-file/view-file.component';
+
 
 @NgModule({
     declarations: [
@@ -59,6 +61,7 @@ import {LayoutUtilsService} from "./services/layout_utils.service";
         AlertDialogComponent,
         AlertComponent,
         ActionNotificationComponent,
+        ViewFileComponent,
     ],
     imports: [
         CommonModule,
@@ -99,6 +102,7 @@ import {LayoutUtilsService} from "./services/layout_utils.service";
             libraries: ['places', 'drawing', 'geometry'],
         }),
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         CommonModule,
         FormsModule,

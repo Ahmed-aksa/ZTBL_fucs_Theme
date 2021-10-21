@@ -25,7 +25,7 @@ export class AuthService {
     set accessToken(token: string) {
         if (typeof token != 'undefined') {
             localStorage.setItem('accessToken', token);
-            
+
         }
     }
 
@@ -35,7 +35,7 @@ export class AuthService {
     set ZTBLUserRefreshToke(token: string) {
         if (typeof token != 'undefined') {
             localStorage.setItem('ZTBLUserRefreshToke', token);
-            
+
         }
     }
 
@@ -64,7 +64,6 @@ export class AuthService {
         return this.httpUtils.post(`${environment.apiUrl}/Account/Login`, this.request,
             {headers: this.getHTTPHeaders()}).pipe(
                 map((response: BaseResponseModel) => {
-                    debugger;
                 localStorage.setItem('ZTBLUser', JSON.stringify(response));
 
                 this.accessToken = response.Token;
@@ -83,7 +82,7 @@ export class AuthService {
         this.request.Token=expiredToken;
         this.request.RefreshToken=refreshToken;
         var req = JSON.stringify(this.request);
-      
+
         return this.httpUtils.post(`${environment.apiUrl}/Account/RefreshToken`, req);
       }
 

@@ -2,14 +2,8 @@
     <div class="text-4xl font-extrabold tracking-tight">List Geo Fencing</div>
 
     <!-- Header -->
-    <div
-
-        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
-        style="flex-wrap: wrap" [formGroup]="listForm">
-        <div
-            class="absolute inset-x-0 bottom-0">
-            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
-        </div>
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+         style="flex-wrap: wrap" [formGroup]="listForm">
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -128,45 +122,51 @@
 
     </div>
     <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
-        <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
-            <mat-table class="lmat-elevation-z8"
-                       #table
-                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
-                       matSort
-                       #sort1="matSort"
-                       matSortActive="id"
-                       matSortDirection="asc"
-                       matSortDisableClear>
+        <div class="example-container mat-elevation-z8">
+            <div class="example-loading-shade"
+                 *ngIf="loaded">
+                <mat-spinner *ngIf="!loaded"></mat-spinner>
+            </div>
+        </div>
+
+        <div class="example-table-container">
+
+            <table mat-table
+                   [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
+                   class="example-table"
+                   matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+                <!-- Number Column -->
                 <ng-container matColumnDef="PPNo">
-                    <mat-header-cell *matHeaderCellDef>PP No</mat-header-cell>
-                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.PPNo}}</mat-cell>
+                    <th mat-header-cell *matHeaderCellDef>PP No</th>
+                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.PPNo}}</td>
                 </ng-container>
 
+                <!-- Title Column -->
                 <ng-container matColumnDef="BranchCode">
-                    <mat-header-cell *matHeaderCellDef>Branch Code</mat-header-cell>
-                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.BranchCode}}</mat-cell>
+                    <th mat-header-cell *matHeaderCellDef>Branch Code</th>
+                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.BranchCode}}</td>
                 </ng-container>
 
+                <!-- State Column -->
                 <ng-container matColumnDef="CreatedDate">
-                    <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
-                    <mat-cell *matCellDef="let LocationHistories">{{LocationHistories.CreatedDate}}</mat-cell>
+                    <th mat-header-cell *matHeaderCellDef>Created Date</th>
+                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.CreatedDate}}</td>
                 </ng-container>
                 <ng-container matColumnDef="View">
-                    <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-                    <mat-cell *matCellDef="let LocationHistories">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let LocationHistories">
                         <button mat-icon-button color="primary" (click)="view(LocationHistories)">
                             <mat-icon title="View Vendor">visibility</mat-icon>
                         </button>
-                    </mat-cell>
+                    </td>
                 </ng-container>
-                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
-                                class="table-header-background"></mat-header-row>
 
-                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-            </mat-table>
 
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
         </div>
-        <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+        <div class="mat-select" style="padding:5px;">
             Items per page:
             <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
                         style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
@@ -182,9 +182,8 @@
             <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
         </div>
-
-
     </div>
 
-
 </div>
+
+

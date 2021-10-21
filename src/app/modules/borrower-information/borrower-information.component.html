@@ -1,0 +1,174 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">Borrower Information</div>
+
+    <!-- Header -->
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+         style="flex-wrap: wrap" [formGroup]="borrowerForm">
+        <div
+            class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                    <mat-option [value]="SelectedZones?.ZoneId">
+                        {{SelectedZones?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                            (selectionChange)="changeZone($event)">
+                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                [disabled]="disable_zone">
+                        {{zone?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                            (selectionChange)="changeBranch($event)"
+                            *ngIf="!single_branch">
+                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                    >
+                        {{branch?.Name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                            *ngIf="single_branch">
+                    <mat-option [value]="SelectedBranches?.BranchCode"
+                    >
+                        {{SelectedBranches?.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Circle</mat-label>
+
+                <mat-select [(ngModel)]="selected_c" formControlName="Circle" [disabled]="disable_circle">
+                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                    >
+                        {{circle?.CircleCode}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Cnic</mat-label>
+                <input matInput placeholder="Cnic" formControlName="Cnic" maxlength="30"
+                       autocomplete="off" appNumberOnly/>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <button mat-raised-button color="accent"
+                    type="button" (click)="getBorrower()"><span><i
+                class="fa fa-search"> &nbsp;</i> Find</span></button>
+        </div>
+
+    </div>
+    <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+        <div class="mat-table__wrapper mat-elevation-z8">
+            <!--[style.height]="gridHeight"-->
+            <mat-table class="lmat-elevation-z8"
+                       #table
+                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                       matSort
+                       #sort1="matSort"
+                       matSortActive="id"
+                       matSortDirection="asc"
+                       matSortDisableClear>
+
+                <ng-container matColumnDef="CustomerName">
+                    <mat-header-cell *matHeaderCellDef>Customer Name</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">{{borrower.CustomerName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="FatherName">
+                    <mat-header-cell *matHeaderCellDef>FatherName</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">{{borrower.FatherName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell *matHeaderCellDef>Cnic</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">{{borrower.Cnic}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="LoanCaseNo">
+                    <mat-header-cell *matHeaderCellDef>LC #</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">{{borrower.LoanCaseNo}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="PermanentAddress">
+                    <mat-header-cell *matHeaderCellDef>Permanent Address</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">{{borrower.PermanentAddress}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="TotalSanctionedAmount">
+                    <mat-header-cell *matHeaderCellDef>Total Sanctioned Amount</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">{{borrower.TotalSanctionedAmount}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="SanctionLimit">
+                    <mat-header-cell *matHeaderCellDef>Sanction Limit</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">{{borrower.SanctionLimit}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Link">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">
+                        <span id="llcInquiryText" (click)="viewInquiry(borrower)"><b>View LC Inquiry</b></span>
+                        <!-- <a (click)="viewInquiry(borrower)">View LC Inquiry</a>             -->
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+            </mat-table>
+
+            <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+                Items per page:
+                <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                            style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="25">25</mat-option>
+                    <mat-option [value]="50">50</mat-option>
+                    <mat-option [value]="1000">1000</mat-option>
+                </mat-select>
+                <button (click)="paginate(1)">First</button>
+                <pagination-controls display="inline" (pageChange)="paginate($event)"
+                                     style="display: inline-block;"></pagination-controls>
+                <button (click)="paginate(MathCeil(totalItems/itemsPerPage))">Last</button>
+                <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+
+            </div>
+
+
+            <!-- <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
+            <div class="mat-table__message" *ngIf="loading">Please wait....</div> -->
+
+        </div>
+
+    </div>
+</div>

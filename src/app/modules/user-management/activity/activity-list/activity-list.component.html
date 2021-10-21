@@ -1,83 +1,97 @@
-<kt-portlet>
-  <kt-portlet-header [title]="'Pages list'" [class]="'kt-portlet__head--lg'" id="list-header">
-    <ng-container ktPortletTools>
-      <button (click)="addActivity()" mat-raised-button color="primary" type="button" class="btn btn-primary">
-        <span>Create Page</span>
-      </button>
-    </ng-container>
-  </kt-portlet-header>
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+        <!-- Loader -->
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Pages List</div>
+        <!-- Actions -->
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button
+                class="ml-4"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="addActivity()">
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Add New </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="">
+
+        <!-- CONTENT GOES HERE -->
+        <div class="pt-1">
+            <div class="form-group row">
+                <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8"
+                     id="custom-table-activity-list">
+                    <div class="custom-accordion" *ngFor="let activity of userActivities;let i=index">
+                        <div class="custom-accordion-head" (click)="toggleAccordion(i)" style="cursor: pointer">
+                            <div class="custom-padding">
+                                <h3>
+                                    {{activity.ActivityName}}
+                                </h3>
+                            </div>
+
+                            <div class="custom-padding">
+                                <button mat-icon-button color="warn" (click)="deleteActivity(activity)">
+                                    <mat-icon>
+                                        delete
+                                    </mat-icon>
+                                </button>
+                                <button class="ml-2" mat-icon-button color="primary" (click)="editActivity(activity)">
+                                    <mat-icon>
+                                        edit
+                                    </mat-icon>
+                                </button>
+                                <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
+                                    <mat-icon>expand_more</mat-icon>
+                                </button>
+                                <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
+                                    <mat-icon>expand_less</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">
+                            <table class="table table-responsive" style="display: inline-table !important;">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Activity Name</th>
+                                    <th>Activity URL</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let child of activity.ChildActvities">
+                                    <td>{{child.ActivityName}}</td>
+                                    <td>{{child.ActivityUrl}}</td>
+                                    <td>
+                                        <button mat-icon-button color="primary" (click)="editActivity(child)">
+                                            <mat-icon>
+                                                {{ activity.isCoreactivity ? 'visibility' : 'create' }}
+                                            </mat-icon>
+                                        </button>&nbsp;
+                                        <button mat-icon-button color="warn" (click)="deleteActivity(child)">
+                                            <mat-icon>
+                                                delete
+                                            </mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
 
 
-  <kt-portlet-body>
-    <div class="form-group row">
-      <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8" id="custom-table-activity-list">
-        <div class="custom-accordion" *ngFor="let activity of userActivities;let i=index">
-          <div class="custom-accordion-head" (click)="toggleAccordion(i)"
-               style="cursor: pointer">
-            <div class="custom-padding">
-              <h3>
-                {{activity.ActivityName}}
-              </h3>
+                </div>
             </div>
-
-            <div class="custom-padding">
-              <button mat-icon-button color="warn"
-                      (click)="deleteActivity(activity)">
-                <mat-icon>
-                  delete
-                </mat-icon>
-              </button>
-              <button class="ml-2" mat-icon-button color="primary"
-                      (click)="editActivity(activity)">
-                <mat-icon>
-                  edit
-                </mat-icon>
-              </button>
-              <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
-                <mat-icon>expand_more</mat-icon>
-              </button>
-              <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
-                <mat-icon>expand_less</mat-icon>
-              </button>
-            </div>
-          </div>
-          <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">
-            <table class="table table-responsive" style="display: inline-table !important;">
-              <thead class="thead-light">
-              <tr>
-                <th>Activity Name</th>
-                <th>Activity URL</th>
-                <th>Actions</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let child of activity.ChildActvities">
-                <td>{{child.ActivityName}}</td>
-                <td>{{child.ActivityUrl}}</td>
-                <td>
-                  <button mat-icon-button color="primary"
-                          (click)="editActivity(child)">
-                    <mat-icon>
-                      {{ activity.isCoreactivity ? 'visibility' : 'create' }}
-                    </mat-icon>
-                  </button>&nbsp;
-                  <button mat-icon-button color="warn"
-                          (click)="deleteActivity(child)">
-                    <mat-icon>
-                      delete
-                    </mat-icon>
-                  </button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
 
         </div>
 
-
-      </div>
     </div>
 
-  </kt-portlet-body>
-</kt-portlet>
+</div>
