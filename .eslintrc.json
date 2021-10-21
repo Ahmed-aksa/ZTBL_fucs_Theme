@@ -39,7 +39,7 @@
                     {
                         "type": "attribute",
                         "prefix": "",
-                        "style": "camelCase"
+                        "style": "snake_case"
                     }
                 ],
                 "@typescript-eslint/dot-notation": "off",

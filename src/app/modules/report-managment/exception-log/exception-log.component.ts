@@ -208,3 +208,5 @@ export class ExceptionlogListComponent implements OnInit {
 
 }
 
+export class ExceptionLogComponent {
+}

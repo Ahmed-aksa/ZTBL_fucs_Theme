@@ -92,6 +92,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/borrower-information/borrower-information.module').then(m => m.BorrowerInformationModule)
             },
             {
+              path: 'ndc-requests',
+              loadChildren: () => import('app/modules/ndc-requests/ndc-requests.module').then(m => m.NdcRequestsModule)
+            },
+            {
                 path: 'configuration-management',
                 loadChildren: () => import('app/modules/configuration-management/configuration-management.module').then(m => m.ConfigurationManagementModule)
             },
