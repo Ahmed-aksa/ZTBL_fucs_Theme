@@ -10,7 +10,7 @@ import { Role } from '../role.model';
 import { AppState } from 'app/shared/reducers';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LayoutUtilsService, MessageType } from 'app/shared/services/layout-utils.service';
+import { LayoutUtilsService, MessageType } from 'app/shared/services/layout_utils.service';
 import { QueryParamsModel } from 'app/shared/models/query_params.model';
 import { RoleDeleted, RolesPageRequested } from 'app/shared/actions/role.actions';
 import { RolesDataSource } from 'app/shared/data-sources/roles.datasource';
