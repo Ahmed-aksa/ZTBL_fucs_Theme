@@ -163,6 +163,7 @@ export class SearchJvComponent implements OnInit {
             });
 
         }
+        this.find();
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
     }
 

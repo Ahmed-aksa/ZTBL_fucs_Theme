@@ -193,9 +193,14 @@ export class BorrowerInformationComponent implements OnInit {
             changedBranch = {Branch: {BranchCode: changedValue}}
 
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+
             this.Circles = data.Circles;
             this.SelectedCircles = this.Circles;
             this.disable_circle = false;
+            if (changedValue.value)
+            {
+                this.getBorrower();
+            }
         });
     }
 
