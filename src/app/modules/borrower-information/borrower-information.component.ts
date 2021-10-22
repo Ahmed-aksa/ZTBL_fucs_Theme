@@ -82,7 +82,7 @@ export class BorrowerInformationComponent implements OnInit {
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
 
-            this.SelectedBranches = this.LoggedInUserInfo.Branches;
+            this.SelectedBranches = this.LoggedInUserInfo.Branch;
             this.SelectedZones = this.LoggedInUserInfo.Zone;
 
             this.selected_z = this.SelectedZones?.ZoneId

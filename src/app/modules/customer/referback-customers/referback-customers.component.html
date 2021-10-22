@@ -1,0 +1,76 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <div class="text-4xl font-extrabold tracking-tight">Refer Back Customer</div>
+
+  <!-- Header -->
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+    style="flex-wrap: wrap">
+
+  </div>
+  <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+
+    <div class="example-table-container">
+      <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort" matSortActive="id"
+        matSortDirection="asc" matSortDisableClear>
+
+        <ng-container matColumnDef="CustomerName">
+          <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+          <mat-cell *matCellDef="let customer">{{customer.CustomerName}}</mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="CustomerNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Number</mat-header-cell>
+          <mat-cell *matCellDef="let customer">{{customer.CustomerNumber}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="FatherName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
+          <mat-cell *matCellDef="let customer">{{customer.FatherName}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Cnic">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Cnic</mat-header-cell>
+          <mat-cell *matCellDef="let customer">{{customer.Cnic}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="CurrentAddress">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Current Address</mat-header-cell>
+          <mat-cell *matCellDef="let customer">{{customer.CurrentAddress}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Dob">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Dob</mat-header-cell>
+          <mat-cell *matCellDef="let customer">{{customer.Dob}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="CustomerStatus">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+          <mat-cell *matCellDef="let customer">{{getStatus(customer.CustomerStatus)}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="View">
+          <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+          <mat-cell *matCellDef="let customer">
+            <button mat-icon-button color="primary" (click)="editCustomer(customer)">
+              <mat-icon style="margin-left: 5px;" title="View Customer">accessibility_new</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">
+        </mat-header-row>
+
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
+      <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+      <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]" [showFirstLastButtons]="true">
+      </mat-paginator>
+
+
+    </div>
+
+  </div>
+
+</div>

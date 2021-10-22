@@ -1,0 +1,523 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <div class="text-4xl font-extrabold tracking-tight">{{getTitle()}}</div>
+
+  <!-- Header -->
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+    style="flex-wrap: wrap">
+  </div>
+  <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+    <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
+      <div class="kt-form">
+        <div class="kt-portlet__body">
+          <div class="row">
+            <div class="col-lg-7">
+              <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
+                (close)="onAlertClose($event)">
+                Please enter valid Input
+              </kt-alert>
+
+
+
+              <div class="form-group kt-form__group row">
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Zone <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Enter Zone" formControlName="Zone" readonly="readonly" maxlength="30"
+                      autocomplete="off" />
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Enter Branch" formControlName="Branch" readonly="readonly"
+                      maxlength="30" autocomplete="off" />
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Working Date</mat-label>
+                    <input matInput formControlName="BranchWorkingDate" maxlength="30" autocomplete="off"
+                      readonly="readonly" />
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="form-group kt-form__group row">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="isSimpleRecovery">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Circle <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select formControlName="CircleID" [(ngModel)]="UserCircleMappingsDefaultSelected"
+                      [disabled]="recoverySaved || viewOnly">
+                      <mat-option *ngFor="let list of UserCircleMappings" [value]="list.CircleId">
+                        {{list.CircleCode}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('CircleID', 'required')">Circle ID <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Transaction Type <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select formControlName="TransactionType" [disabled]="true">
+                      <mat-option *ngFor="let type of TransactionTypes" [value]="type.Value">
+                        {{type.Name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Effective Date (ddMMyyyy) <strong class="matMandatory">*</strong>
+                    </mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="EffectiveDate" maxlength="30"
+                      autocomplete="off" [max]="maxDate" (dateChange)="isEnableReceipt(false)" [readonly]="true"
+                      appNumberOnly />
+                    <mat-datepicker-toggle matSuffix [for]="picker2" [disabled]="viewOnly"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+
+                    <mat-error *ngIf="hasError('EffectiveDate', 'required')">Effective Date <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="showAdviceNo">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Advice No <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Advice No" formControlName="AdviceNo" maxlength="30" autocomplete="off"
+                      appNumberOnly [readonly]="recoverySaved || viewOnly" />
+                    <mat-error *ngIf="hasError('AdviceNo', 'required')">Advice No <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+
+              <div class="form-group kt-form__group row">
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30"
+                      autocomplete="off" appNumberOnly readonly="readonly" />
+                    <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2 kt-margin-bottom-20-mobile" *ngIf="RecoveryType == 2 || RecoveryType == 4">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Loan Branch <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Loan Branch Code" formControlName="ContraBranchCode" maxlength="30"
+                      autocomplete="off" appNumberOnly [readonly]="recoverySaved || viewOnly" />
+                    <mat-error *ngIf="hasError('ContraBranchCode', 'required')">Loan Branch <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">LC # <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="LC No" formControlName="LoanCaseNo" maxlength="30" autocomplete="off"
+                      appNumberOnly [readonly]="recoverySaved || viewOnly" />
+                    <mat-error *ngIf="hasError('LoanCaseNo', 'required')">LC No <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2 kt-margin-bottom-20-mobile mt-2">
+                  <!--<input type="button" mat-raised-button color="primary" class=" mat-raised-button mat-button-base mat-primary searchLCBtn" (click)="getSubProposalGL()" value="Search" [disabled]="submitted || viewOnly" />-->
+                  <input type="button" mat-raised-button color="primary"
+                    class=" mat-raised-button mat-button-base mat-primary searchLCBtn" (click)="getSubProposalGL(true)"
+                    value="Search" [disabled]="submitted || viewOnly" />
+                </div>
+                <!--//tranID//DIsbID-->
+                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                  <br />
+                  <span id="llcInquiryText" (click)="viewLLCInquiry()"><b>View LC Inquiry</b></span>
+                </div>
+
+              </div>
+              <div class="form-group kt-form__group row">
+                <div class="col-lg-8 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Sub Proposal/GL <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select formControlName="SubProposalID" (selectionChange)="getDisbursementByGL(true)"
+                      [disabled]="recoverySaved || viewOnly">
+                      <mat-option *ngFor="let list of SubProposalGLList" [value]="list.LoanAppSanctionID">
+                        {{list.Description}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('SubProposalID', 'required')">Sub Proposal ID <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Disbursement <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select formControlName="DisbursementID" (selectionChange)="getAccountDetail()"
+                      [disabled]="recoverySaved || viewOnly">
+                      <mat-option *ngFor="let list of DisbursementGLList" [value]="list.LoanDisbID">
+                        {{list.Description}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('DisbursementID', 'required')">Disbursement ID <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="form-group kt-form__group row">
+                <div class="col-lg-8 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Master/Tr Code <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select formControlName="MasterTrCode" (selectionChange)="changeMasterCode()"
+                      [disabled]="recoverySaved || viewOnly">
+                      <mat-option *ngFor="let masterCode of masterCodes" [value]="masterCode.LnTransactionMasterID">
+                        {{masterCode.Description}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('MasterTrCode', 'required')">Master TrCode <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Total Amount <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Total Amount" formControlName="Amount" maxlength="30"
+                      autocomplete="off" [readonly]="recoverySaved || viewOnly" appNumberOnly
+                      (input)="onSearchChange($event.target.value)" />
+                    <mat-error *ngIf="hasError('Amount', 'required')">Total Amount <strong>required</strong></mat-error>
+                  </mat-form-field>
+                  <mat-error *ngIf="amountError">{{totalAmountMsg}}</mat-error>
+                </div>
+              </div>
+
+              <div class="form-group kt-form__group row">
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="showInstrument">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Instrument Type</mat-label>
+                    <mat-select formControlName="InstrumentType" [disabled]="recoverySaved || viewOnly">
+                      <mat-option *ngFor="let list of InstrumentTypes" [value]="list.Value">
+                        {{list.Name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('InstrumentType', 'required')">Instrument Type <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="showInstrument && !showAdviceNo">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Instrument # <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Instrument #" formControlName="InstrumentNO" maxlength="30"
+                      autocomplete="off" appNumberOnly [readonly]="recoverySaved || viewOnly" />
+                    <mat-error *ngIf="hasError('InstrumentNO', 'required')">Instrument # <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+
+              </div>
+
+
+              <div class="form-group kt-form__group row">
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Tr Code</mat-label>
+                    <mat-select formControlName="TrCode" (selectionChange)="isEnableReceipt(true)"
+                      [(ngModel)]="TrCodesRecoveryDefaultSelected" [disabled]="recoverySaved || viewOnly">
+                      <mat-option *ngFor="let list of TrCodesRecovery" [value]="list.Value">
+                        {{list.Name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('TrCode', 'required')">Tr Code <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="mcReceipt">
+                    <mat-label class="customMatLabel">MCO Book</mat-label>
+                    <input matInput placeholder="MCO Book" formControlName="BookNo" maxlength="10" autocomplete="off"
+                      appNumberOnly [readonly]="recoverySaved || viewOnly" attr.required=false />
+                    <mat-error *ngIf="hasError('BookNo', 'required')">Book No <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="mcReceipt">
+                    <mat-label class="customMatLabel">Receipt No</mat-label>
+                    <input matInput placeholder="Receipt No" formControlName="ReceiptNo" maxlength="10"
+                      autocomplete="off" appNumberOnly [readonly]="recoverySaved || viewOnly" />
+                    <mat-error *ngIf="hasError('ReceiptNo', 'required')">Receipt No <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="form-group kt-form__group row">
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>SAM Recovery Type</mat-label>
+                    <mat-select formControlName="SamRecoveryType" [disabled]="true">
+                      <mat-option *ngFor="let list of SamRecoveryTypes" [value]="list.Value">
+                        {{list.Name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('SamRecoveryType', 'required')">Sam Recovery Type
+                      <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Recovery Through <strong class="matMandatory" *ngIf="recoveryThroughValidator">*</strong>
+                    </mat-label>
+                    <!--<mat-select formControlName="RecoveryThroughType" (selectionChange)="getCoordinatorsByID()" [disabled]="recoverySaved || viewOnly || !isSAMStatus">-->
+                    <mat-select formControlName="RecoveryThroughType" (selectionChange)="getCoordinatorsByID()"
+                      [disabled]="recoverySaved || viewOnly || (!isSAMStatus)">
+                      <mat-option *ngFor="let list of RecoveryThroughList" [value]="list.Value">
+                        {{list.Name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('RecoveryThroughType', 'required')">Recovery Through Type
+                      <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Coordinators <strong class="matMandatory" *ngIf="coordinatorValidator">*</strong>
+                    </mat-label>
+                    <!--<mat-select formControlName="CoordinatorID" [disabled]="recoverySaved || viewOnly || !isSAMStatus">-->
+                    <mat-select formControlName="CoordinatorID" [disabled]="recoverySaved || viewOnly || !isSAMStatus">
+                      <mat-option>
+                        <ngx-mat-select-search placeholderLabel="Search Coordinators..."
+                          [formControl]="searchFilterCtrlCoordinator">
+
+                        </ngx-mat-select-search>
+
+                      </mat-option>
+                      <mat-option *ngFor="let coordinator of Coordinators" [value]="coordinator.ID">
+                        {{coordinator.Name}}
+                      </mat-option>
+                    </mat-select>
+
+                    <mat-error *ngIf="hasError('CoordinatorID', 'required')">Coordinator ID <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="form-group kt-form__group row" *ngIf="transactionEdit">
+
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Tran Date</mat-label>
+                    <input matInput placeholder="Tran Date" formControlName="TranDate" maxlength="30" autocomplete="off"
+                      appNumberOnly [readonly]="viewOnly" />
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Installments</mat-label>
+                    <input matInput placeholder="Installments" formControlName="Installments" maxlength="30"
+                      autocomplete="off" appNumberOnly [readonly]="viewOnly" />
+                  </mat-form-field>
+                </div>
+
+
+              </div>
+
+              <div class="form-group kt-form__group row">
+                <div class="col-lg-8 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Remarks: <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Remarks" formControlName="Remarks" maxlength="200" autocomplete="off"
+                      [readonly]="viewOnly" />
+                  </mat-form-field>
+                  <mat-error *ngIf="remarksError">Remarks <strong>required</strong></mat-error>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="col-lg-5">
+              <table class="table table-striped table-bordered" *ngIf="accountDetailFetched">
+                <thead>
+                  <tr class="table-header-background">
+                    <th colspan="2">Acount Detail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Customer</td>
+                    <td>{{accountDetail.CustomerName}}</td>
+                  </tr>
+                  <tr>
+                    <td>Deceased</td>
+                    <td>{{accountDetail.IsDeceased}}</td>
+                  </tr>
+                  <tr>
+                    <td>GL Code</td>
+                    <td>{{accountDetail.GlSubCode}}</td>
+                  </tr>
+                  <tr>
+                    <td>Deposit Acc #</td>
+                    <td>{{accountDetail.DespositAccount}}</td>
+                  </tr>
+                  <tr>
+                    <td>Sanctioned Amount</td>
+                    <td>{{accountDetail.SanctionedAmount}}</td>
+                  </tr>
+                  <tr>
+                    <td>Principal (O.S)</td>
+                    <td>{{accountDetail.OutstandPrincipal}}</td>
+                  </tr>
+                  <tr>
+                    <td>Markup (O.S)</td>
+                    <td>{{accountDetail.OutstandMrk}}</td>
+                  </tr>
+                  <tr>
+                    <td>e-Credit Gov. Markup (O.S)</td>
+                    <td>{{accountDetail.EcreditGobMrk}}</td>
+                  </tr>
+                  <tr>
+                    <td>Total (O.S)</td>
+                    <td>{{accountDetail.TotalOutstand}}</td>
+                  </tr>
+                  <tr>
+                    <td>Last Recy Date</td>
+                    <td>{{accountDetail.LastRecoveryDate}}</td>
+                  </tr>
+                  <tr>
+                    <td>Due Date</td>
+                    <td>{{accountDetail.NewNextDueDate}}</td>
+                  </tr>
+                  <tr>
+                    <td>Due Amount</td>
+                    <td>{{accountDetail.DueAmount}}</td>
+                  </tr>
+                  <tr>
+                    <td>Status</td>
+                    <td>{{accountDetail.Status}}</td>
+                  </tr>
+                  <tr>
+                    <td>SAM Opening Date</td>
+                    <td>{{accountDetail.SamOpeningDate}}</td>
+                  </tr>
+                  <tr>
+                    <td>SAM Markup</td>
+                    <td>{{accountDetail.SamMarkup}}</td>
+                  </tr>
+                  <tr>
+                    <td>SAM Total (OS)</td>
+                    <td>{{accountDetail.SamTotalOS}}</td>
+                  </tr>
+                  <tr>
+                    <td>SAM Cost of Fund (OS)</td>
+                    <td>{{accountDetail.SamCofOS}}</td>
+                  </tr>
+                  <tr>
+                    <td>PD + CDI</td>
+                    <td>{{accountDetail.PD}}</td>
+                  </tr>
+                  <tr>
+                    <td>CD</td>
+                    <td>{{accountDetail.CD}}</td>
+                  </tr>
+                  <tr>
+                    <td>Legal Charges</td>
+                    <td>{{accountDetail.LegalChargesRecieable}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+        <div>
+          <span style="color:red;" [innerHTML]="errorMessage"></span>
+        </div>
+
+      </div>
+    </form>
+
+    <div class="col-lg-12">
+      <div class="form-group kt-form__group">
+        <button *ngIf="isSimpleRecovery" mat-raised-button color="primary" (click)="save()"
+          [disabled]="submitted || viewOnly || ibDisSave">Save</button>
+
+        <button mat-raised-button color="primary" class="ml-2" (click)="makeAndSubmit()"
+          [disabled]="submitted || viewOnly || ibDisSave">{{submitButtonText}}</button>
+
+
+        <button mat-raised-button color="primary" class="ml-2" (click)="deleteRecovery()"
+          [disabled]="submitted || viewOnly || ibDisSave" *ngIf="isEditMode || dataSaved">Delete</button>
+
+
+        <button mat-raised-button color="primary" class="ml-2" (click)="clearForm()"
+          [disabled]="submitted || transactionEdit || viewOnly || dataSaved">Clear</button>
+
+
+        <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
+      </div>
+
+    </div>
+
+
+
+    <div class="col-lg-12" *ngIf="RecoveryLoanTransaction">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr class="table-header-background">
+              <th>Serial No</th>
+              <th>GL Name</th>
+              <th>GL Code</th>
+              <th>Debit</th>
+              <th>Credit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of RecoveryLoanTransaction; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{transaction.GlSubName}}</td>
+              <td>{{transaction.GlSubCode}}</td>
+              <td>{{transaction.DrAmount}}</td>
+              <td>{{transaction.CrAmount}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+    <div class="col-lg-12" *ngIf="customers">
+      <table class="table table-striped ">
+        <thead>
+          <tr class="table-header-background">
+            <th>Customer Name</th>
+            <th>CNIC</th>
+            <th>Father Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customers; let i = index;">
+            <td>{{customer.CustomerName}}</td>
+            <td>{{customer.Cnic}}</td>
+            <td>{{customer.FatherName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>

@@ -90,6 +90,14 @@
           </div>
 
         </div>
+        <div class="col-lg-12">
+          <button type="button" *ngIf="!ShowButton" mat-raised-button color="primary" class="btn btn-primary"
+                  (click)="onSubmit()"
+                  [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                  [disabled]="viewLoading || submitted">
+            Save
+          </button>
+        </div>
       </div>
 
     </div>

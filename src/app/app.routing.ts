@@ -124,6 +124,14 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/loan-utilization/loan-utilization.module').then(m => m.LoanUtilizationModule)
             },
             {
+                path: 'customer',
+                loadChildren: () => import('app/modules/customer/customer.module').then(m => m.CustomerModule)
+            },
+            {
+                path: 'loan-recovery',
+                loadChildren: () => import('app/modules/loan-recovery/loan-recovery.module').then(m => m.LoanRecoveryModule)
+              },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             }

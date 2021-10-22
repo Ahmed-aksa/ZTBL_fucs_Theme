@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
+import {map} from 'rxjs/operators';
 import {BaseRequestModel} from "../../../shared/models/base_request.model";
 import {Loan, LoanApplicationHeader} from "../../../shared/models/Loan.model";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {JournalVocherData} from "../models/journal_voucher.model";
 import {HttpUtilsService} from "../../../shared/services/http_utils.service";
-import { Activity } from 'app/shared/models/activity.model';
+import {Activity} from 'app/shared/models/activity.model';
 
 @Injectable({
     providedIn: 'root'
@@ -21,9 +21,10 @@ export class JournalVoucherService {
     public activity = new Activity();
 
 
-    constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) { }
+    constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
+    }
 
-    saveApplicationHeader(loanReq: LoanApplicationHeader): Observable<BaseResponseModel>{
+    saveApplicationHeader(loanReq: LoanApplicationHeader): Observable<BaseResponseModel> {
 
         this.request = new BaseRequestModel();
 
@@ -41,11 +42,10 @@ export class JournalVoucherService {
         var req = JSON.stringify(this.request);
 
         return this.http.post(`${environment.apiUrl}/Loan/SaveApplicationHeader`, req,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
-
 
 
     createJVTransaction(jv: JournalVocherData): Observable<BaseResponseModel> {
@@ -53,7 +53,7 @@ export class JournalVoucherService {
         this.request.User = userInfo.User;
         //jv.UserBranchID = userInfo.Branch;
         //jv.zo = userInfo.Zone;
-        var activity = { ActivityID: 1 };
+        var activity = {ActivityID: 1};
         this.activity.ActivityID = 1;
 
         var request = {
@@ -81,9 +81,8 @@ export class JournalVoucherService {
         console.log(req)
 
 
-
         return this.http.post(`${environment.apiUrl}/JournalVoucher/CreateJVTransaction`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
@@ -97,11 +96,11 @@ export class JournalVoucherService {
                     Code: code
                 }
             },
-            TranId:0
+            TranId: 0
         };
         var req = JSON.stringify(this.request);
         return this.http.post(`${environment.apiUrl}/JournalVoucher/GetJVMasterCodes`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
@@ -122,12 +121,12 @@ export class JournalVoucherService {
         //var req = JSON.stringify(this.request);
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/GetJVCodeDetail`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    deleteJv(trDId: string){
+    deleteJv(trDId: string) {
         var userInfo = this.userUtilsService.getUserDetails();
         var request = {
             JournalVoucher: {
@@ -143,7 +142,7 @@ export class JournalVoucherService {
         };
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/DeleteTransactionDetail`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
@@ -165,7 +164,7 @@ export class JournalVoucherService {
                     LCNo: code
                 }
             },
-            Circle:{
+            Circle: {
                 CircleIds: _circles
             },
             TranId: 0,
@@ -174,12 +173,12 @@ export class JournalVoucherService {
         //var req = JSON.stringify(this.request);
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/GetGLForJv`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    async getChildNodesWithCode(code:string) {
+    async getChildNodesWithCode(code: string) {
 
         var userInfo = this.userUtilsService.getUserDetails();
         var request = {
@@ -195,12 +194,12 @@ export class JournalVoucherService {
         };
 
 
-        var response =  await this.http.post(`${environment.apiUrl}/JournalVoucher/GetChildNodesWithCode`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).toPromise();
+        var response = await this.http.post(`${environment.apiUrl}/JournalVoucher/GetChildNodesWithCode`, request,
+            {headers: this.httpUtils.getHTTPHeaders()}).toPromise();
         return response;
     }
 
-    getSearchJvTransactions(category:string, nature: string, manualVoucher:string, trDate: string,zone=null,branch=null) {
+    getSearchJvTransactions(category: string, nature: string, manualVoucher: string, trDate: string, branch = null, zone = null) {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         var request = {
             JournalVoucher: {
@@ -212,19 +211,19 @@ export class JournalVoucherService {
                 }
             },
             TranId: 0,
-            Branch: userInfo.Branch,
+            Branch: branch,
             User: userInfo.User,
-            Zone: userInfo.Zone
+            Zone: zone
         };
 
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/SearchJvTransactions?page=${this.pageIndex}&size=${this.size}`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    getChangeTransactionStatusJV(trId:string, status: string, remarks: string) {
+    getChangeTransactionStatusJV(trId: string, status: string, remarks: string) {
 
 
         var userInfo = this.userUtilsService.getUserDetails();
@@ -244,12 +243,12 @@ export class JournalVoucherService {
 
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/ChangeTransactionStatusJV`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    bindGridWithTrDetail(trId:string) {
+    bindGridWithTrDetail(trId: string) {
 
 
         var userInfo = this.userUtilsService.getUserDetails();
@@ -267,12 +266,12 @@ export class JournalVoucherService {
 
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/BindGridWithTrDetail`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    getTransactionByID(trId:string) {
+    getTransactionByID(trId: string) {
 
 
         var userInfo = this.userUtilsService.getUserDetails();
@@ -290,7 +289,7 @@ export class JournalVoucherService {
 
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/GetTransactionByID`, request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }

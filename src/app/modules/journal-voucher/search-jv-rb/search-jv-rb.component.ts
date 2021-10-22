@@ -156,8 +156,17 @@ export class SearchJvRbComponent implements OnInit {
         }
 
         // this.JournalVoucher = Object.assign(this.JournalVoucher, status);
-
-        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate)
+        let branch = null;
+        if (this.SelectedBranches.length)
+            branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
+        else
+            branch = this.SelectedBranches;
+        let zone = null;
+        if (this.SelectedZones.length)
+            zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+        else
+            zone = this.SelectedZones;
+        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate, branch, zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
