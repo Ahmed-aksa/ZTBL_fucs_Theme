@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'app/shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { SearchLoanUtilizationComponent} from './search-loan-uti/search-loan-uti.component';
+import { SearchLoanUtiComponent } from './search-loan-uti/search-loan-uti.component';
 import { SearchUtilizationComponent } from './search-utilization/search-utilization.component';
 import { LoanUtilizationComponent } from './loan-utilization/loan-utilization.component';
 
 const routing = [
-
+  
     {
       path: 'loan-uti',
       component: LoanUtilizationComponent
@@ -18,13 +18,13 @@ const routing = [
     },
     {
       path: 'search-loan-uti',
-      component: SearchLoanUtilizationComponent
+      component: SearchLoanUtiComponent
     },
-
+  
 ]
 
 @NgModule({
-  declarations: [SearchLoanUtilizationComponent,SearchUtilizationComponent,LoanUtilizationComponent],
+  declarations: [SearchLoanUtiComponent,SearchUtilizationComponent,LoanUtilizationComponent],
   imports: [
     CommonModule,
     SharedModule,

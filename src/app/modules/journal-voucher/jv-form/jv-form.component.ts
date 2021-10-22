@@ -168,8 +168,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
         this.isEditMode = localStorage.getItem("EditJvData");
         if (this.isEditMode != "0") {
-            if (localStorage.getItem('SearchJvData'))
-                this.JvSearchData = JSON.parse(localStorage.getItem("SearchJvData"));
+            this.JvSearchData = JSON.parse(localStorage.getItem("SearchJvData"));
 
             if (this.JvSearchData != null) {
                 this.jvObject = this.JvSearchData.obj;
@@ -196,10 +195,11 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
         this.userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
-        this.branchId = parseInt(this.userInfo.Branch?.BranchId);
-        this.branchCode = parseInt(this.userInfo.Branch?.BranchCode);
-        this.JvForm.controls.ZoneId.setValue(this.userInfo.Zone?.ZoneName);
-        this.JvForm.controls.OrgUnitID.setValue(this.userInfo.Branch?.Name);
+        console.log(this.userInfo.Zone)
+        this.branchId = parseInt(this.userInfo.Branch.BranchId);
+        this.branchCode = parseInt(this.userInfo.Branch.BranchCode);
+        this.JvForm.controls.ZoneId.setValue(this.userInfo.Zone.ZoneName);
+        this.JvForm.controls.OrgUnitID.setValue(this.userInfo.Branch.Name);
         //this.JvForm.controls.BranchId.setValue(userInfo.Branch.Name);
         this.JvForm.controls.BranchWorkingDate.setValue(this.userInfo.Branch.WorkingDate);
 

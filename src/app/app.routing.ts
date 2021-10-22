@@ -92,6 +92,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/borrower-information/borrower-information.module').then(m => m.BorrowerInformationModule)
             },
             {
+                path: 'khaad-seed-vendor',
+                loadChildren: () => import('app/modules/khaad-seed-vendor/khaad-seed-vendor.module').then(m => m.KhaadSeedVendorModule)
+            },
+            {
                 path: 'configuration-management',
                 loadChildren: () => import('app/modules/configuration-management/configuration-management.module').then(m => m.ConfigurationManagementModule)
             },
@@ -112,12 +116,8 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/loan/loan.module').then(m => m.LoanModule)
             },
             {
-                path: 'deceased-customer',
-                loadChildren: () => import('app/modules/deceased-customer/deceased-customer.module').then(m => m.DeceasedCustomerModule)
-            },
-            {
-                path: 'tour-diary',
-                loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
+                path: 'village-wise-bench-marking',
+                loadChildren: () => import('app/modules/village-wise-bench-marking/village-wise-bench-marking.module').then(m => m.VillageWiseBenchMarkingModule)  
             },
             {
                 path: 'loan-utilization',
@@ -127,15 +127,14 @@ export const appRoutes: Route[] = [
                 path: 'customer',
                 loadChildren: () => import('app/modules/customer/customer.module').then(m => m.CustomerModule)
             },
-
             {
                 path: 'loan-recovery',
                 loadChildren: () => import('app/modules/loan-recovery/loan-recovery.module').then(m => m.LoanRecoveryModule)
             },
-            // {
-            //     path: 'reschedule-cases',
-            //     loadChildren: () => import('app/modules/reschedule-cases/reschedule-cases.module').then(m => m.RescheduleCasesModule)
-            // },
+            {
+                path: 'reschedule-cases',
+                loadChildren: () => import('app/modules/reschedule-cases/reschedule-cases.module').then(m => m.RescheduleCasesModule)
+            },
             {
                 path: '**',
                 redirectTo: 'dashboard',
