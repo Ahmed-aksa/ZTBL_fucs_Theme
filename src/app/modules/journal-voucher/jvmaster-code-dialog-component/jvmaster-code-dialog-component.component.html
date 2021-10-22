@@ -17,9 +17,9 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="form-group kt-form__group row">
+                                <div class="form-group kt-form__group mt-4 row">
 
-                                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                    <div class="col-lg-6 kt-margin-bottom-20-mobile">
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <mat-label class="customMatLabel">Master Code</mat-label>
                                             <input matInput placeholder="Master Code" formControlName="code" maxlength="50" autocomplete="off" />
@@ -27,7 +27,7 @@
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                    <div class="col-lg-6 text-right kt-margin-bottom-20-mobile">
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <mat-label>Category</mat-label>
                                             <mat-select formControlName="category">
@@ -37,9 +37,7 @@
                                             </mat-select>
                                             <!-- <mat-error *ngIf="hasError('category', 'required')">Category <strong>required</strong></mat-error> -->
                                         </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-3 " style="margin-top:5px;">
-                                        <button class="btn btn-secondary mt-19 kt-login__btn-primary btn-block" color="primary" type="button" (click)="find()"><span><i class="fa fa-search"> &nbsp;</i> Find</span></button>
+                                        <button class="btn btn-secondary mx-5 mt-19 kt-login__btn-primary btn-block" color="primary" type="button" (click)="find()"><span><i class="fa fa-search"> &nbsp;</i> Find</span></button>
                                     </div>
                                 </div>
 
