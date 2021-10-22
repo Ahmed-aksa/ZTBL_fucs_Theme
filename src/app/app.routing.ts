@@ -100,6 +100,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/report-managment/report-managment.module').then(m => m.ReportManagmentModule)
             },
             {
+                path: 'journal-voucher',
+                loadChildren: () => import('app/modules/journal-voucher/journal-voucher.module').then(m => m.JournalVoucherModule)
+            },
+            {
                 path: 'loan-recovery',
                 loadChildren: () => import('app/modules/loan-recover/loan-recover.module').then(m => m.LoanRecoverModule)
             },
