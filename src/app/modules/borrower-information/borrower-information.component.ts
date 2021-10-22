@@ -80,14 +80,10 @@ export class BorrowerInformationComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-            this.SelectedCircles = this.Circles;
+            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
 
-            this.Branches = this.LoggedInUserInfo.Branch;
-            this.SelectedBranches = this.Branches;
-
-            this.Zone = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zone;
+            this.SelectedBranches = this.LoggedInUserInfo.Branches;
+            this.SelectedZones = this.LoggedInUserInfo.Zone;
 
             this.selected_z = this.SelectedZones?.ZoneId
             this.selected_b = this.SelectedBranches?.BranchCode
@@ -106,9 +102,10 @@ export class BorrowerInformationComponent implements OnInit {
                 this.disable_zone = false;
                 this.spinner.hide();
             });
+            this.getBorrower();
 
         }
-        this.getBorrower();
+
     }
 
 
@@ -143,7 +140,6 @@ export class BorrowerInformationComponent implements OnInit {
                     this.dataSource = baseResponse.BorrowerInfo.Borrowers;
                     this.dv = this.dataSource;
                     this.matTableLenght = true
-
                     this.totalItems = baseResponse.BorrowerInfo.Borrowers[0].TotalRecords
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -197,8 +193,7 @@ export class BorrowerInformationComponent implements OnInit {
             this.Circles = data.Circles;
             this.SelectedCircles = this.Circles;
             this.disable_circle = false;
-            if (changedValue.value)
-            {
+            if (changedValue.value) {
                 this.getBorrower();
             }
         });
