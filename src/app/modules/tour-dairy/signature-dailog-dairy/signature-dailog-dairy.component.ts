@@ -1,26 +1,27 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {RecoveryService} from "../../../shared/services/recovery.service";
-import {NgxSpinnerService} from "ngx-spinner";
-import {Router} from "@angular/router";
-import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { RecoveryService } from '../../../shared/services/recovery.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
+import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
 import { SignaturePad } from 'angular2-signaturepad';
 
 @Component({
-  selector: 'app-signature-dailog-dairy',
-  templateUrl: './signature-dailog-dairy.component.html',
-  styleUrls: ['./signature-dailog-dairy.component.scss']
+    selector: 'app-signature-dailog-dairy',
+    templateUrl: './signature-dailog-dairy.component.html',
+    styleUrls: ['./signature-dailog-dairy.component.scss'],
 })
 export class SignatureDailogDairyComponent implements OnInit {
     @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
     submitted = false;
     imageFile: any;
     isSignatureAdded = false;
-    public signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
-        'minWidth': 5,
-        'canvasWidth': 500,
-        'canvasHeight': 300,
-        'backgroundColor': "rgb(255,255,255)"
+    public signaturePadOptions: Object = {
+        // passed through to szimek/signature_pad constructor
+        minWidth: 5,
+        canvasWidth: 500,
+        canvasHeight: 300,
+        backgroundColor: 'rgb(255,255,255)',
     };
     constructor(
         public dialogRef: MatDialogRef<SignatureDailogDairyComponent>,
@@ -29,11 +30,10 @@ export class SignatureDailogDairyComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private layoutUtilsService: LayoutUtilsService,
         private router: Router,
-        public dialog: MatDialog,
-    ) { }
+        public dialog: MatDialog
+    ) {}
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {}
 
     ngAfterViewInit() {
         // this.signaturePad is now available
@@ -45,26 +45,22 @@ export class SignatureDailogDairyComponent implements OnInit {
         this.isSignatureAdded = true;
         // will be notified of szimek/signature_pad's onEnd event
         var base64 = this.signaturePad.toDataURL('image/jpeg');
-        this.imageFile = base64.replace("data:image/jpeg;base64,", "");
-        debugger;
+        this.imageFile = base64.replace('data:image/jpeg;base64,', '');
     }
 
     drawStart() {
         // will be notified of szimek/signature_pad's onBegin event
         console.log('begin drawing');
     }
-    saveSignature(){}
+    saveSignature() {}
 
     close(bySystem: Boolean): void {
-        debugger
         this.dialogRef.close(bySystem);
     }
 
     clearSignature(): void {
         this.signaturePad.clear();
-        this.imageFile = "";
+        this.imageFile = '';
         this.isSignatureAdded = false;
     }
-
-
 }

@@ -1,51 +1,39 @@
-<div id="Kt-portlet-margin-top">
-    <div class="kt-portlet">
-        <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
-        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-            <div class="text-4xl font-extrabold tracking-tight">Set Target</div>
-        </div>
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="text-4xl font-extrabold tracking-tight">Tour Diary of MCO</div>
     </div>
 
 
-    <form [formGroup]="gridForm" class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+    <form [formGroup]="gridForm"
+          class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-
             <div class="col-lg-4 kt-margin-bottom-20-mobile">
-<!--                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
-<!--                    <mat-label class="customMatLabel">MCO's Name</mat-label>-->
-<!--                    <input matInput formControlName="McoName" autocomplete="off" readonly="readonly"/>-->
-<!--                </mat-form-field>-->
 
-                <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
-                    <mat-label class="customMatLabel">MCO's Name <strong class="matMandatory">*</strong></mat-label>
-                    <input matInput placeholder="Enter Zone" formControlName="McoName" readonly="readonly" maxlength="30" autocomplete="off" />
+                <mat-form-field class="mat-form-field-fluid  mr-4" appearance="outline">
+                    <mat-label class="customMatLabel">MCO's Name<strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="MCO's Name" formControlName="McoName" readonly="readonly" maxlength="30"
+                           autocomplete="off"/>
                 </mat-form-field>
             </div>
-
             <div class="col-lg-4 kt-margin-bottom-20-mobile">
-<!--                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
-<!--                    <mat-label class="customMatLabel">P.P.NO</mat-label>-->
-<!--                    <input matInput formControlName="PPNO" autocomplete="off" readonly="readonly"/>-->
-<!--                </mat-form-field>-->
+
                 <mat-form-field class="mat-form-field-fluid  mr-4" appearance="outline">
                     <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong></mat-label>
-                    <input matInput placeholder="Enter Branch" formControlName="PPNO" readonly="readonly" maxlength="30" autocomplete="off" />
+                    <input matInput placeholder="PPNO" formControlName="PPNO" readonly="readonly" maxlength="30"
+                           autocomplete="off"/>
                 </mat-form-field>
             </div>
 
+            </div>
             <div class="col-lg-4 kt-margin-bottom-20-mobile">
-<!--                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
-<!--                    <mat-label class="customMatLabel">Month</mat-label>-->
-<!--                    <input matInput formControlName="Month" autocomplete="off" readonly="readonly"/>-->
-<!--                </mat-form-field>-->
+
                 <mat-form-field class="mat-form-field-fluid  mr-4" appearance="outline">
                     <mat-label class="customMatLabel">Month<strong class="matMandatory">*</strong></mat-label>
-                    <input matInput placeholder="Enter Branch" formControlName="Month" readonly="readonly" maxlength="30" autocomplete="off" />
+                    <input matInput placeholder="Month" formControlName="Month" readonly="readonly" maxlength="30" autocomplete="off" />
                 </mat-form-field>
             </div>
-
-        </div>
 
     </form>
 
