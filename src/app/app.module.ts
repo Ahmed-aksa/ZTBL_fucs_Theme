@@ -23,6 +23,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ConfigurationManagementComponent} from './modules/configuration-management/configuration-management.component';
 import {UserUtilsService} from "./shared/services/users_utils.service";
 import {TokenInterceptor} from "./shared/httpInterceptor/httpconfig.interceptor";
+import {DatePipe} from "@angular/common";
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -44,12 +46,14 @@ const routerConfig: ExtraOptions = {
         LayoutModule,
         MarkdownModule.forRoot({}),
         SharedModule,
+        SignaturePadModule,
 
         StoreModule.forRoot(reducers, {metaReducers}),
         EffectsModule.forRoot([]),
     ],
     providers: [
         HttpUtilsService,
+        DatePipe,
         UserUtilsService,
         LayoutUtilsService,
 

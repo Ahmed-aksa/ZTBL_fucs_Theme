@@ -1,0 +1,242 @@
+<div id="Kt-portlet-margin-top">
+    <div class="kt-portlet">
+        <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
+        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+            <div class="text-4xl font-extrabold tracking-tight">
+                TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
+        </div>
+    </div>
+
+
+    <form [formGroup]="gridForm" class="kt-form kt-form--group-seperator-dashed">
+
+        <div class="form-group kt-form__group row col-lg-12">
+
+            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Name of Officer</mat-label>
+                    <input matInput formControlName="NameOfOfficer" autocomplete="off" readonly="readonly"/>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">P.P.NO</mat-label>
+                    <input matInput formControlName="PPNO" autocomplete="off" readonly="readonly"/>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Month</mat-label>
+                    <input matInput formControlName="Month" autocomplete="off" readonly="readonly"/>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Zone</mat-label>
+                    <input matInput formControlName="Zone" autocomplete="off" readonly="readonly"/>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <div class="col-lg-12">
+
+            <table class="table table-striped">
+                <thead>
+                <tr class="table-header-background text-center">
+                    <th>Date</th>
+                    <th colspan="2">Departure from</th>
+                    <th colspan="2">Arrival at</th>
+                    <th colspan="6">Portfolio of the branch visited</th>
+                    <th colspan="3">Recovery</th>
+                    <th rowspan="4">No. of loan cases in which recovery suits have been filed in Banking Court by the branch</th>
+                </tr>
+                <tr class="table-header-background text-center">
+                    <th rowspan="2"></th>
+                    <th rowspan="2">Past Dues</th>
+                    <th rowspan="2">Current Dues</th>
+                    <th rowspan="2">Past Dues</th>
+                    <th rowspan="2">Current Dues</th>
+                    <th colspan="2">General</th>
+                    <th colspan="2">NPL's</th>
+                    <th colspan="2">Sam</th>
+                    <th rowspan="2">No. of Demand Notices issued by the branch</th>
+                    <th rowspan="2">No. of Legal Notices issued by the branch</th>
+                    <th rowspan="2">No. of Notices issued by the branch to SPA/Guarantors</th>
+                </tr>
+                <tr class="table-header-background text-center">
+                    <th>No.</th>
+                    <th>Amt.</th>
+                    <th>No.</th>
+                    <th>Amt.</th>
+                    <th>No.</th>
+                    <th>Amt.</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td rowspan="2"></td>
+                    <td rowspan="2"></td>
+                    <td rowspan="2"></td>
+                    <td rowspan="2"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-12">
+
+            <table class="table table-striped">
+                <thead>
+                <tr class="table-header-background text-center">
+                    <th rowspan="2">No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not been issued to borrowers</th>
+                    <th rowspan="2">Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour Plan </th>
+                    <th rowspan="2">Any short comings in Tour Diaries of MCOs/Branch Manager</th>
+                    <th rowspan="2">No. of zero recovery cases of the branch </th>
+                    <th colspan="2" >No. of loan cases where Reschedulement/Restructuring/write-off remission of mark-up done by the branch</th>
+                    <th rowspan="2">No. of Defaulters contacted by the Z.M (Rec. & SAM) </th>
+                    <th rowspan="2">Remarks</th>
+                </tr>
+                <tr class="table-header-background text-center">
+                    <th>Activity</th>
+                    <th>No.</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>Reschedulement</li>
+                            <li>Restructring of Installments</li>
+                            <li>RightOff/remission</li>
+                        </ul>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-12">
+
+            <table class="table table-striped">
+                <thead>
+                <tr class="table-header-background text-center">
+                    <th colspan="15">RECOVERY</th>
+                </tr>
+                </thead>
+                <thead>
+                <tr class="table-header-background text-center">
+                    <!-- UTILIZATIONS -->
+                    <th colspan="3">Amount in default up to the month under report (TARGET)</th>
+                    <th colspan="3">Recovery during the month under report </th>
+                    <th colspan="3">Balance Recoverable </th>
+                    <th colspan="3">Recovery during corresponding period </th>
+                    <th rowspan="2">Increase/Deficit  </th>
+                    <th colspan="2">Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
+                </tr>
+                <tr class="table-header-background text-center">
+                    <th>P.D.</th>
+                    <th>C.D.</th>
+                    <th>Total</th>
+                    <th>P.D.</th>
+                    <th>C.D.</th>
+                    <th>Total</th>
+                    <th>P.D.</th>
+                    <th>C.D.</th>
+                    <th>Total</th>
+                    <th>P.D.</th>
+                    <th>C.D.</th>
+                    <th>Total</th>
+                    <th>Activity</th>
+                    <th>No.</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>Reschedulement</li>
+                            <li>Restructring of Installments</li>
+                            <li>RightOff/remission</li>
+                        </ul>
+                    </td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-group kt-form__group row col-lg-12">
+
+            <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Name</mat-label>
+                    <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Designation</mat-label>
+                    <input matInput formControlName="Designation" autocomplete="off" readonly="readonly"/>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="Date" maxlength="30" autocomplete="off" [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly />
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+    </form>
+
+    <div class="form-group kt-form__group row mt-2 justify-content-center">
+        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    </div>
+
+
+    <!-- <div class="form-group kt-form__group row mt-2 justify-content-center" >
+      <button mat-raised-button color="primary" (click)="Add()">Add</button>
+    </div> -->
+
+</div>

@@ -1,0 +1,262 @@
+<div id="Kt-portlet-margin-top">
+    <div class="kt-portlet">
+        <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
+        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+            <div class="text-4xl font-extrabold tracking-tight">Set Target</div>
+        </div>
+    </div>
+
+
+    <form [formGroup]="gridForm" class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b">
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <div class="col-lg-4 kt-margin-bottom-20-mobile">
+<!--                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--                    <mat-label class="customMatLabel">MCO's Name</mat-label>-->
+<!--                    <input matInput formControlName="McoName" autocomplete="off" readonly="readonly"/>-->
+<!--                </mat-form-field>-->
+
+                <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
+                    <mat-label class="customMatLabel">MCO's Name <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Enter Zone" formControlName="McoName" readonly="readonly" maxlength="30" autocomplete="off" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 kt-margin-bottom-20-mobile">
+<!--                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--                    <mat-label class="customMatLabel">P.P.NO</mat-label>-->
+<!--                    <input matInput formControlName="PPNO" autocomplete="off" readonly="readonly"/>-->
+<!--                </mat-form-field>-->
+                <mat-form-field class="mat-form-field-fluid  mr-4" appearance="outline">
+                    <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Enter Branch" formControlName="PPNO" readonly="readonly" maxlength="30" autocomplete="off" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 kt-margin-bottom-20-mobile">
+<!--                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--                    <mat-label class="customMatLabel">Month</mat-label>-->
+<!--                    <input matInput formControlName="Month" autocomplete="off" readonly="readonly"/>-->
+<!--                </mat-form-field>-->
+                <mat-form-field class="mat-form-field-fluid  mr-4" appearance="outline">
+                    <mat-label class="customMatLabel">Month<strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Enter Branch" formControlName="Month" readonly="readonly" maxlength="30" autocomplete="off" />
+                </mat-form-field>
+            </div>
+
+        </div>
+
+    </form>
+
+
+    <!-- <div class="form-group kt-form__group row mt-2 justify-content-center" >
+      <button mat-raised-button color="primary" (click)="Add()">Add</button>
+    </div> -->
+
+    <div class="col-lg-12">
+
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-header-background text-center">
+                <th rowspan="2">Date</th>
+                <th colspan="2">Departure from</th>
+                <th colspan="2">Arrival at</th>
+                <th colspan="6">Disbursements</th>
+                <th rowspan="2">No. of sanctioned mutations verified</th>
+                <th rowspan="2">No. of utilizations checked</th>
+                <th colspan="4">Recovery</th>
+                <th colspan="2">TRANSFER OF TECHNOLOGY</th>
+                <th rowspan="2">Any other work done</th>
+                <th rowspan="2">Remarks</th>
+            </tr>
+            <tr class="table-header-background text-center">
+                <th>Past Dues</th>
+                <th>Current Dues</th>
+                <th>Past Dues</th>
+                <th>Current Dues</th>
+                <th>No.of cases received/ entertained</th>
+                <th>No. of cases appraised</th>
+                <th>No. of cases in which original revenue record verified</th>
+                <th>No. of cases sanctioned if authorized</th>
+                <th>No. of sanction letters delivered</th>
+                <th>No. of supply orders delivered</th>
+                <th>No. of demand notices delivered </th>
+                <th>No. of legal notices delivered</th>
+                <th>No. of defauters contacted</th>
+                <th>Amount recovered (Daily)</th>
+                <th>Progressive farmers contacted</th>
+                <th>No. of farms visited</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-12">
+
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-header-background text-center">
+                <th colspan="6">Disbursements</th>
+                <th colspan="5">Mutations</th>
+            </tr>
+            </thead>
+            <thead>
+            <tr class="table-header-background text-center">
+                <!-- Disbursements -->
+                <th>Annual Target</th>
+                <th>Proportionate Target upto the end of month under report</th>
+                <th>Total Disbursement upto the end of previous month</th>
+                <th>Disburse-ment during the month under report</th>
+                <th>Total Disbursement upto the end of the month under report </th>
+                <th>Increase/Deficit</th>
+                <!-- Mutations -->
+                <th>No. of Mutations pending as on the previous month</th>
+                <th>No. of disbursed cases during the month</th>
+                <th>Total No. of mutations to be verified</th>
+                <th>Mutation verified during the month</th>
+                <th>Pending for verification </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-12">
+
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-header-background text-center">
+                <th colspan="5">UTILIZATIONS</th>
+                <th colspan="12">RECOVERY</th>
+            </tr>
+            </thead>
+            <thead>
+            <tr class="table-header-background text-center">
+                <!-- UTILIZATIONS -->
+                <th rowspan="4">No. of utilizations pending as on last date of the previous month</th>
+                <th rowspan="4">No. of cases disbursed during the month </th>
+                <th rowspan="4">Total No. of utilizations to be verified</th>
+                <th rowspan="4">Utilization verified during the month</th>
+                <th rowspan="4">Pending cases checking of utilization </th>
+                <!-- RECOVERY -->
+                <th colspan="4">Amount in default upto the month under Report (Target)</th>
+                <th colspan="4">Recovery during the month under Report.</th>
+                <th colspan="4">Balance Recoverable</th>
+            </tr>
+            <tr class="table-header-background text-center">
+                <th colspan="2">Past Dues</th>
+                <th colspan="2">Current Dues</th>
+                <th colspan="2">Past Dues</th>
+                <th colspan="2">Current Dues</th>
+                <th colspan="2">Past Dues</th>
+                <th colspan="2">Current Dues</th>
+            </tr>
+            <tr class="table-header-background text-center">
+                <th>No.</th>
+                <th>Amount</th>
+                <th>No.</th>
+                <th>Amount</th>
+                <th>No.</th>
+                <th>Amount</th>
+                <th>No.</th>
+                <th>Amount</th>
+                <th>No.</th>
+                <th>Amount</th>
+                <th>No.</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- <div class="form-group kt-form__group row mt-2 justify-content-center" *ngIf="onAdd">
+        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+      </div> -->
+
+</div>
