@@ -53,81 +53,75 @@
         </div>
     </div>
 
-    <mat-paginator #paginator
-                   [length]="totalRows | async"
-                   [pageIndex]="0"
-                   [pageSize]="10"
-                   [pageSizeOptions]="[5, 10, 25, 100]"
-    ></mat-paginator>
-
+    <section matSort class="mat-elevation-z2 mat-header-row">
+        <span class="mat-header-cell" mat-sort-header="Id" style="width: 10px;">ID</span>
+        <span class="mat-header-cell" mat-sort-header="TransactionId">Transaction ID</span>
+        <span class="mat-header-cell" mat-sort-header="ApiName">API Name</span>
+        <span class="mat-header-cell" mat-sort-header="CallDateTime">Call Date Time</span>
+        <span class="mat-header-cell" mat-sort-header="ResponseDateTime">Response Date Time</span>
+        <span class="mat-header-cell" mat-sort-header="ResponseDateTime">Total Time Taken</span>
+        <span class="mat-header-cell" mat-sort-header="View">View</span>
+    </section>
     <mat-accordion displayMode="flat" multi class="mat-table" style="overflow-y:scroll;">
-        <section matSort class="mat-elevation-z2 mat-header-row">
-            <span class="mat-header-cell" mat-sort-header="Id">ID</span>
-            <span class="mat-header-cell" mat-sort-header="TransactionId">Transaction ID</span>
-            <span class="mat-header-cell" mat-sort-header="ApiName">API Name</span>
-            <span class="mat-header-cell" mat-sort-header="CallDateTime">Call Date Time</span>
-            <span class="mat-header-cell" mat-sort-header="ResponseDateTime">Response Date Time</span>
-            <span class="mat-header-cell" mat-sort-header="View">View</span>
-        </section>
 
-        <mat-expansion-panel *ngFor="let item of displayedRows | async" style="padding: 2%"
+
+        <mat-expansion-panel *ngFor="let item of displayedRows$ |async"
                              (click)="fetch3rdAPI($event,item)">
             <mat-expansion-panel-header class="mat-row">
-                <span class="mat-cell">{{item.Id}}</span>
-                <span class="mat-cell">{{item.TransactionId}}</span>
-                <span class="mat-cell">{{item.APIName}}</span>
-                <span class="mat-cell">{{item.CallDateTime}}</span>
-                <span class="mat-cell">{{item.ResponseDateTime}}</span>
+                <span class="mat-cell" style="width: 10px;">{{item?.Id}}</span>
+                <span class="mat-cell">{{item?.TransactionId}}</span>
+                <span class="mat-cell">{{item?.APIName}}</span>
+                <span class="mat-cell">{{item?.CallDateTime}}</span>
+                <span class="mat-cell">{{item?.ResponseDateTime}}</span>
+                <span class="mat-cell">{{item?.TotalTimeTaken}}</span>
                 <span class="mat-cell">
                     <button mat-icon-button color="primary" (click)="viewRequestResponse($event,item)">
                                             <mat-icon title="View">visibility</mat-icon>
                                         </button>
                 </span>
             </mat-expansion-panel-header>
-            <div>
-                <div class="custom-accordion" *ngFor="let activity of third_party_apis;let i=index">
-                    <div class="custom-accordion-head" (click)="toggleAccordion($event,i,activity)"
-                         style="cursor: pointer">
-                        <div class="custom-padding">
-                            <h3>
-                                {{activity.APIName}}
-                            </h3>
-                        </div>
-
-                        <div class="custom-padding">
-                            <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
-                                <mat-icon>expand_more</mat-icon>
-                            </button>
-                            <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
-                                <mat-icon>expand_less</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">
-                        {{third_party_apis_details | json}}
-                        <table class="table table-responsive" style="display: inline-table !important;">
-                            <thead class="thead-light">
-                            <tr>
-                                <th>API Name</th>
-                                <th>Request</th>
-                                <th>Response</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let child of third_party_apis_details">
-                                <td>{{child.APIName}}</td>
-                                <td>{{child.CallDateTime}}</td>
-                                <td>{{child.ResponseDateTime}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
+            <div *ngFor="let tp_item of third_party_apis">
+                <div class="custom-accordion-body">
+                    <table class="table table-responsive" style="display: inline-table !important;">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Transaction ID</th>
+                            <th>API Name</th>
+                            <th>Call Date Time</th>
+                            <th>Response Date Time</th>
+                            <th>Total Time Taken</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{tp_item?.Id}}</td>
+                            <td>{{tp_item?.TransactionId}}</td>
+                            <td>{{tp_item?.APIName}}</td>
+                            <td>{{tp_item?.CallDateTime}}</td>
+                            <td>{{tp_item?.ResponseDateTime}}</td>
+                            <td>{{tp_item?.TotalTimeTaken}}</td>
+                            <td>
+                                <button mat-icon-button color="primary"
+                                        (click)="viewRequestResponse($event,tp_item,true)">
+                                    <mat-icon title="View">visibility</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
         </mat-expansion-panel>
 
     </mat-accordion>
+
+    <mat-paginator #paginator
+                   [length]="totalRows$ | async"
+                   [pageIndex]="0"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+    ></mat-paginator>
 </div>
 

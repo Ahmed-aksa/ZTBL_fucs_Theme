@@ -73,22 +73,42 @@ export class ApilogDetailComponent implements OnInit {
 
         this.reportFilter.clear();
         this.reportFilter.Id = this.data.reportFilter.Id;
+
         this.spinner.show();
-        this._reportservice.getAPIRequestResponse(this.reportFilter)
-            .pipe(
-                finalize(() => {
-                    this.spinner.hide();
-                })
-            )
-            .subscribe((baseResponse: any) => {
+        if (!this.data.is_third) {
 
-                if (baseResponse.Success) {
+            this._reportservice.getAPIRequestResponse(this.reportFilter)
+                .pipe(
+                    finalize(() => {
+                        this.spinner.hide();
+                    })
+                )
+                .subscribe((baseResponse: any) => {
 
-                    this.RequestResponse = baseResponse.ActivityLog;
-                } else
-                    this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+                    if (baseResponse.Success) {
 
-            });
+                        this.RequestResponse = baseResponse.ActivityLog;
+                    } else
+                        this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+
+                });
+        } else {
+            this._reportservice.getThirdPartyRequestResponse(this.reportFilter)
+                .pipe(
+                    finalize(() => {
+                        this.spinner.hide();
+                    })
+                )
+                .subscribe((baseResponse: any) => {
+
+                    if (baseResponse.Success) {
+
+                        this.RequestResponse = baseResponse._3RdPartyAPILog;
+                    } else
+                        this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+
+                });
+        }
     }
 
 

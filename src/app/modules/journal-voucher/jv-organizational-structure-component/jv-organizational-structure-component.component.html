@@ -1,0 +1,48 @@
+<div id="Kt-portlet-margin-top">
+    <div class="kt-portlet">
+        <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
+        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Organization</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="orgDiv">
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                <button mat-icon-button disabled></button>
+                <mat-checkbox class="checklist-leaf-node"
+                              [checked]="checklistSelection.isSelected(node)"
+                              (change)="todoLeafItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+            </mat-tree-node>
+
+            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                <button mat-icon-button matTreeNodeToggle
+                        [attr.aria-label]="'Toggle ' + node.item">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                </button>
+                <mat-checkbox
+                    [checked]="descendantsAllSelected(node)"
+                    [indeterminate]="descendantsPartiallySelected(node)"
+                    (change)="todoItemSelectionToggle(node)"
+                >{{node.item}}</mat-checkbox>
+                <mat-progress-bar *ngIf="node.isLoading"
+                                  mode="indeterminate"
+                                  class="example-tree-progress-bar"></mat-progress-bar>
+            </mat-tree-node>
+        </mat-tree>
+
+    </div>
+
+
+    <div class="form-group kt-form__group row">
+        <div class="col-lg-11 kt-margin-bottom-20-mobile mat-table">
+            <button mat-raised-button color="primary" class="pull-right org-button" (click)="onSelect()">Select</button>
+            <button mat-raised-button color="primary" class="pull-right org-button" (click)="close(0)">Close</button>
+        </div>
+    </div>
+</div>
+

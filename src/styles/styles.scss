@@ -2,8 +2,11 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 82c52c77fb846c16ecbcbdffac76a34e06ad6b89
 body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-primary, body.light .mat-fab.mat-primary, body.light .mat-mini-fab.mat-primary, body .light .mat-flat-button.mat-primary, body .light .mat-raised-button.mat-primary, body .light .mat-fab.mat-primary, body .light .mat-mini-fab.mat-primary {
     background-color: #ECBD00;
 }
@@ -25,6 +28,10 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
   
   /* Track */
   ::-webkit-scrollbar-track {
+<<<<<<< HEAD
+=======
+    box-shadow: inset 0 0 5px grey; 
+>>>>>>> 82c52c77fb846c16ecbcbdffac76a34e06ad6b89
     border-radius: 32px;
   }
    
@@ -37,5 +44,9 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #01671B; 
+<<<<<<< HEAD
   }
 >>>>>>> Stashed changes
+=======
+  }
+>>>>>>> 82c52c77fb846c16ecbcbdffac76a34e06ad6b89

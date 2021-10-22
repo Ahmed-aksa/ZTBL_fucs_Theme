@@ -19,7 +19,6 @@ export class CircleService {
     public request = new BaseRequestModel();
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
-        console.log(this.userUtilsService.getUserDetails())
     }
 
 

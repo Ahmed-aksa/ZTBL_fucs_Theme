@@ -12,7 +12,7 @@ import {
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {LayoutUtilsService, MessageType} from 'app/shared/services/layout-utils.service';
+import {LayoutUtilsService, MessageType} from 'app/shared/services/layout_utils.service';
 import {ActivityService} from '../activity.serivce';
 import {Activity, Profile} from '../activity.model';
 import {finalize} from 'rxjs/operators';
@@ -95,7 +95,7 @@ export class ActivityListComponent implements OnInit {
     }
 
     addActivity() {
-        
+
         const newActivity = new Activity();
         newActivity.clear(); // Set all defaults fields
         this.editActivity(newActivity);
