@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JvFormComponent } from './jv-form.component';
+import { AddressLocationComponent } from './address-location.component';
 
-describe('JvFormComponent', () => {
-  let component: JvFormComponent;
-  let fixture: ComponentFixture<JvFormComponent>;
+describe('AddressLocationComponent', () => {
+  let component: AddressLocationComponent;
+  let fixture: ComponentFixture<AddressLocationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JvFormComponent ]
+      declarations: [ AddressLocationComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JvFormComponent);
+    fixture = TestBed.createComponent(AddressLocationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
