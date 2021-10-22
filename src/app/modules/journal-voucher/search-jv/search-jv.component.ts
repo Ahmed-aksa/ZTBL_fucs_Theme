@@ -148,7 +148,7 @@ export class SearchJvComponent implements OnInit {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
                 let dateString = String(new Date());
-                dateString = this.datePipe.transform(dateString, 'yyMMdd');
+                dateString = this.datePipe.transform(dateString, 'ddMMyyyy');
                 var day = parseInt(dateString?.substring(0, 2));
                 var month = parseInt(dateString?.substring(2, 4));
                 var year = parseInt(dateString?.substring(4, 8));
@@ -244,7 +244,7 @@ export class SearchJvComponent implements OnInit {
         }
         this.JournalVoucher = Object.assign(this.JournalVoucher, status);
 
-        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate)
+        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate, branch, zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
