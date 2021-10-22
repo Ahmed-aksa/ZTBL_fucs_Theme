@@ -98,14 +98,11 @@ export class SearchRecoveryCommonComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private layoutUtilsService: LayoutUtilsService,
-    private ktDialogService: KtDialogService,
     private _lovService: LovService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private userUtilsService: UserUtilsService,
     private cdRef: ChangeDetectorRef,
-    private datePipe: DatePipe,
-    private _common: CommonService,
     private _recoveryService: RecoveryService,
     private spinner: NgxSpinnerService,
   ) {
@@ -120,13 +117,17 @@ export class SearchRecoveryCommonComponent implements OnInit {
     this.recoveryTypes.push({ id: 2, name: 'Inter Branch Recovery' });
     this.recoveryTypes.push({ id: 3, name: 'SBS Recovery' });
     this.recoveryTypes.push({ id: 4, name: 'SBS Inter Branch Recovery' });
-
-    debugger;
     var userInfo = this.userUtilsService.getUserDetails();
-    let dateString = userInfo.Branch.WorkingDate;
-    var day = parseInt(dateString.substring(0, 2));
-    var month = parseInt(dateString.substring(2, 4));
-    var year = parseInt(dateString.substring(4, 8));
+    let dateString = userInfo?.Branch?.WorkingDate;
+    var day = 0;
+    var month = 0;
+    var year = 0;
+    if (dateString) {
+       day = parseInt(dateString.substring(0, 2));
+       month = parseInt(dateString.substring(2, 4));
+       year = parseInt(dateString.substring(4, 8));  
+    }
+    
 
     const branchWorkingDate = new Date(year, month - 1, day);
     this.RecoveryForm.controls.TransactionDate.setValue(branchWorkingDate);

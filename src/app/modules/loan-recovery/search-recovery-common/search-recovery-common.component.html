@@ -1,158 +1,157 @@
-<div id="Kt-portlet-margin-top">
-  <div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
-    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-      <div class="kt-portlet__head-label">
-        <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
-      </div>
-    </div>
-    <div>
-      <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
-        <div class="kt-form">
-          <div class="kt-portlet__body">
-            <div class="kt-portlet__body-progress">
-              <mat-spinner [diameter]="20"></mat-spinner>
-            </div>
-            <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
-              Please enter valid Input
-            </kt-alert>
 
-            <div class="row" *ngIf="SearchType==1">
-              <div class="col-lg-12">
-                <div class="form-group kt-form__group row">
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                      <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong></mat-label>
-                      <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="30" autocomplete="off" [max]="maxDate" appNumberOnly />
-                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                      <mat-datepicker #picker2></mat-datepicker>
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <div class="text-4xl font-extrabold tracking-tight">{{getTitle()}}</div>
 
-                      <mat-error *ngIf="hasError('TransactionDate', 'required')">Transaction Date <strong>required</strong></mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                      <mat-label class="customMatLabel">LC # <strong class="matMandatory">*</strong></mat-label>
-                      <input matInput placeholder="LC No" formControlName="LoanCaseNo" maxlength="30" autocomplete="off" appNumberOnly />
-                      <mat-error *ngIf="hasError('LoanCaseNo', 'required')">LC No <strong>required</strong></mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                      <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
-                      <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off" appNumberOnly />
-                      <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No <strong>required</strong></mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                      <mat-label class="customMatLabel">Instrument # <strong class="matMandatory">*</strong></mat-label>
-                      <input matInput placeholder="Instrument #" formControlName="InstrumentNO" maxlength="30" autocomplete="off" appNumberOnly />
-                      <mat-error *ngIf="hasError('InstrumentNO', 'required')">Instrument # <strong>required</strong></mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                      <mat-label>Select Status</mat-label>
-                      <mat-select formControlName="Status" (selectionChange)="change()">
-                        <mat-option *ngFor="let status of CustomerStatuses" [value]="status.Value">
-                          {{status.Name}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-lg-2 " style="margin-top:5px;">
-                    <button class="btn btn-secondary mt-19 kt-login__btn-primary btn-block" color="primary" type="button" (click)="find()"><span><i class="fa fa-search"> &nbsp;</i> Find</span></button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="form-group kt-form__group row" *ngIf="dataFetched && RecoveryLoanTransaction.length>0">
-              <div class="col-lg-12">
-                <div class="table-responsive" style="overflow-x: hidden;">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr class="table-header-background">
-                        <th>Branch</th>
-                        <th>Voucher #</th>
-                        <th>Transaction Date</th>
-                        <th>LC #</th>
-                        <th>Tran Master</th>
-                        <th>Debit</th>
-                        <th>Credit</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let transaction of RecoveryLoanTransaction | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
-                        <td>{{transaction.UserBranchName}}</td>
-                        <td>{{transaction.VoucherNo}}</td>
-                        <td>{{transaction.EffectiveDate}}</td>
-                        <td>{{transaction.LoanCaseNo}}</td>
-                        <td>{{transaction.Remarks}}</td>
-                        <td>{{transaction.DrAmount}}</td>
-                        <td>{{transaction.CrAmount}}</td>
-                        <td>{{transaction.StatusName}}</td>
-                        <td>
-                          <button *ngIf="isShowEditIcon(transaction.TransactionStatus,transaction.CircleID) && SearchType!=1" (click)="editLoadTransaction(transaction.TransactionID,transaction.LoanCaseNo,false)" mat-icon-button color="primary">
-                            <mat-icon title="Edit">create</mat-icon>
-                          </button>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <button *ngIf="!searchSBS" (click)="editLoadTransaction(transaction.TransactionID,transaction.LoanCaseNo,true)" mat-icon-button color="primary">
-                            <mat-icon style="margin-left: 2px;" title="View Recovery">visibility</mat-icon>
-                          </button>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <button *ngIf="searchSBS" (click)="submit(transaction.TransactionID,transaction.DisbursementID,transaction.BranchWorkingDate,transaction.EffectiveDate)" mat-icon-button color="primary">
-                            <mat-icon style="margin-left: 2px;" title="Submit">save_alt</mat-icon>
-                          </button>&nbsp;
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <button *ngIf="searchSBS" (click)="delete(transaction.TransactionID)" mat-icon-button color="primary">
-                            <mat-icon style="margin-left: 2px;" title="Cancel">cancel_presentation</mat-icon>
-                          </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                          <button *ngIf="showReceiptIcon(transaction)" (click)="showReceipt(transaction)" mat-icon-button color="primary">
-                            <mat-icon style="margin-left: 2px;" title="View Receipt">receipt</mat-icon>
-                          </button>&nbsp;
-
-                        </td>
-
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div *ngIf="MatTableLenght" class="mat-select" style="padding:5px;">
-                    Items per page:
-                    <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginateAs(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-                      <mat-option [value]="10">10</mat-option>
-                      <mat-option [value]="20">20</mat-option>
-                      <mat-option [value]="40">40</mat-option>
-                      <mat-option [value]="60">60</mat-option>
-                      <mat-option [value]="80">80</mat-option>
-                    </mat-select>
-                    <button (click)="paginateAs(1)">First</button>
-                    <pagination-controls display="inline" (pageChange)="paginateAs($event)" style="display: inline-block;"></pagination-controls>
-                    <button (click)="paginateAs(Math.ceil(totalItems/itemsPerPage))">Last</button>
-                    <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
-            
-                </div>
-
-                </div>
-              </div>
-            </div>
-            
-            <div class="form-group kt-form__group row" *ngIf="dataFetched && RecoveryLoanTransaction.length==0 && !submitted">
-              <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table">
-
-                <h4>No Record found.</h4>
-              </div>
-            </div>
-            
+  <!-- Header -->
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+    style="flex-wrap: wrap">
+  </div>
+  <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+    <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
+      <div class="kt-form">
+        <div class="kt-portlet__body">
+          <div class="kt-portlet__body-progress">
           </div>
+          <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
+            Please enter valid Input
+          </kt-alert>
+
+          <div class="row" *ngIf="SearchType==1">
+            <div class="col-lg-12">
+              <div class="form-group kt-form__group row">
+                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="30" autocomplete="off" [max]="maxDate" appNumberOnly />
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+
+                    <mat-error *ngIf="hasError('TransactionDate', 'required')">Transaction Date <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">LC # <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="LC No" formControlName="LoanCaseNo" maxlength="30" autocomplete="off" appNumberOnly />
+                    <mat-error *ngIf="hasError('LoanCaseNo', 'required')">LC No <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off" appNumberOnly />
+                    <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Instrument # <strong class="matMandatory">*</strong></mat-label>
+                    <input matInput placeholder="Instrument #" formControlName="InstrumentNO" maxlength="30" autocomplete="off" appNumberOnly />
+                    <mat-error *ngIf="hasError('InstrumentNO', 'required')">Instrument # <strong>required</strong></mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Select Status</mat-label>
+                    <mat-select formControlName="Status" (selectionChange)="change()">
+                      <mat-option *ngFor="let status of CustomerStatuses" [value]="status.Value">
+                        {{status.Name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-2 " style="margin-top:5px;">
+                  <button class="btn btn-secondary mt-19 kt-login__btn-primary btn-block" color="primary" type="button" (click)="find()"><span><i class="fa fa-search"> &nbsp;</i> Find</span></button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-group kt-form__group row" *ngIf="dataFetched && RecoveryLoanTransaction.length>0">
+            <div class="col-lg-12">
+              <div class="table-responsive" style="overflow-x: hidden;">
+                <table class="table table-striped">
+                  <thead>
+                    <tr class="table-header-background">
+                      <th>Branch</th>
+                      <th>Voucher #</th>
+                      <th>Transaction Date</th>
+                      <th>LC #</th>
+                      <th>Tran Master</th>
+                      <th>Debit</th>
+                      <th>Credit</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let transaction of RecoveryLoanTransaction | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
+                      <td>{{transaction.UserBranchName}}</td>
+                      <td>{{transaction.VoucherNo}}</td>
+                      <td>{{transaction.EffectiveDate}}</td>
+                      <td>{{transaction.LoanCaseNo}}</td>
+                      <td>{{transaction.Remarks}}</td>
+                      <td>{{transaction.DrAmount}}</td>
+                      <td>{{transaction.CrAmount}}</td>
+                      <td>{{transaction.StatusName}}</td>
+                      <td>
+                        <button *ngIf="isShowEditIcon(transaction.TransactionStatus,transaction.CircleID) && SearchType!=1" (click)="editLoadTransaction(transaction.TransactionID,transaction.LoanCaseNo,false)" mat-icon-button color="primary">
+                          <mat-icon title="Edit">create</mat-icon>
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button *ngIf="!searchSBS" (click)="editLoadTransaction(transaction.TransactionID,transaction.LoanCaseNo,true)" mat-icon-button color="primary">
+                          <mat-icon style="margin-left: 2px;" title="View Recovery">visibility</mat-icon>
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button *ngIf="searchSBS" (click)="submit(transaction.TransactionID,transaction.DisbursementID,transaction.BranchWorkingDate,transaction.EffectiveDate)" mat-icon-button color="primary">
+                          <mat-icon style="margin-left: 2px;" title="Submit">save_alt</mat-icon>
+                        </button>&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button *ngIf="searchSBS" (click)="delete(transaction.TransactionID)" mat-icon-button color="primary">
+                          <mat-icon style="margin-left: 2px;" title="Cancel">cancel_presentation</mat-icon>
+                        </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button *ngIf="showReceiptIcon(transaction)" (click)="showReceipt(transaction)" mat-icon-button color="primary">
+                          <mat-icon style="margin-left: 2px;" title="View Receipt">receipt</mat-icon>
+                        </button>&nbsp;
+
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="MatTableLenght" class="mat-select" style="padding:5px;">
+                  Items per page:
+                  <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginateAs(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="20">20</mat-option>
+                    <mat-option [value]="40">40</mat-option>
+                    <mat-option [value]="60">60</mat-option>
+                    <mat-option [value]="80">80</mat-option>
+                  </mat-select>
+                  <button (click)="paginateAs(1)">First</button>
+                  <pagination-controls display="inline" (pageChange)="paginateAs($event)" style="display: inline-block;"></pagination-controls>
+                  <button (click)="paginateAs(Math.ceil(totalItems/itemsPerPage))">Last</button>
+                  <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+          
+              </div>
+
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group kt-form__group row" *ngIf="dataFetched && RecoveryLoanTransaction.length==0 && !submitted">
+            <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table">
+
+              <h4>No Record found.</h4>
+            </div>
+          </div>
+          
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 
 </div>

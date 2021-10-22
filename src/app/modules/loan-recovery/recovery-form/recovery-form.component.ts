@@ -175,13 +175,12 @@ export class RecoveryFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    //debugger;
-    //this.spinner.show();
+    this.spinner.show();
     this.searchFilterCtrlCoordinator.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.filterCoordinator();
-      });
+    .pipe(takeUntil(this._onDestroy))
+    .subscribe(() => {
+      this.filterCoordinator();
+    });
 
     if (this.viewOnly == undefined)
       this.transactionEdit = false;
@@ -233,9 +232,9 @@ export class RecoveryFormComponent implements OnInit {
 
     this.branchId = parseInt(userInfo?.Branch?.BranchId);
     this.branchCode = parseInt(userInfo?.Branch?.BranchCode);
-    this.RecoveryForm.controls.Zone.setValue(userInfo?.Zone.ZoneName);
+    this.RecoveryForm.controls.Zone.setValue(userInfo?.Zone?.ZoneName);
     this.RecoveryForm.controls.Branch.setValue(userInfo?.Branch?.Name);
-    this.RecoveryForm.controls.BranchWorkingDate.setValue(userInfo.Branch.WorkingDate);
+    this.RecoveryForm.controls.BranchWorkingDate.setValue(userInfo?.Branch?.WorkingDate);
     this.RecoveryForm.controls.RecoveryType.setValue(this.RecoveryType);
     if (this.RecoveryType == RecoveryTypes.Recovery || this.RecoveryType == RecoveryTypes.InterBranchRecovery)
       this.isSbsRecovery = true;
@@ -270,7 +269,9 @@ export class RecoveryFormComponent implements OnInit {
     if (this.lcno != undefined && this.lcno != null && this.lcno != "")
       this.getTransactiondetailByID();
   }
-
+  ngAfterViewInit() {
+    this.spinner.hide();
+  }
   private filterCoordinator() {
     let search = this.searchFilterCtrlCoordinator.value;
     this.Coordinators = this.AllCoordinators;
@@ -579,13 +580,13 @@ export class RecoveryFormComponent implements OnInit {
   }
 
   getTransactiondetailByID() {
-    //this.spinner.show();
+    this.spinner.show();
     this._recoveryService
       .getTransactiondetailByID(this.RecoveryForm.controls.TransactionID.value, this.RecoveryForm.controls.LoanCaseNo.value)
       .pipe(
         finalize(() => {
           this.submitted = false;
-          //this.spinner.hide();
+          this.spinner.hide();
         })
       )
       .subscribe((baseResponse: BaseResponseModel) => {
