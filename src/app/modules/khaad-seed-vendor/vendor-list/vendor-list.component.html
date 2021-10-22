@@ -1,9 +1,9 @@
 <div>
-    <div class="text-4xl font-extrabold tracking-tight">Advance Search for Reschedule Cases</div>
+    <div class="text-4xl font-extrabold tracking-tight">List of Vendors</div>
 
     <!-- Header -->
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
-         style="flex-wrap: wrap" [formGroup]="rcSearch">
+         style="flex-wrap: wrap" [formGroup]="listForm">
         <div
             class="absolute inset-x-0 bottom-0">
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
@@ -12,7 +12,7 @@
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
                 <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
                     <mat-option [value]="SelectedZones?.ZoneId">
                         {{SelectedZones?.ZoneName}}
                     </mat-option>
@@ -20,7 +20,7 @@
             </mat-form-field>
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
                 <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
                             (selectionChange)="changeZone($event)">
                     <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
                                 [disabled]="disable_zone">
@@ -36,7 +36,7 @@
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
                             (selectionChange)="changeBranch($event)"
                             *ngIf="!single_branch">
                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
@@ -44,7 +44,7 @@
                         {{branch?.Name}}
                     </mat-option>
                 </mat-select>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
                             *ngIf="single_branch">
                     <mat-option [value]="SelectedBranches?.BranchCode"
                     >
@@ -55,38 +55,56 @@
         </div>
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Transaction Date(ddMMyyyy)</mat-label>
-                <input matInput placeholder="Enter TrDate" formControlName="TrDate" maxlength="8" autocomplete="off" />
-            </mat-form-field>
-        </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Loan Case#</mat-label>
-                <input matInput placeholder="Enter Loan Case No" formControlName="Lcno"  maxlength="10" autocomplete="off" />
-            </mat-form-field>
-        </div>
+                <mat-label class="customMatLabel">Circle</mat-label>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Status</mat-label>
-                <mat-select formControlName="Status">
-                  <mat-option>
-                    <ngx-mat-select-search placeholderLabel="Search Loan Status..." (focusout)="validateLoanStatusOnFocusOut()" noEntriesFoundLabel="No Loan Status Found" (keyup)="searchLoanStatus($event.target.value)">
-                    </ngx-mat-select-search>
-                  </mat-option>
-                  <mat-option *ngFor="let loanStatus of SelectedLoanStatus" [value]="loanStatus.Id">
-                    {{loanStatus.Name }}
-                  </mat-option>
+                <mat-select [(ngModel)]="selected_c" formControlName="CircleId" [disabled]="disable_circle">
+                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                    >
+                        {{circle?.CircleCode}}
+                    </mat-option>
                 </mat-select>
-              </mat-form-field>
+            </mat-form-field>
         </div>
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <button mat-raised-button color="primary"
-                    type="button" (click)="find()"><span><i
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Vendor Type</mat-label>
+
+                <mat-select formControlName="Type">
+                    <mat-option *ngFor="let type of vendorLov" [value]="type.Value"
+                    >
+                        {{type.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Vendor Name</mat-label>
+                <input matInput placeholder="Vendor Name" formControlName="VendorName" maxlength="30"
+                       autocomplete="off" appNumberOnly/>
+            </mat-form-field>
+        </div>
+
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Vendor Phone Number</mat-label>
+                <input matInput placeholder="Vendor Phone Number" formControlName="PhoneNumber" maxlength="30"
+                       autocomplete="off" appNumberOnly/>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <button mat-raised-button color="accent"
+                    type="button" (click)="searchVendor()"><span><i
                 class="fa fa-search"> &nbsp;</i> Find</span></button>
         </div>
 
@@ -98,43 +116,52 @@
                    class="example-table"
                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
                 <!-- Number Column -->
+                <ng-container matColumnDef="Name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let vendor">{{vendor.Name}}</td>
+                </ng-container>
 
-                <ng-container matColumnDef="Branch">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Branch<th>
-                    <td mat-cell *matCellDef="let row">{{row.branch}}<td>
-                  </ng-container>
-                  <ng-container matColumnDef="TransactionDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Date<th>
-                    <td mat-cell *matCellDef="let row">{{row.transactionDate}}<td>
-                  </ng-container>
-                  <ng-container matColumnDef="LoanApp">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>LOAN APP #<th>
-                    <td mat-cell *matCellDef="let row">{{row.loanApp}}<td>
-                  </ng-container>
-                  <ng-container matColumnDef="GlDescription">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Gl description<th>
-                    <td mat-cell *matCellDef="let row">{{row.glDescription}}<td>
-                  </ng-container>
-          
-                  <ng-container matColumnDef="Status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status<th>
-                    <td mat-cell *matCellDef="let row">{{row.status}}<td>
-                  </ng-container>
-                  <ng-container matColumnDef="Scheme">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Scheme<th>
-                    <td mat-cell *matCellDef="let row">{{row.scheme}}<td>
-                  </ng-container>
-                  <ng-container matColumnDef="OldDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Old Due Date<th>
-                    <td mat-cell *matCellDef="let row">{{row.oldDate}}<td>
-                  </ng-container>
-          
-                  <ng-container matColumnDef="AcStatus">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>A/C Status<th>
-                    <td mat-cell *matCellDef="let row">{{row.acStatus}}<td>
-                  </ng-container>
+                <!-- Title Column -->
+                <ng-container matColumnDef="bDescription">
+                    <th mat-header-cell *matHeaderCellDef>Branch Code</th>
+                    <td mat-cell *matCellDef="let vendor">{{vendor.Description}}</td>
+                </ng-container>
 
-                
+                <!-- State Column -->
+                <ng-container matColumnDef="Address">
+                    <th mat-header-cell *matHeaderCellDef>Address</th>
+                    <td mat-cell *matCellDef="let vendor">{{vendor.Address}}</td>
+                </ng-container>
+
+                <!-- State Column -->
+                <ng-container matColumnDef="Type">
+                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                    <td mat-cell *matCellDef="let vendor">{{vendor.TypeName}}</td>
+                </ng-container>
+
+                <!-- State Column -->
+                <ng-container matColumnDef="Phone">
+                    <th mat-header-cell *matHeaderCellDef>Phone</th>
+                    <td mat-cell *matCellDef="let vendor">{{vendor.PhoneNumber}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let vendor">
+                        <button mat-icon-button color="primary" (click)="viewVendor(vendor)">
+                            <mat-icon title="View Vendor">visibility</mat-icon>
+                        </button>
+
+                        <button mat-icon-button color="primary" *ngIf="editDeleteStatus(vendor)" (click)="editVendor(vendor)">
+                            <mat-icon title="View Vendor">edit</mat-icon>
+                        </button>
+
+                        <button mat-icon-button color="primary" *ngIf="editDeleteStatus(vendor)" (click)="deleteVendor(vendor)">
+                            <mat-icon title="View Vendor">delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -148,6 +175,7 @@
                     <mat-option [value]="10">10</mat-option>
                     <mat-option [value]="25">25</mat-option>
                     <mat-option [value]="50">50</mat-option>
+                    <mat-option [value]="1000">1000</mat-option>
                 </mat-select>
                 <button (click)="paginate(1)">First</button>
                 <pagination-controls display="inline" (pageChange)="paginate($event)"

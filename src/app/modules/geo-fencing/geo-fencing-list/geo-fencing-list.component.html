@@ -1,10 +1,9 @@
-<div class=" px-6 pt-2 overflow-scroll sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
+<div class=" px-6 pt-2 container overflow-scroll sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
     <div class="text-4xl font-extrabold tracking-tight">List Geo Fencing</div>
 
     <!-- Header -->
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-2  border-b"
          style="flex-wrap: wrap" [formGroup]="listForm">
-
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -13,7 +12,6 @@
                        autocomplete="off"/>
             </mat-form-field>
         </div>
-
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
@@ -24,7 +22,6 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
                 <mat-label class="customMatLabel">Zone</mat-label>
                 <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
@@ -51,7 +48,6 @@
                         {{branch?.Name}}
                     </mat-option>
                 </mat-select>
-
                 <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
                             *ngIf="single_branch">
                     <mat-option [value]="SelectedBranches?.BranchCode"

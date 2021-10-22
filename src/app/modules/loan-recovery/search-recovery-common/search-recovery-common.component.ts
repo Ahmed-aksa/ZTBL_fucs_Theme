@@ -159,7 +159,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
   async loadLOV() {
 
     this.CustomerStatuses = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.CustomerStatus });
-    
+    debugger;
     this.CustomerStatuses = this.CustomerStatuses.LOVs;
     console.log('RecoveryStatus');
     console.log(this.CustomerStatuses);
@@ -181,7 +181,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
 
   find() {
 
-    
+    debugger
 
     var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
     var status = this.RecoveryForm.controls.Status.value;
@@ -210,7 +210,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
         })
       )
       .subscribe((baseResponse: BaseResponseModel) => {
-        
+        debugger
 
         if (baseResponse.Success === true) {
           this.MatTableLenght = true;
@@ -242,7 +242,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
   }
 
   paginateAs(pageIndex : any, pageSize: any = this.itemsPerPage){
-    
+    debugger
     this.itemsPerPage = pageSize;
       this.OffSet = (pageIndex -1) * this.itemsPerPage;
     this.pageIndex = pageIndex;
@@ -362,7 +362,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
   }
 
   showReceipt(transaction) {
-    
+    debugger
     var transactionID = transaction.TransactionID, DisbursementID = transaction.DisbursementID, BranchWorkingDate = transaction.BranchWorkingDate, receiptId = transaction.ReceiptId;
     
     
