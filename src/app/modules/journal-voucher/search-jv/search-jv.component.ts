@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {finalize} from 'rxjs/operators';
 import {LovService} from "../../../shared/services/lov.service";
@@ -23,6 +23,7 @@ import {LayoutUtilsService} from "../../../shared/services/layout-utils.service"
 import {CommonService} from "../../../shared/services/common.service";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-search-jv',
@@ -107,7 +108,8 @@ export class SearchJvComponent implements OnInit {
         private _recoveryService: RecoveryService,
         private spinner: NgxSpinnerService,
         private _circleService: CircleService,
-        private jv: JournalVoucherService
+        private jv: JournalVoucherService,
+        private toaster: ToastrService
     ) {
         this.Math = Math;
     }
@@ -146,6 +148,7 @@ export class SearchJvComponent implements OnInit {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
                 let dateString = String(new Date());
+                dateString = this.datePipe.transform(dateString, 'yyMMdd');
                 var day = parseInt(dateString?.substring(0, 2));
                 var month = parseInt(dateString?.substring(2, 4));
                 var year = parseInt(dateString?.substring(4, 8));
@@ -163,8 +166,7 @@ export class SearchJvComponent implements OnInit {
             });
 
         }
-        this.find();
-        this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
 
     getKeys(obj: any) {
@@ -185,9 +187,9 @@ export class SearchJvComponent implements OnInit {
 
     createForm() {
         this.JvSearchForm = this.formBuilder.group({
-            ZoneId: [''],
-            OrganizationUnit: [''],
-            TransactionDate: [''],
+            ZoneId: [null, Validators.required],
+            OrganizationUnit: [null, Validators.required],
+            TransactionDate: [null, Validators.required],
             Nature: [''],
             VoucherNo: [''],
             Status: [''],
@@ -201,10 +203,15 @@ export class SearchJvComponent implements OnInit {
 
 
     find() {
-        this.OffSet = 0;
-        this.pageIndex = 0;
-        this.dataSource.data = [];
-        this.SearchJvData();
+        if (this.JvSearchForm.invalid) {
+            this.toaster.error("Please Fill All required values");
+            console.log(this.JvSearchForm.value);
+        } else {
+            this.OffSet = 0;
+            this.pageIndex = 0;
+            this.dataSource.data = [];
+            this.SearchJvData();
+        }
     }
 
     SearchJvData() {
@@ -218,7 +225,16 @@ export class SearchJvComponent implements OnInit {
         var nature = this.JvSearchForm.controls.Nature.value;
         var manualVoucher = this.JvSearchForm.controls.VoucherNo.value;
         var trDate = this.datePipe.transform(this.JvSearchForm.controls.TransactionDate.value, 'ddMMyyyy');
-
+        let branch = null;
+        if (this.SelectedBranches.length)
+            branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
+        else
+            branch = this.SelectedBranches;
+        let zone = null;
+        if (this.SelectedZones.length)
+            zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+        else
+            zone = this.SelectedZones;
         if (status == '') {
             status = 'ALL';
         }
@@ -249,17 +265,13 @@ export class SearchJvComponent implements OnInit {
                     this.dv = this.dataSource.data;
                     this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
                     this.OffSet = this.pageIndex;
-                    this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    this.dataSource = this.dv?.slice(0, this.itemsPerPage);
+
                 } else {
 
                     this.matTableLenght = false;
-
-                    this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
-                    //this.dataSource.data = [];
-                    //this._cdf.detectChanges();
                     this.OffSet = 1;
                     this.pageIndex = 1;
-                    this.dv = this.dv.slice(1, 0);
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                 }
 
