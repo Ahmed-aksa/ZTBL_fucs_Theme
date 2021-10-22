@@ -1,0 +1,310 @@
+
+
+
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <div class="text-4xl font-extrabold tracking-tight">{{getTitle()}}</div>
+
+  <!-- Header -->
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+    style="flex-wrap: wrap">
+  </div>
+  <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+    <form [formGroup]="customerInfo" class="kt-form kt-form--group-seperator-dashed">
+      <div class="kt-form">
+        <div class="kt-portlet__body">
+          <div class="kt-portlet__body-progress">
+          </div>
+          <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
+            Please enter valid Input
+          </kt-alert>
+  
+          <!--Get Customer Info-->
+          <div [style.height]="gridHeight" *ngIf="NDCActionPerformSuccess">
+            <div class="form-group kt-form__group row">
+              <div class="col-lg-3 kt-margin-bottom-20-mobile">
+  
+              </div>
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input matInput placeholder="Enter cnic" formControlName="Cnic" maxlength="15" autocomplete="off" [mask]="maskEnums.cnic" [readonly]="checkEligibiltyCnic"/>
+                  <mat-error *ngIf="hasError('Cnic', 'required')">cnic <strong>required</strong></mat-error>
+                  <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>Cnic lenght invalid</strong></mat-error>
+                  <mat-hint align="left">Please enter cnic <strong>(3210412345678)</strong></mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <button color="primary" type="button" (click)="getCustomerInfo()" class="btn btn-secondary mt-1" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
+                  <span><i class="fa fa-check"> &nbsp;</i> Check Eligibility</span>
+                </button>
+              </div>
+            </div>
+            <div class="form-group kt-form__group row" *ngIf="NDCPerform">
+              <div class="col-lg-3 kt-margin-bottom-20-mobile">
+  
+              </div>
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <h5 style="color:blue;">NDC</h5>
+                <h6 [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</h6>
+              </div>
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <a *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank" mat-icon-button color="primary"><mat-icon title="view">pageview</mat-icon></a>
+              </div>
+            </div>
+  
+            <div class="form-group kt-form__group row" *ngIf="IsNdcDefaulter">
+              <div class="col-lg-3 kt-margin-bottom-20-mobile">
+  
+              </div>
+              <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                <h5 class="text-blue">Summary</h5>
+                <h5>Customer is not eligible due to following reasons</h5>
+                <table class="col-lg-6">
+                  <tbody>
+                    <tr>
+                      <td class="text-blue">BMVS/NIVS:</td>
+                      <td [ngClass]="{'text-red': BMVS_NIVS == 'Not Found'}">{{BMVS_NIVS}}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-blue">NDC:</td>
+                      <td style="color:red;">Defaulter</td>
+                    </tr>
+                    <tr>
+                      <td class="text-blue">ECIB:</td>
+                      <td>Not Checked</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+  
+          </div>
+          <!--BioMatric Case Perform-->
+          <div [style.height]="gridHeight" *ngIf="BiMatricCasePerfom">
+            <div class="form-group kt-form__group row">
+              <div class="col-lg-2 kt-margin-bottom-20-mobile">
+  
+              </div>
+              <div class="col-lg-8 kt-margin-bottom-20-mobile">
+                <div class="col-lg-12 text-center mt-1">
+                  <h5 style="text-align:center">Biometric Verification</h5>
+                </div>
+                <div class="col-lg-12 text-center">
+                  <span style="font-size: 14px !important; text-align:center">Please Place your fingertip on the scanner to verify your identity</span>
+                </div>
+                <div class="col-lg-12 text-center mt-1 mb-3">
+                  <img src="./assets/media/icons/capture.jpg" class="img-responsive center-block" alt="icon" />
+                </div>
+                <div class="col-lg-12 text-center mt-5 mb-3">
+                  <span style="font-size: 14px !important; text-align:center">Please place your finger on scanner</span>
+                </div>
+                <div class="col-lg-12 text-center">
+                  <button (click)="performBiomatric()" color="primary" type="button" class="btn btn-primary mt-19 kt-login__btn-primary" style="width:30%;">
+                    Capture
+                  </button>&nbsp;
+                  <button (click)="performBiomatric()" color="primary" type="button" class="btn btn-secondary mt-19 kt-login__btn-primary" style="width:30%;">
+                    Verify
+                  </button>
+                </div>
+              </div>
+              <div class="col-lg-2 kt-margin-bottom-20-mobile">
+  
+              </div>
+            </div>
+          </div>
+          <!--Biometric Credentials-->
+          <div [style.height]="gridHeight" *ngIf="BioMetricCapture">
+            <div class="form-group kt-form__group row">
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input matInput placeholder="Enter cnic" formControlName="Cnic" maxlength="30" autocomplete="off" [mask]="maskEnums.cnic" readonly />
+                  <mat-error *ngIf="hasError('Cnic', 'required')">cnic <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter cnic <strong>(32104-1234567-8)</strong></mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input matInput [matDatepicker]="picker" placeholder="Enter DOB" formControlName="Dob" autocomplete="off" readonly [max]="todayMax" readonly>
+  
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+  
+                  <mat-error *ngIf="hasError('Dob', 'required')">DOB <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter DOB <strong></strong></mat-hint>
+                </mat-form-field>
+              </div>
+  
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input matInput [matDatepicker]="picker1" placeholder="Enter cnic expiry" formControlName="CnicExpiry" maxlength="30" autocomplete="off" readonly [min]="todayMin" />
+  
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+  
+                  <mat-error *ngIf="hasError('CnicExpiry', 'required')">CnicExpiry <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter cnic expiry <strong></strong></mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class="form-group kt-form__group row">
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input matInput placeholder="Enter Customer Name" formControlName="CustomerName" maxlength="100" autocomplete="off" />
+                  <mat-error *ngIf="hasError('CustomerName', 'required')">Customer Name <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter Customer Name <strong></strong></mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input matInput placeholder="Enter Father Name" formControlName="FatherName" maxlength="100" autocomplete="off" />
+                  <mat-error *ngIf="hasError('FatherName', 'required')">Father Name <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter father name <strong></strong></mat-hint>
+                </mat-form-field>
+              </div>
+  
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input matInput placeholder="Current Address" formControlName="CurrentAddress" maxlength="200" autocomplete="off" />
+                  <mat-error *ngIf="hasError('CurrentAddress', 'required')">Current Address <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter address <strong></strong></mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+  
+          </div>
+          <!--CWR-->
+          <div [style.height]="gridHeight" *ngIf="BiometricCredentials">
+            <div class="form-group kt-form__group row">
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input readonly="readonly" matInput placeholder="Enter cnic" formControlName="Cnic" maxlength="30" autocomplete="off" [mask]="maskEnums.cnic" />
+                  <mat-error *ngIf="hasError('Cnic', 'required')">cnic <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter cnic <strong>(32104-1234567-8)</strong></mat-hint>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input [disabled]="true" readonly="readonly" matInput [matDatepicker]="picker" placeholder="Enter dob" formControlName="Dob" autocomplete="off" [max]="todayMax">
+  
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+  
+                  <mat-error *ngIf="hasError('Dob', 'required')">Dob <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter Dob <strong></strong></mat-hint>
+                </mat-form-field>
+              </div>
+  
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input readonly="readonly" matInput placeholder="Enter Customer Name" formControlName="CustomerName" maxlength="100" autocomplete="off" />
+                  <mat-error *ngIf="hasError('CustomerName', 'required')">Customer Name <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter Customer Name <strong></strong></mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class="form-group kt-form__group row">
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <input matInput placeholder="Current Address" formControlName="CurrentAddress" maxlength="200" autocomplete="off" />
+                  <mat-error *ngIf="hasError('CurrentAddress', 'required')">Address <strong>required</strong></mat-error>
+                  <mat-hint align="left">Please enter address <strong></strong></mat-hint>
+                </mat-form-field>
+              </div>
+  
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-label class="customMatLabel">Select Gender <strong class="matMandatory">*</strong></mat-label>
+                  <mat-select formControlName="Gender">
+                    <mat-option *ngFor="let obj of GenderLov.LOVs" [value]="obj.Value">
+                      {{obj.Name}}
+                    </mat-option>
+                  </mat-select>
+  
+                </mat-form-field>
+              </div>
+            </div>
+              
+          </div>
+  
+  
+          <!--ECIB-->
+          <!-- [style.height]="gridHeight"   not able to understand  -->
+          <div [style.height]="gridHeight" *ngIf="ECIBPerformForm">
+            <div class="form-group kt-form__group row">
+              <div class="col-lg-3 kt-margin-bottom-20-mobile">
+  
+              </div>
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <h5>ECIB</h5>
+                <h6 [ngClass]="{'text-red': IsEcibDefaulter == true, 'text-green': IsEcibDefaulter == false}">{{CustomerECIB.Message}}</h6>
+              </div>
+              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <a *ngIf="EcibLinkView"  href="{{Customer.ECIBPDFLink}}" target="_blank" mat-icon-button color="primary"><mat-icon title="view">pageview</mat-icon></a>
+                <span *ngIf="!EcibLinkView" class="text-red">No ECIB Record Available</span>
+              </div>
+            </div>
+            <div class="form-group kt-form__group row" *ngIf="IsEcibDefaulter">
+              <div class="col-lg-3 kt-margin-bottom-20-mobile">
+  
+              </div>
+              <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                <h5 class="text-blue">Summary</h5>
+                <h5>Customer is not eligible due to following reasons</h5>
+                <table class="col-lg-6">
+                  <tbody>
+                    <tr>
+                      <td class="text-blue">BMVS/NIVS:</td>
+                      <td [ngClass]="{'text-red': BMVS_NIVS == 'Not Found'}">{{BMVS_NIVS}}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-blue">NDC:</td>
+                      <td>Approved</td>
+                    </tr>
+                    <tr>
+                      <td class="text-blue">ECIB:</td>
+                      <td class="text-red">{{CustomerECIB.Message}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+          <!--For Process Next-->
+          <!--<div [style.height]="gridHeight" *ngIf="ECIBPerformSuccess">
+      <div class="form-group kt-form__group row">
+  
+      </div>
+  
+    </div>-->
+          <!--Actions Fields-->
+          <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
+            <div class="kt-form__actions kt-form__actions--solid">
+              <div class="row text-right">
+                <div class="col-lg-12">
+                  <button (click)="SubmitNdc()" *ngIf="NdcSubmit" color="primary" type="button" class="btn btn-primary mt-19 kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" style="width:30%;">
+                    <span><i class="fas fa-arrow-right"> &nbsp;</i> Next</span>
+                  </button>
+                  <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture" color="primary" type="button" class="btn btn-primary mt-19 kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" style="width:30%;">
+                    <span><i class="fas fa-arrow-right"> &nbsp;</i>Save & Next</span>
+                  </button>
+                  <button (click)="submitCWR()" [disabled]="submitCwrLoading" *ngIf="BiometricCredentials" color="primary" type="button" class="btn btn-primary mt-19 kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" style="width:30%;">
+                    <span><i class="fas fa-arrow-right"> &nbsp;</i>Next</span>
+                  </button>
+                  <button type="button" [disabled]="refreshEcibLoading" (click)="refreshEcib()" *ngIf="ECIBPerform" color="primary" class="btn btn-primary mt-19 kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" style="width:30%;">
+                    Refresh
+                  </button>
+                  <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess" color="primary" type="button" class="btn btn-primary mt-19 kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" style="width:30%;">
+                    <span><i class="fas fa-arrow-right"> &nbsp;</i>Next</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
