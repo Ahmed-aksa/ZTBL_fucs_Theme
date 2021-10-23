@@ -63,6 +63,7 @@ export class ReferbackDeceasedComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.dataSource =
                         baseResponse.DeceasedCustomer.DeceasedCustomerInfoList;
+                    debugger
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
