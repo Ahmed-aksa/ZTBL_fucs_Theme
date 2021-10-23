@@ -18,7 +18,7 @@ import {SharedModule} from "../../shared/shared.module";
 
 const routes = [
     {
-        path: 'deceased-customers',
+        path: 'customers',
         component: DeceasedCusComponent
     },
     {
@@ -26,7 +26,7 @@ const routes = [
         component: ReferbackDeceasedComponent
     },
     {
-        path: 'search-deceased',
+        path: 'search',
         component: SearchDeceasedComponent
     }
 ]

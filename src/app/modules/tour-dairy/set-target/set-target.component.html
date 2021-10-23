@@ -21,9 +21,11 @@
                 </button>
             </div>
 
-
+        </div>
         </div>
 
+        <div class="text-4xl font-extrabold tracking-tight">Targets</div>
+<!--        <div class="flex flex-auto overflow-hidden">-->
         <div *ngIf="ishidden" class="col-lg-12 mt-2">
 
             <div class="table-responsive">
@@ -32,37 +34,37 @@
                     <tr hidden class="table-header-background">
                         <th *ngFor="let k of rowKeys">{{ k }}</th>
                     </tr>
-                    <tr class="table-header-background">
+                    <tr  class="table-header-background">
                         <th *ngFor="let v of rowth">{{ v }}</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let row of targets; let rowIndex = index; trackBy: tracker">
+                    <tr  *ngFor="let row of targets; let rowIndex = index; trackBy: tracker">
                         <ng-container *ngFor="let key of rowKeys; trackBy: tracker">
                             <td *ngIf="key!='Id'">
                                 <div *ngIf="key=='Name'">
-                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <div class="mat-form-field-fluid" appearance="outline">
                                         <input matInput readonly disabled
                                                type="text"
                                                [attr.value]="row[key]"
-                                               (input)="onInputChanged($any($event.target).value, rowIndex, key)"
+                                               (input)="onInputChanged($event.target.value, rowIndex, key)"
                                         />
-                                    </mat-form-field>
+                                    </div>
                                 </div>
                                 <div *ngIf="key!='Name'">
-                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <div class="mat-form-field-fluid" appearance="outline">
                                         <input matInput (keypress)="numberOnly($event)"
                                                [attr.value]="row[key]"
-                                               (input)="onInputChanged($any($event.target).value, rowIndex, key)"
+                                               (input)="onInputChanged($event.target.value, rowIndex, key)"
                                         />
-                                    </mat-form-field>
+                                    </div>
                                 </div>
                             </td>
                         </ng-container>
                     </tr>
                     </tbody>
                     <thead>
-                    <tr class="table-header-background">
+                    <tr  class="table-header-background">
                         <th></th>
                         <th *ngFor="let len of totalLength">Total</th>
                     </tr>
@@ -87,7 +89,7 @@
 
             </div>
         </div>
-
+<!--        </div>-->
         <!--        </form>-->
 
 
@@ -97,5 +99,7 @@
                      type="ball-scale-multiple">
             <p style="font-size: 20px; color: white">Loading...</p>
         </ngx-spinner>
-    </div>
+
+
+
 </div>
