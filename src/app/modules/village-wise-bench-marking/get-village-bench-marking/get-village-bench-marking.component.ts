@@ -68,6 +68,15 @@ export class GetVillageBenchMarkingComponent implements OnInit {
   Circles: any = [];
   SelectedCircles: any = [];
 
+  disable_circle = true;
+  disable_zone = true;
+  disable_branch = true;
+  single_branch = true;
+  single_circle = true;
+  single_zone = true;
+
+  loaded = false;
+
   //dataSource = new MatTableDataSource();
   dataSource : MatTableDataSource<VillageBenchMark>
 
@@ -90,10 +99,11 @@ export class GetVillageBenchMarkingComponent implements OnInit {
     this.createForm();
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
-    if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
+    if (this.LoggedInUserInfo.Branch != null) {
       ;
       this.Circles = this.LoggedInUserInfo.UserCircleMappings;
       this.SelectedCircles = this.Circles;
+      this.disable_circle = false;
 
       this.Branches = this.LoggedInUserInfo.Branch;
       this.SelectedBranches = this.Branches;
@@ -109,7 +119,17 @@ export class GetVillageBenchMarkingComponent implements OnInit {
 
       this.getVillage.ZoneId = this.getVillageBenchmarkForm.controls.Zone.value;
       this.getVillage.BranchCode = this.getVillageBenchmarkForm.controls.Branch.value;
-    }
+    }else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+      this.spinner.show();
+
+      this.userUtilsService.getZone().subscribe((data: any) => {
+          this.Zone = data.Zones;
+          this.SelectedZones = this.Zone;
+          this.single_zone = false;
+          this.disable_zone = false;
+          this.spinner.hide();
+
+      });}
 
     this.search()
 
@@ -129,6 +149,7 @@ export class GetVillageBenchMarkingComponent implements OnInit {
   }
 
   search() {
+    this.loaded = false;
     this.Limit = this.itemsPerPage;
 
     this.getVillage.ZoneId = this.getVillageBenchmarkForm.controls.Zone.value;
@@ -151,6 +172,7 @@ export class GetVillageBenchMarkingComponent implements OnInit {
     this._villageBenchmark.getVillageBenchMark(this.Limit, this.Offset, this.getVillage)
     .pipe(
       finalize(() => {
+      this.loaded = true;
       this.spinner.hide();
     })
     )
