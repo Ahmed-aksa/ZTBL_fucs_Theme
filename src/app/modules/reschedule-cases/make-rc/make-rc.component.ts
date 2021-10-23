@@ -79,6 +79,10 @@ export class MakeRcComponent implements OnInit {
 
     single_branch = true;
     single_zone = true;
+
+
+    final_branch: any;
+    final_zone: any;
     public LnAppSanctionID: string;
     loanReschID: string;
 
@@ -142,25 +146,35 @@ export class MakeRcComponent implements OnInit {
 
     ngOnInit() {
 
-
-        this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
-
-        //-------------------------------Loading Zone-------------------------------//
-        this.GetZones();
         this.LoadLovs();
-        //-------------------------------Loading Circle-------------------------------//
+        this.createForm();
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
-        if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
+        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
+            this.SelectedBranches = this.LoggedInUserInfo.Branch;
+            this.SelectedZones = this.LoggedInUserInfo.Zone;
 
-            this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-            this.SelectedCircles = this.Circles;
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.mrForm.value.Zone = this.SelectedZones?.ZoneName;
+            this.mrForm.value.Branch = this.SelectedZones?.BranchCode;
+
+        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+            this.spinner.show();
+
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.Zone = data.Zones;
+                this.SelectedZones = this.Zone;
+                this.single_zone = false;
+                this.disable_zone = false;
+                this.spinner.hide();
+
+            });
+
+
         }
-
-        //-------------------------------Loading Request-------------------------------//
-
         this.getRequestTypes();
 
-        this.createForm();
 
     }
 
@@ -239,55 +253,12 @@ export class MakeRcComponent implements OnInit {
 
 
     newGlDialog() {
-
-        //this.dailog.open(NewGlCodeComponent, { width: "800px", data: { NGlC: this.mrForm.controls.NGlC.value }, disableClose: true });
-
-        // const dialogRef = this.dailog.open(NewGlCodeComponent, { width: "1600px", data: { NGlC: this.mrForm.controls.GlSubIDNew.value }, disableClose: true });
-        // dialogRef.afterClosed().subscribe(res => {
-        //   if (!res) {
-        //     return;
-        //   }
-        //   this.mrForm.controls.GlSubIDNew.setValue(res);
-        // });
-
+        this.assignBranchAndZone();
         this.dailog.open(NewGlCodeComponent, {
             width: "1600px",
-            data: {NGlC: this.mrForm.controls.GlSubIDNew.value},
+            data: {NGlC: this.mrForm.controls.GlSubIDNew.value, zone: this.final_zone, branch: this.final_branch},
             disableClose: true
         });
-    }
-
-    GetZones() {
-        this._circleService
-            .getZones()
-            .pipe(finalize(() => {
-            }))
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    baseResponse.Zones.forEach(function (value) {
-                        value.ZoneName = value.ZoneName.split("-")[1];
-                    });
-                    this.Zones = baseResponse.Zones;
-                    this.SelectedZones = this.Zones;
-                    console.log("zone loaded", this.SelectedZones);
-                    if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
-                        this.mrForm.controls["Zone"].setValue(
-                            this.LoggedInUserInfo.Zone.ZoneName
-                        );
-                        console.log(
-                            "this.LoggedInUserInfo.Zone.ZoneId",
-                            this.LoggedInUserInfo.Zone.ZoneId
-                        );
-                        this.GetBranches(this.LoggedInUserInfo.Zone.ZoneId);
-                    }
-                    this.cdRef.detectChanges();
-                } else
-                    this.layoutUtilsService.alertElement(
-                        "",
-                        baseResponse.Message,
-                        baseResponse.Code
-                    );
-            });
     }
 
     GetBranches(ZoneId) {
@@ -324,12 +295,11 @@ export class MakeRcComponent implements OnInit {
     }
 
     SaveData() {
-
-        //this.mrForm.controls["TranDate"].setValue(this.datePipe.transform(new Date(), "ddMMyyyy"))
+        this.assignBranchAndZone();
         this.rescheduling = Object.assign(this.mrForm.getRawValue());
         this.spinner.show();
         this._reschedulingService
-            .SaveMakeRescheduleLoan(this.rescheduling)
+            .SaveMakeRescheduleLoan(this.rescheduling,this.final_branch,this.final_zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -398,9 +368,9 @@ export class MakeRcComponent implements OnInit {
         var lCNo;
         this.spinner.show();
         lCNo = this.mrForm.controls["Lcno"].value;
-
+        this.assignBranchAndZone();
         this._reschedulingService
-            .GetSubProposalGL(lCNo)
+            .GetSubProposalGL(lCNo, this.final_branch, this.final_zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -473,9 +443,9 @@ export class MakeRcComponent implements OnInit {
     SubmitData() {
         this.spinner.show();
 
-
+        this.assignBranchAndZone();
         this._reschedulingService
-            .SubmitRescheduleData(this.rescheduling)
+            .SubmitRescheduleData(this.rescheduling,this.final_branch,this.final_zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -598,4 +568,15 @@ export class MakeRcComponent implements OnInit {
         });
     }
 
+    private assignBranchAndZone() {
+        if (this.SelectedBranches.length)
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
+        else
+            this.final_branch = this.SelectedBranches;
+        let zone = null;
+        if (this.SelectedZones.length)
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+        else
+            this.final_zone = this.SelectedZones;
+    }
 }
