@@ -244,21 +244,9 @@ export class CustomerService {
 
     // Phone Cell Get Customer By CNIC
 
-    getCustomerByCnic(cnic) {
+    getCustomerByCnic(cnic, Branch?, User?,Zone?) {
         var userInfo = this.userUtilsService.getUserDetails();
-
-        // var circle = userInfo.UserCircleMappings;
-        // var circleIds = [];
-
-        // circle.forEach(element => {
-        //   circleIds.push(element.CircleId);
-        // });
-        // var _circles = JSON.stringify(circleIds)
-
         var request = {
-            // Circle:{
-            //   CircleIds: _circles
-            // },
             Customer: {
                 Cnic: cnic,
             },
