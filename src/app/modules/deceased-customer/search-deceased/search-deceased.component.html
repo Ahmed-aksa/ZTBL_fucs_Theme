@@ -3,8 +3,69 @@
     <div class="kt-form kt-form-margin" [formGroup]="deceasedCustomerSearch">
         <div class="row align-items-center mb-4">
 
+<!--            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">-->
+<!--                <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">-->
+<!--                    <mat-label class="customMatLabel">Zone</mat-label>-->
+<!--                    <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" >-->
+<!--                        <mat-option [value]="SelectedZones?.ZoneId">-->
+<!--                            {{SelectedZones?.ZoneName}}-->
+<!--                        </mat-option>-->
+<!--                    </mat-select>-->
+<!--                </mat-form-field>-->
+<!--                <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">-->
+<!--                    <mat-label class="customMatLabel">Zone</mat-label>-->
+<!--                    <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" >-->
+<!--                                (selectionChange)="changeZone($event)">-->
+<!--                        <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"-->
+<!--                                    [disabled]="disable_zone">-->
+<!--                            {{zone?.ZoneName}}-->
+<!--                        </mat-option>-->
+<!--                    </mat-select>-->
+<!--                </mat-form-field>-->
+<!--            </div>-->
 
+            <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin">
+                <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
+                    <mat-label>Zone</mat-label>
+                    <mat-select (selectionChange)="GetBranches($event)" formControlName="ZoneId">
+                        <mat-option>
+<!--                            <ngx-mat-select-search placeholderLabel="Search Zone..." (focusout)="validateZoneOnFocusOut()" (keyup)="searchZone($event.target.value)" noEntriesFoundLabel="No Zone Found">-->
+<!--                            </ngx-mat-select-search>-->
+                        </mat-option>
+                        <mat-option>
+                            Select
+                        </mat-option>
+                        <mat-option *ngFor="let zone of SelectedZones" [value]="zone.ZoneId">
+                            {{zone.ZoneName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="!isUserAdmin && !isZoneUser">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Branch</mat-label>
+                    <input matInput value="{{Branch.Name}}" readonly="readonly" maxlength="30" autocomplete="off">
+                    <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                </mat-form-field>
+            </div>
 
+            <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin || isZoneUser">
+                <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
+                    <mat-label>Branch</mat-label>
+                    <mat-select (selectionChange)="SetBranches($event)" formControlName="BranchId">
+                        <mat-option>
+<!--                            <ngx-mat-select-search placeholderLabel="Search Branch..." (focusout)="validateBranchOnFocusOut()" noEntriesFoundLabel="No Branch Found" (keyup)="searchBranch($event.target.value)">-->
+<!--                            </ngx-mat-select-search>-->
+                        </mat-option>
+                        <mat-option>
+                            Select
+                        </mat-option>
+                        <mat-option *ngFor="let branch of SelectedBranches" [value]="branch.BranchId">
+                            {{branch.Name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
             <div class="col-md-2 kt-margin-bottom-10-mobile">
                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
                     <mat-label>Cnic</mat-label>

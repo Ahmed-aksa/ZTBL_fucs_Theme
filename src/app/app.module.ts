@@ -29,6 +29,7 @@ const routerConfig: ExtraOptions = {
     scrollPositionRestoration: 'enabled'
 };
 
+
 @NgModule({
     declarations: [
         AppComponent,

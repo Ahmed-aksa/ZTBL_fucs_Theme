@@ -127,6 +127,7 @@ export const appRoutes: Route[] = [
                 path: 'customer',
                 loadChildren: () => import('app/modules/customer/customer.module').then(m => m.CustomerModule)
             },
+
             {
                 path: 'loan-recovery',
                 loadChildren: () => import('app/modules/loan-recovery/loan-recovery.module').then(m => m.LoanRecoveryModule)

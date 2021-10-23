@@ -39,7 +39,9 @@ export class SearchDeceasedComponent implements OnInit {
 
     public maskEnums = MaskEnum;
     errors = errorMessages;
+    selected_z: any;
     public LovCall = new Lov();
+    disable_zone = true;
     // public LandStatusLov: any;
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
@@ -53,6 +55,7 @@ export class SearchDeceasedComponent implements OnInit {
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
     OffSet: number;
+    single_zone = true;
     public Customer = new Customer();
     ShowViewMore: boolean;
     deceasedCustomerSearch: FormGroup;
@@ -64,6 +67,8 @@ export class SearchDeceasedComponent implements OnInit {
     // dataSource : MatTableDataSource<DeceasedCustomer>
 
     dataSource = new MatTableDataSource();
+    private single_branch: boolean;
+    private disable_branch: boolean;
 
     constructor(
         private userUtilsService: UserUtilsService,
@@ -329,6 +334,15 @@ export class SearchDeceasedComponent implements OnInit {
 
         // this.ngxService.stop();
 
+    }
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
     }
 }
 
