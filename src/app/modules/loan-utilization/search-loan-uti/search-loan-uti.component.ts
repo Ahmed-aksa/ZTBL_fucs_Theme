@@ -307,11 +307,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
     setFromDate() {
         debugger
 
-        this.minDate = this.loanutilizationSearch.controls.FromDate.value.toDate()
-        console.log("Min date"+this.minDate)
+        this.minDate = this.loanutilizationSearch.controls.FromDate.value;
         var FromDate = this.loanutilizationSearch.controls.FromDate.value;
-
-
         if (FromDate._isAMomentObject == undefined) {
             try {
                 var day = this.loanutilizationSearch.controls.FromDate.value.getDate();

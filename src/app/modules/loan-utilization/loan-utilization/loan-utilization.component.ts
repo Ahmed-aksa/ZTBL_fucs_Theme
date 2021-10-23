@@ -123,19 +123,19 @@ export class LoanUtilizationComponent implements OnInit {
 
   ) {
     this.loggedInUser = userUtilsService.getUserDetails();
-    // debugger;
-    // if (this.router?.getCurrentNavigation()?.extras?.state != undefined) {
-    //   this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
-    // } else {
+    debugger;
+    if (this.router?.getCurrentNavigation()?.extras?.state != undefined) {
+      this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
+    } else {
 
-    // }
+    }
 
-    // this.mediaGetter = Object.assign(this.loanUtilizationModel)
-    // // console.log("Model received"+this.loanUtilizationModel)
-    // router.events.subscribe((val: any) => {
-    //   if (val.url == '/deceased-customer/customers') {
-    //   }
-    // });
+    this.mediaGetter = Object.assign(this.loanUtilizationModel)
+    // console.log("Model received"+this.loanUtilizationModel)
+    router.events.subscribe((val: any) => {
+      if (val.url == '/deceased-customer/customers') {
+      }
+    });
   }
 
 
