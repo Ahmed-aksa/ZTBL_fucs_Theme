@@ -186,13 +186,13 @@ export class GetVillageBenchMarkingComponent implements OnInit {
         this.dataSource = this.dv.slice(0, this.itemsPerPage);
       }
       else {
-        
+        this.layoutUtilsService.alertElement("", baseResponse.Message);
         this.matTableLenght = false;
 
         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
         this.pageIndex = 1;
         this.Offset = 0;
-        this.layoutUtilsService.alertElement("", baseResponse.Message);
+        
       }
     })
   }
@@ -238,5 +238,22 @@ export class GetVillageBenchMarkingComponent implements OnInit {
     })
     });
   }
+
+  changeBranch(changedValue) {
+
+    let changedBranch = null;
+    if (changedValue.has('value')) {
+        changedBranch = {Branch: {BranchCode: changedValue.value}}
+    } else {
+        changedBranch = {Branch: {BranchCode: changedValue}}
+
+    }
+    this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+        console.log(data);
+        this.Circles = data.Circles;
+        this.SelectedCircles = this.Circles;
+        this.disable_circle = false;
+    });
+}
 
 }
