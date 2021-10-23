@@ -7,6 +7,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {NdcRequestsService} from '../services/ndc-requests.service';
 import {finalize} from 'rxjs/operators';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-search-ndc-list',
@@ -29,6 +30,7 @@ export class SearchNdcListComponent implements OnInit {
 
     constructor(
         public dialog: MatDialog,
+        private _ngx_spinner: NgxSpinnerService,
         private ndc_request_service: NdcRequestsService,
         private layoutUtilsService: LayoutUtilsService) {
     }
@@ -44,6 +46,7 @@ export class SearchNdcListComponent implements OnInit {
 
     loadUsersList(cnic = '') {
         this.loading = true;
+        // this._ngx_spinner.show();
         this.ndc_request_service.getRequests(cnic)
             .pipe(
                 finalize(() => {
@@ -55,6 +58,8 @@ export class SearchNdcListComponent implements OnInit {
                     this.request_data_source = baseResponse.Ndc.Ndcrequests;
                     if (baseResponse.Ndc.pendingNdcs != null) {
                         this.pending_requests_data_source = baseResponse.Ndc.pendingNdcs;
+                        this._ngx_spinner.hide();
+
                     }
                 } else {
                     this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
