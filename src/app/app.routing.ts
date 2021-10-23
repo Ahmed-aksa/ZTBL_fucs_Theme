@@ -112,6 +112,14 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/loan/loan.module').then(m => m.LoanModule)
             },
             {
+                path: 'deceased',
+                loadChildren: () => import('app/modules/deceased-customer/deceased-customer.module').then(m => m.DeceasedCustomerModule)
+            },
+            {
+                path: 'tour-dairy',
+                loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
+            },
+            {
                 path: 'loan-utilization',
                 loadChildren: () => import('app/modules/loan-utilization/loan-utilization.module').then(m => m.LoanUtilizationModule)
             },

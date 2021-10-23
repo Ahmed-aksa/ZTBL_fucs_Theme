@@ -1,0 +1,13 @@
+
+<div *ngIf="url">
+    <div class="bg-white float-right sticky-top col-lg-12">
+        <button mat-icon-button class="close-button float-right" [mat-dialog-close]="true">
+            <!-- X -->
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+        </button>
+    </div>
+
+
+    <img class="images" [src]="url" style="width:100%; height:100%; position: relative" />
+
+</div>

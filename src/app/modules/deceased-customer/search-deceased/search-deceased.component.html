@@ -1,0 +1,185 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">Deceased Customers</div>
+    <div class="kt-form kt-form-margin" [formGroup]="deceasedCustomerSearch">
+        <div class="row align-items-center mb-4">
+
+
+
+            <div class="col-md-2 kt-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Cnic</mat-label>
+                    <input appNumberOnly matInput formControlName="Cnic" placeholder="" maxlength="13" autocomplete="off">
+                    <!-- <mat-error *ngIf="hasError('Cnic', 'pattern')">Cnic should only contain numberic values <strong>required</strong></mat-error> -->
+                    <!-- <mat-error *ngIf="deceasedCustomerSearch.get('Cnic').hasError('required')">
+                    First Name is Required!
+                  </mat-error>
+                  -->
+                    <!-- <mat-error *ngIf="deceasedCustomerSearch.get('Cnic').hasError('minlength')">
+                        CNIC should consist 13 characters
+                    </mat-error> -->
+                    <!--
+                                  <mat-error *ngIf="deceasedCustomerSearch.get('Cnic').hasError('maxlength')">
+                                    CNIC should consist 13 characters
+                                  </mat-error> -->
+
+                    <mat-error *ngIf="deceasedCustomerSearch.get('Cnic').hasError('pattern')">
+                        CNIC should only contain upto 13 numberic characters.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2 kt-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Customer Name</mat-label>
+                    <input appAlphabetOnly matInput formControlName="CustomerName" placeholder="" maxlength="100" autocomplete="off">
+                    <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
+
+                </mat-form-field>
+            </div>
+            <div class="col-md-2 kt-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Father Name</mat-label>
+                    <input appAlphabetOnly matInput formControlName="FatherName" placeholder="" maxlength="100" autocomplete="off">
+                    <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
+                </mat-form-field>
+            </div>
+            <div *ngIf="CustomerStatusLov"  class="col-md-2 kt-margin-bottom-10-mobile">
+
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label>Customer Status</mat-label>
+                    <mat-select formControlName="CustomerStatus">
+                        <mat-option>
+                            Select
+                        </mat-option>
+                        <mat-option *ngFor="let obj of CustomerStatusLov" [value]="obj.Value">
+                            {{obj.Name}}
+                        </mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+
+                <!--<mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label>land Status</mat-label>
+              <input matInput formControlName="landStatus" placeholder="Enter land Status" maxlength="30" autocomplete="off">
+              <mat-error *ngIf="hasError('landStatus', 'required')">landStatus <strong>required</strong></mat-error>
+            </mat-form-field>-->
+            </div>
+
+        </div>
+        <!-- <div class="row align-items-center mb-4">
+          <div class="col-lg-2 col-md-2">
+            <button [disabled]="deceasedCustomerSearch.invalid" color="primary" type="button" (click)="SearchDeceasedCustomer()" class="btn btn-secondary mt-19 kt-login__btn-primary btn-block" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
+              <span><i class="fa fa-search"> &nbsp;</i> Search</span>
+            </button>
+          </div>
+          </div> -->
+        <div class="row align-items-center mb-4">
+            <div class="col-lg-10"></div>
+            <div class="col-lg-2 col-md-3">
+                <button [disabled]="deceasedCustomerSearch.invalid" (click)="SearchDeceasedCustomer()" color="primary" type="button" class="btn btn-secondary mt-19 kt-login__btn-primary btn-block">
+                    <span><i class="fa fa-search"> &nbsp;</i> Search</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- <div class="row align-items-center mb-4">
+          <div  class="col-lg-3 col-md-3"></div>
+          <div class="col-lg-9 col-md-9">
+            <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+              Items per page:
+              <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+                <mat-option [value]="5">5</mat-option>
+                <mat-option [value]="10">10</mat-option>
+                <mat-option [value]="25">25</mat-option>
+                <mat-option [value]="50">50</mat-option>
+              </mat-select>
+              <button (click)="paginate(1)">First</button>
+              <pagination-controls display="inline" (pageChange)="paginate($event)" style="display: inline-block;"></pagination-controls>
+              <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+              <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+
+            </div>
+          </div>
+        </div> -->
+    </div>
+    <!-- Search end -->
+    <div class="mat-table__wrapper mat-elevation-z8" [style.height]="gridHeight">
+
+        <mat-table class="lmat-elevation-z8"
+                   #table
+                   [dataSource]="dataSource"
+                   matSort
+                   #sort1="matSort"
+                   matSortActive="id"
+                   matSortDirection="asc"
+                   matSortDisableClear>
+            <ng-container matColumnDef="customer_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header="customer_name">Customer Name</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.CustomerName}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="father_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.FatherName}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="death_date">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Death Date</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.DeathDate}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Cnic">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>CNIC</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Cnic}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Address}}</mat-cell>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="per_address">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Per Address</mat-header-cell>
+              <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.PermanentAddress}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+              <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.StatusDesc}}</mat-cell>
+            </ng-container> -->
+
+            <ng-container matColumnDef="branch_code">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Code</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.BranchCode}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="certificate_verified">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Certificate Verified</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.IsCertificateVerified}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="legal_heir">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Legal Heir Income</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.LegalHeairHasIncome}}</mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+        </mat-table>
+        <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
+        <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+    </div>
+
+    <div class="mat-table__bottom">
+        <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
+        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15, 30, 50, 100]" [showFirstLastButtons]="true"></mat-paginator>
+
+        <!--<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>-->
+    </div>
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)"
+                 size="medium"
+                 color="#ecbd00"
+                 type="ball-scale-multiple">
+        <p style="font-size: 20px; color: white">Loading...</p>
+    </ngx-spinner>
+</div>
