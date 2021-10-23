@@ -1,1 +1,86 @@
-<p>pending-reschedule-cases works!</p>
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">List of Transactions</div>
+    <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
+        <mat-table class="example-table-container"
+                   #table
+                   [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                   matSort
+                   #sort1="matSort"
+                   matSortActive="id"
+                   matSortDirection="asc"
+                   matSortDisableClear>
+            <ng-container matColumnDef="Branch">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Branch</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.branch}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="TransactionDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Date</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.transactionDate}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="LoanApp">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>LOAN APP #</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.loanApp}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="GlDescription">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Gl description</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.glDescription}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.status}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Scheme">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Scheme</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.scheme}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="OldDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Old Due Date</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.oldDate}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="AcStatus">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>A/C Status</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.acStatus}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="View">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button mat-icon-button color="primary">
+                        <mat-icon style="margin-left: 5px;" title="Edit row" (click)="editPen(row)">edit</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Submit">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Submit</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="getRow(row)"></mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                            class="table-header-background"></mat-header-row>
+
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+        </mat-table>
+    </div>
+    <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+        Items per page:
+        <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls display="inline" (pageChange)="paginate($event)"
+                             style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+
+    </div>
+</div>

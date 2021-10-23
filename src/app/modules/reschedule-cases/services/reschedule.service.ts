@@ -97,12 +97,14 @@ export class ReschedulingService {
         );
     }
 
-    SubmitRescheduleData(rescheduling: MakeReschedule, branch, zone): Observable<BaseResponseModel> {
-
+    SubmitRescheduleData(rescheduling: MakeReschedule, branch?, zone?): Observable<BaseResponseModel> {
+        if (!zone && !branch) {
+            zone = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().Zone;
+            branch = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().Branch;
+        }
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
-        console.log(rescheduling.LoanReschID)
         let loanResch = rescheduling.LoanReschID;
         this.MakeReschedule.LoanReschID = loanResch;
         this.MakeReschedule.Remarks = "ok"
@@ -125,13 +127,15 @@ export class ReschedulingService {
         );
     }
 
-    CancelRescheduleData(rescheduling: MakeReschedule): Observable<BaseResponseModel> {
+    CancelRescheduleData(rescheduling: MakeReschedule, branch, zone): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         this.generalFunction()
         var loanInfo = new Loan();
         this.MakeReschedule.LoanReschID = rescheduling.LoanReschID
         loanInfo.MakeReschedule = this.MakeReschedule
         this.request.Loan = loanInfo
+        this.request.Zone = zone;
+        this.request.Branch = branch;
         return this.http.post(`${environment.apiUrl}/Loan/CancelRescheduleData`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -167,8 +171,11 @@ export class ReschedulingService {
         );
     }
 
-    RescheduleSearch(search): Observable<BaseResponseModel> {
-
+    RescheduleSearch(search, branch?, zone?): Observable<BaseResponseModel> {
+        if (!zone && !branch) {
+            zone = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().Zone;
+            branch = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().Branch;
+        }
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
@@ -176,13 +183,19 @@ export class ReschedulingService {
         loanInfo.Appdt = search.TrDate;
         loanInfo.LcNo = search.Lcno;
         this.request.Loan = loanInfo
+        this.request.Branch = branch;
+        this.request.Zone = zone;
         return this.http.post(`${environment.apiUrl}/Loan/RescheduleSearch`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    GetSubProposalGL(lCNo, branch, zone): Observable<BaseResponseModel> {
+    GetSubProposalGL(lCNo, branch?, zone?): Observable<BaseResponseModel> {
+        if (!zone && !branch) {
+            zone = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().Zone;
+            branch = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().Branch;
+        }
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
