@@ -47,14 +47,14 @@ export class RequestForRlComponent implements OnInit {
     pidx: any;
 
 
-    single_zone: boolean;
-    disable_zone: boolean;
+    single_zone: boolean=true;
+    disable_zone: boolean=true;
 
     selected_z: any;
     selected_b: any;
 
-    single_branch: any;
-    disable_branch: any;
+    single_branch: any=true;
+    disable_branch: any=true;
     response: any = [];
     checkedArr: ReschedulingList[] = [];
     newAdd: ReschedulingList[] = [];
@@ -112,8 +112,9 @@ export class RequestForRlComponent implements OnInit {
 
     ngOnInit() {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        //console.log(this.LoggedInUserInfo)
         this.getRequestTypes();
+        this.create();
+
 
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.SelectedBranches = this.LoggedInUserInfo.Branch;
@@ -121,7 +122,7 @@ export class RequestForRlComponent implements OnInit {
 
             this.selected_z = this.SelectedZones?.ZoneId
             this.selected_b = this.SelectedBranches?.BranchCode
-            this.RfrlForm.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.RfrlForm.controls["Zone"].setValue(this.SelectedZones?.ZoneId);
             this.RfrlForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
             this.spinner.show();
@@ -133,7 +134,6 @@ export class RequestForRlComponent implements OnInit {
                 this.spinner.hide();
             });
         }
-        this.create();
 
     }
 
@@ -170,11 +170,11 @@ export class RequestForRlComponent implements OnInit {
 
     //-------------------------------Request Type Core Functions-------------------------------//
     async getRequestTypes() {
+
         this.RequestTypes = await this._lovService.CallLovAPI(
             (this.LovCall = {TagName: LovConfigurationKey.RequestCategory})
         );
         this.SelectedRequestType = this.RequestTypes.LOVs;
-        console.log(this.SelectedRequestType)
 
     }
 
@@ -219,7 +219,7 @@ export class RequestForRlComponent implements OnInit {
         );
 
         this._reschedulingService
-            .GetRescheduling(this.ReschedulingList,this.final_branch,this.final_zone)
+            .GetRescheduling(this.ReschedulingList, this.final_branch, this.final_zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -230,10 +230,6 @@ export class RequestForRlComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
 
                 if (baseResponse.Success === true) {
-                    console.log(
-                        "BaseResponse of Get Reschedule",
-                        baseResponse.Loan.ReschedulingList
-                    );
                     this.Table = true;
                     this.Field = false;
                     this.response = baseResponse.Loan.ReschedulingList;
@@ -251,7 +247,6 @@ export class RequestForRlComponent implements OnInit {
     }
 
     onChange(id: ReschedulingList, event, index) {
-        //console.log(index)
 
         this.idx = index;
         var ind = index
@@ -265,7 +260,6 @@ export class RequestForRlComponent implements OnInit {
         if (event.checked == true && this.checkedArr.length == 0) {
 
             this.checkedArr.push(id);
-            console.log("checked array data", this.checkedArr);
 
             this.AddTable = false;
 
@@ -276,7 +270,6 @@ export class RequestForRlComponent implements OnInit {
             for (var i = 0; this.checkedArr.length > i; i++) {
                 if (this.checkedArr[i].LoanAppID == id.LoanAppID) {
                     this.checkedArr.splice(i);
-                    console.log("remove array data", this.checkedArr);
                 }
             }
 
@@ -284,8 +277,6 @@ export class RequestForRlComponent implements OnInit {
     }
 
     onSelectionChange(e) {
-
-        console.log(e.value)
         if (this.RfrlForm.controls.RequestCategory.value && e.value != '3') {
             this.graceMonthsSelect = false;
             this.RfrlForm.controls["GraceMonths"].setValue('');
@@ -299,9 +290,6 @@ export class RequestForRlComponent implements OnInit {
     }
 
     Add() {
-
-
-        console.log(this.checkedArr);
         if (this.checkedArr.length > 0) {
 
             this.AddTable = true;
@@ -323,10 +311,8 @@ export class RequestForRlComponent implements OnInit {
         this.spinner.show();
         this.request = new BaseRequestModel();
         let shantoo = this.RfrlForm.controls.EffectiveReqDate.value;
-        console.log(shantoo._d)
         //this.RfrlForm.controls["EffectiveReqDate"].setValue(this.datePipe.transform(shantoo._d, "ddMMyyyy"))
         let newDate = this.datePipe.transform(shantoo._d, "ddMMyyyy");
-        console.log(newDate)
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
         for (var i = 0; this, this.checkedArr.length > i; i++) {
@@ -369,7 +355,6 @@ export class RequestForRlComponent implements OnInit {
         for (var i = 0; this.checkedArr.length > i; i++) {
             this.checkedArr.splice(i);
         }
-        console.log(this.checkedArr)
     }
 
 }

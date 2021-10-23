@@ -512,9 +512,9 @@ export class MakeRcComponent implements OnInit {
 
     cancelTransaction() {
         this.spinner.show();
-
+        this.assignBranchAndZone();
         this._reschedulingService
-            .CancelRescheduleData(this.rescheduling)
+            .CancelRescheduleData(this.rescheduling,this.final_branch,this.final_zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
