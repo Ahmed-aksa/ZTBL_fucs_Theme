@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { Activity } from 'app/shared/models/activity.model';
 import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { AppState } from 'app/shared/reducers';
-import { LayoutUtilsService, MessageType } from 'app/shared/services/layout-utils.service';
+import { LayoutUtilsService, MessageType } from 'app/shared/services/layout_utils.service';
 import { temperature } from 'chroma-js';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';

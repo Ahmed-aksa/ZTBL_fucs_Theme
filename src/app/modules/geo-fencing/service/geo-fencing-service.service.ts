@@ -20,7 +20,6 @@ export class GeoFencingService {
     }
 
     SearchGeoFensePoint(resquest: any): Observable<BaseResponseModel> {
-        // var req = JSON.stringify(resquest);
         return this.http.post(`${environment.apiUrl}/GeoFencingPoint/SearchGeoFensePoint`, resquest,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -29,8 +28,6 @@ export class GeoFencingService {
 
 
     CirclePoligonGetByIds(resquest: any): Observable<BaseResponseModel> {
-        var req = JSON.stringify(resquest);
-        console.log(req);
         return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonGetByIds`, resquest,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)

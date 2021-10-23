@@ -2,3 +2,37 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
+body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-primary, body.light .mat-fab.mat-primary, body.light .mat-mini-fab.mat-primary, body .light .mat-flat-button.mat-primary, body .light .mat-raised-button.mat-primary, body .light .mat-fab.mat-primary, body .light .mat-mini-fab.mat-primary {
+    background-color: #ECBD00;
+}
+
+.table-header-background{
+    background-color: #01671B;
+    color: white;
+}
+
+.cdk-overlay-pane{
+    overflow-y: scroll;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 32px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #01671B; 
+    border-radius: 32px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #01671B; 
+  }

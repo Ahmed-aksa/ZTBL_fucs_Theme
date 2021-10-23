@@ -1,6 +1,6 @@
 
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -11,15 +11,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { errorMessages, Lov, LovConfigurationKey, MaskEnum } from 'app/shared/classes/lov.class';
 import { Branch } from 'app/shared/models/branch.model';
 import { CreateCustomer } from 'app/shared/models/customer.model';
-import { LoanUtilizationSearch } from 'app/shared/models/loan-utilization.model';
+import { LoanUtilizationSearch } from 'app/modules/loan-utilization/Model/loan-utilization.model';
 import { CircleService } from 'app/shared/services/circle.service';
 import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
-import { LoanUtilizationService } from 'app/shared/services/loan-utilization.service';
 import { LovService } from 'app/shared/services/lov.service';
 import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { Zone } from '../../user-management/users/utils/zone.model'
+import {LoanUtilizationService} from "../service/loan-utilization.service";
 
 @Component({
   selector: 'kt-search-utilization',
@@ -358,6 +358,7 @@ export class SearchUtilizationComponent implements OnInit {
   }
 
 
+
   getStatus(status: string) {
 
     if (status == 'P') {
@@ -407,7 +408,7 @@ export class SearchUtilizationComponent implements OnInit {
 
 
   editloanutilization(utilization: any) {
-  
+
     this.router.navigate(['../loan-uti'], {
       state: { example: utilization },
       relativeTo: this.activatedRoute
@@ -432,7 +433,7 @@ export class SearchUtilizationComponent implements OnInit {
         value.Value = "All";
     });
 
-   
+
 
   }
 

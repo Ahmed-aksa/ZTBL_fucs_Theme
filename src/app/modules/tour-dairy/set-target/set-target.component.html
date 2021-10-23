@@ -1,0 +1,101 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">Set Target</div>
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+         [formGroup]="customerForm">
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
+                <mat-label>Select Duration</mat-label>
+                <mat-select #sel (selectionChange)="OnChange(sel.value)" formControlName="Duration">
+                    <mat-option>
+                        Select
+                    </mat-option>
+                    <mat-option *ngFor="let obj of TargetDuration" [value]="obj.Id">
+                        {{obj.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4 mb-2">
+                <button (click)="find()" class="ml-4" mat-flat-button [color]="'primary'">
+                    <span class="ml-2 mr-1">Find</span>
+                </button>
+            </div>
+
+
+        </div>
+
+        <div *ngIf="ishidden" class="col-lg-12 mt-2">
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr hidden class="table-header-background">
+                        <th *ngFor="let k of rowKeys">{{ k }}</th>
+                    </tr>
+                    <tr class="table-header-background">
+                        <th *ngFor="let v of rowth">{{ v }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let row of targets; let rowIndex = index; trackBy: tracker">
+                        <ng-container *ngFor="let key of rowKeys; trackBy: tracker">
+                            <td *ngIf="key!='Id'">
+                                <div *ngIf="key=='Name'">
+                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                        <input matInput readonly disabled
+                                               type="text"
+                                               [attr.value]="row[key]"
+                                               (input)="onInputChanged($any($event.target).value, rowIndex, key)"
+                                        />
+                                    </mat-form-field>
+                                </div>
+                                <div *ngIf="key!='Name'">
+                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                        <input matInput (keypress)="numberOnly($event)"
+                                               [attr.value]="row[key]"
+                                               (input)="onInputChanged($any($event.target).value, rowIndex, key)"
+                                        />
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </ng-container>
+                    </tr>
+                    </tbody>
+                    <thead>
+                    <tr class="table-header-background">
+                        <th></th>
+                        <th *ngFor="let len of totalLength">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngIf="totals">
+                        <ng-container>
+                            <td></td>
+                            <td *ngFor="let a of totals" class="p-4">
+                                {{a}}
+                            </td>
+
+                        </ng-container>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- <button class="ml-2" mat-raised-button color="primary" (click)="reset()">Reset</button> -->
+                <div class="float-right mr-4">
+                    <button class="ml-2" mat-raised-button color="primary" (click)="save()">Save</button>
+                    <button class="ml-2" mat-raised-button color="primary" (click)="submit()">Submit</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!--        </form>-->
+
+
+        <ngx-spinner bdColor="rgba(51,51,51,0.8)"
+                     size="medium"
+                     color="#ecbd00"
+                     type="ball-scale-multiple">
+            <p style="font-size: 20px; color: white">Loading...</p>
+        </ngx-spinner>
+    </div>
+</div>

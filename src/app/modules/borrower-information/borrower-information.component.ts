@@ -80,20 +80,19 @@ export class BorrowerInformationComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-            this.SelectedCircles = this.Circles;
+            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
 
-            this.Branches = this.LoggedInUserInfo.Branch;
-            this.SelectedBranches = this.Branches;
+            this.SelectedBranches = this.LoggedInUserInfo.Branch;
+            this.SelectedZones = this.LoggedInUserInfo.Zone;
 
-            this.Zone = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zone;
-
-            this.selected_z = this.SelectedZones.ZoneId
-            this.selected_b = this.SelectedBranches.BranchCode
-            this.selected_c = this.SelectedCircles.Id
-            this.borrowerForm.controls["Zone"]?.setValue(this.SelectedZones.Id);
-            this.borrowerForm.controls["BranchCode"]?.setValue(this.SelectedBranches.Name);
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.selected_c = this.SelectedCircles?.Id
+            this.borrowerForm.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.borrowerForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            if (this.borrowerForm.value.Branch) {
+                this.changeBranch(this.borrowerForm.value.Branch);
+            }
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
@@ -103,9 +102,10 @@ export class BorrowerInformationComponent implements OnInit {
                 this.disable_zone = false;
                 this.spinner.hide();
             });
+            this.getBorrower();
 
         }
-        this.getBorrower();
+
     }
 
 
@@ -140,7 +140,6 @@ export class BorrowerInformationComponent implements OnInit {
                     this.dataSource = baseResponse.BorrowerInfo.Borrowers;
                     this.dv = this.dataSource;
                     this.matTableLenght = true
-
                     this.totalItems = baseResponse.BorrowerInfo.Borrowers[0].TotalRecords
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -183,12 +182,20 @@ export class BorrowerInformationComponent implements OnInit {
 
 
     changeBranch(changedValue) {
-        let changedBranch = {Branch: {BranchCode: changedValue.value}}
+        let changedBranch = null;
+        if (changedValue.value)
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        else
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+
             this.Circles = data.Circles;
             this.SelectedCircles = this.Circles;
             this.disable_circle = false;
-            this.disable_circle = false;
+            if (changedValue.value) {
+                this.getBorrower();
+            }
         });
     }
 

@@ -32,7 +32,11 @@
    <div class="">
     <!-- CONTENT GOES HERE -->
     <div class="pt-1">
-      <div class="form-group row">
+      <div class="form-group row" style="
+      min-width: max-content;
+      max-height: 50vh;
+      overflow-y:scroll;
+  ">
         <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8">
           <div *ngIf="!isActivityStringValid">
             <mat-error><strong>Please select any activity</strong></mat-error>
@@ -90,8 +94,16 @@
           </div>
 
         </div>
+       
       </div>
-
+      <div class="col-lg-12">
+        <button type="button" *ngIf="!ShowButton" mat-raised-button color="primary" class="btn btn-primary"
+                (click)="onSubmit()"
+                [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                [disabled]="viewLoading || submitted">
+          Save
+        </button>
+      </div>
     </div>
 
   </div>

@@ -31,8 +31,9 @@ export class ApilogsListComponent implements OnInit {
     third_party_apis: any;
     third_party_apis_details: any;
     loading: boolean = true;
-    displayedRows: any;
-    totalRows: any;
+
+    displayedRows$: Observable<any[]>;
+    totalRows$: Observable<number>;
     displayedColumns = ['Id', 'TransactionId', 'ApiName', 'CallDateTime', 'ResponseDateTime', 'View'];
     gridHeight: string;
     FilterForm: FormGroup;
@@ -73,13 +74,13 @@ export class ApilogsListComponent implements OnInit {
 
 
     applyFilter(filterValue: string) {
-        filterValue = filterValue.trim();
-        filterValue = filterValue.toLowerCase();
-        this.dataSource.filter = filterValue;
-        this.rows.filter = filterValue;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+        const sortEvents$: Observable<Sort> = fromMatSort(this.sort);
+        const pageEvents$: Observable<PageEvent> = fromMatPaginator(this.paginator);
+        const rows$ = of(this.dataSource.filteredData);
+        this.totalRows$ = rows$.pipe(map(rows => rows.length));
+        this.displayedRows$ = rows$.pipe(sortRows(sortEvents$), paginateRows(pageEvents$));
 
-        this.totalRows = this.rows.pipe(map((rows: any) => rows.length));
-        this.displayedRows = this.rows.pipe(sortRows(this.sortEvents$), paginateRows(this.pageEvents$));
     }
 
     loadApiLogsPage() {
@@ -146,14 +147,14 @@ export class ApilogsListComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success) {
-                    this.dataSource.data = baseResponse.ActivityLogs;
-
+                    this.dataSource = new MatTableDataSource(baseResponse.ActivityLogs);
                     this.sortEvents$ = fromMatSort(this.sort);
                     this.pageEvents$ = fromMatPaginator(this.paginator);
+                    this.dataSource.data = baseResponse.ActivityLogs;
                     this.rows = of(this.dataSource.data);
 
-                    this.totalRows = this.rows.pipe(map((rows: any) => rows.length));
-                    this.displayedRows = this.rows.pipe(sortRows(this.sortEvents$), paginateRows(this.pageEvents$));
+                    this.totalRows$ = this.rows.pipe(map((rows: any) => rows.length));
+                    this.displayedRows$ = this.rows.pipe(sortRows(this.sortEvents$), paginateRows(this.pageEvents$));
                 } else
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
 
@@ -167,14 +168,13 @@ export class ApilogsListComponent implements OnInit {
         return filter;
     }
 
-    viewRequestResponse(event: any, reportFilter: ReportFilters) {
-        event.stopPropagation();
+    viewRequestResponse(event: any, reportFilter: ReportFilters, is_third = false) {
         var width = (window.innerWidth - 170) + 'px';
         //var height = (window.innerHeight - 140) + 'px';
 
         const dialogRef = this.dialog.open(ApilogDetailComponent, { /*height: height,*/
             width: width,
-            data: {reportFilter: reportFilter},
+            data: {reportFilter: reportFilter, is_third: is_third},
             disableClose: false
         });
         dialogRef.afterClosed().subscribe(res => {
@@ -190,30 +190,25 @@ export class ApilogsListComponent implements OnInit {
         item.TranId = Number(item.Id);
         item.Id = Number(item.Id);
         this._reportservice.getThirdPartyAPILogs(item).subscribe((data: any) => {
-            this.third_party_apis = data._3RdPartyAPILogs;
+            if (data._3RdPartyAPILogs.length != 0) {
+                this.third_party_apis = data._3RdPartyAPILogs;
+            } else {
+                this.third_party_apis = null;
+            }
         })
     }
 
-    toggleAccordion(event: Event, i: number, item) {
+    toggleAccordion(event: Event, item) {
         event.stopPropagation();
+        event.stopImmediatePropagation();
         item.TranId = Number(item.Id);
         item.Id = Number(item.Id);
         this._reportservice.getThirdPartyApiDetails(item).subscribe((data: any) => {
-            this.third_party_apis_details = data._3RdPartyAPILog;
+            if (data._3RdPartyAPILog.length != 0) {
+                this.third_party_apis_details = data._3RdPartyAPILog;
+            } else {
+                this.third_party_apis_details = null;
+            }
         })
-
-        let down_arrow = document.getElementById('arrow_down_' + i).style.display;
-        if (down_arrow == 'block') {
-            document.getElementById('arrow_down_' + i).style.display = 'none';
-            document.getElementById('arrow_up_' + i).style.display = 'block';
-            document.getElementById('table_' + i).style.display = 'block';
-
-
-        } else {
-            document.getElementById('arrow_up_' + i).style.display = 'none';
-            document.getElementById('arrow_down_' + i).style.display = 'block';
-            document.getElementById('table_' + i).style.display = 'none';
-
-        }
     }
 }

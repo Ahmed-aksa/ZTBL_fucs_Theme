@@ -1,0 +1,190 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">Request for Reschedulement of Loan Installment</div>
+
+    <!-- Header -->
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+         style="flex-wrap: wrap" [formGroup]="RfrlForm">
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                    <mat-option [value]="SelectedZones?.ZoneId">
+                        {{SelectedZones?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                            (selectionChange)="changeZone($event)">
+                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                [disabled]="disable_zone">
+                        {{zone?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                            *ngIf="!single_branch">
+                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                    >
+                        {{branch?.Name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                            *ngIf="single_branch">
+                    <mat-option [value]="SelectedBranches?.BranchCode"
+                    >
+                        {{SelectedBranches?.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Cnic <strong class="matMandatory">*</strong></mat-label>
+                <input matInput placeholder="Enter Cnic" formControlName="Cnic" maxlength="13" autocomplete="off"
+                       appNumberOnly/>
+                <mat-error *ngIf="hasError('Cnic', 'required')">Cnic <strong>required</strong></mat-error>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Application Date(ddMMyyyy) <strong class="matMandatory">*</strong>
+                </mat-label>
+                <input readonly="readonly" matInput [matDatepicker]="picker3" formControlName="EffectiveReqDate"
+                       [max]="today">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+                <!--<mat-error *ngIf="hasError('AppDate', 'required')">Application Date <strong>required</strong></mat-error>-->
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Branch Remarks<strong class="matMandatory">*</strong></mat-label>
+                <input matInput placeholder="Enter Branch Remarks" formControlName="Remarks" autocomplete="off"/>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Request Category <strong class="matMandatory">*</strong></mat-label>
+                <mat-select (selectionChange)="onSelectionChange($event)" formControlName="RequestCategory">
+
+                    <mat-option *ngFor="let Request of SelectedRequestType" [value]="Request.Id">
+                        {{Request.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Grace Months <strong class="matMandatory">*</strong></mat-label>
+                <mat-select formControlName="GraceMonths">
+                    <mat-option *ngFor="let slct of select" [value]="slct.value">
+                        {{slct.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Manager PPNO <strong class="matMandatory">*</strong></mat-label>
+                <input matInput placeholder="Enter Manager PPNO" formControlName="MPpno" appNumberOnly
+                       autocomplete="off"/>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <button mat-raised-button color="primary" (click)="find()">Find</button>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="Field">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel"><em>No Record Found</em></mat-label>
+                <input matInput placeholder="No Record Found" autocomplete="off" readonly="readonly"/>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="Field">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel"><em>No Record Found</em></mat-label>
+                <input matInput placeholder="No Record Found" autocomplete="off" readonly="readonly"/>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div *ngIf="Table" class="d-flex justify-content-center">
+        <button mat-raised-button color="primary" (click)="Add()">Add Select Record</button>
+    </div>
+    <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
+        <table class="example-table-container">
+            <thead>
+            <tr class="table-header-background">
+                <th>LC#</th>
+                <th>Cnic</th>
+                <th>Customer Name</th>
+                <th>Father Name</th>
+                <th>GL Description</th>
+                <th>AGPS</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let res of response; let i = index;">
+                <td>{{res.LoanCaseNo}}</td>
+                <td>{{res.Cnic}}</td>
+                <td>{{res.CustomerName}}</td>
+                <td>{{res.FatherName}}</td>
+                <td>{{res.GlSubname}}</td>
+                <td>{{res.MajorBorrower}}</td>
+                <td>
+                    <mat-checkbox (change)="onChange(res, $event, i)" [(ngModel)]="checked"></mat-checkbox>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="AddTable && checkedArr.length>0" class="d-flex justify-content-center">
+        <button mat-raised-button color="primary" (click)="submitData()">Submit</button>
+        <button class="ml-2" mat-raised-button color="primary" (click)="cancelData()">Cancel</button>
+    </div>
+    <div class="col-lg-12 mt-2">
+
+        <table class="table table-striped " *ngIf="AddTable && checkedArr.length>0">
+            <thead>
+            <tr class="table-header-background">
+                <th>LC#</th>
+                <th>Cnic</th>
+                <th>Customer Name</th>
+                <th>Father Name</th>
+                <th>GL Description</th>
+                <th>AGPS</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let res of tableArr; let i = index;">
+                <td>{{res.LoanCaseNo}}</td>
+                <td>{{res.Cnic}}</td>
+                <td>{{res.CustomerName}}</td>
+                <td>{{res.FatherName}}</td>
+                <td>{{res.GlSubname}}</td>
+                <td>{{res.MajorBorrower}}</td>
+                <td>
+                    <button mat-raised-button color="primary" (click)="deleteRow(i)">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

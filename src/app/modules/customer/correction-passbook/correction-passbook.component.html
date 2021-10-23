@@ -1,0 +1,176 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <div class="text-4xl font-extrabold tracking-tight">Correction of Passbook No.</div>
+
+  <!-- Header -->
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+    style="flex-wrap: wrap">
+  </div>
+  <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+    <form [formGroup]="cpForm" class="kt-form kt-form--group-seperator-dashed">
+      <div class="form-group kt-form__group row">
+
+        <!-- <kt-alert *ngIf="hasFormErrors" class="col-lg-12" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
+          Please enter valid Input
+        </kt-alert> -->
+      
+          <div class="col-lg-3 kt-margin-bottom-20-mobile">
+  
+              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>
+                  <input matInput placeholder="Enter Tran Date" formControlName="Zone"  maxlength="13" autocomplete="off" readonly="readonly"/>
+                </mat-form-field>
+          </div>
+  
+          <div class="col-lg-3 kt-margin-bottom-20-mobile">
+              
+              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>
+                  <input matInput placeholder="Enter Tran Date" formControlName="Branch"  maxlength="13" autocomplete="off" readonly="readonly"/>
+                </mat-form-field>
+          </div>
+      </div>
+  
+      <div class="form-group kt-form__group row"> 
+          <div class="col-lg-3 kt-margin-bottom-20-mobile">
+              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">CNIC#</mat-label>
+                <!-- <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic" formControlName="Cnic"  maxlength="13" autocomplete="off" [readonly]="viewOnly"/> -->
+                <input appNumberOnly matInput placeholder="Enter Cnic" formControlName="Cnic"  maxlength="13" autocomplete="off" />
+              </mat-form-field>
+          </div>
+      </div>
+  
+      <div class="form-group kt-form__group row"> 
+          <div class="col-lg-2 kt-margin-bottom-20-mobile">
+            <input type="button" mat-raised-button color="primary" class=" mat-raised-button mat-button-base mat-primary searchLCBtn"  value="Find" (click)="find()" />
+              <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
+          </div>
+      </div>
+
+      <div *ngIf="afterFind" class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+          <div class="kt-portlet__head-label">
+              <h5 class="kt-portlet__head-title">Customer Information</h5>
+            </div>
+        </div>
+
+      <div *ngIf="afterFind" class="form-group kt-form__group row">
+          <div class="col-lg-12">
+            <div class="table-responsive" style="overflow-x: hidden;">
+              <table class="table table-striped">
+                <thead>
+                  <tr class="table-header-background">
+                    <th>CNIC</th>
+                    <th>Name</th>
+                    <th>Father Name</th>
+                    <th>DOB</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{customerRec.Cnic}}</td>
+                    <td>{{customerRec.CustomerName}}</td>
+                    <td>{{customerRec.FatherName}}</td>
+                    <td>{{customerRec.Dob}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="searchData" class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+          <div class="kt-portlet__head-label">
+              <h5 class="kt-portlet__head-title">Land Information</h5>
+            </div>
+        </div>
+
+        <div *ngIf="searchData" class="form-group kt-form__group row">
+          <!-- <div class="col-lg-12">
+            <div class="table-responsive" style="overflow-x: hidden;">
+              <table class="table table-striped">
+                <thead>
+                  <tr class="table-header-background">
+                    <th>Passbook No.</th>
+                    <th>New Passbook No.</th>
+                    <th>Area Owned</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let record of PassBookRec; let i = index">
+                    <td>{{record.PassbookNO}}</td>
+                    <td>
+                      <input matInput placeholder="Enter New Passbook No" formControlName="NewPassBookNo" autocomplete="off"/>
+                    </td>
+                    <td>{{record.TotalArea}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div> -->
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr class="table-header-background">
+                    <th>Total Area</th>
+                    <th>Passbook NO</th>
+                    <th>New Passbook No.</th>
+                  </tr>
+
+                <!-- <tr hidden class="table-header-background">
+                  <th *ngFor="let k of rowKeys">{{ k }}</th>
+                </tr>
+                <tr  class="table-header-background">
+                  <th *ngFor="let v of rowth">{{ v }}</th>
+                </tr> -->
+
+              </thead>
+              <tbody>
+                <tr  *ngFor="let row of PassBookRec; let rowIndex = index; trackBy: tracker">
+                  <ng-container *ngFor="let key of rowKeys; trackBy: tracker">
+                <td *ngIf="key!='IsActive' || key!='LandInfoID'">
+                   <div *ngIf="key=='TotalArea' || key=='PassbookNO'"> 
+                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                      <input matInput readonly disabled
+                        type="text"
+                       
+                        [attr.value]="row[key]"
+                        (input)="onInputChanged($event.target.value, rowIndex, key)"
+                      />
+                      </mat-form-field>
+                    </div>
+                    <!-- *ngIf="key!='Name'" -->
+                    <div *ngIf="key=='NewPassbookNO'"> 
+                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                      <input matInput
+                        [attr.value]="row[key]"
+                        (change)="onInputChanged($event.target.value, rowIndex, key)"
+                        />
+                      </mat-form-field>
+                    </div>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <button class="ml-2" mat-raised-button color="primary" (click)="reset()">Reset</button> -->
+            
+          </div>
+
+          
+        </div>
+
+    </form>
+    <!-- <pre>
+      {{PassBookRec|json}}
+    </pre> -->
+
+    <div *ngIf="searchData" class="form-group kt-form__group row mt-2 justify-content-center">
+      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+  </div>
+  </div>
+
+</div>
+

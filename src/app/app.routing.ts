@@ -104,6 +104,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/report-managment/report-managment.module').then(m => m.ReportManagmentModule)
             },
             {
+                path: 'journal-voucher',
+                loadChildren: () => import('app/modules/journal-voucher/journal-voucher.module').then(m => m.JournalVoucherModule)
+            },
+            {
                 path: 'loan-recovery',
                 loadChildren: () => import('app/modules/loan-recover/loan-recover.module').then(m => m.LoanRecoverModule)
             },
@@ -112,9 +116,30 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/loan/loan.module').then(m => m.LoanModule)
             },
             {
+                path: 'deceased',
+                loadChildren: () => import('app/modules/deceased-customer/deceased-customer.module').then(m => m.DeceasedCustomerModule)
+            },
+            {
+                path: 'tour-diary',
+                loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
+            },
+            {
                 path: 'loan-utilization',
                 loadChildren: () => import('app/modules/loan-utilization/loan-utilization.module').then(m => m.LoanUtilizationModule)
             },
+            {
+                path: 'customer',
+                loadChildren: () => import('app/modules/customer/customer.module').then(m => m.CustomerModule)
+            },
+
+            {
+                path: 'loan-recovery',
+                loadChildren: () => import('app/modules/loan-recovery/loan-recovery.module').then(m => m.LoanRecoveryModule)
+            },
+            // {
+            //     path: 'reschedule-cases',
+            //     loadChildren: () => import('app/modules/reschedule-cases/reschedule-cases.module').then(m => m.RescheduleCasesModule)
+            // },
             {
                 path: '**',
                 redirectTo: 'dashboard',

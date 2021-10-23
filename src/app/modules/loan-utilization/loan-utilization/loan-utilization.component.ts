@@ -9,20 +9,20 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateFormats } from 'app/shared/classes/lov.class';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Customer, Documents, MarkDeceasedCustomer } from 'app/shared/models/deceased_customer.model';
-import { LoanUtilizationModel, UtilizationFiles } from 'app/shared/models/loan-utilization.model';
+import { LoanUtilizationModel, UtilizationFiles } from 'app/modules/loan-utilization/Model/loan-utilization.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
-import { LoanUtilizationService } from 'app/shared/services/loan-utilization.service';
 import { ViewFileComponent } from 'app/shared/component/view-file/view-file.component';
+import {LoanUtilizationService} from "../service/loan-utilization.service";
 
 @Component({
   selector: 'kt-loan-utilization',
   templateUrl: './loan-utilization.component.html',
   styleUrls: ['./loan-utilization.component.scss'],
   providers: [
-    DatePipe,LoanUtilizationService, 
+    DatePipe,LoanUtilizationService,
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: DateFormats },
     {
@@ -119,7 +119,7 @@ export class LoanUtilizationComponent implements OnInit {
     private _loanutilization: LoanUtilizationService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-   
+
 
   ) {
     this.loggedInUser = userUtilsService.getUserDetails();
@@ -174,7 +174,7 @@ export class LoanUtilizationComponent implements OnInit {
 
       // this.GetMedia();
     } else {
-      //this.router.navigate(['/loan-utilization/search-uti']);
+      this.router.navigate(['/loan-utilization/search-uti']);
     }
     this.createForm();
     this.checkUser();
@@ -450,7 +450,7 @@ export class LoanUtilizationComponent implements OnInit {
 
   changeStatus(status: string) {
     if(status == "S" && (this.loanUtilizationModel.ID == undefined || this.loanUtilizationModel.ID == null)){
-      
+
       var msg = "Please save before submitting"
       this.layoutUtilsService.alertElement(
         "",

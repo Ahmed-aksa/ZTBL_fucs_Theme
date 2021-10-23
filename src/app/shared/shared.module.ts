@@ -134,7 +134,8 @@ import { ViewFileComponent } from './component/view-file/view-file.component';
         NgxMaskModule,
         NgxSpinnerModule,
         NgxPaginationModule,
-        AgmCoreModule
+        AgmCoreModule,
+        AlertComponent
     ],
     entryComponents: [
         UpdateStatusDialogComponent,
