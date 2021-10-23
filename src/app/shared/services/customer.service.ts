@@ -244,16 +244,16 @@ export class CustomerService {
 
     // Phone Cell Get Customer By CNIC
 
-    getCustomerByCnic(cnic, Branch?, User?,Zone?) {
+    getCustomerByCnic(cnic, branch?, zone?) {
         var userInfo = this.userUtilsService.getUserDetails();
         var request = {
             Customer: {
                 Cnic: cnic,
             },
             TranId: 0,
-            Branch: userInfo.Branch,
+            Branch: branch,
             User: userInfo.User,
-            Zone: userInfo.Zone,
+            Zone: zone,
         };
 
         return this.http

@@ -51,6 +51,9 @@ export class CorrectionPhoneComponent implements OnInit {
   selected_z;
   selected_c;
 
+
+  final_branch: any;
+  final_zone: any;
   constructor(private fb: FormBuilder,
     private layoutUtilsService: LayoutUtilsService,
     private spinner: NgxSpinnerService,
@@ -129,14 +132,22 @@ export class CorrectionPhoneComponent implements OnInit {
       PhoneCell: [''],
     })
   }
-
+  private assignBranchAndZone() {
+    if (this.SelectedBranches.length)
+        this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
+    else
+        this.final_branch = this.SelectedBranches;
+    let zone = null;
+    if (this.SelectedZones.length)
+        this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+    else
+        this.final_zone = this.SelectedZones;
+}
   find() {
-
     var cnic = this.cpForm.controls.Cnic.value;
-    var Zone = this.cpForm.controls.Zone.value;
-    var Branch = this.cpForm.controls.Branch.value;
+    this.assignBranchAndZone();
     this.spinner.show();
-    this._customerService.getCustomerByCnic(cnic)
+    this._customerService.getCustomerByCnic(cnic, this.final_branch, this.final_zone)
       .pipe(
         finalize(() => {
           this.spinner.hide();

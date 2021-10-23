@@ -409,7 +409,7 @@ export class SearchUtilizationComponent implements OnInit {
 
   editloanutilization(utilization: any) {
 
-    this.router.navigate(['../loan-uti'], {
+    this.router.navigate(['/loan-utilization/loan-uti'], {
       state: { example: utilization },
       relativeTo: this.activatedRoute
     });
@@ -418,7 +418,7 @@ export class SearchUtilizationComponent implements OnInit {
 
   viewloanutilization(utilization: any) {
     utilization.view = "1";
-    this.router.navigate(['../loan-uti'], {
+    this.router.navigate(['/loan-utilization/loan-uti'], {
       state: { example: utilization },
       relativeTo: this.activatedRoute
     });
