@@ -307,4 +307,21 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     })
   }
 
+  changeBranch(changedValue) {
+
+    let changedBranch = null;
+    if (changedValue.has('value')) {
+        changedBranch = {Branch: {BranchCode: changedValue.value}}
+    } else {
+        changedBranch = {Branch: {BranchCode: changedValue}}
+
+    }
+    this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+        console.log(data);
+        this.Circles = data.Circles;
+        this.SelectedCircles = this.Circles;
+        this.disable_circle = false;
+    });
+}
+
 }
