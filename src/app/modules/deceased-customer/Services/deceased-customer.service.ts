@@ -92,7 +92,7 @@ export class DeceasedCustomerService {
     SearchDeceasedCustomer(
         customer: Customer,
         isUserAdmin: boolean,
-        isZoneUser: boolean
+        isZoneUser: boolean,
     ): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         var deceasedInfo = new Customer();
@@ -113,21 +113,17 @@ export class DeceasedCustomerService {
         }
         //this.request.Customer["CustomerStatus"]= "-1";
         this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
-
-        console.log(req);
-        console.log(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`);
 
         return this.http
             .post(
                 `${environment.apiUrl}/Customer/SearchDeceasedCustomer`,
-                req,
+                this.request,
                 { headers: this.httpUtils.getHTTPHeaders() }
             )
             .pipe(map((res: BaseResponseModel) => res));

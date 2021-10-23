@@ -24,6 +24,10 @@ const routes = [
     {
         path: 'referback',
         component: ReferbackDeceasedComponent
+    },
+    {
+        path: 'search-deceased',
+        component: SearchDeceasedComponent
     }
 ]
 
