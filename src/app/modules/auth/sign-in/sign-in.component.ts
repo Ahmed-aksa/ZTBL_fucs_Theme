@@ -31,6 +31,9 @@ export class AuthSignInComponent implements OnInit {
     ) {
     }
     ngOnInit(): void {
+        this.CreateForm();
+    }
+    CreateForm() {
         this.signInForm = this._formBuilder.group({
             DisplayName: ['', [Validators.required]],
             Password: ['', Validators.required],
@@ -59,7 +62,7 @@ export class AuthSignInComponent implements OnInit {
                             message: result.Message,
                         };
                         this.showAlert = true;
-
+                        this.CreateForm();
                     }
 
                 },
@@ -71,6 +74,7 @@ export class AuthSignInComponent implements OnInit {
                         message: 'Wrong email or password'
                     };
                     this.showAlert = true;
+                    this.CreateForm();
                 }
             );
     }
