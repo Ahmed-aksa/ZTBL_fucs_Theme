@@ -16,15 +16,18 @@ import {DatePipe} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
 import {SignaturePad,SignaturePadModule} from "angular2-signaturepad";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatIconModule} from "@angular/material/icon";
 
-const routing= [
+const routes = [
+
     {
         path: 'set-target',
         component: SetTargetComponent
     },
 
     {
-        path: 'create-tour-dairy',
+        path: 'create-tour-diary',
         component: TourDairyMcoComponent
     },
     {
@@ -46,7 +49,7 @@ const routing= [
   ],
     imports: [
         CommonModule,
-        RouterModule.forChild(routing),
+        RouterModule.forChild(routes),
         ReactiveFormsModule,
         MatFormFieldModule,
         MatOptionModule,
@@ -55,6 +58,8 @@ const routing= [
         MatButtonModule,
         SignaturePadModule,
         MatDatepickerModule,
+        MatDialogModule,
+        MatIconModule,
 
     ],
     providers: [

@@ -42,14 +42,14 @@ export class SetTargetService {
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
         return this.http
-            .post(`${environment.apiUrl}/Customer/GetDeceasedCustomer`, req, {
+            .post(`${environment.apiUrl}/Customer/GetDeceasedCustomer`,  this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
 
     GetTragetDuration() {
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
@@ -84,7 +84,7 @@ export class SetTargetService {
         var req = JSON.stringify(this.request);
 
         return this.http
-            .post(`${environment.apiUrl}/Target/GetTragetDuration`, req, {
+            .post(`${environment.apiUrl}/Target/GetTragetDuration`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
@@ -124,7 +124,7 @@ export class SetTargetService {
         var req = JSON.stringify(this.request);
         // console.log(req);
         return this.http
-            .post(`${environment.apiUrl}/Target/GetTargets`, req, {
+            .post(`${environment.apiUrl}/Target/GetTargets`,  this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
@@ -216,7 +216,7 @@ export class SetTargetService {
         return this.http
             .post(
                 `${environment.apiUrl}/Customer/GetListOfRejectedDeceasedPerson`,
-                req,
+                this.request,
                 { headers: this.httpUtils.getHTTPHeaders() }
             )
             .pipe(map((res: BaseResponseModel) => res));
@@ -234,7 +234,7 @@ export class SetTargetService {
         var req = JSON.stringify(this.request);
 
         return this.http
-            .post(`${environment.apiUrl}/Customer/SubmitCustomerNADRA`, req, {
+            .post(`${environment.apiUrl}/Customer/SubmitCustomerNADRA`,  this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));

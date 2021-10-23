@@ -109,7 +109,7 @@ export class SetTargetComponent implements OnInit {
     ngOnInit(): void {
         this.GetTragetDuration();
         this.createForm();
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.customerForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
         this.customerForm.controls.Branch.setValue(userInfo.Branch.Name);
     }
@@ -146,6 +146,7 @@ export class SetTargetComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.headings = baseResponse.Target.Heading;
                     this.targets = baseResponse.Target.Targets;
+                    debugger
                     this.previous = Object.assign(this.targets);
                     this.Heading();
                     this.ishidden = true;
@@ -229,13 +230,13 @@ export class SetTargetComponent implements OnInit {
         return this.array;
     }
 
-    onInputChanged(value: Event, rowIndex: number, propertyKey: string): void {
+    onInputChanged(value: string, rowIndex: number, propertyKey: string): void {
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex
                 ? row
                 : {
                       ...row,
-                      [propertyKey]: (value.target as HTMLInputElement).value,
+                      [propertyKey]: value,
                   };
         });
 
