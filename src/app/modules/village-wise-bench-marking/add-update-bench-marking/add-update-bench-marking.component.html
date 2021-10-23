@@ -1,1 +1,181 @@
-<p>add-update-bench-marking works!</p>
+<div class=" px-5 py-2 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent container">
+    <div class="text-4xl font-extrabold tracking-tight">Add New Vendor</div>
+    <div class="flex flex-auto" style="flex-direction: row;flex-wrap: wrap;overflow-y: scroll;gap:2%" [formGroup]="addUpdateBenchMarkForm">
+        
+        <div>
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                    <mat-option [value]="SelectedZones?.ZoneId">
+                        {{SelectedZones?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                            (selectionChange)="changeZone($event)">
+                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                [disabled]="disable_zone">
+                        {{zone?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+
+        <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                            (selectionChange)="changeBranch($event)"
+                            *ngIf="!single_branch">
+                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                    >
+                        {{branch?.Name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                            *ngIf="single_branch">
+                    <mat-option [value]="SelectedBranches?.BranchCode"
+                    >
+                        {{SelectedBranches?.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Circle</mat-label>
+
+                <mat-select formControlName="CircleId" [disabled]="disable_circle">
+                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                    >
+                        {{circle?.CircleCode}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Village Name<strong class="matMandatory">*</strong></mat-label>
+              <input matInput placeholder="Enter Village Name'" formControlName="VillageName" />
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">No. of Farmer<strong class="matMandatory">*</strong></mat-label>
+              <input matInput placeholder="Enter No. of Farmer" formControlName="NoOfFormaer" autocomplete="off" appNumberOnly />
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Gender Count<strong class="matMandatory">*</strong></mat-label>
+              <input matInput placeholder="Enter Gender Count" formControlName="GenderCount" autocomplete="off" appNumberOnly />
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Gender Type<strong class="matMandatory">*</strong></mat-label>
+              <mat-select formControlName="GenderType">
+                <mat-option *ngFor="let gender of GenderLov" [value]="gender.Name">
+                  {{gender.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Farm Size<strong class="matMandatory">*</strong></mat-label>
+              <input matInput placeholder="Enter Farm Size" formControlName="FarmSize" autocomplete="off" appNumberOnly />
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Average Loan Size<strong class="matMandatory">*</strong></mat-label>
+              <input matInput placeholder="Enter Average Loan Size" formControlName="AverageLoanSize" autocomplete="off" appNumberOnly />
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Subsistence Farmer</mat-label>
+              <input matInput placeholder="Enter Tour Subsistence Farmer" formControlName="SubsistenceFarmer" autocomplete="off" appNumberOnly />
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Economic Farmer</mat-label>
+              <input matInput placeholder="Enter Tour Economic Farmer" formControlName="EconomicFarmer" autocomplete="off" appNumberOnly />
+            </mat-form-field>
+          </div>
+          
+          <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Big Farmers</mat-label>
+              <input matInput placeholder="Enter Big Farmers" formControlName="BigFarmars" autocomplete="off" appNumberOnly />
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-label class="customMatLabel">Agri Business Potential</mat-label>
+              <input matInput placeholder="Enter Agri Business Potential" formControlName="AgriBusinessPotential" autocomplete="off" />
+            </mat-form-field>
+          </div>
+
+    </div>
+
+    <div class="mt-2 justify-content-center" >
+        <button mat-raised-button color="primary" class="mr-4" (click)="Add()">Add</button>
+        <button mat-raised-button class="org-button button-red" (click)="clear()">Clear</button>
+    </div>
+
+    <div class="col-lg-12">
+
+        <table class="table table-striped" *ngIf="tableLength">
+          <thead>
+            <tr class="table-header-background text-center">
+              <th>Village Name</th>
+              <th>No Of Formaer</th>
+              <th>Farm Size</th>
+              <th>GenderCount</th>
+              <th>Gender Type</th>
+              <th>Average Loan Size</th>
+              <th>Agri Business Potential</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let array of req_array; let i = index">
+              <td>{{array.VillageName}}</td>
+              <td>{{array.NoOfFormaer}}</td>
+              <td>{{array.FarmSize}}</td>
+              <td>{{array.GenderCount}}</td>
+              <td>{{array.GenderType}}</td>
+              <td>{{array.AverageLoanSize}}</td>
+              <td>{{array.AgriBusinessPotential}}</td>
+              <td class="d-flex justify-content-center">
+                <button mat-icon-button color="primary" (click)="editRow(array, i)"><mat-icon title="Edit Customer">edit</mat-icon></button>
+                <button *ngIf="hideDelete(array)" mat-icon-button color="primary" style="margin-left: 5px" (click)="deleteRow(i)"><mat-icon title="Edit Customer">delete</mat-icon></button>
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="row mt-2 justify-content-center" *ngIf="tableLength">
+          <button mat-raised-button color="primary" (click)="Submit()">Submit</button>
+      </div>
+
+</div>
