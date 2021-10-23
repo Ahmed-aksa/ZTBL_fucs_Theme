@@ -118,7 +118,6 @@ export class GeoFencingListComponent implements OnInit {
             this.user.ZoneId = this.LoggedInUserInfo.Zone.ZoneId;
             this.user.BranchCode = this.LoggedInUserInfo.Branch.BranchCode;
         }
-        this.SearchGeoFensePoint();
     }
 
     createForm() {
@@ -267,7 +266,6 @@ export class GeoFencingListComponent implements OnInit {
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
             this.SelectedCircles = data.Circles;
             this.selected_c = this.SelectedCircles[0].Id;
-            this.SearchGeoFensePoint()
             this.disable_circle = false;
         });
     }

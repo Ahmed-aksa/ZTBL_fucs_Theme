@@ -97,6 +97,7 @@ export class SearchJvRbComponent implements OnInit {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
                 let dateString = String(new Date());
+                dateString = this.datePipe.transform(dateString, 'ddMMyyyy');
                 var day = parseInt(dateString?.substring(0, 2));
                 var month = parseInt(dateString?.substring(2, 4));
                 var year = parseInt(dateString?.substring(4, 8));
@@ -207,12 +208,12 @@ export class SearchJvRbComponent implements OnInit {
 
                     this.matTableLenght = false;
 
-                    this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
+                    // this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                     //this.dataSource.data = [];
                     //this._cdf.detectChanges();
                     this.OffSet = 1;
                     this.pageIndex = 1;
-                    this.dv = this.dv.slice(1, 0);
+                    // this.dv = this.dv.slice(1, 0);
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                 }
 
