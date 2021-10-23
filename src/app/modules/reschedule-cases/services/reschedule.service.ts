@@ -36,7 +36,7 @@ export class ReschedulingService {
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
         var selectedCircleId = "";
-        if (userInfo.UserCircleMappings.length > 0) {
+        if (userInfo.UserCircleMappings?.length > 0) {
             userInfo.UserCircleMappings.forEach(function (value, key) {
 
                 if (userInfo.UserCircleMappings.length == (key + 1)) {
@@ -65,22 +65,23 @@ export class ReschedulingService {
         return this.request;
     }
 
-    GetRescheduling(res): Observable<BaseResponseModel> {
-        
+    GetRescheduling(res, branch, zone): Observable<BaseResponseModel> {
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
         this.CustomersLoanApp = res
         loanInfo.CustomersLoanApp = this.CustomersLoanApp
         this.request.Loan = loanInfo
-        var req = JSON.stringify(this.request);
+        this.request.Branch = branch;
+        this.request.Zone = zone;
         return this.http.post(`${environment.apiUrl}/Loan/GetRescheduling`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    SaveMakeRescheduleLoan(res: MakeReschedule): Observable<BaseResponseModel> {
+    SaveMakeRescheduleLoan(res: MakeReschedule, branch, zone): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
@@ -88,15 +89,16 @@ export class ReschedulingService {
         loanInfo.MakeReschedule = this.MakeReschedule
         this.request.Loan = loanInfo
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+        this.request.Branch = branch;
+        this.request.Zone = zone;
         return this.http.post(`${environment.apiUrl}/Loan/SaveMakeRescheduleLoan`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    SubmitRescheduleData(rescheduling: MakeReschedule): Observable<BaseResponseModel> {
-        
+    SubmitRescheduleData(rescheduling: MakeReschedule, branch, zone): Observable<BaseResponseModel> {
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
@@ -106,6 +108,8 @@ export class ReschedulingService {
         this.MakeReschedule.Remarks = "ok"
         loanInfo.MakeReschedule = this.MakeReschedule
         this.request.Loan = loanInfo
+        this.request.Branch = branch;
+        this.request.Zone = zone;
         this.request["DeviceLocation"] = {
             BtsId: "0",
             BtsLoc: "",
@@ -115,8 +119,6 @@ export class ReschedulingService {
             Src: "BTS",
             time: "0"
         }
-        var req = JSON.stringify(this.request);
-        console.log(req)
         return this.http.post(`${environment.apiUrl}/Loan/SubmitRescheduleData`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -130,7 +132,6 @@ export class ReschedulingService {
         this.MakeReschedule.LoanReschID = rescheduling.LoanReschID
         loanInfo.MakeReschedule = this.MakeReschedule
         this.request.Loan = loanInfo
-        var req = JSON.stringify(this.request);
         return this.http.post(`${environment.apiUrl}/Loan/CancelRescheduleData`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -144,7 +145,6 @@ export class ReschedulingService {
         this.MakeReschedule.LoanAppSanctionID = id
         loanInfo.MakeReschedule = this.MakeReschedule
         this.request.Loan = loanInfo
-        var req = JSON.stringify(this.request);
 
         return this.http.post(`${environment.apiUrl}/Loan/GetDisbursementByGl`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -153,14 +153,13 @@ export class ReschedulingService {
     }
 
     AddReschedulLoanInstallment(res): Observable<BaseResponseModel> {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun();
         this.ReschedulingList = res
         loanInfo.ReschedulingList = this.ReschedulingList
         this.request.Loan = loanInfo
-        var req = JSON.stringify(this.request);
         // Getting error because of branch
         return this.http.post(`${environment.apiUrl}/Loan/AddReschedulLoanInstallment`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -169,7 +168,7 @@ export class ReschedulingService {
     }
 
     RescheduleSearch(search): Observable<BaseResponseModel> {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
@@ -177,20 +176,20 @@ export class ReschedulingService {
         loanInfo.Appdt = search.TrDate;
         loanInfo.LcNo = search.Lcno;
         this.request.Loan = loanInfo
-        var req = JSON.stringify(this.request);
         return this.http.post(`${environment.apiUrl}/Loan/RescheduleSearch`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    GetSubProposalGL(lCNo): Observable<BaseResponseModel> {
+    GetSubProposalGL(lCNo, branch, zone): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
         loanInfo.LcNo = lCNo;
         this.request.Loan = loanInfo
-        var req = JSON.stringify(this.request);
+        this.request.Branch = branch;
+        this.request.Zone = zone;
         return this.http.post(`${environment.apiUrl}/Loan/GetSubProposalGL`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -204,7 +203,6 @@ export class ReschedulingService {
         this.MakeReschedule.LoanReschID = loanReschID
         loanInfo.MakeReschedule = this.MakeReschedule;
         this.request.Loan = loanInfo
-        var req = JSON.stringify(this.request);
 
         return this.http.post(`${environment.apiUrl}/Loan/GetReshTransactionByID`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(

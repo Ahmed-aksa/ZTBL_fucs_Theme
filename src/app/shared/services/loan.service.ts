@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { map } from 'rxjs/operators';
-import { BaseRequestModel } from '../models/base_request.model';
-import { Activity } from 'app/modules/user-management/activity/activity.model';
-import { HttpUtilsService } from './http_utils.service';
-import { UserUtilsService } from './users_utils.service';
-import { BaseResponseModel } from '../models/base_response.model';
-import { environment } from 'environments/environment';
-import { Branch } from '../models/branch.model';
+import {map} from 'rxjs/operators';
+import {BaseRequestModel} from '../models/base_request.model';
+import {Activity} from 'app/modules/user-management/activity/activity.model';
+import {HttpUtilsService} from './http_utils.service';
+import {UserUtilsService} from './users_utils.service';
+import {BaseResponseModel} from '../models/base_response.model';
+import {environment} from 'environments/environment';
+import {Branch} from '../models/branch.model';
 import {
     AppraisalProposed,
     CorporateSurety,
@@ -33,7 +33,7 @@ import {
     SearchLoan,
     SearchLoanDbr,
 } from '../models/Loan.model';
-import { LoanApplicationLegalHeirs } from '../models/loan-application-header.model';
+import {LoanApplicationLegalHeirs} from '../models/loan-application-header.model';
 
 @Injectable({
     providedIn: 'root',
@@ -46,7 +46,8 @@ export class LoanService {
         private http: HttpClient,
         private httpUtils: HttpUtilsService,
         private userUtilsService: UserUtilsService
-    ) {}
+    ) {
+    }
 
     saveApplicationHeader(
         loanReq: LoanApplicationHeader
@@ -64,13 +65,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveApplicationHeader`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -92,13 +93,13 @@ export class LoanService {
         this.request.Zone = userInfo.Zone;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveLoanApplicationpurpose`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -106,7 +107,7 @@ export class LoanService {
     generateNewAutoLc(branch: Branch) {
         this.request = new BaseRequestModel();
         this.request.Branch = branch;
-        var req = JSON.stringify(this.request);
+
         return this.http
             .post(`${environment.apiUrl}/Loan/GenrateNewLc`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -119,7 +120,7 @@ export class LoanService {
         this.request.Loan = new Loan();
         this.request.Loan.ApplicationHeader = new LoanApplicationHeader();
         this.request.Loan.ApplicationHeader.LoanAppID = loanAppId;
-        var req = JSON.stringify(this.request);
+
         return this.http
             .post(`${environment.apiUrl}/Loan/GetLoanLand`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -161,13 +162,13 @@ export class LoanService {
         };
 
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveLoanSecurities`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -184,13 +185,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveCustomerWithLoanApp`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -214,13 +215,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveLoanApplicationLegalheirs`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -240,13 +241,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveUpdatePersonalSureties`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -266,13 +267,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/Saveupdatecorporatesurety`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -289,13 +290,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveupdateReferences`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -312,13 +313,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveupdateWitnesses`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -335,13 +336,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveupdatePastPaidLoans`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -349,7 +350,7 @@ export class LoanService {
     getDocumentNo(TranId: any) {
         this.request = new BaseRequestModel();
         this.request.TranId = TranId;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/GetDocumentNo`, this.request, {
@@ -372,7 +373,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/GetCheckList`, this.request, {
@@ -394,7 +395,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/SaveCheckList`, this.request, {
@@ -416,13 +417,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SubmitLoanApplication`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -440,13 +441,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveupdateCurrentLoans`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -463,18 +464,18 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/AttachCustomersLand`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    SearchGLCode(loanReq: GlConfigrationsDetail) {
+    SearchGLCode(loanReq: GlConfigrationsDetail, branch = null, zone = null) {
         this.request = new BaseRequestModel();
 
         var loanInfo = new Loan();
@@ -483,11 +484,11 @@ export class LoanService {
         this.request.TranId = 0;
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
+        this.request.Zone = zone;
+        this.request.Branch = branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/SearchGLCode`, this.request, {
@@ -509,7 +510,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/AddCropDetail`, this.request, {
@@ -531,13 +532,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/AddAppraisalProposed`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -557,13 +558,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/GetORRDropDownByAppID`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -581,13 +582,13 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/DeleteAppraisalItemDetail`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -712,13 +713,13 @@ export class LoanService {
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetViewLoanDocument`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -769,7 +770,7 @@ export class LoanService {
             .post(
                 `${environment.apiUrl}/Loan/SearchLoanApplication`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -846,7 +847,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/SaveDBR`, this.request, {
@@ -920,13 +921,12 @@ export class LoanService {
 
         this.request.Loan = loanInfo;
 
-        var req = JSON.stringify(this.request);
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/DeleteCustomerLoanApplication`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -945,13 +945,12 @@ export class LoanService {
 
         this.request.Loan = loanInfo;
 
-        var req = JSON.stringify(this.request);
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/DeleteLoanpurpose`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -965,6 +964,7 @@ export class LoanService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
+
     deleteLegalHeirs(legalId, loan) {
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
@@ -974,7 +974,7 @@ export class LoanService {
         loanInfo.LoanApplicationLegalHeirs.ID = legalId;
         this.request.Loan = loanInfo;
         this.request.TranId = 0;
-        var req = JSON.stringify(this.request);
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/DeleteLegalHeirs`, this.request, {
@@ -989,7 +989,7 @@ export class LoanService {
             .post(
                 `${environment.apiUrl}/Loan/DeleteLoanpurpose`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
