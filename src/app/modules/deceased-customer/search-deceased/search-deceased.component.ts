@@ -94,7 +94,7 @@ export class SearchDeceasedComponent implements OnInit {
         //var u = new UserUtilsService();
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
-        debugger;
+        
         //if (userDetails.Branch.BranchCode == "All")
         if (userDetails.User.AccessToData == "1") {
             //admin user
@@ -124,7 +124,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     SearchDeceasedCustomer(){
-        debugger
+        
         this.spinner.show()
         this.Customer = Object.assign(this.Customer, this.deceasedCustomerSearch.value);
 
@@ -136,12 +136,12 @@ export class SearchDeceasedComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+                    
                     this.dataSource.data = baseResponse.DeceasedCustomer.DeceasedCustomerInfoList;
                     console.log(this.dataSource.data)
 
                 } else {
-                    debugger;
+                    
                     this.layoutUtilsService.alertElement(
                         "",
                         baseResponse.Message,
@@ -157,7 +157,7 @@ export class SearchDeceasedComponent implements OnInit {
     dv: number | any; //use later
 
     SearchLandData() {
-        debugger;
+        
         this.spinner.show();
         // this.CustomerLandRelation.Offset = this.OffSet.toString();
         // this.CustomerLandRelation.Limit = this.itemsPerPage.toString();
@@ -173,10 +173,10 @@ export class SearchDeceasedComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-                debugger;
+                
                 if (baseResponse.Success) {
                     this.loading = false;
-                    debugger;
+                    
                     this.dataSource.data = baseResponse.searchLandData;
 
                     if (this.dataSource.data.length > 0)
@@ -197,7 +197,7 @@ export class SearchDeceasedComponent implements OnInit {
                     //pagination
                     this.dv = this.dataSource.data;
                     //this.dataSource = new MatTableDataSource(data);
-                    debugger;
+                    
                     this.totalItems = baseResponse.searchLandData[0].TotalCount;
                     //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
@@ -231,7 +231,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     GetZones() {
-        debugger;
+        
         this.loading = true;
         this._circleService.getZones()
             .pipe(
@@ -239,7 +239,7 @@ export class SearchDeceasedComponent implements OnInit {
                     this.loading = false;
                 })
             ).subscribe(baseResponse => {
-            debugger;
+            
             if (baseResponse.Success) {
 
                 baseResponse.Zones.forEach(function (value) {
@@ -261,7 +261,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     SetBranches(branchId) {
-        debugger;
+        
         this.Branch.BranchCode = branchId.value;
     }
 
@@ -269,7 +269,7 @@ export class SearchDeceasedComponent implements OnInit {
         this.loading = true;
         this.dataSource.data = [];
         this.Branches = [];
-        debugger;
+        
         if (ZoneId.value === undefined)
             this.Zone.ZoneId = ZoneId;
         else
@@ -280,7 +280,7 @@ export class SearchDeceasedComponent implements OnInit {
                     this.loading = false;
                 })
             ).subscribe(baseResponse => {
-            debugger;
+            
             if (baseResponse.Success) {
                 this.loading = false;
 
@@ -321,7 +321,7 @@ export class SearchDeceasedComponent implements OnInit {
         //this.ngxService.start();
 
         this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.DeceasedCustomerStatus })
-        debugger;
+        
         this.CustomerStatusLov = this.CustomerStatusLov.LOVs;
         console.log(this.CustomerStatusLov);
         ////For Bill type

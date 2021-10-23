@@ -55,7 +55,7 @@ export class CorrectionPhoneComponent implements OnInit {
   }
 
   find(){
-    debugger
+    
     var cnic = this.cpForm.controls.Cnic.value;
     this.spinner.show();
     this._customerService.getCustomerByCnic(cnic)
@@ -65,7 +65,7 @@ export class CorrectionPhoneComponent implements OnInit {
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      debugger
+      
       if(baseResponse.Success === true){
         this.customerRec = baseResponse.Customer
         this.phoneCellTab = true;
@@ -94,7 +94,7 @@ export class CorrectionPhoneComponent implements OnInit {
   }
 
   onUpdate(){
-    debugger
+    
     var cnic = this.cpForm.controls.Cnic.value;
     var number = this.cpForm.controls.PhoneCell.value;
     var customerNumber = this.customerRec.CustomerNumber;
@@ -106,7 +106,7 @@ export class CorrectionPhoneComponent implements OnInit {
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      debugger
+      
       if(baseResponse.Success === true){
         this.customerRec = baseResponse.Customer
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message)

@@ -116,7 +116,7 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/deceased-customer/deceased-customer.module').then(m => m.DeceasedCustomerModule)
             },
             {
-                path: 'tour-dairy',
+                path: 'tour-diary',
                 loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
             },
             {
