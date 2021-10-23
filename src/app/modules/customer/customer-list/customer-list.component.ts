@@ -75,14 +75,13 @@ export class CustomerListComponent implements OnInit {
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-
-
     if (this.isDialog)
       this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus']
     this.LoadLovs();
     this.createForm();
     var userDetails = this.userUtilsService.getUserDetails();
     this.loggedInUserDetails = userDetails;
+    debugger;
     if (userDetails.User.AccessToData == "1") {
       //admin user
       this.isUserAdmin = true;
@@ -119,8 +118,8 @@ export class CustomerListComponent implements OnInit {
   createForm() {
     var userInfo = this.userUtilsService.getUserDetails();
     this.customerSearch = this.filterFB.group({
-      Zone: [userInfo.Zone.ZoneName],
-      Branch: [userInfo.Branch.Name],
+      Zone: [userInfo?.Zone?.ZoneName],
+      Branch: [userInfo?.Branch?.Name],
       CustomerName: [this._customer.CustomerName, [Validators.required]],
       Cnic: [this._customer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
       FatherName: [this._customer.FatherName, [Validators.required]],

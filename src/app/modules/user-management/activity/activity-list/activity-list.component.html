@@ -24,7 +24,11 @@
 
         <!-- CONTENT GOES HERE -->
         <div class="pt-1">
-            <div class="form-group row">
+            <div class="form-group row" style=" 
+            min-width: max-content;
+            max-height: 50vh;
+            overflow-y:scroll;
+        ">
                 <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8"
                      id="custom-table-activity-list">
                     <div class="custom-accordion" *ngFor="let activity of userActivities;let i=index">

@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, DebugElement} from '@angular/core';
 import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 
 import {finalize, takeUntil} from 'rxjs/operators';
@@ -282,6 +282,7 @@ export class CustomerProfileComponent implements OnInit {
   createForm() {
 
     var userInfo = this.userUtilsService.getUserDetails();
+    debugger;
     this.BranchLov = userInfo.Branch;
     this.ZoneLov = userInfo.Zone;
     this.createCustomer.Zone = this.ZoneLov.ZoneName;
@@ -633,8 +634,11 @@ export class CustomerProfileComponent implements OnInit {
     this.CasteLov.LOVs = this._lovService.SortLovs(this.CasteLov.LOVs);
 
     if (this.bit == '2') {
-      var currentCaste = this.CasteLov.LOVs.filter(x => x.Id == this.createCustomer.Caste.toString())[0];
-      this.roleForm.controls.Caste.setValue(currentCaste.Value);
+      debugger;
+      var currentCaste = this.CasteLov.LOVs.filter(x => x.Id == this.createCustomer?.Caste?.toString())[0];
+      if (currentCaste) {
+        this.roleForm.controls.Caste.setValue(currentCaste?.Value);
+      }
     }
 
 

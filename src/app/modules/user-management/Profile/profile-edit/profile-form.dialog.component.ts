@@ -203,8 +203,9 @@ export class ProfileFormDialogComponent implements OnInit {
     this.ActivityShow = false;
     this.SingleProfile = this.profiles.filter(p => p.ProfileID == ProfileID.value);
     this.GetActivities();
-
+    debugger;
     if (true) {
+
       this.loading = true;
       this.profile.ProfileID = ProfileID.value;
       this._profileService
@@ -379,7 +380,7 @@ export class ProfileFormDialogComponent implements OnInit {
       });
     });
     this._profileService
-      .updateProfile(flat_array, this.profileForm.value.ProfileID)
+      .updateProfile(flat_array, this.profile.ProfileID)
       .pipe(
         finalize(() => {
           this.submitted = false;

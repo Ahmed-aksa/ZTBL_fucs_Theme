@@ -6,22 +6,22 @@
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
       <mat-form-field class="mat-form-field-fluid" appearance="outline" id="focus-removal">
         <mat-label>Zone</mat-label>
-          <mat-select (selectionChange)="GetBranches($event)">
-            <mat-option *ngFor="let zone of Zones" [value]="zone.ZoneId">
-              {{zone.ZoneName }}
-            </mat-option>
-          </mat-select>
+        <mat-select (selectionChange)="GetBranches($event)">
+          <mat-option *ngFor="let zone of Zones" [value]="zone.ZoneId">
+            {{zone.ZoneName }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field class="mat-form-field-fluid" appearance="outline" id="focus-removal">
-       <mat-label>Branch</mat-label>
-          <mat-select (selectionChange)="GetCircles($event)">
-            <mat-option *ngFor="let branch of Branches" [value]="branch.BranchCode">
-              {{branch.Name }}
-            </mat-option>
-          </mat-select>
+        <mat-label>Branch</mat-label>
+        <mat-select (selectionChange)="GetCircles($event)">
+          <mat-option *ngFor="let branch of Branches" [value]="branch.BranchCode">
+            {{branch.Name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-  </div>
+    </div>
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
       <button [routerLink]="['/user-management/viewCirclesfence']" class="ml-4" mat-flat-button [color]="'primary'">
         <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
@@ -38,37 +38,44 @@
       <div class="flex flex-col flex-auto sm:mb-18 sm:overflow-y-auto">
         <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
           matSortActive="id" matSortDirection="asc" matSortDisableClear>
+
           <ng-container matColumnDef="circleId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Circle Id</mat-header-cell>
             <mat-cell *matCellDef="let circle">{{circle.Id}}</mat-cell>
           </ng-container>
 
+
+
           <ng-container matColumnDef="circleCode">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Circle Code</mat-header-cell>
             <mat-cell *matCellDef="let circle"> {{circle.CircleCode}}</mat-cell>
           </ng-container>
+
+   
+
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-            <mat-cell *matCellDef="let activity">
-              <button mat-icon-button color="primary" (click)="createOrEditItem(activity)">
-                <mat-icon>
-                  {{ activity.isCoreactivity ? 'visibility' : 'create' }}
-                </mat-icon>
-              </button>&nbsp;
-              <!-- <button mat-icon-button color="primary"
-                          (click)="deleteActivity(activity)">
-                      <mat-icon>
-                          {{ activity.isCoreactivity ? 'visibility' : 'delete' }}
-                      </mat-icon>
-                  </button>&nbsp; -->
+            
+            <mat-cell *matCellDef="let circle">
+              <button mat-icon-button color="primary" (click)="editGeofencing(circle)" *ngIf="circle.HasFence">
+                <mat-icon title="View">map</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" (click)="editGeofencing(circle)"
+                *ngIf="!circle.HasFence && _currentActivity.C">
+                <mat-icon title="Add">add</mat-icon>
+              </button>
             </mat-cell>
           </ng-container>
+
           <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">
           </mat-header-row>
 
           <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
 
+        <div class="mat-table__message" *ngIf="!loadingdata && dataSource.data.length==0">No records found</div>
+        <div class="mat-table__message" *ngIf="loadingdata">Please wait....</div>
+        <mat-paginator [length]="30" [pageSize]="30" [pageSizeOptions]="[30, 50, 100]" [showFirstLastButtons]="true"></mat-paginator>
       </div>
 
     </div>
