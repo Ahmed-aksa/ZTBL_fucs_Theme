@@ -1,0 +1,30 @@
+<div>
+    <div class="kt-portlet">
+      <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
+      <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+          <h3 class="kt-portlet__head-title">Request Status</h3>
+        </div>
+        <div class="text-center mt-3 d-flex justify-content-end">
+            <button mat-icon-button color="primary" (click)="close(0)">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-2 ml-2">
+        <span style="font-weight: 400; font-size: 20px;">{{data.mapp.NotificationText}}</span>
+    </div>
+
+    <hr style="margin-top: 80px;">
+
+    <div class="col-lg-12 row d-flex justify-content-end">
+      <!-- <button *ngIf="create" mat-raised-button color="primary" class="org-button mr-2" (click)="onCreate()">Create Mapping</button> -->
+      <button *ngIf='create' mat-raised-button color="primary" class="org-button mr-2"  (click)="onCreate()">Create Mapping</button>
+      <!-- <button mat-raised-button class="org-button button-red" (click)="close(0)">Close</button> -->
+      <button *ngIf="violat" mat-raised-button color="warn" (click)="block()">Block</button>
+    </div>
+
+</div>
+  
