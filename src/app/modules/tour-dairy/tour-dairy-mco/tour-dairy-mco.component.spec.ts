@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewfileComponent } from './viewfile.component';
+import { TourDairyMcoComponent } from './tour-dairy-mco.component';
 
-describe('ViewfileComponent', () => {
-  let component: ViewfileComponent;
-  let fixture: ComponentFixture<ViewfileComponent>;
+describe('TourDairyMcoComponent', () => {
+  let component: TourDairyMcoComponent;
+  let fixture: ComponentFixture<TourDairyMcoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewfileComponent ]
+      declarations: [ TourDairyMcoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewfileComponent);
+    fixture = TestBed.createComponent(TourDairyMcoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
