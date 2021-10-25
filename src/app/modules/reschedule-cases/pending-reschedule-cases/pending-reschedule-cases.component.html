@@ -1,8 +1,8 @@
-<div>
-    <div class="text-4xl font-extrabold tracking-tight">List of Transactions</div>
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight px-10 mt-4">List of Transactions</div>
 
     <!-- Header -->
-    <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+    <div class="flex flex-auto overflow-scroll mx-12 mt-4" style="flex-direction: column;">
         <div class="example-table-container">
             <table mat-table
                    [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "

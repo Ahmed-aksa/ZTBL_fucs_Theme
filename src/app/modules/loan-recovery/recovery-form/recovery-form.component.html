@@ -1,16 +1,16 @@
 <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-4xl font-extrabold tracking-tight">{{getTitle()}}</div>
+  <div class="text-4xl font-extrabold px-10 mt-4 tracking-tight">{{getTitle()}}</div>
 
   <!-- Header -->
-  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pt-4 px-6 md:px-8"
     style="flex-wrap: wrap">
   </div>
-  <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+  <div class="flex flex-auto overflow-scroll mx-12" style="flex-direction: column;">
     <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
       <div class="kt-form">
         <div class="kt-portlet__body">
           <div class="row">
-            <div class="col-lg-7">
+            <div class="col-lg-12">
               <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                 (close)="onAlertClose($event)">
                 Please enter valid Input
@@ -22,7 +22,7 @@
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
 
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Zone <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Enter Zone" formControlName="Zone" readonly="readonly" maxlength="30"
                       autocomplete="off" />
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Enter Branch" formControlName="Branch" readonly="readonly"
                       maxlength="30" autocomplete="off" />
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Working Date</mat-label>
                     <input matInput formControlName="BranchWorkingDate" maxlength="30" autocomplete="off"
                       readonly="readonly" />
@@ -49,7 +49,7 @@
 
               <div class="form-group kt-form__group row">
                 <div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="isSimpleRecovery">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                     <mat-label>Circle <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="CircleID" [(ngModel)]="UserCircleMappingsDefaultSelected"
                       [disabled]="recoverySaved || viewOnly">
@@ -61,7 +61,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                     <mat-label>Transaction Type <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="TransactionType" [disabled]="true">
                       <mat-option *ngFor="let type of TransactionTypes" [value]="type.Value">
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                     <mat-label class="customMatLabel">Effective Date (ddMMyyyy) <strong class="matMandatory">*</strong>
                     </mat-label>
                     <input matInput [matDatepicker]="picker2" formControlName="EffectiveDate" maxlength="30"
@@ -87,7 +87,7 @@
                 </div>
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="showAdviceNo">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                     <mat-label class="customMatLabel">Advice No <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Advice No" formControlName="AdviceNo" maxlength="30" autocomplete="off"
                       appNumberOnly [readonly]="recoverySaved || viewOnly" />
@@ -100,7 +100,7 @@
               <div class="form-group kt-form__group row">
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                     <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30"
                       autocomplete="off" appNumberOnly readonly="readonly" />
@@ -110,7 +110,7 @@
                 </div>
 
                 <div class="col-lg-2 kt-margin-bottom-20-mobile" *ngIf="RecoveryType == 2 || RecoveryType == 4">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                     <mat-label class="customMatLabel">Loan Branch <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Loan Branch Code" formControlName="ContraBranchCode" maxlength="30"
                       autocomplete="off" appNumberOnly [readonly]="recoverySaved || viewOnly" />
@@ -120,7 +120,7 @@
                 </div>
 
                 <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                     <mat-label class="customMatLabel">LC # <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="LC No" formControlName="LoanCaseNo" maxlength="30" autocomplete="off"
                       appNumberOnly [readonly]="recoverySaved || viewOnly" />
@@ -142,8 +142,8 @@
 
               </div>
               <div class="form-group kt-form__group row">
-                <div class="col-lg-8 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                     <mat-label>Sub Proposal/GL <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="SubProposalID" (selectionChange)="getDisbursementByGL(true)"
                       [disabled]="recoverySaved || viewOnly">
@@ -156,7 +156,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                     <mat-label>Disbursement <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="DisbursementID" (selectionChange)="getAccountDetail()"
                       [disabled]="recoverySaved || viewOnly">
@@ -168,10 +168,8 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-              </div>
-              <div class="form-group kt-form__group row">
-                <div class="col-lg-8 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label>Master/Tr Code <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="MasterTrCode" (selectionChange)="changeMasterCode()"
                       [disabled]="recoverySaved || viewOnly">
@@ -183,8 +181,11 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
+              </div>
+              <div class="form-group kt-form__group row">
+
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Total Amount <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Total Amount" formControlName="Amount" maxlength="30"
                       autocomplete="off" [readonly]="recoverySaved || viewOnly" appNumberOnly
@@ -193,12 +194,8 @@
                   </mat-form-field>
                   <mat-error *ngIf="amountError">{{totalAmountMsg}}</mat-error>
                 </div>
-              </div>
-
-              <div class="form-group kt-form__group row">
-
                 <div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="showInstrument">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label>Instrument Type</mat-label>
                     <mat-select formControlName="InstrumentType" [disabled]="recoverySaved || viewOnly">
                       <mat-option *ngFor="let list of InstrumentTypes" [value]="list.Value">
@@ -210,7 +207,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile" *ngIf="showInstrument && !showAdviceNo">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Instrument # <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Instrument #" formControlName="InstrumentNO" maxlength="30"
                       autocomplete="off" appNumberOnly [readonly]="recoverySaved || viewOnly" />
@@ -218,15 +215,13 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-
-
               </div>
 
 
               <div class="form-group kt-form__group row">
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label>Tr Code</mat-label>
                     <mat-select formControlName="TrCode" (selectionChange)="isEnableReceipt(true)"
                       [(ngModel)]="TrCodesRecoveryDefaultSelected" [disabled]="recoverySaved || viewOnly">
@@ -238,7 +233,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="mcReceipt">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="mcReceipt">
                     <mat-label class="customMatLabel">MCO Book</mat-label>
                     <input matInput placeholder="MCO Book" formControlName="BookNo" maxlength="10" autocomplete="off"
                       appNumberOnly [readonly]="recoverySaved || viewOnly" attr.required=false />
@@ -246,7 +241,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="mcReceipt">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="mcReceipt">
                     <mat-label class="customMatLabel">Receipt No</mat-label>
                     <input matInput placeholder="Receipt No" formControlName="ReceiptNo" maxlength="10"
                       autocomplete="off" appNumberOnly [readonly]="recoverySaved || viewOnly" />
@@ -260,7 +255,7 @@
               <div class="form-group kt-form__group row">
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label>SAM Recovery Type</mat-label>
                     <mat-select formControlName="SamRecoveryType" [disabled]="true">
                       <mat-option *ngFor="let list of SamRecoveryTypes" [value]="list.Value">
@@ -273,7 +268,7 @@
                 </div>
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label>Recovery Through <strong class="matMandatory" *ngIf="recoveryThroughValidator">*</strong>
                     </mat-label>
                     <!--<mat-select formControlName="RecoveryThroughType" (selectionChange)="getCoordinatorsByID()" [disabled]="recoverySaved || viewOnly || !isSAMStatus">-->
@@ -288,7 +283,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label>Coordinators <strong class="matMandatory" *ngIf="coordinatorValidator">*</strong>
                     </mat-label>
                     <!--<mat-select formControlName="CoordinatorID" [disabled]="recoverySaved || viewOnly || !isSAMStatus">-->
@@ -315,14 +310,14 @@
               <div class="form-group kt-form__group row" *ngIf="transactionEdit">
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Tran Date</mat-label>
                     <input matInput placeholder="Tran Date" formControlName="TranDate" maxlength="30" autocomplete="off"
                       appNumberOnly [readonly]="viewOnly" />
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Installments</mat-label>
                     <input matInput placeholder="Installments" formControlName="Installments" maxlength="30"
                       autocomplete="off" appNumberOnly [readonly]="viewOnly" />
@@ -333,8 +328,8 @@
               </div>
 
               <div class="form-group kt-form__group row">
-                <div class="col-lg-8 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Remarks: <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Remarks" formControlName="Remarks" maxlength="200" autocomplete="off"
                       [readonly]="viewOnly" />
@@ -472,7 +467,7 @@
 
 
 
-    <div class="col-lg-12" *ngIf="RecoveryLoanTransaction">
+    <div class="col-lg-12 mt-6" *ngIf="RecoveryLoanTransaction">
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
