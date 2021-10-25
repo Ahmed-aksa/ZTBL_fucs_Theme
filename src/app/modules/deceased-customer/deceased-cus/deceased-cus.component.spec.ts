@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapReqDialogComponent } from './map-req-dialog.component';
+import { DeceasedCusComponent } from './deceased-cus.component';
 
-describe('MapReqDialogComponent', () => {
-  let component: MapReqDialogComponent;
-  let fixture: ComponentFixture<MapReqDialogComponent>;
+describe('DeceasedCusComponent', () => {
+  let component: DeceasedCusComponent;
+  let fixture: ComponentFixture<DeceasedCusComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MapReqDialogComponent ]
+      declarations: [ DeceasedCusComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapReqDialogComponent);
+    fixture = TestBed.createComponent(DeceasedCusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

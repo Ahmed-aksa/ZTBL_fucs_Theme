@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViolateDialogComponent } from './violate-dialog.component';
+import { SearchDeceasedComponent } from './search-deceased.component';
 
-describe('ViolateDialogComponent', () => {
-  let component: ViolateDialogComponent;
-  let fixture: ComponentFixture<ViolateDialogComponent>;
+describe('SearchDeceasedComponent', () => {
+  let component: SearchDeceasedComponent;
+  let fixture: ComponentFixture<SearchDeceasedComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViolateDialogComponent ]
+      declarations: [ SearchDeceasedComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViolateDialogComponent);
+    fixture = TestBed.createComponent(SearchDeceasedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

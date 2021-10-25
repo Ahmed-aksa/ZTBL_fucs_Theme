@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MappingRequestComponent } from './mapping-request.component';
+import { TourDairyMcoComponent } from './tour-dairy-mco.component';
 
-describe('MappingRequestComponent', () => {
-  let component: MappingRequestComponent;
-  let fixture: ComponentFixture<MappingRequestComponent>;
+describe('TourDairyMcoComponent', () => {
+  let component: TourDairyMcoComponent;
+  let fixture: ComponentFixture<TourDairyMcoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MappingRequestComponent ]
+      declarations: [ TourDairyMcoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MappingRequestComponent);
+    fixture = TestBed.createComponent(TourDairyMcoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

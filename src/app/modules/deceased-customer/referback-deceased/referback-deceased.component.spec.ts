@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VendorListComponent } from './vendor-list.component';
+import { ReferbackDeceasedComponent } from './referback-deceased.component';
 
-describe('VendorListComponent', () => {
-  let component: VendorListComponent;
-  let fixture: ComponentFixture<VendorListComponent>;
+describe('ReferbackDeceasedComponent', () => {
+  let component: ReferbackDeceasedComponent;
+  let fixture: ComponentFixture<ReferbackDeceasedComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VendorListComponent ]
+      declarations: [ ReferbackDeceasedComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VendorListComponent);
+    fixture = TestBed.createComponent(ReferbackDeceasedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

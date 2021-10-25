@@ -1,1 +1,145 @@
-<p>search-ndc-list works!</p>
+<div>
+    <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+        <div class="text-4xl font-extrabold tracking-tight">NDC Search List</div>
+
+        <!-- Header -->
+        <div
+            class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+            style="flex-wrap: wrap">
+
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="Search" autocomplete="off" appearance="outline" #cnic>
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="btn btn-primary" (click)="findCnic(cnic)">Find</button>
+            <a color="primary">Get All</a>
+
+        </div>
+
+        <div class="mat-table__wrapper mat-elevation-z8" [style.maxHeight]="gridHeight">
+            <mat-table class="lmat-elevation-z8"
+                       [dataSource]="request_data_source">
+                <ng-container matColumnDef="serialNumber">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Sr.</mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request">{{request.NDCId}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="customer_cnic">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
+                    </mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Cnic}}</span></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer Name</mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CustomerName}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="current_status">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Current Status</mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Status}}</span></mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="last_status">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Last Action</mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.LastStatus}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="next_action_by">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Last Action By</mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CreatedBy}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="request_by">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Request By</mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Ppno}}</span></mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="request_on">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Request On</mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CreatedOn}}</span>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let request">
+                        <button mat-icon-button color="primary" (click)="downloadFile(request.Cnic,request.NDCId)">
+                            <mat-icon title="download">file_download</mat-icon>
+                        </button>&nbsp;
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="ndc_requests_displayed_columns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
+
+                <mat-row *matRowDef="let request; columns: ndc_requests_displayed_columns"></mat-row>
+            </mat-table>
+            <div class="mat-table__message" *ngIf="!loading && pending_requests_data_source.data?.length==0">No records
+                found
+            </div>
+            <!-- Message for empty data  -->
+            <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+        </div>
+        <div class="mat-table__bottom">
+            <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
+            <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15, 30, 50]"></mat-paginator>
+        </div>
+
+
+
+
+        <div class="text-4xl font-extrabold tracking-tight">NDCs Pending for Approval</div>
+        <br>
+        <br>
+
+
+
+
+
+
+
+
+
+        <div class="mat-table__wrapper mat-elevation-z8" [style.maxHeight]="gridHeight">
+            <mat-table class="lmat-elevation-z8"
+                       [dataSource]="pending_requests_data_source">
+                <ng-container matColumnDef="customer_cnic">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
+                    </mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Cnic}}</span></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="customer_name">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer Name</mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CustomerName}}</span></mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="request_on">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Request On</mat-header-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CreatedOn}}</span></mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="pending_ndc_requests_displayed_columns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
+
+                <mat-row *matRowDef="let request; columns: pending_ndc_requests_displayed_columns"></mat-row>
+            </mat-table>
+            <div class="mat-table__message" *ngIf="!loading && pending_requests_data_source.data?.length==0">No records
+                found
+            </div>
+            <!-- Message for empty data  -->
+            <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+        </div>
+        <div class="mat-table__bottom">
+            <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
+            <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15, 30, 50]"></mat-paginator>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
