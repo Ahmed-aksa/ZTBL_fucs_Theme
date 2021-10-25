@@ -201,7 +201,7 @@ export class LoanUtilizationComponent implements OnInit {
             this.isMCO = true;
         } else if (userInfo.User.userGroup[0].ProfileID == '57') {
             this.isBM = true;
-            this.customerForm.controls.remarks.setValidators(Validators.required);
+            this.customerForm.controls.Remarks.setValidators(Validators.required);
         }
 
         this.customerForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
@@ -243,7 +243,6 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     hasError(controlName: string, errorName: string): boolean {
-        //
         return this.customerForm.controls[controlName].hasError(errorName);
     }
 
@@ -259,7 +258,7 @@ export class LoanUtilizationComponent implements OnInit {
             Lat: [this.loanUtilizationModel.LoanCaseNo],
             Lng: [this.loanUtilizationModel.LoanDisbID],
             LoanCaseNo: [this.loanUtilizationModel.LoanCaseNo],
-            remarks: [this.loanUtilizationModel.Remarks],
+            Remarks: [this.loanUtilizationModel.Remarks],
             file: [''],
             fileV: [''],
             Status: [this.loanUtilizationModel.Status],
@@ -451,6 +450,17 @@ export class LoanUtilizationComponent implements OnInit {
 
     changeStatus(status: string) {
 
+        debugger
+        this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks.value;
+        if(this.loanUtilizationModel.Remarks == "" || this.loanUtilizationModel.Remarks == null ){
+            var msg = "Please Enter Remarks before submitting"
+            this.layoutUtilsService.alertElement(
+                "",
+                msg,
+                ""
+            );
+            return;
+        }
 
         if(status == "S" && (this.loanUtilizationModel.ID == undefined || this.loanUtilizationModel.ID == null)){
             var msg = "Please save before submitting"
@@ -462,8 +472,7 @@ export class LoanUtilizationComponent implements OnInit {
             return;
         }
 
-        this.customerForm.controls.remarks.setValidators(Validators.required);
-        this.loanUtilizationModel = Object.assign(this.customerForm.value);
+        this.customerForm.controls.Remarks.setValidators(Validators.required);
 
         this.loanUtilizationModel.Status = status;
         this.spinner.show();
@@ -542,13 +551,6 @@ export class LoanUtilizationComponent implements OnInit {
                 }))
                 .subscribe((baseResponse) => {
                     if (baseResponse.Success) {
-
-
-                        // this.images.splice(0, this.images.length - 1);
-                        // this.imageUrl.splice(0, this.imageUrl.length - 1);
-                        // this.videos.splice(0, this.videos.length - 1);
-                        // this.videoUrl.splice(0, this.videoUrl.length - 1);
-
                         this.isEmpty = true;
                         var utilizationFiles = baseResponse.LoanUtilization['UtilizationFiles'];
                         console.log(utilizationFiles);
@@ -566,15 +568,12 @@ export class LoanUtilizationComponent implements OnInit {
                         this.visible = true;
                     } else {
                         this.visible = true;
-
                         this.layoutUtilsService.alertElement(
                             '',
                             baseResponse.Message,
                             baseResponse.Code = null
                         );
                     }
-
-
                 });
         }
     }
@@ -620,6 +619,9 @@ export class LoanUtilizationComponent implements OnInit {
     UtilizationId;
 
     save() {
+
+         console.log(this.customerForm.controls.Remarks.value)
+        debugger
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
             Object.keys(controls).forEach(controlName =>
@@ -648,9 +650,9 @@ export class LoanUtilizationComponent implements OnInit {
             );
             return;
         }
-        // this.customerForm.controls.Status.setValue("P");
-        this.loanUtilizationModel = Object.assign(this.customerForm.value);
-
+        this.loanUtilizationModel.LoanDisbID = this.customerForm.controls.LoanDisbID.value;
+        this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks?.value;
+        console.log("After assigning value"+JSON.stringify(this.loanUtilizationModel))
         this.spinner.show();
         this._loanutilization
             .save(this.loanUtilizationModel)
@@ -660,15 +662,11 @@ export class LoanUtilizationComponent implements OnInit {
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-                        // var j = JSON.stringify(baseResponse)
-                        // console.log("baseResponse"+j);
 
                         this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID
                         console.log("id was saved here " + this.loanUtilizationModel.ID);
                         this.SaveImages();
-
                     } else {
-
                         this.layoutUtilsService.alertElement(
                             "",
                             baseResponse.Message,

@@ -142,7 +142,7 @@ console.log(req);
 
     save(value){
     value.Status="P";
-    console.log("value"+value);
+    console.log("value"+JSON.stringify(value));
     debugger;
     this.request = new BaseRequestModel();
     var userInfo = this.userUtilsService.getUserDetails();
