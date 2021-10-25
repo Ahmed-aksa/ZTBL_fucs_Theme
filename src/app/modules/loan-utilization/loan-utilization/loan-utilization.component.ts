@@ -452,7 +452,7 @@ export class LoanUtilizationComponent implements OnInit {
 
         debugger
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks.value;
-        if(this.loanUtilizationModel.Remarks == "" || this.loanUtilizationModel.Remarks == null ){
+        if(this.loanUtilizationModel.Remarks == ""){
             var msg = "Please Enter Remarks before submitting"
             this.layoutUtilsService.alertElement(
                 "",
