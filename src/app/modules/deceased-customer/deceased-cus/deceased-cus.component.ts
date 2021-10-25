@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateFormats } from '../../../shared/classes/lov.class';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {DatePipe} from '@angular/common';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateFormats} from '../../../shared/classes/lov.class';
 import {
     DateAdapter,
     MAT_DATE_FORMATS,
@@ -17,17 +17,17 @@ import {
     Documents,
     MarkDeceasedCustomer,
 } from '../../../shared/models/deceased_customer.model';
-import { MatTableDataSource } from '@angular/material/table';
-import { BaseResponseModel } from '../../../shared/models/base_response.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserUtilsService } from '../../../shared/services/users_utils.service';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { DeceasedCustomerService } from '../../../shared/services/deceased-customer.service';
-import { CommonService } from '../../../shared/services/common.service';
-import { finalize } from 'rxjs/operators';
-import { ViewfileComponent } from '../viewfile/viewfile.component';
+import {MatTableDataSource} from '@angular/material/table';
+import {BaseResponseModel} from '../../../shared/models/base_response.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserUtilsService} from '../../../shared/services/users_utils.service';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {DeceasedCustomerService} from '../../../shared/services/deceased-customer.service';
+import {CommonService} from '../../../shared/services/common.service';
+import {finalize} from 'rxjs/operators';
+import {ViewfileComponent} from '../viewfile/viewfile.component';
 
 @Component({
     selector: 'app-deceased-cus',
@@ -40,7 +40,7 @@ import { ViewfileComponent } from '../viewfile/viewfile.component';
             useClass: MomentDateAdapter,
             deps: [MAT_DATE_LOCALE],
         },
-        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
         {
             provide: MatDialogRef,
             useValue: {},
@@ -100,8 +100,8 @@ export class DeceasedCusComponent implements OnInit {
     cnicn;
     name;
     select: Selection[] = [
-        { value: '0', viewValue: 'NO' },
-        { value: '1', viewValue: 'Yes' },
+        {value: '0', viewValue: 'NO'},
+        {value: '1', viewValue: 'Yes'},
     ];
 
     constructor(
@@ -123,6 +123,7 @@ export class DeceasedCusComponent implements OnInit {
             }
         });
     }
+
     onAlertClose($event) {
         this.hasFormErrors = false;
     }
@@ -133,9 +134,9 @@ export class DeceasedCusComponent implements OnInit {
             this.GetReshTransaction();
         }
     }
+
     //to disable future date
     getToday(): string {
-        // return new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2)
         return new Date().toISOString().split('T')[0];
     }
 
@@ -199,12 +200,12 @@ export class DeceasedCusComponent implements OnInit {
                         this.myModel = true;
                         this.customerForm.controls[
                             'IsNadraCertificateVerified'
-                        ].setValue(true);
+                            ].setValue(true);
                     } else {
                         this.myModel = false;
                         this.customerForm.controls[
                             'IsNadraCertificateVerified'
-                        ].setValue(false);
+                            ].setValue(false);
                     }
                     this.dataSource =
                         baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries;
@@ -259,6 +260,7 @@ export class DeceasedCusComponent implements OnInit {
 
         this.customerForm.controls['DetailSourceIncome'].disable();
     }
+
     onFileChange(event) {
         if (event.target.files && event.target.files[0]) {
             var filesAmount = event.target.files.length;
@@ -442,7 +444,7 @@ export class DeceasedCusComponent implements OnInit {
             );
             this.customerForm.controls[
                 'DetailSourceIncome'
-            ].updateValueAndValidity();
+                ].updateValueAndValidity();
         } else {
             this.customerForm.controls['DetailSourceIncome'].reset();
             this.customerForm.controls['DetailSourceIncome'].disable();
