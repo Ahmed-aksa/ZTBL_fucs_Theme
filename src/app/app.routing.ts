@@ -92,10 +92,6 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/borrower-information/borrower-information.module').then(m => m.BorrowerInformationModule)
             },
             {
-                path: 'khaad-seed-vendor',
-                loadChildren: () => import('app/modules/khaad-seed-vendor/khaad-seed-vendor.module').then(m => m.KhaadSeedVendorModule)
-            },
-            {
                 path: 'configuration-management',
                 loadChildren: () => import('app/modules/configuration-management/configuration-management.module').then(m => m.ConfigurationManagementModule)
             },
@@ -116,17 +112,13 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/loan/loan.module').then(m => m.LoanModule)
             },
             {
-                path: 'village-wise-bench-marking',
-                loadChildren: () => import('app/modules/village-wise-bench-marking/village-wise-bench-marking.module').then(m => m.VillageWiseBenchMarkingModule)
-            },
-            {
-                path: 'deceased-customer',
+                path: 'deceased',
                 loadChildren: () => import('app/modules/deceased-customer/deceased-customer.module').then(m => m.DeceasedCustomerModule)
             },
-            // {
-            //     path: 'tour-diary',
-            //     loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
-            // },
+            {
+                path: 'tour-diary',
+                loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
+            },
             {
                 path: 'loan-utilization',
                 loadChildren: () => import('app/modules/loan-utilization/loan-utilization.module').then(m => m.LoanUtilizationModule)
@@ -135,22 +127,15 @@ export const appRoutes: Route[] = [
                 path: 'customer',
                 loadChildren: () => import('app/modules/customer/customer.module').then(m => m.CustomerModule)
             },
+
             {
                 path: 'loan-recovery',
                 loadChildren: () => import('app/modules/loan-recovery/loan-recovery.module').then(m => m.LoanRecoveryModule)
             },
-            {
-                path: 'reschedule-cases',
-                loadChildren: () => import('app/modules/reschedule-cases/reschedule-cases.module').then(m => m.RescheduleCasesModule)
-            },
-            {
-                path: 'land-creation',
-                loadChildren: () => import('app/modules/land-creation/land-creation.module').then(m => m.LandCreationModule)
-            },
-            {
-                path: 'ndc-requests',
-                loadChildren: () => import('app/modules/ndc-requests/ndc-requests.module').then(m => m.NdcRequestsModule)
-            },
+            // {
+            //     path: 'reschedule-cases',
+            //     loadChildren: () => import('app/modules/reschedule-cases/reschedule-cases.module').then(m => m.RescheduleCasesModule)
+            // },
             {
                 path: '**',
                 redirectTo: 'dashboard',
