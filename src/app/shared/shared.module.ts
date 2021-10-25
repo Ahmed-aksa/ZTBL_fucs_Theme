@@ -46,6 +46,12 @@ import {HttpUtilsService} from "./services/http_utils.service";
 import {UserUtilsService} from "./services/users_utils.service";
 import { LayoutUtilsService } from "./services/layout_utils.service";
 import { ViewFileComponent } from './component/view-file/view-file.component';
+import { AlphabetOnlyDirective } from './directives/alphabet-only.directive';
+import { NumberOnlyDirective } from './directives/number-only.directive';
+import { AlphaNumericFieldDirective } from './directives/alpha-numeric-field.directive';
+import { CapsOnlyDirective } from './directives/caps-only.directive';
+import { AlphaNumSpecialDirective } from './directives/alpha-num-special.directive';
+import { NumberAndDecimalDirective } from './directives/number-and-decimal.directive';
 
 
 @NgModule({
@@ -62,6 +68,12 @@ import { ViewFileComponent } from './component/view-file/view-file.component';
         AlertComponent,
         ActionNotificationComponent,
         ViewFileComponent,
+        AlphabetOnlyDirective,
+        NumberOnlyDirective,
+        AlphaNumericFieldDirective,
+        CapsOnlyDirective,
+        AlphaNumSpecialDirective,
+        NumberAndDecimalDirective
     ],
     imports: [
         CommonModule,
@@ -135,7 +147,13 @@ import { ViewFileComponent } from './component/view-file/view-file.component';
         NgxSpinnerModule,
         NgxPaginationModule,
         AgmCoreModule,
-        AlertComponent
+        AlertComponent,
+        AlphabetOnlyDirective,
+        NumberOnlyDirective,
+        AlphaNumericFieldDirective,
+        CapsOnlyDirective,
+        AlphaNumSpecialDirective,
+        NumberAndDecimalDirective
     ],
     entryComponents: [
         UpdateStatusDialogComponent,
