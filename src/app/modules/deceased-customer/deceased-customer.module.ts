@@ -4,10 +4,10 @@ import {DeceasedCusComponent} from './deceased-cus/deceased-cus.component';
 import {ImageViewerComponent} from './image-viewer/image-viewer.component';
 import {ReferbackDeceasedComponent} from './referback-deceased/referback-deceased.component';
 import {SearchDeceasedComponent} from './search-deceased/search-deceased.component';
-import {ViewfileComponent} from './viewfile/viewfile.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {ViewFileComponent} from "./view-file/view-file.component";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
@@ -38,7 +38,7 @@ const routes = [
     ImageViewerComponent,
     ReferbackDeceasedComponent,
     SearchDeceasedComponent,
-    ViewfileComponent
+      ViewFileComponent
   ],
     imports: [
         CommonModule,
@@ -51,7 +51,8 @@ const routes = [
         MatTableModule,
         NgxSpinnerModule,
         MatSortModule,
-        SharedModule
+        SharedModule,
+
     ],
 
 })
