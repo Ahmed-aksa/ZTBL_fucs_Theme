@@ -36,9 +36,9 @@
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
                 <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                            (selectionChange)="changeBranch($event)"
                             *ngIf="!single_branch">
                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                                (onSelectionChange)="changeBranch($event)"
                     >
                         {{branch?.Name}}
                     </mat-option>
@@ -52,6 +52,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
+
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="PostCodeLov">
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
