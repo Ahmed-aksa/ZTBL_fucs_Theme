@@ -10,7 +10,7 @@ import {RouterModule} from "@angular/router";
 
 const routing = [
     {
-        path: 'search-ndc',
+        path: 'search-ndc-list',
         component: SearchNdcListComponent
     },
 ]

@@ -7,11 +7,32 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { DeceasedCustomerService } from '../../../shared/services/deceased-customer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+import {DatePipe} from "@angular/common";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {DateFormats} from "../../../shared/classes/lov.class";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
     selector: 'app-referback-deceased',
     templateUrl: './referback-deceased.component.html',
     styleUrls: ['./referback-deceased.component.scss'],
+    providers: [
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE],
+        },
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
+        {
+            provide: MatDialogRef,
+            useValue: {},
+        },
+        {
+            provide: MAT_DIALOG_DATA,
+            useValue: {},
+        },
+    ],
 })
 export class ReferbackDeceasedComponent implements OnInit {
     //displayedColumns = ['customer_name', 'father_name', 'death_date', 'Cnic', 'address', 'per_address', 'status', 'branch_code', 'certificate_verified', 'legal_heir', 'View'];

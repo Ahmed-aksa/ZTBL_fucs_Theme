@@ -229,7 +229,7 @@ export class SetTargetComponent implements OnInit {
         return this.array;
     }
 
-    onInputChanged(value: Event, rowIndex: number, propertyKey: string): void {
+    onInputChanged (value: Event, rowIndex: number, propertyKey: string): void {
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex
                 ? row

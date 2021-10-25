@@ -1,25 +1,21 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-
-import { DatePipe } from '@angular/common';
-import { BaseRequestModel } from '../models/base_request.model';
-import { Activity } from 'app/modules/user-management/activity/activity.model';
-import { HttpUtilsService } from './http_utils.service';
-import { UserUtilsService } from './users_utils.service';
-import { CommonService } from './common.service';
-import { Customer } from '../models/deceased_customer.model';
-import { environment } from 'environments/environment';
-import { map } from 'rxjs/operators';
-import { BaseResponseModel } from '../models/base_response.model';
+import {DatePipe} from '@angular/common';
+import {BaseRequestModel} from '../models/base_request.model';
+import {Activity} from 'app/modules/user-management/activity/activity.model';
+import {HttpUtilsService} from './http_utils.service';
+import {UserUtilsService} from './users_utils.service';
+import {CommonService} from './common.service';
+import {Customer} from '../models/deceased_customer.model';
+import {environment} from 'environments/environment';
+import {map} from 'rxjs/operators';
+import {BaseResponseModel} from '../models/base_response.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class DeceasedCustomerService {
-    dod: Date;
-
     public request = new BaseRequestModel();
     public activity = new Activity();
 
@@ -27,9 +23,9 @@ export class DeceasedCustomerService {
         private http: HttpClient,
         private httpUtils: HttpUtilsService,
         private userUtilsService: UserUtilsService,
-        private datePipe: DatePipe,
         private _common: CommonService
-    ) {}
+    ) {
+    }
 
     GetDeceasedCustomer(form) {
         var deceasedInfo = new Customer();
@@ -47,112 +43,10 @@ export class DeceasedCustomerService {
             .post(
                 `${environment.apiUrl}/Customer/GetDeceasedCustomer`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
-
-    //   SearchDeceasedCustomer(){
-    //
-    //     this.request = new BaseRequestModel();
-    //     var deceasedInfo = new Customer();
-    //     deceasedInfo = {
-    //       CustomerName: '',
-    //       Cnic:'',
-    //       FatherName:'',
-    //       CustomerStatus:'-1',
-    //     }
-    //     this.request.SearchData = {
-    //       CurrentIndex: "0",
-    //       Count: "1000"
-    //     }
-    // // this.request.
-
-    //     this.request.Customer = deceasedInfo
-    //     this.request.TranId = 0;
-    //     var userInfo = this.userUtilsService.getUserDetails();
-    //     this.request.User = userInfo.User;
-    //     this.request.Zone = userInfo.Zone;
-    //     this.request.Branch = userInfo.Branch;
-    //     this.activity.ActivityID = 1;
-    //     this.request.Activity = this.activity;
-    //     var req = JSON.stringify(this.request);
-    //     console.log(req);
-    //
-
-    //     return this.http.post(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`, req,
-    //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-    //       map((res: BaseResponseModel) => res)
-    //     );
-    //   }
-
-    SearchDeceasedCustomer(
-        customer: Customer,
-        isUserAdmin: boolean,
-        isZoneUser: boolean
-    ): Observable<BaseResponseModel> {
-        this.request = new BaseRequestModel();
-        var deceasedInfo = new Customer();
-        deceasedInfo = {
-            CustomerName: '',
-            Cnic: '',
-            FatherName: '',
-            CustomerStatus: '-1',
-        };
-        this.request.SearchData = {
-            CurrentIndex: '0',
-            Count: '1000',
-        };
-        // this.request.Customer = deceasedInfo
-        this.request.Customer = customer;
-        if (this.request.Customer['CustomerStatus'] == null) {
-            this.request.Customer['CustomerStatus'] = '-1';
-        }
-        //this.request.Customer["CustomerStatus"]= "-1";
-        this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
-        this.activity.ActivityID = 1;
-        this.request.Activity = this.activity;
-        return this.http
-            .post(
-                `${environment.apiUrl}/Customer/SearchDeceasedCustomer`,
-                this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
-            )
-            .pipe(map((res: BaseResponseModel) => res));
-    }
-
-    GetPendingDeceasedCustomerByCnic() {
-        var deceasedInfo = new Customer();
-        this.request = new BaseRequestModel();
-        deceasedInfo = {
-            CustomerName: null,
-            Cnic: '3840320934203',
-            FatherName: null,
-            CustomerStatus: null,
-        };
-
-        this.request.Customer = deceasedInfo;
-
-        this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
-        this.activity.ActivityID = 1;
-        this.request.Activity = this.activity;
-        return this.http
-            .post(
-                `${environment.apiUrl}/Customer/GetPendingDeceasedCustomerByCnic`,
-                this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
-            )
-            .pipe(map((res: BaseResponseModel) => res));
-    }
-
     MarkAsDeceasedCustomer(form, file: File) {
         console.log(file);
 
@@ -187,7 +81,8 @@ export class DeceasedCustomerService {
         // }
         formData.append('IsReferredBack', form.IsReferredBack ? '1' : '0');
 
-        let dod = this.datePipe.transform(form.DateofDeath, 'ddMMyyyy'); //converstion date to string
+        // @ts-ignore
+        let dod = new DatePipe().transform(form.DateofDeath, 'ddMMyyyy'); //converstion date to string
         formData.append('DateOfDeath', dod);
 
         formData.append('Remarks', form.MakerRemarks);
@@ -235,7 +130,7 @@ export class DeceasedCustomerService {
             .post(
                 `${environment.apiUrl}/Customer/GetListOfRejectedDeceasedPerson`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -254,7 +149,7 @@ export class DeceasedCustomerService {
             .post(
                 `${environment.apiUrl}/Customer/SubmitCustomerNADRA`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }

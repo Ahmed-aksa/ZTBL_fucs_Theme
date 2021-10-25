@@ -30,7 +30,7 @@ export class DeceasedCustomerService {
         private http: HttpClient,
         private httpUtils: HttpUtilsService,
         private userUtilsService: UserUtilsService,
-        private datePipe: DatePipe,
+        // private datePipe: DatePipe,
         private _common: CommonService
     ) {}
 
@@ -153,7 +153,7 @@ export class DeceasedCustomerService {
         return this.http
             .post(
                 `${environment.apiUrl}/Customer/GetPendingDeceasedCustomerByCnic`,
-                req,
+                this.request,
                 { headers: this.httpUtils.getHTTPHeaders() }
             )
             .pipe(map((res: BaseResponseModel) => res));
@@ -166,7 +166,7 @@ export class DeceasedCustomerService {
 
         this.request = new BaseRequestModel();
         var formData = new FormData();
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         var a = userInfo.User.BranchId;
 
         //form.IsReferredBack = true;
@@ -193,7 +193,8 @@ export class DeceasedCustomerService {
         // }
         formData.append('IsReferredBack', form.IsReferredBack ? '1' : '0');
 
-        let dod = this.datePipe.transform(form.DateofDeath, 'ddMMyyyy'); //converstion date to string
+        // @ts-ignore
+        let dod = DatePipe().transform(form.DateofDeath, 'ddMMyyyy'); //converstion date to string
         formData.append('DateOfDeath', dod);
 
         formData.append('Remarks', form.MakerRemarks);
@@ -277,7 +278,7 @@ export class DeceasedCustomerService {
         var req = JSON.stringify(this.request);
 
         return this.http
-            .post(`${environment.apiUrl}/Customer/SubmitCustomerNADRA`, req, {
+            .post(`${environment.apiUrl}/Customer/SubmitCustomerNADRA`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
