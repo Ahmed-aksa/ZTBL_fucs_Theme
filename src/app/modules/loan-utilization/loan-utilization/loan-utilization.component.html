@@ -1,8 +1,8 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent" [formGroup]="customerForm">
     <div class="text-4xl font-extrabold tracking-tight">Loan Utilization</div>
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between
      py-2  border-b"
-         style="flex-wrap: wrap" [formGroup]="customerForm">
+         style="flex-wrap: wrap" >
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
@@ -46,6 +46,7 @@
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
             <input matInput hidden formControlName="Status" maxlength="13" autocomplete="off"/>
         </div>
+
 
     </div>
 
@@ -182,7 +183,6 @@
 
         </div>
         <!--        Video-->
-        <div style="height: 50%;">
             <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                 <div class="kt-portlet__head-label">
                     <h6 class="kt-portlet__head-title">Attach Videos</h6>
@@ -213,16 +213,23 @@
                     </div>
                 </div>
             </ng-container>
-        </div>
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+<!--            <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--                <mat-label class="customMatLabel">Remarks</mat-label>-->
+<!--                <input  matInput placeholder="Enter Remarks" formControlName="remarks"-->
+<!--                       maxlength="100" autocomplete="off"/>-->
+<!--&lt;!&ndash;                <mat-error *ngIf="hasError('remarks', 'required')">Date of Death <strong>required</strong></mat-error>&ndash;&gt;-->
+<!--            </mat-form-field>-->
+
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Remarks</mat-label>
-                <input [readonly]='remarksFeild' matInput placeholder="Enter Remarks" formControlName="remarks"
-                       maxlength="100" autocomplete="off"/>
-                <mat-error *ngIf="hasError('remarks', 'required')">Date of Death <strong>required</strong></mat-error>
+                <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
+                <input matInput placeholder="Enter Remarks" formControlName="Remarks" maxlength="13" autocomplete="off"
+                       [readonly]='remarksFeild'/>
             </mat-form-field>
+
         </div>
     </div>
+
     <div class="float-right mr-4">
         <button class="ml-2" *ngIf="isSave" mat-raised-button color="primary" (click)="save()">Save</button>
         <button class="ml-2" *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">Submit
