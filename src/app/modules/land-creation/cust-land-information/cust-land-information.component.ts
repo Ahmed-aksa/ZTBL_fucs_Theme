@@ -26,10 +26,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {LandInfo} from 'app/shared/models/land-info.model';
 import {LandInfoDetails} from "../models/land-info-details.model";
 import {CustomerLandRelation} from 'app/shared/models/customer_land_relation.model';
+import {Zone} from 'app/shared/models/zone.model';
 import {LandService} from "../services/land.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {LargeFilesUploadComponent} from "../large-files-upload/large-files-upload.component";
 import {AreaConverterComponent} from "../area-converter/area-converter.component";
+import {KtDialogService} from "../../../shared/services/kt-dialog.service";
 
 @Component({
     selector: 'app-cust-land-information',
@@ -63,15 +65,20 @@ export class CustLandInformationComponent implements OnInit {
     hasHistoryLandInfoId: boolean = false;
     LandInformationForm: FormGroup;
 
-    selected_b: any;
-    disable_branch = true;
-    single_branch = true;
+
+    /**
+     * Zone And Branch functionality
+     */
+
+    single_zone = true;
+    disable_zone = true;
+    SelectedZones: any;
+    selected_z: any;
     SelectedBranches: any;
     Branches: any;
-    selected_z: any;
-    disable_zone = true;
-    single_zone = true;
-    SelectedZones: any;
+    selected_b: any;
+    single_branch = true;
+    disable_branch = true;
     navigationSubscription;
 
     public createCustomer = new CreateCustomer();
@@ -119,6 +126,21 @@ export class CustLandInformationComponent implements OnInit {
 
     LoginUserInfo: any;
 
+    //Cnic: "3377315953499"
+    //CurrentAddress: "102/D"
+    //CustomerName: "IRSHAD AHMAD"
+    //CustomerNumber: "102-3396"
+    //CustomerStatus: "A"
+    //Dob: "01011973"
+    //FatherName: "MUHAMAD SHARIF"
+    //IsBankEmployee: "n"
+    //TranId: "0"
+    //isBMVSAvailable: false
+    //isDocumentAllowed: false
+    //isPictureAllowed: false
+
+
+    // B
     BArea = ""
     BAreaOwned = "";
     BLeasedIn = "";
@@ -183,7 +205,7 @@ export class CustLandInformationComponent implements OnInit {
     isLandHistory: boolean;
 
     today = new Date();
-    private LoggedInUserInfo: any;
+    LoggedInUserInfo: any;
 
     constructor(
         private store: Store<AppState>,
@@ -205,7 +227,17 @@ export class CustLandInformationComponent implements OnInit {
         private _circleService: CircleService,
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        //router.events.subscribe((val: any) => {
+        //  //
+        //  if (val.url == "/land-creation/land-info-add") {
+        //    console.log("create form");
+        //    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        //    //this.ngOnInit();
+        //    //this.onCreateRestForm();
 
+        //  }
+        //});
+        //
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             // If it is a NavigationEnd event re-initalise the component
             if (e instanceof NavigationEnd) {
@@ -218,16 +250,236 @@ export class CustLandInformationComponent implements OnInit {
         }
     }
 
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.LandInfo.BranchId = this.LandInfoSearchData.Branch.Id;
-        this.LandInfo.Zone = this.SelectedZones.filter((zone) => zone.Id == changedValue.value).ZoneName;
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
+    SelectionChangePushData(event: any) {
+        var resetTable = true
+        this.ShowTable = true
+        if (this.isEditMode == '1' && this.alphas.length > 0 && this.TotalOfTotal == 0) {
+            this.selectedCustomerID = event.value;
+        } else {
+            if (this.TotalOfTotal == 0) {
+                if (this.selectedCustomerID != undefined && this.selectedCustomerID != '' && this.selectedCustomerID != null) {
+
+                    var Customerdata = this.CustomerLov.filter(x => x.LandCustID == this.selectedCustomerID)[0];
+                    this.LandInformationForm.controls['LandCustID'].setValue(Customerdata.LandCustID)
+                } else {
+                    this.selectedCustomerID = event.value;
+                }
+                return
+            }
+        }
+        if (this.selectedCustomerID == undefined || this.selectedCustomerID == '' || this.selectedCustomerID == null) {
+            this.selectedCustomerID = event.value;
+            resetTable = false
+        }
+
+
+        this.getLandDetailTableData()
+        var dataFound = this.reloadLandDetailTableData(event.value)
+        this.checkForDulpicateCustomerLandDetail()
+
+        if (resetTable && !dataFound) {
+            this.clearLandDetailTableData()
+        }
+
+        this.selectedCustomerID = event.value;
+
+    }
+
+    reloadLandDetailTableData(customerId: any): boolean {
+
+        var landInfoDetail = [];
+
+        for (var i = 0; i < this.alphas.length; i++) {
+            var detail = this.alphas[i]
+            if (detail[0].LandCustID == customerId) {
+                landInfoDetail = detail;
+                break;
+            }
+        }
+
+        if (landInfoDetail.length == 0)
+            return false
+
+        if (this.LandInfoSearchData != undefined && this.LandInfoSearchData != null) {
+            if ((this.LandInfoSearchData.Status == '3' || this.LandInfoSearchData.Status == '2' || this.LandInfoSearchData.Status == '1') && this.isEditMode == "1") {
+
+                this.landDetailMarlaPlaceholder = "";
+                this.BArea = landInfoDetail[0].Area == "0" ? "" : landInfoDetail[0].Area
+                this.BAreaOwned = landInfoDetail[0].AreaOwned == "0" ? "" : landInfoDetail[0].AreaOwned
+                this.BFimalyOperated = landInfoDetail[0].FamAreaOpr == "0" ? "" : landInfoDetail[0].FamAreaOpr
+                this.BLeasedIn = landInfoDetail[0].LeasedIn == "0" ? "" : landInfoDetail[0].LeasedIn
+                this.BLeasedOut = landInfoDetail[0].LeasedOut == "0" ? "" : landInfoDetail[0].LeasedOut
+                this.BUnderCustomhiring = landInfoDetail[0].AreaUnderCust == "0" ? "" : landInfoDetail[0].AreaUnderCust
+                this.BTotal = landInfoDetail[0].AreaTotal == "0" ? "" : landInfoDetail[0].AreaTotal
+
+                this.IArea = landInfoDetail[1].Area == "0" ? "" : landInfoDetail[1].Area
+                this.IAreaOwned = landInfoDetail[1].AreaOwned == "0" ? "" : landInfoDetail[1].AreaOwned
+                this.IFimalyOperated = landInfoDetail[1].FamAreaOpr == "0" ? "" : landInfoDetail[1].FamAreaOpr
+                this.ILeasedIn = landInfoDetail[1].LeasedIn == "0" ? "" : landInfoDetail[1].LeasedIn
+                this.ILeasedOut = landInfoDetail[1].LeasedOut == "0" ? "" : landInfoDetail[1].LeasedOut
+                this.IUnderCustomhiring = landInfoDetail[1].AreaUnderCust == "0" ? "" : landInfoDetail[1].AreaUnderCust
+                this.ITotal = landInfoDetail[1].AreaTotal == "0" ? "" : landInfoDetail[1].AreaTotal
+
+
+                this.UnArea = landInfoDetail[2].Area == "0" ? "" : landInfoDetail[2].Area
+                this.UnAreaOwned = landInfoDetail[2].AreaOwned == "0" ? "" : landInfoDetail[2].AreaOwned
+                this.UnFimalyOperated = landInfoDetail[2].FamAreaOpr == "0" ? "" : landInfoDetail[2].FamAreaOpr
+                this.UnLeasedIn = landInfoDetail[2].LeasedIn == "0" ? "" : landInfoDetail[2].LeasedIn
+                this.UnLeasedOut = landInfoDetail[2].LeasedOut == "0" ? "" : landInfoDetail[2].LeasedOut
+                this.UnUnderCustomhiring = landInfoDetail[2].AreaUnderCust == "0" ? "" : landInfoDetail[2].AreaUnderCust
+                this.UnTotal = landInfoDetail[2].AreaTotal == "0" ? "" : landInfoDetail[2].AreaTotal
+
+                this.UnAArea = landInfoDetail[3].Area == "0" ? "" : landInfoDetail[3].Area
+                this.UnAAreaOwned = landInfoDetail[3].AreaOwned == "0" ? "" : landInfoDetail[3].AreaOwned
+                this.UnAFimalyOperated = landInfoDetail[3].FamAreaOpr == "0" ? "" : landInfoDetail[3].FamAreaOpr
+                this.UnALeasedIn = landInfoDetail[3].LeasedIn == "0" ? "" : landInfoDetail[3].LeasedIn
+                this.UnALeasedOut = landInfoDetail[3].LeasedOut == "0" ? "" : landInfoDetail[3].LeasedOut
+                this.UnAUnderCustomhiring = landInfoDetail[3].AreaUnderCust == "0" ? "" : landInfoDetail[3].AreaUnderCust
+                this.UnATotal = landInfoDetail[3].AreaTotal == "0" ? "" : landInfoDetail[3].AreaTotal
+
+
+                this.AreaTotal = landInfoDetail[4].Area == "0" ? "" : landInfoDetail[4].Area
+                this.AreaOwnedTotal = landInfoDetail[4].AreaOwned == "0" ? "" : landInfoDetail[4].AreaOwned
+                this.FamilyOperatedTotal = landInfoDetail[4].FamAreaOpr == "0" ? "" : landInfoDetail[4].FamAreaOpr
+                this.LeasedInTotal = landInfoDetail[4].LeasedIn == "0" ? "" : landInfoDetail[4].LeasedIn
+                this.LeasedOutTotal = landInfoDetail[4].LeasedOut == "0" ? "" : landInfoDetail[4].LeasedOut
+                this.UnderCustomHiringTotal = landInfoDetail[4].AreaUnderCust == "0" ? "" : landInfoDetail[4].AreaUnderCust
+                this.TotalOfTotal = landInfoDetail[4].AreaTotal == "0" ? "" : landInfoDetail[4].AreaTotal
+            } else {
+                this.BArea = landInfoDetail[0].Area
+                this.BAreaOwned = landInfoDetail[0].AreaOwned
+                this.BFimalyOperated = landInfoDetail[0].FamAreaOpr
+                this.BLeasedIn = landInfoDetail[0].LeasedIn
+                this.BLeasedOut = landInfoDetail[0].LeasedOut
+                this.BUnderCustomhiring = landInfoDetail[0].AreaUnderCust
+                this.BTotal = landInfoDetail[0].AreaTotal
+
+                this.IArea = landInfoDetail[1].Area
+                this.IAreaOwned = landInfoDetail[1].AreaOwned
+                this.IFimalyOperated = landInfoDetail[1].FamAreaOpr
+                this.ILeasedIn = landInfoDetail[1].LeasedIn
+                this.ILeasedOut = landInfoDetail[1].LeasedOut
+                this.IUnderCustomhiring = landInfoDetail[1].AreaUnderCust
+                this.ITotal = landInfoDetail[1].AreaTotal
+
+
+                this.UnArea = landInfoDetail[2].Area
+                this.UnAreaOwned = landInfoDetail[2].AreaOwned
+                this.UnFimalyOperated = landInfoDetail[2].FamAreaOpr
+                this.UnLeasedIn = landInfoDetail[2].LeasedIn
+                this.UnLeasedOut = landInfoDetail[2].LeasedOut
+                this.UnUnderCustomhiring = landInfoDetail[2].AreaUnderCust
+                this.UnTotal = landInfoDetail[2].AreaTotal
+
+                this.UnAArea = landInfoDetail[3].Area
+                this.UnAAreaOwned = landInfoDetail[3].AreaOwned
+                this.UnAFimalyOperated = landInfoDetail[3].FamAreaOpr
+                this.UnALeasedIn = landInfoDetail[3].LeasedIn
+                this.UnALeasedOut = landInfoDetail[3].LeasedOut
+                this.UnAUnderCustomhiring = landInfoDetail[3].AreaUnderCust
+                this.UnATotal = landInfoDetail[3].AreaTotal
+
+
+                this.AreaTotal = landInfoDetail[4].Area
+                this.AreaOwnedTotal = landInfoDetail[4].AreaOwned
+                this.FamilyOperatedTotal = landInfoDetail[4].FamAreaOpr
+                this.LeasedInTotal = landInfoDetail[4].LeasedIn
+                this.LeasedOutTotal = landInfoDetail[4].LeasedOut
+                this.UnderCustomHiringTotal = landInfoDetail[4].AreaUnderCust
+                this.TotalOfTotal = landInfoDetail[4].AreaTotal
+            }
+        } else {
+            this.BArea = landInfoDetail[0].Area
+            this.BAreaOwned = landInfoDetail[0].AreaOwned
+            this.BFimalyOperated = landInfoDetail[0].FamAreaOpr
+            this.BLeasedIn = landInfoDetail[0].LeasedIn
+            this.BLeasedOut = landInfoDetail[0].LeasedOut
+            this.BUnderCustomhiring = landInfoDetail[0].AreaUnderCust
+            this.BTotal = landInfoDetail[0].AreaTotal
+
+            this.IArea = landInfoDetail[1].Area
+            this.IAreaOwned = landInfoDetail[1].AreaOwned
+            this.IFimalyOperated = landInfoDetail[1].FamAreaOpr
+            this.ILeasedIn = landInfoDetail[1].LeasedIn
+            this.ILeasedOut = landInfoDetail[1].LeasedOut
+            this.IUnderCustomhiring = landInfoDetail[1].AreaUnderCust
+            this.ITotal = landInfoDetail[1].AreaTotal
+
+
+            this.UnArea = landInfoDetail[2].Area
+            this.UnAreaOwned = landInfoDetail[2].AreaOwned
+            this.UnFimalyOperated = landInfoDetail[2].FamAreaOpr
+            this.UnLeasedIn = landInfoDetail[2].LeasedIn
+            this.UnLeasedOut = landInfoDetail[2].LeasedOut
+            this.UnUnderCustomhiring = landInfoDetail[2].AreaUnderCust
+            this.UnTotal = landInfoDetail[2].AreaTotal
+
+            this.UnAArea = landInfoDetail[3].Area
+            this.UnAAreaOwned = landInfoDetail[3].AreaOwned
+            this.UnAFimalyOperated = landInfoDetail[3].FamAreaOpr
+            this.UnALeasedIn = landInfoDetail[3].LeasedIn
+            this.UnALeasedOut = landInfoDetail[3].LeasedOut
+            this.UnAUnderCustomhiring = landInfoDetail[3].AreaUnderCust
+            this.UnATotal = landInfoDetail[3].AreaTotal
+
+
+            this.AreaTotal = landInfoDetail[4].Area
+            this.AreaOwnedTotal = landInfoDetail[4].AreaOwned
+            this.FamilyOperatedTotal = landInfoDetail[4].FamAreaOpr
+            this.LeasedInTotal = landInfoDetail[4].LeasedIn
+            this.LeasedOutTotal = landInfoDetail[4].LeasedOut
+            this.UnderCustomHiringTotal = landInfoDetail[4].AreaUnderCust
+            this.TotalOfTotal = landInfoDetail[4].AreaTotal
+        }
+
+        return true
+    }
+
+    clearLandDetailTableData() {
+
+
+        this.BArea = ""
+        this.BAreaOwned = ""
+        this.BFimalyOperated = ""
+        this.BLeasedIn = ""
+        this.BLeasedOut = ""
+        this.BUnderCustomhiring = ""
+        this.BTotal = 0
+
+        this.IArea = ""
+        this.IAreaOwned = ""
+        this.IFimalyOperated = ""
+        this.ILeasedIn = ""
+        this.ILeasedOut = ""
+        this.IUnderCustomhiring = ""
+        this.ITotal = 0
+
+
+        this.UnArea = ""
+        this.UnAreaOwned = ""
+        this.UnFimalyOperated = ""
+        this.UnLeasedIn = ""
+        this.UnLeasedOut = ""
+        this.UnUnderCustomhiring = ""
+        this.UnTotal = 0
+
+        this.UnAArea = ""
+        this.UnAAreaOwned = ""
+        this.UnAFimalyOperated = ""
+        this.UnALeasedIn = ""
+        this.UnALeasedOut = ""
+        this.UnAUnderCustomhiring = ""
+        this.UnATotal = 0
+
+
+        this.AreaTotal = ""
+        this.AreaOwnedTotal = ""
+        this.FamilyOperatedTotal = ""
+        this.LeasedInTotal = ""
+        this.LeasedOutTotal = ""
+        this.UnderCustomHiringTotal = ""
+        this.TotalOfTotal = 0
+
     }
 
     ngOnInit() {
@@ -249,32 +501,7 @@ export class CustLandInformationComponent implements OnInit {
         this.loading = false;
         this.isLandHistory = false;
         this.LoadLovs();
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.LandInfo.Id = this.LandInfoSearchData.LandInfoID;
-
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.SelectedBranches = this.LoggedInUserInfo.Branch;
-            this.SelectedZones = this.LoggedInUserInfo.Zone;
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.LandInformationForm.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.LandInformationForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-
-            this.LandInfo.BranchId = this.LandInfoSearchData.Branch.Id;
-            this.LandInfo.Zone = this.LoggedInUserInfo.Zone.ZoneName;
-            this.LandInfo.Branch = this.LoggedInUserInfo.Branch.Name
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-
-        }
+        this.GetZones();
         this.createForm();
 
         this.clearSaveCustomerButtonHide = true;
@@ -310,6 +537,20 @@ export class CustLandInformationComponent implements OnInit {
         }
     }
 
+    changeZone(changedValue) {
+        this.LandInfo.Zone = this.SelectedZones.filter((zone) => zone.ZoneId == changedValue.value).ZoneName;
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
+
+    changeBranch(changedValue) {
+        this.LandInfo.Branch = this.SelectedBranches.filter((branch) => branch.BranchCode == changedValue.value).Name;
+    }
 
     private filterPostCode() {
 
@@ -331,44 +572,22 @@ export class CustLandInformationComponent implements OnInit {
 
 
     createForm() {
+
+
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        this.LoggedInUserInfo = userInfo;
         this.LoginUserInfo = userInfo;
-        //this.BranchLov = userInfo.Branch;
-        //this.ZoneLov = userInfo.Zone;
         if (this.LandInfoSearchData !== undefined && this.LandInfoSearchData !== null && this.LandInfoSearchData !== '') {
-
-
-            //if (userInfo.Branch.BranchCode == "All") {
-            //  //this.LandInfo.Zone = this.LandInfoSearchData.Zone[0].ZoneName;
-            //  //this.LandInfo.Branch = this.LandInfoSearchData.Branch[0].Name;
-            //}
-            //else {
-            //  //this.LandInfo.Zone = userInfo.Zone.ZoneName;
-            //  //this.LandInfo.Branch = userInfo.Branch.Name
-            //}
-
-
             this.LandInfo.Id = this.LandInfoSearchData.LandInfoID;
             this.LandInfo.BranchId = this.LandInfoSearchData.BranchId;
-
             if ((this.LandInfoSearchData.Status == '3' || this.LandInfoSearchData.Status == '2') && this.isEditMode == "1") {
 
                 this.isFormReadonly = true;
-
-
                 localStorage.setItem("SearchLandData", '');
             }
 
 
         }
-
-
-        //this.BranchLov = LandInfo.Zone;
-        //this.ZoneLov = LandInfo.Branch;
-
-        //this.LandInfo.Id = LandInfo.LandInfoID;
-        //this.LandInfo.BranchId = LandInfo.BranchId;
-        // this.LandInfo.Zone = LandInfo.ZoneID;
 
 
         this.LandInformationForm = this.formBuilder.group({
@@ -386,6 +605,29 @@ export class CustLandInformationComponent implements OnInit {
             Remarks: [this.LandInfo.Remarks],
             LandCustID: [this.CustomerLandRelation.LandCustID],
         });
+        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
+            this.SelectedBranches = this.LoggedInUserInfo.Branch;
+            this.SelectedZones = this.LoggedInUserInfo.Zone;
+
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.LandInformationForm.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.LandInformationForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            this.LandInfo.Zone = userInfo.Zone.ZoneName;
+            this.LandInfo.Branch = userInfo.Branch.Name
+        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+            this.spinner.show();
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
+                this.single_zone = false;
+                this.disable_zone = false;
+                this.spinner.hide();
+            });
+
+        }
+
+
     }
 
     getTitle(): string {
@@ -1054,23 +1296,14 @@ export class CustLandInformationComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
 
-
-                console.log(baseResponse);
                 if (baseResponse.Success === true) {
-                    console.log(baseResponse)
-
                     this.SaveCustomer = true;
                     this.SearchDataCustomer = baseResponse.Customers[0];
                     this.dynamicArray[index].customerName = this.SearchDataCustomer.CustomerName;
                     this.dynamicArray[index].fatherName = this.SearchDataCustomer.FatherName;
                     this.dynamicArray[index].Customer_Id = this.SearchDataCustomer.CustomerNumber;
                     this.dynamicArray[index].isReadOnly = true;
-                    //this.dynamicArray[index].LandCustID = this.SearchDataCustomer.LandCustID;
-                    //this.dynamicArray[index].LandCustID = this.SearchDataCustomer.LandCustID;
-                    //this.dynamicArray[index].area = this.createCustomer
-
                     this.SearchDataCustomerBackup.push(this.SearchDataCustomer);
-                    //this.CustomerLov = this.SearchDataCustomerBackup;
 
                     this.cdRef.detectChanges();
                 } else {
@@ -1105,36 +1338,9 @@ export class CustLandInformationComponent implements OnInit {
                 this.layoutUtilsService.alertElement("", "There are some customers present in below list and you entered number less than already present. Please remove some customers to continue");
             }
 
-            // this.layoutUtilsService.alertElement("", "There are some customers present in below list and you entered number less than already present. Please remove some customers to continue", "Warning");
-
-
-            //this.deleteCustomerOnCustomerNumberUpdate(this.dynamicArray[value].cnic);
-
             this.dynamicArray = this.dynamicArray.filter(item => item.cnic != '');
             event.target.value = this.dynamicArray.length;
             this.LandInformationForm.controls["NumberOfCustomer"].setValue(this.dynamicArray.length);
-            //var tempWarningShown = false;
-            //this.dynamicArray.forEach( (item, index, object) =>{
-            //  if (!tempWarningShown && item.cnic != '') {
-            //    this.layoutUtilsService.alertElement("", "There are some customers present in below list and you entered number less than already present. Please remove some customers to continue", "Warning");
-            //    tempWarningShown = true;
-
-            //  } else if (item.cnic == '') {
-            //    object.splice(index, 1);
-            //  }
-            //});
-
-            //var length = this.dynamicArray.length
-            //for (var i = value; i < length; i++) {
-            //  if (!tempWarningShown && this.dynamicArray[value].cnic != '') {
-            //    this.layoutUtilsService.alertElement("", "There are some customers present in below list and you entered number less than already present. Please remove some customers to continue", "Warning");
-            //    tempWarningShown = true;
-            //    //break;
-            //    //this.deleteCustomerOnCustomerNumberUpdate(this.dynamicArray[value].cnic)
-            //  }
-            //  else
-            //    this.dynamicArray.splice(i, 1);
-            //}
         } else {
             var length = this.dynamicArray.length
 
@@ -1149,26 +1355,6 @@ export class CustLandInformationComponent implements OnInit {
                 };
                 this.dynamicArray.push(this.newDynamic);
             }
-        }
-
-    }
-
-    deleteCustomerOnCustomerNumberUpdate(cnic: any) {
-
-
-        var index = []
-        for (var i = 0; i < this.SearchDataCustomerBackup.length; i++) {
-            if (this.SearchDataCustomerBackup[i].Cnic == cnic) {
-                index.push(i)
-            }
-        }
-        if (index.length > 0) {
-
-            for (var i = 0; i < index.length; i++) {
-                var j = index[i]
-                this.SearchDataCustomerBackup.splice(j, 1);
-            }
-
         }
 
     }
@@ -1232,63 +1418,6 @@ export class CustLandInformationComponent implements OnInit {
 
     }
 
-    SelectionChangePushData(event: any) {
-
-
-        var resetTable = true
-        this.ShowTable = true
-
-        console.log(this.dynamicArray)
-
-        // if(this.dynamicArray.length == 1){
-        //   if(this.selectedCustomerID != undefined && this.selectedCustomerID != '' && this.selectedCustomerID != null){
-        //     this.selectedCustomerID = undefined;
-        //   }
-        // }
-
-        /*if (this.alphas.length > 0) {
-          var details = this.alphas[0];
-          this.TotalOfTotal = details[4].AreaTotal;
-        }
-
-        if (this.TotalOfTotal == 0) {
-        }*/
-
-        if (this.isEditMode == '1' && this.alphas.length > 0 && this.TotalOfTotal == 0) {
-            // when land will be in edit mode then on selecting any customer from drop down
-            // the total value will be 0 and table is not populated at the moment, so need to igonre the below
-            // condition written inside the else clause.
-            this.selectedCustomerID = event.value;
-        } else {
-            if (this.TotalOfTotal == 0) {
-                if (this.selectedCustomerID != undefined && this.selectedCustomerID != '' && this.selectedCustomerID != null) {
-
-                    var Customerdata = this.CustomerLov.filter(x => x.LandCustID == this.selectedCustomerID)[0];
-                    this.LandInformationForm.controls['LandCustID'].setValue(Customerdata.LandCustID)
-                } else {
-                    this.selectedCustomerID = event.value;
-                }
-                return
-            }
-        }
-        if (this.selectedCustomerID == undefined || this.selectedCustomerID == '' || this.selectedCustomerID == null) {
-            this.selectedCustomerID = event.value;
-            resetTable = false
-        }
-
-
-        this.getLandDetailTableData()
-        var dataFound = this.reloadLandDetailTableData(event.value)
-        this.checkForDulpicateCustomerLandDetail()
-
-        if (resetTable && !dataFound) {
-            this.clearLandDetailTableData()
-        }
-
-        this.selectedCustomerID = event.value;
-
-    }
-
     getLandObject(Customerdata: any): LandInfoDetails {
 
         var landDetails = new LandInfoDetails();
@@ -1309,9 +1438,6 @@ export class CustLandInformationComponent implements OnInit {
 
 
         if (this.isEditMode == '1' && this.alphas.length > 0 && this.TotalOfTotal == 0) {
-            // when land will be in edit mode then on selecting any customer from drop down
-            // the total value will be 0 and table is not populated at the moment, so need to igonre the below
-            // condition.
             return
         }
         if (this.TotalOfTotal == 0) {
@@ -1393,211 +1519,6 @@ export class CustLandInformationComponent implements OnInit {
 
     }
 
-    reloadLandDetailTableData(customerId: any): boolean {
-
-
-        var landInfoDetail = [];
-
-        for (var i = 0; i < this.alphas.length; i++) {
-            var detail = this.alphas[i]
-            if (detail[0].LandCustID == customerId) {
-                landInfoDetail = detail;
-                break;
-            }
-        }
-
-        if (landInfoDetail.length == 0)
-            return false
-
-        if (this.LandInfoSearchData != undefined && this.LandInfoSearchData != null) {
-            if ((this.LandInfoSearchData.Status == '3' || this.LandInfoSearchData.Status == '2' || this.LandInfoSearchData.Status == '1') && this.isEditMode == "1") {
-
-                this.landDetailMarlaPlaceholder = "";
-                this.BArea = landInfoDetail[0].Area == "0" ? "" : landInfoDetail[0].Area
-                this.BAreaOwned = landInfoDetail[0].AreaOwned == "0" ? "" : landInfoDetail[0].AreaOwned
-                this.BFimalyOperated = landInfoDetail[0].FamAreaOpr == "0" ? "" : landInfoDetail[0].FamAreaOpr
-                this.BLeasedIn = landInfoDetail[0].LeasedIn == "0" ? "" : landInfoDetail[0].LeasedIn
-                this.BLeasedOut = landInfoDetail[0].LeasedOut == "0" ? "" : landInfoDetail[0].LeasedOut
-                this.BUnderCustomhiring = landInfoDetail[0].AreaUnderCust == "0" ? "" : landInfoDetail[0].AreaUnderCust
-                this.BTotal = landInfoDetail[0].AreaTotal == "0" ? "" : landInfoDetail[0].AreaTotal
-
-                this.IArea = landInfoDetail[1].Area == "0" ? "" : landInfoDetail[1].Area
-                this.IAreaOwned = landInfoDetail[1].AreaOwned == "0" ? "" : landInfoDetail[1].AreaOwned
-                this.IFimalyOperated = landInfoDetail[1].FamAreaOpr == "0" ? "" : landInfoDetail[1].FamAreaOpr
-                this.ILeasedIn = landInfoDetail[1].LeasedIn == "0" ? "" : landInfoDetail[1].LeasedIn
-                this.ILeasedOut = landInfoDetail[1].LeasedOut == "0" ? "" : landInfoDetail[1].LeasedOut
-                this.IUnderCustomhiring = landInfoDetail[1].AreaUnderCust == "0" ? "" : landInfoDetail[1].AreaUnderCust
-                this.ITotal = landInfoDetail[1].AreaTotal == "0" ? "" : landInfoDetail[1].AreaTotal
-
-
-                this.UnArea = landInfoDetail[2].Area == "0" ? "" : landInfoDetail[2].Area
-                this.UnAreaOwned = landInfoDetail[2].AreaOwned == "0" ? "" : landInfoDetail[2].AreaOwned
-                this.UnFimalyOperated = landInfoDetail[2].FamAreaOpr == "0" ? "" : landInfoDetail[2].FamAreaOpr
-                this.UnLeasedIn = landInfoDetail[2].LeasedIn == "0" ? "" : landInfoDetail[2].LeasedIn
-                this.UnLeasedOut = landInfoDetail[2].LeasedOut == "0" ? "" : landInfoDetail[2].LeasedOut
-                this.UnUnderCustomhiring = landInfoDetail[2].AreaUnderCust == "0" ? "" : landInfoDetail[2].AreaUnderCust
-                this.UnTotal = landInfoDetail[2].AreaTotal == "0" ? "" : landInfoDetail[2].AreaTotal
-
-                this.UnAArea = landInfoDetail[3].Area == "0" ? "" : landInfoDetail[3].Area
-                this.UnAAreaOwned = landInfoDetail[3].AreaOwned == "0" ? "" : landInfoDetail[3].AreaOwned
-                this.UnAFimalyOperated = landInfoDetail[3].FamAreaOpr == "0" ? "" : landInfoDetail[3].FamAreaOpr
-                this.UnALeasedIn = landInfoDetail[3].LeasedIn == "0" ? "" : landInfoDetail[3].LeasedIn
-                this.UnALeasedOut = landInfoDetail[3].LeasedOut == "0" ? "" : landInfoDetail[3].LeasedOut
-                this.UnAUnderCustomhiring = landInfoDetail[3].AreaUnderCust == "0" ? "" : landInfoDetail[3].AreaUnderCust
-                this.UnATotal = landInfoDetail[3].AreaTotal == "0" ? "" : landInfoDetail[3].AreaTotal
-
-
-                this.AreaTotal = landInfoDetail[4].Area == "0" ? "" : landInfoDetail[4].Area
-                this.AreaOwnedTotal = landInfoDetail[4].AreaOwned == "0" ? "" : landInfoDetail[4].AreaOwned
-                this.FamilyOperatedTotal = landInfoDetail[4].FamAreaOpr == "0" ? "" : landInfoDetail[4].FamAreaOpr
-                this.LeasedInTotal = landInfoDetail[4].LeasedIn == "0" ? "" : landInfoDetail[4].LeasedIn
-                this.LeasedOutTotal = landInfoDetail[4].LeasedOut == "0" ? "" : landInfoDetail[4].LeasedOut
-                this.UnderCustomHiringTotal = landInfoDetail[4].AreaUnderCust == "0" ? "" : landInfoDetail[4].AreaUnderCust
-                this.TotalOfTotal = landInfoDetail[4].AreaTotal == "0" ? "" : landInfoDetail[4].AreaTotal
-            } else {
-                this.BArea = landInfoDetail[0].Area
-                this.BAreaOwned = landInfoDetail[0].AreaOwned
-                this.BFimalyOperated = landInfoDetail[0].FamAreaOpr
-                this.BLeasedIn = landInfoDetail[0].LeasedIn
-                this.BLeasedOut = landInfoDetail[0].LeasedOut
-                this.BUnderCustomhiring = landInfoDetail[0].AreaUnderCust
-                this.BTotal = landInfoDetail[0].AreaTotal
-
-                this.IArea = landInfoDetail[1].Area
-                this.IAreaOwned = landInfoDetail[1].AreaOwned
-                this.IFimalyOperated = landInfoDetail[1].FamAreaOpr
-                this.ILeasedIn = landInfoDetail[1].LeasedIn
-                this.ILeasedOut = landInfoDetail[1].LeasedOut
-                this.IUnderCustomhiring = landInfoDetail[1].AreaUnderCust
-                this.ITotal = landInfoDetail[1].AreaTotal
-
-
-                this.UnArea = landInfoDetail[2].Area
-                this.UnAreaOwned = landInfoDetail[2].AreaOwned
-                this.UnFimalyOperated = landInfoDetail[2].FamAreaOpr
-                this.UnLeasedIn = landInfoDetail[2].LeasedIn
-                this.UnLeasedOut = landInfoDetail[2].LeasedOut
-                this.UnUnderCustomhiring = landInfoDetail[2].AreaUnderCust
-                this.UnTotal = landInfoDetail[2].AreaTotal
-
-                this.UnAArea = landInfoDetail[3].Area
-                this.UnAAreaOwned = landInfoDetail[3].AreaOwned
-                this.UnAFimalyOperated = landInfoDetail[3].FamAreaOpr
-                this.UnALeasedIn = landInfoDetail[3].LeasedIn
-                this.UnALeasedOut = landInfoDetail[3].LeasedOut
-                this.UnAUnderCustomhiring = landInfoDetail[3].AreaUnderCust
-                this.UnATotal = landInfoDetail[3].AreaTotal
-
-
-                this.AreaTotal = landInfoDetail[4].Area
-                this.AreaOwnedTotal = landInfoDetail[4].AreaOwned
-                this.FamilyOperatedTotal = landInfoDetail[4].FamAreaOpr
-                this.LeasedInTotal = landInfoDetail[4].LeasedIn
-                this.LeasedOutTotal = landInfoDetail[4].LeasedOut
-                this.UnderCustomHiringTotal = landInfoDetail[4].AreaUnderCust
-                this.TotalOfTotal = landInfoDetail[4].AreaTotal
-            }
-        } else {
-            this.BArea = landInfoDetail[0].Area
-            this.BAreaOwned = landInfoDetail[0].AreaOwned
-            this.BFimalyOperated = landInfoDetail[0].FamAreaOpr
-            this.BLeasedIn = landInfoDetail[0].LeasedIn
-            this.BLeasedOut = landInfoDetail[0].LeasedOut
-            this.BUnderCustomhiring = landInfoDetail[0].AreaUnderCust
-            this.BTotal = landInfoDetail[0].AreaTotal
-
-            this.IArea = landInfoDetail[1].Area
-            this.IAreaOwned = landInfoDetail[1].AreaOwned
-            this.IFimalyOperated = landInfoDetail[1].FamAreaOpr
-            this.ILeasedIn = landInfoDetail[1].LeasedIn
-            this.ILeasedOut = landInfoDetail[1].LeasedOut
-            this.IUnderCustomhiring = landInfoDetail[1].AreaUnderCust
-            this.ITotal = landInfoDetail[1].AreaTotal
-
-
-            this.UnArea = landInfoDetail[2].Area
-            this.UnAreaOwned = landInfoDetail[2].AreaOwned
-            this.UnFimalyOperated = landInfoDetail[2].FamAreaOpr
-            this.UnLeasedIn = landInfoDetail[2].LeasedIn
-            this.UnLeasedOut = landInfoDetail[2].LeasedOut
-            this.UnUnderCustomhiring = landInfoDetail[2].AreaUnderCust
-            this.UnTotal = landInfoDetail[2].AreaTotal
-
-            this.UnAArea = landInfoDetail[3].Area
-            this.UnAAreaOwned = landInfoDetail[3].AreaOwned
-            this.UnAFimalyOperated = landInfoDetail[3].FamAreaOpr
-            this.UnALeasedIn = landInfoDetail[3].LeasedIn
-            this.UnALeasedOut = landInfoDetail[3].LeasedOut
-            this.UnAUnderCustomhiring = landInfoDetail[3].AreaUnderCust
-            this.UnATotal = landInfoDetail[3].AreaTotal
-
-
-            this.AreaTotal = landInfoDetail[4].Area
-            this.AreaOwnedTotal = landInfoDetail[4].AreaOwned
-            this.FamilyOperatedTotal = landInfoDetail[4].FamAreaOpr
-            this.LeasedInTotal = landInfoDetail[4].LeasedIn
-            this.LeasedOutTotal = landInfoDetail[4].LeasedOut
-            this.UnderCustomHiringTotal = landInfoDetail[4].AreaUnderCust
-            this.TotalOfTotal = landInfoDetail[4].AreaTotal
-        }
-
-        return true
-    }
-
-    clearLandDetailTableData() {
-
-
-        this.BArea = ""
-        this.BAreaOwned = ""
-        this.BFimalyOperated = ""
-        this.BLeasedIn = ""
-        this.BLeasedOut = ""
-        this.BUnderCustomhiring = ""
-        this.BTotal = 0
-
-        this.IArea = ""
-        this.IAreaOwned = ""
-        this.IFimalyOperated = ""
-        this.ILeasedIn = ""
-        this.ILeasedOut = ""
-        this.IUnderCustomhiring = ""
-        this.ITotal = 0
-
-
-        this.UnArea = ""
-        this.UnAreaOwned = ""
-        this.UnFimalyOperated = ""
-        this.UnLeasedIn = ""
-        this.UnLeasedOut = ""
-        this.UnUnderCustomhiring = ""
-        this.UnTotal = 0
-
-        this.UnAArea = ""
-        this.UnAAreaOwned = ""
-        this.UnAFimalyOperated = ""
-        this.UnALeasedIn = ""
-        this.UnALeasedOut = ""
-        this.UnAUnderCustomhiring = ""
-        this.UnATotal = 0
-
-
-        this.AreaTotal = ""
-        this.AreaOwnedTotal = ""
-        this.FamilyOperatedTotal = ""
-        this.LeasedInTotal = ""
-        this.LeasedOutTotal = ""
-        this.UnderCustomHiringTotal = ""
-        this.TotalOfTotal = 0
-
-    }
-
-    deleteAllRows() {
-        this.dynamicArray.forEach((currentValue, index) => {
-            this.deleteRow(index);
-        });
-
-    }
-
     deleteRow(index) {
 
         if (this.dynamicArray.length > 1) {
@@ -1609,9 +1530,6 @@ export class CustLandInformationComponent implements OnInit {
                 var indexCustLov = this.CustomerLov.indexOf(tempCustLandInfo[0])
                 var indexAlphas = -1;
                 if (this.alphas != undefined) {
-                    //var indexAlphas = this.alphas.indexOf(tempCustLandInfo[0]);
-                    //tempCustLandInfo[0].LandCustID
-                    //this.alphas[0][0].LandCustID
                     this.alphas.forEach((item, key) => {
 
                         if (item[0].LandCustID == tempCustLandInfo[0].LandCustID)
@@ -1630,11 +1548,7 @@ export class CustLandInformationComponent implements OnInit {
 
                     if (baseResponse.Success === true) {
 
-                        //var tempCustLandInfo = this.customerLandRelation.filter(x => x.Cnic == this.dynamicArray[index].cnic);
-                        //var indexCustLandInfo = this.customerLandRelation.indexOf(tempCustLandInfo)
                         this.SearchDataCustomerBackup.splice(indexCustLandInfo, 1)
-
-                        /*var indexCustLov = this.CustomerLov.indexOf(tempCustLandInfo)*/
                         this.CustomerLov.splice(indexCustLov, 1);
 
                         this.alphas.splice(indexAlphas, 1);
@@ -1692,16 +1606,6 @@ export class CustLandInformationComponent implements OnInit {
                         this.dynamicArray[index].LandCustID = "";
                         this.dynamicArray[index].LandInfoID = "";
                         this.dynamicArray[index].isReadOnly = false;
-
-                        // this.dynamicArray[index].cnic = "";
-                        // this.dynamicArray[index].owner = "";
-                        // this.dynamicArray[index].customerName = "";
-                        // this.dynamicArray[index].fatherName = "";
-                        // this.dynamicArray[index].area = "";
-                        // this.dynamicArray[index].LandCustID = "";
-                        // this.dynamicArray[index].LandInfoID = "";
-                        // this.dynamicArray[index].isReadOnly = false;
-
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                     } else {
                         this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -1725,7 +1629,6 @@ export class CustLandInformationComponent implements OnInit {
                 return true;
             }
         } else {
-
             this.layoutUtilsService.alertElement("", "Atleast one record is required.");
             return true;
         }
@@ -1740,37 +1643,7 @@ export class CustLandInformationComponent implements OnInit {
             this.LandInfo.Id = this.CustomerLov[0].LandInfoID;
         }
         let url = "/land-creation/land-info-history/" + this.LandInfo.Id
-        // this.router.navigate(['../' + url]);
-
-
-        // this.router.navigate(['./land-info-history/L/L']);
-
-        //this.router.navigate(['./land-info-history', { id: "1", id2: "2" }]);
         this.router.navigateByUrl(url);
-        // this.router.navigate(['./land-info-history', { lhFlag: "1", lID: this.LandInfo.Id }], { relativeTo: this.activatedRoute });
-    }
-
-    ViewLandHistoryBKP() {
-
-
-        if (this.CustomerLov != undefined) {
-
-            this.LandInfo.Id = this.CustomerLov[0].LandInfoID;
-        }
-        const dialogRef = this.dialog.open(LandHistoryComponent, {
-            data: {
-                landInfo: this.LandInfo,
-                TrainId: this.TrainId
-            }, disableClose: true
-        });
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
-            }
-
-        });
-
     }
 
     viewCustomrePage() {
@@ -1780,24 +1653,10 @@ export class CustLandInformationComponent implements OnInit {
             if (!res) {
                 return;
             }
-            //this.JvForm.controls.TransactionMasterID.setValue(res);
         });
     }
 
-    viewCustomrePageOld() {
-
-        const url = this.router.serializeUrl(this.router.createUrlTree(['/customer/search-customer']));
-        var w = 1000;
-        var h = 1900;
-        var title = "ZTBL";
-        window.open(url, title, "height=600,width=1100,menubar=no,toolbar=no,");
-        var left = 0;
-        var top = 0;
-
-    }
-
     popupCenter = ({url, title, w, h}) => {
-        // Fixes dual-screen position                             Most browsers      Firefox
         const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
         const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
 
@@ -1820,32 +1679,10 @@ export class CustLandInformationComponent implements OnInit {
         if (window.focus) newWindow.focus();
     }
 
-
-    initialiseInvites() {
-        //
-        //this.LandInfo = null
-        //this.LandInfoDataList = null
-        //this.LandInfoDetailsList = null
-        //this.ChargeCreation = null
-        //this.ChargeCreationDetailList = null
-        //this.customerLandRelation = null
-
-
-        //var userInfo = this.userUtilsService.getUserDetails();
-        //this.LoginUserInfo = userInfo;
-        //this.LandInfo.Zone = userInfo.Zone.ZoneName;
-        //this.LandInfo.Branch = userInfo.Branch.Name
-    }
-
     ngOnDestroy() {
         if (this.navigationSubscription) {
             this.navigationSubscription.unsubscribe();
         }
-    }
-
-    changeBranch(changedValue) {
-        this.LandInfo.Branch = this.SelectedBranches.filter((branch) => changedValue.value == branch.BranchCode).Branch.Name
-
     }
 }
 
@@ -1860,3 +1697,4 @@ export class DynamicGrid {
     LandInfoID: string;
     Customer_Id: string;
 }
+

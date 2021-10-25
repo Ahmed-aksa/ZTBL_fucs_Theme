@@ -47,6 +47,9 @@ export class AuthSignInComponent implements OnInit {
         this._authService.signIn(this.signInForm.value)
             .subscribe((result) => {
                     if (result.Success) {
+                        localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
+                        localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
+                        localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
                         this.toaster.success(result.Message);
                         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
                         this._router.navigateByUrl(redirectURL);

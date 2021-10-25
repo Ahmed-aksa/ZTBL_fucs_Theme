@@ -39,9 +39,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { SharedModule } from 'app/shared/shared.module';
+import { CustomerComponent } from './customer.component';
+import { AuthorizedCustomerComponent } from './authorized-customer/authorized-customer.component';
 
 @NgModule({
-  declarations: [CheckEligibilityComponent, CustomerProfileComponent, CustomerListComponent, AuthorizedCustomersComponent, PendingCustomersComponent, SubmitCustomersComponent, ReferbackCustomersComponent, CorrectionPassbookComponent, CorrectionPhoneComponent],
+  declarations: [CheckEligibilityComponent, CustomerProfileComponent, CustomerListComponent, AuthorizedCustomersComponent, PendingCustomersComponent, SubmitCustomersComponent, ReferbackCustomersComponent, CorrectionPassbookComponent, CorrectionPhoneComponent, CustomerComponent, AuthorizedCustomerComponent],
   exports: [CustomerListComponent],
   imports: [
     CommonModule,

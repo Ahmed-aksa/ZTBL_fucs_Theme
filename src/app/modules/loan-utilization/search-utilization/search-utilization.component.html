@@ -1,7 +1,7 @@
 <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-4xl font-extrabold tracking-tight">Utilization List</div>
+  <div class="text-4xl font-extrabold tracking-tight px-10 mt-4">Utilization List</div>
   <!-- Header -->
-  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pt-4 px-6 md:px-8"
     [formGroup]="loanutilizationSearch">
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
       <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="!isUserAdmin && isMCO && !isBM">
@@ -55,7 +55,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-     
+
 
       <div *ngIf="circle && isBM" class="col-md-2 kt-margin-bottom-10-mobile mr-20">
         <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -103,7 +103,7 @@
   </div>
 
   <!-- Main -->
-  <div class="flex flex-auto overflow-hidden">
+  <div class="flex flex-auto overflow-scroll mx-12">
 
     <!-- Products list -->
     <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
@@ -163,14 +163,15 @@
         <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
         <div class="mat-table__message" *ngIf="loading">Please wait....</div>
 
-        <div class="mat-table__bottom">
-          <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
-          <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"
-            [showFirstLastButtons]="true"></mat-paginator>
+<!--        <div class="mat-table__bottom">-->
+<!--          <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>-->
+<!--          <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"-->
+<!--            [showFirstLastButtons]="true"></mat-paginator>-->
 
-          <!--<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
-  <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>-->
-        </div>
+<!--          &lt;!&ndash;<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>-->
+<!--  <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>&ndash;&gt;-->
+<!--        </div>-->
+
 
       </div>
 

@@ -1,254 +1,246 @@
 <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent" [formGroup]="customerForm">
-  <div class="text-4xl font-extrabold tracking-tight">Loan Utilization</div>
-  <!-- Header -->
-  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
-  >
-      <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-        <div class="col-lg-3 kt-margin-bottom-20-mobile mr-12">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
-              <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>
-              <input matInput placeholder="Enter Tran Date" formControlName="Zone"  maxlength="13" autocomplete="off" readonly="readonly"/>
-            </mat-form-field>
-      </div>
+    <div class="text-4xl font-extrabold tracking-tight">Loan Utilization</div>
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between
+     py-2  border-b"
+         style="flex-wrap: wrap" >
 
-      <div class="col-lg-3 kt-margin-bottom-20-mobile mr-12">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
-              <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>
-              <input matInput placeholder="Enter Tran Date" formControlName="Branch"  maxlength="13" autocomplete="off" readonly="readonly"/>
-            </mat-form-field>
-      </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-   
-      <div class="col-lg-2 kt-margin-bottom-20-mobile mr-12">
-        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-          <mat-label class="customMatLabel">LC NO#</mat-label>
-          <input readonly appNumberOnly matInput placeholder="Enter LC No#" formControlName="LoanCaseNo"  maxlength="13" autocomplete="off" />
-        </mat-form-field>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>
+                <input matInput placeholder="Enter Tran Date" formControlName="Zone" maxlength="13" autocomplete="off"
+                       readonly="readonly"/>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>
+                <input matInput placeholder="Enter Tran Date" formControlName="Branch" maxlength="13" autocomplete="off"
+                       readonly="readonly"/>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">LC NO#</mat-label>
+                <input readonly appNumberOnly matInput placeholder="Enter LC No#" formControlName="LoanCaseNo"
+                       maxlength="13" autocomplete="off"/>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label>Loan GL</mat-label>
+                <mat-select [disabled]='viewonly' formControlName="LoanDisbID">
+                    <mat-option>
+                        Select
+                    </mat-option>
+                    <mat-option *ngFor="let obj of LoanGls" [value]="obj.LoanDisbID">
+                        {{obj.DisbDesc}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <input matInput hidden formControlName="Status" maxlength="13" autocomplete="off"/>
+        </div>
+
+
     </div>
 
-    <div *ngIf="LoanGls" class="col-lg-2 kt-margin-bottom-10-mobile mr-12">
+    <!-- Header -->
+    <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
+        <div class="col-lg-12">
+            <mat-tab-group mat-align-tabs="start">
 
-      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-        <mat-label>Loan GL</mat-label>
-        <mat-select [disabled]='viewonly' formControlName="LoanDisbID">
-          <mat-option>
-            Select
-          </mat-option>
-          <mat-option *ngFor="let obj of LoanGls" [value]="obj.LoanDisbID">
-            {{obj.DisbDesc}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    
-        <input matInput hidden formControlName="Status"  maxlength="13" autocomplete="off" />
-
-         
-
-      </div>
-  </div>
-
-  <!-- Main -->
-  <div class="flex flex-auto overflow-hidden">
-
-      <!-- Products list -->
-      <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
-          <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
-            <div class="col-lg-12">
-              <mat-tab-group mat-align-tabs="start">
                 <!-- Applicants -->
                 <mat-tab label="Applicants">
-                  <div *ngIf="LoanApplicants" class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr class="table-header-background">
-                          <th>Customer Id</th>
-                          <th>Customer Name</th>
-                          <th>Cnic</th>
-                          <th>Father Name</th>
-                          <th>AGPS</th>
-                          <th>DOB</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let item of LoanApplicants;">
-                          
-                          <td>{{item.CustomerId}}</td>
-                          <td>{{item.CustomerName}}</td>
-                          <td>{{item.Cnic}}</td>
-                          <td>{{item.FatherName}}</td>
-                          <td>{{item.Agps}}</td>
-                          <td>{{item.DOB | date: 'dd-MM-yyyy'}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                    <h3 *ngIf="!LoanApplicants" >Data not found.</h3>
+                    <div *ngIf="LoanApplicants" class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="table-header-background">
+                                <th>Customer Id</th>
+                                <th>Customer Name</th>
+                                <th>Cnic</th>
+                                <th>Father Name</th>
+                                <th>AGPS</th>
+                                <th>DOB</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of LoanApplicants;">
+
+                                <td>{{item.CustomerId}}</td>
+                                <td>{{item.CustomerName}}</td>
+                                <td>{{item.Cnic}}</td>
+                                <td>{{item.FatherName}}</td>
+                                <td>{{item.Agps}}</td>
+                                <td>{{item.DOB | date: 'dd-MM-yyyy'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h3 *ngIf="!LoanApplicants">Data not found.</h3>
                 </mat-tab>
                 <!-- Purpose -->
                 <mat-tab label="Purpose">
-                  <div *ngIf="Loanpurpose" class="table-responsive">
-                    <table  class="table table-striped">
-                      <thead>
-                        <tr class="table-header-background">
-                          <th>GL Description</th>
-                          <th>Crop</th>
-                          <th>Capacity</th>
-                          <th>TotalEstimatedCost</th>
-                          <th>Equity</th>
-                          <th>Amount Required</th>
-                          <th>Prod/Dev Flag</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let item of Loanpurpose;">
-                          <td>{{item.GlDescription}}</td>
-                          <td>{{item.CropName}}</td>
-                          <td>{{item.Capacity}}</td>
-                          <td>{{item.TotalEstimatedCost}}</td>
-                          <td>{{item.Equity}}</td>
-                          <td>{{item.AmountRequired}}</td>
-                          <td>{{item.ProdDev}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                    <div *ngIf="Loanpurpose" class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="table-header-background">
+                                <th>GL Description</th>
+                                <th>Crop</th>
+                                <th>Capacity</th>
+                                <th>TotalEstimatedCost</th>
+                                <th>Equity</th>
+                                <th>Amount Required</th>
+                                <th>Prod/Dev Flag</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of Loanpurpose;">
+                                <td>{{item.GlDescription}}</td>
+                                <td>{{item.CropName}}</td>
+                                <td>{{item.Capacity}}</td>
+                                <td>{{item.TotalEstimatedCost}}</td>
+                                <td>{{item.Equity}}</td>
+                                <td>{{item.AmountRequired}}</td>
+                                <td>{{item.ProdDev}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <h3 *ngIf="!Loanpurpose">Data not found.</h3>
                 </mat-tab>
                 <!-- here -->
-                      
-              </mat-tab-group>
-            </div>
 
-            <div *ngIf="DisbursementsRecoveries">
-              <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+            </mat-tab-group>
+        </div>
+        <div *ngIf="DisbursementsRecoveries">
+            <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                 <div class="kt-portlet__head-label">
-                  <h6 class="kt-portlet__head-title">Disbursements/Recoveries</h6>
+                    <h6 class="kt-portlet__head-title">Disbursements/Recoveries</h6>
                 </div>
-              </div>
-              <div class="col-lg-12">
+            </div>
+            <div class="col-lg-12">
                 <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr class="table-header-background">
-                        <th>Gl Description</th>
-                        <th>Scheme Code</th>
-                        <th>Crop Code</th>
-                        <th>Disb Date</th>
-                        <th>Disbursed Amount</th>
-                        <th>Balance</th>
-                        <th>Disb Status Name</th>
-                        <th>New Next Due Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let val of DisbursementsRecoveries">
-                        <td>{{val.GlDescription}}</td>
-                        <td>{{val.SchemeCode}}</td>
-                        <td>{{val.CropCode}}</td>
-                        <td>{{val.DisbDate}}</td>
-                        <td>{{val.DisbursedAmount}}</td>
-                        <td>{{val.Balance}}</td>
-                        <td>{{val.DisbStatusName}}</td>
-                        <td>{{val.NewNextDueDate}}</td>
-                        <!-- <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(img.ID, $event)">View</span></td> -->
-                      </tr>
-                    </tbody>
-                  </table>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr class="table-header-background">
+                            <th>Gl Description</th>
+                            <th>Scheme Code</th>
+                            <th>Crop Code</th>
+                            <th>Disb Date</th>
+                            <th>Disbursed Amount</th>
+                            <th>Balance</th>
+                            <th>Disb Status Name</th>
+                            <th>New Next Due Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let val of DisbursementsRecoveries">
+                            <td>{{val.GlDescription}}</td>
+                            <td>{{val.SchemeCode}}</td>
+                            <td>{{val.CropCode}}</td>
+                            <td>{{val.DisbDate}}</td>
+                            <td>{{val.DisbursedAmount}}</td>
+                            <td>{{val.Balance}}</td>
+                            <td>{{val.DisbStatusName}}</td>
+                            <td>{{val.NewNextDueDate}}</td>
+                            <!-- <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(img.ID, $event)">View</span></td> -->
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-              </div>
             </div>
-            <div>
-              <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-                <div class="kt-portlet__head-label">
-                  <h6 class="kt-portlet__head-title">Attach Images</h6>
-                  <mat-error *ngIf="hasError('file', 'required')">Must Contain a Image<strong>required</strong></mat-error>
-                </div>
-              </div>
-      
-              <div>
-                <input *ngIf="!viewonly" (click)="ifResetRequired()" type='file' formControlName="file"
-                  accept="image/jpg, image/jpeg" (change)="onSelectFile($event)" />
-      
-              </div>
-              <div *ngIf="imageUrl.length>0 && visible" class="row">
-                <div class="item" *ngFor='let url of imageUrl; let i = index'>
-                  <button *ngIf="!viewonly" (click)="removeImage(url,i)">
-                    X
-                  </button>
-                  <div>
-                    <img [src]="url" height="240px" width="320px">
-                  </div>
-                </div>
-              </div>
-      
+        </div>
+        <!-- images -->
+        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header" style="width: 100%">
+            <div class="kt-portlet__head-label">
+                <h6 class="kt-portlet__head-title">Attach Images</h6>
+                <mat-error *ngIf="hasError('file', 'required')">Must Contain a Image<strong>required</strong>
+                </mat-error>
             </div>
-            <div>
-              <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-                <div class="kt-portlet__head-label">
-                  <h6 class="kt-portlet__head-title">Attach Videos</h6>
-                  <mat-error *ngIf="hasError('fileV', 'required')">Must Contain a Video<strong>required</strong></mat-error>
-                </div>
-              </div>
-      
-              <div>
-                <input [required] *ngIf="!viewonly" (click)="ifResetRequiredV()" formControlName="fileV" type='file'
-                  accept="video/*" (change)="onSelectFileV($event)" />
-              </div>
-      
-              <ng-container>
-                <div class="row" *ngIf="videoUrl.length>0 && visible">
-                  <div class="item" *ngFor="let url of videoUrl;let i = index">
-                    <button *ngIf="!viewonly" (click)="removeVideo(url,i)">
-                      X
+        </div>
+
+        <div>
+
+            <input *ngIf="!viewonly" (click)="ifResetRequired()" type='file' formControlName="file"
+                   accept="image/jpg, image/jpeg" (change)="onSelectFile($event)"/>
+            <div *ngIf="imageUrl.length>0 && visible"
+                 style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
+                <div *ngFor='let url of imageUrl; let i = index'>
+                    <button *ngIf="!viewonly" (click)="removeImage(url,i)">
+                        X"
                     </button>
-                    <!-- <button type="button" class="btn-close" aria-label="Close" (click)="removeVideo(i)"></button> -->
-                    <div>
-                      <!-- <video (loadedmetadata)="getDuration($event,i)"  height="240px" width="320px" [src]="url" controls></video> -->
-                      <video #video width="320" height="240" controls [attr.src]="url"
-                        (loadedmetadata)="getDuration($event,i)">
-                      </video>
+                    <div style="width: 240px;height: 240px;">
+                        <img [src]="url" (click)="previewImg(url)" width="240px" height="240px">
                     </div>
-                  </div>
                 </div>
-              </ng-container>
             </div>
-      
-      
-      
-            <div class="form-group kt-form__group row">
-              <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                  <mat-label class="customMatLabel">Remarks</mat-label>
-                  <input appAlphabetOnly [readonly]='remarksFeild' matInput placeholder="Enter Remarks"
-                    formControlName="remarks" maxlength="100" autocomplete="off" />
-                  <mat-error *ngIf="hasError('remarks', 'required')">Date of Death <strong>required</strong></mat-error>
-                </mat-form-field>
-              </div>
+
+        </div>
+        <!--        Video-->
+            <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+                <div class="kt-portlet__head-label">
+                    <h6 class="kt-portlet__head-title">Attach Videos</h6>
+                    <mat-error *ngIf="hasError('fileV', 'required')">Must Contain a Video<strong>required</strong>
+                    </mat-error>
+                </div>
             </div>
-            <!-- <div *ngIf='!viewonly'> -->
-              
-            <div class="float-right mr-4">
-              <button class="ml-2" [color]="'primary'" *ngIf="isSave" mat-raised-button color="primary" (click)="save()">Save</button>
-              <button class="ml-2" [color]="'primary'" *ngIf="isSubmit" mat-raised-button color="primary"
-                (click)="changeStatus(S)">Submit</button>
-              <button class="ml-2" [color]="'primary'" *ngIf="isReffer" mat-raised-button color="primary" (click)="changeStatus(R)">Reffer
-                Back</button>
-              <button class="ml-2" [color]="'primary'" *ngIf="isAuthorize" mat-raised-button color="primary"
-                (click)="changeStatus(A)">Authorize</button>
-              <button *ngIf="isDelete" [color]="'primary'" class="ml-2" mat-raised-button color="primary"
-                (click)="changeStatus(C)">Delete</button>
+
+            <div>
+                <input [required] *ngIf="!viewonly" (click)="ifResetRequiredV()" formControlName="fileV" type='file'
+                       accept="video/*" (change)="onSelectFileV($event)"/>
             </div>
-            <!-- </div> -->
-            <kt-alert *ngIf="hasFormErrors" class="col-lg-12" type="warn" [duration]="1000" [showCloseButton]="true"
-              (close)="onAlertClose($event)">
-              Please enter valid Input
-            </kt-alert>
 
-          </div>
+            <ng-container>
+                <div *ngIf="videoUrl.length>0 && visible"
+                     style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
+                    <div class="item m-2" *ngFor="let url of videoUrl;let i = index">
+                        <button *ngIf="!viewonly" (click)="removeVideo(url,i)">
+                            X
+                        </button>
+                        <!-- <button type="button" class="btn-close" aria-label="Close" (click)="removeVideo(i)"></button> -->
+                        <div>
+                            <!-- <video (loadedmetadata)="getDuration($event,i)"  height="240px" width="320px" [src]="url" controls></video> -->
+                            <video #video width="320" height="240" controls [attr.src]="url"
+                                   (loadedmetadata)="getDuration($event,i)">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+<!--            <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--                <mat-label class="customMatLabel">Remarks</mat-label>-->
+<!--                <input  matInput placeholder="Enter Remarks" formControlName="remarks"-->
+<!--                       maxlength="100" autocomplete="off"/>-->
+<!--&lt;!&ndash;                <mat-error *ngIf="hasError('remarks', 'required')">Date of Death <strong>required</strong></mat-error>&ndash;&gt;-->
+<!--            </mat-form-field>-->
 
-      </div>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
+                <input matInput placeholder="Enter Remarks" formControlName="Remarks" maxlength="13" autocomplete="off"
+                       [readonly]='remarksFeild'/>
+            </mat-form-field>
 
-  </div>
+        </div>
+    </div>
 
+    <div class="float-right mr-4">
+        <button class="ml-2" *ngIf="isSave" mat-raised-button color="primary" (click)="save()">Save</button>
+        <button class="ml-2" *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">Submit
+        </button>
+        <button class="ml-2" *ngIf="isReffer" mat-raised-button color="primary" (click)="changeStatus('R')">Reffer
+            Back
+        </button>
+        <button class="ml-2" *ngIf="isAuthorize" mat-raised-button color="primary" (click)="changeStatus('A')">
+            Authorize
+        </button>
+        <button *ngIf="isDelete" class="ml-2" mat-raised-button color="primary" (click)="changeStatus('C')">Delete
+        </button>
+    </div>
 </div>

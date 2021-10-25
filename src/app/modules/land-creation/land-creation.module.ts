@@ -12,6 +12,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {RouterModule} from "@angular/router";
 import {KtDialogService} from "../../shared/services/kt-dialog.service";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {CustomerModule} from "../customer/customer.module";
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
                 }
             ]
         ),
+        CustomerModule,
         SharedModule
     ],
     entryComponents: [
