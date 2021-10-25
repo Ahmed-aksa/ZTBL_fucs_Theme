@@ -1,11 +1,11 @@
 <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-4xl font-extrabold tracking-tight">Correction of Passbook No.</div>
+  <div class="text-4xl font-extrabold tracking-tight px-10 mt-4">Correction of Passbook No.</div>
 
   <!-- Header -->
-  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pt-4 px-6 md:px-8"
     style="flex-wrap: wrap">
   </div>
-  <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+  <div class="flex flex-auto overflow-hidden mx-12" style="flex-direction: column;">
     <form [formGroup]="cpForm" class="kt-form kt-form--group-seperator-dashed">
       <div class="form-group kt-form__group row">
 
@@ -15,7 +15,7 @@
       
           <div class="col-lg-3 kt-margin-bottom-20-mobile">
   
-              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                   <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>
                   <input matInput placeholder="Enter Tran Date" formControlName="Zone"  maxlength="13" autocomplete="off" readonly="readonly"/>
                 </mat-form-field>
@@ -23,7 +23,7 @@
   
           <div class="col-lg-3 kt-margin-bottom-20-mobile">
               
-              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                   <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>
                   <input matInput placeholder="Enter Tran Date" formControlName="Branch"  maxlength="13" autocomplete="off" readonly="readonly"/>
                 </mat-form-field>
@@ -32,7 +32,7 @@
   
       <div class="form-group kt-form__group row"> 
           <div class="col-lg-3 kt-margin-bottom-20-mobile">
-              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+              <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">CNIC#</mat-label>
                 <!-- <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic" formControlName="Cnic"  maxlength="13" autocomplete="off" [readonly]="viewOnly"/> -->
                 <input appNumberOnly matInput placeholder="Enter Cnic" formControlName="Cnic"  maxlength="13" autocomplete="off" />
