@@ -36,11 +36,6 @@
                     <mat-error *ngIf="signInForm.get('DisplayName').hasError('required')">
                         Please enter a valid Display Name
                     </mat-error>
-
-                    <input
-                        id="App"
-                        type="hidden"
-                        [formControlName]="'App'">
                 </mat-form-field>
 
                 <!-- Password field -->
