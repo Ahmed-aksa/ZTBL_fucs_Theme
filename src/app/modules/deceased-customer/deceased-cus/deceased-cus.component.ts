@@ -27,7 +27,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {DeceasedCustomerService} from '../../../shared/services/deceased-customer.service';
 import {CommonService} from '../../../shared/services/common.service';
 import {finalize} from 'rxjs/operators';
-import {ViewfileComponent} from '../viewfile/viewfile.component';
+import {ViewFileComponent} from "../view-file/view-file.component";
 
 @Component({
     selector: 'app-deceased-cus',
@@ -319,7 +319,7 @@ export class DeceasedCusComponent implements OnInit {
         //     this.url = this.DeceasedCustomerAttachedFile[a].Path
         //   }
         // }
-        const dialogRef = this.dialog.open(ViewfileComponent, {
+        const dialogRef = this.dialog.open(ViewFileComponent, {
             width: '90%',
             height: '90%',
             data: {
@@ -421,7 +421,7 @@ export class DeceasedCusComponent implements OnInit {
                 this.url = this.DeceasedCustomerAttachedFile[a].Path;
             }
         }
-        const dialogRef = this.dialog.open(ViewfileComponent, {
+        const dialogRef = this.dialog.open(ViewFileComponent, {
             width: '50%',
             height: '50%',
             data: {

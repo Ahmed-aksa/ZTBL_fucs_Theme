@@ -120,6 +120,14 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/village-wise-bench-marking/village-wise-bench-marking.module').then(m => m.VillageWiseBenchMarkingModule)
             },
             {
+                path: 'deceased-customer',
+                loadChildren: () => import('app/modules/deceased-customer/deceased-customer.module').then(m => m.DeceasedCustomerModule)
+            },
+            {
+                path: 'tour-diary',
+                loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
+            },
+            {
                 path: 'loan-utilization',
                 loadChildren: () => import('app/modules/loan-utilization/loan-utilization.module').then(m => m.LoanUtilizationModule)
             },
@@ -138,6 +146,10 @@ export const appRoutes: Route[] = [
             {
                 path: 'land-creation',
                 loadChildren: () => import('app/modules/land-creation/land-creation.module').then(m => m.LandCreationModule)
+            },
+            {
+                path: 'ndc-requests',
+                loadChildren: () => import('app/modules/ndc-requests/ndc-requests.module').then(m => m.NdcRequestsModule)
             },
             {
                 path: '**',
