@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VendorListComponent } from './vendor-list.component';
+import { DeceasedCusComponent } from './deceased-cus.component';
 
-describe('VendorListComponent', () => {
-  let component: VendorListComponent;
-  let fixture: ComponentFixture<VendorListComponent>;
+describe('DeceasedCusComponent', () => {
+  let component: DeceasedCusComponent;
+  let fixture: ComponentFixture<DeceasedCusComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VendorListComponent ]
+      declarations: [ DeceasedCusComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VendorListComponent);
+    fixture = TestBed.createComponent(DeceasedCusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
