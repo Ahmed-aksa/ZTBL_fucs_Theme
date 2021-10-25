@@ -148,6 +148,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/land-creation/land-creation.module').then(m => m.LandCreationModule)
             },
             {
+                path: 'ndc-requests',
+                loadChildren: () => import('app/modules/ndc-requests/ndc-requests.module').then(m => m.NdcRequestsModule)
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             }

@@ -7,7 +7,6 @@ import {SearchDeceasedComponent} from './search-deceased/search-deceased.compone
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {ViewFileComponent} from "./view-file/view-file.component";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
@@ -15,6 +14,9 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {MatSortModule} from "@angular/material/sort";
 import {RouterModule} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
+import {ViewFileComponent} from "./view-file/view-file.component";
+import {SetTargetService} from "../tour-dairy/set-target/Services/set-target.service";
+import {DeceasedCustomerService} from "./Services/deceased-customer.service";
 
 const routes = [
     {
@@ -33,13 +35,13 @@ const routes = [
 
 
 @NgModule({
-  declarations: [
-    DeceasedCusComponent,
-    ImageViewerComponent,
-    ReferbackDeceasedComponent,
-    SearchDeceasedComponent,
-      ViewFileComponent
-  ],
+    declarations: [
+        DeceasedCusComponent,
+        ImageViewerComponent,
+        ReferbackDeceasedComponent,
+        SearchDeceasedComponent,
+        ViewFileComponent
+    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -52,8 +54,12 @@ const routes = [
         NgxSpinnerModule,
         MatSortModule,
         SharedModule,
-
     ],
+    providers: [
+        SetTargetService,
+        DeceasedCustomerService
+    ]
 
 })
-export class DeceasedCustomerModule { }
+export class DeceasedCustomerModule {
+}
