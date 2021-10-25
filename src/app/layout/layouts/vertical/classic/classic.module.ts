@@ -16,6 +16,7 @@ import { ShortcutsModule } from 'app/layout/common/shortcuts/shortcuts.module';
 import { UserModule } from 'app/layout/common/user/user.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { ClassicLayoutComponent } from 'app/layout/layouts/vertical/classic/classic.component';
+import { DeviceMappingModule } from 'app/modules/device-mapping/device-mapping.module';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { ClassicLayoutComponent } from 'app/layout/layouts/vertical/classic/clas
         LanguagesModule,
         MessagesModule,
         NotificationsModule,
+        DeviceMappingModule,
         QuickChatModule,
         SearchModule,
         ShortcutsModule,

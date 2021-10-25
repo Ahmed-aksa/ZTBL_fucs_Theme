@@ -5,7 +5,6 @@ flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
     <!-- Header -->
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-2  border-b"
          style="flex-wrap: wrap" [formGroup]="listForm">
-
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -14,7 +13,6 @@ flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
                        autocomplete="off"/>
             </mat-form-field>
         </div>
-
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
@@ -25,7 +23,6 @@ flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
                 <mat-label class="customMatLabel">Zone</mat-label>
                 <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
@@ -52,7 +49,6 @@ flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
                         {{branch?.Name}}
                     </mat-option>
                 </mat-select>
-
                 <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
                             *ngIf="single_branch">
                     <mat-option [value]="SelectedBranches?.BranchCode"

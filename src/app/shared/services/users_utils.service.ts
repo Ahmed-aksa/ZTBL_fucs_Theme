@@ -98,7 +98,8 @@ export class UserUtilsService {
     public getUserDetails(): BaseResponseModel {
 
 
-        var userMenu = localStorage.getItem(environment.ZTBLUser) //this.getUserMenu();
+        var userMenu = localStorage.getItem(environment.userInfoKey) //this.getUserMenu();
+        //var userMenu = localStorage.getItem(environment.ZTBLUser) //this.getUserMenu();
         if (userMenu)
         {
             return JSON.parse(userMenu);

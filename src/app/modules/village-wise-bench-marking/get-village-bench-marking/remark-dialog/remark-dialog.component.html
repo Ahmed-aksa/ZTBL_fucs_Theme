@@ -1,0 +1,36 @@
+<div>
+    <div class="kt-portlet">
+      <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
+      <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+          <h3 class="kt-portlet__head-title">Get Remarks</h3>
+        </div>
+        <div class="text-center mt-3 d-flex justify-content-end">
+            <button mat-icon-button color="primary" (click)="close(0)">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+      </div>
+    </div>
+    
+    <form [formGroup]="remarkForm" class="kt-form kt-form--group-seperator-dashed">
+        <div class="kt-form">
+          <div class="kt-portlet__body">
+            <div class="col-lg-12 d-flex justify-content-center">
+              <div class="col-lg-6 col-md-6 mat-elevation-z8 mt-3">
+                <mat-form-field class=" mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Remarks:</mat-label>
+                    <input matInput placeholder="Enter Remarks" formControlName="Remarks" maxlength="30" autocomplete="off" />
+                  </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    <div class="col-lg-12 row d-flex justify-content-center">
+      <button mat-raised-button color="primary" class="org-button"  (click)="submit()">Submit</button>
+    </div>
+
+</div>
+  

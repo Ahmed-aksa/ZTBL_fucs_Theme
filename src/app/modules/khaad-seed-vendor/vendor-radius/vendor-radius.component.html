@@ -1,0 +1,139 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">Nearest Vendor</div>
+
+    <!-- Header -->
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+         style="flex-wrap: wrap" [formGroup]="radiusForm">
+        <div
+            class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar [mode]="'indeterminate'" *ngIf="loaded"></mat-progress-bar>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                    <mat-option [value]="SelectedZones?.ZoneId">
+                        {{SelectedZones?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                            (selectionChange)="changeZone($event)">
+                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                [disabled]="disable_zone">
+                        {{zone?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                            (selectionChange)="changeBranch($event)"
+                            *ngIf="!single_branch">
+                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                    >
+                        {{branch?.Name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                            *ngIf="single_branch">
+                    <mat-option [value]="SelectedBranches?.BranchCode"
+                    >
+                        {{SelectedBranches?.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Circle</mat-label>
+
+                <mat-select [(ngModel)]="selected_c" formControlName="CircleId" [disabled]="disable_circle">
+                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                    >
+                        {{circle?.CircleCode}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Find Vendor With Radius:</mat-label>
+
+                <mat-select (selectionChange)="selectRadius($event)" formControlName="Radius">
+                    <mat-option *ngFor="let radius of Radius" [value]="radius.Value"
+                    >
+                        {{radius.Name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Vendor Type</mat-label>
+
+                <mat-select (selectionChange)="selectType($event)" formControlName="Type">
+                    <mat-option *ngFor="let type of vendorLov" [value]="type.Value"
+                    >
+                        {{type.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Vendor Name</mat-label>
+                <input matInput placeholder="Vendor Name" formControlName="Name" maxlength="30"
+                       autocomplete="off" appNumberOnly/>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <button mat-raised-button color="accent"
+                    type="button" (click)="onSelect()"><span><i
+                class="fa fa-search"> &nbsp;</i> Find</span></button>
+        </div>
+
+    </div>
+
+    <agm-map #gm [zoom]="zoom" style="height: 100%;"
+             [latitude]="lat"
+             [longitude]="lng"
+             [mapTypeControlOptions]="controlOptions"
+             [mapTypeControl]="true"
+             (mapReady)="onMapReady($event)"
+             [restriction]="countryRestriction">
+
+        <agm-marker *ngFor="let r of radiusInfo; let i = index"
+                    (markerClick)="clickedMarker($event,i, infowindow)"
+                    [latitude]="r.Lat"
+                    [longitude]="r.Lng"
+                    [title]="r.Name"
+        >
+
+            <agm-info-window #infowindow>
+                <strong>{{r.Name}}</strong>
+            </agm-info-window>
+
+        </agm-marker>
+
+    </agm-map>
+</div>

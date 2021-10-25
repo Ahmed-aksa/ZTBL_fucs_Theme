@@ -72,7 +72,7 @@ export class CorrectionPassbookComponent implements OnInit {
   }
 
   find(){
-    
+    debugger
     var cnic = this.cpForm.controls.Cnic.value;
     this.spinner.show();
     this._customerService.findPassbookCorrection(cnic)
@@ -82,7 +82,7 @@ export class CorrectionPassbookComponent implements OnInit {
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      
+      debugger
       if(baseResponse.Success === true){
         this.afterFind = true
         this.customerRec = baseResponse.Customer
@@ -130,7 +130,7 @@ inputvalue;
   }
 
   submit(){
-    
+    debugger
     var cnic = this.cpForm.controls.Cnic.value;
     //var NewPassbookNO = this.cpForm.controls.NewPassBookNo.value; 
     //var npb ={NewPassbookNO: NewPassbookNO}
@@ -153,7 +153,7 @@ inputvalue;
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      
+      debugger
       if(baseResponse.Success === true){
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
         console.log(baseResponse)

@@ -16,6 +16,9 @@ import {DatePipe} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
 import {SignaturePad, SignaturePadModule} from "angular2-signaturepad";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatIconModule} from "@angular/material/icon";
+import {MatDialogModule} from "@angular/material/dialog";
+import {SetTargetService} from "./set-target/Services/set-target.service";
 
 const routing = [
     {
@@ -58,10 +61,13 @@ const routing = [
         MatButtonModule,
         SignaturePadModule,
         MatDatepickerModule,
+        MatIconModule,
+        MatDialogModule,
 
     ],
     providers: [
         DatePipe,
+        SetTargetService
     ],
 })
 export class TourDairyModule {

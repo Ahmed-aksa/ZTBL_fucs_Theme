@@ -116,14 +116,9 @@
         <!-- Products list -->
         <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
             <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
-                <mat-table class="lmat-elevation-z8"
-                           #table
-                           [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
-                           matSort
-                           #sort1="matSort"
-                           matSortActive="id"
-                           matSortDirection="asc"
-                           matSortDisableClear>
+                <mat-table class="lmat-elevation-z8" #table
+                    [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                    matSort #sort1="matSort" matSortActive="id" matSortDirection="asc" matSortDisableClear>
 
                     <ng-container matColumnDef="BranchName">
                         <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
@@ -132,32 +127,32 @@
                     </ng-container>
 
                     <ng-container matColumnDef="BranchCode">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Code</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>BranchCode</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.BranchCode}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="LoanCaseNo">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Loan Case No.</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>LoanCaseNo</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.LoanCaseNo}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="OutStandingPrinciple">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Out Standing Principle</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>OutStandingPrinciple</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.OutStandingPrinciple}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="DisbursedAmount">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Disbursed Amount</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>DisbursedAmount</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.DisbursedAmount}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="ToDateMarkup">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>To Date Markup</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>ToDateMarkup</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.ToDateMarkup}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="prodDevFlag">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>prod Dev Flag</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>prodDevFlag</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.prodDevFlag}}</mat-cell>
                     </ng-container>
 
@@ -169,53 +164,26 @@
                     </ng-container>
 
                     <ng-container matColumnDef="DisbDate">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Disb Date</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>DisbDate</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.DisbDate}}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="StatusName">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status Name</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>StatusName</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.StatusName}}</mat-cell>
                     </ng-container>
 
-                    <!-- <ng-container matColumnDef="loanutilizationStatus">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                      <mat-cell *matCellDef="let loanutilization">{{getStatus(loanutilization.loanutilizationStatus)}}</mat-cell>
-                    </ng-container> -->
-
-                    <!-- <ng-container matColumnDef="View" *ngIf="!isDialog">
-                      <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-                      <mat-cell *matCellDef="let loanutilization">
-                        <button *ngIf="!isDialog" mat-icon-button color="primary"
-                                >
-                          <mat-icon style="margin-left: 2px;" title="View loanutilization">visibility</mat-icon>
-                        </button>
-                      </mat-cell>
-                    </ng-container>
-                    *ngIf="CheckViewStatus(jv)" -->
-
                     <ng-container matColumnDef="add">
-                        <mat-header-cell *matHeaderCellDef>Add Utilization</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef>Add New</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">
-                            <button mat-icon-button color="primary"
-                                    (click)="addloanutilization(loanutilization)">
+                            <button mat-icon-button color="primary" (click)="addloanutilization(loanutilization)">
                                 <mat-icon style="margin-left: 1px;" title="View loanutilization">add</mat-icon>
                             </button>
                         </mat-cell>
                     </ng-container>
 
-                    <!-- *ngIf="CheckEditStatus(jv)" -->
-                    <!-- <ng-container matColumnDef="Edit">
-                      <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
-                      <mat-cell *matCellDef="let loanutilization">
-                        <button mat-icon-button color="primary"
-                        (click)="editloanutilization(loanutilization)">
-                          <mat-icon style="margin-left: 2px;" title="Edit loanutilization">edit</mat-icon>
-                        </button>
-                      </mat-cell>
-                    </ng-container> -->
-
-                    <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background"></mat-header-row>
+                    <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">
+                    </mat-header-row>
 
                     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
