@@ -40,7 +40,8 @@ const routes = [
         ImageViewerComponent,
         ReferbackDeceasedComponent,
         SearchDeceasedComponent,
-        ViewFileComponent
+        ViewFileComponent,
+
     ],
     imports: [
         CommonModule,
@@ -56,8 +57,9 @@ const routes = [
         SharedModule,
     ],
     providers: [
+        DeceasedCustomerService,
         SetTargetService,
-        DeceasedCustomerService
+
     ]
 
 })

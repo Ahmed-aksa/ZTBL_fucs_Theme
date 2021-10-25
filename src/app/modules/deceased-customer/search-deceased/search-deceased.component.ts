@@ -13,12 +13,14 @@ import {LovService} from "../../../shared/services/lov.service";
 import {DeceasedCustomerService} from "../Services/deceased-customer.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {finalize} from "rxjs/operators";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
     selector: 'app-search-deceased',
     templateUrl: './search-deceased.component.html',
-    styleUrls: ['./search-deceased.component.scss']
+    styleUrls: ['./search-deceased.component.scss'],
+    providers: [DatePipe]
 })
 export class SearchDeceasedComponent implements OnInit {
 
@@ -99,7 +101,7 @@ export class SearchDeceasedComponent implements OnInit {
         //var u = new UserUtilsService();
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
-        
+
         //if (userDetails.Branch.BranchCode == "All")
         if (userDetails.User.AccessToData == "1") {
             //admin user
@@ -129,7 +131,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     SearchDeceasedCustomer(){
-        
+
         this.spinner.show()
         this.Customer = Object.assign(this.Customer, this.deceasedCustomerSearch.value);
 
@@ -141,12 +143,12 @@ export class SearchDeceasedComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    
+
                     this.dataSource.data = baseResponse.DeceasedCustomer.DeceasedCustomerInfoList;
                     console.log(this.dataSource.data)
 
                 } else {
-                    
+
                     this.layoutUtilsService.alertElement(
                         "",
                         baseResponse.Message,
@@ -162,7 +164,7 @@ export class SearchDeceasedComponent implements OnInit {
     dv: number | any; //use later
 
     SearchLandData() {
-        
+
         this.spinner.show();
         // this.CustomerLandRelation.Offset = this.OffSet.toString();
         // this.CustomerLandRelation.Limit = this.itemsPerPage.toString();
@@ -178,10 +180,10 @@ export class SearchDeceasedComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-                
+
                 if (baseResponse.Success) {
                     this.loading = false;
-                    
+
                     this.dataSource.data = baseResponse.searchLandData;
 
                     if (this.dataSource.data.length > 0)
@@ -202,7 +204,7 @@ export class SearchDeceasedComponent implements OnInit {
                     //pagination
                     this.dv = this.dataSource.data;
                     //this.dataSource = new MatTableDataSource(data);
-                    
+
                     this.totalItems = baseResponse.searchLandData[0].TotalCount;
                     //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
@@ -236,7 +238,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     GetZones() {
-        
+
         this.loading = true;
         this._circleService.getZones()
             .pipe(
@@ -244,7 +246,7 @@ export class SearchDeceasedComponent implements OnInit {
                     this.loading = false;
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
 
                 baseResponse.Zones.forEach(function (value) {
@@ -266,7 +268,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     SetBranches(branchId) {
-        
+
         this.Branch.BranchCode = branchId.value;
     }
 
@@ -274,7 +276,7 @@ export class SearchDeceasedComponent implements OnInit {
         this.loading = true;
         this.dataSource.data = [];
         this.Branches = [];
-        
+
         if (ZoneId.value === undefined)
             this.Zone.ZoneId = ZoneId;
         else
@@ -285,7 +287,7 @@ export class SearchDeceasedComponent implements OnInit {
                     this.loading = false;
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
                 this.loading = false;
 
@@ -326,7 +328,7 @@ export class SearchDeceasedComponent implements OnInit {
         //this.ngxService.start();
 
         this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.DeceasedCustomerStatus })
-        
+
         this.CustomerStatusLov = this.CustomerStatusLov.LOVs;
         console.log(this.CustomerStatusLov);
         ////For Bill type
