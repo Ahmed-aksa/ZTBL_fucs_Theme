@@ -1,3 +1,20 @@
+/* eslint-disable max-len */
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable no-debugger */
+/* eslint-disable prefer-const */
+/* eslint-disable eol-last */
+/* eslint-disable one-var */
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/type-annotation-spacing */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable @typescript-eslint/naming-convention */
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDialogModule, MatDialog} from "@angular/material/dialog";
 import {MatSortModule, MatSort} from "@angular/material/sort";
@@ -6,6 +23,10 @@ import {MatTableDataSource} from "@angular/material/table";
 import {finalize} from 'rxjs/operators';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NdcRequestsService} from "../Services/ndc-requests.service";
+import { BaseResponseModel } from 'app/shared/models/base_response.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { UserUtilsService } from 'app/shared/services/users_utils.service';
 
 @Component({
     selector: 'app-search-ndc-list',
@@ -25,66 +46,186 @@ export class SearchNdcListComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
     gridHeight: string;
-
+    selected_b;
+    
+    hide = true;
+    selected_z;
+    selected_c;
+    LoggedInUserInfo:BaseResponseModel;
+  
+    ndcForm: FormGroup;
+  
+    pageSize = 10;
+    ndcLength : number;
+    pendingLength : number;
+    pageSizeOptions = [10, 25, 50]
+    offSet = 0;
+    count = 1;
+    user : any = {};
+  
+    pageIndex = 1;
+    pageIndexPending = 1;
+  
+    dvReq : any;
+    dvPending : any;
+  
+    Zones: any = [];
+    Branches: any = [];
+    Circles: any = [];
+  
+    SelectedZone : any = [];
+    SelectedBranch : any = [];
+    SelectedCircle : any = [];
+    Math: any;
+  
+    SrNo: number | any;
+  
     constructor(
-        public dialog: MatDialog,
-        private ndc_request_service: NdcRequestsService,
-        private layoutUtilsService: LayoutUtilsService) {
+      public dialog: MatDialog,
+      private ndc_request_service: NdcRequestsService,
+      private layoutUtilsService: LayoutUtilsService,
+      private fb: FormBuilder,
+      private spinner: NgxSpinnerService,
+      private userUtilsService: UserUtilsService,) {
+        this.Math = Math; 
     }
-
-
-    ngOnInit(): void {
-        this.loadUsersList();
+  
+    
+  
+    ngOnInit() {
+      this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+      this.createForm()
+      
+  
+      if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
+        this.Circles = this.LoggedInUserInfo.UserCircleMappings;
+        this.SelectedCircle = this.Circles;
+  
+        this.Branches = this.LoggedInUserInfo.Branch;
+        this.SelectedBranch = this.Branches;
+  
+        this.Zones = this.LoggedInUserInfo.Zone;
+        this.SelectedZone = this.Zones;
+  
+        this.selected_z = this.SelectedZone.ZoneId
+        this.selected_b = this.SelectedBranch.BranchCode
+        this.selected_c = this.SelectedCircle.Id
+        console.log(this.SelectedZone)
+        this.ndcForm.controls["ZoneId"].setValue(this.SelectedZone.ZoneName);
+        this.ndcForm.controls["BranchCode"].setValue(this.SelectedBranch.Name);
+      }
+  
+      this.loadUsersList();
     }
-
+  
+    createForm(){
+      this.ndcForm = this.fb.group({
+        ZoneId: [null],
+        BranchCode: [null],
+        CircleId: [null],
+        Cnic: [null]
+      })
+    }
+  
     applyFilter(filterValue: string) {
-        this.dataSource.filter = filterValue;
+      this.dataSource.filter = filterValue;
     }
-
-    loadUsersList(cnic = '') {
-        this.loading = true;
-        this.ndc_request_service.getRequests(cnic)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((baseResponse: any) => {
-                if (baseResponse.Success) {
-                    this.request_data_source = baseResponse.Ndc.Ndcrequests;
-                    if (baseResponse.Ndc.pendingNdcs != null) {
-                        this.pending_requests_data_source = baseResponse.Ndc.pendingNdcs;
-                    }
-                } else {
-                    this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
-                }
-
-            });
+  
+    // getAllNDC(){
+    //   this.loadUsersList()
+    // }
+  
+    loadUsersList() {
+      debugger
+      this.user.ZoneId = this.ndcForm.controls.ZoneId.value;
+      this.user.BranchCode = this.ndcForm.controls.BranchCode.value;
+      this.user.CircleId = this.ndcForm.controls.CircleId.value;
+      this.user.Cnic = this.ndcForm.controls.Cnic.value;
+  
+      if(this.user.ZoneId != this.SelectedZone.ZoneId && this.user.BranchCode != this.SelectedBranch.BranchCode){
+        this.user.ZoneId = this.selected_z;
+        this.user.BranchCode = this.selected_b;
+      }
+      this.spinner.show();
+      this.loading = true;
+      this.ndc_request_service.getRequests(this.user, this.pageSize, this.offSet)
+        .pipe(
+          finalize(() => {
+            this.loading = false;
+            this.spinner.hide();
+          })
+        )
+        .subscribe((baseResponse: any) => {
+          if (baseResponse.Success) {
+            debugger
+            console.log(baseResponse)
+            this.request_data_source = baseResponse.Ndc.Ndcrequests;
+            this.dvReq = this.request_data_source;
+            this.ndcLength = this.dvReq.length;
+            this.request_data_source = this.dvReq.slice(0, this.pageSize);
+  
+            if (baseResponse.Ndc.pendingNdcs != null) {
+              this.pending_requests_data_source = baseResponse.Ndc.pendingNdcs;
+              this.dvPending = this.pending_requests_data_source;
+              this.pendingLength = this.dvPending.length;
+              this.pending_requests_data_source = this.dvPending.slice(0, this.pageSize);
+              // this.pending_requests_data_source.paginator = this.paginator;
+              // this.pendingLength = baseResponse.Ndc.pendingNdcs.length;
+            }
+          } else {
+            this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
+          }
+  
+        });
     }
-
+  
+  
     ngAfterViewInit() {
-
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.gridHeight = window.innerHeight - 330 + 'px';
+  
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.gridHeight = window.innerHeight - 330 + 'px';
     }
-
-    findCnic(cnic: HTMLInputElement) {
-        this.loadUsersList(cnic.value);
+  
+    // findCnic(cnic: HTMLInputElement) {
+    //   this.loadUsersList(cnic.value);
+    // }
+  
+    findCnic() {
+      this.loadUsersList();
     }
-
-    downloadFile(customer_cnic, customer_id) {
-        this.ndc_request_service.downloadFile(customer_cnic, customer_id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((baseResponse: any) => {
-                if (baseResponse.Success) {
-                    window.open(window.URL.createObjectURL(baseResponse.Ndc.ndcFilePath));
-                }
-            });
+  
+    downloadFile(customer_cnic,customer_id) {
+      this.spinner.show();
+      this.ndc_request_service.downloadFile(customer_cnic,customer_id, this.pageSize, this.offSet = 0, this.user)
+        .pipe(
+          finalize(() => {
+            this.spinner.hide();
+            this.loading = false;
+          })
+        )
+        .subscribe((baseResponse: any) => {
+          if (baseResponse.Success) {
+            debugger
+            this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
+            window.open(baseResponse.Ndc.ndcFilePath);
+          }
+        });
     }
-
-}
+  
+    paginateRequest(pageIndex: any, pageSize: any = this.pageSize) {
+      this.pageSize = pageSize;
+      this.pageIndex = pageIndex;
+      this.offSet = pageIndex;
+      
+      this.request_data_source = this.dvReq.slice(pageIndex * this.pageSize - this.pageSize, pageIndex * this.pageSize); //slice is used to get limited amount of data from APi
+    }
+  
+    paginatePending(pageIndex: any, pageSize: any = this.pageSize) {
+      this.pageIndexPending = pageSize;
+      this.pageIndexPending = pageIndex;
+      this.offSet = pageIndex;
+      
+      this.pending_requests_data_source = this.dvPending.slice(pageIndex * this.pageSize - this.pageSize, pageIndex * this.pageSize); //slice is used to get limited amount of data from APi
+    }
+  }
