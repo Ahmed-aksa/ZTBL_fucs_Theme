@@ -1,17 +1,16 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MatDialogModule,MatDialog} from "@angular/material/dialog";
+import {MatDialogModule, MatDialog} from "@angular/material/dialog";
 import {MatSortModule, MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
-
-import {NdcRequestsService} from '../services/ndc-requests.service';
 import {finalize} from 'rxjs/operators';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {NdcRequestsService} from "../Services/ndc-requests.service";
 
 @Component({
-  selector: 'app-search-ndc-list',
-  templateUrl: './search-ndc-list.component.html',
-  styleUrls: ['./search-ndc-list.component.scss']
+    selector: 'app-search-ndc-list',
+    templateUrl: './search-ndc-list.component.html',
+    styleUrls: ['./search-ndc-list.component.scss']
 })
 export class SearchNdcListComponent implements OnInit {
 
@@ -34,9 +33,9 @@ export class SearchNdcListComponent implements OnInit {
     }
 
 
-  ngOnInit(): void {
-      this.loadUsersList();
-  }
+    ngOnInit(): void {
+        this.loadUsersList();
+    }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue;
@@ -73,8 +72,9 @@ export class SearchNdcListComponent implements OnInit {
     findCnic(cnic: HTMLInputElement) {
         this.loadUsersList(cnic.value);
     }
-    downloadFile(customer_cnic,customer_id) {
-        this.ndc_request_service.downloadFile(customer_cnic,customer_id)
+
+    downloadFile(customer_cnic, customer_id) {
+        this.ndc_request_service.downloadFile(customer_cnic, customer_id)
             .pipe(
                 finalize(() => {
                     this.loading = false;

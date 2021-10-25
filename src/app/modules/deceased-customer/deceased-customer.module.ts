@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 import {DeceasedCusComponent} from './deceased-cus/deceased-cus.component';
-import {ImageViewerComponent} from './image-viewer/image-viewer.component';
 import {ReferbackDeceasedComponent} from './referback-deceased/referback-deceased.component';
 import {SearchDeceasedComponent} from './search-deceased/search-deceased.component';
 import {ViewfileComponent} from './viewfile/viewfile.component';
@@ -15,6 +14,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {MatSortModule} from "@angular/material/sort";
 import {RouterModule} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
+import {ImageViewerComponent} from "./image-viewer/image-viewer.component";
 
 const routes = [
     {
@@ -33,13 +33,13 @@ const routes = [
 
 
 @NgModule({
-  declarations: [
-    DeceasedCusComponent,
-    ImageViewerComponent,
-    ReferbackDeceasedComponent,
-    SearchDeceasedComponent,
-    ViewfileComponent
-  ],
+    declarations: [
+        DeceasedCusComponent,
+        ImageViewerComponent,
+        ReferbackDeceasedComponent,
+        SearchDeceasedComponent,
+        ViewfileComponent
+    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -55,4 +55,5 @@ const routes = [
     ],
 
 })
-export class DeceasedCustomerModule { }
+export class DeceasedCustomerModule {
+}
