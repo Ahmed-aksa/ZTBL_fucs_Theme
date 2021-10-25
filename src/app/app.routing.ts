@@ -123,10 +123,10 @@ export const appRoutes: Route[] = [
                 path: 'deceased-customer',
                 loadChildren: () => import('app/modules/deceased-customer/deceased-customer.module').then(m => m.DeceasedCustomerModule)
             },
-            // {
-            //     path: 'tour-diary',
-            //     loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
-            // },
+            {
+                path: 'tour-diary',
+                loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
+            },
             {
                 path: 'loan-utilization',
                 loadChildren: () => import('app/modules/loan-utilization/loan-utilization.module').then(m => m.LoanUtilizationModule)

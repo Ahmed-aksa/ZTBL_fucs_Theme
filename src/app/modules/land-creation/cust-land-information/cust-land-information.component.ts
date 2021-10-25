@@ -250,6 +250,237 @@ export class CustLandInformationComponent implements OnInit {
         }
     }
 
+    SelectionChangePushData(event: any) {
+        var resetTable = true
+        this.ShowTable = true
+        if (this.isEditMode == '1' && this.alphas.length > 0 && this.TotalOfTotal == 0) {
+            this.selectedCustomerID = event.value;
+        } else {
+            if (this.TotalOfTotal == 0) {
+                if (this.selectedCustomerID != undefined && this.selectedCustomerID != '' && this.selectedCustomerID != null) {
+
+                    var Customerdata = this.CustomerLov.filter(x => x.LandCustID == this.selectedCustomerID)[0];
+                    this.LandInformationForm.controls['LandCustID'].setValue(Customerdata.LandCustID)
+                } else {
+                    this.selectedCustomerID = event.value;
+                }
+                return
+            }
+        }
+        if (this.selectedCustomerID == undefined || this.selectedCustomerID == '' || this.selectedCustomerID == null) {
+            this.selectedCustomerID = event.value;
+            resetTable = false
+        }
+
+
+        this.getLandDetailTableData()
+        var dataFound = this.reloadLandDetailTableData(event.value)
+        this.checkForDulpicateCustomerLandDetail()
+
+        if (resetTable && !dataFound) {
+            this.clearLandDetailTableData()
+        }
+
+        this.selectedCustomerID = event.value;
+
+    }
+
+    reloadLandDetailTableData(customerId: any): boolean {
+
+        var landInfoDetail = [];
+
+        for (var i = 0; i < this.alphas.length; i++) {
+            var detail = this.alphas[i]
+            if (detail[0].LandCustID == customerId) {
+                landInfoDetail = detail;
+                break;
+            }
+        }
+
+        if (landInfoDetail.length == 0)
+            return false
+
+        if (this.LandInfoSearchData != undefined && this.LandInfoSearchData != null) {
+            if ((this.LandInfoSearchData.Status == '3' || this.LandInfoSearchData.Status == '2' || this.LandInfoSearchData.Status == '1') && this.isEditMode == "1") {
+
+                this.landDetailMarlaPlaceholder = "";
+                this.BArea = landInfoDetail[0].Area == "0" ? "" : landInfoDetail[0].Area
+                this.BAreaOwned = landInfoDetail[0].AreaOwned == "0" ? "" : landInfoDetail[0].AreaOwned
+                this.BFimalyOperated = landInfoDetail[0].FamAreaOpr == "0" ? "" : landInfoDetail[0].FamAreaOpr
+                this.BLeasedIn = landInfoDetail[0].LeasedIn == "0" ? "" : landInfoDetail[0].LeasedIn
+                this.BLeasedOut = landInfoDetail[0].LeasedOut == "0" ? "" : landInfoDetail[0].LeasedOut
+                this.BUnderCustomhiring = landInfoDetail[0].AreaUnderCust == "0" ? "" : landInfoDetail[0].AreaUnderCust
+                this.BTotal = landInfoDetail[0].AreaTotal == "0" ? "" : landInfoDetail[0].AreaTotal
+
+                this.IArea = landInfoDetail[1].Area == "0" ? "" : landInfoDetail[1].Area
+                this.IAreaOwned = landInfoDetail[1].AreaOwned == "0" ? "" : landInfoDetail[1].AreaOwned
+                this.IFimalyOperated = landInfoDetail[1].FamAreaOpr == "0" ? "" : landInfoDetail[1].FamAreaOpr
+                this.ILeasedIn = landInfoDetail[1].LeasedIn == "0" ? "" : landInfoDetail[1].LeasedIn
+                this.ILeasedOut = landInfoDetail[1].LeasedOut == "0" ? "" : landInfoDetail[1].LeasedOut
+                this.IUnderCustomhiring = landInfoDetail[1].AreaUnderCust == "0" ? "" : landInfoDetail[1].AreaUnderCust
+                this.ITotal = landInfoDetail[1].AreaTotal == "0" ? "" : landInfoDetail[1].AreaTotal
+
+
+                this.UnArea = landInfoDetail[2].Area == "0" ? "" : landInfoDetail[2].Area
+                this.UnAreaOwned = landInfoDetail[2].AreaOwned == "0" ? "" : landInfoDetail[2].AreaOwned
+                this.UnFimalyOperated = landInfoDetail[2].FamAreaOpr == "0" ? "" : landInfoDetail[2].FamAreaOpr
+                this.UnLeasedIn = landInfoDetail[2].LeasedIn == "0" ? "" : landInfoDetail[2].LeasedIn
+                this.UnLeasedOut = landInfoDetail[2].LeasedOut == "0" ? "" : landInfoDetail[2].LeasedOut
+                this.UnUnderCustomhiring = landInfoDetail[2].AreaUnderCust == "0" ? "" : landInfoDetail[2].AreaUnderCust
+                this.UnTotal = landInfoDetail[2].AreaTotal == "0" ? "" : landInfoDetail[2].AreaTotal
+
+                this.UnAArea = landInfoDetail[3].Area == "0" ? "" : landInfoDetail[3].Area
+                this.UnAAreaOwned = landInfoDetail[3].AreaOwned == "0" ? "" : landInfoDetail[3].AreaOwned
+                this.UnAFimalyOperated = landInfoDetail[3].FamAreaOpr == "0" ? "" : landInfoDetail[3].FamAreaOpr
+                this.UnALeasedIn = landInfoDetail[3].LeasedIn == "0" ? "" : landInfoDetail[3].LeasedIn
+                this.UnALeasedOut = landInfoDetail[3].LeasedOut == "0" ? "" : landInfoDetail[3].LeasedOut
+                this.UnAUnderCustomhiring = landInfoDetail[3].AreaUnderCust == "0" ? "" : landInfoDetail[3].AreaUnderCust
+                this.UnATotal = landInfoDetail[3].AreaTotal == "0" ? "" : landInfoDetail[3].AreaTotal
+
+
+                this.AreaTotal = landInfoDetail[4].Area == "0" ? "" : landInfoDetail[4].Area
+                this.AreaOwnedTotal = landInfoDetail[4].AreaOwned == "0" ? "" : landInfoDetail[4].AreaOwned
+                this.FamilyOperatedTotal = landInfoDetail[4].FamAreaOpr == "0" ? "" : landInfoDetail[4].FamAreaOpr
+                this.LeasedInTotal = landInfoDetail[4].LeasedIn == "0" ? "" : landInfoDetail[4].LeasedIn
+                this.LeasedOutTotal = landInfoDetail[4].LeasedOut == "0" ? "" : landInfoDetail[4].LeasedOut
+                this.UnderCustomHiringTotal = landInfoDetail[4].AreaUnderCust == "0" ? "" : landInfoDetail[4].AreaUnderCust
+                this.TotalOfTotal = landInfoDetail[4].AreaTotal == "0" ? "" : landInfoDetail[4].AreaTotal
+            } else {
+                this.BArea = landInfoDetail[0].Area
+                this.BAreaOwned = landInfoDetail[0].AreaOwned
+                this.BFimalyOperated = landInfoDetail[0].FamAreaOpr
+                this.BLeasedIn = landInfoDetail[0].LeasedIn
+                this.BLeasedOut = landInfoDetail[0].LeasedOut
+                this.BUnderCustomhiring = landInfoDetail[0].AreaUnderCust
+                this.BTotal = landInfoDetail[0].AreaTotal
+
+                this.IArea = landInfoDetail[1].Area
+                this.IAreaOwned = landInfoDetail[1].AreaOwned
+                this.IFimalyOperated = landInfoDetail[1].FamAreaOpr
+                this.ILeasedIn = landInfoDetail[1].LeasedIn
+                this.ILeasedOut = landInfoDetail[1].LeasedOut
+                this.IUnderCustomhiring = landInfoDetail[1].AreaUnderCust
+                this.ITotal = landInfoDetail[1].AreaTotal
+
+
+                this.UnArea = landInfoDetail[2].Area
+                this.UnAreaOwned = landInfoDetail[2].AreaOwned
+                this.UnFimalyOperated = landInfoDetail[2].FamAreaOpr
+                this.UnLeasedIn = landInfoDetail[2].LeasedIn
+                this.UnLeasedOut = landInfoDetail[2].LeasedOut
+                this.UnUnderCustomhiring = landInfoDetail[2].AreaUnderCust
+                this.UnTotal = landInfoDetail[2].AreaTotal
+
+                this.UnAArea = landInfoDetail[3].Area
+                this.UnAAreaOwned = landInfoDetail[3].AreaOwned
+                this.UnAFimalyOperated = landInfoDetail[3].FamAreaOpr
+                this.UnALeasedIn = landInfoDetail[3].LeasedIn
+                this.UnALeasedOut = landInfoDetail[3].LeasedOut
+                this.UnAUnderCustomhiring = landInfoDetail[3].AreaUnderCust
+                this.UnATotal = landInfoDetail[3].AreaTotal
+
+
+                this.AreaTotal = landInfoDetail[4].Area
+                this.AreaOwnedTotal = landInfoDetail[4].AreaOwned
+                this.FamilyOperatedTotal = landInfoDetail[4].FamAreaOpr
+                this.LeasedInTotal = landInfoDetail[4].LeasedIn
+                this.LeasedOutTotal = landInfoDetail[4].LeasedOut
+                this.UnderCustomHiringTotal = landInfoDetail[4].AreaUnderCust
+                this.TotalOfTotal = landInfoDetail[4].AreaTotal
+            }
+        } else {
+            this.BArea = landInfoDetail[0].Area
+            this.BAreaOwned = landInfoDetail[0].AreaOwned
+            this.BFimalyOperated = landInfoDetail[0].FamAreaOpr
+            this.BLeasedIn = landInfoDetail[0].LeasedIn
+            this.BLeasedOut = landInfoDetail[0].LeasedOut
+            this.BUnderCustomhiring = landInfoDetail[0].AreaUnderCust
+            this.BTotal = landInfoDetail[0].AreaTotal
+
+            this.IArea = landInfoDetail[1].Area
+            this.IAreaOwned = landInfoDetail[1].AreaOwned
+            this.IFimalyOperated = landInfoDetail[1].FamAreaOpr
+            this.ILeasedIn = landInfoDetail[1].LeasedIn
+            this.ILeasedOut = landInfoDetail[1].LeasedOut
+            this.IUnderCustomhiring = landInfoDetail[1].AreaUnderCust
+            this.ITotal = landInfoDetail[1].AreaTotal
+
+
+            this.UnArea = landInfoDetail[2].Area
+            this.UnAreaOwned = landInfoDetail[2].AreaOwned
+            this.UnFimalyOperated = landInfoDetail[2].FamAreaOpr
+            this.UnLeasedIn = landInfoDetail[2].LeasedIn
+            this.UnLeasedOut = landInfoDetail[2].LeasedOut
+            this.UnUnderCustomhiring = landInfoDetail[2].AreaUnderCust
+            this.UnTotal = landInfoDetail[2].AreaTotal
+
+            this.UnAArea = landInfoDetail[3].Area
+            this.UnAAreaOwned = landInfoDetail[3].AreaOwned
+            this.UnAFimalyOperated = landInfoDetail[3].FamAreaOpr
+            this.UnALeasedIn = landInfoDetail[3].LeasedIn
+            this.UnALeasedOut = landInfoDetail[3].LeasedOut
+            this.UnAUnderCustomhiring = landInfoDetail[3].AreaUnderCust
+            this.UnATotal = landInfoDetail[3].AreaTotal
+
+
+            this.AreaTotal = landInfoDetail[4].Area
+            this.AreaOwnedTotal = landInfoDetail[4].AreaOwned
+            this.FamilyOperatedTotal = landInfoDetail[4].FamAreaOpr
+            this.LeasedInTotal = landInfoDetail[4].LeasedIn
+            this.LeasedOutTotal = landInfoDetail[4].LeasedOut
+            this.UnderCustomHiringTotal = landInfoDetail[4].AreaUnderCust
+            this.TotalOfTotal = landInfoDetail[4].AreaTotal
+        }
+
+        return true
+    }
+
+    clearLandDetailTableData() {
+
+
+        this.BArea = ""
+        this.BAreaOwned = ""
+        this.BFimalyOperated = ""
+        this.BLeasedIn = ""
+        this.BLeasedOut = ""
+        this.BUnderCustomhiring = ""
+        this.BTotal = 0
+
+        this.IArea = ""
+        this.IAreaOwned = ""
+        this.IFimalyOperated = ""
+        this.ILeasedIn = ""
+        this.ILeasedOut = ""
+        this.IUnderCustomhiring = ""
+        this.ITotal = 0
+
+
+        this.UnArea = ""
+        this.UnAreaOwned = ""
+        this.UnFimalyOperated = ""
+        this.UnLeasedIn = ""
+        this.UnLeasedOut = ""
+        this.UnUnderCustomhiring = ""
+        this.UnTotal = 0
+
+        this.UnAArea = ""
+        this.UnAAreaOwned = ""
+        this.UnAFimalyOperated = ""
+        this.UnALeasedIn = ""
+        this.UnALeasedOut = ""
+        this.UnAUnderCustomhiring = ""
+        this.UnATotal = 0
+
+
+        this.AreaTotal = ""
+        this.AreaOwnedTotal = ""
+        this.FamilyOperatedTotal = ""
+        this.LeasedInTotal = ""
+        this.LeasedOutTotal = ""
+        this.UnderCustomHiringTotal = ""
+        this.TotalOfTotal = 0
+
+    }
 
     ngOnInit() {
 

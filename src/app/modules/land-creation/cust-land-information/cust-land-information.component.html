@@ -157,9 +157,73 @@
                     type="button" (click)="viewCustomrePage()"><span><i
                 class="fa fa-search"> &nbsp;</i> View</span></button>
         </div>
-
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label>Select Customer:</mat-label>
+                <mat-select formControlName="LandCustID" (selectionChange)="SelectionChangePushData($event)">
+                    <mat-option *ngFor="let obj of CustomerLov" [value]="obj.LandCustID">
+                        {{obj.CustomerName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </div>
+
     <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
+        <div class="example-class-container">
+            <table class="table table-striped">
+                <thead>
+                <tr class="table-header-background">
+                    <th>CNIC</th>
+                    <th>Owner/Tenant</th>
+                    <th>Customer Name</th>
+                    <th>Father Name</th>
+                    <th>Area</th>
+                    <th *ngIf="!isFormReadonly"></th>
+                    <th *ngIf="!isFormReadonly"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let dynamic of dynamicArray; let i = index;">
+                    <td>
+                        <input [(ngModel)]="dynamicArray[i].cnic" [readonly]="dynamicArray[i].isReadOnly"
+                               [ngModelOptions]="{standalone: true}" class="form-control" type="text" size="6"
+                               [mask]="maskEnums.cnic"/>
+                    </td>
+                    <td>
+                        <input type="checkbox" id="vehicle1" name="vehicle1" checked value="Bike" disabled>
+                        <label for="vehicle1" style="padding-left:5px;font-size:1rem !important;"> Owner</label>
+                    </td>
+                    <td>
+                        <input [(ngModel)]="dynamicArray[i].customerName" class="form-control" readonly="readonly"
+                               [ngModelOptions]="{standalone: true}" type="text"/>
+                    </td>
+                    <td>
+                        <input [(ngModel)]="dynamicArray[i].fatherName" class="form-control" readonly="readonly"
+                               [ngModelOptions]="{standalone: true}" type="text"/>
+                    </td>
+                    <td>
+                        <input [(ngModel)]="dynamicArray[i].area" class="form-control" readonly="readonly"
+                               [ngModelOptions]="{standalone: true}" type="text" size="6"/>
+                    </td>
+                    <td (click)="searchCustomer(i)" *ngIf="!isFormReadonly || !NumberOfCustomerDisable">
+                        <p class="btn btn-primary">Attach</p>
+                    </td>
+                    <td (click)="deleteRow(i)" style="cursor:pointer;"
+                        *ngIf="!isFormReadonly|| !NumberOfCustomerDisable">
+                        <p class="btn btn-warning">Remove</p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button mat-raised-button color="primary" type="button" (click)="saveCustomerLandInfo()"
+                    *ngIf="SaveCustomer && !isFormReadonly"
+                    [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">Save
+            </button>
+            <button mat-raised-button color="primary" type="button" class="ml-2" (click)="clearSaveCustomerLandInfo()"
+                    *ngIf="!isFormReadonly">Clear
+            </button>
+        </div>
         <div class="example-table-container">
             <table class="table table-striped">
                 <tr class="table-header-background">
@@ -467,6 +531,7 @@
     <div>
         <span style="color:red;" [innerHTML]="errorMessage"></span>
     </div>
+
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="LandingProcedureLov">
         <mat-form-field class="mat-form-field-fluid" appearance="outline">
             <mat-label class="customMatLabel">Remarks: <strong class="matMandatory"></strong></mat-label>

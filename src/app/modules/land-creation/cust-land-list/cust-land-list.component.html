@@ -1,1 +1,189 @@
-<p>cust-land-list works!</p>
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">Borrower Information</div>
+
+    <!-- Header -->
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
+         style="flex-wrap: wrap" [formGroup]="landSearch">
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                    <mat-option [value]="SelectedZones?.ZoneId">
+                        {{SelectedZones?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                <mat-label class="customMatLabel">Zone</mat-label>
+                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                            (selectionChange)="changeZone($event)">
+                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                [disabled]="disable_zone">
+                        {{zone?.ZoneName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
+                            (selectionChange)="changeBranch($event)"
+                            *ngIf="!single_branch">
+                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                    >
+                        {{branch?.Name}}
+                    </mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
+                            *ngIf="single_branch">
+                    <mat-option [value]="SelectedBranches?.BranchCode"
+                    >
+                        {{SelectedBranches?.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label>Passbook NO</mat-label>
+                <input matInput formControlName="PassbookNO" placeholder="Enter Passbook Number" maxlength="100"
+                       autocomplete="off">
+                <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label>Cnic</mat-label>
+                <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100" autocomplete="off"
+                       [mask]="maskEnums.cnic">
+                <!--      <mat-error *ngIf="hasError('Cnic', 'required')">Cnic <strong>required</strong></mat-error>-->
+                <!--<mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>{{errors.cnic}}</strong></mat-error>-->
+            </mat-form-field>
+        </div>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="LandStatusLov">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label>Land Status</mat-label>
+                <mat-select formControlName="Status">
+                    <mat-option>
+                        Select
+                    </mat-option>
+                    <mat-option *ngFor="let obj of LandStatusLov.LOVs" [value]="obj.Value">
+                        {{obj.Name}}
+                    </mat-option>
+                </mat-select>
+
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+            <button mat-raised-button color="accent"
+                    type="button" (click)="searchLand()"><span><i
+                class="fa fa-search"> &nbsp;</i> Find</span></button>
+        </div>
+
+    </div>
+    <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
+        <div class="example-table-container">
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                #table
+                [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear>
+                <ng-container matColumnDef="LandInfoID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>LandInfo ID</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.LandInfoID}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="CompleteAddress">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Complete Address</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.CompleteAddress}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="BranchCode">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Code</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.BranchCode}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="PassbookNO">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Passbook NO</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.PassbookNO}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Cnic</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.Cnic}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="BranchId">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>BranchId</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.BranchId}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="CustomerName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.CustomerName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="FatherName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.FatherName}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="ZoneID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Zone ID</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.ZoneID}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="IsRedeem">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Redeem</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.IsRedeem}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="StatusDesc">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.StatusDesc}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="View">
+                    <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                    <mat-cell *matCellDef="let land">
+                        <button mat-icon-button color="primary" *ngIf="CheckEidtStatus(land)"
+                                (click)="editland(land)">
+                            <mat-icon style="margin-left: 5px;" title="Edit land">edit</mat-icon>
+                        </button>
+
+                        <button mat-icon-button color="primary" *ngIf="CheckViewStatus(land)"
+                                (click)="editland(land)">
+                            <mat-icon title="View land">visibility</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+            </mat-table>
+        </div>
+        <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+            Items per page:
+            <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                        style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+                <mat-option [value]="5">5</mat-option>
+                <mat-option [value]="10">10</mat-option>
+                <mat-option [value]="25">25</mat-option>
+                <mat-option [value]="50">50</mat-option>
+                <mat-option [value]="1000">1000</mat-option>
+            </mat-select>
+            <button (click)="paginate(1)">First</button>
+            <pagination-controls display="inline" (pageChange)="paginate($event)"
+                                 style="display: inline-block;"></pagination-controls>
+            <button (click)="paginate(Math.Ceil(totalItems/itemsPerPage))">Last</button>
+            <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+
+        </div>
+
+    </div>
+</div>
