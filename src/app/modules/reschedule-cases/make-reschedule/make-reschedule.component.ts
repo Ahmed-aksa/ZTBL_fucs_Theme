@@ -38,7 +38,7 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
 @Component({
     selector: 'app-make-rc',
     templateUrl: './make-reschedule.component.html',
-    styleUrls: ['./make-rc.component.scss'],
+    styleUrls: ['./make-reschedule.component.scss'],
     providers: [
         DatePipe,
         {
