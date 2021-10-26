@@ -1,8 +1,8 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent" [formGroup]="customerForm">
-    <div class="text-4xl font-extrabold tracking-tight">Loan Utilization</div>
+<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent" [formGroup]="customerForm">
+    <div class="text-3xl font-extrabold tracking-tight mt-6 pb-2 border-b mb-2 border-green-500">Loan Utilization</div>
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between
-     py-2  border-b"
-         style="flex-wrap: wrap" >
+     py-2" style="flex-wrap: wrap" >
+     
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
@@ -76,13 +76,15 @@
     </div>
 
     <!-- Header -->
-    <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
-        <div class="col-lg-12">
+    <div class="flex flex-auto px-0 overflow-x-hidden" style="flex-direction: column; overflow-y: scroll">
+        <div class="col-lg-12 tab-box">
+
+            <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500">Loan Application</div>
             <mat-tab-group mat-align-tabs="start">
 
                 <!-- Applicants -->
-                <mat-tab label="Applicants">
-                    <div *ngIf="LoanApplicants" class="table-responsive">
+                <mat-tab label="Applicants" class="px-0">
+                    <div *ngIf="LoanApplicants" class="table-responsive px-0">
                         <table class="table table-striped">
                             <thead>
                             <tr class="table-header-background">
@@ -146,7 +148,7 @@
         <div *ngIf="DisbursementsRecoveries">
             <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                 <div class="kt-portlet__head-label">
-                    <h6 class="kt-portlet__head-title">Disbursements/Recoveries</h6>
+                    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500">Disbursements/Recoveries</div>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -184,7 +186,7 @@
         <!-- images -->
         <div class="kt-portlet__head kt-portlet__head__custom" id="list-header" style="width: 100%">
             <div class="kt-portlet__head-label">
-                <h6 class="kt-portlet__head-title">Attach Images</h6>
+                <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500">Attach Images</div>
                 <mat-error *ngIf="hasError('file', 'required')">Must Contain a Image<strong>required</strong>
                 </mat-error>
             </div>
@@ -194,13 +196,23 @@
 
             <input *ngIf="!viewonly" (click)="ifResetRequired()" type='file' formControlName="file"
                    accept="image/jpg, image/jpeg" (change)="onSelectFile($event)"/>
-            <div *ngIf="imageUrl.length>0 && visible"
+            <div class="mt-4" *ngIf="imageUrl.length>0 && visible"
                  style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
                 <div *ngFor='let url of imageUrl; let i = index'>
-                    <button *ngIf="!viewonly" (click)="removeImage(url,i)">
+                    <!-- <button *ngIf="!viewonly" (click)="removeImage(url,i)">
                         X"
-                    </button>
-                    <div style="width: 240px;height: 240px;">
+                    </button> -->
+                    <div class="row">
+                        <div class="col-lg-12 sticky-top text-right relative">
+                            <div class="bg-white float-right">
+                                <button mat-icon-button *ngIf="!viewonly" (click)="removeImage(url,i)" class="close-button float-right absolute right-4 top-2 bg-white" style="border: green solid 2px;" [mat-dialog-close]="true">
+                                    <!-- X -->
+                                    <mat-icon class="close-icon w-12 h-12" color="warn">close</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div style="width: 320px;height: 240px;">
                         <img [src]="url" (click)="previewImg(url)" width="240px" height="240px">
                     </div>
                 </div>
@@ -210,14 +222,14 @@
         <!--        Video-->
             <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                 <div class="kt-portlet__head-label">
-                    <h6 class="kt-portlet__head-title">Attach Videos</h6>
+                    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500">Attach Videos</div>
                     <mat-error *ngIf="hasError('fileV', 'required')">Must Contain a Video<strong>required</strong>
                     </mat-error>
                 </div>
             </div>
 
             <div>
-                <input [required] *ngIf="!viewonly" (click)="ifResetRequiredV()" formControlName="fileV" type='file'
+                <input  [required] *ngIf="!viewonly" (click)="ifResetRequiredV()" formControlName="fileV" type='file'
                        accept="video/*" (change)="onSelectFileV($event)"/>
             </div>
 
@@ -225,20 +237,30 @@
                 <div *ngIf="videoUrl.length>0 && visible"
                      style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
                     <div class="item m-2" *ngFor="let url of videoUrl;let i = index">
-                        <button *ngIf="!viewonly" (click)="removeVideo(url,i)">
+                        <!-- <button *ngIf="!viewonly" (click)="removeVideo(url,i)">
                             X
-                        </button>
+                        </button> -->
+                        <div class="row">
+                            <div class="col-lg-12 sticky-top text-right relative">
+                                <div class="bg-white float-right">
+                                    <button mat-icon-button *ngIf="!viewonly" (click)="removeVideo(url,i)" class="close-button float-right absolute right-4 top-2 bg-red" style="border: green solid 2px;" [mat-dialog-close]="true">
+                                        <!-- X -->
+                                        <mat-icon class="close-icon text-white w-12 h-12" color="warn">close</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>  
                         <!-- <button type="button" class="btn-close" aria-label="Close" (click)="removeVideo(i)"></button> -->
                         <div>
                             <!-- <video (loadedmetadata)="getDuration($event,i)"  height="240px" width="320px" [src]="url" controls></video> -->
-                            <video #video width="320" height="240" controls [attr.src]="url"
+                            <video style="height: 240px;" #video width="320" height="240" controls [attr.src]="url"
                                    (loadedmetadata)="getDuration($event,i)">
                             </video>
                         </div>
                     </div>
                 </div>
             </ng-container>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+        <div class="row">
 <!--            <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
 <!--                <mat-label class="customMatLabel">Remarks</mat-label>-->
 <!--                <input  matInput placeholder="Enter Remarks" formControlName="remarks"-->
@@ -246,26 +268,31 @@
 <!--&lt;!&ndash;                <mat-error *ngIf="hasError('remarks', 'required')">Date of Death <strong>required</strong></mat-error>&ndash;&gt;-->
 <!--            </mat-form-field>-->
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <div class="col-md-3 col-sm-12">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
-                <input matInput placeholder="Enter Remarks" formControlName="Remarks" maxlength="13" autocomplete="off"
+                <input matInput placeholder="Enter Remarks" formControlName="Remarks" maxlength="20" autocomplete="off"
                        [readonly]='remarksFeild'/>
             </mat-form-field>
-
+            </div>
         </div>
     </div>
-
-    <div class="float-right mr-4">
-        <button class="ml-2" *ngIf="isSave" mat-raised-button color="primary" (click)="save()">Save</button>
-        <button class="ml-2" *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">Submit
-        </button>
-        <button class="ml-2" *ngIf="isReffer" mat-raised-button color="primary" (click)="changeStatus('R')">Reffer
-            Back
-        </button>
-        <button class="ml-2" *ngIf="isAuthorize" mat-raised-button color="primary" (click)="changeStatus('A')">
-            Authorize
-        </button>
-        <button *ngIf="isDelete" class="ml-2" mat-raised-button color="primary" (click)="changeStatus('C')">Delete
-        </button>
+<div class="row">
+    <div class="col-lg-12 text-right">
+        <div class="float-right mr-4 mt-4 border-t py-6">
+            <button class="ml-2" *ngIf="isSave" mat-raised-button color="primary" (click)="save()">Save</button>
+            <button class="ml-2" *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">Submit
+            </button>
+            <button class="ml-2" *ngIf="isReffer" mat-raised-button color="primary" (click)="changeStatus('R')">Reffer
+                Back
+            </button>
+            <button class="ml-2" *ngIf="isAuthorize" mat-raised-button color="primary" (click)="changeStatus('A')">
+                Authorize
+            </button>
+            <button *ngIf="isDelete" class="ml-2" mat-raised-button color="primary" (click)="changeStatus('C')">Delete
+            </button>
+        </div>
     </div>
 </div>
+
+

@@ -2,14 +2,27 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
+
 body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-primary, body.light .mat-fab.mat-primary, body.light .mat-mini-fab.mat-primary, body .light .mat-flat-button.mat-primary, body .light .mat-raised-button.mat-primary, body .light .mat-fab.mat-primary, body .light .mat-mini-fab.mat-primary {
     background-color: #ECBD00;
+    border-radius: 6px !important;
 }
+
+
+.bg-image{
+  background-image: url("../assets/images/main.jpg");
+  height: 100vh !important;
+      width: 100% !important;
+      background-repeat: round;
+}
+
+
 
 .table-header-background{
     background-color: #01671B;
     color: white;
 }
+
 
 .cdk-overlay-pane{
     overflow-y: scroll;
@@ -35,4 +48,22 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #01671B; 
+  }
+
+  .tab-box{
+      .mat-tab-group{
+        .mat-tab-body{
+          .mat-tab-body-content{
+            padding-left: 0%;
+          }
+        }
+        .mat-tab-label-container{
+          padding-left: 0px;
+          padding-top: 4px;
+        }
+      }
+  }
+
+  .button{
+    border-radius:6px ;
   }

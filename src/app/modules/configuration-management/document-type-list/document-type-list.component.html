@@ -1,8 +1,8 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto" cdkScrollable>
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto bg-white" cdkScrollable>
 
     <!-- Header -->
     <div
-        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8  bg-card dark:bg-transparent">
         <div class="flex-1 min-w-0">
 
             <!-- Title -->
@@ -26,9 +26,9 @@
 
         </div>
     </div>
-    <div class="example-table-container">
+    <div class="example-table-container mx-10 shadow-lg rounded p-5 bg-gray-50">
 
-        <mat-table class="lmat-elevation-z8"
+        <mat-table class="lmat-elevation-z8 "
                    #table
                    [dataSource]="dataSource"
                    matSort

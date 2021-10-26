@@ -1,21 +1,41 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {NgxSpinnerService} from "ngx-spinner";
-import {LovService} from "../../../shared/services/lov.service";
-import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {MatTableDataSource} from "@angular/material/table";
-import {CircleService} from "../../../shared/services/circle.service";
-import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {finalize} from "rxjs/operators";
-import {Loan} from "../../../shared/models/Loan.model";
-import {Branch} from 'app/shared/models/branch.model';
-import {Zone} from 'app/shared/models/zone.model';
-import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
-import {DatePipe} from "@angular/common";
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
-import {MomentDateAdapter} from "@angular/material-moment-adapter";
+/* eslint-disable eol-last */
+/* eslint-disable arrow-parens */
+/* eslint-disable curly */
+/* eslint-disable eqeqeq */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable prefer-const */
+/* eslint-disable guard-for-in */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/member-ordering */
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LovService } from '../../../shared/services/lov.service';
+import {
+    DateFormats,
+    Lov,
+    LovConfigurationKey,
+} from '../../../shared/classes/lov.class';
+import { BaseResponseModel } from '../../../shared/models/base_response.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { CircleService } from '../../../shared/services/circle.service';
+import { UserUtilsService } from '../../../shared/services/users_utils.service';
+import { finalize } from 'rxjs/operators';
 import { ReschedulingService } from '../service/rescheduling.service';
+import { Loan } from '../../../shared/models/Loan.model';
+import { Branch } from 'app/shared/models/branch.model';
+import { Zone } from 'app/shared/models/zone.model';
+import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
+import { DatePipe } from '@angular/common';
+import {
+    DateAdapter,
+    MAT_DATE_FORMATS,
+    MAT_DATE_LOCALE,
+} from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @Component({
     selector: 'app-search-rc',
@@ -28,7 +48,7 @@ import { ReschedulingService } from '../service/rescheduling.service';
             useClass: MomentDateAdapter,
             deps: [MAT_DATE_LOCALE],
         },
-        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
+        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
     ],
 })
 export class SearchRcComponent implements OnInit {
@@ -79,14 +99,14 @@ export class SearchRcComponent implements OnInit {
     SelectedZones: any = [];
     public Zone: any;
     displayedColumns = [
-        "Branch",
-        "TransactionDate",
-        "LoanApp",
-        "GlDescription",
-        "Status",
-        "Scheme",
-        "OldDate",
-        "AcStatus",
+        'Branch',
+        'TransactionDate',
+        'LoanApp',
+        'GlDescription',
+        'Status',
+        'Scheme',
+        'OldDate',
+        'AcStatus',
     ];
     dataSource: MatTableDataSource<SearchRC>;
     ELEMENT_DATA: SearchRC[] = [];
@@ -113,20 +133,29 @@ export class SearchRcComponent implements OnInit {
         this.isZoneReadOnly = false;
         this.isBranchReadOnly = false;
 
-
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
+        //-------------------------------Loading Zone-------------------------------//
 
         //-------------------------------Loading Circle-------------------------------//
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
+        if (
+            this.LoggedInUserInfo.Branch &&
+            this.LoggedInUserInfo.Branch.BranchCode != 'All'
+        ) {
             this.SelectedBranches = this.LoggedInUserInfo.Branch;
             this.SelectedZones = this.LoggedInUserInfo.Zone;
 
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.rcSearch.controls["Zone"].setValue(this.SelectedZones?.ZoneId);
-            this.rcSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+            this.selected_z = this.SelectedZones?.ZoneId;
+            this.selected_b = this.SelectedBranches?.BranchCode;
+            this.rcSearch.controls['Zone'].setValue(this.SelectedZones?.ZoneId);
+            this.rcSearch.controls['Branch'].setValue(
+                this.SelectedBranches?.BranchCode
+            );
+        } else if (
+            !this.LoggedInUserInfo.Branch &&
+            !this.LoggedInUserInfo.Zone &&
+            !this.LoggedInUserInfo.Zone
+        ) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
                 this.Zone = data?.Zones;
@@ -141,7 +170,7 @@ export class SearchRcComponent implements OnInit {
     }
 
     changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        let changedZone = { Zone: { ZoneId: changedValue.value } };
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
             this.SelectedBranches = this.Branches;
@@ -152,30 +181,32 @@ export class SearchRcComponent implements OnInit {
 
     private assignBranchAndZone() {
         if (this.SelectedBranches.length)
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
-        else
-            this.final_branch = this.SelectedBranches;
+            this.final_branch = this.SelectedBranches?.filter(
+                (circ) => circ.BranchCode == this.selected_b
+            )[0];
+        else this.final_branch = this.SelectedBranches;
         let zone = null;
         if (this.SelectedZones.length)
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-        else
-            this.final_zone = this.SelectedZones;
+            this.final_zone = this.SelectedZones?.filter(
+                (circ) => circ.ZoneId == this.selected_z
+            )[0];
+        else this.final_zone = this.SelectedZones;
     }
 
     create() {
         this.rcSearch = this.fb.group({
-            Zone: [""],
-            Branch: [""],
-            TrDate: [""],
-            Lcno: [""],
-            Status: [""],
+            Zone: [''],
+            Branch: [''],
+            TrDate: [''],
+            Lcno: [''],
+            Status: [''],
         });
     }
 
     //-------------------------------Loan Status Functions-------------------------------//
     async getLoanStatus() {
         this.LoanStatus = await this._lovService.CallLovAPI(
-            (this.LovCall = {TagName: LovConfigurationKey.RescheduleStatus})
+            (this.LovCall = { TagName: LovConfigurationKey.RescheduleStatus })
         );
         this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
 
@@ -183,9 +214,12 @@ export class SearchRcComponent implements OnInit {
     }
 
     searchLoanStatus(loanStatusId) {
-
         loanStatusId = loanStatusId.toLowerCase();
-        if (loanStatusId != null && loanStatusId != undefined && loanStatusId != "")
+        if (
+            loanStatusId != null &&
+            loanStatusId != undefined &&
+            loanStatusId != ''
+        )
             this.SelectedLoanStatus = this.LoanStatus.LOVs.filter(
                 (x) => x.Name.toLowerCase().indexOf(loanStatusId) > -1
             );
@@ -201,8 +235,7 @@ export class SearchRcComponent implements OnInit {
         this.assignBranchAndZone();
         this.spinner.show();
         this.search = Object.assign(this.rcSearch.getRawValue());
-        console.log(this.search)
-
+        console.log(this.search);
 
         this._reschedulingService
             .RescheduleSearch(this.search, this.final_branch, this.final_zone)
@@ -214,13 +247,12 @@ export class SearchRcComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-
-                this.dataSource = null
-                this.ELEMENT_DATA = []
+                this.dataSource = null;
+                this.ELEMENT_DATA = [];
                 if (baseResponse.Success === true) {
-                    console.log(baseResponse)
+                    console.log(baseResponse);
                     this.loading = false;
-                    this.Mydata = baseResponse.Loan.ReschedulingSearch
+                    this.Mydata = baseResponse.Loan.ReschedulingSearch;
 
                     for (let data in this.Mydata) {
                         this.ELEMENT_DATA.push({
@@ -232,16 +264,14 @@ export class SearchRcComponent implements OnInit {
                             scheme: this.Mydata[data].SchemeCode,
                             oldDate: this.Mydata[data].LastDueDate,
                             acStatus: this.Mydata[data].DisbStatusName,
-
                         });
                     }
 
-                    this.dataSource = new MatTableDataSource(this.ELEMENT_DATA)
-                    console.log(this.dataSource.data)
+                    this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+                    console.log(this.dataSource.data);
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
-                    else
-                        this.matTableLenght = false;
+                    else this.matTableLenght = false;
 
                     this.dv = this.dataSource.filteredData;
 
@@ -252,7 +282,7 @@ export class SearchRcComponent implements OnInit {
                     //console.log(this.dataSource.data.length)
                 } else {
                     this.layoutUtilsService.alertElement(
-                        "",
+                        '',
                         baseResponse.Message,
                         baseResponse.Code
                     );
@@ -267,11 +297,12 @@ export class SearchRcComponent implements OnInit {
         this.OffSet = pageIndex;
         //this.SearchJvData();
         //this.dv.slice(event * this.itemsPerPage - this.itemsPerPage, event * this.itemsPerPage);
-        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
+        this.dataSource = this.dv.slice(
+            pageIndex * this.itemsPerPage - this.itemsPerPage,
+            pageIndex * this.itemsPerPage
+        ); //slice is used to get limited amount of data from APi
     }
-
 }
-
 
 interface SearchRC {
     branch: string;

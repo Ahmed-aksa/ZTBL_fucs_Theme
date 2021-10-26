@@ -8,14 +8,22 @@ import {FormGroup} from "@angular/forms";
 })
 export class AreaConverterComponent implements OnInit {
 
-
     Unit: string;
     Area: number;
     ConvertUnit: string;
     Result: number;
     ConvertorForm: FormGroup;
-
     UnitConverter = [{id: "1", name: "Kanal"}, {id: "2", name: "Acre"}, {id: "3", name: "Gunta"}]
     UnitConverterd = [{id: "1", name: "Marla"}]
 
+    ngOnInit(): void {
+    }
+
+    AreaConverter() {
+
+    }
+
+    onCloseClick() {
+        
+    }
 }
