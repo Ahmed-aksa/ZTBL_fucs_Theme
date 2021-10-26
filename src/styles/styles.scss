@@ -11,6 +11,9 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
 
 .bg-image{
   background-image: url("../assets/images/main.jpg");
+  height: 100vh !important;
+      width: 100% !important;
+      background-repeat: round;
 }
 
 
