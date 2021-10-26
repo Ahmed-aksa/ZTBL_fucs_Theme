@@ -139,14 +139,14 @@ export const appRoutes: Route[] = [
                 path: 'loan-recovery',
                 loadChildren: () => import('app/modules/loan-recovery/loan-recovery.module').then(m => m.LoanRecoveryModule)
             },
-            {
-                path: 'reschedule-cases',
-                loadChildren: () => import('app/modules/reschedule-cases/reschedule-cases.module').then(m => m.RescheduleCasesModule)
-            },
-            {
-                path: 'land-creation',
-                loadChildren: () => import('app/modules/land-creation/land-creation.module').then(m => m.LandCreationModule)
-            },
+            // {
+            //     path: 'reschedule-cases',
+            //     loadChildren: () => import('app/modules/reschedule-cases/reschedule-cases.module').then(m => m.RescheduleCasesModule)
+            // },
+            // {
+            //     path: 'land-creation',
+            //     loadChildren: () => import('app/modules/land-creation/land-creation.module').then(m => m.LandCreationModule)
+            // },
             {
                 path: 'ndc-requests',
                 loadChildren: () => import('app/modules/ndc-requests/ndc-requests.module').then(m => m.NdcRequestsModule)

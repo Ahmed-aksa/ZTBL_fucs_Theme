@@ -137,6 +137,7 @@ export class SearchRcComponent implements OnInit {
             });
         }
         this.getLoanStatus();
+
     }
 
     changeZone(changedValue) {

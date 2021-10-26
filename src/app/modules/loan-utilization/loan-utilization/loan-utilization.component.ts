@@ -208,8 +208,6 @@ export class LoanUtilizationComponent implements OnInit {
                 this.viewonly = false;
             }
 
-
-            // console.log("loancase no found");
             this.find(this.loanUtilizationModel.LoanCaseNo);
 
             // this.GetMedia();
@@ -219,7 +217,8 @@ export class LoanUtilizationComponent implements OnInit {
         this.createForm();
         this.checkUser();
         this.setOptions();
-        this.settingZBC()
+        this.settingZBC();
+
     }
 
     settingZBC(){
@@ -359,7 +358,6 @@ export class LoanUtilizationComponent implements OnInit {
 
     mydata = [];
     imagearray = [];
-    urls = [];
 
     onSelectFile(event) {
 
@@ -677,7 +675,6 @@ export class LoanUtilizationComponent implements OnInit {
                     // console.log(this.LoanGls);
 
                 } else {
-
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,
@@ -704,7 +701,6 @@ export class LoanUtilizationComponent implements OnInit {
 
     save() {
 
-         console.log(this.customerForm.controls.Remarks.value)
         debugger
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
@@ -734,6 +730,7 @@ export class LoanUtilizationComponent implements OnInit {
             );
             return;
         }
+
         this.loanUtilizationModel.LoanDisbID = this.customerForm.controls.LoanDisbID.value;
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks?.value;
         console.log("After assigning value"+JSON.stringify(this.loanUtilizationModel))
@@ -749,7 +746,15 @@ export class LoanUtilizationComponent implements OnInit {
 
                         this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID
                         console.log("id was saved here " + this.loanUtilizationModel.ID);
+                        if(this.images.length && this.videos.length ){
+                            this.layoutUtilsService.alertElement(
+                                "",
+                                baseResponse.Message,
+                                baseResponse.Code = null
+                            );
+                        }
                         this.SaveImages();
+
                     } else {
                         this.layoutUtilsService.alertElement(
                             "",
@@ -817,7 +822,6 @@ export class LoanUtilizationComponent implements OnInit {
                             this.SaveVideos()
 
                         } else {
-
                             this.layoutUtilsService.alertElement(
                                 '',
                                 baseResponse.Message,

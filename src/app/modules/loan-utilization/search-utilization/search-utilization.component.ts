@@ -20,6 +20,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { Zone } from '../../user-management/users/utils/zone.model'
 import {LoanUtilizationService} from "../service/loan-utilization.service";
+import {BaseResponseModel} from "../../../shared/models/base_response.model";
+import { Circle } from 'app/shared/models/circle.model';
 
 @Component({
   selector: 'kt-search-utilization',
@@ -46,12 +48,12 @@ export class SearchUtilizationComponent implements OnInit {
     "Lng",
     "Lat",
     "Actions",]
-  userInfo;
   gridHeight: string;
   loanutilizationSearch: FormGroup;
   myDate = new Date().toLocaleDateString();
   isMCO: boolean = false;
   isBM: boolean = false;
+  isAdmin:boolean=false;
   circle;
   circleNo;
   loggedInUser: any;
@@ -61,16 +63,38 @@ export class SearchUtilizationComponent implements OnInit {
   public CustomerStatusLov: any;
   _customer: CreateCustomer = new CreateCustomer();
   _loanUtilizationSearch = new LoanUtilizationSearch;
-  public Zone = new Zone();
-  public Branch = new Branch();
-  Zones: any = [];
-  SelectedZones: any = [];
-  Branches: any = [];
-  SelectedBranches: any = [];
   isUserAdmin: boolean = false;
   isZoneUser: boolean = false;
   loggedInUserDetails: any;
   loanutilizationStatusLov;
+    LoggedInUserInfo: BaseResponseModel;
+    //Zone inventory
+    Zones: any = [];
+    SelectedZones: any = [];
+    public Zone = new Zone();
+
+    //Branch inventory
+    Branches: any = [];
+    SelectedBranches: any = [];
+    public Branch = new Branch();
+    disable_circle = true;
+    disable_zone = true;
+    disable_branch = true;
+    single_branch = true;
+    single_circle = true;
+    single_zone = true;
+    //Circle inventory
+    Circles: any = [];
+    SelectedCircles: any = [];
+    public Circle = new Circle();
+    selected_b;
+    selected_z;
+    selected_c;
+
+    //final
+    final_branch: any;
+    final_zone: any;
+    final_cricle: any;
 
   constructor(
     public dialog: MatDialog,
@@ -87,7 +111,8 @@ export class SearchUtilizationComponent implements OnInit {
     private userUtilsService: UserUtilsService) { this.loggedInUser = userUtilsService.getUserDetails(); }
 
   ngOnInit() {
-
+      var userDetails = this.userUtilsService.getUserDetails();
+      this.loggedInUserDetails = userDetails;
     this.setUsers()
     if (this.isDialog)
       this.displayedColumns = ["LoanCaseNo",
@@ -103,10 +128,102 @@ export class SearchUtilizationComponent implements OnInit {
     this.LoadLovs();
     this.createForm();
     this.setCircles();
-    var userDetails = this.userUtilsService.getUserDetails();
-    this.loggedInUserDetails = userDetails;
+    this.settingZBC();
+
 
   }
+
+    userInfo = this.userUtilsService.getUserDetails();
+
+    settingZBC(){
+
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
+            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
+
+            this.SelectedBranches = this.LoggedInUserInfo.Branch;
+            this.SelectedZones = this.LoggedInUserInfo.Zone;
+
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.selected_c = this.SelectedCircles?.Id
+            this.loanutilizationSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.loanutilizationSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            this.loanutilizationSearch.controls["Circle"].setValue(this.SelectedCircles?.Id);
+            // if (this.customerForm.value.Branch) {
+            //     this.changeBranch(this.customerForm.value.Branch);
+            // }
+        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
+            this.spinner.show();
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
+                this.single_zone = false;
+                this.disable_zone = false;
+                this.spinner.hide();
+            });
+        }
+    }
+
+    private assignBranchAndZone() {
+        debugger;
+        //Circle
+        console.log("circle" + this.selected_c)
+        if (this.SelectedCircles.length) {
+            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+            this.userInfo.Circles = this.final_cricle;
+        } else {
+            this.final_cricle = this.SelectedCircles;
+            this.userInfo.Circles = this.final_cricle;
+        }
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.userInfo.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.userInfo.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.userInfo.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.userInfo.Zone = this.final_zone;
+        }
+
+    }
+
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
+
+
+    changeBranch(changedValue){
+        debugger
+        let changedBranch = null;
+        if (changedValue.value)
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        else
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
+        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+            this.Circles = data.Circles;
+            this.SelectedCircles = this.Circles;
+            // this.selected_c = this.SelectedCircles?.Id
+            this.disable_circle = false;
+            if (changedValue.value) {
+                // this.getBorrower();
+            }
+        });
+    }
 
   setUsers() {
     var userInfo = this.userUtilsService.getUserDetails();
@@ -120,6 +237,9 @@ export class SearchUtilizationComponent implements OnInit {
     if (userInfo.User.userGroup[0].ProfileID == "57") {
       this.isBM = true;
     }
+      if (userInfo.User.userGroup[0].ProfileID == "9999999") {
+          this.isAdmin = true;
+      }
 
     if (this.isUserAdmin || this.isZoneUser) {
       userInfo.Branch = {};
@@ -143,21 +263,24 @@ export class SearchUtilizationComponent implements OnInit {
     // }
 
   }
+
   setCircles() {
-    this._circleService.GetCircleByBranchId()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(baseResponse => {
-        if (baseResponse.Success) {
-          this.circle = baseResponse.Circles;
-        }
-        else {
-          this.layoutUtilsService.alertElement("", baseResponse.Message);
-        }
-      });
+      var userInfo = this.userUtilsService.getUserDetails();
+      if(userInfo.User.userGroup[0].ProfileID != "9999999"){
+          this._circleService.GetCircleByBranchId()
+              .pipe(
+                  finalize(() => {
+                      this.loading = false;
+                  })
+              )
+              .subscribe(baseResponse => {
+                  if (baseResponse.Success) {
+                      this.circle = baseResponse.Circles;
+                  } else {
+                      this.layoutUtilsService.alertElement("", baseResponse.Message);
+                  }
+              });
+      }
   }
 
   ngAfterViewInit() {
@@ -204,6 +327,7 @@ export class SearchUtilizationComponent implements OnInit {
   }
 
   CheckViewStatus(loanUtilization: any) {
+
     if (this.isMCO) {
       if (loanUtilization.Status == "C" || loanUtilization.Status == "S" || loanUtilization.Status == "A") {
         if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
@@ -220,7 +344,11 @@ export class SearchUtilizationComponent implements OnInit {
       if (loanUtilization.Status == "C" || loanUtilization.Status == "P" || loanUtilization.Status == "R" || loanUtilization.Status == "A") {
         return true
       }
-    } else {
+    }
+    else if(this.isAdmin){
+    return true
+    }
+    else {
       return false
     }
 
@@ -239,6 +367,7 @@ export class SearchUtilizationComponent implements OnInit {
     this.loanutilizationSearch = this.filterFB.group({
       Zone: [userInfo?.Zone?.ZoneName],
       Branch: [userInfo?.Branch?.Name],
+      Circle:[],
       LoanCaseNo: [""],
       Status: ["", Validators.required],
       CircleId: []
@@ -254,55 +383,32 @@ export class SearchUtilizationComponent implements OnInit {
   }
 
 
-  GetBranches(ZoneId) {
-    this.loading = true;
-    this.dataSource.data = [];
-    this.Branches = [];
-    if (ZoneId.value === undefined)
-      this.Zone.ZoneId = ZoneId;
-    else
-      this.Zone.ZoneId = ZoneId.value;
-    this._circleService.getBranchesByZone(this.Zone)
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      ).subscribe(baseResponse => {
-        if (baseResponse.Success) {
-          this.loading = false;
-          //baseResponse.Branches.forEach(function (value) {
-          //  value.Name = value.Name.split("-")[1];
-          //})
-
-          this.Branches = baseResponse.Branches;
-          this.SelectedBranches = baseResponse.Branches;
-          //this.landSearch.controls['BranchId'].setValue(this.Branches[0].BranchId);
-          this._cdf.detectChanges();
-        }
-        else
-          this.layoutUtilsService.alertElement("", baseResponse.Message);
-      });
-  }
-
-
-  searchBranch(branchId) {
-    branchId = branchId.toLowerCase();
-    if (branchId != null && branchId != undefined && branchId != "")
-      this.SelectedBranches = this.Branches.filter(x => x.Name.toLowerCase().indexOf(branchId) > -1);
-    else
-      this.SelectedBranches = this.Branches;
-  }
-  validateBranchOnFocusOut() {
-    if (this.SelectedBranches.length == 0)
-      this.SelectedBranches = this.Branches;
-  }
-
-
   hasError(controlName: string, errorName: string): boolean {
     return this.loanutilizationSearch.controls[controlName].hasError(errorName);
   }
 
   searchloanutilization() {
+      if (!this.loanutilizationSearch.controls.Zone.value) {
+          var Message = 'Please select Zone';
+          this.layoutUtilsService.alertElement(
+              '',
+              Message,
+              null
+          );
+          return;
+      }
+
+      if (!this.loanutilizationSearch.controls.Branch.value) {
+          var Message = 'Please select Branch';
+          this.layoutUtilsService.alertElement(
+              '',
+              Message,
+              null
+          );
+          return;
+      }
+
+      this.assignBranchAndZone();
     this.spinner.show();
     // this._customer.clear();
     // console.log(this.loanutilizationSearch.controls["Status"].value);

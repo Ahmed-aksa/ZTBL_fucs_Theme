@@ -1,43 +1,43 @@
-import { DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
-import { errorMessages, Lov, LovConfigurationKey, MaskEnum } from 'app/shared/classes/lov.class';
-import { CreateCustomer } from 'app/shared/models/customer.model';
-import { LoanUtilizationSearch } from 'app/modules/loan-utilization/Model/loan-utilization.model';
-import { CircleService } from 'app/shared/services/circle.service';
-import { CommonService } from 'app/shared/services/common.service';
-import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
-import { LovService } from 'app/shared/services/lov.service';
-import { UserUtilsService } from 'app/shared/services/users_utils.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
+import {DatePipe} from '@angular/common';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {ActivatedRoute, Router} from '@angular/router';
+import {errorMessages, Lov, LovConfigurationKey, MaskEnum} from 'app/shared/classes/lov.class';
+import {CreateCustomer} from 'app/shared/models/customer.model';
+import {LoanUtilizationSearch} from 'app/modules/loan-utilization/Model/loan-utilization.model';
+import {CircleService} from 'app/shared/services/circle.service';
+import {CommonService} from 'app/shared/services/common.service';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {LovService} from 'app/shared/services/lov.service';
+import {UserUtilsService} from 'app/shared/services/users_utils.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {finalize} from 'rxjs/operators';
 import {AppState} from "../../../shared/reducers";
 import {Store} from "@ngrx/store";
 import {LoanUtilizationService} from "../service/loan-utilization.service";
-import { Circle } from 'app/shared/models/circle.model';
-import { Branch } from 'app/shared/models/branch.model';
-import { Zone } from 'app/shared/models/zone.model';
+import {Circle} from 'app/shared/models/circle.model';
+import {Branch} from 'app/shared/models/branch.model';
+import {Zone} from 'app/shared/models/zone.model';
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 
 @Component({
-  selector: 'app-search-loan-uti',
-  templateUrl: './search-loan-uti.component.html',
-  styleUrls: ['./search-loan-uti.component.scss'],
-  providers: [LoanUtilizationService, DatePipe]
+    selector: 'app-search-loan-uti',
+    templateUrl: './search-loan-uti.component.html',
+    styleUrls: ['./search-loan-uti.component.scss'],
+    providers: [LoanUtilizationService, DatePipe]
 })
 export class SearchLoanUtilizationComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     @Input() isDialog: any = false;
-    @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
 
 
@@ -76,7 +76,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     maxDate: any;
 
-    Limit:any;
+    Limit: any;
     OffSet: number = 0;
     //pagination
     itemsPerPage = 10; //you could use your specified
@@ -106,6 +106,11 @@ export class SearchLoanUtilizationComponent implements OnInit {
     selected_z;
     selected_c;
 
+    //final
+    final_branch: any;
+    final_zone: any;
+    final_cricle: any;
+
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
                 private activatedRoute: ActivatedRoute,
@@ -119,7 +124,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 private _circleService: CircleService,
                 private _cdf: ChangeDetectorRef,
                 private userUtilsService: UserUtilsService,
-                private _common: CommonService  ) { }
+                private _common: CommonService) {
+    }
 
     ngOnInit() {
 
@@ -143,14 +149,17 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.LoadLovs();
         this.createForm();
         this.settingZBC()
-        this.searchloanutilization();
-        debugger;
+        // this.searchloanutilization();
+
         //this.FilterForm.controls["StartDate"].setValue(this.myDate);
         //this.FilterForm.controls["EndDate"].setValue(this.myDate);
 
     }
 
-    settingZBC(){
+    userInfo = this.userUtilsService.getUserDetails();
+
+    settingZBC() {
+
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
@@ -163,10 +172,11 @@ export class SearchLoanUtilizationComponent implements OnInit {
             this.selected_c = this.SelectedCircles?.Id
             this.loanutilizationSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
             this.loanutilizationSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            this.loanutilizationSearch.controls["Circle"].setValue(this.SelectedCircles?.Id);
             // if (this.customerForm.value.Branch) {
             //     this.changeBranch(this.customerForm.value.Branch);
             // }
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
                 this.Zone = data?.Zones;
@@ -176,6 +186,36 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 this.spinner.hide();
             });
         }
+    }
+
+    private assignBranchAndZone() {
+        debugger;
+        //Circle
+        console.log("circle" + this.selected_c)
+        if (this.SelectedCircles.length) {
+            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+            this.userInfo.Circles = this.final_cricle;
+        } else {
+            this.final_cricle = this.SelectedCircles;
+            this.userInfo.Circles = this.final_cricle;
+        }
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.userInfo.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.userInfo.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.userInfo.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.userInfo.Zone = this.final_zone;
+        }
+
     }
 
     changeZone(changedValue) {
@@ -190,6 +230,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     changeBranch(changedValue) {
+        debugger
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -197,9 +238,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
             changedBranch = {Branch: {BranchCode: changedValue}}
 
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-
             this.Circles = data.Circles;
             this.SelectedCircles = this.Circles;
+            // this.selected_c = this.SelectedCircles?.Id
             this.disable_circle = false;
             if (changedValue.value) {
                 // this.getBorrower();
@@ -212,16 +253,17 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
-        debugger;
+
         //var userInfo = this.userUtilsService.getUserDetails();
         //this.loanutilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
         //this.loanutilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
     }
+
     searchLoan;
-    show(){
+
+    show() {
         this.searchLoan = Object.assign(this.loanutilizationSearch);
     }
-
 
 
     applyFilter(filterValue: string) {
@@ -231,13 +273,14 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     createForm() {
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.loanutilizationSearch = this.filterFB.group({
             ZoneId: [userInfo?.Zone?.ZoneId],
+            Circle: [userInfo?.UserCircleMappings?.Id],
             Zone: [userInfo?.Zone?.ZoneName],
             BranchId: [userInfo?.Branch?.BranchId],
             Branch: [userInfo?.Branch?.Name],
-            LoanCaseNo:[""],
+            LoanCaseNo: [""],
             ToDate: [""],
             FromDate: [""],
         });
@@ -245,22 +288,22 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     SetBranches(branchId) {
-        debugger;
+
         this.Branch.BranchCode = branchId.value;
 
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        debugger
+
         this.itemsPerPage = pageSize;
-        this.OffSet = (pageIndex -1) * this.itemsPerPage;
+        this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
         this.searchloanutilization()
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
 
-    paginateAs(pageIndex : any, pageSize: any = this.itemsPerPage){
+    paginateAs(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
     }
 
@@ -272,6 +315,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         else
             this.SelectedBranches = this.Branches;
     }
+
     validateBranchOnFocusOut() {
         if (this.SelectedBranches.length == 0)
             this.SelectedBranches = this.Branches;
@@ -281,13 +325,15 @@ export class SearchLoanUtilizationComponent implements OnInit {
     hasError(controlName: string, errorName: string): boolean {
         return this.loanutilizationSearch.controls[controlName].hasError(errorName);
     }
-    minDate:Date;
-    fromdate:string;
+
+    minDate: Date;
+    fromdate: string;
+
     setFromDate() {
-        debugger
+
 
         this.minDate = this.loanutilizationSearch.controls.FromDate.value.toDate()
-        console.log("Min date"+this.minDate)
+        console.log("Min date" + this.minDate)
         var FromDate = this.loanutilizationSearch.controls.FromDate.value;
 
 
@@ -307,8 +353,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate)
             } catch (e) {
             }
-        }
-        else {
+        } else {
             try {
                 var day = this.loanutilizationSearch.controls.FromDate.value.toDate().getDate();
                 var month = this.loanutilizationSearch.controls.FromDate.value.toDate().getMonth() + 1;
@@ -328,10 +373,12 @@ export class SearchLoanUtilizationComponent implements OnInit {
             }
         }
     }
-    todate:string;
+
+    todate: string;
+
     setToDate() {
 
-        debugger
+
         var ToDate = this.loanutilizationSearch.controls.ToDate.value;
         if (ToDate._isAMomentObject == undefined) {
             try {
@@ -348,8 +395,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 this.loanutilizationSearch.controls.ToDate.setValue(branchWorkingDate)
             } catch (e) {
             }
-        }
-        else {
+        } else {
             try {
                 var day = this.loanutilizationSearch.controls.ToDate.value.toDate().getDate();
                 var month = this.loanutilizationSearch.controls.ToDate.value.toDate().getMonth() + 1;
@@ -368,14 +414,16 @@ export class SearchLoanUtilizationComponent implements OnInit {
             }
         }
     }
-    Today= new Date;
+
+    Today = new Date;
+
     getToday() {
         // Today
 
-        if(this.loanutilizationSearch.controls.ToDate.value){
-            this.Today=this.loanutilizationSearch.controls.ToDate.value
+        if (this.loanutilizationSearch.controls.ToDate.value) {
+            this.Today = this.loanutilizationSearch.controls.ToDate.value
             return this.Today;
-        }else{
+        } else {
 
             this.Today = new Date();
             // console.log(this.Today);
@@ -383,21 +431,51 @@ export class SearchLoanUtilizationComponent implements OnInit {
             return this.Today;
         }
     }
-    getTodayForTo(){
+
+    getTodayForTo() {
         return new Date().toISOString().split('T')[0]
     }
 
 
-
-
     searchloanutilization() {
-        debugger;
+
         // this.OffSet = 0;
         // this.pageIndex = 0;
         // this.dataSource.data = [];
+        this.assignBranchAndZone();
+        console.log(this.final_cricle)
+        if (!this.final_zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (!this.final_branch) {
+            var Message = 'Please select Branch';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        // if (!this.final_cricle) {
+        //     var Message = 'Please select Circle';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
 
         this.spinner.show()
-        if(this.loanutilizationSearch.controls.LoanCaseNo.value !="" ){
+        if (this.loanutilizationSearch.controls.LoanCaseNo.value != "") {
             this.OffSet = 0;
         }
         var count = this.itemsPerPage.toString();
@@ -406,24 +484,24 @@ export class SearchLoanUtilizationComponent implements OnInit {
         // this._customer.clear();
         this._loanUtilizationSearch = Object.assign(this._loanUtilizationSearch, this.loanutilizationSearch.value);
 
-        var userInfo = this.userUtilsService.getUserDetails();
-        if (this.isUserAdmin || this.isZoneUser) {
-            userInfo.Branch = {};
-            if (this.Branch.BranchCode != undefined)
-                userInfo.Branch.BranchId = this.Branch.BranchCode;
-            else
-                userInfo.Branch.BranchId = 0;
-        }
-        if (this.isUserAdmin) {
-            userInfo.Zone = {};
-            if (this.Zone.ZoneId != undefined)
-                userInfo.Zone.ZoneId = this.Zone.ZoneId
-            else
-                userInfo.Zone.ZoneId = 0;
-        }
+        // var userInfo = this.userUtilsService.getUserDetails();
+        // if (this.isUserAdmin || this.isZoneUser) {
+        //     userInfo.Branch = {};
+        //     if (this.Branch.BranchCode != undefined)
+        //         userInfo.Branch.BranchId = this.Branch.BranchCode;
+        //     else
+        //         userInfo.Branch.BranchId = 0;
+        // }
+        // if (this.isUserAdmin) {
+        //     userInfo.Zone = {};
+        //     if (this.Zone.ZoneId != undefined)
+        //         userInfo.Zone.ZoneId = this.Zone.ZoneId
+        //     else
+        //         userInfo.Zone.ZoneId = 0;
+        // }
 
 
-        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"],userInfo,this.fromdate,this.todate,count,currentIndex)
+        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex,this.SelectedCircles)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -431,9 +509,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-                debugger;
+
                 if (baseResponse.Success) {
-                    console.log("baseResponse"+baseResponse)
+                    console.log("baseResponse" + baseResponse)
                     this.dataSource.data = baseResponse.LoanUtilization.LoanDetails;
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
@@ -444,22 +522,21 @@ export class SearchLoanUtilizationComponent implements OnInit {
                     this.totalItems = baseResponse.LoanUtilization.LoanDetails[0].TotalRecords;
                     this.dataSource.data = this.dv.slice(0, this.totalItems)
                     //this.dataSource = new MatTableDataSource(data);
-                    debugger;
+
                     // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
                     //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
-                }
-                else {
+                } else {
 
-                    if(this.dv != undefined){
+                    if (this.dv != undefined) {
                         this.matTableLenght = false;
                         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         // this.dataSource.data = [];
                         // this._cdf.detectChanges();
                         this.OffSet = 1;
                         this.pageIndex = 1;
-                        this.dv = this.dv.slice(1,0);
+                        this.dv = this.dv.slice(1, 0);
                         this.layoutUtilsService.alertElement("", baseResponse.Message);
                     }
                 }
@@ -467,18 +544,15 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
 
-    getStatus(status:string) {
+    getStatus(status: string) {
 
         if (status == 'P') {
             return "Submit";
-        }
-        else if (status == 'N') {
+        } else if (status == 'N') {
             return "Pending";
-        }
-        else if (status == 'A') {
+        } else if (status == 'A') {
             return "Authorized";
-        }
-        else if (status == 'R') {
+        } else if (status == 'R') {
             return "Refer Back";
         }
     }
@@ -491,7 +565,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
 
-
     ngOnDestroy() {
     }
 
@@ -500,20 +573,20 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     editCustomer(Customer: any) {
-        debugger;
+
         localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
         localStorage.setItem('CreateCustomerBit', '2');
         // this.router.navigate(['../customer/customerProfile', { id: id }], { relativeTo: this.activatedRoute });
-        this.router.navigate(['/customer/customerProfile'], { relativeTo: this.activatedRoute });
+        this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
     }
 
 
-    addloanutilization(utilization: any){
-        var v =JSON.stringify(utilization)
-        console.log("sam"+v)
+    addloanutilization(utilization: any) {
+        var v = JSON.stringify(utilization)
+        console.log("sam" + v)
         utilization.Status = "Add";
         this.router.navigate(['../loan-uti'], {
-            state: { example: utilization},
+            state: {example: utilization},
             relativeTo: this.activatedRoute
         });
     }
@@ -522,13 +595,13 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
         //this.ngxService.start();
 
-        this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.CustomerStatus })
+        this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus})
         // console.log(this.CustomerStatusLov.LOVs);
         this.CustomerStatusLov.LOVs.forEach(function (value) {
             if (!value.Value)
                 value.Value = "All";
         });
-        debugger;
+
         ////For Bill type
         // this.EducationLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Education })
 
