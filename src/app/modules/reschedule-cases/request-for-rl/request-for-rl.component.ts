@@ -1,39 +1,44 @@
-/* eslint-disable space-before-function-paren */
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
-/* eslint-disable prefer-const */
-/* eslint-disable eol-last */
 /* eslint-disable one-var */
-/* eslint-disable no-var */
-/* eslint-disable @typescript-eslint/type-annotation-spacing */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable eqeqeq */
+/* eslint-disable prefer-const */
+/* eslint-disable arrow-parens */
+/* eslint-disable curly */
 /* eslint-disable quotes */
 /* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable eqeqeq */
-/* eslint-disable no-trailing-spaces */
+/* eslint-disable eol-last */
 /* eslint-disable @typescript-eslint/naming-convention */
-import {DatePipe} from '@angular/common';
+/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable @typescript-eslint/member-ordering */
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseRequestModel} from 'app/shared/models/base_request.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {Branch} from 'app/shared/models/branch.model';
-import {ReschedulingList} from 'app/shared/models/loan-application-header.model';
 import {Zone} from 'app/shared/models/zone.model';
-import {CircleService} from 'app/shared/services/circle.service';
-import {CommonService} from 'app/shared/services/common.service';
-import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {ReschedulingList} from 'app/shared/models/Loan.model';
+import {
+    DateFormats,
+    Lov,
+    LovConfigurationKey,
+} from 'app/shared/classes/lov.class';
 import {LovService} from 'app/shared/services/lov.service';
+import {CircleService} from 'app/shared/services/circle.service';
+import {ReschedulingService} from '../service/rescheduling.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {CommonService} from '../../../shared/services/common.service';
 import {finalize} from 'rxjs/operators';
-import {ReschedulingService} from '../service/rescheduling.service';
+import {DatePipe} from '@angular/common';
+import {
+    DateAdapter,
+    MAT_DATE_FORMATS,
+    MAT_DATE_LOCALE,
+} from '@angular/material/core';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
 @Component({
     selector: 'app-request-for-rl',
@@ -41,13 +46,15 @@ import {ReschedulingService} from '../service/rescheduling.service';
     styleUrls: ['./request-for-rl.component.scss'],
     providers: [
         DatePipe,
-        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
-
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE],
+        },
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
     ],
 })
 export class RequestForRlComponent implements OnInit {
-
     request = new BaseRequestModel();
     today = new Date();
 
@@ -63,26 +70,33 @@ export class RequestForRlComponent implements OnInit {
     idx: any;
     pidx: any;
 
+    single_zone: boolean;
+    disable_zone: boolean;
+
+    selected_z: any;
+    selected_b: any;
+
+    single_branch: any;
+    disable_branch: any;
     response: any = [];
     checkedArr: ReschedulingList[] = [];
     newAdd: ReschedulingList[] = [];
     graceMonthsSelect: boolean = false;
 
     select: Selection[] = [
-        {value: "13", viewValue: "13"},
-        {value: "14", viewValue: "14"},
-        {value: "15", viewValue: "15"},
-        {value: "16", viewValue: "16"},
-        {value: "17", viewValue: "17"},
-        {value: "18", viewValue: "18"},
-        {value: "19", viewValue: "19"},
-        {value: "20", viewValue: "20"},
-        {value: "21", viewValue: "21"},
-        {value: "22", viewValue: "22"},
-        {value: "23", viewValue: "23"},
-        {value: "24", viewValue: "24"},
+        {value: '13', viewValue: '13'},
+        {value: '14', viewValue: '14'},
+        {value: '15', viewValue: '15'},
+        {value: '16', viewValue: '16'},
+        {value: '17', viewValue: '17'},
+        {value: '18', viewValue: '18'},
+        {value: '19', viewValue: '19'},
+        {value: '20', viewValue: '20'},
+        {value: '21', viewValue: '21'},
+        {value: '22', viewValue: '22'},
+        {value: '23', viewValue: '23'},
+        {value: '24', viewValue: '24'},
     ];
-
 
     //Request Category inventory
     RequestTypes: any = [];
@@ -92,27 +106,16 @@ export class RequestForRlComponent implements OnInit {
     //Zone inventory
     Zones: any = [];
     SelectedZones: any = [];
-    public Zone = new Zone();
+    public Zone: any;
 
     //Branch inventory
     Branches: any = [];
     SelectedBranches: any = [];
     public Branch = new Branch();
-
-    selected_z;
-    selected_b;
-
+    final_branch: any;
+    final_zone: any;
     public LovCall = new Lov();
     public ReschedulingList = new ReschedulingList();
-
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
-
-    loaded = false;
 
     constructor(
         private fb: FormBuilder,
@@ -124,60 +127,72 @@ export class RequestForRlComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private layoutUtilsService: LayoutUtilsService,
         private _common: CommonService,
-        private datePipe: DatePipe,
+        private datePipe: DatePipe
     ) {
         this.AddTable = false;
     }
 
     ngOnInit() {
+        //debugger
         this.create();
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        //console.log(this.LoggedInUserInfo)
+        this.getRequestTypes();
 
-        this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
-
-        if (this.LoggedInUserInfo.Branch != null) {
-
+        if (
+            this.LoggedInUserInfo.Branch &&
+            this.LoggedInUserInfo.Branch.BranchCode != null
+        ) {
             this.Branches = this.LoggedInUserInfo.Branch;
             this.SelectedBranches = this.Branches;
-
-            this.Zone = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zone;
-
-            this.selected_z = this.SelectedZones.ZoneId
-            this.selected_b = this.SelectedBranches.BranchCode
-            console.log(this.SelectedZones)
-            this.RfrlForm.controls["Zone"].setValue(this.SelectedZones.ZoneName);
-            this.RfrlForm.controls["Branch"].setValue(this.SelectedBranches.Name);
-
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+            this.Zones = this.LoggedInUserInfo.Zone;
+            this.SelectedZones = this.Zones;
+            this.selected_z = this.SelectedZones?.ZoneId;
+            this.selected_b = this.SelectedBranches?.BranchCode;
+            this.RfrlForm.controls['Zone'].setValue(this.SelectedZones?.ZoneId);
+            this.RfrlForm.controls['Branch'].setValue(
+                this.SelectedBranches?.BranchCode
+            );
+            this.single_branch = true;
+            this.disable_branch = true;
+            this.single_zone = true;
+            this.disable_zone = true;
+        } else if (
+            !this.LoggedInUserInfo.Branch &&
+            !this.LoggedInUserInfo.Zone &&
+            !this.LoggedInUserInfo.Zone
+        ) {
             this.spinner.show();
-
             this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data.Zones;
-                this.SelectedZones = this.Zone;
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
                 this.single_zone = false;
                 this.disable_zone = false;
                 this.spinner.hide();
-
             });
         }
+    }
 
-        this.getRequestTypes();
-
-        // this.RfrlForm.controls[Zone].value = this.LoggedInUserInfo.Zone.ZoneName;
-        // this.RfrlForm.controls.Branch.value = this.LoggedInUserInfo.Branch.Name
-
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}};
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
     }
 
     create() {
         this.RfrlForm = this.fb.group({
             Zone: [null, Validators.required],
             Branch: [null, Validators.required],
-            Cnic: ["", Validators.required],
-            EffectiveReqDate: ["", Validators.required],
-            Remarks: ["", Validators.required],
-            RequestCategory: ["", Validators.required],
-            GraceMonths: ["", Validators.required],
-            MPpno: ["", Validators.required],
+            Cnic: ['', Validators.required],
+            EffectiveReqDate: ['', Validators.required],
+            Remarks: ['', Validators.required],
+            RequestCategory: ['', Validators.required],
+            GraceMonths: ['', Validators.required],
+            MPpno: ['', Validators.required],
         });
     }
 
@@ -195,20 +210,31 @@ export class RequestForRlComponent implements OnInit {
             (this.LovCall = {TagName: LovConfigurationKey.RequestCategory})
         );
         this.SelectedRequestType = this.RequestTypes.LOVs;
-        console.log(this.SelectedRequestType)
-        debugger;
+        console.log(this.SelectedRequestType);
+    }
+
+    private assignBranchAndZone() {
+        if (this.SelectedBranches.length)
+            this.final_branch = this.SelectedBranches?.filter(
+                (circ) => circ.BranchCode == this.selected_b
+            )[0];
+        else this.final_branch = this.SelectedBranches;
+        let zone = null;
+        if (this.SelectedZones.length)
+            this.final_zone = this.SelectedZones?.filter(
+                (circ) => circ.ZoneId == this.selected_z
+            )[0];
+        else this.final_zone = this.SelectedZones;
     }
 
     find() {
-        debugger;
-
+        this.assignBranchAndZone();
         this.errorShow = false;
         this.hasFormErrors = false;
 
-
         if (this.RfrlForm.invalid) {
             const controls = this.RfrlForm.controls;
-            Object.keys(controls).forEach(controlName =>
+            Object.keys(controls).forEach((controlName) =>
                 controls[controlName].markAsTouched()
             );
 
@@ -216,14 +242,14 @@ export class RequestForRlComponent implements OnInit {
             return;
         }
 
-        if (this.RfrlForm.value == '' && this.RfrlForm.value == undefined && this.RfrlForm.value == null) {
+        if (
+            this.RfrlForm.value == '' &&
+            this.RfrlForm.value == undefined &&
+            this.RfrlForm.value == null
+        ) {
             this.Field = true;
             this.Table = false;
         }
-        // else{
-        //   this.Table = true;
-        // }
-
 
         this.spinner.show();
         this.ReschedulingList = Object.assign(
@@ -231,46 +257,34 @@ export class RequestForRlComponent implements OnInit {
             this.RfrlForm.getRawValue()
         );
 
-        console.log(this.ReschedulingList)
         this._reschedulingService
-            .GetRescheduling(this.ReschedulingList)
+            .GetRescheduling(
+                this.ReschedulingList,
+                this.final_branch,
+                this.final_zone
+            )
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
 
+                    // ngOnInit(): void {
+
+                    // }
                     this.cdRef.detectChanges();
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                debugger;
                 if (baseResponse.Success === true) {
                     console.log(
-                        "BaseResponse of Get Reschedule",
+                        'BaseResponse of Get Reschedule',
                         baseResponse.Loan.ReschedulingList
                     );
                     this.Table = true;
                     this.Field = false;
                     this.response = baseResponse.Loan.ReschedulingList;
-
-                    // this.RfrlForm.controls["Cnic"].setValue('');
-                    //   this.RfrlForm.controls["EffectiveReqDate"].setValue('');
-                    //   this.RfrlForm.controls["Remarks"].setValue('');
-                    //   this.RfrlForm.controls["RequestCategory"].setValue('');
-                    //   this.RfrlForm.controls["MPpno"].setValue('');
-
-                    //   this.RfrlForm.get('Cnic').markAsPristine();
-                    //   this.RfrlForm.get('Cnic').markAsUntouched();
-                    //   this.RfrlForm.get('EffectiveReqDate').markAsUntouched();
-                    //    this.RfrlForm.get('EffectiveReqDate').markAsPristine();
-                    //    this.RfrlForm.get('Remarks').markAsUntouched();
-                    //    this.RfrlForm.get('Remarks').markAsPristine();
-                    //    this.RfrlForm.get('RequestCategory').markAsUntouched();
-                    //    this.RfrlForm.get('RequestCategory').markAsPristine();
-                    //    this.RfrlForm.get('MPpno').markAsUntouched();
-                    //    this.RfrlForm.get('MPpno').markAsPristine();
                 } else {
                     this.layoutUtilsService.alertElement(
-                        "",
+                        '',
                         baseResponse.Message,
                         baseResponse.Code
                     );
@@ -282,9 +296,9 @@ export class RequestForRlComponent implements OnInit {
 
     onChange(id: ReschedulingList, event, index) {
         //console.log(index)
-        debugger;
+
         this.idx = index;
-        var ind = index
+        var ind = index;
         let prev_i, prevData;
 
         if (prev_i == undefined || prev_i != ind) {
@@ -293,50 +307,43 @@ export class RequestForRlComponent implements OnInit {
         }
 
         if (event.checked == true && this.checkedArr.length == 0) {
-            debugger;
             this.checkedArr.push(id);
-            console.log("checked array data", this.checkedArr);
+            console.log('checked array data', this.checkedArr);
 
             this.AddTable = false;
-
         } else if (this.checkedArr.length != 0 && prev_i == index) {
-
-            this.tableArr = this.checkedArr
+            this.tableArr = this.checkedArr;
         } else {
             for (var i = 0; this.checkedArr.length > i; i++) {
                 if (this.checkedArr[i].LoanAppID == id.LoanAppID) {
                     this.checkedArr.splice(i);
-                    console.log("remove array data", this.checkedArr);
+                    console.log('remove array data', this.checkedArr);
                 }
             }
-
         }
     }
 
     onSelectionChange(e) {
-        debugger
-        console.log(e.value)
+        console.log(e.value);
         if (this.RfrlForm.controls.RequestCategory.value && e.value != '3') {
             this.graceMonthsSelect = false;
-            this.RfrlForm.controls["GraceMonths"].setValue('');
+            this.RfrlForm.controls['GraceMonths'].setValue('');
             this.RfrlForm.get('GraceMonths').clearValidators();
             this.RfrlForm.get('GraceMonths').updateValueAndValidity();
         } else {
-            this.graceMonthsSelect = true
-            this.RfrlForm.get('GraceMonths').setValidators([Validators.required]);
+            this.graceMonthsSelect = true;
+            this.RfrlForm.get('GraceMonths').setValidators([
+                Validators.required,
+            ]);
             this.RfrlForm.get('GraceMonths').updateValueAndValidity();
         }
     }
 
     Add() {
-        debugger;
-
-
         console.log(this.checkedArr);
         if (this.checkedArr.length > 0) {
-
             this.AddTable = true;
-            this.checked = false
+            this.checked = false;
 
             // if(this.tableArr.length != 0){
             //   alert("SELECTED RECORD ALREADY EXISTS PLEASE CHANGE")
@@ -354,22 +361,25 @@ export class RequestForRlComponent implements OnInit {
         this.spinner.show();
         this.request = new BaseRequestModel();
         let shantoo = this.RfrlForm.controls.EffectiveReqDate.value;
-        console.log(shantoo._d)
+        console.log(shantoo._d);
         //this.RfrlForm.controls["EffectiveReqDate"].setValue(this.datePipe.transform(shantoo._d, "ddMMyyyy"))
-        let newDate = this.datePipe.transform(shantoo._d, "ddMMyyyy");
-        console.log(newDate)
+        let newDate = this.datePipe.transform(shantoo._d, 'ddMMyyyy');
+        console.log(newDate);
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
         for (var i = 0; this, this.checkedArr.length > i; i++) {
-            this.checkedArr[i].ManagerPPNo = this.RfrlForm.controls["MPpno"].value
+            this.checkedArr[i].ManagerPPNo =
+                this.RfrlForm.controls['MPpno'].value;
 
-            this.checkedArr[i].EffectiveReqDate = newDate
-            this.checkedArr[i].Remarks = this.RfrlForm.controls["Remarks"].value
-            this.checkedArr[i].RequestCategory = this.RfrlForm.controls["RequestCategory"].value
-            this.checkedArr[i].Cnic = this.RfrlForm.controls["Cnic"].value
-            this.checkedArr[i].McoPPNO = userInfo.User.UserName
+            this.checkedArr[i].EffectiveReqDate = newDate;
+            this.checkedArr[i].Remarks =
+                this.RfrlForm.controls['Remarks'].value;
+            this.checkedArr[i].RequestCategory =
+                this.RfrlForm.controls['RequestCategory'].value;
+            this.checkedArr[i].Cnic = this.RfrlForm.controls['Cnic'].value;
+            this.checkedArr[i].McoPPNO = userInfo.User.UserName;
         }
-        debugger;
+
         this._reschedulingService
             .AddReschedulLoanInstallment(this.checkedArr)
             .pipe(
@@ -380,11 +390,10 @@ export class RequestForRlComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                debugger;
                 if (baseResponse.Success === true) {
                 } else {
                     this.layoutUtilsService.alertElement(
-                        "",
+                        '',
                         baseResponse.Message,
                         baseResponse.Code
                     );
@@ -400,23 +409,40 @@ export class RequestForRlComponent implements OnInit {
         for (var i = 0; this.checkedArr.length > i; i++) {
             this.checkedArr.splice(i);
         }
-        console.log(this.checkedArr)
+        console.log(this.checkedArr);
     }
-
-    changeBranch(changedValue) {
-
-        let changedBranch = null;
-        if (changedValue.has('value')) {
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        } else {
-            changedBranch = {Branch: {BranchCode: changedValue}}
-
-        }
-    }
-
 }
 
 export interface Selection {
     value: string;
     viewValue: string;
+}
+
+export class ReschedulingGrid {
+    CustomerID: string;
+    LoanAppID: number;
+    LoanDisbID: number;
+    BranchCode: string;
+    Cnic: string;
+    LoanCaseNo: string;
+    GlSubCode: string;
+    OsPrin: number;
+    OsMarkup: number;
+    DisbStatusID: number;
+    CustomerName: string;
+    FatherName: string;
+    PermanentAddress: string;
+    GlSubname: string;
+    MajorBorrower: string;
+    GlSubID: number;
+    EffectiveReqDate: string;
+    UserID: string;
+    GraceMonths: number;
+    RequestCategory: number;
+    RequestStatus: number;
+    BranchID: string;
+    ManagerPPNo: number;
+    McoPPNO: number;
+    Remarks: string;
+    ID: string;
 }

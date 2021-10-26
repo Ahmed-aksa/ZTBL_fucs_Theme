@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
+import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {JournalVocherData} from "../models/journal_voucher.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
@@ -11,12 +11,20 @@ import {DatePipe} from "@angular/common";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {finalize} from "rxjs/operators";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 
 @Component({
     selector: 'app-search-jv-rb',
     templateUrl: './search-jv-rb.component.html',
-    styleUrls: ['./search-jv-rb.component.scss']
+    styleUrls: ['./search-jv-rb.component.scss'],
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ],
 })
 export class SearchJvRbComponent implements OnInit {
     displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit', 'Status', 'Edit', 'View'];
@@ -115,6 +123,7 @@ export class SearchJvRbComponent implements OnInit {
 
         }
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+        this.find();
     }
 
 
