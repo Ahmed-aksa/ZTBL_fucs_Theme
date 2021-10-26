@@ -14,6 +14,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
                 <mat-label class="customMatLabel">Zone</mat-label>
                 <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
@@ -32,18 +33,20 @@
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                            *ngIf="!single_branch">
-                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                    >
-                        {{branch?.Name}}
-                    </mat-option>
-                </mat-select>
+                
                 <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
                             *ngIf="single_branch">
                     <mat-option [value]="SelectedBranches?.BranchCode"
                     >
                         {{SelectedBranches?.Name}}
+                    </mat-option>
+                </mat-select>
+
+                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                            *ngIf="!single_branch">
+                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                    >
+                        {{branch?.Name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -89,7 +92,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="graceMonthsSelect">
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label class="customMatLabel">Grace Months <strong class="matMandatory">*</strong></mat-label>
                 <mat-select formControlName="GraceMonths">

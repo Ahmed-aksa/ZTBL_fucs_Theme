@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NgxSpinnerService} from "ngx-spinner";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
@@ -9,7 +10,7 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {DatePipe} from "@angular/common";
-import {finalize} from "rxjs/operators";
+import {expand, finalize} from "rxjs/operators";
 import {
     AccountDetailModel, DisbursementGLModel,
     MasterCodes, RecoveryCustomer,
@@ -110,6 +111,8 @@ export class JvFormComponent implements OnInit, OnDestroy {
     contBr: any;
     contDept: any;
     jvObject: any;
+
+    expandDisbursement : boolean = false;
 
 
     public LovCall = new Lov();
@@ -447,9 +450,11 @@ export class JvFormComponent implements OnInit, OnDestroy {
             .subscribe((baseResponse: BaseResponseModel) => {
                 console.log(baseResponse);
                 if (baseResponse.Success === true) {
+                    this.expandDisbursement = true
                     this.DisbursementGLList = baseResponse.Recovery.DisbursementGLList;
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
+                    this.expandDisbursement = false
                 }
 
             });
@@ -498,6 +503,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
             ).subscribe((baseResponse: BaseResponseModel) => {
                 console.log(baseResponse);
                 if (baseResponse.Success === true) {
+                    this.expandDisbursement = true;
                     var listGL = baseResponse.JournalVoucher.GLforJVList;
                     this.DisbursementGLList.splice(0, 0);
                     listGL.forEach((part, index) => {
@@ -509,7 +515,9 @@ export class JvFormComponent implements OnInit, OnDestroy {
                 }
             },
             (error) => {
-                this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
+                this.expandDisbursement = false;
+                this.DisbursementGLList = []
+                this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request");
                 console.log(error)
             });
     }
@@ -863,7 +871,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
             .subscribe((baseResponse: BaseResponseModel) => {
                 console.log(baseResponse);
                 if (baseResponse.Success === true) {
-
+                    debugger
 
                     rowValue = baseResponse.JournalVoucher.JournalVoucherDataList;
                     for (var a = 0; this.jvGl.length > a; a++) {
@@ -877,6 +885,15 @@ export class JvFormComponent implements OnInit, OnDestroy {
                             console.log(rowValue[a])
                             this.JvForm.controls['VoucherNo'].setValue(rowValue[a].ManualVoucherNo);
                             this.JvForm.controls['TransactionMasterID'].setValue(rowValue[a].TransactionMasterCode);
+                            
+                            let dateString = rowValue[a].EffectiveDate;
+                            var day = parseInt(dateString.substring(0, 2));
+                            var month = parseInt(dateString.substring(2, 4));
+                            var year = parseInt(dateString.substring(4, 8));
+
+                            const branchWorkingDate = new Date(year, month - 1, day);
+                            this.JvForm.controls.EffectiveDate.setValue(branchWorkingDate);
+
                             this.JvForm.controls['GlSubID'].setValue(rowValue[a].MasterDesc);
                             this.JvForm.controls['GlSubID'].setValue(rowValue[a].GlSubCode);
                             this.JvForm.controls['GlSub'].setValue(rowValue[a].GlSubName);
@@ -1034,6 +1051,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
         this.JvForm.controls["Amount"].reset();
         this.JvForm.controls["TransactionMasterID"].reset();
         this.JvForm.controls["GlHead"].reset();
+        this.JvForm.controls['GlSub'].reset();
         this.JvForm.controls["TrCode"].reset();
         this.JvForm.controls["RoCode"].reset();
         this.JvForm.controls["AdviceNo"].reset();
