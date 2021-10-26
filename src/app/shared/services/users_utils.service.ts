@@ -44,6 +44,7 @@ export class UserUtilsService {
          *      All Will be enabled as discussed in Case 3
          */
         let user_data = JSON.parse(localStorage.getItem('ZTBLUser'));
+        this.search_data.User = user_data.User;
         /**
          * Branch Data Manipulation
          */
@@ -100,8 +101,7 @@ export class UserUtilsService {
 
         var userMenu = localStorage.getItem(environment.userInfoKey) //this.getUserMenu();
         //var userMenu = localStorage.getItem(environment.ZTBLUser) //this.getUserMenu();
-        if (userMenu)
-        {
+        if (userMenu) {
             return JSON.parse(userMenu);
         }
         return new BaseResponseModel();
@@ -114,7 +114,7 @@ export class UserUtilsService {
         //         this.loginResponse.Success = true;
         //         return this.loginResponse;
         //     }
-            
+
         // }
     }
 

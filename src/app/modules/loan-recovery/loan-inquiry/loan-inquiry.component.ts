@@ -67,7 +67,6 @@ export class LoanInquiryComponent implements OnInit {
   }
 
   find() {
-    debugger;
     var transactionId = this.RecoveryForm.controls.TransactionId.value;
     var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
 

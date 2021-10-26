@@ -1,0 +1,43 @@
+<!--begin::Body-->
+	<div class="kt-login__body">
+		<!--begin::Signin-->
+
+
+
+		<div class="kt-login__form">
+			<div class="col-lg-12 text-center mb-1">
+				<img src="./assets/media/icons/chat-01.png" class="img-responsive center-block" alt="icon" />
+			</div>
+
+
+			<div class="kt-login__title">
+				<!--<h3>{{ 'AUTH.FORGOT.TITLE' | translate }}</h3>-->
+				<h3>Enter OTP</h3>
+			</div>
+			<form class="kt-form" [formGroup]="otpForm" autocomplete="off">
+				<div class="form-group mb-4">
+					<mat-form-field appearance="outline">
+						<!--<mat-label>{{ 'AUTH.INPUT.EMAIL' | translate }}</mat-label>-->
+						<mat-label>OTP</mat-label>
+						<input matInput type="text" placeholder="OTP" formControlName="otp" autocomplete="off" />
+						<mat-error *ngIf="isControlHasError('otp','required')">
+							<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+						</mat-error>
+						<mat-error *ngIf="isControlHasError('otp','minLength')">
+							<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+						</mat-error>
+						<mat-error *ngIf="isControlHasError('otp','maxLength')">
+							<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 320</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+				<!--begin::Action-->
+				<div class="kt-login__actions float-right mr-2">
+					<button routerLink="/auth/login" [disabled]="loading" id="kt_login_signup_cancel" (click)="onCloseClick(0)" class="btn btn-secondary btn-elevate kt-login__btn-secondary mr-2">{{'Close'}} </button>
+					<button (click)="submit()" id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">{{'Submit'}}</button>
+				</div>
+				<!--end::Action-->
+			</form>
+		</div>
+	</div>
+
