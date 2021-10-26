@@ -201,8 +201,7 @@ export class ReschedulingService {
         );
     }
 
-    RescheduleSearch(search, branch, zone): Observable<BaseResponseModel> {
-        debugger
+    RescheduleSearch(search, branch?, zone?): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
