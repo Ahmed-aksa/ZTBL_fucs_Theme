@@ -9,12 +9,17 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
 }
 
 
+.bg-image{
+  background-image: url("../assets/images/main.jpg");
+}
+
 
 
 .table-header-background{
     background-color: #01671B;
     color: white;
 }
+
 
 .cdk-overlay-pane{
     overflow-y: scroll;

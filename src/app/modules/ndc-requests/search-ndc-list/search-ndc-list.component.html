@@ -1,6 +1,6 @@
 <div>
-    <div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
-        <div class="text-4xl font-extrabold tracking-tight">NDC Search List</div>
+    <div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+        <div class="text-4xl font-extrabold tracking-tight px-2">NDC Search List</div>
 
         <!-- Header -->
         <form [formGroup]="ndcForm" class="kt-form kt-form--group-seperator-dashed">
@@ -75,7 +75,7 @@
             </div>
           </form>
     
-          <div class="mat-table__wrapper mat-elevation-z8" [style.maxHeight]="gridHeight">
+          <div class="mat-table__wrapper" [style.maxHeight]="gridHeight">
             <mat-table class="lmat-elevation-z8"
                        [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
               <ng-container matColumnDef="serialNumber">
@@ -160,7 +160,7 @@
         <br>
 
 
-        <div class="mat-table__wrapper mat-elevation-z8" [style.maxHeight]="gridHeight">
+        <div class="mat-table__wrapper " [style.maxHeight]="gridHeight">
             <mat-table class="lmat-elevation-z8"
                        [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSize, currentPage: pageIndexPending, totalItems: pendingLength}">
               <ng-container matColumnDef="customer_cnic">
