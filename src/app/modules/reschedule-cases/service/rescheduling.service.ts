@@ -1,35 +1,29 @@
+/* eslint-disable eol-last */
 /* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable @typescript-eslint/type-annotation-spacing */
-/* eslint-disable space-before-function-paren */
-/* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
-/* eslint-disable no-cond-assign */
-/* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/semi */
-/* eslint-disable eqeqeq */
 /* eslint-disable no-trailing-spaces */
-/* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable eqeqeq */
+/* eslint-disable space-before-function-paren */
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-var */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/member-ordering */
-import {HttpClient} from '@angular/common/http';
+/* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/quotes */
 import {Injectable} from '@angular/core';
-import {Activity} from 'app/shared/models/activity.model';
-import {BaseRequestModel} from 'app/shared/models/base_request.model';
-import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import {
-    CustomersLoanApp,
-    Loan,
-    MakeReschedule,
-    ReschedulingList
-} from 'app/shared/models/loan-application-header.model';
-import {HttpUtilsService} from 'app/shared/services/http_utils.service';
-import {UserUtilsService} from 'app/shared/services/users_utils.service';
-import {environment} from 'environments/environment';
-import {Observable} from 'rxjs/internal/Observable';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../../../environments/environment';
 import {map} from 'rxjs/operators';
+
+import {BaseRequestModel} from 'app/shared/models/base_request.model';
+import {BaseResponseModel} from "../../../shared/models/base_response.model";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
+import {HttpUtilsService} from "../../../shared/services/http_utils.service";
+import {Activity} from "../../../shared/models/activity.model";
+import {CustomersLoanApp, Loan, MakeReschedule, ReschedulingList} from 'app/shared/models/Loan.model';
+
 
 @Injectable({
     providedIn: 'root'
@@ -49,13 +43,12 @@ export class ReschedulingService {
     generalFunction() {
         this.request = new BaseRequestModel();
         this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
         var selectedCircleId = "";
-        if (userInfo.UserCircleMappings.length > 0) {
-            // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+        if (userInfo.UserCircleMappings?.length > 0) {
             userInfo.UserCircleMappings.forEach(function (value, key) {
 
                 if (userInfo.UserCircleMappings.length == (key + 1)) {
@@ -77,15 +70,15 @@ export class ReschedulingService {
     generalFun() {
         this.request = new BaseRequestModel();
         this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
         return this.request;
     }
 
-    GetRescheduling(res): Observable<BaseResponseModel> {
-        debugger
+    GetRescheduling(res, branch, zone): Observable<BaseResponseModel> {
+        
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
@@ -93,13 +86,15 @@ export class ReschedulingService {
         loanInfo.CustomersLoanApp = this.CustomersLoanApp
         this.request.Loan = loanInfo
         var req = JSON.stringify(this.request);
+        this.request.Branch = branch;
+        this.request.Zone = zone;
         return this.http.post(`${environment.apiUrl}/Loan/GetRescheduling`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    SaveMakeRescheduleLoan(res: MakeReschedule): Observable<BaseResponseModel> {
+    SaveMakeRescheduleLoan(res: MakeReschedule, branch, zone): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
@@ -108,14 +103,16 @@ export class ReschedulingService {
         this.request.Loan = loanInfo
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
+        this.request.Branch = branch;
+        this.request.Zone = zone;
         return this.http.post(`${environment.apiUrl}/Loan/SaveMakeRescheduleLoan`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    SubmitRescheduleData(rescheduling: MakeReschedule): Observable<BaseResponseModel> {
-        debugger
+    SubmitRescheduleData(rescheduling: MakeReschedule, branch, zone): Observable<BaseResponseModel> {
+        
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
@@ -135,6 +132,8 @@ export class ReschedulingService {
             time: "0"
         }
         var req = JSON.stringify(this.request);
+        this.request.Branch = branch;
+        this.request.Zone = zone;
         console.log(req)
         return this.http.post(`${environment.apiUrl}/Loan/SubmitRescheduleData`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -142,27 +141,15 @@ export class ReschedulingService {
         );
     }
 
-    // PendingSubmitRescheduleData(rescheduling): Observable<BaseResponseModel> {
-    //   debugger
-    //   var loanInfo = new Loan();
-    //   this.generalFunction()
-    //   this.MakeReschedule.LoanReschID = rescheduling
-    //   loanInfo.MakeReschedule = this.MakeReschedule
-    //   this.request.Loan = loanInfo
-    //   var req = JSON.stringify(this.request);
-    //   return this.http.post(`${environment.apiUrl}/Loan/SubmitRescheduleData`, req,
-    //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-    //       map((res: BaseResponseModel) => res)
-    //     );
-    // }
-
-    CancelRescheduleData(rescheduling: MakeReschedule): Observable<BaseResponseModel> {
+    CancelRescheduleData(rescheduling: MakeReschedule, branch, zone): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         this.generalFunction()
         var loanInfo = new Loan();
         this.MakeReschedule.LoanReschID = rescheduling.LoanReschID
         loanInfo.MakeReschedule = this.MakeReschedule
         this.request.Loan = loanInfo
+        this.request.Branch = branch;
+        this.request.Zone = zone;
         var req = JSON.stringify(this.request);
         return this.http.post(`${environment.apiUrl}/Loan/CancelRescheduleData`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -186,7 +173,7 @@ export class ReschedulingService {
     }
 
     AddReschedulLoanInstallment(res): Observable<BaseResponseModel> {
-        debugger
+        
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun();
@@ -202,16 +189,16 @@ export class ReschedulingService {
     }
 
     RescheduleSearch(search, branch, zone): Observable<BaseResponseModel> {
-        debugger
+        
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
         loanInfo.Status = search.Status;
         loanInfo.Appdt = search.TrDate;
         loanInfo.LcNo = search.Lcno;
-        this.request.Zone = zone;
+        this.request.Loan = loanInfo;
         this.request.Branch = branch;
-        this.request.Loan = loanInfo
+        this.request.Zone = zone;
         var req = JSON.stringify(this.request);
         return this.http.post(`${environment.apiUrl}/Loan/RescheduleSearch`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -219,14 +206,16 @@ export class ReschedulingService {
         );
     }
 
-    GetSubProposalGL(lCNo): Observable<BaseResponseModel> {
+    GetSubProposalGL(lCNo, branch, zone): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
         loanInfo.LcNo = lCNo;
         this.request.Loan = loanInfo
         var req = JSON.stringify(this.request);
-        return this.http.post(`${environment.apiUrl}/Loan/GetSubProposalGL`, req,
+        this.request.Branch = branch;
+        this.request.Zone = zone;
+        return this.http.post(`${environment.apiUrl}/Loan/GetSubProposalGL`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
