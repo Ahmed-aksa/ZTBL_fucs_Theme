@@ -26,7 +26,6 @@ export class LoanUtilizationService {
     private http: HttpClient,
      private httpUtils: HttpUtilsService,
      private userUtilsService: UserUtilsService,
-     private datePipe: DatePipe,
     private _common: CommonService) { }
 
     GetLoanDetail(value){
