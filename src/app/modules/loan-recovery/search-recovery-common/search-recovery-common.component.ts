@@ -180,9 +180,6 @@ export class SearchRecoveryCommonComponent implements OnInit {
   }
 
   find() {
-
-    debugger
-
     var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
     var status = this.RecoveryForm.controls.Status.value;
     var transactionDate = this.RecoveryForm.controls.TransactionDate.value;
@@ -210,8 +207,6 @@ export class SearchRecoveryCommonComponent implements OnInit {
         })
       )
       .subscribe((baseResponse: BaseResponseModel) => {
-        debugger
-
         if (baseResponse.Success === true) {
           this.MatTableLenght = true;
           this.RecoveryLoanTransaction = baseResponse.Recovery.RecoveryLoanTransaction;
@@ -242,7 +237,6 @@ export class SearchRecoveryCommonComponent implements OnInit {
   }
 
   paginateAs(pageIndex : any, pageSize: any = this.itemsPerPage){
-    debugger
     this.itemsPerPage = pageSize;
       this.OffSet = (pageIndex -1) * this.itemsPerPage;
     this.pageIndex = pageIndex;

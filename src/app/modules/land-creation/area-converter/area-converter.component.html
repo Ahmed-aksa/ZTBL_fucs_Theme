@@ -1,1 +1,73 @@
-<p>area-converter works!</p>
+
+<div class="kt-portlet">
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">Area Convertor</h3>
+        </div>
+    </div>
+    <!--<kt-customer-list></kt-customer-list>-->
+    <form class="kt-form kt-form--group-seperator-dashed">
+        <div class="kt-form">
+            <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group kt-form__group row">
+                            <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <mat-label class="customMatLabel">Unit <strong class="matMandatory"></strong></mat-label>
+                                    <mat-select [(ngModel)]="Unit" [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let obj of UnitConverter" [value]="obj.id">
+                                            {{obj.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <mat-label class="customMatLabel">Area <strong class="matMandatory">*</strong></mat-label>
+                                    <input matInput placeholder="" [(ngModel)]="Area" [ngModelOptions]="{standalone: true}" maxlength="30" autocomplete="off" ktNumberAndDecimal/>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <mat-label class="customMatLabel">Convert  Unit<strong class="matMandatory"></strong></mat-label>
+                                    <mat-select [(ngModel)]="ConvertUnit" [ngModelOptions]="{standalone: true}" >
+                                        <mat-option *ngFor="let obj of UnitConverterd" [value]="obj.id" >
+                                            {{obj.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-2 kt-margin-bottom-20-mobile mt-3">
+                                <button mat-raised-button color="primary" (click)="AreaConverter()">Convert</button>
+                            </div>
+                            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                    <mat-label class="customMatLabel">Result </mat-label>
+                                    <input matInput [(ngModel)]="Result" [ngModelOptions]="{standalone: true}" readonly="readonly" maxlength="30" autocomplete="off" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
+                    <div class="kt-form__actions kt-form__actions--solid">
+                        <div class="row text-center">
+                            <div class="col-lg-12">
+                                <button type="button" class="button-red" mat-raised-button cdkFocusInitial value="Cancel" [mat-dialog-close]="false" (click)="onCloseClick()">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+

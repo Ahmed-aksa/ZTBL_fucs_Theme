@@ -36,10 +36,8 @@ export class RecoveryService {
         this.request.LandInfo = landInfo;
         this.request.Activity = this.activity;
 
-        var req = JSON.stringify(this.request);
-
         return this.http
-            .post(`${environment.apiUrl}/Land/SaveCustomerLandInfo`, req, {
+            .post(`${environment.apiUrl}/Land/SaveCustomerLandInfo`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
@@ -57,12 +55,10 @@ export class RecoveryService {
         this.request.Zone = userInfo.Zone;
         this.request.LandInfoDetailsList = landInfoDetails;
         this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
-
         return this.http
             .post(
                 `${environment.apiUrl}/Land/SaveCustomerLandInfoDetail`,
-                req,
+                this.request,
                 { headers: this.httpUtils.getHTTPHeaders() }
             )
             .pipe(map((res: BaseResponseModel) => res));
@@ -71,10 +67,9 @@ export class RecoveryService {
     SaveChargeCreation(
         request: BaseRequestModel
     ): Observable<BaseResponseModel> {
-        var req = JSON.stringify(request);
 
         return this.http
-            .post(`${environment.apiUrl}/Land/SaveChargeCreation`, req, {
+            .post(`${environment.apiUrl}/Land/SaveChargeCreation`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
@@ -87,10 +82,8 @@ export class RecoveryService {
         this.request.User = userInfo.User;
         this.request.Branch = userInfo.Branch;
 
-        var req = JSON.stringify(this.request);
-
         return this.http
-            .post(`${environment.apiUrl}/Land/SaveChargeCreationDetail`, req, {
+            .post(`${environment.apiUrl}/Land/SaveChargeCreationDetail`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
@@ -103,10 +96,8 @@ export class RecoveryService {
         this.request.User = userInfo.User;
         this.request.Branch = userInfo.Branch;
 
-        var req = JSON.stringify(this.request);
-
         return this.http
-            .post(`${environment.apiUrl}/Land/SubmitLandInfo`, req, {
+            .post(`${environment.apiUrl}/Land/SubmitLandInfo`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
@@ -145,9 +136,6 @@ export class RecoveryService {
             DeviceLocation: {},
             Recovery: recovery,
         };
-
-        console.log('getLoanTransaction request');
-        console.log(request);
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetLoanTransaction`,
@@ -167,8 +155,6 @@ export class RecoveryService {
         this.request.User = userInfo.User;
         this.request.Branch = userInfo.Branch;
 
-        var req = JSON.stringify(this.request);
-
         var branch = { BranchID: userInfo.Branch.BranchId };
         var recovery = {
             LnTransactionID: lnTransactionID,
@@ -176,12 +162,11 @@ export class RecoveryService {
             RecoveryData: {},
         };
         var request = { Branch: branch, Recovery: recovery };
-        var req = JSON.stringify(request);
 
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetTransactiondetailByID`,
-                req,
+                request,
                 { headers: this.httpUtils.getHTTPHeaders() }
             )
             .pipe(map((res: BaseResponseModel) => res));
@@ -287,8 +272,6 @@ export class RecoveryService {
         this.request.User = userInfo.User;
         this.request.Branch = userInfo.Branch;
 
-        var req = JSON.stringify(this.request);
-
         var recovery = {
             RecoveryData: {
                 RecoveryThroughType: RecoveryThroughType,
@@ -336,13 +319,8 @@ export class RecoveryService {
             User: userInfo.User,
             Zone: userInfo.Zone,
         };
-
-        var req = JSON.stringify(request);
-        console.log('saveRecoveryData request packet');
-        console.log(request);
-
         return this.http
-            .post(`${environment.apiUrl}/Recovery/SaveRecoveryData`, req, {
+            .post(`${environment.apiUrl}/Recovery/SaveRecoveryData`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));

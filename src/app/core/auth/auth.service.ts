@@ -4,7 +4,7 @@ import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {AuthUtils} from 'app/core/auth/auth.utils';
 import {UserService} from 'app/core/user/user.service';
-import {BaseRequestModel} from "../../shared/models/base_request.model";
+import {BaseRequestModel, OTP} from "../../shared/models/base_request.model";
 import {environment} from "../../../environments/environment";
 import {HttpUtilsService} from "../../shared/services/http_utils.service";
 import {BaseResponseModel} from "../../shared/models/base_response.model";
@@ -75,6 +75,25 @@ export class AuthService {
         );
 
     }
+
+    SendOTPResuest(user: any, text): Observable<BaseResponseModel>{
+        this.request.User =user;
+        this.request.OTP=new OTP();
+        this.request.OTP.Id ="1";
+        this.request.OTP.Text =text;
+        var req = JSON.stringify(this.request);
+        return this.httpUtils.post(`${environment.apiUrl}/Account/VerifyOTP`, req,
+          { headers: this.getHTTPHeaders() }).pipe(
+            map((response: BaseResponseModel) => {
+                localStorage.setItem('ZTBLUser', JSON.stringify(response));
+                this.accessToken = response.Token;
+                this.ZTBLUserRefreshToke = response.RefreshToken;
+                this._authenticated = true;
+                return response;
+            })
+        );
+    }
+    
     refreshToken(token: string) {
         this.request = new BaseRequestModel();
         const refreshToken = JSON.parse(localStorage.getItem('ZTBLUserRefreshToke'));
