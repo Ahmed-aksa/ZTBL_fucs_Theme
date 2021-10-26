@@ -36,3 +36,17 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
   ::-webkit-scrollbar-thumb:hover {
     background: #01671B; 
   }
+
+  .tab-box{
+      .mat-tab-group{
+        .mat-tab-body{
+          .mat-tab-body-content{
+            padding-left: 0%;
+          }
+        }
+        .mat-tab-label-container{
+          padding-left: 0px;
+          padding-top: 4px;
+        }
+      }
+  }
