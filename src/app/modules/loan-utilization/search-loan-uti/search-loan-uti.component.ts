@@ -8,7 +8,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { errorMessages, Lov, LovConfigurationKey, MaskEnum } from 'app/shared/classes/lov.class';
-import { Branch } from 'app/shared/models/branch.model';
 import { CreateCustomer } from 'app/shared/models/customer.model';
 import { LoanUtilizationSearch } from 'app/modules/loan-utilization/Model/loan-utilization.model';
 import { CircleService } from 'app/shared/services/circle.service';
@@ -18,10 +17,14 @@ import { LovService } from 'app/shared/services/lov.service';
 import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
-import { Zone } from '../../user-management/users/utils/zone.model'
 import {AppState} from "../../../shared/reducers";
 import {Store} from "@ngrx/store";
 import {LoanUtilizationService} from "../service/loan-utilization.service";
+import { Circle } from 'app/shared/models/circle.model';
+import { Branch } from 'app/shared/models/branch.model';
+import { Zone } from 'app/shared/models/zone.model';
+import {BaseResponseModel} from "../../../shared/models/base_response.model";
+
 @Component({
   selector: 'app-search-loan-uti',
   templateUrl: './search-loan-uti.component.html',
@@ -58,20 +61,12 @@ export class SearchLoanUtilizationComponent implements OnInit {
     gridHeight: string;
     loanutilizationSearch: FormGroup;
     myDate = new Date().toLocaleDateString();
-
-
     public maskEnums = MaskEnum;
     errors = errorMessages;
     public LovCall = new Lov();
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
     _loanUtilizationSearch = new LoanUtilizationSearch;
-    public Zone = new Zone();
-    public Branch = new Branch();
-    Zones: any = [];
-    SelectedZones: any = [];
-    Branches: any = [];
-    SelectedBranches: any = [];
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
@@ -87,6 +82,29 @@ export class SearchLoanUtilizationComponent implements OnInit {
     itemsPerPage = 10; //you could use your specified
     totalItems: number | any;
     pageIndex = 1;
+    LoggedInUserInfo: BaseResponseModel;
+    //Zone inventory
+    Zones: any = [];
+    SelectedZones: any = [];
+    public Zone = new Zone();
+
+    //Branch inventory
+    Branches: any = [];
+    SelectedBranches: any = [];
+    public Branch = new Branch();
+    disable_circle = true;
+    disable_zone = true;
+    disable_branch = true;
+    single_branch = true;
+    single_circle = true;
+    single_zone = true;
+    //Circle inventory
+    Circles: any = [];
+    SelectedCircles: any = [];
+    public Circle = new Circle();
+    selected_b;
+    selected_z;
+    selected_c;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -124,34 +142,69 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
         this.LoadLovs();
         this.createForm();
-
-        var userDetails = this.userUtilsService.getUserDetails();
-        this.loggedInUserDetails = userDetails;
-        debugger;
-        //if (userDetails.Branch.BranchCode == "All")
-        if (userDetails.User.AccessToData == "1") {
-            //admin user
-            this.isUserAdmin = true;
-            this.GetZones();
-        }
-        else if (userDetails.User.AccessToData == "2") {
-            //zone user
-            this.isZoneUser = true;
-
-            this.loanutilizationSearch.value.ZoneId = userDetails.Zone.ZoneId;
-            this.Zone = userDetails.Zone;
-            this.GetBranches(userDetails.Zone.ZoneId);
-        }
-        else {
-            //branch
-            this.Zone = userDetails.Zone;
-            this.Branch = userDetails.Branch;
-        }
-
+        this.settingZBC()
         this.searchloanutilization();
         debugger;
         //this.FilterForm.controls["StartDate"].setValue(this.myDate);
         //this.FilterForm.controls["EndDate"].setValue(this.myDate);
+
+    }
+
+    settingZBC(){
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
+            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
+
+            this.SelectedBranches = this.LoggedInUserInfo.Branch;
+            this.SelectedZones = this.LoggedInUserInfo.Zone;
+
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.selected_c = this.SelectedCircles?.Id
+            this.loanutilizationSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.loanutilizationSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            // if (this.customerForm.value.Branch) {
+            //     this.changeBranch(this.customerForm.value.Branch);
+            // }
+        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+            this.spinner.show();
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
+                this.single_zone = false;
+                this.disable_zone = false;
+                this.spinner.hide();
+            });
+        }
+    }
+
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
+
+
+    changeBranch(changedValue) {
+        let changedBranch = null;
+        if (changedValue.value)
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        else
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
+        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+
+            this.Circles = data.Circles;
+            this.SelectedCircles = this.Circles;
+            this.disable_circle = false;
+            if (changedValue.value) {
+                // this.getBorrower();
+            }
+        });
     }
 
     ngAfterViewInit() {
@@ -180,43 +233,13 @@ export class SearchLoanUtilizationComponent implements OnInit {
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
         this.loanutilizationSearch = this.filterFB.group({
-            ZoneId: [userInfo.Zone.ZoneId],
-            Zone: [userInfo.Zone.ZoneName],
-            BranchId: [userInfo.Branch.BranchId],
-            Branch: [userInfo.Branch.Name],
+            ZoneId: [userInfo?.Zone?.ZoneId],
+            Zone: [userInfo?.Zone?.ZoneName],
+            BranchId: [userInfo?.Branch?.BranchId],
+            Branch: [userInfo?.Branch?.Name],
             LoanCaseNo:[""],
             ToDate: [""],
             FromDate: [""],
-        });
-
-    }
-
-    GetZones() {
-        debugger;
-        this.loading = true;
-        this._circleService.getZones()
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            ).subscribe(baseResponse => {
-            debugger;
-            if (baseResponse.Success) {
-
-                baseResponse.Zones.forEach(function (value) {
-                    value.ZoneName = value.ZoneName.split("-")[1];
-                })
-                this.Zones = baseResponse.Zones;
-                this.SelectedZones = baseResponse.Zones;
-
-                //this.landSearch.controls['ZoneId'].setValue(this.Zones[0].ZoneId);
-                //this.GetBranches(this.Zones[0].ZoneId);
-                this.loading = false;
-                this._cdf.detectChanges();
-            }
-            else
-                this.layoutUtilsService.alertElement("", baseResponse.Message);
-
         });
 
     }
@@ -225,42 +248,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
         debugger;
         this.Branch.BranchCode = branchId.value;
 
-    }
-
-
-    GetBranches(ZoneId) {
-        this.loading = true;
-        this.dataSource.data = [];
-        this.Branches = [];
-        debugger;
-        if (ZoneId.value === undefined)
-            this.Zone.ZoneId = ZoneId;
-        else
-            this.Zone.ZoneId = ZoneId.value;
-        this._circleService.getBranchesByZone(this.Zone)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            ).subscribe(baseResponse => {
-            debugger;
-            if (baseResponse.Success) {
-                this.loading = false;
-
-                //baseResponse.Branches.forEach(function (value) {
-                //  value.Name = value.Name.split("-")[1];
-                //})
-
-                this.Branches = baseResponse.Branches;
-                this.SelectedBranches = baseResponse.Branches;
-                //this.landSearch.controls['BranchId'].setValue(this.Branches[0].BranchId);
-                this._cdf.detectChanges();
-            }
-
-            else
-                this.layoutUtilsService.alertElement("", baseResponse.Message);
-
-        });
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
@@ -272,14 +259,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
-    // paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-    //   debugger
-    //   this.itemsPerPage = pageSize;
-    //   this.pageIndex = pageIndex;
-    //   this.OffSet = pageIndex;
-    //
-    //   this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
-    // }
 
     paginateAs(pageIndex : any, pageSize: any = this.itemsPerPage){
 
@@ -426,7 +405,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
         // this._customer.clear();
         this._loanUtilizationSearch = Object.assign(this._loanUtilizationSearch, this.loanutilizationSearch.value);
-        console.log(this._loanUtilizationSearch)
+
         var userInfo = this.userUtilsService.getUserDetails();
         if (this.isUserAdmin || this.isZoneUser) {
             userInfo.Branch = {};
@@ -442,6 +421,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
             else
                 userInfo.Zone.ZoneId = 0;
         }
+
 
         this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"],userInfo,this.fromdate,this.todate,count,currentIndex)
             .pipe(

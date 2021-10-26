@@ -100,7 +100,7 @@ console.log(req);
     this.request = new BaseRequestModel();
 
     debugger;
-    var userInfo = this.userUtilsService.getUserDetails();
+    var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     if (userDetail && userDetail.Zone) {
       userInfo.Zone = userDetail.Zone;
       userInfo.Branch = userDetail.Branch;

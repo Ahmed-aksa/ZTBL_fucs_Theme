@@ -227,8 +227,6 @@ export class SearchUtilizationComponent implements OnInit {
   }
 
 
-
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
@@ -248,33 +246,7 @@ export class SearchUtilizationComponent implements OnInit {
 
   }
 
-  GetZones() {
-    this.loading = true;
-    this._circleService.getZones()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      ).subscribe(baseResponse => {
-        if (baseResponse.Success) {
 
-          baseResponse.Zones.forEach(function (value) {
-            value.ZoneName = value.ZoneName.split("-")[1];
-          })
-          this.Zones = baseResponse.Zones;
-          this.SelectedZones = baseResponse.Zones;
-
-          //this.landSearch.controls['ZoneId'].setValue(this.Zones[0].ZoneId);
-          //this.GetBranches(this.Zones[0].ZoneId);
-          this.loading = false;
-          this._cdf.detectChanges();
-        }
-        else
-          this.layoutUtilsService.alertElement("", baseResponse.Message);
-
-      });
-
-  }
 
   SetBranches(branchId) {
     this.Branch.BranchCode = branchId.value;

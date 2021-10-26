@@ -1,6 +1,6 @@
 export class Zone {
-    User: string;
-    Type: string;
-    Date: string;
+    ZoneId: number;
+    ZoneName: string;
+
 
 }
