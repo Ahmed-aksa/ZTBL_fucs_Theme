@@ -112,26 +112,9 @@
 
         </div>
 
-        <div class="col-lg-3 col-sm-12 flex">
-
-          <div>
-            <mat-form-field class="mat-form-field-fluid w-11/12" appearance="outline">
-              <mat-label class="customMatLabel">Location<strong class="matMandatory">*</strong></mat-label>
-              <input matInput formControlName="Location"  autocomplete="off" readonly="readonly" />
-            </mat-form-field>
-          </div>
-
-          <div>
-            <input type="button" mat-raised-button color="primary" class=" mat-raised-button mat-button-base mat-primary searchLCBtn mt-2" *ngIf="!viewOnly" [value]="loc_text" (click)="Add()" />
-            <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
-          </div>
-
-
-        </div>
-
         <div class="col-lg-3 col-sm-12">
 
-          <div style="margin-left: 20px;">
+          <div>
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Phone Number <strong class="matMandatory">*</strong></mat-label>
               <input matInput appNumberOnly placeholder="Enter Vendor's Phone Number'" formControlName="PhoneNumber" maxlength="13"  autocomplete="off" [readonly]="viewOnly" />
@@ -140,11 +123,8 @@
 
         </div>
 
-      </div>
-
-
-      <div class="row">
         <div class="col-lg-3 col-sm-12">
+
 
           <div>
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -154,6 +134,14 @@
           </div>
 
         </div>
+
+
+
+      </div>
+
+
+      <div class="row">
+
         <div class="col-lg-3 col-sm-12">
 
 
@@ -163,6 +151,21 @@
 
           <div style="align-items: center;">
             <input *ngIf="!viewOnly" style="margin-left: 10px;margin-right: auto; margin-top: 30px;" id="uploadprofile" type="file" name="myfile" (change)="onFileChange($event)" accept="image/jpg,image/jpeg" />
+          </div>
+
+        </div>
+        <div class="col-lg-9 flex col-sm-12">
+
+          <div>
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+              <mat-label class="customMatLabel">Location<strong class="matMandatory">*</strong></mat-label>
+              <input matInput formControlName="Location"  autocomplete="off" readonly="readonly" />
+            </mat-form-field>
+          </div>
+
+          <div>
+            <input type="button" mat-raised-button color="primary" class=" mx-2 mt-4 mat-raised-button mat-button-base mat-primary searchLCBtn mt-2" *ngIf="!viewOnly" [value]="loc_text" (click)="Add()" />
+            <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
           </div>
 
         </div>
@@ -178,7 +181,7 @@
         
     </div>
 
-    <div class="mt-2 justify-content-center" >
+    <div class="mt-2 justify-content-center text-right border-t py-4" >
         <button mat-raised-button color="primary" (click)="saveSubmit()" *ngIf="!viewOnly" >Save & Submit</button>
         <button mat-raised-button color="primary" class="ml-2" (click)="deleteVendor()" *ngIf="viewOnly || isEdit" >Delete Vendor</button>
     </div>
