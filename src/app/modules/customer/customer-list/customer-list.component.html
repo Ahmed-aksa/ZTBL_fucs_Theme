@@ -1,112 +1,161 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-4xl font-extrabold tracking-tight px-8 mt-4">Customer List</div>
+<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">Customer List</div>
 
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between px-6 md:px-8"
-         style="flex-wrap: wrap" [formGroup]="customerSearch">
+    <div  [formGroup]="customerSearch">
 
-        <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="!isUserAdmin">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Zone</mat-label>
-                <input matInput formControlName="Zone" readonly="readonly" maxlength="30" autocomplete="off">
-                <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
-            </mat-form-field>
-        </div>
-        <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin">
-            <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline" *ngIf="!BMUser">
-                <mat-label>Zone</mat-label>
-                <mat-select (selectionChange)="GetBranches($event)" formControlName="Zone">
-                    <mat-option>
-                        <ngx-mat-select-search placeholderLabel="Search Zone..."
-                                               (keyup)="searchZone($event.target.value)"
-                                               noEntriesFoundLabel="No Zone Found">
-                        </ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option>
-                        Select
-                    </mat-option>
-                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone.ZoneId">
-                        {{zone.ZoneName }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="!isUserAdmin && !isZoneUser">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Branch</mat-label>
-                <input matInput formControlName="Branch" readonly="readonly" maxlength="30" autocomplete="off">
-                <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
-            </mat-form-field>
-        </div>
-        <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin || isZoneUser">
-            <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline" *ngIf="!BMUser">
-                <mat-label>Branch</mat-label>
-                <mat-select (selectionChange)="SetBranches($event)" formControlName="Branch">
-                    <mat-option>
-                        <ngx-mat-select-search placeholderLabel="Search Branch..."
-                                               (focusout)="validateBranchOnFocusOut()"
-                                               noEntriesFoundLabel="No Branch Found"
-                                               (keyup)="searchBranch($event.target.value)">
-                        </ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option>
-                        Select
-                    </mat-option>
-                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch.BranchId">
-                        {{branch.Name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="col-md-2 kt-margin-bottom-10-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Customer Name</mat-label>
-                <input matInput formControlName="CustomerName" placeholder="Enter Customer Name" maxlength="100"
-                       autocomplete="off" appAlphabetOnly>
-                <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
-            </mat-form-field>
-        </div>
-        <div class="col-md-2 kt-margin-bottom-10-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Cnic</mat-label>
-                <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100" autocomplete="off"
-                       [mask]="maskEnums.cnic">
-                <!--      <mat-error *ngIf="hasError('Cnic', 'required')">Cnic <strong>required</strong></mat-error>-->
-                <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>{{errors.cnic}}</strong></mat-error>
-            </mat-form-field>
-        </div>
-        <div class="col-md-2 kt-margin-bottom-10-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Father Name</mat-label>
-                <input matInput formControlName="FatherName" placeholder="Enter Father Name" maxlength="100"
-                       autocomplete="off"
-                       appAlphabetOnly>
-                <!--   <mat-error *ngIf="hasError('FatherName', 'required')">FatherName<strong>required</strong></mat-error>-->
-            </mat-form-field>
-        </div>
-        <div *ngIf="CustomerStatusLov" class="col-md-2 kt-margin-bottom-10-mobile mt-10">
-
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Select Customer Status</mat-label>
-                <mat-select formControlName="CustomerStatus">
-                    <mat-option value="">
-                        Select
-                    </mat-option>
-                    <mat-option *ngFor="let obj of CustomerStatusLov.LOVs" [value]="obj.Value">
-                        {{obj.Name}}
-                    </mat-option>
-                </mat-select>
-
-            </mat-form-field>
-            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-
-                <button mat-raised-button color="accent" type="button" (click)="searchCustomer()">
-                    <mat-icon>search</mat-icon>
-                    Search
-                </button>
+        <div class="row mt-4">
+            <div class="col-md-3 col-sm-12">
+                <div class="col-md-2" *ngIf="!isUserAdmin">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label>Zone</mat-label>
+                        <input matInput formControlName="Zone" readonly="readonly" maxlength="30" autocomplete="off">
+                        <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 " *ngIf="isUserAdmin">
+                    <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline" *ngIf="!BMUser">
+                        <mat-label>Zone</mat-label>
+                        <mat-select (selectionChange)="GetBranches($event)" formControlName="Zone">
+                            <mat-option>
+                                <ngx-mat-select-search placeholderLabel="Search Zone..."
+                                                       (keyup)="searchZone($event.target.value)"
+                                                       noEntriesFoundLabel="No Zone Found">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option>
+                                Select
+                            </mat-option>
+                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone.ZoneId">
+                                {{zone.ZoneName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 " *ngIf="!isUserAdmin && !isZoneUser">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label>Branch</mat-label>
+                        <input matInput formControlName="Branch" readonly="readonly" maxlength="30" autocomplete="off">
+                        <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                    </mat-form-field>
+                </div>
             </div>
 
+            <div class="col-md-3 col-sm-12">
+                <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin || isZoneUser">
+                    <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline" *ngIf="!BMUser">
+                        <mat-label>Branch</mat-label>
+                        <mat-select (selectionChange)="SetBranches($event)" formControlName="Branch">
+                            <mat-option>
+                                <ngx-mat-select-search placeholderLabel="Search Branch..."
+                                                       (focusout)="validateBranchOnFocusOut()"
+                                                       noEntriesFoundLabel="No Branch Found"
+                                                       (keyup)="searchBranch($event.target.value)">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option>
+                                Select
+                            </mat-option>
+                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch.BranchId">
+                                {{branch.Name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+
+                <div class="col-md-2 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label>Customer Name</mat-label>
+                        <input matInput formControlName="CustomerName" placeholder="Enter Customer Name" maxlength="100"
+                               autocomplete="off" appAlphabetOnly>
+                        <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="col-md-2 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label>Customer Name</mat-label>
+                        <input matInput formControlName="CustomerName" placeholder="Enter Customer Name" maxlength="100"
+                               autocomplete="off" appAlphabetOnly>
+                        <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                    </mat-form-field>
+                </div>
+
+
+            </div>
         </div>
+
+
+
+
+        <div class="row">
+            
+            <div class="col-md-3 col-sm-12">
+                <div class="col-md-2 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label>Cnic</mat-label>
+                        <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100" autocomplete="off"
+                               [mask]="maskEnums.cnic">
+                        <!--      <mat-error *ngIf="hasError('Cnic', 'required')">Cnic <strong>required</strong></mat-error>-->
+                        <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>{{errors.cnic}}</strong></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <div class="col-md-2 kt-margin-bottom-10-mobile">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label>Father Name</mat-label>
+                        <input matInput formControlName="FatherName" placeholder="Enter Father Name" maxlength="100"
+                               autocomplete="off"
+                               appAlphabetOnly>
+                        <!--   <mat-error *ngIf="hasError('FatherName', 'required')">FatherName<strong>required</strong></mat-error>-->
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+
+                <div *ngIf="CustomerStatusLov" class="col-md-12 kt-margin-bottom-10-mobile flex">
+
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label>Select Customer Status</mat-label>
+                        <mat-select formControlName="CustomerStatus">
+                            <mat-option value="">
+                                Select
+                            </mat-option>
+                            <mat-option *ngFor="let obj of CustomerStatusLov.LOVs" [value]="obj.Value">
+                                {{obj.Name}}
+                            </mat-option>
+                        </mat-select>
+        
+                    </mat-form-field>
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        
+                        <button mat-raised-button color="accent" type="button" (click)="searchCustomer()">
+                            <mat-icon>search</mat-icon>
+                            Search
+                        </button>
+                    </div>
+        
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
 
     </div>
     <div class="flex flex-auto overflow-scroll mx-12" style="flex-direction: column;">

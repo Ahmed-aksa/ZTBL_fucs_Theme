@@ -1,4 +1,5 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent"
+     [formGroup]="LandInformationForm">
     <div class="text-4xl font-extrabold tracking-tight px-10 mt-4">Customer Land Information</div>
     <button mat-raised-button color="primary" type="button" class="ml-2" (click)="ViewLandHistory()"
             *ngIf="isFormReadonly">View Land History
@@ -6,7 +7,7 @@
 
     <!-- Header -->
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8"
-         style="flex-wrap: wrap" [formGroup]="LandInformationForm">
+         style="flex-wrap: wrap">
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
@@ -143,7 +144,6 @@
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label class="customMatLabel">No of Customers: <strong class="matMandatory"></strong></mat-label>
-                <!--<input [readonly]="isFormReadonly || NumberOfCustomerDisable" matInput placeholder="Number Of Customer" formControlName="NumberOfCustomer" (keyup)="onKey($event)" maxlength="8" autocomplete="off" appNumberOnly />-->
                 <input [readonly]="isFormReadonly" matInput placeholder="Number Of Customer"
                        formControlName="NumberOfCustomer" (keyup)="onKey($event)" maxlength="2" autocomplete="off"
                        appNumberOnly/>
@@ -157,16 +157,7 @@
                     type="button" (click)="viewCustomrePage()"><span><i
                 class="fa fa-search"> &nbsp;</i> View</span></button>
         </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Select Customer:</mat-label>
-                <mat-select formControlName="LandCustID" (selectionChange)="SelectionChangePushData($event)">
-                    <mat-option *ngFor="let obj of CustomerLov" [value]="obj.LandCustID">
-                        {{obj.CustomerName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+
     </div>
 
     <div class="flex flex-auto mx-10" style="flex-direction: column;overflow-y: scroll">
@@ -221,6 +212,14 @@
             <button mat-raised-button color="primary" type="button" class="ml-2" (click)="clearSaveCustomerLandInfo()"
                     *ngIf="!isFormReadonly">Clear
             </button>
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-label>Select Customer:</mat-label>
+                <mat-select formControlName="LandCustID" (selectionChange)="SelectionChangePushData($event)">
+                    <mat-option *ngFor="let obj of CustomerLov" [value]="obj.LandCustID">
+                        {{obj.CustomerName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
         <div class="example-table-container" *ngIf="ShowTable">
             <table class="table table-striped">

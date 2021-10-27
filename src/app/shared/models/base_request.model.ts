@@ -23,9 +23,9 @@ export class BaseRequestModel {
     public ViewDocumnets: object;
     public Rescheduling: object;
     public ChargeCreation: object;
-    public ChargeCreationDetail: any[] = [];
+    public ChargeCreationDetail: any;
     public CustomerLandRelation: object;
-    public LandInfoDetailsList: any[] = [];
+    public LandInfoDetailsList: any;
     public TranId: number;
     public Loan: Loan;
     public Deceased: DeceasedCustomer;

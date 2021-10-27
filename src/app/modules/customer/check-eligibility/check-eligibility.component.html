@@ -5,7 +5,7 @@
   <div class="text-4xl font-extrabold tracking-tight mt-4">{{getTitle()}}</div>
 
   <!-- Header -->
-  <div class="flex flex-auto overflow-hidden mt-10" style="flex-direction: column;">
+  <div class="flex flex-auto overflow-hidden py-4" style="flex-direction: column;">
     <form [formGroup]="customerInfo" class="kt-form kt-form--group-seperator-dashed">
       <div class="kt-form">
         <div class="kt-portlet__body">
@@ -19,12 +19,14 @@
           <div [style.height]="gridHeight" *ngIf="NDCActionPerformSuccess">
             <div class="form-group kt-form__group row">
               <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                   <input matInput placeholder="Enter cnic" formControlName="Cnic" maxlength="15" autocomplete="off" [mask]="maskEnums.cnic" [readonly]="checkEligibiltyCnic"/>
                   <mat-error *ngIf="hasError('Cnic', 'required')">cnic <strong>required</strong></mat-error>
                   <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>Cnic lenght invalid</strong></mat-error>
                   <mat-hint align="left">Please enter cnic <strong>(3210412345678)</strong></mat-hint>
                 </mat-form-field>
+              </div>
+                <div class="col-lg-4 kt-margin-bottom-20-mobile mt-4">
                 <button color="primary" type="button" (click)="getCustomerInfo()" class=" mx-5 btn btn-secondary mt-1" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
                   <span><i class="fa fa-check"> &nbsp;</i> Check Eligibility</span>
                 </button>
