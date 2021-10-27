@@ -10,22 +10,23 @@ const routing = [
         path: "create-tour-plan",
         component: TourPlanComponent,
     },
-    {
-        path: "search-tour-plan",
-        component: SearchTourPlanComponent,
-    },
-    {
-        path: "tour-plan-for-approval",
-        component: TourPlanForApprovalComponent,
-    },
+    // {
+    //     path: "search-tour-plan",
+    //     component: SearchTourPlanComponent,
+    // },
+    // {
+    //     path: "tour-plan-for-approval",
+    //     component: TourPlanForApprovalComponent,
+    // },
 
 ]
 
 @NgModule({
     declarations: [
         TourPlanComponent,
-        SearchTourPlanComponent,
-        TourPlanForApprovalComponent],
+        // SearchTourPlanComponent,
+        // TourPlanForApprovalComponent
+    ],
     imports: [
         CommonModule,
         SharedModule,

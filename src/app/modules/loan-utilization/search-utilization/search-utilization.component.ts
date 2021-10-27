@@ -67,6 +67,9 @@ export class SearchUtilizationComponent implements OnInit {
   isZoneUser: boolean = false;
   loggedInUserDetails: any;
   loanutilizationStatusLov;
+
+    //Start ZBC
+
     LoggedInUserInfo: BaseResponseModel;
     //Zone inventory
     Zones: any = [];
@@ -95,6 +98,9 @@ export class SearchUtilizationComponent implements OnInit {
     final_branch: any;
     final_zone: any;
     final_cricle: any;
+
+    //End ZBC
+
 
   constructor(
     public dialog: MatDialog,
@@ -132,7 +138,7 @@ export class SearchUtilizationComponent implements OnInit {
 
 
   }
-
+    //Start ZBC
     userInfo = this.userUtilsService.getUserDetails();
 
     settingZBC(){
@@ -168,7 +174,6 @@ export class SearchUtilizationComponent implements OnInit {
     private assignBranchAndZone() {
         debugger;
         //Circle
-        console.log("circle" + this.selected_c)
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
             this.userInfo.Circles = this.final_cricle;
@@ -224,6 +229,8 @@ export class SearchUtilizationComponent implements OnInit {
             }
         });
     }
+
+    //End ZBC
 
   setUsers() {
     var userInfo = this.userUtilsService.getUserDetails();
