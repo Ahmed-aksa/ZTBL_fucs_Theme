@@ -712,8 +712,6 @@ export class CustLandInformationComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-
-                console.log(baseResponse);
                 if (baseResponse.Success === true) {
                     this.loadingAfterSubmit = false;
                     this.NumberOfCustomerDisable = true;
@@ -895,7 +893,6 @@ export class CustLandInformationComponent implements OnInit {
                         }
 
                         this.CustomerLov = this.customerLandRelation;
-                        //console.log(this.zoneLovAll);
                         //var ZoneNameTemp = this.zoneLovAll.filter(x => x.ZoneId == this.LandInfo.Zone);
                         this.LandInformationForm.controls['Zone'].setValue(this.LandInfo.ZoneName);
                         this.GetBranches(this.LandInfo.ZoneID, this.LandInfo.BranchId);
@@ -974,7 +971,6 @@ export class CustLandInformationComponent implements OnInit {
                 )
                 .subscribe((baseResponse: BaseResponseModel) => {
 
-                    console.log(baseResponse);
                     if (baseResponse.Success === true) {
                         this.AllowchargeCreation = true;
                         this.AllowDocumentUpload = true;
@@ -1007,8 +1003,6 @@ export class CustLandInformationComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-
-                console.log(baseResponse);
                 if (baseResponse.Success === true) {
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                     this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
