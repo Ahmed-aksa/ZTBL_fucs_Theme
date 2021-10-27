@@ -6,7 +6,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CreateCustomer} from "../../../shared/models/customer.model";
 import {errorMessages, Lov, LovConfigurationKey, MaskEnum} from "../../../shared/classes/lov.class";
-import { UserUtilsService } from 'app/shared/services/users_utils.service';
+import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {LovService} from "../../../shared/services/lov.service";
@@ -49,8 +49,6 @@ export class SearchDeceasedComponent implements OnInit {
     _customer: CreateCustomer = new CreateCustomer();
     public Zone = new Zone();
     public Branch = new Branch();
-    Zones: any = [];
-    SelectedZones: any = [];
     Branches: any = [];
     SelectedBranches: any = [];
     isUserAdmin: boolean = false;
@@ -69,8 +67,23 @@ export class SearchDeceasedComponent implements OnInit {
     // dataSource : MatTableDataSource<DeceasedCustomer>
 
     dataSource = new MatTableDataSource();
-    private single_branch: boolean;
-    private disable_branch: boolean;
+    //Zone inventory
+    Zones: any = [];
+    SelectedZones: any = [];
+
+    //Branch inventory
+    disable_circle = true;
+    disable_branch = true;
+    single_branch = true;
+    single_circle = true;
+    //Circle inventory
+    Circles: any = [];
+    SelectedCircles: any = [];
+    selected_b;
+    selected_c;
+    private final_branch: any;
+    private final_zone: any;
+    entry : any = {}
 
     constructor(
         private userUtilsService: UserUtilsService,
@@ -93,27 +106,33 @@ export class SearchDeceasedComponent implements OnInit {
             this.displayedColumns = ['customer_name', 'father_name', 'death_date', 'Cnic', 'address', 'branch_code', 'certificate_verified', 'legal_heir']
 
         this.matTableLenght = false;
-
         this.ShowViewMore = false;
 
         this.LoadLovs();
         this.createForm();
+        this.settingZBC();
+        // this.settingZBC();
         //var u = new UserUtilsService();
-        var userDetails = this.userUtilsService.getUserDetails();
+        var userDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.loggedInUserDetails = userDetails;
+        debugger
 
         //if (userDetails.Branch.BranchCode == "All")
-        if (userDetails.User.AccessToData == "1") {
+
+        if (userDetails.User.AccessToData == "2") {
             //admin user
             this.isUserAdmin = true;
             this.GetZones();
         }
-        else if (userDetails.User.AccessToData == "2") {
+        else if (userDetails.User.AccessToData == "1") {
             //zone user
             this.isZoneUser = true;
-
             this.deceasedCustomerSearch.value.ZoneId = userDetails.Zone.ZoneId;
             this.Zone.ZoneName = userDetails.Zone.ZoneName;
+            this.deceasedCustomerSearch.controls.ZoneId.setValue(this.SelectedZones.ZoneName);
+            this.deceasedCustomerSearch.controls.BranchId.setValue(this.SelectedBranches.BranchCode);
+            this.deceasedCustomerSearch.controls.Zone.setValue(userDetails.Zone.ZoneName);
+            this.deceasedCustomerSearch.controls.Branch.setValue(userDetails.Branch.Name);
             this.GetBranches(userDetails.Zone.ZoneId);
         }
         else {
@@ -121,6 +140,7 @@ export class SearchDeceasedComponent implements OnInit {
             this.Zone.ZoneName = userDetails.Zone.ZoneName;
             this.Branch.Name = userDetails.Branch.Name;
         }
+
     }
 
     ngAfterViewInit() {
@@ -129,14 +149,40 @@ export class SearchDeceasedComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
     }
+    private assignBranchAndZone() {
+        debugger;
 
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.loggedInUserDetails.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.loggedInUserDetails.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.loggedInUserDetails.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.loggedInUserDetails.Zone = this.final_zone;
+        }
+
+    }
     SearchDeceasedCustomer(){
-
+        this.assignBranchAndZone();
+        debugger
         this.spinner.show()
         this.Customer = Object.assign(this.Customer, this.deceasedCustomerSearch.value);
 
+        // let zoneData =this.SelectedZones.find(x=>x.ZoneId==this.deceasedCustomerSearch.controls.ZoneId.value)
+        // let branchData = this.SelectedBranches.find(x=>x.BranchId==this.deceasedCustomerSearch.controls.BranchId.value)
+        // this.entry.Branch = branchData;
+        // this.entry.Zone = zoneData;
+        // this.entry.Branch = branchData;
         this._deceasedCustomer
-            .SearchDeceasedCustomer(this.Customer, this.isUserAdmin, this.isZoneUser)
+            .SearchDeceasedCustomer(this.Customer, this.isUserAdmin, this.isZoneUser, this.final_zone,this.final_branch)
             // .SearchDeceasedCustomer()
             .pipe(finalize(() => {
                 this.spinner.hide();
@@ -157,6 +203,8 @@ export class SearchDeceasedComponent implements OnInit {
             });
     }
 
+
+
     //pagination
     itemsPerPage = 10; //you could use your specified
     totalItems: number | any;
@@ -164,7 +212,7 @@ export class SearchDeceasedComponent implements OnInit {
     dv: number | any; //use later
 
     SearchLandData() {
-
+        this.assignBranchAndZone();
         this.spinner.show();
         // this.CustomerLandRelation.Offset = this.OffSet.toString();
         // this.CustomerLandRelation.Limit = this.itemsPerPage.toString();
@@ -173,7 +221,7 @@ export class SearchDeceasedComponent implements OnInit {
 
         this.Customer = Object.assign(this.Customer, this.deceasedCustomerSearch.value);
 
-        this._deceasedCustomer.SearchDeceasedCustomer(this.Customer, this.isUserAdmin, this.isZoneUser)
+        this._deceasedCustomer.SearchDeceasedCustomer(this.Customer, this.isUserAdmin, this.isZoneUser,this.final_zone,this.final_branch)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -264,11 +312,9 @@ export class SearchDeceasedComponent implements OnInit {
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
 
         });
-
     }
 
     SetBranches(branchId) {
-
         this.Branch.BranchCode = branchId.value;
     }
 
@@ -318,8 +364,6 @@ export class SearchDeceasedComponent implements OnInit {
             ZoneId: [this.Zone.ZoneId],
             BranchId: [this.Branch.BranchCode]
         });
-
-
     }
 
 
@@ -327,7 +371,7 @@ export class SearchDeceasedComponent implements OnInit {
 
         //this.ngxService.start();
 
-        this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.DeceasedCustomerStatus })
+        this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DeceasedCustomerStatus})
 
         this.CustomerStatusLov = this.CustomerStatusLov.LOVs;
         console.log(this.CustomerStatusLov);
@@ -337,6 +381,36 @@ export class SearchDeceasedComponent implements OnInit {
         // this.ngxService.stop();
 
     }
+
+    settingZBC() {
+        debugger
+        this.loggedInUserDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if (this.loggedInUserDetails.Branch && this.loggedInUserDetails.Branch.BranchCode != "All") {
+            this.SelectedCircles = this.loggedInUserDetails.UserCircleMappings;
+
+            this.SelectedBranches = this.loggedInUserDetails.Branch;
+            this.SelectedZones = this.loggedInUserDetails.Zone;
+
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.selected_c = this.SelectedCircles?.Id
+            this.deceasedCustomerSearch.controls.ZoneId.setValue(this.SelectedZones.ZoneName);
+            this.deceasedCustomerSearch.controls.BranchId.setValue(this.SelectedBranches.BranchCode);
+            // if (this.customerForm.value.Branch) {
+            //     this.changeBranch(this.customerForm.value.Branch);
+            // }
+        } else if (!this.loggedInUserDetails.Branch && !this.loggedInUserDetails.Zone && !this.loggedInUserDetails.Zone) {
+            this.spinner.show();
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
+                this.single_zone = false;
+                this.disable_zone = false;
+                this.spinner.hide();
+            });
+        }
+    }
+
     changeZone(changedValue) {
         let changedZone = {Zone: {ZoneId: changedValue.value}}
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
@@ -344,6 +418,38 @@ export class SearchDeceasedComponent implements OnInit {
             this.SelectedBranches = this.Branches;
             this.single_branch = false;
             this.disable_branch = false;
+        });
+    }
+
+    checkUser() {
+        var userInfo = this.userUtilsService.getUserDetails();
+        // console.log(userInfo);
+        if (userInfo.User.userGroup[0].ProfileID == '56') {
+            // this.isMCO = true;
+        } else if (userInfo.User.userGroup[0].ProfileID == '57') {
+            // this.isBM = true;
+            this.deceasedCustomerSearch.controls.Remarks.setValidators(Validators.required);
+        }
+
+        this.deceasedCustomerSearch.controls.ZoneId.setValue(userInfo.Zone.ZoneName);
+        this.deceasedCustomerSearch.controls.BranchId.setValue(userInfo.Branch.Name);
+    }
+
+    changeBranch(changedValue) {
+        let changedBranch = null;
+        if (changedValue.value)
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        else
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
+        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+
+            this.Circles = data.Circles;
+            this.SelectedCircles = this.Circles;
+            this.disable_circle = false;
+            if (changedValue.value) {
+                // this.getBorrower();
+            }
         });
     }
 }
