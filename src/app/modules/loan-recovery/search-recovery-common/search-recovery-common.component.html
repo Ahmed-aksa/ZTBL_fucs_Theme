@@ -1,12 +1,12 @@
 
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-4xl font-extrabold tracking-tight px-10 mt-4">{{getTitle()}}</div>
+<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <div class="text-4xl font-extrabold tracking-tight ">{{getTitle()}}</div>
 
   <!-- Header -->
   <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8"
     style="flex-wrap: wrap">
   </div>
-  <div class="flex flex-auto overflow-y-scroll mx-10" style="flex-direction: column;">
+  <div class="overflow-y-scroll" >
     <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
       <div class="kt-form">
         <div class="kt-portlet__body">
@@ -19,8 +19,8 @@
           <div class="row" *ngIf="SearchType==1">
             <div class="col-lg-12">
               <div class="form-group kt-form__group row">
-                <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong></mat-label>
                     <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="30" autocomplete="off" [max]="maxDate" appNumberOnly />
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -29,31 +29,31 @@
                     <mat-error *ngIf="hasError('TransactionDate', 'required')">Transaction Date <strong>required</strong></mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">LC # <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="LC No" formControlName="LoanCaseNo" maxlength="30" autocomplete="off" appNumberOnly />
                     <mat-error *ngIf="hasError('LoanCaseNo', 'required')">LC No <strong>required</strong></mat-error>
                   </mat-form-field>
                 </div>
 
-                <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off" appNumberOnly />
                     <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No <strong>required</strong></mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Instrument # <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Instrument #" formControlName="InstrumentNO" maxlength="30" autocomplete="off" appNumberOnly />
                     <mat-error *ngIf="hasError('InstrumentNO', 'required')">Instrument # <strong>required</strong></mat-error>
                   </mat-form-field>
                 </div>
 
-                <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                  <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label>Select Status</mat-label>
                     <mat-select formControlName="Status" (selectionChange)="change()">
                       <mat-option *ngFor="let status of CustomerStatuses" [value]="status.Value">
