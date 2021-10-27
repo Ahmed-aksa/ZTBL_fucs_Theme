@@ -535,7 +535,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
         var LnTransactionID = this.JvForm.controls.LoanDisbID.value;
 
         const url = this.router.serializeUrl(
-            this.router.createUrlTree(['../loan-inquiry', {
+            this.router.createUrlTree(['../../loan-recovery/loan-inquiry', {
                 LnTransactionID: LnTransactionID,
                 Lcno: Lcno
             }], {relativeTo: this.activatedRoute})
@@ -666,7 +666,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
             }
         }
         var userInfo = this.userUtilsService.getUserDetails();
-        myjournalVocherData.IpAddress = "192.168.232.2";
+        //myjournalVocherData.IpAddress = "192.168.232.2";
         myjournalVocherData.DrAmount = this.JvForm.controls.GlHead.value == "D" ? this.JvForm.controls.Amount.value : 0;
         myjournalVocherData.CRAMOUNT = this.JvForm.controls.GlHead.value == "C" ? this.JvForm.controls.Amount.value : 0;
         this.spinner.show();
