@@ -15,6 +15,9 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
 import {LoanUtilizationService} from "../service/loan-utilization.service";
 import { ViewFileComponent } from '../view-file/view-file.component';
+import {Zone} from "../../../shared/models/zone.model";
+import { Circle } from 'app/shared/models/circle.model';
+import { Branch } from 'app/shared/models/branch.model';
 
 @Component({
     selector: 'kt-loan-utilization',
@@ -115,6 +118,30 @@ export class LoanUtilizationComponent implements OnInit {
         { value: '1', viewValue: 'Yes' },
     ];
 
+    //Zone inventory
+    Zones: any = [];
+    SelectedZones: any = [];
+    public Zone = new Zone();
+
+    //Branch inventory
+    Branches: any = [];
+    SelectedBranches: any = [];
+    public Branch = new Branch();
+    disable_circle = true;
+    disable_zone = true;
+    disable_branch = true;
+    single_branch = true;
+    single_circle = true;
+    single_zone = true;
+    //Circle inventory
+    Circles: any = [];
+    SelectedCircles: any = [];
+    public Circle = new Circle();
+    selected_b;
+    selected_z;
+    selected_c;
+
+
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -181,8 +208,6 @@ export class LoanUtilizationComponent implements OnInit {
                 this.viewonly = false;
             }
 
-
-            // console.log("loancase no found");
             this.find(this.loanUtilizationModel.LoanCaseNo);
 
             // this.GetMedia();
@@ -192,6 +217,64 @@ export class LoanUtilizationComponent implements OnInit {
         this.createForm();
         this.checkUser();
         this.setOptions();
+        this.settingZBC();
+
+    }
+
+    settingZBC(){
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
+            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
+
+            this.SelectedBranches = this.LoggedInUserInfo.Branch;
+            this.SelectedZones = this.LoggedInUserInfo.Zone;
+
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.selected_c = this.SelectedCircles?.Id
+            this.customerForm.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.customerForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            // if (this.customerForm.value.Branch) {
+            //     this.changeBranch(this.customerForm.value.Branch);
+            // }
+        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+            this.spinner.show();
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
+                this.single_zone = false;
+                this.disable_zone = false;
+                this.spinner.hide();
+            });
+        }
+    }
+
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
+
+    changeBranch(changedValue) {
+        let changedBranch = null;
+        if (changedValue.value)
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        else
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
+        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+
+            this.Circles = data.Circles;
+            this.SelectedCircles = this.Circles;
+            this.disable_circle = false;
+            if (changedValue.value) {
+                // this.getBorrower();
+            }
+        });
     }
 
     checkUser() {
@@ -275,7 +358,6 @@ export class LoanUtilizationComponent implements OnInit {
 
     mydata = [];
     imagearray = [];
-    urls = [];
 
     onSelectFile(event) {
 
@@ -593,7 +675,6 @@ export class LoanUtilizationComponent implements OnInit {
                     // console.log(this.LoanGls);
 
                 } else {
-
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,
@@ -620,7 +701,6 @@ export class LoanUtilizationComponent implements OnInit {
 
     save() {
 
-         console.log(this.customerForm.controls.Remarks.value)
         debugger
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
@@ -650,6 +730,7 @@ export class LoanUtilizationComponent implements OnInit {
             );
             return;
         }
+
         this.loanUtilizationModel.LoanDisbID = this.customerForm.controls.LoanDisbID.value;
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks?.value;
         console.log("After assigning value"+JSON.stringify(this.loanUtilizationModel))
@@ -665,7 +746,15 @@ export class LoanUtilizationComponent implements OnInit {
 
                         this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID
                         console.log("id was saved here " + this.loanUtilizationModel.ID);
+                        if(this.images.length && this.videos.length ){
+                            this.layoutUtilsService.alertElement(
+                                "",
+                                baseResponse.Message,
+                                baseResponse.Code = null
+                            );
+                        }
                         this.SaveImages();
+
                     } else {
                         this.layoutUtilsService.alertElement(
                             "",
@@ -733,7 +822,6 @@ export class LoanUtilizationComponent implements OnInit {
                             this.SaveVideos()
 
                         } else {
-
                             this.layoutUtilsService.alertElement(
                                 '',
                                 baseResponse.Message,

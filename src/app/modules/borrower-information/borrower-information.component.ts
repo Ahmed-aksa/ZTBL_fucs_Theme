@@ -55,6 +55,11 @@ export class BorrowerInformationComponent implements OnInit {
     Circles: any = [];
     SelectedCircles: any = [];
     public Circle = new Branch();
+    dataSource: MatTableDataSource<Borrowers>
+
+    selected_b;
+    selected_z;
+    selected_c;
 
     constructor(
         private _borrowerInfo: BorrowerInformationService,
@@ -69,11 +74,7 @@ export class BorrowerInformationComponent implements OnInit {
     ) {
     }
 
-    dataSource: MatTableDataSource<Borrowers>
 
-    selected_b;
-    selected_z;
-    selected_c;
 
     ngOnInit() {
         this.createForm();

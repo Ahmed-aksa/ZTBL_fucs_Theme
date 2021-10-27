@@ -180,7 +180,17 @@
 
 
         <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field *ngIf="!expandDisbursement" class="mat-form-field-fluid" appearance="outline">
+                <mat-label>Disbursement/LC GL</mat-label>
+                <mat-select formControlName="LoanDisbID" [disabled]="recoverySaved || transactionEdit || viewOnly">
+                    <mat-option *ngFor="let list of DisbursementGLList" [value]="list.LoanDisbID">
+                        {{list.Description}}
+                    </mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="hasError('LoanDisbID', 'required')">Disbursement ID <strong>required</strong></mat-error> -->
+            </mat-form-field>
+
+            <mat-form-field *ngIf="expandDisbursement" class="mat-form-field-fluid w-11/12" appearance="outline">
                 <mat-label>Disbursement/LC GL</mat-label>
                 <mat-select formControlName="LoanDisbID" [disabled]="recoverySaved || transactionEdit || viewOnly">
                     <mat-option *ngFor="let list of DisbursementGLList" [value]="list.LoanDisbID">
@@ -191,6 +201,11 @@
             </mat-form-field>
             <span id="llcInquiryText" *ngIf="!viewOnly" (click)="viewLLCInquiryGL()"><b>View LC Inquiry</b></span>
         </div>
+
+        <!-- <div  class="">
+            
+        </div> -->
+
         <div>
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label>Account No</mat-label>

@@ -95,12 +95,12 @@ console.log(req);
       );
   }
 
-    searchLoanUtilization(loanUtilization, userDetail: BaseResponseModel=null,fromdate:string,todate:string,Limit,Offset): Observable<BaseResponseModel> {
+    searchLoanUtilization(loanUtilization, userDetail: BaseResponseModel=null,fromdate:string,todate:string,Limit,Offset,SelectedCircles:any): Observable<BaseResponseModel> {
 
     this.request = new BaseRequestModel();
 
     debugger;
-    var userInfo = this.userUtilsService.getUserDetails();
+    var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     if (userDetail && userDetail.Zone) {
       userInfo.Zone = userDetail.Zone;
       userInfo.Branch = userDetail.Branch;
@@ -119,12 +119,12 @@ console.log(req);
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
 
-
-    var circle = userInfo.UserCircleMappings;
+// console.log(selected_c)
     var circleIds = [];
-    circle.forEach(element => {
-      circleIds.push(element.CircleId);
+        SelectedCircles.forEach(element => {
+      circleIds.push(element.Id);
     });
+
     var _circles = JSON.stringify(circleIds)
     this.request.Circle = {
       CircleIds: _circles,
