@@ -157,8 +157,6 @@ export class LoanUtilizationComponent implements OnInit {
     ) {
 
         this.loggedInUser = userUtilsService.getUserDetails();
-        // console.log(this.router.getCurrentNavigation().extras)
-        // var val =JSON.stringify(this.router.getCurrentNavigation());
         if (this.router.getCurrentNavigation().extras.state != undefined) {
             this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
         } else {
@@ -357,7 +355,6 @@ export class LoanUtilizationComponent implements OnInit {
                         var reader = new FileReader();
                         reader.onload = (event: any) => {
                             this.imageUrl.push(event.target.result);
-                            console.log(this.imageUrl);
                         };
                         reader.readAsDataURL(event.target.files[0]);
                         var utilizationFile = new UtilizationFiles();
@@ -568,9 +565,7 @@ export class LoanUtilizationComponent implements OnInit {
     GetMedia() {
         if (this.customerForm.controls.LoanDisbID.value && this.mediaGetter.LoanCaseNo) {
             this.mediaGetter.LoanDisbID = this.customerForm.controls.LoanDisbID.value;
-            console.log("condition working")
             this.visible = false;
-
             this.spinner.show();
             this._loanutilization
                 .GetMedia(this.mediaGetter)
@@ -581,7 +576,6 @@ export class LoanUtilizationComponent implements OnInit {
                     if (baseResponse.Success) {
                         this.isEmpty = true;
                         var utilizationFiles = baseResponse.LoanUtilization['UtilizationFiles'];
-                        console.log(utilizationFiles);
                         if (utilizationFiles) {
                             for (let i = 0; i < utilizationFiles.length; i++) {
                                 if (utilizationFiles[i].ImageFilePath) {
@@ -670,7 +664,6 @@ export class LoanUtilizationComponent implements OnInit {
 
         this.loanUtilizationModel.LoanDisbID = this.customerForm.controls.LoanDisbID.value;
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks?.value;
-        console.log("After assigning value"+JSON.stringify(this.loanUtilizationModel))
         this.spinner.show();
         this._loanutilization
             .save(this.loanUtilizationModel)
@@ -682,7 +675,6 @@ export class LoanUtilizationComponent implements OnInit {
                     if (baseResponse.Success) {
 
                         this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID
-                        console.log("id was saved here " + this.loanUtilizationModel.ID);
                         if(this.images.length && this.videos.length ){
                             this.layoutUtilsService.alertElement(
                                 "",

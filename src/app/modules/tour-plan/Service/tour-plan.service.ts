@@ -143,7 +143,7 @@ console.log(v)
     console.log(req);
 
     debugger;
-    return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, req,
+    return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
       );
@@ -165,7 +165,7 @@ console.log(v)
     console.log(req);
 
     debugger;
-    return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApproval`, req,
+    return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApproval`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
       map((res: BaseResponseModel) => res)
     );

@@ -8,7 +8,7 @@ import {SearchTourPlanComponent} from "./search-tour-plan/search-tour-plan.compo
 const routing = [
 
     {
-        path: "create-tour-plan",
+        path: "tour-plan",
         component: TourPlanComponent,
     },
     {

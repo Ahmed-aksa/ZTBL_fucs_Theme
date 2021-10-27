@@ -23,9 +23,9 @@ import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import { Circle } from 'app/shared/models/circle.model';
 
 @Component({
-    selector: 'kt-loan-utilization',
-    templateUrl: './tour-plan.component.html',
-    styleUrls: ['./tour-plan.component.scss'],
+    selector: 'search-loan-utilization',
+    templateUrl: './search-tour-plan.component.html',
+    styleUrls: ['./search-tour-plan.component.scss'],
 
 })
 
@@ -122,15 +122,15 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        var userDetails = this.userUtilsService.getUserDetails();
+        this.loggedInUserDetails = userDetails;
         this.setUsers()
         this.LoadLovs();
         this.createForm();
         this.setCircles();
         this.getTourPlan();
-        var userDetails = this.userUtilsService.getUserDetails();
-        this.loggedInUserDetails = userDetails;
-        debugger;
+
+        this.settingZBC();
     }
 
     //Start ZBC
@@ -308,7 +308,7 @@ export class SearchTourPlanComponent implements OnInit {
     setFromDate() {
         debugger
         // this.TourPlan.controls.FromDate.reset();
-        this.minDate = this.TourPlan.controls.FromDate.value.toDate()
+        this.minDate = this.TourPlan.controls.FromDate.value;
         var FromDate = this.TourPlan.controls.FromDate.value;
         if (FromDate._isAMomentObject == undefined) {
             try {

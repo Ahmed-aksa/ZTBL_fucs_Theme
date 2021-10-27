@@ -128,10 +128,8 @@ export class TourPlanComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
-
             this.SelectedBranches = this.LoggedInUserInfo.Branch;
             this.SelectedZones = this.LoggedInUserInfo.Zone;
-
             this.selected_z = this.SelectedZones?.ZoneId
             this.selected_b = this.SelectedBranches?.BranchCode
             this.selected_c = this.SelectedCircles?.Id
@@ -211,11 +209,7 @@ export class TourPlanComponent implements OnInit {
             }
         });
     }
-
     //End ZBC
-
-
-
 
 
     setValuesForEdit(){
@@ -261,6 +255,7 @@ export class TourPlanComponent implements OnInit {
 
     createForm(){
         this.TourForm = this.fb.group({
+
             ZoneName:[],
             BranchName:[],
             McoName:[],
@@ -389,6 +384,12 @@ export class TourPlanComponent implements OnInit {
                         console.log(baseResponse)
                         this.isAdd=true;
                         this.isUpdate=false;
+
+                        this.TourForm.controls.TourPlanId.reset();
+                        this.TourForm.controls.CircleId.reset();
+                        this.TourForm.controls.VisitedDate.reset();
+                        this.TourForm.controls.Purpose.reset();
+                        this.TourForm.controls.Remarks.reset();
 
                         this.dataSource = baseResponse.TourPlan.TourPlans;
                         this.layoutUtilsService.alertElementSuccess(
