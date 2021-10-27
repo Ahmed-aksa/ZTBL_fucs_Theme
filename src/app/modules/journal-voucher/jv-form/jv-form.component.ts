@@ -68,6 +68,8 @@ export class JvFormComponent implements OnInit, OnDestroy {
     maker: any;
     userInfo: any;
     disbDescription: any;
+    
+    bindGridData: any;
 
     deleteBtn: boolean = true;
 
@@ -513,13 +515,19 @@ export class JvFormComponent implements OnInit, OnDestroy {
                         this.DisbursementGLList.push(tempDisbursementGLList);
                     }, listGL);
                 }
-            },
-            (error) => {
-                this.expandDisbursement = false;
-                this.DisbursementGLList = []
-                this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request");
-                console.log(error)
+                else{
+                    this.expandDisbursement = false;
+                    this.DisbursementGLList = []
+                    this.layoutUtilsService.alertElement("", "Error Occured While Processing Request");
+                }
             });
+            // ,
+            // (error) => {
+            //     this.expandDisbursement = false;
+            //     this.DisbursementGLList = []
+            //     this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request");
+            //     console.log(error)
+            // });
     }
 
     viewLLCInquiryGL() {
@@ -700,6 +708,9 @@ export class JvFormComponent implements OnInit, OnDestroy {
                     // this.jvGl.forEach(element => {
                     //   this.journalVocherData.TransactionDetailID = element.TransactionDetailID;
                     // });
+                    if(this.journalVocherData.TransactionDetailID != undefined){
+                        this.journalVocherData.TransactionDetailID = undefined;
+                    }
 
                     this.JvForm.controls["GlSubID"].setValue('');
                     this.JvForm.controls["Amount"].setValue('');
