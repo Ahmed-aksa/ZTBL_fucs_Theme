@@ -1,4 +1,5 @@
-import {CustomerLandRelation} from './customer-land-relation.model';
+import {CustomerLandRelation} from "../../../shared/models/customer-land-relation.model";
+
 
 export class LandInfo {
     Zone: string;

@@ -1,1 +1,339 @@
-<p>land-charge-creation works!</p>
+<div class="kt-portlet">
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+        </div>
+    </div>
+    <form [formGroup]="LandInformationForm" class="kt-form kt-form--group-seperator-dashed">
+        <div class="kt-form">
+            <div class="kt-portlet__body">
+                <div class="kt-portlet__body-progress">
+                    <mat-spinner [diameter]="20"></mat-spinner>
+                </div>
+                <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
+                          (close)="onAlertClose($event)">
+                    Please enter valid Input
+                </kt-alert>
+
+                <div class="form-group kt-form__group row">
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Reference No <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <input [readonly]="isFormReadonly" matInput placeholder="Enter Reference No"
+                                   formControlName="LegalDocNo" maxlength="30" autocomplete="off"/>
+                            <mat-error *ngIf="hasError('LegalDocNo', 'required')">Reference No <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Passbook No <strong class="matMandatory"></strong>
+                            </mat-label>
+                            <input matInput placeholder="Enter Passbook No" formControlName="PassbookNO"
+                                   readonly="readonly" maxlength="30" autocomplete="off" appAlphaNumSpecial/>
+                            <mat-error *ngIf="hasError('PassbookNO', 'required')">Passbook No <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Total Area <strong class="matMandatory"></strong>
+                            </mat-label>
+                            <input matInput placeholder="Total Area" formControlName="TotalArea" readonly="readonly"
+                                   maxlength="30" autocomplete="off" appAlphabetOnly/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group kt-form__group row">
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Province <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <mat-select formControlName="Province" (selectionChange)="GetDistricts($event)"
+                                        [disabled]="isFormReadonly">
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="Search Post Code..."
+                                                           [formControl]="searchFilterCtrlProvince">
+
+                                    </ngx-mat-select-search>
+
+                                </mat-option>
+                                <mat-option *ngFor="let obj of ProvinceLov.LOVs" [value]="obj.Id">
+                                    {{obj.Name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">District <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <mat-select formControlName="District" (selectionChange)="GetTehsils($event)"
+                                        [disabled]="isFormReadonly">
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="Search Loan Type..."
+                                                           (focusout)="validateDistOnFocusOut()"
+                                                           noEntriesFoundLabel="No District Found"
+                                                           (keyup)="searchDist($event.target.value)">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngFor="let obj of DistrictLovDataSelected" [value]="obj.Id">
+                                    {{obj.Name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Tehsil <strong class="matMandatory">*</strong></mat-label>
+                            <mat-select formControlName="Tehsil" [disabled]="isFormReadonly">
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="Search Loan Type..."
+                                                           (focusout)="validateTehsilOnFocusOut()"
+                                                           noEntriesFoundLabel="No Tehsil Found"
+                                                           (keyup)="searchTehsil($event.target.value)">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngFor="let obj of TehsilLovDataSelected" [value]="obj.Id">
+                                    {{obj.Name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group kt-form__group row">
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Village/Chak/Moza: <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <input [readonly]="isFormReadonly" matInput placeholder="Village/Chak/Moza"
+                                   formControlName="Village" maxlength="200" autocomplete="off"/>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Remarks: <strong class="matMandatory"></strong>
+                            </mat-label>
+                            <input [readonly]="isFormReadonly" matInput placeholder="Remarks" formControlName="Remarks"
+                                   maxlength="200" autocomplete="off"/>
+                            <mat-error *ngIf="hasError('Remarks', 'pattern')">
+                                Only Characters, spaces and numbers.
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+
+
+                    <div class="col-lg-3 kt-margin-bottom-20-mobile">
+
+
+                    </div>
+
+                    <div class="col-lg-3 kt-margin-bottom-20-mobile">
+
+                    </div>
+
+
+                </div>
+                <h3>Area Convertor</h3>
+
+                <div class="form-group kt-form__group row">
+
+                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Unit <strong class="matMandatory"></strong></mat-label>
+                            <mat-select [(ngModel)]="Unit" [ngModelOptions]="{standalone: true}"
+                                        [disabled]="isFormReadonly">
+                                <mat-option *ngFor="let obj of UnitConverter" [value]="obj.id">
+                                    {{obj.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Area <strong class="matMandatory">*</strong></mat-label>
+                            <input matInput placeholder="" [readonly]="isFormReadonly" [(ngModel)]="Area"
+                                   [ngModelOptions]="{standalone: true}" maxlength="30" autocomplete="off"
+                                   ktNumberAndDecimal/>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Convert Unit<strong class="matMandatory"></strong>
+                            </mat-label>
+                            <mat-select [(ngModel)]="ConvertUnit" [ngModelOptions]="{standalone: true}"
+                                        [disabled]="isFormReadonly">
+                                <mat-option *ngFor="let obj of UnitConverterd" [value]="obj.id">
+                                    {{obj.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-2 kt-margin-bottom-20-mobile mt-3">
+                        <button mat-raised-button color="primary" (click)="AreaConverter()" *ngIf="!isFormReadonly">
+                            Convert
+                        </button>
+                    </div>
+                    <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Result</mat-label>
+                            <input matInput [(ngModel)]="Result" [ngModelOptions]="{standalone: true}"
+                                   readonly="readonly" maxlength="30" autocomplete="off"/>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>Khata/Khewat No.</th>
+                                    <th>Khatooni No.</th>
+                                    <th>Khasra No.</th>
+                                    <th>Total Area of Khewat</th>
+                                    <th>Legal Share</th>
+                                    <th>Area according to share</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let dynamic of dynamicArray; let i = index;">
+                                    <td>
+                                        <strong class="matMandatory">*</strong>
+                                        <input [(ngModel)]="dynamicArray[i].khata" (keyup)="keyUpValidate($event)"
+                                               [ngModelOptions]="{standalone: true}" class="form-control" type="text"
+                                               [readonly]="isFormReadonly" appAlphaNumSpecial/>
+
+                                    </td>
+                                    <td>
+                                        <strong class="matMandatory">*</strong>
+                                        <input [(ngModel)]="dynamicArray[i].Khatooni" (keyup)="keyUpValidate($event)"
+                                               [ngModelOptions]="{standalone: true}" class="form-control" type="text"
+                                               [readonly]="isFormReadonly" appAlphaNumSpecial/>
+
+                                    </td>
+                                    <td>
+                                        <strong>&nbsp;</strong>
+                                        <input [(ngModel)]="dynamicArray[i].Khasra"
+                                               [ngModelOptions]="{standalone: true}" class="form-control" type="text"
+                                               [readonly]="isFormReadonly" appAlphaNumSpecial/>
+                                    </td>
+                                    <td>
+                                        <strong class="matMandatory">*</strong>
+                                        <input [(ngModel)]="dynamicArray[i].TotalAreaOfKhewat" placeholder="0"
+                                               (keyup)="onKeyInputCalculateValue($event,i)"
+                                               [ngModelOptions]="{standalone: true}" class="form-control" type="text"
+                                               appNumberOnly [readonly]="isFormReadonly"/>
+
+                                    </td>
+                                    <td>
+                                        <strong class="matMandatory">*</strong>
+                                        <table>
+                                            <tr>
+                                                <td class="nested-table">
+                                                    <input [(ngModel)]="dynamicArray[i].Share1" placeholder="0"
+                                                           (keyup)="onKeyInputCalculateValue($event,i)"
+                                                           [ngModelOptions]="{standalone: true}" class="form-control"
+                                                           type="text" appNumberOnly [readonly]="isFormReadonly"/>
+                                                </td>
+                                                <td class="nested-table nested-table-content">/</td>
+                                                <td class="nested-table">
+                                                    <input [(ngModel)]="dynamicArray[i].Share2" placeholder="0"
+                                                           (keyup)="onKeyInputCalculateValue($event,i)"
+                                                           [ngModelOptions]="{standalone: true}" class="form-control"
+                                                           type="text" appNumberOnly [readonly]="isFormReadonly"/>
+                                                </td>
+                                                <td class="nested-table nested-table-content">=</td>
+                                                <td class="nested-table">
+                                                    <input [(ngModel)]="dynamicArray[i].LegalShare" placeholder="0"
+                                                           [ngModelOptions]="{standalone: true}" class="form-control"
+                                                           type="number" readonly="readonly"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                    <td>
+                                        <strong class="matMandatory">*</strong>
+                                        <input [(ngModel)]="dynamicArray[i].AreaAccordingToShare" placeholder="0"
+                                               [ngModelOptions]="{standalone: true}" class="form-control" type="number"
+                                               readonly="readonly"/>
+
+                                    </td>
+                                    <td hidden>
+                                        <input [(ngModel)]="dynamicArray[i].CCDetailsID"
+                                               [ngModelOptions]="{standalone: true}" class="form-control" type="number"
+                                               readonly="readonly"/>
+                                    </td>
+                                    <td (click)="deleteRow(i)" style="cursor:pointer;">
+                                        <p style="color:orange;" *ngIf="!isFormReadonly">del</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button *ngIf="!isFormReadonly" type="button" mat-raised-button
+                                                (click)="addRow()">Add New Row
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <span style="color:red;" [innerHTML]="errorMessage"></span>
+            </div>
+
+            <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
+                <div class="kt-form__actions kt-form__actions--solid">
+                    <div class="row text-center">
+                        <div class="col-lg-12">
+                            <button *ngIf="!isFormReadonly" mat-raised-button color="primary"
+                                    (click)="saveLandChargeCreationDetails()">Save
+                            </button>&nbsp;&nbsp;
+                            <button type="button" class="button-red" mat-raised-button cdkFocusInitial
+                                    (click)="onCloseClick()">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+             size="medium"
+             color="#ecbd00"
+             type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

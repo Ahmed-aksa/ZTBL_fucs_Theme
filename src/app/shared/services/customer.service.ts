@@ -1,26 +1,28 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
-import { map } from 'rxjs/operators';
-import { BaseRequestModel } from '../models/base_request.model';
-import { HttpUtilsService } from './http_utils.service';
-import { UserUtilsService } from './users_utils.service';
-import { BaseResponseModel } from '../models/base_response.model';
-import { CreateCustomer } from '../models/customer.model';
-import { environment } from 'environments/environment';
+import {map} from 'rxjs/operators';
+import {BaseRequestModel} from '../models/base_request.model';
+import {HttpUtilsService} from './http_utils.service';
+import {UserUtilsService} from './users_utils.service';
+import {BaseResponseModel} from '../models/base_response.model';
+import {CreateCustomer} from '../models/customer.model';
+import {environment} from 'environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CustomerService {
     public request = new BaseRequestModel();
+
     constructor(
         private http: HttpClient,
         private httpUtils: HttpUtilsService,
         private userUtilsService: UserUtilsService
-    ) {}
+    ) {
+    }
 
     createCustomerSave(
         customer: CreateCustomer
@@ -36,7 +38,7 @@ export class CustomerService {
             .post(
                 `${environment.apiUrl}/Customer/CreateCustomer`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -46,7 +48,7 @@ export class CustomerService {
             .post(
                 `${environment.apiUrl}/Customer/GetCustomerInfo`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -79,7 +81,7 @@ export class CustomerService {
             .post(
                 `${environment.apiUrl}/Customer/AddCustomerInfo`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -108,7 +110,7 @@ export class CustomerService {
             .post(
                 `${environment.apiUrl}/Document/SubmitDocument`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -134,13 +136,14 @@ export class CustomerService {
             .post(
                 `${environment.apiUrl}/Customer/SearchCustomer`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
+
     searchCustomer(
-        customer: CreateCustomer,
-        userDetail: BaseResponseModel = null
+        customer: CreateCustomer, branch = null, zone = null,
+        userDetail: BaseResponseModel = null,
     ): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
 
@@ -149,24 +152,25 @@ export class CustomerService {
         if (customer.FatherName == null) customer.FatherName = '';
 
         if (customer.Cnic == null) customer.Cnic = '';
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (userDetail && userDetail.Zone) {
             userInfo.Zone = userDetail.Zone;
             userInfo.Branch = userDetail.Branch;
         }
         this.request.User = userInfo.User;
         this.request.Customer = customer;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
+        this.request.Zone = zone;
+        this.request.Branch = branch;
 
         return this.http
             .post(
                 `${environment.apiUrl}/Customer/SearchCustomer`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
+
     GetCustomer(customer: CreateCustomer): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -180,7 +184,7 @@ export class CustomerService {
             .post(
                 `${environment.apiUrl}/Customer/GetCustomerDetail`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -214,7 +218,7 @@ export class CustomerService {
             .post(
                 `${environment.apiUrl}/Land/FindPassbookCorrectionDetail`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -260,7 +264,7 @@ export class CustomerService {
             .post(
                 `${environment.apiUrl}/Customer/GetCustomerByCnicForCorrection`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -283,12 +287,13 @@ export class CustomerService {
             .post(
                 `${environment.apiUrl}/Customer/UpdateCustomerPhoneCell`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    UploadImagesSetData(Image: any) {}
+    UploadImagesSetData(Image: any) {
+    }
 
     public UploadImagesCallAPI(Image, CustomerNumber) {
         const formData = new FormData();

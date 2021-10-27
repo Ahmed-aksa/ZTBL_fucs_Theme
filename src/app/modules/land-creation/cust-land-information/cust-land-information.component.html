@@ -216,9 +216,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button mat-raised-button color="primary" type="button" (click)="saveCustomerLandInfo()"
-                    *ngIf="SaveCustomer && !isFormReadonly"
-                    [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">Save
+            <button mat-raised-button color="primary" type="button" (click)="saveCustomerLandInfo()">Save
             </button>
             <button mat-raised-button color="primary" type="button" class="ml-2" (click)="clearSaveCustomerLandInfo()"
                     *ngIf="!isFormReadonly">Clear

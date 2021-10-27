@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
-import { map } from 'rxjs/operators';
-import { BaseRequestModel } from '../models/base_request.model';
-import { Activity } from 'app/modules/user-management/activity/activity.model';
-import { HttpUtilsService } from './http_utils.service';
-import { UserUtilsService } from './users_utils.service';
-import { BaseResponseModel } from '../models/base_response.model';
-import { environment } from 'environments/environment';
-import { LandInfo } from '../models/land-info.model';
-import { RecoveryDataModel } from '../models/recovery.model';
+import {map} from 'rxjs/operators';
+import {BaseRequestModel} from '../models/base_request.model';
+import {Activity} from 'app/modules/user-management/activity/activity.model';
+import {HttpUtilsService} from './http_utils.service';
+import {UserUtilsService} from './users_utils.service';
+import {BaseResponseModel} from '../models/base_response.model';
+import {environment} from 'environments/environment';
+import {LandInfo} from '../models/land-info.model';
+import {RecoveryDataModel} from '../models/recovery.model';
 
 @Injectable({
     providedIn: 'root',
@@ -19,11 +19,13 @@ import { RecoveryDataModel } from '../models/recovery.model';
 export class RecoveryService {
     public request = new BaseRequestModel();
     public activity = new Activity();
+
     constructor(
         private http: HttpClient,
         private httpUtils: HttpUtilsService,
         private userUtilsService: UserUtilsService
-    ) {}
+    ) {
+    }
 
     saveCustomerLandInfo(landInfo: LandInfo): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
@@ -59,7 +61,7 @@ export class RecoveryService {
             .post(
                 `${environment.apiUrl}/Land/SaveCustomerLandInfoDetail`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -116,7 +118,7 @@ export class RecoveryService {
         var userInfo = this.userUtilsService.getUserDetails();
         console.log('user info');
         console.log(userInfo);
-        var recoveryData = { RecoveryType: recoveryType };
+        var recoveryData = {RecoveryType: recoveryType};
         var recovery = {
             TransactionDate: transactionDate,
             VoucherNo: voucherNo,
@@ -140,7 +142,7 @@ export class RecoveryService {
             .post(
                 `${environment.apiUrl}/Recovery/GetLoanTransaction`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -155,19 +157,19 @@ export class RecoveryService {
         this.request.User = userInfo.User;
         this.request.Branch = userInfo.Branch;
 
-        var branch = { BranchID: userInfo.Branch.BranchId };
+        var branch = {BranchID: userInfo.Branch.BranchId};
         var recovery = {
             LnTransactionID: lnTransactionID,
             Lcno: lcno,
             RecoveryData: {},
         };
-        var request = { Branch: branch, Recovery: recovery };
+        var request = {Branch: branch, Recovery: recovery};
 
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetTransactiondetailByID`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -190,13 +192,13 @@ export class RecoveryService {
         };
         var recovery = {
             Type: type,
-            DisbursementGL: { LoanDisbID: LoanDisbID },
+            DisbursementGL: {LoanDisbID: LoanDisbID},
             RecoveryData: {
                 RecoveryType: recoveryType,
                 EffectiveDate: effectiveDate,
             },
         };
-        var request = { Branch: branch, Recovery: recovery };
+        var request = {Branch: branch, Recovery: recovery};
 
         return this.http
             .post(`${environment.apiUrl}/Recovery/GetAccountDetail`, request, {
@@ -219,12 +221,9 @@ export class RecoveryService {
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
         this.request.Branch = userInfo.Branch;
-
-        var req = JSON.stringify(this.request);
-
-        var branch = { BranchId: userInfo.Branch.BranchId };
+        var branch = {BranchId: userInfo.Branch.BranchId};
         var recovery = {
-            RecoveryData: { ContraBranchCode: contraBranchCode },
+            RecoveryData: {ContraBranchCode: contraBranchCode},
             SubProposalGL: {
                 ForInterBranch: ForInterBranch,
                 ForSBs: ForSBs,
@@ -234,7 +233,7 @@ export class RecoveryService {
                 Mode: mode,
             },
         };
-        var request = { Branch: branch, Recovery: recovery };
+        var request = {Branch: branch, Recovery: recovery};
 
         return this.http
             .post(`${environment.apiUrl}/Recovery/GetSubProposalGL`, request, {
@@ -250,14 +249,14 @@ export class RecoveryService {
         this.request.User = userInfo.User;
         this.request.Branch = userInfo.Branch;
 
-        var recovery = { DisbursementGL: { SanctionID: SanctionID } };
-        var request = { Recovery: recovery };
+        var recovery = {DisbursementGL: {SanctionID: SanctionID}};
+        var request = {Recovery: recovery};
 
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetDisbursementByGL`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -278,13 +277,13 @@ export class RecoveryService {
                 LoanCaseNo: LoanCaseNo,
             },
         };
-        var request = { Branch: userInfo.Branch, Recovery: recovery };
+        var request = {Branch: userInfo.Branch, Recovery: recovery};
 
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetcoordinatorsByID`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -299,26 +298,6 @@ export class RecoveryService {
         this.request.Branch = userInfo.Branch;
         this.request.Zone = userInfo.Zone;
         RecoveryData.UserID = userInfo.User.UserId;
-
-        var activity = { ActivityID: 1 };
-        var recovery = { RecoveryData: RecoveryData };
-
-        var request = {
-            Activity: activity,
-            Branch: userInfo.Branch,
-            DeviceLocation: {
-                BtsId: '0',
-                BtsLoc: '',
-                Lat: '0.000000000000000',
-                Long: '0.000000000000000',
-                Src: 'GPS',
-            },
-            doPerformOTP: false,
-            Recovery: recovery,
-            TranId: 0,
-            User: userInfo.User,
-            Zone: userInfo.Zone,
-        };
         return this.http
             .post(`${environment.apiUrl}/Recovery/SaveRecoveryData`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -337,7 +316,7 @@ export class RecoveryService {
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
         this.request.Branch = userInfo.Branch;
-        var user = { UserId: userInfo.User.UserId };
+        var user = {UserId: userInfo.User.UserId};
         var recovery = {
             RecoveryData: {
                 DisbursementID: disbursementID,
@@ -370,7 +349,7 @@ export class RecoveryService {
                 RecoveryType: recoveryType,
             },
         };
-        var request = { User: userInfo.User, Recovery: recovery };
+        var request = {User: userInfo.User, Recovery: recovery};
         return this.http
             .post(`${environment.apiUrl}/Recovery/DeleteRecovery`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -383,14 +362,14 @@ export class RecoveryService {
         LnTransactionID: string
     ): Observable<BaseResponseModel> {
         var userInfo = this.userUtilsService.getUserDetails();
-        var branch = { BranchId: userInfo.Branch.BranchId };
-        var recovery = { Lcno: lcNo, LnTransactionID: LnTransactionID };
-        var request = { Branch: branch, Recovery: recovery };
+        var branch = {BranchId: userInfo.Branch.BranchId};
+        var recovery = {Lcno: lcNo, LnTransactionID: LnTransactionID};
+        var request = {Branch: branch, Recovery: recovery};
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetLoanApplicationsInquiry`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -398,13 +377,13 @@ export class RecoveryService {
     getLoanApplicationsInquiryDisbursment(
         LnTransactionID: string
     ): Observable<BaseResponseModel> {
-        var recovery = { LnTransactionID: LnTransactionID };
-        var request = { Recovery: recovery };
+        var recovery = {LnTransactionID: LnTransactionID};
+        var request = {Recovery: recovery};
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetLoanApplicationsInquiryDisbursment`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
@@ -413,20 +392,20 @@ export class RecoveryService {
         documentType: string,
         documentId: string
     ): Observable<BaseResponseModel> {
-        var ViewDocumnets = { ID: documentId, Type: documentType };
-        var request = { ViewDocumnets: ViewDocumnets };
+        var ViewDocumnets = {ID: documentId, Type: documentType};
+        var request = {ViewDocumnets: ViewDocumnets};
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetLoanApplicationsInquiryDisbursment`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
 
     getCircles(): Observable<BaseResponseModel> {
         var userInfo = this.userUtilsService.getUserDetails();
-        var request = { Branch: userInfo.Branch, TranId: 0 };
+        var request = {Branch: userInfo.Branch, TranId: 0};
 
         return this.http
             .post(`${environment.apiUrl}/Recovery/GetCircles`, request, {
@@ -491,7 +470,7 @@ export class RecoveryService {
             .post(
                 `${environment.apiUrl}/Recovery/UploadSignaturePortal`,
                 request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
