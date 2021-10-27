@@ -191,7 +191,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
     private assignBranchAndZone() {
         debugger;
         //Circle
-        console.log("circle" + this.selected_c)
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
             this.userInfo.Circles = this.final_cricle;
@@ -333,10 +332,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
         this.minDate = this.loanutilizationSearch.controls.FromDate.value.toDate()
-        console.log("Min date" + this.minDate)
         var FromDate = this.loanutilizationSearch.controls.FromDate.value;
-
-
         if (FromDate._isAMomentObject == undefined) {
             try {
                 var day = this.loanutilizationSearch.controls.FromDate.value.getDate();
@@ -426,8 +422,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
         } else {
 
             this.Today = new Date();
-            // console.log(this.Today);
-            // console.log(this.Today.toISOString().split('T')[0]);
             return this.Today;
         }
     }
@@ -438,12 +432,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     searchloanutilization() {
-
-        // this.OffSet = 0;
-        // this.pageIndex = 0;
-        // this.dataSource.data = [];
         this.assignBranchAndZone();
-        console.log(this.final_cricle)
         if (!this.final_zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -511,7 +500,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    console.log("baseResponse" + baseResponse)
                     this.dataSource.data = baseResponse.LoanUtilization.LoanDetails;
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
@@ -582,8 +570,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     addloanutilization(utilization: any) {
-        var v = JSON.stringify(utilization)
-        console.log("sam" + v)
         utilization.Status = "Add";
         this.router.navigate(['../loan-uti'], {
             state: {example: utilization},
@@ -592,21 +578,11 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     async LoadLovs() {
-
-        //this.ngxService.start();
-
         this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus})
-        // console.log(this.CustomerStatusLov.LOVs);
         this.CustomerStatusLov.LOVs.forEach(function (value) {
             if (!value.Value)
                 value.Value = "All";
         });
-
-        ////For Bill type
-        // this.EducationLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Education })
-
-        // this.ngxService.stop();
-
     }
 
 }

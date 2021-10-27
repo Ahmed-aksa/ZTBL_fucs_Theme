@@ -29,8 +29,6 @@ export class LoanUtilizationService {
     private _common: CommonService) { }
 
     GetLoanDetail(value){
-
-    console.log(value);
     debugger
     this.request = new BaseRequestModel();
     this.request.LoanUtilization={"UtilizationDetail":{"LoanCaseNo":value}}
@@ -57,7 +55,6 @@ export class LoanUtilizationService {
     this.activity.ActivityID = 1;
     this.request.Activity = this.activity;
     var req = JSON.stringify(this.request);
-    console.log(req)
     debugger
     return this.http.post(`${environment.apiUrl}/LoanUtilization/GetLoanDetail`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -87,7 +84,6 @@ export class LoanUtilizationService {
     this.request.Branch = userInfo.Branch;
 
     var req = JSON.stringify(this.request);
-console.log(req);
     debugger;
     return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchUtilizations`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -118,8 +114,6 @@ console.log(req);
       this.request.LoanUtilization["Limit"]=Limit;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
-
-// console.log(selected_c)
     var circleIds = [];
         SelectedCircles.forEach(element => {
       circleIds.push(element.Id);
@@ -131,7 +125,6 @@ console.log(req);
     }
 
     var req = JSON.stringify(this.request);
-console.log(req);
     debugger;
     return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchLoanForUtilization`,  this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -141,7 +134,6 @@ console.log(req);
 
     save(value){
     value.Status="P";
-    console.log("value"+JSON.stringify(value));
     debugger;
     this.request = new BaseRequestModel();
     var userInfo = this.userUtilsService.getUserDetails();
@@ -159,7 +151,6 @@ console.log(req);
     this.request.Branch = userInfo.Branch;
     this.request.User = userInfo.User;
     var req = JSON.stringify(this.request);
-    console.log("this one"+req);
     debugger
 
       return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/SaveUpdateUtilization`, this.request,
@@ -188,9 +179,7 @@ console.log(req);
       this.request.Zone = userInfo.Zone;
       this.request.Branch = userInfo.Branch;
       this.request.User = userInfo.User;
-      console.log(this.request.User)
       var req = JSON.stringify(this.request);
-      console.log(req);
       debugger
         return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/ChangeUtilizationStatus`, this.request,
       ).pipe(
@@ -216,16 +205,12 @@ console.log(req);
         SRC: "GPS"
       },
 
-      // this.request.LoanUtilization={"UtilizationDetail":value}
       this.request.TranId = 2830;
       this.request.doPerformOTP = false;
       this.request.Zone = userInfo.Zone;
       this.request.Branch = userInfo.Branch;
       this.request.User = userInfo.User;
-      console.log(this.request.User)
       var req = JSON.stringify(this.request);
-      console.log(req);
-      debugger
 
     formData.append('UtilizationID', loanutilization.ID);
     formData.append('Lat', loanutilization.Lat);
@@ -233,13 +218,6 @@ console.log(req);
     formData.append('UserID', userInfo.User.UserId);
     formData.append('IsVideo', val);
     formData.append('File',file);
-
-    console.log("UtilizationID",formData.get('UtilizationID'));
-    console.log("Lat",formData.get('Lat'));
-    console.log("Lng",formData.get('Lng'));
-    console.log("UserID",formData.get('UserID'));
-    console.log("IsVideo",formData.get('IsVideo'));
-    console.log("File Data",formData.get('File'));
 
     return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/UploadUtlization`, formData,
         ).pipe(
@@ -272,7 +250,6 @@ console.log(req);
       this.activity.ActivityID = 1;
       this.request.Activity = this.activity;
       var req = JSON.stringify(this.request);
-      console.log(req)
       debugger
 
       return this.http.post(
@@ -306,7 +283,6 @@ console.log(req);
       this.activity.ActivityID = 1;
       this.request.Activity = this.activity;
       var req = JSON.stringify(this.request);
-      console.log(req)
       debugger
       return this.http.post(`${environment.apiUrl}/LoanUtilization/DeleteUtilizationFile`, this.request,
         { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -347,7 +323,6 @@ console.log(req);
     this.activity.ActivityID = 1;
     this.request.Activity = this.activity;
     var req = JSON.stringify(this.request);
-    console.log(req)
     debugger
     return this.http.post(`${environment.apiUrl}/LoanUtilization/GetGLForLoan`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
