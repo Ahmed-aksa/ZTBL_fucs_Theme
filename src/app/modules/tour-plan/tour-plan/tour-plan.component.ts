@@ -13,10 +13,14 @@ import { TourPlan } from '../Model/tour-plan.model';
 import {TourPlanService} from "../Service/tour-plan.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {CommonService} from "../../../shared/services/common.service";
+import {BaseResponseModel} from "../../../shared/models/base_response.model";
+import { Circle } from 'app/shared/models/circle.model';
+import { Branch } from 'app/shared/models/branch.model';
+import { Zone } from 'app/shared/models/zone.model';
 import {SlashDateFormats} from "../../../shared/models/slash-format.class";
 
 @Component({
-    selector: 'kt-loan-utilization',
+    selector: 'loan-utilization',
     templateUrl: './tour-plan.component.html',
     styleUrls: ['./tour-plan.component.scss'],
     providers: [
@@ -50,6 +54,39 @@ export class TourPlanComponent implements OnInit {
     isApproval:boolean=false;
     isView:boolean=false;
     readonly:boolean=false;
+
+    //Start ZBC
+
+    LoggedInUserInfo: BaseResponseModel;
+    //Zone inventory
+    Zones: any = [];
+    SelectedZones: any = [];
+    public Zone = new Zone();
+
+    //Branch inventory
+    Branches: any = [];
+    SelectedBranches: any = [];
+    public Branch = new Branch();
+    disable_circle = true;
+    disable_zone = true;
+    disable_branch = true;
+    single_branch = true;
+    single_circle = true;
+    single_zone = true;
+    //Circle inventory
+    Circles: any = [];
+    SelectedCircles: any = [];
+    public Circle = new Circle();
+    selected_b;
+    selected_z;
+    selected_c;
+
+    //final
+    final_branch: any;
+    final_zone: any;
+    final_cricle: any;
+
+    //End ZBC
 
     constructor(
         private fb: FormBuilder,
@@ -98,9 +135,9 @@ export class TourPlanComponent implements OnInit {
             this.selected_z = this.SelectedZones?.ZoneId
             this.selected_b = this.SelectedBranches?.BranchCode
             this.selected_c = this.SelectedCircles?.Id
-            this.TourPlan.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.TourPlan.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-            this.TourPlan.controls["Circle"].setValue(this.SelectedCircles?.Id);
+            this.TourForm.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.TourForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            this.TourForm.controls["Circle"].setValue(this.SelectedCircles?.Id);
             // if (this.customerForm.value.Branch) {
             //     this.changeBranch(this.customerForm.value.Branch);
             // }

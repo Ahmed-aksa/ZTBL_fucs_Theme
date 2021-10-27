@@ -52,7 +52,6 @@ export class SearchTourPlanComponent implements OnInit {
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
-    loanutilizationStatusLov;
     TourPlansByDate;
     minDate: Date;
     fromdate: string;

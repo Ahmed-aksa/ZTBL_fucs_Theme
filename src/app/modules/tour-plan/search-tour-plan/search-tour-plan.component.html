@@ -1,244 +1,244 @@
-<style>
+<!--<style>-->
 
-  .kt-form-margin {
-    margin-bottom: 15px;
-    margin-top: 15px;
-  }
+<!--  .kt-form-margin {-->
+<!--    margin-bottom: 15px;-->
+<!--    margin-top: 15px;-->
+<!--  }-->
 
-</style>
+<!--</style>-->
 
-<div id="Kt-portlet-margin-top">
-  <kt-portlet>
-    <!-- PORTLET LOADING | Binded to TABLE Datasource -->
-    <!-- See prop => '~/core/_crud/models/data-sources/_base.datasource.ts' (loading$) -->
-    <kt-portlet-header [title]="'Tour Plan List'" [class]="'kt-portlet__head--lg'">
-      <ng-container ktPortletTools>
-        <!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->
-        <!-- mat-raised-button | Rectangular contained button w/ elevation  -->
-      </ng-container>
-    </kt-portlet-header>
-    <!-- end::Header -->
+<!--<div id="Kt-portlet-margin-top">-->
+<!--  <kt-portlet>-->
+<!--    &lt;!&ndash; PORTLET LOADING | Binded to TABLE Datasource &ndash;&gt;-->
+<!--    &lt;!&ndash; See prop => '~/core/_crud/models/data-sources/_base.datasource.ts' (loading$) &ndash;&gt;-->
+<!--    <kt-portlet-header [title]="'Tour Plan List'" [class]="'kt-portlet__head&#45;&#45;lg'">-->
+<!--      <ng-container ktPortletTools>-->
+<!--        &lt;!&ndash; Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' &ndash;&gt;-->
+<!--        &lt;!&ndash; mat-raised-button | Rectangular contained button w/ elevation  &ndash;&gt;-->
+<!--      </ng-container>-->
+<!--    </kt-portlet-header>-->
+<!--    &lt;!&ndash; end::Header &ndash;&gt;-->
 
-    <kt-portlet-body>
-      <div class="kt-form kt-form-margin" [formGroup]="TourPlan">
+<!--    <kt-portlet-body>-->
+<!--      <div class="kt-form kt-form-margin" [formGroup]="TourPlan">-->
 
-        <div class="row align-items-center mb-4">
+<!--        <div class="row align-items-center mb-4">-->
 
-        <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="!isUserAdmin && isMCO && !isBM">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
-            <mat-label>Zone</mat-label>
-            <input matInput formControlName="Zone" readonly="readonly" maxlength="30" autocomplete="off">
-          </mat-form-field>
-        </div>
+<!--        <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="!isUserAdmin && isMCO && !isBM">-->
+<!--          <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--            <mat-label>Zone</mat-label>-->
+<!--            <input matInput formControlName="Zone" readonly="readonly" maxlength="30" autocomplete="off">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
 
-            <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin">
-              <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline" *ngIf="!BMUser">
-                <mat-label>Zone</mat-label>
-                <mat-select (selectionChange)="GetBranches($event)" formControlName="ZoneId">
-                  <mat-option>
-                    <ngx-mat-select-search placeholderLabel="Search Zone..." (focusout)="validateZoneOnFocusOut()" (keyup)="searchZone($event.target.value)" noEntriesFoundLabel="No Zone Found">
-                    </ngx-mat-select-search>
-                  </mat-option>
-                  <mat-option>
-                    Select
-                  </mat-option>
-                  <mat-option *ngFor="let zone of SelectedZones" [value]="zone.ZoneId">
-                    {{zone.ZoneName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+<!--            <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin">-->
+<!--              <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline" *ngIf="!BMUser">-->
+<!--                <mat-label>Zone</mat-label>-->
+<!--                <mat-select (selectionChange)="GetBranches($event)" formControlName="ZoneId">-->
+<!--                  <mat-option>-->
+<!--                    <ngx-mat-select-search placeholderLabel="Search Zone..." (focusout)="validateZoneOnFocusOut()" (keyup)="searchZone($event.target.value)" noEntriesFoundLabel="No Zone Found">-->
+<!--                    </ngx-mat-select-search>-->
+<!--                  </mat-option>-->
+<!--                  <mat-option>-->
+<!--                    Select-->
+<!--                  </mat-option>-->
+<!--                  <mat-option *ngFor="let zone of SelectedZones" [value]="zone.ZoneId">-->
+<!--                    {{zone.ZoneName }}-->
+<!--                  </mat-option>-->
+<!--                </mat-select>-->
+<!--              </mat-form-field>-->
+<!--            </div>-->
 
-          <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="!isUserAdmin && !isZoneUser">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-              <mat-label>Branch</mat-label>
-              <input matInput formControlName="Branch" readonly="readonly" maxlength="30" autocomplete="off">
-              <!--  <mat-error *ngIf="hasError('tourPlanName', 'required')">tourPlanName <strong>required</strong></mat-error>-->
-            </mat-form-field>
-          </div>
-          <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin || isZoneUser">
-            <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline" *ngIf="!BMUser">
-              <mat-label>Branch</mat-label>
-              <mat-select (selectionChange)="SetBranches($event)" formControlName="BranchId">
-                <mat-option>
-                  <ngx-mat-select-search placeholderLabel="Search Branch..." (focusout)="validateBranchOnFocusOut()" noEntriesFoundLabel="No Branch Found" (keyup)="searchBranch($event.target.value)">
-                  </ngx-mat-select-search>
-                </mat-option>
-                <mat-option>
-                  Select
-                </mat-option>
-                <mat-option *ngFor="let branch of SelectedBranches" [value]="branch.BranchId">
-                  {{branch.Name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <!-- <div class="col-md-2 kt-margin-bottom-10-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-              <mat-label class="customMatLabel">Circle No</mat-label>
-              <input matInput formControlName="CircleNo" autocomplete="off" readonly="readonly"/>
-            </mat-form-field>
-        </div> -->
+<!--          <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="!isUserAdmin && !isZoneUser">-->
+<!--            <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--              <mat-label>Branch</mat-label>-->
+<!--              <input matInput formControlName="Branch" readonly="readonly" maxlength="30" autocomplete="off">-->
+<!--              &lt;!&ndash;  <mat-error *ngIf="hasError('tourPlanName', 'required')">tourPlanName <strong>required</strong></mat-error>&ndash;&gt;-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--          <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin || isZoneUser">-->
+<!--            <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline" *ngIf="!BMUser">-->
+<!--              <mat-label>Branch</mat-label>-->
+<!--              <mat-select (selectionChange)="SetBranches($event)" formControlName="BranchId">-->
+<!--                <mat-option>-->
+<!--                  <ngx-mat-select-search placeholderLabel="Search Branch..." (focusout)="validateBranchOnFocusOut()" noEntriesFoundLabel="No Branch Found" (keyup)="searchBranch($event.target.value)">-->
+<!--                  </ngx-mat-select-search>-->
+<!--                </mat-option>-->
+<!--                <mat-option>-->
+<!--                  Select-->
+<!--                </mat-option>-->
+<!--                <mat-option *ngFor="let branch of SelectedBranches" [value]="branch.BranchId">-->
+<!--                  {{branch.Name }}-->
+<!--                </mat-option>-->
+<!--              </mat-select>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--          &lt;!&ndash; <div class="col-md-2 kt-margin-bottom-10-mobile">-->
+<!--            <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--              <mat-label class="customMatLabel">Circle No</mat-label>-->
+<!--              <input matInput formControlName="CircleNo" autocomplete="off" readonly="readonly"/>-->
+<!--            </mat-form-field>-->
+<!--        </div> &ndash;&gt;-->
 
-        <div *ngIf="circle && isBM" class="col-md-2 kt-margin-bottom-10-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
-            <mat-label>Circle No</mat-label>
-            <mat-select formControlName="CircleId">
-              <mat-option value="">
-                Select
-              </mat-option>
-              <mat-option *ngFor="let obj of circle" [value]="obj.Id">
-                {{obj.CircleCode}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+<!--        <div *ngIf="circle && isBM" class="col-md-2 kt-margin-bottom-10-mobile">-->
+<!--          <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--            <mat-label>Circle No</mat-label>-->
+<!--            <mat-select formControlName="CircleId">-->
+<!--              <mat-option value="">-->
+<!--                Select-->
+<!--              </mat-option>-->
+<!--              <mat-option *ngFor="let obj of circle" [value]="obj.Id">-->
+<!--                {{obj.CircleCode}}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
 
-        <div class="col-md-2 kt-margin-bottom-10-mobile">
-         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-            <mat-label class="customMatLabel">From</mat-label>
-            <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off" formControlName="FromDate" [max]="getToday()" (dateChange)="setFromDate()" autocomplete="off">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div class="col-md-2 kt-margin-bottom-10-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
-            <mat-label class="customMatLabel">To</mat-label>
-            <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy" formControlName="ToDate"  [min]="minDate" [max]="getTodayForTo()" (dateChange)="setToDate()" autocomplete="off">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field>
-        </div>
+<!--        <div class="col-md-2 kt-margin-bottom-10-mobile">-->
+<!--         <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--            <mat-label class="customMatLabel">From</mat-label>-->
+<!--            <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off" formControlName="FromDate" [max]="getToday()" (dateChange)="setFromDate()" autocomplete="off">-->
+<!--            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--            <mat-datepicker #picker></mat-datepicker>-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div class="col-md-2 kt-margin-bottom-10-mobile">-->
+<!--          <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--            <mat-label class="customMatLabel">To</mat-label>-->
+<!--            <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy" formControlName="ToDate"  [min]="minDate" [max]="getTodayForTo()" (dateChange)="setToDate()" autocomplete="off">-->
+<!--            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
+<!--            <mat-datepicker #picker1></mat-datepicker>-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
 
-          <div *ngIf="tourPlanStatusLov" class="col-md-2 kt-margin-bottom-10-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-              <mat-label>Select tourPlan Status</mat-label>
-              <mat-select formControlName="Status">
-                <mat-option value="">
-                  Select
-                </mat-option>
-                <mat-option *ngFor="let obj of tourPlanStatusLov.LOVs" [value]="obj.Value">
-                  {{obj.Name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-
-          <div class="col-lg-2 col-md-3">
-            <button (click)="SearchTourPlan()" color="primary" type="button" class="btn btn-secondary mt-19 kt-login__btn-primary btn-block">
-              <span><i class="fa fa-search"> &nbsp;</i> Search</span>
-            </button>
-          </div>
-        </div>
-        <div class="row align-items-center mb-4">
-          <div class="col-lg-10"></div>
-
-        </div>
-      </div>
-      <div class="form-group row">
-<!--       {{TourPlans | json}}-->
-        <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8" id="custom-table-activity-list">
-          <div class="custom-accordion" *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
-            <div class="custom-accordion-head" (click)="toggleAccordion(i)"
-                 style="cursor: pointer">
-              <div class="custom-padding">
-                <h3>
-                  {{activity.VisitedDate}}
-                </h3>
-              </div>
+<!--          <div *ngIf="tourPlanStatusLov" class="col-md-2 kt-margin-bottom-10-mobile">-->
+<!--            <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--              <mat-label>Select tourPlan Status</mat-label>-->
+<!--              <mat-select formControlName="Status">-->
+<!--                <mat-option value="">-->
+<!--                  Select-->
+<!--                </mat-option>-->
+<!--                <mat-option *ngFor="let obj of tourPlanStatusLov.LOVs" [value]="obj.Value">-->
+<!--                  {{obj.Name}}-->
+<!--                </mat-option>-->
+<!--              </mat-select>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
 
 
-              <div class="custom-padding">
-<!--                <button mat-icon-button color="warn"-->
-<!--                        (click)="deleteActivity(activity)">-->
-<!--                  <mat-icon>-->
-<!--                    delete-->
-<!--                  </mat-icon>-->
+<!--          <div class="col-lg-2 col-md-3">-->
+<!--            <button (click)="SearchTourPlan()" color="primary" type="button" class="btn btn-secondary mt-19 kt-login__btn-primary btn-block">-->
+<!--              <span><i class="fa fa-search"> &nbsp;</i> Search</span>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="row align-items-center mb-4">-->
+<!--          <div class="col-lg-10"></div>-->
+
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group row">-->
+<!--&lt;!&ndash;       {{TourPlans | json}}&ndash;&gt;-->
+<!--        <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8" id="custom-table-activity-list">-->
+<!--          <div class="custom-accordion" *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">-->
+<!--            <div class="custom-accordion-head" (click)="toggleAccordion(i)"-->
+<!--                 style="cursor: pointer">-->
+<!--              <div class="custom-padding">-->
+<!--                <h3>-->
+<!--                  {{activity.VisitedDate}}-->
+<!--                </h3>-->
+<!--              </div>-->
+
+
+<!--              <div class="custom-padding">-->
+<!--&lt;!&ndash;                <button mat-icon-button color="warn"&ndash;&gt;-->
+<!--&lt;!&ndash;                        (click)="deleteActivity(activity)">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                    delete&ndash;&gt;-->
+<!--&lt;!&ndash;                  </mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                <button class="ml-2" mat-icon-button color="primary"&ndash;&gt;-->
+<!--&lt;!&ndash;                        (click)="editActivity(activity)">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                    edit&ndash;&gt;-->
+<!--&lt;!&ndash;                  </mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--                <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">-->
+<!--                  <mat-icon>expand_more</mat-icon>-->
 <!--                </button>-->
-<!--                <button class="ml-2" mat-icon-button color="primary"-->
-<!--                        (click)="editActivity(activity)">-->
-<!--                  <mat-icon>-->
-<!--                    edit-->
-<!--                  </mat-icon>-->
+<!--                <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">-->
+<!--                  <mat-icon>expand_less</mat-icon>-->
 <!--                </button>-->
-                <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
-                  <mat-icon>expand_more</mat-icon>
-                </button>
-                <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
-                  <mat-icon>expand_less</mat-icon>
-                </button>
-              </div>
-            </div>
-            <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">
-              <table class="table table-responsive" style="display: inline-table !important;">
-                <thead class="thead-light">
-                <tr>
-                  <th>VisitedDate</th>
-                  <th>Purpose</th>
-                  <th>Remarks</th>
-                  <th>Status</th>
-                  <th>Actions</th>
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">-->
+<!--              <table class="table table-responsive" style="display: inline-table !important;">-->
+<!--                <thead class="thead-light">-->
+<!--                <tr>-->
+<!--                  <th>VisitedDate</th>-->
+<!--                  <th>Purpose</th>-->
+<!--                  <th>Remarks</th>-->
+<!--                  <th>Status</th>-->
+<!--                  <th>Actions</th>-->
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let child of activity.TourPlans">
-                  <td style="width: 20%">{{child.VisitedDate}}</td>
-                  <td style="width: 20%">{{child.Purpose}}</td>
-                  <td style="width: 20%">{{child.Remarks}}</td>
-                  <td style="width: 20%">{{child.Status}}</td>
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr *ngFor="let child of activity.TourPlans">-->
+<!--                  <td style="width: 20%">{{child.VisitedDate}}</td>-->
+<!--                  <td style="width: 20%">{{child.Purpose}}</td>-->
+<!--                  <td style="width: 20%">{{child.Remarks}}</td>-->
+<!--                  <td style="width: 20%">{{child.Status}}</td>-->
 
-                  <td style="width: 20%">
+<!--                  <td style="width: 20%">-->
 
-                    <button mat-icon-button color="primary" *ngIf="CheckViewStatus(child)"
-                            (click)="viewTourPlan(child)">
-                      <mat-icon title="View land">visibility</mat-icon>
-                    </button>
-                    <button  class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"
-                            (click)="editTourPlan(child)">
-                      <mat-icon style="margin-left: 5px;" title="Edit Tour Plan">edit</mat-icon>
-                    </button>
+<!--                    <button mat-icon-button color="primary" *ngIf="CheckViewStatus(child)"-->
+<!--                            (click)="viewTourPlan(child)">-->
+<!--                      <mat-icon title="View land">visibility</mat-icon>-->
+<!--                    </button>-->
+<!--                    <button  class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"-->
+<!--                            (click)="editTourPlan(child)">-->
+<!--                      <mat-icon style="margin-left: 5px;" title="Edit Tour Plan">edit</mat-icon>-->
+<!--                    </button>-->
 
 
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+<!--                  </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--              </table>-->
+<!--            </div>-->
 
-          </div>
-          <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
-            <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-            Items per page:
-            <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-              <mat-option [value]="5">5</mat-option>
-              <mat-option [value]="10">10</mat-option>
-              <mat-option [value]="25">25</mat-option>
-              <mat-option [value]="50">50</mat-option>
-            </mat-select>
-            <button (click)="paginate(1)">First</button>
-            <pagination-controls display="inline" (pageChange)="paginate($event)" style="display: inline-block;"></pagination-controls>
-            <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-            <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+<!--          </div>-->
+<!--          <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">-->
+<!--            &lt;!&ndash; This mat select is customized, not a part of Ngx Paginator, used for selected items per page &ndash;&gt;-->
+<!--            Items per page:-->
+<!--            <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">-->
+<!--              <mat-option [value]="5">5</mat-option>-->
+<!--              <mat-option [value]="10">10</mat-option>-->
+<!--              <mat-option [value]="25">25</mat-option>-->
+<!--              <mat-option [value]="50">50</mat-option>-->
+<!--            </mat-select>-->
+<!--            <button (click)="paginate(1)">First</button>-->
+<!--            <pagination-controls display="inline" (pageChange)="paginate($event)" style="display: inline-block;"></pagination-controls>-->
+<!--            <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>-->
+<!--            <p style="float:right;">Total <b>{{totalItems}}</b> items</p>-->
 
-          </div>
+<!--          </div>-->
 
-          <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
-          <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+<!--          <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>-->
+<!--          <div class="mat-table__message" *ngIf="loading">Please wait....</div>-->
 
-        </div>
-      </div>
-    </kt-portlet-body>
-    <!-- end::Body -->
-  </kt-portlet>
+<!--        </div>-->
+<!--      </div>-->
+<!--    </kt-portlet-body>-->
+<!--    &lt;!&ndash; end::Body &ndash;&gt;-->
+<!--  </kt-portlet>-->
 
-</div>
+<!--</div>-->
 
-<ngx-spinner bdColor="rgba(51,51,51,0.8)"
-             size="medium"
-             color="#ecbd00"
-             type="ball-scale-multiple">
-  <p style="font-size: 20px; color: white">Loading...</p>
-</ngx-spinner>
+<!--<ngx-spinner bdColor="rgba(51,51,51,0.8)"-->
+<!--             size="medium"-->
+<!--             color="#ecbd00"-->
+<!--             type="ball-scale-multiple">-->
+<!--  <p style="font-size: 20px; color: white">Loading...</p>-->
+<!--</ngx-spinner>-->

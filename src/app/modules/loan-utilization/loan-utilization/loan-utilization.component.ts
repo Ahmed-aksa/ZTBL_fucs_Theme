@@ -170,7 +170,6 @@ export class LoanUtilizationComponent implements OnInit {
             if (val.url == '/deceased-customer/customers') {
             }
         });
-
     }
 
 

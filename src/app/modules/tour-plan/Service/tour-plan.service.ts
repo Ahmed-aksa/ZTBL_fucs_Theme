@@ -9,7 +9,7 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {HttpUtilsService} from "../../../shared/services/http_utils.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {TourPlan} from "../Model/tour-plan.model";
-import {DEVICELOCATION} from "../../../shared/services/default.model";
+import {DEVICELOCATION} from "../../../shared/models/default.model";
 
 @Injectable({
   providedIn: 'root'
