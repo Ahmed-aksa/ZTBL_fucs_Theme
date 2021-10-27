@@ -13,7 +13,10 @@
 
   </div>
 
-  <label>Search</label>
+  <div class="row">
+    <div class="col-lg-12 col-md-12  mat-elevation-z8 mt-2">
+
+      <label>Search</label>
       <input type="text" class="form-control mb-2" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
 
       <agm-map #gm [zoom]="zoom" style="height: 500px;"
@@ -33,6 +36,11 @@
                 </agm-marker>
                   <!-- <agm-marker></agm-marker> -->
         </agm-map>
+
+    </div>
+  </div>
+
+</div>
 
     
         

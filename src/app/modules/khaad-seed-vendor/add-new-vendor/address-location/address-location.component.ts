@@ -92,16 +92,22 @@ export class AddressLocationComponent implements OnInit {
   
 
   ///////////////////Os Change Set Map
-  onMapReady(map) {
+  onMapReady(map: google.maps.Map) {
     this.googleMap = map;
+    // this.mapClickListener = this.googleMap.addListener('click', (e: google.maps.MouseEvent) => {
+    //   this.zone.run(() => {
+    //     // Here we can get correct event
+    //     console.log(e.latLng.lat(), e.latLng.lng());
+    //   });
+    // });
   }
 
-  click(event : any){
+  click($event: MouseEvent){
     debugger
-    console.log(event)
+    console.log($event)
     //this.googleMap.setMap(null)
     this.PreviousLocation = []
-    this.addmarker(event.coords.lat, event.coords.lng)
+    //this.addmarker(event.coords.lat, event.coords.lng)
 
   }
 
