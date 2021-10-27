@@ -15,7 +15,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
                 <mat-label class="customMatLabel">Zone</mat-label>
                 <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
                             (selectionChange)="changeZone($event)">
@@ -89,7 +89,7 @@
       </div>
     </div>
     <div class="col-md-4 col-sm-12">
-      <div *ngIf="loanutilizationStatusLov" class="col-md-2 kt-margin-bottom-10-mobile mr-20">
+      <div *ngIf="loanutilizationStatusLov" class="col-md-12 kt-margin-bottom-10-mobile mr-20">
         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
           <mat-label>Select loanutilization Status</mat-label>
           <mat-select formControlName="Status">
