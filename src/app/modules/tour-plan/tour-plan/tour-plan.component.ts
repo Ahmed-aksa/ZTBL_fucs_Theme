@@ -83,6 +83,101 @@ export class TourPlanComponent implements OnInit {
         this.setValuesForEdit();
     }
 
+    //Start ZBC
+    userInfo = this.userUtilsService.getUserDetails();
+
+    settingZBC(){
+
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
+            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
+
+            this.SelectedBranches = this.LoggedInUserInfo.Branch;
+            this.SelectedZones = this.LoggedInUserInfo.Zone;
+
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.selected_c = this.SelectedCircles?.Id
+            this.TourPlan.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.TourPlan.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            this.TourPlan.controls["Circle"].setValue(this.SelectedCircles?.Id);
+            // if (this.customerForm.value.Branch) {
+            //     this.changeBranch(this.customerForm.value.Branch);
+            // }
+        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
+            this.spinner.show();
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
+                this.single_zone = false;
+                this.disable_zone = false;
+                this.spinner.hide();
+            });
+        }
+    }
+
+    private assignBranchAndZone() {
+        debugger;
+        //Circle
+        if (this.SelectedCircles.length) {
+            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+            this.userInfo.Circles = this.final_cricle;
+        } else {
+            this.final_cricle = this.SelectedCircles;
+            this.userInfo.Circles = this.final_cricle;
+        }
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.userInfo.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.userInfo.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.userInfo.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.userInfo.Zone = this.final_zone;
+        }
+
+    }
+
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
+
+
+    changeBranch(changedValue){
+        debugger
+        let changedBranch = null;
+        if (changedValue.value)
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        else
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
+        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+            this.Circles = data.Circles;
+            this.SelectedCircles = this.Circles;
+            // this.selected_c = this.SelectedCircles?.Id
+            this.disable_circle = false;
+            if (changedValue.value) {
+                // this.getBorrower();
+            }
+        });
+    }
+
+    //End ZBC
+
+
 
 
 
