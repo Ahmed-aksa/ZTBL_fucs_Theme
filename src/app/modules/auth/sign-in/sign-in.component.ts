@@ -5,6 +5,7 @@ import {fuseAnimations} from '@fuse/animations';
 import {FuseAlertType} from '@fuse/components/alert';
 import {AuthService} from 'app/core/auth/auth.service';
 import {ToastrService} from "ngx-toastr";
+import {finalize} from "rxjs/operators";
 
 @Component({
     selector: 'auth-sign-in',
@@ -30,6 +31,7 @@ export class AuthSignInComponent implements OnInit {
         private toaster: ToastrService
     ) {
     }
+
     ngOnInit(): void {
         this.signInForm = this._formBuilder.group({
             DisplayName: ['', [Validators.required]],
@@ -37,6 +39,7 @@ export class AuthSignInComponent implements OnInit {
             App: [1, Validators.required],
         });
     }
+
     signIn(): void {
         if (this.signInForm.invalid) {
             return;
@@ -53,10 +56,9 @@ export class AuthSignInComponent implements OnInit {
                         this.toaster.success(result.Message);
                         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
                         this._router.navigateByUrl(redirectURL);
-                    }
-                    else{
-                        this.signInForm.enable();
+                    } else {
                         this.signInNgForm.resetForm();
+                        this.signInForm.enable();
                         this.alert = {
                             type: 'error',
                             message: result.Message,
@@ -67,8 +69,9 @@ export class AuthSignInComponent implements OnInit {
 
                 },
                 (response) => {
-                    this.signInForm.enable();
                     this.signInNgForm.resetForm();
+                    this.signInForm.enable();
+                    this.signInForm.enable();
                     this.alert = {
                         type: 'error',
                         message: 'Wrong email or password'
