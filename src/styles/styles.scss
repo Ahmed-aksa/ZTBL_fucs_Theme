@@ -67,3 +67,17 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
   .button{
     border-radius:6px ;
   }
+
+
+  input[type="text"][disabled] {
+    color: black;
+ }
+ option:disabled {
+  color: black;
+}
+select:disabled {
+  color: black;
+}
+body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disabled .mat-select-value {
+  color: black;
+}
