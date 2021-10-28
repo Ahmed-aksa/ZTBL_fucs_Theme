@@ -59,7 +59,6 @@ const routes = [
     providers: [
         DeceasedCustomerService,
         SetTargetService,
-
     ]
 
 })

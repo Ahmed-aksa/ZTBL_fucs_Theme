@@ -24,6 +24,7 @@ import {ConfigurationManagementComponent} from './modules/configuration-manageme
 import {UserUtilsService} from './shared/services/users_utils.service';
 import {TokenInterceptor} from './shared/httpInterceptor/httpconfig.interceptor';
 import {NdcRequestsModule} from './modules/ndc-requests/ndc-requests.module';
+import {DatePipe} from "@angular/common";
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -54,6 +55,7 @@ const routerConfig: ExtraOptions = {
         HttpUtilsService,
         UserUtilsService,
         LayoutUtilsService,
+        DatePipe,
 
         {
             provide: HTTP_INTERCEPTORS,
