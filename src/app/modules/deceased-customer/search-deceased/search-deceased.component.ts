@@ -62,7 +62,7 @@ export class SearchDeceasedComponent implements OnInit {
     loading: boolean;
     matTableLenght: any;
     //displayedColumns = ['customer_name', 'father_name', 'death_date', 'Cnic', 'address', 'per_address', 'status', 'branch_code', 'certificate_verified', 'legal_heir'];
-    displayedColumns = ['customer_name', 'father_name', 'death_date', 'Cnic', 'address', 'branch_code', 'certificate_verified', 'legal_heir'];
+    displayedColumns = ['customer_name', 'father_name', 'death_date', 'Cnic', 'address', 'branch_code', 'StatusDesc', 'per_address', 'certificate_verified', 'legal_heir'];
 
     // dataSource : MatTableDataSource<DeceasedCustomer>
 
