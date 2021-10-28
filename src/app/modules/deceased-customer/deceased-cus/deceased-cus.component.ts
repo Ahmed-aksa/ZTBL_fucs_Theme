@@ -492,6 +492,7 @@ export class DeceasedCusComponent implements OnInit {
                 this.layoutUtilsService.alertElement("", Message="Please Attach Image",Code=null);
             }
             else{
+
                 this.spinner.show();
                 this._deceasedCustomer
                     .MarkAsDeceasedCustomer(this.markDeceasedCustomer,this.file)
@@ -530,7 +531,7 @@ export class DeceasedCusComponent implements OnInit {
                 this.layoutUtilsService.alertElement("", Message="Please Attach Image",Code=null);
             }
             else{
-
+                this.markDeceasedCustomer.DeceasedID=this.deceasedCustomerID;
                 this.spinner.show();
 
                 this._deceasedCustomer

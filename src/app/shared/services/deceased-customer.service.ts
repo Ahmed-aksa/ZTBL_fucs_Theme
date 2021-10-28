@@ -48,6 +48,7 @@ export class DeceasedCustomerService {
             .pipe(map((res: BaseResponseModel) => res));
     }
     MarkAsDeceasedCustomer(form, file: File) {
+        debugger;
         console.log(file);
 
         var deceasedInfo = new Customer();
