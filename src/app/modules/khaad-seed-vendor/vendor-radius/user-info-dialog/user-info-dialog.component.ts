@@ -1,4 +1,4 @@
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -50,7 +50,7 @@ export class UserInfoDialogComponent implements OnInit {
   }
 
   getVendor(){
-    debugger
+    
     this.vendor.Id = this.data.id;
 
     this.user.ZoneId = this.data.zoneId;

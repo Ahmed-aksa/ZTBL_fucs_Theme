@@ -35,7 +35,7 @@ export class CapsOnlyDirective {
   //    return;
   //  }
   //  let current: string = this.el.nativeElement.value;
-  //  debugger;
+  //  
   //  var final = current.charAt(0).toUpperCase() + current.substring(1);
 
   //  this.event.control.patchValue(final);

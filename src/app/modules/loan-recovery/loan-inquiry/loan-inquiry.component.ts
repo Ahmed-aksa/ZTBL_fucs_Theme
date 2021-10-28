@@ -52,7 +52,7 @@ export class LoanInquiryComponent implements OnInit {
     var lcno = this.route.snapshot.params['Lcno'];
 
     var userInfo = this.userUtilsService.getUserDetails();
-    debugger;
+    
 
     this.RecoveryForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
     this.RecoveryForm.controls.Branch.setValue(userInfo.Branch.Name);

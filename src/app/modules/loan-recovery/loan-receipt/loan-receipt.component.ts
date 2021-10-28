@@ -61,7 +61,7 @@ export class LoanReceiptComponent implements OnInit {
         })
       )
       .subscribe((baseResponse: BaseResponseModel) => {
-        debugger;
+        
         console.log(baseResponse);
         if (baseResponse.Success === true) {
           this.receiptDetail = baseResponse.Recovery.Receipt;
@@ -91,7 +91,7 @@ export class LoanReceiptComponent implements OnInit {
   downloadReceipt() {
     debugger
     if (this.receiptBase64 != "") {
-    debugger;
+    
 
     this.receiptBase64 = this.receiptBase64.replace("data:image/png;base64,", "")
     const blobData = this.convertBase64ToBlobData(this.receiptBase64);

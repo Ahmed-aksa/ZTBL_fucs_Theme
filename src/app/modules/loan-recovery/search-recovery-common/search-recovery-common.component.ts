@@ -159,7 +159,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
   async loadLOV() {
 
     this.CustomerStatuses = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.CustomerStatus });
-    debugger;
+    
     this.CustomerStatuses = this.CustomerStatuses.LOVs;
     console.log('RecoveryStatus');
     console.log(this.CustomerStatuses);
