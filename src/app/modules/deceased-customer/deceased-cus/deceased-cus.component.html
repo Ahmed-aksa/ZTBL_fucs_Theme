@@ -1,5 +1,5 @@
 <div class="px-10 pt-4sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-4xl font-extrabold tracking-tight px-2 py-4">Deceased Customers</div>
+    <div class="text-4xl font-extrabold tracking-tight py-4">Deceased Customers</div>
     <form [formGroup]="customerForm" class="kt-form kt-form--group-seperator-dashed">
         <div class="form-group kt-form__group row">
 
@@ -49,12 +49,12 @@
         <div *ngIf="isEmpty">
             <div class="kt-portlet__head kt-portlet__head__custom">
                 <div class="kt-portlet__head-label">
-                    <h6 class="kt-portlet__head-title">Customer Information</h6>
+                    <h6 class=" text-xl font-extrabold tracking-tight py-4 ">Customer Information</h6>
                 </div>
             </div>
 
-            <div class="form-group kt-form__group row" style="padding-left: 19px;">
-                <div class="col-lg-6 kt-margin-bottom-20-mobile mt-2" *ngIf="!viewOnly">
+            <div class="form-group kt-form__group row">
+                <div class="col-lg-6 kt-margin-bottom-20-mobile mt-2 py-2" *ngIf="!viewOnly">
                     <span class="customMatLabel">Attach Scaned Death Certificate:</span>
                     <input formControlName="file" type="file" accept="image/jpg, image/jpeg"
                            (change)="onFileChange($event)"/>
@@ -179,7 +179,7 @@
 
             <div class="kt-portlet__head kt-portlet__head__custom">
                 <div class="kt-portlet__head-label">
-                    <h6 class="kt-portlet__head-title">Disbursements/Recoveries</h6>
+                    <h6 class="text-xl font-extrabold tracking-tight py-4">Disbursements/Recoveries</h6>
                 </div>
             </div>
 
@@ -265,7 +265,7 @@
 
             <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                 <div class="kt-portlet__head-label">
-                    <h6 class="kt-portlet__head-title">Attached File</h6>
+                    <h6 class="text-xl font-extrabold tracking-tight py-4">Attached File</h6>
                 </div>
             </div>
 
