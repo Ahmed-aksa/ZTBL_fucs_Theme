@@ -68,6 +68,8 @@ export class JvFormComponent implements OnInit, OnDestroy {
     maker: any;
     userInfo: any;
     disbDescription: any;
+    
+    bindGridData: any;
 
     deleteBtn: boolean = true;
 
@@ -513,13 +515,19 @@ export class JvFormComponent implements OnInit, OnDestroy {
                         this.DisbursementGLList.push(tempDisbursementGLList);
                     }, listGL);
                 }
-            },
-            (error) => {
-                this.expandDisbursement = false;
-                this.DisbursementGLList = []
-                this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request");
-                console.log(error)
+                else{
+                    this.expandDisbursement = false;
+                    this.DisbursementGLList = []
+                    this.layoutUtilsService.alertElement("", "Error Occured While Processing Request");
+                }
             });
+            // ,
+            // (error) => {
+            //     this.expandDisbursement = false;
+            //     this.DisbursementGLList = []
+            //     this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request");
+            //     console.log(error)
+            // });
     }
 
     viewLLCInquiryGL() {
@@ -527,7 +535,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
         var LnTransactionID = this.JvForm.controls.LoanDisbID.value;
 
         const url = this.router.serializeUrl(
-            this.router.createUrlTree(['../loan-inquiry', {
+            this.router.createUrlTree(['../../loan-recovery/loan-inquiry', {
                 LnTransactionID: LnTransactionID,
                 Lcno: Lcno
             }], {relativeTo: this.activatedRoute})
@@ -658,7 +666,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
             }
         }
         var userInfo = this.userUtilsService.getUserDetails();
-        myjournalVocherData.IpAddress = "192.168.232.2";
+        //myjournalVocherData.IpAddress = "192.168.232.2";
         myjournalVocherData.DrAmount = this.JvForm.controls.GlHead.value == "D" ? this.JvForm.controls.Amount.value : 0;
         myjournalVocherData.CRAMOUNT = this.JvForm.controls.GlHead.value == "C" ? this.JvForm.controls.Amount.value : 0;
         this.spinner.show();
@@ -700,6 +708,9 @@ export class JvFormComponent implements OnInit, OnDestroy {
                     // this.jvGl.forEach(element => {
                     //   this.journalVocherData.TransactionDetailID = element.TransactionDetailID;
                     // });
+                    if(this.journalVocherData.TransactionDetailID != undefined){
+                        this.journalVocherData.TransactionDetailID = undefined;
+                    }
 
                     this.JvForm.controls["GlSubID"].setValue('');
                     this.JvForm.controls["Amount"].setValue('');

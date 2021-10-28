@@ -1,10 +1,13 @@
 <div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
     <div class="text-4xl font-extrabold tracking-tight px-2">Add New Vendor</div>
-    <div class="flex flex-auto mt-4" style="flex-direction: row;flex-wrap: wrap; overflow-y: scroll;gap:2%" [formGroup]="addUpdateBenchMarkForm">
+    <div [formGroup]="addUpdateBenchMarkForm">
         
+
+      <div class="row mt-4 ">
+        <div class="col-lg-3 col-sm-12">
         <div>
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
                 <mat-label class="customMatLabel">Zone</mat-label>
                 <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
                     <mat-option [value]="SelectedZones?.ZoneId">
@@ -12,7 +15,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
                 <mat-label class="customMatLabel">Zone</mat-label>
                 <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
                             (selectionChange)="changeZone($event)">
@@ -24,9 +27,12 @@
             </mat-form-field>
 
         </div>
+        </div>
 
-        <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-3 col-sm-12">
+
+          <div>
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
                 <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
                             (selectionChange)="changeBranch($event)"
@@ -46,8 +52,11 @@
             </mat-form-field>
         </div>
 
+        </div>
+
+        <div class="col-lg-3 col-sm-12">
         <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Circle</mat-label>
 
                 <mat-select formControlName="CircleId" [disabled]="disable_circle">
@@ -58,30 +67,39 @@
                 </mat-select>
             </mat-form-field>
         </div>
-
+      </div>
+      <div class="col-lg-3 col-sm-12">
         <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Village Name<strong class="matMandatory">*</strong></mat-label>
               <input matInput placeholder="Enter Village Name'" formControlName="VillageName" />
             </mat-form-field>
           </div>
+        </div>
+      </div>  
+
+
+      <div class="row">
+        <div class="col-lg-3 col-sm-12">
   
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">No. of Farmer<strong class="matMandatory">*</strong></mat-label>
               <input matInput placeholder="Enter No. of Farmer" formControlName="NoOfFormaer" autocomplete="off" appNumberOnly />
             </mat-form-field>
           </div>
-  
+        </div>
+        <div class="col-lg-3 col-sm-12">
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Gender Count<strong class="matMandatory">*</strong></mat-label>
               <input matInput placeholder="Enter Gender Count" formControlName="GenderCount" autocomplete="off" appNumberOnly />
             </mat-form-field>
           </div>
-  
+        </div>
+        <div class="col-lg-3 col-sm-12">
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Gender Type<strong class="matMandatory">*</strong></mat-label>
               <mat-select formControlName="GenderType">
                 <mat-option *ngFor="let gender of GenderLov" [value]="gender.Name">
@@ -90,53 +108,67 @@
               </mat-select>
             </mat-form-field>
           </div>
-
+        </div>
+        <div class="col-lg-3 col-sm-12">
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Farm Size<strong class="matMandatory">*</strong></mat-label>
               <input matInput placeholder="Enter Farm Size" formControlName="FarmSize" autocomplete="off" appNumberOnly />
             </mat-form-field>
           </div>
-  
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-3 col-sm-12">
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Average Loan Size<strong class="matMandatory">*</strong></mat-label>
               <input matInput placeholder="Enter Average Loan Size" formControlName="AverageLoanSize" autocomplete="off" appNumberOnly />
             </mat-form-field>
           </div>
-  
+        </div>
+        <div class="col-lg-3 col-sm-12">
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Subsistence Farmer</mat-label>
               <input matInput placeholder="Enter Tour Subsistence Farmer" formControlName="SubsistenceFarmer" autocomplete="off" appNumberOnly />
             </mat-form-field>
           </div>
-  
+        </div>
+        <div class="col-lg-3 col-sm-12">
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Economic Farmer</mat-label>
               <input matInput placeholder="Enter Tour Economic Farmer" formControlName="EconomicFarmer" autocomplete="off" appNumberOnly />
             </mat-form-field>
           </div>
-          
+        </div>
+        <div class="col-lg-3 col-sm-12">
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Big Farmers</mat-label>
               <input matInput placeholder="Enter Big Farmers" formControlName="BigFarmars" autocomplete="off" appNumberOnly />
             </mat-form-field>
           </div>
-  
+        </div>
+        </div>
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <div class="row">
+              <div class="col-lg-3 col-sm-12">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Agri Business Potential</mat-label>
               <input matInput placeholder="Enter Agri Business Potential" formControlName="AgriBusinessPotential" autocomplete="off" />
             </mat-form-field>
+          </div>
+          <div>
           </div>
 
     </div>
 
     <div class="mt-2 justify-content-end text-right border-t py-4" >
-        <button mat-raised-button color="primary" class="mr-4" (click)="Add()">Add</button>
+        <button mat-raised-button color="primary" class="mr-4" (click)="Add()"><mat-icon class="mr-2">add_circle</mat-icon>Add</button>
         <button mat-raised-button class="org-button button-red" (click)="clear()">Clear</button>
     </div>
 

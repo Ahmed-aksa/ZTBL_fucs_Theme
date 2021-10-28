@@ -1,0 +1,232 @@
+<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">Tour Plan List</div>
+
+    <!-- Header -->
+    <div class="pt-4" [formGroup]="TourPlan">
+
+
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                            <mat-option [value]="SelectedZones?.ZoneId">
+                                {{SelectedZones?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                                    (selectionChange)="changeZone($event)">
+                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                        [disabled]="disable_zone">
+                                {{zone?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+        
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    (selectionChange)="changeBranch($event)"
+                                    *ngIf="!single_branch">
+                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                            >
+                                {{branch?.Name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    *ngIf="single_branch">
+                            <mat-option [value]="SelectedBranches?.BranchCode"
+                            >
+                                {{SelectedBranches?.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">From</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off" formControlName="FromDate" [max]="getToday()" (dateChange)="setFromDate()" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+        
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">To</mat-label>
+                        <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy" formControlName="ToDate"  [min]="minDate" [max]="getTodayForTo()" (dateChange)="setToDate()" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+<!--        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">-->
+
+<!--            <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+<!--                <mat-label class="customMatLabel">Circle</mat-label>-->
+
+<!--                <mat-select [(ngModel)]="selected_c" formControlName="Circle" [disabled]="disable_circle">-->
+<!--                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"-->
+<!--                    >-->
+<!--                        {{circle?.CircleCode}}-->
+<!--                    </mat-option>-->
+<!--                </mat-select>-->
+<!--            </mat-form-field>-->
+<!--        </div>-->
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12">
+                        <div *ngIf="tourPlanStatusLov" class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Select tourPlan Status</mat-label>
+                                <mat-select formControlName="Status">
+                                    <mat-option value="">
+                                        Select
+                                    </mat-option>
+                                    <mat-option *ngFor="let obj of tourPlanStatusLov.LOVs" [value]="obj.Value">
+                                        {{obj.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mt-4">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <button (click)="SearchTourPlan()"  type="button" class="mat-raised-button mat-button-base mat-primary kt-login__btn-primary btn-block mat-primary">
+                                <mat-icon class="mr-2">search</mat-icon> Search
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+    </div>
+    <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
+        <div class="example-table-container">
+
+<!--           table -->
+
+            <div class="custom-accordion" *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
+                <div class="custom-accordion-head" (click)="toggleAccordion(i)"
+                     style="cursor: pointer">
+                    <div class="custom-padding">
+                        <h3>
+                            {{activity.VisitedDate}}
+                        </h3>
+                    </div>
+
+
+                    <div class="custom-padding">
+                        <!--                <button mat-icon-button color="warn"-->
+                        <!--                        (click)="deleteActivity(activity)">-->
+                        <!--                  <mat-icon>-->
+                        <!--                    delete-->
+                        <!--                  </mat-icon>-->
+                        <!--                </button>-->
+                        <!--                <button class="ml-2" mat-icon-button color="primary"-->
+                        <!--                        (click)="editActivity(activity)">-->
+                        <!--                  <mat-icon>-->
+                        <!--                    edit-->
+                        <!--                  </mat-icon>-->
+                        <!--                </button>-->
+                        <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
+                            <mat-icon>expand_more</mat-icon>
+                        </button>
+                        <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
+                            <mat-icon>expand_less</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">
+                    <table class="table table-responsive" style="display: inline-table !important;">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>VisitedDate</th>
+                            <th>Purpose</th>
+                            <th>Remarks</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let child of activity.TourPlans">
+                            <td style="width: 20%">{{child.VisitedDate}}</td>
+                            <td style="width: 20%">{{child.Purpose}}</td>
+                            <td style="width: 20%">{{child.Remarks}}</td>
+                            <td style="width: 20%">{{child.Status}}</td>
+
+                            <td style="width: 20%">
+
+                                <button mat-icon-button color="primary" *ngIf="CheckViewStatus(child)"
+                                        (click)="viewTourPlan(child)">
+                                    <mat-icon title="View land">visibility</mat-icon>
+                                </button>
+                                <button  class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"
+                                         (click)="editTourPlan(child)">
+                                    <mat-icon style="margin-left: 5px;" title="Edit Tour Plan">edit</mat-icon>
+                                </button>
+
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+                <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
+                Items per page:
+                <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="25">25</mat-option>
+                    <mat-option [value]="50">50</mat-option>
+                </mat-select>
+                <button (click)="paginate(1)">First</button>
+                <pagination-controls display="inline" (pageChange)="paginate($event)" style="display: inline-block;"></pagination-controls>
+                <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+                <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+
+            </div>
+
+            <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
+            <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+
+        </div>
+
+    </div>
+</div>

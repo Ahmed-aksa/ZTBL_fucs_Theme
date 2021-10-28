@@ -48,8 +48,8 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   rawData : any = {};
   visible: any;
   vendorDetail: any;
-  viewOnly: boolean = false;
-  isEdit: boolean = false;
+  viewOnly = false;
+  isEdit = false;
   isEditMode: any = null;
   addedVendor: any;
   vendorEditView: any;
@@ -143,7 +143,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
     this.isEditMode = localStorage.getItem("EditVendorData");
     
-    if(this.isEditMode != "0"){
+    if(this.isEditMode != null && this.isEditMode != "0"){
       this.vendorEditView = JSON.parse(localStorage.getItem("SearchVendorData"));
       
       if(this.vendorEditView != null){

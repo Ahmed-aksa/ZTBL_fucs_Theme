@@ -153,14 +153,10 @@ export class LoanUtilizationComponent implements OnInit {
         private _loanutilization: LoanUtilizationService,
         private dialog: MatDialog,
         private route: ActivatedRoute,
-        // private _common: CommonService,
-        // private datePipe: DatePipe,
 
     ) {
 
         this.loggedInUser = userUtilsService.getUserDetails();
-        // console.log(this.router.getCurrentNavigation().extras)
-        // var val =JSON.stringify(this.router.getCurrentNavigation());
         if (this.router.getCurrentNavigation().extras.state != undefined) {
             this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
         } else {
@@ -168,12 +164,10 @@ export class LoanUtilizationComponent implements OnInit {
         }
 
         this.mediaGetter = Object.assign(this.loanUtilizationModel)
-        // console.log("Model received"+this.loanUtilizationModel)
         router.events.subscribe((val: any) => {
             if (val.url == '/deceased-customer/customers') {
             }
         });
-
     }
 
 
@@ -234,9 +228,6 @@ export class LoanUtilizationComponent implements OnInit {
             this.selected_c = this.SelectedCircles?.Id
             this.customerForm.controls["Zone"].setValue(this.SelectedZones?.Id);
             this.customerForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-            // if (this.customerForm.value.Branch) {
-            //     this.changeBranch(this.customerForm.value.Branch);
-            // }
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
@@ -279,7 +270,6 @@ export class LoanUtilizationComponent implements OnInit {
 
     checkUser() {
         var userInfo = this.userUtilsService.getUserDetails();
-        // console.log(userInfo);
         if (userInfo.User.userGroup[0].ProfileID == '56') {
             this.isMCO = true;
         } else if (userInfo.User.userGroup[0].ProfileID == '57') {
@@ -333,6 +323,8 @@ export class LoanUtilizationComponent implements OnInit {
         this.hasFormErrors = false;
     }
 
+    // get f() { return this.customerForm.controls; }
+
     createForm() {
         this.customerForm = this.fb.group({
             Zone: ['', Validators.required],
@@ -348,13 +340,8 @@ export class LoanUtilizationComponent implements OnInit {
             CircleId: [this.loanUtilizationModel.CircleId],
             ID: [this.loanUtilizationModel.ID],
         });
-        // this.customerForm.controls["DetailSourceIncome"].disable();
-
     }
 
-    // onAlertClose($event) {
-    //   this.hasFormErrors = false;
-    // }
 
     mydata = [];
     imagearray = [];
@@ -370,7 +357,6 @@ export class LoanUtilizationComponent implements OnInit {
                         var reader = new FileReader();
                         reader.onload = (event: any) => {
                             this.imageUrl.push(event.target.result);
-                            console.log(this.imageUrl);
                         };
                         reader.readAsDataURL(event.target.files[0]);
                         var utilizationFile = new UtilizationFiles();
@@ -382,8 +368,6 @@ export class LoanUtilizationComponent implements OnInit {
                     }
                 }
             }
-            // console.log(this.images);
-            // console.log(this.imageUrl);
         } else {
             this.layoutUtilsService.alertElement('', 'maximum ' + this.MaxNumberOfImages + ' Images allowed', '');
             return;
@@ -410,21 +394,12 @@ export class LoanUtilizationComponent implements OnInit {
                     }
                 }
             }
-            // console.log(this.videos);
-            // console.log(this.videoUrl);
         } else {
             this.layoutUtilsService.alertElement('', 'maximum ' + this.MaxNumberOfVideo + ' Videos allowed', '');
             return;
         }
     }
 
-    videodata() {
-
-        //   for (let i = 0; i < this.file.length; i++) {
-        //     console.log(this.file.length)
-        // console.log(this.file[i])
-        //   }
-    }
 
     deleteData(id: string, val: number, isVideo: boolean) {
 
@@ -457,13 +432,9 @@ export class LoanUtilizationComponent implements OnInit {
             });
 
     }
-
     imageid;
     videoid;
-
     removeImage(url, val: number) {
-        // console.log("valuee" + val)
-        // console.log("url" + url);
         if (!url.includes('base64')) {
             this.imageid = this.images.find(temp => temp.ImageFilePath == url);
             this.deleteData(this.imageid['ID'], val, false);
@@ -495,30 +466,11 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     ifResetRequired() {
-        // console.log(this.images.length)
-        // if(this.images.length==0){
         this.customerForm.controls['file'].reset();
-        // }
     }
 
     ifResetRequiredV() {
-        // console.log(this.videos.length)
-        // if(this.videos.length==0){
         this.customerForm.controls['fileV'].reset();
-        // }
-    }
-
-
-    onChang(e) {
-        console.log(e);
-        if (e == false) {
-            this.myModel = true;
-            // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
-        } else {
-            this.myModel = false;
-            // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
-        }
-        console.log(e);
     }
 
     previewImg(url) {
@@ -531,8 +483,6 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     changeStatus(status: string) {
-
-        debugger
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks.value;
         if(this.loanUtilizationModel.Remarks == ""){
             var msg = "Please Enter Remarks before submitting"
@@ -587,7 +537,6 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     find(val) {
-
         this.spinner.show();
         this._loanutilization
             .GetLoanDetail(val)
@@ -600,8 +549,6 @@ export class LoanUtilizationComponent implements OnInit {
                     this.DisbursementsRecoveries = baseResponse.LoanUtilization['DisbursementsRecoveries'];
                     this.LoanApplicants = baseResponse.LoanUtilization['LoanApplicants'];
                     this.Loanpurpose = baseResponse.LoanUtilization['Loanpurpose'];
-
-
                 } else {
 
                     this.layoutUtilsService.alertElement(
@@ -618,13 +565,9 @@ export class LoanUtilizationComponent implements OnInit {
     UtilizationFiles;
 
     GetMedia() {
-
-        // this.mediaGetter.LoanDisbID &&
         if (this.customerForm.controls.LoanDisbID.value && this.mediaGetter.LoanCaseNo) {
             this.mediaGetter.LoanDisbID = this.customerForm.controls.LoanDisbID.value;
-            console.log("condition working")
             this.visible = false;
-
             this.spinner.show();
             this._loanutilization
                 .GetMedia(this.mediaGetter)
@@ -635,7 +578,6 @@ export class LoanUtilizationComponent implements OnInit {
                     if (baseResponse.Success) {
                         this.isEmpty = true;
                         var utilizationFiles = baseResponse.LoanUtilization['UtilizationFiles'];
-                        console.log(utilizationFiles);
                         if (utilizationFiles) {
                             for (let i = 0; i < utilizationFiles.length; i++) {
                                 if (utilizationFiles[i].ImageFilePath) {
@@ -672,8 +614,6 @@ export class LoanUtilizationComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.isEmpty = true;
                     this.LoanGls = baseResponse.LoanUtilization['LoanGls'];
-                    // console.log(this.LoanGls);
-
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -685,23 +625,30 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
 
-
-
     changed(value) {
         this.len = value.target.value;
         if (this.len.length <= 13) {
-            //this.customerForm.reset();
             this.isEmpty = false;
             this.customerForm.markAsUntouched();
             this.customerForm.markAsPristine();
         }
     }
+    isControlHasError(controlName: string, validationType: string): boolean {
+        const control = this.customerForm.controls[controlName];
 
-    UtilizationId;
+        if (!control) {
+            return false;
+        }
+
+        const result =
+            control.hasError(validationType) &&
+            (control.dirty || control.touched);
+        return result;
+    }
 
     save() {
 
-        debugger
+
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
             Object.keys(controls).forEach(controlName =>
@@ -733,7 +680,6 @@ export class LoanUtilizationComponent implements OnInit {
 
         this.loanUtilizationModel.LoanDisbID = this.customerForm.controls.LoanDisbID.value;
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks?.value;
-        console.log("After assigning value"+JSON.stringify(this.loanUtilizationModel))
         this.spinner.show();
         this._loanutilization
             .save(this.loanUtilizationModel)
@@ -745,7 +691,6 @@ export class LoanUtilizationComponent implements OnInit {
                     if (baseResponse.Success) {
 
                         this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID
-                        console.log("id was saved here " + this.loanUtilizationModel.ID);
                         if(this.images.length && this.videos.length ){
                             this.layoutUtilsService.alertElement(
                                 "",
@@ -767,6 +712,8 @@ export class LoanUtilizationComponent implements OnInit {
     currentIndex: number = 0;
 
     message = "";
+
+
 
     SaveImages() {
         if (this.currentIndex < this.images.length) {
@@ -805,7 +752,6 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     SaveVideos() {
-        // console.log(this.videos);
         if (this.currentIndex < this.videos.length) {
             if (this.videos[this.currentIndex].VideoFilePath == undefined) {
 
