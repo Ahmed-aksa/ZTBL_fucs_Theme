@@ -43,7 +43,7 @@
                 <input type="button" mat-raised-button color="primary"
                        class=" mat-raised-button mat-button-base mat-primary searchLCBtn" value="Find" (click)="find()"
                        [disabled]="viewOnly"/>
-            
+
             </div>
         </div>
         <div *ngIf="isEmpty">
@@ -118,7 +118,7 @@
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                     <mat-label class="customMatLabel">Nadra No <strong class="matMandatory">*</strong>
                                     </mat-label>
-                                    <input matInput formControlName="NadraNo" placeholder="" maxlength="13"
+                                    <input  readonly="readonly" matInput formControlName="NadraNo" placeholder="" maxlength="13"
                                            autocomplete="off"/>
                                     <mat-error *ngIf="hasError('NadraNo', 'required')">Nadra Number
                                         <strong>required</strong></mat-error>
@@ -156,7 +156,7 @@
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                     <mat-label class="customMatLabel">Maker Remarks <strong
                                         class="matMandatory">*</strong></mat-label>
-                                    <input matInput formControlName="MakerRemarks" placeholder="" maxlength="13"
+                                    <input   readonly="readonly" matInput formControlName="MakerRemarks" placeholder="" maxlength="13"
                                            autocomplete="off"/>
                                     <mat-error *ngIf="hasError('MakerRemarks', 'required')">Maker Remarks <strong>required</strong>
                                     </mat-error>
