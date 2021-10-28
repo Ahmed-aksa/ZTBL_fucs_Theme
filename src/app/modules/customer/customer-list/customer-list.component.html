@@ -13,25 +13,29 @@
                         <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
                     </mat-form-field>
                 
-                    <mat-form-field class="mat-form-field-fluid w-full map-fields" appearance="outline" *ngIf="!BMUser">
-                        <mat-label>Zone</mat-label>
-                        <mat-select (selectionChange)="GetBranches($event)" formControlName="Zone">
-                            <mat-option>
-                                <ngx-mat-select-search placeholderLabel="Search Zone..."
-                                                       (keyup)="searchZone($event.target.value)"
-                                                       noEntriesFoundLabel="No Zone Found">
-                                </ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option>
-                                Select
-                            </mat-option>
-                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone.ZoneId">
-                                {{zone.ZoneName }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+
                 </div>
 
+            </div>
+
+            <div class="col-md-3 col-sm-12" *ngIf="isUserAdmin || isZoneUser">
+                <mat-form-field class="mat-form-field-fluid w-full map-fields" appearance="outline" *ngIf="!BMUser">
+                    <mat-label>Zone</mat-label>
+                    <mat-select (selectionChange)="GetBranches($event)" formControlName="Zone">
+                        <mat-option>
+                            <ngx-mat-select-search placeholderLabel="Search Zone..."
+                                                   (keyup)="searchZone($event.target.value)"
+                                                   noEntriesFoundLabel="No Zone Found">
+                            </ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option>
+                            Select
+                        </mat-option>
+                        <mat-option *ngFor="let zone of SelectedZones" [value]="zone.ZoneId">
+                            {{zone.ZoneName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div class="col-md-3 " *ngIf="!isUserAdmin && !isZoneUser">
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -41,8 +45,8 @@
                 </mat-form-field>
             </div>
 
-            <div class="col-md-3 col-sm-12">
-                <div class="col-md-12 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin || isZoneUser">
+            <div class="col-md-3 col-sm-12" *ngIf="isUserAdmin || isZoneUser">
+                <div class="col-md-12 kt-margin-bottom-10-mobile" >
                     <mat-form-field class="mat-form-field-fluid w-full map-fields" appearance="outline" *ngIf="!BMUser">
                         <mat-label>Branch</mat-label>
                         <mat-select (selectionChange)="SetBranches($event)" formControlName="Branch">
@@ -62,18 +66,6 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-12">
-
-                <div class="col-md-12 kt-margin-bottom-10-mobile">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Customer Name</mat-label>
-                        <input matInput formControlName="CustomerName" placeholder="Enter Customer Name" maxlength="100"
-                               autocomplete="off" appAlphabetOnly>
-                        <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
-                    </mat-form-field>
-                </div>
-
             </div>
             </div>
             <div class="row">
