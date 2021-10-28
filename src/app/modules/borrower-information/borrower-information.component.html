@@ -6,7 +6,7 @@
 
         <div class="row ">
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
                         <mat-label class="customMatLabel">Zone</mat-label>
@@ -84,11 +84,10 @@
 
         <div class="row">
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
                     <button class="mat-primary" mat-raised-button color="accent"
-                            type="button" (click)="getBorrower()"><span><i
-                        class="fa fa-search"> &nbsp;</i> Find</span></button>
+                            type="button" (click)="getBorrower()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                 </div>
             </div>
 
