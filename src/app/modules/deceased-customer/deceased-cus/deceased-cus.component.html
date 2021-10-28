@@ -10,7 +10,7 @@
 
             <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Zone" formControlName="Zone" maxlength="13"
                            autocomplete="off" readonly="readonly"/>
@@ -19,7 +19,7 @@
 
             <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Branch" formControlName="Branch" maxlength="13"
                            autocomplete="off" readonly="readonly"/>
@@ -29,7 +29,7 @@
 
         <div class="form-group kt-form__group row">
             <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">CNIC#</mat-label>
                     <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic"
                            formControlName="Cnic" maxlength="13" autocomplete="off"/>
@@ -43,7 +43,7 @@
                 <input type="button" mat-raised-button color="primary"
                        class=" mat-raised-button mat-button-base mat-primary searchLCBtn" value="Find" (click)="find()"
                        [disabled]="viewOnly"/>
-                <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
+            
             </div>
         </div>
         <div *ngIf="isEmpty">
