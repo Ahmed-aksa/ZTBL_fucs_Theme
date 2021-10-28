@@ -1,1 +1,88 @@
-<p>land-history works!</p>
+<div
+    class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <h3 class="kt-portlet__head-title">Land History</h3>
+
+    <div class="flex flex-auto" style="flex-direction: column; overflow-y: scroll">
+        <div class="example-table-container">
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                #table
+                [dataSource]="dataSource"
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear>
+                <ng-container matColumnDef="LandInfoID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>LandInfo ID</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.LandInfoID}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="CompleteAddress">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Complete Address</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.CompleteAddress}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="BranchCode">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Code</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.BranchCode}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="PassbookNO">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Passbook NO</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.PassbookNO}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Cnic</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.Cnic}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="BranchId">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>BranchId</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.BranchId}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="CustomerName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.CustomerName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="FatherName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.FatherName}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="ZoneID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Zone ID</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.ZoneID}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="IsRedeem">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Redeem</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.IsRedeem}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="StatusDesc">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let land">{{land.StatusDesc}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="View">
+                    <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                    <mat-cell *matCellDef="let land">
+                        <button mat-icon-button color="primary"
+                                (click)="editland(land)">
+                            <mat-icon style="margin-left: 2px;" title="View land">visibility</mat-icon>
+                        </button>
+
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
+            <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+        </div>
+
+
+    </div>
+</div>
+
+
+

@@ -21,9 +21,22 @@ export class AreaConverterComponent implements OnInit {
 
     AreaConverter() {
 
+        if (this.Area != undefined) {
+            if (this.Unit == "1" && this.ConvertUnit == "1") {
+                this.Result = this.Area * 20;
+            }
+
+            if (this.Unit == "2" && this.ConvertUnit == "1") {
+                this.Result = this.Area * 160;
+            }
+            if (this.Unit == "3" && this.ConvertUnit == "1") {
+                this.Result = this.Area * 4;
+            }
+
+        }
     }
 
     onCloseClick() {
-        
+
     }
 }
