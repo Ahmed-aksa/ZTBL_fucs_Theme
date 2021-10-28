@@ -1,11 +1,11 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-4xl font-extrabold px-10 mt-4 tracking-tight">{{getTitle()}}</div>
+<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <div class="text-4xl font-extrabold tracking-tight">{{getTitle()}}</div>
 
   <!-- Header -->
   <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pt-4 px-6 md:px-8"
     style="flex-wrap: wrap">
   </div>
-  <div class="flex flex-auto overflow-scroll mx-12" style="flex-direction: column;">
+  <div class="flex flex-auto overflow-scroll " style="flex-direction: column;">
     <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
       <div class="kt-form">
         <div class="kt-portlet__body">
@@ -446,18 +446,18 @@
     <div class="col-lg-12">
       <div class="form-group kt-form__group">
         <button *ngIf="isSimpleRecovery" mat-raised-button color="primary" (click)="save()"
-          [disabled]="submitted || viewOnly || ibDisSave">Save</button>
+          [disabled]="submitted || viewOnly || ibDisSave"><mat-icon class="mr-2">save</mat-icon> Save</button>
 
         <button mat-raised-button color="primary" class="ml-2" (click)="makeAndSubmit()"
-          [disabled]="submitted || viewOnly || ibDisSave">{{submitButtonText}}</button>
+          [disabled]="submitted || viewOnly || ibDisSave"><mat-icon class="mr-2">check_circle</mat-icon>{{submitButtonText}}</button>
 
 
         <button mat-raised-button color="primary" class="ml-2" (click)="deleteRecovery()"
-          [disabled]="submitted || viewOnly || ibDisSave" *ngIf="isEditMode || dataSaved">Delete</button>
+          [disabled]="submitted || viewOnly || ibDisSave" *ngIf="isEditMode || dataSaved"><mat-icon class="mr-2">delete_forever</mat-icon>Delete</button>
 
 
         <button mat-raised-button color="primary" class="ml-2" (click)="clearForm()"
-          [disabled]="submitted || transactionEdit || viewOnly || dataSaved">Clear</button>
+          [disabled]="submitted || transactionEdit || viewOnly || dataSaved"><mat-icon class="mr-2"> clear_all</mat-icon>Clear</button>
 
 
         <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
