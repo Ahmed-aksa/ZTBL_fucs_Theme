@@ -202,7 +202,7 @@
         </div> -->
     </div>
     <!-- Search end -->
-    <div class="mat-table__wrapper" [style.height]="gridHeight">
+    <div class="mat-table__wrapper" >
 
         <mat-table class="lmat-elevation-z8"
                    #table
@@ -268,17 +268,18 @@
         <div class="mat-table__message" *ngIf="loading">Please wait....</div>
     </div>
 
-    <div class="mat-table__bottom">
-        <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
-        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15, 30, 50, 100]" [showFirstLastButtons]="true"></mat-paginator>
 
-        <!--<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
-        <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>-->
-    </div>
     <ngx-spinner bdColor="rgba(51,51,51,0.8)"
                  size="medium"
                  color="#ecbd00"
                  type="ball-scale-multiple">
         <p style="font-size: 20px; color: white">Loading...</p>
     </ngx-spinner>
+</div>
+<div class="mat-table__bottom">
+    <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
+    <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15, 30, 50, 100]" [showFirstLastButtons]="true"></mat-paginator>
+
+    <!--<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>-->
 </div>
