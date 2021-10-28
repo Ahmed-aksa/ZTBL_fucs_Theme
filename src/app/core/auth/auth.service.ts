@@ -76,7 +76,7 @@ export class AuthService {
 
     }
 
-    SendOTPResuest(user: any, text): Observable<BaseResponseModel>{
+    SendOTPResuest(user:any, text):Observable<BaseResponseModel>{
         this.request.User =user;
         this.request.OTP=new OTP();
         this.request.OTP.Id ="1";

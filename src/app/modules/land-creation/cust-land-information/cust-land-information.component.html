@@ -60,7 +60,8 @@
                 <mat-label class="customMatLabel">Post Code <strong class="matMandatory">*</strong></mat-label>
                 <mat-select formControlName="PostCode" [disabled]="isFormReadonly">
                     <mat-option>
-                        <ngx-mat-select-search placeholderLabel="Search Post Code..."
+                        <ngx-mat-select-search placeholderLabel="Search Post Code..." 
+                        noEntriesFoundLabel="'No result Found'"
                                                [formControl]="searchFilterCtrlPostCode">
                         </ngx-mat-select-search>
                     </mat-option>
@@ -120,7 +121,7 @@
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label>Place of Issuance: <strong class="matMandatory">*</strong></mat-label>
                 <input [readonly]="isFormReadonly" matInput formControlName="PlaceofIssuePB"
-                       placeholder="Add area of issuance" maxlength="50" autocomplete="off"/>
+                       placeholder="Add area of issuance" maxlength="200" autocomplete="off"/>
                 <mat-error *ngIf="hasError('PlaceofIssuePB', 'required')">Place of Issuance <strong>required</strong>
                 </mat-error>
             </mat-form-field>
@@ -129,7 +130,7 @@
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label>Land Complete Address: <strong class="matMandatory">*</strong></mat-label>
                 <input [readonly]="isFormReadonly" matInput formControlName="CompleteAddress"
-                       placeholder="Complete Address" maxlength="50" autocomplete="off"/>
+                       placeholder="Complete Address" maxlength="200" autocomplete="off"/>
                 <mat-error *ngIf="hasError('CompleteAddress', 'required')">Land Complete Address
                     <strong>required</strong></mat-error>
             </mat-form-field>
