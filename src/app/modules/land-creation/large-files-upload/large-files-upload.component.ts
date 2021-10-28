@@ -70,7 +70,7 @@ export class LargeFilesUploadComponent implements OnInit {
     ngOnInit() {
 
         this.isFormReadonly == false;
-        debugger;
+        
         this.LandInfo = this.data.landInfo;
         this.landInfoDatalist = this.data.landInfoDataList;
 
@@ -157,7 +157,7 @@ export class LargeFilesUploadComponent implements OnInit {
         }
 
 
-        debugger;
+        
         this._landService.getPosition().then(pos => {
 
             console.log(`Positon: ${pos.lng} ${pos.lat}`);
@@ -199,10 +199,10 @@ export class LargeFilesUploadComponent implements OnInit {
 
 
                             //console.log(event.target.result);
-                            debugger;
+                            
                             this.uploadDocuments = new UploadDocuments();
 
-                            debugger;
+                            
                             this.images.push(event.target.result);
 
                             if (Name.toLowerCase() == "mp4") {
@@ -210,11 +210,11 @@ export class LargeFilesUploadComponent implements OnInit {
                                 this.uploadDocuments.videofile = file;
                             }
                             else {
-                                debugger;
+                                
                                 this.uploadDocuments.Path = event.target.result;
                                 this.uploadDocuments.file = file;
                             }
-                            debugger;
+                            
                             this.uploadDocumentsData.push(this.uploadDocuments);
 
                             this.myForm.patchValue({
@@ -263,14 +263,14 @@ export class LargeFilesUploadComponent implements OnInit {
 
                 if (this.uploadDocuments.Path.indexOf("http") !== -1) {
 
-                    debugger;
+                    
                     this.DeleteLandData();
                     this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
                     this.uploadDocumentsDataFinal.splice(i, 1);
                     return
                 }
                 else {
-                    debugger;
+                    
                     this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
                     this.uploadDocumentsDataFinal.splice(i, 1);
                     return
@@ -279,14 +279,14 @@ export class LargeFilesUploadComponent implements OnInit {
             else if (this.uploadDocuments.VideoPath !== undefined && this.uploadDocuments.VideoPath !== '') {
                 if (this.uploadDocuments.VideoPath.indexOf("http") !== -1) {
 
-                    debugger;
+                    
                     this.DeleteLandData();
                     this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.VideoPath !== url);
                     this.uploadDocumentsDataFinal.splice(i, 1);
                     return
                 }
                 else {
-                    debugger;
+                    
                     this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.VideoPath !== url);
                     this.uploadDocumentsDataFinal.splice(i, 1);
                     return
@@ -294,7 +294,7 @@ export class LargeFilesUploadComponent implements OnInit {
             }
             else {
 
-                debugger;
+                
                 this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
                 this.uploadDocumentsDataFinal.splice(i, 1);
 
@@ -310,7 +310,7 @@ export class LargeFilesUploadComponent implements OnInit {
             return
         }
         else {
-            debugger;
+            
             this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
             this.uploadDocumentsDataFinal.splice(i, 1);
         }
@@ -323,7 +323,7 @@ export class LargeFilesUploadComponent implements OnInit {
 
         console.log(this.myForm.value);
         this.errorMessage = "";
-        debugger;
+        
         for (var i = 0; i < this.uploadDocumentsData.length; i++) {
 
             if (this.uploadDocumentsData[i].Path !== undefined && this.uploadDocumentsData[i].Path !== '') {
@@ -385,7 +385,7 @@ export class LargeFilesUploadComponent implements OnInit {
 
     DeleteLandData() {
 
-        debugger;
+        
         this.spinner.show();
         this._landService.landDocumentsDelete(this.uploadDocuments)
             .pipe(
@@ -394,7 +394,7 @@ export class LargeFilesUploadComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-                debugger;
+                
                 if (baseResponse.Success) {
 
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -408,7 +408,7 @@ export class LargeFilesUploadComponent implements OnInit {
     }
 
     UploadLandData() {
-        debugger;
+        
         this.uploadDocuments = new UploadDocuments();
         this.uploadDocuments.LandLatitude = this.Lat;
         this.uploadDocuments.LandLongitude = this.Lng;
@@ -431,7 +431,7 @@ export class LargeFilesUploadComponent implements OnInit {
         }
 
 
-        debugger;
+        
         this.spinner.show();
 
         this._landService.landDocumentsUpload(this.ImageData, this.VideoData, this.uploadDocuments)
@@ -441,7 +441,7 @@ export class LargeFilesUploadComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-                debugger;
+                
                 if (baseResponse.Success) {
 
                 }
@@ -454,7 +454,7 @@ export class LargeFilesUploadComponent implements OnInit {
     }
 
     CheckImageOrVideo(Url: any) {
-        //debugger;
+        //
         if (Url != null && Url != undefined && Url != "") {
             if (Url.includes("image/jpeg") || Url.includes("jpg")) {
                 return true;
@@ -474,7 +474,7 @@ export class LargeFilesUploadComponent implements OnInit {
 
 
     onCloseClick(): void {
-        debugger;
+        
         this.dialogRef.close({ data: { uploadDocumentsData: this.uploadDocumentsData } }); // Keep only this row
     }
 

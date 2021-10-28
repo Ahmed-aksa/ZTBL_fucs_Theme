@@ -1,4 +1,4 @@
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable no-cond-assign */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/semi */
@@ -45,7 +45,7 @@ export class MappingViolationService {
    }
 
    getMappingVoilation(limit, offset){
-    debugger
+    
    var request = {
      Notification: {
        Limit: limit,
@@ -59,7 +59,7 @@ export class MappingViolationService {
   }
 
   getNotificationStatus(maping){
-    debugger
+    
    var request = {
      Notification: {
        Id: maping.Id
@@ -72,7 +72,7 @@ export class MappingViolationService {
   }
 
   createMapping(maping){
-    debugger
+    
     var request = {
       Notification: {
         Id: maping.Id,
@@ -86,7 +86,7 @@ export class MappingViolationService {
    }
 
    blockUser(user){
-     debugger
+     
     var request = {
       Notification: {
         Id: user.Id

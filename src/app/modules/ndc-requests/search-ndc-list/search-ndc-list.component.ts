@@ -2,7 +2,7 @@
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -136,7 +136,7 @@ export class SearchNdcListComponent implements OnInit {
     // }
   
     loadUsersList() {
-      debugger
+      
       this.user.ZoneId = this.ndcForm.controls.ZoneId.value;
       this.user.BranchCode = this.ndcForm.controls.BranchCode.value;
       this.user.CircleId = this.ndcForm.controls.CircleId.value;
@@ -157,7 +157,7 @@ export class SearchNdcListComponent implements OnInit {
         )
         .subscribe((baseResponse: any) => {
           if (baseResponse.Success) {
-            debugger
+            
             console.log(baseResponse)
             this.request_data_source = baseResponse.Ndc.Ndcrequests;
             this.dvReq = this.request_data_source;
@@ -206,7 +206,7 @@ export class SearchNdcListComponent implements OnInit {
         )
         .subscribe((baseResponse: any) => {
           if (baseResponse.Success) {
-            debugger
+            
             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
             window.open(baseResponse.Ndc.ndcFilePath);
           }

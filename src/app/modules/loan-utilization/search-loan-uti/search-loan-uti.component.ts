@@ -191,7 +191,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     private assignBranchAndZone() {
-        debugger;
+        
         //Circle
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]

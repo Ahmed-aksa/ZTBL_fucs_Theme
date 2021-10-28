@@ -1,5 +1,5 @@
 /* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable no-cond-assign */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/semi */
@@ -72,7 +72,7 @@ export class VillageWiseBenchMarkingService{
   };
   var r = JSON.stringify(request)
   console.log(r)
-  debugger;
+  
     return this.http.post(`${environment.apiUrl}/VillageBenchMarking/GetVillageBenchMarking`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -80,7 +80,7 @@ export class VillageWiseBenchMarkingService{
   }
 
   addUpdateVillageBenchMark(village, user) {
-    debugger
+    
     var circle = this.userInfo.UserCircleMappings;
     var circleIds = [];
     //mycircle =
@@ -118,7 +118,7 @@ export class VillageWiseBenchMarkingService{
   };
   var r = JSON.stringify(request)
   console.log(r)
-  debugger;
+  
     return this.http.post(`${environment.apiUrl}/VillageBenchMarking/AddUpdateBenchMarking`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -126,7 +126,7 @@ export class VillageWiseBenchMarkingService{
   }
 
   deleteVillageBenchmark(village){
-    debugger
+    
     var circle = this.userInfo.UserCircleMappings;
     var circleIds = [];
     //mycircle =
@@ -165,7 +165,7 @@ export class VillageWiseBenchMarkingService{
   };
   var r = JSON.stringify(request)
   console.log(r)
-  debugger;
+  
     return this.http.post(`${environment.apiUrl}/VillageBenchMarking/DeleteBenchMarking`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)

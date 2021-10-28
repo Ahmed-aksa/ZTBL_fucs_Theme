@@ -58,7 +58,7 @@ export class SignatureDialogComponent implements OnInit {
     // will be notified of szimek/signature_pad's onEnd event
     var base64 = this.signaturePad.toDataURL('image/jpeg');
     this.imageFile = base64.replace("data:image/jpeg;base64,", "");
-    debugger;
+    
   }
 
   drawStart() {
@@ -70,7 +70,7 @@ export class SignatureDialogComponent implements OnInit {
   }
 
   saveSignature(): void {
-    debugger;
+    
     if (this.receipt.isInterBranchRecovery) {
       this.dialogRef.close(this.imageFile);
       return;
@@ -87,7 +87,7 @@ export class SignatureDialogComponent implements OnInit {
         }) 
       )
       .subscribe((baseResponse: BaseResponseModel) => {
-        debugger;
+        
         console.log(baseResponse);
         if (baseResponse.Success === true) {
           //this.receiptDetail = baseResponse.Recovery.Receipt;

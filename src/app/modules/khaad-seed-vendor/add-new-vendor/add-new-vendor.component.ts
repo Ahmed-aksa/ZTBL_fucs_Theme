@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -133,7 +133,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   //Init Func
 
   ngOnInit() {
-    debugger
+    
 
     this.images.push(this.ProfileImageSrc);
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();

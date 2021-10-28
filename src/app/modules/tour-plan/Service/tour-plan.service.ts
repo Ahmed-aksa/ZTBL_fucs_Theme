@@ -39,7 +39,7 @@ public circle=new Circle;
 
   var v = JSON.stringify(this.request)
 console.log(v)
-  debugger;
+  
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourPlan`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -58,7 +58,7 @@ console.log(v)
 
     var v = JSON.stringify(this.request)
   console.log(v);
-    debugger;
+    
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -75,7 +75,7 @@ console.log(v)
     };
     var v = JSON.stringify(this.request)
     console.log(v);
-    debugger;
+    
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
       map((res: BaseResponseModel) => res)
@@ -98,7 +98,7 @@ console.log(v)
 
   var v = JSON.stringify(this.request)
 console.log(v)
-  debugger;
+  
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanDetail`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -121,7 +121,7 @@ console.log(v)
 
   var v = JSON.stringify(this.request)
 console.log(v)
-  debugger;
+  
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApprovel`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -129,7 +129,7 @@ console.log(v)
   }
   SearchTourPlan(tourPlan,Limit,Offset){
     this.request = new BaseRequestModel();
-    debugger;
+    
     var userInfo = this.userUtilsService.getUserDetails();
 
     this.request.User = userInfo.User;
@@ -142,7 +142,7 @@ console.log(v)
     var req = JSON.stringify(this.request);
     console.log(req);
 
-    debugger;
+    
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -151,7 +151,7 @@ console.log(v)
 
   TourPlanForApproval(tourPlan,Limit,Offset){
     this.request = new BaseRequestModel();
-    debugger;
+    
     var userInfo = this.userUtilsService.getUserDetails();
 
     this.request.User = userInfo.User;
@@ -164,7 +164,7 @@ console.log(v)
     var req = JSON.stringify(this.request);
     console.log(req);
 
-    debugger;
+    
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApproval`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
       map((res: BaseResponseModel) => res)
