@@ -96,7 +96,6 @@ export class DeceasedCustomerService {
         Zone,
         Branch
     ): Observable<BaseResponseModel> {
-        debugger
         this.request = new BaseRequestModel();
         var deceasedInfo = new Customer();
         deceasedInfo = {
@@ -120,10 +119,6 @@ export class DeceasedCustomerService {
         this.request.User = userInfo.User;
         this.request.Zone = Zone;
         this.request.Branch = Branch;
-        // if(userInfo.Zone == null && userInfo.Branch == null){
-        //     this.request.Zone = entry.Zone;
-        //     this.request.Branch = entry.Branch;
-        // }
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
