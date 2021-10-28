@@ -13,7 +13,7 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { MapsAPILoader } from '@agm/core';
-import { Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -21,7 +21,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './address-location.component.html',
   styleUrls: ['./address-location.component.scss']
 })
-export class AddressLocationComponent implements OnInit {
+export class AddressLocationComponent implements OnInit, OnDestroy {
 
   // @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
 
@@ -36,6 +36,7 @@ export class AddressLocationComponent implements OnInit {
   PreviousLocation: Loc[] = [];
   images = [];
   
+  mapClickListener;
 
   markers = []
 
@@ -94,22 +95,24 @@ export class AddressLocationComponent implements OnInit {
   ///////////////////Os Change Set Map
   onMapReady(map: google.maps.Map) {
     this.googleMap = map;
-    // this.mapClickListener = this.googleMap.addListener('click', (e: google.maps.MouseEvent) => {
-    //   this.zone.run(() => {
-    //     // Here we can get correct event
-    //     console.log(e.latLng.lat(), e.latLng.lng());
-    //   });
-    // });
+    this.mapClickListener = this.googleMap.addListener('click', (e: google.maps.MapMouseEvent) => {
+      this.ngZone.run(() => {
+        // Here we can get correct event
+        //console.log(e.latLng.lat(), e.latLng.lng());
+        this.PreviousLocation = []
+        this.addmarker(e.latLng.lat(), e.latLng.lng())
+      });
+    });
   }
 
-  click($event: MouseEvent){
-    debugger
-    console.log($event)
-    //this.googleMap.setMap(null)
-    this.PreviousLocation = []
-    //this.addmarker(event.coords.lat, event.coords.lng)
+  // click($event: google.maps.IconMouseEvent){
+  //   debugger
+  //   console.log($event)
+  //   //this.googleMap.setMap(null)
+  //   this.PreviousLocation = []
+  //   //this.addmarker(event.coords.lat, event.coords.lng)
 
-  }
+  // }
 
   //Pakistan Geolocation
   countryRestriction = {
@@ -149,6 +152,12 @@ export class AddressLocationComponent implements OnInit {
     this.data = res;
     console.log(this.data)
     this.close(this.data)
+  }
+
+  ngOnDestroy(): void {
+    if (this.mapClickListener) {
+      this.mapClickListener.remove();
+    }
   }
 }
 

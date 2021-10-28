@@ -25,8 +25,7 @@
                [mapTypeControlOptions]="controlOptions"
                [mapTypeControl]="true"
                (mapReady)="onMapReady($event)"
-               [restriction]="countryRestriction"
-               (mapClick)="click($event)">
+               [restriction]="countryRestriction">
 
                 <agm-marker  *ngFor="let prev of PreviousLocation"
                               [latitude]="prev.lat"
