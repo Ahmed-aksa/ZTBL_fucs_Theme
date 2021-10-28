@@ -654,10 +654,7 @@ export class CustomerProfileComponent implements OnInit {
     this.CitizenshipLov.LOVs = this._lovService.SortLovs(this.CitizenshipLov.LOVs);
 
     this.PostCodeLov.LOVs = this._lovService.SortLovs(this.PostCodeLov.LOVs);
-
-
-    debugger;
-
+    
     var userInfo = this.userUtilsService.getUserDetails();
     this.BranchLov = userInfo.Branch;
     this.ZoneLov = userInfo.Zone;

@@ -357,7 +357,7 @@ export class RecoveryFormComponent implements OnInit {
       OrgUnitid: [''],
       TransactionCode: [''],
       CircleID: [''],
-      TranDate: [''],
+       TranDate: [''],
       Installments: ['1'],
       AdviceNo: [''],
 
@@ -454,7 +454,6 @@ export class RecoveryFormComponent implements OnInit {
 
 
   getAccountDetail() {
-
     var loanDisbID = this.RecoveryForm.controls.DisbursementID.value;
     var type = this.RecoveryForm.controls.TransactionType.value;
     var recoveryType = this.RecoveryType.toString();

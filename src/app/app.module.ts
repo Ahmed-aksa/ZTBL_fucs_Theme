@@ -24,10 +24,16 @@ import {ConfigurationManagementComponent} from './modules/configuration-manageme
 import {UserUtilsService} from './shared/services/users_utils.service';
 import {TokenInterceptor} from './shared/httpInterceptor/httpconfig.interceptor';
 import {NdcRequestsModule} from './modules/ndc-requests/ndc-requests.module';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+
+
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
-    scrollPositionRestoration: 'enabled'
+    scrollPositionRestoration: 'enabled',
+    onSameUrlNavigation: 'reload',
+    enableTracing: false
+      
 };
 
 @NgModule({
@@ -35,6 +41,7 @@ const routerConfig: ExtraOptions = {
         AppComponent
     ],
     imports: [
+        NgxMaskModule.forRoot(),
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(appRoutes, routerConfig),

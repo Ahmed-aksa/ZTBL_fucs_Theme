@@ -46,8 +46,11 @@ import { NgxPrintModule } from 'ngx-print';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgxCaptureModule } from 'ngx-capture';
+import { NumberDirective } from 'app/shared/directives/numbers-only.directive';
 @NgModule({
-  declarations: [RecoveryFormComponent, LoanInquiryComponent, FaBranchComponent, InterBranchComponent, SbsInterBranchComponent, SearchRecoveryTransactionComponent, SbsFaBranchComponent, LoanReceiptComponent, SearchPendingTransactionComponent, SearchRefferedbackTransactionComponent, SearchSbsPendingTransactionComponent, SearchRecoveryCommonComponent, SignatureDialogComponent],
+  declarations: [RecoveryFormComponent, LoanInquiryComponent, FaBranchComponent, InterBranchComponent, SbsInterBranchComponent, SearchRecoveryTransactionComponent, SbsFaBranchComponent, LoanReceiptComponent, SearchPendingTransactionComponent, SearchRefferedbackTransactionComponent, SearchSbsPendingTransactionComponent, SearchRecoveryCommonComponent, SignatureDialogComponent,
+    NumberDirective
+  ],
   imports: [
     NgxPrintModule,
     CommonModule,

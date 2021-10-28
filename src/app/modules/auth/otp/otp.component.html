@@ -33,8 +33,8 @@
 				</div>
 				<!--begin::Action-->
 				<div class="kt-login__actions float-right mr-2">
-					<button routerLink="/auth/login" [disabled]="loading" id="kt_login_signup_cancel" (click)="onCloseClick(0)" class="btn btn-secondary btn-elevate kt-login__btn-secondary mr-2">{{'Close'}} </button>
-					<button (click)="submit()" id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">{{'Submit'}}</button>
+					<button routerLink="/auth/login" [disabled]="loading" id="kt_login_signup_cancel" (click)="onCloseClick(0)" class="btn btn-secondary btn-elevate kt-login__btn-secondary mr-2">{{ 'Close'  }} </button>
+					<button (click)="submit()" id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">{{ 'Submit'  }}</button>
 				</div>
 				<!--end::Action-->
 			</form>

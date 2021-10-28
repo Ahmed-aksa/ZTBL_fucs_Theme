@@ -1,13 +1,14 @@
-
+// Angular
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { finalize, takeUntil, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { result } from 'lodash';
 import { Subject } from 'rxjs';
 import { AuthService } from 'app/core/auth/auth.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
+
 @Component({
   selector: 'kt-otp',
   templateUrl: './otp.component.html',
@@ -33,12 +34,12 @@ export class OtpComponent implements OnInit {
    * @param cdr
    */
   constructor(
-    private authService: AuthService,
-    private toaster: ToastrService,
+
+    private router: Router,
     private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
     private auth: AuthService,
     public dialogRef: MatDialogRef<OtpComponent>,
-    private spinner: NgxSpinnerService,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) {
@@ -86,14 +87,13 @@ export class OtpComponent implements OnInit {
    */
   submit() {
     this.loading = true;
-    this.spinner.show()
-    
-    this.auth.SendOTPResuest(this.data.baseResponse.User, this.otpForm.controls['otp'].value).pipe(finalize(() => { this.loading = true, this.spinner.hide()})).subscribe(result => {
-      if (result.Success) {
+
+    this.auth.SendOTPResuest(this.data.baseResponse.User, this.otpForm.controls['otp'].value).pipe(finalize(()=>{this.loading = true})).subscribe(result => {
+      if(result.Success){
         this.onCloseClick(result);
       }
       else {
-        this.toaster.error(result.Message, 'danger');
+       // this.authNoticeService.setNotice(result.Message, 'danger');
       }
     });
 
@@ -124,8 +124,8 @@ export class OtpComponent implements OnInit {
     return result;
   }
 
-  onCloseClick(data: any): void {
-    this.dialogRef.close({ data: { data } }); // Keep only this row
+  onCloseClick(data:any): void {
+    this.dialogRef.close({ data: {data} }); // Keep only this row
   }
 
 }
