@@ -68,7 +68,9 @@ export class SearchDeceasedComponent implements OnInit {
     // dataSource : MatTableDataSource<DeceasedCustomer>
 
     dataSource = new MatTableDataSource();
-    //Zone inventory
+
+    dataSourceEmpty = new MatTableDataSource();
+        //Zone inventory
     Zones: any = [];
     SelectedZones: any = [];
 
@@ -172,6 +174,7 @@ export class SearchDeceasedComponent implements OnInit {
 
     }
     SearchDeceasedCustomer(){
+        this.dataSource.data=[];
         this.assignBranchAndZone();
         debugger
         this.spinner.show()
