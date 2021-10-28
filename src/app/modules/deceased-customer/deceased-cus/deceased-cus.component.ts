@@ -222,7 +222,7 @@ export class DeceasedCusComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
-        debugger
+        
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.customerForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
         this.customerForm.controls.Branch.setValue(userInfo.Branch.Name);

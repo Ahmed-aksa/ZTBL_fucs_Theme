@@ -1,5 +1,5 @@
 /* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -60,7 +60,7 @@ export class ViolateDialogComponent implements OnInit {
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      debugger
+      
       if(baseResponse.Success === true){
         console.log(baseResponse)
         this.loading = false;

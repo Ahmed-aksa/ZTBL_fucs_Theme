@@ -97,6 +97,7 @@ export class CustLandListComponent implements OnInit {
 
     changeZone(changedValue) {
         this.Zone = this.SelectedZones.filter((zone) => zone.ZoneId == changedValue.vaue);
+        this.selected_z = changedValue.value;
         let changedZone = {Zone: {ZoneId: changedValue.value}}
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
@@ -108,6 +109,7 @@ export class CustLandListComponent implements OnInit {
 
 
     changeBranch(changedValue) {
+        this.selected_b = changedValue.value;
         this.Branch = this.SelectedBranches.filter((zone) => zone.BranchCode == changedValue.vaue);
     }
 
@@ -314,6 +316,7 @@ export class CustLandListComponent implements OnInit {
             this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
         else
             this.final_zone = this.SelectedZones;
+        
     }
 
     SearchLandData() {
@@ -323,8 +326,8 @@ export class CustLandListComponent implements OnInit {
         this.CustomerLandRelation.Limit = this.itemsPerPage.toString();
         this.CustomerLandRelation = Object.assign(this.CustomerLandRelation, this.landSearch.value);
         this.assignBranchAndZone();
-        this.CustomerLandRelation.BranchId = this.final_branch.BranchId;
-        this.CustomerLandRelation.ZoneId = this.final_zone.ZoneId;
+        this.CustomerLandRelation.BranchId = this.final_branch?.BranchId;
+        this.CustomerLandRelation.ZoneId = this.final_zone?.ZoneId;
         this._landService.searchLand(this.CustomerLandRelation, this.isUserAdmin, this.isZoneUser, this.final_branch, this.final_zone)
             .pipe(
                 finalize(() => {
@@ -354,12 +357,12 @@ export class CustLandListComponent implements OnInit {
 
                     this.matTableLenght = false;
 
-                    this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
+                    // this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                     //this.dataSource.data = [];
                     //this._cdf.detectChanges();
                     this.OffSet = 1;
                     this.pageIndex = 1;
-                    this.dv = this.dv.slice(1, 0);
+                    // this.dv = this.dv.slice(1, 0);
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                 }
 

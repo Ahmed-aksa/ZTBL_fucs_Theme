@@ -167,7 +167,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     private assignBranchAndZone() {
-        debugger;
+        
         //Circle
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
@@ -264,7 +264,7 @@ export class SearchTourPlanComponent implements OnInit {
 
     }
     setCircles() {
-        debugger;
+        
         this._circleService.GetCircleByBranchId()
             .pipe(
                 finalize(() => {
@@ -272,7 +272,7 @@ export class SearchTourPlanComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-                debugger;
+                
                 console.log(baseResponse);
                 if (baseResponse.Success) {
                     this.circle = baseResponse.Circles;
@@ -288,7 +288,7 @@ export class SearchTourPlanComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
-        debugger;
+        
         //var userInfo = this.userUtilsService.getUserDetails();
         //this.TourPlan.controls['Zone'].setValue(userInfo.Zone.ZoneName);
         //this.TourPlan.controls['Branch'].setValue(userInfo.Branch.Name);
@@ -471,7 +471,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     GetZones() {
-        debugger;
+        
         this.loading = true;
         this._circleService.getZones()
             .pipe(
@@ -479,7 +479,7 @@ export class SearchTourPlanComponent implements OnInit {
                     this.loading = false;
                 })
             ).subscribe(baseResponse => {
-            debugger;
+            
             if (baseResponse.Success) {
 
                 baseResponse.Zones.forEach(function (value) {
@@ -499,7 +499,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     SetBranches(branchId) {
-        debugger;
+        
         this.Branch.BranchCode = branchId.value;
     }
 
@@ -508,7 +508,7 @@ export class SearchTourPlanComponent implements OnInit {
         this.loading = true;
         this.dataSource.data = [];
         this.Branches = [];
-        debugger;
+        
         if (ZoneId.value === undefined)
             this.Zone.ZoneId = ZoneId;
         else
@@ -519,7 +519,7 @@ export class SearchTourPlanComponent implements OnInit {
                     this.loading = false;
                 })
             ).subscribe(baseResponse => {
-            debugger;
+            
             if (baseResponse.Success) {
                 this.loading = false;
                 //baseResponse.Branches.forEach(function (value) {
@@ -599,7 +599,7 @@ export class SearchTourPlanComponent implements OnInit {
             )
             .subscribe(baseResponse => {
 
-                debugger;
+                
                 if (baseResponse.Success) {
                     this.TourPlans = baseResponse.TourPlan.TourPlansByDate;
                     this.dataSource.data = baseResponse.TourPlan.TourPlansByDate;
@@ -612,7 +612,7 @@ export class SearchTourPlanComponent implements OnInit {
                     this.totalItems = baseResponse.TourPlan.TourPlansByDate[0].TourPlans[0].TotalRecords;
                     this.dataSource.data = this.dv.slice(0, this.totalItems)
                     //this.dataSource = new MatTableDataSource(data);
-                    debugger;
+                    
                     // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
                     //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
@@ -718,7 +718,7 @@ export class SearchTourPlanComponent implements OnInit {
                 value.Value = "All";
         });
 
-        debugger;
+        
         ////For Bill type
         // this.EducationLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Education })
 

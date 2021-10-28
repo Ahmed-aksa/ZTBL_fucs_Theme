@@ -203,7 +203,7 @@ export class ProfileFormDialogComponent implements OnInit {
     this.ActivityShow = false;
     this.SingleProfile = this.profiles.filter(p => p.ProfileID == ProfileID.value);
     this.GetActivities();
-    debugger;
+    
     if (true) {
 
       this.loading = true;

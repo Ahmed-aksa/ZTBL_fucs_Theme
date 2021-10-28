@@ -664,7 +664,7 @@ export class LandChargeCreationComponent implements OnInit {
         this.request.TranId = this.TrainId;
         this.request.ChargeCreation = this.landChargeCreation;
         this.request.ChargeCreationDetail = this.landChargeCreationDetails;
-        debugger;
+        
         this.spinner.show();
         this._landService
             .SaveChargeCreation(this.request)

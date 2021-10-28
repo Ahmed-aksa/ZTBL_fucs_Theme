@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -79,7 +79,7 @@ export class MapNotificationStatusComponent implements OnInit {
   }
 
   block(){
-    debugger
+    
     this.spinner.show();
         this.mappingViolate.blockUser(this.data.mapp)
         .pipe(
@@ -88,7 +88,7 @@ export class MapNotificationStatusComponent implements OnInit {
           })
           )
           .subscribe((baseResponse: BaseResponseModel) =>{
-            debugger
+            
             console.log(baseResponse)
             if(baseResponse.Success === true){
               this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)

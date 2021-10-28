@@ -232,7 +232,7 @@ export class CustLandInformationComponent implements OnInit {
             this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
         else
             this.final_zone = this.SelectedZones;
-        debugger;
+
     }
 
     SelectionChangePushData(event: any) {
@@ -757,7 +757,7 @@ export class CustLandInformationComponent implements OnInit {
                     this.AllowDocumentUpload = true;
                     this.AllowSubmit = true;
                     this.LandInfo = baseResponse.LandInfo;
-                    this.LandInfo.ZoneName = this.LandInfoSearchData.Zone[0].ZoneName;
+                    this.LandInfo.ZoneName = this.LandInfoSearchData.Zone[0].ZoneId;
                     this.LandInfoDataList = baseResponse.LandInfoDataList;
                     this.LandInfoDetailsList = baseResponse.LandInfoDetailsList;
                     this.ChargeCreation = baseResponse.ChargeCreation;
@@ -802,7 +802,7 @@ export class CustLandInformationComponent implements OnInit {
                         }
 
                         this.CustomerLov = this.customerLandRelation;
-                        this.LandInformationForm.controls['Zone'].setValue(this.LandInfo.ZoneName);
+                        this.LandInformationForm.controls['ZoneId'].setValue(this.LandInfo.ZoneID);
                         this.GetBranches(this.LandInfo.ZoneID, this.LandInfo.BranchId);
                         this.LandInformationForm.controls['PostCode'].setValue(this.LandInfo.PostCode);
                         this.LandInformationForm.controls['LandingProcedure'].setValue(this.LandInfo.LandingProcedure);
@@ -894,7 +894,7 @@ export class CustLandInformationComponent implements OnInit {
 
                         this.CustomerLov = this.customerLandRelation;
                         //var ZoneNameTemp = this.zoneLovAll.filter(x => x.ZoneId == this.LandInfo.Zone);
-                        this.LandInformationForm.controls['Zone'].setValue(this.LandInfo.ZoneName);
+                        this.LandInformationForm.controls['ZoneId'].setValue(this.LandInfo.ZoneID);
                         this.GetBranches(this.LandInfo.ZoneID, this.LandInfo.BranchId);
                         //this.LandInformationForm.controls['Branch'].setValue(this.LandInfo.Branch);
                         this.LandInformationForm.controls['PostCode'].setValue(this.LandInfo.PostCode);

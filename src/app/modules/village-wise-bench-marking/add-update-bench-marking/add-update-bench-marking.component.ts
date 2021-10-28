@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -279,7 +279,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
     //this.hideDelete = true;
 
-    debugger
+    
     this.user.ZoneId = this.addUpdateBenchMarkForm.controls.ZoneId.value;
     this.user.BranchCode = this.addUpdateBenchMarkForm.controls.BranchCode.value;
     this.user.CircleId = this.addUpdateBenchMarkForm.controls.CircleId.value;

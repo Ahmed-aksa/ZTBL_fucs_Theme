@@ -72,7 +72,7 @@ export class LoanUtilizationService {
     // if (loanUtilization.Cnic == null)
     // loanUtilization.Cnic = "";
 
-    debugger;
+    
     var userInfo = this.userUtilsService.getUserDetails();
     if (userDetail && userDetail.Zone) {
       userInfo.Zone = userDetail.Zone;
@@ -84,7 +84,7 @@ export class LoanUtilizationService {
     this.request.Branch = userInfo.Branch;
 
     var req = JSON.stringify(this.request);
-    debugger;
+    
     return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchUtilizations`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -95,7 +95,7 @@ export class LoanUtilizationService {
 
     this.request = new BaseRequestModel();
 
-    debugger;
+    
     var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     if (userDetail && userDetail.Zone) {
       userInfo.Zone = userDetail.Zone;
@@ -125,7 +125,7 @@ export class LoanUtilizationService {
     }
 
     var req = JSON.stringify(this.request);
-    debugger;
+    
     return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchLoanForUtilization`,  this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -134,7 +134,7 @@ export class LoanUtilizationService {
 
     save(value){
     value.Status="P";
-    debugger;
+    
     this.request = new BaseRequestModel();
     var userInfo = this.userUtilsService.getUserDetails();
     this.request.DEVICELOCATION={
@@ -160,7 +160,7 @@ export class LoanUtilizationService {
     }
 
     statusChange(value){
-      debugger;
+      
       this.request = new BaseRequestModel();
       var userInfo = this.userUtilsService.getUserDetails();
       this.request.Circle={
@@ -191,7 +191,7 @@ export class LoanUtilizationService {
       //append work
 
       var formData = new FormData();
-      debugger;
+      
       this.request = new BaseRequestModel();
       var userInfo = this.userUtilsService.getUserDetails();
       this.request.Circle={

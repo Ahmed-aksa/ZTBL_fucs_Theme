@@ -127,7 +127,7 @@ export class LandService {
 
 
     getCustomerAllLandInfo(landInfo: LandInfo, branch, zone): Observable<BaseResponseModel> {
-
+        
 
         var request = new BaseRequestModel();
 

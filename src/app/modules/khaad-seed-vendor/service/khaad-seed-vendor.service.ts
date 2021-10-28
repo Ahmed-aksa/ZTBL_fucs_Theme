@@ -1,4 +1,4 @@
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable no-cond-assign */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/semi */
@@ -124,7 +124,7 @@ export class KhaadSeedVendorService {
    }
 
    searchRadius(vendor, user){
-    debugger
+    
     vendor.Radius = Number(vendor.Radius)
     if(vendor.Type = 'null'){
       vendor.Type = null;

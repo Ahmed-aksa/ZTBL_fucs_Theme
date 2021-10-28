@@ -56,7 +56,7 @@ export class CalculateDbrComponent implements OnInit {
           this.cdRef.detectChanges();
         }))
       .subscribe((baseResponse: BaseResponseModel) => {
-        debugger;
+        
         if (baseResponse.Success === true) {
           this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
           this.cdRef.detectChanges();
@@ -67,7 +67,7 @@ export class CalculateDbrComponent implements OnInit {
         }
       },
         (error) => {
-          debugger;
+          
           this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
           console.log(error)
         })
@@ -85,11 +85,11 @@ export class CalculateDbrComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.spinner.hide();
-          debugger;
+          
           this.cdRef.detectChanges();
         }))
       .subscribe((baseResponse: BaseResponseModel) => {
-        debugger;
+        
         if (baseResponse.Success === true) {
           this.dataSource = baseResponse.Loan.DBR;
           this.dataSource.LoanAppID = 20201642051;
@@ -101,7 +101,7 @@ export class CalculateDbrComponent implements OnInit {
         }
       },
         (error) => {
-          debugger;
+          
           this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
           console.log(error)
         })

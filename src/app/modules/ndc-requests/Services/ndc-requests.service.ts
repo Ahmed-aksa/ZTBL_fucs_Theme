@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/type-annotation-spacing */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable no-cond-assign */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/semi */
@@ -119,7 +119,7 @@ export class NdcRequestsService {
     };
     var r = JSON.stringify(request)
     console.log(r)
-    // debugger;
+    // 
     //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
     //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
     //       map((res: BaseResponseModel) => res)

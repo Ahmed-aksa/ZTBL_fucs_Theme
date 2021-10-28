@@ -163,7 +163,7 @@ export class CreateEditRoleComponent implements OnInit, OnDestroy {
           debugger
 
         } else {
-          debugger;
+          
           this.layoutUtilsService.alertElement(
             '',
             baseResponse.Message,
@@ -187,7 +187,7 @@ export class CreateEditRoleComponent implements OnInit, OnDestroy {
           debugger
 
         } else {
-          debugger;
+          
           this.layoutUtilsService.alertElement(
             '',
             baseResponse.Message,
