@@ -36,7 +36,7 @@
         <div class="form-group row">
             <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile"
                  id="custom-table-activity-list">
-                <div class="custom-accordion rounded my-2 shadow bg-gray-50" *ngFor="let parent_configuration of configurations;let i=index">
+                <div class="custom-accordion rounded-lg my-2 shadow border" *ngFor="let parent_configuration of configurations;let i=index">
                     <div v class="custom-accordion-head border-0" (click)="toggleAccordion(i)"
                          style="cursor: pointer">
                         <div class="custom-padding" style="align-self: center;">
@@ -61,7 +61,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="custom-accordion-body bg-white border rounded" id="{{'table_'+i}}" style="display: none">
+                    <div class="custom-accordion-body bg-white border-t bg-gray-50 rounded" id="{{'table_'+i}}" style="display: none">
                         <table class="table table-responsive" style="display: inline-table !important;">
                             <thead class="thead-light">
                             <tr>
