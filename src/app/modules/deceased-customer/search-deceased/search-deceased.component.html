@@ -1,7 +1,7 @@
 <div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
     <div class="text-4xl font-extrabold tracking-tight px-2">Deceased Customers</div>
     <div class="kt-form kt-form-margin" [formGroup]="deceasedCustomerSearch">
-        <div>
+        <div class="pt-4">
 
 <!--            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">-->
 <!--                <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">-->
@@ -104,6 +104,13 @@
             </mat-form-field>
         </div>
     </div>
+
+
+</div>
+
+
+
+<div class="row">
     <div class="col-lg-3 col-sm-12">
         <div class="col-md-12 kt-margin-bottom-10-mobile">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -114,13 +121,6 @@
             </mat-form-field>
         </div>
     </div>
-
-</div>
-
-
-
-<div class="row">
-
     <div class="col-lg-3 col-sm-12">
         <div class="col-md-12 kt-margin-bottom-10-mobile">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -155,7 +155,7 @@
         </div>
 
     </div>
-    <div class="col-lg-4 col-sm-12 mt-4">
+    <div class="col-lg-4 col-sm-12 ">
         <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary mat-raised-button"  [disabled]="deceasedCustomerSearch.invalid" (click)="SearchDeceasedCustomer()" color="primary" >
             <mat-icon class="mr-2">search</mat-icon> Search
         </button>
@@ -202,7 +202,7 @@
         </div> -->
     </div>
     <!-- Search end -->
-    <div class="mat-table__wrapper" [style.height]="gridHeight">
+    <div class="mat-table__wrapper overflow-scroll"  [style.height]="gridHeight">
 
         <mat-table class="lmat-elevation-z8"
                    #table
