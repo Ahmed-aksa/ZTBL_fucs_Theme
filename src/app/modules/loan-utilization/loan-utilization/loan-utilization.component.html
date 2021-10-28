@@ -2,7 +2,7 @@
     <div class="text-3xl font-extrabold tracking-tight mt-6 pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Loan Utilization</div>
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between
      py-2" style="flex-wrap: wrap" >
-     
+
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
             <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
@@ -23,7 +23,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-        </div>
+        </div>z
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -57,7 +57,8 @@
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label>Loan GL</mat-label>
-                <mat-select [disabled]='viewonly' formControlName="LoanDisbID">
+<!--                [ngClass]="{ 'is-invalid': f.LoanDisbID.touched && f.LoanDisbID.errors }"-->
+                <mat-select [disabled]='viewonly' formControlName="LoanDisbID" >
                     <mat-option>
                         Select
                     </mat-option>
@@ -66,6 +67,10 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+            <mat-error *ngIf="isControlHasError('LoanDisbID','required')">
+                <strong>Loan Disbursment ID is mandatory</strong>
+            </mat-error>
+
         </div>
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
@@ -211,7 +216,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                     <div style="width: 320px;height: 240px;">
                         <img [src]="url" (click)="previewImg(url)" width="240px" height="240px">
                     </div>
@@ -249,7 +254,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>  
+                        </div>
                         <!-- <button type="button" class="btn-close" aria-label="Close" (click)="removeVideo(i)"></button> -->
                         <div>
                             <!-- <video (loadedmetadata)="getDuration($event,i)"  height="240px" width="320px" [src]="url" controls></video> -->
