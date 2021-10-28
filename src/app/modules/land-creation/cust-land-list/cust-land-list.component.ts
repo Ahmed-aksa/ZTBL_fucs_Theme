@@ -28,6 +28,9 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
     styleUrls: ['./cust-land-list.component.scss']
 })
 export class CustLandListComponent implements OnInit {
+
+    final_branch: any;
+    final_zone: any;
     single_zone = true;
     selected_z: any;
     disable_zone = true;
@@ -114,19 +117,19 @@ export class CustLandListComponent implements OnInit {
         this.LoadLovs();
         this.ShowViewMore = false;
         this.createForm();
-        //var u = new UserUtilsService();
         var userDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+
         this.loggedInUserDetails = userDetails;
-        if (this.LoggedInUserInfo?.Branch && this.LoggedInUserInfo?.Branch?.BranchCode != "All") {
-            this.SelectedBranches = this.LoggedInUserInfo.Branch;
-            this.SelectedZones = this.LoggedInUserInfo.Zone;
-            this.Zone = this.loggedInUserDetails.Zone;
-            this.Branch = this.loggedInUserDetails.Branch;
+        if (this.loggedInUserDetails?.Branch && this.loggedInUserDetails?.Branch?.BranchCode != "All") {
+            this.SelectedBranches = this.loggedInUserDetails?.Branch;
+            this.SelectedZones = this.loggedInUserDetails?.Zone;
+            this.Zone = this.loggedInUserDetails?.Zone;
+            this.Branch = this.loggedInUserDetails?.Branch;
             this.selected_z = this.SelectedZones?.ZoneId
             this.selected_b = this.SelectedBranches?.BranchCode;
             this.landSearch.controls["ZoneId"].setValue(this.SelectedZones?.Id);
             this.landSearch.controls["BranchId"].setValue(this.SelectedBranches?.BranchCode);
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+        } else if (!this.loggedInUserDetails?.Branch && !this.loggedInUserDetails?.Zone && !this.loggedInUserDetails?.UserCircleMappings) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
                 this.Zone = data?.Zones;
@@ -140,18 +143,11 @@ export class CustLandListComponent implements OnInit {
         if (userDetails.User.AccessToData == "1") {
             //admin user
             this.isUserAdmin = true;
-            this.GetZones();
         } else if (userDetails.User.AccessToData == "2") {
             //zone user
             this.isZoneUser = true;
-
-            this.landSearch.value.ZoneId = userDetails.Zone.ZoneId;
-            this.Zone.ZoneName = userDetails.Zone.ZoneName;
-            this.GetBranches(userDetails.Zone.ZoneId);
         } else {
             //branch
-            this.Zone.ZoneName = userDetails.Zone.ZoneName;
-            this.Branch.Name = userDetails.Branch.Name;
         }
     }
 
@@ -308,18 +304,28 @@ export class CustLandListComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     dv: number | any; //use later
+    private assignBranchAndZone() {
+        if (this.SelectedBranches.length)
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
+        else
+            this.final_branch = this.SelectedBranches;
+        let zone = null;
+        if (this.SelectedZones.length)
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+        else
+            this.final_zone = this.SelectedZones;
+    }
 
     SearchLandData() {
 
         this.spinner.show();
         this.CustomerLandRelation.Offset = this.OffSet.toString();
         this.CustomerLandRelation.Limit = this.itemsPerPage.toString();
-        //this.landSearch.controls["ZoneId"].setValue(this.Zone.ZoneId);
-        //this.landSearch.controls["BranchId"].setValue(this.Branch.BranchCode);
-
         this.CustomerLandRelation = Object.assign(this.CustomerLandRelation, this.landSearch.value);
-
-        this._landService.searchLand(this.CustomerLandRelation, this.isUserAdmin, this.isZoneUser)
+        this.assignBranchAndZone();
+        this.CustomerLandRelation.BranchId = this.final_branch.BranchId;
+        this.CustomerLandRelation.ZoneId = this.final_zone.ZoneId;
+        this._landService.searchLand(this.CustomerLandRelation, this.isUserAdmin, this.isZoneUser, this.final_branch, this.final_zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -337,18 +343,6 @@ export class CustLandListComponent implements OnInit {
                         this.matTableLenght = true;
                     else
                         this.matTableLenght = false;
-                    //if (this.dataSource.data.length == 0) {
-                    //  this.dataSource.data = baseResponse.searchLandData;
-                    //  this.ShowViewMore = true;
-                    //}
-                    //else {
-                    //  for (var i = 0; i < baseResponse.searchLandData.length; i++) {
-
-                    //    this.dataSource.data.push(baseResponse.searchLandData[i]);
-                    //  }
-                    //  this.dataSource._updateChangeSubscription();
-                    //}
-                    //pagination
                     this.dv = this.dataSource.data;
                     //this.dataSource = new MatTableDataSource(data);
 

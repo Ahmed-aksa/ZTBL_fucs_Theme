@@ -116,7 +116,7 @@ export class LandChargeCreationComponent implements OnInit {
 
     ngOnInit() {
 
-        debugger;
+
         this.spinner.show();
 
         this.loggedInUserInfo = this.userUtilsService.getUserDetails();
@@ -202,7 +202,7 @@ export class LandChargeCreationComponent implements OnInit {
         this.landChargeCreation.TotalArea = this.LandInfo.TotalArea;
         //this.landChargeCreation.LegalDocNo = this.LandInfo.PassbookNO;
 
-        debugger;
+
         this.LandInformationForm.controls['TotalArea'].setValue(this.LandInfo.TotalOwnedAreaForChargeCreation);
         this.LandInformationForm.controls['PassbookNO'].setValue(this.LandInfo.PassbookNO);
         //this.LandInformationForm.controls['ReferenceNo'].setValue(this.landChargeCreation.LegalDocNo);
@@ -216,7 +216,7 @@ export class LandChargeCreationComponent implements OnInit {
         if (this.landChargeCreation.District != null) {
             this.GetTehsilsEdit(this.landChargeCreation.District)
         }
-        debugger;
+
         this.LandInformationForm.controls['Tehsil'].setValue(this.landChargeCreation.Tehsil);
         this.LandInformationForm.controls['Village'].setValue(this.landChargeCreation.Village);
         this.LandInformationForm.controls['Remarks'].setValue(this.landChargeCreation.Remarks);
@@ -231,7 +231,7 @@ export class LandChargeCreationComponent implements OnInit {
         this.searchFilterCtrlDistrict.valueChanges
             .pipe(takeUntil(this._onDestroy))
             .subscribe(() => {
-                debugger;
+
                 this.filterDistrict();
             });
 
@@ -250,7 +250,7 @@ export class LandChargeCreationComponent implements OnInit {
 
         // get the search keyword
         let search = this.searchFilterCtrlProvince.value;
-        debugger;
+
         this.ProvinceLov.LOVs = this.ProvinceLovFull.LOVs;
 
         if (!search) {
@@ -340,7 +340,7 @@ export class LandChargeCreationComponent implements OnInit {
 
 
     AreaConverter() {
-        debugger;
+
         if (this.Area != undefined) {
             if (this.Unit == "1" && this.ConvertUnit == "1") {
                 this.Result = this.Area * 20;
@@ -391,13 +391,13 @@ export class LandChargeCreationComponent implements OnInit {
 
     async GetDistricts(Id) {
 
-        debugger;
+
         this.DistrictLov = await this._lovService.CallChildLovAPI(this.ChildLovCall = {
             TagName: LovConfigurationKey.DistrictProvince,
             ParentId: Id.value
         })
 
-        debugger;
+
         this.DistrictLov.LOVs = this._lovService.SortLovs(this.DistrictLov.LOVs);
         this.DistrictLovData = this.DistrictLov.LOVs;
         this.DistrictLovDataSelected = this.DistrictLovData;
@@ -406,13 +406,13 @@ export class LandChargeCreationComponent implements OnInit {
 
     async GetDistrictsEdit(Id) {
 
-        debugger;
+
         this.DistrictLov = await this._lovService.CallChildLovAPI(this.ChildLovCall = {
             TagName: LovConfigurationKey.DistrictProvince,
             ParentId: Id
         })
 
-        debugger;
+
         this.DistrictLov.LOVs = this._lovService.SortLovs(this.DistrictLov.LOVs);
         this.DistrictLovData = this.DistrictLov.LOVs;
         this.DistrictLovDataSelected = this.DistrictLovData;
@@ -422,13 +422,13 @@ export class LandChargeCreationComponent implements OnInit {
 
     async GetTehsils(Id) {
 
-        debugger;
+
         this.TehsilLov = await this._lovService.CallChildLovAPI(this.ChildLovCall = {
             TagName: LovConfigurationKey.Tehsil,
             ParentId: Id.value
         })
 
-        debugger;
+
         this.TehsilLov.LOVs = this._lovService.SortLovs(this.TehsilLov.LOVs);
         this.TehsilLovData = this.TehsilLov.LOVs;
         this.TehsilLovDataSelected = this.TehsilLovData;
@@ -436,13 +436,13 @@ export class LandChargeCreationComponent implements OnInit {
 
     async GetTehsilsEdit(Id) {
 
-        debugger;
+
         this.TehsilLov = await this._lovService.CallChildLovAPI(this.ChildLovCall = {
             TagName: LovConfigurationKey.Tehsil,
             ParentId: Id
         })
 
-        debugger;
+
         this.TehsilLov.LOVs = this._lovService.SortLovs(this.TehsilLov.LOVs);
         this.TehsilLovData = this.TehsilLov.LOVs;
         this.TehsilLovDataSelected = this.TehsilLovData;
@@ -452,7 +452,6 @@ export class LandChargeCreationComponent implements OnInit {
 
         //this.ngxService.start();
 
-        debugger;
 
         //this.DistrictLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.District })
         //this.DistrictLovFull = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.District })
@@ -475,8 +474,6 @@ export class LandChargeCreationComponent implements OnInit {
         //this.TehsilLov.LOVs = this._lovService.SortLovs(this.TehsilLov.LOVs);
         //this.TehsilLovFull.LOVs = this._lovService.SortLovs(this.TehsilLovFull.LOVs);
 
-
-        debugger;
 
         var userInfo = this.userUtilsService.getUserDetails();
         this.BranchLov = userInfo.Branch;
@@ -504,7 +501,7 @@ export class LandChargeCreationComponent implements OnInit {
     }
 
     deleteRow(index) {
-        debugger;
+
 
         if (this.dynamicArray[index].CCDetailsID != 0 && this.dynamicArray[index].CCDetailsID != undefined) {
 
@@ -520,7 +517,7 @@ export class LandChargeCreationComponent implements OnInit {
     }
 
     onKeyInputCalculateValue(event: any, index) {
-        debugger;
+
         var value1 = this.dynamicArray[index].Share1;
         var value2 = this.dynamicArray[index].Share2;
         this.dynamicArray[index].LegalShare = value1 / value2;
@@ -547,7 +544,7 @@ export class LandChargeCreationComponent implements OnInit {
 
 
         this.errorMessage = "";
-        debugger;
+
         this.landChargeCreationDetails = [];
         this.errorShow = false;
         this.hasFormErrors = false;
@@ -563,7 +560,7 @@ export class LandChargeCreationComponent implements OnInit {
 
         this.landChargeCreation = Object.assign(this.landChargeCreation, this.LandInformationForm.getRawValue());
 
-        debugger;
+
         if (this.landChargeCreation.Remarks == null) {
 
             this.landChargeCreation.Remarks = "";
@@ -667,7 +664,7 @@ export class LandChargeCreationComponent implements OnInit {
         this.request.TranId = this.TrainId;
         this.request.ChargeCreation = this.landChargeCreation;
         this.request.ChargeCreationDetail = this.landChargeCreationDetails;
-
+        debugger;
         this.spinner.show();
         this._landService
             .SaveChargeCreation(this.request)
@@ -679,7 +676,7 @@ export class LandChargeCreationComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
 
-                debugger;
+
                 console.log(baseResponse);
                 if (baseResponse.Success === true) {
 
@@ -695,7 +692,7 @@ export class LandChargeCreationComponent implements OnInit {
 
 
     validateNumber(value: string): boolean {
-        debugger;
+
         if (value.indexOf("-") == -1 && value.indexOf("/") == -1 && value.indexOf("-/") == -1 && value.indexOf("/-") == -1)
             return true;
 
@@ -742,7 +739,7 @@ export class LandChargeCreationComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                debugger;
+
                 console.log(baseResponse);
                 if (baseResponse.Success === true) {
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -754,7 +751,7 @@ export class LandChargeCreationComponent implements OnInit {
     }
 
     onCloseClick(): void {
-        debugger;
+
         this.dialogRef.close({
             data: {
                 ChargeCreation: this.landChargeCreation,

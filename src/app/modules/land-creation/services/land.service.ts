@@ -25,24 +25,23 @@ export class LandService {
     url2 = `https://jsonplaceholder.typicode.com/photos?page=${this.pageIndex}&size=${this.size}`;
 
 
-    public request = new BaseRequestModel();
     public activity = new Activity();
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
     }
 
     saveCustomerLandInfo(landInfo: LandInfo, branch?, zone?): Observable<BaseResponseModel> {
-        this.request = new BaseRequestModel();
+        var request = new BaseRequestModel();
 
 
         this.activity.ActivityID = 1;
         var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-        this.request.Branch = branch;
-        this.request.Zone = zone;
-        this.request.LandInfo = landInfo;
-        this.request.Activity = this.activity;
-        return this.http.post(`${environment.apiUrl}/Land/SaveCustomerLandInfo`, this.request,
+        request.User = userInfo.User;
+        request.Branch = branch;
+        request.Zone = zone;
+        request.LandInfo = landInfo;
+        request.Activity = this.activity;
+        return this.http.post(`${environment.apiUrl}/Land/SaveCustomerLandInfo`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -51,47 +50,36 @@ export class LandService {
     saveCustomerLandInfoDetail(landInfoDetails: any, TrainId: any): Observable<BaseResponseModel> {
 
 
-        this.request = new BaseRequestModel();
+        var request = new BaseRequestModel();
 
         this.activity.ActivityID = 1;
         var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-        this.request.Branch = userInfo.Branch;
-        this.request.Zone = userInfo.Zone;
-        this.request.LandInfoDetailsList = landInfoDetails;
-        this.request.Activity = this.activity;
-        this.request.TranId = TrainId;
-        var req = JSON.stringify(this.request);
-
-
-        return this.http.post(`${environment.apiUrl}/Land/SaveCustomerLandInfoDetail`, this.request,
+        request.User = userInfo.User;
+        request.Branch = userInfo.Branch;
+        request.Zone = userInfo.Zone;
+        request.LandInfoDetailsList = landInfoDetails;
+        request.Activity = this.activity;
+        request.TranId = TrainId;
+        return this.http.post(`${environment.apiUrl}/Land/SaveCustomerLandInfoDetail`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
     SaveChargeCreation(request: BaseRequestModel): Observable<BaseResponseModel> {
-
-        var req = JSON.stringify(request);
-
-
-        return this.http.post(`${environment.apiUrl}/Land/SaveChargeCreation`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/SaveChargeCreation`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
     SaveChargeCreationDetail(): Observable<BaseResponseModel> {
-        this.request = new BaseRequestModel();
+        var request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-        this.request.Branch = userInfo.Branch;
-
-        var req = JSON.stringify(this.request);
-
-
-        return this.http.post(`${environment.apiUrl}/Land/SaveChargeCreationDetail`, this.request,
+        request.User = userInfo.User;
+        request.Branch = userInfo.Branch;
+        return this.http.post(`${environment.apiUrl}/Land/SaveChargeCreationDetail`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -101,37 +89,37 @@ export class LandService {
         var req = JSON.stringify(request);
 
 
-        return this.http.post(`${environment.apiUrl}/Land/SubmitLandInfo`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/SubmitLandInfo`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
-    searchLand(customerLandRelation: CustomerLandRelation, isUserAdmin: boolean, isZoneUser: boolean): Observable<BaseResponseModel> {
+    searchLand(customerLandRelation: CustomerLandRelation, isUserAdmin: boolean, isZoneUser: boolean, branch, zone): Observable<BaseResponseModel> {
 
-        this.request = new BaseRequestModel();
+        var request = new BaseRequestModel();
 
-        var userInfo = this.userUtilsService.getUserDetails();
-        if (isUserAdmin || isZoneUser) {
-            if (customerLandRelation.BranchId != undefined)
-                userInfo.Branch.BranchId = customerLandRelation.BranchId;
-            else
-                userInfo.Branch.BranchId = 0;
-        }
-        if (isUserAdmin) {
-            if (customerLandRelation.ZoneId != undefined)
-                userInfo.Zone.ZoneId = customerLandRelation.ZoneId;
-            else
-                userInfo.Zone.ZoneId = 0;
-        }
-        this.request.User = userInfo.User;
-        this.request.Branch = userInfo.Branch;
-        this.request.Zone = userInfo.Zone;
-        this.request.CustomerLandRelation = customerLandRelation;
-        var req = JSON.stringify(this.request);
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        // if (isUserAdmin || isZoneUser) {
+        //     if (customerLandRelation.BranchId != undefined)
+        //         userInfo.Branch.BranchId = customerLandRelation.BranchId;
+        //     else
+        //         userInfo.Branch.BranchId = 0;
+        // }
+        // if (isUserAdmin) {
+        //     if (customerLandRelation.ZoneId != undefined)
+        //         userInfo.Zone.ZoneId = customerLandRelation.ZoneId;
+        //     else
+        //         userInfo.Zone.ZoneId = 0;
+        // }
+        request.User = userInfo.User;
+        request.Branch = branch;
+        request.Zone = zone;
+        request.CustomerLandRelation = customerLandRelation;
+        var req = JSON.stringify(request);
 
 
-        return this.http.post(`${environment.apiUrl}/Land/GetLandInformation`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/GetLandInformation`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -141,17 +129,17 @@ export class LandService {
     getCustomerAllLandInfo(landInfo: LandInfo, branch, zone): Observable<BaseResponseModel> {
 
 
-        this.request = new BaseRequestModel();
+        var request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
         userInfo.Branch.BranchId = branch.BranchId
-        //this.request.User = userInfo.User;
-        this.request.Branch = branch;
-        this.request.Zone = zone;
-        this.request.LandInfo = landInfo;
+        //request.User = userInfo.User;
+        request.Branch = branch;
+        request.Zone = zone;
+        request.LandInfo = landInfo;
 
 
-        return this.http.post(`${environment.apiUrl}/Land/GetLandInfoAll`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/GetLandInfoAll`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -160,18 +148,18 @@ export class LandService {
     getLandHistoryDetail(landInfo: LandInfo, historyLandInfoId: string, branch, zone): Observable<BaseResponseModel> {
 
 
-        this.request = new BaseRequestModel();
+        var request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
         userInfo.Branch.BranchId = branch.BranchId
-        this.request.Branch = branch;
-        this.request.Zone = zone;
+        request.Branch = branch;
+        request.Zone = zone;
         landInfo.Id = parseInt(historyLandInfoId);
-        this.request.LandInfo = landInfo;
-        var req = JSON.stringify(this.request);
+        request.LandInfo = landInfo;
+        var req = JSON.stringify(request);
 
 
-        return this.http.post(`${environment.apiUrl}/Land/GetLandHistoryDetail`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/GetLandHistoryDetail`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -213,32 +201,29 @@ export class LandService {
 
 
     landDocumentsDelete(uploadDocuments: UploadDocuments): Observable<BaseResponseModel> {
-        this.request = new BaseRequestModel();
+        var request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
-        this.request.Branch = userInfo.Branch;
-        this.request.Zone = userInfo.Zone;
-        this.request.LandInfoData = uploadDocuments;
-        this.request.Activity = this.activity;
+        request.Branch = userInfo.Branch;
+        request.Zone = userInfo.Zone;
+        request.LandInfoData = uploadDocuments;
+        request.Activity = this.activity;
 
-        var req = JSON.stringify(this.request);
+        var req = JSON.stringify(request);
 
 
-        return this.http.post(`${environment.apiUrl}/Land/DeleteLandDataUpload`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/DeleteLandDataUpload`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
 
 
-    DeleteChargeCreationDetail(request: LandChargeCreation): Observable<BaseResponseModel> {
+    DeleteChargeCreationDetail(request1: LandChargeCreation): Observable<BaseResponseModel> {
 
-        this.request = new BaseRequestModel();
-        this.request.ChargeCreation = request;
-        var req = JSON.stringify(this.request);
-
-
-        return this.http.post(`${environment.apiUrl}/Land/DeleteChargeCreationDetail`, this.request,
+        var request = new BaseRequestModel();
+        request.ChargeCreation = request1;
+        return this.http.post(`${environment.apiUrl}/Land/DeleteChargeCreationDetail`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -247,18 +232,18 @@ export class LandService {
 
     GetLandHistory(landInfo: LandInfo): Observable<BaseResponseModel> {
 
-        this.request = new BaseRequestModel();
+        var request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
 
-        this.request.LandInfo = landInfo;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
-        this.request.User = userInfo.User;
-        var req = JSON.stringify(this.request);
+        request.LandInfo = landInfo;
+        request.Zone = userInfo.Zone;
+        request.Branch = userInfo.Branch;
+        request.User = userInfo.User;
+        var req = JSON.stringify(request);
 
 
-        return this.http.post(`${environment.apiUrl}/Land/GetLandHistory`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/GetLandHistory`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -274,10 +259,10 @@ export class LandService {
 
         var userInfo = this.userUtilsService.getUserDetails();
 
-        //this.request.CustomerLandRelation = new CustomerLandRelation()
-        //this.request.Zone = userInfo.Zone;
-        //this.request.Branch = userInfo.Branch;
-        //this.request.User = userInfo.User;
+        //request.CustomerLandRelation = new CustomerLandRelation()
+        //request.Zone = userInfo.Zone;
+        //request.Branch = userInfo.Branch;
+        //request.User = userInfo.User;
 
         var request = {
             CustomerLandRelation: {
@@ -292,7 +277,7 @@ export class LandService {
         var req = JSON.stringify(request);
 
 
-        return this.http.post(`${environment.apiUrl}/Land/DeleteCustomerWithLand`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/DeleteCustomerWithLand`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -324,7 +309,7 @@ export class LandService {
             Zone: userInfo.Zone
         };
 
-        return this.http.post(`${environment.apiUrl}/Land/FindPassbookCorrectionDetail`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/FindPassbookCorrectionDetail`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -349,7 +334,7 @@ export class LandService {
         var v = JSON.stringify(request);
         console.log(v)
 
-        return this.http.post(`${environment.apiUrl}/Land/PassbookCorrection`, this.request,
+        return this.http.post(`${environment.apiUrl}/Land/PassbookCorrection`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );

@@ -7,9 +7,6 @@
     <form [formGroup]="LandInformationForm" class="kt-form kt-form--group-seperator-dashed">
         <div class="kt-form">
             <div class="kt-portlet__body">
-                <div class="kt-portlet__body-progress">
-                    <mat-spinner [diameter]="20"></mat-spinner>
-                </div>
                 <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                           (close)="onAlertClose($event)">
                     Please enter valid Input
@@ -329,11 +326,3 @@
         </div>
     </form>
 </div>
-
-
-<ngx-spinner bdColor="rgba(51,51,51,0.8)"
-             size="medium"
-             color="#ecbd00"
-             type="ball-scale-multiple">
-    <p style="font-size: 20px; color: white">Loading...</p>
-</ngx-spinner>

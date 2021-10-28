@@ -224,15 +224,15 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     private assignBranchAndZone() {
-        if (this.SelectedBranches.length)
+        if (this.SelectedBranches?.length)
             this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
         else
             this.final_branch = this.SelectedBranches;
-        let zone = null;
-        if (this.SelectedZones.length)
+        if (this.SelectedZones?.length)
             this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
         else
             this.final_zone = this.SelectedZones;
+        debugger;
     }
 
     SelectionChangePushData(event: any) {
