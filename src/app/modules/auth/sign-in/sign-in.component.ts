@@ -1,11 +1,12 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {fuseAnimations} from '@fuse/animations';
-import {FuseAlertType} from '@fuse/components/alert';
-import {AuthService} from 'app/core/auth/auth.service';
-import {ToastrService} from "ngx-toastr";
-import {finalize} from "rxjs/operators";
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { fuseAnimations } from '@fuse/animations';
+import { FuseAlertType } from '@fuse/components/alert';
+import { AuthService } from 'app/core/auth/auth.service';
+import { ToastrService } from "ngx-toastr";
+import { OtpComponent } from '../otp/otp.component';
 
 @Component({
     selector: 'auth-sign-in',
@@ -28,7 +29,8 @@ export class AuthSignInComponent implements OnInit {
         private _authService: AuthService,
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private toaster: ToastrService
+        private toaster: ToastrService,
+        public dialog: MatDialog,
     ) {
     }
 
@@ -36,45 +38,59 @@ export class AuthSignInComponent implements OnInit {
         this.signInForm = this._formBuilder.group({
             DisplayName: ['', [Validators.required]],
             Password: ['', Validators.required],
-            App: [1, Validators.required],
         });
     }
 
     signIn(): void {
+        debugger;
         if (this.signInForm.invalid) {
             return;
         }
 
         this.signInForm.disable();
         this.showAlert = false;
-        this._authService.signIn(this.signInForm.value)
+        var loginMode = this.signInForm.value;
+        loginMode['App'] = 1;
+        this._authService.signIn(loginMode)
             .subscribe((result) => {
-                    if (result.Success) {
+                if (result.Success && !result.isWebOTPEnabled) {
+                    localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
+                    localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
+                    localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
+                    this.toaster.success(result.Message);
+                    const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                    this._router.navigateByUrl(redirectURL);
+                }
+                if (result.Success && result.isWebOTPEnabled) {
+
+                    const dialogRef = this.dialog.open(OtpComponent, { data: { result }, disableClose: true, height: '40%', width: '20%' });
+                    dialogRef.afterClosed().subscribe(res => {
+                      if (res.data.data.Token && res.data.data.RefreshToken) {
                         localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
                         localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
                         localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
-                        this.toaster.success(result.Message);
                         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
                         this._router.navigateByUrl(redirectURL);
-                    } else {
-                        this.signInNgForm.resetForm();
-                        this.signInForm.enable();
-                        this.alert = {
-                            type: 'error',
-                            message: result.Message,
-                        };
-                        this.showAlert = true;
-
-                    }
-
-                },
-                (response) => {
+                      }
+                    });
+                }
+                else {
                     this.signInNgForm.resetForm();
-                    this.signInForm.enable();
                     this.signInForm.enable();
                     this.alert = {
                         type: 'error',
-                        message: 'Wrong email or password'
+                        message: result.Message,
+                    };
+                    this.showAlert = true;
+                }
+
+            },
+                (response) => {
+                    this.signInNgForm.resetForm();
+                    this.signInForm.enable();
+                    this.alert = {
+                        type: 'error',
+                        message: response
                     };
                     this.showAlert = true;
                 }
