@@ -21,6 +21,7 @@ import { DatePipe } from '@angular/common';
     providedIn: 'root',
 })
 export class DeceasedCustomerService {
+
     dod: Date;
 
     public request = new BaseRequestModel();
@@ -30,15 +31,16 @@ export class DeceasedCustomerService {
         private http: HttpClient,
         private httpUtils: HttpUtilsService,
         private userUtilsService: UserUtilsService,
-        // private datePipe: DatePipe,
-        private _common: CommonService
-    ) {}
+        private datePipe: DatePipe,
+        private _common: CommonService) { }
 
-    GetDeceasedCustomer(form) {
+    GetDeceasedCustomer(form){
+
+        debugger
         var deceasedInfo = new Customer();
-        deceasedInfo = form;
+        deceasedInfo = form
         this.request = new BaseRequestModel();
-        this.request.Customer = deceasedInfo;
+        this.request.Customer = deceasedInfo
         this.request.TranId = 0;
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
@@ -47,103 +49,64 @@ export class DeceasedCustomerService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-
-        return this.http
-            .post(`${environment.apiUrl}/Customer/GetDeceasedCustomer`, req, {
-                headers: this.httpUtils.getHTTPHeaders(),
-            })
-            .pipe(map((res: BaseResponseModel) => res));
+        debugger
+        return this.http.post(`${environment.apiUrl}/Customer/GetDeceasedCustomer`, req,
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
 
-    //   SearchDeceasedCustomer(){
-    //
-    //     this.request = new BaseRequestModel();
-    //     var deceasedInfo = new Customer();
-    //     deceasedInfo = {
-    //       CustomerName: '',
-    //       Cnic:'',
-    //       FatherName:'',
-    //       CustomerStatus:'-1',
-    //     }
-    //     this.request.SearchData = {
-    //       CurrentIndex: "0",
-    //       Count: "1000"
-    //     }
-    // // this.request.
-
-    //     this.request.Customer = deceasedInfo
-    //     this.request.TranId = 0;
-    //     var userInfo = this.userUtilsService.getUserDetails();
-    //     this.request.User = userInfo.User;
-    //     this.request.Zone = userInfo.Zone;
-    //     this.request.Branch = userInfo.Branch;
-    //     this.activity.ActivityID = 1;
-    //     this.request.Activity = this.activity;
-    //     var req = JSON.stringify(this.request);
-    //     console.log(req);
-    //
-
-    //     return this.http.post(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`, req,
-    //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-    //       map((res: BaseResponseModel) => res)
-    //     );
-    //   }
-
-    SearchDeceasedCustomer(
-        customer: Customer,
-        isUserAdmin: boolean,
-        isZoneUser: boolean,
-        Zone,
-        Branch
-    ): Observable<BaseResponseModel> {
+    SearchDeceasedCustomer(customer: Customer, isUserAdmin: boolean, isZoneUser: boolean,final_zone,final_branch): Observable<BaseResponseModel>{
+        debugger
         this.request = new BaseRequestModel();
         var deceasedInfo = new Customer();
         deceasedInfo = {
             CustomerName: '',
-            Cnic: '',
-            FatherName: '',
-            CustomerStatus: '-1',
-        };
+            Cnic:'',
+            FatherName:'',
+            CustomerStatus:'-1',
+        }
         this.request.SearchData = {
-            CurrentIndex: '0',
-            Count: '1000',
-        };
+            CurrentIndex: "0",
+            Count: "1000"
+        }
         // this.request.Customer = deceasedInfo
         this.request.Customer = customer;
-        if (this.request.Customer['CustomerStatus'] == null) {
-            this.request.Customer['CustomerStatus'] = '-1';
+        if(this.request.Customer["CustomerStatus"] == null){
+            this.request.Customer["CustomerStatus"]= "-1";
         }
         //this.request.Customer["CustomerStatus"]= "-1";
         this.request.TranId = 0;
-         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
-        this.request.Zone = Zone;
-        this.request.Branch = Branch;
+        this.request.Zone =final_zone
+        this.request.Branch = final_branch
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
+        var req = JSON.stringify(this.request);
 
-        console.log(JSON.stringify(this.request))
+        console.log(req);
+        console.log(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`);
 
-        return this.http
-            .post(
-                `${environment.apiUrl}/Customer/SearchDeceasedCustomer`,
-                this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
-            )
-            .pipe(map((res: BaseResponseModel) => res));
+        debugger
+        return this.http.post(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`, req,
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
 
-    GetPendingDeceasedCustomerByCnic() {
+
+    GetPendingDeceasedCustomerByCnic(){
         var deceasedInfo = new Customer();
         this.request = new BaseRequestModel();
         deceasedInfo = {
             CustomerName: null,
-            Cnic: '3840320934203',
-            FatherName: null,
-            CustomerStatus: null,
-        };
+            Cnic:'3840320934203',
+            FatherName:null,
+            CustomerStatus:null,
+        }
 
-        this.request.Customer = deceasedInfo;
+        this.request.Customer = deceasedInfo
 
         this.request.TranId = 0;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -153,29 +116,29 @@ export class DeceasedCustomerService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-
-        return this.http
-            .post(
-                `${environment.apiUrl}/Customer/GetPendingDeceasedCustomerByCnic`,
-                this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
-            )
-            .pipe(map((res: BaseResponseModel) => res));
+        debugger
+        return this.http.post(`${environment.apiUrl}/Customer/GetPendingDeceasedCustomerByCnic`, req,
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
 
-    MarkAsDeceasedCustomer(form, file: File) {
-        console.log(file);
+    MarkAsDeceasedCustomer(form,file:File){
+
+        console.log(file)
 
         var deceasedInfo = new Customer();
 
         this.request = new BaseRequestModel();
         var formData = new FormData();
-        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        var a = userInfo.User.BranchId;
+        var userInfo = this.userUtilsService.getUserDetails();
+        var a =userInfo.User.BranchId
 
         //form.IsReferredBack = true;
 
         console.log(userInfo);
+
+        debugger
 
         formData.append('CustomerCnic', form.Cnic);
 
@@ -187,90 +150,83 @@ export class DeceasedCustomerService {
 
         formData.append('NadraNo', form.NadraNo);
 
-        formData.append(
-            'IsNadraCertificateVerified',
-            form.IsNadraCertificateVerified
-        );
+        formData.append('IsNadraCertificateVerified', form.IsNadraCertificateVerified);
 
         // if(form.IsReferredBack == "Y"){
         //   formData.append('IsReferredBack', true);
         // }
-        formData.append('IsReferredBack', form.IsReferredBack ? '1' : '0');
+        formData.append('IsReferredBack', form.IsReferredBack? "1": "0");
 
-        // @ts-ignore
-        let dod = DatePipe().transform(form.DateofDeath, 'ddMMyyyy'); //converstion date to string
+        let dod = this.datePipe.transform(form.DateofDeath, "ddMMyyyy"); //converstion date to string
         formData.append('DateOfDeath', dod);
 
         formData.append('Remarks', form.MakerRemarks);
 
-        if (form.LegalHeirPay == 'N') {
+        if(form.LegalHeirPay=="N"){
             formData.delete('OtherSourceOfIncome');
-        } else {
+        } else{
             formData.append('OtherSourceOfIncome', form.DetailSourceIncome);
         }
 
         formData.append('LegalHeirPay', form.LegalHeirPay);
 
-        formData.append('File', file);
+        formData.append('File',file);
 
         formData.append('DeceasedID', form.DeceasedID);
 
-        console.log('CustomerCnic', formData.get('CustomerCnic'));
-        console.log('PPNo', formData.get('PPNo'));
-        console.log('UserID', formData.get('UserID'));
-        console.log('BranchID', formData.get('BranchID'));
-        console.log('NadraNo', formData.get('NadraNo'));
-        console.log('IsReferredBack', formData.get('IsReferredBack'));
-        console.log(
-            'IsNadraCertificateVerified ',
-            formData.get('IsNadraCertificateVerified')
-        );
-        console.log('DateOfDeath', formData.get('DateOfDeath'));
-        console.log('Remarks', formData.get('Remarks'));
-        console.log('OtherSourceOfIncome', formData.get('OtherSourceOfIncome'));
-        console.log('LegalHeirPay', formData.get('LegalHeirPay'));
-        console.log('File Data', formData.get('File'));
-        console.log('DeceasedID', formData.get('DeceasedID'));
+        debugger
+        console.log("CustomerCnic", formData.get('CustomerCnic'));
+        console.log("PPNo",formData.get('PPNo'));
+        console.log("UserID",formData.get('UserID'));
+        console.log("BranchID",formData.get('BranchID'));
+        console.log("NadraNo",formData.get('NadraNo'));
+        console.log("IsReferredBack",formData.get('IsReferredBack'));
+        console.log("IsNadraCertificateVerified ",formData.get('IsNadraCertificateVerified'));
+        console.log("DateOfDeath",formData.get('DateOfDeath'));
+        console.log("Remarks",formData.get('Remarks'));
+        console.log("OtherSourceOfIncome",formData.get('OtherSourceOfIncome'));
+        console.log("LegalHeirPay",formData.get('LegalHeirPay'));
+        console.log("File Data",formData.get('File'));
+        console.log("DeceasedID",formData.get('DeceasedID'));
         // console.log("DeceasedId",formData.get('DeceasedId'));
 
-        if (formData.append) {
-            return this.http
-                .post<any>(
-                    `${environment.apiUrl}/Customer/MarkAsDeceasedCustomer`,
-                    formData
-                )
-                .pipe(map((res: BaseResponseModel) => res));
-            // return this.http.post(`${environment.apiUrl}/Customer/MarkAsDeceasedCustomer`, formData,
-            //   { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-            //     map((res: BaseResponseModel) => res)
-            //   );
+
+
+        debugger
+        if(formData.append){
+
+            return this.http.post<any>(`${environment.apiUrl}/Customer/MarkAsDeceasedCustomer`, formData,
+            ).pipe(
+                map((res: BaseResponseModel) => res)
+            );
         }
     }
 
-    GetListOfRejectedDeceasedPerson() {
+    GetListOfRejectedDeceasedPerson(){
+
         var deceasedInfo = new Customer();
         this.request = new BaseRequestModel();
-        deceasedInfo.Cnic = '';
-        this.request.Customer = deceasedInfo;
+        deceasedInfo.Cnic = ''
+        this.request.Customer = deceasedInfo
         this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-
-        return this.http
-            .post(
-                `${environment.apiUrl}/Customer/GetListOfRejectedDeceasedPerson`,
-                req,
-                { headers: this.httpUtils.getHTTPHeaders() }
-            )
-            .pipe(map((res: BaseResponseModel) => res));
+        debugger
+        return this.http.post(`${environment.apiUrl}/Customer/GetListOfRejectedDeceasedPerson`, req,
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
 
-    SubmitCustomerNADRA() {
+    SubmitCustomerNADRA(){
+
+
+
         this.request = new BaseRequestModel();
         this.request.TranId = 0;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -281,10 +237,9 @@ export class DeceasedCustomerService {
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
 
-        return this.http
-            .post(`${environment.apiUrl}/Customer/SubmitCustomerNADRA`, this.request, {
-                headers: this.httpUtils.getHTTPHeaders(),
-            })
-            .pipe(map((res: BaseResponseModel) => res));
+        return this.http.post(`${environment.apiUrl}/Customer/SubmitCustomerNADRA`, req,
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
 }
