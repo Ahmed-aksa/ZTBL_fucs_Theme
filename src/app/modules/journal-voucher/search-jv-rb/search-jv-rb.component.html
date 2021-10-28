@@ -1,6 +1,6 @@
 <div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="text-4xl font-extrabold tracking-tight ">Search Journal Voucher</div>
-    <div [formGroup]="referbackForm">
+    <div [formGroup]="referbackForm" class="mt-4">
 
 
         <div class="row">
@@ -8,7 +8,7 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
 
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Organizational Limit <strong class="matMandatory">*</strong>
                         </mat-label>
                         <mat-select [(ngModel)]="selected_b" formControlName="OrganizationUnit" [disabled]="disable_branch"
@@ -32,7 +32,7 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
                         </mat-label>
                         <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="8"
@@ -47,7 +47,7 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Nature</mat-label>
                         <mat-select formControlName="Nature">
                             <mat-option *ngFor="let nature of Nature" [value]="nature.Id">
@@ -59,7 +59,7 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
                         <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off"
                                appNumberOnly/>
@@ -72,7 +72,7 @@
         <div class="row">
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Status</mat-label>
                         <mat-select formControlName="Status" [disabled]="true">
                             <mat-option *ngFor="let status of JvStatuses" [value]="status.Value">
@@ -84,9 +84,8 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <button mat-raised-button color="accent"
-                            type="button" (click)="find()"><span><i
-                        class="fa fa-search"> &nbsp;</i> Find</span></button>
+                    <button class="mt-4" mat-raised-button color="primary"
+                            type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                 </div>
             </div>
         </div>   
