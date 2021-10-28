@@ -8,7 +8,7 @@
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
                         <mat-label class="customMatLabel">Zone</mat-label>
                         <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
                             <mat-option [value]="SelectedZones?.ZoneId">
@@ -16,7 +16,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
                         <mat-label class="customMatLabel">Zone</mat-label>
                         <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
                                     (selectionChange)="changeZone($event)">
@@ -34,7 +34,7 @@
                 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
                 <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
                             (selectionChange)="changeBranch($event)"
@@ -57,7 +57,7 @@
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Circle</mat-label>
         
                         <mat-select [(ngModel)]="selected_c" formControlName="Circle" [disabled]="disable_circle">
@@ -72,7 +72,7 @@
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Cnic</mat-label>
                         <input matInput placeholder="Cnic" formControlName="Cnic" maxlength="30"
                                autocomplete="off" appNumberOnly/>

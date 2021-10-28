@@ -1,54 +1,89 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="text-4xl font-extrabold tracking-tight">Tour Plan List</div>
 
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-8 px-6 md:px-8 border-b"
-         style="flex-wrap: wrap" [formGroup]="TourPlan">
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+    <div class="pt-4" [formGroup]="TourPlan">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
-                    <mat-option [value]="SelectedZones?.ZoneId">
-                        {{SelectedZones?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
-                            (selectionChange)="changeZone($event)">
-                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                [disabled]="disable_zone">
-                        {{zone?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
 
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                            <mat-option [value]="SelectedZones?.ZoneId">
+                                {{SelectedZones?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                                    (selectionChange)="changeZone($event)">
+                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                        [disabled]="disable_zone">
+                                {{zone?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+        
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    (selectionChange)="changeBranch($event)"
+                                    *ngIf="!single_branch">
+                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                            >
+                                {{branch?.Name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    *ngIf="single_branch">
+                            <mat-option [value]="SelectedBranches?.BranchCode"
+                            >
+                                {{SelectedBranches?.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">From</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off" formControlName="FromDate" [max]="getToday()" (dateChange)="setFromDate()" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+        
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">To</mat-label>
+                        <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy" formControlName="ToDate"  [min]="minDate" [max]="getTodayForTo()" (dateChange)="setToDate()" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
 
         </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                            (selectionChange)="changeBranch($event)"
-                            *ngIf="!single_branch">
-                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                    >
-                        {{branch?.Name}}
-                    </mat-option>
-                </mat-select>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                            *ngIf="single_branch">
-                    <mat-option [value]="SelectedBranches?.BranchCode"
-                    >
-                        {{SelectedBranches?.Name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+
+
+
+
 
 <!--        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">-->
 
@@ -64,45 +99,38 @@
 <!--            </mat-form-field>-->
 <!--        </div>-->
 
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12">
+                        <div *ngIf="tourPlanStatusLov" class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Select tourPlan Status</mat-label>
+                                <mat-select formControlName="Status">
+                                    <mat-option value="">
+                                        Select
+                                    </mat-option>
+                                    <mat-option *ngFor="let obj of tourPlanStatusLov.LOVs" [value]="obj.Value">
+                                        {{obj.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mt-4">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <button (click)="SearchTourPlan()"  type="button" class="mat-raised-button mat-button-base mat-primary kt-login__btn-primary btn-block mat-primary">
+                                <span><i class="fa fa-search"> &nbsp;</i> Search</span>
+                            </button>
+                        </div>
+                    </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                </div>
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">From</mat-label>
-                <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off" formControlName="FromDate" [max]="getToday()" (dateChange)="setFromDate()" autocomplete="off">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">To</mat-label>
-                <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy" formControlName="ToDate"  [min]="minDate" [max]="getTodayForTo()" (dateChange)="setToDate()" autocomplete="off">
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-        </div>
 
-        <div *ngIf="tourPlanStatusLov" class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Select tourPlan Status</mat-label>
-                <mat-select formControlName="Status">
-                    <mat-option value="">
-                        Select
-                    </mat-option>
-                    <mat-option *ngFor="let obj of tourPlanStatusLov.LOVs" [value]="obj.Value">
-                        {{obj.Name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <button (click)="SearchTourPlan()" color="primary" type="button" class="btn btn-secondary mt-19 kt-login__btn-primary btn-block">
-                <span><i class="fa fa-search"> &nbsp;</i> Search</span>
-            </button>
-        </div>
+
+
+
 
     </div>
     <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">

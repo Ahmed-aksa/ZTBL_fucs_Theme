@@ -2,12 +2,12 @@
   <div class="text-4xl font-extrabold tracking-tight">Utilization List</div>
   <!-- Header -->
   <div
-    [formGroup]="loanutilizationSearch">
+    [formGroup]="loanutilizationSearch" class="pt-2">
     <div class="row">
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-3 col-sm-12">
         <div class="flex flex-shrink-0 items-center ">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
                 <mat-label class="customMatLabel">Zone</mat-label>
                 <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
                     <mat-option [value]="SelectedZones?.ZoneId">
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-3 col-sm-12">
 
         <div class="flex flex-shrink-0 items-center">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -79,7 +79,7 @@
 <!--                        </mat-form-field>-->
 <!--                    </div>-->
 
-<div class="col-md-4 col-sm-12">
+<div class="col-md-3 col-sm-12">
       <div class="col-md-12 kt-margin-bottom-10-mobile mr-20">
         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
           <mat-label>LoanCaseNo</mat-label>
@@ -88,7 +88,7 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
       <div *ngIf="loanutilizationStatusLov" class="col-md-12 kt-margin-bottom-10-mobile mr-20">
         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
           <mat-label>Select loanutilization Status</mat-label>

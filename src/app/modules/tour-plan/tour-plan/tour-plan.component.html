@@ -1,88 +1,119 @@
-<p>sam</p>
-
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div  *ngIf="isAdd" class="text-4xl font-extrabold tracking-tight px-10 mt-4">Create Tour Plan</div>
-    <div  *ngIf="isUpdate" class="text-4xl font-extrabold tracking-tight px-10 mt-4">Update Tour Plan</div>
+<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div  *ngIf="isAdd" class="text-4xl font-extrabold tracking-tight">Create Tour Plan</div>
+    <div  *ngIf="isUpdate" class="text-4xl font-extrabold tracking-tight">Update Tour Plan</div>
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8"
-         style="flex-wrap: wrap" [formGroup]="TourForm">
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Zone Name</mat-label>
-                <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="ZoneName"  appNumberOnly autocomplete="off" readonly="readonly"/>
-            </mat-form-field>
+    <div  [formGroup]="TourForm" class="mt-4">
+
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">Zone Name</mat-label>
+                        <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="ZoneName"  appNumberOnly autocomplete="off" readonly="readonly"/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">Branch Name</mat-label>
+                        <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="BranchName"  appNumberOnly autocomplete="off" readonly="readonly"/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">MCO's Name</mat-label>
+                        <input matInput placeholder="Enter Vendor Address" formControlName="McoName" autocomplete="off" readonly="readonly"/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">P.P.NO</mat-label>
+                        <input matInput placeholder="Enter Vendor Address" formControlName="PPNO" autocomplete="off" readonly="readonly"/>
+                    </mat-form-field>
+                </div>
+            </div>
+
         </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Branch Name</mat-label>
-                <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="BranchName"  appNumberOnly autocomplete="off" readonly="readonly"/>
-            </mat-form-field>
-        </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">MCO's Name</mat-label>
-                <input matInput placeholder="Enter Vendor Address" formControlName="McoName" autocomplete="off" readonly="readonly"/>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">P.P.NO</mat-label>
-                <input matInput placeholder="Enter Vendor Address" formControlName="PPNO" autocomplete="off" readonly="readonly"/>
-            </mat-form-field>
-        </div>
 
-        <div *ngIf="circle.length>0" class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-            <mat-label>Circle No</mat-label>
-            <mat-select  [disabled]='isView' formControlName="CircleId">
-                <mat-option>
-                    Select
-                </mat-option>
-                <mat-option *ngFor="let obj of circle" [value]="obj.Id">
-                    {{obj.CircleCode}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        </div>
-
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-            <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong></mat-label>
-            <input disabled matInput [matDatepicker]="picker" formControlName="VisitedDate"  autocomplete="off" (dateChange)="setVisitedDate()" [min]="minDate"  />
-
-            <mat-datepicker-toggle [disabled]='isView' matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker [disabled]='isView' #picker></mat-datepicker>
-        </mat-form-field>
-        </div>
-
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Purpose<strong class="matMandatory">*</strong></mat-label>
-                <input [readonly]='isView' matInput placeholder="Enter Tour Purpose" formControlName="Purpose" autocomplete="off"/>
-            </mat-form-field>
-        </div>
-
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div *ngIf="circle.length>0" class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label>Circle No</mat-label>
+                        <mat-select  [disabled]='isView' formControlName="CircleId">
+                            <mat-option>
+                                Select
+                            </mat-option>
+                            <mat-option *ngFor="let obj of circle" [value]="obj.Id">
+                                {{obj.CircleCode}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong></mat-label>
+                        <input disabled matInput [matDatepicker]="picker" formControlName="VisitedDate"  autocomplete="off" (dateChange)="setVisitedDate()" [min]="minDate"  />
+            
+                        <mat-datepicker-toggle [disabled]='isView' matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker [disabled]='isView' #picker></mat-datepicker>
+                    </mat-form-field>
+                    </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">Purpose<strong class="matMandatory">*</strong></mat-label>
+                        <input [readonly]='isView' matInput placeholder="Enter Tour Purpose" formControlName="Purpose" autocomplete="off"/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label class="customMatLabel">Remarks</mat-label>
                 <input matInput [readonly]='readonly' appAlphaNumericField placeholder="Enter Remarks" formControlName="Remarks" autocomplete="off"/>
             </mat-form-field>
         </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">-->
 <!--        -->
 <!--        </div>-->
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <button class="m-2" mat-raised-button color="primary" *ngIf="isAdd" (click)="Add()">Add</button>
-            <button class="m-2" mat-raised-button color="primary" *ngIf="isUpdate" (click)="Update()">Update</button>
-            <button class="m-2" *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('A')">Authorize</button>
-            <button class="m-2" *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('R')">Reffer Back</button>
-            <button class="m-2" *ngIf="flag=='1'" mat-raised-button color="primary" (click)="ChanageTourStatus('S')">Submit</button>
-            <button class="m-2" *ngIf="flag=='1'" mat-raised-button color="primary" (click)="ChanageTourStatus('C')">Cancel</button>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <button  mat-raised-button color="primary" *ngIf="isAdd" (click)="Add()">Add</button>
+            <button  mat-raised-button color="primary" *ngIf="isUpdate" (click)="Update()">Update</button>
+            <button *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('A')">Authorize</button>
+            <button  *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('R')">Reffer Back</button>
+            <button  *ngIf="flag=='1'" mat-raised-button color="primary" (click)="ChanageTourStatus('S')">Submit</button>
+            <button  *ngIf="flag=='1'" mat-raised-button color="primary" (click)="ChanageTourStatus('C')">Cancel</button>
         </div>
 
     </div>
