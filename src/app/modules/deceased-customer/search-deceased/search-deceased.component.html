@@ -23,20 +23,22 @@
 <!--                    </mat-select>-->
 <!--                </mat-form-field>-->
 <!--            </div>-->
-
-            <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin">
-                <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
-                    <mat-label>Zone</mat-label>
-                    <mat-select (selectionChange)="GetBranches($event)" formControlName="ZoneId">
-                        <mat-option>
-<!--                            <ngx-mat-select-search placeholderLabel="Search Zone..." (focusout)="validateZoneOnFocusOut()" (keyup)="searchZone($event.target.value)" noEntriesFoundLabel="No Zone Found">-->
-<!--                            </ngx-mat-select-search>-->
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                    <mat-label class="customMatLabel">Zone</mat-label>
+                    <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                        <mat-option [value]="SelectedZones?.ZoneId">
+                            {{SelectedZones?.ZoneName}}
                         </mat-option>
-                        <mat-option>
-                            Select
-                        </mat-option>
-                        <mat-option *ngFor="let zone of SelectedZones" [value]="zone.ZoneId">
-                            {{zone.ZoneName }}
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                    <mat-label class="customMatLabel">Zone</mat-label>
+                    <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                                (selectionChange)="changeZone($event)">
+                        <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                    [disabled]="disable_zone">
+                            {{zone?.ZoneName}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -49,19 +51,22 @@
                 </mat-form-field>
             </div>
 
-            <div class="col-md-2 kt-margin-bottom-10-mobile" *ngIf="isUserAdmin || isZoneUser">
-                <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
-                    <mat-label>Branch</mat-label>
-                    <mat-select (selectionChange)="SetBranches($event)" formControlName="BranchId">
-                        <mat-option>
-<!--                            <ngx-mat-select-search placeholderLabel="Search Branch..." (focusout)="validateBranchOnFocusOut()" noEntriesFoundLabel="No Branch Found" (keyup)="searchBranch($event.target.value)">-->
-<!--                            </ngx-mat-select-search>-->
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
+                                (selectionChange)="changeBranch($event)"
+                                *ngIf="!single_branch">
+                        <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                        >
+                            {{branch?.Name}}
                         </mat-option>
-                        <mat-option>
-                            Select
-                        </mat-option>
-                        <mat-option *ngFor="let branch of SelectedBranches" [value]="branch.BranchId">
-                            {{branch.Name }}
+                    </mat-select>
+                    <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
+                                *ngIf="single_branch">
+                        <mat-option [value]="SelectedBranches?.BranchCode"
+                        >
+                            {{SelectedBranches?.Name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

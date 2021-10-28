@@ -217,6 +217,7 @@ export class LoanUtilizationComponent implements OnInit {
 
     settingZBC(){
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
 
@@ -239,6 +240,8 @@ export class LoanUtilizationComponent implements OnInit {
             });
         }
     }
+
+
 
     changeZone(changedValue) {
         let changedZone = {Zone: {ZoneId: changedValue.value}}
