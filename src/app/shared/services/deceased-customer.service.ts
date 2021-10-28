@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-
 import {DatePipe} from '@angular/common';
 import {BaseRequestModel} from '../models/base_request.model';
 import {Activity} from 'app/modules/user-management/activity/activity.model';
@@ -23,7 +22,8 @@ export class DeceasedCustomerService {
         private http: HttpClient,
         private httpUtils: HttpUtilsService,
         private userUtilsService: UserUtilsService,
-        private _common: CommonService
+        private _common: CommonService,
+        private datePipe: DatePipe,
     ) {
     }
 
@@ -81,8 +81,7 @@ export class DeceasedCustomerService {
         // }
         formData.append('IsReferredBack', form.IsReferredBack ? '1' : '0');
 
-        // @ts-ignore
-        let dod = new DatePipe().transform(form.DateofDeath, 'ddMMyyyy'); //converstion date to string
+        let dod = this.datePipe.transform(form.DateofDeath, "ddMMyyyy"); //converstion date to string
         formData.append('DateOfDeath', dod);
 
         formData.append('Remarks', form.MakerRemarks);

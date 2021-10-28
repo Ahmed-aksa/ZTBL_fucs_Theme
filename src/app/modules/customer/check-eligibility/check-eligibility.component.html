@@ -27,8 +27,8 @@
                 </mat-form-field>
               </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile mt-4">
-                <button color="primary" type="button" (click)="getCustomerInfo()" class=" mx-5 btn btn-secondary mt-1" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
-                  <span><i class="fa fa-check"> &nbsp;</i> Check Eligibility</span>
+                <button color="primary" type="button" (click)="getCustomerInfo()" mat-flat-button class=" mx-5 btn mt-1" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
+                  <mat-icon class="mr-2">check_circle</mat-icon> Check Eligibility
                 </button>
               </div>
 

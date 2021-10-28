@@ -35,19 +35,15 @@ import {ViewFileComponent} from "../view-file/view-file.component";
     styleUrls: ['./deceased-cus.component.scss'],
     providers: [
         DatePipe,
-        {
-            provide: DateAdapter,
-            useClass: MomentDateAdapter,
-            deps: [MAT_DATE_LOCALE],
-        },
-        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
         {
             provide: MatDialogRef,
-            useValue: {},
+            useValue: {}
         },
         {
             provide: MAT_DIALOG_DATA,
-            useValue: {},
+            useValue: {}
         },
     ],
 })
@@ -116,7 +112,7 @@ export class DeceasedCusComponent implements OnInit {
         private dialog: MatDialog,
         private route: ActivatedRoute,
         private _common: CommonService,
-        private datePipe: DatePipe
+
     ) {
         router.events.subscribe((val: any) => {
             if (val.url == '/deceased-customer/customers') {
