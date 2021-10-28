@@ -323,6 +323,8 @@ export class LoanUtilizationComponent implements OnInit {
         this.hasFormErrors = false;
     }
 
+    // get f() { return this.customerForm.controls; }
+
     createForm() {
         this.customerForm = this.fb.group({
             Zone: ['', Validators.required],
@@ -631,8 +633,22 @@ export class LoanUtilizationComponent implements OnInit {
             this.customerForm.markAsPristine();
         }
     }
+    isControlHasError(controlName: string, validationType: string): boolean {
+        const control = this.customerForm.controls[controlName];
+
+        if (!control) {
+            return false;
+        }
+
+        const result =
+            control.hasError(validationType) &&
+            (control.dirty || control.touched);
+        return result;
+    }
 
     save() {
+
+
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
             Object.keys(controls).forEach(controlName =>
@@ -696,6 +712,8 @@ export class LoanUtilizationComponent implements OnInit {
     currentIndex: number = 0;
 
     message = "";
+
+
 
     SaveImages() {
         if (this.currentIndex < this.images.length) {

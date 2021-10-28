@@ -188,6 +188,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
         }
     }
 
+
+
     private assignBranchAndZone() {
         debugger;
         //Circle
