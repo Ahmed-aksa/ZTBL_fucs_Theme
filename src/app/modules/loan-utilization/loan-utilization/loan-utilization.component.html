@@ -68,7 +68,7 @@
                 </mat-select>
             </mat-form-field>
             <mat-error *ngIf="isControlHasError('LoanDisbID','required')">
-                <strong>Loan Disbursment ID is mandatory</strong>
+                <strong class="mx-3">Loan Disbursment ID is mandatory</strong>
             </mat-error>
 
         </div>
@@ -246,7 +246,7 @@
                             X
                         </button> -->
                         <div class="row">
-                            <div class="col-lg-12 sticky-top text-right relative">
+                            <div class="col-lg-12 text-right relative">
                                 <div class="bg-white float-right">
                                     <button mat-icon-button *ngIf="!viewonly" (click)="removeVideo(url,i)" class="close-button float-right absolute right-4 top-2 bg-red-500">
                                         <!-- X -->
