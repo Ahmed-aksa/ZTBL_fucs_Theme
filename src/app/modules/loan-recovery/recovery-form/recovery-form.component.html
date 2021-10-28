@@ -15,13 +15,8 @@
                 (close)="onAlertClose($event)">
                 Please enter valid Input
               </kt-alert>
-
-
-
               <div class="form-group kt-form__group row">
-
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Zone <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Enter Zone" formControlName="Zone" readonly="readonly" maxlength="30"
@@ -62,7 +57,7 @@
                 </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
                   <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
-                    <mat-label>Transaction Type <strong class="matMandatory">*</strong></mat-label>
+                    <mat-label>Transaction Type  <strong class="matMandatory">*</strong></mat-label>
                     <mat-select formControlName="TransactionType" [disabled]="true">
                       <mat-option *ngFor="let type of TransactionTypes" [value]="type.Value">
                         {{type.Name}}
@@ -236,7 +231,7 @@
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="mcReceipt">
                     <mat-label class="customMatLabel">MCO Book</mat-label>
                     <input matInput placeholder="MCO Book" formControlName="BookNo" maxlength="10" autocomplete="off"
-                      appNumberOnly [readonly]="recoverySaved || viewOnly" attr.required=false />
+                        appNumberOnly [readonly]="recoverySaved || viewOnly" attr.required=false />
                     <mat-error *ngIf="hasError('BookNo', 'required')">Book No <strong>required</strong></mat-error>
                   </mat-form-field>
                 </div>
@@ -307,7 +302,7 @@
 
               </div>
 
-              <div class="form-group kt-form__group row" *ngIf="transactionEdit">
+              <!-- <div class="form-group kt-form__group row" *ngIf="transactionEdit">
 
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -325,7 +320,7 @@
                 </div>
 
 
-              </div>
+              </div> -->
 
               <div class="form-group kt-form__group row">
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
