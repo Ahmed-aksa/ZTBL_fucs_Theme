@@ -108,7 +108,7 @@
 <!--        </div>-->
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-            <button  mat-raised-button color="primary" *ngIf="isAdd" (click)="Add()">Add</button>
+            <button  mat-raised-button color="primary" *ngIf="isAdd" (click)="Add()"><mat-icon class="mr-2">add_circle</mat-icon>Add</button>
             <button  mat-raised-button color="primary" *ngIf="isUpdate" (click)="Update()">Update</button>
             <button *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('A')">Authorize</button>
             <button  *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('R')">Reffer Back</button>

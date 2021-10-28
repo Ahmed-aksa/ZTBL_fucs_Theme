@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
                         <mat-label class="customMatLabel">Zone</mat-label>
@@ -101,7 +101,7 @@
 
                 <div class="row">
                     <div class="col-lg-3 col-sm-12">
-                        <div *ngIf="tourPlanStatusLov" class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                        <div *ngIf="tourPlanStatusLov" class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label>Select tourPlan Status</mat-label>
                                 <mat-select formControlName="Status">
@@ -118,7 +118,7 @@
                     <div class="col-lg-3 col-sm-12 mt-4">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
                             <button (click)="SearchTourPlan()"  type="button" class="mat-raised-button mat-button-base mat-primary kt-login__btn-primary btn-block mat-primary">
-                                <span><i class="fa fa-search"> &nbsp;</i> Search</span>
+                                <mat-icon class="mr-2">search</mat-icon> Search
                             </button>
                         </div>
                     </div>
