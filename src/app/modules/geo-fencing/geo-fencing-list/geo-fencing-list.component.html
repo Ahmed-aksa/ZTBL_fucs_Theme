@@ -3,7 +3,7 @@ flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
     <div class="text-4xl font-extrabold tracking-tight">List Geo Fencing</div>
 
     <!-- Header -->
-    <div [formGroup]="listForm">
+    <div [formGroup]="listForm" class="mt-2">
 
         <div class="row">
             <div class="col-lg-4 col-sm-12">
@@ -27,7 +27,7 @@ flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
                         <mat-label class="customMatLabel">Zone</mat-label>
                         <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
                                     (selectionChange)="changeZone($event)">
@@ -131,7 +131,7 @@ flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
             <div class="col-lg-4 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                    <button mat-raised-button color="accent"
+                    <button mat-raised-button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                             type="button" (click)="find()">
                         <mat-icon>search</mat-icon>
                         Find
@@ -151,7 +151,7 @@ flex-col flex-auto min-w-0  bg-card dark:bg-transparent">
 
 
     </div>
-    <div class="flex flex-auto overflow-x-scroll " style="flex-direction: column;">
+    <div class="flex flex-auto overflow-y-scroll mt-4 " style="flex-direction: column;">
         <div class="example-table-container">
 
             <table mat-table
