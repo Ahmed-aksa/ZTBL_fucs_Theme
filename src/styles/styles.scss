@@ -85,3 +85,20 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
 .text-yellow{
   color:#ECBD00;
 }
+.theme-default{
+
+.mat-table {
+.table-header-background{
+  background: #01671b;
+  .mat-sort-header-content{
+    color: white;
+  }
+  .mat-column-actions{
+    color: white;
+  }
+  .mat-header-cell{
+    color: white;
+  }
+}
+}
+}

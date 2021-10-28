@@ -101,7 +101,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12">
+            <div class="col-lg-2 col-sm-12">
 
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -120,7 +120,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-3 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Total Amount <strong class="matMandatory">*</strong></mat-label>
@@ -134,12 +134,8 @@
                     <mat-error *ngIf="amountError">Total Amount not more then Total OS</mat-error>
                 </div>
             </div>
-        </div>
 
-
-        <div class="row">
-
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-2 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Tr Code <strong class="matMandatory">*</strong></mat-label>
@@ -150,7 +146,11 @@
         
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>RO</mat-label>
@@ -163,13 +163,8 @@
                     </mat-form-field>
                 </div>
             </div>
-        </div>
 
-
-
-
-        <div class="row">
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-3 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Advice #</mat-label>
@@ -181,7 +176,8 @@
         
                 <!-- <strong class="matMandatory">*</strong> -->
             </div>
-            <div class="col-lg-4 col-sm-12">
+
+            <div class="col-lg-3 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Contra Branch Code</mat-label>
@@ -191,7 +187,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
+
+            <div class="col-lg-3 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid  w-8/12" appearance="outline">
                         <mat-label class="customMatLabel">Dept Code</mat-label>
@@ -205,12 +202,11 @@
                            *ngIf="!viewOnly"/>
                 </div>
             </div>
+
         </div>
 
-
-
         <div class="row">
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-3 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid  w-8/12" appearance="outline">
                         <mat-label class="customMatLabel">LC #</mat-label>
@@ -225,7 +221,7 @@
                            [readonly]="recoverySaved || transactionEdit" *ngIf="!viewOnly"/>
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-lg-5 col-sm-12">
                 <div class="mx-4">
                     <mat-form-field *ngIf="!expandDisbursement" class="mat-form-field-fluid" appearance="outline">
                         <mat-label>Disbursement/LC GL</mat-label>
@@ -249,12 +245,7 @@
                     <span class="mx-4" id="llcInquiryText" *ngIf="!viewOnly" (click)="viewLLCInquiryGL()"><b>View LC Inquiry</b></span>
                 </div>
             </div>
-        </div>
 
-
-
-
-        <div class="row">
             <div class="col-lg-4 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -265,6 +256,12 @@
                     </mat-form-field>
                 </div>
             </div>
+        </div>
+
+
+
+
+        <div class="row">
             <div class="col-lg-4 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -285,10 +282,7 @@
                     </mat-form-field>
                 </div>
             </div>
-        </div>
 
-
-        <div class="row">
             <div class="col-lg-4 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -299,7 +293,12 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
+        </div>
+
+
+        <div class="row">
+    
+            <div class="col-lg-3 col-sm-12">
                 <div *ngIf="showInstrument">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Instrument Type</mat-label>
@@ -313,7 +312,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-3 col-sm-12">
                 <div *ngIf="showInstrument">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel"></mat-label>
@@ -323,11 +322,8 @@
                     </mat-form-field>
                 </div>
             </div>
-        </div>
 
-
-        <div class="row">
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-3 col-sm-12">
                 <div *ngIf="showInstrument">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel"></mat-label>
@@ -337,7 +333,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-3 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">PP No</mat-label>
@@ -347,10 +343,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            
+
         </div>
-
-
 
         <div class="row">
             <div class="col-lg-6 col-sm-12">
@@ -430,7 +424,7 @@
 
 
     </div>
-    <div class="col-lg-12 text-right pt-4 border-t">
+    <div class="col-lg-12 text-left pt-4 border-t">
 
 
         <button mat-raised-button color="primary" (click)="save()" type="submit"
@@ -457,7 +451,7 @@
         <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
     </div>
 
-    <div style="display: flex;flex-direction: row">
+    <div class="mt-4">
         <div *ngIf="tf">
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <input matInput placeholder="No Details Exist" readonly="readonly" maxlength="30" autocomplete="off"/>
@@ -465,11 +459,12 @@
         </div>
 
         <div *ngIf="tf">
-            <mat-form-field class="mat-form-field-fluid mx-4" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <input matInput placeholder="No Details Exist" readonly="readonly" maxlength="30" autocomplete="off"/>
             </mat-form-field>
         </div>
     </div>
+
     <div class="col-lg-12">
 
         <table class="table table-striped " *ngIf="table">

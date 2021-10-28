@@ -55,7 +55,6 @@ export class LovConfigurationKey {
     public static readonly LandStatus: string = 'LandStatus';
     public static readonly PostalCode: string = 'PostalCode';
     public static readonly LandingProcedure: string = 'LendingProcedure';
-    public static readonly PostCode: string = 'PostCode';
     public static readonly TransactionType: string = 'TransactionType';
     public static readonly TrCodeDisbursement: string = 'TrCodeDisbursement';
     public static readonly TrCodeRecovery: string = 'TrCodeRecovery';

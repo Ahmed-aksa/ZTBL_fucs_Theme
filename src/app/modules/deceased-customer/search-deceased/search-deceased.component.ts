@@ -14,6 +14,7 @@ import {DeceasedCustomerService} from "../Services/deceased-customer.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {finalize} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
+import {HttpParams} from "@angular/common/http";
 
 
 @Component({
@@ -62,12 +63,14 @@ export class SearchDeceasedComponent implements OnInit {
     loading: boolean;
     matTableLenght: any;
     //displayedColumns = ['customer_name', 'father_name', 'death_date', 'Cnic', 'address', 'per_address', 'status', 'branch_code', 'certificate_verified', 'legal_heir'];
-    displayedColumns = ['customer_name', 'father_name', 'death_date', 'Cnic', 'address', 'branch_code', 'certificate_verified', 'legal_heir'];
+    displayedColumns = ['customer_name', 'father_name', 'death_date', 'Cnic', 'address', 'branch_code', 'StatusDesc', 'per_address', 'certificate_verified', 'legal_heir'];
 
     // dataSource : MatTableDataSource<DeceasedCustomer>
 
     dataSource = new MatTableDataSource();
-    //Zone inventory
+
+    dataSourceEmpty = new MatTableDataSource();
+        //Zone inventory
     Zones: any = [];
     SelectedZones: any = [];
 
@@ -115,7 +118,7 @@ export class SearchDeceasedComponent implements OnInit {
         //var u = new UserUtilsService();
         var userDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.loggedInUserDetails = userDetails;
-        
+        debugger
 
         //if (userDetails.Branch.BranchCode == "All")
 
@@ -147,10 +150,10 @@ export class SearchDeceasedComponent implements OnInit {
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.gridHeight = window.innerHeight - 400 + 'px';
+        this.gridHeight = window.innerHeight - 500 + 'px';
     }
     private assignBranchAndZone() {
-        
+        debugger;
 
         //Branch
         if (this.SelectedBranches.length) {
@@ -171,8 +174,9 @@ export class SearchDeceasedComponent implements OnInit {
 
     }
     SearchDeceasedCustomer(){
+        this.dataSource.data=[];
         this.assignBranchAndZone();
-        
+        debugger
         this.spinner.show()
         this.Customer = Object.assign(this.Customer, this.deceasedCustomerSearch.value);
 
@@ -383,7 +387,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     settingZBC() {
-        
+        debugger
         this.loggedInUserDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.loggedInUserDetails.Branch && this.loggedInUserDetails.Branch.BranchCode != "All") {
             this.SelectedCircles = this.loggedInUserDetails.UserCircleMappings;
