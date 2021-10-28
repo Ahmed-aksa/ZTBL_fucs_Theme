@@ -1,33 +1,37 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-4xl font-extrabold tracking-tight px-10 mt-4">Borrower Information</div>
+<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-4xl font-extrabold tracking-tight">Borrower Information</div>
 
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8"
-         style="flex-wrap: wrap" [formGroup]="borrowerForm">
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+    <div class="py-4"  [formGroup]="borrowerForm">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
-                    <mat-option [value]="SelectedZones?.ZoneId">
-                        {{SelectedZones?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
-                            (selectionChange)="changeZone($event)">
-                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                [disabled]="disable_zone">
-                        {{zone?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+        <div class="row ">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-
-        </div>
-
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                            <mat-option [value]="SelectedZones?.ZoneId">
+                                {{SelectedZones?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                                    (selectionChange)="changeZone($event)">
+                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                        [disabled]="disable_zone">
+                                {{zone?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+        
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -49,38 +53,55 @@
                 </mat-select>
             </mat-form-field>
         </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">Circle</mat-label>
+        
+                        <mat-select [(ngModel)]="selected_c" formControlName="Circle" [disabled]="disable_circle">
+                            <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                            >
+                                {{circle?.CircleCode}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Circle</mat-label>
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">Cnic</mat-label>
+                        <input matInput placeholder="Cnic" formControlName="Cnic" maxlength="30"
+                               autocomplete="off" appNumberOnly/>
+                    </mat-form-field>
+                </div>
+            </div>
 
-                <mat-select [(ngModel)]="selected_c" formControlName="Circle" [disabled]="disable_circle">
-                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
-                    >
-                        {{circle?.CircleCode}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
         </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Cnic</mat-label>
-                <input matInput placeholder="Cnic" formControlName="Cnic" maxlength="30"
-                       autocomplete="off" appNumberOnly/>
-            </mat-form-field>
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+                    <button class="mat-primary" mat-raised-button color="accent"
+                            type="button" (click)="getBorrower()"><span><i
+                        class="fa fa-search"> &nbsp;</i> Find</span></button>
+                </div>
+            </div>
+
         </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <button mat-raised-button color="accent"
-                    type="button" (click)="getBorrower()"><span><i
-                class="fa fa-search"> &nbsp;</i> Find</span></button>
-        </div>
+
+
+
+
 
     </div>
-    <div class="flex flex-auto mx-10" style="flex-direction: column;overflow-y: scroll">
+    <div class="flex flex-auto" style="flex-direction: column; overflow-y: scroll">
         <div class="example-table-container">
             <!--[style.height]="gridHeight"-->
             <mat-table
