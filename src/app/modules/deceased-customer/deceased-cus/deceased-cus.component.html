@@ -118,7 +118,7 @@
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                     <mat-label class="customMatLabel">Nadra No <strong class="matMandatory">*</strong>
                                     </mat-label>
-                                    <input  readonly="readonly" matInput formControlName="NadraNo" placeholder="" maxlength="13"
+                                    <input [readonly]="viewOnly" matInput formControlName="NadraNo" placeholder="" maxlength="13"
                                            autocomplete="off"/>
                                     <mat-error *ngIf="hasError('NadraNo', 'required')">Nadra Number
                                         <strong>required</strong></mat-error>
@@ -156,7 +156,7 @@
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                     <mat-label class="customMatLabel">Maker Remarks <strong
                                         class="matMandatory">*</strong></mat-label>
-                                    <input   readonly="readonly" matInput formControlName="MakerRemarks" placeholder="" maxlength="13"
+                                    <input   [readonly]="viewOnly" matInput formControlName="MakerRemarks" placeholder="" maxlength="13"
                                            autocomplete="off"/>
                                     <mat-error *ngIf="hasError('MakerRemarks', 'required')">Maker Remarks <strong>required</strong>
                                     </mat-error>
@@ -271,7 +271,7 @@
 
             <div class="form-group kt-form__group row">
                 <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                    <mat-form-field *ngIf="visible" class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field *ngIf="visible && !DeceasedCustomerAttachedFile" class="mat-form-field-fluid" appearance="outline">
                         <mat-label class="customMatLabel"><em>No Response is made so far.</em></mat-label>
                         <input matInput placeholder="No Response is made so far." maxlength="13" autocomplete="off"
                                readonly="readonly"/>
