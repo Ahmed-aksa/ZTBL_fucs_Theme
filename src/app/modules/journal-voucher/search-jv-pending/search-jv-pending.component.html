@@ -2,7 +2,7 @@
     <div class="text-4xl font-extrabold tracking-tight ">Pending Transactions</div>
 
     <!-- Header -->
-    <div [formGroup]="pendingForm">
+    <div [formGroup]="pendingForm" class="mt-4">
         <!-- <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
             <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -15,8 +15,8 @@
 
         <div class="row">
             <div class="col-lg-4 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
                         <mat-label class="customMatLabel">Zone</mat-label>
                         <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
                             <mat-option [value]="SelectedZones?.ZoneId">
@@ -24,7 +24,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
                         <mat-label class="customMatLabel">Zone</mat-label>
                         <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
                                     (selectionChange)="changeZone($event)">
@@ -40,7 +40,7 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
 
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Organizational Limit <strong class="matMandatory">*</strong>
                         </mat-label>
                         <mat-select [(ngModel)]="selected_b" formControlName="OrganizationUnit" [disabled]="disable_branch"
@@ -64,7 +64,7 @@
             </div>
             <div class="col-lg-4 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
                         </mat-label>
                         <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="8"
@@ -83,8 +83,8 @@
 
         <div class="row">
             <div class="col-lg-4 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Nature</mat-label>
                         <mat-select formControlName="Nature">
                             <mat-option *ngFor="let nature of Nature" [value]="nature.Id">
@@ -96,7 +96,7 @@
             </div>
             <div class="col-lg-4 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
                         <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off"
                                appNumberOnly/>
@@ -106,7 +106,7 @@
             </div>
             <div class="col-lg-4 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Status</mat-label>
                         <mat-select formControlName="Status" [disabled]="true">
                             <mat-option *ngFor="let status of JvStatuses" [value]="status.Value">
@@ -122,12 +122,12 @@
 
         <div class="row">
             <div class="col-lg-4 col-sm-12">
-                <div class="flex flex-shrink-0 items-center sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center sm:mt-0">
 
-                    <button mat-raised-button color="accent"
+                    <button mat-raised-button color="primary"
                             type="button" (click)="find()">
-                        <mat-icon>search</mat-icon>
-                        Find
+                        <mat-icon class="mr-2">search</mat-icon>
+                        Search
                     </button>
                 </div>
             </div>
@@ -138,7 +138,7 @@
 
 
     </div>
-    <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
+    <div class="flex flex-auto overflow-scroll mt-4" style="flex-direction: column;">
 
         <div class="example-table-container">
 
