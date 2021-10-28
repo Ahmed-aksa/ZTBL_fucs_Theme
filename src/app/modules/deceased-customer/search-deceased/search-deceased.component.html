@@ -235,19 +235,19 @@
                 <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Address}}</mat-cell>
             </ng-container>
 
-            <!-- <ng-container matColumnDef="per_address">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Per Address</mat-header-cell>
-              <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.PermanentAddress}}</mat-cell>
+            <ng-container matColumnDef="per_address">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Permenent Address</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.PermanentAddress}}</mat-cell>
             </ng-container>
-
-            <ng-container matColumnDef="status">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-              <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.StatusDesc}}</mat-cell>
-            </ng-container> -->
 
             <ng-container matColumnDef="branch_code">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Code</mat-header-cell>
                 <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.BranchCode}}</mat-cell>
+            </ng-container>
+
+            <ng-container *ngIf="!isDialog" matColumnDef="StatusDesc">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.StatusDesc}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="certificate_verified">
@@ -273,7 +273,7 @@
             <div class="mat-table__bottom">
                 <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
                 <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15, 30, 50, 100]" [showFirstLastButtons]="true"></mat-paginator>
-        
+
                 <!--<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
                 <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>-->
             </div>
