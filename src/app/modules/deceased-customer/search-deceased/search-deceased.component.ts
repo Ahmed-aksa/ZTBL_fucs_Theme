@@ -115,7 +115,7 @@ export class SearchDeceasedComponent implements OnInit {
         //var u = new UserUtilsService();
         var userDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.loggedInUserDetails = userDetails;
-        
+        debugger
 
         //if (userDetails.Branch.BranchCode == "All")
 
@@ -150,7 +150,7 @@ export class SearchDeceasedComponent implements OnInit {
         this.gridHeight = window.innerHeight - 400 + 'px';
     }
     private assignBranchAndZone() {
-        
+        debugger;
 
         //Branch
         if (this.SelectedBranches.length) {
@@ -172,7 +172,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
     SearchDeceasedCustomer(){
         this.assignBranchAndZone();
-        
+        debugger
         this.spinner.show()
         this.Customer = Object.assign(this.Customer, this.deceasedCustomerSearch.value);
 
@@ -383,7 +383,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     settingZBC() {
-        
+        debugger
         this.loggedInUserDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.loggedInUserDetails.Branch && this.loggedInUserDetails.Branch.BranchCode != "All") {
             this.SelectedCircles = this.loggedInUserDetails.UserCircleMappings;
