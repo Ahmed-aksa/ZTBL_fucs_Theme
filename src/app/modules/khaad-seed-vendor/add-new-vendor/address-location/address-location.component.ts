@@ -35,7 +35,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
   zoom: number = 2;
   PreviousLocation: Loc[] = [];
   images = [];
-  
+
   mapClickListener;
 
   markers = []
@@ -54,7 +54,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    
+
   ) { }
 
   ngOnInit() {
@@ -90,7 +90,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+
 
   ///////////////////Os Change Set Map
   onMapReady(map: google.maps.Map) {
@@ -124,7 +124,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
     },
     strictBounds: true
   };
-  
+
   close(result: any): void {
     this.dialogRef.close(result);
   }
