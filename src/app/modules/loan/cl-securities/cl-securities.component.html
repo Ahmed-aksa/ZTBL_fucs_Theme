@@ -8,8 +8,8 @@
     <div class="kt-form">
       <div class="kt-portlet__body">
         <div class="form-group kt-form__group row">
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Security Type</mat-label>
               <mat-select formControlName="CollTypeID" (selectionChange)="setSecurityTypeValue($event)">
                 <mat-option>
@@ -26,15 +26,15 @@
           <!--<div class="col-lg-2 kt-margin-bottom-20-mobile">
            
           </div>-->
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Quantity/ Area Accepted <strong class="matMandatory">*</strong></mat-label>
               <input matInput formControlName="Quantity" appNumberOnly>
               <mat-error *ngIf="hasError('Quantity', 'required')">Area <strong>required</strong></mat-error>
             </mat-form-field>
           </div>
-          <div class="col-lg-2 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Quantity</mat-label>
               <mat-select formControlName="QuantityUnit">
                 <mat-option>
@@ -51,8 +51,8 @@
           <!--<div class="col-lg-2 kt-margin-bottom-20-mobile">
            
           </div>-->
-          <div class="col-lg-2 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Unit Price/Avg Sale Price <strong class="matMandatory">*</strong></mat-label>
               <input matInput formControlName="UnitPrice" appNumberOnly>
               <mat-error *ngIf="hasError('UnitPrice', 'required')">Unit Price <strong>required</strong></mat-error>
@@ -60,12 +60,12 @@
           </div>
         </div>
         <div class="form-group kt-form__group row">
-          <div class="col-lg-3 mt-1p">
+          <div class="col-lg-3 mb-2">
             <button type="button" [disabled]="isSecuritiesFormInProgress" class="btn btn-primary" mat-raised-button color="primary" (click)="onSaveLoanSecurities()">
-              Save
+              <mat-icon class="mr-2">save</mat-icon> Save
             </button>
-            <button type="button" class="btn btn-outline-brand ml-1p" mat-raised-button color="danger" (click)="clearLoanSecuritiesForm()" >
-              Clear
+            <button type="button" class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" mat-raised-button color="danger" (click)="clearLoanSecuritiesForm()" >
+              <mat-icon class="mr-2"> clear_all</mat-icon>Clear
             </button>
           </div>
         </div>

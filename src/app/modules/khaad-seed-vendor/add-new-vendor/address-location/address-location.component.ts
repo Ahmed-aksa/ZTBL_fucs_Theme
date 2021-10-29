@@ -95,7 +95,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
   ///////////////////Os Change Set Map
   onMapReady(map: google.maps.Map) {
     this.googleMap = map;
-    this.mapClickListener = this.googleMap.addListener('click', (e: google.maps.MapMouseEvent) => {
+    this.mapClickListener = this.googleMap.addListener('click', (e: google.maps.MouseEvent) => {
       this.ngZone.run(() => {
         // Here we can get correct event
         //console.log(e.latLng.lat(), e.latLng.lng());

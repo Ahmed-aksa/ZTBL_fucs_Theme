@@ -1,81 +1,103 @@
 <div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent" [formGroup]="customerForm">
     <div class="text-3xl font-extrabold tracking-tight mt-6 pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Loan Utilization</div>
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between
-     py-2" style="flex-wrap: wrap" >
+    <div class="pt-4" >
 
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
-                    <mat-option [value]="SelectedZones?.ZoneId">
-                        {{SelectedZones?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
-                            (selectionChange)="changeZone($event)">
-                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                [disabled]="disable_zone">
-                        {{zone?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                            <mat-option [value]="SelectedZones?.ZoneId">
+                                {{SelectedZones?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                                    (selectionChange)="changeZone($event)">
+                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                        [disabled]="disable_zone">
+                                {{zone?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    (selectionChange)="changeBranch($event)"
+                                    *ngIf="!single_branch">
+                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                            >
+                                {{branch?.Name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    *ngIf="single_branch">
+                            <mat-option [value]="SelectedBranches?.BranchCode"
+                            >
+                                {{SelectedBranches?.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">LC NO#</mat-label>
+                        <input readonly appNumberOnly matInput placeholder="Enter LC No#" formControlName="LoanCaseNo"
+                               maxlength="13" autocomplete="off"/>
+                    </mat-form-field>
+                </div>
+            </div>
         </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                            (selectionChange)="changeBranch($event)"
-                            *ngIf="!single_branch">
-                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                    >
-                        {{branch?.Name}}
-                    </mat-option>
-                </mat-select>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                            *ngIf="single_branch">
-                    <mat-option [value]="SelectedBranches?.BranchCode"
-                    >
-                        {{SelectedBranches?.Name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+
+
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label>Loan GL</mat-label>
+        <!--                [ngClass]="{ 'is-invalid': f.LoanDisbID.touched && f.LoanDisbID.errors }"-->
+                        <mat-select [disabled]='viewonly' formControlName="LoanDisbID" >
+                            <mat-option>
+                                Select
+                            </mat-option>
+                            <mat-option *ngFor="let obj of LoanGls" [value]="obj.LoanDisbID">
+                                {{obj.DisbDesc}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="isControlHasError('LoanDisbID','required')">
+                        <strong class="mx-3">Loan Disbursment ID is mandatory</strong>
+                    </mat-error>
+        
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <input matInput hidden formControlName="Status" maxlength="13" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+
+            </div>
         </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">LC NO#</mat-label>
-                <input readonly appNumberOnly matInput placeholder="Enter LC No#" formControlName="LoanCaseNo"
-                       maxlength="13" autocomplete="off"/>
-            </mat-form-field>
-        </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Loan GL</mat-label>
-<!--                [ngClass]="{ 'is-invalid': f.LoanDisbID.touched && f.LoanDisbID.errors }"-->
-                <mat-select [disabled]='viewonly' formControlName="LoanDisbID" >
-                    <mat-option>
-                        Select
-                    </mat-option>
-                    <mat-option *ngFor="let obj of LoanGls" [value]="obj.LoanDisbID">
-                        {{obj.DisbDesc}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-error *ngIf="isControlHasError('LoanDisbID','required')">
-                <strong class="mx-3">Loan Disbursment ID is mandatory</strong>
-            </mat-error>
 
-        </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-            <input matInput hidden formControlName="Status" maxlength="13" autocomplete="off"/>
-        </div>
+
+
 
 
     </div>

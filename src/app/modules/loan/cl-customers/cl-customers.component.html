@@ -5,15 +5,15 @@
         Please enter valid Input
       </kt-alert>
       <div class="form-group kt-form__group row">
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">CNIC <strong class="matMandatory">*</strong></mat-label>
             <input matInput placeholder="Enter CNIC" formControlName="CNIC" maxlength="13" appNumberOnly />
             <mat-error *ngIf="hasError('CNIC', 'required')">CNIC<strong>required</strong></mat-error>
           </mat-form-field>
         </div>
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">AGPS <strong class="matMandatory">*</strong></mat-label>
             <mat-select formControlName="AGPS" [(ngModel)]="agpsModel">
               <mat-option>
@@ -30,8 +30,8 @@
             <mat-error *ngIf="hasError('AGPS', 'required')">AGPS is <strong>required</strong></mat-error>
           </mat-form-field>
         </div>
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4  col-sm-12 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Relationship <strong class="matMandatory">*</strong></mat-label>
             <mat-select formControlName="Relationship" [(ngModel)]="relationshipModel">
 
@@ -49,8 +49,8 @@
             <mat-error *ngIf="hasError('Relationship', 'required')">Relationship is <strong>required</strong></mat-error>
           </mat-form-field>
         </div>
-        <div class="col-lg-2 kt-margin-bottom-20-mobile mt-2">
-          <button class="btn btn-secondary mt-19 kt-login__btn-primary btn-block" color="primary" (click)="searchCustomer()" type="button"><span><i class="fa fa-search"> &nbsp;</i> Find</span></button>
+        <div class="col-lg-2 kt-margin-bottom-20-mobile">
+          <button class=" mb-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary" (click)="searchCustomer()" type="button"><mat-icon class="mr-2">search</mat-icon> Search</button>
           <!--<button type="button" class="btn btn-primary mt-10p" mat-raised-button color="primary" >
             Search
           </button>-->
@@ -108,7 +108,7 @@
       <div class="form-group kt-form__group row">
         <div class="col-lg-3 mt-1p">
           <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="onSaveCustomer()">
-            Save
+            <mat-icon class="mr-2">save</mat-icon> Save
           </button>          
         </div>
       </div>

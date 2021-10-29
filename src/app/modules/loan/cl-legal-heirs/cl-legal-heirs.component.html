@@ -9,8 +9,8 @@
     <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="legalHeirsForm">
       <div class="kt-form">
         <div class="form-group kt-form__group row">
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Customers <strong class="matMandatory">*</strong></mat-label>
               <!--<input matInput formControlName="CustomerID">-->
               <mat-select formControlName="CustomerID">
@@ -21,20 +21,23 @@
               <!--<mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>-->
             </mat-form-field>
           </div>
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">CNIC/B FORM <strong class="matMandatory">*</strong></mat-label>
               <input matInput formControlName="Cnic" maxlength="15" autocomplete="off" [mask]="maskEnums.cnic">
             </mat-form-field>
           </div>
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Legal Heir Name <strong class="matMandatory">*</strong></mat-label>
               <input matInput formControlName="LegalHeirsName">
             </mat-form-field>
           </div>
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+
+        </div>
+        <div class="form-group  kt-form__group row">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">DOB(ddMMyyyy) <strong class="matMandatory">*</strong></mat-label>
               <input readonly="readonly" matInput [matDatepicker]="picker3" formControlName="Dob" [max]="today">
               <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
@@ -42,10 +45,8 @@
               <!--<mat-error *ngIf="hasError('AppDate', 'required')">Application Date <strong>required</strong></mat-error>-->
             </mat-form-field>
           </div>
-        </div>
-        <div class="form-group  kt-form__group row">
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Relationship <strong class="matMandatory">*</strong></mat-label>
               <mat-select formControlName="RelationID">
 
@@ -63,20 +64,23 @@
               <!--<mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>-->
             </mat-form-field>
           </div>
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Tel(Res)NO</mat-label>
               <input matInput formControlName="PhoneOff" appNumberOnly>
             </mat-form-field>
           </div>
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Cell No <strong class="matMandatory">*</strong></mat-label>
               <input matInput formControlName="PhoneCell" appNumberOnly>
             </mat-form-field>
           </div>
-          <div class="col-lg-3 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Gender <strong class="matMandatory">*</strong></mat-label>
               <mat-select formControlName="Gender" (selectionChange)="setRelationshipValue($event)">
                 <mat-option *ngFor="let obj of GenderLov" [value]="obj.Value">
@@ -88,12 +92,12 @@
           </div>
         </div>
         <div class="form-group kt-form__group row">
-          <div class="col-lg-3 mt-1p">
+          <div class="col-lg-3 mb-2">
             <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="onSaveLegalHeirsForm()">
-              Save
+              <mat-icon class="mr-2">save</mat-icon> Save
             </button>
-            <button type="button" class="btn btn-outline-brand ml-1p" mat-raised-button color="danger" (click)="onClearLegalHeirsForm()">
-              Clear
+            <button type="button" class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"  color="danger" (click)="onClearLegalHeirsForm()">
+              <mat-icon class="mr-2"> clear_all</mat-icon>Clear
             </button>
           </div>
         </div>
