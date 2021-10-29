@@ -42,7 +42,7 @@ export class DeceasedCustomerService {
         this.request = new BaseRequestModel();
         this.request.Customer = deceasedInfo
         this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
@@ -77,7 +77,7 @@ export class DeceasedCustomerService {
         }
         //this.request.Customer["CustomerStatus"]= "-1";
         this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
         this.request.Zone =final_zone
         this.request.Branch = final_branch
@@ -89,7 +89,7 @@ export class DeceasedCustomerService {
         console.log(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`);
 
         debugger
-        return this.http.post(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`, req,
+        return this.http.post(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`, this.request,
             { headers: this.httpUtils.getHTTPHeaders() }).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -109,7 +109,7 @@ export class DeceasedCustomerService {
         this.request.Customer = deceasedInfo
 
         this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
@@ -117,7 +117,7 @@ export class DeceasedCustomerService {
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
         debugger
-        return this.http.post(`${environment.apiUrl}/Customer/GetPendingDeceasedCustomerByCnic`, req,
+        return this.http.post(`${environment.apiUrl}/Customer/GetPendingDeceasedCustomerByCnic`, this.request,
             { headers: this.httpUtils.getHTTPHeaders() }).pipe(
             map((res: BaseResponseModel) => res)
         );
@@ -131,7 +131,7 @@ export class DeceasedCustomerService {
 
         this.request = new BaseRequestModel();
         var formData = new FormData();
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         var a =userInfo.User.BranchId
 
         //form.IsReferredBack = true;
