@@ -102,3 +102,7 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
 }
 }
 }
+
+::ng-deep.mat-sort-header-arrow {
+  color: #fff;
+}
