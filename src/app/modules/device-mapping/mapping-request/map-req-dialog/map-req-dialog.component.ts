@@ -84,7 +84,7 @@ export class MapReqDialogComponent implements OnInit {
 
   viewStatus(mapping){
     const type = 'request';
-    const dialogRef = this.dialog.open(MapNotificationStatusComponent, { width: '1200px', height: '250px', data: {mapp: mapping, type: type}, disableClose: true });
+    const dialogRef = this.dialog.open(MapNotificationStatusComponent, { panelClass: ['w-8/12'], data: {mapp: mapping, type: type}, disableClose: true });
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
         return;

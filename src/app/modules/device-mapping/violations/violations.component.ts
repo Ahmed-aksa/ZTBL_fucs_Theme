@@ -31,7 +31,7 @@ export class ViolationsComponent implements OnInit {
   }
 
   violation(){
-    this.dialog.open(ViolateDialogComponent, { panelClass: ['full-screen-modal'], disableClose: true})  //disableClose: true })
+    this.dialog.open(ViolateDialogComponent, { panelClass: ['w-8/12'], disableClose: true})  //disableClose: true })
   }
 
 }

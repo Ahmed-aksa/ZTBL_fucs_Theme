@@ -33,7 +33,7 @@ export class MappingRequestComponent implements OnInit {
   }
 
   mappingRec(){
-    this.dialog.open(MapReqDialogComponent, { panelClass: ['full-screen-modal'], disableClose: true})  //disableClose: true })
+    this.dialog.open(MapReqDialogComponent, { panelClass: ['w-8/12'], disableClose: true})  //disableClose: true })
   }
 
 }
