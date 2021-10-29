@@ -10,7 +10,7 @@
                 <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
                   Please enter valid Input
                 </kt-alert> -->
-                    <div class="row">
+                    <div class="row pt-4">
 
                       <div class="col-lg-4">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -53,14 +53,16 @@
                         </mat-form-field>
                       </div>
 
-                        <div class="col-lg-2 " style="margin-top:5px;">
-                        <button class="btn btn-secondary mt-19  btn-block" (click)="findCnic()" color="primary" type="button"><span><i class="fa fa-search"> &nbsp;</i> Find</span></button>
-                      </div>
 
-                        <div class="col-lg-2 mt-3">
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-2 col-sm-12">
+                        <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="findCnic()" color="primary" type="button"><mat-icon class="mr-2">search</mat-icon> Search</button>
+                      </div>
+                      <div class="col-lg-2 col-sm-12">
                         <span id="llcInquiryText" (click)="loadUsersList()"><b>Get All</b></span>
                       </div>
-                    </div>
+                  </div>
 
         </form>
 

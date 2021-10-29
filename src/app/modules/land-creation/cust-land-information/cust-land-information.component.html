@@ -1,167 +1,218 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent"
+<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-scroll bg-card dark:bg-transparent"
      [formGroup]="LandInformationForm">
-    <div class="text-4xl font-extrabold tracking-tight px-10 mt-4">Customer Land Information</div>
-    <button mat-raised-button color="primary" type="button" class="ml-2" (click)="ViewLandHistory()"
-            *ngIf="isFormReadonly">View Land History
+    <div class="text-4xl font-extrabold tracking-tight">Customer Land Information</div>
+    <div class="row">
+        <div class="col-lg-12 col-sm-2 text-right pr-8">
+            <button mat-raised-button color="primary" type="button" class="ml-2" (click)="ViewLandHistory()"
+            *ngIf="isFormReadonly"><mat-icon class="mr-2">remove_red_eye</mat-icon>View Land History
     </button>
+        </div>
+    </div>
+
 
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8"
-         style="flex-wrap: wrap">
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+    <div class="pt-4">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
-                    <mat-option [value]="SelectedZones?.ZoneId">
-                        {{SelectedZones?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
-                            (selectionChange)="changeZone($event)">
-                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                [disabled]="disable_zone">
-                        {{zone?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                            <mat-option [value]="SelectedZones?.ZoneId">
+                                {{SelectedZones?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                                    (selectionChange)="changeZone($event)">
+                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                        [disabled]="disable_zone">
+                                {{zone?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+        
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-        </div>
-
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                            (selectionChange)="changeBranch($event)"
-                            *ngIf="!single_branch">
-                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                    >
-                        {{branch?.Name}}
-                    </mat-option>
-                </mat-select>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                            *ngIf="single_branch">
-                    <mat-option [value]="SelectedBranches?.BranchCode"
-                    >
-                        {{SelectedBranches?.Name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="PostCodeLov">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Post Code <strong class="matMandatory">*</strong></mat-label>
-                <mat-select formControlName="PostCode" [disabled]="isFormReadonly">
-                    <mat-option>
-                        <ngx-mat-select-search placeholderLabel="Search Post Code..."
-                        noEntriesFoundLabel="'No result Found'"
-                                               [formControl]="searchFilterCtrlPostCode">
-                        </ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option *ngFor="let obj of PostCodeLov.LOVs" [value]="obj.Value">
-                        {{obj.Name}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="hasError('PostCode', 'required')">Post Code <strong>required</strong></mat-error>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="LandingProcedureLov">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Lending Procedure <strong class="matMandatory"></strong></mat-label>
-                <mat-select formControlName="LandingProcedure" [disabled]="isFormReadonly">
-                    <mat-option *ngFor="let obj of LandingProcedureLov.LOVs" [value]="obj.Value">
-                        {{obj.Name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Passbook/Reference No <strong class="matMandatory">*</strong>
-                </mat-label>
-                <input [readonly]="isFormReadonly" matInput placeholder="Enter Passbook NO" formControlName="PassbookNO"
-                       maxlength="30" autocomplete="off" appAlphaNumSpecial/>
-                <mat-error *ngIf="hasError('PassbookNO', 'required')">Passbook/Reference No <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Total Area <strong class="matMandatory">*</strong></mat-label>
-                <input matInput placeholder="Enter Total Area" [readonly]="isFormReadonly" formControlName="TotalArea"
-                       maxlength="30" autocomplete="off" appNumberOnly/>
-                <mat-error *ngIf="hasError('TotalArea', 'required')">Total Area <strong>required</strong></mat-error>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <img src="../../../../../assets/media/icons/svg/Shopping/Calculator.svg" style="margin-top: 4%;"
-                 alt="Calculator" (click)="AreaConvertor()"/>
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    (selectionChange)="changeBranch($event)"
+                                    *ngIf="!single_branch">
+                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                            >
+                                {{branch?.Name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    *ngIf="single_branch">
+                            <mat-option [value]="SelectedBranches?.BranchCode"
+                            >
+                                {{SelectedBranches?.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="PostCodeLov">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Post Code <strong class="matMandatory">*</strong></mat-label>
+                        <mat-select formControlName="PostCode" [disabled]="isFormReadonly">
+                            <mat-option>
+                                <ngx-mat-select-search placeholderLabel="Search Post Code..."
+                                noEntriesFoundLabel="'No result Found'"
+                                                       [formControl]="searchFilterCtrlPostCode">
+                                </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let obj of PostCodeLov.LOVs" [value]="obj.Value">
+                                {{obj.Name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('PostCode', 'required')">Post Code <strong>required</strong></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="LandingProcedureLov">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Lending Procedure <strong class="matMandatory"></strong></mat-label>
+                        <mat-select formControlName="LandingProcedure" [disabled]="isFormReadonly">
+                            <mat-option *ngFor="let obj of LandingProcedureLov.LOVs" [value]="obj.Value">
+                                {{obj.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
 
         </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Date of Issuance(ddMMyyyy) <strong class="matMandatory">*</strong>
-                </mat-label>
-                <input readonly="readonly" matInput [matDatepicker]="picker" formControlName="DateIssue" maxlength="30"
-                       autocomplete="off" [max]="today" [disabled]="isFormReadonly"/>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
 
-                <mat-error *ngIf="hasError('DateIssue', 'required')">Date Issuance <strong>required</strong></mat-error>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Place of Issuance: <strong class="matMandatory">*</strong></mat-label>
-                <input [readonly]="isFormReadonly" matInput formControlName="PlaceofIssuePB"
-                       placeholder="Add area of issuance" maxlength="200" autocomplete="off"/>
-                <mat-error *ngIf="hasError('PlaceofIssuePB', 'required')">Place of Issuance <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label>Land Complete Address: <strong class="matMandatory">*</strong></mat-label>
-                <input [readonly]="isFormReadonly" matInput formControlName="CompleteAddress"
-                       placeholder="Complete Address" maxlength="200" autocomplete="off"/>
-                <mat-error *ngIf="hasError('CompleteAddress', 'required')">Land Complete Address
-                    <strong>required</strong></mat-error>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">Auto Number <strong class="matMandatory"></strong></mat-label>
-                <input matInput placeholder="Land Auto Code" readonly="readonly" formControlName="LandAutoCode"
-                       maxlength="30" autocomplete="off"/>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">No of Customers: <strong class="matMandatory"></strong></mat-label>
-                <input [readonly]="isFormReadonly" matInput placeholder="Number Of Customer"
-                       formControlName="NumberOfCustomer" (keyup)="onKey($event)" maxlength="2" autocomplete="off"
-                       appNumberOnly/>
-                <!--<mat-error *ngIf="hasError('FamilyNumber', 'required')">Family No <strong>required</strong></mat-error>-->
-            </mat-form-field>
+
+
+
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Passbook/Reference No <strong class="matMandatory">*</strong>
+                        </mat-label>
+                        <input [readonly]="isFormReadonly" matInput placeholder="Enter Passbook NO" formControlName="PassbookNO"
+                               maxlength="30" autocomplete="off" appAlphaNumSpecial/>
+                        <mat-error *ngIf="hasError('PassbookNO', 'required')">Passbook/Reference No <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Total Area <strong class="matMandatory">*</strong></mat-label>
+                        <input matInput placeholder="Enter Total Area" [readonly]="isFormReadonly" formControlName="TotalArea"
+                               maxlength="30" autocomplete="off" appNumberOnly/>
+                        <mat-error *ngIf="hasError('TotalArea', 'required')">Total Area <strong>required</strong></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <img src="../../../../../assets/media/icons/svg/Shopping/Calculator.svg" style="margin-top: 4%; width: 20px;"
+                         alt="Calculator" (click)="AreaConvertor()"/>
+        
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Date of Issuance(ddMMyyyy) <strong class="matMandatory">*</strong>
+                        </mat-label>
+                        <input readonly="readonly" matInput [matDatepicker]="picker" formControlName="DateIssue" maxlength="30"
+                               autocomplete="off" [max]="today" [disabled]="isFormReadonly"/>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+        
+                        <mat-error *ngIf="hasError('DateIssue', 'required')">Date Issuance <strong>required</strong></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
         </div>
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <button mat-raised-button color="accent"
-                    type="button" (click)="viewCustomrePage()"><span><i
-                class="fa fa-search"> &nbsp;</i> View</span></button>
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label>Place of Issuance: <strong class="matMandatory">*</strong></mat-label>
+                        <input [readonly]="isFormReadonly" matInput formControlName="PlaceofIssuePB"
+                               placeholder="Add area of issuance" maxlength="200" autocomplete="off"/>
+                        <mat-error *ngIf="hasError('PlaceofIssuePB', 'required')">Place of Issuance <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label>Land Complete Address: <strong class="matMandatory">*</strong></mat-label>
+                        <input [readonly]="isFormReadonly" matInput formControlName="CompleteAddress"
+                               placeholder="Complete Address" maxlength="200" autocomplete="off"/>
+                        <mat-error *ngIf="hasError('CompleteAddress', 'required')">Land Complete Address
+                            <strong>required</strong></mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Auto Number <strong class="matMandatory"></strong></mat-label>
+                        <input matInput placeholder="Land Auto Code" readonly="readonly" formControlName="LandAutoCode"
+                               maxlength="30" autocomplete="off"/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">No of Customers: <strong class="matMandatory"></strong></mat-label>
+                        <input [readonly]="isFormReadonly" matInput placeholder="Number Of Customer"
+                               formControlName="NumberOfCustomer" (keyup)="onKey($event)" maxlength="2" autocomplete="off"
+                               appNumberOnly/>
+                        <!--<mat-error *ngIf="hasError('FamilyNumber', 'required')">Family No <strong>required</strong></mat-error>-->
+                    </mat-form-field>
+                </div>
+            </div>
+
         </div>
+
+
+
+        <div class="row pb-2">
+            <div class="col-lg-6 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                    <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                            type="button" (click)="viewCustomrePage()"><mat-icon class="mr-2">remove_red_eye</mat-icon>View</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
 
     </div>
 
-    <div class="flex flex-auto mx-10" style="flex-direction: column;overflow-y: scroll">
+    <div class="flex flex-auto h-auto" style="flex-direction: column;">
         <div class="example-class-container">
             <table class="table table-striped">
                 <thead>
@@ -199,7 +250,7 @@
                                [ngModelOptions]="{standalone: true}" type="text" size="6"/>
                     </td>
                     <td (click)="searchCustomer(i)" *ngIf="!isFormReadonly || !NumberOfCustomerDisable">
-                        <p class="btn btn-primary">Attach</p>
+                        <p class="btn btn-primary" style="background-color: #01671B; border:none;">Attach</p>
                     </td>
                     <td (click)="deleteRow(i)" style="cursor:pointer;"
                         *ngIf="!isFormReadonly|| !NumberOfCustomerDisable">
@@ -208,13 +259,13 @@
                 </tr>
                 </tbody>
             </table>
-            <button mat-raised-button color="primary" type="button" (click)="saveCustomerLandInfo()">Save
+            <button class="py-2" mat-raised-button color="primary" type="button" (click)="saveCustomerLandInfo()"><mat-icon class="mr-2">save</mat-icon> Save
             </button>
             <button mat-raised-button color="primary" type="button" class="ml-2" (click)="clearSaveCustomerLandInfo()"
-                    *ngIf="!isFormReadonly">Clear
+                    *ngIf="!isFormReadonly"><mat-icon class="mr-2"> clear_all</mat-icon>Clear
             </button>
         </div>
-        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <mat-form-field class="mat-form-field-fluid w-4/12 py-2" appearance="outline">
             <mat-label>Select Customer:</mat-label>
             <mat-select formControlName="LandCustID" (selectionChange)="SelectionChangePushData($event)">
                 <mat-option *ngFor="let obj of CustomerLov" [value]="obj.LandCustID">
@@ -529,31 +580,35 @@
     <div>
         <span style="color:red;" [innerHTML]="errorMessage"></span>
     </div>
-
-    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="LandingProcedureLov">
-        <mat-form-field class="mat-form-field-fluid mx-10" appearance="outline">
-            <mat-label class="customMatLabel">Remarks: <strong class="matMandatory"></strong></mat-label>
-            <input [readonly]="isFormReadonly" matInput placeholder="Remarks" formControlName="Remarks" maxlength="200"
-                   autocomplete="off"/>
-        </mat-form-field>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 " *ngIf="LandingProcedureLov">
+                <mat-form-field class="mat-form-field-fluid w-full " appearance="outline">
+                    <mat-label class="customMatLabel">Remarks: <strong class="matMandatory"></strong></mat-label>
+                    <input [readonly]="isFormReadonly" matInput placeholder="Remarks" formControlName="Remarks" maxlength="200"
+                           autocomplete="off"/>
+                </mat-form-field>
+            </div>
+        </div>
     </div>
-    <div class="form-group kt-form__group row">
+
+    <div class="form-group kt-form__group row pb-4">
         <div class="col-lg-8 kt-margin-bottom-20-mobile">
             <button mat-raised-button type="button" color="primary" (click)="saveCustomerLandInfoDetails()"
                     [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     *ngIf="ShowTable && !isFormReadonly">Save
             </button>
-            <button mat-raised-button type="button" color="primary" (click)="landChargeCreation()" class="ml-2"
+            <button mat-raised-button type="button" color="primary" (click)="landChargeCreation()"
                     *ngIf="AllowchargeCreation ">
-                Land Charge Creation
+                    <mat-icon class="mr-2">create</mat-icon>Land Charge Creation
             </button>
             <button mat-raised-button color="primary" (click)="landUploadFiles()" type="button"
-                    *ngIf="AllowDocumentUpload && !hasHistoryLandInfoId" class="ml-2">
+                    *ngIf="AllowDocumentUpload && !hasHistoryLandInfoId" class="ml-2"><mat-icon class="mr-2">cloud_upload</mat-icon>
                 Upload Documents
             </button>
             <button mat-raised-button color="primary" class="ml-2" type="button" (click)="submitCustomerLandInfo()"
                     [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                    *ngIf="AllowSubmit && !isFormReadonly">Submit
+                    *ngIf="AllowSubmit && !isFormReadonly"><mat-icon class="mr-2">check_circle</mat-icon> Submit
             </button>
         </div>
     </div>

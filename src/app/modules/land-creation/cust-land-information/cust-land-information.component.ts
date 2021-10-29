@@ -579,6 +579,7 @@ export class CustLandInformationComponent implements OnInit {
             this.LandInfo.Status = this.LandInfoSearchData.Status;
         }
         const dialogRef = this.dialog.open(LargeFilesUploadComponent, {
+            panelClass: ['w-8/12'],
             data: {
                 landInfo: this.LandInfo,
                 landInfoDataList: this.LandInfoDataList,
@@ -1320,7 +1321,7 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     viewCustomrePage() {
-        const dialogRef = this.dialog.open(CustomerListDialogComponent, {width: "85%", data: {}, disableClose: true});
+        const dialogRef = this.dialog.open(CustomerListDialogComponent, {panelClass: ['w-8/12'], data: {}, disableClose: true});
         dialogRef.afterClosed().subscribe(res => {
             if (!res) {
                 return;
