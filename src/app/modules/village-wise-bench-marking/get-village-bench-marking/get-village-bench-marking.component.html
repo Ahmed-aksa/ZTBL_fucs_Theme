@@ -1,12 +1,12 @@
+<div class="absolute inset-x-0">
+    <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
+    </div>
 <div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
     <div class="text-4xl font-extrabold tracking-tight">Get Village Bench Marking</div>
 
     <!-- Header -->
     <div class="pt-4" [formGroup]="getVillageBenchmarkForm">
-        <div
-            class="absolute inset-x-0 bottom-0">
-            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
-        </div>
+
 
 
         <div class="row">

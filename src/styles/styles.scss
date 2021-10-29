@@ -102,3 +102,19 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
 }
 }
 }
+
+::ng-deep.mat-sort-header-arrow {
+  color: #fff;
+}
+
+
+.mat-paginator-outer-container{
+  .mat-paginator-container{
+    padding-top: 0;
+    padding-bottom: 0px;
+    .mat-paginator-page-size{
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+  }
+}

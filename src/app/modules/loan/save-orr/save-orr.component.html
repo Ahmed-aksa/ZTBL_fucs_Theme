@@ -1,53 +1,61 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-4xl font-extrabold tracking-tight mx-10 mt-4">Applying ORR</div>
+<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <div class="text-4xl font-extrabold tracking-tight">Applying ORR</div>
   <!-- Header -->
-  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8" [formGroup]="ORRForm">
+  <div class="pt-4" [formGroup]="ORRForm">
 
-  <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-    <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
-      <mat-label>Soil/Irrigation Type <strong class="matMandatory">*</strong></mat-label>
-      <mat-select formControlName="SoilTypeORRID">
-        <mat-option *ngFor="let obj of SoilIrrigation" [value]="obj.GradeID">
-          {{obj.Description}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="hasError('SoilTypeORRID', 'required')">Soil/Irrigation Type <strong>required</strong></mat-error>
-    </mat-form-field>
 
-    <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
-      <mat-label>Land Ownership <strong class="matMandatory">*</strong></mat-label>
-      <mat-select formControlName="LandOwnershipORRID">
-        <mat-option *ngFor="let obj of LandOwnership" [value]="obj.GradeID">
-          {{obj.Description}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="hasError('LandOwnershipORRID', 'required')">Land Ownership <strong>required</strong></mat-error>
-    </mat-form-field>
 
-    <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
-      <mat-label>Availability Of Market <strong class="matMandatory">*</strong></mat-label>
-      <mat-select formControlName="MarketAvailabilityORRID">
-        <mat-option *ngFor="let obj of AvailabilityMarket" [value]="obj.GradeID">
-          {{obj.Description}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="hasError('MarketAvailabilityORRID', 'required')">Availability Of Market <strong>required</strong></mat-error>
-    </mat-form-field>
+    <div class="row">
+      <div class="col-lg-3 col-sm-12">
+        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+          <mat-label>Soil/Irrigation Type <strong class="matMandatory">*</strong></mat-label>
+          <mat-select formControlName="SoilTypeORRID">
+            <mat-option *ngFor="let obj of SoilIrrigation" [value]="obj.GradeID">
+              {{obj.Description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('SoilTypeORRID', 'required')">Soil/Irrigation Type <strong>required</strong></mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 col-sm-12">
+        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+          <mat-label>Land Ownership <strong class="matMandatory">*</strong></mat-label>
+          <mat-select formControlName="LandOwnershipORRID">
+            <mat-option *ngFor="let obj of LandOwnership" [value]="obj.GradeID">
+              {{obj.Description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('LandOwnershipORRID', 'required')">Land Ownership <strong>required</strong></mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 col-sm-12">
+        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+          <mat-label>Availability Of Market <strong class="matMandatory">*</strong></mat-label>
+          <mat-select formControlName="MarketAvailabilityORRID">
+            <mat-option *ngFor="let obj of AvailabilityMarket" [value]="obj.GradeID">
+              {{obj.Description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('MarketAvailabilityORRID', 'required')">Availability Of Market <strong>required</strong></mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 col-sm-12">
+        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+          <mat-label>Net Income <strong class="matMandatory">*</strong></mat-label>
+          <mat-select formControlName="NetIncodeORRID">
+            <mat-option *ngFor="let obj of NetIncome" [value]="obj.GradeID">
+              {{obj.Description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('NetIncodeORRID', 'required')">Net Income <strong>required</strong></mat-error>
+        </mat-form-field>
+      </div>
 
-    <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
-      <mat-label>Net Income <strong class="matMandatory">*</strong></mat-label>
-      <mat-select formControlName="NetIncodeORRID">
-        <mat-option *ngFor="let obj of NetIncome" [value]="obj.GradeID">
-          {{obj.Description}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="hasError('NetIncodeORRID', 'required')">Net Income <strong>required</strong></mat-error>
-    </mat-form-field>
-
-</div>
   </div>
-  <div class="flex flex-auto overflow-hidden">
-    <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+
+  </div>
+  <div class="flex flex-auto overflow-y-scroll">
+    <div class="flex flex-auto overflow-y-scroll" style="flex-direction: column;">
       <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
       
         <div class="form-group kt-form__group row" *ngIf="dataFetched && ApplicationORR.length>0">
@@ -197,10 +205,10 @@
         </div>
      
 
-        <div class="form-group kt-form__group row mx-10">
-          <div class="col-lg-6 kt-margin-bottom-20-mobile">
-            <button mat-raised-button color="primary" (click)="save()" [disabled]="submitted">{{showFinalOrrTable?"Submit":"Save"}}</button>
-            <button mat-raised-button color="primary" class="ml-2" (click)="togglePage()" [disabled]="submitted">{{showFinalOrrTable?"Back":"Next"}}</button>
+        <div class="form-group kt-form__group row">
+          <div class="col-lg-12 kt-margin-bottom-20-mobile">
+            <button mat-raised-button color="primary" (click)="save()" [disabled]="submitted"><mat-icon class="mr-2">save</mat-icon>{{showFinalOrrTable?"Submit":"Save"}}</button>
+            <button mat-raised-button color="primary" class="ml-2" (click)="togglePage()" [disabled]="submitted"><mat-icon>navigate_next</mat-icon>{{showFinalOrrTable?"Back":"Next"}}</button>
             &nbsp;&nbsp;&nbsp;&nbsp;<span id="llcInquiryText" (click)="goToPendingList()"><b>Pending List</b></span>
             <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
           </div>

@@ -1,11 +1,11 @@
-<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
   <div class="text-4xl font-extrabold tracking-tight">Correction of Passbook No.</div>
 
   <!-- Header -->
   <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pt-4 px-6 md:px-8"
     style="flex-wrap: wrap">
   </div>
-  <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+  <div class="flex flex-auto overflow-y-scroll" style="flex-direction: column;">
     <form [formGroup]="cpForm" class="kt-form kt-form--group-seperator-dashed">
       <div class="form-group kt-form__group row">
 
@@ -167,7 +167,7 @@
     </pre> -->
 
     <div *ngIf="searchData" class="form-group kt-form__group row mt-2 justify-content-center">
-      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+      <button mat-raised-button color="primary" (click)="submit()"><mat-icon class="mr-2">check_circle</mat-icon> Submit</button>
   </div>
   </div>
 

@@ -82,15 +82,15 @@
         </div>
       </div>
       <div class="form-group kt-form__group row">
-        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Land lying Un-Cultivated (A-K-M)</mat-label>
             <input matInput placeholder="Enter Land lying Un-Cultivated" formControlName="UncultivatedLand" maxlength="50" />
             <mat-error *ngIf="hasError('UncultivatedLand', 'pattern')"><strong>Invalid input</strong></mat-error>
           </mat-form-field>
         </div>
-        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Land not to be Cultivated (A-K-M)</mat-label>
             <input matInput placeholder="Enter Land not to be Cultivated" formControlName="NocultivatedLand" maxlength="50" />
             <mat-error *ngIf="hasError('NocultivatedLand', 'pattern')"><strong>Invalid input</strong></mat-error>
@@ -102,14 +102,14 @@
         <div class="col-lg-12 kt-margin-bottom-20-mobile">
           <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
             <div class="kt-portlet__head-label">
-              <h5 class="kt-portlet__head-title">Existing/Proposed Crop Production</h5>
+              <h5 class="kt-portlet__head-title text-md ">Existing/Proposed Crop Production</h5>
             </div>
           </div>
         </div>
       </div>
       <div class="form-group kt-form__group row">
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Type</mat-label>
             <mat-select formControlName="Type">
               <mat-option *ngFor="let proCrop of selectedProposedCropType" [value]="proCrop.Id">
@@ -118,8 +118,8 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Crop</mat-label>
             <mat-select formControlName="Crop">
               <mat-option *ngFor="let crop of selectedCrops" [value]="crop.Id">
@@ -128,33 +128,35 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Area (A-K-M)</mat-label>
             <input matInput placeholder="Enter Area" formControlName="Area" maxlength="50" />
           </mat-form-field>
         </div>
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+      </div>
+        <div class="row">
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Total Output(md)</mat-label>
             <input matInput placeholder="Enter Output" formControlName="Output" maxlength="50" />
           </mat-form-field>
         </div>
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Price(Rs./Md)</mat-label>
             <input matInput placeholder="Enter Price" formControlName="Price" maxlength="50" />
           </mat-form-field>
         </div>
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid" appearance="outline">
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+          <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Expenditure %</mat-label>
             <input matInput placeholder="Enter Expenditure" formControlName="Expenditure" maxlength="50" />
           </mat-form-field>
         </div>
-        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+        <div class="col-lg-4 kt-margin-bottom-20-mobile mb-2">
           <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="AddCropDetail()">
-            Add
+            <mat-icon class="mr-2">add_circle</mat-icon> Add
           </button>
         </div>
       </div>
@@ -222,7 +224,7 @@
       <div class="form-group kt-form__group row">
         <div class="col-lg-3 kt-margin-bottom-20-mobile">
           <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="AddAppraisalProposed()">
-            Save
+            <mat-icon class="mr-2">save</mat-icon> Save
           </button>
         </div>
       </div>
