@@ -15,18 +15,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
-import { HttpUtilsService } from 'app/shared/services/http_utils.service';
-import { UserUtilsService } from 'app/shared/services/users_utils.service';
+import {HttpUtilsService} from 'app/shared/services/http_utils.service';
+import {UserUtilsService} from 'app/shared/services/users_utils.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class NdcRequestsService {
     request_response = {
-      'Branch': {
-        'BranchId': '102',
-        'BranchCode': '20238',
-        'Id': 0,
+        'Branch': {
+            'BranchId': '102',
+            'BranchCode': '20238',
+            'Id': 0,
         'Name': 'NOORPUR TOWN',
         'WorkingDate': '11012021'
       },
@@ -62,27 +62,27 @@ export class NdcRequestsService {
         'UserName': '131694',
         'UserType': 0
       },
-      'Zone': {
-        'Id': 0,
-        'ZoneId': '50055',
-        'ZoneName': 'SAHIWAL'
-      }
+        'Zone': {
+            'Id': 0,
+            'ZoneId': '50055',
+            'ZoneName': 'SAHIWAL'
+        }
     };
-  
+
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
     }
-  
-    userInfo = this.userUtilsService.getUserDetails();
-  
-    getRequests( user, limit, offset) {
-       limit = String(limit);
-       offset = String(offset)
-      var circle = this.userInfo.UserCircleMappings;
-      var circleIds = [];
-      //mycircle =
-  
-      circle.forEach(element => {
-        circleIds.push(element.CircleId);
+
+    userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+
+    getRequests(user, limit, offset) {
+        limit = String(limit);
+        offset = String(offset)
+        var circle = this.userInfo.UserCircleMappings;
+        var circleIds = [];
+        //mycircle =
+
+        circle.forEach(element => {
+            circleIds.push(element.CircleId);
       });
       var _circles = JSON.stringify(circleIds)
       _circles
@@ -107,7 +107,7 @@ export class NdcRequestsService {
       },
         TranId: 0,
         User: this.userInfo.User,
-        
+
         // Branch: {
         //   BranchCode: user.BranchCode
         // },
@@ -119,26 +119,133 @@ export class NdcRequestsService {
     };
     var r = JSON.stringify(request)
     console.log(r)
-    // 
-    //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
-    //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-    //       map((res: BaseResponseModel) => res)
-    //     );
-      // this.request_response.CustomerLandRelation.Cnic = cnic;
-      // this.request_response.CustomerLandRelation.Offset = offset;
-      // this.request_response.CustomerLandRelation.Limit = limit;
-       return this.http.post(environment.apiUrl + '/NDC/SearchNDCList', request);
+        //
+        //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
+        //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+        //       map((res: BaseResponseModel) => res)
+        //     );
+        // this.request_response.CustomerLandRelation.Cnic = cnic;
+        // this.request_response.CustomerLandRelation.Offset = offset;
+        // this.request_response.CustomerLandRelation.Limit = limit;
+        return this.http.post(environment.apiUrl + '/NDC/SearchNDCList', request);
     }
-  
-    downloadFile(cnic: any,ncid:any, limit, offset,user) {
-      limit = String(limit);
-      offset = String(offset)
-      var circle = this.userInfo.UserCircleMappings;
-      var circleIds = [];
-      //mycircle =
-  
-      circle.forEach(element => {
-        circleIds.push(element.CircleId);
+
+    DeleteCustomer(user) {
+        var circle = this.userInfo.UserCircleMappings;
+        var circleIds = [];
+        //mycircle =
+
+        circle.forEach(element => {
+            circleIds.push(element.CircleId);
+        });
+        var _circles = JSON.stringify(circleIds)
+        _circles
+        var request = {
+            Circle: {
+                CircleIds: _circles,
+                CircleId: user.CircleId
+            },
+            NDCRequest: {
+                NDCId: user.NDCId,
+                Remarks: user.Remarks
+
+            },
+            DeviceLocation: {
+                BtsId: "0",
+                BtsLoc: "",
+                Lat: "0.0",
+                Long: "0.0",
+                Src: "BTS",
+                time: "0",
+                id: 0
+            },
+            TranId: 0,
+            User: this.userInfo.User,
+            // Branch: {
+            //   BranchCode: user.BranchCode
+            // },
+            // Zone: {
+            //   ZoneId: user.ZoneId
+            // },
+            Branch: this.userInfo.Branch,
+            Zone: this.userInfo.Zone
+        };
+        // var r = JSON.stringify(request)
+        // console.log(r)
+        //
+        //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
+        //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+        //       map((res: BaseResponseModel) => res)
+        //     );
+        // this.request_response.CustomerLandRelation.Cnic = cnic;
+        // this.request_response.CustomerLandRelation.Offset = offset;
+        // this.request_response.CustomerLandRelation.Limit = limit;
+        return this.http.post(environment.apiUrl + '/NDC/DeleteNDC', request);
+    }
+
+    SubmitUser(user){
+        var circle = this.userInfo.UserCircleMappings;
+        var circleIds = [];
+        //mycircle =
+
+        circle.forEach(element => {
+            circleIds.push(element.CircleId);
+        });
+        var _circles = JSON.stringify(circleIds)
+        _circles
+        var request = {
+            Circle: {
+                CircleIds: _circles,
+                CircleId: user.CircleId
+            },
+            NDCRequest: {
+                NDCId: user.NDCId,
+                Remarks: user.Remarks
+
+            },
+            DeviceLocation: {
+                BtsId: "0",
+                BtsLoc: "",
+                Lat: "0.0",
+                Long: "0.0",
+                Src: "BTS",
+                time: "0",
+                id: 0
+            },
+            TranId: 0,
+            User: this.userInfo.User,
+            // Branch: {
+            //   BranchCode: user.BranchCode
+            // },
+            // Zone: {
+            //   ZoneId: user.ZoneId
+            // },
+            Branch: this.userInfo.Branch,
+            Zone: this.userInfo.Zone
+        };
+        // var r = JSON.stringify(request)
+        // console.log(r)
+        //
+        //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
+        //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+        //       map((res: BaseResponseModel) => res)
+        //     );
+        // this.request_response.CustomerLandRelation.Cnic = cnic;
+        // this.request_response.CustomerLandRelation.Offset = offset;
+        // this.request_response.CustomerLandRelation.Limit = limit;
+        return this.http.post(environment.apiUrl + '/NDC/SubmitNDC', request);
+    }
+
+
+    downloadFile(cnic: any, ncid: any, limit, offset, user) {
+        limit = String(limit);
+        offset = String(offset)
+        var circle = this.userInfo.UserCircleMappings;
+        var circleIds = [];
+        //mycircle =
+
+        circle.forEach(element => {
+            circleIds.push(element.CircleId);
       });
       var _circles = JSON.stringify(circleIds)
       _circles
@@ -164,8 +271,8 @@ export class NdcRequestsService {
       },
         TranId: 0,
         User: this.userInfo.User,
-        
-        // Branch: {
+
+          // Branch: {
         //   BranchCode: user.BranchCode
         // },
         // Zone: {
@@ -174,8 +281,8 @@ export class NdcRequestsService {
         Branch: this.userInfo.Branch,
         Zone:  this.userInfo.Zone
     };
-      
-      // this.request_response.CustomerLandRelation.Cnic = cnic;
+
+        // this.request_response.CustomerLandRelation.Cnic = cnic;
       // this.request_response.CustomerLandRelation.ID = id;
       return this.http.post(environment.apiUrl + '/NDC/DownloadNDC', request);
     }

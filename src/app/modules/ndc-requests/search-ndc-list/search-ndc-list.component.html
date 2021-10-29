@@ -10,8 +10,8 @@
                 <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
                   Please enter valid Input
                 </kt-alert> -->
-                    <div class="row pt-4">
-    
+                    <div class="row">
+
                       <div class="col-lg-4">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                   <mat-label class="customMatLabel">Zone</mat-label>
@@ -22,47 +22,47 @@
                                   </mat-select>
                                 </mat-form-field>
                         </div>
-    
+
                         <div class="col-lg-4 ">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                               <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
                               <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" disabled="true">
                                 <mat-option [value]="SelectedBranch.BranchCode">
-                                  {{SelectedBranch.Name}}
-                                </mat-option>                                
+                                    {{SelectedBranch.Name}}
+                                </mat-option>
                               </mat-select>
                             </mat-form-field>
                         </div>
-    
+
                         <!-- <div class="col-lg-2 " *ngIf="!hide">
                           <mat-form-field class="mat-form-field-fluid" appearance="outline">
                             <mat-label class="customMatLabel">Circle</mat-label>
                             <mat-select formControlName="CircleId">
                               <mat-option *ngFor="let circle of SelectedCircle" [value]="circle.Id">
                                 {{circle.CircleCode}}
-                              </mat-option>                                
+                              </mat-option>
                             </mat-select>
                           </mat-form-field>
                       </div> -->
-    
-    
-                      <div class="col-lg-4 ">
+
+
+                        <div class="col-lg-4 ">
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                           <mat-label class="customMatLabel">Cnic</mat-label>
                           <input matInput placeholder="Enter Cnic" formControlName="Cnic" appNumberOnly maxlength="13" autocomplete="off" />
                         </mat-form-field>
                       </div>
-                      
-                      <div class="col-lg-2 " style="margin-top:5px;">
-                        <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="findCnic()" color="primary" type="button"><mat-icon class="mr-2">search</mat-icon> Search</button>
+
+                        <div class="col-lg-2 " style="margin-top:5px;">
+                        <button class="btn btn-secondary mt-19  btn-block" (click)="findCnic()" color="primary" type="button"><span><i class="fa fa-search"> &nbsp;</i> Find</span></button>
                       </div>
-    
-                      <div class="col-lg-2 mt-3">
+
+                        <div class="col-lg-2 mt-3">
                         <span id="llcInquiryText" (click)="loadUsersList()"><b>Get All</b></span>
                       </div>
                     </div>
-    
-          </form>
+
+        </form>
 
           <div class="row py-4">
             <div class="col-lg-12">
@@ -82,45 +82,57 @@
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer Name</mat-header-cell>
                     <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CustomerName}}</span></mat-cell>
                   </ng-container>
-        
-                  <ng-container matColumnDef="current_status">
+
+                    <ng-container matColumnDef="current_status">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Current Status</mat-header-cell>
                     <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Status}}</span></mat-cell>
                   </ng-container>
-        
-                  <ng-container matColumnDef="last_status">
+
+                    <ng-container matColumnDef="last_status">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Last Action</mat-header-cell>
                     <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.LastStatus}}</span></mat-cell>
                   </ng-container>
-        
-                  <ng-container matColumnDef="next_action_by">
+
+                    <ng-container matColumnDef="next_action_by">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Next Action By</mat-header-cell>
                     <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.ApprovalPendingWith}}</span></mat-cell>
                   </ng-container>
-        
-                  <ng-container matColumnDef="request_by">
+
+                    <ng-container matColumnDef="request_by">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Requested By</mat-header-cell>
                     <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Ppno}}</span></mat-cell>
                   </ng-container>
-        
-                  <ng-container matColumnDef="request_on">
+
+                    <ng-container matColumnDef="request_on">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Requested On</mat-header-cell>
                     <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CreatedOn}}</span></mat-cell>
                   </ng-container>
-        
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-                    <mat-cell *matCellDef="let request">
-                      <button mat-icon-button color="primary" (click)="downloadFile(request.Cnic,request.NDCId)">
-                        <mat-icon title="download">file_download</mat-icon>
-                      </button>&nbsp;
-                    </mat-cell>
-                  </ng-container>
-        
-                  <mat-header-row *matHeaderRowDef="ndc_requests_displayed_columns;sticky:true;"
+
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                        <mat-cell *matCellDef="let request">
+                            <button mat-icon-button color="primary" (click)="downloadFile(request.Cnic,request.NDCId)">
+                                <mat-icon title="download">file_download</mat-icon>
+                            </button>
+
+                            <button mat-icon-button color="primary" *ngIf="submitDeleteStatus(request)"
+                                    (click)="DeleteUser(request)">
+                                <mat-icon title="Delete">delete</mat-icon>
+                            </button>
+
+                            <button mat-icon-button color="primary" *ngIf="submitSubmitStatus(request)"
+                                    (click)="SubmitUser(request)">
+                                <mat-icon>check_circle</mat-icon>
+                            </button>
+
+                        </mat-cell>
+
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="ndc_requests_displayed_columns;sticky:true;"
                                   class="table-header-background"></mat-header-row>
-        
-                  <mat-row *matRowDef="let request; columns: ndc_requests_displayed_columns"></mat-row>
+
+                    <mat-row *matRowDef="let request; columns: ndc_requests_displayed_columns"></mat-row>
                 </mat-table>
                 <div class="mat-table__message" *ngIf="!loading && request_data_source.data?.length==0">No records found</div>
                 <!-- Message for empty data  -->
@@ -129,8 +141,8 @@
 
               <div class="row py-4">
                 <div class="col-lg-12">
-        
-              <div class="mat-select" style="padding:5px;">
+
+                <div class="mat-select" style="padding:5px;">
                 <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
                 Items per page:
                 <mat-select display="inline" [(value)]="pageSize" (valueChange)="paginateRequest(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
@@ -148,10 +160,6 @@
               </div>
             </div>
           </div>
-    
-
-
-
 
 
         <div class="text-4xl font-extrabold tracking-tight">NDCs Pending for Approval</div>
@@ -171,25 +179,25 @@
                 <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer Name</mat-header-cell>
                 <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CustomerName}}</span></mat-cell>
               </ng-container>
-    
-              <ng-container matColumnDef="request_on">
+
+                <ng-container matColumnDef="request_on">
                 <mat-header-cell [style.min-width]="" *matHeaderCellDef>Requested On</mat-header-cell>
                 <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.CreatedOn}}</span></mat-cell>
               </ng-container>
               <mat-header-row *matHeaderRowDef="pending_ndc_requests_displayed_columns;sticky:true;"
                               class="table-header-background"></mat-header-row>
-    
-              <mat-row *matRowDef="let request; columns: pending_ndc_requests_displayed_columns"></mat-row>
+
+                <mat-row *matRowDef="let request; columns: pending_ndc_requests_displayed_columns"></mat-row>
             </mat-table>
             <div class="mat-table__message" *ngIf="!loading && pending_requests_data_source.data?.length==0">No records
               found
             </div>
             <!-- Message for empty data  -->
             <div class="mat-table__message" *ngIf="loading">Please wait....</div>
-    
-          </div>
-    
-          <div class="mat-select" style="padding:5px;">
+
+        </div>
+
+        <div class="mat-select" style="padding:5px;">
             <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
             Items per page:
             <mat-select display="inline" [(value)]="pageSize" (valueChange)="paginatePending(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
@@ -202,8 +210,8 @@
             <pagination-controls id="pendingReq" display="inline" (pageChange)="paginatePending($event)" style="display: inline-block;"></pagination-controls>
             <button (click)="paginatePending(Math.ceil(pendingLength/pageSize))">Last</button>
             <p style="float:right;">Total <b>{{pendingLength}}</b> items</p>
-    
-          </div>
+
+        </div>
 
     </div>
 
