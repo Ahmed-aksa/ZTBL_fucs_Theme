@@ -1,20 +1,29 @@
 <div>
     <div class="kt-portlet">
       <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
-      <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-        <div class="kt-portlet__head-label">
-          <h3 class="kt-portlet__head-title">Request Status</h3>
-        </div>
-        <div class="text-center mt-3 d-flex justify-content-end">
-            <button mat-icon-button color="primary" (click)="close(0)">
+      <div class="kt-portlet__head kt-portlet__head__custom pb-3" id="list-header">
+
+        <div class="row">
+          <div class="col-lg-6 col-sm-12 pt-2">
+            <div class="kt-portlet__head-label">
+              <h3 class="kt-portlet__head-title text-xl">Request Status</h3>
+            </div>
+          </div>
+          <div class="col-lg-6 col-sm-12 text-right">
+            <div class="text-right">
+              <button mat-icon-button color="primary" (click)="close(0)">
                 <mat-icon>close</mat-icon>
-            </button>
-        </div>
+              </button>
+          </div>
+          </div>
+      </div>
+
+
       </div>
     </div>
     
-    <div class="mt-2 ml-2">
-        <span style="font-weight: 400; font-size: 20px;">{{data.mapp.NotificationText}}</span>
+    <div class="mt-2">
+        <span class="text-lg">{{data.mapp.NotificationText}}</span>
     </div>
 
     <hr style="margin-top: 20px;">
