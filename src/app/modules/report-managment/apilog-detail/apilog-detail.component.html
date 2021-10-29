@@ -1,17 +1,19 @@
-<h3 class="kt-portlet__head-title">Api Log({{RequestResponse.APIName}})</h3>
+<h3 class="kt-portlet__head-title text-xl py-4 border-b">Api Log({{RequestResponse.APIName}})</h3>
+
+
 <div class="row">
-    <div class="col-lg-6">
-        <table class="table w-6/12 ">
-            <thead class="bg-success">
+    <div class="col-lg-12 col-sm-12">
+        <table class="table overflow-scroll">
+            <thead class="bg-success border-0">
             <tr style="text-align: center">
-                <th scope="col">Request</th>
-                <th scope="col">Response</th>
+                <th scope="col" class="text-white">Request</th>
+                <th scope="col" class="text-white">Response</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="w-3/6"> {{RequestResponse.Request}}</td>
-                <td>{{RequestResponse.Response}}</td>
+                <td class="text-black"> {{RequestResponse.Request}}</td>
+                <td class="text-black">{{RequestResponse.Response}}</td>
             </tr>
             </tbody>
         </table>
