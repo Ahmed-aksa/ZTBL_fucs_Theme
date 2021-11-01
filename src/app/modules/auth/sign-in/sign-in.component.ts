@@ -61,7 +61,7 @@ export class AuthSignInComponent implements OnInit {
                     const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
                     this._router.navigateByUrl(redirectURL);
                 }
-                if (result.Success && result.isWebOTPEnabled) {
+              else if (result.Success && result.isWebOTPEnabled) {
 
                     const dialogRef = this.dialog.open(OtpComponent, { data: { result }, disableClose: true, height: '40%', width: '20%' });
                     dialogRef.afterClosed().subscribe(res => {

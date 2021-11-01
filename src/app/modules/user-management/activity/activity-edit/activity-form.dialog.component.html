@@ -38,22 +38,9 @@
             <div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="!isVisible">
               <mat-form-field class="mat-form-field-fluid" appearance="outline">
                 <mat-label for="PageIcon">Enter Icon</mat-label>
-                <input type="text" class="form-control"
-                       formControlName="PageIcon"
-                       maxlength="60"
-                       matInput
-                       style="height: 15px"
-                       autocomplete="off"
-                       [value]="activityForm.value.PageIcon"
-                       [iconPicker]="activityForm.value.PageIcon"
-                       [ipPosition]="'bottom'"
-                       [ipIconSize]="'16px'"
-                       [ipIconVerticalPadding]="'6px'"
-                       [ipIconHorizontalPadding]="'10px'"
-                       [ipKeepSearchFilter]="'false'"
-                       [ipPlaceHolder]="'Choose an icon'"
-                       [ipFallbackIcon]="activityForm.value.PageIcon"
-                       (iconPickerSelect)="onIconPickerSelect($event)"/>
+                
+                <input matInput placeholder="Enter Page Icon" formControlName="PageIcon" maxlength="60"
+                      />
                 <!--                <input  (iconPickerSelect)="onIconPickerSelect(newIcon)"/>-->
 
               </mat-form-field>
