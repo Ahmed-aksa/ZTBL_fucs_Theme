@@ -128,6 +128,11 @@ export class SearchNdcListComponent implements OnInit {
         Cnic: [null]
       })
     }
+    refreshForm(){
+        this.ndcForm = this.fb.group({
+            Cnic: [null]
+        })
+    }
 
     applyFilter(filterValue: string) {
       this.dataSource.filter = filterValue;
@@ -302,7 +307,8 @@ export class SearchNdcListComponent implements OnInit {
     }
 
     refresh() {
-        this.createForm()
+
+        this.ndcForm.controls["Cnic"].setValue("");
         this.loadUsersList()
     }
 }
