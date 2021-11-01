@@ -39,7 +39,9 @@ export class SearchNdcListComponent implements OnInit {
     pending_requests_data_source = new MatTableDataSource();
     dataSource = new MatTableDataSource();
     displayedColumns = ['EmployeeNo', 'EmployeeName', 'PhoneNumber', 'Email', 'ZoneName', 'BranchName', 'UserCircles', 'actions'];
-    ndc_requests_displayed_columns = ['Id', 'customer_cnic', 'name', 'current_status', 'last_status', 'next_action_by', 'request_by', 'request_on', 'actions'];
+    ndc_requests_displayed_columns = [
+        // 'Id',
+        'customer_cnic', 'name', 'current_status', 'last_status', 'next_action_by', 'request_by', 'request_on', 'actions'];
     pending_ndc_requests_displayed_columns = ['customer_cnic', 'customer_name', 'request_on'];
     @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
