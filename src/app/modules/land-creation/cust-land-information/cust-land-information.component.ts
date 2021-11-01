@@ -1322,7 +1322,8 @@ export class CustLandInformationComponent implements OnInit {
 
     viewCustomrePage() {
         const dialogRef = this.dialog.open(CustomerListDialogComponent, {
-            panelClass: ['w-8/12'],
+            panelClass: ['w-full'],
+            height:'100%',
             data: {},
             disableClose: true
         });
