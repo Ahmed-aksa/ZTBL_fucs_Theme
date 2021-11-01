@@ -72,7 +72,7 @@
                            [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
                   <ng-container matColumnDef="Id">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>ID</mat-header-cell>
-                    <mat-cell [style.min-width]="" *matCellDef="let request">{{request.NDCId}}</mat-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let dvReq">{{dvReq.Num}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="customer_cnic">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC

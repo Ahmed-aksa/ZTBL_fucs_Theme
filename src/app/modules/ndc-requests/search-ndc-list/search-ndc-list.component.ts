@@ -148,6 +148,7 @@ export class SearchNdcListComponent implements OnInit {
       }
       this.spinner.show();
       this.loading = true;
+      debugger
       this.ndc_request_service.getRequests(this.user, this.pageSize, this.offSet)
         .pipe(
           finalize(() => {
@@ -159,7 +160,7 @@ export class SearchNdcListComponent implements OnInit {
           if (baseResponse.Success) {
 
             console.log(baseResponse)
-            this.request_data_source = baseResponse.Ndc.Ndcrequests;
+            this.request_data_source = baseResponse.Ndc.Ndcrequests
             this.dvReq = this.request_data_source;
             this.ndcLength = this.dvReq.length;
             this.request_data_source = this.dvReq.slice(0, this.pageSize);
@@ -242,7 +243,7 @@ export class SearchNdcListComponent implements OnInit {
     Num:any;
     paginateRequest(pageIndex: any, pageSize: any = this.pageSize) {
         if(pageSize)
-        for(var i=0;i>pageSize;i++)
+        for(var i=1;i>=pageSize;i++)
         {
             this.Num.push(i++)
         }
