@@ -15,6 +15,7 @@
 import { MapsAPILoader } from '@agm/core';
 import { Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
 
 @Component({
   selector: 'app-address-location',
@@ -35,6 +36,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
   zoom: number = 2;
   PreviousLocation: Loc[] = [];
   images = [];
+  iconUrl: string;
 
   mapClickListener;
 
@@ -54,11 +56,10 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-
+    private layoutUtilsService: LayoutUtilsService,
   ) { }
 
   ngOnInit() {
-
     navigator.geolocation.getCurrentPosition((position)=>{
       this.center = {
         lat: position.coords.latitude,
@@ -71,22 +72,32 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
+
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
           this.zoom = 15;
           this.addmarker(this.lat, this.lng)
+          
         });
       });
     });
 
-    if(this.data.lat != undefined && this.data.lng != undefined){
-        this.PreviousLocation.push(this.data);
+    if(this.data.lat != undefined && this.data.lng != undefined && this.data.iconUrl != undefined){
+      
+      this.PreviousLocation.push(this.data);
+    }
+
+    if(this.data.type == "1"){
+      this.iconUrl = '../../../../assets/icons/seed.png';
+    }else if(this.data.type == "2"){
+      this.iconUrl = '../../../../assets/icons/fertilizer_icon.png';
+    }else if(this.data.type == "3"){
+      this.iconUrl = '../../../../assets/icons/seed and fertilizer_icon.png';
     }
   }
 
@@ -98,9 +109,13 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
     this.mapClickListener = this.googleMap.addListener('click', (e: google.maps.MouseEvent) => {
       this.ngZone.run(() => {
         // Here we can get correct event
-        //console.log(e.latLng.lat(), e.latLng.lng());
+        debugger
         this.PreviousLocation = []
-        this.addmarker(e.latLng.lat(), e.latLng.lng())
+        if(this.data.type != undefined && this.data.type != null){
+          this.addmarker(e.latLng.lat(), e.latLng.lng())
+        }else{
+          this.layoutUtilsService.alertElement('','Could not add location without type of vendor.')
+        }
       });
     });
   }
@@ -138,6 +153,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
     this.vendorLocationMarker = new google.maps.Marker({
       position: myLatLng,
       title: "",
+      icon: this.iconUrl
     });
     this.vendorLocationMarker.setMap(this.googleMap)
     console.log(this.vendorLocationMarker.position.lat())
@@ -147,7 +163,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
   onSelect() {
     debugger
     var res = {
-      lat: this.vendorLocationMarker.position.lat(), lng : this.vendorLocationMarker.position.lng()
+      lat: this.vendorLocationMarker.position.lat(), lng : this.vendorLocationMarker.position.lng(), iconUrl: this.iconUrl
     }
     this.data = res;
     console.log(this.data)
@@ -164,4 +180,5 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
 interface Loc{
   lat: number;
   lng: number;
+  iconUrl: string;
 }
