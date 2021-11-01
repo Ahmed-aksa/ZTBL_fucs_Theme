@@ -5,104 +5,128 @@
     </div>
 
     <!-- Header -->
-    <div [formGroup]="customerSearch">
+    <div [formGroup]="customerSearch" class="mt-4">
 
-        <div style="display: flex;flex-direction: row;flex-wrap: wrap">
+        <div>
 
-            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
-                    <mat-label class="customMatLabel">Zone</mat-label>
-                    <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
-                        <mat-option [value]="SelectedZones?.ZoneId">
-                            {{SelectedZones?.ZoneName}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
-                    <mat-label class="customMatLabel">Zone</mat-label>
-                    <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
-                                (selectionChange)="changeZone($event)">
-                        <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                    [disabled]="disable_zone">
-                            {{zone?.ZoneName}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                            <mat-label class="customMatLabel">Zone</mat-label>
+                            <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                                <mat-option [value]="SelectedZones?.ZoneId">
+                                    {{SelectedZones?.ZoneName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+                            <mat-label class="customMatLabel">Zone</mat-label>
+                            <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                                        (selectionChange)="changeZone($event)">
+                                <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                            [disabled]="disable_zone">
+                                    {{zone?.ZoneName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+        
+        
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
 
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                            <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                        *ngIf="!single_branch">
+                                <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                                >
+                                    {{branch?.Name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                        *ngIf="single_branch">
+                                <mat-option [value]="SelectedBranches?.BranchCode"
+                                >
+                                    {{SelectedBranches?.Name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Customer Name</mat-label>
+                            <input matInput formControlName="CustomerName" placeholder="Enter Customer Name"
+                                   maxlength="100"
+                                   autocomplete="off" appAlphabetOnly>
+                            <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                        </mat-form-field>
+        
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Cnic</mat-label>
+                            <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100"
+                                   autocomplete="off"
+                                   [mask]="maskEnums.cnic">
+                            <!--      <mat-error *ngIf="hasError('Cnic', 'required')">Cnic <strong>required</strong></mat-error>-->
+                            <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>{{errors.cnic}}</strong></mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+    
             </div>
 
-            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                    <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                                *ngIf="!single_branch">
-                        <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                        >
-                            {{branch?.Name}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                                *ngIf="single_branch">
-                        <mat-option [value]="SelectedBranches?.BranchCode"
-                        >
-                            {{SelectedBranches?.Name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Father Name</mat-label>
+                            <input matInput formControlName="FatherName" placeholder="Enter Father Name" maxlength="100"
+                                   autocomplete="off"
+                                   appAlphabetOnly>
+                            <!--   <mat-error *ngIf="hasError('FatherName', 'required')">FatherName<strong>required</strong></mat-error>-->
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" *ngIf="CustomerStatusLov">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Select Customer Status</mat-label>
+                            <mat-select formControlName="CustomerStatus">
+                                <mat-option value="">
+                                    Select
+                                </mat-option>
+                                <mat-option *ngFor="let obj of CustomerStatusLov.LOVs" [value]="obj.Value">
+                                    {{obj.Name}}
+                                </mat-option>
+                            </mat-select>
+        
+                        </mat-form-field>
+                    </div>
+                </div>
+    
             </div>
-            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label>Customer Name</mat-label>
-                    <input matInput formControlName="CustomerName" placeholder="Enter Customer Name"
-                           maxlength="100"
-                           autocomplete="off" appAlphabetOnly>
-                    <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
-                </mat-form-field>
 
-            </div>
-            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label>Cnic</mat-label>
-                    <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100"
-                           autocomplete="off"
-                           [mask]="maskEnums.cnic">
-                    <!--      <mat-error *ngIf="hasError('Cnic', 'required')">Cnic <strong>required</strong></mat-error>-->
-                    <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>{{errors.cnic}}</strong></mat-error>
-                </mat-form-field>
-            </div>
-            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label>Father Name</mat-label>
-                    <input matInput formControlName="FatherName" placeholder="Enter Father Name" maxlength="100"
-                           autocomplete="off"
-                           appAlphabetOnly>
-                    <!--   <mat-error *ngIf="hasError('FatherName', 'required')">FatherName<strong>required</strong></mat-error>-->
-                </mat-form-field>
-            </div>
-            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" *ngIf="CustomerStatusLov">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label>Select Customer Status</mat-label>
-                    <mat-select formControlName="CustomerStatus">
-                        <mat-option value="">
-                            Select
-                        </mat-option>
-                        <mat-option *ngFor="let obj of CustomerStatusLov.LOVs" [value]="obj.Value">
-                            {{obj.Name}}
-                        </mat-option>
-                    </mat-select>
 
-                </mat-form-field>
-            </div>
+
+
         </div>
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-            <button mat-raised-button type="button"
+            <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-raised-button type="button"
                     (click)="searchCustomer()">
                 <mat-icon class="mr-2">search</mat-icon>
                 Search
