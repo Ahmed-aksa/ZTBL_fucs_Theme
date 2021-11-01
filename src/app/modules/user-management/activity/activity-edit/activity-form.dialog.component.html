@@ -2,12 +2,12 @@
      [class]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
   <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
     <div class="kt-portlet__head-label">
-      <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
+      <h3 class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</h3>
     </div>
   </div>
   <div>
     <form [formGroup]="activityForm" class="kt-form kt-form--group-seperator-dashed">
-      <div class="kt-form">
+      <div class="kt-form mt-4">
         <div class="kt-portlet__body">
           <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                     (close)="onAlertClose($event)">
@@ -113,11 +113,11 @@
               <div class="col-lg-12">
                 <button type="button" class="shadow-md btn bg-red-500 text-white rounded-md mx-4"  color="danger" mat-raised-button [mat-dialog-close]="data.animal"
                         cdkFocusInitial>
-                  Cancel
+                        <mat-icon class="mr-2">cancel</mat-icon>Cancel
                 </button>&nbsp;
                 <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="onSubmit()"
                         [disabled]="viewLoading || submitted">
-                  Save
+                        <mat-icon class="mr-2">save</mat-icon> Save
                 </button>
               </div>
             </div>
