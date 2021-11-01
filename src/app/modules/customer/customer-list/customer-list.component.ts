@@ -74,6 +74,9 @@ export class CustomerListComponent implements OnInit {
     disable_branch = true;
     disable_zone = true;
 
+    final_zone: any;
+    final_branch: any;
+
     constructor(
         public dialog: MatDialog,
         private activatedRoute: ActivatedRoute,
@@ -231,7 +234,20 @@ export class CustomerListComponent implements OnInit {
         return this.customerSearch.controls[controlName].hasError(errorName);
     }
 
+    private assignBranchAndZone() {
+        if (this.SelectedBranches.length)
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
+        else
+            this.final_branch = this.SelectedBranches;
+        let zone = null;
+        if (this.SelectedZones.length)
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+        else
+            this.final_zone = this.SelectedZones;
+    }
+
     searchCustomer() {
+        this.assignBranchAndZone();
         this._customer.clear();
         this._customer = Object.assign(this._customer, this.customerSearch.value);
         const controlsCust = this.customerSearch.controls;
@@ -263,7 +279,7 @@ export class CustomerListComponent implements OnInit {
                 userInfo.Zone.ZoneId = 0;
         }
 
-        this._customerService.searchCustomer(this._customer, userInfo)
+        this._customerService.searchCustomer(this._customer, userInfo, this.final_branch, this.final_zone)
             .pipe(
                 finalize(() => {
                     this.loading = false;
