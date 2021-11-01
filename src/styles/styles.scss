@@ -121,11 +121,33 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
 
 
 .owner-ship-table{
+  .values-row{
+    td{
+      width: 50px;
+      .mat-form-field-fluid{
+        border: none;
+      }
+    }
+  }
+  .mat-form-field{
+    float: left;
+    border: none;
+    .mat-form-field-wrapper{
+      .mat-form-field-outline{
+        width: 50px;
+      }
+    }
+  }
   .mat-form-field-wrapper{
     padding-bottom: 0%;
   }
   .mat-form-field-infix{
     padding-top: 5px;
-      padding-bottom: 10px;
+    width: 50px;
+      padding-bottom: 5px;
   }
+}
+
+.mat-select-panel-wrap{
+  overflow-x: hidden;
 }
