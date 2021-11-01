@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -109,7 +109,6 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
     this.mapClickListener = this.googleMap.addListener('click', (e: google.maps.MouseEvent) => {
       this.ngZone.run(() => {
         // Here we can get correct event
-        debugger
         this.PreviousLocation = []
         if(this.data.type != undefined && this.data.type != null){
           this.addmarker(e.latLng.lat(), e.latLng.lng())

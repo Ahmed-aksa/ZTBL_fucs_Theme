@@ -202,7 +202,6 @@ export class VendorRadiusComponent implements OnInit {
   }
   
   onSelect(){
-    debugger
     this.spinner.show();
     
     this.user.ZoneId = this.radiusForm.controls.ZoneId.value;
