@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Create User Role</h2>
+<h2 mat-dialog-title class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Create User Role</h2>
 <mat-dialog-content class="mat-typography">
 
     <form  [formGroup]="roleForm" (ngSubmit)="onSubmit()" novalidate>
-        <div class="flex gt-xs:flex-row">
+        <div class="flex gt-xs:flex-row mt-4">
             <mat-form-field   class="flex-auto gt-xs:pr-3 mr-5">
                 <mat-label>Profile Name</mat-label>
                 <input matInput id="ProfileName"  placeholder="Role Code" formControlName="ProfileName" >
@@ -20,7 +20,7 @@
             </mat-form-field>
         </div>
         <div  class="col-lg-4 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
+          <mat-form-field class="mat-form-field-fluid w-full map-fields" appearance="outline">
             <mat-label>Group</mat-label>
             <mat-select formControlName="ProfileID">
               <mat-option *ngFor="let lov of LOVs" [value]="lov.Id">
@@ -33,7 +33,7 @@
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
+    <button class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" mat-button mat-dialog-close><mat-icon class="mr-2">cancel</mat-icon> Cancel</button>
    
      <button
      class=""
@@ -41,8 +41,8 @@
      [color]="'primary'"
      [disabled]="viewLoading"
      (click)="onSubmit()">
-     <span *ngIf="!roleForm.disabled">
-        Save
+     <span class="flex" *ngIf="!roleForm.disabled">
+      <mat-icon class="mr-2">save</mat-icon> <p class="self-center">Save</p>
      </span>
      <mat-progress-spinner
          *ngIf="roleForm.disabled"
