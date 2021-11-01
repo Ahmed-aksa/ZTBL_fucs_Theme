@@ -1,6 +1,6 @@
 <div
-    class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
-    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+    <div class=" mt-4 text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
          style="background-color: #f6fcf8;">Customer List
     </div>
 
@@ -173,7 +173,7 @@
                     <mat-cell *matCellDef="let customer">
                         <button *ngIf="!isDialog" mat-icon-button color="primary" (click)="editCustomer(customer)">
                             <!--<mat-icon style="margin-left: 5px;" title="Edit land">edit</mat-icon>   loggedInUserDetails.User.UserId        -->
-                            <mat-icon style="margin-left: 2px;" title="View Customer">visibility</mat-icon>
+                            <mat-icon class="text-green-500" style="margin-left: 2px; color: #01671b !important;" title="View Customer">visibility</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>
