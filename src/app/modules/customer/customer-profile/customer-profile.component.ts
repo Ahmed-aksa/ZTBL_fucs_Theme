@@ -378,7 +378,7 @@ export class CustomerProfileComponent implements OnInit {
 
     }
 
-    debugger;
+    
     this.hasFormErrors = false;
     const controls = this.roleForm.controls;
 
@@ -521,7 +521,7 @@ export class CustomerProfileComponent implements OnInit {
         })
       )
       .subscribe(baseResponse => {
-        debugger;
+        
         var pic = this.ProfileImageData;
         if (baseResponse.Success) {
           if (this.ProfileImageData != undefined || this.ProfileImageData != null) {
@@ -530,7 +530,7 @@ export class CustomerProfileComponent implements OnInit {
             const dialogRef = this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
 
             dialogRef.afterClosed().subscribe(res => {
-              debugger;
+              
               this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
               //if (res) {
               //  this.router.navigate(['/dashboard'], { relativeTo: this.activatedRoute });
@@ -557,13 +557,13 @@ export class CustomerProfileComponent implements OnInit {
         })
       )
       .subscribe(baseResponse => {
-        debugger;
+        
         if (baseResponse.Success) {
-          debugger;
+          
           this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
           this.goBackWithId();
         } else {
-          debugger;
+          
           this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
         }
       });
@@ -641,7 +641,7 @@ export class CustomerProfileComponent implements OnInit {
     //console.log('cast lov')
     //console.log(this.CasteLov.LOVs)
 
-    debugger;
+    
     this.ReligionLov.LOVs = this._lovService.SortLovs(this.ReligionLov.LOVs);
     this.RiskCategoryLov.LOVs = this._lovService.SortLovs(this.RiskCategoryLov.LOVs);
     this.PremisesFlagLov.LOVs = this._lovService.SortLovs(this.PremisesFlagLov.LOVs);
@@ -665,7 +665,7 @@ export class CustomerProfileComponent implements OnInit {
   //////////Change events
 
   GenderChange($event) {
-    debugger
+    
 
     var MaritalStatus = this.roleForm.controls['MaritalStatus'].value;
     var GenderStatus = this.roleForm.controls['Gender'].value;
@@ -692,7 +692,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   OccupationChange($event) {
-    debugger;
+    
     var Occupation = this.roleForm.controls['Occupation'].value;
 
     if (Occupation == '1') {
@@ -739,7 +739,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   LoadPreviousData() {
-    debugger;
+    
     this.ObjSearchCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
 
 
@@ -754,7 +754,7 @@ export class CustomerProfileComponent implements OnInit {
           })
         )
         .subscribe(baseResponse => {
-          debugger;
+          
           if (baseResponse.Success) {
             var customerobj = baseResponse.Customer;
             console.log(this.CasteLov);
@@ -779,10 +779,10 @@ export class CustomerProfileComponent implements OnInit {
 
               if (customerobj.ProfilePicturePath != null && customerobj.ProfilePicturePath != undefined) {
 
-                debugger;
+                
                 var PreviousUploadProfile = customerobj.ProfilePicturePath;
                 if (PreviousUploadProfile != undefined && PreviousUploadProfile != null) {
-                  debugger;
+                  
                   this.images = [];
                   this.images.push(PreviousUploadProfile);
 
@@ -871,7 +871,7 @@ export class CustomerProfileComponent implements OnInit {
   ReadWriteForm() {
 
     var customerStatus = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
-    debugger;
+    
     if (customerStatus.CustomerStatus.toLowerCase() == 'a' || customerStatus.CustomerStatus.toLowerCase() == 'p') {
       this.roleForm.disable();
       //this.roleForm.controls["Gender"].disabled;
@@ -892,7 +892,7 @@ export class CustomerProfileComponent implements OnInit {
 
     try {
 
-      debugger;
+      
       this.Namereadoly = this._lovService.IsReadonly(this.roleForm.controls['CustomerName'].value);
       this.FatherNamereadoly = this._lovService.IsReadonly(this.roleForm.controls['FatherName'].value);
       this.Dobreadoly = this._lovService.IsReadonly(this.roleForm.controls['Dob'].value);
@@ -956,7 +956,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   onFileChange(event) {
-    debugger
+    
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
       var file = event.target.files[0];
@@ -971,7 +971,7 @@ export class CustomerProfileComponent implements OnInit {
             var reader = new FileReader();
 
             reader.onload = (event: any) => {
-              debugger;
+              
 
               this.images.push(event.target.result);
 
@@ -998,7 +998,7 @@ export class CustomerProfileComponent implements OnInit {
 
   onPickerClosed() {
 
-    debugger;
+    
     var Dob = this.roleForm.controls['Dob'].value;
     var CnicIssue = this.roleForm.controls['CnicIssueDate'].value;
     var CnicExpiry = this.roleForm.controls['CnicExpiry'].value;
@@ -1055,7 +1055,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   cnicfocusout() {
-    debugger;
+    
     var Cnic = this.roleForm.controls['Cnic'].value;
     if (Cnic != '' && Cnic != undefined && Cnic != null && Cnic.length == 13) {
 
@@ -1076,7 +1076,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   checkSequentialPhone() {
-    debugger;
+    
     var Input = this.roleForm.controls['PhoneNumber'].value;
 
     if (Input != '' && Input != null && Input != undefined) {
@@ -1097,7 +1097,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   checkSequentialFax() {
-    debugger;
+    
     var Input = this.roleForm.controls['FaxNumber'].value;
 
     if (Input != '' && Input != null && Input != undefined) {
@@ -1118,7 +1118,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   checkSequentialCell() {
-    debugger;
+    
     var Input = this.roleForm.controls['CellNumber'].value;
 
     if (Input != '' && Input != null && Input != undefined) {
@@ -1139,7 +1139,7 @@ export class CustomerProfileComponent implements OnInit {
   }
 
   checkSequentialNtn() {
-    debugger;
+    
     var Input = this.roleForm.controls['Ntn'].value;
 
     if (Input != '' && Input != null && Input != undefined) {

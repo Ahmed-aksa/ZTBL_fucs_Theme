@@ -12,14 +12,14 @@ export class ViewFileComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ViewFileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { 
-    debugger
+    
     this.url = data.url 
     this.viewFileArray = data.documentView
 
   }
 
   ngOnInit() {
-    debugger
+    
   }
 
 }

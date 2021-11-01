@@ -118,12 +118,12 @@ export class DeceasedCusComponent implements OnInit {
         private datePipe: DatePipe,
 
     ) {
-        debugger;
+        
         router.events.subscribe((val: any) => {
             if (val.url == "/deceased-customer/customers") {
             }
         });
-        debugger
+        
     }
 
     onAlertClose($event) {
@@ -133,7 +133,7 @@ export class DeceasedCusComponent implements OnInit {
     ngAfterViewInit() {
         // this.GetDisbursement();
         if (this.route.snapshot.params["LnTransactionID"] != null) {
-            debugger
+            
             this.GetReshTransaction()
         }
     }
@@ -145,7 +145,7 @@ export class DeceasedCusComponent implements OnInit {
 
     GetReshTransaction()
     {
-        debugger
+        
         this.spinner.show();
         this.cnicn = this.route.snapshot.params["LnTransactionID"];
         this.name = this.route.snapshot.params["CustomerName"];
@@ -154,7 +154,7 @@ export class DeceasedCusComponent implements OnInit {
         }
         this.deceasedInfo.Cnic = this.cnicn
         this.deceasedInfo.CustomerName = this.name
-        debugger;
+        
         this._deceasedCustomer
             .GetDeceasedCustomer(this.deceasedInfo)
             .pipe(finalize(() => {
@@ -162,7 +162,7 @@ export class DeceasedCusComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+                    
                     this.isEmpty = true;
                     this.DeceasedCustomerInf =  baseResponse.DeceasedCustomer.DeceasedCustomerInfo;
                     console.log(this.DeceasedCustomerInf)
@@ -188,7 +188,7 @@ export class DeceasedCusComponent implements OnInit {
                     this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
                 } else {
                     this.isEmpty = false;
-                    debugger;
+                    
                     this.layoutUtilsService.alertElement(
                         "",
                         baseResponse.Message,
@@ -212,7 +212,7 @@ export class DeceasedCusComponent implements OnInit {
 
 
     hasError(controlName: string, errorName: string): boolean {
-        //debugger;
+        //
         return this.customerForm.controls[controlName].hasError(errorName);
     }
 
@@ -244,7 +244,7 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     onFileChange(event) {
-        debugger
+        
         if (event.target.files && event.target.files[0]) {
             var filesAmount = event.target.files.length;
             this.file = event.target.files[0];
@@ -298,14 +298,14 @@ export class DeceasedCusComponent implements OnInit {
     previewImg(){
         // for(var a=0 ; this.DeceasedCustomerAttachedFile.length > a; a++)
         // {
-        //   debugger
+        //   
         //   if(id == this.DeceasedCustomerAttachedFile[a].ID)
         //   {
-        //     debugger
+        //     
         //     this.url = this.DeceasedCustomerAttachedFile[a].Path
         //   }
         // }
-        debugger
+        
         const dialogRef = this.dialog.open(ViewFileComponent, {
             width: '90%',
             height: '90%',
@@ -314,7 +314,7 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     find() {
-        debugger
+        
         this.spinner.show();
         this._deceasedCustomer
             .GetDeceasedCustomer(this.customerForm.value)
@@ -324,7 +324,7 @@ export class DeceasedCusComponent implements OnInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     this.isEmpty = true;
-                    debugger;
+                    
                     var json = JSON.stringify(baseResponse.DeceasedCustomer);
                     console.log(json);
                     // console.log()
@@ -360,14 +360,14 @@ export class DeceasedCusComponent implements OnInit {
 
 
                     this.dataSource = baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries;
-                    debugger
+                    
                     console.log(this.dataSource);
                     //this.savedFiles =
                     this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
 
-                    debugger
+                    
                 } else {
-                    debugger;
+                    
                     this.layoutUtilsService.alertElement(
                         "",
                         baseResponse.Message,
@@ -378,17 +378,17 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     viewDocument(id){
-        debugger
+        
         for(var a=0 ; this.DeceasedCustomerAttachedFile.length > a; a++)
         {
-            debugger
+            
             if(id == this.DeceasedCustomerAttachedFile[a].ID)
             {
-                debugger
+                
                 this.url = this.DeceasedCustomerAttachedFile[a].Path
             }
         }
-        debugger
+        
         const dialogRef = this.dialog.open(ViewFileComponent, {
             width: '50%',
             height: '50%',
@@ -439,7 +439,7 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     MarkAsDeceasedCustomer(){
-        debugger
+        
 
         this.errorShow = false;
         this.hasFormErrors = false;
@@ -469,7 +469,7 @@ export class DeceasedCusComponent implements OnInit {
             this.customerForm.controls["IsReferredBack"].setValue("1");
         }
 
-        debugger
+        
         this.markDeceasedCustomer = Object.assign(this.markDeceasedCustomer, this.customerForm.value);
         //if(this.deceasedCustomerID != null){
         //  this.markDeceasedCustomer.DeceasedID = this.deceasedCustomerID
@@ -501,7 +501,7 @@ export class DeceasedCusComponent implements OnInit {
                     }))
                     .subscribe((baseResponse) => {
                         if (baseResponse.Success) {
-                            debugger
+                            
                             this.layoutUtilsService.alertElementSuccess(
                                 "",
                                 Message="Information Saved Successfully",
@@ -510,7 +510,7 @@ export class DeceasedCusComponent implements OnInit {
                             this.router.navigateByUrl('deceased-customer/search')
                         }
                         else {
-                            debugger;
+                            
                             this.layoutUtilsService.alertElement(
                                 "",
                                 baseResponse.Message,
@@ -523,7 +523,7 @@ export class DeceasedCusComponent implements OnInit {
         }
         else{
 
-            debugger
+            
 
             if(!this.customerForm.controls.file.value && !this.DeceasedCustomerAttachedFile){
                 var Message;
@@ -541,7 +541,7 @@ export class DeceasedCusComponent implements OnInit {
                     }))
                     .subscribe((baseResponse) => {
                         if (baseResponse.Success) {
-                            debugger
+                            
                             this.layoutUtilsService.alertElementSuccess(
                                 "",
                                 Message="Information Saved Successfully",
@@ -550,7 +550,7 @@ export class DeceasedCusComponent implements OnInit {
                             this.router.navigateByUrl('deceased-customer/search')
                         }
                         else {
-                            debugger;
+                            
                             this.layoutUtilsService.alertElement(
                                 "",
                                 baseResponse.Message,

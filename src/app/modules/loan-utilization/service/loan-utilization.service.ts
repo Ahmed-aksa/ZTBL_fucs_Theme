@@ -29,7 +29,7 @@ export class LoanUtilizationService {
     private _common: CommonService) { }
 
     GetLoanDetail(value){
-    debugger
+    
     this.request = new BaseRequestModel();
     this.request.LoanUtilization={"UtilizationDetail":{"LoanCaseNo":value}}
     this.request.TranId = 2830;
@@ -48,14 +48,14 @@ export class LoanUtilizationService {
     this.request.doPerformOTP = false;
 
     var userInfo = this.userUtilsService.getUserDetails();
-    debugger
+    
     this.request.User = userInfo.User;
     this.request.Zone = userInfo.Zone;
     this.request.Branch = userInfo.Branch;
     this.activity.ActivityID = 1;
     this.request.Activity = this.activity;
     var req = JSON.stringify(this.request);
-    debugger
+    
     return this.http.post(`${environment.apiUrl}/LoanUtilization/GetLoanDetail`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -151,7 +151,7 @@ export class LoanUtilizationService {
     this.request.Branch = userInfo.Branch;
     this.request.User = userInfo.User;
     var req = JSON.stringify(this.request);
-    debugger
+    
 
       return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/SaveUpdateUtilization`, this.request,
     ).pipe(
@@ -180,7 +180,7 @@ export class LoanUtilizationService {
       this.request.Branch = userInfo.Branch;
       this.request.User = userInfo.User;
       var req = JSON.stringify(this.request);
-      debugger
+      
         return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/ChangeUtilizationStatus`, this.request,
       ).pipe(
         map((res: BaseResponseModel) => res)
@@ -226,7 +226,7 @@ export class LoanUtilizationService {
     }
 
     GetMedia(data){
-      debugger
+      
       this.request = new BaseRequestModel();
       this.request.LoanUtilization={"UtilizationDetail":{"LoanCaseNo": data.LoanCaseNo, "LoanDisbID":data.LoanDisbID}}
       this.request.TranId = 2830;
@@ -243,14 +243,14 @@ export class LoanUtilizationService {
       },
       this.request.doPerformOTP = false;
       var userInfo = this.userUtilsService.getUserDetails();
-      debugger
+      
       this.request.User = userInfo.User;
       this.request.Zone = userInfo.Zone;
       this.request.Branch = userInfo.Branch;
       this.activity.ActivityID = 1;
       this.request.Activity = this.activity;
       var req = JSON.stringify(this.request);
-      debugger
+      
 
       return this.http.post(
         `${environment.apiUrl}/LoanUtilization/GetUploadedUtilizations`, this.request,
@@ -260,7 +260,7 @@ export class LoanUtilizationService {
         );
     }
     DeleteMedia(id:string){
-      debugger
+      
       this.request = new BaseRequestModel();
       this.request.LoanUtilization={"UtilizationDetail":{"ID": id}}
       this.request.TranId = 2830;
@@ -276,14 +276,14 @@ export class LoanUtilizationService {
       },
       this.request.doPerformOTP = false;
       var userInfo = this.userUtilsService.getUserDetails();
-      debugger
+      
       this.request.User = userInfo.User;
       this.request.Zone = userInfo.Zone;
     this.request.Branch = userInfo.Branch;
       this.activity.ActivityID = 1;
       this.request.Activity = this.activity;
       var req = JSON.stringify(this.request);
-      debugger
+      
       return this.http.post(`${environment.apiUrl}/LoanUtilization/DeleteUtilizationFile`, this.request,
         { headers: this.httpUtils.getHTTPHeaders() }).pipe(
           map((res: BaseResponseModel) => res)
@@ -291,7 +291,7 @@ export class LoanUtilizationService {
     }
 
     GetLoanGL(value){
-    debugger
+    
     this.request = new BaseRequestModel();
     this.request.LoanUtilization={"UtilizationDetail":{"LoanCaseNo":value}}
     this.request.TranId = 2830;
@@ -310,7 +310,7 @@ export class LoanUtilizationService {
     this.request.doPerformOTP = false;
 
     var userInfo = this.userUtilsService.getUserDetails();
-    debugger
+    
     this.request.User = userInfo.User;
     this.request.Zone = userInfo.Zone;
     this.request.Branch =   {
@@ -323,7 +323,7 @@ export class LoanUtilizationService {
     this.activity.ActivityID = 1;
     this.request.Activity = this.activity;
     var req = JSON.stringify(this.request);
-    debugger
+    
     return this.http.post(`${environment.apiUrl}/LoanUtilization/GetGLForLoan`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)

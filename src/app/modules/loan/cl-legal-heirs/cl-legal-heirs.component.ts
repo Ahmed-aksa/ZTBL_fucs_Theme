@@ -114,7 +114,7 @@ export class ClLegalHeirsComponent implements OnInit {
     console.log(this.RelationshipLov)
 
     for (var i = 0; i < appLegalHeirsData.length; i++) {
-      debugger
+      
       var grid = new LegalHiersGrid();
       grid.UserID = appLegalHeirsData[i].ID;
       grid.ID = appLegalHeirsData[i].ID;
@@ -132,7 +132,7 @@ export class ClLegalHeirsComponent implements OnInit {
       tempCustomerArray.push(grid);
 
     }
-    debugger
+    
     this.legalHeirsArray = tempCustomerArray;
 
 }
@@ -162,7 +162,7 @@ export class ClLegalHeirsComponent implements OnInit {
     //  this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
     //  return;
     //}
-    debugger
+    
     if (this.legalHeirsForm.invalid) {
       const controls = this.legalHeirsForm.controls;
       Object.keys(controls).forEach(controlName =>
@@ -194,7 +194,7 @@ export class ClLegalHeirsComponent implements OnInit {
     ).subscribe(baseResponse => {
     
         if (baseResponse.Success) {
-          debugger
+          
           this.legalHeirs = this.legalHeirsForm.value;
 
           var legalHeirsGrid = new LoanApplicationLegalHeirs();
@@ -210,7 +210,7 @@ export class ClLegalHeirsComponent implements OnInit {
           legalHeirsGrid.PhoneOff = this.legalHeirs.PhoneOff;
           legalHeirsGrid.Gender = this.legalHeirs.Gender;
           legalHeirsGrid.Relation = this.currentSelectedRelationship;
-          debugger
+          
           this.legalHeirsArray.push(legalHeirsGrid);
 
           this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -225,7 +225,7 @@ export class ClLegalHeirsComponent implements OnInit {
     
     console.log(legalHeir)
 
-    debugger
+    
     const _title = 'Confirmation';
     const _description = 'Do you really want to continue?';
     const _waitDesciption = '';
@@ -236,7 +236,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(res => {
-      debugger
+      
       if (!res) {
         return;
       }
