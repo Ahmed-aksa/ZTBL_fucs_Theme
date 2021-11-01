@@ -98,7 +98,7 @@ export class CustLandInformationComponent implements OnInit {
     public errorMessage: any;
     public errorMessageLand: any;
     public searchFilterCtrlPostCode: FormControl = new FormControl();
-    public Zone: any;
+    public Zone = new Zone();
     // Objects for Get Data
     LandInfoDetailsList: any;
     LandInfoDataList: any;
@@ -803,7 +803,7 @@ export class CustLandInformationComponent implements OnInit {
                         }
 
                         this.CustomerLov = this.customerLandRelation;
-                        this.LandInformationForm.controls['ZoneId'].setValue(this.LandInfo.ZoneID);
+                        this.LandInformationForm.controls['Zone'].setValue(this.LandInfo.ZoneID);
                         this.GetBranches(this.LandInfo.ZoneID, this.LandInfo.BranchId);
                         this.LandInformationForm.controls['PostCode'].setValue(this.LandInfo.PostCode);
                         this.LandInformationForm.controls['LandingProcedure'].setValue(this.LandInfo.LandingProcedure);
@@ -821,7 +821,6 @@ export class CustLandInformationComponent implements OnInit {
                         this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
             });
-        this.cdRef.detectChanges();
     }
 
     GetCustomerAllLandInfo(showSuccessDialog: Boolean) {
@@ -876,6 +875,7 @@ export class CustLandInformationComponent implements OnInit {
                     }
 
                     this.LandInfo.TotalOwnedAreaForChargeCreation = "" + areaOwnByAllCustomer
+
                     if (this.customerLandRelation != undefined) {
 
                         for (var i = 0; i < this.customerLandRelation.length; i++) {
@@ -895,9 +895,8 @@ export class CustLandInformationComponent implements OnInit {
 
                         this.CustomerLov = this.customerLandRelation;
                         //var ZoneNameTemp = this.zoneLovAll.filter(x => x.ZoneId == this.LandInfo.Zone);
-                        this.LandInformationForm.controls['ZoneId'].setValue(this.LandInfo.ZoneID);
+                        this.LandInformationForm.controls['Zone'].setValue(this.LandInfo.ZoneID);
                         this.GetBranches(this.LandInfo.ZoneID, this.LandInfo.BranchId);
-                        //this.LandInformationForm.controls['Branch'].setValue(this.LandInfo.Branch);
                         this.LandInformationForm.controls['PostCode'].setValue(this.LandInfo.PostCode);
                         this.LandInformationForm.controls['LandingProcedure'].setValue(this.LandInfo.LandingProcedure);
                         this.LandInformationForm.controls['PassbookNO'].setValue(this.LandInfo.PassbookNO);
@@ -916,6 +915,7 @@ export class CustLandInformationComponent implements OnInit {
                         }
                     } else
                         this.layoutUtilsService.alertElement("", baseResponse.Message);
+
                 }
             });
         this.cdRef.detectChanges();
@@ -1321,7 +1321,11 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     viewCustomrePage() {
-        const dialogRef = this.dialog.open(CustomerListDialogComponent, {panelClass: ['w-8/12'], data: {}, disableClose: true});
+        const dialogRef = this.dialog.open(CustomerListDialogComponent, {
+            panelClass: ['w-8/12'],
+            data: {},
+            disableClose: true
+        });
         dialogRef.afterClosed().subscribe(res => {
             if (!res) {
                 return;
