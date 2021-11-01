@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -58,7 +59,7 @@ export class VendorRadiusComponent implements OnInit {
     mapTypeIds: ["satellite", "roadmap", "hybrid", "terrain"]
   }
   ///////////////////
-
+  iconUrl;
   
   radiusInitial : string;
   typeInitial : string;
@@ -201,7 +202,6 @@ export class VendorRadiusComponent implements OnInit {
   }
   
   onSelect(){
-    
     this.spinner.show();
     
     this.user.ZoneId = this.radiusForm.controls.ZoneId.value;
@@ -227,7 +227,21 @@ export class VendorRadiusComponent implements OnInit {
       if(baseResponse.Success === true){
         console.log(baseResponse)
         this.radiusInfo = baseResponse.SeedKhadVendor.VendorDetails;
-            
+        console.log(this.radiusInfo)
+        for(let i=0; i<this.radiusInfo.length; i++){
+          if(this.radiusInfo[i].Type == '1'){
+            this.iconUrl = '../../../assets/icons/seed.png';
+            this.radiusInfo[i].iconUrl = this.iconUrl;
+          }
+          else if(this.radiusInfo[i].Type == '2'){
+            this.iconUrl = '../../../assets/icons/fertilizer_icon.png';
+            this.radiusInfo[i].iconUrl = this.iconUrl;
+          }
+          else if(this.radiusInfo[i].Type == '3'){
+            this.iconUrl = '../../../assets/icons/seed and fertilizer_icon.png';
+            this.radiusInfo[i].iconUrl = this.iconUrl;
+          }
+        }    
       }
       else{
         this.layoutUtilsService.alertElement("", baseResponse.Message);

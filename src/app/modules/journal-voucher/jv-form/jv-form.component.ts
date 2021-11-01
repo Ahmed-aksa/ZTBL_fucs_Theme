@@ -882,7 +882,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
             .subscribe((baseResponse: BaseResponseModel) => {
                 console.log(baseResponse);
                 if (baseResponse.Success === true) {
-                    debugger
+                    
 
                     rowValue = baseResponse.JournalVoucher.JournalVoucherDataList;
                     for (var a = 0; this.jvGl.length > a; a++) {

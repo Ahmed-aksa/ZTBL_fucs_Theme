@@ -16,7 +16,7 @@ export class ClDocumentViewComponent implements OnInit {
   url: any;
   constructor(public dialogRef: MatDialogRef<ClDocumentViewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,) {
-    debugger
+    
     this.url = data.url 
     this.loanDocumentArray = data.documentView
   }

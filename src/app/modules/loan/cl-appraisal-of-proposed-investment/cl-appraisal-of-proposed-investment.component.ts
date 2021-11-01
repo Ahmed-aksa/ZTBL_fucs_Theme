@@ -170,7 +170,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
   loadAppraisalOfProposedDataOnUpdate(appAppraisalOfProposedData, CropProductionList) {
     
-    debugger
+    
     
     if (appAppraisalOfProposedData.length != 0, appAppraisalOfProposedData != undefined) {
 
@@ -252,7 +252,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     }
 
     //Type
-    debugger
+    
     if (CropProductionList[0] != '', CropProductionList[0] != null, CropProductionList[0] != undefined) {
       if (CropProductionList[0].AppraisalType != '', CropProductionList[0].AppraisalType != null, CropProductionList[0].AppraisalType != undefined) {
         var cropType = this.selectedProposedCropType.filter(x => x.Value == CropProductionList[0].AppraisalType)

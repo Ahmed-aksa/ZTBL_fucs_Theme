@@ -356,7 +356,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
   }
 
   showReceipt(transaction) {
-    debugger
+    
     var transactionID = transaction.TransactionID, DisbursementID = transaction.DisbursementID, BranchWorkingDate = transaction.BranchWorkingDate, receiptId = transaction.ReceiptId;
     
     
