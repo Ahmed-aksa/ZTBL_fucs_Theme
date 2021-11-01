@@ -127,7 +127,7 @@ export class SearchTourPlanComponent implements OnInit {
         this.setUsers()
         this.LoadLovs();
         this.createForm();
-        this.setCircles();
+        // this.setCircles();
         this.getTourPlan();
 
         this.settingZBC();
@@ -167,7 +167,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     private assignBranchAndZone() {
-        
+
         //Circle
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
@@ -207,7 +207,7 @@ export class SearchTourPlanComponent implements OnInit {
 
 
     changeBranch(changedValue){
-        
+        debugger
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -263,39 +263,39 @@ export class SearchTourPlanComponent implements OnInit {
         // }
 
     }
-    setCircles() {
-        
-        this._circleService.GetCircleByBranchId()
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe(baseResponse => {
-                
-                console.log(baseResponse);
-                if (baseResponse.Success) {
-                    this.circle = baseResponse.Circles;
-                    
-                }
-                else {
-                    this.layoutUtilsService.alertElement("", baseResponse.Message);
-                }
-            });
-    }
+    // setCircles() {
+    //
+    //     this._circleService.GetCircleByBranchId()
+    //         .pipe(
+    //             finalize(() => {
+    //                 this.loading = false;
+    //             })
+    //         )
+    //         .subscribe(baseResponse => {
+    //
+    //             console.log(baseResponse);
+    //             if (baseResponse.Success) {
+    //                 this.circle = baseResponse.Circles;
+    //                 debugger
+    //             }
+    //             else {
+    //                 this.layoutUtilsService.alertElement("", baseResponse.Message);
+    //             }
+    //         });
+    // }
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
-        
+
         //var userInfo = this.userUtilsService.getUserDetails();
         //this.TourPlan.controls['Zone'].setValue(userInfo.Zone.ZoneName);
         //this.TourPlan.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
     // CheckEditStatus(loanUtilization: any) {
-    //   
+    //   debugger
 
     //   if () {
     //     return true
@@ -306,7 +306,7 @@ export class SearchTourPlanComponent implements OnInit {
     // }
 
     setFromDate() {
-        
+        debugger
         // this.TourPlan.controls.FromDate.reset();
         this.minDate = this.TourPlan.controls.FromDate.value;
         var FromDate = this.TourPlan.controls.FromDate.value;
@@ -348,7 +348,7 @@ export class SearchTourPlanComponent implements OnInit {
         }
     }
     setToDate() {
-        
+        debugger
         var ToDate = this.TourPlan.controls.ToDate.value;
         if (ToDate._isAMomentObject == undefined) {
             try {
@@ -421,7 +421,7 @@ export class SearchTourPlanComponent implements OnInit {
         TourPlan.view = "1";
         // console.log(this.TourPlan.controls["Status"].value)
         // utilization = {Status:this.TourPlan.controls["Status"].value}
-        this.router.navigate(['../create-tour-plan'], {
+        this.router.navigate(['../tour-plan'], {
             state: { example: TourPlan,flag:1 },
             relativeTo: this.activatedRoute
         });
@@ -460,8 +460,8 @@ export class SearchTourPlanComponent implements OnInit {
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
         this.TourPlan = this.filterFB.group({
-            Zone: [userInfo.Zone.ZoneName],
-            Branch: [userInfo.Branch.Name],
+            Zone: [userInfo?.Zone?.ZoneName],
+            Branch: [userInfo?.Branch?.Name],
             FromDate:[],
             ToDate:[],
             Status:["", Validators.required],
@@ -471,7 +471,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     GetZones() {
-        
+
         this.loading = true;
         this._circleService.getZones()
             .pipe(
@@ -479,7 +479,7 @@ export class SearchTourPlanComponent implements OnInit {
                     this.loading = false;
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
 
                 baseResponse.Zones.forEach(function (value) {
@@ -499,7 +499,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     SetBranches(branchId) {
-        
+
         this.Branch.BranchCode = branchId.value;
     }
 
@@ -508,7 +508,7 @@ export class SearchTourPlanComponent implements OnInit {
         this.loading = true;
         this.dataSource.data = [];
         this.Branches = [];
-        
+
         if (ZoneId.value === undefined)
             this.Zone.ZoneId = ZoneId;
         else
@@ -519,7 +519,7 @@ export class SearchTourPlanComponent implements OnInit {
                     this.loading = false;
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
                 this.loading = false;
                 //baseResponse.Branches.forEach(function (value) {
@@ -536,7 +536,7 @@ export class SearchTourPlanComponent implements OnInit {
         });
     }
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        
+        debugger
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex -1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
@@ -580,7 +580,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
     Plans;
     SearchTourPlan() {
-        
+        debugger
         this.spinner.show();
         if (!this.TourPlan.controls["Status"].value) {
             this.TourPlan.controls["Status"].setValue("All")
@@ -599,7 +599,7 @@ export class SearchTourPlanComponent implements OnInit {
             )
             .subscribe(baseResponse => {
 
-                
+
                 if (baseResponse.Success) {
                     this.TourPlans = baseResponse.TourPlan.TourPlansByDate;
                     this.dataSource.data = baseResponse.TourPlan.TourPlansByDate;
@@ -612,7 +612,7 @@ export class SearchTourPlanComponent implements OnInit {
                     this.totalItems = baseResponse.TourPlan.TourPlansByDate[0].TourPlans[0].TotalRecords;
                     this.dataSource.data = this.dv.slice(0, this.totalItems)
                     //this.dataSource = new MatTableDataSource(data);
-                    
+
                     // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
                     //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
@@ -675,7 +675,7 @@ export class SearchTourPlanComponent implements OnInit {
         // console.log(this.TourPlan.controls["Status"].value)
         // utilization = {Status:this.TourPlan.controls["Status"].value}
 
-        this.router.navigate(['../create-tour-plan'], {
+        this.router.navigate(['../tour-plan'], {
             state: { example: tourPlan,flag:1 },
             relativeTo: this.activatedRoute
         });
@@ -684,7 +684,7 @@ export class SearchTourPlanComponent implements OnInit {
 
     deleteTourPlan(tourPlan){
         tourPlan.Status= "C";
-        
+        debugger
         this.spinner.show();
         this.tourPlanService
             .ChanageTourStatus(tourPlan)
@@ -697,9 +697,7 @@ export class SearchTourPlanComponent implements OnInit {
                         console.log(baseResponse)
                         // this.layoutUtilsService.alertElement("", baseResponse.Message);
                         this.SearchTourPlan()
-
                     }
-
                 });
 
     }
@@ -718,7 +716,7 @@ export class SearchTourPlanComponent implements OnInit {
                 value.Value = "All";
         });
 
-        
+
         ////For Bill type
         // this.EducationLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Education })
 

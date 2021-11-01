@@ -114,7 +114,7 @@ export class TourPlanComponent implements OnInit {
     }
 
     ngOnInit() {
-        
+
         this.createForm();
         this.setValues();
         this.setValuesForEdit();
@@ -152,7 +152,7 @@ export class TourPlanComponent implements OnInit {
     }
 
     private assignBranchAndZone() {
-        
+
         //Circle
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
@@ -192,7 +192,7 @@ export class TourPlanComponent implements OnInit {
 
 
     changeBranch(changedValue){
-        
+
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -275,7 +275,7 @@ export class TourPlanComponent implements OnInit {
     }
 
     ApprovalMode(){
-        console.log(this.flag)
+        // console.log(this.flag)
         if(this.flag=="2"){
             console.log("working")
             this.isView=true;
@@ -284,7 +284,7 @@ export class TourPlanComponent implements OnInit {
     }
 
     setVisitedDate() {
-        
+
         var VisitedDate = this.TourForm.controls.VisitedDate.value;
         if (VisitedDate._isAMomentObject == undefined) {
             try {
@@ -403,7 +403,7 @@ export class TourPlanComponent implements OnInit {
 
                         
                     } else {
-                        
+
                         this.layoutUtilsService.alertElement(
                             "",
                             baseResponse.Message,
@@ -447,7 +447,7 @@ export class TourPlanComponent implements OnInit {
                         );
                         
                     } else {
-                        
+
                         this.layoutUtilsService.alertElement(
                             "",
                             baseResponse.Message,

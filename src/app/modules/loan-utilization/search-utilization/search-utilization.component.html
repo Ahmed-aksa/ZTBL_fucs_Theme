@@ -1,8 +1,8 @@
 <div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Utilization List</div>
+  <div class="text-4xl font-extrabold tracking-tight">Utilization List</div>
   <!-- Header -->
   <div
-    [formGroup]="loanutilizationSearch" class="pt-4">
+    [formGroup]="utilizationSearch" class="pt-2">
     <div class="row">
       <div class="col-md-3 col-sm-12">
         <div class="flex flex-shrink-0 items-center ">
@@ -13,6 +13,7 @@
                     <mat-option [value]="SelectedZones?.ZoneId">
                         {{SelectedZones?.ZoneName}}
                     </mat-option>
+
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
