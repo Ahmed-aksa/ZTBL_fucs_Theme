@@ -212,7 +212,7 @@ export class SearchUtilizationComponent implements OnInit {
 
 
     changeBranch(changedValue){
-        debugger
+        
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -300,7 +300,7 @@ export class SearchUtilizationComponent implements OnInit {
   }
 
   // CheckEditStatus(loanUtilization: any) {
-  //   debugger
+  //   
 
   //   if () {
   //     return true

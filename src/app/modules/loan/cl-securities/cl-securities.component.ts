@@ -144,7 +144,7 @@ export class ClSecuritiesComponent implements OnInit {
     appSecuritiesData.forEach(function (item, key) {
 
       var grid = new SecuritiesGrid();
-      debugger
+      
       grid.EnteredBy = item.EnteredBy
       grid.CollTypeID = item.CollTypeID;
       grid.QuantityUnit = item.QuantityUnit;
@@ -164,7 +164,7 @@ export class ClSecuritiesComponent implements OnInit {
 
     });
     }
-    debugger
+    
     this.loanSecuritiesArray = tempCustomerArray;
   }
 
@@ -219,7 +219,7 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   onSaveLoanSecurities() {
-    debugger
+    
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -259,7 +259,7 @@ export class ClSecuritiesComponent implements OnInit {
     
     this.spinner.show();
     this.isSecuritiesFormInProgress = true;
-    debugger
+    
     this._loanService.saveLoanSecurities(this.loanSecurities, this.loanDetail.TranId)
       .pipe(
         finalize(() => {
@@ -268,9 +268,9 @@ export class ClSecuritiesComponent implements OnInit {
         })
       )
       .subscribe(baseResponse => {
-        debugger
+        
         if (baseResponse.Success) {
-          debugger
+          
           this.isSecuritiesFormInProgress = false;
           var loanGrid = new LoanSecurities();
           loanGrid.AppSecurityID = 
@@ -322,7 +322,7 @@ export class ClSecuritiesComponent implements OnInit {
 
       if (this.editLoanSecuritiesArray[i].AppSecurityID == AppSecurityID) {
         console.log("This is AppSecurityID array", this.editLoanSecuritiesArray[i])
-        debugger
+        
         this.LoanSecuritiesForm.controls["Quantity"].setValue(this.editLoanSecuritiesArray[i].Quantity);
         this.LoanSecuritiesForm.controls["UnitPrice"].setValue(this.editLoanSecuritiesArray[i].UnitPrice);
         this.loanSecurities.MaxCreditLimit = this.editLoanSecuritiesArray[i].MaxCreditLimit;

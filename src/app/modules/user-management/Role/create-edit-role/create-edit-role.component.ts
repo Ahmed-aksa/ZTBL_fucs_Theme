@@ -160,7 +160,7 @@ export class CreateEditRoleComponent implements OnInit, OnDestroy {
         if (baseResponse.Success) {
           const message = `Polygon has been updated successfully`;
           this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
-          debugger
+          
 
         } else {
           
@@ -170,7 +170,7 @@ export class CreateEditRoleComponent implements OnInit, OnDestroy {
             baseResponse.Code
           );
         }
-        debugger
+        
       });
   }
   onAlertClose() { }
@@ -184,7 +184,7 @@ export class CreateEditRoleComponent implements OnInit, OnDestroy {
       .subscribe((baseResponse) => {
         if (baseResponse.Success) {
           this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
-          debugger
+          
 
         } else {
           
@@ -194,7 +194,7 @@ export class CreateEditRoleComponent implements OnInit, OnDestroy {
             baseResponse.Code
           );
         }
-        debugger
+        
       });
   }
 

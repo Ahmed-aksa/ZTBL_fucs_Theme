@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -106,7 +106,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
   }
 
   // click($event: google.maps.IconMouseEvent){
-  //   debugger
+  //   
   //   console.log($event)
   //   //this.googleMap.setMap(null)
   //   this.PreviousLocation = []
@@ -130,7 +130,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
   }
 
   addmarker(lat: any, lng: any): void {
-    debugger
+    
     if (this.vendorLocationMarker != null) {
       this.vendorLocationMarker.setMap(null)
     }
@@ -145,7 +145,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
   }
 
   onSelect() {
-    debugger
+    
     var res = {
       lat: this.vendorLocationMarker.position.lat(), lng : this.vendorLocationMarker.position.lng()
     }

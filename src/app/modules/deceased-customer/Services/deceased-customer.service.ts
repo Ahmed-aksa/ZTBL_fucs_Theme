@@ -36,7 +36,7 @@ export class DeceasedCustomerService {
 
     GetDeceasedCustomer(form){
 
-        debugger
+        
         var deceasedInfo = new Customer();
         deceasedInfo = form
         this.request = new BaseRequestModel();
@@ -49,7 +49,7 @@ export class DeceasedCustomerService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-        debugger
+        
         return this.http.post(`${environment.apiUrl}/Customer/GetDeceasedCustomer`, req,
             { headers: this.httpUtils.getHTTPHeaders() }).pipe(
             map((res: BaseResponseModel) => res)
@@ -57,7 +57,7 @@ export class DeceasedCustomerService {
     }
 
     SearchDeceasedCustomer(customer: Customer, isUserAdmin: boolean, isZoneUser: boolean,final_zone,final_branch): Observable<BaseResponseModel>{
-        debugger
+        
         this.request = new BaseRequestModel();
         var deceasedInfo = new Customer();
         deceasedInfo = {
@@ -88,7 +88,7 @@ export class DeceasedCustomerService {
         console.log(req);
         console.log(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`);
 
-        debugger
+        
         return this.http.post(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`, this.request,
             { headers: this.httpUtils.getHTTPHeaders() }).pipe(
             map((res: BaseResponseModel) => res)
@@ -116,7 +116,7 @@ export class DeceasedCustomerService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-        debugger
+        
         return this.http.post(`${environment.apiUrl}/Customer/GetPendingDeceasedCustomerByCnic`, this.request,
             { headers: this.httpUtils.getHTTPHeaders() }).pipe(
             map((res: BaseResponseModel) => res)
@@ -138,7 +138,7 @@ export class DeceasedCustomerService {
 
         console.log(userInfo);
 
-        debugger
+        
 
         formData.append('CustomerCnic', form.Cnic);
 
@@ -174,7 +174,7 @@ export class DeceasedCustomerService {
 
         formData.append('DeceasedID', form.DeceasedID);
 
-        debugger
+        
         console.log("CustomerCnic", formData.get('CustomerCnic'));
         console.log("PPNo",formData.get('PPNo'));
         console.log("UserID",formData.get('UserID'));
@@ -192,7 +192,7 @@ export class DeceasedCustomerService {
 
 
 
-        debugger
+        
         if(formData.append){
 
             return this.http.post<any>(`${environment.apiUrl}/Customer/MarkAsDeceasedCustomer`, formData,
@@ -216,7 +216,7 @@ export class DeceasedCustomerService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-        debugger
+        
         return this.http.post(`${environment.apiUrl}/Customer/GetListOfRejectedDeceasedPerson`, req,
             { headers: this.httpUtils.getHTTPHeaders() }).pipe(
             map((res: BaseResponseModel) => res)

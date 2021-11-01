@@ -128,7 +128,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.SelectedBranches = null;
+        this.SelectedZones = null;
         if (this.isDialog)
             this.displayedColumns = [
 
@@ -142,18 +143,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 "DisbDate",
                 "StatusName",
                 "add"]
-        //else
-        //  this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus', 'View']
-
-
         this.LoadLovs();
         this.createForm();
         this.settingZBC()
-        // this.searchloanutilization();
-
-        //this.FilterForm.controls["StartDate"].setValue(this.myDate);
-        //this.FilterForm.controls["EndDate"].setValue(this.myDate);
-
     }
 
     userInfo = this.userUtilsService.getUserDetails();
@@ -173,9 +165,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
             this.loanutilizationSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
             this.loanutilizationSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
             this.loanutilizationSearch.controls["Circle"].setValue(this.SelectedCircles?.Id);
-            // if (this.customerForm.value.Branch) {
-            //     this.changeBranch(this.customerForm.value.Branch);
-            // }
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
@@ -189,9 +178,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
 
-
     private assignBranchAndZone() {
-        
+
         //Circle
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
@@ -231,7 +219,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     changeBranch(changedValue) {
-        debugger
+        
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -492,7 +480,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         // }
 
 
-        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex,this.SelectedCircles)
+        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex, this.SelectedCircles)
             .pipe(
                 finalize(() => {
                     this.loading = false;

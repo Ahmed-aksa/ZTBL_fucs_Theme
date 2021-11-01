@@ -171,7 +171,7 @@ export class LargeFilesUploadComponent implements OnInit {
 
     onFileChange(event) {
 
-        debugger
+        
         if (event.target.files && event.target.files[0]) {
             var filesAmount = event.target.files.length;
 
@@ -234,7 +234,7 @@ export class LargeFilesUploadComponent implements OnInit {
     }
 
     private deleteImage(url, Id, i): void {
-        debugger
+        
         if (url !== undefined) {
 
             if (Id == undefined) {
