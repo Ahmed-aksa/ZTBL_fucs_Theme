@@ -27,7 +27,7 @@ import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserUtilsService } from 'app/shared/services/users_utils.service';
-
+import {HttpClient} from "@angular/common/http";
 @Component({
     selector: 'app-search-ndc-list',
     templateUrl: './search-ndc-list.component.html',
@@ -86,7 +86,7 @@ export class SearchNdcListComponent implements OnInit {
       private layoutUtilsService: LayoutUtilsService,
       private fb: FormBuilder,
       private spinner: NgxSpinnerService,
-      private userUtilsService: UserUtilsService,) {
+      private userUtilsService: UserUtilsService,private http: HttpClient) {
         this.Math = Math;
     }
 
@@ -228,11 +228,17 @@ export class SearchNdcListComponent implements OnInit {
           if (baseResponse.Success) {
 
             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
-            window.open(baseResponse.Ndc.ndcFilePath);
+            window.open(baseResponse.Ndc.ndcFilePath,'Download');
+            this.downloadFile1()
+
+
           }
         });
     }
-
+    downloadFile1(): any {
+        alert("dsds")
+        return this.http.get('http://172.16.1.228/ZtblDocument/NDC_Request/TempReport_011121020540.pdf', {responseType: 'blob'});
+    }
     paginateRequest(pageIndex: any, pageSize: any = this.pageSize) {
       this.pageSize = pageSize;
       this.pageIndex = pageIndex;
