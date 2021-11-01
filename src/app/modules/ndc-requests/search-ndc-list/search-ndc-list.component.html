@@ -58,7 +58,7 @@
                     <div class="row">
                       <div class="col-lg-4 col-sm-12 ">
                         <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="findCnic()" color="primary" type="button"><mat-icon class="mr-2">search</mat-icon> Search</button>
-                        <span class="cursor-pointer mx-4" id="llcInquiryText" (click)="loadUsersList()"><b class="-mt-4">Get All</b></span>
+                        <span class="cursor-pointer mx-4" id="llcInquiryText" (click)="refresh()"><b class="-mt-4">Get All</b></span>
                       </div>
 
                   </div>
@@ -72,7 +72,7 @@
                            [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
                   <ng-container matColumnDef="Id">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>ID</mat-header-cell>
-                    <mat-cell [style.min-width]="" *matCellDef="let request">{{request.NDCId}}</mat-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let dvReq">{{dvReq.Num}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="customer_cnic">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC

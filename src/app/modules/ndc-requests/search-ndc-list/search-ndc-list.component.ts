@@ -148,6 +148,7 @@ export class SearchNdcListComponent implements OnInit {
       }
       this.spinner.show();
       this.loading = true;
+      debugger
       this.ndc_request_service.getRequests(this.user, this.pageSize, this.offSet)
         .pipe(
           finalize(() => {
@@ -159,7 +160,7 @@ export class SearchNdcListComponent implements OnInit {
           if (baseResponse.Success) {
 
             console.log(baseResponse)
-            this.request_data_source = baseResponse.Ndc.Ndcrequests;
+            this.request_data_source = baseResponse.Ndc.Ndcrequests
             this.dvReq = this.request_data_source;
             this.ndcLength = this.dvReq.length;
             this.request_data_source = this.dvReq.slice(0, this.pageSize);
@@ -239,7 +240,13 @@ export class SearchNdcListComponent implements OnInit {
         alert("dsds")
         return this.http.get('http://172.16.1.228/ZtblDocument/NDC_Request/TempReport_011121020540.pdf', {responseType: 'blob'});
     }
+    Num:any;
     paginateRequest(pageIndex: any, pageSize: any = this.pageSize) {
+        if(pageSize)
+        for(var i=1;i>=pageSize;i++)
+        {
+            this.Num.push(i++)
+        }
       this.pageSize = pageSize;
       this.pageIndex = pageIndex;
       this.offSet = pageIndex;
@@ -290,5 +297,10 @@ export class SearchNdcListComponent implements OnInit {
                 window.location.reload();
             }
         })
+    }
+
+    refresh() {
+        this.createForm()
+        this.loadUsersList()
     }
 }
