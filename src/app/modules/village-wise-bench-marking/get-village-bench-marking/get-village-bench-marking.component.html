@@ -5,13 +5,13 @@
     <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Get Village Bench Marking</div>
 
     <!-- Header -->
-    <div class="pt-4" [formGroup]="getVillageBenchmarkForm">
+    <div class="py-2" [formGroup]="getVillageBenchmarkForm">
 
 
 
         <div class="row">
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <div class="flex flex-shrink-0 items-center mt-3 sm:mt-0">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
                         <mat-label class="customMatLabel">Zone</mat-label>
@@ -90,7 +90,7 @@
 
         <div class="row py-2">
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <div class="flex flex-shrink-0 items-center mt-3 sm:mt-0">
 
                     <button mat-raised-button class="mat-primary"
                             type="button" (click)="search()"><mat-icon class="mr-2">search</mat-icon> Search</button>

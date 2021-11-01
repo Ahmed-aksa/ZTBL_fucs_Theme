@@ -1,13 +1,13 @@
 <div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div  *ngIf="isAdd" class="text-4xl font-extrabold tracking-tight">Create Tour Plan</div>
-    <div  *ngIf="isUpdate" class="text-4xl font-extrabold tracking-tight">Update Tour Plan</div>
+    <div  *ngIf="isAdd" class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Create Tour Plan</div>
+    <div  *ngIf="isUpdate" class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Update Tour Plan</div>
     <!-- Header -->
     <div  [formGroup]="TourForm" class="mt-4">
 
         <div class="row">
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Zone Name</mat-label>
                         <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="ZoneName"  appNumberOnly autocomplete="off" readonly="readonly"/>
                     </mat-form-field>
@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Branch Name</mat-label>
                         <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="BranchName"  appNumberOnly autocomplete="off" readonly="readonly"/>
                     </mat-form-field>
@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">MCO's Name</mat-label>
                         <input matInput placeholder="Enter Vendor Address" formControlName="McoName" autocomplete="off" readonly="readonly"/>
                     </mat-form-field>
@@ -32,7 +32,7 @@
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">P.P.NO</mat-label>
                         <input matInput placeholder="Enter Vendor Address" formControlName="PPNO" autocomplete="off" readonly="readonly"/>
                     </mat-form-field>
@@ -47,7 +47,7 @@
         <div class="row">
             <div class="col-lg-3 col-sm-12">
                 <div *ngIf="circle.length>0" class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Circle No</mat-label>
                         <mat-select  [disabled]='isView' formControlName="CircleId">
                             <mat-option>
@@ -62,7 +62,7 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong></mat-label>
                         <input disabled matInput [matDatepicker]="picker" formControlName="VisitedDate"  autocomplete="off" (dateChange)="setVisitedDate()" [min]="minDate"  />
             
@@ -73,7 +73,7 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Purpose<strong class="matMandatory">*</strong></mat-label>
                         <input [readonly]='isView' matInput placeholder="Enter Tour Purpose" formControlName="Purpose" autocomplete="off"/>
                     </mat-form-field>
@@ -82,7 +82,7 @@
             <div class="col-lg-3 col-sm-12">
                 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Remarks</mat-label>
                 <input matInput [readonly]='readonly' appAlphaNumericField placeholder="Enter Remarks" formControlName="Remarks" autocomplete="off"/>
             </mat-form-field>
