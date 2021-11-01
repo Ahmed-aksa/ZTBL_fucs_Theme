@@ -108,88 +108,88 @@
 
 
     </div>
-    <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
-        <div class="example-table-container">
-            <table mat-table
-                   [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
-                   class="example-table"
-                   matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-                <!-- Number Column -->
-                <ng-container matColumnDef="VillageName">
-                    <th mat-header-cell *matHeaderCellDef>Village Name</th>
-                    <td mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.Name}}</td>
-                </ng-container>
+    <div class="mat-table__wrapper mat-elevation-z8">
+        <!--[style.height]="gridHeight"-->
+        <mat-table class="lmat-elevation-z8"
+                   #table
+                   [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                   matSort
+                   #sort1="matSort"
+                   matSortActive="id"
+                   matSortDirection="asc"
+                   matSortDisableClear>
 
-                <!-- Title Column -->
-                <ng-container matColumnDef="NoOfFormaer">
-                    <th mat-header-cell *matHeaderCellDef>No of Farmers</th>
-                    <td mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.NoOfFormaer}}</td>
-                </ng-container>
+          <ng-container matColumnDef="VillageName">
+            <mat-header-cell *matHeaderCellDef>Village Name</mat-header-cell>
+            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.VillageName}}</mat-cell>
+          </ng-container>
 
-                <!-- State Column -->
-                <ng-container matColumnDef="FarmSize">
-                    <th mat-header-cell *matHeaderCellDef>Farm Size</th>
-                    <td mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.FarmSize}}</td>
-                </ng-container>
+          <ng-container matColumnDef="NoOfFormaer">
+            <mat-header-cell *matHeaderCellDef>No Of Farmers</mat-header-cell>
+            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.NoOfFormaer}}</mat-cell>
+          </ng-container>
 
-                <!-- State Column -->
-                <ng-container matColumnDef="GenderCount">
-                    <th mat-header-cell *matHeaderCellDef>Gender Count</th>
-                    <td mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderCount}}</td>
-                </ng-container>
+          <ng-container matColumnDef="FarmSize">
+            <mat-header-cell *matHeaderCellDef>Farm Size</mat-header-cell>
+            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.FarmSize}}</mat-cell>
+          </ng-container>
 
-                <!-- State Column -->
-                <ng-container matColumnDef="GenderType">
-                    <th mat-header-cell *matHeaderCellDef>Gender Type</th>
-                    <td mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderType}}</td>
-                </ng-container>
+          <ng-container matColumnDef="GenderCount">
+            <mat-header-cell *matHeaderCellDef>Gender Count</mat-header-cell>
+            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderCount}}</mat-cell>
+          </ng-container>
 
-                <ng-container matColumnDef="AverageLoanSize">
-                    <th mat-header-cell *matHeaderCellDef>Average Loan Size</th>
-                    <td mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.AverageLoanSize}}</td>
-                </ng-container>
+          <ng-container matColumnDef="GenderType">
+            <mat-header-cell *matHeaderCellDef>Gender Type</mat-header-cell>
+            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderType}}</mat-cell>
+          </ng-container>
 
-                <ng-container matColumnDef="AgriBusinessPotential">
-                    <th mat-header-cell *matHeaderCellDef>Agri Business Potential</th>
-                    <td mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.AgriBusinessPotential}}</td>
-                </ng-container>
+          <ng-container matColumnDef="AverageLoanSize">
+            <mat-header-cell *matHeaderCellDef>Average Loan Size</mat-header-cell>
+            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.AverageLoanSize}}</mat-cell>
+          </ng-container>
 
-                <ng-container matColumnDef="Delete">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let VillageBenchMark">
-                        <button mat-icon-button color="primary" *ngIf="checkDeleteStatus(VillageBenchMark)" (click)="deleteVillageBenchMark(VillageBenchMark)">
-                            <mat-icon title="delete benchmark">delete</mat-icon>
-                        </button>
-                    </td>
-                </ng-container>
+          <ng-container matColumnDef="AgriBusinessPotential">
+            <mat-header-cell *matHeaderCellDef>Agri Business Potential</mat-header-cell>
+            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.AgriBusinessPotential}}</mat-cell>
+          </ng-container>
 
+          <ng-container matColumnDef="Delete">
+            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+            <mat-cell *matCellDef="let VillageBenchMark">
+              <button style="margin-left: 5px" mat-icon-button *ngIf="checkDeleteStatus(VillageBenchMark)" color="primary" (click)="deleteVillageBenchMark(VillageBenchMark)">
+                <mat-icon title="Delete Vendor">delete</mat-icon>
+              </button>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+            </mat-cell>
+          </ng-container>
+  
+          <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background"></mat-header-row>
+  
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  
+        </mat-table>
 
-            <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
-                Items per page:
-                <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
-                            style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-                    <mat-option [value]="5">5</mat-option>
-                    <mat-option [value]="10">10</mat-option>
-                    <mat-option [value]="25">25</mat-option>
-                    <mat-option [value]="50">50</mat-option>
-                </mat-select>
-                <button (click)="paginate(1)">First</button>
-                <pagination-controls display="inline" (pageChange)="paginate($event)"
-                                     style="display: inline-block;"></pagination-controls>
-                <button (click)="paginate(MathCeil(totalItems/itemsPerPage))">Last</button>
-                <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+        <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+            Items per page:
+            <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+              <mat-option [value]="5">5</mat-option>
+              <mat-option [value]="10">10</mat-option>
+              <mat-option [value]="25">25</mat-option>
+              <mat-option [value]="50">50</mat-option>
+              <mat-option [value]="100">100</mat-option>
+            </mat-select>
+            <button (click)="paginate(1)">First</button>
+            <pagination-controls display="inline" (pageChange)="paginate($event)" style="display: inline-block;"></pagination-controls>
+            <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+            <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+    
+          </div>
 
-            </div>
+        
+  
+        <!-- <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
+        <div class="mat-table__message" *ngIf="loading">Please wait....</div> -->
 
-
-            <!-- <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
-            <div class="mat-table__message" *ngIf="loading">Please wait....</div> -->
-
-        </div>
-
-    </div>
+      </div>
 </div>
