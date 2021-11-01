@@ -239,7 +239,13 @@ export class SearchNdcListComponent implements OnInit {
         alert("dsds")
         return this.http.get('http://172.16.1.228/ZtblDocument/NDC_Request/TempReport_011121020540.pdf', {responseType: 'blob'});
     }
+    Num:any;
     paginateRequest(pageIndex: any, pageSize: any = this.pageSize) {
+        if(pageSize)
+        for(var i=0;i>pageSize;i++)
+        {
+            this.Num.push(i++)
+        }
       this.pageSize = pageSize;
       this.pageIndex = pageIndex;
       this.offSet = pageIndex;
@@ -290,5 +296,10 @@ export class SearchNdcListComponent implements OnInit {
                 window.location.reload();
             }
         })
+    }
+
+    refresh() {
+        this.createForm()
+        this.loadUsersList()
     }
 }
