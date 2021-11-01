@@ -40,7 +40,7 @@ export class SearchNdcListComponent implements OnInit {
     dataSource = new MatTableDataSource();
     displayedColumns = ['EmployeeNo', 'EmployeeName', 'PhoneNumber', 'Email', 'ZoneName', 'BranchName', 'UserCircles', 'actions'];
     ndc_requests_displayed_columns = ['Id', 'customer_cnic', 'name', 'current_status', 'last_status', 'next_action_by', 'request_by', 'request_on', 'actions'];
-    pending_ndc_requests_displayed_columns = ['customer_cnic', 'customer_name', 'request_on'];
+    pending_ndc_requests_displayed_columns = ['Id','customer_cnic', 'customer_name', 'request_on'];
     @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -226,26 +226,28 @@ export class SearchNdcListComponent implements OnInit {
         )
         .subscribe((baseResponse: any) => {
           if (baseResponse.Success) {
-
-            this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
-            window.open(baseResponse.Ndc.ndcFilePath,'Download');
-            this.downloadFile1()
+            debugger;
+            //this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
+            window.open(baseResponse.Ndc.ndcFilePath,'download');
+            this.downloadURI(baseResponse.Ndc.ndcFilePath,"aaaa")
 
 
           }
         });
     }
-    downloadFile1(): any {
-        alert("dsds")
-        return this.http.get('http://172.16.1.228/ZtblDocument/NDC_Request/TempReport_011121020540.pdf', {responseType: 'blob'});
-    }
-    Num:any;
+  downloadURI(uri, name) {
+    var link = document.createElement('a');
+    link.href = uri;
+    link.download = 'file.pdf';
+    link.dispatchEvent(new MouseEvent('click'));
+    // var link = document.createElement("a");
+    // link.download = name;
+    // link.href = uri;
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+  }
     paginateRequest(pageIndex: any, pageSize: any = this.pageSize) {
-        if(pageSize)
-        for(var i=0;i>pageSize;i++)
-        {
-            this.Num.push(i++)
-        }
       this.pageSize = pageSize;
       this.pageIndex = pageIndex;
       this.offSet = pageIndex;
@@ -296,10 +298,5 @@ export class SearchNdcListComponent implements OnInit {
                 window.location.reload();
             }
         })
-    }
-
-    refresh() {
-        this.createForm()
-        this.loadUsersList()
     }
 }

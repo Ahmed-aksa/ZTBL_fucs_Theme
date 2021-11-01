@@ -72,7 +72,7 @@
                            [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
                   <ng-container matColumnDef="Id">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>ID</mat-header-cell>
-                    <mat-cell [style.min-width]="" *matCellDef="let request">{{request.NDCId}}</mat-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let i=index"> {{i+1}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="customer_cnic">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
@@ -171,7 +171,12 @@
         <div class="mat-table__wrapper " >
             <mat-table class="lmat-elevation-z8"
                        [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSize, currentPage: pageIndexPending, totalItems: pendingLength}">
-              <ng-container matColumnDef="customer_cnic">
+               <ng-container matColumnDef="Id">
+                <mat-header-cell [style.min-width]="" *matHeaderCellDef>ID
+                </mat-header-cell>
+                <mat-cell [style.min-width]="" *matCellDef="let i=index"><span>{{i+1}}</span></mat-cell>
+              </ng-container>
+                       <ng-container matColumnDef="customer_cnic">
                 <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
                 </mat-header-cell>
                 <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Cnic}}</span></mat-cell>
