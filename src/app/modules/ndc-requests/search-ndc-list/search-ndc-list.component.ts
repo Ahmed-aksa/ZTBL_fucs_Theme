@@ -40,7 +40,7 @@ export class SearchNdcListComponent implements OnInit {
     dataSource = new MatTableDataSource();
     displayedColumns = ['EmployeeNo', 'EmployeeName', 'PhoneNumber', 'Email', 'ZoneName', 'BranchName', 'UserCircles', 'actions'];
     ndc_requests_displayed_columns = [
-        // 'Id',
+        'Id',
         'customer_cnic', 'name', 'current_status', 'last_status', 'next_action_by', 'request_by', 'request_on', 'actions'];
     pending_ndc_requests_displayed_columns = ['customer_cnic', 'customer_name', 'request_on'];
     @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
@@ -155,7 +155,6 @@ export class SearchNdcListComponent implements OnInit {
       }
       this.spinner.show();
       this.loading = true;
-      debugger
       this.ndc_request_service.getRequests(this.user, this.pageSize, this.offSet)
         .pipe(
           finalize(() => {
@@ -270,7 +269,6 @@ export class SearchNdcListComponent implements OnInit {
     }
 
     submitDeleteStatus(request) {
-      //debugger
         if (request.Status == 'Submitted' || request.Status == 'Pending for approval' || request.Status == 'ReferBack') {
             return true
         }
