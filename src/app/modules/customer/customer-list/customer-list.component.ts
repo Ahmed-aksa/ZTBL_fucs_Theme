@@ -263,23 +263,7 @@ export class CustomerListComponent implements OnInit {
         }
         if (this._customer.CustomerStatus == "All")
             this._customer.CustomerStatus = "";
-        var userInfo = this.userUtilsService.getUserDetails();
-        if (this.isUserAdmin || this.isZoneUser) {
-            userInfo.Branch = {};
-            if (this.Branch.BranchCode != undefined)
-                userInfo.Branch.BranchId = this.Branch.BranchCode;
-            else
-                userInfo.Branch.BranchId = 0;
-        }
-        if (this.isUserAdmin) {
-            userInfo.Zone = {};
-            if (this.Zone.ZoneId != undefined)
-                userInfo.Zone.ZoneId = this.Zone.ZoneId
-            else
-                userInfo.Zone.ZoneId = 0;
-        }
-
-        this._customerService.searchCustomer(this._customer, userInfo, this.final_branch, this.final_zone)
+        this._customerService.searchCustomer(this._customer, this.final_branch, this.final_zone)
             .pipe(
                 finalize(() => {
                     this.loading = false;
