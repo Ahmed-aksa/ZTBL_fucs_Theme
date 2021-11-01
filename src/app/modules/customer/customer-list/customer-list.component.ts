@@ -331,7 +331,6 @@ export class CustomerListComponent implements OnInit {
 
     async LoadLovs() {
         this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus})
-        console.log(this.CustomerStatusLov.LOVs);
         this.CustomerStatusLov.LOVs.forEach(function (value) {
             if (!value.Value)
                 value.Value = "All";

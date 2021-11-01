@@ -655,11 +655,8 @@ export class CustLandInformationComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
                 this.loading = false;
-                //baseResponse.Branches.forEach(function (value) {
-                //  value.Name = value.Name.split("-")[1];
-                //})
                 var branchNameTemp = baseResponse.Branches.filter(x => x.BranchId == branchId)[0]
-                this.LandInformationForm.controls['Branch'].setValue(branchNameTemp.Name)
+                this.LandInformationForm.controls['Branch'].setValue(branchNameTemp.BranchCode)
                 this.branchLovAll = baseResponse.Branches;
             } else
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -1323,7 +1320,7 @@ export class CustLandInformationComponent implements OnInit {
     viewCustomrePage() {
         const dialogRef = this.dialog.open(CustomerListDialogComponent, {
             panelClass: ['w-full'],
-            height:'100%',
+            height: '100%',
             data: {},
             disableClose: true
         });
