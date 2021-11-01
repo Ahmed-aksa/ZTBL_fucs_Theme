@@ -66,7 +66,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     public LovCall = new Lov();
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
-    _loanUtilizationSearch = new LoanUtilizationSearch;
+    private _loanUtilizationSearch = new LoanUtilizationSearch;
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
@@ -86,12 +86,12 @@ export class SearchLoanUtilizationComponent implements OnInit {
     //Zone inventory
     Zones: any = [];
     SelectedZones: any = [];
-    public Zone = new Zone();
+    private Zone = new Zone();
 
     //Branch inventory
     Branches: any = [];
     SelectedBranches: any = [];
-    public Branch = new Branch();
+    private Branch = new Branch();
     disable_circle = true;
     disable_zone = true;
     disable_branch = true;
@@ -128,7 +128,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        debugger
+        console.log(this.loanutilizationSearch);
         if (this.isDialog)
             this.displayedColumns = [
 
@@ -191,7 +192,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     private assignBranchAndZone() {
-        
+
         //Circle
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
@@ -556,6 +557,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     ngOnDestroy() {
+        console.log("ondestroy")
+        this.loanutilizationSearch.reset()
     }
 
     masterToggle() {

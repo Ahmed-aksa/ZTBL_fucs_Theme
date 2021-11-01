@@ -2,7 +2,7 @@
   <div class="text-4xl font-extrabold tracking-tight">Utilization List</div>
   <!-- Header -->
   <div
-    [formGroup]="loanutilizationSearch" class="pt-2">
+    [formGroup]="utilizationSearch" class="pt-2">
     <div class="row">
       <div class="col-md-3 col-sm-12">
         <div class="flex flex-shrink-0 items-center ">
@@ -13,6 +13,7 @@
                     <mat-option [value]="SelectedZones?.ZoneId">
                         {{SelectedZones?.ZoneName}}
                     </mat-option>
+
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
