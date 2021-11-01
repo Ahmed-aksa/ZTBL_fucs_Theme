@@ -371,7 +371,7 @@ export class TourPlanComponent implements OnInit {
         // if(this.flag==1)
         // {this.TourPlan.TourPlanId=this.id;
         // }
-        debugger
+        
         this.spinner.show();
         this.tourPlanService
             .createTourPlan(this.TourPlan)
@@ -401,7 +401,7 @@ export class TourPlanComponent implements OnInit {
                             this.router.navigate(['/tour-plan/search-tour-plan']);
                         }
 
-                        debugger
+                        
                     } else {
 
                         this.layoutUtilsService.alertElement(
@@ -430,7 +430,7 @@ export class TourPlanComponent implements OnInit {
         this.TourPlan.Status=value;
 
         console.log("tourplan"+this.TourPlan)
-        debugger
+        
         this.spinner.show();
         this.tourPlanService
             .ChanageTourStatus(this.TourPlan)
@@ -445,7 +445,7 @@ export class TourPlanComponent implements OnInit {
                             baseResponse.Message,
                             baseResponse.Code = null
                         );
-                        debugger
+                        
                     } else {
 
                         this.layoutUtilsService.alertElement(

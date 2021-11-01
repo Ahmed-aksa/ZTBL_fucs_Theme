@@ -1,5 +1,11 @@
-<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<<<<<<< Updated upstream
+<div
+    class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="text-4xl font-extrabold tracking-tight">Search Land</div>
+=======
+<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
+    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Search Land</div>
+>>>>>>> Stashed changes
 
     <!-- Header -->
     <div class="pt-4" [formGroup]="landSearch">
@@ -27,7 +33,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-        
+
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
@@ -50,7 +56,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-        
+
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
@@ -67,7 +73,8 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Cnic</mat-label>
-                        <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100" autocomplete="off"
+                        <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100"
+                               autocomplete="off"
                                [mask]="maskEnums.cnic">
                     </mat-form-field>
                 </div>
@@ -89,7 +96,7 @@
                                 {{obj.Name}}
                             </mat-option>
                         </mat-select>
-        
+
                     </mat-form-field>
                 </div>
             </div>
@@ -101,18 +108,16 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
                     <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                            type="button" (click)="searchLand()"><mat-icon class="mr-2">search</mat-icon> Search</button>
+                            type="button" (click)="searchLand()">
+                        <mat-icon class="mr-2">search</mat-icon>
+                        Search
+                    </button>
                 </div>
             </div>
 
 
         </div>
 
-
-
-
-
- 
 
     </div>
     <div class="flex flex-auto pt-4" style="flex-direction: column;overflow-y: scroll">
@@ -203,6 +208,8 @@
                 <mat-option [value]="10">10</mat-option>
                 <mat-option [value]="25">25</mat-option>
                 <mat-option [value]="50">50</mat-option>
+                <mat-option [value]="100">100</mat-option>
+                <mat-option [value]="500">500</mat-option>
                 <mat-option [value]="1000">1000</mat-option>
             </mat-select>
             <button (click)="paginate(1)">First</button>

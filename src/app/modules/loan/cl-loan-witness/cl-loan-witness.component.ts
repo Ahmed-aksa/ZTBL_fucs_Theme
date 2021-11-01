@@ -89,7 +89,7 @@ export class ClLoanWitnessComponent implements OnInit {
   }
 
   onSavePersonalSuretiesForm() {
-    debugger
+    
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -131,7 +131,7 @@ export class ClLoanWitnessComponent implements OnInit {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
     }
-    debugger
+    
     this.corporateSureties = Object.assign(this.corporateSureties, this.corporateSuretiesForm.getRawValue());
     //this.corporateSureties.LoanAppID = 0;
     this.corporateSureties.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
@@ -168,7 +168,7 @@ export class ClLoanWitnessComponent implements OnInit {
   }
 
   onSaveLoanRefrencesForm() {
-      debugger
+      
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -178,7 +178,7 @@ export class ClLoanWitnessComponent implements OnInit {
     //  this.loanRefrences.SrNo = this.editLoanRefrenceArray[2].SrNo;
 
     //}
-    debugger
+    
     this.loanRefrences = Object.assign(this.loanRefrences, this.loanRefrencesForm.getRawValue());
     //this.loanRefrences.ReferenceID = 0;
     //this.loanRefrences.LoanAppID = 0;
@@ -212,7 +212,7 @@ export class ClLoanWitnessComponent implements OnInit {
   }
 
   onSaveLoanWitnessForm() {
-    debugger
+    
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -259,7 +259,7 @@ export class ClLoanWitnessComponent implements OnInit {
       return;
     }
 
-    debugger
+    
     this.loanPastPaid = Object.assign(this.loanPastPaid, this.loanPastPaidForm.getRawValue());
     //this.loanPastPaid.PaidLoanID = 0;
     //this.loanPastPaid.LoanAppID = 0;
@@ -296,7 +296,7 @@ export class ClLoanWitnessComponent implements OnInit {
   }
 
   onSaveCurrentLoansForm() {
-    debugger
+    
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -418,7 +418,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
 
   loadAppWitnessDataOnUpdate(appPersonalSureties, appReferences, appCorporateSureties, appLoanPastPaidList, appLoanWitnessList, appCurrentLoansList) {
-    debugger
+    
     this.editLoanRefrenceArray = appCorporateSureties;
     this.editLoanPersonalSuretiesArray = appPersonalSureties;
     this.editLoanCorporateSuretyArray = appReferences;
@@ -444,10 +444,10 @@ export class ClLoanWitnessComponent implements OnInit {
     }
 
     if (appLoanWitnessList.length != 0) {
-      debugger
+      
       var tempCustomerArra: LoanWitnessGrid[] = [];
       appLoanWitnessList.forEach(function (item, key) {
-        debugger
+        
         var grid = new LoanWitnessGrid();
 
         grid.WitnessesID = item.WitnessesID;
@@ -483,7 +483,7 @@ export class ClLoanWitnessComponent implements OnInit {
       tempCustomerArray.push(grid);
 
     });
-      debugger
+      
       this.loanRefrenceArray = tempCustomerArray;
     }
 
@@ -567,7 +567,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
 
   onEditLoanCurrentList(CurrentLoanID) {
-    debugger
+    
     for (var i = 0; i < this.editLoanCurrentList.length; i++) {
       if (this.editLoanCurrentList[i].CurrentLoanID == CurrentLoanID) {
         this.currentLoansForm.controls["BankName"].setValue(this.editLoanCurrentList[i].BankName)
@@ -577,7 +577,7 @@ export class ClLoanWitnessComponent implements OnInit {
         this.currentLoansForm.controls["DateDebitAcheive"].setValue(this.editLoanCurrentList[i].DateDebitAcheive)
         this.currentLoansForm.controls["AmountToPaid"].setValue(this.editLoanCurrentList[i].AmountToPaid)
         this.currentLoansForm.controls["DueDate"].setValue(this.editLoanCurrentList[i].DueDate)
-        debugger
+        
         this.currentLoans.CurrentLoanID = this.editLoanCurrentList[i].CurrentLoanID
         this.currentLoans.Status = this.editLoanCurrentList[i].Status;
 
@@ -591,7 +591,7 @@ export class ClLoanWitnessComponent implements OnInit {
         this.loanWitnessForm.controls["Cnic"].setValue(this.editLoanWitnessArray[i].Cnic);
         this.loanWitnessForm.controls["WitnessName"].setValue(this.editLoanWitnessArray[i].WitnessName);
         this.loanWitnessForm.controls["WitnessAddress"].setValue(this.editLoanWitnessArray[i].WitnessAddress);
-        debugger
+        
         this.loanWitness.WitnessesID = this.editLoanWitnessArray[i].WitnessesID 
       }
     }
@@ -605,14 +605,14 @@ export class ClLoanWitnessComponent implements OnInit {
         this.loanPastPaidForm.controls["AmountToPaid"].setValue(this.editLoanPastPaidArray[i].AmountToPaid);
         this.loanPastPaidForm.controls["DueDate"].setValue(this._common.stringToDate(this.editLoanPastPaidArray[i].DueDate));
         this.loanPastPaidForm.controls["LastPaidDate"].setValue(this._common.stringToDate(this.editLoanPastPaidArray[i].LastPaidDate));
-        debugger
+        
         this.loanPastPaid.PaidLoanID = this.editLoanPastPaidArray[i].PaidLoanID
       }
     }
   }
 
   onEditLoanCorporateSuretyArray(RefrenceNo) {
-    debugger
+    
     for (var i = 0; i < this.editLoanCorporateSuretyArray.length; i++) {
       
       if (this.editLoanCorporateSuretyArray[i].CorporateSuretyID == RefrenceNo) {
@@ -622,13 +622,13 @@ export class ClLoanWitnessComponent implements OnInit {
         this.corporateSuretiesForm.controls["MemorandumDate"].setValue(latest_date);
         this.corporateSuretiesForm.controls["RefrenceNo"].setValue(this.editLoanCorporateSuretyArray[i].RefrenceNo);
         this.corporateSureties.CorporateSuretyID = this.editLoanCorporateSuretyArray[i].CorporateSuretyID
-        debugger
+        
       }
     }
   }
   
   onEditPersonalSureties(PersonalSuretyID) {
-    debugger
+    
     for (var i = 0; i < this.editLoanPersonalSuretiesArray.length; i++) {
       
       if (this.editLoanPersonalSuretiesArray[i].PersonalSuretyID == PersonalSuretyID) { 
@@ -652,7 +652,7 @@ export class ClLoanWitnessComponent implements OnInit {
   }
 
   onEditRefrence(ReferenceID) {
-    debugger
+    
     for (var i = 0; i < this.editLoanRefrenceArray.length; i++) {
       
       if (this.editLoanRefrenceArray[i].ReferenceID == ReferenceID) {
@@ -667,7 +667,7 @@ export class ClLoanWitnessComponent implements OnInit {
         this.loanRefrences.ReferenceID = this.editLoanRefrenceArray[i].ReferenceID
         this.loanRefrences.SrNo = this.editLoanRefrenceArray[i].LoanAppID
 
-        debugger
+        
 
       }
     }

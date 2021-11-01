@@ -80,7 +80,7 @@ export class ClCustomersComponent implements OnInit {
     this.hasFormErrors = false;
   }
   searchCustomer() {
-    debugger
+    
     this.hasFormErrors = false;
     if (this.loanCustomerForm.invalid) {
       const controls = this.loanCustomerForm.controls;
@@ -245,7 +245,7 @@ export class ClCustomersComponent implements OnInit {
   
   }
   onSaveCustomer() {
-    debugger
+    
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -276,7 +276,7 @@ export class ClCustomersComponent implements OnInit {
           
           customerAdded++;
           if (baseResponse.Success) {
-            debugger
+            
             isCustomerAdded = true;
             resMessage = baseResponse.Message;
             resCode = baseResponse.Code;

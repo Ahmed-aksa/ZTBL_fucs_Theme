@@ -169,7 +169,7 @@ export class ApilogsListComponent implements OnInit {
     }
 
     viewRequestResponse(event: any, reportFilter: ReportFilters, is_third = false) {
-        var width = (window.innerWidth - 170) + 'px';
+        var width = (window.innerWidth - 130) + 'px';
         //var height = (window.innerHeight - 140) + 'px';
 
         const dialogRef = this.dialog.open(ApilogDetailComponent, { /*height: height,*/

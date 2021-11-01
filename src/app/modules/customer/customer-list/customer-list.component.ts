@@ -63,6 +63,17 @@ export class CustomerListComponent implements OnInit {
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
 
+
+    single_zone = true;
+    single_branch = true;
+
+    selected_z: any;
+    selected_b: any;
+
+
+    disable_branch = true;
+    disable_zone = true;
+
     constructor(
         public dialog: MatDialog,
         private activatedRoute: ActivatedRoute,
@@ -87,20 +98,25 @@ export class CustomerListComponent implements OnInit {
         this.createForm();
         var userDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.loggedInUserDetails = userDetails;
-        if (userDetails.User.AccessToData == "1") {
-            //admin user
-            this.isUserAdmin = true;
-            this.GetZones();
-        } else if (userDetails.User.AccessToData == "2") {
-            //zone user
-            this.isZoneUser = true;
-            this.customerSearch.value.ZoneId = userDetails?.Zone?.ZoneId;
-            this.Zone = userDetails?.Zone;
-            this.GetBranches(userDetails?.Zone?.ZoneId);
-        } else {
-            //branch
-            this.Zone = userDetails.Zone;
-            this.Branch = userDetails.Branch;
+
+        if (this.loggedInUserDetails.Branch && this.loggedInUserDetails.Branch.BranchCode != "All") {
+
+            this.SelectedBranches = this.loggedInUserDetails.Branch;
+            this.SelectedZones = this.loggedInUserDetails.Zone;
+
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.customerSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.customerSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+        } else if (!this.loggedInUserDetails.Branch && !this.loggedInUserDetails.Zone && !this.loggedInUserDetails.Zone) {
+            this.spinner.show();
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
+                this.single_zone = false;
+                this.disable_zone = false;
+                this.spinner.hide();
+            });
         }
     }
 
@@ -116,6 +132,15 @@ export class CustomerListComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
 
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();

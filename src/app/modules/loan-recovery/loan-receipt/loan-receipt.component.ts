@@ -51,7 +51,7 @@ export class LoanReceiptComponent implements OnInit {
     //    })
     //  )
     //  .subscribe();
-    debugger
+    
     this._recoveryService
       .getReceiptDetail(this.receipt)
       .pipe(
@@ -89,7 +89,7 @@ export class LoanReceiptComponent implements OnInit {
   }
 
   downloadReceipt() {
-    debugger
+    
     if (this.receiptBase64 != "") {
     
 

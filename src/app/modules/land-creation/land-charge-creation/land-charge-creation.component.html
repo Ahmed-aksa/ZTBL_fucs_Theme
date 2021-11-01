@@ -53,7 +53,7 @@
                             <mat-select formControlName="Province" (selectionChange)="GetDistricts($event)"
                                         [disabled]="isFormReadonly">
                                 <mat-option>
-                                    <ngx-mat-select-search placeholderLabel="Search Post Code..."
+                                    <ngx-mat-select-search placeholderLabel="Search Province..."
                                                            [formControl]="searchFilterCtrlProvince">
 
                                     </ngx-mat-select-search>
@@ -75,7 +75,7 @@
                             <mat-select formControlName="District" (selectionChange)="GetTehsils($event)"
                                         [disabled]="isFormReadonly">
                                 <mat-option>
-                                    <ngx-mat-select-search placeholderLabel="Search Loan Type..."
+                                    <ngx-mat-select-search placeholderLabel="Search District..."
                                                            (focusout)="validateDistOnFocusOut()"
                                                            noEntriesFoundLabel="No District Found"
                                                            (keyup)="searchDist($event.target.value)">
@@ -94,7 +94,7 @@
                             <mat-label class="customMatLabel">Tehsil <strong class="matMandatory">*</strong></mat-label>
                             <mat-select formControlName="Tehsil" [disabled]="isFormReadonly">
                                 <mat-option>
-                                    <ngx-mat-select-search placeholderLabel="Search Loan Type..."
+                                    <ngx-mat-select-search placeholderLabel="Search Tehsil..."
                                                            (focusout)="validateTehsilOnFocusOut()"
                                                            noEntriesFoundLabel="No Tehsil Found"
                                                            (keyup)="searchTehsil($event.target.value)">

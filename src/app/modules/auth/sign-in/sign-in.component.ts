@@ -42,7 +42,7 @@ export class AuthSignInComponent implements OnInit {
     }
 
     signIn(): void {
-        debugger;
+        
         if (this.signInForm.invalid) {
             return;
         }
