@@ -1,5 +1,5 @@
 <div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-4xl font-extrabold tracking-tight">Loan List</div>
+  <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Loan List</div>
   <!-- Header -->
   <div
   [formGroup]="loanSearch">
@@ -45,7 +45,7 @@
   <div class="col-lg-3 col-sm-12">
   <div class="flex flex-shrink-0 items-center mt-2 mb-2">
     <button (click)="searchLoan()" mat-flat-button [color]="'primary'">
-      <span class="ml-2 mr-1">Search</span>
+      <mat-icon class="mr-2">search</mat-icon> Search
     </button>
   </div>
 </div>
