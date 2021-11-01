@@ -71,8 +71,8 @@
               <div class="mat-table__wrapper" >
                 <mat-table class="lmat-elevation-z8"
                            [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
-                  <ng-container matColumnDef="serialNumber">
-                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Sr #</mat-header-cell>
+                  <ng-container matColumnDef="Id">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>ID</mat-header-cell>
                     <mat-cell [style.min-width]="" *matCellDef="let request">{{request.NDCId}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="customer_cnic">
