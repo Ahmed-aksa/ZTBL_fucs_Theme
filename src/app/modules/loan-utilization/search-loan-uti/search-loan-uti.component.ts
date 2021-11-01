@@ -41,8 +41,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
     loading: boolean;
 
 
-
-
+    //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
+    //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob','CustomerStatus', 'View'];
 
     displayedColumns = [
 
@@ -66,39 +66,39 @@ export class SearchLoanUtilizationComponent implements OnInit {
     public LovCall = new Lov();
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
-    _loanUtilizationSearch = new LoanUtilizationSearch;
+    private _loanUtilizationSearch = new LoanUtilizationSearch;
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
     loanutilizationStatusLov;
     matTableLenght: any;
-    dv: number | any;
+    dv: number | any; //use later
 
     maxDate: any;
 
     Limit: any;
     OffSet: number = 0;
-
-    itemsPerPage = 10;
+    //pagination
+    itemsPerPage = 10; //you could use your specified
     totalItems: number | any;
     pageIndex = 1;
     LoggedInUserInfo: BaseResponseModel;
-
+    //Zone inventory
     Zones: any = [];
     SelectedZones: any = [];
-    public Zone = new Zone();
+    private Zone = new Zone();
 
-
+    //Branch inventory
     Branches: any = [];
     SelectedBranches: any = [];
-    public Branch = new Branch();
+    private Branch = new Branch();
     disable_circle = true;
     disable_zone = true;
     disable_branch = true;
     single_branch = true;
     single_circle = true;
     single_zone = true;
-
+    //Circle inventory
     Circles: any = [];
     SelectedCircles: any = [];
     public Circle = new Circle();
@@ -106,7 +106,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     selected_z;
     selected_c;
 
-
+    //final
     final_branch: any;
     final_zone: any;
     final_cricle: any;
@@ -128,8 +128,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.SelectedBranches = null;
-        this.SelectedZones = null;
+        debugger
+        console.log(this.loanutilizationSearch);
         if (this.isDialog)
             this.displayedColumns = [
 
@@ -143,9 +143,18 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 "DisbDate",
                 "StatusName",
                 "add"]
+        //else
+        //  this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus', 'View']
+
+
         this.LoadLovs();
         this.createForm();
         this.settingZBC()
+        // this.searchloanutilization();
+
+        //this.FilterForm.controls["StartDate"].setValue(this.myDate);
+        //this.FilterForm.controls["EndDate"].setValue(this.myDate);
+
     }
 
     userInfo = this.userUtilsService.getUserDetails();
@@ -165,6 +174,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
             this.loanutilizationSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
             this.loanutilizationSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
             this.loanutilizationSearch.controls["Circle"].setValue(this.SelectedCircles?.Id);
+            // if (this.customerForm.value.Branch) {
+            //     this.changeBranch(this.customerForm.value.Branch);
+            // }
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
@@ -178,9 +190,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
 
+
     private assignBranchAndZone() {
 
-
+        //Circle
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
             this.userInfo.Circles = this.final_cricle;
@@ -188,7 +201,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
             this.final_cricle = this.SelectedCircles;
             this.userInfo.Circles = this.final_cricle;
         }
-
+        //Branch
         if (this.SelectedBranches.length) {
             this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
             this.userInfo.Branch = this.final_branch;
@@ -196,7 +209,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
             this.final_branch = this.SelectedBranches;
             this.userInfo.Branch = this.final_branch;
         }
-
+        //Zone
         if (this.SelectedZones.length) {
             this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
             this.userInfo.Zone = this.final_zone;
@@ -219,7 +232,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     changeBranch(changedValue) {
-
+        debugger
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -229,10 +242,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
             this.Circles = data.Circles;
             this.SelectedCircles = this.Circles;
-
+            // this.selected_c = this.SelectedCircles?.Id
             this.disable_circle = false;
             if (changedValue.value) {
-
+                // this.getBorrower();
             }
         });
     }
@@ -243,9 +256,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
 
-
-
-
+        //var userInfo = this.userUtilsService.getUserDetails();
+        //this.loanutilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
+        //this.loanutilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
     searchLoan;
@@ -404,7 +417,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     Today = new Date;
 
     getToday() {
-
+        // Today
 
         if (this.loanutilizationSearch.controls.ToDate.value) {
             this.Today = this.loanutilizationSearch.controls.ToDate.value
@@ -443,15 +456,15 @@ export class SearchLoanUtilizationComponent implements OnInit {
             return;
         }
 
-
-
-
-
-
-
-
-
-
+        // if (!this.final_cricle) {
+        //     var Message = 'Please select Circle';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
 
         this.spinner.show()
         if (this.loanutilizationSearch.controls.LoanCaseNo.value != "") {
@@ -460,27 +473,27 @@ export class SearchLoanUtilizationComponent implements OnInit {
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
 
-
+        // this._customer.clear();
         this._loanUtilizationSearch = Object.assign(this._loanUtilizationSearch, this.loanutilizationSearch.value);
 
+        // var userInfo = this.userUtilsService.getUserDetails();
+        // if (this.isUserAdmin || this.isZoneUser) {
+        //     userInfo.Branch = {};
+        //     if (this.Branch.BranchCode != undefined)
+        //         userInfo.Branch.BranchId = this.Branch.BranchCode;
+        //     else
+        //         userInfo.Branch.BranchId = 0;
+        // }
+        // if (this.isUserAdmin) {
+        //     userInfo.Zone = {};
+        //     if (this.Zone.ZoneId != undefined)
+        //         userInfo.Zone.ZoneId = this.Zone.ZoneId
+        //     else
+        //         userInfo.Zone.ZoneId = 0;
+        // }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex, this.SelectedCircles)
+        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex,this.SelectedCircles)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -499,19 +512,19 @@ export class SearchLoanUtilizationComponent implements OnInit {
                     this.dv = this.dataSource.data;
                     this.totalItems = baseResponse.LoanUtilization.LoanDetails[0].TotalRecords;
                     this.dataSource.data = this.dv.slice(0, this.totalItems)
+                    //this.dataSource = new MatTableDataSource(data);
 
-
-
-
+                    // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
+                    //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
                 } else {
 
                     if (this.dv != undefined) {
                         this.matTableLenght = false;
-                        this.dataSource = this.dv.slice(1, 0);
-
-
+                        this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
+                        // this.dataSource.data = [];
+                        // this._cdf.detectChanges();
                         this.OffSet = 1;
                         this.pageIndex = 1;
                         this.dv = this.dv.slice(1, 0);
@@ -544,6 +557,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     ngOnDestroy() {
+        console.log("ondestroy")
+        this.loanutilizationSearch.reset()
     }
 
     masterToggle() {
@@ -554,7 +569,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
         localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
         localStorage.setItem('CreateCustomerBit', '2');
-
+        // this.router.navigate(['../customer/customerProfile', { id: id }], { relativeTo: this.activatedRoute });
         this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
     }
 
