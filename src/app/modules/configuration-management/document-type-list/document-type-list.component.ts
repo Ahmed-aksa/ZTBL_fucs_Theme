@@ -146,6 +146,7 @@ export class DocumentTypeListComponent implements OnInit {
         const _saveMessage = docuemtnType.Id ? 'New Document-Type successfully has been added.' : 'Document-Type successfully has been updated.';
         const _messageType = docuemtnType.Id ? MessageType.Update : MessageType.Create;
         const dialogRef = this.dialog.open(DocumentTypeEditComponent, {
+            panelClass: ['w-6/12'],
             data: {docuemtnType: docuemtnType},
             disableClose: true
         });

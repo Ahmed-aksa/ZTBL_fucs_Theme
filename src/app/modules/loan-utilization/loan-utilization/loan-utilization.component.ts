@@ -157,7 +157,7 @@ export class LoanUtilizationComponent implements OnInit {
     ) {
 
         this.loggedInUser = userUtilsService.getUserDetails();
-        if (this.router.getCurrentNavigation().extras.state != undefined) {
+        if (this.router.getCurrentNavigation().extras.state !== undefined) {
             this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
         } else {
 
@@ -197,6 +197,7 @@ export class LoanUtilizationComponent implements OnInit {
         if (this.loanUtilizationModel.LoanCaseNo) {
             if (this.loanUtilizationModel["view"] == "1") {
                 this.viewonly = true;
+                this.remarksFeild = true;
             }
             else {
                 this.viewonly = false;
@@ -507,6 +508,27 @@ export class LoanUtilizationComponent implements OnInit {
             return;
         }
 
+        if(status && !(this.imageUrl.length>0)){
+            var msg = "Please Attach image"
+            this.layoutUtilsService.alertElement(
+                "",
+                msg,
+                ""
+            );
+            return;
+        }
+        if(status && !(this.videoUrl.length>0)){
+            var msg = "Please Attach video"
+            this.layoutUtilsService.alertElement(
+                "",
+                msg,
+                ""
+            );
+            return;
+        }
+
+
+
         this.customerForm.controls.Remarks.setValidators(Validators.required);
 
         this.loanUtilizationModel.Status = status;
@@ -519,7 +541,7 @@ export class LoanUtilizationComponent implements OnInit {
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-                        if(status=="S"){
+                        if(status=="S" || status=="C"){
                             this.router.navigate(['/loan-utilization/search-uti']);
                         }
                         this.layoutUtilsService.alertElementSuccess(

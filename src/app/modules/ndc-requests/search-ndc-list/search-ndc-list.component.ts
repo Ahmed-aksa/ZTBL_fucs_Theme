@@ -256,7 +256,8 @@ export class SearchNdcListComponent implements OnInit {
     }
 
     submitDeleteStatus(request) {
-        if (request.LastStatus == 'Submit' || request.LastStatus == 'Pending For Approval' || request.LastStatus == 'ReferBack') {
+      //debugger
+        if (request.Status == 'Submitted' || request.Status == 'Pending for approval' || request.Status == 'ReferBack') {
             return true
         }
         else {
@@ -264,7 +265,7 @@ export class SearchNdcListComponent implements OnInit {
         }
     }
     submitSubmitStatus(request) {
-        if (request.LastStatus == 'Submit' || request.LastStatus == 'ReferBack') {
+        if (request.Status == 'Submitted' || request.Status == 'ReferBack') {
             return true
         }
         else {
