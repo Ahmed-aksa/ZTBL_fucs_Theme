@@ -1,6 +1,6 @@
 <div>
     <div class=" px-10 pt-4 sm:absolute sm:inset-0   overflow-y-scroll overflow-x-scroll bg-card dark:bg-transparent">
-        <div class="text-4xl font-extrabold tracking-tight">NDC Search List</div>
+        <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">NDC Search List</div>
 
         <!-- Header -->
         <form [formGroup]="ndcForm">
@@ -56,12 +56,11 @@
 
                     </div>
                     <div class="row">
-                      <div class="col-lg-2 col-sm-12">
+                      <div class="col-lg-4 col-sm-12 ">
                         <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="findCnic()" color="primary" type="button"><mat-icon class="mr-2">search</mat-icon> Search</button>
+                        <span class="cursor-pointer mx-4" id="llcInquiryText" (click)="loadUsersList()"><b class="-mt-4">Get All</b></span>
                       </div>
-                      <div class="col-lg-2 col-sm-12">
-                        <span id="llcInquiryText" (click)="loadUsersList()"><b>Get All</b></span>
-                      </div>
+
                   </div>
 
         </form>
@@ -71,8 +70,8 @@
               <div class="mat-table__wrapper" >
                 <mat-table class="lmat-elevation-z8"
                            [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
-                  <ng-container matColumnDef="serialNumber">
-                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Sr #</mat-header-cell>
+                  <ng-container matColumnDef="Id">
+                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>ID</mat-header-cell>
                     <mat-cell [style.min-width]="" *matCellDef="let request">{{request.NDCId}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="customer_cnic">

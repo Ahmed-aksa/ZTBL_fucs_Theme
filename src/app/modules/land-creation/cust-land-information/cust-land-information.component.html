@@ -1,6 +1,6 @@
 <div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-scroll bg-card dark:bg-transparent"
      [formGroup]="LandInformationForm">
-    <div class="text-4xl font-extrabold tracking-tight">Customer Land Information</div>
+    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Customer Land Information</div>
     <div class="row">
         <div class="col-lg-12 col-sm-2 text-right pr-8">
             <button mat-raised-button color="primary" type="button" class="ml-2" (click)="ViewLandHistory()"
@@ -273,7 +273,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <div class="example-table-container" *ngIf="ShowTable">
+        <div class="example-table-container owner-ship-table" *ngIf="ShowTable">
             <table class="table table-striped">
                 <tr class="table-header-background">
                     <th></th>
@@ -594,7 +594,7 @@
 
     <div class="form-group kt-form__group row pb-4">
         <div class="col-lg-8 kt-margin-bottom-20-mobile">
-            <button mat-raised-button type="button" color="primary" (click)="saveCustomerLandInfoDetails()"
+            <button class="mr-2" mat-raised-button type="button" color="primary" (click)="saveCustomerLandInfoDetails()"
                     [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     *ngIf="ShowTable && !isFormReadonly"><mat-icon class="mr-2">save</mat-icon> Save
             </button>

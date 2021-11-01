@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { errorMessages, Lov, LovConfigurationKey, MaskEnum } from 'app/shared/classes/lov.class';
 import { Branch } from 'app/shared/models/branch.model';
 import { CreateCustomer } from 'app/shared/models/customer.model';
-import { LoanUtilizationSearch } from 'app/modules/loan-utilization/Model/loan-utilization.model';
 import { CircleService } from 'app/shared/services/circle.service';
 import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
 import { LovService } from 'app/shared/services/lov.service';
@@ -22,6 +21,7 @@ import { Zone } from '../../user-management/users/utils/zone.model'
 import {LoanUtilizationService} from "../service/loan-utilization.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import { Circle } from 'app/shared/models/circle.model';
+import {LoanUtilizationSearch} from "../Model/loan-utilization.model";
 
 @Component({
   selector: 'kt-search-utilization',
@@ -49,20 +49,18 @@ export class SearchUtilizationComponent implements OnInit {
     "Lat",
     "Actions",]
   gridHeight: string;
-  loanutilizationSearch: FormGroup;
+  utilizationSearch: FormGroup;
   myDate = new Date().toLocaleDateString();
   isMCO: boolean = false;
   isBM: boolean = false;
   isAdmin:boolean=false;
   circle;
-  circleNo;
   loggedInUser: any;
   public maskEnums = MaskEnum;
   errors = errorMessages;
   public LovCall = new Lov();
   public CustomerStatusLov: any;
-  _customer: CreateCustomer = new CreateCustomer();
-  _loanUtilizationSearch = new LoanUtilizationSearch;
+  private _utilizationSearch = new LoanUtilizationSearch();
   isUserAdmin: boolean = false;
   isZoneUser: boolean = false;
   loggedInUserDetails: any;
@@ -74,12 +72,12 @@ export class SearchUtilizationComponent implements OnInit {
     //Zone inventory
     Zones: any = [];
     SelectedZones: any = [];
-    public Zone = new Zone();
+    private Zone = new Zone();
 
     //Branch inventory
     Branches: any = [];
     SelectedBranches: any = [];
-    public Branch = new Branch();
+    private Branch = new Branch();
     disable_circle = true;
     disable_zone = true;
     disable_branch = true;
@@ -117,6 +115,10 @@ export class SearchUtilizationComponent implements OnInit {
     private userUtilsService: UserUtilsService) { this.loggedInUser = userUtilsService.getUserDetails(); }
 
   ngOnInit() {
+debugger
+
+      console.log(this.utilizationSearch);
+
       var userDetails = this.userUtilsService.getUserDetails();
       this.loggedInUserDetails = userDetails;
     this.setUsers()
@@ -136,10 +138,9 @@ export class SearchUtilizationComponent implements OnInit {
     this.setCircles();
     this.settingZBC();
 
-
   }
     //Start ZBC
-    userInfo = this.userUtilsService.getUserDetails();
+    private userInfo = this.userUtilsService.getUserDetails();
 
     settingZBC(){
 
@@ -153,9 +154,9 @@ export class SearchUtilizationComponent implements OnInit {
             this.selected_z = this.SelectedZones?.ZoneId
             this.selected_b = this.SelectedBranches?.BranchCode
             this.selected_c = this.SelectedCircles?.Id
-            this.loanutilizationSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.loanutilizationSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-            this.loanutilizationSearch.controls["Circle"].setValue(this.SelectedCircles?.Id);
+            this.utilizationSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.utilizationSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            this.utilizationSearch.controls["Circle"].setValue(this.SelectedCircles?.Id);
             // if (this.customerForm.value.Branch) {
             //     this.changeBranch(this.customerForm.value.Branch);
             // }
@@ -172,7 +173,7 @@ export class SearchUtilizationComponent implements OnInit {
     }
 
     private assignBranchAndZone() {
-        
+
         //Circle
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
@@ -295,8 +296,8 @@ export class SearchUtilizationComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.gridHeight = window.innerHeight - 400 + 'px';
     //var userInfo = this.userUtilsService.getUserDetails();
-    //this.loanutilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
-    //this.loanutilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
+    //this.utilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
+    //this.utilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
   }
 
   // CheckEditStatus(loanUtilization: any) {
@@ -371,7 +372,7 @@ export class SearchUtilizationComponent implements OnInit {
 
   createForm() {
     var userInfo = this.userUtilsService.getUserDetails();
-    this.loanutilizationSearch = this.filterFB.group({
+    this.utilizationSearch = this.filterFB.group({
       Zone: [userInfo?.Zone?.ZoneName],
       Branch: [userInfo?.Branch?.Name],
       Circle:[],
@@ -391,11 +392,11 @@ export class SearchUtilizationComponent implements OnInit {
 
 
   hasError(controlName: string, errorName: string): boolean {
-    return this.loanutilizationSearch.controls[controlName].hasError(errorName);
+    return this.utilizationSearch.controls[controlName].hasError(errorName);
   }
 
   searchloanutilization() {
-      if (!this.loanutilizationSearch.controls.Zone.value) {
+      if (!this.utilizationSearch.controls.Zone.value) {
           var Message = 'Please select Zone';
           this.layoutUtilsService.alertElement(
               '',
@@ -405,7 +406,7 @@ export class SearchUtilizationComponent implements OnInit {
           return;
       }
 
-      if (!this.loanutilizationSearch.controls.Branch.value) {
+      if (!this.utilizationSearch.controls.Branch.value) {
           var Message = 'Please select Branch';
           this.layoutUtilsService.alertElement(
               '',
@@ -418,12 +419,12 @@ export class SearchUtilizationComponent implements OnInit {
       this.assignBranchAndZone();
     this.spinner.show();
     // this._customer.clear();
-    // console.log(this.loanutilizationSearch.controls["Status"].value);
-    if (!this.loanutilizationSearch.controls["Status"].value) {
-      this.loanutilizationSearch.controls["Status"].setValue("All")
+    // console.log(this.utilizationSearch.controls["Status"].value);
+    if (!this.utilizationSearch.controls["Status"].value) {
+      this.utilizationSearch.controls["Status"].setValue("All")
     }
-    this._loanUtilizationSearch = Object.assign(this.loanutilizationSearch.value);
-    this._loanutilizationService.searchUtilization(this._loanUtilizationSearch, this.userInfo)
+    this._utilizationSearch = Object.assign(this.utilizationSearch.value);
+    this._loanutilizationService.searchUtilization(this._utilizationSearch, this.userInfo)
       .pipe(
         finalize(() => {
           this.loading = false;

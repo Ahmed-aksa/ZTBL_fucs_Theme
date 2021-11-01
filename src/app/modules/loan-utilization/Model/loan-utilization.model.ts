@@ -1,17 +1,7 @@
 export class LoanUtilization {
 
-    Zone: string;
-    Branch: string;
-    // CustomerName:string;
-    // FatherName:string;
-    // Cnic:string;
-
-    // clear() {
-    //   this.CustomerName = "";
-    //   this.FatherName = "";
-    //   this.Cnic = "";
-    // }
-
+    Zone: string="";
+    Branch: string="";
 }
 
 export class LoanUtilizationModel {

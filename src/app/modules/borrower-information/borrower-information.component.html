@@ -1,8 +1,9 @@
-<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-4xl font-extrabold tracking-tight">Borrower Information</div>
+<div
+    class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Borrower Information</div>
 
     <!-- Header -->
-    <div class="py-4"  [formGroup]="borrowerForm">
+    <div class="py-4" [formGroup]="borrowerForm">
 
         <div class="row ">
             <div class="col-lg-3 col-sm-12">
@@ -26,40 +27,40 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-        
-        
+
+
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                            (selectionChange)="changeBranch($event)"
-                            *ngIf="!single_branch">
-                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                    >
-                        {{branch?.Name}}
-                    </mat-option>
-                </mat-select>
-                <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                            *ngIf="single_branch">
-                    <mat-option [value]="SelectedBranches?.BranchCode"
-                    >
-                        {{SelectedBranches?.Name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    (selectionChange)="changeBranch($event)"
+                                    *ngIf="!single_branch">
+                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                            >
+                                {{branch?.Name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    *ngIf="single_branch">
+                            <mat-option [value]="SelectedBranches?.BranchCode"
+                            >
+                                {{SelectedBranches?.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Circle</mat-label>
-        
+
                         <mat-select [(ngModel)]="selected_c" formControlName="Circle" [disabled]="disable_circle">
                             <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
                             >
@@ -87,16 +88,14 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
                     <button class="mat-primary" mat-raised-button color="accent"
-                            type="button" (click)="getBorrower()"><mat-icon class="mr-2">search</mat-icon> Search</button>
+                            type="button" (click)="getBorrower()">
+                        <mat-icon class="mr-2">search</mat-icon>
+                        Search
+                    </button>
                 </div>
             </div>
 
         </div>
-
-
-
-
-
 
 
     </div>
@@ -104,13 +103,13 @@
         <div class="example-table-container">
             <!--[style.height]="gridHeight"-->
             <mat-table
-                       #table
-                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
-                       matSort
-                       #sort1="matSort"
-                       matSortActive="id"
-                       matSortDirection="asc"
-                       matSortDisableClear>
+                #table
+                [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear>
 
                 <ng-container matColumnDef="CustomerName">
                     <mat-header-cell *matHeaderCellDef>Customer Name</mat-header-cell>
@@ -161,8 +160,6 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
             </mat-table>
-
-
 
 
             <!-- <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
