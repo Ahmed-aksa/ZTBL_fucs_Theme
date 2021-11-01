@@ -1,6 +1,6 @@
 <div>
-    <div class=" px-10 pt-4 sm:absolute sm:inset-0   overflow-y-scroll overflow-x-scroll bg-card dark:bg-transparent">
-        <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">NDC Search List</div>
+    <div class=" px-10  sm:absolute sm:inset-0   overflow-y-scroll overflow-x-scroll bg-card dark:bg-transparent">
+        <div class="text-3xl pt-4 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">NDC Search List</div>
 
         <!-- Header -->
         <form [formGroup]="ndcForm">
@@ -65,14 +65,14 @@
 
         </form>
 
-          <div class="row py-4">
+          <div class="row my-4">
             <div class="col-lg-12">
               <div class="mat-table__wrapper" >
                 <mat-table class="lmat-elevation-z8"
                            [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
                   <ng-container matColumnDef="Id">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>ID</mat-header-cell>
-                    <mat-cell [style.min-width]="" *matCellDef="let i=index"> {{i+1}}</mat-cell>
+                    <mat-cell [style.min-width]="" *matCellDef="let dvReq">{{dvReq.Num}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="customer_cnic">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
@@ -171,12 +171,7 @@
         <div class="mat-table__wrapper " >
             <mat-table class="lmat-elevation-z8"
                        [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSize, currentPage: pageIndexPending, totalItems: pendingLength}">
-               <ng-container matColumnDef="Id">
-                <mat-header-cell [style.min-width]="" *matHeaderCellDef>ID
-                </mat-header-cell>
-                <mat-cell [style.min-width]="" *matCellDef="let i=index"><span>{{i+1}}</span></mat-cell>
-              </ng-container>
-                       <ng-container matColumnDef="customer_cnic">
+              <ng-container matColumnDef="customer_cnic">
                 <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
                 </mat-header-cell>
                 <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Cnic}}</span></mat-cell>

@@ -1,6 +1,6 @@
 <div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">List of Transactions</div>
-    <div class="flex flex-auto mt-4 " style="flex-direction: column;overflow-y: scroll">
+    <div class=" mt-4 px-10 " style="flex-direction: column;overflow-y: scroll">
         <mat-table class="example-table-container"
                    #table
                    [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
