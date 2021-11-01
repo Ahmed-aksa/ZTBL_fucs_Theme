@@ -30,6 +30,7 @@
                 <agm-marker  *ngFor="let prev of PreviousLocation"
                               [latitude]="prev.lat"
                               [longitude]="prev.lng"
+                              [iconUrl]="prev.iconUrl"
                               >
   
                 </agm-marker>

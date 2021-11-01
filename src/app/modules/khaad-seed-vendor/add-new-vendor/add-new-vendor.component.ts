@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -69,6 +70,8 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
   lat; 
   lng;
+  type;
+  iconUrl;
 
   user: any = {};
 
@@ -289,10 +292,12 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   onAlertClose($event) {
     this.hasFormErrors = false;
   }
+  
 
   Add(){
+    this.type = this.vendorForm.controls.Type.value;
     
-    const dialogRef = this.dialog.open(AddressLocationComponent, { width: "1200px", height: "700px",data: { lat: this.lat, lng: this.lng }, disableClose: true });
+    const dialogRef = this.dialog.open(AddressLocationComponent, { width: "1200px", height: "700px",data: { lat: this.lat, lng: this.lng, type:this.type, iconUrl: this.iconUrl}, disableClose: true });
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
@@ -300,6 +305,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
       console.log(res)
       this.lat = res.lat
       this.lng = res.lng
+      this.iconUrl = res.iconUrl
       var loc = this.lat+" , "+this.lng;
       this.loc_text = "Update Location"
       this.vendorForm.controls["Location"].setValue(loc);
