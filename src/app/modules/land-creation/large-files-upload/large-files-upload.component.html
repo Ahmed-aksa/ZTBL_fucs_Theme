@@ -1,7 +1,8 @@
 <div class="kt-portlet">
     <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
         <div class="kt-portlet__head-label py-4 ">
-            <h3 class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</h3>
+            <h3 class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
+                style="background-color: #f6fcf8;">{{getTitle()}}</h3>
         </div>
     </div>
     <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="myForm">
@@ -30,31 +31,34 @@
                 <div class="row py-4">
                     <div>
                         <div class="form-group kt-form__group row">
-                            <div class="col-lg-3"  *ngFor="let url of uploadDocumentsData; let i = index;">
-                                <div  *ngIf="CheckImageOrVideo(url.Path)">
+                            <div class="col-lg-3" *ngFor="let url of uploadDocumentsData; let i = index;">
+                                <div *ngIf="CheckImageOrVideo(url.Path)">
                                     <span class="delete-entry relative"
                                           style="cursor:pointer;position: absolute; z-index: 5; right:-173px;TOP: 26px; font-size:20px;"
                                           (click)="deleteImage(url.Path,url.ImageID,i)" *ngIf="!isFormReadonly"><b>x</b></span>
-                                    <a href="{{url.Path}}" target="_blank"><img class="mx-4" [src]="url.Path" class="rounded float-left"
+                                    <a href="{{url.Path}}" target="_blank"><img class="mx-4" [src]="url.Path"
+                                                                                class="rounded float-left"
                                                                                 style="width:200px; height:120px; padding-right:5px; "></a>
                                 </div>
-                                <div   *ngIf="CheckImageOrVideo(url.VideoPath)">
+                                <div *ngIf="CheckImageOrVideo(url.VideoPath)">
                                     <span class="delete-entry  relative"
                                           style="cursor:pointer;position: absolute; z-index: 5;  right:-173px;TOP: 26px; font-size:20px;"
                                           (click)="deleteImage(url.VideoPath,url.ImageID,i)"
-                                          *ngIf="!isFormReadonly"><b>x</b></span> <a href="{{url.VideoPath}}" target="_blank">
-        
-                                    <video width="200" height="140" controls style="width:200px; height:120px; padding-right:5px; ">
+                                          *ngIf="!isFormReadonly"><b>x</b></span> <a href="{{url.VideoPath}}"
+                                                                                     target="_blank">
+
+                                    <video width="200" height="140" controls
+                                           style="width:200px; height:120px; padding-right:5px; ">
                                         <source [src]="url.VideoPath" type="video/mp4">
                                     </video>
-        
+
                                     <!--<img [src]="" class="rounded float-left" style="width:100px; height:100px;">-->
                                 </a>
                                 </div>
-                                <!-- <div class="col-lg-3">
-                                    <b>{{url.LandLatitude}}</b>
-                                    <b> {{url.LandLongitude}}</b>
-                                </div> -->
+                                <div class="col-lg-3">
+                                    <b>{{Lat}},</b>
+                                    <b> {{Lng}}</b>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,11 +74,16 @@
                     <div class="row text-center">
                         <div class="col-lg-12">
                             <button mat-raised-button color="primary" *ngIf="!isFormReadonly"
-                                    (click)="UploadDocuments()"><mat-icon class="mr-2">cloud_upload</mat-icon>Upload Documents
+                                    (click)="UploadDocuments()">
+                                <mat-icon class="mr-2">cloud_upload</mat-icon>
+                                Upload Documents
                             </button>&nbsp;&nbsp;
-                            <button type="button" class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" mat-raised-button cdkFocusInitial
+                            <button type="button"
+                                    class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                                    mat-raised-button cdkFocusInitial
                                     (click)="onCloseClick()">
-                                    <mat-icon class="mr-2">cancel</mat-icon>Close
+                                <mat-icon class="mr-2">cancel</mat-icon>
+                                Close
                             </button>
                         </div>
                     </div>

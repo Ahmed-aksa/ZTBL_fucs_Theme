@@ -299,4 +299,9 @@ export class SearchNdcListComponent implements OnInit {
             }
         })
     }
+
+    refresh() {
+        this.createForm()
+        this.loadUsersList()
+    }
 }

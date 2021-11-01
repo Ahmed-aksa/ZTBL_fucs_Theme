@@ -31,8 +31,8 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-        
-        
+
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-12">
@@ -66,7 +66,7 @@
                                    autocomplete="off" appAlphabetOnly>
                             <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
                         </mat-form-field>
-        
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-12">
@@ -82,7 +82,7 @@
                         </mat-form-field>
                     </div>
                 </div>
-    
+
             </div>
 
             <div class="row">
@@ -110,23 +110,20 @@
                                     {{obj.Name}}
                                 </mat-option>
                             </mat-select>
-        
+
                         </mat-form-field>
                     </div>
                 </div>
-    
+
             </div>
-
-
-
-
 
 
         </div>
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-            <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-raised-button type="button"
+            <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-raised-button
+                    type="button"
                     (click)="searchCustomer()">
                 <mat-icon class="mr-2">search</mat-icon>
                 Search
@@ -189,10 +186,14 @@
 
             <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
             <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+
+
+        </div>
+        <div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between">
             <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"
                            [showFirstLastButtons]="true">
             </mat-paginator>
-
+            <span>Total Count :<strong>{{total_customers_length}}</strong></span>
         </div>
 
     </div>

@@ -63,7 +63,7 @@ export class CustomerListComponent implements OnInit {
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
 
-
+    total_customers_length = 0;
     single_zone = true;
     single_branch = true;
 
@@ -272,6 +272,7 @@ export class CustomerListComponent implements OnInit {
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
                     this.dataSource.data = baseResponse.Customers;
+                    this.total_customers_length = baseResponse.Customers.length;
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                     this.dataSource.data = []
