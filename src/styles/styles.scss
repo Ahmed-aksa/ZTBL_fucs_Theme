@@ -158,3 +158,15 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
 .mat-select-panel-wrap{
   overflow-x: hidden;
 }
+
+.kt-mat-alert--warn{
+  display: flex;
+  border-bottom: 1px solid #ef4444;
+  background-color: #fbd0d0;
+  width: fit-content;
+  margin-bottom: 4px;
+  .kt-mat-alert__text{
+    align-self: center;
+    padding-left: 5px;
+  }
+}
