@@ -132,7 +132,7 @@
                 <!--//tranID//DIsbID-->
                 <div class="col-lg-2 kt-margin-bottom-20-mobile">
                   <br />
-                  <span id="llcInquiryText" (click)="viewLLCInquiry()"><b>View LC Inquiry</b></span>
+                  <span style="color: #01671B;" class="cursor-pointer"  id="llcInquiryText" (click)="viewLLCInquiry()"><b>View LC Inquiry</b></span>
                 </div>
 
               </div>
@@ -440,7 +440,7 @@
 
     <div class="col-lg-12">
       <div class="form-group kt-form__group">
-        <button *ngIf="isSimpleRecovery" mat-raised-button color="primary" (click)="save()"
+        <button style="background-color: #01671B;" *ngIf="isSimpleRecovery" mat-raised-button color="primary" (click)="save()"
           [disabled]="submitted || viewOnly || ibDisSave"><mat-icon class="mr-2">save</mat-icon> Save</button>
 
         <button mat-raised-button color="primary" class="ml-2" (click)="makeAndSubmit()"

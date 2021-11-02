@@ -242,7 +242,7 @@
                         </mat-select>
                         <!-- <mat-error *ngIf="hasError('LoanDisbID', 'required')">Disbursement ID <strong>required</strong></mat-error> -->
                     </mat-form-field>
-                    <span class="mx-4" id="llcInquiryText" *ngIf="!viewOnly" (click)="viewLLCInquiryGL()"><b>View LC Inquiry</b></span>
+                    <span style="color: #01671B;"  class="cursor-pointer mx-4" id="llcInquiryText" *ngIf="!viewOnly" (click)="viewLLCInquiryGL()"><b>View LC Inquiry</b></span>
                 </div>
             </div>
 
@@ -427,10 +427,10 @@
     <div class="col-lg-12 text-left pt-4 border-t">
 
 
-        <button mat-raised-button color="primary" (click)="save()" type="submit"
+        <button style="background-color: #01671B;" mat-raised-button color="primary" (click)="save()" type="submit"
                 [disabled]="submitted || transactionEdit" *ngIf="!viewOnly"><mat-icon class="mr-2">save</mat-icon> Save
         </button>
-        <button mat-raised-button color="primary" class="ml-2" (click)="clearForm()"
+        <button mat-raised-button color="primary" class="ml-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" (click)="clearForm()"
                 [disabled]="submitted || transactionEdit" *ngIf="!viewOnly"><mat-icon class="mr-2"> clear_all</mat-icon>Clear
         </button>
         <!-- <button mat-raised-button color="primary" class="ml-2" type="reset" [disabled]="submitted || transactionEdit">Clear</button> -->

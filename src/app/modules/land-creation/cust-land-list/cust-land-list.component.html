@@ -1,5 +1,5 @@
-<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
-    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Search Land</div>
+<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
+    <div class="text-3xl mt-4 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Search Land</div>
 
     <!-- Header -->
     <div class="pt-4" [formGroup]="landSearch">
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
                         <mat-select [(ngModel)]="selected_b" formControlName="" [disabled]="disable_branch"
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Passbook NO</mat-label>
                         <input matInput formControlName="PassbookNO" placeholder="Enter Passbook Number" maxlength="100"
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Cnic</mat-label>
                         <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100"

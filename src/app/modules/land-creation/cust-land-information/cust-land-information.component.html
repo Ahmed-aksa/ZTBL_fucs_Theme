@@ -14,7 +14,7 @@
     <div class="pt-4">
 
         <div class="row">
-            <div class="col-lg-3 col-sm-12">
+            <div class="col-lg-3 col-md-12 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="PostCodeLov">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" *ngIf="PostCodeLov">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Post Code <strong class="matMandatory">*</strong></mat-label>
                         <mat-select formControlName="PostCode" [disabled]="isFormReadonly">
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="LandingProcedureLov">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" *ngIf="LandingProcedureLov">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Lending Procedure <strong class="matMandatory"></strong></mat-label>
                         <mat-select formControlName="LandingProcedure" [disabled]="isFormReadonly">
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Total Area <strong class="matMandatory">*</strong></mat-label>
                         <input matInput placeholder="Enter Total Area" [readonly]="isFormReadonly" formControlName="TotalArea"
@@ -130,7 +130,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Date of Issuance(ddMMyyyy) <strong class="matMandatory">*</strong>
                         </mat-label>
@@ -160,7 +160,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Land Complete Address: <strong class="matMandatory">*</strong></mat-label>
                         <input [readonly]="isFormReadonly" matInput formControlName="CompleteAddress"
@@ -171,7 +171,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Auto Number <strong class="matMandatory"></strong></mat-label>
                         <input matInput placeholder="Land Auto Code" readonly="readonly" formControlName="LandAutoCode"
@@ -180,7 +180,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">No of Customers: <strong class="matMandatory"></strong></mat-label>
                         <input [readonly]="isFormReadonly" matInput placeholder="Number Of Customer"
@@ -261,7 +261,7 @@
             </table>
             <button class="py-2" mat-raised-button color="primary"  style="background-color: #01671B;"  type="button" (click)="saveCustomerLandInfo()"><mat-icon class="mr-2">save</mat-icon> Save
             </button>
-            <button mat-raised-button color="primary" type="button" class="ml-2" (click)="clearSaveCustomerLandInfo()"
+            <button mat-raised-button color="primary" type="button" class="ml-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" (click)="clearSaveCustomerLandInfo()"
                     *ngIf="!isFormReadonly"><mat-icon class="mr-2"> clear_all</mat-icon>Clear
             </button>
         </div>
@@ -594,7 +594,7 @@
 
     <div class="form-group kt-form__group row pb-4">
         <div class="col-lg-8 kt-margin-bottom-20-mobile">
-            <button class="mr-2" mat-raised-button type="button" color="primary" (click)="saveCustomerLandInfoDetails()"
+            <button  style="background-color: #01671B;"  class="mr-2" mat-raised-button type="button" color="primary" (click)="saveCustomerLandInfoDetails()"
                     [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     *ngIf="ShowTable && !isFormReadonly"><mat-icon class="mr-2">save</mat-icon> Save
             </button>
