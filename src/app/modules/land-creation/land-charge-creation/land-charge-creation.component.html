@@ -15,7 +15,7 @@
                 <div class="form-group kt-form__group row">
 
                     <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Reference No <strong class="matMandatory">*</strong>
                             </mat-label>
                             <input [readonly]="isFormReadonly" matInput placeholder="Enter Reference No"
@@ -25,7 +25,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Passbook No <strong class="matMandatory"></strong>
                             </mat-label>
                             <input matInput placeholder="Enter Passbook No" formControlName="PassbookNO"
@@ -35,7 +35,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Total Area <strong class="matMandatory"></strong>
                             </mat-label>
                             <input matInput placeholder="Total Area" formControlName="TotalArea" readonly="readonly"
@@ -47,7 +47,7 @@
 
                     <div class="col-lg-4 kt-margin-bottom-20-mobile">
 
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Province <strong class="matMandatory">*</strong>
                             </mat-label>
                             <mat-select formControlName="Province" (selectionChange)="GetDistricts($event)"
@@ -69,7 +69,7 @@
 
                     <div class="col-lg-4 kt-margin-bottom-20-mobile">
 
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">District <strong class="matMandatory">*</strong>
                             </mat-label>
                             <mat-select formControlName="District" (selectionChange)="GetTehsils($event)"
@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Tehsil <strong class="matMandatory">*</strong></mat-label>
                             <mat-select formControlName="Tehsil" [disabled]="isFormReadonly">
                                 <mat-option>
@@ -133,24 +133,8 @@
                     </div>
 
 
-                    <div class="col-lg-3 kt-margin-bottom-20-mobile">
-
-
-                    </div>
-
-                    <div class="col-lg-3 kt-margin-bottom-20-mobile">
-
-                    </div>
-
-
-                </div>
-                <h3>Area Convertor</h3>
-
-                <div class="form-group kt-form__group row">
-
-                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
-
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Unit <strong class="matMandatory"></strong></mat-label>
                             <mat-select [(ngModel)]="Unit" [ngModelOptions]="{standalone: true}"
                                         [disabled]="isFormReadonly">
@@ -159,18 +143,27 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+
                     </div>
 
-                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+
+
+                </div>
+                <h3>Area Convertor</h3>
+
+                <div class="form-group kt-form__group row">
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                             <mat-label class="customMatLabel">Area <strong class="matMandatory">*</strong></mat-label>
                             <input matInput placeholder="" [readonly]="isFormReadonly" [(ngModel)]="Area"
                                    [ngModelOptions]="{standalone: true}" maxlength="30" autocomplete="off"
                                    ktNumberAndDecimal/>
                         </mat-form-field>
+
                     </div>
 
-                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                             <mat-label class="customMatLabel">Convert Unit<strong class="matMandatory"></strong>
                             </mat-label>
@@ -181,13 +174,12 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                    </div>
-                    <div class="col-lg-2 kt-margin-bottom-20-mobile mt-3">
                         <button mat-raised-button color="primary" (click)="AreaConverter()" *ngIf="!isFormReadonly">
                             Convert
                         </button>
                     </div>
-                    <div class="col-lg-3 kt-margin-bottom-20-mobile">
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                             <mat-label class="customMatLabel">Result</mat-label>
                             <input matInput [(ngModel)]="Result" [ngModelOptions]="{standalone: true}"

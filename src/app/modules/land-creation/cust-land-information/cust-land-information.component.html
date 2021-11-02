@@ -261,7 +261,7 @@
             </table>
             <button class="py-2" mat-raised-button color="primary"  style="background-color: #01671B;"  type="button" (click)="saveCustomerLandInfo()"><mat-icon class="mr-2">save</mat-icon> Save
             </button>
-            <button mat-raised-button color="primary" type="button" class="ml-2" (click)="clearSaveCustomerLandInfo()"
+            <button mat-raised-button color="primary" type="button" class="ml-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" (click)="clearSaveCustomerLandInfo()"
                     *ngIf="!isFormReadonly"><mat-icon class="mr-2"> clear_all</mat-icon>Clear
             </button>
         </div>
@@ -594,7 +594,7 @@
 
     <div class="form-group kt-form__group row pb-4">
         <div class="col-lg-8 kt-margin-bottom-20-mobile">
-            <button class="mr-2" mat-raised-button type="button" color="primary" (click)="saveCustomerLandInfoDetails()"
+            <button  style="background-color: #01671B;"  class="mr-2" mat-raised-button type="button" color="primary" (click)="saveCustomerLandInfoDetails()"
                     [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     *ngIf="ShowTable && !isFormReadonly"><mat-icon class="mr-2">save</mat-icon> Save
             </button>
