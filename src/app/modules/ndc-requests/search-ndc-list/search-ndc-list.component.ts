@@ -165,6 +165,15 @@ debugger
 
     loadUsersList() {
 
+        this.user.ZoneId = this.ndcForm.controls.ZoneId.value;
+        this.user.BranchCode = this.ndcForm.controls.BranchCode.value;
+        this.user.CircleId = this.ndcForm.controls.CircleId.value;
+        this.user.Cnic = this.ndcForm.controls.Cnic.value;
+
+        if (this.user.ZoneId != this.SelectedZones.ZoneId && this.user.BranchCode != this.SelectedBranches.BranchCode) {
+            this.user.ZoneId = this.selected_z;
+            this.user.BranchCode = this.selected_b;
+        }
 
         this.spinner.show();
         this.loading = true;
