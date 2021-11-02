@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
 
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Nature</mat-label>
                         <mat-select formControlName="Nature">
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Status</mat-label>
                         <mat-select formControlName="Status">
@@ -110,15 +110,18 @@
                     </mat-form-field>
                 </div>
             </div>
+
+
+
+        </div>
+        <div class="row">
             <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
 
                     <button mat-raised-button color="primary"
                             type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                 </div>
             </div>
-
-
         </div>
 
 
@@ -128,7 +131,7 @@
 
 
     </div>
-    <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
+    <div class="flex flex-auto mt-4" style="flex-direction: column;overflow-y: scroll">
         <div class="example-table-container">
             <mat-table
                        #table
