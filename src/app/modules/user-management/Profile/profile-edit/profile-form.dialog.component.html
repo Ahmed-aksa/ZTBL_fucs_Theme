@@ -1,118 +1,119 @@
-
-
-
-
-<div class="px-10 pb-4  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-3xl mt-4 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Assign Pages</div>
-
-  <!-- Header -->
-  <div
-      class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4">
-      <!-- Loader -->
-      <div
-          class="absolute inset-x-0 bottom-0"
-          *ngIf="isLoading">
-          <mat-progress-bar [mode]="'indeterminate'" *ngIf="isLoading"></mat-progress-bar>
-      </div>
-      <!-- Title -->
-      <!-- Actions -->
-
-  </div>
-  <div class="row">
-    <div class="col-lg-4 col-sm-12">
-      <div class="flex flex-shrink-0 items-center mt-4 sm:mt-0">
-        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" id="focus-removal">
-          <mat-label>Roles</mat-label>
-          <mat-select  placeholder="--Select--" name="ProfileID"
-                      (selectionChange)="getProfile($event)">
-            <mat-option *ngFor="let profile of profiles" [value]="profile.ProfileID">
-              {{profile.ProfileName}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+<div
+    class="px-10 pb-4  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-3xl mt-4 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
+         style="background-color: #f6fcf8;">Assign Pages
     </div>
+
+    <!-- Header -->
+    <div
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4">
+        <!-- Loader -->
+        <div
+            class="absolute inset-x-0 bottom-0"
+            *ngIf="isLoading">
+            <mat-progress-bar [mode]="'indeterminate'" *ngIf="isLoading"></mat-progress-bar>
+        </div>
+        <!-- Title -->
+        <!-- Actions -->
+
     </div>
-  </div>
-   <!-- Main -->
-   <div class="mb-4">
-    <!-- CONTENT GOES HERE -->
-    <div class="pt-1">
-      <div class="form-group row" style="
+    <div class="row">
+        <div class="col-lg-4 col-sm-12">
+            <div class="flex flex-shrink-0 items-center mt-4 sm:mt-0">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" id="focus-removal">
+                    <mat-label>Roles</mat-label>
+                    <mat-select placeholder="--Select--" name="ProfileID"
+                                (selectionChange)="getProfile($event)">
+                        <mat-option *ngFor="let profile of profiles" [value]="profile.ProfileID">
+                            {{profile.ProfileName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <!-- Main -->
+    <div class="mb-4">
+        <!-- CONTENT GOES HERE -->
+        <div class="pt-1">
+            <div class="form-group row" style="
       min-width: max-content;
       max-height: 50vh;
       overflow-y:scroll;
   ">
-        <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8">
-          <div *ngIf="!isActivityStringValid">
-            <mat-error><strong>Please select any activity</strong></mat-error>
-          </div>
-          <div class="custom-accordion" *ngFor="let activity of userActivities;let i=index">
-            <div class="custom-accordion-head" (click)="toggleAccordion(i)"
-                 style="cursor: pointer">
-              <div class="custom-padding">
-                <h3>
-                  {{activity.ActivityName}}
-                </h3>
-              </div>
-              <div class="custom-padding">
-                <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
-                  <mat-icon>expand_more</mat-icon>
-                </button>
-                <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
-                  <mat-icon>expand_less</mat-icon>
-                </button>
-              </div>
-            </div>
-            <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">
-              <table class="table table-responsive" style="display: inline-table !important;">
-                <thead class="thead-light">
-                <tr>
-                  <th>Activity Name</th>
-                  <th>Activity URL</th>
-                  <th>Create</th>
-                  <th>Read</th>
-                  <th>Update</th>
-                  <th>Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let child of activity.ChildActvities">
-                  <td>{{child.ActivityName}}</td>
-                  <td>{{child.ActivityUrl}}</td>
-                  <td><input type="checkbox" [checked]="child.C"
-                             (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'create',child.C?true:false)">
-                  </td>
-                  <td><input type="checkbox" [checked]="child.R"
-                             (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'read',child.R?true:false)">
-                  </td>
-                  <td><input type="checkbox" [checked]="child.U"
-                             (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'update',child.U?true:false)">
-                  </td>
-                  <td><input type="checkbox" [checked]="child.D"
-                             (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'delete',child.D?true:false)">
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
+                <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8">
+                    <div *ngIf="!isActivityStringValid">
+                        <mat-error><strong>Please select any activity</strong></mat-error>
+                    </div>
+                    <div class="custom-accordion" *ngFor="let activity of userActivities;let i=index">
+                        <div class="custom-accordion-head" (click)="toggleAccordion(activity.ActivityID)"
+                             style="cursor: pointer">
+                            <div class="custom-padding">
+                                <h3>
+                                    {{activity.ActivityName}}
+                                </h3>
+                            </div>
+                            <div class="custom-padding">
+                                <button mat-icon-button *ngIf="!lists_record.includes(activity.ActivityID)">
+                                    <mat-icon>expand_more</mat-icon>
+                                </button>
+                                <button mat-icon-button *ngIf="lists_record.includes(activity.ActivityID)">
+                                    <mat-icon>expand_less</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="custom-accordion-body" id="{{'table_'+activity.ActivityID}}" style="display: none">
+                            <table class="table table-responsive" style="display: inline-table !important;">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Activity Name</th>
+                                    <th>Activity URL</th>
+                                    <th>Create</th>
+                                    <th>Read</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let child of activity.ChildActvities">
+                                    <td>{{child.ActivityName}}</td>
+                                    <td>{{child.ActivityUrl}}</td>
+                                    <td><input type="checkbox" [checked]="child.C"
+                                               (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'create',child.C?true:false)">
+                                    </td>
+                                    <td><input type="checkbox" [checked]="child.R"
+                                               (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'read',child.R?true:false)">
+                                    </td>
+                                    <td><input type="checkbox" [checked]="child.U"
+                                               (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'update',child.U?true:false)">
+                                    </td>
+                                    <td><input type="checkbox" [checked]="child.D"
+                                               (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'delete',child.D?true:false)">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-          </div>
+                    </div>
 
+                </div>
+
+            </div>
+            <div class="row py-3 ">
+                <div class="col-lg-12 mb-4">
+                    <button style="background-color: #01671B;" type="button" *ngIf="!ShowButton" color="primary"
+                            class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                            (click)="onSubmit()"
+                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                            [disabled]="viewLoading || submitted">
+                        <mat-icon class="mr-2">save</mat-icon>
+                        Save
+                    </button>
+                </div>
+            </div>
         </div>
-       
-      </div>
-      <div class="row py-3 ">
-      <div class="col-lg-12 mb-4">
-        <button style="background-color: #01671B;" type="button" *ngIf="!ShowButton"  color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                (click)="onSubmit()"
-                [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                [disabled]="viewLoading || submitted">
-                <mat-icon class="mr-2">save</mat-icon> Save
-        </button>
-      </div>
-    </div>
-    </div>
 
-  </div>
+    </div>
 
 </div>

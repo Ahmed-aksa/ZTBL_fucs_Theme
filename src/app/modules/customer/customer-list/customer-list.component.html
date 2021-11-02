@@ -189,13 +189,14 @@
 
 
         </div>
-        <div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between">
-            <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"
-                           [showFirstLastButtons]="true">
-            </mat-paginator>
-            <span>Total Count :<strong>{{total_customers_length}}</strong></span>
-        </div>
 
+
+    </div>
+    <div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between">
+        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>
+        <span>Total Count :<strong>{{total_customers_length}}</strong></span>
     </div>
 
 </div>
