@@ -2,8 +2,8 @@
 
 
 
-<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Assign Pages</div>
+<div class="px-10 pb-4  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  <div class="text-3xl mt-4 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Assign Pages</div>
 
   <!-- Header -->
   <div
@@ -34,7 +34,7 @@
     </div>
   </div>
    <!-- Main -->
-   <div class="">
+   <div class="mb-4">
     <!-- CONTENT GOES HERE -->
     <div class="pt-1">
       <div class="form-group row" style="
@@ -101,14 +101,16 @@
         </div>
        
       </div>
-      <div class="col-lg-12">
-        <button type="button" *ngIf="!ShowButton"  color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+      <div class="row py-3 ">
+      <div class="col-lg-12 mb-4">
+        <button style="background-color: #01671B;" type="button" *ngIf="!ShowButton"  color="primary" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                 (click)="onSubmit()"
                 [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                 [disabled]="viewLoading || submitted">
                 <mat-icon class="mr-2">save</mat-icon> Save
         </button>
       </div>
+    </div>
     </div>
 
   </div>
