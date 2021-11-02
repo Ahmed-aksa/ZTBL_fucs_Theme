@@ -108,9 +108,12 @@ export class SearchNdcListComponent implements OnInit {
 
 
     ngOnInit() {
-        debugger
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+debugger
         this.createForm()
+
+        this.settingZBC()
+        this.loadUsersList();
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         //
         // if (this.LoggedInUserInfo.User.App == "1") {
         //     //admin user
@@ -135,9 +138,7 @@ export class SearchNdcListComponent implements OnInit {
         //   this.ndcForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
         //   this.ndcForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
         // }
-        this.settingZBC()
 
-        this.loadUsersList();
     }
 
     createForm(){
@@ -173,6 +174,7 @@ export class SearchNdcListComponent implements OnInit {
             this.user.ZoneId = this.selected_z;
             this.user.BranchCode = this.selected_b;
         }
+
         this.spinner.show();
         this.loading = true;
         this.ndc_request_service.getRequests(this.user, this.pageSize, this.offSet)
