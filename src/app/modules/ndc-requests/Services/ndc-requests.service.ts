@@ -74,16 +74,18 @@ export class NdcRequestsService {
 
     userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
-    getRequests(user, limit, offset) {
+    getRequests(user, limit, offset,final_zone,final_branch) {
         limit = String(limit);
         offset = String(offset)
         var circle = this.userInfo.UserCircleMappings;
         var circleIds = [];
-        //mycircle =
 
-        circle.forEach(element => {
-            circleIds.push(element.CircleId);
-      });
+      if (circle){
+          circle.forEach(element => {
+              circleIds.push(element.CircleId);
+          });
+      }
+
       var _circles = JSON.stringify(circleIds)
       _circles
       var request = {
@@ -114,8 +116,8 @@ export class NdcRequestsService {
         // Zone: {
         //   ZoneId: user.ZoneId
         // },
-        Branch: this.userInfo.Branch,
-        Zone:  this.userInfo.Zone
+        Branch: final_branch,
+        Zone:  final_zone,
     };
     var r = JSON.stringify(request)
     console.log(r)

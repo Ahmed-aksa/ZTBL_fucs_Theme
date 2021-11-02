@@ -93,6 +93,8 @@ export class SearchNdcListComponent implements OnInit {
     private _cdf: ChangeDetectorRef
     isUserAdmin: boolean = false;
     private loggedInUserDetails: any;
+    private final_branch: any;
+    private final_zone: any;
 
     constructor(
         public dialog: MatDialog,
@@ -110,9 +112,8 @@ export class SearchNdcListComponent implements OnInit {
     ngOnInit() {
 debugger
         this.createForm()
-
         this.settingZBC()
-        this.loadUsersList();
+        // this.loadUsersList();
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         //
         // if (this.LoggedInUserInfo.User.App == "1") {
@@ -144,7 +145,7 @@ debugger
     createForm(){
       this.ndcForm = this.fb.group({
         ZoneId: [null],
-        BranchCode: [null],
+        BranchId: [null],
         CircleId: [null],
         Cnic: [null]
       })
@@ -164,9 +165,9 @@ debugger
     // }
 
     loadUsersList() {
-
+  debugger
         this.user.ZoneId = this.ndcForm.controls.ZoneId.value;
-        this.user.BranchCode = this.ndcForm.controls.BranchCode.value;
+        this.user.BranchCode = this.ndcForm.controls.BranchId.value;
         this.user.CircleId = this.ndcForm.controls.CircleId.value;
         this.user.Cnic = this.ndcForm.controls.Cnic.value;
 
@@ -175,9 +176,11 @@ debugger
             this.user.BranchCode = this.selected_b;
         }
 
+        this.assignBranchAndZone();
+
         this.spinner.show();
         this.loading = true;
-        this.ndc_request_service.getRequests(this.user, this.pageSize, this.offSet)
+        this.ndc_request_service.getRequests(this.user, this.pageSize, this.offSet,this.final_zone,this.final_branch)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -255,7 +258,27 @@ debugger
 
         });
     }
+    private assignBranchAndZone() {
 
+
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.loggedInUserDetails.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.loggedInUserDetails.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.loggedInUserDetails.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.loggedInUserDetails.Zone = this.final_zone;
+        }
+
+    }
 
     ngAfterViewInit() {
 
@@ -390,7 +413,7 @@ debugger
     }
 
     settingZBC() {
-
+         debugger
         this.loggedInUserDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.loggedInUserDetails.Branch && this.loggedInUserDetails.Branch.BranchCode != "All") {
             this.SelectedCircles = this.loggedInUserDetails.UserCircleMappings;
