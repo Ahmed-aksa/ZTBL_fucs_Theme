@@ -115,25 +115,26 @@ export class ActivityListComponent implements OnInit {
             disableClose: true
         });
         dialogRef.afterClosed().subscribe(res => {
-            this.getUserActivities();
             if (!res) {
                 return;
             }
+            this.getUserActivities();
+
         });
 
     }
 
 
-    toggleAccordion(i: number,activity_id:string) {
+    toggleAccordion(activity_id:string) {
         if (!this.lists_record.includes(activity_id))
         {
             this.lists_record.push(activity_id)
-            document.getElementById('table_' + i).style.display = 'block';
+            document.getElementById('table_' + activity_id).style.display = 'block';
         }
         else
         {
             this.lists_record.pop(activity_id);
-            document.getElementById('table_' + i).style.display = 'none';
+            document.getElementById('table_' + activity_id).style.display = 'none';
         }
     }
 
@@ -143,12 +144,15 @@ export class ActivityListComponent implements OnInit {
             .getProfileByID(this.profile)
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success) {
-
                     this.userActivities = baseResponse.Activities;
                     this.cdRef.detectChanges();
-
+                    this.expendTable();
                 }
             });
     }
-
+    expendTable() {
+        this.lists_record.forEach(i => {
+            document.getElementById('table_' + i).style.display = 'block';
+        });
+    }
 }

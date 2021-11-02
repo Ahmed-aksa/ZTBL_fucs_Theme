@@ -34,7 +34,7 @@
                      id="custom-table-activity-list">
                     <div class="custom-accordion  rounded-lg my-2 shadow border"
                          *ngFor="let activity of userActivities;let i=index">
-                        <div class="custom-accordion-head border-0" (click)="toggleAccordion(i,activity.ActivityID)"
+                        <div class="custom-accordion-head border-0" (click)="toggleAccordion(activity.ActivityID)"
                              style="cursor: pointer">
                             <div class="custom-padding" style="align-self: center;">
                                 <h3 class="font-medium">
@@ -61,7 +61,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="custom-accordion-body bg-gray-50 border-t rounded" id="{{'table_'+i}}"
+                        <div class="custom-accordion-body bg-gray-50 border-t rounded" id="{{'table_'+activity.ActivityID}}"
                              style="display: none">
                             <table class="table table-responsive" style="display: inline-table !important;">
                                 <thead class="thead-light">
