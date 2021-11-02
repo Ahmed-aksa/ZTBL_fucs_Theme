@@ -41,6 +41,9 @@ export class ActivityListComponent implements OnInit {
     userActivities: any;
 
     public activity = new Activity();
+
+    lists_record: any = [];
+
     constructor(
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
@@ -121,17 +124,16 @@ export class ActivityListComponent implements OnInit {
     }
 
 
-    toggleAccordion(i: number) {
-        let down_arrow = document.getElementById('arrow_down_' + i).style.display;
-        if (down_arrow == 'block') {
-            document.getElementById('arrow_down_' + i).style.display = 'none';
-            document.getElementById('arrow_up_' + i).style.display = 'block';
+    toggleAccordion(i: number,activity_id:string) {
+        if (!this.lists_record.includes(activity_id))
+        {
+            this.lists_record.push(activity_id)
             document.getElementById('table_' + i).style.display = 'block';
-        } else {
-            document.getElementById('arrow_up_' + i).style.display = 'none';
-            document.getElementById('arrow_down_' + i).style.display = 'block';
+        }
+        else
+        {
+            this.lists_record.pop(activity_id);
             document.getElementById('table_' + i).style.display = 'none';
-
         }
     }
 
