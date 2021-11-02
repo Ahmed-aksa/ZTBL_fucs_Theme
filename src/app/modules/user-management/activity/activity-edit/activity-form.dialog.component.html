@@ -14,11 +14,8 @@
             Oh snap! Change a few things up and try submitting again.
           </kt-alert>
 
-          <div class="form-group kt-form__group row" style="    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 3%;">
-            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+          <div class="form-group kt-form__group row" >
+            <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
               <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <input matInput placeholder="Enter Page Name" formControlName="ActivityName" maxlength="30"
                        autocomplete="off"/>
@@ -26,7 +23,7 @@
                 <mat-hint align="start">Please enter <strong>Page Name</strong></mat-hint>
               </mat-form-field>
             </div>
-            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+            <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
 
               <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label for="ActivityUrl">Enter URL</mat-label>
@@ -35,7 +32,7 @@
                        autocomplete="off"/>
               </mat-form-field>
             </div>
-            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile" *ngIf="!isVisible">
+            <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile" *ngIf="!isVisible">
               <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label for="PageIcon">Enter Icon</mat-label>
                 
@@ -45,13 +42,16 @@
 
               </mat-form-field>
             </div>
-            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile" *ngIf="isVisible">
-              <mat-form-field class="mat-form-field-fluid" appearance="outline">
+           </div>
+           <div class="row"> 
+            <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile" *ngIf="isVisible">
+              <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <input matInput placeholder="Enter Tag" formControlName="TagName" maxlength="60"
                        autocomplete="off"/>
               </mat-form-field>
             </div>
-            <div style="display: flex;flex-direction: column">
+            </div>
+            <div class="row">
 
               <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile" style="margin-top: 15px">
                 <mat-checkbox style="margin-top: 15px;" formControlName="IsParent"
@@ -59,13 +59,15 @@
                               (change)="showOrHide($event)"><span>Is Parent?</span>
                 </mat-checkbox>
               </div>
+            </div>
+            <div class="row">  
               <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3" style="margin-top: 15px">
                 <mat-checkbox style="margin-top: 15px;" formControlName="IsActive"
                               [checked]="this.data.activity.isActive"
                               ><span>Is Active?</span>
                 </mat-checkbox>
               </div>
-            </div>
+
 
           </div>
           <div *ngIf="isVisible">
@@ -80,7 +82,7 @@
 
             <div class="form-group kt-form__group row">
               <div class="col-lg-4 col-sm-12 mt-2 kt-margin-bottom-20-mobile">
-                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                   <mat-label>Parent</mat-label>
                   <mat-select formControlName="ParentActivityID" name="ParentActivityID">
                     <mat-option *ngFor="let item of parentActivities" [value]="item.ActivityID">
