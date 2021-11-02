@@ -84,7 +84,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_branch" >
                                 <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong>
                                 </mat-label>
-                                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" disabled="true">
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchId" disabled="true">
                                     <mat-option [value]="SelectedBranches.BranchCode">
                                         {{SelectedBranches.Name}}
                                     </mat-option>
