@@ -13,6 +13,7 @@ import {
 import {Observable, of} from 'rxjs';
 import {AuthService} from 'app/core/auth/auth.service';
 import {switchMap} from 'rxjs/operators';
+import { asLiteral } from '@angular/compiler/src/render3/view/util';
 
 @Injectable({
     providedIn: 'root'
@@ -79,14 +80,9 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
             .pipe(
                 switchMap(authenticated => {
                     if (!authenticated) {
-                        // Redirect to the sign-in page
                         this._router.navigate(['auth/sign-in'], {queryParams: {redirectURL}});
-
-                        // Prevent the access
                         return of(false);
                     }
-
-
                     // Allow the access
                     return of(true);
                 })
