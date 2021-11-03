@@ -58,7 +58,7 @@
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Circle</mat-label>
 
-                <mat-select formControlName="CircleId" [disabled]="disable_circle">
+                <mat-select formControlName="CircleId" [disabled]="disable_circle || viewOnly">
                     <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
                     >
                         {{circle?.CircleCode}}
@@ -183,7 +183,7 @@
 
     <div class="mt-2 justify-content-center text-right border-t py-4" >
         <button style="background-color: #01671B;" mat-raised-button color="primary" (click)="saveSubmit()" *ngIf="!viewOnly" ><mat-icon class="mr-2">save</mat-icon>Save & Submit</button>
-        <button mat-raised-button color="primary" class="ml-2" (click)="deleteVendor()" *ngIf="viewOnly || isEdit" >Delete Vendor</button>
+        <button mat-raised-button color="primary" class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger ml-2" (click)="deleteVendor()" *ngIf="isEdit" ><mat-icon class="mr-2">delete</mat-icon>Delete Vendor</button>
     </div>
 
 </div>

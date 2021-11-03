@@ -1,4 +1,4 @@
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -292,17 +292,17 @@ export class VendorListComponent implements OnInit {
     this.user.CricleId = ind_vendor.CircleId
 
     
-    this.spinner.show();
     this._khaadSeedVendor.deleteVendor(this.vendorObj, this.user)
     .pipe(
       finalize(() => {
-      this.spinner.hide();
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
       if(baseResponse.Success === true){
         //this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
-        window.location.reload();
+        //window.location.reload();
+        this.vendorObj.Id = null;
+        this.searchVendor()
       }
       else{
         this.layoutUtilsService.alertElement("", baseResponse.Message);

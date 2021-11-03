@@ -127,6 +127,9 @@ export class BorrowerInformationComponent implements OnInit {
         } else {
             this.user.Branch = this.SelectedBranches;
         }
+        if(cnic != null){
+            this.OffSet = 0;
+        }
         this.user.CircleId = this.borrowerForm.controls.Circle.value;
         this.spinner.show();
         this._borrowerInfo.getBorrowerInformation(this.itemsPerPage, this.OffSet, cnic, this.user)

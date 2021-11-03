@@ -1,3 +1,5 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 /* eslint-disable max-len */
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @typescript-eslint/member-ordering */
@@ -110,10 +112,9 @@ export class SearchNdcListComponent implements OnInit {
 
 
     ngOnInit() {
-debugger
         this.createForm()
         this.settingZBC()
-        // this.loadUsersList();
+        this.loadUsersList();
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         //
         // if (this.LoggedInUserInfo.User.App == "1") {
@@ -309,16 +310,18 @@ debugger
 
             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
             window.open(baseResponse.Ndc.ndcFilePath,'Download');
-            this.downloadFile1()
+            //this.downloadFile1()
 
 
           }
         });
     }
+
     downloadFile1(): any {
         alert("dsds")
         return this.http.get('http://172.16.1.228/ZtblDocument/NDC_Request/TempReport_011121020540.pdf', {responseType: 'blob'});
     }
+    
     Num:any;
 
     paginateRequest(pageIndex: any, pageSize: any = this.pageSize) {
