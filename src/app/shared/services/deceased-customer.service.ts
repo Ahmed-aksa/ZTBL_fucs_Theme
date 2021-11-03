@@ -27,16 +27,16 @@ export class DeceasedCustomerService {
     ) {
     }
 
-    GetDeceasedCustomer(form) {
+    GetDeceasedCustomer(form , final_branch,final_zone) {
         var deceasedInfo = new Customer();
         deceasedInfo = form;
         this.request = new BaseRequestModel();
         this.request.Customer = deceasedInfo;
         this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle()
         this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
+        this.request.Zone = final_zone
+        this.request.Branch = final_branch
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         return this.http
@@ -48,7 +48,7 @@ export class DeceasedCustomerService {
             .pipe(map((res: BaseResponseModel) => res));
     }
     MarkAsDeceasedCustomer(form, file: File) {
-        
+
         console.log(file);
 
         var deceasedInfo = new Customer();
@@ -153,4 +153,5 @@ export class DeceasedCustomerService {
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
+
 }

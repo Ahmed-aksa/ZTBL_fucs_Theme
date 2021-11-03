@@ -8,24 +8,78 @@
                             Please enter valid Input
                         </kt-alert>
 
-            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+<!--            <div class="col-lg-3 kt-margin-bottom-20-mobile">-->
 
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>
-                    <input matInput placeholder="Zone" formControlName="Zone" maxlength="13"
-                           autocomplete="off" readonly="readonly"/>
-                </mat-form-field>
+<!--                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+<!--                    <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>-->
+<!--                    <input matInput placeholder="Zone" formControlName="Zone" maxlength="13"-->
+<!--                           autocomplete="off" readonly="readonly"/>-->
+<!--                </mat-form-field>-->
+<!--            </div>-->
+
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+<!--                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">-->
+<!--                        <mat-label class="customMatLabel">Zone</mat-label>-->
+<!--                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">-->
+<!--                            <mat-option [value]="SelectedZones?.ZoneId">-->
+<!--                                {{SelectedZones?.ZoneName}}-->
+<!--                            </mat-option>-->
+<!--                        </mat-select>-->
+<!--                    </mat-form-field>-->
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" >
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                                    (selectionChange)="changeZone($event)">
+                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                        [disabled]="disable_zone">
+                                {{zone?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
             </div>
 
-            <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>
-                    <input matInput placeholder="Branch" formControlName="Branch" maxlength="13"
-                           autocomplete="off" readonly="readonly"/>
-                </mat-form-field>
+            <div class="col-lg-3 col-sm-12" >
+
+                <div class="col-md-12 kt-margin-bottom-10-mobile">
+
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                            <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
+                                        (selectionChange)="changeBranch($event)"
+                                        *ngIf="!single_branch">
+                                <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                                >
+                                    {{branch?.Name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
+                                        *ngIf="single_branch">
+                                <mat-option [value]="SelectedBranches?.BranchCode"
+                                >
+                                    {{SelectedBranches?.Name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
             </div>
-        </div>
+
+
+<!--            <div class="col-lg-3 kt-margin-bottom-20-mobile">-->
+
+<!--                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+<!--                    <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>-->
+<!--                    <input matInput placeholder="Branch" formControlName="Branch" maxlength="13"-->
+<!--                           autocomplete="off" readonly="readonly"/>-->
+<!--                </mat-form-field>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
 
         <div class="form-group kt-form__group row">
             <div class="col-lg-3 kt-margin-bottom-20-mobile">
@@ -310,7 +364,7 @@
             </div>
 
         </div>
-
+        </div>
     </form>
 </div>
 
