@@ -1,4 +1,5 @@
 <form [formGroup]="configurationForm" class="kt-form kt-form--group-seperator-dashed" style="width: 836px;">
+    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Edit Page</div>
     <div>
         <mat-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                    (close)="onAlertClose($event)">
