@@ -1,4 +1,4 @@
-<div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
     <div class=" mt-4 text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Tour Plan List</div>
 
     <!-- Header -->
@@ -137,15 +137,15 @@
 
     </div>
     <div class="flex flex-auto mt-4" style="flex-direction: column;overflow-y: scroll">
-        <div class="example-table-container">
+        <div class="example-table-container  border shadow rounded-md">
 
 <!--           table -->
 
-            <div class="custom-accordion" *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
+            <div class="custom-accordion " *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
                 <div class="custom-accordion-head" (click)="toggleAccordion(i)"
                      style="cursor: pointer">
                     <div class="custom-padding">
-                        <h3>
+                        <h3 class="font-bold p-3">
                             {{activity.VisitedDate}}
                         </h3>
                     </div>
@@ -210,26 +210,27 @@
                 </div>
 
             </div>
-            <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
-                <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-                Items per page:
-                <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-                    <mat-option [value]="5">5</mat-option>
-                    <mat-option [value]="10">10</mat-option>
-                    <mat-option [value]="25">25</mat-option>
-                    <mat-option [value]="50">50</mat-option>
-                </mat-select>
-                <button (click)="paginate(1)">First</button>
-                <pagination-controls display="inline" (pageChange)="paginate($event)" style="display: inline-block;"></pagination-controls>
-                <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-                <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
-            </div>
 
             <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
             <div class="mat-table__message" *ngIf="loading">Please wait....</div>
 
         </div>
+
+    </div>
+    <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+        <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
+        Items per page:
+        <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls display="inline" (pageChange)="paginate($event)" style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
     </div>
 </div>
