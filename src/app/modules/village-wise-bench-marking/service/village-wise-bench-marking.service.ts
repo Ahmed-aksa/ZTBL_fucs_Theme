@@ -1,5 +1,5 @@
 /* eslint-disable arrow-parens */
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable no-cond-assign */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/semi */
@@ -35,6 +35,10 @@ export class VillageWiseBenchMarkingService{
   getVillageBenchMark(limit, offset, village){
     var circle = this.userInfo.UserCircleMappings;
     var circleIds = [];
+    
+    if(village.CircleId == 'null'){
+      village.CircleId = null
+    }
     circle.forEach(element => {
       circleIds.push(element.CircleId);
     });

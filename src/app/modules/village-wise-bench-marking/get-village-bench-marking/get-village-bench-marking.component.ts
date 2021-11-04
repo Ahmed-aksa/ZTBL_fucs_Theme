@@ -117,6 +117,14 @@ export class GetVillageBenchMarkingComponent implements OnInit {
       this.getVillageBenchmarkForm.controls["Zone"].setValue(this.SelectedZones.ZoneName);
       this.getVillageBenchmarkForm.controls["Branch"].setValue(this.SelectedBranches.Name);
 
+      var fi : any = []
+      fi.Id = "null";
+      fi.CircleCode = "All";
+      fi.LovId = "0";
+      fi.TagName="0";
+      this.SelectedCircles.splice(0, 0, fi)
+      this.getVillageBenchmarkForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
+
       this.getVillage.ZoneId = this.getVillageBenchmarkForm.controls.Zone.value;
       this.getVillage.BranchCode = this.getVillageBenchmarkForm.controls.Branch.value;
     }else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
@@ -252,6 +260,13 @@ export class GetVillageBenchMarkingComponent implements OnInit {
         console.log(data);
         this.Circles = data.Circles;
         this.SelectedCircles = this.Circles;
+        var fi : any = []
+        fi.Id = "null";
+        fi.CircleCode = "All";
+        fi.LovId = "0";
+        fi.TagName="0";
+        this.SelectedCircles.splice(0, 0, fi)
+        this.getVillageBenchmarkForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
         this.disable_circle = false;
     });
 }

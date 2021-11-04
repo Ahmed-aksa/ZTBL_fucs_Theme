@@ -1,4 +1,4 @@
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable no-cond-assign */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/semi */
@@ -88,8 +88,11 @@ export class KhaadSeedVendorService {
 
   searchVendors(limit, offSet, vendor, user) {
     
-    if(vendor.Type == 'null'){
+    if(vendor.Type == 'null' || user.CircleId == 'null'){
       vendor.Type = null
+      if(user.CircleId == 'null'){
+        user.CircleId = null
+      }
     }
 
      var request = {
@@ -125,8 +128,11 @@ export class KhaadSeedVendorService {
 
    searchRadius(vendor, user){
     vendor.Radius = Number(vendor.Radius)
-    if(vendor.Type == 'null'){
+    if(vendor.Type == 'null' || user.CircleId == 'null'){
       vendor.Type = null;
+      if(user.CircleId == 'null'){
+        user.CircleId = null
+      }
     }
     var request = {
      DeviceLocation: {

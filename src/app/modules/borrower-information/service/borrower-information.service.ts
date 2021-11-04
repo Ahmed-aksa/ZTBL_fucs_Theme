@@ -25,7 +25,10 @@ export class BorrowerInformationService {
         var userInfo = this.userDetail;
         var circle = userInfo.UserCircleMappings;
         var circleIds = [];
-
+        
+        if(user.CircleId == 'null'){
+            user.CircleId = null
+          }
         circle?.forEach(element => {
             circleIds.push(element.CircleId);
         });
