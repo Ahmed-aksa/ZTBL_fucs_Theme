@@ -53,7 +53,7 @@ export class ApilogDetailComponent implements OnInit {
 
 
     ngAfterViewInit() {
-        this.gridHeight = window.innerHeight - 390 + 'px';
+        this.gridHeight = window.innerHeight - 400 + 'px';
     }
 
 

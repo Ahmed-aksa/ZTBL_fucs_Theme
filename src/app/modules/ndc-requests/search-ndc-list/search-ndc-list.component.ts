@@ -292,7 +292,7 @@ export class SearchNdcListComponent implements OnInit {
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.gridHeight = window.innerHeight - 330 + 'px';
+        this.gridHeight = window.innerHeight - 400 + 'px';
     }
 
     // findCnic(cnic: HTMLInputElement) {

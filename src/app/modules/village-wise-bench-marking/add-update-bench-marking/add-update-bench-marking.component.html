@@ -188,17 +188,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let array of req_array; let i = index">
+            <tr class="text-center" *ngFor="let array of req_array; let i = index">
               <td>{{array.VillageName}}</td>
               <td>{{array.NoOfFormaer}}</td>
               <td>{{array.FarmSize}}</td>
               <td>{{array.GenderCount}}</td>
               <td>{{array.GenderType}}</td>
               <td>{{array.AverageLoanSize}}</td>
-              <td>{{array.AgriBusinessPotential}}</td>
-              <td class="d-flex justify-content-center">
+              <td >
+                <div class="w-96 break-words">
+                  {{array.AgriBusinessPotential}}
+                </div>
+                </td>
+              <td >
+                <div class="d-flex justify-content-center">
                 <button mat-icon-button color="primary" (click)="editRow(array, i)"><mat-icon title="Edit Customer">edit</mat-icon></button>
-                <button *ngIf="hideDelete(array)" mat-icon-button color="primary" style="margin-left: 5px" (click)="deleteRow(i)"><mat-icon title="Edit Customer">delete</mat-icon></button>
+                <button *ngIf="hideDelete(array)" mat-icon-button color="primary" style="margin-left: 5px" (click)="deleteRow(i)"><mat-icon title="Edit Customer">delete</mat-icon></button></div>
               </td>
               
             </tr>
@@ -206,8 +211,11 @@
         </table>
       </div>
       
-      <div class="row mt-2 justify-content-center" *ngIf="tableLength">
-          <button mat-raised-button color="primary" (click)="Submit()">Submit</button>
+      <div class=" row mt-2 justify-content-center" *ngIf="tableLength">
+        <div class="col-lg-12 text-right">
+          <button mat-raised-button color="primary" (click)="Submit()"><mat-icon class="mr-2">check_circle</mat-icon>Submit</button>
+          
+          </div>
       </div>
 
 </div>
