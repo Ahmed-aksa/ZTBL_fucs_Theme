@@ -124,9 +124,8 @@ export class KhaadSeedVendorService {
    }
 
    searchRadius(vendor, user){
-    
     vendor.Radius = Number(vendor.Radius)
-    if(vendor.Type = 'null'){
+    if(vendor.Type == 'null'){
       vendor.Type = null;
     }
     var request = {
