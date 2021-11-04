@@ -120,43 +120,51 @@
                    matSortDisableClear>
 
           <ng-container matColumnDef="VillageName">
-            <mat-header-cell *matHeaderCellDef>Village Name</mat-header-cell>
-            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.VillageName}}</mat-cell>
+            <mat-header-cell class="place-content-center" *matHeaderCellDef>Village Name</mat-header-cell>
+            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.VillageName}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="NoOfFormaer">
-            <mat-header-cell *matHeaderCellDef>No Of Farmers</mat-header-cell>
-            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.NoOfFormaer}}</mat-cell>
+            <mat-header-cell class="place-content-center" *matHeaderCellDef>No Of Farmers</mat-header-cell>
+            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.NoOfFormaer}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="FarmSize">
-            <mat-header-cell *matHeaderCellDef>Farm Size</mat-header-cell>
-            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.FarmSize}}</mat-cell>
+            <mat-header-cell class="place-content-center" *matHeaderCellDef>Farm Size</mat-header-cell>
+            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.FarmSize}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="GenderCount">
-            <mat-header-cell *matHeaderCellDef>Gender Count</mat-header-cell>
-            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderCount}}</mat-cell>
+            <mat-header-cell class="place-content-center" *matHeaderCellDef>Gender Count</mat-header-cell>
+            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderCount}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="GenderType">
-            <mat-header-cell *matHeaderCellDef>Gender Type</mat-header-cell>
-            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderType}}</mat-cell>
+            <mat-header-cell class="place-content-center" *matHeaderCellDef>Gender Type</mat-header-cell>
+            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderType}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="AverageLoanSize">
-            <mat-header-cell *matHeaderCellDef>Average Loan Size</mat-header-cell>
-            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.AverageLoanSize}}</mat-cell>
+            <mat-header-cell class="place-content-center" *matHeaderCellDef>Average Loan Size</mat-header-cell>
+            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.AverageLoanSize}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="AgriBusinessPotential">
-            <mat-header-cell *matHeaderCellDef>Agri Business Potential</mat-header-cell>
-            <mat-cell *matCellDef="let VillageBenchMark">{{VillageBenchMark.AgriBusinessPotential}}</mat-cell>
+            <mat-header-cell class="place-content-center text-center" *matHeaderCellDef >Agri Business Potential</mat-header-cell>
+            <mat-cell *matCellDef="let VillageBenchMark" class="place-content-center" style="width: 50px; text-align:center;">
+              <div class="w-28 text-center">
+                <div class="w-full break-words text-center">
+                  {{VillageBenchMark.AgriBusinessPotential}}
+                </div>
+              </div>
+
+
+              </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="Delete">
-            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let VillageBenchMark">
+            <mat-header-cell class="place-content-center text" *matHeaderCellDef>Action</mat-header-cell>
+            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">
               <button style="margin-left: 5px" mat-icon-button *ngIf="checkDeleteStatus(VillageBenchMark)" color="primary" (click)="deleteVillageBenchMark(VillageBenchMark)">
                 <mat-icon title="Delete Vendor">delete</mat-icon>
               </button>
