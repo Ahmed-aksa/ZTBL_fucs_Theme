@@ -131,7 +131,7 @@
         </form>
         <div class="row my-4">
             <div class="col-lg-12">
-                <div class="mat-table__wrapper">
+                <div class="mat-table__wrapper overflow-scroll" [style.height]="gridHeight">
                     <mat-table class="lmat-elevation-z8"
                                [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
                         <ng-container matColumnDef="Id">
@@ -214,26 +214,27 @@
                     <div class="mat-table__message" *ngIf="loading">Please wait....</div>
                 </div>
 
-                <div class="row py-4">
-                    <div class="col-lg-12">
 
-                        <div class="mat-select" style="padding:5px;">
-                            <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-                            Items per page:
-                            <mat-select display="inline" [(value)]="pageSize" (valueChange)="paginateRequest(1,$event)"
-                                        style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-                                <mat-option [value]="5">5</mat-option>
-                                <mat-option [value]="10">10</mat-option>
-                                <mat-option [value]="25">25</mat-option>
-                                <mat-option [value]="50">50</mat-option>
-                            </mat-select>
-                            <button (click)="paginateRequest(1)">First</button>
-                            <pagination-controls id="ndcReq" display="inline" (pageChange)="paginateRequest($event)"
-                                                 style="display: inline-block;"></pagination-controls>
-                            <button (click)="paginateRequest(Math.ceil(ndcLength/pageSize))">Last</button>
-                            <p style="float:right;">Total <b>{{ndcLength}}</b> items</p>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="row py-4">
+            <div class="col-lg-12">
+
+                <div class="mat-select" style="padding:5px;">
+                    <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
+                    Items per page:
+                    <mat-select display="inline" [(value)]="pageSize" (valueChange)="paginateRequest(1,$event)"
+                                style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+                        <mat-option [value]="5">5</mat-option>
+                        <mat-option [value]="10">10</mat-option>
+                        <mat-option [value]="25">25</mat-option>
+                        <mat-option [value]="50">50</mat-option>
+                    </mat-select>
+                    <button (click)="paginateRequest(1)">First</button>
+                    <pagination-controls id="ndcReq" display="inline" (pageChange)="paginateRequest($event)"
+                                         style="display: inline-block;"></pagination-controls>
+                    <button (click)="paginateRequest(Math.ceil(ndcLength/pageSize))">Last</button>
+                    <p style="float:right;">Total <b>{{ndcLength}}</b> items</p>
                 </div>
             </div>
         </div>
@@ -246,7 +247,7 @@
         <br>
 
 
-        <div class="mat-table__wrapper ">
+        <div class="mat-table__wrapper  overflow-scroll" [style.height]="gridHeight">
             <mat-table class="lmat-elevation-z8"
                        [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSizePending, currentPage: pageIndexPending, totalItems: pendingLength}">
                 <ng-container matColumnDef="customer_cnic">
