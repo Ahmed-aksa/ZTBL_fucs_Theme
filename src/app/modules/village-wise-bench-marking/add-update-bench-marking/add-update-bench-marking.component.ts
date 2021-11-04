@@ -198,6 +198,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
       this.addUpdateBenchMarkForm.markAsUntouched();
       this.addUpdateBenchMarkForm.markAsPristine();
+      this.ind = null;
     
   }
 
