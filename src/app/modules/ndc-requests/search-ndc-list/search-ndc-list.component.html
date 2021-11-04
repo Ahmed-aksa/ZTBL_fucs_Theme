@@ -135,8 +135,8 @@
                     <mat-table class="lmat-elevation-z8"
                                [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
                         <ng-container matColumnDef="Id">
-                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>ID</mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let i=index">{{i + 1}}</mat-cell>
+                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>Sr#</mat-header-cell>
+                            <mat-cell [style.min-width]="" *matCellDef="let request">{{request.srNo}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="customer_cnic">
                             <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
@@ -249,7 +249,7 @@
 
         <div class="mat-table__wrapper  overflow-scroll" [style.height]="gridHeight">
             <mat-table class="lmat-elevation-z8"
-                       [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSize, currentPage: pageIndexPending, totalItems: pendingLength}">
+                       [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSizePending, currentPage: pageIndexPending, totalItems: pendingLength}">
                 <ng-container matColumnDef="customer_cnic">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
                     </mat-header-cell>
@@ -282,7 +282,7 @@
         <div class="mat-select" style="padding:5px;">
             <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
             Items per page:
-            <mat-select display="inline" [(value)]="pageSize" (valueChange)="paginatePending(1,$event)"
+            <mat-select display="inline" [(value)]="pageSizePending" (valueChange)="paginatePending(1,$event)"
                         style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
                 <mat-option [value]="5">5</mat-option>
                 <mat-option [value]="10">10</mat-option>

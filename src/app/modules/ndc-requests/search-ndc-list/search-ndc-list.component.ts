@@ -4,7 +4,7 @@
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -53,7 +53,7 @@ export class SearchNdcListComponent implements OnInit {
     loading: boolean;
     gridHeight: string;
     selected_b;
-
+    hasSrNo: boolean = false;
     hide = true;
     selected_z;
     selected_c;
@@ -62,6 +62,7 @@ export class SearchNdcListComponent implements OnInit {
     ndcForm: FormGroup;
 
     pageSize = 10;
+    pageSizePending = 10;
     ndcLength: number;
     pendingLength: number;
     pageSizeOptions = [10, 25, 50]
@@ -116,6 +117,10 @@ export class SearchNdcListComponent implements OnInit {
         this.settingZBC()
         this.loadUsersList();
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if(this.hasSrNo != true){
+            this.ndc_requests_displayed_columns = [
+                'customer_cnic', 'name', 'current_status', 'last_status', 'next_action_by', 'request_by', 'request_on', 'actions'];
+        }
         //
         // if (this.LoggedInUserInfo.User.App == "1") {
         //     //admin user
@@ -166,7 +171,6 @@ export class SearchNdcListComponent implements OnInit {
     // }
 
     loadUsersList() {
-  debugger
         this.user.ZoneId = this.ndcForm.controls.ZoneId.value;
         this.user.BranchId = this.ndcForm.controls.BranchId.value;
         this.user.CircleId = this.ndcForm.controls.CircleId.value;
@@ -193,6 +197,9 @@ export class SearchNdcListComponent implements OnInit {
 
                     console.log(baseResponse)
                     this.request_data_source = baseResponse.Ndc.Ndcrequests
+                    if(this.request_data_source[0].srNo != undefined){
+                        this.hasSrNo = true;
+                    }
                     this.dvReq = this.request_data_source;
                     this.ndcLength = this.dvReq.length;
                     this.request_data_source = this.dvReq.slice(0, this.pageSize);
@@ -311,8 +318,9 @@ export class SearchNdcListComponent implements OnInit {
             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
             window.open(baseResponse.Ndc.ndcFilePath,'Download');
             //this.downloadFile1()
-
-
+          }
+          else{
+              this.layoutUtilsService.alertElement('', baseResponse.Message)
           }
         });
     }
@@ -338,7 +346,7 @@ export class SearchNdcListComponent implements OnInit {
     }
 
     paginatePending(pageIndex: any, pageSize: any = this.pageSize) {
-      this.pageIndexPending = pageSize;
+      this.pageSizePending = pageSize;
       this.pageIndexPending = pageIndex;
       this.offSet = pageIndex;
 
