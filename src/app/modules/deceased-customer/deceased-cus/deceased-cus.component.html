@@ -19,15 +19,15 @@
 
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-<!--                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">-->
-<!--                        <mat-label class="customMatLabel">Zone</mat-label>-->
-<!--                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">-->
-<!--                            <mat-option [value]="SelectedZones?.ZoneId">-->
-<!--                                {{SelectedZones?.ZoneName}}-->
-<!--                            </mat-option>-->
-<!--                        </mat-select>-->
-<!--                    </mat-form-field>-->
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" >
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                            <mat-option [value]="SelectedZones?.ZoneId">
+                                {{SelectedZones?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"  *ngIf="!single_zone" >
                         <mat-label class="customMatLabel">Zone</mat-label>
                         <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
                                     (selectionChange)="changeZone($event)">
