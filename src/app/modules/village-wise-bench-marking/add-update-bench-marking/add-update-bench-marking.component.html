@@ -92,23 +92,32 @@
         <div class="col-lg-3 col-sm-12">
           <div>
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Gender Count<strong class="matMandatory">*</strong></mat-label>
-              <input matInput placeholder="Enter Gender Count" formControlName="GenderCount" autocomplete="off" appNumberOnly />
+              <mat-label class="customMatLabel">Male<strong class="matMandatory">*</strong></mat-label>
+              <input matInput placeholder="Enter Male Population" formControlName="Male" autocomplete="off" appNumberOnly />
             </mat-form-field>
           </div>
         </div>
         <div class="col-lg-3 col-sm-12">
           <div>
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Gender Type<strong class="matMandatory">*</strong></mat-label>
-              <mat-select formControlName="GenderType">
-                <mat-option *ngFor="let gender of GenderLov" [value]="gender.Name">
-                  {{gender.Name}}
-                </mat-option>
-              </mat-select>
+              <mat-label class="customMatLabel">Female<strong class="matMandatory">*</strong></mat-label>
+              <input matInput placeholder="Enter Female Population" formControlName="Female" autocomplete="off" appNumberOnly />
             </mat-form-field>
           </div>
         </div>
+        <div class="col-lg-3 col-sm-12">
+          <div>
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+              <mat-label class="customMatLabel">Transgender<strong class="matMandatory">*</strong></mat-label>
+              <input matInput placeholder="Enter Transgender Population" formControlName="Transgender" autocomplete="off" appNumberOnly />
+            </mat-form-field>
+          </div>
+        </div>
+        
+      </div>
+
+
+      <div class="row">
         <div class="col-lg-3 col-sm-12">
           <div>
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -117,10 +126,6 @@
             </mat-form-field>
           </div>
         </div>
-      </div>
-
-
-      <div class="row">
         <div class="col-lg-3 col-sm-12">
           <div>
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -145,17 +150,17 @@
             </mat-form-field>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-12">
-          <div>
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Big Farmers</mat-label>
-              <input matInput placeholder="Enter Big Farmers" formControlName="BigFarmars" autocomplete="off" appNumberOnly />
-            </mat-form-field>
-          </div>
-        </div>
         </div>
           <div>
             <div class="row">
+              <div class="col-lg-3 col-sm-12">
+                <div>
+                  <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">Big Farmers</mat-label>
+                    <input matInput placeholder="Enter Big Farmers" formControlName="BigFarmars" autocomplete="off" appNumberOnly />
+                  </mat-form-field>
+                </div>
+              </div>
               <div class="col-lg-3 col-sm-12">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Agri Business Potential</mat-label>
@@ -181,8 +186,8 @@
               <th>Village Name</th>
               <th>No Of Formaer</th>
               <th>Farm Size</th>
-              <th>GenderCount</th>
-              <th>Gender Type</th>
+              <!-- <th>GenderCount</th>
+              <th>Gender Type</th> -->
               <th>Average Loan Size</th>
               <th>Agri Business Potential</th>
               <th>Action</th>
@@ -194,8 +199,8 @@
               <td>{{array.VillageName}}</td>
               <td>{{array.NoOfFormaer}}</td>
               <td>{{array.FarmSize}}</td>
-              <td>{{array.GenderCount}}</td>
-              <td>{{array.GenderType}}</td>
+              <!-- <td>{{array.GenderCount}}</td>
+              <td>{{array.GenderType}}</td> -->
               <td>{{array.AverageLoanSize}}</td>
               <td  style="width: 100px; text-align:center;" >
                 <div class="w-96">
