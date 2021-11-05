@@ -226,7 +226,7 @@ export class GetVillageBenchMarkingComponent implements OnInit {
   deleteVillageBenchMark(benchmark){
     this.getVillage = benchmark;
 
-    const dialogRef = this.dialog.open(RemarkDialogComponent, { width: "600px", height: "200px", data: this.getVillage, disableClose: true });
+    const dialogRef = this.dialog.open(RemarkDialogComponent, { panelClass: 'trend-dialog', width: "600px", height: "250px", data: this.getVillage, disableClose: true });
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
         return;

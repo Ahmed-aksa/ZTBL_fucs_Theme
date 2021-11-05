@@ -3,6 +3,15 @@
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
 
+.trend-dialog{
+  overflow-y: hidden;
+  .mat-dialog-container{
+      overflow-y: hidden;
+      box-shadow: none !important;
+  }
+}
+
+
 body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-primary, body.light .mat-fab.mat-primary, body.light .mat-mini-fab.mat-primary, body .light .mat-flat-button.mat-primary, body .light .mat-raised-button.mat-primary, body .light .mat-fab.mat-primary, body .light .mat-mini-fab.mat-primary {
     background-color: #ECBD00;
     border-radius: 6px !important;
