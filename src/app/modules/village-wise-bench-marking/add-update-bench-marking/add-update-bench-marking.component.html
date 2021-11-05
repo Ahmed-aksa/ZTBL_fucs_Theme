@@ -59,7 +59,7 @@
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Circle</mat-label>
 
-                <mat-select formControlName="CircleId" [disabled]="disable_circle">
+                <mat-select formControlName="CircleId" [disabled]="disable_circle" (selectionChange)="circleChange($event)">
                     <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
                     >
                         {{circle?.CircleCode}}
@@ -177,6 +177,7 @@
         <table class="table table-striped" *ngIf="tableLength">
           <thead>
             <tr class="table-header-background text-center">
+              <th>Circle Id</th>
               <th>Village Name</th>
               <th>No Of Formaer</th>
               <th>Farm Size</th>
@@ -189,6 +190,7 @@
           </thead>
           <tbody>
             <tr class="text-center" *ngFor="let array of req_array; let i = index">
+              <td style="width: 100px; text-align:center;">{{circleCode}}</td>
               <td>{{array.VillageName}}</td>
               <td>{{array.NoOfFormaer}}</td>
               <td>{{array.FarmSize}}</td>
@@ -197,7 +199,7 @@
               <td>{{array.AverageLoanSize}}</td>
               <td  style="width: 100px; text-align:center;" >
                 <div class="w-96">
-                  <div class="w-full break-words text-justify">
+                  <div class="w-full break-words text-center">
                     {{array.AgriBusinessPotential}}
                   </div>
                 </div>

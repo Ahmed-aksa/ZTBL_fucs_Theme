@@ -74,7 +74,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
   single_branch = true;
   single_circle = true;
   single_zone = true;
-
+  circleCode: any;
   //villageBenchMark = new VillageBenchMark();
 
   req_array:VillageBenchMark[] = [];
@@ -128,6 +128,11 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
   }
 
+  circleChange(event){
+    var circle = event;
+    this.circleCode = circle.source.triggerValue;
+  }
+
   createForm(){
     this.addUpdateBenchMarkForm = this.fb.group({
       ZoneId: [null, Validators.required],
@@ -170,6 +175,18 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
       this.hasFormErrors = true;
       return;
+    }
+
+    var ef = this.addUpdateBenchMarkForm.controls.EconomicFarmer.value,
+    sf = this.addUpdateBenchMarkForm.controls.SubsistenceFarmer.value,
+    bf = this.addUpdateBenchMarkForm.controls.BigFarmars.value,
+    tot = this.addUpdateBenchMarkForm.controls.NoOfFormaer.value;
+
+    var resF = sf+ef+bf;
+    
+    if(tot != resF){
+      this.layoutUtilsService.alertElement("", "Economic, Big and Subsistence Farmer value should not be greater or less than No. of Farmers");
+      return
     }
 
     this.tableLength = true;

@@ -372,10 +372,10 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
       return;
     }
     
-    if(this.file == null){
-      this.layoutUtilsService.alertElement("", "Please attach an Image in Png, Jpg or Jpeg format");
-      return
-    }
+    // if(this.file == null){
+    //   this.layoutUtilsService.alertElement("", "Please attach an Image in Png, Jpg or Jpeg format");
+    //   return
+    // }
 
     
     this.khaadSeedVendor = Object.assign(this.khaadSeedVendor, this.vendorForm.value);
