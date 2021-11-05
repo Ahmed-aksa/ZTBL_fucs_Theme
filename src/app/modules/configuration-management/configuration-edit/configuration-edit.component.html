@@ -62,12 +62,12 @@
                         <button type="button" class="shadow-md btn bg-red-500 text-white rounded-md mx-2" mat-raised-button color="danger"
                                 [mat-dialog-close]="data.animal"
                                 cdkFocusInitial>
-                            Cancel
+                                <mat-icon class="mr-2">cancel</mat-icon>Cancel
                         </button>&nbsp;
                         <button type="button" class="btn btn-primary" mat-raised-button color="primary"
                                 (click)="onSubmit()"
                                 [disabled]="viewLoading || submitted">
-                            Save
+                            <mat-icon class="mr-2">save</mat-icon>Save
                         </button>
                     </div>
                 </div>
