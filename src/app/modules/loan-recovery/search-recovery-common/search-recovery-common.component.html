@@ -1,12 +1,12 @@
 
-<div class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
   <div class="text-3xl  mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</div>
 
   <!-- Header -->
   <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-2"
     style="flex-wrap: wrap">
   </div>
-  <div class="overflow-y-scroll" >
+  <div  >
     <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
       <div class="kt-form">
         <div class="kt-portlet__body">
@@ -72,7 +72,7 @@
 
           <div class="form-group kt-form__group row" *ngIf="dataFetched && RecoveryLoanTransaction.length>0">
             <div class="col-lg-12">
-              <div class="table-responsive" style="overflow-x: hidden;">
+              <div class="table-responsive overflow-scroll" [style.height]="gridHeight">
                 <table class="table table-striped">
                   <thead>
                     <tr class="table-header-background">

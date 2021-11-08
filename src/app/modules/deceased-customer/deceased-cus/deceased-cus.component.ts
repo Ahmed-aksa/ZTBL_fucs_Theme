@@ -28,6 +28,7 @@ import {DeceasedCustomerService} from '../../../shared/services/deceased-custome
 import {CommonService} from '../../../shared/services/common.service';
 import {finalize} from 'rxjs/operators';
 import {ViewFileComponent} from "../view-file/view-file.component";
+import {CircleService} from "../../../shared/services/circle.service";
 
 @Component({
     selector: 'app-deceased-cus',
@@ -82,6 +83,23 @@ export class DeceasedCusComponent implements OnInit {
     rawData = new Documents();
     errorShow: boolean;
     viewOnly: boolean;
+    single_zone = true
+    disable_zone = true
+    public Zone = new Zone();
+    selected_b;
+    Circles: any = [];
+    SelectedCircles: any = [];
+    disable_circle = true;
+    Branches: any = [];
+    SelectedBranches: any = [];
+    selected_z: any;
+    selected_c: any;
+    SelectedZones: any = [];
+    disable_branch = true;
+    single_branch = true;
+    loading: boolean;
+    private _cdf: ChangeDetectorRef
+    Zones: any = [];
 
 
     dataSource: MatTableDataSource<DeceasedCust>;
@@ -102,6 +120,11 @@ export class DeceasedCusComponent implements OnInit {
         { value: "0", viewValue: "NO" },
         { value: "1", viewValue: "Yes" },
     ];
+    private loggedInUserDetails: any;
+    private final_branch: any;
+    private final_zone: any;
+    isUserAdmin: boolean = false;
+
 
     constructor(
         private fb: FormBuilder,
@@ -109,6 +132,7 @@ export class DeceasedCusComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private userUtilsService: UserUtilsService,
         private cdRef: ChangeDetectorRef,
+        private _circleService: CircleService,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private _deceasedCustomer: DeceasedCustomerService,
@@ -118,12 +142,12 @@ export class DeceasedCusComponent implements OnInit {
         private datePipe: DatePipe,
 
     ) {
-        
+
         router.events.subscribe((val: any) => {
             if (val.url == "/deceased-customer/customers") {
             }
         });
-        
+
     }
 
     onAlertClose($event) {
@@ -133,7 +157,7 @@ export class DeceasedCusComponent implements OnInit {
     ngAfterViewInit() {
         // this.GetDisbursement();
         if (this.route.snapshot.params["LnTransactionID"] != null) {
-            
+
             this.GetReshTransaction()
         }
     }
@@ -145,7 +169,7 @@ export class DeceasedCusComponent implements OnInit {
 
     GetReshTransaction()
     {
-        
+
         this.spinner.show();
         this.cnicn = this.route.snapshot.params["LnTransactionID"];
         this.name = this.route.snapshot.params["CustomerName"];
@@ -154,15 +178,15 @@ export class DeceasedCusComponent implements OnInit {
         }
         this.deceasedInfo.Cnic = this.cnicn
         this.deceasedInfo.CustomerName = this.name
-        
+
         this._deceasedCustomer
-            .GetDeceasedCustomer(this.deceasedInfo)
+            .GetDeceasedCustomer(this.deceasedInfo,this.final_branch,this.final_zone)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    
+
                     this.isEmpty = true;
                     this.DeceasedCustomerInf =  baseResponse.DeceasedCustomer.DeceasedCustomerInfo;
                     console.log(this.DeceasedCustomerInf)
@@ -188,7 +212,7 @@ export class DeceasedCusComponent implements OnInit {
                     this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
                 } else {
                     this.isEmpty = false;
-                    
+
                     this.layoutUtilsService.alertElement(
                         "",
                         baseResponse.Message,
@@ -201,11 +225,96 @@ export class DeceasedCusComponent implements OnInit {
 
     ngOnInit() {
         this.createForm();
-        var userInfo = this.userUtilsService.getUserDetails();
+        this.settingZBC();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if (userInfo.User.AccessToData == "1") {
+            //admin user
+            this.isUserAdmin = true;
+            this.GetZones();
+        }
         this.customerForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
         this.customerForm.controls.Branch.setValue(userInfo.Branch.Name);
         //this.elementsFormControls();.
         //console.log(this.DeceasedCustomerAttachedFile)
+    }
+
+    GetZones() {
+
+        this.loading = true;
+        this._circleService.getZones()
+            .pipe(
+                finalize(() => {
+                    this.loading = false;
+                })
+            ).subscribe(baseResponse => {
+
+            if (baseResponse.Success) {
+
+                baseResponse.Zones.forEach(function (value) {
+                    value.ZoneName = value.ZoneName.split("-")[1];
+                })
+                this.Zones = baseResponse.Zones;
+                this.SelectedZones = baseResponse.Zones;
+
+                //this.landSearch.controls['ZoneId'].setValue(this.Zones[0].ZoneId);
+                //this.GetBranches(this.Zones[0].ZoneId);
+                this.loading = false;
+                this._cdf.detectChanges();
+            }
+            else
+                this.layoutUtilsService.alertElement("", baseResponse.Message);
+
+        });
+    }
+
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
+
+    changeBranch(changedValue) {
+        let changedBranch = null;
+        if (changedValue.value)
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        else
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
+        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+
+            this.Circles = data.Circles;
+            this.SelectedCircles = this.Circles;
+            this.disable_circle = false;
+            if (changedValue.value) {
+                // this.getBorrower();
+            }
+        });
+    }
+
+    private assignBranchAndZone() {
+
+
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.loggedInUserDetails.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.loggedInUserDetails.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.loggedInUserDetails.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.loggedInUserDetails.Zone = this.final_zone;
+        }
+
     }
 
 
@@ -220,8 +329,8 @@ export class DeceasedCusComponent implements OnInit {
 
 
         this.customerForm = this.fb.group({
-            Zone: ["", Validators.required],
-            Branch: ["", Validators.required],
+            ZoneId: ["", Validators.required],
+            BranchId: ["", Validators.required],
             PPNo:[""],
             Cnic: [""],
             DateofDeath:['', Validators.required],
@@ -244,7 +353,7 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     onFileChange(event) {
-        
+
         if (event.target.files && event.target.files[0]) {
             var filesAmount = event.target.files.length;
             this.file = event.target.files[0];
@@ -259,6 +368,7 @@ export class DeceasedCusComponent implements OnInit {
                         this.imageUrl = event.target.result;
                         this.visible = false;
                     }
+
 
 
                     reader.readAsDataURL(this.file);
@@ -298,14 +408,14 @@ export class DeceasedCusComponent implements OnInit {
     previewImg(){
         // for(var a=0 ; this.DeceasedCustomerAttachedFile.length > a; a++)
         // {
-        //   
+        //
         //   if(id == this.DeceasedCustomerAttachedFile[a].ID)
         //   {
-        //     
+        //
         //     this.url = this.DeceasedCustomerAttachedFile[a].Path
         //   }
         // }
-        
+
         const dialogRef = this.dialog.open(ViewFileComponent, {
             width: '90%',
             height: '90%',
@@ -314,17 +424,17 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     find() {
-        
+        this.assignBranchAndZone();
         this.spinner.show();
         this._deceasedCustomer
-            .GetDeceasedCustomer(this.customerForm.value)
+            .GetDeceasedCustomer(this.customerForm.value,this.final_branch,this.final_zone)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     this.isEmpty = true;
-                    
+
                     var json = JSON.stringify(baseResponse.DeceasedCustomer);
                     console.log(json);
                     // console.log()
@@ -360,14 +470,14 @@ export class DeceasedCusComponent implements OnInit {
 
 
                     this.dataSource = baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries;
-                    
+
                     console.log(this.dataSource);
                     //this.savedFiles =
                     this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
 
-                    
+
                 } else {
-                    
+
                     this.layoutUtilsService.alertElement(
                         "",
                         baseResponse.Message,
@@ -376,19 +486,47 @@ export class DeceasedCusComponent implements OnInit {
                 }
             });
     }
+    settingZBC() {
+
+        this.loggedInUserDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if (this.loggedInUserDetails.Branch && this.loggedInUserDetails.Branch.BranchCode != "All") {
+            this.SelectedCircles = this.loggedInUserDetails.UserCircleMappings;
+
+            this.SelectedBranches = this.loggedInUserDetails.Branch;
+            this.SelectedZones = this.loggedInUserDetails.Zone;
+
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.selected_c = this.SelectedCircles?.Id
+            this.customerForm.controls.ZoneId.setValue(this.SelectedZones.ZoneName);
+            this.customerForm.controls.BranchId.setValue(this.SelectedBranches.BranchCode);
+            // if (this.customerForm.value.Branch) {
+            //     this.changeBranch(this.customerForm.value.Branch);
+            // }
+        } else if (!this.loggedInUserDetails.Branch && !this.loggedInUserDetails.Zone && !this.loggedInUserDetails.Zone) {
+            this.spinner.show();
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.Zone = data?.Zones;
+                this.SelectedZones = this?.Zone;
+                this.single_zone = false;
+                this.disable_zone = false;
+                this.spinner.hide();
+            });
+        }
+    }
 
     viewDocument(id){
-        
+
         for(var a=0 ; this.DeceasedCustomerAttachedFile.length > a; a++)
         {
-            
+
             if(id == this.DeceasedCustomerAttachedFile[a].ID)
             {
-                
+
                 this.url = this.DeceasedCustomerAttachedFile[a].Path
             }
         }
-        
+
         const dialogRef = this.dialog.open(ViewFileComponent, {
             width: '50%',
             height: '50%',
@@ -426,6 +564,8 @@ export class DeceasedCusComponent implements OnInit {
 
     // }
 
+
+
     changed(value){
         this.len = value.target.value;
         if(this.len.length <= 13)
@@ -439,7 +579,7 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     MarkAsDeceasedCustomer(){
-        
+
 
         this.errorShow = false;
         this.hasFormErrors = false;
@@ -469,7 +609,7 @@ export class DeceasedCusComponent implements OnInit {
             this.customerForm.controls["IsReferredBack"].setValue("1");
         }
 
-        
+
         this.markDeceasedCustomer = Object.assign(this.markDeceasedCustomer, this.customerForm.value);
         //if(this.deceasedCustomerID != null){
         //  this.markDeceasedCustomer.DeceasedID = this.deceasedCustomerID
@@ -501,7 +641,7 @@ export class DeceasedCusComponent implements OnInit {
                     }))
                     .subscribe((baseResponse) => {
                         if (baseResponse.Success) {
-                            
+
                             this.layoutUtilsService.alertElementSuccess(
                                 "",
                                 Message="Information Saved Successfully",
@@ -510,7 +650,7 @@ export class DeceasedCusComponent implements OnInit {
                             this.router.navigateByUrl('deceased-customer/search')
                         }
                         else {
-                            
+
                             this.layoutUtilsService.alertElement(
                                 "",
                                 baseResponse.Message,
@@ -523,7 +663,7 @@ export class DeceasedCusComponent implements OnInit {
         }
         else{
 
-            
+
 
             if(!this.customerForm.controls.file.value && !this.DeceasedCustomerAttachedFile){
                 var Message;
@@ -541,7 +681,7 @@ export class DeceasedCusComponent implements OnInit {
                     }))
                     .subscribe((baseResponse) => {
                         if (baseResponse.Success) {
-                            
+
                             this.layoutUtilsService.alertElementSuccess(
                                 "",
                                 Message="Information Saved Successfully",
@@ -550,7 +690,7 @@ export class DeceasedCusComponent implements OnInit {
                             this.router.navigateByUrl('deceased-customer/search')
                         }
                         else {
-                            
+
                             this.layoutUtilsService.alertElement(
                                 "",
                                 baseResponse.Message,
@@ -588,4 +728,9 @@ export interface DeceasedCust {
 
 function stringToDate(DeathDate: any) {
     throw new Error("Function not implemented.");
+}
+export class Zone {
+    ZoneId: number;
+    ZoneName: string;
+
 }

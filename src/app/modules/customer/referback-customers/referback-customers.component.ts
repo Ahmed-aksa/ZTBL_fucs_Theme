@@ -69,7 +69,7 @@ export class ReferbackCustomersComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.gridHeight = window.innerHeight - 280 + 'px';
+    this.gridHeight = window.innerHeight - 400 + 'px';
   }
 
 

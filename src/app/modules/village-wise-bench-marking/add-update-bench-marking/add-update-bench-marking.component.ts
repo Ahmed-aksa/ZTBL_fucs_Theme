@@ -74,7 +74,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
   single_branch = true;
   single_circle = true;
   single_zone = true;
-
+  circleCode: any;
   //villageBenchMark = new VillageBenchMark();
 
   req_array:VillageBenchMark[] = [];
@@ -128,6 +128,11 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
   }
 
+  circleChange(event){
+    var circle = event;
+    this.circleCode = circle.source.triggerValue;
+  }
+
   createForm(){
     this.addUpdateBenchMarkForm = this.fb.group({
       ZoneId: [null, Validators.required],
@@ -137,8 +142,9 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
       VillageName: [null, Validators.required],
       NoOfFormaer: [null, Validators.required],
       FarmSize: [null, Validators.required],
-      GenderCount: [null, Validators.required],
-      GenderType: [null, Validators.required],
+      Male: [null, Validators.required],
+      Female: [null, Validators.required],
+      Transgender: [null, Validators.required],
       AverageLoanSize: [null, Validators.required],
       SubsistenceFarmer: [null],
       EconomicFarmer: [null],
@@ -159,7 +165,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
   }
 
   Add() {
-
+    debugger
     this.errorShow = false;
     this.hasFormErrors = false;
     if (this.addUpdateBenchMarkForm.invalid) {
@@ -170,6 +176,26 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
       this.hasFormErrors = true;
       return;
+    }
+
+    var ef = this.addUpdateBenchMarkForm.controls.EconomicFarmer.value ? Number(this.addUpdateBenchMarkForm.controls.EconomicFarmer.value) : 0,
+    sf = this.addUpdateBenchMarkForm.controls.SubsistenceFarmer.value ? Number(this.addUpdateBenchMarkForm.controls.SubsistenceFarmer.value): 0,
+    bf = this.addUpdateBenchMarkForm.controls.BigFarmars.value ? Number(this.addUpdateBenchMarkForm.controls.BigFarmars.value): 0,
+    male = this.addUpdateBenchMarkForm.controls.Male.value ? Number(this.addUpdateBenchMarkForm.controls.Male.value): 0,
+    female = this.addUpdateBenchMarkForm.controls.Female.value ? Number(this.addUpdateBenchMarkForm.controls.Female.value): 0,
+    transgender = this.addUpdateBenchMarkForm.controls.Transgender.value ? Number(this.addUpdateBenchMarkForm.controls.Transgender.value): 0,
+    tot = Number(this.addUpdateBenchMarkForm.controls.NoOfFormaer.value);
+
+    var resF = sf+ef+bf, resG = male+female+transgender;
+    
+    if(resF != 0 && tot != resF){
+      this.layoutUtilsService.alertElement("", "Economic, Big and Subsistence Farmer value should not be greater or less than No. of Farmers");
+      return
+    }
+
+    if(resG != 0 && tot != resG){
+      this.layoutUtilsService.alertElement("", "Gender Male, Female & Transgenders values should not be greater or less than No. of Farmers");
+      return
     }
 
     this.tableLength = true;
@@ -187,8 +213,9 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     this.addUpdateBenchMarkForm.controls['VillageName'].reset();
     this.addUpdateBenchMarkForm.controls['NoOfFormaer'].reset();
     this.addUpdateBenchMarkForm.controls['FarmSize'].reset();
-    this.addUpdateBenchMarkForm.controls['GenderCount'].reset();
-    this.addUpdateBenchMarkForm.controls['GenderType'].reset();
+    this.addUpdateBenchMarkForm.controls['Male'].reset();
+    this.addUpdateBenchMarkForm.controls['Female'].reset();
+    this.addUpdateBenchMarkForm.controls['Transgender'].reset();
     this.addUpdateBenchMarkForm.controls['AverageLoanSize'].reset();
     this.addUpdateBenchMarkForm.controls['SubsistenceFarmer'].reset();
     this.addUpdateBenchMarkForm.controls['EconomicFarmer'].reset();
@@ -198,6 +225,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
       this.addUpdateBenchMarkForm.markAsUntouched();
       this.addUpdateBenchMarkForm.markAsPristine();
+      this.ind = null;
     
   }
 
@@ -218,8 +246,9 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     this.addUpdateBenchMarkForm.controls['VillageName'].reset();
     this.addUpdateBenchMarkForm.controls['NoOfFormaer'].reset();
     this.addUpdateBenchMarkForm.controls['FarmSize'].reset();
-    this.addUpdateBenchMarkForm.controls['GenderCount'].reset();
-    this.addUpdateBenchMarkForm.controls['GenderType'].reset();
+    this.addUpdateBenchMarkForm.controls['Male'].reset();
+    this.addUpdateBenchMarkForm.controls['Female'].reset();
+    this.addUpdateBenchMarkForm.controls['Transgender'].reset();
     this.addUpdateBenchMarkForm.controls['AverageLoanSize'].reset();
     this.addUpdateBenchMarkForm.controls['SubsistenceFarmer'].reset();
     this.addUpdateBenchMarkForm.controls['EconomicFarmer'].reset();
@@ -240,8 +269,9 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
       this.addUpdateBenchMarkForm.controls['VillageName'].setValue(benchmark.VillageName);
       this.addUpdateBenchMarkForm.controls['NoOfFormaer'].setValue(benchmark.NoOfFormaer);
       this.addUpdateBenchMarkForm.controls['FarmSize'].setValue(benchmark.FarmSize);
-      this.addUpdateBenchMarkForm.controls['GenderCount'].setValue(benchmark.GenderCount);
-      this.addUpdateBenchMarkForm.controls['GenderType'].setValue(benchmark.GenderType);
+      this.addUpdateBenchMarkForm.controls['Male'].setValue(benchmark.Male);
+      this.addUpdateBenchMarkForm.controls['Female'].setValue(benchmark.Female);
+      this.addUpdateBenchMarkForm.controls['Transgender'].setValue(benchmark.Transgender);
       this.addUpdateBenchMarkForm.controls['AverageLoanSize'].setValue(benchmark.AverageLoanSize);
       this.addUpdateBenchMarkForm.controls['SubsistenceFarmer'].setValue(benchmark.SubsistenceFarmer);
       this.addUpdateBenchMarkForm.controls['EconomicFarmer'].setValue(benchmark.EconomicFarmer);
@@ -256,8 +286,9 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
           this.addUpdateBenchMarkForm.controls['VillageName'].setValue(benchmark.VillageName);
           this.addUpdateBenchMarkForm.controls['NoOfFormaer'].setValue(benchmark.NoOfFormaer);
           this.addUpdateBenchMarkForm.controls['FarmSize'].setValue(benchmark.FarmSize);
-          this.addUpdateBenchMarkForm.controls['GenderCount'].setValue(benchmark.GenderCount);
-          this.addUpdateBenchMarkForm.controls['GenderType'].setValue(benchmark.GenderType);
+          this.addUpdateBenchMarkForm.controls['Male'].setValue(benchmark.Male);
+          this.addUpdateBenchMarkForm.controls['Female'].setValue(benchmark.Female);
+          this.addUpdateBenchMarkForm.controls['Transgender'].setValue(benchmark.Transgender);
           this.addUpdateBenchMarkForm.controls['AverageLoanSize'].setValue(benchmark.AverageLoanSize);
           this.addUpdateBenchMarkForm.controls['SubsistenceFarmer'].setValue(benchmark.SubsistenceFarmer);
           this.addUpdateBenchMarkForm.controls['EconomicFarmer'].setValue(benchmark.EconomicFarmer);

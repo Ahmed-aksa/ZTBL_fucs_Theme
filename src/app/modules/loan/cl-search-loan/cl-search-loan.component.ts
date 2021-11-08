@@ -102,7 +102,7 @@ export class ClSearchLoanComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    this.gridHeight = window.innerHeight - 300 + 'px';
+    this.gridHeight = window.innerHeight - 400 + 'px';
   }
 
 

@@ -13,7 +13,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -32,7 +32,7 @@ import { RemarkDialogComponent } from './remark-dialog/remark-dialog.component';
   templateUrl: './get-village-bench-marking.component.html',
   styleUrls: ['./get-village-bench-marking.component.scss']
 })
-export class GetVillageBenchMarkingComponent implements OnInit {
+export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['VillageName', 'NoOfFormaer', 'FarmSize', 'GenderCount', 'GenderType','AverageLoanSize', 'AgriBusinessPotential', 'Delete'];
 
@@ -42,7 +42,7 @@ export class GetVillageBenchMarkingComponent implements OnInit {
   itemsPerPage = 10;
   totalItems;
   pageIndex = 1;
-
+  gridHeight: string;
   Offset = 0;
   Limit;
 
@@ -94,6 +94,12 @@ export class GetVillageBenchMarkingComponent implements OnInit {
     this.Math = Math;
   }
 
+  ngAfterViewInit() {
+
+
+    this.gridHeight = window.innerHeight - 500 + 'px';
+}
+
   ngOnInit() {
     
     this.createForm();
@@ -116,6 +122,14 @@ export class GetVillageBenchMarkingComponent implements OnInit {
       console.log(this.SelectedZones)
       this.getVillageBenchmarkForm.controls["Zone"].setValue(this.SelectedZones.ZoneName);
       this.getVillageBenchmarkForm.controls["Branch"].setValue(this.SelectedBranches.Name);
+
+      var fi : any = []
+      fi.Id = "null";
+      fi.CircleCode = "All";
+      fi.LovId = "0";
+      fi.TagName="0";
+      this.SelectedCircles.splice(0, 0, fi)
+      this.getVillageBenchmarkForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
 
       this.getVillage.ZoneId = this.getVillageBenchmarkForm.controls.Zone.value;
       this.getVillage.BranchCode = this.getVillageBenchmarkForm.controls.Branch.value;
@@ -218,7 +232,7 @@ export class GetVillageBenchMarkingComponent implements OnInit {
   deleteVillageBenchMark(benchmark){
     this.getVillage = benchmark;
 
-    const dialogRef = this.dialog.open(RemarkDialogComponent, { width: "600px", height: "200px", data: this.getVillage, disableClose: true });
+    const dialogRef = this.dialog.open(RemarkDialogComponent, { panelClass: 'trend-dialog', width: "600px", height: "250px", data: this.getVillage, disableClose: true });
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
         return;
@@ -252,6 +266,13 @@ export class GetVillageBenchMarkingComponent implements OnInit {
         console.log(data);
         this.Circles = data.Circles;
         this.SelectedCircles = this.Circles;
+        var fi : any = []
+        fi.Id = "null";
+        fi.CircleCode = "All";
+        fi.LovId = "0";
+        fi.TagName="0";
+        this.SelectedCircles.splice(0, 0, fi)
+        this.getVillageBenchmarkForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
         this.disable_circle = false;
     });
 }

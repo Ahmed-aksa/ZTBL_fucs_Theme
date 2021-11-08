@@ -1,4 +1,5 @@
 <form [formGroup]="configurationForm" class="kt-form kt-form--group-seperator-dashed" style="width: 836px;">
+    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Edit Page</div>
     <div>
         <mat-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                    (close)="onAlertClose($event)">
@@ -61,12 +62,12 @@
                         <button type="button" class="shadow-md btn bg-red-500 text-white rounded-md mx-2" mat-raised-button color="danger"
                                 [mat-dialog-close]="data.animal"
                                 cdkFocusInitial>
-                            Cancel
+                                <mat-icon class="mr-2">cancel</mat-icon>Cancel
                         </button>&nbsp;
                         <button type="button" class="btn btn-primary" mat-raised-button color="primary"
                                 (click)="onSubmit()"
                                 [disabled]="viewLoading || submitted">
-                            Save
+                            <mat-icon class="mr-2">save</mat-icon>Save
                         </button>
                     </div>
                 </div>

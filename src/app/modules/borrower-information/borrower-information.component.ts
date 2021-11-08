@@ -91,6 +91,13 @@ export class BorrowerInformationComponent implements OnInit {
             this.selected_c = this.SelectedCircles?.Id
             this.borrowerForm.controls["Zone"].setValue(this.SelectedZones?.Id);
             this.borrowerForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            var fi : any = []
+            fi.Id = "null";
+            fi.CircleCode = "All";
+            fi.LovId = "0";
+            fi.TagName="0";
+            this.SelectedCircles.splice(0, 0, fi)
+            this.borrowerForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
             if (this.borrowerForm.value.Branch) {
                 this.changeBranch(this.borrowerForm.value.Branch);
             }
@@ -126,6 +133,9 @@ export class BorrowerInformationComponent implements OnInit {
             this.user.Branch = this.SelectedBranches.filter((branch) => branch.BranchCode == this.borrowerForm.controls.Branch.value);
         } else {
             this.user.Branch = this.SelectedBranches;
+        }
+        if(cnic != null){
+            this.OffSet = 0;
         }
         this.user.CircleId = this.borrowerForm.controls.Circle.value;
         this.spinner.show();
@@ -194,6 +204,13 @@ export class BorrowerInformationComponent implements OnInit {
             this.Circles = data.Circles;
             this.SelectedCircles = this.Circles;
             this.disable_circle = false;
+            var fi : any = []
+            fi.Id = "null";
+            fi.CircleCode = "All";
+            fi.LovId = "0";
+            fi.TagName="0";
+            this.SelectedCircles.splice(0, 0, fi)
+            this.borrowerForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
             if (changedValue.value) {
                 this.getBorrower();
             }

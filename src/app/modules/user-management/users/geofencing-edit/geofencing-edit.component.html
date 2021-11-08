@@ -3,47 +3,42 @@
     <div class="kt-portlet__head kt-portlet__head__custom">
         <div class="kt-portlet__head-label flex">
             <h3 class=" w-full text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</h3>
-            <button type="button" class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md ml-4 mat-raised-button mat-button-base mat-danger" mat-raised-button cdkFocusInitial value="Cancel"
-            [mat-dialog-close]="false">
-            <mat-icon class="mr-2">cancel</mat-icon>Cancel
-          </button>
+
         </div>
 
 
 
         <div class="row py-3">
 
-          <div class="col-lg-3 col-sm-12">
+          <div class="col-lg-12 col-sm-12 text-right">
             <button *ngIf="isEditBtnShown && _currentActivity.U" type="button" class="btn btn-primary"
             mat-raised-button color="primary" (click)="editCircleFense()"
             [disabled]="viewLoading || submitted">
             <mat-icon class="mr-2">edit</mat-icon> Edit
             </button>
-          </div>
-          <div class="col-lg-3 col-sm-12">
-            <button *ngIf="isDeleteBtnShown && _currentActivity.D" type="button" class="btn btn-primary"
+
+            <button *ngIf="isDeleteBtnShown && _currentActivity.D" type="button" class=" mx-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
             mat-raised-button color="primary" (click)="DeeteCircleFence()"
             [disabled]="viewLoading || submitted">
             <mat-icon class="mr-2">delete_forever</mat-icon> Delete
             </button>
-          </div>
 
-          <div class="col-lg-3 col-sm-12">
+
+
             <button *ngIf="isClearBtnShown" type="button" class="btn btn-primary" mat-raised-button color="primary"
             (click)="Clear()" [disabled]="viewLoading || submitted">
             <mat-icon class="mr-2"> clear_all</mat-icon>Clear
             </button>
-          </div>
-          <div class="col-lg-3 col-sm-12">
-            <button style="background-color: #01671B;" *ngIf="isSaveBtnShown" type="button" class="btn btn-primary" mat-raised-button
+
+            <button style="background-color: #01671B;" *ngIf="isSaveBtnShown" type="button" class=" mx-2 btn btn-primary" mat-raised-button
             color="primary" (click)="onSubmit()" [disabled]="viewLoading || submitted">
             <mat-icon class="mr-2">save</mat-icon> Save
             </button>
           </div>
       </div>
 
-      <div class="row py-2">
-        <div class="col-lg-12  flex ">
+      <!-- <div class="row pb-3">
+        <div class="col-lg-12  flex " style="color: #01671B;">
           <h5 class="mr-5 mt-3"><span class="map-circle-1 mr-2"> </span>Add</h5>
 
 
@@ -53,7 +48,7 @@
 
           <h5 class="mr-5 mt-3"><span class="map-circle-3 mr-2"> </span>View</h5>
         </div>
-      </div>
+      </div> -->
 
     </div>
     <form class="kt-form kt-form--group-seperator-dashed">
@@ -62,8 +57,6 @@
                 <div class="row ">
                     <div class="col-lg-12 col-md-12  mat-elevation-z8 p-3">
 
-
-                        <label>Search</label>
                         <input type="text" class="form-control mb-2" (keydown.enter)="$event.preventDefault()"
                                placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off"
                                spellcheck="off" type="text" #search>
@@ -82,6 +75,13 @@
             </div>
         </div>
     </form>
+    <div class="row pt-3">
+      <div class="col-lg-12 text-right">
+        <button type="button" class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md ml-4 mat-raised-button mat-button-base mat-danger" mat-raised-button cdkFocusInitial value="Cancel" [mat-dialog-close]="false">
+        <mat-icon class="mr-2">cancel</mat-icon>Cancel
+      </button>
+      </div>
+    </div>
 </div>
 
 

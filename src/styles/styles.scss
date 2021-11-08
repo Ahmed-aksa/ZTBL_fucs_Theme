@@ -3,6 +3,15 @@
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
 
+.trend-dialog{
+  overflow-y: hidden;
+  .mat-dialog-container{
+      overflow-y: hidden;
+      box-shadow: none !important;
+  }
+}
+
+
 body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-primary, body.light .mat-fab.mat-primary, body.light .mat-mini-fab.mat-primary, body .light .mat-flat-button.mat-primary, body .light .mat-raised-button.mat-primary, body .light .mat-fab.mat-primary, body .light .mat-mini-fab.mat-primary {
     background-color: #ECBD00;
     border-radius: 6px !important;
@@ -157,4 +166,16 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
 
 .mat-select-panel-wrap{
   overflow-x: hidden;
+}
+
+.kt-mat-alert--warn{
+  display: flex;
+  border-bottom: 1px solid #ef4444;
+  background-color: #fbd0d0;
+  width: fit-content;
+  margin-bottom: 4px;
+  .kt-mat-alert__text{
+    align-self: center;
+    padding-left: 5px;
+  }
 }

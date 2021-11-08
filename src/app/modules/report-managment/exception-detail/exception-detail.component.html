@@ -1,4 +1,4 @@
-<h3 class="kt-portlet__head-title">Error Log Details({{errorLogDetails.MethodName}})</h3>
+<h3 class="text-3xl  mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Error Log Details({{errorLogDetails.MethodName}})</h3>
 
 <table class="table ">
     <thead class="bg-success">
@@ -11,10 +11,10 @@
     </thead>
     <tbody>
     <tr>
-        <td>  {{errorLogDetails.InputParameters}}</td>
-        <td>    {{errorLogDetails.ZtblInputParams}}</td>
-        <td>{{errorLogDetails.ErrorTrace}}</td>
-        <td>  {{errorLogDetails.Message}}</td>
+        <td class="text-black w-24"> <div class="w-24 break-words">{{errorLogDetails.InputParameters}}</div> </td>
+        <td class="text-black w-24"> <div class="w-24 break-words">{{errorLogDetails.ZtblInputParams}}</div>    </td>
+        <td class="text-black w-56"> <div class="w-96 break-words">{{errorLogDetails.ErrorTrace}}</div></td>
+        <td class="text-black w-56"> <div class="w-96 break-words"> {{errorLogDetails.Message}}</div> </td>
     </tr>
     </tbody>
 </table>

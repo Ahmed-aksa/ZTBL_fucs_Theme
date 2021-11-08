@@ -1,3 +1,4 @@
+
 import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {MatSort} from "@angular/material/sort";
@@ -34,7 +35,7 @@ export class SearchNdcListComponent implements OnInit {
     loading: boolean;
     gridHeight: string;
     selected_b;
-
+    hasSrNo: boolean = false;
     hide = true;
     selected_z;
     selected_c;
@@ -43,6 +44,7 @@ export class SearchNdcListComponent implements OnInit {
     ndcForm: FormGroup;
 
     pageSize = 10;
+    pageSizePending = 10;
     ndcLength: number;
     pendingLength: number;
     pageSizeOptions = [10, 25, 50]
@@ -76,6 +78,8 @@ export class SearchNdcListComponent implements OnInit {
     private _cdf: ChangeDetectorRef
     isUserAdmin: boolean = false;
     private loggedInUserDetails: any;
+    private final_branch: any;
+    private final_zone: any;
 
     constructor(
         public dialog: MatDialog,
@@ -91,12 +95,14 @@ export class SearchNdcListComponent implements OnInit {
 
 
     ngOnInit() {
-debugger
         this.createForm()
-
         this.settingZBC()
         this.loadUsersList();
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if(this.hasSrNo != true){
+            this.ndc_requests_displayed_columns = [
+                'customer_cnic', 'name', 'current_status', 'last_status', 'next_action_by', 'request_by', 'request_on', 'actions'];
+        }
         //
         // if (this.LoggedInUserInfo.User.App == "1") {
         //     //admin user
@@ -127,7 +133,7 @@ debugger
     createForm(){
       this.ndcForm = this.fb.group({
         ZoneId: [null],
-        BranchCode: [null],
+        BranchId: [null],
         CircleId: [null],
         Cnic: [null]
       })
@@ -147,20 +153,21 @@ debugger
     // }
 
     loadUsersList() {
-
         this.user.ZoneId = this.ndcForm.controls.ZoneId.value;
-        this.user.BranchCode = this.ndcForm.controls.BranchCode.value;
+        this.user.BranchId = this.ndcForm.controls.BranchId.value;
         this.user.CircleId = this.ndcForm.controls.CircleId.value;
         this.user.Cnic = this.ndcForm.controls.Cnic.value;
 
         if (this.user.ZoneId != this.SelectedZones.ZoneId && this.user.BranchCode != this.SelectedBranches.BranchCode) {
             this.user.ZoneId = this.selected_z;
-            this.user.BranchCode = this.selected_b;
+            this.user.BranchId = this.selected_b;
         }
+
+        this.assignBranchAndZone();
 
         this.spinner.show();
         this.loading = true;
-        this.ndc_request_service.getRequests(this.user, this.pageSize, this.offSet)
+        this.ndc_request_service.getRequests(this.user, this.pageSize, this.offSet,this.final_zone,this.final_branch)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -172,6 +179,9 @@ debugger
 
                     console.log(baseResponse)
                     this.request_data_source = baseResponse.Ndc.Ndcrequests
+                    if(this.request_data_source[0].srNo != undefined){
+                        this.hasSrNo = true;
+                    }
                     this.dvReq = this.request_data_source;
                     this.ndcLength = this.dvReq.length;
                     this.request_data_source = this.dvReq.slice(0, this.pageSize);
@@ -180,7 +190,7 @@ debugger
                         this.pending_requests_data_source = baseResponse.Ndc.pendingNdcs;
               this.dvPending = this.pending_requests_data_source;
               this.pendingLength = this.dvPending.length;
-              this.pending_requests_data_source = this.dvPending.slice(0, this.pageSize);
+              this.pending_requests_data_source = this.dvPending.slice(0, this.pageSizePending);
               // this.pending_requests_data_source.paginator = this.paginator;
               // this.pendingLength = baseResponse.Ndc.pendingNdcs.length;
             }
@@ -238,13 +248,33 @@ debugger
 
         });
     }
+    private assignBranchAndZone() {
 
+
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.loggedInUserDetails.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.loggedInUserDetails.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.loggedInUserDetails.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.loggedInUserDetails.Zone = this.final_zone;
+        }
+
+    }
 
     ngAfterViewInit() {
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.gridHeight = window.innerHeight - 330 + 'px';
+        this.gridHeight = window.innerHeight - 400 + 'px';
     }
 
     // findCnic(cnic: HTMLInputElement) {
@@ -269,16 +299,19 @@ debugger
 
             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
             window.open(baseResponse.Ndc.ndcFilePath,'Download');
-            this.downloadFile1()
-
-
+            //this.downloadFile1()
+          }
+          else{
+              this.layoutUtilsService.alertElement('', baseResponse.Message)
           }
         });
     }
+
     downloadFile1(): any {
         alert("dsds")
         return this.http.get('http://172.16.1.228/ZtblDocument/NDC_Request/TempReport_011121020540.pdf', {responseType: 'blob'});
     }
+    
     Num:any;
 
     paginateRequest(pageIndex: any, pageSize: any = this.pageSize) {
@@ -294,12 +327,12 @@ debugger
       this.request_data_source = this.dvReq.slice(pageIndex * this.pageSize - this.pageSize, pageIndex * this.pageSize); //slice is used to get limited amount of data from APi
     }
 
-    paginatePending(pageIndex: any, pageSize: any = this.pageSize) {
-      this.pageIndexPending = pageSize;
+    paginatePending(pageIndex: any, pageSize: any = this.pageSizePending) {
+      this.pageSizePending = pageSize;
       this.pageIndexPending = pageIndex;
       this.offSet = pageIndex;
 
-      this.pending_requests_data_source = this.dvPending.slice(pageIndex * this.pageSize - this.pageSize, pageIndex * this.pageSize); //slice is used to get limited amount of data from APi
+      this.pending_requests_data_source = this.dvPending.slice(pageIndex * this.pageSizePending - this.pageSizePending, pageIndex * this.pageSizePending); //slice is used to get limited amount of data from APi
     }
 
     submitDeleteStatus(request) {
@@ -373,7 +406,7 @@ debugger
     }
 
     settingZBC() {
-
+         debugger
         this.loggedInUserDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.loggedInUserDetails.Branch && this.loggedInUserDetails.Branch.BranchCode != "All") {
             this.SelectedCircles = this.loggedInUserDetails.UserCircleMappings;

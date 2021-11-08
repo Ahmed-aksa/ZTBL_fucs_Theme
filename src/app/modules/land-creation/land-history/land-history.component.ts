@@ -55,7 +55,7 @@ export class LandHistoryComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        this.gridHeight = window.innerHeight - 380 + 'px';
+        this.gridHeight = window.innerHeight - 400 + 'px';
     }
 
     GetZones() {

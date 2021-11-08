@@ -1,4 +1,4 @@
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -122,6 +122,14 @@ export class VendorListComponent implements OnInit {
       console.log(this.SelectedZones)
       this.listForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
       this.listForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
+      var fi : any = []
+      fi.Id = "null";
+      fi.CircleCode = "All";
+      fi.LovId = "0";
+      fi.TagName="0";
+      this.SelectedCircles.splice(0, 0, fi)
+      console.log(this.SelectedCircles)
+      this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
     }else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
       this.spinner.show();
 
@@ -292,17 +300,17 @@ export class VendorListComponent implements OnInit {
     this.user.CricleId = ind_vendor.CircleId
 
     
-    this.spinner.show();
     this._khaadSeedVendor.deleteVendor(this.vendorObj, this.user)
     .pipe(
       finalize(() => {
-      this.spinner.hide();
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
       if(baseResponse.Success === true){
         //this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
-        window.location.reload();
+        //window.location.reload();
+        this.vendorObj.Id = null;
+        this.searchVendor()
       }
       else{
         this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -334,6 +342,13 @@ changeBranch(changedValue) {
         console.log(data);
         this.Circles = data.Circles;
         this.SelectedCircles = this.Circles;
+        var fi : any = []
+        fi.Id = "null";
+        fi.Name = "All";
+        fi.LovId = "0";
+        fi.TagName="0";
+        this.SelectedCircles.splice(0, 0, fi)
+        this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
         this.disable_circle = false;
     });
 }

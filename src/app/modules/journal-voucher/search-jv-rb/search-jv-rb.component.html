@@ -1,5 +1,5 @@
-<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Search Journal Voucher</div>
+<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-3xl mt-4 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Search Journal Voucher</div>
     <div [formGroup]="referbackForm" class="mt-4">
 
 
@@ -82,15 +82,17 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <button class="mt-4" mat-raised-button color="primary"
-                            type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
-                </div>
-            </div>
+
         </div>   
 
-
+ <div class="row">
+    <div class="col-lg-3 col-sm-12">
+        <div class="flex flex-shrink-0 items-center mb-3 sm:mt-0">
+            <button  mat-raised-button color="primary"
+                    type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
+        </div>
+    </div>
+ </div>
 
 
 
