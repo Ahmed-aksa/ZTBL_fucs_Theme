@@ -68,7 +68,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   prev_map;
 
 
-  lat; 
+  lat;
   lng;
   type;
   iconUrl;
@@ -111,13 +111,13 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     private dialog: MatDialog,
     private _khaadSeedVendor: KhaadSeedVendorService,
     private _lovService: LovService,
-    private layoutUtilsService: LayoutUtilsService,  
+    private layoutUtilsService: LayoutUtilsService,
     private spinner: NgxSpinnerService,
     private userUtilsService: UserUtilsService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
-  ) { 
+  ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -136,7 +136,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   //Init Func
 
   ngOnInit() {
-    
+
 
     this.images.push(this.ProfileImageSrc);
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
@@ -145,15 +145,15 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     var upFlag = this.activatedRoute.snapshot.params['upFlag'];
 
     this.isEditMode = localStorage.getItem("EditVendorData");
-    
+
     if(this.isEditMode != null && this.isEditMode != "0"){
       this.vendorEditView = JSON.parse(localStorage.getItem("SearchVendorData"));
-      
+
       if(this.vendorEditView != null){
         this.vendorObj = this.vendorEditView.obj;
         this.isEdit = true;
       }
-      
+
       if (this.vendorObj != undefined && this.vendorObj != null) {
         if (this.vendorObj == "o") {
           this.viewOther = true
@@ -202,7 +202,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
       });}
     //For Edit Mode
     if(upFlag == "1" && this.isEditMode == "1"){
-      
+
       localStorage.setItem('EditVendorData', '0');
       this.getVendorInfo();
     }
@@ -212,14 +212,14 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   //Getting Lov's
 
   async typeLov(){
-    
+
     this.vendorLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.VendorTypes });
-    this.vendorLov = this.vendorLov.LOVs;    
+    this.vendorLov = this.vendorLov.LOVs;
     console.log(this.vendorLov)
   }
 
   getVendorInfo(){
-    
+
     this.user.ZoneId = this.vendorEditView.ZoneId;
     this.user.BranchCode = this.vendorEditView.BranchCode;
     this.user.CircleId = this.vendorEditView.CircleId;
@@ -237,10 +237,10 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
       if (baseResponse.Success === true) {
-        
+
         this.fileExist = true;
         this.vendorInfo = baseResponse.SeedKhadVendor.VendorDetail;
-        
+
         this.vendorForm.controls["Name"].setValue(this.vendorInfo.Name);
         this.vendorForm.controls["Type"].setValue(this.vendorInfo.Type);
         this.vendorForm.controls["Description"].setValue(this.vendorInfo.Description);
@@ -254,7 +254,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
         //this.onFileChange(this.vendorInfo.FilePath);
 
         if(this.vendorForm.controls.Location != undefined || this.vendorForm.controls.Location != null){
-          this.loc_text = "Update Location"      
+          this.loc_text = "Update Location"
         }
 
         this.images = [];
@@ -292,11 +292,11 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   onAlertClose($event) {
     this.hasFormErrors = false;
   }
-  
+
 
   Add(){
     this.type = this.vendorForm.controls.Type.value;
-    
+
     const dialogRef = this.dialog.open(AddressLocationComponent, { width: "1200px", height: "700px",data: { lat: this.lat, lng: this.lng, type:this.type, iconUrl: this.iconUrl}, disableClose: true });
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
@@ -315,7 +315,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   //File Event
 
   onFileChange(event) {
-    
+
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
       var file = event.target.files[0];
@@ -332,7 +332,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
             reader.onload = (event: any) => {
               ;
               this.images = [];
-              this.fileExist = true; 
+              this.fileExist = true;
               this.images.push(event.target.result);
 
               this.file = file;
@@ -355,7 +355,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
     }
   }
-  
+
 
   //Save & Submit Method
   saveSubmit() {
@@ -371,13 +371,13 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
       this.hasFormErrors = true;
       return;
     }
-    
+
     // if(this.file == null){
     //   this.layoutUtilsService.alertElement("", "Please attach an Image in Png, Jpg or Jpeg format");
     //   return
     // }
 
-    
+
     this.khaadSeedVendor = Object.assign(this.khaadSeedVendor, this.vendorForm.value);
     this.khaadSeedVendor.Lat = this.lat;
     this.khaadSeedVendor.Lng = this.lng
@@ -406,7 +406,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   deleteVendor(){
     this.vendor.Id = this.khaadSeedVendor.Id;
 
-    
+
     this.spinner.show();
     this._khaadSeedVendor.deleteVendor(this.vendor, this.user)
     .pipe(
@@ -426,7 +426,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   }
 
   preview(){
-    
+
     if(this.file != null || this.vendorInfo != null){
       const dialogRef = this.dialog.open(ViewFileComponent, {
         width: '90%',
@@ -445,7 +445,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   changeBranch(changedValue) {
 
     let changedBranch = null;
-    if (changedValue.has('value')) {
+    if (changedValue) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}
@@ -458,5 +458,14 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
         this.disable_circle = false;
     });
 }
-  
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
+
 }

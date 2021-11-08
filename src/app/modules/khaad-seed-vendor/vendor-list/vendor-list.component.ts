@@ -81,7 +81,7 @@ export class VendorListComponent implements OnInit {
   LoggedInUserInfo:BaseResponseModel;
   user: any = {};
 
-  public LovCall = new Lov(); 
+  public LovCall = new Lov();
 
 
   constructor(
@@ -95,11 +95,11 @@ export class VendorListComponent implements OnInit {
     private spinner: NgxSpinnerService
   ) { }
 
-  
+
   ngOnInit(): void{
-    
+
     this.createForm();
-    
+
     this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     this.typeLov();
@@ -171,7 +171,7 @@ export class VendorListComponent implements OnInit {
   }
 
   async typeLov() {
-    
+
     this.vendorLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.VendorTypes });
     var fi : any = []
     fi.Value = "null";
@@ -199,8 +199,8 @@ export class VendorListComponent implements OnInit {
     name = this.listForm.controls.VendorName.value;
     phone = this.listForm.controls.PhoneNumber.value;
     type = this.listForm.controls.Type.value;
-    
-    
+
+
 
     if (name != null || phone != null){
       this.offSet = 0;
@@ -210,13 +210,13 @@ export class VendorListComponent implements OnInit {
     this.vendorObj.Name = name;
     this.vendorObj.PhoneNumber = phone;
     this.vendorObj.Type = type;
-    
+
 
     this.spinner.show();
     this._khaadSeedVendor.searchVendors(this.itemsPerPage, this.offSet, this.vendorObj, this.user)
     .pipe(
       finalize(() => {
-      this.loaded = true;  
+      this.loaded = true;
       this.loading = false;
       this.spinner.hide();
     })
@@ -224,7 +224,7 @@ export class VendorListComponent implements OnInit {
     .subscribe((baseResponse: BaseResponseModel) =>{
       if (baseResponse.Success === true) {
         this.loading = true;
-        
+
         this.dataSource= baseResponse.SeedKhadVendor.VendorDetails
         this.dv = this.dataSource;
         this.matTableLenght = true
@@ -237,7 +237,7 @@ export class VendorListComponent implements OnInit {
         this.dataSource = this.dv.slice(1, 0);
         this.offSet = 0;
         this.pageIndex = 1;
-        this.layoutUtilsService.alertElement("", baseResponse.Message);        
+        this.layoutUtilsService.alertElement("", baseResponse.Message);
       }
     })
 
@@ -262,14 +262,14 @@ export class VendorListComponent implements OnInit {
   }
 
   paginate(pageIndex : any, pageSize: any = this.itemsPerPage){
-    
+
     this.itemsPerPage = pageSize;
       this.offSet = (pageIndex -1) * this.itemsPerPage;
     this.pageIndex = pageIndex;
     this.searchVendor();
     this.dataSource.data = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
   }
-  
+
   editVendor(vendor: any){
     ;
     localStorage.setItem('SearchVendorData', JSON.stringify(vendor));
@@ -286,7 +286,7 @@ export class VendorListComponent implements OnInit {
       vendor.obj = "v"
     }
 
-    
+
     localStorage.setItem('SearchVendorData', JSON.stringify(vendor));
     localStorage.setItem('EditVendorData', '1');
     this.router.navigate(['../add-vendor', { upFlag : "1"}], { relativeTo: this.activatedRoute });
@@ -299,7 +299,7 @@ export class VendorListComponent implements OnInit {
     this.user.BranchCode = ind_vendor.BranchCode
     this.user.CricleId = ind_vendor.CircleId
 
-    
+
     this._khaadSeedVendor.deleteVendor(this.vendorObj, this.user)
     .pipe(
       finalize(() => {
@@ -332,7 +332,7 @@ export class VendorListComponent implements OnInit {
 changeBranch(changedValue) {
 
     let changedBranch = null;
-    if (changedValue.has('value')) {
+    if (changedValue) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}
