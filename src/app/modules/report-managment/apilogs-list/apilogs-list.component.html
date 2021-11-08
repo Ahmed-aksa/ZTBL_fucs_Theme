@@ -1,5 +1,5 @@
 <div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-4xl font-extrabold tracking-tight">API Logs</div>
+    <div class="text-3xl mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">API Logs</div>
     <!-- Header -->
     <div class="py-4" [formGroup]="FilterForm">
 
@@ -75,35 +75,35 @@
 
     </div>
 
-    <section matSort class="mat-elevation-z2 mat-header-row">
-        <span class="mat-header-cell" mat-sort-header="Id" style="width: 10px;">ID</span>
-        <span class="mat-header-cell" mat-sort-header="TransactionId">Transaction ID</span>
-        <span class="mat-header-cell" mat-sort-header="ApiName">API Name</span>
-        <span class="mat-header-cell" mat-sort-header="CallDateTime">Call Date Time</span>
-        <span class="mat-header-cell" mat-sort-header="ResponseDateTime">Response Date Time</span>
-        <span class="mat-header-cell" mat-sort-header="ResponseDateTime">Total Time Taken</span>
-        <span class="mat-header-cell" mat-sort-header="View">View</span>
+    <section matSort class=" mat-header-row custom-accordion rounded-none  my-2 shadow border" style="color: white; background-color: #01671b;">
+        <span class="mat-header-cell text-white" mat-sort-header="Id" style="width: 10px;">ID</span>
+        <span class="mat-header-cell text-white" mat-sort-header="TransactionId">Transaction ID</span>
+        <span class="mat-header-cell text-white" mat-sort-header="ApiName">API Name</span>
+        <span class="mat-header-cell text-white" mat-sort-header="CallDateTime">Call Date Time</span>
+        <span class="mat-header-cell text-white" mat-sort-header="ResponseDateTime">Response Date Time</span>
+        <span class="mat-header-cell text-white" mat-sort-header="ResponseDateTime">Total Time Taken</span>
+        <span class="mat-header-cell text-white" mat-sort-header="View">View</span>
     </section>
     <mat-accordion displayMode="flat" multi class="mat-table" style="overflow-y:scroll;">
 
 
-        <mat-expansion-panel *ngFor="let item of displayedRows$ |async"
-                             (click)="fetch3rdAPI($event,item)">
-            <mat-expansion-panel-header class="mat-row">
-                <span class="mat-cell" style="width: 10px;">{{item?.Id}}</span>
-                <span class="mat-cell">{{item?.TransactionId}}</span>
-                <span class="mat-cell">{{item?.APIName}}</span>
-                <span class="mat-cell">{{item?.CallDateTime}}</span>
-                <span class="mat-cell">{{item?.ResponseDateTime}}</span>
-                <span class="mat-cell">{{item?.TotalTimeTaken}}</span>
-                <span class="mat-cell">
+        <mat-expansion-panel class="api-table shadow-none mb-4 p-0" *ngFor="let item of displayedRows$ |async"
+                             (click)="fetch3rdAPI($event,item)" style="box-shadow: none !important; margin-bottom: 5px !important;">
+            <mat-expansion-panel-header class="mat-row custom-accordion py-2 h-16  rounded-lg my-1 shadow border">
+                <span class="mat-cell py-6 self-center" style="width: 10px;">{{item?.Id}}</span>
+                <span class="mat-cell py-6 self-center">{{item?.TransactionId}}</span>
+                <span class="mat-cell py-6 self-center">{{item?.APIName}}</span>
+                <span class="mat-cell py-6 self-center px-2">{{item?.CallDateTime}}</span>
+                <span class="mat-cell py-6 self-center px-2">{{item?.ResponseDateTime}}</span>
+                <span class="mat-cell py-6 self-center px-2 ">{{item?.TotalTimeTaken}}</span>
+                <span class="mat-cell py-6 self-center">
                     <button mat-icon-button color="primary" (click)="viewRequestResponse($event,item)">
                                             <mat-icon title="View">visibility</mat-icon>
                                         </button>
                 </span>
             </mat-expansion-panel-header>
-            <div *ngFor="let tp_item of third_party_apis">
-                <div class="custom-accordion-body">
+            <div *ngFor="let tp_item of third_party_apis" class="p-0">
+                <div class="custom-accordion-body  bg-gray-50 border  border-b-0 rounded p-0">
                     <table class="table table-responsive" style="display: inline-table !important;">
                         <thead class="thead-light">
                         <tr>
