@@ -96,13 +96,12 @@ export class AuthService {
     
     refreshToken(token: string) {
         this.request = new BaseRequestModel();
-        const refreshToken = JSON.parse(localStorage.getItem('ZTBLUserRefreshToke'));
-        const expiredToken = JSON.parse(localStorage.getItem('ZTBLUserToken'));
+        const refreshToken = (localStorage.getItem('ZTBLUserRefreshToke'));
+        const expiredToken = (localStorage.getItem('accessToken'));
         this.request.Token=expiredToken;
         this.request.RefreshToken=refreshToken;
-        var req = JSON.stringify(this.request);
 
-        return this.httpUtils.post(`${environment.apiUrl}/Account/RefreshToken`, req);
+        return this.httpUtils.post(`${environment.apiUrl}/Account/RefreshToken`, this.request);
       }
 
     setAuthenticated(value: boolean) {
@@ -183,9 +182,9 @@ export class AuthService {
         }
 
         // Check the access token expire date
-        if (AuthUtils.isTokenExpired(this.accessToken)) {
-            return of(false);
-        }
+        // if (AuthUtils.isTokenExpired(this.accessToken)) {
+        //     return of(false);
+        // }
 
         // If the access token exists and it didn't expire, sign in using it
         return this.signInUsingToken();
