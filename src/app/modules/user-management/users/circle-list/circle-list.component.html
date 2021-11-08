@@ -1,8 +1,8 @@
-<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
 
   <!-- Header -->
   <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4">
-    <div class="text-4xl font-extrabold tracking-tight"> Create Fense</div>
+    <div class="text-3xl mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2 w-full" style="background-color: #f6fcf8;">Create Fense</div>
     <div class="flex flex-shrink-0 items-center sm:mt-0 sm:ml-4">
       <button [routerLink]="['/user-management/viewCirclesfence']" class="ml-4" mat-flat-button [color]="'primary'">
         <mat-icon class="mr-2">visibility</mat-icon>View Map
@@ -40,7 +40,7 @@
 
     <!-- Products list -->
     <div class="flex flex-auto " style="flex-direction: column;">
-      <div class="flex flex-col flex-auto sm:mb-18 sm:overflow-y-auto">
+      <div class="flex flex-col flex-auto sm:mb-2 sm:overflow-y-auto">
         <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
           matSortActive="id" matSortDirection="asc" matSortDisableClear>
 
@@ -80,11 +80,12 @@
 
         <div class="mat-table__message" *ngIf="!loadingdata && dataSource.data.length==0">No records found</div>
         <div class="mat-table__message" *ngIf="loadingdata">Please wait....</div>
-        <mat-paginator [length]="30" [pageSize]="30" [pageSizeOptions]="[30, 50, 100]" [showFirstLastButtons]="true"></mat-paginator>
+       
       </div>
 
     </div>
 
   </div>
+  <mat-paginator [length]="30" [pageSize]="30" [pageSizeOptions]="[30, 50, 100]" [showFirstLastButtons]="true"></mat-paginator>
 
 </div>
