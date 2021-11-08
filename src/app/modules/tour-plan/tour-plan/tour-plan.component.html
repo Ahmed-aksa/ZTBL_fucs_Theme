@@ -46,7 +46,7 @@
 
         <div class="row">
             <div class="col-lg-3 col-sm-12">
-                <div *ngIf="circle.length>0" class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <div *ngIf="circle?.length>0" class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Circle No</mat-label>
                         <mat-select  [disabled]='isView' formControlName="CircleId">
@@ -65,7 +65,7 @@
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong></mat-label>
                         <input disabled matInput [matDatepicker]="picker" formControlName="VisitedDate"  autocomplete="off" (dateChange)="setVisitedDate()" [min]="minDate"  />
-            
+
                         <mat-datepicker-toggle [disabled]='isView' matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker [disabled]='isView' #picker></mat-datepicker>
                     </mat-form-field>
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
-                
+
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Remarks</mat-label>
