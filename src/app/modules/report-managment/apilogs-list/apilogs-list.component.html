@@ -84,14 +84,14 @@
 
 
         <mat-expansion-panel class="api-table shadow-none mb-4 p-0" *ngFor="let item of displayedRows$ |async"
-                             (click)="fetch3rdAPI($event,item)" style="box-shadow: none !important; margin-bottom: 5px !important;">
-            <mat-expansion-panel-header class="mat-row custom-accordion py-2 h-16  rounded-lg my-1 shadow border">
-                <span class="mat-cell py-6 self-center" style="width: 10px;">{{item?.Id}}</span>
-                <span class="mat-cell py-6 self-center">{{item?.TransactionId}}</span>
-                <span class="mat-cell py-6 self-center">{{item?.APIName}}</span>
-                <span class="mat-cell py-6 self-center px-2">{{item?.CallDateTime}}</span>
-                <span class="mat-cell py-6 self-center px-2">{{item?.ResponseDateTime}}</span>
-                <span class="mat-cell py-6 self-center px-2 ">{{item?.TotalTimeTaken}}</span>
+                             (click)="fetch3rdAPI($event,item)" style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
+            <mat-expansion-panel-header style="font-size: 12px;" class="mat-row custom-accordion py-2 h-16  rounded-lg my-1 shadow border">
+                <span class="mat-cell py-6 self-center font-bold" style="width: 10px; font-size: 12px;">{{item?.Id}}</span>
+                <span class="mat-cell py-6 self-center font-bold" style="font-size: 12px;">{{item?.TransactionId}}</span>
+                <p class="mat-cell py-6 self-center  font-bold" style="font-size: 12px;">{{item?.APIName}}</p>
+                <span class="mat-cell py-6 self-center px-2 font-bold" style="font-size: 12px;">{{item?.CallDateTime}}</span>
+                <span class="mat-cell py-6 self-center px-2  font-bold" style="font-size: 12px;">{{item?.ResponseDateTime}}</span>
+                <span class="mat-cell py-6 self-center px-2 font-bold " style="font-size: 12px;">{{item?.TotalTimeTaken}}</span>
                 <span class="mat-cell py-6 self-center">
                     <button mat-icon-button color="primary" (click)="viewRequestResponse($event,item)">
                                             <mat-icon title="View">visibility</mat-icon>
@@ -99,7 +99,7 @@
                 </span>
             </mat-expansion-panel-header>
             <div *ngFor="let tp_item of item?.third_apis">
-                <div class="custom-accordion-body">
+                <div class="custom-accordion-body bg-gray-50 border-t rounded">
                     <table class="table table-responsive" style="display: inline-table !important;">
                         <thead class="thead-light">
                         <tr>
@@ -123,7 +123,7 @@
                             <td>
                                 <button mat-icon-button color="primary"
                                         (click)="viewRequestResponse($event,tp_item,true)">
-                                    <mat-icon title="View">visibility</mat-icon>
+                                    <mat-icon  style="color: black;" title="View">visibility</mat-icon>
                                 </button>
                             </td>
                         </tr>

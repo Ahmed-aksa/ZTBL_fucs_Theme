@@ -179,3 +179,11 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
     padding-left: 5px;
   }
 }
+
+.api-table{
+  .mat-expansion-panel-content {
+    .mat-expansion-panel-body{
+      padding: 0%;
+    }
+  }
+}
