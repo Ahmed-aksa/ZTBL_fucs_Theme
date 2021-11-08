@@ -341,7 +341,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
   changeBranch(changedValue) {
 
     let changedBranch = null;
-    if (changedValue.has('value')) {
+    if (changedValue) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}
