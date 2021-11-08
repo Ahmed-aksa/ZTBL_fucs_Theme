@@ -6,7 +6,9 @@
         class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4">
         <!-- Loader -->
         <!-- Title -->
-        <div class="text-3xl w-full font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Pages List</div>
+        <div class="text-3xl w-full font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
+             style="background-color: #f6fcf8;">Pages List
+        </div>
         <!-- Actions -->
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
             <button
@@ -28,8 +30,7 @@
             <div class="form-group row" style="
             min-width: max-content;
             max-height: 70vh;
-            overflow-y:scroll;
-        ">
+            overflow-y:scroll;">
                 <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8"
                      id="custom-table-activity-list">
                     <div class="custom-accordion  rounded-lg my-2 shadow border"
@@ -53,15 +54,16 @@
                                         edit
                                     </mat-icon>
                                 </button>
-                                <button mat-icon-button  *ngIf="!lists_record.includes(activity.ActivityID)">
+                                <button mat-icon-button *ngIf="!lists_record.includes(activity.ActivityID)">
                                     <mat-icon>expand_more</mat-icon>
                                 </button>
-                                <button mat-icon-button  *ngIf="lists_record.includes(activity.ActivityID)">
+                                <button mat-icon-button *ngIf="lists_record.includes(activity.ActivityID)">
                                     <mat-icon>expand_less</mat-icon>
                                 </button>
                             </div>
                         </div>
-                        <div class="custom-accordion-body bg-gray-50 border-t rounded" id="{{'table_'+activity.ActivityID}}"
+                        <div class="custom-accordion-body bg-gray-50 border-t rounded"
+                             id="{{'table_'+activity.ActivityID}}"
                              style="display: none">
                             <table class="table table-responsive" style="display: inline-table !important;">
                                 <thead class="thead-light">

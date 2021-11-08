@@ -34,7 +34,7 @@ export class ApilogsListComponent implements OnInit {
 
     displayedRows$: Observable<any[]>;
     totalRows$: Observable<number>;
-    displayedColumns = ['Id', 'TransactionId', 'ApiName', 'CallDateTime', 'ResponseDateTime', 'View'];
+    displayedColumns = ['Id', 'TransactionId', 'ApiName', 'CallDateTime', 'ResponseDateTime', 'ResponseTotalTime', 'View'];
     gridHeight: string;
     FilterForm: FormGroup;
     StartDate: Date;
@@ -174,7 +174,7 @@ export class ApilogsListComponent implements OnInit {
 
         const dialogRef = this.dialog.open(ApilogDetailComponent, { /*height: height,*/
             panelClass: ['w-8/12'],
-            height:'500px',
+            height: '500px',
             data: {reportFilter: reportFilter, is_third: is_third},
             disableClose: false
         });
@@ -192,7 +192,7 @@ export class ApilogsListComponent implements OnInit {
         item.Id = Number(item.Id);
         this._reportservice.getThirdPartyAPILogs(item).subscribe((data: any) => {
             if (data._3RdPartyAPILogs.length != 0) {
-                this.third_party_apis = data._3RdPartyAPILogs;
+                item.third_apis = data._3RdPartyAPILogs;
             } else {
                 this.third_party_apis = null;
             }
