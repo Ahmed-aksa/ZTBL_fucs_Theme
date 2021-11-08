@@ -60,7 +60,7 @@ export class VendorRadiusComponent implements OnInit {
   }
   ///////////////////
   iconUrl;
-  
+
   radiusInitial : string;
   typeInitial : string;
   showViewAllBtn: boolean;
@@ -95,7 +95,7 @@ export class VendorRadiusComponent implements OnInit {
   Circles: any = [];
   SelectedCircles: any = [];
   LoggedInUserInfo:BaseResponseModel;
-  
+
   constructor(
     private _circleService: CircleService,
     private _khaadSeedVendor: KhaadSeedVendorService,
@@ -123,38 +123,48 @@ export class VendorRadiusComponent implements OnInit {
 
 
   ngOnInit() {
-    
-    this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+
+    this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle()
     this.zoom = 0;
-    
+
     this.createForm();
     this.GetRadius();
     //this.VendorName.setValue("Binod")
 
 
     if (this.LoggedInUserInfo.Zone != null) {
-      
+
       this.Zone = this.LoggedInUserInfo.Zone;
       this.SelectedZones = this.Zone;
       this.selected_z = this.SelectedZones.ZoneId
       this.radiusForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
     }
-    
+
     if (this.LoggedInUserInfo.Branch != null) {
       this.Branches = this.LoggedInUserInfo.Branch;
       this.SelectedBranches = this.Branches;
       this.selected_b = this.SelectedBranches.BranchCode
       this.radiusForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
     }
-    
+
     if (this.LoggedInUserInfo.UserCircleMappings != null) {
       this.disable_circle = false
       this.Circles = this.LoggedInUserInfo.UserCircleMappings;
       this.SelectedCircles = this.Circles;
     }
+    else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+        this.spinner.show();
+
+        this.userUtilsService.getZone().subscribe((data: any) => {
+            this.Zone = data.Zones;
+            this.SelectedZones = this.Zone;
+            this.single_zone = false;
+            this.disable_zone = false;
+            this.spinner.hide();
+
+        });}
 
 
-    
   }
 
   createForm(){
@@ -170,7 +180,7 @@ export class VendorRadiusComponent implements OnInit {
 
 
   async GetRadius(){
-    
+
     this.Radius = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.FindVendorRadius });
     this.Radius = this.Radius.LOVs;
 
@@ -192,18 +202,18 @@ export class VendorRadiusComponent implements OnInit {
     console.log(this.Radius)
     console.log(this.vendorLov)
   }
-  
+
   selectRadius(radius){
     this.getRadius = radius.value;
   }
-  
+
   selectType(type){
     this.radiusForm.controls["Type"].setValue(type.value);
   }
-  
+
   onSelect(){
     this.spinner.show();
-    
+
     this.user.ZoneId = this.radiusForm.controls.ZoneId.value;
     this.user.CircleId = this.radiusForm.controls.CircleId.value;
     if(this.user.CircleId == ""){
@@ -222,7 +232,7 @@ export class VendorRadiusComponent implements OnInit {
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      
+
       //var lat,lng,name;
       if(baseResponse.Success === true){
         console.log(baseResponse)
@@ -241,7 +251,7 @@ export class VendorRadiusComponent implements OnInit {
             this.iconUrl = '../../../assets/icons/seed and fertilizer_icon.png';
             this.radiusInfo[i].iconUrl = this.iconUrl;
           }
-        }    
+        }
       }
       else{
         this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -250,7 +260,7 @@ export class VendorRadiusComponent implements OnInit {
   }
 
   // addMarker(lat, lng, name){
-  //   
+  //
   //   var myLatLng = { lat: Number(lat), lng: Number(lng) };
   //   this.vendorLocationMarker = new google.maps.Marker({
   //     position: myLatLng,
@@ -267,12 +277,12 @@ export class VendorRadiusComponent implements OnInit {
   ///////////////////Os Change Set Map
   onMapReady(map) {
     this.googleMap = map;
-    //this.setCurrentLocation()    
+    //this.setCurrentLocation()
   }
 
 
   clickedMarker(event ,index , infowindow) {
-    
+
     console.log(index)
     const dialogRef = this.dialog.open(UserInfoDialogComponent, {
       width: '600px',
@@ -287,7 +297,7 @@ export class VendorRadiusComponent implements OnInit {
   changeBranch(changedValue) {
 
     let changedBranch = null;
-    if (changedValue.has('value')) {
+    if (changedValue) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}
@@ -300,6 +310,16 @@ export class VendorRadiusComponent implements OnInit {
         this.disable_circle = false;
     });
 }
+
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
 
 
 
