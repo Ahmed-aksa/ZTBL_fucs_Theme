@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 <div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="text-3xl mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">API Logs</div>
-=======
-<div
-    class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-4xl font-extrabold tracking-tight">API Logs</div>
->>>>>>> 889505556f501ee4ef1e36a137c1085114e0e35e
     <!-- Header -->
     <div class="py-4" [formGroup]="FilterForm">
 
@@ -77,14 +71,14 @@
 
     </div>
 
-    <section matSort class="mat-elevation-z2 mat-header-row">
-        <span class="mat-header-cell" mat-sort-header="Id" style="width: 10px;">ID</span>
-        <span class="mat-header-cell" mat-sort-header="TransactionId">Transaction ID</span>
-        <span class="mat-header-cell" mat-sort-header="ApiName">API Name</span>
-        <span class="mat-header-cell" mat-sort-header="CallDateTime">Call Date Time</span>
-        <span class="mat-header-cell" mat-sort-header="ResponseDateTime">Response Date Time</span>
-        <span class="mat-header-cell" mat-sort-header="ResponseTotalTime">Total Time Taken</span>
-        <span class="mat-header-cell" mat-sort-header="View">View</span>
+    <section matSort class="mat-elevation-z2 mat-header-row bg-green">
+        <span class="mat-header-cell text-white" mat-sort-header="Id" style="width: 10px;">ID</span>
+        <span class="mat-header-cell text-white" mat-sort-header="TransactionId">Transaction ID</span>
+        <span class="mat-header-cell text-white" mat-sort-header="ApiName">API Name</span>
+        <span class="mat-header-cell text-white" mat-sort-header="CallDateTime">Call Date Time</span>
+        <span class="mat-header-cell text-white" mat-sort-header="ResponseDateTime">Response Date Time</span>
+        <span class="mat-header-cell text-white" mat-sort-header="ResponseTotalTime">Total Time Taken</span>
+        <span class="mat-header-cell text-white" mat-sort-header="View">View</span>
     </section>
     <mat-accordion displayMode="flat" multi class="mat-table" style="overflow-y:scroll;">
 
@@ -104,13 +98,8 @@
                                         </button>
                 </span>
             </mat-expansion-panel-header>
-<<<<<<< HEAD
-            <div *ngFor="let tp_item of third_party_apis" class="p-0">
-                <div class="custom-accordion-body  bg-gray-50 border  border-b-0 rounded p-0">
-=======
             <div *ngFor="let tp_item of item?.third_apis">
                 <div class="custom-accordion-body">
->>>>>>> 889505556f501ee4ef1e36a137c1085114e0e35e
                     <table class="table table-responsive" style="display: inline-table !important;">
                         <thead class="thead-light">
                         <tr>
