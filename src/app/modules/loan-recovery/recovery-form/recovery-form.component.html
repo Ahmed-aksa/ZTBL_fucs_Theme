@@ -1,11 +1,11 @@
-<div class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
   <div class="text-3xl mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</div>
 
   <!-- Header -->
   <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pt-4 px-6 md:px-8"
     style="flex-wrap: wrap">
   </div>
-  <div class="flex flex-auto overflow-scroll " style="flex-direction: column;">
+  <div class="flex flex-auto overflow-y-scroll overflow-x-hidden " style="flex-direction: column;">
     <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
       <div class="kt-form">
         <div class="kt-portlet__body">
@@ -451,7 +451,7 @@
           [disabled]="submitted || viewOnly || ibDisSave" *ngIf="isEditMode || dataSaved"><mat-icon class="mr-2">delete_forever</mat-icon>Delete</button>
 
 
-        <button mat-raised-button color="primary" class="ml-2" (click)="clearForm()"
+        <button mat-raised-button  class="ml-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" (click)="clearForm()"
           [disabled]="submitted || transactionEdit || viewOnly || dataSaved"><mat-icon class="mr-2"> clear_all</mat-icon>Clear</button>
 
 

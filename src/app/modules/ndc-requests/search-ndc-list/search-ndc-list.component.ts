@@ -1,22 +1,4 @@
-/* eslint-disable arrow-parens */
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
-/* eslint-disable max-len */
-/* eslint-disable @angular-eslint/use-lifecycle-interface */
-/* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-debugger */
-/* eslint-disable prefer-const */
-/* eslint-disable eol-last */
-/* eslint-disable one-var */
-/* eslint-disable no-var */
-/* eslint-disable @typescript-eslint/type-annotation-spacing */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/semi */
-/* eslint-disable quotes */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable eqeqeq */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable @typescript-eslint/naming-convention */
+
 import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {MatSort} from "@angular/material/sort";
