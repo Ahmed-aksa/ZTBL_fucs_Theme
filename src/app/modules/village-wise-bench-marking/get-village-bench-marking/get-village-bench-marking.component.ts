@@ -13,7 +13,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -32,7 +32,7 @@ import { RemarkDialogComponent } from './remark-dialog/remark-dialog.component';
   templateUrl: './get-village-bench-marking.component.html',
   styleUrls: ['./get-village-bench-marking.component.scss']
 })
-export class GetVillageBenchMarkingComponent implements OnInit {
+export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['VillageName', 'NoOfFormaer', 'FarmSize', 'GenderCount', 'GenderType','AverageLoanSize', 'AgriBusinessPotential', 'Delete'];
 
@@ -42,7 +42,7 @@ export class GetVillageBenchMarkingComponent implements OnInit {
   itemsPerPage = 10;
   totalItems;
   pageIndex = 1;
-
+  gridHeight: string;
   Offset = 0;
   Limit;
 
@@ -93,6 +93,12 @@ export class GetVillageBenchMarkingComponent implements OnInit {
   ) {
     this.Math = Math;
   }
+
+  ngAfterViewInit() {
+
+
+    this.gridHeight = window.innerHeight - 500 + 'px';
+}
 
   ngOnInit() {
 
