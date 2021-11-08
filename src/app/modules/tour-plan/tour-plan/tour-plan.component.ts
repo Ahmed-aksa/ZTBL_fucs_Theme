@@ -236,11 +236,11 @@ export class TourPlanComponent implements OnInit {
         var circleId=[], circleCode=[], name, ppno, circleName, circleNo, date, branch,zone;
         console.log(this.loggedInUser)
         name = this.loggedInUser.User.DisplayName;
-        zone =this.loggedInUser.Zone.ZoneName;
-        branch= this.loggedInUser.Branch.Name;
-        ppno= this.loggedInUser.User.UserName;
-        this.circle = this.loggedInUser.UserCircleMappings;
-        if(this.circle.length==0){
+        zone =this.loggedInUser?.Zone?.ZoneName;
+        branch= this.loggedInUser?.Branch?.Name;
+        ppno= this.loggedInUser?.User?.UserName;
+        this.circle = this.loggedInUser?.UserCircleMappings;
+        if(this.circle?.length==0){
             console.log("called");
             this.GetCircles()
         }
@@ -371,7 +371,7 @@ export class TourPlanComponent implements OnInit {
         // if(this.flag==1)
         // {this.TourPlan.TourPlanId=this.id;
         // }
-        
+
         this.spinner.show();
         this.tourPlanService
             .createTourPlan(this.TourPlan)
@@ -401,7 +401,7 @@ export class TourPlanComponent implements OnInit {
                             this.router.navigate(['/tour-plan/search-tour-plan']);
                         }
 
-                        
+
                     } else {
 
                         this.layoutUtilsService.alertElement(
@@ -430,7 +430,7 @@ export class TourPlanComponent implements OnInit {
         this.TourPlan.Status=value;
 
         console.log("tourplan"+this.TourPlan)
-        
+
         this.spinner.show();
         this.tourPlanService
             .ChanageTourStatus(this.TourPlan)
@@ -445,7 +445,7 @@ export class TourPlanComponent implements OnInit {
                             baseResponse.Message,
                             baseResponse.Code = null
                         );
-                        
+
                     } else {
 
                         this.layoutUtilsService.alertElement(
