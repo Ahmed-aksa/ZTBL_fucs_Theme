@@ -37,7 +37,7 @@ import { VillageWiseBenchMarkingService } from '../service/village-wise-bench-ma
 export class AddUpdateBenchMarkingComponent implements OnInit {
 
   addUpdateBenchMarkForm: FormGroup;
-  
+
 
   GenderLov: any;
   LovCall = new Lov();
@@ -187,7 +187,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     tot = Number(this.addUpdateBenchMarkForm.controls.NoOfFormaer.value);
 
     var resF = sf+ef+bf, resG = male+female+transgender;
-    
+
     if(resF != 0 && tot != resF){
       this.layoutUtilsService.alertElement("", "Economic, Big and Subsistence Farmer value should not be greater or less than No. of Farmers");
       return
@@ -221,12 +221,12 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     this.addUpdateBenchMarkForm.controls['EconomicFarmer'].reset();
     this.addUpdateBenchMarkForm.controls['BigFarmars'].reset();
     this.addUpdateBenchMarkForm.controls['AgriBusinessPotential'].reset();
-      
+
 
       this.addUpdateBenchMarkForm.markAsUntouched();
       this.addUpdateBenchMarkForm.markAsPristine();
       this.ind = null;
-    
+
   }
 
   hideDelete(benchmark) {
@@ -310,7 +310,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
     //this.hideDelete = true;
 
-    
+
     this.user.ZoneId = this.addUpdateBenchMarkForm.controls.ZoneId.value;
     this.user.BranchCode = this.addUpdateBenchMarkForm.controls.BranchCode.value;
     this.user.CircleId = this.addUpdateBenchMarkForm.controls.CircleId.value;
@@ -354,5 +354,15 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
         this.disable_circle = false;
     });
 }
+
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
 
 }

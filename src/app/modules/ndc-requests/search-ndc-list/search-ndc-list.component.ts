@@ -190,7 +190,7 @@ export class SearchNdcListComponent implements OnInit {
                         this.pending_requests_data_source = baseResponse.Ndc.pendingNdcs;
               this.dvPending = this.pending_requests_data_source;
               this.pendingLength = this.dvPending.length;
-              this.pending_requests_data_source = this.dvPending.slice(0, this.pageSizePending);
+              this.pending_requests_data_source = this.dvPending.slice(0, this.pageSize);
               // this.pending_requests_data_source.paginator = this.paginator;
               // this.pendingLength = baseResponse.Ndc.pendingNdcs.length;
             }
@@ -274,7 +274,7 @@ export class SearchNdcListComponent implements OnInit {
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.gridHeight = window.innerHeight - 400 + 'px';
+        this.gridHeight = window.innerHeight - 330 + 'px';
     }
 
     // findCnic(cnic: HTMLInputElement) {
@@ -327,12 +327,12 @@ export class SearchNdcListComponent implements OnInit {
       this.request_data_source = this.dvReq.slice(pageIndex * this.pageSize - this.pageSize, pageIndex * this.pageSize); //slice is used to get limited amount of data from APi
     }
 
-    paginatePending(pageIndex: any, pageSize: any = this.pageSizePending) {
+    paginatePending(pageIndex: any, pageSize: any = this.pageSize) {
       this.pageSizePending = pageSize;
       this.pageIndexPending = pageIndex;
       this.offSet = pageIndex;
 
-      this.pending_requests_data_source = this.dvPending.slice(pageIndex * this.pageSizePending - this.pageSizePending, pageIndex * this.pageSizePending); //slice is used to get limited amount of data from APi
+      this.pending_requests_data_source = this.dvPending.slice(pageIndex * this.pageSize - this.pageSize, pageIndex * this.pageSize); //slice is used to get limited amount of data from APi
     }
 
     submitDeleteStatus(request) {

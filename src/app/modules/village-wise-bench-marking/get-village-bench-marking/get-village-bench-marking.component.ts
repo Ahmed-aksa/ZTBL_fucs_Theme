@@ -101,7 +101,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 }
 
   ngOnInit() {
-    
+
     this.createForm();
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
@@ -141,6 +141,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
           this.SelectedZones = this.Zone;
           this.single_zone = false;
           this.disable_zone = false;
+          this.single_branch = false
           this.spinner.hide();
 
       });}
@@ -191,8 +192,8 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      if(baseResponse.Success === true){  
-        
+      if(baseResponse.Success === true){
+
         this.dataSource = baseResponse.VillageBenchMarking.VillageBenchMarkingList
         this.matTableLenght = true
         this.dv = this.dataSource
@@ -206,14 +207,14 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
         this.pageIndex = 1;
         this.Offset = 0;
-        
+
       }
     })
   }
 
   paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
     this.itemsPerPage = pageSize;
-    
+
     this.Offset = (pageIndex - 1) * this.itemsPerPage;
     this.pageIndex = pageIndex;
     this.search();
@@ -246,7 +247,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      if(baseResponse.Success === true){  
+      if(baseResponse.Success === true){
         window.location.reload();
       }
     })
@@ -256,12 +257,13 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
   changeBranch(changedValue) {
 
     let changedBranch = null;
-    if (changedValue.has('value')) {
+    if (changedValue) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}
 
     }
+    debugger
     this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
         console.log(data);
         this.Circles = data.Circles;
@@ -277,4 +279,13 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     });
 }
 
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
 }
