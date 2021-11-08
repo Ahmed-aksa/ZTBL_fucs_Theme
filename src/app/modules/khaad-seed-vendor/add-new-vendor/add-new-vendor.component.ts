@@ -240,7 +240,10 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
         this.fileExist = true;
         this.vendorInfo = baseResponse.SeedKhadVendor.VendorDetail;
+        console.log(this.vendorInfo)
 
+        this.vendorForm.controls["BranchCode"].setValue(this.vendorInfo.BranchCode);
+        this.vendorForm.controls["ZoneId"].setValue(this.vendorInfo.ZoneId);
         this.vendorForm.controls["Name"].setValue(this.vendorInfo.Name);
         this.vendorForm.controls["Type"].setValue(this.vendorInfo.Type);
         this.vendorForm.controls["Description"].setValue(this.vendorInfo.Description);

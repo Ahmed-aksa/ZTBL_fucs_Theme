@@ -307,6 +307,12 @@ export class VendorRadiusComponent implements OnInit {
         console.log(data);
         this.Circles = data.Circles;
         this.SelectedCircles = this.Circles;
+        var fi : any = []
+        fi.Id = "null";
+        fi.CircleCode = "All";
+        fi.LovId = "0";
+        fi.TagName="0";
+        this.SelectedCircles.splice(0, 0, fi)
         this.disable_circle = false;
     });
 }

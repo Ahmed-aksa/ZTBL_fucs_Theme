@@ -344,11 +344,12 @@ changeBranch(changedValue) {
         this.SelectedCircles = this.Circles;
         var fi : any = []
         fi.Id = "null";
-        fi.Name = "All";
+        fi.CircleCode = "All";
         fi.LovId = "0";
         fi.TagName="0";
         this.SelectedCircles.splice(0, 0, fi)
-        this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
+        console.log(this.SelectedCircles)
+      this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
         this.disable_circle = false;
     });
 }
