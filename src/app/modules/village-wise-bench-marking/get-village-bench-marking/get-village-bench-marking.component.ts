@@ -184,7 +184,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     }
 
     this.spinner.show();
-    this._villageBenchmark.getVillageBenchMark(this.Limit, this.Offset, this.getVillage)
+    this._villageBenchmark.getVillageBenchMark(this.SelectedCircles,this.Limit, this.Offset, this.getVillage)
     .pipe(
       finalize(() => {
       this.loaded = true;

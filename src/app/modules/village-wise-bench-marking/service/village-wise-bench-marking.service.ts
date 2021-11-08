@@ -32,10 +32,10 @@ export class VillageWiseBenchMarkingService{
 
   userInfo = this.userUtilsService.getUserDetails();
 
-  getVillageBenchMark(limit, offset, village){
-    var circle = this.userInfo.UserCircleMappings;
+  getVillageBenchMark(circle,limit, offset, village){
+    // var circle = this.userInfo.UserCircleMappings;
     var circleIds = [];
-    
+
     if(village.CircleId == 'null'){
       village.CircleId = null
     }
@@ -76,7 +76,7 @@ export class VillageWiseBenchMarkingService{
   };
   var r = JSON.stringify(request)
   console.log(r)
-  
+
     return this.http.post(`${environment.apiUrl}/VillageBenchMarking/GetVillageBenchMarking`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -84,7 +84,7 @@ export class VillageWiseBenchMarkingService{
   }
 
   addUpdateVillageBenchMark(village, user) {
-    
+
     var circle = this.userInfo.UserCircleMappings;
     var circleIds = [];
     //mycircle =
@@ -122,7 +122,7 @@ export class VillageWiseBenchMarkingService{
   };
   var r = JSON.stringify(request)
   console.log(r)
-  
+
     return this.http.post(`${environment.apiUrl}/VillageBenchMarking/AddUpdateBenchMarking`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -130,7 +130,7 @@ export class VillageWiseBenchMarkingService{
   }
 
   deleteVillageBenchmark(village){
-    
+
     var circle = this.userInfo.UserCircleMappings;
     var circleIds = [];
     //mycircle =
@@ -169,7 +169,7 @@ export class VillageWiseBenchMarkingService{
   };
   var r = JSON.stringify(request)
   console.log(r)
-  
+
     return this.http.post(`${environment.apiUrl}/VillageBenchMarking/DeleteBenchMarking`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
