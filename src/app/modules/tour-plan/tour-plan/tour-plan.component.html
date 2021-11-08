@@ -117,7 +117,7 @@
         </div>
 
     </div>
-    <div class="flex flex-auto mx-10" style="flex-direction: column;overflow-y: scroll">
+    <div class="flex flex-auto mt-10" style="flex-direction: column;overflow-y: scroll">
         <div  *ngIf="dataSource.length>0 && isTable" class="example-table-container">
             <!--[style.height]="gridHeight"-->
             <mat-table class="lmat-elevation-z8"
@@ -167,8 +167,8 @@
             </mat-table>
 
         </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4" *ngIf="dataSource.length>0">
-            <button mat-raised-button color="primary" (click)="Submit()">Submit All</button>
+        <div class="flex flex-shrink-0 items-center py-4 " *ngIf="dataSource.length>0">
+            <button mat-raised-button color="primary" (click)="Submit()"><mat-icon class="mr-2">check_circle</mat-icon> Submit All</button>
         </div>
 
     </div>

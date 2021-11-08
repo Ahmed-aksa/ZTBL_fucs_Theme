@@ -178,7 +178,7 @@
 
         <!-- Products list -->
         <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
-            <div class="flex flex-col flex-auto sm:mb-18  overflow-scroll" [style.height]="gridHeight">
+            <div class="flex flex-col flex-auto sm:mb-2  overflow-scroll" [style.height]="gridHeight">
                 <mat-table class="lmat-elevation-z8"
                            #table
                            [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
