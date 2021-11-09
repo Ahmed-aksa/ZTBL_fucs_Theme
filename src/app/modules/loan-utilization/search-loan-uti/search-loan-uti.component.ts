@@ -7,7 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ActivatedRoute, Router} from '@angular/router';
-import {errorMessages, Lov, LovConfigurationKey, MaskEnum} from 'app/shared/classes/lov.class';
+import {DateFormats, errorMessages, Lov, LovConfigurationKey, MaskEnum} from 'app/shared/classes/lov.class';
 import {CreateCustomer} from 'app/shared/models/customer.model';
 import {LoanUtilizationSearch} from 'app/modules/loan-utilization/Model/loan-utilization.model';
 import {CircleService} from 'app/shared/services/circle.service';
@@ -24,12 +24,19 @@ import {Circle} from 'app/shared/models/circle.model';
 import {Branch} from 'app/shared/models/branch.model';
 import {Zone} from 'app/shared/models/zone.model';
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
 
 @Component({
     selector: 'app-search-loan-uti',
     templateUrl: './search-loan-uti.component.html',
     styleUrls: ['./search-loan-uti.component.scss'],
-    providers: [LoanUtilizationService, DatePipe]
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ],
 })
 export class SearchLoanUtilizationComponent implements OnInit {
 
@@ -124,7 +131,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 private _circleService: CircleService,
                 private _cdf: ChangeDetectorRef,
                 private userUtilsService: UserUtilsService,
-                private _common: CommonService) {
+                private _common: CommonService,
+                public datePipe:DatePipe) {
     }
 
     ngOnInit() {
@@ -283,8 +291,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
             BranchId: [userInfo?.Branch?.BranchId],
             Branch: [userInfo?.Branch?.Name],
             LoanCaseNo: [""],
-            ToDate: [""],
-            FromDate: [""],
+            ToDate: [],
+            FromDate: [],
         });
 
     }
@@ -332,9 +340,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
     fromdate: string;
 
     setFromDate() {
-
-
-        this.minDate = this.loanutilizationSearch.controls.FromDate.value.toDate()
+        debugger
+        // this.loanutilizationSearch.controls.FromDate.value this.datePipe.transform(this.loanutilizationSearch.controls.FromDate.value, 'ddMMyyyy')
+        this.minDate =  this.loanutilizationSearch.controls.FromDate.value;
         var FromDate = this.loanutilizationSearch.controls.FromDate.value;
         if (FromDate._isAMomentObject == undefined) {
             try {
@@ -347,9 +355,13 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 if (day < 10) {
                     day = "0" + day;
                 }
+                FromDate = day + "" + month + "" + year;
+                this.fromdate = FromDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.fromdate = branchWorkingDate.toString();
-                this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate)
+                // console.log("date"+this.datePipe.transform(branchWorkingDate, 'ddmmyyyy'))
+               // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
+               //  console.log(this._common.stringToDate(newdate))
+               this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         } else {
@@ -376,7 +388,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     todate: string;
 
     setToDate() {
-
+        debugger
 
         var ToDate = this.loanutilizationSearch.controls.ToDate.value;
         if (ToDate._isAMomentObject == undefined) {
