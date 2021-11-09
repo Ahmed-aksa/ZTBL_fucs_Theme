@@ -239,16 +239,20 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
         return;
       }
       this.getVillage.Remarks = res;
-      this.spinner.show();
+      //this.spinner.show();
       this._villageBenchmark.deleteVillageBenchmark(this.getVillage)
       .pipe(
       finalize(() => {
-      this.spinner.hide();
+      //this.spinner.hide();
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
       if(baseResponse.Success === true){
-        window.location.reload();
+        this.getVillageBenchmarkForm.controls["VillageName"].reset()
+        this.getVillageBenchmarkForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
+        this.Offset = 0;
+        this.Limit = 10;
+        this.search()
       }
     })
     });
