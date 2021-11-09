@@ -31,6 +31,7 @@ export class ApilogsListComponent implements OnInit {
     third_party_apis: any;
     third_party_apis_details: any;
     loading: boolean = true;
+    panelOpenState: boolean = true;
 
     displayedRows$: Observable<any[]>;
     totalRows$: Observable<number>;
@@ -137,7 +138,7 @@ export class ApilogsListComponent implements OnInit {
 
     loadApiLogs() {
 
-        this.reportFilter = Object.assign(this.reportFilter, this.FilterForm.value);
+        this.reportFilter = Object.assign(this.reportFilter, this.FilterForm.value, this.panelOpenState = false);
         this.spinner.show();
         this._reportservice.getAllAPILogs(this.reportFilter)
             .pipe(
