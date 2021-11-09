@@ -102,7 +102,7 @@
 
         <div class="col-lg-3 col-sm-12">        
           <div>
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Gender Type<strong class="matMandatory">*</strong></mat-label>
               <mat-select formControlName="GenderType">
                 <mat-option *ngFor="let gender of GenderLov" [value]="gender.Name">
@@ -210,8 +210,8 @@
               <th>Village Name</th>
               <th>No Of Formaer</th>
               <th>Farm Size</th>
-              <!-- <th>GenderCount</th>
-              <th>Gender Type</th> -->
+              <th>GenderCount</th>
+              <th>Gender Type</th>
               <th>Average Loan Size</th>
               <th>Agri Business Potential</th>
               <th>Action</th>

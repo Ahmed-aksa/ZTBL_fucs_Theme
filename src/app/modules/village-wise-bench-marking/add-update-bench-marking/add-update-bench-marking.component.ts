@@ -337,9 +337,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
       if (baseResponse.Success === true) {
         //this.req_array = [];
         //this.req_array = baseResponse.VillageBenchMarking.VillageBenchMarkingList;
-        this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
         this.router.navigateByUrl('/village-wise-bench-marking/get-village-bench-marking')
-        //console.log(baseResponse)
         //this.req_array = baseResponse.
         //this.router.navigateByUrl('./get-village-bench-marking')
       }
