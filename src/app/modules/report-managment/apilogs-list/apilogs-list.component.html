@@ -1,7 +1,97 @@
 <div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-scroll bg-card dark:bg-transparent">
-    <div class="text-3xl   font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">API Logs</div>
+
+    <div class="row py-3">
+        <div class="col-lg-8 col-sm-12">
+            <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">API Logs</div>
+        </div>
+        <div class="col-lg-4 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
+                </button>
+              </p>
+        </div>
+    </div>
+
     <!-- Header -->
-    <mat-accordion class="py-3">
+
+
+
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div class="py-4" [formGroup]="FilterForm">
+
+
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+                            <mat-form-field class="w-full" appearance="outline">
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search"
+                                       autocomplete="off"
+                                       appearance="outline">
+                                <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
+                                <mat-label>Choose start date</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="StartDate"
+                                       (dateChange)="comparisonStartdateValidator()" autocomplete="off">
+        
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        
+                                <mat-datepicker #picker1></mat-datepicker>
+        
+                                <mat-error *ngIf="FilterForm.controls['StartDate'].hasError('invaliddaterange')">
+                                    <strong>Start date cannot be greater than end date</strong>
+                                </mat-error>
+                                <mat-error *ngIf="hasError('StartDate', 'required')">Start Date <strong>required</strong>
+                                </mat-error>
+        
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Choose end date</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="EndDate"
+                                       (dateChange)="comparisonEnddateValidator()" autocomplete="off">
+        
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+        
+                                <mat-error *ngIf="FilterForm.controls['EndDate'].hasError('invaliddaterange')">
+                                    <strong>End date cannot be earlier than start date</strong>
+                                </mat-error>
+        
+                                <mat-error *ngIf="hasError('EndDate', 'required')">End Date <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+        
+                </div>
+                <div class="row pb-2">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" mat-raised-button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                    type="button" (click)="loadApiLogs()">
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+
+    <!-- <mat-accordion class="py-3">
         <mat-expansion-panel [(expanded)]="panelOpenState" (opened)="panelOpenState = true"
                              (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
@@ -10,79 +100,13 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           
-          <div class="py-4" [formGroup]="FilterForm">
-
-
-            <div class="row">
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
-                        <mat-form-field class="w-full" appearance="outline">
-                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search"
-                                   autocomplete="off"
-                                   appearance="outline">
-                            <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
-                            <mat-label>Choose start date</mat-label>
-                            <input matInput [matDatepicker]="picker1" formControlName="StartDate"
-                                   (dateChange)="comparisonStartdateValidator()" autocomplete="off">
-    
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-    
-                            <mat-datepicker #picker1></mat-datepicker>
-    
-                            <mat-error *ngIf="FilterForm.controls['StartDate'].hasError('invaliddaterange')">
-                                <strong>Start date cannot be greater than end date</strong>
-                            </mat-error>
-                            <mat-error *ngIf="hasError('StartDate', 'required')">Start Date <strong>required</strong>
-                            </mat-error>
-    
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label>Choose end date</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="EndDate"
-                                   (dateChange)="comparisonEnddateValidator()" autocomplete="off">
-    
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-    
-                            <mat-error *ngIf="FilterForm.controls['EndDate'].hasError('invaliddaterange')">
-                                <strong>End date cannot be earlier than start date</strong>
-                            </mat-error>
-    
-                            <mat-error *ngIf="hasError('EndDate', 'required')">End Date <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-    
-            </div>
-            <div class="row pb-2">
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <button mat-raised-button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                type="button" (click)="loadApiLogs()">
-                            <mat-icon class="mr-2">search</mat-icon>
-                            Search
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+          
      
         </mat-expansion-panel>
-      </mat-accordion>
+      </mat-accordion> -->
     
 
-    <section matSort class="mat-elevation-z2 mat-header-row bg-green">
+    <section matSort class="mat-elevation-z2 mat-header-row bg-green mt-2 ">
         <span class="mat-header-cell text-white" mat-sort-header="Id" style="width: 10px;">ID</span>
         <span class="mat-header-cell text-white" mat-sort-header="TransactionId">Transaction ID</span>
         <span class="mat-header-cell text-white" mat-sort-header="ApiName">API Name</span>
@@ -96,7 +120,7 @@
 
         <mat-expansion-panel class="api-table shadow-none mb-4 p-0" *ngFor="let item of displayedRows$ |async"
                              (click)="fetch3rdAPI($event,item)" style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
-            <mat-expansion-panel-header style="font-size: 12px;" class="mat-row custom-accordion py-2 h-16  rounded-lg my-1 shadow border">
+            <mat-expansion-panel-header style="font-size: 12px;" class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow border">
                 <span class="mat-cell py-6 self-center font-bold" style="width: 10px; font-size: 12px;">{{item?.Id}}</span>
                 <span class="mat-cell py-6 self-center font-bold" style="font-size: 12px;">{{item?.TransactionId}}</span>
                 <p class="mat-cell py-6 self-center  font-bold" style="font-size: 12px;">{{item?.APIName}}</p>
