@@ -1,21 +1,27 @@
-<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-4xl font-extrabold tracking-tight px-2">ECIB Queue</div>
+<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-3xl mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">ECIB Queue</div>
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4"
-         style="flex-wrap: wrap" [formGroup]="FilterForm">
+    <div class="py-4" [formGroup]="FilterForm">
         <div
             class="absolute inset-x-0 bottom-0">
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="loading"></mat-progress-bar>
         </div>
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <mat-form-field appearance="outline">
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" autocomplete="off"
-                       appearance="outline">
-                <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint>
-            </mat-form-field>
+
+
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="w-full" appearance="outline">
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search" autocomplete="off"
+                               appearance="outline">
+                        <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
         </div>
+
     </div>
-    <div class="example-table-container" style="overflow-y: scroll">
+    <div class="example-table-container  overflow-scroll" [style.height]="gridHeight">
         <mat-table class="lmat-elevation-z8"
                    #table
                    [dataSource]="dataSource"
