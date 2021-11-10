@@ -276,7 +276,7 @@ export class MakeRcComponent implements OnInit {
         // });
         this.assignBranchAndZone();
         this.dailog.open(NewGlCodeComponent, {
-            width: "1600px",
+            width: "100%",
             data: {NGlC: this.mrForm.controls.GlSubIDNew.value, zone: this.final_zone, branch: this.final_branch},
             disableClose: true
         });
