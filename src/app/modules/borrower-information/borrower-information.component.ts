@@ -18,7 +18,7 @@ import {UserUtilsService} from "../../shared/services/users_utils.service";
     styleUrls: ['./borrower-information.component.scss']
 })
 export class BorrowerInformationComponent implements OnInit {
-    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'LoanCaseNo', 'PermanentAddress', 'TotalSanctionedAmount', 'SanctionLimit', 'Link'];
+    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', , 'PhoneNumber', 'InterestRate', 'PermanentAddress'];
     matTableLenght: boolean = false;
 
     borrowerForm: FormGroup;
@@ -225,12 +225,10 @@ export class BorrowerInformationComponent implements OnInit {
 interface Borrowers {
     CustomerName: string;
     Name: string;
-    LoanCaseNo: string;
+    PhoneNumber: string;
     Cnic: string;
     FatherName: string;
     PermanentAddress: string;
-    SanctionLimit: string;
-    TotalSanctionedAmount: string;
+    InterestRate: string;
     TotalRecords: string
-
 }
