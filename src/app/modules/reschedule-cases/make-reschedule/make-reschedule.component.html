@@ -85,8 +85,8 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-sm-12">
-                <div *ngIf="!expand">
+            <div *ngIf="!expand" class="col-lg-4 col-sm-12">
+                <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Sub Proposal <strong class="matMandatory">*</strong></mat-label>
                         <mat-select formControlName="LoanAppSanctionID">
@@ -96,7 +96,9 @@
                         </mat-select>
                       </mat-form-field>
                 </div>
-                <div *ngIf="expand">
+            </div>
+            <div *ngIf="expand" class="col-lg-5 col-sm-12">
+                <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Sub Proposal <strong class="matMandatory">*</strong></mat-label>
                         <mat-select formControlName="LoanAppSanctionID">
