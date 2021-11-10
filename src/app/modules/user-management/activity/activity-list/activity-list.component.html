@@ -1,26 +1,29 @@
-<div
-    class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
 
     <!-- Header -->
-    <div
-        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between">
-        <!-- Loader -->
-        <!-- Title -->
-        <div class="text-3xl w-full font-extrabold tracking-tight pb-1 border-b mb-2 border-green-500 p-2"
-             style="background-color: #f6fcf8;">Pages List
+
+
+    <div class="row py-3">
+        <div class="col-lg-8 col-sm-12">
+            <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Pages List</div>
         </div>
-        <!-- Actions -->
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <button
-                class="ml-4"
-                mat-flat-button
-                [color]="'primary'"
-                (click)="addActivity()">
-                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-                <span class="ml-2 mr-1">Add New </span>
-            </button>
+        <div class="col-lg-4 col-sm-12 text-right">
+            <div class="">
+                <button
+                    class="ml-4"
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="addActivity()">
+                    <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                    <span class="ml-2 mr-1">Add New </span>
+                </button>
+            </div>
         </div>
     </div>
+
+    <!-- Header -->
+
+
 
     <!-- Main -->
     <div class="">
