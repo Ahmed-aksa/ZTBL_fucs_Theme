@@ -1,113 +1,136 @@
-<div class="absolute inset-x-0">
-    <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
-    </div>
+
 <div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
-    <div class="text-3xl mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Get Village Bench Marking</div>
+
+
+    <div class="row py-3">
+      <div class="col-lg-8 col-sm-12">
+          <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Get Village Bench Marking</div>
+      </div>
+      <div class="col-lg-4 col-sm-12 self-center">
+          <p class="text-right">
+              <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
+              </button>
+            </p>
+      </div>
+  </div>
+
+  <!-- Header -->
+
+
+
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <div class="py-2" [formGroup]="getVillageBenchmarkForm">
+
+
+
+          <div class="row">
+              <div class="col-lg-3 col-sm-12">
+                  <div class="flex flex-shrink-0 items-center mt-3 sm:mt-0">
+  
+                      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                          <mat-label class="customMatLabel">Zone</mat-label>
+                          <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                              <mat-option [value]="SelectedZones?.ZoneId">
+                                  {{SelectedZones?.ZoneName}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+                          <mat-label class="customMatLabel">Zone</mat-label>
+                          <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                                      (selectionChange)="changeZone($event)">
+                              <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                          [disabled]="disable_zone">
+                                  {{zone?.ZoneName}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+          
+          
+                  </div>
+              </div>
+              <div class="col-lg-3 col-sm-12">
+                  <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+  
+                      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                          <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                          <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                      (selectionChange)="changeBranch($event)"
+                                      *ngIf="!single_branch">
+                              <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                              >
+                                  {{branch?.Name}}
+                              </mat-option>
+                          </mat-select>
+                          <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                      *ngIf="single_branch">
+                              <mat-option [value]="SelectedBranches?.BranchCode"
+                              >
+                                  {{SelectedBranches?.Name}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-sm-12">
+                  <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+  
+                      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                          <mat-label class="customMatLabel">Circle</mat-label>
+          
+                          <mat-select formControlName="Circle" [disabled]="disable_circle">
+                              <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                              >
+                                  {{circle?.CircleCode}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-sm-12">
+                  <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+  
+                      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                          <mat-label class="customMatLabel">Village Name</mat-label>
+                          <input matInput placeholder="Enter Village Name" formControlName="VillageName" maxlength="30" autocomplete="off" />
+                        </mat-form-field>
+                  </div>
+              </div>
+  
+          </div>
+  
+  
+  
+  
+          <div class="row py-2">
+              <div class="col-lg-3 col-sm-12">
+                  <div class="flex flex-shrink-0 items-center mt-3 sm:mt-0">
+  
+                      <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button class="mat-primary"
+                              type="button" (click)="search()"><mat-icon class="mr-2">search</mat-icon> Search</button>
+                  </div>
+              </div>
+  
+  
+          </div>
+  
+  
+  
+  
+  
+  
+  
+  
+      </div>
+      </div>
+    </div>
+
+
 
     <!-- Header -->
-    <div class="py-2" [formGroup]="getVillageBenchmarkForm">
 
-
-
-        <div class="row">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-3 sm:mt-0">
-
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
-                            <mat-option [value]="SelectedZones?.ZoneId">
-                                {{SelectedZones?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
-                                    (selectionChange)="changeZone($event)">
-                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                        [disabled]="disable_zone">
-                                {{zone?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-        
-        
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                                    (selectionChange)="changeBranch($event)"
-                                    *ngIf="!single_branch">
-                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                            >
-                                {{branch?.Name}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                                    *ngIf="single_branch">
-                            <mat-option [value]="SelectedBranches?.BranchCode"
-                            >
-                                {{SelectedBranches?.Name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Circle</mat-label>
-        
-                        <mat-select formControlName="Circle" [disabled]="disable_circle">
-                            <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
-                            >
-                                {{circle?.CircleCode}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Village Name</mat-label>
-                        <input matInput placeholder="Enter Village Name" formControlName="VillageName" maxlength="30" autocomplete="off" />
-                      </mat-form-field>
-                </div>
-            </div>
-
-        </div>
-
-
-
-
-        <div class="row py-2">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-3 sm:mt-0">
-
-                    <button mat-raised-button class="mat-primary"
-                            type="button" (click)="search()"><mat-icon class="mr-2">search</mat-icon> Search</button>
-                </div>
-            </div>
-
-
-        </div>
-
-
-
-
-
-
-
-
-    </div>
     <div class="mat-table__wrapper overflow-y-scroll" [style.height]="gridHeight"  >
         <!--[style.height]="gridHeight"-->
         <mat-table
