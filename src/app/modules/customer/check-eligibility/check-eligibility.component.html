@@ -27,7 +27,7 @@
                   <input matInput placeholder="Enter cnic" formControlName="Cnic" maxlength="15" autocomplete="off" [mask]="maskEnums.cnic" [readonly]="checkEligibiltyCnic"/>
                   <mat-error *ngIf="hasError('Cnic', 'required')">cnic <strong>required</strong></mat-error>
                   <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>Cnic lenght invalid</strong></mat-error>
-                  <mat-hint align="left">Please enter cnic <strong>(3210412345678)</strong></mat-hint>
+                  <mat-hint class="pt-3" align="left">Please enter cnic <strong>(3210412345678)</strong></mat-hint>
                 </mat-form-field>
               </div>
                 <div class="col-lg-4 kt-margin-bottom-20-mobile mt-4">
