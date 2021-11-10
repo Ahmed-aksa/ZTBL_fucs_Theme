@@ -2,10 +2,14 @@
 
 
 <div class=" px-10 sm:absolute sm:inset-0 flex flex-col px-10  flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class=" mt-4 text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</div>
+  <div class="row py-3">
+    <div class="col-lg-8 col-sm-12">
+        <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">{{getTitle()}}</div>
+    </div>
 
+</div>
   <!-- Header -->
-  <div class="flex flex-auto overflow-hidden py-4" style="flex-direction: column;">
+  <div class="flex flex-auto overflow-hidden pb-4" style="flex-direction: column;">
     <form [formGroup]="customerInfo" class="kt-form kt-form--group-seperator-dashed">
       <div class="kt-form">
         <div class="kt-portlet__body">
