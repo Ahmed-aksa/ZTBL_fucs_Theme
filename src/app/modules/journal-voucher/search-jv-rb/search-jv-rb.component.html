@@ -1,105 +1,133 @@
 <div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-3xl mt-4 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Search Journal Voucher</div>
-    <div [formGroup]="referbackForm" class="mt-4">
+
+    <div class="row py-3">
+        <div class="col-lg-8 col-sm-12">
+            <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Search Journal Voucher</div>
+        </div>
+        <div class="col-lg-4 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
+                </button>
+              </p>
+        </div>
+    </div>
+
+    <!-- Header -->
 
 
-        <div class="row">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div [formGroup]="referbackForm" class="mt-4">
 
 
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Organizational Limit <strong class="matMandatory">*</strong>
-                        </mat-label>
-                        <mat-select [(ngModel)]="selected_b" formControlName="OrganizationUnit" [disabled]="disable_branch"
-                                    placeholder="Organization Unit"
-                                    *ngIf="!single_branch">
-                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode">
-                                {{branch?.Name}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-select [(ngModel)]="selected_b" formControlName="OrganizationUnit" [disabled]="disable_branch"
-                                    placeholder="Organization Unit"
-                                    *ngIf="single_branch">
-                            <mat-option [value]="SelectedBranches?.BranchCode">
-                                {{SelectedBranches?.Name}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="hasError('OrganizationUnit', 'required')">Organization Unit <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
-                        </mat-label>
-                        <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="8"
-                               autocomplete="off" [max]="maxDate" appNumberOnly/>
-                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                        <mat-datepicker #picker2></mat-datepicker>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
         
-                        <mat-error *ngIf="hasError('TransactionDate', 'required')">Transaction Date <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
+        
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Organizational Limit <strong class="matMandatory">*</strong>
+                                </mat-label>
+                                <mat-select [(ngModel)]="selected_b" formControlName="OrganizationUnit" [disabled]="disable_branch"
+                                            placeholder="Organization Unit"
+                                            *ngIf="!single_branch">
+                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode">
+                                        {{branch?.Name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-select [(ngModel)]="selected_b" formControlName="OrganizationUnit" [disabled]="disable_branch"
+                                            placeholder="Organization Unit"
+                                            *ngIf="single_branch">
+                                    <mat-option [value]="SelectedBranches?.BranchCode">
+                                        {{SelectedBranches?.Name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="hasError('OrganizationUnit', 'required')">Organization Unit <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
+                                </mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="8"
+                                       autocomplete="off" [max]="maxDate" appNumberOnly/>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                
+                                <mat-error *ngIf="hasError('TransactionDate', 'required')">Transaction Date <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Select Nature</mat-label>
+                                <mat-select formControlName="Nature">
+                                    <mat-option *ngFor="let nature of Nature" [value]="nature.Id">
+                                        {{nature.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
+                                <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off"
+                                       appNumberOnly/>
+                                <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No <strong>required</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Select Status</mat-label>
+                                <mat-select formControlName="Status" [disabled]="true">
+                                    <mat-option *ngFor="let status of JvStatuses" [value]="status.Value">
+                                        {{status.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+        
+                </div>   
+        
+         <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mb-3 sm:mt-0">
+                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"  mat-raised-button color="primary"
+                            type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Select Nature</mat-label>
-                        <mat-select formControlName="Nature">
-                            <mat-option *ngFor="let nature of Nature" [value]="nature.Id">
-                                {{nature.Name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off"
-                               appNumberOnly/>
-                        <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No <strong>required</strong></mat-error>
-                    </mat-form-field>
-                </div>
+         </div>
+        
+        
+        
+        
+        
+        
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Select Status</mat-label>
-                        <mat-select formControlName="Status" [disabled]="true">
-                            <mat-option *ngFor="let status of JvStatuses" [value]="status.Value">
-                                {{status.Name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-
-        </div>   
-
- <div class="row">
-    <div class="col-lg-3 col-sm-12">
-        <div class="flex flex-shrink-0 items-center mb-3 sm:mt-0">
-            <button  mat-raised-button color="primary"
-                    type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
-        </div>
-    </div>
- </div>
+      </div>
 
 
 
 
 
 
-    </div>
+
     <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
         <div class="example-table-container">
             <!--[style.height]="gridHeight"-->

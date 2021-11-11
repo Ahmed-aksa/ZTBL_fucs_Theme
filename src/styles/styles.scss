@@ -2,7 +2,11 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
-
+@import '~material-icons-font/sass/variables';
+ @import '~material-icons-font/sass/mixins';
+ $MaterialIcons_FontPath: "~material-icons-font/fonts";
+ @import '~material-icons-font/sass/main';
+ @import '~material-icons-font/sass/Regular';
 .trend-dialog{
   overflow-y: hidden;
   .mat-dialog-container{
@@ -149,6 +153,7 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
     float: left;
     border: none;
     .mat-form-field-wrapper{
+      padding: 0%;
       .mat-form-field-outline{
         width: 100px;
       }
@@ -186,4 +191,17 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
       padding: 0%;
     }
   }
+}
+.mat-form-field-infix {
+  font-size: 12px;
+}
+.mat-form-field-wrapper{
+  padding-bottom: 8px;
+}
+
+.mat-error{
+  padding-top: 7px;
+}
+.mat-hint {
+  padding-top: 7px;
 }

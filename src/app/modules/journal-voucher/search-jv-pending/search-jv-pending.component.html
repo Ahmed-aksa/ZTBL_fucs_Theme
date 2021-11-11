@@ -1,6 +1,26 @@
 <div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Pending Transactions</div>
 
+
+
+    <div class="row py-3">
+        <div class="col-lg-8 col-sm-12">
+            <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Pending Transactions</div>
+        </div>
+        <div class="col-lg-4 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
+                </button>
+              </p>
+        </div>
+    </div>
+
+    <!-- Header -->
+
+
+
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
     <!-- Header -->
     <div [formGroup]="pendingForm" class="mt-4">
         <!-- <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
@@ -124,7 +144,7 @@
             <div class="col-lg-4 col-sm-12">
                 <div class="flex flex-shrink-0 items-center sm:mt-0">
 
-                    <button mat-raised-button color="primary"
+                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary"
                             type="button" (click)="find()">
                         <mat-icon class="mr-2">search</mat-icon>
                         Search
@@ -138,7 +158,15 @@
 
 
     </div>
-    <div class="flex flex-auto overflow-scroll mt-4" style="flex-direction: column;">
+        </div>
+      </div>
+
+
+
+
+
+
+    <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
 
         <div class="example-table-container">
 

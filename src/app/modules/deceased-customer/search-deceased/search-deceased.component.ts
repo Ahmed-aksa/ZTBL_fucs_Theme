@@ -150,7 +150,7 @@ export class SearchDeceasedComponent implements OnInit {
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.gridHeight = window.innerHeight - 400 + 'px';
+        this.gridHeight = window.innerHeight - 300 + 'px';
     }
     private assignBranchAndZone() {
         
