@@ -53,9 +53,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     displayedColumns = [
 
-        "BranchName",
+        // "BranchName",
         "BranchCode",
-        "LoanCaseNo",
+        "SchemeCode",
+         "LoanCaseNo",
         "OutStandingPrinciple",
         "DisbursedAmount",
         "prodDevFlag",

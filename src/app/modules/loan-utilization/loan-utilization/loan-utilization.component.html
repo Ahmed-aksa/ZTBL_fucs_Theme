@@ -68,7 +68,7 @@
                     <mat-form-field class="mat-form-field-fluid" appearance="outline">
                         <mat-label>Loan GL</mat-label>
         <!--                [ngClass]="{ 'is-invalid': f.LoanDisbID.touched && f.LoanDisbID.errors }"-->
-                        <mat-select [disabled]='viewonly' formControlName="LoanDisbID" >
+                        <mat-select [disabled]="'true'" formControlName="LoanDisbID">
                             <mat-option>
                                 Select
                             </mat-option>

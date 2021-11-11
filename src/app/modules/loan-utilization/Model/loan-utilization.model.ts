@@ -13,6 +13,7 @@ export class LoanUtilizationModel {
     Status:string;
     Remarks:string;
     CircleId:string;
+    SchemeCode:string;
 }
 
 export class UtilizationFiles

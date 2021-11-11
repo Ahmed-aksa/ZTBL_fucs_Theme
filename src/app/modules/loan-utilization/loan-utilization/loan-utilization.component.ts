@@ -172,7 +172,8 @@ export class LoanUtilizationComponent implements OnInit {
 
 
     ngAfterViewInit() {
-        if (this.loanUtilizationModel.LoanCaseNo) {
+console.log("after view"+JSON.stringify(this.loanUtilizationModel))
+        if (this.loanUtilizationModel.LoanCaseNo && this.loanUtilizationModel.Status != "Add") {
             this.GetMedia();
         }
         // this.GetDisbursement();
@@ -194,6 +195,7 @@ export class LoanUtilizationComponent implements OnInit {
     ngOnInit() {
 
         this.setMediaLimits();
+        console.log("loan utilization"+JSON.stringify(this.loanUtilizationModel))
         if (this.loanUtilizationModel.LoanCaseNo) {
             if (this.loanUtilizationModel["view"] == "1") {
                 this.viewonly = true;
@@ -203,7 +205,7 @@ export class LoanUtilizationComponent implements OnInit {
                 this.viewonly = false;
             }
 
-            this.find(this.loanUtilizationModel.LoanCaseNo);
+            this.find(this.loanUtilizationModel);
 
             // this.GetMedia();
         } else {
@@ -426,7 +428,6 @@ export class LoanUtilizationComponent implements OnInit {
                     }
 
                 } else {
-
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,
@@ -452,11 +453,10 @@ export class LoanUtilizationComponent implements OnInit {
         if (!url.includes('base64')) {
             this.videoid = this.videos.find(temp => temp.VideoFilePath == url);
             this.deleteData(this.videoid['ID'], val, true);
-        } else {
+        }else {
             this.videos.splice(val, 1);
             this.videoUrl.splice(val, 1);
         }
-
     }
 
     getDuration(e, i) {
@@ -628,7 +628,6 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     GetLoanGL(val) {
-
         this.spinner.show();
         this._loanutilization
             .GetLoanGL(val)
@@ -672,8 +671,7 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     save() {
-
-
+        debugger
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
             Object.keys(controls).forEach(controlName =>
@@ -716,7 +714,7 @@ export class LoanUtilizationComponent implements OnInit {
                     if (baseResponse.Success) {
 
                         this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID
-                        if(this.images.length && this.videos.length ){
+                        if(this.images.length && this.videos.length){
                             this.layoutUtilsService.alertElement(
                                 "",
                                 baseResponse.Message,
@@ -726,6 +724,7 @@ export class LoanUtilizationComponent implements OnInit {
                         this.SaveImages();
 
                     } else {
+                        console.log("else called")
                         this.layoutUtilsService.alertElement(
                             "",
                             baseResponse.Message,
@@ -737,8 +736,6 @@ export class LoanUtilizationComponent implements OnInit {
     currentIndex: number = 0;
 
     message = "";
-
-
 
     SaveImages() {
         if (this.currentIndex < this.images.length) {
