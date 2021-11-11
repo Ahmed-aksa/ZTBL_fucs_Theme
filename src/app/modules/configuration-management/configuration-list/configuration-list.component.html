@@ -1,26 +1,23 @@
-<div class="px-10 pt-4 absolute inset-0 bg-white flex flex-col min-w-0 overflow-y-scroll" cdkScrollable>
+<div class="px-10  absolute inset-0 bg-white flex flex-col min-w-0 overflow-y-scroll" cdkScrollable>
 
-    <!-- Header -->
-    <div
-        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4  dark:bg-transparent">
-        <div class="flex-1 min-w-0">
-
-            <!-- Title -->
-            <div class="mt-2">
-                <h2 class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">
-                    Configurations List
-                </h2>
-            </div>
+    <div class="row py-3">
+        <div class="col-lg-8 col-sm-12">
+            <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Configurations List</div>
         </div>
-        <!-- Actions -->
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-            <button mat-stroked-button (click)="addNewConfiguration()">
-                <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
-                Configuration
-            </button>
-
+        <div class="col-lg-4 col-sm-12 self-center">
+            <p class="text-right">
+                <button mat-stroked-button (click)="addNewConfiguration()">
+                    <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                    Configuration
+                </button>
+              </p>
         </div>
     </div>
+
+
+
+
+
 
     <!-- Main -->
     <div class=" overflow-x-hidden " 
@@ -39,12 +36,12 @@
                 <div class="custom-accordion rounded-lg my-2 shadow border" *ngFor="let parent_configuration of configurations;let i=index">
                     <div v class="custom-accordion-head border-0" (click)="toggleAccordion(i)"
                          style="cursor: pointer">
-                        <div class="custom-padding" style="align-self: center;">
-                            <h3 class="font-medium">
+                        <div class="ml-8" style="align-self: center;">
+                            <h3 class="font-bold">
                                 {{parent_configuration.KeyName}}
                             </h3>
                         </div>
-                        <div class="custom-padding" style="display: flex;
+                        <div class="mr-8" style="display: flex;
     margin-right: 10%;">
                             <button mat-icon-button >
                                 <mat-icon class="text-red-500">delete_forever</mat-icon>
