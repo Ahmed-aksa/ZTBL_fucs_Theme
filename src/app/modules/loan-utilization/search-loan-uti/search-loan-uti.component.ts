@@ -53,9 +53,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     displayedColumns = [
 
-        "BranchName",
+        // "BranchName",
         "BranchCode",
-        "LoanCaseNo",
+        "SchemeCode",
+         "LoanCaseNo",
         "OutStandingPrinciple",
         "DisbursedAmount",
         "prodDevFlag",
@@ -158,7 +159,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.LoadLovs();
         this.createForm();
         this.settingZBC()
-        // this.searchloanutilization();
+
 
         //this.FilterForm.controls["StartDate"].setValue(this.myDate);
         //this.FilterForm.controls["EndDate"].setValue(this.myDate);
@@ -185,6 +186,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
             // if (this.customerForm.value.Branch) {
             //     this.changeBranch(this.customerForm.value.Branch);
             // }
+            this.searchloanutilization();
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {

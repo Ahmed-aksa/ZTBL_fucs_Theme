@@ -63,16 +63,15 @@
                     </div>
                 </div>
             </div>
-    
-    
-    
+
+
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                             <mat-label>Loan GL</mat-label>
             <!--                [ngClass]="{ 'is-invalid': f.LoanDisbID.touched && f.LoanDisbID.errors }"-->
-                            <mat-select [disabled]='viewonly' formControlName="LoanDisbID" >
+                            <mat-select [disabled]="'true'" formControlName="LoanDisbID" >
                                 <mat-option>
                                     Select
                                 </mat-option>
@@ -84,7 +83,7 @@
                         <mat-error *ngIf="isControlHasError('LoanDisbID','required')">
                             <strong class="mx-3">Loan Disbursment ID is mandatory</strong>
                         </mat-error>
-    
+
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12">
@@ -93,17 +92,17 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12">
-    
+
                 </div>
             </div>
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
         </div>
         <div class="col-lg-12 tab-box">
 
