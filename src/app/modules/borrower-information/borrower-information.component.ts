@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NgxSpinnerService} from "ngx-spinner";
-import {finalize} from "rxjs/operators";
+import {finalize} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {LayoutUtilsService} from "../../shared/services/layout-utils.service";
-import {MatTableDataSource} from "@angular/material/table";
+import {LayoutUtilsService} from '../../shared/services/layout-utils.service';
+import {MatTableDataSource} from '@angular/material/table';
 import {BorrowerInformationService} from "./service/borrower-information.service";
 import {CircleService} from "../../shared/services/circle.service";
 import {BaseResponseModel} from "../../shared/models/base_response.model";
@@ -18,7 +18,7 @@ import {UserUtilsService} from "../../shared/services/users_utils.service";
     styleUrls: ['./borrower-information.component.scss']
 })
 export class BorrowerInformationComponent implements OnInit {
-    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'LoanCaseNo', 'PermanentAddress', 'TotalSanctionedAmount', 'SanctionLimit', 'Link'];
+    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'PhoneNumber', 'InterestRate', 'PermanentAddress'];
     matTableLenght: boolean = false;
 
     borrowerForm: FormGroup;
@@ -225,12 +225,10 @@ export class BorrowerInformationComponent implements OnInit {
 interface Borrowers {
     CustomerName: string;
     Name: string;
-    LoanCaseNo: string;
+    PhoneNumber: string;
     Cnic: string;
     FatherName: string;
     PermanentAddress: string;
-    SanctionLimit: string;
-    TotalSanctionedAmount: string;
+    InterestRate: string;
     TotalRecords: string
-
 }

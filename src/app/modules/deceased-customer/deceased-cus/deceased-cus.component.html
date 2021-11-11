@@ -1,12 +1,99 @@
 <div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-3xl mt-4 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Deceased Customers</div>
     <form [formGroup]="customerForm" class="kt-form kt-form--group-seperator-dashed">
+
+
+
+
+        <div class="row py-3">
+            <div class="col-lg-8 col-sm-12">
+                <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Deceased Customers</div>
+            </div>
+            <div class="col-lg-4 col-sm-12 self-center">
+                <p class="text-right">
+                    <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
+                    </button>
+                  </p>
+            </div>
+        </div>
+    
+        <!-- Header -->
+    
+    
+    
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                                <mat-label class="customMatLabel">Zone</mat-label>
+                                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                                    <mat-option [value]="SelectedZones?.ZoneId">
+                                        {{SelectedZones?.ZoneName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"  *ngIf="!single_zone" >
+                                <mat-label class="customMatLabel">Zone</mat-label>
+                                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                                            (selectionChange)="changeZone($event)">
+                                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                                [disabled]="disable_zone">
+                                        {{zone?.ZoneName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
+                                            (selectionChange)="changeBranch($event)"
+                                            *ngIf="!single_branch">
+                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                                    >
+                                        {{branch?.Name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
+                                            *ngIf="single_branch">
+                                    <mat-option [value]="SelectedBranches?.BranchCode"
+                                    >
+                                        {{SelectedBranches?.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">CNIC#</mat-label>
+                                <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic"
+                                       formControlName="Cnic" maxlength="13" autocomplete="off"/>
+            
+                            </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                        <input type="button" mat-raised-button color="primary"
+                               class=" mat-raised-button mat-button-base mat-primary searchLCBtn" value="Find" (click)="find()"
+                               [disabled]="viewOnly"/>
+        
+                    </div>
+                </div>
+            </div>
+          </div>
+
+
+
+
         <div class="form-group kt-form__group row mt-4 ">
 
-                        <kt-alert *ngIf="hasFormErrors" class="col-lg-12" type="warn" [duration]="30000" [showCloseButton]="true"
-                                  (close)="onAlertClose($event)">
-                            Please enter valid Input
-                        </kt-alert>
+
 
 <!--            <div class="col-lg-3 kt-margin-bottom-20-mobile">-->
 
@@ -17,56 +104,7 @@
 <!--                </mat-form-field>-->
 <!--            </div>-->
 
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
-                            <mat-option [value]="SelectedZones?.ZoneId">
-                                {{SelectedZones?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"  *ngIf="!single_zone" >
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
-                                    (selectionChange)="changeZone($event)">
-                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                        [disabled]="disable_zone">
-                                {{zone?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
 
-
-            <div class="col-lg-3 col-sm-12" >
-
-                <div class="col-md-12 kt-margin-bottom-10-mobile">
-
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                            <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
-                                        (selectionChange)="changeBranch($event)"
-                                        *ngIf="!single_branch">
-                                <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                                >
-                                    {{branch?.Name}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
-                                        *ngIf="single_branch">
-                                <mat-option [value]="SelectedBranches?.BranchCode"
-                                >
-                                    {{SelectedBranches?.Name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
 
 
 <!--            <div class="col-lg-3 kt-margin-bottom-20-mobile">-->
@@ -81,25 +119,9 @@
 
 
 
-        <div class="form-group kt-form__group row">
-            <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label class="customMatLabel">CNIC#</mat-label>
-                    <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic"
-                           formControlName="Cnic" maxlength="13" autocomplete="off"/>
 
-                </mat-form-field>
-            </div>
-        </div>
 
-        <div class="form-group kt-form__group row">
-            <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                <input type="button" mat-raised-button color="primary"
-                       class=" mat-raised-button mat-button-base mat-primary searchLCBtn" value="Find" (click)="find()"
-                       [disabled]="viewOnly"/>
 
-            </div>
-        </div>
         <div *ngIf="isEmpty">
             <div class="kt-portlet__head kt-portlet__head__custom">
                 <div class="kt-portlet__head-label">

@@ -1,75 +1,98 @@
 <div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-3xl mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Notification Logs</div>
+
     <!-- Header -->
-    <div class="pt-4" [formGroup]="FilterForm">
-        <div
-            class="absolute inset-x-0 bottom-0">
-            <mat-progress-bar [mode]="'indeterminate'" *ngIf="loading"></mat-progress-bar>
-        </div>
 
 
-        <div class="row">
-            <div class="col-lg-4 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>PP Number</mat-label>
-                        <input matInput formControlName="PPNumber" placeholder="Enter PPNumber" maxlength="30" autocomplete="off" (keypress)="keyPress($event)">
-                        <mat-error *ngIf="hasError('PPNumber', 'required')">PPNumber <strong>required</strong></mat-error>
-                    </mat-form-field>
-        
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Choose start date</mat-label>
-                        <input matInput [matDatepicker]="picker1" formControlName="StartDate"
-                               (dateChange)="comparisonStartdateValidator()" autocomplete="off">
-        
-                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        
-                        <mat-datepicker #picker1></mat-datepicker>
-        
-                        <mat-error *ngIf="FilterForm.controls['StartDate'].hasError('invaliddaterange')">
-                            <strong>Start date cannot be greater than end date</strong>
-                        </mat-error>
-                        <!--<mat-error *ngIf="hasError('StartDate', 'required')">Start Date <strong>required</strong></mat-error>-->
-        
-                    </mat-form-field>
-        
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Choose end date</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="EndDate"
-                               (dateChange)="comparisonEnddateValidator()" autocomplete="off">
-        
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-        
-                        <mat-error *ngIf="FilterForm.controls['EndDate'].hasError('invaliddaterange')">
-                            <strong>End date cannot be earlier than start date</strong>
-                        </mat-error>
-        
-                        <!--<mat-error *ngIf="hasError('EndDate', 'required')">End Date <strong>required</strong></mat-error>-->
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
 
-        <div class="row py-2">
-            <div class="col-lg-4 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <button mat-raised-button color="primary"
-                            type="button" (click)="loadUserHistoryPage()">
-                            <mat-icon class="mr-2">search</mat-icon> Search
-                    </button>
+    <div class="row py-3">
+        <div class="col-lg-8 col-sm-12">
+            <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Notification Logs</div>
+        </div>
+        <div class="col-lg-4 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
+                </button>
+              </p>
+        </div>
+    </div>
+
+    <!-- Header -->
+
+
+
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div class="" [formGroup]="FilterForm">
+
+
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>PP Number</mat-label>
+                                <input matInput formControlName="PPNumber" placeholder="Enter PPNumber" maxlength="30" autocomplete="off" (keypress)="keyPress($event)">
+                                <mat-error *ngIf="hasError('PPNumber', 'required')">PPNumber <strong>required</strong></mat-error>
+                            </mat-form-field>
+                
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Choose start date</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="StartDate"
+                                       (dateChange)="comparisonStartdateValidator()" autocomplete="off">
+                
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                
+                                <mat-datepicker #picker1></mat-datepicker>
+                
+                                <mat-error *ngIf="FilterForm.controls['StartDate'].hasError('invaliddaterange')">
+                                    <strong>Start date cannot be greater than end date</strong>
+                                </mat-error>
+                                <!--<mat-error *ngIf="hasError('StartDate', 'required')">Start Date <strong>required</strong></mat-error>-->
+                
+                            </mat-form-field>
+                
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Choose end date</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="EndDate"
+                                       (dateChange)="comparisonEnddateValidator()" autocomplete="off">
+                
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                
+                                <mat-error *ngIf="FilterForm.controls['EndDate'].hasError('invaliddaterange')">
+                                    <strong>End date cannot be earlier than start date</strong>
+                                </mat-error>
+                
+                                <!--<mat-error *ngIf="hasError('EndDate', 'required')">End Date <strong>required</strong></mat-error>-->
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pb-2">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" mat-raised-button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                    type="button" (click)="loadUserHistoryPage()">
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Search
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
         </div>
+      </div>
+
+
+
 
 
 

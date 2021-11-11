@@ -149,6 +149,7 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
     float: left;
     border: none;
     .mat-form-field-wrapper{
+      padding: 0%;
       .mat-form-field-outline{
         width: 100px;
       }
@@ -186,4 +187,17 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
       padding: 0%;
     }
   }
+}
+.mat-form-field-infix {
+  font-size: 12px;
+}
+.mat-form-field-wrapper{
+  padding-bottom: 8px;
+}
+
+.mat-error{
+  padding-top: 7px;
+}
+.mat-hint {
+  padding-top: 7px;
 }

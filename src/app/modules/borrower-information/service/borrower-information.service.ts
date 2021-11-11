@@ -22,6 +22,7 @@ export class BorrowerInformationService {
     userDetail = this.userUtilsService.getUserDetails();
 
     getBorrowerInformation(limit, offset, cnic, user) {
+        
         var userInfo = this.userDetail;
         var circle = userInfo.UserCircleMappings;
         var circleIds = [];
@@ -33,6 +34,7 @@ export class BorrowerInformationService {
             circleIds.push(element.CircleId);
         });
         var _circles = JSON.stringify(circleIds)
+        //_circles = _circles.replace("\", "")
 
         var request = {
             Circle: {
@@ -42,8 +44,7 @@ export class BorrowerInformationService {
             BorrowerInfo: {
                 Limit: limit,
                 Offset: offset,
-                Cnic: cnic,
-                Circle: circle
+                Cnic: cnic
             },
             TranId: 0,
             Branch: user.Branch[0] ? user.Branch[0] : user.Branch,

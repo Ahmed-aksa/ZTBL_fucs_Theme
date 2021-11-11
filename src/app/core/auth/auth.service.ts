@@ -100,7 +100,6 @@ export class AuthService {
         const expiredToken = (localStorage.getItem('accessToken'));
         this.request.Token=expiredToken;
         this.request.RefreshToken=refreshToken;
-
         return this.httpUtils.post(`${environment.apiUrl}/Account/RefreshToken`, this.request);
       }
 

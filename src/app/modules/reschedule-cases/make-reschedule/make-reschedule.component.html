@@ -1,6 +1,13 @@
-<div class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
-    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Make Reschedule</div>
-    <div class=" mt-4" [formGroup]="mrForm">
+<div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
+
+    <div class="row py-3">
+        <div class="col-lg-8 col-sm-12">
+            <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Make Reschedule</div>
+        </div>
+
+    </div>
+
+    <div class="" [formGroup]="mrForm">
         
         <div class="row">
             <div class="col-lg-4 col-sm-12">
@@ -63,7 +70,7 @@
 
         <div class="row">
             <div class="col-lg-4 col-sm-12 flex">
-                <div  class="w-9/12">
+                <div  class="w-8/12">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">LC# <strong class="matMandatory">*</strong></mat-label>
                         <input matInput placeholder="Enter Loan Case No" formControlName="Lcno"  maxlength="13" autocomplete="off" appNumberOnly />
@@ -73,8 +80,13 @@
                     <input type="button" mat-raised-button color="primary" class=" mx-2 mt-3 mat-raised-button mat-button-base mat-primary searchLCBtn" (click)="subProposal()" value="Search"/>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12">
-                <div *ngIf="!expand">
+
+
+        </div>
+
+        <div class="row">
+            <div *ngIf="!expand" class="col-lg-4 col-sm-12">
+                <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Sub Proposal <strong class="matMandatory">*</strong></mat-label>
                         <mat-select formControlName="LoanAppSanctionID">
@@ -84,7 +96,9 @@
                         </mat-select>
                       </mat-form-field>
                 </div>
-                <div *ngIf="expand">
+            </div>
+            <div *ngIf="expand" class="col-lg-5 col-sm-12">
+                <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Sub Proposal <strong class="matMandatory">*</strong></mat-label>
                         <mat-select formControlName="LoanAppSanctionID">
@@ -95,6 +109,8 @@
                     </mat-form-field>
                 </div>
             </div>
+        </div>        
+        <div class="row">
             <div class="col-lg-4 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -107,14 +123,13 @@
                       </mat-form-field>
                 </div>
             </div>
-        </div>
-
+        </div>    
 
 
 
         <div class="row">
             <div class="col-lg-4 col-sm-12 flex">
-                <div class="w-9/12">
+                <div class="w-8/12">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">New Gl Code<strong class="matMandatory">*</strong></mat-label>
                         <input matInput placeholder="Enter New Gl Code" formControlName="GlSubIDNew"  maxlength="13" autocomplete="off" />
@@ -167,8 +182,8 @@
             <div class="col-lg-4 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Grace Days(1st Installment)</mat-label>
-                        <input matInput placeholder="Enter Manager Grace Days" formControlName="ProposalID" readonly="readonly" maxlength="13" autocomplete="off" />
+                        <mat-label class="customMatLabel">Mark-UP Installment (%)</mat-label>
+                        <input matInput placeholder="Enter Mark-UP Installment" formControlName="OutSDMarkupWithIstInstPer" readonly="readonly" maxlength="13" autocomplete="off" />
                     </mat-form-field>
                 </div>
             </div>
@@ -178,22 +193,6 @@
 
 
         <div class="row">
-            <div class="col-lg-4 col-sm-12">
-                <div>
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter Remarks" formControlName="Remarks" autocomplete="off" />
-                      </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <div>
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Mark-UP Installment (%)</mat-label>
-                        <input matInput placeholder="Enter Mark-UP Installment" formControlName="OutSDMarkupWithIstInstPer" readonly="readonly" maxlength="13" autocomplete="off" />
-                    </mat-form-field>
-                </div>
-            </div>
             <div class="col-lg-4 col-sm-12">
 
                 <div>
@@ -209,6 +208,16 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+                <div>
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
+                        <input matInput placeholder="Enter Remarks" formControlName="Remarks" autocomplete="off" />
+                      </mat-form-field>
+                </div>
+            </div>
+        </div>
 
 
 

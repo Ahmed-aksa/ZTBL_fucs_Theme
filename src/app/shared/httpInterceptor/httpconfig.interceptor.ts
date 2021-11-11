@@ -55,7 +55,6 @@ export class TokenInterceptor implements HttpInterceptor {
       if (token)
         return this._authService.refreshToken(token).pipe(
           switchMap((token: any) => {
-            debugger;
             this.isRefreshing = false;
             localStorage.setItem('accessToken', JSON.stringify(token['Token']));
             localStorage.setItem('ZTBLUserRefreshToke', JSON.stringify(token['RefreshToken']));

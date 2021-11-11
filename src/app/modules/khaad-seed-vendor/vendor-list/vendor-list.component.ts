@@ -349,7 +349,7 @@ changeBranch(changedValue) {
         fi.TagName="0";
         this.SelectedCircles.splice(0, 0, fi)
         console.log(this.SelectedCircles)
-      this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
+        this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
         this.disable_circle = false;
     });
 }
