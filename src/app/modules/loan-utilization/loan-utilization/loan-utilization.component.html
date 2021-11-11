@@ -83,7 +83,35 @@
                         <mat-error *ngIf="isControlHasError('LoanDisbID','required')">
                             <strong class="mx-3">Loan Disbursment ID is mandatory</strong>
                         </mat-error>
+                    </div>
 
+
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Gl Sub Code</mat-label>
+                            <input readonly appNumberOnly matInput placeholder="Gl Sub Code" formControlName="GlSubCode"
+                                   maxlength="13" autocomplete="off"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Crop Code</mat-label>
+                            <input readonly appNumberOnly matInput placeholder="CropCode" formControlName="CropCode"
+                                   maxlength="13" autocomplete="off"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-label class="customMatLabel">Scheme Code</mat-label>
+                            <input readonly appNumberOnly matInput placeholder="SchemeCode" formControlName="SchemeCode"
+                                   maxlength="13" autocomplete="off"/>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12">
@@ -172,44 +200,45 @@
 
             </mat-tab-group>
         </div>
-        <div *ngIf="DisbursementsRecoveries">
-            <div class="kt-portlet__head kt-portlet__head__custom" >
-                <div class="kt-portlet__head-label">
-                    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Disbursements/Recoveries</div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr class="table-header-background">
-                            <th>Gl Description</th>
-                            <th>Scheme Code</th>
-                            <th>Crop Code</th>
-                            <th>Disb Date</th>
-                            <th>Disbursed Amount</th>
-                            <th>Balance</th>
-                            <th>Disb Status Name</th>
-                            <th>New Next Due Date</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let val of DisbursementsRecoveries">
-                            <td>{{val.GlDescription}}</td>
-                            <td>{{val.SchemeCode}}</td>
-                            <td>{{val.CropCode}}</td>
-                            <td>{{val.DisbDate}}</td>
-                            <td>{{val.DisbursedAmount}}</td>
-                            <td>{{val.Balance}}</td>
-                            <td>{{val.DisbStatusName}}</td>
-                            <td>{{val.NewNextDueDate}}</td>
-                            <!-- <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(img.ID, $event)">View</span></td> -->
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+<!--        <div *ngIf="DisbursementsRecoveries">-->
+<!--            <div class="kt-portlet__head kt-portlet__head__custom" >-->
+<!--                <div class="kt-portlet__head-label">-->
+<!--                    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Disbursements/Recoveries</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-12">-->
+<!--                <div class="table-responsive">-->
+<!--                    <table class="table table-striped">-->
+<!--                        <thead>-->
+<!--                        <tr class="table-header-background">-->
+<!--                            <th>Gl Description</th>-->
+<!--                            <th>Scheme Code</th>-->
+<!--                            <th>Crop Code</th>-->
+<!--                            <th>Disb Date</th>-->
+<!--                            <th>Disbursed Amount</th>-->
+<!--                            <th>Balance</th>-->
+<!--                            <th>Disb Status Name</th>-->
+<!--                            <th>New Next Due Date</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr *ngFor="let val of DisbursementsRecoveries">-->
+<!--                            <td>{{val.GlDescription}}</td>-->
+<!--                            <td>{{val.SchemeCode}}</td>-->
+<!--                            <td>{{val.CropCode}}</td>-->
+<!--                            <td>{{val.DisbDate}}</td>-->
+<!--                            <td>{{val.DisbursedAmount}}</td>-->
+<!--                            <td>{{val.Balance}}</td>-->
+<!--                            <td>{{val.DisbStatusName}}</td>-->
+<!--                            <td>{{val.NewNextDueDate}}</td>-->
+<!--                            &lt;!&ndash; <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(img.ID, $event)">View</span></td> &ndash;&gt;-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
         <!-- images -->
         <div class="kt-portlet__head kt-portlet__head__custom"style="width: 100%">
             <div class="kt-portlet__head-label">
