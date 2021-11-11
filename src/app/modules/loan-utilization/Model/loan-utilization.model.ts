@@ -14,6 +14,8 @@ export class LoanUtilizationModel {
     Remarks:string;
     CircleId:string;
     SchemeCode:string;
+    CropCode:string;
+    GlSubCode:string;
 }
 
 export class UtilizationFiles

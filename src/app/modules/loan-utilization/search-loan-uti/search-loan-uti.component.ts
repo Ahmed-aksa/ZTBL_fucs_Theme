@@ -55,7 +55,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
         // "BranchName",
         "BranchCode",
+        "GlSubCode",
         "SchemeCode",
+        "CropCode",
          "LoanCaseNo",
         "OutStandingPrinciple",
         "DisbursedAmount",

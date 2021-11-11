@@ -43,11 +43,16 @@ export class SearchUtilizationComponent implements OnInit {
 
   displayedColumns = ["LoanCaseNo",
     // "GlCode",
+
+      "GlSubCode",
+      "SchemeCode",
+      "CropCode",
     "Status",
     "Remarks",
     "Lng",
     "Lat",
-    "Actions",]
+    "Actions",
+  ]
   gridHeight: string;
   utilizationSearch: FormGroup;
   myDate = new Date().toLocaleDateString();
@@ -160,6 +165,7 @@ debugger
             // if (this.customerForm.value.Branch) {
             //     this.changeBranch(this.customerForm.value.Branch);
             // }
+                this.searchloanutilization();
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
@@ -198,7 +204,6 @@ debugger
             this.final_zone = this.SelectedZones;
             this.userInfo.Zone = this.final_zone;
         }
-
     }
 
     changeZone(changedValue) {
@@ -211,9 +216,8 @@ debugger
         });
     }
 
-
     changeBranch(changedValue){
-        
+
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -230,7 +234,6 @@ debugger
             }
         });
     }
-
     //End ZBC
 
   setUsers() {
@@ -301,7 +304,7 @@ debugger
   }
 
   // CheckEditStatus(loanUtilization: any) {
-  //   
+  //
 
   //   if () {
   //     return true
@@ -387,7 +390,6 @@ debugger
 
   SetBranches(branchId) {
     this.Branch.BranchCode = branchId.value;
-
   }
 
 
@@ -396,7 +398,8 @@ debugger
   }
 
   searchloanutilization() {
-      if (!this.utilizationSearch.controls.Zone.value) {
+      this.assignBranchAndZone();
+      if (!this.final_zone) {
           var Message = 'Please select Zone';
           this.layoutUtilsService.alertElement(
               '',
@@ -406,7 +409,7 @@ debugger
           return;
       }
 
-      if (!this.utilizationSearch.controls.Branch.value) {
+      if (!this.final_branch) {
           var Message = 'Please select Branch';
           this.layoutUtilsService.alertElement(
               '',
@@ -416,7 +419,6 @@ debugger
           return;
       }
 
-      this.assignBranchAndZone();
     this.spinner.show();
     // this._customer.clear();
     // console.log(this.utilizationSearch.controls["Status"].value);

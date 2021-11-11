@@ -133,6 +133,21 @@
             <mat-cell *matCellDef="let loanutilization">{{loanutilization.LoanCaseNo}}</mat-cell>
           </ng-container>
 
+            <ng-container matColumnDef="GlSubCode">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Gl Sub Code</mat-header-cell>
+                <mat-cell *matCellDef="let loanutilization">{{loanutilization.GlSubCode}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="SchemeCode">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Scheme code</mat-header-cell>
+                <mat-cell *matCellDef="let loanutilization">{{loanutilization.SchemeCode}}</mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="CropCode">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Crop code</mat-header-cell>
+                <mat-cell *matCellDef="let loanutilization">{{loanutilization.CropCode}}</mat-cell>
+            </ng-container>
+
           <ng-container matColumnDef="Status">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
             <mat-cell *matCellDef="let loanutilization">{{loanutilization.StatusName}}</mat-cell>

@@ -340,6 +340,11 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
             Lng: [this.loanUtilizationModel.LoanDisbID],
             LoanCaseNo: [this.loanUtilizationModel.LoanCaseNo],
             Remarks: [this.loanUtilizationModel.Remarks],
+
+            GlSubCode: [this.loanUtilizationModel.GlSubCode],
+            CropCode: [this.loanUtilizationModel.CropCode],
+            SchemeCode: [this.loanUtilizationModel.SchemeCode],
+
             file: [''],
             fileV: [''],
             Status: [this.loanUtilizationModel.Status],
