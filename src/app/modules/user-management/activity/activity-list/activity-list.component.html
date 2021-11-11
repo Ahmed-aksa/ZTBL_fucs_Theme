@@ -41,12 +41,12 @@
                         <div class="custom-accordion-head border-0" (click)="toggleAccordion(activity.ActivityID)"
                              style="cursor: pointer">
                             <div class="custom-padding" style="align-self: center;">
-                                <h3 class="font-medium">
+                                <h3 class="font-bold">
                                     {{activity.ActivityName}}
                                 </h3>
                             </div>
 
-                            <div class="custom-padding">
+                            <div class="mr-8">
                                 <button mat-icon-button color="warn" (click)="deleteActivity(activity)">
                                     <mat-icon>
                                         delete_forever
