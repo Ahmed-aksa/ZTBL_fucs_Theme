@@ -11,7 +11,7 @@ import { AuthService } from 'app/core/auth/auth.service';
 })
 export class AuthSignOutComponent implements OnInit, OnDestroy
 {
-    countdown: number = 3;
+    countdown: number = 1;
     countdownMapping: any = {
         '=1'   : '# second',
         'other': '# seconds'

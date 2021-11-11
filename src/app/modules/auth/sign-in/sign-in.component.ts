@@ -35,6 +35,7 @@ export class AuthSignInComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        localStorage.clear();
         this.signInForm = this._formBuilder.group({
             DisplayName: ['', [Validators.required]],
             Password: ['', Validators.required],
@@ -42,7 +43,7 @@ export class AuthSignInComponent implements OnInit {
     }
 
     signIn(): void {
-        
+
         if (this.signInForm.invalid) {
             return;
         }

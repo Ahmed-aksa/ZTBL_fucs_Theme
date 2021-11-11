@@ -575,7 +575,6 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
                     this.LoanApplicants = baseResponse.LoanUtilization['LoanApplicants'];
                     this.Loanpurpose = baseResponse.LoanUtilization['Loanpurpose'];
                 } else {
-
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,
@@ -585,7 +584,6 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
                 this.GetLoanGL(val);
             });
     }
-
 
     UtilizationFiles;
 
