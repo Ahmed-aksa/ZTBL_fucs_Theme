@@ -232,3 +232,7 @@ button{
 .mat-icon-button:hover .mat-button-focus-overlay {
   background-color: transparent !important;
 }
+
+body.light .mat-raised-button:not([class*=mat-elevation-z]), body .light .mat-raised-button:not([class*=mat-elevation-z]) {
+  box-shadow:none;
+}
