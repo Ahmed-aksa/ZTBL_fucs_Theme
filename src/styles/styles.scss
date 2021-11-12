@@ -19,6 +19,8 @@
 body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-primary, body.light .mat-fab.mat-primary, body.light .mat-mini-fab.mat-primary, body .light .mat-flat-button.mat-primary, body .light .mat-raised-button.mat-primary, body .light .mat-fab.mat-primary, body .light .mat-mini-fab.mat-primary {
     background-color: #ECBD00;
     border-radius: 6px !important;
+    box-shadow: none;
+    
 }
 
 
@@ -38,10 +40,11 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
 
 
 .text-green{
-  color: #01671B;
+  color: #01671B !important;
 }
 .bg-green{
-  background-color: #01671B;
+  background-color: #01671B !important;
+  color: white !important;
 }
 
 .cdk-overlay-pane{
@@ -206,3 +209,30 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
   padding-top: 7px;
 }
 
+.heading{
+  background-color: #f6fcf8;
+  letter-spacing: -0.025em !important;
+  font-weight: 800 !important;
+  font-size: 1.5rem !important;
+  padding: 0.5rem !important;
+  --tw-border-opacity: 1 !important;
+  border-color: rgba(34, 197, 94, var(--tw-border-opacity)) !important;
+  border-bottom-width: 1px !important;
+  margin-bottom: 0.5rem !important;
+}
+
+button{
+  box-shadow: none;
+}
+
+.body.light .mat-raised-button:not([class*=mat-elevation-z]), body .light .mat-raised-button:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+}
+
+.mat-icon-button:hover .mat-button-focus-overlay {
+  background-color: transparent !important;
+}
+
+body.light .mat-raised-button:not([class*=mat-elevation-z]), body .light .mat-raised-button:not([class*=mat-elevation-z]) {
+  box-shadow:none;
+}

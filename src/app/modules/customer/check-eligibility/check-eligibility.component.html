@@ -3,8 +3,8 @@
 
 <div class=" px-10 sm:absolute sm:inset-0 flex flex-col px-10  flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
   <div class="row py-3">
-    <div class="col-lg-8 col-sm-12">
-        <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">{{getTitle()}}</div>
+    <div class="col-lg-12 col-sm-12">
+        <div class="heading">{{getTitle()}}</div>
     </div>
 
 </div>
@@ -30,8 +30,8 @@
                   <mat-hint class="pt-3" align="left">Please enter cnic <strong>(3210412345678)</strong></mat-hint>
                 </mat-form-field>
               </div>
-                <div class="col-lg-4 kt-margin-bottom-20-mobile mt-4">
-                <button color="primary" type="button" (click)="getCustomerInfo()" mat-flat-button class=" mx-5 btn mt-1" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
+                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <button  type="button" (click)="getCustomerInfo()" mat-flat-button class=" btn mt-2 bg-green rounded-md" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
                   <mat-icon class="mr-2">check_circle</mat-icon> Check Eligibility
                 </button>
               </div>
