@@ -65,7 +65,7 @@
                     <div class="col-lg-4">
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Circle</mat-label>
-            
+
                             <mat-select [(ngModel)]="selected_c" formControlName="CircleId" [disabled]="disable_circle">
                                 <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
                                 >
@@ -93,7 +93,7 @@
 
     </div>
     <div class="col-lg-4">
-        
+
         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Vendor Name</mat-label>
             <input matInput placeholder="Vendor Name" formControlName="VendorName" maxlength="30"
@@ -108,7 +108,7 @@
         </mat-form-field>
     </div>
 </div>
-        
+
 
 
 
@@ -142,10 +142,16 @@
                matSortActive="id"
                matSortDirection="asc"
                matSortDisableClear>
-      <ng-container matColumnDef="Name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-        <mat-cell *matCellDef="let vendor">{{vendor.Name}}</mat-cell>
+      <ng-container matColumnDef="CircleCode">
+        <mat-header-cell *matHeaderCellDef>Circle Code</mat-header-cell>
+        <mat-cell *matCellDef="let vendor">{{vendor.CircleCode}}</mat-cell>
       </ng-container>
+
+        <ng-container matColumnDef="Name">
+            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <mat-cell *matCellDef="let vendor">{{vendor.Name}}</mat-cell>
+        </ng-container>
+
       <ng-container matColumnDef="bDescription">
         <mat-header-cell *matHeaderCellDef>Business Description</mat-header-cell>
         <mat-cell *matCellDef="let vendor">{{vendor.Description}}</mat-cell>
@@ -171,11 +177,11 @@
             <button mat-icon-button color="primary" (click)="viewVendor(vendor)">
                 <mat-icon title="View Vendor" color="primary">visibility</mat-icon>
             </button>
-    
+
             <button mat-icon-button color="primary" *ngIf="editDeleteStatus(vendor)" (click)="editVendor(vendor)">
                 <mat-icon title="View Vendor">edit</mat-icon>
             </button>
-    
+
             <button mat-icon-button *ngIf="editDeleteStatus(vendor)" (click)="deleteVendor(vendor)">
                 <mat-icon title="View Vendor" class="text-red-500">delete_forever</mat-icon>
             </button>
@@ -205,7 +211,7 @@
       <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
       <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
-    </div> 
+    </div>
 
   </div>
 

@@ -134,7 +134,10 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   }
 
   //Init Func
-
+    onChange(val){
+        this.khaadSeedVendor.CircleId = val;
+        console.log(this.khaadSeedVendor.CircleId)
+    }
   ngOnInit() {
 
 
@@ -212,10 +215,10 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   //Getting Lov's
 
   async typeLov(){
-
+console.log("called")
     this.vendorLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.VendorTypes });
     this.vendorLov = this.vendorLov.LOVs;
-    console.log(this.vendorLov)
+    console.log("vendor"+this.vendorLov)
   }
 
   getVendorInfo(){
@@ -281,7 +284,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     this.vendorForm = this.fb.group({
       ZoneId:[null],
       BranchCode:[null],
-      CircleId: [null, Validators.required],
+      CircleCode: [null, Validators.required],
       Type: [null, Validators.required],
       Name: [null, Validators.required],
       Description: [null, Validators.required],
@@ -362,7 +365,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
   //Save & Submit Method
   saveSubmit() {
-
+debugger
     console.log(this.vendorForm.controls)
     this.errorShow = false;
     this.hasFormErrors = false;
@@ -403,7 +406,6 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
         this.layoutUtilsService.alertElement("", baseResponse.Message);
       }
     })
-
   }
 
   deleteVendor(){

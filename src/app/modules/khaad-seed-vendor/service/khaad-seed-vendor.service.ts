@@ -43,21 +43,23 @@ export class KhaadSeedVendorService {
       },
       User: userInfo.User
     }
-    
+
     return this.http.post<any>(`${environment.apiUrl}/SeedKhadVendor/GetVendorTypes`, request,)
       .pipe(
         map((res: BaseResponseModel) => res)
         );
-      
+
   }
 
   addNewVendor(vendor, file: File) {
-    
+
+
+      console.log("vendor"+JSON.stringify(vendor))
     var formData = new FormData();
     var userInfo = this.userUtilsService.getUserDetails();
 
     if(vendor.Id != null || vendor.Id != undefined){
-      
+
       formData.append('Id', vendor.Id);
     }
     formData.append('Name', vendor.Name);
@@ -70,12 +72,13 @@ export class KhaadSeedVendorService {
     formData.append('Lat', vendor.Lat);
     formData.append('ZoneId', vendor.ZoneId);
     formData.append('BranchCode', vendor.BranchCode);
-    formData.append('CircleId', vendor.CircleId);
+    formData.append('CircleCode', vendor.CircleCode);
+      formData.append('CircleId', vendor.CircleId);
     formData.append('Lng', vendor.Lng);
     formData.append('File', file);
 
-
-    
+console.log("CircleCode"+formData.get("CircleCode"))
+console.log("CircleId"+formData.get("CircleId"))
     if(formData.append){
 
       return this.http.post<any>(`${environment.apiUrl}/SeedKhadVendor/AddUpdateVendor`, formData,)
@@ -87,7 +90,7 @@ export class KhaadSeedVendorService {
    }
 
   searchVendors(limit, offSet, vendor, user) {
-    
+
     if(vendor.Type == 'null' || user.CircleId == 'null'){
       vendor.Type = null
       if(user.CircleId == 'null'){
@@ -107,7 +110,7 @@ export class KhaadSeedVendorService {
           Limit: limit,
           Offset: offSet,
           VendorDetail : vendor
-      },      
+      },
        User: this.userDetail.User,
        Circle: {
          Id: user.CircleId
@@ -117,7 +120,7 @@ export class KhaadSeedVendorService {
        },
        Branch: {
          BranchCode: user.BranchCode
-       }       
+       }
      }
 
      return this.http.post<any>(`${environment.apiUrl}/SeedKhadVendor/GetVendors`, request)
@@ -147,7 +150,7 @@ export class KhaadSeedVendorService {
       //Type: vendor.Type,
       // Name: vendor.Name
       VendorDetail: vendor
-     },      
+     },
       User: this.userDetail.User,
       Circle: {
         Id: user.CircleId
@@ -168,7 +171,7 @@ export class KhaadSeedVendorService {
   }
 
    getVendor(vendor, user){
-     
+
      vendor.Id = Number(vendor.Id)
     var request = {
       DeviceLocation: {
@@ -180,7 +183,7 @@ export class KhaadSeedVendorService {
       },
       SeedKhadVendor:{
         VendorDetail:vendor
-      },      
+      },
       User: this.userDetail.User,
       Circle: {
         Id: user.CircleId
@@ -196,9 +199,9 @@ export class KhaadSeedVendorService {
      return this.http.post<any>(`${environment.apiUrl}/SeedKhadVendor/GetVendors`, req,)
        .pipe(
         map((res: BaseResponseModel) => res)
-        );   
+        );
    }
-   
+
    deleteVendor(vendor, user){
     var request = {
       DeviceLocation: {
@@ -210,7 +213,7 @@ export class KhaadSeedVendorService {
       },
       SeedKhadVendor:{
         VendorDetail:vendor
-      },      
+      },
       User: this.userDetail.User,
       Circle: {
         Id: user.CircleId
@@ -227,5 +230,5 @@ export class KhaadSeedVendorService {
         map((res: BaseResponseModel) => res)
         );
    }
-   
+
 }

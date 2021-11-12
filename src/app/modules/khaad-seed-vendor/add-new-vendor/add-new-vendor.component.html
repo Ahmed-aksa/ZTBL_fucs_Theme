@@ -12,7 +12,7 @@
                 </mat-option>
             </mat-select>
           </mat-form-field>
-          
+
           <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
             <mat-label class="customMatLabel">Zone</mat-label>
             <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
@@ -23,7 +23,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-          
+
         </div>
 
 
@@ -58,8 +58,8 @@
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Circle</mat-label>
 
-                <mat-select formControlName="CircleId" [disabled]="disable_circle || viewOnly">
-                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                <mat-select formControlName="CircleCode" [disabled]="disable_circle || viewOnly">
+                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.CircleCode" (click)="onChange(circle.CircleId)"
                     >
                         {{circle?.CircleCode}}
                     </mat-option>
@@ -178,7 +178,7 @@
 
 
 
-        
+
     </div>
 
     <div class="mt-2 justify-content-center text-right border-t py-4" >

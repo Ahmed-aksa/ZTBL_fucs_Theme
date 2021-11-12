@@ -33,7 +33,7 @@ import { VendorDetail } from '../class/vendor-detail';
   styleUrls: ['./vendor-list.component.scss']
 })
 export class VendorListComponent implements OnInit {
-  displayedColumns = ['Name', 'bDescription', 'Address', 'Type', 'Phone', 'Actions'];
+  displayedColumns = [ 'CircleCode','Name', 'bDescription', 'Address', 'Type', 'Phone', 'Actions'];
   itemsPerPage = 10;
   pageIndex = 1;
   offSet = 0;
@@ -224,7 +224,7 @@ export class VendorListComponent implements OnInit {
     .subscribe((baseResponse: BaseResponseModel) =>{
       if (baseResponse.Success === true) {
         this.loading = true;
-
+        console.log("BaseResponse"+JSON.stringify(baseResponse));
         this.dataSource= baseResponse.SeedKhadVendor.VendorDetails
         this.dv = this.dataSource;
         this.matTableLenght = true

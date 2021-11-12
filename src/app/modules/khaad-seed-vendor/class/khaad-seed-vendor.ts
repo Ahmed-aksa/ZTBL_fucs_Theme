@@ -5,7 +5,7 @@ export class KhaadSeedVendor {
     Id: string;
     BranchCode: string;
     ZoneId: string;
-    CircleId: string;
+    CircleCode: string;
     Type: string;
     Name: string;
     Address: string;
@@ -16,5 +16,6 @@ export class KhaadSeedVendor {
     Lng: string;
     PhoneNumber: string;
     Radius: number;
+    CircleId:number;
     File: string;
 }
