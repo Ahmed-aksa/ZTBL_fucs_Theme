@@ -252,6 +252,8 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
         this.vendorForm.controls["Type"].setValue(this.vendorInfo.Type);
         this.vendorForm.controls["Description"].setValue(this.vendorInfo.Description);
         this.vendorForm.controls["CircleCode"].setValue(this.vendorInfo.CircleCode);
+        this.khaadSeedVendor.CircleId = this.vendorInfo?.CircleId;
+
         this.vendorForm.controls["Location"].setValue(this.vendorInfo.Lat+" , "+ this.vendorInfo.Lng);
         this.lat = this.vendorInfo.Lat;
         this.lng = this.vendorInfo.Lng;

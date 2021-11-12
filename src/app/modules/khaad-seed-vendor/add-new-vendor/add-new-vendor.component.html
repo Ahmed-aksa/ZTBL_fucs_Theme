@@ -147,10 +147,12 @@
 
         <div class="col-lg-3 col-sm-12">
 
+<div *ngIf="images.length>0">
+    <div *ngFor="let url of images">
+        <img *ngIf="fileExist" style="width:150px;height: 150px; margin-left: auto;margin-right: auto;" class="img-thumbnail text-right" mat-card-md-image [src]="url" (click)="preview()">
+    </div>
+</div>
 
-          <div *ngFor="let url of images">
-            <img *ngIf="fileExist" style="width:150px;height: 150px; margin-left: auto;margin-right: auto;" class="img-thumbnail text-right" mat-card-md-image [src]="url" (click)="preview()">
-          </div>
 
           <div style="align-items: center;">
             <input *ngIf="!viewOnly" style="margin-left: 10px;margin-right: auto; margin-top: 30px;" id="uploadprofile" type="file" name="myfile" (change)="onFileChange($event)" accept="image/jpg,image/jpeg" />
