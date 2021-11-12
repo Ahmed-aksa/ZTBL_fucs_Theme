@@ -24,3 +24,11 @@
   -webkit-transition: opacity 600ms, visibility 600ms;
   transition: opacity 600ms, visibility 600ms;
 }
+
+button{
+  box-shadow: none;
+}
+
+.body.light .mat-raised-button:not([class*=mat-elevation-z]), body .light .mat-raised-button:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+}
