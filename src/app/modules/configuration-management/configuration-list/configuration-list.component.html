@@ -1,13 +1,13 @@
 <div class="px-10  absolute inset-0 bg-white flex flex-col min-w-0 overflow-y-scroll" cdkScrollable>
 
     <div class="row py-3">
-        <div class="col-lg-8 col-sm-12">
-            <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Configurations List</div>
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Configurations List</div>
         </div>
-        <div class="col-lg-4 col-sm-12 self-center">
+        <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button mat-stroked-button (click)="addNewConfiguration()">
-                    <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                <button  class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="addNewConfiguration()">
+                    <mat-icon class=" mr-2 text-white" >edit</mat-icon>
                     Configuration
                 </button>
               </p>
