@@ -236,3 +236,8 @@ button{
 body.light .mat-raised-button:not([class*=mat-elevation-z]), body .light .mat-raised-button:not([class*=mat-elevation-z]) {
   box-shadow:none;
 }
+
+.bg-primary{
+  background-color: #ECBD00 !important;
+  color: white !important;
+}
