@@ -13,18 +13,18 @@
         #navigationContent>
 
         <!-- Content header -->
-        <div class="fuse-vertical-navigation-content-header mb-4">
-            <ng-content select="[fuseVerticalNavigationContentHeader]"></ng-content>
+        <div class="fuse-vertical-navigation-content-header mb-3">
+            <ng-content select="[fuseVerticalNavigationContentHeader]" ></ng-content>
         </div>
 
         <!-- Items -->
         <ng-container *ngFor="let item of navigation; trackBy: trackByFn">
 
             <!-- Skip the hidden items -->
-            <ng-container  *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
+            <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
 
                 <!-- Aside -->
-                <ng-container  *ngIf="item.type === 'aside'">
+                <ng-container *ngIf="item.type === 'aside'">
                     <fuse-vertical-navigation-aside-item
                         [item]="item"
                         [name]="name"
@@ -35,7 +35,7 @@
                 </ng-container>
 
                 <!-- Basic -->
-                <ng-container  class="mt-3" *ngIf="item.type === 'basic'">
+                <ng-container *ngIf="item.type === 'basic'">
                     <fuse-vertical-navigation-basic-item
                         [item]="item"
                         [name]="name"></fuse-vertical-navigation-basic-item>

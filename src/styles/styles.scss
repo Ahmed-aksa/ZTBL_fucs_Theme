@@ -241,3 +241,12 @@ body.light .mat-raised-button:not([class*=mat-elevation-z]), body .light .mat-ra
   background-color: #ECBD00 !important;
   color: white !important;
 }
+thead{
+  tr{
+    height: 56px;
+    th{
+      line-height: 43px;
+      padding-left: 8px;
+    }
+  }
+}

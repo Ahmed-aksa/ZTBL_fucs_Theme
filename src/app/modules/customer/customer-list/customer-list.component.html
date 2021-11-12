@@ -3,11 +3,11 @@
 
     <!-- Header -->
 
-    <div class="row py-3">
-        <div class="col-lg-8 col-sm-12">
-            <div class="text-3xl   font-extrabold tracking-tight border-b" style="width: fit-content;">Customer List</div>
+    <div class="row py-3 pb-0">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Customer List</div>
         </div>
-        <div class="col-lg-4 col-sm-12 self-center">
+        <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
                 <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
@@ -157,11 +157,11 @@
 
 
 
-    <div class="flex flex-auto overflow-scroll mt-4" style="flex-direction: column;">
+    <div class="flex flex-auto border rounded-md overflow-scroll " style="flex-direction: column;">
 
-        <div class="example-table-container">
+        <div class="example-table-container ">
 
-            <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
+            <mat-table class="lmat-elevation-z8  " #table [dataSource]="dataSource" matSort #sort1="matSort"
                        matSortActive="id"
                        matSortDirection="asc" matSortDisableClear>
 
@@ -211,8 +211,8 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
-            <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+            <div class="mat-table__message p-3 text-green text-center font-bold" *ngIf="!loading && dataSource.data.length==0">No records found</div>
+            <div class="mat-table__message p-3 text-green" *ngIf="loading">Please wait....</div>
 
 
         </div>
