@@ -1,6 +1,6 @@
 <div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-scroll bg-card dark:bg-transparent"
      [formGroup]="LandInformationForm">
-    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Customer Land Information</div>
+    <div class="heading">Customer Land Information</div>
     <div class="row">
         <div class="col-lg-12 col-sm-2 text-right pr-8">
             <button mat-raised-button color="primary" type="button" class="ml-2" (click)="ViewLandHistory()"
@@ -123,9 +123,10 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12 text-center self-center">
-                <div class="">
-                    <img  class="cursor-pointer mx-auto  w-10" src="../../../../../assets/media/icons/svg/Shopping/Calculator.svg"
-                         alt="Calculator" (click)="AreaConvertor()"/>
+                <div class="cursor-pointer border bg-primary px-3 rounded-md flex self-center" (click)="AreaConvertor()">
+                    <img  class="cursor-pointer  w-10" src="../../../../../assets/media/icons/svg/Shopping/Calculator.svg"
+                         alt="Calculator" />
+                    <p class="ml-2 mb-0 self-center">Area Convertor</p>
         
                 </div>
             </div>
