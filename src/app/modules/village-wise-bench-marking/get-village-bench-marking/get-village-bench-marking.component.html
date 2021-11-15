@@ -195,12 +195,13 @@
           <ng-container matColumnDef="Delete">
             <mat-header-cell class="place-content-center text" *matHeaderCellDef>Action</mat-header-cell>
             <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">
-              <button style="margin-left: 5px" mat-icon-button *ngIf="checkDeleteStatus(VillageBenchMark)" color="primary" (click)="deleteVillageBenchMark(VillageBenchMark)">
-                <mat-icon title="Delete Vendor">delete</mat-icon>
-              </button>
                 <button style="margin-left: 5px" mat-icon-button *ngIf="checkEditStatus(VillageBenchMark)" color="primary" (click)="editVillageBenchMark(VillageBenchMark)">
                     <mat-icon title="edit Vendor">edit</mat-icon>
                 </button>
+                <button style="margin-left: 5px" mat-icon-button *ngIf="checkDeleteStatus(VillageBenchMark)" color="primary" (click)="deleteVillageBenchMark(VillageBenchMark)">
+                <mat-icon title="Delete Vendor">delete</mat-icon>
+              </button>
+
             </mat-cell>
 
 
