@@ -116,6 +116,8 @@ export class BorrowerInformationComponent implements OnInit {
     }
 
 settingPPNoFeild(){
+
+        console.log("called PPNOVisible")
     var userInfo = this.userUtilsService.getUserDetails();
 
     // console.log(userInfo);
@@ -147,8 +149,9 @@ settingPPNoFeild(){
             this.OffSet = 0;
         }
         this.user.CircleId = this.borrowerForm.controls.Circle.value;
+        var PPNo = this.borrowerForm.controls?.PPNo?.value;
         this.spinner.show();
-        this._borrowerInfo.getBorrowerInformation(this.itemsPerPage, this.OffSet, cnic, this.user)
+        this._borrowerInfo.getBorrowerInformation(this.itemsPerPage, this.OffSet, cnic, this.user,PPNo)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
