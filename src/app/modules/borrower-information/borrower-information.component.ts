@@ -20,7 +20,7 @@ import {UserUtilsService} from "../../shared/services/users_utils.service";
 export class BorrowerInformationComponent implements OnInit {
     displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'PhoneNumber', 'InterestRate', 'PermanentAddress'];
     matTableLenght: boolean = false;
-
+    PPNOVisible:boolean=true;
     borrowerForm: FormGroup;
 
     dv;
@@ -112,16 +112,26 @@ export class BorrowerInformationComponent implements OnInit {
             this.getBorrower();
 
         }
-
+        this.settingPPNoFeild()
     }
 
+settingPPNoFeild(){
+    var userInfo = this.userUtilsService.getUserDetails();
+
+    // console.log(userInfo);
+    //MCO User
+    if (userInfo.User.userGroup[0].ProfileID == "56") {
+    this.PPNOVisible = false;
+}
+}
 
     createForm() {
         this.borrowerForm = this.fb.group({
             Zone: [null],
             Branch: [null],
             Circle: [null],
-            Cnic: [null]
+            Cnic: [null],
+            PPNo:[null],
         })
     }
 

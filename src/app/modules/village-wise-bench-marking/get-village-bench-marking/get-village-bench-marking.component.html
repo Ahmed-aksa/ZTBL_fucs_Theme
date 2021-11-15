@@ -28,7 +28,7 @@
           <div class="row">
               <div class="col-lg-3 col-sm-12">
                   <div class="flex flex-shrink-0 items-center mt-3 sm:mt-0">
-  
+
                       <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
                           <mat-label class="customMatLabel">Zone</mat-label>
                           <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
@@ -47,13 +47,13 @@
                               </mat-option>
                           </mat-select>
                       </mat-form-field>
-          
-          
+
+
                   </div>
               </div>
               <div class="col-lg-3 col-sm-12">
                   <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-  
+
                       <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                           <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
                           <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
@@ -76,10 +76,10 @@
               </div>
               <div class="col-lg-3 col-sm-12">
                   <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-  
+
                       <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                           <mat-label class="customMatLabel">Circle</mat-label>
-          
+
                           <mat-select formControlName="Circle" [disabled]="disable_circle">
                               <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
                               >
@@ -91,38 +91,38 @@
               </div>
               <div class="col-lg-3 col-sm-12">
                   <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-  
+
                       <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                           <mat-label class="customMatLabel">Village Name</mat-label>
                           <input matInput placeholder="Enter Village Name" formControlName="VillageName" maxlength="30" autocomplete="off" />
                         </mat-form-field>
                   </div>
               </div>
-  
+
           </div>
-  
-  
-  
-  
+
+
+
+
           <div class="row py-2">
               <div class="col-lg-3 col-sm-12">
                   <div class="flex flex-shrink-0 items-center mt-3 sm:mt-0">
-  
+
                       <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button class="mat-primary"
                               type="button" (click)="search()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                   </div>
               </div>
-  
-  
+
+
           </div>
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
       </div>
       </div>
     </div>
@@ -147,24 +147,31 @@
             <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.VillageName}}</mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="NoOfFormaer">
-            <mat-header-cell class="place-content-center" *matHeaderCellDef>No Of Farmers</mat-header-cell>
-            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.NoOfFormaer}}</mat-cell>
-          </ng-container>
+
 
           <ng-container matColumnDef="FarmSize">
             <mat-header-cell class="place-content-center" *matHeaderCellDef>Farm Size</mat-header-cell>
             <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.FarmSize}}</mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="GenderCount">
-            <mat-header-cell class="place-content-center" *matHeaderCellDef>Gender Count</mat-header-cell>
-            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderCount}}</mat-cell>
+            <ng-container matColumnDef="NoOfFarmer">
+                <mat-header-cell class="place-content-center" *matHeaderCellDef>No Of Farmers</mat-header-cell>
+                <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.NoOfFarmer}}</mat-cell>
+            </ng-container>
+
+          <ng-container matColumnDef="MaleCount">
+            <mat-header-cell class="place-content-center" *matHeaderCellDef>Male Count</mat-header-cell>
+            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.MaleCount}}</mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="GenderType">
-            <mat-header-cell class="place-content-center" *matHeaderCellDef>Gender Type</mat-header-cell>
-            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.GenderType}}</mat-cell>
+            <ng-container matColumnDef="FemaleCount">
+                <mat-header-cell class="place-content-center" *matHeaderCellDef>Female Count</mat-header-cell>
+                <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.FemaleCount}}</mat-cell>
+            </ng-container>
+
+          <ng-container matColumnDef="TransGenderCount">
+            <mat-header-cell class="place-content-center" *matHeaderCellDef>TransGender Count</mat-header-cell>
+            <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.TransGenderCount}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="AverageLoanSize">
@@ -191,20 +198,24 @@
               <button style="margin-left: 5px" mat-icon-button *ngIf="checkDeleteStatus(VillageBenchMark)" color="primary" (click)="deleteVillageBenchMark(VillageBenchMark)">
                 <mat-icon title="Delete Vendor">delete</mat-icon>
               </button>
-
+                <button style="margin-left: 5px" mat-icon-button *ngIf="checkEditStatus(VillageBenchMark)" color="primary" (click)="editVillageBenchMark(VillageBenchMark)">
+                    <mat-icon title="edit Vendor">edit</mat-icon>
+                </button>
             </mat-cell>
+
+
           </ng-container>
-  
+
           <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background"></mat-header-row>
-  
+
           <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-  
+
         </mat-table>
 
 
 
-        
-  
+
+
         <!-- <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
         <div class="mat-table__message" *ngIf="loading">Please wait....</div> -->
 

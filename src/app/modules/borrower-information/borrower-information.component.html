@@ -99,6 +99,16 @@
                 </div>
             </div>
 
+            <div *ngIf="PPNOVisible" class="col-md-3 col-sm-12">
+                <div class="col-md-12 kt-margin-bottom-10-mobile mr-4">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label>PPNO.</mat-label>
+                        <input appNumberOnly matInput formControlName="PPNo" placeholder="Enter PPNo" maxlength="100"
+                               autocomplete="off">
+                    </mat-form-field>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">

@@ -34,7 +34,7 @@ import { RemarkDialogComponent } from './remark-dialog/remark-dialog.component';
 })
 export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['VillageName', 'NoOfFormaer', 'FarmSize', 'GenderCount', 'GenderType','AverageLoanSize', 'AgriBusinessPotential', 'Delete'];
+  displayedColumns = ['VillageName',  'FarmSize', 'NoOfFarmer', 'MaleCount','FemaleCount', 'TransGenderCount','AverageLoanSize', 'AgriBusinessPotential', 'Delete'];
 
   getVillageBenchmarkForm : FormGroup;
 
@@ -106,7 +106,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
     if (this.LoggedInUserInfo.Branch != null) {
-      ;
+
       this.Circles = this.LoggedInUserInfo.UserCircleMappings;
       this.SelectedCircles = this.Circles;
       this.disable_circle = false;
@@ -133,6 +133,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
       this.getVillage.ZoneId = this.getVillageBenchmarkForm.controls.Zone.value;
       this.getVillage.BranchCode = this.getVillageBenchmarkForm.controls.Branch.value;
+        this.search()
     }else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
       this.spinner.show();
 
@@ -146,7 +147,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
       });}
 
-    this.search()
+
 
   }
 
@@ -164,6 +165,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
   }
 
   search() {
+      debugger
     this.loaded = false;
     this.Limit = this.itemsPerPage;
 
@@ -179,9 +181,9 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
     this.dataSource = new MatTableDataSource();
 
-    if (this.getVillage.VillageName != null || this.getVillage.CircleId != null) {
-      this.Offset = 0;
-    }
+    // if (this.getVillage.VillageName != null || this.getVillage.CircleId != null) {
+    //   this.Offset = 0;
+    // }
 
     this.spinner.show();
     this._villageBenchmark.getVillageBenchMark(this.SelectedCircles,this.Limit, this.Offset, this.getVillage)
@@ -213,6 +215,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
   }
 
   paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+      debugger
     this.itemsPerPage = pageSize;
 
     this.Offset = (pageIndex - 1) * this.itemsPerPage;
@@ -229,6 +232,8 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
       return false
     }
   }
+
+
 
   deleteVillageBenchMark(benchmark){
     this.getVillage = benchmark;
@@ -257,6 +262,24 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     })
     });
   }
+
+
+    checkEditStatus(val){
+
+      if(val.Status=="S"){
+          return false;
+      }else if(val.Status=="P"){
+          return true;
+      }
+    }
+
+    editVillageBenchMark(val) {
+console.log("vluueee"+JSON.stringify(val))
+        this.router.navigate(['/village-wise-bench-marking/add-update-bench-marking'], {
+            state: { example: val },
+            relativeTo: this.activatedRoute
+        });
+    }
 
   changeBranch(changedValue) {
 

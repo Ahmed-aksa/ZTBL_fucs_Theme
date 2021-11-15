@@ -101,6 +101,9 @@ export class LovConfigurationKey {
 
     public static readonly UtilizationTypes: string = 'UtilizationTypes';
 
+    //village wise benchmarking
+    public static readonly FarmSizeForVillageWise: string = 'FarmSizeForVillageWise';
+
 }
 
 
