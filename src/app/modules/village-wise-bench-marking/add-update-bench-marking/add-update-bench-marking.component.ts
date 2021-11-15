@@ -224,6 +224,8 @@ village=[];
   circleChange(event){
     var circle = event;
     this.circleCode = circle.source.triggerValue;
+
+      this.addUpdateBenchMarkForm.controls['CircleCode'].setValue(circle.source.triggerValue);
   }
 
   createForm(){
@@ -231,6 +233,7 @@ village=[];
       ZoneId: [null, Validators.required],
       BranchCode: [null, Validators.required],
       CircleId: [null, Validators.required],
+        CircleCode:[null, Validators.required],
       Id: [null],
       VillageName: [null, Validators.required],
       NoOfFarmer: [null, Validators.required],
@@ -254,6 +257,7 @@ village=[];
           console.log(this.req_arr["Id"])
           this.addUpdateBenchMarkForm.controls['Id'].setValue(this.req_arr["Id"]);
           this.addUpdateBenchMarkForm.controls['CircleId'].setValue(this.req_arr["CircleId"]);
+          this.addUpdateBenchMarkForm.controls['CircleCode'].setValue(this.req_arr["CircleCode"]);
           this.addUpdateBenchMarkForm.controls['VillageName'].setValue(this.req_arr["VillageName"]);
           this.addUpdateBenchMarkForm.controls['NoOfFarmer'].setValue(this.req_arr["NoOfFarmer"]);
           this.addUpdateBenchMarkForm.controls['FarmSize'].setValue(this.req_arr["FarmSize"]);
@@ -389,6 +393,7 @@ console.log("village"+JSON.stringify(this.village))
           if(!this.updatingCase){
           this.addUpdateBenchMarkForm.controls['Id'].reset();
           this.addUpdateBenchMarkForm.controls['CircleId'].reset();
+          this.addUpdateBenchMarkForm.controls['CircleCode'].reset();
           this.addUpdateBenchMarkForm.controls['VillageName'].reset();
           this.addUpdateBenchMarkForm.controls['NoOfFarmer'].reset();
           this.addUpdateBenchMarkForm.controls['FarmSize'].reset();
@@ -423,6 +428,7 @@ console.log("village"+JSON.stringify(this.village))
     this.req_array = []
 
     this.addUpdateBenchMarkForm.controls['CircleId'].reset();
+    this.addUpdateBenchMarkForm.controls['CircleCode'].reset();
     this.addUpdateBenchMarkForm.controls['VillageName'].reset();
     this.addUpdateBenchMarkForm.controls['NoOfFarmer'].reset();
     this.addUpdateBenchMarkForm.controls['FarmSize'].reset();
@@ -449,12 +455,11 @@ console.log("village"+JSON.stringify(this.village))
     this.ind = indx
     if (benchmark.Id == undefined) {
       this.addUpdateBenchMarkForm.controls['CircleId'].setValue(benchmark.CircleId);
+      this.addUpdateBenchMarkForm.controls['CircleCode'].setValue(benchmark.CircleCode);
       this.addUpdateBenchMarkForm.controls['VillageName'].setValue(benchmark.VillageName);
       this.addUpdateBenchMarkForm.controls['NoOfFarmer'].setValue(benchmark.NoOfFarmer);
       this.addUpdateBenchMarkForm.controls['FarmSize'].setValue(benchmark.FarmSize);
         this.addUpdateBenchMarkForm.controls['FarmSizeUnit'].setValue(benchmark.FarmSizeUnit);
-      // this.addUpdateBenchMarkForm.controls['GenderCount'].setValue(benchmark.GenderCount);
-      // this.addUpdateBenchMarkForm.controls['GenderType'].setValue(benchmark.GenderType);
       this.addUpdateBenchMarkForm.controls['MaleCount'].setValue(benchmark.MaleCount);
       this.addUpdateBenchMarkForm.controls['FemaleCount'].setValue(benchmark.FemaleCount);
       this.addUpdateBenchMarkForm.controls['TransGenderCount'].setValue(benchmark.TransGenderCount);
@@ -469,12 +474,11 @@ console.log("village"+JSON.stringify(this.village))
         if (this.village[indx].Id == benchmark.Id) {
           this.addUpdateBenchMarkForm.controls['Id'].setValue(benchmark.Id);
           this.addUpdateBenchMarkForm.controls['CircleId'].setValue(benchmark.CircleId);
+            this.addUpdateBenchMarkForm.controls['CircleCode'].setValue(benchmark.CircleCode);
           this.addUpdateBenchMarkForm.controls['VillageName'].setValue(benchmark.VillageName);
           this.addUpdateBenchMarkForm.controls['NoOfFarmer'].setValue(benchmark.NoOfFarmer);
           this.addUpdateBenchMarkForm.controls['FarmSize'].setValue(benchmark.FarmSize);
             this.addUpdateBenchMarkForm.controls['FarmSizeUnit'].setValue(benchmark.FarmSizeUnit);
-          // this.addUpdateBenchMarkForm.controls['GenderCount'].setValue(benchmark.GenderCount);
-          // this.addUpdateBenchMarkForm.controls['GenderType'].setValue(benchmark.GenderType);
           this.addUpdateBenchMarkForm.controls['MaleCount'].setValue(benchmark.MaleCount);
           this.addUpdateBenchMarkForm.controls['FemaleCount'].setValue(benchmark.FemaleCount);
           this.addUpdateBenchMarkForm.controls['TransGenderCount'].setValue(benchmark.TransGenderCount);
