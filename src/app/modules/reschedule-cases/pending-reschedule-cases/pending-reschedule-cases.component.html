@@ -8,8 +8,6 @@
     </div>
 
 
-
-
     <div style="flex-direction: column;overflow-y: scroll">
         <mat-table class="example-table-container"
                    #table
@@ -77,6 +75,7 @@
 
         </mat-table>
     </div>
+    
     <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
         Items per page:
         <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
@@ -92,5 +91,9 @@
         <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
         <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
+    </div>
+
+    <div *ngIf="allowSubmit" class="col-lg-12 text-center py-4 border-t px-4">
+        <button mat-raised-button class="mr-2" color="primary" (click)="SubmitData()"><mat-icon class="mr-2">check_circle</mat-icon> Submit</button>
     </div>
 </div>

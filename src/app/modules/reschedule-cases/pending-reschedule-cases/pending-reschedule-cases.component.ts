@@ -40,6 +40,7 @@ export class PendingRescheduleCasesComponent implements OnInit {
     Mydata: any;
     //Loan Status inventory
     loanResch: any;
+    allowSubmit: boolean = false;
     //pagination
     itemsPerPage = 10; //you could use your specified
     totalItems: number | any;
@@ -101,6 +102,7 @@ export class PendingRescheduleCasesComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
+                    this.allowSubmit = true;
                     this.Mydata = baseResponse.Loan.ReschedulingSearch;
                     for (let data in this.Mydata) {
                         this.ELEMENT_DATA.push({
@@ -129,10 +131,11 @@ export class PendingRescheduleCasesComponent implements OnInit {
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
                 } else {
+                    this.dataSource = null;
+                    this.allowSubmit = false;
                     this.layoutUtilsService.alertElement(
                         '',
-                        baseResponse.Message,
-                        baseResponse.Code
+                        baseResponse.Message
                     );
                 }
             });
@@ -164,8 +167,7 @@ export class PendingRescheduleCasesComponent implements OnInit {
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
-                        baseResponse.Message,
-                        baseResponse.Code
+                        baseResponse.Message
                     );
                 }
             });
