@@ -245,7 +245,7 @@
           </thead>
           <tbody>
             <tr class="text-center" *ngFor="let array of village; let i = index">
-              <td style="width: 100px; text-align:center;">{{circleCode}}</td>
+              <td style="width: 100px; text-align:center;">{{array?.CircleId}}</td>
               <td>{{array?.VillageName}}</td>
               <td>{{array?.NoOfFarmer}}</td>
               <td>{{array?.FarmSize}}</td>

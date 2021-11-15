@@ -56,9 +56,12 @@ export class AuthSignInComponent implements OnInit {
             .subscribe((result) => {
                 if (result.Success && !result.isWebOTPEnabled) {
 
-                    localStorage.setItem('MaxNumberOfImages', JSON.stringify(result?.LoanUtilization["MaxNumberOfImages"]));
-                    localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result?.LoanUtilization["MaxNumberOfVideo"]));
-                    localStorage.setItem('VideoTimeLimit', JSON.stringify(result?.LoanUtilization["VideoTimeLimit"]));
+                    if(result?.LoanUtilization)
+                    {
+                        localStorage.setItem('MaxNumberOfImages', JSON.stringify(result?.LoanUtilization["MaxNumberOfImages"]));
+                        localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result?.LoanUtilization["MaxNumberOfVideo"]));
+                        localStorage.setItem('VideoTimeLimit', JSON.stringify(result?.LoanUtilization["VideoTimeLimit"]));
+                    }
                     this.toaster.success(result.Message);
                     const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
                     this._router.navigateByUrl(redirectURL);

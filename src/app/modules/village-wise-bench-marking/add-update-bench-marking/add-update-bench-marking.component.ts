@@ -276,8 +276,10 @@ village=[];
   onAlertClose($event) {
     this.hasFormErrors = false;
   }
+  ID;
   update(){
       console.log("id"+this.addUpdateBenchMarkForm.controls.Id.value)
+      this.ID=this.addUpdateBenchMarkForm.controls.Id.value;
       this.Add()
 
 
@@ -315,9 +317,6 @@ village=[];
      var resF = sf+ef+bf;
      var resG = male+female+transgender;
 
-     console.log("resf"+resF)
-      console.log("resG"+resG)
-      console.log("tot"+tot)
 
     if(resF == 0 || tot != resF){
       this.layoutUtilsService.alertElement("", "Economic, Big and Subsistence Farmer value should not be greater or less than No. of Farmers");
@@ -351,18 +350,26 @@ village=[];
           )
           .subscribe((baseResponse: BaseResponseModel) =>{
               if (baseResponse.Success === true) {
-                  if(this.addUpdateBenchMarkForm.controls.Id.value){
-                      let Id=this.addUpdateBenchMarkForm.controls.Id.value
-                      if(this.village?.length>0){
-                          for(let i=0;this.village.length;i++){
-                              if(this.village[i].Id==Id){
-                                  this.village.splice(i, 1);
-                              }
-                          }
-                      }else{
 
-                          this.village.splice(0, 1);
-                      }
+
+                  if(this.ID){
+                          console.log("id condition working")
+
+                    console.log("village length"+this.village.length)
+                          if (this.village.length) {
+                              for (let i = 0;this.village.length; i++) {
+                                  if (this.village[i].Id == this.ID) {
+
+                                      this.village.splice(i, 1);
+                                      this.ID=null;
+                                      break;
+                                  }
+                              }
+                          } else {
+                              this.village.splice(0, 1);
+                              this.ID=null;
+                          }
+
                   }
                         this.req_array=[]
                   if(this.updatingCase){

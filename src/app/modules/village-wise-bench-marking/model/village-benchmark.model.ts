@@ -23,4 +23,5 @@ export class VillageBenchMark extends BaseModel {
     FemaleCount: string;
     TransGenderCount: string;
     FarmSizeUnit:string;
+    CircleId:string;
   }
