@@ -11,7 +11,7 @@ export const environment = {
     // apiUrl: 'http://172.16.1.228:8070/ZTBL.Api', //admins
     //apiUrl: 'http://10.250.10.139/ZTBL.Apis', //mustansar_bhai_pc
     apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl
-    // apiUrl: 'https://localhost:44346/ZTBL.Api', //admins
+    // apiUrl: 'https://local`host:44346/ZTBL.Api', //admins
 };
 
 
