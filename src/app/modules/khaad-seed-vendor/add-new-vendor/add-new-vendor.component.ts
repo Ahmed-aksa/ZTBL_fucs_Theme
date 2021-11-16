@@ -67,7 +67,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
   prev_map;
 
-
+  up;
   lat;
   lng;
   type;
@@ -204,6 +204,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
       });}
     //For Edit Mode
+      this.up = upFlag
     if(upFlag == "1" && this.isEditMode == "1"){
 
       localStorage.setItem('EditVendorData', '0');
@@ -215,7 +216,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   //Getting Lov's
 
   async typeLov(){
-console.log("called")
+    console.log("called")
     this.vendorLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.VendorTypes });
     this.vendorLov = this.vendorLov.LOVs;
     console.log("vendor"+this.vendorLov)
@@ -243,14 +244,16 @@ console.log("called")
 
         this.fileExist = true;
         this.vendorInfo = baseResponse.SeedKhadVendor.VendorDetail;
-        console.log(this.vendorInfo)
+        console.log("vendor"+JSON.stringify(this.vendorInfo))
 
         this.vendorForm.controls["BranchCode"].setValue(this.vendorInfo.BranchCode);
         this.vendorForm.controls["ZoneId"].setValue(this.vendorInfo.ZoneId);
         this.vendorForm.controls["Name"].setValue(this.vendorInfo.Name);
         this.vendorForm.controls["Type"].setValue(this.vendorInfo.Type);
         this.vendorForm.controls["Description"].setValue(this.vendorInfo.Description);
-        this.vendorForm.controls["CircleId"].setValue(this.vendorInfo.CircleId);
+        this.vendorForm.controls["CircleCode"].setValue(this.vendorInfo.CircleCode);
+        this.khaadSeedVendor.CircleId = this.vendorInfo?.CircleId;
+
         this.vendorForm.controls["Location"].setValue(this.vendorInfo.Lat+" , "+ this.vendorInfo.Lng);
         this.lat = this.vendorInfo.Lat;
         this.lng = this.vendorInfo.Lng;

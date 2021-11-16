@@ -8,15 +8,20 @@ import { BaseModel } from 'app/shared/models/base-model.model';
 export class VillageBenchMark extends BaseModel {
     Id: string;
     VillageName: string;
-    NoOfFormaer: number;
+    NoOfFarmer: number;
     FarmSize: number;
     GenderCount: number;
     GenderType: string;
     AverageLoanSize: number;
     SubsistenceFarmer: number;
     EconomicFarmer: number;
-    BigFarmars: number;
+    BigFarmers: number;
     AgriBusinessPotential: string;
     Status: string;
-    CreatedBy: string
+    CreatedBy: string;
+    MaleCount: string;
+    FemaleCount: string;
+    TransGenderCount: string;
+    FarmSizeUnit:string;
+    CircleId:string;
   }

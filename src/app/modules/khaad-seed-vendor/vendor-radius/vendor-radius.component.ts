@@ -167,6 +167,9 @@ export class VendorRadiusComponent implements OnInit {
 
   }
 
+  // ngAfterViewInit() {
+  //
+  //   }
   createForm(){
     this.radiusForm = this.fb.group({
       ZoneId:[null],
@@ -201,6 +204,7 @@ export class VendorRadiusComponent implements OnInit {
 
     console.log(this.Radius)
     console.log(this.vendorLov)
+      this.onSelect();
   }
 
   selectRadius(radius){

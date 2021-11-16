@@ -50,6 +50,7 @@ SelectedLoanStatus: any = [];
 public LovCall = new Lov();
 public search = new Loan();
 LoanTypes: any = [];
+allowSubmit: boolean = false;
 
 branch = null;
 zone = null;
@@ -128,6 +129,7 @@ loadData() {
         .subscribe((baseResponse: BaseResponseModel) => {
 
             if (baseResponse.Success === true) {
+                this.allowSubmit = true;
                 this.Mydata = baseResponse.Loan.ReschedulingSearch;
                 for (let data in this.Mydata) {
                     this.ELEMENT_DATA.push({
@@ -158,10 +160,11 @@ loadData() {
                 this.dataSource = this.dv.slice(0, this.itemsPerPage);
 
             } else {
+                this.dataSource = null;
+                this.allowSubmit = false;
                 this.layoutUtilsService.alertElement(
                     "",
-                    baseResponse.Message,
-                    baseResponse.Code
+                    baseResponse.Message
                 );
             }
         });
@@ -200,8 +203,7 @@ SubmitData() {
             } else {
                 this.layoutUtilsService.alertElement(
                     "",
-                    baseResponse.Message,
-                    baseResponse.Code
+                    baseResponse.Message
                 );
             }
         });
