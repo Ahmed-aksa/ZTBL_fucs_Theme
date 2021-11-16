@@ -172,8 +172,8 @@ export class GeoFencingListComponent implements OnInit {
                 EndDate: this.listForm.controls.EndDate.value,
             },
             Circle: circle,
-            Zone: branch,
-            Branch: zone,
+            Zone: zone,
+            Branch:  branch,
         }
         this.spinner.show();
         this._geoFencingService.SearchGeoFensePoint(request).pipe(finalize(() => {

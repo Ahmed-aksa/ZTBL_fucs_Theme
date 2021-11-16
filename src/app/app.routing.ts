@@ -156,6 +156,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/ndc-requests/ndc-requests.module').then(m => m.NdcRequestsModule)
             },
             {
+                path: 'reports',
+                loadChildren: () => import('app/modules/reports/reports.module').then(m => m.ReportsModule)
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             }
