@@ -24,41 +24,41 @@ export class ViewGetFancingModalComponent implements OnInit {
     PreviousLocation: Loc[] = [];
     images = [];
     LoggedInUserInfo: BaseResponseModel;
-    markers: marker[] = [
-        {
-            lat: 51.673858,
-            lng: 7.815982,
-            label: 'A',
-            draggable: false
-        },
-        {
-            lat: 51.373858,
-            lng: 7.215982,
-            label: 'B',
-            draggable: false
-        },
-        {
-            lat: 51.723858,
-            lng: 7.895982,
-            label: 'C',
-            draggable: false
-        }
-    ]
+    // markers: marker[] = [
+    //     {
+    //         lat: 51.673858,
+    //         lng: 7.815982,
+    //         label: 'A',
+    //         draggable: false
+    //     },
+    //     {
+    //         lat: 51.373858,
+    //         lng: 7.215982,
+    //         label: 'B',
+    //         draggable: false
+    //     },
+    //     {
+    //         lat: 51.723858,
+    //         lng: 7.895982,
+    //         label: 'C',
+    //         draggable: false
+    //     }
+    // ]
 
     start_end_mark = [];
 
     latlng = [
         [
-            23.0285312,
-            72.5262336
+            '23.0285312',
+            '72.5262336'
         ],
         [
-            19.0760,
-            72.8777
+            '19.0760',
+            '72.8777'
         ],
         [
-            25.2048,
-            55.2708
+            '25.2048',
+            '55.2708'
         ]
     ];
 
@@ -86,8 +86,20 @@ export class ViewGetFancingModalComponent implements OnInit {
         this.start_end_mark.push(this.latlng[this.latlng.length - 1]);
     }
 
+
+     fixing(){
+         // this.latlng[0][1]='23.0285312'
+         //
+         //
+         // for(let i =0;this.latlng.length;i++){
+         //     this.latlng[i][0] = Number(this.latlng[i][0])
+         //     Number(this.latlng[i][1])
+         // }
+     }
     ngOnInit() {
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+
+
 
         navigator.geolocation.getCurrentPosition((position) => {
             this.center = {

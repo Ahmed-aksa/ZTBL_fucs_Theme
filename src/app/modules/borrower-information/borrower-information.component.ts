@@ -115,6 +115,10 @@ export class BorrowerInformationComponent implements OnInit {
         this.settingPPNoFeild()
     }
 
+    ngAfterViewInit() {
+        this.getBorrower();
+    }
+
 settingPPNoFeild(){
 
         console.log("called PPNOVisible")
@@ -165,7 +169,17 @@ settingPPNoFeild(){
                     this.matTableLenght = true
                     this.totalItems = baseResponse.BorrowerInfo.Borrowers[0].TotalRecords
                 } else {
-                    this.layoutUtilsService.alertElement("", baseResponse.Message);
+
+                    if (this.dv != undefined) {
+                        this.matTableLenght = false;
+                        this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
+                        // this.dataSource.data = [];
+                        // this._cdf.detectChanges();
+                        this.OffSet = 1;
+                        this.pageIndex = 1;
+                        this.dv = this.dv.slice(1, 0);
+                        this.layoutUtilsService.alertElement("", baseResponse.Message);
+                    }
                 }
             })
     }
