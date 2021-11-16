@@ -32,6 +32,7 @@ export class AuthService {
     get accessToken(): string {
         return localStorage.getItem('accessToken') ?? '';
     }
+
     set ZTBLUserRefreshToke(token: string) {
         if (typeof token != 'undefined') {
             localStorage.setItem('ZTBLUserRefreshToke', token);
@@ -63,27 +64,26 @@ export class AuthService {
 
         return this.httpUtils.post(`${environment.apiUrl}/Account/Login`, this.request,
             {headers: this.getHTTPHeaders()}).pipe(
-                map((response: BaseResponseModel) => {
-                localStorage.setItem('ZTBLUser', JSON.stringify(response));
+            map((response: BaseResponseModel) => {
+                if (response.Success) {
+                    localStorage.setItem('ZTBLUser', JSON.stringify(response));
+                    this.accessToken = response.Token;
+                    this.ZTBLUserRefreshToke = response.RefreshToken;
+                    this._authenticated = true;
+                }
 
-                this.accessToken = response.Token;
-                this.ZTBLUserRefreshToke = response.RefreshToken;
-                this._authenticated = true;
-                // this._userService.user = response.User;
                 return response;
             })
         );
 
     }
 
-    SendOTPResuest(user:any, text):Observable<BaseResponseModel>{
-        this.request.User =user;
-        this.request.OTP=new OTP();
-        this.request.OTP.Id ="1";
-        this.request.OTP.Text =text;
-        var req = JSON.stringify(this.request);
-        return this.httpUtils.post(`${environment.apiUrl}/Account/VerifyOTP`, req,
-          { headers: this.getHTTPHeaders() }).pipe(
+    SendOTPResuest(text): Observable<BaseResponseModel> {
+        this.request.OTP = new OTP();
+        this.request.OTP.Id = "1";
+        this.request.OTP.Text = text;
+        return this.httpUtils.post(`${environment.apiUrl}/Account/VerifyOTP`, this.request,
+            {headers: this.getHTTPHeaders()}).pipe(
             map((response: BaseResponseModel) => {
                 localStorage.setItem('ZTBLUser', JSON.stringify(response));
                 this.accessToken = response.Token;
@@ -93,15 +93,15 @@ export class AuthService {
             })
         );
     }
-    
+
     refreshToken(token: string) {
         this.request = new BaseRequestModel();
         const refreshToken = (localStorage.getItem('ZTBLUserRefreshToke'));
         const expiredToken = (localStorage.getItem('accessToken'));
-        this.request.Token=expiredToken;
-        this.request.RefreshToken=refreshToken;
+        this.request.Token = expiredToken;
+        this.request.RefreshToken = refreshToken;
         return this.httpUtils.post(`${environment.apiUrl}/Account/RefreshToken`, this.request);
-      }
+    }
 
     setAuthenticated(value: boolean) {
         this._authenticated = value;
