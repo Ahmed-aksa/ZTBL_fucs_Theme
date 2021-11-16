@@ -45,4 +45,3 @@ testem.log
 Thumbs.db
 src/app/modules/reschedule-cases/refer-back-reschedule-cases/refer-back-reschedule-cases.component.html
 src/app/modules/reschedule-cases/refer-back-reschedule-cases/refer-back-reschedule-cases.component.html
-*.ts

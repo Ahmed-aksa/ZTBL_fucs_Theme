@@ -10,6 +10,7 @@ import {UserUtilsService} from './users_utils.service';
 import {BaseResponseModel} from '../models/base_response.model';
 import {CreateCustomer} from '../models/customer.model';
 import {environment} from 'environments/environment';
+import {brands} from "../../mock-api/apps/ecommerce/inventory/data";
 
 @Injectable({
     providedIn: 'root',
@@ -47,7 +48,7 @@ export class CustomerService {
         return this.http
             .post(
                 `${environment.apiUrl}/Customer/GetCustomerInfo`,
-                this.request,
+                request,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
@@ -306,6 +307,25 @@ export class CustomerService {
             .post<any>(
                 `${environment.apiUrl}/Document/SubmitDocument`,
                 formData
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
+    getEligibilityRequestData(userInfo: BaseResponseModel, fromdate: string, todate: string, count: string, currentIndex: string, final_branch, final_zone, final_circle) {
+        var userInfo = this.userUtilsService.getUserDetails();
+        var request = {
+            TranId: 0,
+            Branch: final_branch,
+            User: userInfo.User,
+            Zone: final_zone,
+            Circle: final_circle
+        };
+
+        return this.http
+            .post(
+                `${environment.apiUrl}/Customer/UpdateCustomerPhoneCell`,
+                request,
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }

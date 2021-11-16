@@ -100,22 +100,10 @@ export class UserUtilsService {
 
 
         var userMenu = localStorage.getItem(environment.userInfoKey) //this.getUserMenu();
-        //var userMenu = localStorage.getItem(environment.ZTBLUser) //this.getUserMenu();
         if (userMenu) {
             return JSON.parse(userMenu);
         }
         return new BaseResponseModel();
-        // if (userMenu != undefined && userMenu != null) {
-        //     var data = Cookie.get(environment.userInfoKey);
-        //     if (data != undefined) {
-        //         this.loginResponse = JSON.parse(data);
-        //         this.loginResponse.MenuBar = this.getUserMenu();
-        //         this.loginResponse.Activities = this.getUserActivities();
-        //         this.loginResponse.Success = true;
-        //         return this.loginResponse;
-        //     }
-
-        // }
     }
 
     public setUserDetails(response: BaseResponseModel) {
