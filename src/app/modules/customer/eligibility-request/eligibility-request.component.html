@@ -72,9 +72,25 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Status</mat-label>
+
+                        <mat-select formControlName="status" [disabled]="disable_circle">
+                            <mat-option *ngFor="let single_status of Statuses" [value]="single_status?.Value"
+                            >
+                                {{single_status?.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Enter CNIC</mat-label>
-                        <input appNumberOnly matInput formControlName="cnic" placeholder="Enter CNIC" maxlength="100"
+                        <input appNumberOnly matInput formControlName="Cnic" placeholder="Enter CNIC" maxlength="100"
                                autocomplete="off">
                     </mat-form-field>
                 </div>
@@ -83,7 +99,7 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Enter Name</mat-label>
-                        <input appNumberOnly matInput formControlName="name" placeholder="Enter Name" maxlength="100"
+                        <input matInput formControlName="CustomerName" placeholder="Enter Name"
                                autocomplete="off">
                     </mat-form-field>
                 </div>
@@ -105,7 +121,7 @@
 
         <!-- Products list -->
         <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
-            <div class="flex flex-col flex-auto sm:mb-2  overflow-scroll" [style.height]="gridHeight">
+            <div class="flex flex-col flex-auto sm:mb-2  overflow-scroll" >
                 <mat-table class="lmat-elevation-z8"
                            #table
                            [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
@@ -125,7 +141,7 @@
                     </ng-container>
                     <ng-container matColumnDef="CircleCode">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Circle code</mat-header-cell>
-                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.CircleCode}}</mat-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.CircleName}}</mat-cell>
                     </ng-container>
 
 
@@ -147,11 +163,16 @@
 
                     <ng-container matColumnDef="Status">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.Status}}</mat-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.StatusName}}
+                        </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="Actions">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
-                        <mat-cell *matCellDef="let eligibilityRequest">I am Actions</mat-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">
+                            <button mat-icon-button color="accent">
+                                <mat-icon>menu</mat-icon>
+                            </button>
+                        </mat-cell>
                     </ng-container>
 
                     <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
