@@ -1,3 +1,4 @@
+]
 <div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-scroll bg-card dark:bg-transparent">
 
     <div class="row py-3">
@@ -141,7 +142,7 @@
                                         </button>
                 </span>
             </mat-expansion-panel-header>
-            <div *ngFor="let tp_item of item?.third_apis">
+            <div>
                 <div class="custom-accordion-body bg-gray-50 border-t rounded">
                     <table class="table table-responsive" style="display: inline-table !important;">
                         <thead class="thead-light">
@@ -155,12 +156,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr *ngFor="let tp_item of item?.third_apis">
                             <td>{{tp_item?.Id}}</td>
                             <td>{{tp_item?.TransactionId}}</td>
                             <td>{{tp_item?.APIName}}</td>
-                            <td>{{tp_item?.CallDateTime | date}}</td>
-                            <td>{{tp_item?.CallDateTime | date}} {{tp_item?.CallDateTime | date:'shortTime'}}</td>
+                            <td>{{item?.CallDateTime | date}} {{item?.CallDateTime | date:'shortTime'}}</td>
+                            <td>{{tp_item?.TotalTimeTaken}}</td>
                             <td>
                                 <button mat-icon-button color="primary"
                                         (click)="viewRequestResponse($event,tp_item,true)">

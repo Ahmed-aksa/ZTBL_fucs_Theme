@@ -151,6 +151,9 @@ export class EligibilityRequestComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
+            if(this.SelectedCircles.length>0){
+                this.disable_circle=false;
+            }
             this.SelectedBranches = this.LoggedInUserInfo.Branch;
             this.SelectedZones = this.LoggedInUserInfo.Zone;
 
