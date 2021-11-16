@@ -189,7 +189,6 @@ export class DeceasedCusComponent implements OnInit {
 
                     this.isEmpty = true;
                     this.DeceasedCustomerInf =  baseResponse.DeceasedCustomer.DeceasedCustomerInfo;
-                    console.log(this.DeceasedCustomerInf)
                     this.deceasedCustomerID = baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeceasedID
                     this.customerForm.controls["DateofDeath"].setValue(this._common.stringToDate(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeathDate));
                     this.customerForm.controls["Cn"].setValue(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.Cnic);

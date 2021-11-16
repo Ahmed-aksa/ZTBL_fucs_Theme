@@ -61,6 +61,11 @@ export class BorrowerInformationComponent implements OnInit {
     selected_z;
     selected_c;
 
+    //final
+    final_branch: any;
+    final_zone: any;
+    final_cricle: any;
+
     constructor(
         private _borrowerInfo: BorrowerInformationService,
         private layoutUtilsService: LayoutUtilsService,
@@ -100,6 +105,7 @@ export class BorrowerInformationComponent implements OnInit {
             if (this.borrowerForm.value.Branch) {
                 this.changeBranch(this.borrowerForm.value.Branch);
             }
+            this.getBorrower();
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
@@ -109,17 +115,53 @@ export class BorrowerInformationComponent implements OnInit {
                 this.disable_zone = false;
                 this.spinner.hide();
             });
-            this.getBorrower();
+
 
         }
         this.settingPPNoFeild()
     }
 
     ngAfterViewInit() {
-        this.getBorrower();
+        // console.log(this.borrowerForm.controls.Zone.value)
+        // if(this.borrowerForm.controls.Zone.value !== undefined){
+        //    console.log("called")
+        //     this.getBorrower();
+        // }
+
     }
 
-settingPPNoFeild(){
+    changeZone(changedValue) {
+        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.Branches = data.Branches;
+            this.SelectedBranches = this.Branches;
+            this.single_branch = false;
+            this.disable_branch = false;
+        });
+    }
+
+
+    changeBranch(changedValue) {
+        debugger
+        let changedBranch = null;
+        if (changedValue.value)
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        else
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
+        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+            this.Circles = data.Circles;
+            this.SelectedCircles = this.Circles;
+            // this.selected_c = this.SelectedCircles?.Id
+            this.disable_circle = false;
+            if (changedValue.value) {
+                // this.getBorrower();
+            }
+        });
+    }
+
+
+    settingPPNoFeild(){
 
         console.log("called PPNOVisible")
     var userInfo = this.userUtilsService.getUserDetails();
@@ -132,16 +174,67 @@ settingPPNoFeild(){
 }
 
     createForm() {
+        var userInfo = this.userUtilsService.getUserDetails();
         this.borrowerForm = this.fb.group({
-            Zone: [null],
-            Branch: [null],
-            Circle: [null],
+            Zone: [userInfo?.Zone?.ZoneName],
+            Branch: [userInfo?.Branch?.Name],
+            Circle: [],
             Cnic: [null],
             PPNo:[null],
         })
     }
+    userInfo = this.userUtilsService.getUserDetails();
+    private assignBranchAndZone() {
+
+        //Circle
+        if (this.SelectedCircles.length) {
+            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+            this.userInfo.Circles = this.final_cricle;
+        } else {
+            this.final_cricle = this.SelectedCircles;
+            this.userInfo.Circles = this.final_cricle;
+        }
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.userInfo.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.userInfo.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.userInfo.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.userInfo.Zone = this.final_zone;
+        }
+
+    }
 
     getBorrower() {
+        this.assignBranchAndZone()
+        if (!this.final_zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (!this.final_branch) {
+            var Message = 'Please select Branch';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
         var cnic = this.borrowerForm.controls.Cnic.value;
         this.user.ZoneId = this.borrowerForm.controls.Zone.value;
         if (this.SelectedBranches.length != undefined) {
@@ -153,9 +246,16 @@ settingPPNoFeild(){
             this.OffSet = 0;
         }
         this.user.CircleId = this.borrowerForm.controls.Circle.value;
+        this.user.ZoneId = this.borrowerForm.controls.Circle.value;
         var PPNo = this.borrowerForm.controls?.PPNo?.value;
         this.spinner.show();
-        this._borrowerInfo.getBorrowerInformation(this.itemsPerPage, this.OffSet, cnic, this.user,PPNo)
+
+        console.log(JSON.stringify(this.selected_z))
+
+        console.log( "Zone"+JSON.stringify(this.final_zone))
+        console.log("Branch"+ JSON.stringify(this.final_branch))
+        console.log("circle"+ JSON.stringify(this.final_cricle))
+        this._borrowerInfo.getBorrowerInformation(this.itemsPerPage, this.OffSet, cnic, this.user,PPNo,this.final_zone, this.final_branch, this.final_cricle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -178,8 +278,9 @@ settingPPNoFeild(){
                         this.OffSet = 1;
                         this.pageIndex = 1;
                         this.dv = this.dv.slice(1, 0);
-                        this.layoutUtilsService.alertElement("", baseResponse.Message);
+
                     }
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
             })
     }
@@ -205,42 +306,6 @@ settingPPNoFeild(){
             //this.router.createUrlTree(['../loan-inquiry', { LnTransactionID: LnTransactionID, Lcno: Lcno }], { relativeTo: this.activatedRoute })
         );
         window.open(url, '_blank');
-    }
-
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
-
-
-    changeBranch(changedValue) {
-        let changedBranch = null;
-        if (changedValue.value)
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        else
-            changedBranch = {Branch: {BranchCode: changedValue}}
-
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            this.disable_circle = false;
-            var fi: any = []
-            fi.Id = "null";
-            fi.CircleCode = "All";
-            fi.LovId = "0";
-            fi.TagName = "0";
-            this.SelectedCircles.splice(0, 0, fi)
-            this.borrowerForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-            if (changedValue.value) {
-                this.getBorrower();
-            }
-        });
     }
 
     MathCeil(value: any) {

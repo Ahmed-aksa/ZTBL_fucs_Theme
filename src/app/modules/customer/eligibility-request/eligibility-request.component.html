@@ -1,0 +1,190 @@
+<div
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="text-3xl mt-4 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
+         style="background-color: #f6fcf8;">Eligibility Request
+    </div>
+    <!-- Header -->
+    <div
+        [formGroup]="eligibilityRequestForm" class="mt-4">
+
+
+        <div style="display: flex;flex-direction: row;justify-content: space-between">
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
+                            <mat-option [value]="SelectedZones?.ZoneId">
+                                {{SelectedZones?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+                        <mat-label class="customMatLabel">Zone</mat-label>
+                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
+                                    (selectionChange)="changeZone($event)">
+                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                        [disabled]="disable_zone">
+                                {{zone?.ZoneName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    (selectionChange)="changeBranch($event)"
+                                    *ngIf="!single_branch">
+                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode">
+                                {{branch?.Name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
+                                    *ngIf="single_branch">
+                            <mat-option [value]="SelectedBranches?.BranchCode"
+                            >
+                                {{SelectedBranches?.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Circle</mat-label>
+
+                        <mat-select [(ngModel)]="selected_c" formControlName="Circle" [disabled]="disable_circle">
+                            <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                            >
+                                {{circle?.CircleCode}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label>Enter CNIC</mat-label>
+                        <input appNumberOnly matInput formControlName="cnic" placeholder="Enter CNIC" maxlength="100"
+                               autocomplete="off">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label>Enter Name</mat-label>
+                        <input appNumberOnly matInput formControlName="name" placeholder="Enter Name" maxlength="100"
+                               autocomplete="off">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center  mb-2">
+                    <button (click)="getEligibilityRequestData()" mat-flat-button [color]="'primary'">
+                        <mat-icon class="mr-2">search</mat-icon>
+                        Search
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-scroll">
+
+        <!-- Products list -->
+        <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
+            <div class="flex flex-col flex-auto sm:mb-2  overflow-scroll" [style.height]="gridHeight">
+                <mat-table class="lmat-elevation-z8"
+                           #table
+                           [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                           matSort
+                           #sort1="matSort"
+                           matSortActive="id"
+                           matSortDirection="asc"
+                           matSortDisableClear>
+                    <ng-container matColumnDef="ZoneName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Zone Name</mat-header-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.ZoneName}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="BranchName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Name</mat-header-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.BranchName}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="CircleCode">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Circle code</mat-header-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.CircleCode}}</mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="CustomerName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.CustomerName}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Cnic">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>CNIC</mat-header-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.Cnic}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="FatherName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
+                        <mat-cell
+                            *matCellDef="let eligibilityRequest">{{eligibilityRequest.FatherName}}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Status">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.Status}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Actions">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest">I am Actions</mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                    class="table-header-background"></mat-header-row>
+
+                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+                </mat-table>
+
+
+                <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
+                <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+        Items per page:
+        <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls display="inline" (pageChange)="paginate($event)"
+                             style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+
+    </div>
+</div>

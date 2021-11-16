@@ -19,18 +19,18 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {AppState} from "../../../shared/reducers";
 import {Store} from "@ngrx/store";
-import {LoanUtilizationService} from "../service/loan-utilization.service";
 import {Circle} from 'app/shared/models/circle.model';
 import {Branch} from 'app/shared/models/branch.model';
 import {Zone} from 'app/shared/models/zone.model';
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {CustomerService} from "../../../shared/services/customer.service";
 
 @Component({
-    selector: 'app-search-loan-uti',
-    templateUrl: './search-loan-uti.component.html',
-    styleUrls: ['./search-loan-uti.component.scss'],
+    selector: 'app-eligibility-request',
+    templateUrl: './eligibility-request.component.html',
+    styleUrls: ['./eligibility-request.component.scss'],
     providers: [
         DatePipe,
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -38,7 +38,7 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
 
     ],
 })
-export class SearchLoanUtilizationComponent implements OnInit {
+export class EligibilityRequestComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     @Input() isDialog: any = false;
@@ -50,33 +50,27 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
     //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob','CustomerStatus', 'View'];
-
     displayedColumns = [
-
-        // "BranchName",
-        "BranchCode",
-        "GlSubCode",
-        "SchemeCode",
-        "CropCode",
-         "LoanCaseNo",
-        "OutStandingPrinciple",
-        "DisbursedAmount",
-        "prodDevFlag",
-        "Balance",
-        "DisbDate",
-        "StatusName",
-        "add"]
+        "ZoneName",
+        "BranchName",
+        "CircleCode",
+        "CustomerName",
+        "Cnic",
+        "FatherName",
+        "Status",
+        "Actions"
+    ];
 
 
     gridHeight: string;
-    loanutilizationSearch: FormGroup;
+    eligibilityRequestForm: FormGroup;
     myDate = new Date().toLocaleDateString();
     public maskEnums = MaskEnum;
     errors = errorMessages;
     public LovCall = new Lov();
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
-    private _loanUtilizationSearch = new LoanUtilizationSearch;
+    private eligibilityRequestSearch = new LoanUtilizationSearch;
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
@@ -127,7 +121,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 public snackBar: MatSnackBar,
                 private filterFB: FormBuilder,
                 private router: Router,
-                private _loanutilizationService: LoanUtilizationService,
+                private customerService: CustomerService,
                 private _lovService: LovService,
                 private spinner: NgxSpinnerService,
                 private layoutUtilsService: LayoutUtilsService,
@@ -135,29 +129,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 private _cdf: ChangeDetectorRef,
                 private userUtilsService: UserUtilsService,
                 private _common: CommonService,
-                public datePipe:DatePipe) {
+                public datePipe: DatePipe) {
     }
 
     ngOnInit() {
-
-        console.log(this.loanutilizationSearch);
-        if (this.isDialog)
-            this.displayedColumns = [
-
-                "BranchName",
-                "BranchCode",
-                "LoanCaseNo",
-                "OutStandingPrinciple",
-                "DisbursedAmount",
-                "prodDevFlag",
-                "Balance",
-                "DisbDate",
-                "StatusName",
-                "add"]
-        //else
-        //  this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus', 'View']
-
-
         this.LoadLovs();
         this.createForm();
         this.settingZBC()
@@ -175,20 +150,18 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
-
             this.SelectedBranches = this.LoggedInUserInfo.Branch;
             this.SelectedZones = this.LoggedInUserInfo.Zone;
 
             this.selected_z = this.SelectedZones?.ZoneId
             this.selected_b = this.SelectedBranches?.BranchCode
             this.selected_c = this.SelectedCircles?.Id
-            this.loanutilizationSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.loanutilizationSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-            this.loanutilizationSearch.controls["Circle"].setValue(this.SelectedCircles?.Id);
-            // if (this.customerForm.value.Branch) {
-            //     this.changeBranch(this.customerForm.value.Branch);
-            // }
-            this.searchloanutilization();
+            this.eligibilityRequestForm.controls["Zone"].setValue(this.SelectedZones?.Id);
+            this.eligibilityRequestForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
+            if (this.SelectedCircles.length == 0) {
+                this.changeBranch(this.selected_b);
+            }
+            this.eligibilityRequestForm.controls["Circle"].setValue(this.SelectedCircles?.Id);
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
@@ -200,7 +173,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
             });
         }
     }
-
 
 
     private assignBranchAndZone() {
@@ -269,14 +241,14 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.gridHeight = window.innerHeight - 400 + 'px';
 
         //var userInfo = this.userUtilsService.getUserDetails();
-        //this.loanutilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
-        //this.loanutilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
+        //this.eligibilityRequestForm.controls['Zone'].setValue(userInfo.Zone.ZoneName);
+        //this.eligibilityRequestForm.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
     searchLoan;
 
     show() {
-        this.searchLoan = Object.assign(this.loanutilizationSearch);
+        this.searchLoan = Object.assign(this.eligibilityRequestForm);
     }
 
 
@@ -288,15 +260,14 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     createForm() {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.loanutilizationSearch = this.filterFB.group({
+        this.eligibilityRequestForm = this.filterFB.group({
             ZoneId: [userInfo?.Zone?.ZoneId],
             Circle: [userInfo?.UserCircleMappings?.Id],
             Zone: [userInfo?.Zone?.ZoneName],
             BranchId: [userInfo?.Branch?.BranchId],
             Branch: [userInfo?.Branch?.Name],
-            LoanCaseNo: [""],
-            ToDate: [],
-            FromDate: [],
+            cnic: [''],
+            name: ['']
         });
 
     }
@@ -312,7 +283,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
-        this.searchloanutilization()
+        this.getEligibilityRequestData()
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
@@ -337,7 +308,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     hasError(controlName: string, errorName: string): boolean {
-        return this.loanutilizationSearch.controls[controlName].hasError(errorName);
+        return this.eligibilityRequestForm.controls[controlName].hasError(errorName);
     }
 
     minDate: Date;
@@ -345,14 +316,14 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     setFromDate() {
 
-        // this.loanutilizationSearch.controls.FromDate.value this.datePipe.transform(this.loanutilizationSearch.controls.FromDate.value, 'ddMMyyyy')
-        this.minDate =  this.loanutilizationSearch.controls.FromDate.value;
-        var FromDate = this.loanutilizationSearch.controls.FromDate.value;
+        // this.eligibilityRequestForm.controls.FromDate.value this.datePipe.transform(this.eligibilityRequestForm.controls.FromDate.value, 'ddMMyyyy')
+        this.minDate = this.eligibilityRequestForm.controls.FromDate.value;
+        var FromDate = this.eligibilityRequestForm.controls.FromDate.value;
         if (FromDate._isAMomentObject == undefined) {
             try {
-                var day = this.loanutilizationSearch.controls.FromDate.value.getDate();
-                var month = this.loanutilizationSearch.controls.FromDate.value.getMonth() + 1;
-                var year = this.loanutilizationSearch.controls.FromDate.value.getFullYear();
+                var day = this.eligibilityRequestForm.controls.FromDate.value.getDate();
+                var month = this.eligibilityRequestForm.controls.FromDate.value.getMonth() + 1;
+                var year = this.eligibilityRequestForm.controls.FromDate.value.getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
@@ -363,16 +334,16 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 this.fromdate = FromDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
                 // console.log("date"+this.datePipe.transform(branchWorkingDate, 'ddmmyyyy'))
-               // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
-               //  console.log(this._common.stringToDate(newdate))
-               this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate);
+                // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
+                //  console.log(this._common.stringToDate(newdate))
+                this.eligibilityRequestForm.controls.FromDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         } else {
             try {
-                var day = this.loanutilizationSearch.controls.FromDate.value.toDate().getDate();
-                var month = this.loanutilizationSearch.controls.FromDate.value.toDate().getMonth() + 1;
-                var year = this.loanutilizationSearch.controls.FromDate.value.toDate().getFullYear();
+                var day = this.eligibilityRequestForm.controls.FromDate.value.toDate().getDate();
+                var month = this.eligibilityRequestForm.controls.FromDate.value.toDate().getMonth() + 1;
+                var year = this.eligibilityRequestForm.controls.FromDate.value.toDate().getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
@@ -383,7 +354,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
                 this.fromdate = FromDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate);
+                this.eligibilityRequestForm.controls.FromDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         }
@@ -394,12 +365,12 @@ export class SearchLoanUtilizationComponent implements OnInit {
     setToDate() {
 
 
-        var ToDate = this.loanutilizationSearch.controls.ToDate.value;
+        var ToDate = this.eligibilityRequestForm.controls.ToDate.value;
         if (ToDate._isAMomentObject == undefined) {
             try {
-                var day = this.loanutilizationSearch.controls.ToDate.value.getDate();
-                var month = this.loanutilizationSearch.controls.ToDate.value.getMonth() + 1;
-                var year = this.loanutilizationSearch.controls.ToDate.value.getFullYear();
+                var day = this.eligibilityRequestForm.controls.ToDate.value.getDate();
+                var month = this.eligibilityRequestForm.controls.ToDate.value.getMonth() + 1;
+                var year = this.eligibilityRequestForm.controls.ToDate.value.getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
@@ -407,14 +378,14 @@ export class SearchLoanUtilizationComponent implements OnInit {
                     day = "0" + day;
                 }
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.loanutilizationSearch.controls.ToDate.setValue(branchWorkingDate)
+                this.eligibilityRequestForm.controls.ToDate.setValue(branchWorkingDate)
             } catch (e) {
             }
         } else {
             try {
-                var day = this.loanutilizationSearch.controls.ToDate.value.toDate().getDate();
-                var month = this.loanutilizationSearch.controls.ToDate.value.toDate().getMonth() + 1;
-                var year = this.loanutilizationSearch.controls.ToDate.value.toDate().getFullYear();
+                var day = this.eligibilityRequestForm.controls.ToDate.value.toDate().getDate();
+                var month = this.eligibilityRequestForm.controls.ToDate.value.toDate().getMonth() + 1;
+                var year = this.eligibilityRequestForm.controls.ToDate.value.toDate().getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
@@ -424,7 +395,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 ToDate = day + "" + month + "" + year;
                 this.todate = ToDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.loanutilizationSearch.controls.ToDate.setValue(branchWorkingDate);
+                this.eligibilityRequestForm.controls.ToDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         }
@@ -435,8 +406,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
     getToday() {
         // Today
 
-        if (this.loanutilizationSearch.controls.ToDate.value) {
-            this.Today = this.loanutilizationSearch.controls.ToDate.value
+        if (this.eligibilityRequestForm.controls.ToDate.value) {
+            this.Today = this.eligibilityRequestForm.controls.ToDate.value
             return this.Today;
         } else {
 
@@ -450,7 +421,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
 
-    searchloanutilization() {
+    getEligibilityRequestData() {
         this.assignBranchAndZone();
         if (!this.final_zone) {
             var Message = 'Please select Zone';
@@ -471,45 +442,14 @@ export class SearchLoanUtilizationComponent implements OnInit {
             );
             return;
         }
-
-        // if (!this.final_cricle) {
-        //     var Message = 'Please select Circle';
-        //     this.layoutUtilsService.alertElement(
-        //         '',
-        //         Message,
-        //         null
-        //     );
-        //     return;
-        // }
-
         this.spinner.show()
-        if (this.loanutilizationSearch.controls.LoanCaseNo.value != "") {
+        if (this.eligibilityRequestForm.controls.LoanCaseNo.value != "") {
             this.OffSet = 0;
         }
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
-
-        // this._customer.clear();
-        this._loanUtilizationSearch = Object.assign(this._loanUtilizationSearch, this.loanutilizationSearch.value);
-
-        // var userInfo = this.userUtilsService.getUserDetails();
-        // if (this.isUserAdmin || this.isZoneUser) {
-        //     userInfo.Branch = {};
-        //     if (this.Branch.BranchCode != undefined)
-        //         userInfo.Branch.BranchId = this.Branch.BranchCode;
-        //     else
-        //         userInfo.Branch.BranchId = 0;
-        // }
-        // if (this.isUserAdmin) {
-        //     userInfo.Zone = {};
-        //     if (this.Zone.ZoneId != undefined)
-        //         userInfo.Zone.ZoneId = this.Zone.ZoneId
-        //     else
-        //         userInfo.Zone.ZoneId = 0;
-        // }
-
-
-        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex,this.SelectedCircles)
+        this.eligibilityRequestSearch = Object.assign(this.eligibilityRequestSearch, this.eligibilityRequestForm.value);
+        this.customerService.getEligibilityRequestData(this.userInfo, this.fromdate, this.todate, count, currentIndex, this.final_branch, this.final_zone, this.final_cricle)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -574,7 +514,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     ngOnDestroy() {
         console.log("ondestroy")
-        this.loanutilizationSearch.reset()
+        this.eligibilityRequestForm.reset()
     }
 
     masterToggle() {
