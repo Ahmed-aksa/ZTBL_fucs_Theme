@@ -1,3 +1,5 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable @typescript-eslint/semi */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportsComponent } from './reports/reports.component';
@@ -9,7 +11,14 @@ import { UpdatedListOfDefaultersComponent } from './updated-list-of-defaulters/u
 import { SearchLoanCasesByCnicComponent } from './search-loan-cases-by-cnic/search-loan-cases-by-cnic.component';
 import { FaViewCircleWiseComponent } from './fa-view-circle-wise/fa-view-circle-wise.component';
 import { SharedModule } from 'app/shared/shared.module';
+import { RouterModule } from '@angular/router';
 
+const routing = [
+  {
+      path: '',
+      component: ReportsComponent
+  },
+]
 
 
 @NgModule({
@@ -25,7 +34,17 @@ import { SharedModule } from 'app/shared/shared.module';
   ],
   imports: [
     CommonModule,
+    RouterModule.forChild(routing),
     SharedModule
+  ],
+  entryComponents:[
+    EarlyWarningReportsComponent,
+    BufricationOfOsBalancesLcComponent,
+    UpdatedListOfDefaultersComponent,
+    SearchLoanCasesByCnicComponent,
+    FaViewCircleWiseComponent,
+    DueInstallmentsComponent,
+    LoanAmountsConvertToDefaultComponent 
   ]
 })
 export class ReportsModule { }
