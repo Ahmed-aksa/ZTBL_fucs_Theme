@@ -35,7 +35,6 @@ export class AuthSignInComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        localStorage.clear();
         this.signInForm = this._formBuilder.group({
             DisplayName: ['', [Validators.required]],
             Password: ['', Validators.required],
@@ -43,7 +42,7 @@ export class AuthSignInComponent implements OnInit {
     }
 
     signIn(): void {
-
+        debugger;
         if (this.signInForm.invalid) {
             return;
         }
@@ -55,12 +54,10 @@ export class AuthSignInComponent implements OnInit {
         this._authService.signIn(loginMode)
             .subscribe((result) => {
                 if (result.Success && !result.isWebOTPEnabled) {
-
-                    if(result?.LoanUtilization)
-                    {
-                        localStorage.setItem('MaxNumberOfImages', JSON.stringify(result?.LoanUtilization["MaxNumberOfImages"]));
-                        localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result?.LoanUtilization["MaxNumberOfVideo"]));
-                        localStorage.setItem('VideoTimeLimit', JSON.stringify(result?.LoanUtilization["VideoTimeLimit"]));
+                    if (result.LoanUtilization) {
+                        localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
+                        localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
+                        localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
                     }
                     this.toaster.success(result.Message);
                     const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
@@ -89,7 +86,7 @@ export class AuthSignInComponent implements OnInit {
                     this.showAlert = true;
                 }
 
-                },
+            },
                 (response) => {
                     this.signInNgForm.resetForm();
                     this.signInForm.enable();

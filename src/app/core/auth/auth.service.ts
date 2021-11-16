@@ -76,13 +76,11 @@ export class AuthService {
 
     }
 
-    SendOTPResuest(user:any, text):Observable<BaseResponseModel>{
-        this.request.User =user;
+    SendOTPResuest( text): Observable<BaseResponseModel>{
         this.request.OTP=new OTP();
         this.request.OTP.Id ="1";
         this.request.OTP.Text =text;
-        var req = JSON.stringify(this.request);
-        return this.httpUtils.post(`${environment.apiUrl}/Account/VerifyOTP`, req,
+        return this.httpUtils.post(`${environment.apiUrl}/Account/VerifyOTP`, this.request,
           { headers: this.getHTTPHeaders() }).pipe(
             map((response: BaseResponseModel) => {
                 localStorage.setItem('ZTBLUser', JSON.stringify(response));
