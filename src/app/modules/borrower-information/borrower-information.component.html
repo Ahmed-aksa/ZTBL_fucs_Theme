@@ -167,7 +167,10 @@
 
                 <ng-container matColumnDef="InterestRate">
                     <mat-header-cell  *matHeaderCellDef>Interest Rate</mat-header-cell>
-                    <mat-cell *matCellDef="let borrower">{{borrower.InterestRate}}</mat-cell>
+                    <mat-cell *matCellDef="let borrower"><p 
+                    style="word-wrap: break-word;
+                        hyphens: auto;
+                        max-width: 200px;">{{borrower.InterestRate}}</p></mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="PermanentAddress">
