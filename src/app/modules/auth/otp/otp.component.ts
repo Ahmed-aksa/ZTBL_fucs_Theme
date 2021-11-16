@@ -88,7 +88,7 @@ export class OtpComponent implements OnInit {
     this.loading = true;
     this.spinner.show()
     
-    this.auth.SendOTPResuest(this.data.baseResponse.User, this.otpForm.controls['otp'].value).pipe(finalize(() => { this.loading = true, this.spinner.hide()})).subscribe(result => {
+    this.auth.SendOTPResuest( this.otpForm.controls['otp'].value).pipe(finalize(() => { this.loading = true, this.spinner.hide()})).subscribe(result => {
       if (result.Success) {
         this.onCloseClick(result);
       }
