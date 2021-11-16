@@ -85,6 +85,7 @@ export class VillageWiseBenchMarkingService{
 
   addUpdateVillageBenchMark(village, user) {
 
+      console.log("village"+village)
     var circle = this.userInfo.UserCircleMappings;
     var circleIds = [];
     //mycircle =

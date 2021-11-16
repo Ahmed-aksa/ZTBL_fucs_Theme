@@ -8,20 +8,22 @@
         </div>
       </div>
     </div>
-    
+
     <form [formGroup]="vendorDetailForm" class="kt-form kt-form--group-seperator-dashed">
-        
+
         <div class="kt-form">
-            
+
             <div class="kt-portlet__body">
-                
+
                 <div class="col-lg-11">
 
-                  <div *ngFor="let url of images">
-                    <img style="width:200px;height: 200px;display: block;margin-left: auto;margin-right: auto;" class="rounded-circle text-right" mat-card-md-image [src]="url">
-    
-                  </div>
-                                        
+                    <div *ngIf="images.length>0">
+                        <div *ngFor="let url of images">
+                            <img style="width:200px;height: 200px;display: block;margin-left: auto;margin-right: auto;" class="rounded-circle text-right" mat-card-md-image [src]="url">
+                        </div>
+                    </div>
+
+
                   <div class="form-group kt-form__group row">
 
                     <div class="col-lg-6 kt-margin-bottom-20-mobile">
@@ -37,18 +39,18 @@
                         <input matInput placeholder="Enter Type" formControlName="TypeName" autocomplete="off" readonly/>
                       </mat-form-field>
                     </div>
-                    
+
                   </div>
-                    
+
                   <div class="form-group kt-form__group row">
-                    
+
                       <div class="col-lg-6 kt-margin-bottom-20-mobile">
                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                           <mat-label class="customMatLabel">Phone Number </mat-label>
                           <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="PhoneNumber"  appNumberOnly autocomplete="off" readonly/>
                         </mat-form-field>
                       </div>
-  
+
                       <div class="col-lg-6 kt-margin-bottom-20-mobile">
                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                           <mat-label class="customMatLabel">Business Description</mat-label>
@@ -72,7 +74,7 @@
 
             </div>
         </div>
-        
+
 
     </form>
 
@@ -83,4 +85,4 @@
       </div>
 
 </div>
-    
+
