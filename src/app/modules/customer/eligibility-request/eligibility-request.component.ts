@@ -48,6 +48,7 @@ export class EligibilityRequestComponent implements OnInit {
     loading: boolean;
 
 
+    Statuses: any;
     //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
     //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob','CustomerStatus', 'View'];
     displayedColumns = [
@@ -113,7 +114,7 @@ export class EligibilityRequestComponent implements OnInit {
     //final
     final_branch: any;
     final_zone: any;
-    final_cricle: any;
+    final_circle: any;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -143,7 +144,7 @@ export class EligibilityRequestComponent implements OnInit {
 
     }
 
-    userInfo = this.userUtilsService.getUserDetails();
+    userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     settingZBC() {
 
@@ -179,11 +180,11 @@ export class EligibilityRequestComponent implements OnInit {
 
         //Circle
         if (this.SelectedCircles.length) {
-            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
-            this.userInfo.Circles = this.final_cricle;
+            this.final_circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+            this.userInfo.Circles = this.final_circle;
         } else {
-            this.final_cricle = this.SelectedCircles;
-            this.userInfo.Circles = this.final_cricle;
+            this.final_circle = this.SelectedCircles;
+            this.userInfo.Circles = this.final_circle;
         }
         //Branch
         if (this.SelectedBranches.length) {
@@ -261,13 +262,12 @@ export class EligibilityRequestComponent implements OnInit {
     createForm() {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.eligibilityRequestForm = this.filterFB.group({
-            ZoneId: [userInfo?.Zone?.ZoneId],
             Circle: [userInfo?.UserCircleMappings?.Id],
             Zone: [userInfo?.Zone?.ZoneName],
-            BranchId: [userInfo?.Branch?.BranchId],
             Branch: [userInfo?.Branch?.Name],
-            cnic: [''],
-            name: ['']
+            Cnic: [null],
+            CustomerName: [null],
+            status: [null]
         });
 
     }
@@ -443,13 +443,21 @@ export class EligibilityRequestComponent implements OnInit {
             return;
         }
         this.spinner.show()
-        if (this.eligibilityRequestForm.controls.LoanCaseNo.value != "") {
-            this.OffSet = 0;
-        }
-        var count = this.itemsPerPage.toString();
-        var currentIndex = this.OffSet.toString();
+        var request = {
+            Branch: this.final_branch,
+            Zone: this.final_zone,
+            Circle: {
+                Circle: this.final_circle.Id,
+            },
+            EligibilityRequest: this.eligibilityRequestForm.value,
+            User: this.userInfo,
+            Pagination: {
+                Limit: this.itemsPerPage.toString(),
+                Offset: this.OffSet.toString()
+            }
+        };
         this.eligibilityRequestSearch = Object.assign(this.eligibilityRequestSearch, this.eligibilityRequestForm.value);
-        this.customerService.getEligibilityRequestData(this.userInfo, this.fromdate, this.todate, count, currentIndex, this.final_branch, this.final_zone, this.final_cricle)
+        this.customerService.getEligibilityRequestData(request)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -459,19 +467,15 @@ export class EligibilityRequestComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    this.dataSource.data = baseResponse.LoanUtilization.LoanDetails;
+                    this.dataSource.data = baseResponse.EligibilityRequest.EligibilityRequests;
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
                     else
                         this.matTableLenght = false;
 
                     this.dv = this.dataSource.data;
-                    this.totalItems = baseResponse.LoanUtilization.LoanDetails[0].TotalRecords;
+                    this.totalItems = baseResponse.EligibilityRequest.EligibilityRequests[0].TotalRecords;
                     this.dataSource.data = this.dv.slice(0, this.totalItems)
-                    //this.dataSource = new MatTableDataSource(data);
-
-                    // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
-                    //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
                 } else {
@@ -539,11 +543,13 @@ export class EligibilityRequestComponent implements OnInit {
     }
 
     async LoadLovs() {
-        this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus})
-        this.CustomerStatusLov.LOVs.forEach(function (value) {
-            if (!value.Value)
-                value.Value = "All";
-        });
+
+        this.Statuses = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.EligibilityStatus});
+        this.Statuses = this.Statuses.LOVs;
+        // this.CustomerStatusLov.LOVs.forEach(function (value) {
+        //     if (!value.Value)
+        //         value.Value = "All";
+        // });
     }
 
 }

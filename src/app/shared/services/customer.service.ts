@@ -311,22 +311,13 @@ export class CustomerService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    getEligibilityRequestData(userInfo: BaseResponseModel, fromdate: string, todate: string, count: string, currentIndex: string, final_branch, final_zone, final_circle) {
-        var userInfo = this.userUtilsService.getUserDetails();
-        var request = {
-            TranId: 0,
-            Branch: final_branch,
-            User: userInfo.User,
-            Zone: final_zone,
-            Circle: final_circle
-        };
-
+    getEligibilityRequestData(request_data) {
         return this.http
             .post(
-                `${environment.apiUrl}/Customer/UpdateCustomerPhoneCell`,
-                request,
+                `${environment.apiUrl}/Customer/GetEligibilityRequests`,
+                request_data,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
-            .pipe(map((res: BaseResponseModel) => res));
+            .pipe(map((res: any) => res));
     }
 }

@@ -69,9 +69,12 @@
                             "src/styles/styles.scss",
                             "src/styles/tailwind.scss",
                             "node_modules/ngx-toastr/toastr.css",
+                            "node_modules/bootstrap/scss/bootstrap.scss",
                             "./node_modules/material-icons-font/material-icons-font.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/bootstrap/dist/js/bootstrap.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
