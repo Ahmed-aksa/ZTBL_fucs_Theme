@@ -1,5 +1,5 @@
 import {MapsAPILoader} from '@agm/core';
-import {Component, ElementRef, Inject, NgZone, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Inject, NgZone, OnInit, ViewChild} from '@angular/core';
 import {finalize} from 'rxjs/operators';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
@@ -47,18 +47,33 @@ export class ViewGetFancingModalComponent implements OnInit {
 
     start_end_mark = [];
 
+    // latlng = [
+    //     [
+    //         '23.0285312',
+    //         '72.5262336'
+    //     ],
+    //     [
+    //         '19.0760',
+    //         '72.8777'
+    //     ],
+    //     [
+    //         '25.2048',
+    //         '55.2708'
+    //     ]
+    // ];
+
     latlng = [
         [
-            '23.0285312',
-            '72.5262336'
+            23.0285312,
+            72.5262336
         ],
         [
-            '19.0760',
-            '72.8777'
+            19.0760,
+            72.8777
         ],
         [
-            '25.2048',
-            '55.2708'
+            25.2048,
+            55.2708
         ]
     ];
 
@@ -79,26 +94,26 @@ export class ViewGetFancingModalComponent implements OnInit {
         private userUtilsService: UserUtilsService,
         private _geoFencingService: GeoFencingService,
         private layoutUtilsService: LayoutUtilsService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private detector: ChangeDetectorRef
     ) {
 
-        this.start_end_mark.push(this.latlng[0]);
-        this.start_end_mark.push(this.latlng[this.latlng.length - 1]);
+
     }
 
 
-     fixing(){
-         // this.latlng[0][1]='23.0285312'
-         //
-         //
-         // for(let i =0;this.latlng.length;i++){
-         //     this.latlng[i][0] = Number(this.latlng[i][0])
-         //     Number(this.latlng[i][1])
-         // }
-     }
+    fixing() {
+        // this.latlng[0][1]='23.0285312'
+        //
+        //
+        // for(let i =0;this.latlng.length;i++){
+        //     this.latlng[i][0] = Number(this.latlng[i][0])
+        //     Number(this.latlng[i][1])
+        // }
+    }
+
     ngOnInit() {
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
-
 
 
         navigator.geolocation.getCurrentPosition((position) => {
@@ -129,8 +144,42 @@ export class ViewGetFancingModalComponent implements OnInit {
         if (this.data.lat != undefined && this.data.lng != undefined) {
             this.PreviousLocation.push(this.data);
         }
-        this.getPoligonGetByIds()
+        this.getPoligonGetByIds();
+        this.GetGeoFancPoint()
 
+    }
+
+    // final(val){
+    //   this.latlong[this.latlong.length][]
+    // }
+
+    isNumber(val) {
+        return Number(val);
+    }
+
+    latlonggg = [];
+    latlong;
+    LocationHistories = new LocationHistories;
+
+    GetGeoFancPoint() {
+        this.spinner.show()
+        this._geoFencingService.GetGeoFancPoint(this.data)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })).subscribe((baseResponse: BaseResponseModel) => {
+            if (baseResponse.Success === true) {
+                this.LocationHistories = baseResponse.LocationHistory["LocationHistories"]
+                this.latlong = JSON.parse(baseResponse.LocationHistory.LocationHistories[0]["LocationData"]);
+                debugger;
+                this.start_end_mark.push(this.latlong[0]);
+                this.start_end_mark.push(this.latlong[this.latlng.length - 1]);
+
+                this.detector.detectChanges();
+            } else {
+                this.layoutUtilsService.alertElement("", baseResponse.Message);
+            }
+        });
     }
 
     getPoligonGetByIds() {
@@ -174,4 +223,15 @@ interface marker {
     lng: number;
     label?: string;
     draggable: boolean;
+}
+
+export class LocationHistories {
+    ID: string;
+    ParentId: string;
+    PPNo: string;
+    CreatedDate: string;
+    LocationData: string;
+    ZoneID: string;
+    BranchCode: string;
+    CircleIDs: string;
 }

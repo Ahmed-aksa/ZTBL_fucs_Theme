@@ -15,6 +15,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {LayoutUtilsService} from "../../../../shared/services/layout-utils.service";
 
 @Component({
   selector: 'app-remark-dialog',
@@ -28,14 +29,14 @@ export class RemarkDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<RemarkDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder
+    private fb: FormBuilder,  private layoutUtilsService: LayoutUtilsService,
   ) { }
 
 
 
   ngOnInit() {
     this.remarkForm = this.fb.group({
-      Remarks: [null, Validators.required]
+      Remarks: [ '',Validators.required]
     })
   }
 
@@ -44,6 +45,18 @@ export class RemarkDialogComponent implements OnInit {
   }
 
   submit(){
+      console.log(this.remarkForm.controls.Remarks.value)
+      if (!this.remarkForm.controls.Remarks.value) {
+          var Message = 'Please Enter Remarks';
+          this.layoutUtilsService.alertElement(
+              '',
+              Message,
+              null
+          );
+          return;
+      }
+
+
     var res = this.remarkForm.controls.Remarks.value;
     this.dialogRef.close(res)
   }

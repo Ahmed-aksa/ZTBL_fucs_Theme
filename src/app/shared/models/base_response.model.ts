@@ -72,5 +72,5 @@ export class BaseResponseModel {
     VillageBenchMarking: any;
     TourPlanAndDiaryDto:any;
     TourPlan:any;
-    LocationHistory:any={};
+    LocationHistory:any;
 }
