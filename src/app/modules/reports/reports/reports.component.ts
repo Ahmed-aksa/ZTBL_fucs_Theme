@@ -29,7 +29,7 @@ export class ReportsComponent implements OnInit {
   }
 
   searchLoanCase(){
-    const dialogRef = this.dialog.open(SearchLoanCasesByCnicComponent, { width: "1200px", height: "700px", disableClose: true });
+    const dialogRef = this.dialog.open(SearchLoanCasesByCnicComponent, { width: "w-100", height: "700px", disableClose: true });
     dialogRef.afterClosed().subscribe((res)=>{
       if(!res){
         return
@@ -38,7 +38,7 @@ export class ReportsComponent implements OnInit {
   }
 
   bufrictionOfOSBalances(){
-    const dialogRef = this.dialog.open(BufricationOfOsBalancesLcComponent, { width: "1200px", height: "700px", disableClose: true });
+    const dialogRef = this.dialog.open(BufricationOfOsBalancesLcComponent, { width: "w-100", height: "700px", disableClose: true });
     dialogRef.afterClosed().subscribe((res)=>{
       if(!res){
         return
@@ -47,7 +47,7 @@ export class ReportsComponent implements OnInit {
   }
 
   updatedListOfDefaulters(){
-    const dialogRef = this.dialog.open(UpdatedListOfDefaultersComponent, { width: "1200px", height: "700px", disableClose: true });
+    const dialogRef = this.dialog.open(UpdatedListOfDefaultersComponent, { width: "w-100", height: "700px", disableClose: true });
     dialogRef.afterClosed().subscribe((res)=>{
       if(!res){
         return
@@ -56,7 +56,7 @@ export class ReportsComponent implements OnInit {
   }
 
   faViewCircleWise(){
-    const dialogRef = this.dialog.open(FaViewCircleWiseComponent, { width: "1200px", height: "700px", disableClose: true });
+    const dialogRef = this.dialog.open(FaViewCircleWiseComponent, { width: "w-100", height: "700px", disableClose: true });
     dialogRef.afterClosed().subscribe((res)=>{
       if(!res){
         return
@@ -65,7 +65,7 @@ export class ReportsComponent implements OnInit {
   }
 
   earlyWarningReports(){
-    const dialogRef = this.dialog.open(EarlyWarningReportsComponent, { width: "1200px", height: "700px", disableClose: true });
+    const dialogRef = this.dialog.open(EarlyWarningReportsComponent, { width: "w-100", height: "700px", disableClose: true });
     dialogRef.afterClosed().subscribe((res)=>{
       if(!res){
         return
@@ -74,7 +74,7 @@ export class ReportsComponent implements OnInit {
   }
 
   dueInstallments(){
-    const dialogRef = this.dialog.open(DueInstallmentsComponent, { width: "1200px", height: "700px", disableClose: true });
+    const dialogRef = this.dialog.open(DueInstallmentsComponent, { width: "w-100", height: "700px", disableClose: true });
     dialogRef.afterClosed().subscribe((res)=>{
       if(!res){
         return
@@ -83,7 +83,7 @@ export class ReportsComponent implements OnInit {
   }
 
   loanAmountConvertToDefault(){
-    const dialogRef = this.dialog.open(LoanAmountsConvertToDefaultComponent, { width: "1200px", height: "700px", disableClose: true });
+    const dialogRef = this.dialog.open(LoanAmountsConvertToDefaultComponent, { width: "w-100", height: "700px", disableClose: true });
     dialogRef.afterClosed().subscribe((res)=>{
       if(!res){
         return
