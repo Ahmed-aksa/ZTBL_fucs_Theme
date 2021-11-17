@@ -58,7 +58,7 @@
         <div class="pt-1">
             <div class="form-group row" style="
       min-width: max-content;
-      max-height: 50vh;
+      max-height: 100vh;
       overflow-y:scroll;
   ">
                 <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8">
@@ -68,12 +68,12 @@
                     <div class="custom-accordion" *ngFor="let activity of userActivities;let i=index">
                         <div class="custom-accordion-head" (click)="toggleAccordion(activity.ActivityID)"
                              style="cursor: pointer">
-                            <div class="custom-padding">
-                                <h3>
+                            <div class="self-center">
+                                <span class="font-bold">
                                     {{activity.ActivityName}}
-                                </h3>
+                                </span>
                             </div>
-                            <div class="custom-padding">
+                            <div class="mr-5">
                                 <button mat-icon-button *ngIf="!lists_record.includes(activity.ActivityID)">
                                     <mat-icon>expand_more</mat-icon>
                                 </button>
