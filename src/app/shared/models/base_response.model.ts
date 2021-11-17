@@ -35,6 +35,7 @@ export class BaseResponseModel {
     Customers: any;
     Customer: any;
     GeoFancPoints: any;
+    GeoFancPoint:any;
     Users: any;
     User: any;
     searchLandData: any;

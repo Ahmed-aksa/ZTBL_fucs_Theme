@@ -196,7 +196,8 @@ export class GeoFencingListComponent implements OnInit {
     view(data: any) {
         console.log("data"+JSON.stringify(data))
         const dialogRef = this.dialog.open(ViewGetFancingModalComponent, {
-            width: "1200px",
+            height: '100%',
+            width: '100%',
             data: data,
             disableClose: true
         });
