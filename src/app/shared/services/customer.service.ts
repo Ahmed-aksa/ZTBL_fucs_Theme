@@ -329,4 +329,8 @@ export class CustomerService {
     changeStatus(request: { EligibilityRequest: { Status: string; Id: any } }) {
         return this.http.post(`${environment.apiUrl}/Customer/ChangeEligibilityRequestStatus`, request);
     }
+
+    getImages(request: { EligibilityRequest: { Id: any } }) {
+        return this.http.post(`${environment.apiUrl}/Customer/GetEligibilityRequestFiles`, request);
+    }
 }
