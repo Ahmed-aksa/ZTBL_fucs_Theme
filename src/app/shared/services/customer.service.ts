@@ -320,4 +320,8 @@ export class CustomerService {
             )
             .pipe(map((res: any) => res));
     }
+
+    changeStatus(request: { EligibilityRequest: { Status: string; Id: any } }) {
+        return this.http.post(`${environment.apiUrl}/Customer/ChangeEligibilityRequestStatus`, request);
+    }
 }

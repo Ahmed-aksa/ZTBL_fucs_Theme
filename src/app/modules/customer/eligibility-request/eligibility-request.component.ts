@@ -151,8 +151,8 @@ export class EligibilityRequestComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
             this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
-            if(this.SelectedCircles.length>0){
-                this.disable_circle=false;
+            if (this.SelectedCircles.length > 0) {
+                this.disable_circle = false;
             }
             this.SelectedBranches = this.LoggedInUserInfo.Branch;
             this.SelectedZones = this.LoggedInUserInfo.Zone;
@@ -555,4 +555,30 @@ export class EligibilityRequestComponent implements OnInit {
         // });
     }
 
+    changeStatus(r: string, id) {
+        var request = {
+            EligibilityRequest: {
+                Id: id,
+                Status: r
+            }
+        }
+        this.customerService.changeStatus(request).subscribe((baseResponse:any) => {
+
+            if (baseResponse.Success) {
+                this.getEligibilityRequestData();
+            } else {
+
+                if (this.dv != undefined) {
+                    this.matTableLenght = false;
+                    this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
+                    // this.dataSource.data = [];
+                    // this._cdf.detectChanges();
+                    this.OffSet = 1;
+                    this.pageIndex = 1;
+                    this.dv = this.dv.slice(1, 0);
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
+                }
+            }
+        });
+    }
 }
