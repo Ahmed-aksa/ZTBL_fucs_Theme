@@ -163,6 +163,11 @@ export class CustomerService {
         this.request.Zone = zone;
         this.request.Branch = branch;
 
+        if (!branch && !zone) {
+
+            this.request.Zone = userInfo.Zone;
+            this.request.Branch = userInfo.Branch;
+        }
         return this.http
             .post(
                 `${environment.apiUrl}/Customer/SearchCustomer`,

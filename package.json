@@ -54,6 +54,7 @@
         "material-icons-font": "^2.1.0",
         "moment": "2.29.1",
         "ng-apexcharts": "1.5.12",
+        "ng-image-slider": "^2.8.0",
         "ng2-cookies": "^1.0.12",
         "ngrx": "0.0.1-security",
         "ngrx-store-freeze": "^0.2.4",

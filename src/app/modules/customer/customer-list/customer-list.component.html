@@ -25,11 +25,11 @@
             <div [formGroup]="customerSearch" class="mt-4">
 
                 <div>
-        
+
                     <div class="row">
                         <div class="col-lg-3 col-sm-12">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-        
+
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
                                     <mat-label class="customMatLabel">Zone</mat-label>
                                     <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
@@ -48,13 +48,13 @@
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
-        
-        
+
+
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-12">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
-        
+
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
                                     <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
@@ -83,12 +83,12 @@
                                            autocomplete="off" appAlphabetOnly>
                                     <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
                                 </mat-form-field>
-        
+
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-12">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-        
+
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label>Cnic</mat-label>
                                     <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100"
@@ -99,13 +99,13 @@
                                 </mat-form-field>
                             </div>
                         </div>
-        
+
                     </div>
-        
+
                     <div class="row">
                         <div class="col-lg-3 col-sm-12">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-        
+
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label>Father Name</mat-label>
                                     <input matInput formControlName="FatherName" placeholder="Enter Father Name" maxlength="100"
@@ -127,18 +127,18 @@
                                             {{obj.Name}}
                                         </mat-option>
                                     </mat-select>
-        
+
                                 </mat-form-field>
                             </div>
                         </div>
-        
+
                     </div>
-        
-        
+
+
                 </div>
-        
+
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-        
+
                     <button  data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-raised-button
                             type="button"
                             (click)="searchCustomer()">
@@ -193,7 +193,7 @@
                 </ng-container>
                 <ng-container matColumnDef="CustomerStatus">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                    <mat-cell *matCellDef="let customer">{{getStatus(customer.CustomerStatus)}}</mat-cell>
+                    <mat-cell *matCellDef="let customer">{{customer.CustomerStatusDesc}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="View" *ngIf="!isDialog">
                     <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
