@@ -1,5 +1,5 @@
 <div
-    class=" px-10 sm:absolute sm:inset-0 flex flex-col px-10  flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    class=" px-10 sm:absolute sm:inset-0 flex flex-col px-10  flex-auto min-w-0 overflow-x-hidden sm:overflow-y-scroll bg-card dark:bg-transparent">
     <div class="row py-3">
         <div class="col-lg-12 col-sm-12">
             <div class="heading">{{getTitle()}}</div>
@@ -7,7 +7,7 @@
 
     </div>
     <!-- Header -->
-    <div class="flex flex-auto overflow-hidden pb-4" style="flex-direction: column;">
+    <div class="flex flex-auto overflow-y-scroll  overflow-x-hidden pb-4" style="flex-direction: column;">
         <form [formGroup]="customerInfo" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="kt-portlet__body">
@@ -19,7 +19,7 @@
                     </kt-alert>
 
                     <!--Get Customer Info-->
-                    <div [style.height]="gridHeight" *ngIf="NDCActionPerformSuccess">
+                    <div  *ngIf="NDCActionPerformSuccess">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -44,18 +44,15 @@
 
 
                         </div>
-                        <div class="form-group kt-form__group row" *ngIf="NDCPerform">
-                            <div class="col-lg-3 kt-margin-bottom-20-mobile">
-
-                            </div>
+                        <div class="form-group kt-form__group row py-4 border  my-4 mx-1 " *ngIf="NDCPerform">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                                <h5 style="color:blue;">NDC</h5>
-                                <h6 [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</h6>
+                                <h5 class="text-green">NDC</h5>
+                                <h6 [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-black': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</h6>
                             </div>
-                            <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                                <a *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank" mat-icon-button
-                                   color="primary">
-                                    <mat-icon title="view">pageview</mat-icon>
+                            <div class="col-lg-4 kt-margin-bottom-20-mobile self-center">
+                                <a class="text-black" *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank" mat-icon-button
+                                   color="accent">
+                                    <mat-icon class="text-green mr-2" title="view">remove_red_eye</mat-icon> Page view
                                 </a>
                             </div>
                         </div>
@@ -88,7 +85,7 @@
 
                     </div>
                     <!--BioMatric Case Perform-->
-                    <div [style.height]="gridHeight" *ngIf="BiMatricCasePerfom">
+                    <div  *ngIf="BiMatricCasePerfom">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-2 kt-margin-bottom-20-mobile">
 
@@ -124,7 +121,7 @@
                         </div>
                     </div>
                     <!--Biometric Credentials-->
-                    <div [style.height]="gridHeight" *ngIf="BioMetricCapture">
+                    <div  *ngIf="BioMetricCapture">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -199,7 +196,7 @@
 
                     </div>
                     <!--CWR-->
-                    <div [style.height]="gridHeight" *ngIf="BiometricCredentials">
+                    <div  *ngIf="BiometricCredentials">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -267,7 +264,7 @@
 
                     <!--ECIB-->
                     <!-- [style.height]="gridHeight"   not able to understand  -->
-                    <div [style.height]="gridHeight" *ngIf="ECIBPerformForm">
+                    <div  *ngIf="ECIBPerformForm">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
@@ -319,42 +316,41 @@
 
               </div>-->
                     <!--Actions Fields-->
-                    <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
+                    <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border  ml-1">
                         <div class="kt-form__actions kt-form__actions--solid">
                             <div class="row text-right">
                                 <div class="col-lg-12">
-                                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit" color="primary" type="button"
-                                            class="btn btn-primary mt-19 kt-login__btn-primary"
-                                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
-                                        <span><i class="fas fa-arrow-right"> &nbsp;</i> Next</span>
+                                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit"  type="button"
+                                            class="btn btn-primary bg-green kt-login__btn-primary"
+                                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
+                                           <span class="flex"> <mat-icon class="mr-2 text-white">navigate_next</mat-icon>Next</span>
                                     </button>
-                                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture" color="primary"
-                                            type="button" class="btn btn-primary mt-19 kt-login__btn-primary"
+                                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture"
+                                            type="button" class="btn bg-green btn-primary kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
-                                        <span><i class="fas fa-arrow-right"> &nbsp;</i>Save & Next</span>
+                                            >
+                                            <span class="flex"><mat-icon class="mr-2 text-white">navigate_next</mat-icon>Save & Next</span>
                                     </button>
                                     <button (click)="submitCWR()" [disabled]="submitCwrLoading"
-                                            *ngIf="BiometricCredentials" color="primary" type="button"
-                                            class="btn btn-primary mt-19 kt-login__btn-primary"
+                                            *ngIf="BiometricCredentials"  type="button"
+                                            class="btn btn-primary bg-green kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
-                                        <span><i class="fas fa-arrow-right"> &nbsp;</i>Next</span>
+                                            >
+                                            <span class="flex"> <mat-icon class="mr-2 text-white">navigate_next</mat-icon>Next</span>
                                     </button>
                                     <button type="button" [disabled]="refreshEcibLoading" (click)="refreshEcib()"
-                                            *ngIf="ECIBPerform" color="primary"
-                                            class="btn btn-primary mt-19 kt-login__btn-primary"
+                                            *ngIf="ECIBPerform" 
+                                            class="btn btn-primary bg-green  kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
-                                        Refresh
+                                            >
+                                            <span class="flex"> <mat-icon class="mr-2 text-white">refresh</mat-icon>Refresh</span>
                                     </button>
                                     <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
-                                            color="primary" type="button"
-                                            class="btn btn-primary mt-19 kt-login__btn-primary"
+                                            type="button"
+                                            class="btn btn-primary bg-green  kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
-                                        <span><i class="fas fa-arrow-right"> &nbsp;</i>Next</span>
+                                            >
+                                            <span class="flex"> <mat-icon class="mr-2 text-white">navigate_next</mat-icon>Next</span>
                                     </button>
                                 </div>
                             </div>

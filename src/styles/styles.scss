@@ -251,3 +251,24 @@ thead{
     }
   }
 }
+
+button:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: var(--tw-transform);
+}
+button:focus {
+  outline: none !important;
+}
+
+.heading-alert{
+  background-color: #f6fcf8;
+  letter-spacing: -0.025em !important;
+  font-weight: 800 !important;
+  font-size: 1.5rem !important;
+  padding: 0.5rem !important;
+  --tw-border-opacity: 1 !important;
+  border-color: red;
+  border-bottom-width: 1px !important;
+  margin-bottom: 0.5rem !important;
+}
