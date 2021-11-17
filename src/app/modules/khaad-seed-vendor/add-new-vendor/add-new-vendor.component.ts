@@ -306,7 +306,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   Add(){
     this.type = this.vendorForm.controls.Type.value;
 
-    const dialogRef = this.dialog.open(AddressLocationComponent, { width: "1200px", height: "700px",data: { lat: this.lat, lng: this.lng, type:this.type, iconUrl: this.iconUrl}, disableClose: true });
+    const dialogRef = this.dialog.open(AddressLocationComponent, { width: "w-100", height: "700px",data: { lat: this.lat, lng: this.lng, type:this.type, iconUrl: this.iconUrl}, disableClose: true });
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
