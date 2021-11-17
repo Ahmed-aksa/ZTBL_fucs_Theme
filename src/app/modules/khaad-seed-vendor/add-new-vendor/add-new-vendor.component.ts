@@ -140,7 +140,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     }
   ngOnInit() {
 
-
+    debugger
     this.images.push(this.ProfileImageSrc);
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
@@ -241,6 +241,13 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
       if (baseResponse.Success === true) {
+        debugger
+        
+        if(this.viewOnly == true){
+          this.single_zone = true;
+          this.single_branch = true;
+          //this.single_circle = true;
+        }
 
         this.fileExist = true;
         this.vendorInfo = baseResponse.SeedKhadVendor.VendorDetail;
@@ -252,6 +259,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
         this.vendorForm.controls["Type"].setValue(this.vendorInfo.Type);
         this.vendorForm.controls["Description"].setValue(this.vendorInfo.Description);
         this.vendorForm.controls["CircleCode"].setValue(this.vendorInfo.CircleCode);
+        console.log(this.vendorForm.controls.BranchCode.value, this.vendorForm.controls.ZoneId.value)
         this.khaadSeedVendor.CircleId = this.vendorInfo?.CircleId;
 
         this.vendorForm.controls["Location"].setValue(this.vendorInfo.Lat+" , "+ this.vendorInfo.Lng);
