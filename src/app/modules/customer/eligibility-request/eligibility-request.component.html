@@ -8,7 +8,7 @@
         [formGroup]="eligibilityRequestForm" class="mt-4">
 
 
-        <div style="display: flex;flex-direction: row;justify-content: space-between">
+        <div style="display: flex;flex-direction: row;justify-content: space-between;flex-wrap:wrap">
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
@@ -121,7 +121,7 @@
 
         <!-- Products list -->
         <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
-            <div class="flex flex-col flex-auto sm:mb-2  overflow-scroll" >
+            <div class="flex flex-col flex-auto sm:mb-2  overflow-scroll">
                 <mat-table class="lmat-elevation-z8"
                            #table
                            [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
@@ -168,9 +168,21 @@
                     </ng-container>
                     <ng-container matColumnDef="Actions">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
-                        <mat-cell *matCellDef="let eligibilityRequest">
-                            <button mat-icon-button color="accent">
-                                <mat-icon>menu</mat-icon>
+                        <mat-cell *matCellDef="let eligibilityRequest" style="flex-wrap: wrap">
+                            <a [href]="eligibilityRequest.NDCFilePath" _black="true" mat-icon-button color="accent"
+                               aria-label="View Files">
+                                <mat-icon>description</mat-icon>
+                            </a>
+                            <button mat-icon-button color="accent" aria-label="view NDC">
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                            <button mat-icon-button color="accent" aria-label="Approve"
+                                    *ngIf="eligibilityRequest.Status=='P'">
+                                <mat-icon>check</mat-icon>
+                            </button>
+                            <button mat-icon-button color="accent" aria-label="Reject"
+                                    *ngIf="eligibilityRequest.Status=='P'">
+                                <mat-icon>cancel</mat-icon>
                             </button>
                         </mat-cell>
                     </ng-container>

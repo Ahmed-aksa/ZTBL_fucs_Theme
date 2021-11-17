@@ -10,9 +10,7 @@
     <div class="flex flex-auto overflow-hidden pb-4" style="flex-direction: column;">
         <form [formGroup]="customerInfo" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
-                <div class="kt-portlet__body">
-                    <div class="kt-portlet__body-progress">
-                    </div>
+                <div class="kt-portlet__body" style="margin-top: 5px">
                     <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                               (close)="onAlertClose($event)">
                         Please enter valid Input
@@ -24,7 +22,7 @@
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <input matInput placeholder="Enter cnic" formControlName="Cnic" maxlength="15"
-                                           autocomplete="off" [mask]="maskEnums.cnic" />
+                                           autocomplete="off" [mask]="maskEnums.cnic"/>
                                     <mat-error *ngIf="hasError('Cnic', 'required')">cnic <strong>required</strong>
                                     </mat-error>
                                     <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>Cnic lenght invalid</strong>
@@ -44,7 +42,7 @@
 
 
                         </div>
-                        <div class="form-group kt-form__group row" *ngIf="NDCPerform">
+                        <div class="form-group kt-form__group row" *ngIf="NDCPerform" style="margin-top: 150px">
                             <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
                             </div>
@@ -55,7 +53,7 @@
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <a *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank" mat-icon-button
                                    color="primary">
-                                    <mat-icon title="view">pageview</mat-icon>
+                                    <mat-icon title="view">visibility</mat-icon>
                                 </a>
                             </div>
                         </div>
@@ -268,16 +266,13 @@
                     <!--ECIB-->
                     <!-- [style.height]="gridHeight"   not able to understand  -->
                     <div [style.height]="gridHeight" *ngIf="ECIBPerformForm">
-                        <div class="form-group kt-form__group row">
-                            <div class="col-lg-3 kt-margin-bottom-20-mobile">
-
-                            </div>
+                        <div class="form-group kt-form__group">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <h5>ECIB</h5>
                                 <h6 [ngClass]="{'text-red': IsEcibDefaulter == true, 'text-green': IsEcibDefaulter == false}">{{CustomerECIB.Message}}</h6>
                             </div>
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                                <a *ngIf="EcibLinkView" href="{{Customer.ECIBPDFLink}}" target="_blank" mat-icon-button
+                                <a mat-icon-button *ngIf="EcibLinkView" href="{{Customer.ECIBPDFLink}}" target="_blank"
                                    color="primary">
                                     <mat-icon title="view">pageview</mat-icon>
                                 </a>
@@ -285,9 +280,6 @@
                             </div>
                         </div>
                         <div class="form-group kt-form__group row" *ngIf="IsEcibDefaulter">
-                            <div class="col-lg-3 kt-margin-bottom-20-mobile">
-
-                            </div>
                             <div class="col-lg-6 kt-margin-bottom-20-mobile">
                                 <h5 class="text-blue">Summary</h5>
                                 <h5>Customer is not eligible due to following reasons</h5>
