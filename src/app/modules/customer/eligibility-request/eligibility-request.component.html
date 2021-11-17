@@ -176,11 +176,11 @@
                             <button mat-icon-button color="accent" aria-label="view NDC">
                                 <mat-icon>visibility</mat-icon>
                             </button>
-                            <button mat-icon-button color="accent" aria-label="Approve"
+                            <button mat-icon-button color="accent" aria-label="Approve" (click)="changeStatus('A',eligibilityRequest.Id)"
                                     *ngIf="eligibilityRequest.Status=='P'">
                                 <mat-icon>check</mat-icon>
                             </button>
-                            <button mat-icon-button color="accent" aria-label="Reject"
+                            <button mat-icon-button color="accent" aria-label="Reject" (click)="changeStatus('R',eligibilityRequest.Id)"
                                     *ngIf="eligibilityRequest.Status=='P'">
                                 <mat-icon>cancel</mat-icon>
                             </button>
