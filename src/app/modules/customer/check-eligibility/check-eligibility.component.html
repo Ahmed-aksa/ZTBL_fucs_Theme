@@ -329,14 +329,15 @@
                                             style="width:30%;">
                                         <span><i class="fas fa-arrow-right"> &nbsp;</i>Save & Next</span>
                                     </button>
-                                    <button (click)="submitCWR()" [disabled]="submitCwrLoading"
+                                    <button (click)="submitCWR()"
                                             *ngIf="BiometricCredentials" color="primary" type="button"
                                             class="btn btn-primary mt-19 kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                             style="width:30%;">
                                         <span><i class="fas fa-arrow-right"> &nbsp;</i>Next</span>
                                     </button>
-                                    <button type="button" [disabled]="refreshEcibLoading" (click)="refreshEcib()"
+                                    <button type="button"
+                                            (click)="refreshEcib()"
                                             *ngIf="ECIBPerform" color="primary"
                                             class="btn btn-primary mt-19 kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
