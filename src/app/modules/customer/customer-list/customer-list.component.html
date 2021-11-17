@@ -157,7 +157,7 @@
 
 
 
-    <div class="flex flex-auto border rounded-md overflow-scroll " style="flex-direction: column;">
+    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-scroll " style="flex-direction: column;">
 
         <div class="example-table-container ">
 
@@ -211,7 +211,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <div class="mat-table__message p-3 text-green text-center font-bold" *ngIf="!loading && dataSource.data.length==0">No records found</div>
+            <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
             <div class="mat-table__message p-3 text-green" *ngIf="loading">Please wait....</div>
 
 

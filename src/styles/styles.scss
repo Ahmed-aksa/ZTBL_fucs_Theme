@@ -7,6 +7,12 @@
  $MaterialIcons_FontPath: "~material-icons-font/fonts";
  @import '~material-icons-font/sass/main';
  @import '~material-icons-font/sass/Regular';
+ @import "~bootstrap/scss/bootstrap";
+ @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+ body{
+  font-family: 'Poppins', sans-serif !important;
+ }
 .trend-dialog{
   overflow-y: hidden;
   .mat-dialog-container{
@@ -241,6 +247,9 @@ body.light .mat-raised-button:not([class*=mat-elevation-z]), body .light .mat-ra
   background-color: #ECBD00 !important;
   color: white !important;
 }
+.exp-panel{
+  height: 100px;
+}
 thead{
   tr{
     height: 56px;
@@ -249,4 +258,52 @@ thead{
       padding-left: 8px;
     }
   }
+}
+
+button:hover {
+  --tw-scale-x: 1.1;
+  --tw-scale-y: 1.1;
+  transform: var(--tw-transform);
+}
+button:focus {
+  outline: none !important;
+}
+
+.heading-alert{
+  background-color: #f6fcf8;
+  letter-spacing: -0.025em !important;
+  font-weight: 800 !important;
+  font-size: 1.5rem !important;
+  padding: 0.5rem !important;
+  --tw-border-opacity: 1 !important;
+  border-color: red;
+  border-bottom-width: 1px !important;
+  margin-bottom: 0.5rem !important;
+}
+.table-box{
+  border: 2px solid #01671b;
+  border-radius: 6px;
+}
+.mat-table__message{
+  text-align: center;
+  color: #01671B;
+  font-weight: bold;
+  padding: 12px;
+}
+.ng-star-inserted{
+
+.reports{
+  .col-lg-4{
+  mat-card{
+  background-color: white;
+  height: 150px ;
+  color: #01671B;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border: 1px solid  rgba(34, 197, 94, var(--tw-border-opacity)) !important;
+  padding-top: 1.5rem !important;
+  padding-bottom: 3rem !important;
+    }
+  }
+}
 }

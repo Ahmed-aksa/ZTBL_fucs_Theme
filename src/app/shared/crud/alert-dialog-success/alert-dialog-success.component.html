@@ -5,13 +5,13 @@
       <div class="form-group">
 
         <div class="col-lg-12 text-center mt-1">
-          <img src="./assets/media/icons/checked-01.png" class="img-responsive center-block w-32 mx-auto" alt="icon" />
+          <img src="./assets/media/icons/checked-01.png" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon" />
         </div>
 
-        <div class="col-lg-12 text-center mt-5" *ngIf="data.code">
-          <span style="font-size: 24px !important; font-weight: 600 !important; color: #0f298f !important; text-align:center">Error Code: {{data.code}}</span>
+        <div class="col-lg-12 text-center" *ngIf="data.code">
+          <span class="heading  mt-5" >Error Code: {{data.code}}</span>
         </div>
-        <div class="col-lg-12 text-center  mt-5">
+        <div class="col-lg-12 text-center  mt-3">
           <span style="font-weight:500">{{data.description}}</span>
         </div>
       </div>

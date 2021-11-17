@@ -30,20 +30,20 @@
 
         <!-- CONTENT GOES HERE -->
         <div>
-            <div class="form-group row" style="
+            <div class="form-group row px-3 shadow-none" style="
             min-width: max-content;
             max-height: 70vh;
             overflow-y:scroll;">
-                <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8"
+                <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile border shadow-xs rounded-sm bg-gray-50"
                      id="custom-table-activity-list">
-                    <div class="custom-accordion  rounded-lg my-2 shadow border"
+                    <div class="custom-accordion  rounded-lg my-2 bg-white shadow-sm border"
                          *ngFor="let activity of userActivities;let i=index">
                         <div class="custom-accordion-head border-0" (click)="toggleAccordion(activity.ActivityID)"
                              style="cursor: pointer">
-                            <div class="ml-8" style="align-self: center;">
-                                <h3 class="font-bold">
+                             <div class="self-center ml-8">
+                                <span class="font-bold text-green">
                                     {{activity.ActivityName}}
-                                </h3>
+                                </span>
                             </div>
 
                             <div class="mr-8">

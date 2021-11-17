@@ -161,22 +161,22 @@
     
     <!-- Header -->
     
-    <div class="flex flex-auto mt-4" style="flex-direction: column;overflow-y: scroll">
-        <div class="example-table-container">
+    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50" style="flex-direction: column;overflow-y: scroll">
+        <div class="example-table-container  px-2">
 
 <!--           table -->
 
-            <div class="custom-accordion " *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
-                <div class="custom-accordion-head" (click)="toggleAccordion(i)"
+            <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border" *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
+                <div class="custom-accordion-head border-0" (click)="toggleAccordion(i)"
                      style="cursor: pointer">
-                    <div class="custom-padding">
-                        <h3 class="font-bold p-3">
+                    <div class=" self-center ml-8">
+                        <span class="font-bold text-green">
                             {{activity.VisitedDate}}
-                        </h3>
+                        </span>
                     </div>
 
 
-                    <div class="custom-padding">
+                    <div class="mr-5">
                         <!--                <button mat-icon-button color="warn"-->
                         <!--                        (click)="deleteActivity(activity)">-->
                         <!--                  <mat-icon>-->
