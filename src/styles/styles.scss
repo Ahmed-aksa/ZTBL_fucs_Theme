@@ -242,6 +242,9 @@ body.light .mat-raised-button:not([class*=mat-elevation-z]), body .light .mat-ra
   background-color: #ECBD00 !important;
   color: white !important;
 }
+.exp-panel{
+  height: 100px;
+}
 thead{
   tr{
     height: 56px;
@@ -271,4 +274,14 @@ button:focus {
   border-color: red;
   border-bottom-width: 1px !important;
   margin-bottom: 0.5rem !important;
+}
+.table-box{
+  border: 2px solid #01671b;
+  border-radius: 6px;
+}
+.mat-table__message{
+  text-align: center;
+  color: #01671B;
+  font-weight: bold;
+  padding: 12px;
 }

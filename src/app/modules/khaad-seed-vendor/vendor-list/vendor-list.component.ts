@@ -323,6 +323,7 @@ export class VendorListComponent implements OnInit {
     this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
         this.Branches = data.Branches;
         this.SelectedBranches = this.Branches;
+        console.log(this.Branches)
         this.single_branch = false;
         this.disable_branch = false;
     });
@@ -330,7 +331,6 @@ export class VendorListComponent implements OnInit {
 
 
 changeBranch(changedValue) {
-
     let changedBranch = null;
     if (changedValue) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}

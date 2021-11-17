@@ -1,4 +1,4 @@
-<div class="px-10 pb-4  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
     
     
     <div class="row py-3">
@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <div class="flex flex-shrink-0 items-center mt-4 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" id="focus-removal">
+                        <mat-form-field data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" class="mat-form-field-fluid w-full" appearance="outline" id="focus-removal">
                             <mat-label>Roles</mat-label>
                             <mat-select data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" placeholder="--Select--" name="ProfileID"
                                         (selectionChange)="getProfile($event)">
@@ -40,7 +40,7 @@
     
     <!-- Header -->
     <div
-        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pb-4">
+        class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between">
         <!-- Loader -->
         <div
             class="absolute inset-x-0 bottom-0"
@@ -53,23 +53,23 @@
     </div>
 
     <!-- Main -->
-    <div class="mb-4">
+    <div class="mb-4 px-3 pt-3 ">
         <!-- CONTENT GOES HERE -->
-        <div class="pt-1">
+        <div>
             <div class="form-group row" style="
-      min-width: max-content;
-      max-height: 100vh;
-      overflow-y:scroll;
-  ">
-                <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8">
+                min-width: max-content;
+                max-height: 60vh;
+                overflow-y:scroll;
+            ">
+                <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile border shadow-xs rounded-sm bg-gray-50 px-3  mat-elevation-z8">
                     <div *ngIf="!isActivityStringValid">
                         <mat-error><strong>Please select any activity</strong></mat-error>
                     </div>
-                    <div class="custom-accordion" *ngFor="let activity of userActivities;let i=index">
-                        <div class="custom-accordion-head" (click)="toggleAccordion(activity.ActivityID)"
+                    <div class="custom-accordion custom-accordion  rounded-lg my-2 bg-white shadow-sm border" *ngFor="let activity of userActivities;let i=index">
+                        <div class="custom-accordion-head border-0" (click)="toggleAccordion(activity.ActivityID)"
                              style="cursor: pointer">
-                            <div class="self-center">
-                                <span class="font-bold">
+                            <div class="self-center ml-8">
+                                <span class="font-bold text-green">
                                     {{activity.ActivityName}}
                                 </span>
                             </div>

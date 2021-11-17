@@ -1,1 +1,152 @@
-<p>bufrication-of-os-balances-lc works!</p>
+<div id="Kt-portlet-margin-top">
+    <div class="kt-portlet">
+        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header" style="display: flex;flex-direction: row;justify-content: space-between; margin-bottom: 10px;">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">Bifurcation of OS balances LC</h3>
+            </div>
+            <!-- <span (click)="close(0)"><mat-icon>close</mat-icon></span> -->
+           
+            <button mat-raised-button color="warn" class="btn center" style="width: 5px; height: 30px;" (click)="close(0)"><mat-icon>close</mat-icon></button>
+        </div>
+    </div>
+  
+    <form [formGroup]="bufricationForm" class="kt-form kt-form--group-seperator-dashed">
+
+        <div class="kt-form">
+
+            <div class="kt-portlet__body">
+
+                <div class="col-lg-12">
+                  <div class="form-group kt-form__group row">
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                            <mat-label class="customMatLabel">Zone</mat-label>
+                            <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                                <mat-option [value]="SelectedZones?.ZoneId">
+                                    {{SelectedZones?.ZoneName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+            
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+                            <mat-label class="customMatLabel">Zone</mat-label>
+                            <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                                        (selectionChange)="changeZone($event)">
+                                <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                            [disabled]="disable_zone">
+                                    {{zone?.ZoneName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                            
+                            <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                                        *ngIf="single_branch">
+                                <mat-option [value]="SelectedBranches?.BranchCode"
+                                >
+                                    {{SelectedBranches?.Name}}
+                                </mat-option>
+                            </mat-select>
+            
+                            <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                                        *ngIf="!single_branch">
+                                <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                                >
+                                    {{branch?.Name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group kt-form__group row">
+
+                      <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Working Date (ddMMyyyy)</mat-label>
+                            <input matInput placeholder="Enter Working Date" formControlName="WorkingDate" maxlength="8" autocomplete="off"
+                                   appNumberOnly/>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">LC NO</mat-label>
+                            <input matInput placeholder="Enter LC NO" formControlName="LcNo" maxlength="30" autocomplete="off" appNumberOnly/>
+                        </mat-form-field>
+                      </div>
+
+                </div>
+
+                    <div class="form-group kt-form__group row">
+
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Circle</mat-label>
+                    
+                                    <mat-select [(ngModel)]="selected_c" formControlName="CircleId" [disabled]="disable_circle">
+                                        <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                                        >
+                                            {{circle?.CircleCode}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field>
+                                <mat-label class="customMatLabel">Account Status<strong class="matMandatory">*</strong></mat-label>
+                                <mat-select formControlName="AccountStatus">
+                                    <!-- <mat-option *ngFor="let lov of vendorLov" [value]="lov.Value">
+                                        {{lov.Name}}
+                                    </mat-option> -->
+                                </mat-select>
+                            </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group kt-form__group row">
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field>
+                                <mat-label class="customMatLabel">Export Format<strong class="matMandatory">*</strong></mat-label>
+                                <mat-select formControlName="ExportFormat">
+                                    <!-- <mat-option *ngFor="let lov of vendorLov" [value]="lov.Value">
+                                        {{lov.Name}}
+                                    </mat-option> -->
+                                </mat-select>
+                            </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </form>
+
+    <div class="form-group kt-form__group row">
+        <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table mt-3 d-flex justify-content-left">
+            <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
+        </div>
+      </div>
+  
+  </div>
+
+

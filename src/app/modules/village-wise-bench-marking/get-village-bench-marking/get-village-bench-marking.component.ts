@@ -97,7 +97,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
 
-    this.gridHeight = window.innerHeight - 300 + 'px';
+    this.gridHeight = window.innerHeight - 200 + 'px';
 }
 
   ngOnInit() {

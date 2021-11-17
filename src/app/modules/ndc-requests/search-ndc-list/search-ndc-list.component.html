@@ -155,7 +155,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="mat-table__wrapper overflow-scroll" [style.height]="gridHeight">
+                <div class="mat-table__wrapper overflow-scroll border shadow-xs rounded-sm bg-gray-50" [style.height]="gridHeight">
                     <mat-table class="lmat-elevation-z8"
                                [dataSource]="request_data_source | paginate: {id: 'ndcReq',itemsPerPage: pageSize, currentPage: pageIndex, totalItems: ndcLength}">
                         <ng-container matColumnDef="Id">
@@ -269,7 +269,7 @@
         </div>
 
 
-        <div class="mat-table__wrapper  overflow-scroll" [style.height]="gridHeight">
+        <div class="mat-table__wrapper  overflow-scroll border shadow-xs rounded-sm bg-gray-50" [style.height]="gridHeight">
             <mat-table class="lmat-elevation-z8"
                        [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSizePending, currentPage: pageIndexPending, totalItems: pendingLength}">
                 <ng-container matColumnDef="customer_cnic">
