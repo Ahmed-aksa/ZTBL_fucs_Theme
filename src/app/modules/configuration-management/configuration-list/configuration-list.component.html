@@ -30,14 +30,14 @@
 
         <!-- CONTENT GOES HERE -->
         <!-- CONTENT GOES HERE -->
-        <div class="form-group row">
-            <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile"
+        <div class="form-group row  px-3 shadow-none">
+            <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  border shadow-xs rounded-sm bg-gray-50"
                  id="custom-table-activity-list">
-                <div class="custom-accordion rounded-lg my-2 shadow-sm border" *ngFor="let parent_configuration of configurations;let i=index">
-                    <div v class="custom-accordion-head border-0" (click)="toggleAccordion(i)"
+                <div class="custom-accordion rounded-lg my-2 bg-white shadow-sm border" *ngFor="let parent_configuration of configurations;let i=index">
+                    <div class="custom-accordion-head border-0" (click)="toggleAccordion(i)"
                          style="cursor: pointer">
                         <div class="ml-8" style="align-self: center;">
-                            <span class="font-bold">
+                            <span class="font-bold text-green">
                                 {{parent_configuration.KeyName}}
                             </span>
                         </div>

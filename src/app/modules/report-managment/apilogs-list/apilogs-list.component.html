@@ -119,7 +119,7 @@
         <span class="mat-header-cell text-white" mat-sort-header="ResponseTotalTime">Total Time Taken</span>
         <span class="mat-header-cell text-white" mat-sort-header="View">View</span>
     </section>
-    <mat-accordion displayMode="flat" multi class="mat-table" style="overflow-y:scroll;">
+    <mat-accordion displayMode="flat" multi class="mat-table  border shadow-xs rounded-sm bg-gray-50 px-1" style="overflow-y:scroll;">
 
 
         <mat-expansion-panel class="api-table shadow-none mb-4 p-0" *ngFor="let item of displayedRows$ |async"
@@ -131,7 +131,7 @@
                       style="width: 10px; font-size: 12px;">{{item?.Id}}</span>
                 <span class="mat-cell py-6 self-center font-bold"
                       style="font-size: 12px;">{{item?.TransactionId}}</span>
-                <p class="mat-cell py-6 self-center  font-bold" style="font-size: 12px;">{{item?.APIName}}</p>
+                <p class="mat-cell py-6 self-center  font-bold mt-3" style="font-size: 12px;">{{item?.APIName}}</p>
                 <span class="mat-cell py-6 self-center px-2 font-bold"
                       style="font-size: 12px;">{{item?.CallDateTime | date}} {{item?.CallDateTime | date:'shortTime'}}</span>
                 <span class="mat-cell py-6 self-center px-2 font-bold "

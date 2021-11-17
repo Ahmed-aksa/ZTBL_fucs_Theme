@@ -272,3 +272,13 @@ button:focus {
   border-bottom-width: 1px !important;
   margin-bottom: 0.5rem !important;
 }
+.table-box{
+  border: 2px solid #01671b;
+  border-radius: 6px;
+}
+.mat-table__message{
+  text-align: center;
+  color: #01671B;
+  font-weight: bold;
+  padding: 12px;
+}
