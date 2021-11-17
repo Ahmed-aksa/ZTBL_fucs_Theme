@@ -36,14 +36,14 @@
             overflow-y:scroll;">
                 <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile  mat-elevation-z8"
                      id="custom-table-activity-list">
-                    <div class="custom-accordion  rounded-lg my-2 shadow border"
+                    <div class="custom-accordion  rounded-lg my-2 shadow-sm border"
                          *ngFor="let activity of userActivities;let i=index">
                         <div class="custom-accordion-head border-0" (click)="toggleAccordion(activity.ActivityID)"
                              style="cursor: pointer">
                             <div class="ml-8" style="align-self: center;">
-                                <h3 class="font-bold">
+                                <span class="font-bold">
                                     {{activity.ActivityName}}
-                                </h3>
+                                </span>
                             </div>
 
                             <div class="mr-8">
