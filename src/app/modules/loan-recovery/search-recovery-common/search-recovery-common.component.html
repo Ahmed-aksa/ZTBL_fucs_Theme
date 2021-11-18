@@ -2,6 +2,8 @@
 <div class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
   <div class="text-3xl  mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</div>
 
+
+  
   <!-- Header -->
   <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-2"
     style="flex-wrap: wrap">
@@ -19,7 +21,7 @@
           <div class="row" *ngIf="SearchType==1">
             <div class="col-lg-12">
               <div class="form-group kt-form__group row">
-                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <div class="col-lg-3 kt-margin-bottom-20-mobile">
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong></mat-label>
                     <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="30" autocomplete="off" [max]="maxDate" appNumberOnly />
@@ -29,7 +31,7 @@
                     <mat-error *ngIf="hasError('TransactionDate', 'required')">Transaction Date <strong>required</strong></mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <div class="col-lg-3 kt-margin-bottom-20-mobile">
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">LC # <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="LC No" formControlName="LoanCaseNo" maxlength="30" autocomplete="off" appNumberOnly />
@@ -37,14 +39,14 @@
                   </mat-form-field>
                 </div>
 
-                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <div class="col-lg-3 kt-margin-bottom-20-mobile">
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off" appNumberOnly />
                     <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No <strong>required</strong></mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <div class="col-lg-3 kt-margin-bottom-20-mobile">
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Instrument # <strong class="matMandatory">*</strong></mat-label>
                     <input matInput placeholder="Instrument #" formControlName="InstrumentNO" maxlength="30" autocomplete="off" appNumberOnly />
@@ -52,7 +54,7 @@
                   </mat-form-field>
                 </div>
 
-                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <div class="col-lg-3 kt-margin-bottom-20-mobile">
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label>Select Status</mat-label>
                     <mat-select formControlName="Status" (selectionChange)="change()">
@@ -62,7 +64,7 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col-lg-2 mt-4">
+                <div class="col-lg-2 mt-2">
                   <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary" type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                 </div>
               </div>
