@@ -4,7 +4,7 @@
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable prefer-const */
 /* eslint-disable eqeqeq */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable no-var */
 /* eslint-disable one-var */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -379,7 +379,7 @@ export class SearchNdcListComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success) {
-                    debugger;
+                    
                     // var path = baseResponse.Ndc.ndcFilePath,
                     //     str;
                     // path = path.split('TempReport');
@@ -523,7 +523,7 @@ export class SearchNdcListComponent implements OnInit {
     }
 
     settingZBC() {
-        debugger;
+        
         this.loggedInUserDetails =
             this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (

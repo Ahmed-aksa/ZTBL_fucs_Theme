@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -165,7 +165,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
   }
 
   search() {
-      debugger
+      
     this.loaded = false;
     this.Limit = this.itemsPerPage;
 
@@ -215,7 +215,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
   }
 
   paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-      debugger
+      
     this.itemsPerPage = pageSize;
 
     this.Offset = (pageIndex - 1) * this.itemsPerPage;
@@ -290,7 +290,7 @@ console.log("vluueee"+JSON.stringify(val))
         changedBranch = {Branch: {BranchCode: changedValue}}
 
     }
-    debugger
+    
     this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
         console.log(data);
         this.Circles = data.Circles;

@@ -75,7 +75,7 @@ export class NdcRequestsService {
     userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     getRequests(user, limit, offset,final_zone,final_branch) {
-      debugger
+      
         limit = String(limit);
         offset = String(offset)
         var circle = this.userInfo.UserCircleMappings;

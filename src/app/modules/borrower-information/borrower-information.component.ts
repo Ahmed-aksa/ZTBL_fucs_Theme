@@ -142,7 +142,7 @@ export class BorrowerInformationComponent implements OnInit {
 
 
     changeBranch(changedValue) {
-        debugger
+        
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}

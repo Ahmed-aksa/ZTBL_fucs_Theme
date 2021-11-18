@@ -186,7 +186,7 @@ export class CircleViewMapComponent implements OnInit {
 
 
     clickedMarker(index: number, infowindow) {
-        debugger
+        
         this.viewCircleFense(index);
         if (this.previousInfoWindow != null) {
             this.previousInfoWindow.close();

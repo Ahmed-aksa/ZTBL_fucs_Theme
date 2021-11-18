@@ -156,7 +156,7 @@ export class CustomerProfileComponent implements OnInit {
     ngOnInit() {
         this.images.push(this.ProfileImageSrc);
         this.bit = localStorage.getItem('CreateCustomerBit');
-        debugger;
+        
         if (this.bit == null || this.bit == undefined || this.bit == '' || this.bit == '10') {
             localStorage.setItem('CreateCustomerBit', '1');
             this.router.navigate(['/customer/check-eligibility'], {relativeTo: this.activatedRoute});

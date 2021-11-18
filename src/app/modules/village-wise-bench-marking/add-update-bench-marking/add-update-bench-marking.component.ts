@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -292,7 +292,7 @@ village=[];
 
   Add() {
 
-    debugger
+    
 
       this.user.ZoneId = this.addUpdateBenchMarkForm.controls.ZoneId.value;
       this.user.BranchCode = this.addUpdateBenchMarkForm.controls.BranchCode.value;
@@ -520,7 +520,7 @@ console.log("village"+JSON.stringify(this.village))
   }
 
   Submit() {
-        debugger
+        
       console.log("village"+JSON.stringify(this.village));
     //this.hideDelete = true;
       if(this.village?.length>0){

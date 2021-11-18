@@ -30,7 +30,8 @@
                     <search-loan-cases-by-cnic></search-loan-cases-by-cnic>
                 </mat-expansion-panel>
             </mat-accordion> -->
-            <mat-card class="cursor-pointer mx-4" id="llcInquiryText" routerLink="search-loan-case-by-cnic"> <p>Search Loan Cases by CNIC</p></mat-card>
+            <mat-card class="cursor-pointer mx-4" id="llcInquiryText" routerLink="search-loan-case-by-cnic"><p>Search
+                Loan Cases by CNIC</p></mat-card>
         </div>
 
         <div class="col-lg-4 col-sm-12">
@@ -44,7 +45,8 @@
                     <bufrication-of-os-balances-lc></bufrication-of-os-balances-lc>
                 </mat-expansion-panel>
             </mat-accordion> -->
-            <mat-card (click) = "bufrictionOfOSBalances()" class="cursor-pointer mx-4" id="llcInquiryText" ><p  class="font-bold text-lg">Bifurcation of OS balances LC</p></mat-card>
+            <mat-card routerLink="bifurction-of-os" class="cursor-pointer mx-4" id="llcInquiryText"><p
+                class="font-bold text-lg">Bifurcation of OS balances LC</p></mat-card>
         </div>
 
         <div class="col-lg-4 col-sm-12">
@@ -58,7 +60,8 @@
                     <updated-list-of-defaulters></updated-list-of-defaulters>
                 </mat-expansion-panel>
             </mat-accordion> -->
-            <mat-card (click) = "updatedListOfDefaulters()" class="cursor-pointer mx-4" id="llcInquiryText" ><p  class="font-bold text-lg">Updated List of defaulters of a circle for each MCO</p></mat-card>
+            <mat-card routerLink="updated-list" class="cursor-pointer mx-4" id="llcInquiryText"><p
+                class="font-bold text-lg">Updated List of defaulters of a circle for each MCO</p></mat-card>
         </div>
     </div>
 
@@ -77,7 +80,9 @@
                     <fa-view-circle-wise></fa-view-circle-wise>
                 </mat-expansion-panel>
             </mat-accordion> -->
-            <mat-card (click) = "faViewCircleWise()" class="cursor-pointer mx-4" id="llcInquiryText"><p  class="font-bold text-lg">FAs will see Circle-Wise/Party Wise Early Warning reports on NPLs and Charge-off loans for recovery persuasion.</p></mat-card>
+            <mat-card routerLink="fa-view-wise" class="cursor-pointer mx-4" id="llcInquiryText"><p
+                class="font-bold text-lg">FAs will see Circle-Wise/Party Wise Early Warning reports on NPLs and
+                Charge-off loans for recovery persuasion.</p></mat-card>
         </div>
 
         <div class="col-lg-4 col-sm-12">
@@ -91,20 +96,21 @@
                     <early-warning-reports></early-warning-reports>
                 </mat-expansion-panel>
             </mat-accordion> -->
-            <mat-card (click) = "earlyWarningReports()" class="cursor-pointer mx-4" id="llcInquiryText" ><p  class="font-bold text-lg">Early warning reports for MCOs</p></mat-card>
+            <mat-card routerLink="early-warning-reports" class="cursor-pointer mx-4" id="llcInquiryText"><p
+                class="font-bold text-lg">Early warning reports for MCOs</p></mat-card>
         </div>
 
 
-
         <div class="col-lg-4 col-sm-12">
-            <mat-card (click) = "loanAmountConvertToDefault()" class="cursor-pointer mx-4" id="llcInquiryText"><p  class="font-bold text-lg">Loan amounts likely to be converted into default</p></mat-card>
+            <mat-card routerLink="loan-amount" class="cursor-pointer mx-4" id="llcInquiryText"><p
+                class="font-bold text-lg">Loan amounts likely to be converted into default</p></mat-card>
         </div>
 
     </div>
 
     <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4">
-<!--        <div class="col-lg-4 col-sm-12">-->
-<!--            <mat-card (click) = "dueInstallments()" class="cursor-pointer mx-4" id="llcInquiryText" ><p  class="font-bold text-lg">Due Installments</p></mat-card>-->
-<!--        </div>-->
-  </div>
+        <!--        <div class="col-lg-4 col-sm-12">-->
+        <!--            <mat-card (click) = "dueInstallments()" class="cursor-pointer mx-4" id="llcInquiryText" ><p  class="font-bold text-lg">Due Installments</p></mat-card>-->
+        <!--        </div>-->
+    </div>
 </div>

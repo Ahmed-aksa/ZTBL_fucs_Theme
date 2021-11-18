@@ -95,13 +95,13 @@ export class AuthService {
     }
 
     refreshToken(token: string) {
-        debugger;
+        
         this.request = new BaseRequestModel();
         const refreshToken = (localStorage.getItem('ZTBLUserRefreshToke'));
         const expiredToken = (localStorage.getItem('accessToken'));
         this.request.Token = expiredToken;
         this.request.RefreshToken = refreshToken;
-        debugger;
+        
         return this.httpUtils.post(`${environment.apiUrl}/Account/RefreshToken`, this.request);
     }
 

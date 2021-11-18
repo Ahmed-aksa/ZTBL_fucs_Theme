@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -140,7 +140,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     }
   ngOnInit() {
 
-    debugger
+    
     this.images.push(this.ProfileImageSrc);
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
@@ -241,7 +241,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
       if (baseResponse.Success === true) {
-        debugger
+        
         
         if(this.viewOnly == true){
           this.single_zone = true;
@@ -376,7 +376,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
   //Save & Submit Method
   saveSubmit() {
-debugger
+
     console.log(this.vendorForm.controls)
     this.errorShow = false;
     this.hasFormErrors = false;

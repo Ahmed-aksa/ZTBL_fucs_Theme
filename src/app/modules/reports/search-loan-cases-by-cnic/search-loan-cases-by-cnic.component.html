@@ -30,7 +30,8 @@
                     aria-expanded="false"
                     aria-controls="collapseExample"
                 >
-                    <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
+                    <mat-icon class="mr-2">filter_list</mat-icon>
+                    Advance Filter
                 </button>
             </p>
         </div>
@@ -44,8 +45,9 @@
                 <div class="row">
                     <div class="col-lg-4 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-        
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
+                                            *ngIf="single_zone">
                                 <mat-label class="customMatLabel">Zone</mat-label>
                                 <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
                                     <mat-option [value]="SelectedZones?.ZoneId">
@@ -53,8 +55,9 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
+                                            *ngIf="!single_zone">
                                 <mat-label class="customMatLabel">Zone</mat-label>
                                 <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
                                             (selectionChange)="changeZone($event)">
@@ -64,25 +67,28 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                
-                
+
+
                         </div>
                     </div>
                     <div class="col-lg-4 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-        
+
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                                
-                                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong>
+                                </mat-label>
+
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode"
+                                            [disabled]="disable_branch"
                                             *ngIf="single_branch">
                                     <mat-option [value]="SelectedBranches?.BranchCode"
                                     >
                                         {{SelectedBranches?.Name}}
                                     </mat-option>
                                 </mat-select>
-                
-                                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode"
+                                            [disabled]="disable_branch"
                                             *ngIf="!single_branch">
                                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
                                     >
@@ -92,32 +98,34 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div class="row">
-        
+
                     <div class="col-lg-4 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-        
+
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">CNIC</mat-label>
-                                <input matInput placeholder="Enter Cnic" formControlName="Cnic" maxlength="13" autocomplete="off"
+                                <input matInput placeholder="Enter Cnic" formControlName="Cnic" maxlength="13"
+                                       autocomplete="off"
                                        appNumberOnly/>
                             </mat-form-field>
                         </div>
                     </div>
-        
-                    
+
+
                     <div class="col-lg-4 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Customer Name</mat-label>
-                                <input matInput placeholder="Enter Customer Name" formControlName="CustomerName" maxlength="30" autocomplete="off"/>
+                                <input matInput placeholder="Enter Customer Name" formControlName="CustomerName"
+                                       maxlength="30" autocomplete="off"/>
                             </mat-form-field>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div class="row">
@@ -125,16 +133,21 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Father Name</mat-label>
-                                <input matInput placeholder="Enter Father Name" formControlName="FatherName" maxlength="30" autocomplete="off"/>
+                                <input matInput placeholder="Enter Father Name" formControlName="FatherName"
+                                       maxlength="30" autocomplete="off"/>
                             </mat-form-field>
                         </div>
                     </div>
-                
+
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-4">
-                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
+                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                            mat-raised-button color="primary" (click)="find()">
+                        <mat-icon class="mr-2">search</mat-icon>
+                        Find
+                    </button>
                 </div>
             </div>
         </div>
@@ -169,67 +182,72 @@
             >
                 <ng-container matColumnDef="Lcno">
                     <mat-header-cell *matHeaderCellDef
-                        >LC #</mat-header-cell
+                    >LC #
+                    </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.Lcno
-                    }}</mat-cell>
+                        report.LoanCaseNo
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Cnic">
                     <mat-header-cell *matHeaderCellDef>CNIC</mat-header-cell>
                     <mat-cell *matCellDef="let report">{{
-                        report.CNIC
-                    }}</mat-cell>
+                        report.Cnic
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Name">
                     <mat-header-cell *matHeaderCellDef
-                        >Name</mat-header-cell
+                    >Name
+                    </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.Name
-                    }}</mat-cell>
+                        report.CustomerName
+                        }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="FatherName">
                     <mat-header-cell *matHeaderCellDef>Father Name</mat-header-cell>
                     <mat-cell *matCellDef="let report">{{
                         report.FatherName
-                    }}</mat-cell>
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
                     <mat-cell *matCellDef="let report">{{
                         report.Address
-                    }}</mat-cell>
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Agps">
                     <mat-header-cell *matHeaderCellDef
-                        >AGPS</mat-header-cell
+                    >AGPS
+                    </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
                         report.Agps
-                    }}</mat-cell>
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Bcl">
                     <mat-header-cell *matHeaderCellDef
-                        >Phone Number</mat-header-cell
+                    >Borrower Credit Limit
+                    </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.PhoneNumber
-                    }}</mat-cell>
+                        report.BorrowerCreditLimit
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Los">
                     <mat-header-cell *matHeaderCellDef
-                        >Phone Number</mat-header-cell
+                    >loan Outstanding
+                    </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.PhoneNumber
-                    }}</mat-cell>
+                        report.LoanOutstanding
+                        }}</mat-cell>
                 </ng-container>
 
                 <mat-header-row

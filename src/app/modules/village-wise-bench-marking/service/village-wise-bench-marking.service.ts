@@ -1,5 +1,5 @@
 /* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable no-cond-assign */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/semi */
