@@ -13,4 +13,6 @@ export class SearchLoanCaseByCnic{
     BranchName: string;
     ZoneID: string;
     ZoneName: string;
+    FatherName: string;
+    Name: string;
 }
