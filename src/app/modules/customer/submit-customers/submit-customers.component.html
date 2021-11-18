@@ -12,7 +12,7 @@
     style="flex-wrap: wrap">
 
   </div>
-  <div class="flex flex-auto overflow-y-scroll" style="flex-direction: column;">
+  <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-y-scroll" style="flex-direction: column;">
 
     <div class="example-table-container">
       <mat-table class="lmat-elevation-z8"
@@ -77,13 +77,15 @@
 </mat-table>
       <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
       <div class="mat-table__message" *ngIf="loading">Please wait....</div>
-      <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]" [showFirstLastButtons]="true">
-      </mat-paginator>
+      
 
 
     </div>
 
   </div>
-
+  <div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between">
+    <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+</div>
 </div>
 

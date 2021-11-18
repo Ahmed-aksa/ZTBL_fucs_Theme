@@ -115,7 +115,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-12">
+                        <!-- <div class="col-lg-3 col-sm-12">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" *ngIf="CustomerStatusLov">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label>Select Customer Status</mat-label>
@@ -130,6 +130,17 @@
 
                                 </mat-form-field>
                             </div>
+                        </div> -->
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                                <button  data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-raised-button
+                                        type="button"
+                                        (click)="searchCustomer()">
+                                    <mat-icon class="mr-2">search</mat-icon>
+                                    Search
+                                </button>
+                            </div>
                         </div>
 
                     </div>
@@ -137,15 +148,7 @@
 
                 </div>
 
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                    <button  data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-raised-button
-                            type="button"
-                            (click)="searchCustomer()">
-                        <mat-icon class="mr-2">search</mat-icon>
-                        Search
-                    </button>
-                </div>
             </div>
         </div>
       </div>

@@ -27,7 +27,7 @@
               Please enter valid Input
             </kt-alert> -->
           
-              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+              <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
       
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                       <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>
@@ -35,30 +35,33 @@
                     </mat-form-field>
               </div>
       
-              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+              <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                   
                   <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                       <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>
                       <input matInput formControlName="Branch"  maxlength="13" autocomplete="off" readonly="readonly"/>
                     </mat-form-field>
               </div>
-              <div class="col-lg-4 kt-margin-bottom-20-mobile">
+              <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                   <mat-label class="customMatLabel">CNIC#</mat-label>
                   <!-- <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic" formControlName="Cnic"  maxlength="13" autocomplete="off" [readonly]="viewOnly"/> -->
                   <input appNumberOnly matInput placeholder="Enter Cnic" formControlName="Cnic"  maxlength="13" autocomplete="off" />
                 </mat-form-field>
             </div>
+            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+              <div class="form-group kt-form__group row"> 
+                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                  <input type="button" mat-raised-button color="primary" class=" mt-2 mat-raised-button mat-button-base mat-primary searchLCBtn"  value="Find" (click)="find()" />
+                    <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
+                </div>
+            </div>
+            </div>
           </div>
       
     
       
-          <div class="form-group kt-form__group row"> 
-              <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                <input type="button" mat-raised-button color="primary" class=" mat-raised-button mat-button-base mat-primary searchLCBtn"  value="Find" (click)="find()" />
-                  <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
-              </div>
-          </div>
+
 
     </div>
   </div>
