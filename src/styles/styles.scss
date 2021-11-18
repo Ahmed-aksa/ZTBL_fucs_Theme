@@ -223,7 +223,7 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
   font-size: 1.5rem !important;
   padding: 0.5rem !important;
   --tw-border-opacity: 1 !important;
-  border-color: rgba(34, 197, 94, var(--tw-border-opacity)) !important;
+  border-color: rgba(34, 197, 94) !important;
   border-bottom-width: 1px !important;
   margin-bottom: 0.5rem !important;
 }
@@ -375,4 +375,15 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
 }
 .max-w-80 {
      max-width: 20rem !important; 
+}
+
+.dash-header{
+  color: #64748b;
+}
+.text-secondary {
+  --bs-text-opacity: 1;
+  color: rgba(108, 117, 125) !important;
+}
+.border-t {
+  border-color: #dee2e6 !important;
 }
