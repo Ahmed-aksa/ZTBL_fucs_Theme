@@ -100,6 +100,18 @@
                                 </mat-form-field>
                             </div>
                         </div>
+                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Account Status<strong class="matMandatory">*</strong></mat-label>
+                                <mat-select formControlName="AccountStatus">
+                                    <!-- <mat-option *ngFor="let lov of vendorLov" [value]="lov.Value">
+                                        {{lov.Name}}
+                                    </mat-option> -->
+                                </mat-select>
+                            </mat-form-field>
+                            </div>
+                        </div>
 
 
 
@@ -118,16 +130,10 @@
                             </mat-form-field>
                             </div>
                         </div>
+
                         <div class="col-lg-6 kt-margin-bottom-20-mobile">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Export Format<strong class="matMandatory">*</strong></mat-label>
-                                <mat-select formControlName="ExportFormat">
-                                    <!-- <mat-option *ngFor="let lov of vendorLov" [value]="lov.Value">
-                                        {{lov.Name}}
-                                    </mat-option> -->
-                                </mat-select>
-                            </mat-form-field>
+                                <button class="mt-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
                             </div>
                         </div>
 
@@ -143,9 +149,9 @@
     </form>
 
     <div class="form-group kt-form__group row">
-        <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table mt-3 d-flex justify-between">
-            <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
-            <button   class="mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"(click)="close(0)"><mat-icon class="mr-2">close</mat-icon>Cancel</button>
+        <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table mt-3 d-flex justify-end">
+            
+            <button   class="mat-focus-indicator  btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger"(click)="close(0)"><mat-icon class="mr-2">close</mat-icon>Cancel</button>
         </div>
       </div>
   
