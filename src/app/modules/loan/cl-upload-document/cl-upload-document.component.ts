@@ -87,7 +87,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
 
   ) {
-    
+
     this.PostDocument = frmbuilder.group({
       ParentDocId: [this.loanDocument.ParentDocId, Validators.required],//Document Type Lov
       DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
@@ -134,7 +134,7 @@ export class ClUploadDocumentComponent implements OnInit {
           this.Zones = baseResponse.Zones;
           this.SelectedZones = this.Zones;
           if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
-            this.PostDocument.controls['zone'].setValue(this.LoggedInUserInfo.Zone.ZoneId);
+            this.PostDocument.controls['zone'].setValue(this.LoggedInUserInfo?.Zone?.ZoneId);
             this.GetBranches(this.LoggedInUserInfo.Zone.ZoneId);
           }
           //this.landSearch.controls['ZoneId'].setValue(this.Zones[0].ZoneId);
@@ -214,7 +214,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
   //-------------------------------Loan Type Core Functions-------------------------------//
   async getLoanType() {
-    
+
     this.LoanTypes = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.LoanTypes })
     this.SelectedLoanType = this.LoanTypes.LOVs;
   }
@@ -275,7 +275,7 @@ export class ClUploadDocumentComponent implements OnInit {
   }
 
   viewDocument(DocID, event) {
-    
+
     this._loanService.GetViewLoanDocument(DocID)
       .pipe(
         finalize(() => {
@@ -283,7 +283,7 @@ export class ClUploadDocumentComponent implements OnInit {
         })
     ).subscribe(baseResponse => {
       console.log("this is Document response", baseResponse.ViewDocumnets)
-      
+
 
       this.url = baseResponse.ViewDocumnets.Path
       const dialogRef = this.dialog.open(ClDocumentViewComponent, {
@@ -345,15 +345,15 @@ export class ClUploadDocumentComponent implements OnInit {
   }
 
   async getDocument() {
-    
+
     this.document = await this._lovService.GetDocumentTypeLOV()
-    
+
     this.SelectedDocument = this.document.LOVs;
     console.log(this.SelectedDocument)
   }
 
   onFileChange(event) {
-    
+
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
       var file = event.target.files[0];

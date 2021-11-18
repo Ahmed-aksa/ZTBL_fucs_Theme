@@ -769,7 +769,7 @@ export class LoanService {
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SearchLoanApplication`,
-                this.request,
+                request,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
@@ -829,7 +829,7 @@ export class LoanService {
             Loan: loan,
         };
         return this.http
-            .post(`${environment.apiUrl}/Loan/GetLoanDetails`, this.request, {
+            .post(`${environment.apiUrl}/Loan/GetLoanDetails`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
@@ -901,7 +901,7 @@ export class LoanService {
         var req = JSON.stringify(request);
 
         return this.http
-            .post(`${environment.apiUrl}/Loan/GetDBR`, this.request, {
+            .post(`${environment.apiUrl}/Loan/GetDBR`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
