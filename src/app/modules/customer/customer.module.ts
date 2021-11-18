@@ -42,7 +42,7 @@ import {SharedModule} from 'app/shared/shared.module';
 import {CustomerComponent} from './customer.component';
 import {AuthorizedCustomerComponent} from './authorized-customer/authorized-customer.component';
 import {EligibilityRequestComponent} from './eligibility-request/eligibility-request.component';
-import {NgImageSliderModule} from "ng-image-slider";
+//import {NgImageSliderModule} from "ng-image-slider";
 
 @NgModule({
     declarations: [CheckEligibilityComponent, CustomerProfileComponent, CustomerListComponent, AuthorizedCustomersComponent, PendingCustomersComponent, SubmitCustomersComponent, ReferbackCustomersComponent, CorrectionPassbookComponent, CorrectionPhoneComponent, CustomerComponent, AuthorizedCustomerComponent, EligibilityRequestComponent],
@@ -134,7 +134,7 @@ import {NgImageSliderModule} from "ng-image-slider";
         NgxMatSelectSearchModule,
         NgxMaskModule.forRoot(),
         NgxSpinnerModule,
-        NgImageSliderModule
+        //NgImageSliderModule
     ],
 
 })

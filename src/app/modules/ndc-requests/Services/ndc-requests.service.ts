@@ -75,6 +75,7 @@ export class NdcRequestsService {
     userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     getRequests(user, limit, offset,final_zone,final_branch) {
+      debugger
         limit = String(limit);
         offset = String(offset)
         var circle = this.userInfo.UserCircleMappings;
@@ -240,17 +241,27 @@ export class NdcRequestsService {
 
 
     downloadFile(cnic: any, ncid: any, limit, offset, user) {
+
         limit = String(limit);
         offset = String(offset)
         var circle = this.userInfo.UserCircleMappings;
+        
         var circleIds = [];
+        if(circle == null){
+          //circle = ["CircleId: 0"]
+          circleIds = ["0"]
+        }else{
+          circle.forEach(element => {
+            circleIds.push(element.CircleId);
+          });
+        }
         //mycircle =
 
-        circle.forEach(element => {
-            circleIds.push(element.CircleId);
-      });
+        
+      
       var _circles = JSON.stringify(circleIds)
-      _circles
+      
+      
       var request = {
         Circle: {
           CircleIds: _circles,
