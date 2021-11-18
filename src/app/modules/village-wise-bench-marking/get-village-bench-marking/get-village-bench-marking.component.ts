@@ -36,6 +36,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['CircleCode','VillageName',  'FarmSize', 'NoOfFarmer', 'MaleCount','FemaleCount', 'TransGenderCount','AverageLoanSize', 'AgriBusinessPotential', 'Delete'];
 
+    loggedInUserDetails: any;
   getVillageBenchmarkForm : FormGroup;
 
   dv;
@@ -101,6 +102,9 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 }
 
   ngOnInit() {
+
+      var userDetails = this.userUtilsService.getUserDetails();
+      this.loggedInUserDetails = userDetails;
 
     this.createForm();
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
@@ -265,12 +269,18 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
 
     checkEditStatus(val){
+        this.loggedInUserDetails.User.UserId;
+        if (val.CreatedBy == this.loggedInUserDetails.User.UserId) {
+            if(val.Status=="S"){
+                return false;
+            }else if(val.Status=="P"){
+                return true;
+            }
+        }
+        else {
+            return false
+        }
 
-      if(val.Status=="S"){
-          return false;
-      }else if(val.Status=="P"){
-          return true;
-      }
     }
 
     editVillageBenchMark(val) {
