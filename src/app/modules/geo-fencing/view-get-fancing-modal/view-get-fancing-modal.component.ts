@@ -486,7 +486,6 @@ export class ViewGetFancingModalComponent implements OnInit {
             if (baseResponse.Success === true) {
                 baseResponse
                 this.geo_fence_points =baseResponse.GeoFancPoint.GeoFancPoints;
-                console.log("geo fence points"+JSON.stringify(this.geo_fence_points))
 
                 this.viewCircleFense();
             } else {
