@@ -30,43 +30,6 @@ export class ReportsComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    searchLoanCase() {
-        // const dialogRef = this.dialog.open(SearchLoanCasesByCnicComponent, { width: "w-100", height: "700px", disableClose: true });
-        // dialogRef.afterClosed().subscribe((res)=>{
-        //   if(!res){
-        //     return
-        //   }
-        // })
-        this.router.navigateByUrl('/search-loan-case-by-cnic')
-    }
-
-    bufrictionOfOSBalances() {
-        const dialogRef = this.dialog.open(BufricationOfOsBalancesLcComponent, {
-            width: "w-100",
-            height: "700px",
-            disableClose: true
-        });
-        dialogRef.afterClosed().subscribe((res) => {
-            if (!res) {
-                return
-            }
-        })
-    }
-
-
-    earlyWarningReports() {
-        const dialogRef = this.dialog.open(EarlyWarningReportsComponent, {
-            width: "w-100",
-            height: "700px",
-            disableClose: true
-        });
-        dialogRef.afterClosed().subscribe((res) => {
-            if (!res) {
-                return
-            }
-        })
-
-
-    }
+  
 
 }

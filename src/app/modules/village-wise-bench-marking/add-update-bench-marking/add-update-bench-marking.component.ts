@@ -189,12 +189,11 @@ village=[];
     this.createForm();
     this.LoadLovs();
 
-    this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+    this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     if (this.LoggedInUserInfo.Branch != null) {
       this.disable_circle = false;
-      this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-      this.SelectedCircles = this.Circles;
+      
 
       this.Branches = this.LoggedInUserInfo.Branch;
       this.SelectedBranches = this.Branches;
@@ -207,6 +206,14 @@ village=[];
       console.log(this.SelectedZones)
       this.addUpdateBenchMarkForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
       this.addUpdateBenchMarkForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
+
+      if(this.LoggedInUserInfo.UserCircleMappings.length != 0){
+        this.Circles = this.LoggedInUserInfo.UserCircleMappings;
+        this.SelectedCircles = this.Circles;
+      }
+      else{
+        this.changeBranch(this.selected_b)
+      }
     }else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
       this.spinner.show();
 
@@ -562,7 +569,7 @@ for(let i=0;i<this.village.length;i++)
   changeBranch(changedValue) {
 
     let changedBranch = null;
-    if (changedValue) {
+    if (changedValue.value) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}

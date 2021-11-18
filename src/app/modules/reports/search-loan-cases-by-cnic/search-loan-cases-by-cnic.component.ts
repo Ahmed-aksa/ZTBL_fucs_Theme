@@ -1,4 +1,6 @@
-/* eslint-disable no- */
+/* eslint-disable arrow-parens */
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable no-debugger */
 /* eslint-disable eol-last */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/naming-convention */

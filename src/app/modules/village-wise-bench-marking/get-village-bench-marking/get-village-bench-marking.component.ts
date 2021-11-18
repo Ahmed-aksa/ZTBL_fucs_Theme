@@ -107,13 +107,11 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
       this.loggedInUserDetails = userDetails;
 
     this.createForm();
-    this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+    this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     if (this.LoggedInUserInfo.Branch != null) {
 
-      this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-      this.SelectedCircles = this.Circles;
-      this.disable_circle = false;
+      
 
       this.Branches = this.LoggedInUserInfo.Branch;
       this.SelectedBranches = this.Branches;
@@ -123,9 +121,17 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
       this.selected_z = this.SelectedZones.ZoneId
       this.selected_b = this.SelectedBranches.BranchCode
-      console.log(this.SelectedZones)
       this.getVillageBenchmarkForm.controls["Zone"].setValue(this.SelectedZones.ZoneName);
       this.getVillageBenchmarkForm.controls["Branch"].setValue(this.SelectedBranches.Name);
+
+      if(this.loggedInUserDetails.UserCircleMappings.length!=0)
+        {this.Circles = this.LoggedInUserInfo.UserCircleMappings;}
+      else
+      {
+        this.changeBranch(this.selected_b);
+      }
+      this.SelectedCircles = this.Circles;
+      this.disable_circle = false;
 
       var fi : any = []
       fi.Id = "null";
@@ -210,7 +216,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
         this.layoutUtilsService.alertElement("", baseResponse.Message);
         this.matTableLenght = false;
 
-        this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
+        // this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
         this.pageIndex = 1;
         this.Offset = 0;
 
@@ -292,9 +298,8 @@ console.log("vluueee"+JSON.stringify(val))
     }
 
   changeBranch(changedValue) {
-
     let changedBranch = null;
-    if (changedValue) {
+    if (changedValue.value) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}

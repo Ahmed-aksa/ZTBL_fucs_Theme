@@ -1,7 +1,17 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable arrow-parens */
+/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/member-ordering */
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
+import { Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
@@ -59,6 +69,10 @@ export class FaViewCircleWiseComponent implements OnInit {
     private final_branch: any;
     private final_zone: any;
 
+    statusLov: any;
+    public LovCall = new Lov();
+
+
 
     constructor(
         private fb: FormBuilder,
@@ -73,6 +87,7 @@ export class FaViewCircleWiseComponent implements OnInit {
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm()
+        this.typeLov();
 
         if (this.LoggedInUserInfo.Branch != null) {
             this.Circles = this.LoggedInUserInfo.UserCircleMappings;
@@ -119,9 +134,10 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.searchCnicForm = this.fb.group({
             ZoneId: [null, Validators.required],
             BranchCode: [null, Validators.required],
-            Cnic: [null],
-            CustomerName: [null],
-            FatherName: [null]
+            days: [null, Validators.required],
+            // ReportsFormatType: [null, Validators.required],
+            Status: [null, Validators.required],
+            PPNO: [null, Validators.required]
         })
     }
 
@@ -151,14 +167,10 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.assignBranchAndZone();
         this.user.Branch = this.final_branch;
         this.user.Zone = this.final_zone;
-
-        if (this.searchCnicForm.controls.Cnic.value == null && this.searchCnicForm.controls.CustomerName.value == null && this.searchCnicForm.controls.FatherName.value == null) {
-            this.layoutUtilsService.alertElement('', 'Atleast add any one field among Cnic, Father Name or Customer Name')
-            return
-        }
+        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
-        this.reports.ReportsNo = "14";
+        this.reports.ReportsNo = "17";
         this.spinner.show();
         this._reports.reportDynamic(this.user, this.reports)
             .pipe(
@@ -173,11 +185,11 @@ export class FaViewCircleWiseComponent implements OnInit {
 
                     this.loading = true;
                     console.log(baseResponse);
-                    this.dataSource = baseResponse.SeedKhadVendor.VendorDetails
+                    this.dataSource = baseResponse.ReportsFilterCustom.SamNplLoans
                     this.dv = this.dataSource;
                     this.matTableLenght = true
 
-                    this.totalItems = baseResponse.SeedKhadVendor.VendorDetails[0].TotalRecords
+                    this.totalItems = baseResponse.ReportsFilterCustom.SamNplLoans[0].TotalRecords
                 } else {
 
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -189,6 +201,13 @@ export class FaViewCircleWiseComponent implements OnInit {
 
                 }
             })
+    }
+
+    async typeLov(){
+      this.statusLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.BifurcationLCStatus });
+      this.statusLov = this.statusLov.LOVs;
+      this.searchCnicForm.controls["AccountStatus"].setValue(this.statusLov ? this.statusLov[0].Value : "")
+      console.log(this.statusLov)
     }
 
     changeZone(changedValue) {

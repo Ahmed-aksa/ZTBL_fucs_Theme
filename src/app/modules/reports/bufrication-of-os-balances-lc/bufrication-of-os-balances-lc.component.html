@@ -1,26 +1,53 @@
-<div id="Kt-portlet-margin-top">
-    <div class="kt-portlet">
-        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header"
-             style="display: flex;flex-direction: row;justify-content: space-between; margin-bottom: 10px;">
-            <div class="kt-portlet__head-label">
-                <h3 class="heading">Bifurcation of OS balances LC</h3>
-            </div>
-            <!-- <span (click)="close(0)"><mat-icon>close</mat-icon></span> -->
 
 
+<div
+    class="
+        px-10
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-scroll
+        bg-card
+        dark:bg-transparent
+    "
+>
+    <div class="row py-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Bifurcation of OS balances LC</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button
+                    class="
+                        py-2
+                        mat-focus-indicator
+                        mat-flat-button
+                        mat-button-base
+                        mat-primary
+                    "
+                    type="button"
+                    color="primary"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                >
+                    <mat-icon class="mr-2">filter_list</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
         </div>
     </div>
 
-    <form [formGroup]="bufricationForm" class="kt-form kt-form--group-seperator-dashed">
+    <!-- Header -->
 
-        <div class="kt-form">
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div class="py-2" [formGroup]="bufricationForm">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-            <div class="kt-portlet__body">
-
-                <div class="col-lg-12">
-                    <div class="form-group kt-form__group row">
-
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
                                             *ngIf="single_zone">
                                 <mat-label class="customMatLabel">Zone</mat-label>
@@ -42,9 +69,13 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                        </div>
 
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong>
                                 </mat-label>
@@ -68,12 +99,15 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-
                     </div>
 
-                    <div class="form-group kt-form__group row">
+                </div>
 
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                <div class="row">
+
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Working Date (ddMMyyyy)</mat-label>
                                 <input matInput placeholder="Enter Working Date" formControlName="WorkingDate"
@@ -81,87 +115,86 @@
                                        appNumberOnly/>
                             </mat-form-field>
                         </div>
+                    </div>
 
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">LC NO</mat-label>
                                 <input matInput placeholder="Enter LC NO" formControlName="LcNo" maxlength="30"
                                        autocomplete="off" appNumberOnly/>
                             </mat-form-field>
                         </div>
-
                     </div>
-
-                    <div class="form-group kt-form__group row">
-
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Circle</mat-label>
-
-                                    <mat-select [(ngModel)]="selected_c" formControlName="CircleId"
-                                                [disabled]="disable_circle">
-                                        <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
-                                        >
-                                            {{circle?.CircleCode}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Account Status<strong
-                                        class="matMandatory">*</strong></mat-label>
-                                    <mat-select formControlName="AccountStatus">
-                                        <!-- <mat-option *ngFor="let lov of vendorLov" [value]="lov.Value">
-                                            {{lov.Name}}
-                                        </mat-option> -->
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Account Status<strong
-                                        class="matMandatory">*</strong></mat-label>
-                                    <mat-select formControlName="AccountStatus">
-                                        <!-- <mat-option *ngFor="let lov of vendorLov" [value]="lov.Value">
-                                            {{lov.Name}}
-                                        </mat-option> -->
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                <button class="mt-2" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                                        aria-expanded="false" mat-raised-button color="primary" (click)="find()">
-                                    <mat-icon class="mr-2">search</mat-icon>
-                                    Find
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
 
                 </div>
 
+                <div class="row">
+
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Circle</mat-label>
+
+                                <mat-select [(ngModel)]="selected_c" formControlName="CircleId"
+                                            [disabled]="disable_circle">
+                                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                                    >
+                                        {{circle?.CircleCode}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Account Status<strong
+                                    class="matMandatory">*</strong></mat-label>
+                                <mat-select formControlName="Status">
+                                    <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
+                                        {{lov.Description}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Export Format<strong
+                                    class="matMandatory">*</strong></mat-label>
+                                <mat-select formControlName="ReportFormatType">
+                                    <mat-option *ngFor="let lov of select" [value]="lov.Value">
+                                        {{lov.description}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                            mat-raised-button color="primary" (click)="find()">
+                        <mat-icon class="mr-2">search</mat-icon>
+                        Find
+                    </button>
+                </div>
             </div>
         </div>
-
-
-    </form>
-
+    </div>
 </div>
+
 
 

@@ -33,15 +33,21 @@ export class VillageWiseBenchMarkingService{
   userInfo = this.userUtilsService.getUserDetails();
 
   getVillageBenchMark(circle,limit, offset, village){
+    debugger
     // var circle = this.userInfo.UserCircleMappings;
     var circleIds = [];
 
     if(village.CircleId == 'null'){
       village.CircleId = null
     }
-    circle.forEach(element => {
-      circleIds.push(element.CircleId);
-    });
+    if( this.userInfo.UserCircleMappings.length != 0){
+      circle.forEach(element => {
+        circleIds.push(element.CircleId);
+      });
+    }
+    else{
+      circleIds = ["0"]
+    }
     var _circles = JSON.stringify(circleIds)
 
     var request = {
@@ -90,9 +96,14 @@ export class VillageWiseBenchMarkingService{
     var circleIds = [];
     //mycircle =
 
-    circle.forEach(element => {
-      circleIds.push(element.CircleId);
-    });
+    if( circle != null){
+      circle.forEach(element => {
+        circleIds.push(element.CircleId);
+      });
+    }
+    else{
+      circleIds = ["0"]
+    }
     var _circles = JSON.stringify(circleIds)
 
     var request = {
@@ -136,9 +147,15 @@ export class VillageWiseBenchMarkingService{
     var circleIds = [];
     //mycircle =
 
-    circle.forEach(element => {
-      circleIds.push(element.CircleId);
-    });
+    if( circle != null){
+      circle.forEach(element => {
+        circleIds.push(element.CircleId);
+      });
+    }
+    else{
+      circleIds = ["0"]
+    }
+    
     var _circles = JSON.stringify(circleIds)
 
     var request = {

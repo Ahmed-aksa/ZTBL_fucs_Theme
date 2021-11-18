@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no- */
 /* eslint-disable @typescript-eslint/semi */
 /* eslint-disable @typescript-eslint/quotes */
@@ -30,6 +31,10 @@ export class ReportsService {
     userDetail = this.userUtilsService.getUserDetails();
 
     reportDynamic(user, reportsFilter) {
+      debugger
+      if(reportsFilter.CircleId == 'null'){
+        reportsFilter.CircleId = null
+      }
         
         var request = {
             // DeviceLocation: {
@@ -45,7 +50,10 @@ export class ReportsService {
             //    Id: user.CircleId
             //  },
             Zone: user.Zone,
-            Branch: user.Branch
+            Branch: user.Branch,
+            Circle:{
+              CircleCode: user.Circle
+            }
         }
 
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
