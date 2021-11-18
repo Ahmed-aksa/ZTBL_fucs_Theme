@@ -51,7 +51,7 @@ export class LovConfigurationKey {
 
     public static readonly ActiveLoanType: string = 'ActiveLoanType';
 
-    public static readonly CustomerStatus: string = 'RecoveryStatus';
+    public static readonly CustomerStatus: string = 'CustomerStatus';
     public static readonly EligibilityStatus: string = 'EligibilityStatusLov';
     public static readonly LandStatus: string = 'LandStatus';
     public static readonly PostalCode: string = 'PostalCode';

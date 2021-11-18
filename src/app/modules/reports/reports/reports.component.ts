@@ -6,6 +6,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { BufricationOfOsBalancesLcComponent } from '../bufrication-of-os-balances-lc/bufrication-of-os-balances-lc.component';
 import { DueInstallmentsComponent } from '../early-warning-reports/due-installments/due-installments.component';
 import { EarlyWarningReportsComponent } from '../early-warning-reports/early-warning-reports.component';
@@ -22,19 +23,21 @@ import { UpdatedListOfDefaultersComponent } from '../updated-list-of-defaulters/
 export class ReportsComponent implements OnInit {
 
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
   }
 
   searchLoanCase(){
-    const dialogRef = this.dialog.open(SearchLoanCasesByCnicComponent, { width: "w-100", height: "700px", disableClose: true });
-    dialogRef.afterClosed().subscribe((res)=>{
-      if(!res){
-        return
-      }
-    })
+    // const dialogRef = this.dialog.open(SearchLoanCasesByCnicComponent, { width: "w-100", height: "700px", disableClose: true });
+    // dialogRef.afterClosed().subscribe((res)=>{
+    //   if(!res){
+    //     return
+    //   }
+    // })
+    this.router.navigateByUrl('/search-loan-case-by-cnic')
   }
 
   bufrictionOfOSBalances(){

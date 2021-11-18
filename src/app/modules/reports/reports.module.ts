@@ -18,6 +18,10 @@ const routing = [
       path: '',
       component: ReportsComponent
   },
+  {
+    path: 'search-loan-case-by-cnic',
+    component: SearchLoanCasesByCnicComponent
+  }
 ]
 
 
