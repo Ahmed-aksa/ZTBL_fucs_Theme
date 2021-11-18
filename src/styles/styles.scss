@@ -321,3 +321,58 @@ button:focus {
 }
 }
 }
+.sidenav-section{
+  width: 280px !important;
+  color: white;
+}
+.mat-form-field-subscript-wrapper{
+  padding: 0px !important;
+}
+
+.text-white{
+  color: #fff;
+}
+
+.bg-white{
+  background-color: #fff;
+}
+.mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper .mat-form-field-flex {
+  --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 0 #0000, 0 0 #0000, var(--tw-shadow) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+
+element.style {
+}
+.mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper .mat-form-field-flex {
+    --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 0 #0000, 0 0 #0000, var(--tw-shadow) !important;
+    box-shadow: 0 0 #0000, 0 0 #0000, var(--tw-shadow) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+.mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper .mat-form-field-flex {
+    --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 0 #0000, 0 0 #0000, var(--tw-shadow) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+.mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper .mat-form-field-flex {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgba(255, 255, 255, var(--tw-bg-opacity)) !important;
+}
+.mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper .mat-form-field-flex {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    min-height: 48px;
+    border-radius: 6px;
+    padding: 0 16px;
+    border-width: 1px;
+    --tw-border-opacity: 1 !important;
+    border-color: rgba(203, 213, 225) !important;
+}
+body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-primary, body.light .mat-fab.mat-primary, body.light .mat-mini-fab.mat-primary, body .light .mat-flat-button.mat-primary, body .light .mat-raised-button.mat-primary, body .light .mat-fab.mat-primary, body .light .mat-mini-fab.mat-primary {
+  color: white;
+}
+.max-w-80 {
+     max-width: 20rem !important; 
+}

@@ -177,13 +177,16 @@
                     </ng-container>
                     <ng-container matColumnDef="CircleCode">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Circle code</mat-header-cell>
-                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.CircleName}}</mat-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest"><p 
+                            style="word-wrap: break-word;
+                                hyphens: auto;
+                                max-width: 200px;">{{eligibilityRequest.CircleName}}</p></mat-cell>
                     </ng-container>
 
 
                     <ng-container matColumnDef="CustomerName">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
-                        <mat-cell *matCellDef="let eligibilityRequest">{{eligibilityRequest.CustomerName}}</mat-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest"><p class="ml-3">{{eligibilityRequest.CustomerName}}</p></mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="Cnic">
@@ -194,7 +197,7 @@
                     <ng-container matColumnDef="FatherName">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
                         <mat-cell
-                            *matCellDef="let eligibilityRequest">{{eligibilityRequest.FatherName}}</mat-cell>
+                            *matCellDef="let eligibilityRequest"><p class="ml-3">{{eligibilityRequest.FatherName}}</p></mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="Status">

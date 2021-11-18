@@ -5,18 +5,18 @@
     <!-- Header -->
 
     <div class="row py-3 pb-0">
-        <div class="col-lg-9 col-sm-12">
+        <div class="col-lg-12 col-sm-12">
             <div class="heading">{{getTitle()}}</div>
         </div>
     </div>
 
     <!-- Header -->
 
-    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-scroll " style="flex-direction: column;">
+    <div class="flex flex-auto border shadow-xs rounded-sm overflow-scroll " style="flex-direction: column;">
 
         <form [formGroup]="roleForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
-                <div class="kt-portlet__body">
+                <div class="kt-portlet__body container">
                     <div class="kt-portlet__body-progress">
                         <mat-spinner [diameter]="20"></mat-spinner>
                     </div>
@@ -24,7 +24,7 @@
                               (close)="onAlertClose($event)">
                         Please enter valid Input
                     </kt-alert>
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
 
                         <div class="col-lg-12 kt-margin-bottom-20-mobile">
@@ -49,10 +49,10 @@
 
                     </div>
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Zone <strong class="matMandatory">*</strong>
                                 </mat-label>
                                 <input matInput placeholder="Enter Zone" formControlName="Zone" readonly="readonly"
@@ -78,7 +78,7 @@
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid  w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong>
                                 </mat-label>
                                 <input matInput placeholder="Enter Branch" formControlName="Branch" readonly="readonly"
@@ -103,7 +103,7 @@
 
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">CNIC <strong class="matMandatory">*</strong>
                                 </mat-label>
                                 <input on-focusout="cnicfocusout()" matInput placeholder="Enter CNIC"
@@ -119,7 +119,7 @@
 
 
                         <div *ngIf="GenderLov" class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Select Gender <strong class="matMandatory">*</strong>
                                 </mat-label>
                                 <mat-select formControlName="Gender" (selectionChange)="GenderChange($event)"
@@ -135,7 +135,7 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
 
                         <div *ngIf="MaritalStatusLov" class="col-lg-3 kt-margin-bottom-20-mobile">
@@ -155,7 +155,7 @@
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Customer Name <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <p *ngIf="UrduName!=undefined && UrduName!=''" class="text-right"> {{UrduName}}</p>
@@ -171,7 +171,7 @@
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Father Name <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <p *ngIf="UrduFatherName!=undefined && UrduFatherName!=''"
@@ -188,7 +188,7 @@
 
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Father / Husband CNIC</mat-label>
                                 <input matInput placeholder="Enter Father / Husband CNIC"
                                        formControlName="FatherOrHusbandCnic" maxlength="15" autocomplete="off"/>
@@ -202,10 +202,10 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="HusbandNameShow">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Husband Name <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <input matInput placeholder="Enter Husband Name" formControlName="HusbandName"
@@ -219,7 +219,7 @@
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--<mat-label>Select DOB</mat-label>--> <!---->
                                 <mat-label class="customMatLabel">Select Date of Birth <strong
                                     class="matMandatory">*</strong></mat-label>
@@ -238,7 +238,7 @@
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--<mat-label>CNIC Issue Date</mat-label>-->
 
                                 <mat-label class="customMatLabel">Enter CNIC Issue Date <strong
@@ -260,7 +260,7 @@
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!-- <mat-label>Select CNIC Expiry</mat-label>-->
                                 <mat-label class="customMatLabel">Enter CNIC Expiry Date <strong
                                     class="matMandatory">*</strong></mat-label>
@@ -294,10 +294,10 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Mother Name <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <input matInput placeholder="Enter Mother Name" formControlName="MotherName"
@@ -310,7 +310,7 @@
 
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Mark of Identification <strong
                                     class="matMandatory"></strong></mat-label>
                                 <input matInput placeholder="Enter Mark of Identification"
@@ -324,7 +324,7 @@
                         </div>
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Ntn No. <strong class="matMandatory"></strong>
                                 </mat-label>
                                 <input on-focusout="checkSequentialNtn()" matInput placeholder="Enter Ntn No"
@@ -340,7 +340,7 @@
                         </div>
 
                         <div *ngIf="DistrictLov" class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--<mat-label>Select District</mat-label>-->
                                 <mat-label class="customMatLabel">Select District</mat-label>
                                 <mat-select formControlName="District">
@@ -359,10 +359,10 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
                         <div *ngIf="RiskCategoryLov" class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Select Risk Category <strong
                                     class="matMandatory"></strong></mat-label>
                                 <mat-select formControlName="RiskCategory">
@@ -375,18 +375,18 @@
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                            <div class="form-group kt-form__group row" style="margin-top:-15px;">
+                            <div class="form-group kt-form__group row">
 
 
-                                <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                <div class="col-lg-5 kt-margin-bottom-20-mobile">
+                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                         <input matInput readonly="readonly" value="+923"/>
 
                                     </mat-form-field>
                                 </div>
 
-                                <div class="col-lg-9 kt-margin-bottom-20-mobile">
-                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                <div class="col-lg-7 pl-0 kt-margin-bottom-20-mobile">
+                                    <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                         <mat-label class="customMatLabel">Enter Cell No <strong
                                             class="matMandatory">*</strong></mat-label>
                                         <input on-focusout="checkSequentialCell()" matInput placeholder="Enter Cell No"
@@ -406,7 +406,7 @@
                         </div>
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Phone Number</mat-label>
                                 <input on-focusout="checkSequentialPhone()" matInput placeholder="Enter Residence No"
                                        formControlName="PhoneNumber" maxlength="13" autocomplete="off" appNumberOnly/>
@@ -436,10 +436,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Office Phone Number <strong
                                     class="matMandatory"></strong></mat-label>
                                 <input matInput placeholder="Enter Office No" formControlName="OfficePhoneNumber"
@@ -454,7 +454,7 @@
                         </div>
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Fax Number <strong
                                     class="matMandatory"></strong></mat-label>
                                 <input on-focusout="checkSequentialFax()" matInput placeholder="Enter Fax No"
@@ -470,7 +470,7 @@
                         </div>
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Email <strong class="matMandatory"></strong>
                                 </mat-label>
                                 <input matInput placeholder="Enter Email" formControlName="Email" maxlength="30"
@@ -484,7 +484,7 @@
                         </div>
 
                         <div *ngIf="BorrowerStatusLov" class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!-- <mat-label>Select Borrower Status</mat-label>-->
                                 <mat-label class="customMatLabel">Select Borrower Status <strong
                                     class="matMandatory">*</strong></mat-label>
@@ -499,10 +499,10 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
                         <div *ngIf="EducationLov" class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!-- <mat-label>Select Education</mat-label>-->
                                 <mat-label class="customMatLabel">Select Education <strong
                                     class="matMandatory">*</strong></mat-label>
@@ -518,7 +518,7 @@
 
                         <div *ngIf="CasteLov" class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--  <mat-label>Select Caste</mat-label>-->
                                 <mat-label class="customMatLabel">Select Caste <strong class="matMandatory">*</strong>
                                 </mat-label>
@@ -539,7 +539,7 @@
 
                         <div *ngIf="ReligionLov" class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Select Religion <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <!--  <mat-label>Select Religion</mat-label>-->
@@ -554,7 +554,7 @@
                         </div>
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Birth Place</mat-label>
                                 <p *ngIf="UrduBirthPlace!=undefined && UrduBirthPlace!=''"
                                    class="text-right">{{UrduBirthPlace}}</p>
@@ -570,10 +570,10 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
                         <div *ngIf="CitizenshipLov" class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Select Citizenship <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <!--<mat-label>Select Citizenship</mat-label>-->
@@ -589,7 +589,7 @@
 
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Passport No <strong *ngIf="PassportSterik"
                                                                                             class="matMandatory">*</strong>
                                 </mat-label>
@@ -604,7 +604,7 @@
 
                         <div *ngIf="PremisesFlagLov" class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--   <mat-label>Select Premises Flag</mat-label>-->
                                 <mat-label class="customMatLabel">Select Premises Flag <strong
                                     class="matMandatory"></strong></mat-label>
@@ -617,7 +617,7 @@
                         </div>
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Business Prof Pos <strong
                                     class="matMandatory"></strong></mat-label>
                                 <input matInput placeholder="Enter Business Prof Pos" formControlName="BusinessProfPos"
@@ -646,10 +646,10 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Family No <strong class="matMandatory"></strong>
                                 </mat-label>
                                 <input matInput placeholder="Enter Family No" formControlName="FamilyNumber"
@@ -663,7 +663,7 @@
                         </div>
 
                         <div *ngIf="OccupationLov" class="col-lg-3 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--  <mat-label>Occupation</mat-label>-->
                                 <mat-label class="customMatLabel">Select Occupation <strong
                                     class="matMandatory">*</strong></mat-label>
@@ -687,7 +687,7 @@
                         <div class="col-lg-3 kt-margin-bottom-20-mobile" *ngIf="div_EmployeeShow">
 
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Emp PP No <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <input matInput placeholder="Enter Emp PP No" formControlName="BankEmp" maxlength="30"
@@ -703,7 +703,7 @@
 
                         <div *ngIf="PostCodeLov" class="col-lg-3 kt-margin-bottom-20-mobile">
 
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--<mat-label>Select Post Code</mat-label>-->
                                 <mat-label class="customMatLabel">Select Post Code <strong
                                     class="matMandatory">*</strong></mat-label>
@@ -727,10 +727,10 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
 
                         <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Current Address <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <p *ngIf="UrduCurrentAddress!=undefined && UrduCurrentAddress!=''"
@@ -747,9 +747,9 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
                         <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Permanent Address <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <p *ngIf="UrduPermanentAddress!=undefined && UrduPermanentAddress!=''"
@@ -765,9 +765,9 @@
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
+                    <div class="form-group kt-form__group row mb-3">
                         <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Enter Remarks <strong class="matMandatory"></strong>
                                 </mat-label>
                                 <input matInput placeholder="Enter Remarks" formControlName="Remarks" maxlength="30"

@@ -24,7 +24,7 @@
 </fuse-vertical-navigation>
 
 <!-- Wrapper -->
-<div class="flex flex-col flex-auto w-full min-w-0">
+<div class="flex flex-col flex-auto w-full" style="width: 100%;">
 
     <!-- Header -->
     <div
@@ -61,7 +61,7 @@
     </div>
 
     <!-- Content -->
-    <div class="flex flex-col flex-auto">
+    <div class="flex flex-col flex-auto w-full w-100">
         <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
              Otherwise, layout changes won't be registered and the view won't be updated! -->
         <router-outlet *ngIf="true"></router-outlet>
