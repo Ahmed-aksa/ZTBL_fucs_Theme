@@ -42,6 +42,7 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
 .table-header-background{
     background-color: #01671B;
     color: white;
+    font-size: 12px;
 }
 
 
@@ -312,8 +313,10 @@ button:focus {
 .mat-header-row {
   background-color: #01671B;
   color: white;
+  font-size: 12px;
   th{
     color: white;
+    font-size: 12px;
   }
 }
 }
