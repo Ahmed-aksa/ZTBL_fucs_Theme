@@ -141,6 +141,12 @@
                    matSortActive="id"
                    matSortDirection="asc"
                    matSortDisableClear>
+            CircleCode
+
+            <ng-container matColumnDef="CircleCode">
+                <mat-header-cell class="place-content-center" *matHeaderCellDef>Circle Code.</mat-header-cell>
+                <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">{{VillageBenchMark.CircleCode}}</mat-cell>
+            </ng-container>
 
           <ng-container matColumnDef="VillageName">
             <mat-header-cell class="place-content-center" *matHeaderCellDef>Village Name</mat-header-cell>

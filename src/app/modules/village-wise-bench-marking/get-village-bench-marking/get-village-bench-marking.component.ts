@@ -34,7 +34,7 @@ import { RemarkDialogComponent } from './remark-dialog/remark-dialog.component';
 })
 export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['VillageName',  'FarmSize', 'NoOfFarmer', 'MaleCount','FemaleCount', 'TransGenderCount','AverageLoanSize', 'AgriBusinessPotential', 'Delete'];
+  displayedColumns = ['CircleCode','VillageName',  'FarmSize', 'NoOfFarmer', 'MaleCount','FemaleCount', 'TransGenderCount','AverageLoanSize', 'AgriBusinessPotential', 'Delete'];
 
   getVillageBenchmarkForm : FormGroup;
 
