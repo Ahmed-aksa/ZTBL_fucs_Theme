@@ -115,6 +115,8 @@ export class EligibilityRequestComponent implements OnInit {
     final_branch: any;
     final_zone: any;
     final_circle: any;
+    images = [];
+    show_pics: boolean;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -562,7 +564,7 @@ export class EligibilityRequestComponent implements OnInit {
                 Status: r
             }
         }
-        this.customerService.changeStatus(request).subscribe((baseResponse:any) => {
+        this.customerService.changeStatus(request).subscribe((baseResponse: any) => {
 
             if (baseResponse.Success) {
                 this.getEligibilityRequestData();
@@ -579,6 +581,29 @@ export class EligibilityRequestComponent implements OnInit {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
             }
+        });
+    }
+
+    getImagesData(id) {
+        var request = {
+            EligibilityRequest: {
+                Id: id,
+            }
+        }
+        this.customerService.getImages(request).subscribe((baseResponse: any) => {
+            this.show_pics = true;
+            let image = baseResponse.EligibilityRequest?.Attachments;
+            for (let i = 0; i < image.length; i++) {
+                let image_obj = {
+                    image: image[0].ImageFilePath,
+                    thumbImage: image[0].ImageFilePath,
+                    alt: 'alt',
+                    title: 'title'
+                }
+                this.images.push(image_obj);
+            }
+
+
         });
     }
 }

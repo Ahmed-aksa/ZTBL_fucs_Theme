@@ -46,7 +46,7 @@ export class CheckEligibilityComponent implements OnInit {
     CustomerNdc: any;
     CustomerECIB: any;
     Customer: any;
-    gridHeight: string;
+    gridHeight: string = null;
     Ftb: number;
     NDCPerform: boolean;
     IsNdcDefaulter: boolean;
