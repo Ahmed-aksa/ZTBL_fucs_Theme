@@ -181,6 +181,8 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
       this.assignBranchAndZone();
       this.user.Branch = this.final_branch;
       this.user.Zone = this.final_zone;
+      this.user.Circle = this.bufricationForm.controls.CircleId.value;
+
       this.bufricationForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
 
       this.reports = Object.assign(this.reports, this.bufricationForm.value);

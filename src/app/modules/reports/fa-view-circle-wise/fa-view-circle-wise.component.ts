@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable eqeqeq */
 /* eslint-disable arrow-parens */
 /* eslint-disable @typescript-eslint/semi */
@@ -167,6 +168,7 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.assignBranchAndZone();
         this.user.Branch = this.final_branch;
         this.user.Zone = this.final_zone;
+        this.user.Circle = null
         this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
@@ -201,6 +203,14 @@ export class FaViewCircleWiseComponent implements OnInit {
 
                 }
             })
+    }
+
+    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+        this.itemsPerPage = pageSize;
+        this.pageIndex = pageIndex;
+        //this.OffSet = pageIndex;
+    
+        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
     }
 
     async typeLov(){

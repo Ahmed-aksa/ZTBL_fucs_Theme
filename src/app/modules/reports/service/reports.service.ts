@@ -1,5 +1,6 @@
+/* eslint-disable no-debugger */
 /* eslint-disable eqeqeq */
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable @typescript-eslint/semi */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable quotes */
@@ -31,7 +32,6 @@ export class ReportsService {
     userDetail = this.userUtilsService.getUserDetails();
 
     reportDynamic(user, reportsFilter) {
-      debugger
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }
@@ -54,6 +54,24 @@ export class ReportsService {
             Circle:{
               CircleCode: user.Circle
             }
+        }
+
+        return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
+            .pipe(
+                map((res: BaseResponseModel) => res)
+            );
+    }
+
+    earlyWarningReport(user, reportsFilter) {
+      if(reportsFilter.CircleId == 'null'){
+        reportsFilter.CircleId = null
+      }
+        
+        var request = {
+            ReportsFilterCustom: reportsFilter,
+            User: this.userDetail.User,
+            Zone: user.Zone,
+            Branch: user.Branch,
         }
 
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)

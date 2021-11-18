@@ -216,6 +216,14 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit {
           })
   }
 
+  paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+    this.itemsPerPage = pageSize;
+    this.pageIndex = pageIndex;
+    //this.OffSet = pageIndex;
+
+    this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
+}
+
   async typeLov(){
     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.BifurcationLCStatus });
     this.statusLov = this.statusLov.LOVs;
