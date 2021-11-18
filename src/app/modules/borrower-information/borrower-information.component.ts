@@ -250,11 +250,6 @@ export class BorrowerInformationComponent implements OnInit {
         var PPNo = this.borrowerForm.controls?.PPNo?.value;
         this.spinner.show();
 
-        console.log(JSON.stringify(this.selected_z))
-
-        console.log( "Zone"+JSON.stringify(this.final_zone))
-        console.log("Branch"+ JSON.stringify(this.final_branch))
-        console.log("circle"+ JSON.stringify(this.final_cricle))
         this._borrowerInfo.getBorrowerInformation(this.itemsPerPage, this.OffSet, cnic, this.user,PPNo,this.final_zone, this.final_branch, this.final_cricle)
             .pipe(
                 finalize(() => {
