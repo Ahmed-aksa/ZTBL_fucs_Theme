@@ -6,7 +6,7 @@
         </div>
     </div>
 
-
+    <div class=" border shadow-xs rounded-sm bg-gray-50 overflow-scroll" [style.height]="gridHeight">
     <div class="mat-table__wrapper">
         <!--[style.height]="gridHeight"-->
         <mat-table class="lmat-elevation-z8"
@@ -85,5 +85,6 @@
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
         </mat-table>
+    </div>
     </div>
 </div>

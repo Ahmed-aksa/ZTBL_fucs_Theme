@@ -1,116 +1,287 @@
-
-<div id="Kt-portlet-margin-top mt-5">
-    <div class="kt-portlet">
-        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header" style="justify-content: space-between; margin-bottom: 10px;">
-            <div class="kt-portlet__head-label">
-                <h3 class="heading w-100">Add Vendor's Location</h3>
-            </div>
-            <!-- <span (click)="close(0)"><mat-icon>close</mat-icon></span> -->
-           
-            
+<div
+    class="
+        px-10
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-scroll
+        bg-card
+        dark:bg-transparent
+    "
+>
+    <div class="row py-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Search Loan Cases By Cnic</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button
+                    class="
+                        py-2
+                        mat-focus-indicator
+                        mat-flat-button
+                        mat-button-base
+                        mat-primary
+                    "
+                    type="button"
+                    color="primary"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                >
+                    <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
+                </button>
+            </p>
         </div>
     </div>
-  
-    <form [formGroup]="searchCnicForm" class="kt-form kt-form--group-seperator-dashed">
 
-        <div class="kt-form">
+    <!-- Header -->
 
-            <div class="kt-portlet__body">
-
-                <div class="col-lg-12">
-                  <div class="form-group kt-form__group row">
-
-                    <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
-                            <mat-label class="customMatLabel">Zone</mat-label>
-                            <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
-                                <mat-option [value]="SelectedZones?.ZoneId">
-                                    {{SelectedZones?.ZoneName}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-            
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
-                            <mat-label class="customMatLabel">Zone</mat-label>
-                            <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
-                                        (selectionChange)="changeZone($event)">
-                                <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                            [disabled]="disable_zone">
-                                    {{zone?.ZoneName}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                            
-                            <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
-                                        *ngIf="single_branch">
-                                <mat-option [value]="SelectedBranches?.BranchCode"
-                                >
-                                    {{SelectedBranches?.Name}}
-                                </mat-option>
-                            </mat-select>
-            
-                            <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
-                                        *ngIf="!single_branch">
-                                <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                                >
-                                    {{branch?.Name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                  </div>
-
-                  <div class="form-group kt-form__group row">
-
-                      <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">CNIC</mat-label>
-                            <input matInput placeholder="Enter Cnic" formControlName="Cnic" maxlength="13" autocomplete="off"
-                                   appNumberOnly/>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">Customer Name</mat-label>
-                            <input matInput placeholder="Enter Customer Name" formControlName="CustomerName" maxlength="30" autocomplete="off"/>
-                        </mat-form-field>
-                      </div>
-
-                </div>
-
-                    <div class="form-group kt-form__group row">
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Father Name</mat-label>
-                                    <input matInput placeholder="Enter Father Name" formControlName="FatherName" maxlength="30" autocomplete="off"/>
-                                </mat-form-field>
-                            </div>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div class="py-2" [formGroup]="searchCnicForm">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+        
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
+                                <mat-label class="customMatLabel">Zone</mat-label>
+                                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                                    <mat-option [value]="SelectedZones?.ZoneId">
+                                        {{SelectedZones?.ZoneName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
+                                <mat-label class="customMatLabel">Zone</mat-label>
+                                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                                            (selectionChange)="changeZone($event)">
+                                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                                [disabled]="disable_zone">
+                                        {{zone?.ZoneName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                
+                
                         </div>
-
                     </div>
-
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+        
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                                
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                                            *ngIf="single_branch">
+                                    <mat-option [value]="SelectedBranches?.BranchCode"
+                                    >
+                                        {{SelectedBranches?.Name}}
+                                    </mat-option>
+                                </mat-select>
+                
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
+                                            *ngIf="!single_branch">
+                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                                    >
+                                        {{branch?.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
                 </div>
 
+                <div class="row">
+        
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+        
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">CNIC</mat-label>
+                                <input matInput placeholder="Enter Cnic" formControlName="Cnic" maxlength="13" autocomplete="off"
+                                       appNumberOnly/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+        
+                    
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Customer Name</mat-label>
+                                <input matInput placeholder="Enter Customer Name" formControlName="CustomerName" maxlength="30" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Father Name</mat-label>
+                                <input matInput placeholder="Enter Father Name" formControlName="FatherName" maxlength="30" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
+                </div>
             </div>
         </div>
+    </div>
 
+    <!-- Header -->
+    <div>
+        <!-- <div
+            class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
+        </div> -->
 
-    </form>
+        <div class="mat-table__wrapper">
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                class="lmat-elevation-z8"
+                #table
+                [dataSource]="
+                    dataSource
+                        | paginate
+                            : {
+                                  itemsPerPage: itemsPerPage,
+                                  currentPage: pageIndex,
+                                  totalItems: totalItems
+                              }
+                "
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+            >
+                <ng-container matColumnDef="Lcno">
+                    <mat-header-cell *matHeaderCellDef
+                        >LC #</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Lcno
+                    }}</mat-cell>
+                </ng-container>
 
-    <div class="form-group kt-form__group row">
-        <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table mt-3 d-flex flex justify-between ">
-            <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
-            <button   class="mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"(click)="close(0)"><mat-icon class="mr-2">close</mat-icon>Cancel</button>
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell *matHeaderCellDef>CNIC</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.CNIC
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Name">
+                    <mat-header-cell *matHeaderCellDef
+                        >Name</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Name
+                    }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="FatherName">
+                    <mat-header-cell *matHeaderCellDef>Father Name</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.FatherName
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Address">
+                    <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.Address
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Agps">
+                    <mat-header-cell *matHeaderCellDef
+                        >AGPS</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Agps
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Bcl">
+                    <mat-header-cell *matHeaderCellDef
+                        >Phone Number</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.PhoneNumber
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Los">
+                    <mat-header-cell *matHeaderCellDef
+                        >Phone Number</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.PhoneNumber
+                    }}</mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    class="table-header-background"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+            </mat-table>
+
+            <div class="mat-table__message" *ngIf="!loading && !matTableLenght">
+                No Record Found
+            </div>
+            <div class="mat-table__message" *ngIf="loading">
+                Please wait....
+            </div>
+
+            <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">
+                Items per page:
+                <mat-select
+                    display="inline"
+                    [(value)]="itemsPerPage"
+                    (valueChange)="paginate(1, $event)"
+                    style="
+                        width: 50px;
+                        margin-left: 15px;
+                        display: inline-block;
+                        margin-right: 10px;
+                    "
+                >
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="25">25</mat-option>
+                    <mat-option [value]="50">50</mat-option>
+                </mat-select>
+                <button (click)="paginate(1)">First</button>
+                <pagination-controls
+                    display="inline"
+                    (pageChange)="paginate($event)"
+                    style="display: inline-block"
+                ></pagination-controls>
+                <button
+                    (click)="paginate(Math.ceil(totalItems / itemsPerPage))"
+                >
+                    Last
+                </button>
+                <p style="float: right">
+                    Total <b>{{ totalItems }}</b> items
+                </p>
+            </div>
         </div>
-      </div>
-  
-  </div>
-
+    </div>
+</div>

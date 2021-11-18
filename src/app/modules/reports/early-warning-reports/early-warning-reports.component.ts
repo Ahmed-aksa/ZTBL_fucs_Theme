@@ -14,15 +14,12 @@ export class EarlyWarningReportsComponent implements OnInit {
   viewLoading = false;
   loadingAfterSubmit = false;
   constructor(
-  public dialogRef: MatDialogRef<EarlyWarningReportsComponent>,
   ) { }
 
   ngOnInit(): void {
   }
 
-  onCloseClick(res){
-    this.dialogRef.close(res);
-  }
+
 
   // dueInstallments(){
   //   var res = "a";

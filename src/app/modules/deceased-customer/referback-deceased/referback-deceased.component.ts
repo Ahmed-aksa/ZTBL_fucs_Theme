@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserUtilsService } from '../../../shared/services/users_utils.service';
 import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {MatPaginator} from "@angular/material/paginator";
 import { DeceasedCustomerService } from '../../../shared/services/deceased-customer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -52,6 +53,7 @@ export class ReferbackDeceasedComponent implements OnInit {
 
     referBackForm: FormGroup;
     loggedInUser: any;
+    gridHeight: string;
 
     select: Selection[] = [
         { value: '1', viewValue: 'NO' },
@@ -142,6 +144,9 @@ export class ReferbackDeceasedComponent implements OnInit {
             ],
             { relativeTo: this.activatedRoute }
         );
+    }
+    ngAfterViewInit() {
+        this.gridHeight = window.innerHeight - 200 + 'px';
     }
 
     editDeceased(Deceased: any) {

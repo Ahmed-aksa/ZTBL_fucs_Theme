@@ -1,3 +1,5 @@
+/* eslint-disable no-debugger */
+/* eslint-disable eol-last */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/quotes */
@@ -9,11 +11,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
 import { LovService } from 'app/shared/services/lov.service';
 import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { finalize } from 'rxjs/operators';
+import { SearchLoanCaseByCnic } from '../class/reports';
+import { ReportsService } from '../service/reports.service';
 
 @Component({
   selector: 'search-loan-cases-by-cnic',
@@ -21,7 +27,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./search-loan-cases-by-cnic.component.scss']
 })
 export class SearchLoanCasesByCnicComponent implements OnInit {
-
+  displayedColumns = [ 'Lcno','Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los'];
   searchCnicForm: FormGroup;
   selected_b;
   selected_z;
@@ -34,10 +40,23 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
   single_circle = true;
   single_zone = true;
 
+  public reports = new SearchLoanCaseByCnic();
+
+  matTableLenght = false;
+  loading = false;
+
+  itemsPerPage = 10;
+  pageIndex = 1;
+  totalItems: number | any;
+  dv: number | any; //use later
+
+  dataSource: MatTableDataSource<searchLoanCasesByCnic>;
+
   LoggedInUserInfo: BaseResponseModel;
 
   //Zone inventory
   Zones: any = [];
+  user: any = {}
   SelectedZones: any = [];
 
   //Branch inventory
@@ -50,12 +69,13 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
 
 
   constructor(
-    public dialogRef: MatDialogRef<SearchLoanCasesByCnicComponent>,
     private fb: FormBuilder,
+    private _reports: ReportsService,
     private userUtilsService: UserUtilsService,
     private spinner: NgxSpinnerService,
     private _lovService: LovService,
-    private layoutUtilsService: LayoutUtilsService
+    private layoutUtilsService: LayoutUtilsService,
+
   ) { }
 
   ngOnInit(): void {
@@ -105,16 +125,57 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
   
  createForm(){
    this.searchCnicForm = this.fb.group({
-     ZoneId: ['', Validators.required],
-     BranchCode: ['', Validators.required],
-     Cnic: [''],
-     CustomerName: [''],
-     FatherName: ['']
+     ZoneId: [null, Validators.required],
+     BranchCode: [null, Validators.required],
+     Cnic: [null],
+     CustomerName: [null],
+     FatherName: [null]
    })
  } 
 
  find(){
-   
+
+  this.user.Zone = this.searchCnicForm.controls.ZoneId.value;
+  this.user.Branch = this.searchCnicForm.controls.BranchCode.value;
+  
+   if(this.searchCnicForm.controls.Cnic.value == null && this.searchCnicForm.controls.CustomerName.value == null && this.searchCnicForm.controls.FatherName.value == null){
+     this.layoutUtilsService.alertElement('','Atleast add any one field among Cnic, Father Name or Customer Name')
+     return
+   }
+
+   this.reports = Object.assign(this.reports, this.searchCnicForm.value);
+   this.reports.ReportsNo = "14";
+   this.spinner.show();
+    this._reports.reportDynamic(this.user, this.reports)
+    .pipe(
+      finalize(() => {
+      this.loaded = true;
+      this.loading = false;
+      this.spinner.hide();
+    })
+    )
+    .subscribe((baseResponse: BaseResponseModel) =>{
+      if (baseResponse.Success === true) {
+        debugger
+        this.loading = true;
+        console.log(baseResponse);
+        this.dataSource= baseResponse.SeedKhadVendor.VendorDetails
+        this.dv = this.dataSource;
+        this.matTableLenght = true
+
+        this.totalItems = baseResponse.SeedKhadVendor.VendorDetails[0].TotalRecords
+      }
+      else{
+        debugger
+        this.layoutUtilsService.alertElement("", baseResponse.Message);
+        this.loading = false;
+        this.matTableLenght = false;
+        this.dataSource = this.dv.slice(1, 0);
+        //this.offSet = 0;
+        this.pageIndex = 1;
+        
+      }
+    })
  }
 
  changeZone(changedValue) {
@@ -126,10 +187,7 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
       this.disable_branch = false;
   });
 }
-
-close(res){
-  this.dialogRef.close(res);
 }
-
-
+interface searchLoanCasesByCnic{
+  LcNo: string;
 }
