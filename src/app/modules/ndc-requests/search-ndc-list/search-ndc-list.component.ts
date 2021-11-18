@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable space-before-function-paren */
 /* eslint-disable arrow-parens */
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
@@ -32,6 +33,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { HttpClient } from '@angular/common/http';
 import { CircleService } from '../../../shared/services/circle.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-search-ndc-list',
@@ -122,6 +124,7 @@ export class SearchNdcListComponent implements OnInit {
 
     constructor(
         public dialog: MatDialog,
+        private router: Router,
         private ndc_request_service: NdcRequestsService,
         private layoutUtilsService: LayoutUtilsService,
         private fb: FormBuilder,
@@ -136,7 +139,7 @@ export class SearchNdcListComponent implements OnInit {
     ngOnInit() {
         this.createForm();
         this.settingZBC();
-        this.loadUsersList();
+        
         this.LoggedInUserInfo =
             this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.hasSrNo != true) {
@@ -358,6 +361,7 @@ export class SearchNdcListComponent implements OnInit {
     }
 
     downloadFile(customer_cnic, customer_id) {
+        
         this.spinner.show();
         this.ndc_request_service
             .downloadFile(
@@ -376,19 +380,23 @@ export class SearchNdcListComponent implements OnInit {
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success) {
                     debugger;
-                    var path = baseResponse.Ndc.ndcFilePath,
-                        str;
-                    path = path.split('TempReport');
-                    str = path.splice(0, 1, 0);
-                    str = String(str);
-                    console.log(str);
+                    // var path = baseResponse.Ndc.ndcFilePath,
+                    //     str;
+                    // path = path.split('TempReport');
+                    // str = path.splice(0, 1, 0);
+                    // str = String(str);
+                    // console.log(str);
+                    //this.router.navigateByUrl(baseResponse.Ndc.ndcFilePath)
+
+                    window.open(baseResponse.Ndc.ndcFilePath,'Download');
 
                     this.layoutUtilsService.alertElementSuccess(
                         '',
                         baseResponse.Message
                     );
+                    //window.location.reload()
                     //window.open(`${str}${customer_cnic}_NDC.pdf`,'Download');
-                     window.open(baseResponse.Ndc.ndcFilePath,'Download');
+                     
                     //this.downloadFile1()
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -534,6 +542,8 @@ export class SearchNdcListComponent implements OnInit {
             this.ndcForm.controls.BranchId.setValue(
                 this.SelectedBranches.BranchCode
             );
+
+            this.loadUsersList();
         } else if (
             !this.loggedInUserDetails.Branch &&
             !this.loggedInUserDetails.Zone &&
