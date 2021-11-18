@@ -198,27 +198,12 @@
                     }}</mat-cell>
                 </ng-container>
 
-<<<<<<< Updated upstream
-                    <div class="form-group kt-form__group row">
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Father Name</mat-label>
-                                    <input matInput placeholder="Enter Father Name" formControlName="FatherName" maxlength="30" autocomplete="off"/>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <button class="mt-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
-                        </div>
-=======
                 <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
                     <mat-cell *matCellDef="let report">{{
                         report.Address
                     }}</mat-cell>
                 </ng-container>
->>>>>>> Stashed changes
 
                 <ng-container matColumnDef="Agps">
                     <mat-header-cell *matHeaderCellDef
@@ -257,24 +242,12 @@
                 ></mat-row>
             </mat-table>
 
-<<<<<<< Updated upstream
-    <div class="form-group kt-form__group row">
-        <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table mt-3 d-flex flex justify-end ">
-            
-            <button   class="mat-focus-indicator  btn bg-red-500 text-white rounded-md  mat-raised-button mat-button-base mat-danger"(click)="close(0)"><mat-icon class="mr-2">close</mat-icon>Cancel</button>
-            
-        </div>
-      </div>
-  
-  </div>
-=======
             <div class="mat-table__message" *ngIf="!loading && !matTableLenght">
                 No Record Found
             </div>
             <div class="mat-table__message" *ngIf="loading">
                 Please wait....
             </div>
->>>>>>> Stashed changes
 
             <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">
                 Items per page:

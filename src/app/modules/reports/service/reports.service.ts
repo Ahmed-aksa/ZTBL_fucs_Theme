@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable @typescript-eslint/semi */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable quotes */
