@@ -128,6 +128,7 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
   }
   .mat-header-cell{
     color: white;
+    
   }
 }
 }
@@ -387,3 +388,23 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
 .border-t {
   border-color: #dee2e6 !important;
 }
+.mat-header-row{
+  .mat-header-cell{
+    line-height: 56px;
+    .mat-sort-header-container{
+      line-height: 56px;
+    }
+  }
+}
+
+.bg-gray-500 {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgba(100, 116, 139) !important;
+}
+
+
+.mat-paginator-page-size-select{
+    .mat-form-field-infix{
+      line-height: 30px;
+    }
+  }
