@@ -46,15 +46,15 @@ export class ClCustomersComponent implements OnInit {
     private _loanService: LoanService,
     private spinner: NgxSpinnerService,
     private _customerService: CustomerService) {
-      } 
+      }
 
   ngOnInit() {
-    
+
     this.LoadLovs();
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
     this.createForm();
-    
-    
+
+
   }
   createForm() {
     this.loanCustomerForm = this.formBuilder.group({
@@ -67,20 +67,35 @@ export class ClCustomersComponent implements OnInit {
     return this.loanCustomerForm.controls[controlName].hasError(errorName);
   }
   async LoadLovs() {
-    
+
     //this.ngxService.start();
     var tempArray = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.AGPS });
     this.AGPSLov = tempArray.LOVs;
-    
+
     tempArray = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Relationship })
     this.RelationshipLov = tempArray.LOVs;
-    
+
   }
   onAlertClose($event) {
     this.hasFormErrors = false;
   }
   searchCustomer() {
-    
+
+      if(this.customerArray.length==0){
+          if(this.loanCustomerForm.controls.AGPS.value!="1"){
+              this.layoutUtilsService.alertElement("", "First time AGPS must be Applicant");
+              return
+          }
+
+          if(this.loanCustomerForm.controls.Relationship.value!="8"){
+              this.layoutUtilsService.alertElement("", "First time Relationship must be selected self");
+              return
+          }
+      }
+
+
+
+      debugger
     this.hasFormErrors = false;
     if (this.loanCustomerForm.invalid) {
       const controls = this.loanCustomerForm.controls;
@@ -98,7 +113,7 @@ export class ClCustomersComponent implements OnInit {
       return;
     }
     this.createCustomer.CustomerStatus = 'A';
-    
+
     this.createCustomer.Cnic = this.loanCustomerForm.controls['CNIC'].value;
 
 
@@ -112,10 +127,10 @@ export class ClCustomersComponent implements OnInit {
       )
       .subscribe((baseResponse: BaseResponseModel) => {
 
-        
+
         console.log(baseResponse);
         if (baseResponse.Success === true) {
-          
+
           var customer = baseResponse.Customers[0];
 
           var grid = new CustomerGrid();
@@ -130,10 +145,10 @@ export class ClCustomersComponent implements OnInit {
           grid.Relationship = this.relationshipModel;
           grid.RelationshipName = this.RelationshipLov.filter(v => v.Id == this.relationshipModel)[0].Name;
           this.customerArray.push(grid);
-          
+
           //this.dynamicArray[index].area = this.createCustomer
 
-         
+
           this.cdRef.detectChanges();
 
           this.loanCustomerForm.controls['CNIC'].setValue("");
@@ -155,7 +170,7 @@ export class ClCustomersComponent implements OnInit {
 
 
   loadAppCustomerDataOnUpdate(appCustomerData) {
-    
+
 
     console.log(appCustomerData)
     // for(var i=0; i<=appCustomerData.length; i++){
@@ -168,29 +183,29 @@ export class ClCustomersComponent implements OnInit {
     var tempCustomerArray: CustomerGrid[] = [];
 
     appCustomerData.forEach(function (item, key) {
-  
+
       var grid = new CustomerGrid();
       grid.CustLoanAppID = item.CustLoanAppID;
-      grid.cnic = item.Cnic; 
+      grid.cnic = item.Cnic;
       grid.name = item.CustomerName;
       grid.fatherName = item.FatherName;
       grid.dob = item.DOB;
-      //grid.agps = this.agpsModel 
-      
+      //grid.agps = this.agpsModel
+
       var tempAgpsLov = tempAgpsLovs.filter(v => v.Id == item.Agps)
-      if (tempAgpsLov.length > 0)  
+      if (tempAgpsLov.length > 0)
         grid.agpsName = tempAgpsLov[0].Name;
       else
         grid.agpsName = item.Agps;
       //grid.Relationship = this.relationshipModel;
-      
+
       var tempRealtionshipLov = tempRelationshipLovs.filter(v => v.Id == item.RelationID);
       if (tempRealtionshipLov.length > 0)
         grid.RelationshipName = tempRealtionshipLov[0].Name;
-      else  
+      else
         grid.RelationshipName = "";
       tempCustomerArray.push(grid);
-      
+
 
     });
 
@@ -213,7 +228,7 @@ export class ClCustomersComponent implements OnInit {
       if (!res) {
         return;
       }
-      
+
       if (this.customerArray.length == 0) {
         return false;
       } else {
@@ -232,20 +247,24 @@ export class ClCustomersComponent implements OnInit {
               })
             )
             .subscribe(baseResponse => {
-              const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                if(baseResponse.Success===true){
+                    const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                    this.customerArray.splice(index, 1);
+                }
+
             })
         }
-        
+
 
       }
 
 
     })
 
-  
+
   }
   onSaveCustomer() {
-    
+
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -255,7 +274,7 @@ export class ClCustomersComponent implements OnInit {
     var resMessage = "";
     var resCode = "";
     var customerAdded = 0;
-    
+
     this.customerArray.forEach(cus => {
       this.customerLoanApp.Cnic = cus.cnic;
       this.customerLoanApp.RelationID = parseInt(cus.Relationship);
@@ -266,17 +285,17 @@ export class ClCustomersComponent implements OnInit {
         .pipe(
           finalize(() => {
             this.spinner.hide();
-            
+
             if (this.customerArray.length == customerAdded) {
               const dialogRef = this.layoutUtilsService.alertElementSuccess("", resMessage, resCode);
             }
           })
         )
         .subscribe(baseResponse => {
-          
+
           customerAdded++;
           if (baseResponse.Success) {
-            
+
             isCustomerAdded = true;
             resMessage = baseResponse.Message;
             resCode = baseResponse.Code;
@@ -301,7 +320,7 @@ export class ClCustomersComponent implements OnInit {
     })
 
 
-    
+
 
   }
 }

@@ -476,22 +476,22 @@ export class LoanService {
     }
 
     SearchGLCode(loanReq: GlConfigrationsDetail, branch = null, zone = null) {
-        this.request = new BaseRequestModel();
+        let request = new BaseRequestModel();
 
         var loanInfo = new Loan();
         loanInfo.GlConfigrationsDetail = loanReq;
-        this.request.Loan = loanInfo;
-        this.request.TranId = 0;
+        request.Loan = loanInfo;
+        request.TranId = 0;
         var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-        this.request.Zone = zone;
-        this.request.Branch = branch;
+        request.User = userInfo.User;
+        request.Zone = userInfo.Zone;
+        request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
-        this.request.Activity = this.activity;
-
+        request.Activity = this.activity;
+        debugger
 
         return this.http
-            .post(`${environment.apiUrl}/Loan/SearchGLCode`, this.request, {
+            .post(`${environment.apiUrl}/Loan/SearchGLCode`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
