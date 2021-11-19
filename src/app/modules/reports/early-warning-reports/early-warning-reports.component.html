@@ -167,12 +167,6 @@
                 #table
                 [dataSource]="
                     dataSource
-                        | paginate
-                            : {
-                                  itemsPerPage: itemsPerPage,
-                                  currentPage: pageIndex,
-                                  totalItems: totalItems
-                              }
                 "
                 matSort
                 #sort1="matSort"

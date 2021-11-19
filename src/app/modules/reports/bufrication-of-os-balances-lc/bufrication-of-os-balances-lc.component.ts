@@ -10,15 +10,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
+import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
-import { Bufrication } from '../class/reports';
-import { ReportsService } from '../service/reports.service';
+import {finalize} from 'rxjs/operators';
+import {Bufrication} from '../class/reports';
+import {ReportsService} from '../service/reports.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'bufrication-of-os-balances-lc',
@@ -69,21 +70,21 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         private _bufrication: ReportsService,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
+        private toastr: ToastrService
     ) {
     }
 
     public LovCall = new Lov();
 
     select: Selection[] = [
-      {Value: '2', description: 'Portable Document Format (PDF)'},
-      {Value: '1', description: 'MS Excel (Formatted)'},
-      {Value: '3', description: 'MS Excel (Data Only Non Formatted)'}
-  ];
+        {Value: '2', description: 'Portable Document Format (PDF)'},
+        {Value: '1', description: 'MS Excel (Formatted)'},
+        {Value: '3', description: 'MS Excel (Data Only Non Formatted)'}
+    ];
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
-        console.log(this.LoggedInUserInfo)
         this.typeLov();
         if (this.LoggedInUserInfo.Branch != null) {
             //this.Circles = this.LoggedInUserInfo.UserCircleMappings;
@@ -99,7 +100,6 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             this.selected_z = this.SelectedZones.ZoneId
             this.selected_b = this.SelectedBranches.BranchCode
             this.selected_c = this.SelectedCircles.Id
-            console.log(this.SelectedZones)
             this.bufricationForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
             this.bufricationForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
             this.changeBranch(this.selected_b);
@@ -109,7 +109,6 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             fi.LovId = "0";
             fi.TagName = "0";
             this.SelectedCircles.splice(0, 0, fi)
-            console.log(this.SelectedCircles)
             this.bufricationForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
             this.spinner.show();
@@ -125,33 +124,32 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         }
     }
 
-    async typeLov(){
-      this.statusLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.BifurcationLCStatus });
-      this.statusLov = this.statusLov.LOVs;
-      this.bufricationForm.controls["AccountStatus"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-      console.log(this.statusLov)
+    async typeLov() {
+        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
+        this.statusLov = this.statusLov.LOVs;
+        this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
     }
 
     private assignBranchAndZone() {
 
-      //Branch
-      if (this.SelectedBranches.length) {
-          this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-          this.LoggedInUserInfo.Branch = this.final_branch;
-      } else {
-          this.final_branch = this.SelectedBranches;
-          this.LoggedInUserInfo.Branch = this.final_branch;
-      }
-      //Zone
-      if (this.SelectedZones.length) {
-          this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-          this.LoggedInUserInfo.Zone = this.final_zone;
-      } else {
-          this.final_zone = this.SelectedZones;
-          this.LoggedInUserInfo.Zone = this.final_zone;
-      }
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.LoggedInUserInfo.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.LoggedInUserInfo.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.LoggedInUserInfo.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.LoggedInUserInfo.Zone = this.final_zone;
+        }
 
-  }
+    }
 
     createForm() {
         this.bufricationForm = this.fb.group({
@@ -170,7 +168,6 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         let changedZone = {Zone: {ZoneId: changedValue.value}}
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
-            console.log(this.Branches)
             this.SelectedBranches = this.Branches;
             this.single_branch = false;
             this.disable_branch = false;
@@ -178,14 +175,18 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
     }
 
     find() {
-      this.assignBranchAndZone();
-      this.user.Branch = this.final_branch;
-      this.user.Zone = this.final_zone;
-      this.user.Circle = this.bufricationForm.controls.CircleId.value;
+        if (this.bufricationForm.invalid) {
+            this.toastr.error("Please Enter Required values");
+            return;
+        }
+        this.assignBranchAndZone();
+        this.user.Branch = this.final_branch;
+        this.user.Zone = this.final_zone;
+        this.user.Circle = this.bufricationForm.controls.CircleId.value;
 
-      this.bufricationForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
+        this.bufricationForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
 
-      this.reports = Object.assign(this.reports, this.bufricationForm.value);
+        this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "18";
         this.spinner.show();
         this._bufrication.reportDynamic(this.user, this.reports)
@@ -198,7 +199,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
-                  window.open(baseResponse.ReportsFilterCustom.FilePath,'Download');
+                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
@@ -216,7 +217,6 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
 
         }
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            console.log(data);
             this.Circles = data.Circles;
             this.SelectedCircles = this.Circles;
             var fi: any = []
@@ -225,7 +225,6 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             fi.LovId = "0";
             fi.TagName = "0";
             this.SelectedCircles.splice(0, 0, fi)
-            console.log(this.SelectedCircles)
             this.bufricationForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
             this.disable_circle = false;
         });
@@ -235,6 +234,6 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
 }
 
 export interface Selection {
-  Value: string;
-  description: string;
+    Value: string;
+    description: string;
 }

@@ -101,33 +101,6 @@
 
                 </div>
 
-                <!-- <div class="row">
-
-                    <div class="col-lg-4 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">CNIC</mat-label>
-                                <input matInput placeholder="Enter Cnic" formControlName="Cnic" maxlength="13"
-                                       autocomplete="off"
-                                       appNumberOnly/>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-4 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Customer Name</mat-label>
-                                <input matInput placeholder="Enter Customer Name" formControlName="CustomerName"
-                                       maxlength="30" autocomplete="off"/>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                </div> -->
-
                 <div class="row">
 
                     <div class="col-lg-4 col-sm-12">
@@ -139,20 +112,6 @@
                             </mat-form-field>
                         </div>
                     </div>
-
-                    <!-- <div class="col-lg-4 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Account Status<strong
-                                    class="matMandatory">*</strong></mat-label>
-                                <mat-select formControlName="Status">
-                                    <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
-                                        {{lov.Description}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div> -->
 
                 </div>
             </div>
@@ -181,14 +140,7 @@
                 class="lmat-elevation-z8"
                 #table
                 [dataSource]="
-                    dataSource
-                        | paginate
-                            : {
-                                  itemsPerPage: itemsPerPage,
-                                  currentPage: pageIndex,
-                                  totalItems: totalItems
-                              }
-                "
+                    dataSource"
                 matSort
                 #sort1="matSort"
                 matSortActive="id"
@@ -280,40 +232,6 @@
             </div>
             <div class="mat-table__message" *ngIf="loading">
                 Please wait....
-            </div>
-
-            <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">
-                Items per page:
-                <mat-select
-                    display="inline"
-                    [(value)]="itemsPerPage"
-                    (valueChange)="paginate(1, $event)"
-                    style="
-                        width: 50px;
-                        margin-left: 15px;
-                        display: inline-block;
-                        margin-right: 10px;
-                    "
-                >
-                    <mat-option [value]="5">5</mat-option>
-                    <mat-option [value]="10">10</mat-option>
-                    <mat-option [value]="25">25</mat-option>
-                    <mat-option [value]="50">50</mat-option>
-                </mat-select>
-                <button (click)="paginate(1)">First</button>
-                <pagination-controls
-                    display="inline"
-                    (pageChange)="paginate($event)"
-                    style="display: inline-block"
-                ></pagination-controls>
-                <button
-                    (click)="paginate(Math.ceil(totalItems / itemsPerPage))"
-                >
-                    Last
-                </button>
-                <p style="float: right">
-                    Total <b>{{ totalItems }}</b> items
-                </p>
             </div>
         </div>
     </div>

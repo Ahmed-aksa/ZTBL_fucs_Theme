@@ -1,12 +1,18 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
-import {Branch} from 'app/shared/models/branch.model';
-import {Circle} from 'app/shared/models/circle.model';
-import {CircleService} from 'app/shared/services/circle.service';
-import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
-import {finalize} from 'rxjs/operators';
-import {Zone} from '../../users/utils/zone.model'
+// import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+// import {Branch} from 'app/shared/models/branch.model';
+// import {Circle} from 'app/shared/models/circle.model';
+// import {CircleService} from 'app/shared/services/circle.service';
+// import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+// import {finalize} from 'rxjs/operators';
 
-declare const google: any;
+import {ChangeDetectorRef, Component, OnInit} from "@angular/core";
+import {CircleService} from "../../../../shared/services/circle.service";
+import {finalize} from "rxjs/operators";
+import {Branch} from "app/shared/models/branch.model";
+import {LayoutUtilsService} from "../../../../shared/services/layout_utils.service";
+import {Circle} from "app/shared/models/circle.model";
+
+// declare const google: any;
 
 
 @Component({
@@ -38,9 +44,8 @@ export class CircleViewMapComponent implements OnInit {
     controlOptions = {
         mapTypeIds: ["satellite", "roadmap", "hybrid", "terrain"]
     }
-    ///////////////////
 
-    public Zone = new Zone();
+    Zone: any;
     public Branch = new Branch();
     public zoneInitial = '';
     public branchInitial = '';
@@ -186,7 +191,7 @@ export class CircleViewMapComponent implements OnInit {
 
 
     clickedMarker(index: number, infowindow) {
-        
+
         this.viewCircleFense(index);
         if (this.previousInfoWindow != null) {
             this.previousInfoWindow.close();
@@ -231,10 +236,9 @@ export class CircleViewMapComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-
                 if (baseResponse.Success) {
 
-                var OldFancPoints = baseResponse.GeoFancPoints;
+                    var OldFancPoints = baseResponse.GeoFancPoints;
 
                     const polygonCoordinate = [];
                     OldFancPoints.forEach((o, i) => {
@@ -248,7 +252,7 @@ export class CircleViewMapComponent implements OnInit {
                     });
                     if (polygonCoordinate.length > 0) {
                         this.deleteSelectedShape()
-                        this.selectedShape = new this.googleMap.Polygon({
+                        this.selectedShape = new google.maps.Polygon({
                             paths: polygonCoordinate,
                             strokeColor: this.viewColor,
                             strokeOpacity: 0.8,

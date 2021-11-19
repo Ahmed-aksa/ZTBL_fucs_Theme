@@ -30,224 +30,9 @@ export class ViewGetFancingModalComponent implements OnInit {
     LocationHistories = new LocationHistories;
     geo_fence_points;
 
-    // markers: marker[] = [
-    //     {
-    //         lat: 51.673858,
-    //         lng: 7.815982,
-    //         label: 'A',
-    //         draggable: false
-    //     },
-    //     {
-    //         lat: 51.373858,
-    //         lng: 7.215982,
-    //         label: 'B',
-    //         draggable: false
-    //     },
-    //     {
-    //         lat: 51.723858,
-    //         lng: 7.895982,
-    //         label: 'C',
-    //         draggable: false
-    //     }
-    // ]
-    response = [
-        {
-            "Success": true,
-            "GeoFancPoint": {
-                "GeoFancPoints": [
-                    [
-                        {
-                            "Lat": 33.677756428136064,
-                            "Long": 33.677756428136064
-                        },
-                        {
-                            "Lat": 33.66889918794184,
-                            "Long": 33.66889918794184
-                        },
-                        {
-                            "Lat": 33.655325840605364,
-                            "Long": 33.655325840605364
-                        },
-                        {
-                            "Lat": 33.66404160442622,
-                            "Long": 33.66404160442622
-                        },
-                        {
-                            "Lat": 33.677756428136064,
-                            "Long": 33.677756428136064
-                        }
-                    ],
-                    [
-                        {
-                            "Lat": 33.69296599138837,
-                            "Long": 33.69296599138837
-                        },
-                        {
-                            "Lat": 33.68453883940059,
-                            "Long": 33.68453883940059
-                        },
-                        {
-                            "Lat": 33.669539321976124,
-                            "Long": 33.669539321976124
-                        },
-                        {
-                            "Lat": 33.6779679442981,
-                            "Long": 33.6779679442981
-                        },
-                        {
-                            "Lat": 33.69296599138837,
-                            "Long": 33.69296599138837
-                        }
-                    ],
-                    [
-                        {
-                            "Lat": 33.65902157312111,
-                            "Long": 33.65902157312111
-                        },
-                        {
-                            "Lat": 33.65073399056965,
-                            "Long": 33.65073399056965
-                        },
-                        {
-                            "Lat": 33.636586100859596,
-                            "Long": 33.636586100859596
-                        },
-                        {
-                            "Lat": 33.6445892331688,
-                            "Long": 33.6445892331688
-                        },
-                        {
-                            "Lat": 33.65294885370565,
-                            "Long": 33.65294885370565
-                        },
-                        {
-                            "Lat": 33.65902157312111,
-                            "Long": 33.65902157312111
-                        }
-                    ],
-                    [
-                        {
-                            "Lat": 33.684855689694125,
-                            "Long": 33.684855689694125
-                        },
-                        {
-                            "Lat": 33.570508130262056,
-                            "Long": 33.570508130262056
-                        },
-                        {
-                            "Lat": 33.62998780354645,
-                            "Long": 33.62998780354645
-                        },
-                        {
-                            "Lat": 33.684855689694125,
-                            "Long": 33.684855689694125
-                        }
-                    ],
-                    [
-                        {
-                            "Lat": 33.700789681408246,
-                            "Long": 33.700789681408246
-                        },
-                        {
-                            "Lat": 33.655077343956115,
-                            "Long": 33.655077343956115
-                        },
-                        {
-                            "Lat": 33.623064251515565,
-                            "Long": 33.623064251515565
-                        },
-                        {
-                            "Lat": 33.700789681408246,
-                            "Long": 33.700789681408246
-                        }
-                    ]
-                ]
-            },
-            "TranId": "0",
-            "isWebOTPEnabled": false,
-            "CanCollectRecoveryForAllMCO": false
-        }]
-    // geo_fence_points: any = [
-    //     [
-    //         {
-    //             "Lat": 33.684855689694125,
-    //             "Long": 72.4563497109375
-    //         },
-    //         {
-    //             "Lat": 33.570508130262056,
-    //             "Long": 72.297047953125
-    //         },
-    //         {
-    //             "Lat": 33.62998780354645,
-    //             "Long": 72.6541036171875
-    //         },
-    //         {
-    //             "Lat": 33.684855689694125,
-    //             "Long": 72.4563497109375
-    //         }
-    //     ],
-    //     [
-    //         {
-    //             "Lat": 33.700789681408246,
-    //             "Long": 72.82877018046129
-    //         },
-    //         {
-    //             "Lat": 33.655077343956115,
-    //             "Long": 72.73538639139879
-    //         },
-    //         {
-    //             "Lat": 33.623064251515565,
-    //             "Long": 72.81778385233629
-    //         },
-    //         {
-    //             "Lat": 33.700789681408246,
-    //             "Long": 72.82877018046129
-    //         }
-    //     ],
-    //     [
-    //         {
-    //             "Lat": 33.65902157312111,
-    //             "Long": 73.04015933604664
-    //         },
-    //         {
-    //             "Lat": 33.65073399056965,
-    //             "Long": 73.02505313487477
-    //         },
-    //         {
-    //             "Lat": 33.636586100859596,
-    //             "Long": 73.03535281749195
-    //         },
-    //         {
-    //             "Lat": 33.6445892331688,
-    //             "Long": 73.0513173255486
-    //         },
-    //         {
-    //             "Lat": 33.65294885370565,
-    //             "Long": 73.04573833079762
-    //         },
-    //         {
-    //             "Lat": 33.65902157312111,
-    //             "Long": 73.04015933604664
-    //         }
-    //     ],
-    // ]
 
     start_end_mark = [];
 
-    // latlng = [
-    //     [
-    //         '23.0285312',
-    //         '72.5262336'
-    //     ],
-    //     [
-    //         '19.0760',
-    //         '72.8777'
-    //     ],
-    //     [
-    //         '25.2048',
-    //         '55.2708'
-    //     ]
-    // ];
 
     latlng = [
         [
@@ -290,16 +75,6 @@ export class ViewGetFancingModalComponent implements OnInit {
 
     }
 
-
-    fixing() {
-        // this.latlng[0][1]='23.0285312'
-        //
-        //
-        // for(let i =0;this.latlng.length;i++){
-        //     this.latlng[i][0] = Number(this.latlng[i][0])
-        //     Number(this.latlng[i][1])
-        // }
-    }
 
     ngOnInit() {
         this.map_loader.load();
@@ -381,11 +156,7 @@ export class ViewGetFancingModalComponent implements OnInit {
     // }
 
     viewCircleFense() {
-        if (this.isLoadingFence) {
-            return
-        }
         this.isLoadingFence = true;
-
         for (let i = 0; i < this.geo_fence_points.length; i++) {
 
             const polygonCoordinate = [];
@@ -429,8 +200,6 @@ export class ViewGetFancingModalComponent implements OnInit {
     }
 
     addPolygon(polygonCoordinate) {
-
-        console.log("polygon" + polygonCoordinate)
         if (polygonCoordinate.length > 0) {
             this.selectedShape = new google.maps.Polygon({
                 paths: polygonCoordinate,
@@ -448,7 +217,6 @@ export class ViewGetFancingModalComponent implements OnInit {
     isNumber(val) {
         return Number(val);
     }
-
 
 
     GetGeoFancPoint() {
@@ -484,8 +252,7 @@ export class ViewGetFancingModalComponent implements OnInit {
                     this.spinner.hide();
                 })).subscribe((baseResponse: BaseResponseModel) => {
             if (baseResponse.Success === true) {
-                baseResponse
-                this.geo_fence_points =baseResponse.GeoFancPoint.GeoFancPoints;
+                this.geo_fence_points = baseResponse.GeoFancPoint.GeoFancPoints;
 
                 this.viewCircleFense();
             } else {

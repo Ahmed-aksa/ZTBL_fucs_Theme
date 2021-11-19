@@ -36,7 +36,7 @@ export class VendorListComponent implements OnInit {
   displayedColumns = [ 'CircleCode','Name', 'bDescription', 'Address', 'Type', 'Phone', 'Actions'];
   itemsPerPage = 10;
   pageIndex = 1;
-  offSet = 0;
+  offSet;
 
   matTableLenght: boolean = false;
   loading: boolean;
@@ -106,9 +106,7 @@ export class VendorListComponent implements OnInit {
 
 
     if (this.LoggedInUserInfo.Branch != null) {
-      this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-      this.SelectedCircles = this.Circles;
-      this.disable_circle = false;
+
 
       this.Branches = this.LoggedInUserInfo.Branch;
       this.SelectedBranches = this.Branches;
@@ -119,9 +117,18 @@ export class VendorListComponent implements OnInit {
       this.selected_z = this.SelectedZones.ZoneId
       this.selected_b = this.SelectedBranches.BranchCode
       this.selected_c = this.SelectedCircles.Id
-      console.log(this.SelectedZones)
       this.listForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
       this.listForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
+
+      if(this.LoggedInUserInfo.UserCircleMappings.length==0)
+      {
+        this.changeBranch(this.selected_b);
+      }
+      else{
+        this.Circles = this.LoggedInUserInfo.UserCircleMappings;
+        this.SelectedCircles = this.Circles;
+        this.disable_circle = false;
+      }
       var fi : any = []
       fi.Id = "null";
       fi.CircleCode = "All";
@@ -167,6 +174,8 @@ export class VendorListComponent implements OnInit {
   }
 
   find(){
+    this.offSet = 0;
+    this.itemsPerPage = 10;
     this.searchVendor()
   }
 
@@ -199,13 +208,6 @@ export class VendorListComponent implements OnInit {
     name = this.listForm.controls.VendorName.value;
     phone = this.listForm.controls.PhoneNumber.value;
     type = this.listForm.controls.Type.value;
-
-
-
-    if (name != null || phone != null){
-      this.offSet = 0;
-      this.itemsPerPage = 10;
-    }
 
     this.vendorObj.Name = name;
     this.vendorObj.PhoneNumber = phone;
@@ -332,7 +334,7 @@ export class VendorListComponent implements OnInit {
 
 changeBranch(changedValue) {
     let changedBranch = null;
-    if (changedValue) {
+    if (changedValue.value) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}
