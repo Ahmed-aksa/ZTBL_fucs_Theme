@@ -164,7 +164,7 @@
 
                                 <mat-error *ngIf="hasError('CustomerName', 'required')">Name <strong>required</strong>
                                 </mat-error>
-                                <mat-hint align="left">Please enter Name <strong>(Alphabets)</strong></mat-hint>
+                                <mat-hint align="left">Please enter Name</mat-hint>
                             </mat-form-field>
 
                         </div>
@@ -181,7 +181,7 @@
 
                                 <mat-error *ngIf="hasError('FatherName', 'required')">Father Name
                                     <strong>required</strong></mat-error>
-                                <mat-hint align="left">Please enter Father Name <strong>(Alphabets)</strong></mat-hint>
+                                <mat-hint align="left">Please enter Father Name</mat-hint>
                             </mat-form-field>
 
                         </div>
@@ -194,7 +194,7 @@
                                        formControlName="FatherOrHusbandCnic" maxlength="15" autocomplete="off"/>
                                 <!-- <mat-error *ngIf="hasError('FatherOrHusbandCnic', 'required')">Father / Husband CNIC<strong>required</strong></mat-error>
                                 <mat-error *ngIf="hasError('FatherOrHusbandCnic', 'pattern')"><strong>{{errors.cnic}}</strong></mat-error>
-                                <mat-hint align="left">Please Enter Father/Husband CNIC <strong>(Alphabets)</strong></mat-hint> -->
+                                <mat-hint align="left">Please Enter Father/Husband CNIC </mat-hint> -->
                             </mat-form-field>
                         </div>
 
@@ -212,7 +212,7 @@
                                        maxlength="50" autocomplete="off" appAlphabetOnly/>
                                 <mat-error *ngIf="hasError('HusbandName', 'required')">Husband Name
                                     <strong>required</strong></mat-error>
-                                <mat-hint align="left">Please enter Husband Name <strong>(Alphabets)</strong></mat-hint>
+                                <mat-hint align="left">Please enter Husband Name</mat-hint>
                             </mat-form-field>
                         </div>
 
@@ -304,7 +304,7 @@
                                        maxlength="30" autocomplete="off" appAlphabetOnly/>
                                 <mat-error *ngIf="hasError('MotherName', 'required')">Mother Name
                                     <strong>required</strong></mat-error>
-                                <mat-hint align="left">Please enter Mother Name <strong>(Alphabets)</strong></mat-hint>
+                                <mat-hint align="left">Please enter Mother Name</mat-hint>
                             </mat-form-field>
                         </div>
 
@@ -318,7 +318,7 @@
                                        appAlphabetOnly/>
                                 <mat-error *ngIf="hasError('MarkOfIdentification', 'required')">Mark of Identification
                                     <strong>required</strong></mat-error>
-                                <mat-hint align="left">Please enter Mark of Identification <strong>(Alphabets)</strong>
+                                <mat-hint align="left">Please enter Mark of Identification
                                 </mat-hint>
                             </mat-form-field>
                         </div>
@@ -562,7 +562,7 @@
                                        maxlength="30" autocomplete="off" readonly/>
                                 <mat-error *ngIf="hasError('BirthPlace', 'required')">Birth Place
                                     <strong>required</strong></mat-error>
-                                <mat-hint align="left">Please Enter Birth Place <strong>(Alphabets)</strong></mat-hint>
+                                <mat-hint align="left">Please Enter Birth Place</mat-hint>
                             </mat-form-field>
                         </div>
 
@@ -597,7 +597,7 @@
                                        maxlength="15" autocomplete="off"/>
                                 <mat-error *ngIf="hasError('PassportNumber', 'required')">Passport
                                     No<strong>required</strong></mat-error>
-                                <mat-hint align="left">Please Enter Passport No <strong>(Alphabets)</strong></mat-hint>
+                                <mat-hint align="left">Please Enter Passport No</mat-hint>
                             </mat-form-field>
                         </div>
 
@@ -624,7 +624,7 @@
                                        maxlength="30" autocomplete="off"/>
                                 <mat-error *ngIf="hasError('BusinessProfPos', 'required')">Business Prof Pos <strong>required</strong>
                                 </mat-error>
-                                <mat-hint align="left">Please enter Business Prof Pos <strong>(Alphabets)</strong>
+                                <mat-hint align="left">Please enter Business Prof Pos
                                 </mat-hint>
                             </mat-form-field>
                         </div>
@@ -658,7 +658,7 @@
                                     <strong>required</strong></mat-error>
                                 <mat-error *ngIf="hasError('FamilyNumber', 'pattern')">
                                     <strong>{{errors.familyNumber}}</strong></mat-error>
-                                <mat-hint align="left">Please enter Family No <strong>(Alphabets)</strong></mat-hint>
+                                <mat-hint align="left">Please enter Family No</mat-hint>
                             </mat-form-field>
                         </div>
 
@@ -694,7 +694,7 @@
                                        autocomplete="off"/>
                                 <mat-error *ngIf="hasError('BankEmp', 'required')">Emp PP No <strong>required</strong>
                                 </mat-error>
-                                <mat-hint align="left">Please enter Emp PP No <strong>(Alphabets)</strong></mat-hint>
+                                <mat-hint align="left">Please enter Emp PP No</mat-hint>
                             </mat-form-field>
 
 
@@ -704,21 +704,32 @@
                         <div *ngIf="PostCodeLov" class="col-lg-3 kt-margin-bottom-20-mobile">
 
                             <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
-                                <!--<mat-label>Select Post Code</mat-label>-->
-                                <mat-label class="customMatLabel">Select Post Code <strong
-                                    class="matMandatory">*</strong></mat-label>
-                                <mat-select formControlName="PostCode">
-                                    <mat-option>
-                                        <ngx-mat-select-search placeholderLabel="Search Post Code..."
-                                                               [formControl]="searchFilterCtrlPostCode">
-                                        </ngx-mat-select-search>
-                                    </mat-option>
-                                    <mat-option *ngFor="let obj of PostCodeLov.LOVs" [value]="obj.Id">
-                                        {{obj.Name}}
-                                    </mat-option>
-                                </mat-select>
-
+                                <mat-label class="customMatLabel">Enter Post Code <strong class="matMandatory"></strong>
+                                </mat-label>
+                                <input matInput placeholder="Enter Post Code" formControlName="PostCode"
+                                       maxlength="8" autocomplete="off"/>
+                                <mat-error *ngIf="hasError('PostCode', 'required')">Postal Code
+                                    <strong>required</strong></mat-error>
+                                <mat-error *ngIf="hasError('PostCode', 'pattern')">
+                                    <strong>{{errors.PostCode}}</strong></mat-error>
+                                <mat-hint align="left">Please enter Postal Code</mat-hint>
                             </mat-form-field>
+                            <!--                            <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">-->
+                            <!--                                &lt;!&ndash;<mat-label>Select Post Code</mat-label>&ndash;&gt;-->
+                            <!--                                <mat-label class="customMatLabel">Select Post Code <strong-->
+                            <!--                                    class="matMandatory">*</strong></mat-label>-->
+                            <!--                                <mat-select formControlName="PostCode">-->
+                            <!--                                    <mat-option>-->
+                            <!--                                        <ngx-mat-select-search placeholderLabel="Search Post Code..."-->
+                            <!--                                                               [formControl]="searchFilterCtrlPostCode">-->
+                            <!--                                        </ngx-mat-select-search>-->
+                            <!--                                    </mat-option>-->
+                            <!--                                    <mat-option *ngFor="let obj of PostCodeLov.LOVs" [value]="obj.Id">-->
+                            <!--                                        {{obj.Name}}-->
+                            <!--                                    </mat-option>-->
+                            <!--                                </mat-select>-->
+
+                            <!--                            </mat-form-field>-->
 
 
                         </div>
@@ -739,7 +750,7 @@
                                        formControlName="CurrentAddress" maxlength="150" autocomplete="off"/>
                                 <mat-error *ngIf="hasError('CurrentAddress', 'required')">Current Address <strong>required</strong>
                                 </mat-error>
-                                <mat-hint align="left">Please enter Current Address <strong>(Alphabets)</strong>
+                                <mat-hint align="left">Please enter Current Address
                                 </mat-hint>
                             </mat-form-field>
                         </div>
@@ -758,7 +769,7 @@
                                        formControlName="PermanentAddress" maxlength="150" autocomplete="off"/>
                                 <mat-error *ngIf="hasError('PermanentAddress', 'required')">Permanent Address <strong>required</strong>
                                 </mat-error>
-                                <mat-hint align="left">Please enter Permanent Address <strong>(Alphabets)</strong>
+                                <mat-hint align="left">Please enter Permanent Address
                                 </mat-hint>
                             </mat-form-field>
                         </div>
@@ -774,7 +785,7 @@
                                        autocomplete="off"/>
                                 <mat-error *ngIf="hasError('Remarks', 'required')">Remarks <strong>required</strong>
                                 </mat-error>
-                                <mat-hint align="left">Please enter Remarks <strong>(Alphabets)</strong></mat-hint>
+                                <mat-hint align="left">Please enter Remarks</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
@@ -798,13 +809,15 @@
 
                     <button type="button" class="btn btn-primary bg-green" mat-raised-button color="primary"
                             (click)="onSubmit(false)" [disabled]="viewLoading || submitted">
-                            <mat-icon class="mr-2">save</mat-icon> Save
+                        <mat-icon class="mr-2">save</mat-icon>
+                        Save
                     </button>
 
                     &nbsp;
                     <button type="button" class="btn btn-primary" mat-raised-button color="primary"
                             (click)="onSubmit(true)" [disabled]="viewLoading || submitted">
-                            <mat-icon class="mr-2">check_circle</mat-icon> Submit
+                        <mat-icon class="mr-2">check_circle</mat-icon>
+                        Submit
                     </button>
                 </div>
             </div>
