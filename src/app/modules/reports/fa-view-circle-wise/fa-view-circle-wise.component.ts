@@ -12,7 +12,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
-import { Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
+import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
@@ -21,6 +21,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {SearchLoanCaseByCnic} from '../class/reports';
 import {ReportsService} from '../service/reports.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'fa-view-circle-wise',
@@ -74,7 +75,6 @@ export class FaViewCircleWiseComponent implements OnInit {
     public LovCall = new Lov();
 
 
-
     constructor(
         private fb: FormBuilder,
         private _reports: ReportsService,
@@ -82,6 +82,7 @@ export class FaViewCircleWiseComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private _lovService: LovService,
         private layoutUtilsService: LayoutUtilsService,
+        private toastr: ToastrService
     ) {
     }
 
@@ -107,14 +108,6 @@ export class FaViewCircleWiseComponent implements OnInit {
             console.log(this.SelectedZones)
             this.searchCnicForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
             this.searchCnicForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
-            // var fi : any = []
-            // fi.Id = "null";
-            // fi.CircleCode = "All";
-            // fi.LovId = "0";
-            // fi.TagName="0";
-            // this.SelectedCircles.splice(0, 0, fi)
-            // console.log(this.SelectedCircles)
-            // this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
             this.spinner.show();
 
@@ -165,11 +158,15 @@ export class FaViewCircleWiseComponent implements OnInit {
     }
 
     find() {
+        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
+        if (this.searchCnicForm.invalid) {
+            this.toastr.error("Please enter required fields");
+            return;
+        }
         this.assignBranchAndZone();
         this.user.Branch = this.final_branch;
         this.user.Zone = this.final_zone;
         this.user.Circle = null
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "17";
@@ -209,15 +206,15 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.itemsPerPage = pageSize;
         this.pageIndex = pageIndex;
         //this.OffSet = pageIndex;
-    
+
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
     }
 
-    async typeLov(){
-      this.statusLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.BifurcationLCStatus });
-      this.statusLov = this.statusLov.LOVs;
-      this.searchCnicForm.controls["AccountStatus"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-      console.log(this.statusLov)
+    async typeLov() {
+        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
+        this.statusLov = this.statusLov.LOVs;
+        this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
+        console.log(this.statusLov)
     }
 
     changeZone(changedValue) {

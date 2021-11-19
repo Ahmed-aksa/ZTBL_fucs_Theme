@@ -89,7 +89,7 @@
 
                                 <mat-select [(ngModel)]="selected_b" formControlName="BranchCode"
                                             [disabled]="disable_branch"
-                                            *ngIf="!single_branch">
+                                            *ngIf="!single_branch" (selectionChange)="changeBranch($event)">
                                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
                                     >
                                         {{branch?.Name}}
