@@ -4,7 +4,7 @@ import {Circle} from 'app/shared/models/circle.model';
 import {CircleService} from 'app/shared/services/circle.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {finalize} from 'rxjs/operators';
-import {Zone} from '../../users/utils/zone.model'
+import {Zone} from '../../users/utils/zone.model';
 
 declare const google: any;
 
