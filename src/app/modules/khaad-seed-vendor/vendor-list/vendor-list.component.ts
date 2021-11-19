@@ -248,12 +248,13 @@ export class VendorListComponent implements OnInit {
         this.totalItems = baseResponse.SeedKhadVendor.VendorDetails[0].TotalRecords
       }
       else{
+        this.layoutUtilsService.alertElement("", baseResponse.Message);
         this.loading = false;
         this.matTableLenght = false;
         this.dataSource = this.dv.slice(1, 0);
         this.offSet = 0;
         this.pageIndex = 1;
-        this.layoutUtilsService.alertElement("", baseResponse.Message);
+        
       }
     })
 
