@@ -147,12 +147,6 @@
                 #table
                 [dataSource]="
                     dataSource
-                        | paginate
-                            : {
-                                  itemsPerPage: itemsPerPage,
-                                  currentPage: pageIndex,
-                                  totalItems: totalItems
-                              }
                 "
                 matSort
                 #sort1="matSort"
@@ -247,7 +241,7 @@
                 Please wait....
             </div>
 
-            <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">
+            <!-- <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">
                 Items per page:
                 <mat-select
                     display="inline"
@@ -279,7 +273,7 @@
                 <p style="float: right">
                     Total <b>{{ totalItems }}</b> items
                 </p>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

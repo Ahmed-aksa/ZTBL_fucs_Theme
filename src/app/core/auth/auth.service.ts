@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable quotes */
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, JsonpClientBackend} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';

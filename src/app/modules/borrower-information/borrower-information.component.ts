@@ -1,3 +1,16 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable prefer-const */
+/* eslint-disable arrow-parens */
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable curly */
+/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable quotes */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/member-ordering */
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NgxSpinnerService} from "ngx-spinner";
 import {finalize} from 'rxjs/operators';
@@ -27,7 +40,7 @@ export class BorrowerInformationComponent implements OnInit {
     itemsPerPage = 10;
     totalItems;
     pageIndex = 1;
-    OffSet = 0;
+    OffSet: number;
     loaded = false;
     user: any = {};
 
@@ -214,6 +227,8 @@ export class BorrowerInformationComponent implements OnInit {
     }
 
     getBorrower() {
+      this.OffSet = 0;
+      this.itemsPerPage = 10;
         this.assignBranchAndZone()
         if (!this.final_zone) {
             var Message = 'Please select Zone';
@@ -235,19 +250,16 @@ export class BorrowerInformationComponent implements OnInit {
             return;
         }
 
-        var cnic = this.borrowerForm.controls.Cnic.value;
+        let cnic = this.borrowerForm.controls.Cnic.value;
         this.user.ZoneId = this.borrowerForm.controls.Zone.value;
         if (this.SelectedBranches.length != undefined) {
             this.user.Branch = this.SelectedBranches.filter((branch) => branch.BranchCode == this.borrowerForm.controls.Branch.value);
         } else {
             this.user.Branch = this.SelectedBranches;
         }
-        if (cnic != null) {
-            this.OffSet = 0;
-        }
         this.user.CircleId = this.borrowerForm.controls.Circle.value;
         this.user.ZoneId = this.borrowerForm.controls.Circle.value;
-        var PPNo = this.borrowerForm.controls?.PPNo?.value;
+        let PPNo = this.borrowerForm.controls?.PPNo?.value;
         this.spinner.show();
 
         this._borrowerInfo.getBorrowerInformation(this.itemsPerPage, this.OffSet, cnic, this.user,PPNo,this.final_zone, this.final_branch, this.final_cricle)

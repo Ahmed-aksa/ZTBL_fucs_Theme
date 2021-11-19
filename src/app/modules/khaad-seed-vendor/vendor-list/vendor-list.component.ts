@@ -36,7 +36,7 @@ export class VendorListComponent implements OnInit {
   displayedColumns = [ 'CircleCode','Name', 'bDescription', 'Address', 'Type', 'Phone', 'Actions'];
   itemsPerPage = 10;
   pageIndex = 1;
-  offSet = 0;
+  offSet;
 
   matTableLenght: boolean = false;
   loading: boolean;
@@ -191,6 +191,8 @@ export class VendorListComponent implements OnInit {
   }
 
   searchVendor() {
+    this.offSet = 0;
+    this.itemsPerPage = 10;
     this.loaded = false;
     this.loading = true;
     var phone, name, type;
@@ -206,13 +208,6 @@ export class VendorListComponent implements OnInit {
     name = this.listForm.controls.VendorName.value;
     phone = this.listForm.controls.PhoneNumber.value;
     type = this.listForm.controls.Type.value;
-
-
-
-    if (name != null || phone != null){
-      this.offSet = 0;
-      this.itemsPerPage = 10;
-    }
 
     this.vendorObj.Name = name;
     this.vendorObj.PhoneNumber = phone;
