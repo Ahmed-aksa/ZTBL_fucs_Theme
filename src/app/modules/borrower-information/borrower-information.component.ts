@@ -1,29 +1,16 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable prefer-const */
-/* eslint-disable arrow-parens */
-/* eslint-disable @angular-eslint/use-lifecycle-interface */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable curly */
-/* eslint-disable @typescript-eslint/semi */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable quotes */
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable no-var */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/member-ordering */
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { LayoutUtilsService } from '../../shared/services/layout-utils.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { BorrowerInformationService } from './service/borrower-information.service';
-import { CircleService } from '../../shared/services/circle.service';
-import { BaseResponseModel } from '../../shared/models/base_response.model';
-import { Branch } from '../../shared/models/branch.model';
-import { Zone } from '../../shared/models/zone.model';
-import { UserUtilsService } from '../../shared/services/users_utils.service';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {finalize} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {LayoutUtilsService} from '../../shared/services/layout-utils.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {BorrowerInformationService} from './service/borrower-information.service';
+import {CircleService} from '../../shared/services/circle.service';
+import {BaseResponseModel} from '../../shared/models/base_response.model';
+import {Branch} from '../../shared/models/branch.model';
+import {Zone} from '../../shared/models/zone.model';
+import {UserUtilsService} from '../../shared/services/users_utils.service';
 
 @Component({
     selector: 'kt-borrower-information',
@@ -96,7 +83,8 @@ export class BorrowerInformationComponent implements OnInit {
         private cdRef: ChangeDetectorRef,
         private userUtilsService: UserUtilsService,
         private _circleService: CircleService
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.createForm();
@@ -135,6 +123,7 @@ export class BorrowerInformationComponent implements OnInit {
         } else if (
             !this.LoggedInUserInfo.Branch &&
             !this.LoggedInUserInfo.UserCircleMappings
+            && this.LoggedInUserInfo.Zone
         ) {
             this.Zone = this.LoggedInUserInfo.Zone;
             this.SelectedZones = this.Zone;
@@ -171,9 +160,9 @@ export class BorrowerInformationComponent implements OnInit {
     changeZone(changedValue) {
         let changedZone = null;
         if (changedValue?.value) {
-            changedZone = { Zone: { ZoneId: changedValue.value } };
+            changedZone = {Zone: {ZoneId: changedValue.value}};
         } else {
-            changedZone = { Zone: { ZoneId: changedValue } };
+            changedZone = {Zone: {ZoneId: changedValue}};
         }
         //let changedZone = { Zone: { ZoneId: changedValue.value } };
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
@@ -187,8 +176,8 @@ export class BorrowerInformationComponent implements OnInit {
     changeBranch(changedValue) {
         let changedBranch = null;
         if (changedValue.value)
-            changedBranch = { Branch: { BranchCode: changedValue.value } };
-        else changedBranch = { Branch: { BranchCode: changedValue } };
+            changedBranch = {Branch: {BranchCode: changedValue.value}};
+        else changedBranch = {Branch: {BranchCode: changedValue}};
 
         this.userUtilsService
             .getCircle(changedBranch)
@@ -224,7 +213,9 @@ export class BorrowerInformationComponent implements OnInit {
             PPNo: [null],
         });
     }
+
     userInfo = this.userUtilsService.getUserDetails();
+
     private assignBranchAndZone() {
         //Circle
         if (this.SelectedCircles.length) {
@@ -259,7 +250,6 @@ export class BorrowerInformationComponent implements OnInit {
     }
 
     find() {
-        debugger
         this.OffSet = 0;
         this.itemsPerPage = 10;
 
@@ -267,7 +257,6 @@ export class BorrowerInformationComponent implements OnInit {
     }
 
     getBorrower() {
-        debugger
         this.assignBranchAndZone();
         if (!this.final_zone) {
             var Message = 'Please select Zone';
@@ -362,7 +351,7 @@ export class BorrowerInformationComponent implements OnInit {
                         Lcno: Lcno,
                     },
                 ],
-                { relativeTo: this.activatedRoute }
+                {relativeTo: this.activatedRoute}
             )
             //this.router.createUrlTree(['../loan-inquiry', { LnTransactionID: LnTransactionID, Lcno: Lcno }], { relativeTo: this.activatedRoute })
         );
