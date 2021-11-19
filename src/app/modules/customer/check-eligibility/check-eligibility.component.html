@@ -18,7 +18,7 @@
 
                     <!--Get Customer Info-->
                     <div [style.height]="gridHeight" *ngIf="NDCActionPerformSuccess">
-                        <div class="form-group kt-form__group row">
+                        <div class="form-group kt-form__group row ">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <input matInput placeholder="Enter cnic" formControlName="Cnic" maxlength="15"
@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <button type="button" (click)="getCustomerInfo()" mat-flat-button
-                                        class=" btn mt-2 bg-green rounded-md"
+                                        class=" ml-2  btn mt-2 bg-green rounded-md"
                                         [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
                                     <mat-icon class="mr-2">check_circle</mat-icon>
                                     Check Eligibility
