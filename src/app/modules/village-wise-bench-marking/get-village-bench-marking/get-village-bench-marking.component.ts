@@ -44,7 +44,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
   totalItems;
   pageIndex = 1;
   gridHeight: string;
-  Offset: number;
+  Offset: number = 0;
   Limit;
 
   Math: any;

@@ -36,7 +36,7 @@ export class VendorListComponent implements OnInit {
   displayedColumns = [ 'CircleCode','Name', 'bDescription', 'Address', 'Type', 'Phone', 'Actions'];
   itemsPerPage = 10;
   pageIndex = 1;
-  offSet;
+  offSet = 0;
 
   matTableLenght: boolean = false;
   loading: boolean;
@@ -104,7 +104,6 @@ export class VendorListComponent implements OnInit {
 
     this.typeLov();
 
-
     if (this.LoggedInUserInfo.Branch != null) {
 
 
@@ -137,7 +136,20 @@ export class VendorListComponent implements OnInit {
       this.SelectedCircles.splice(0, 0, fi)
       console.log(this.SelectedCircles)
       this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-    }else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+    }
+    else if(!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings){
+      
+      this.Zone = this.LoggedInUserInfo.Zone;
+      this.SelectedZones = this.Zone;
+      this.disable_zone=true;
+      this.listForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
+
+      
+
+      this.selected_z = this.SelectedZones?.ZoneId
+      this.changeZone(this.selected_z.ZoneId);
+    }
+    else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
       this.spinner.show();
 
       this.userUtilsService.getZone().subscribe((data: any) => {
@@ -147,7 +159,9 @@ export class VendorListComponent implements OnInit {
           this.disable_zone = false;
           this.spinner.hide();
 
-      });}
+      }); 
+    }
+
 
       if(this.LoggedInUserInfo.Branch != null){
         this.initValues();
@@ -321,11 +335,19 @@ export class VendorListComponent implements OnInit {
   }
 
   changeZone(changedValue) {
-    let changedZone = {Zone: {ZoneId: changedValue.value}}
+    let changedZone=null;
+    if(changedValue?.value)
+    {
+     changedZone = {Zone: {ZoneId: changedValue.value}}
+    }
+    else
+    {
+       changedZone = {Zone: {ZoneId: changedValue}}
+
+    }
     this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
         this.Branches = data.Branches;
         this.SelectedBranches = this.Branches;
-        console.log(this.Branches)
         this.single_branch = false;
         this.disable_branch = false;
     });

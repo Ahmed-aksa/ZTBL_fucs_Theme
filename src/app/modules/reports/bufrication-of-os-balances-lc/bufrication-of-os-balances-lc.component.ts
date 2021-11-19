@@ -102,6 +102,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             this.selected_c = this.SelectedCircles.Id
             this.bufricationForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
             this.bufricationForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
+            this.bufricationForm.controls["WorkingDate"].setValue(this.LoggedInUserInfo.Branch.WorkingDate);
             this.changeBranch(this.selected_b);
             var fi: any = []
             fi.Id = "null";
@@ -155,8 +156,8 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         this.bufricationForm = this.fb.group({
             ZoneId: [null, Validators.required],
             BranchCode: [null, Validators.required],
-            WorkingDate: ['11012021', Validators.required],
-            LcNo: [null, Validators.required],
+            WorkingDate: [null, Validators.required],
+            LcNo: [null],
             CircleId: [null, Validators.required],
             Status: [null, Validators.required],
             ReportFormatType: [null, Validators.required],
@@ -175,6 +176,8 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
     }
 
     find() {
+
+        this.bufricationForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             return;
@@ -183,8 +186,6 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         this.user.Branch = this.final_branch;
         this.user.Zone = this.final_zone;
         this.user.Circle = this.bufricationForm.controls.CircleId.value;
-
-        this.bufricationForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "18";
