@@ -1,46 +1,40 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable prefer-const */
-/* eslint-disable arrow-parens */
-/* eslint-disable @angular-eslint/use-lifecycle-interface */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable curly */
-/* eslint-disable @typescript-eslint/semi */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable quotes */
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable no-var */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/member-ordering */
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LayoutUtilsService} from '../../shared/services/layout-utils.service';
 import {MatTableDataSource} from '@angular/material/table';
-import {BorrowerInformationService} from "./service/borrower-information.service";
-import {CircleService} from "../../shared/services/circle.service";
-import {BaseResponseModel} from "../../shared/models/base_response.model";
-import {Branch} from "../../shared/models/branch.model";
-import {Zone} from "../../shared/models/zone.model";
-import {UserUtilsService} from "../../shared/services/users_utils.service";
+import {BorrowerInformationService} from './service/borrower-information.service';
+import {CircleService} from '../../shared/services/circle.service';
+import {BaseResponseModel} from '../../shared/models/base_response.model';
+import {Branch} from '../../shared/models/branch.model';
+import {Zone} from '../../shared/models/zone.model';
+import {UserUtilsService} from '../../shared/services/users_utils.service';
 
 @Component({
     selector: 'kt-borrower-information',
     templateUrl: './borrower-information.component.html',
-    styleUrls: ['./borrower-information.component.scss']
+    styleUrls: ['./borrower-information.component.scss'],
 })
 export class BorrowerInformationComponent implements OnInit {
-    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'PhoneNumber', 'InterestRate', 'PermanentAddress'];
+    displayedColumns = [
+        'CustomerName',
+        'FatherName',
+        'Cnic',
+        'PhoneNumber',
+        'InterestRate',
+        'PermanentAddress',
+    ];
     matTableLenght: boolean = false;
-    PPNOVisible:boolean=true;
+    PPNOVisible: boolean = true;
     borrowerForm: FormGroup;
 
     dv;
     itemsPerPage = 10;
     totalItems;
     pageIndex = 1;
-    OffSet: number;
+    OffSet: number = 0;
     loaded = false;
     user: any = {};
 
@@ -68,7 +62,7 @@ export class BorrowerInformationComponent implements OnInit {
     Circles: any = [];
     SelectedCircles: any = [];
     public Circle = new Branch();
-    dataSource: MatTableDataSource<Borrowers>
+    dataSource: MatTableDataSource<Borrowers>;
 
     selected_b;
     selected_z;
@@ -88,38 +82,61 @@ export class BorrowerInformationComponent implements OnInit {
         private fb: FormBuilder,
         private cdRef: ChangeDetectorRef,
         private userUtilsService: UserUtilsService,
-        private _circleService: CircleService,
+        private _circleService: CircleService
     ) {
     }
 
-
     ngOnInit() {
         this.createForm();
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        this.LoggedInUserInfo =
+            this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
+        if (
+            this.LoggedInUserInfo.Branch &&
+            this.LoggedInUserInfo.Branch.BranchCode != 'All'
+        ) {
             this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
 
             this.SelectedBranches = this.LoggedInUserInfo.Branch;
             this.SelectedZones = this.LoggedInUserInfo.Zone;
 
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.selected_c = this.SelectedCircles?.Id
-            this.borrowerForm.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.borrowerForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-            var fi: any = []
-            fi.Id = "null";
-            fi.CircleCode = "All";
-            fi.LovId = "0";
-            fi.TagName = "0";
-            this.SelectedCircles.splice(0, 0, fi)
-            this.borrowerForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
+            this.selected_z = this.SelectedZones?.ZoneId;
+            this.selected_b = this.SelectedBranches?.BranchCode;
+            this.selected_c = this.SelectedCircles?.Id;
+            this.borrowerForm.controls['Zone'].setValue(this.SelectedZones?.Id);
+            this.borrowerForm.controls['Branch'].setValue(
+                this.SelectedBranches?.BranchCode
+            );
+            var fi: any = [];
+            fi.Id = 'null';
+            fi.CircleCode = 'All';
+            fi.LovId = '0';
+            fi.TagName = '0';
+            this.SelectedCircles.splice(0, 0, fi);
+            this.borrowerForm.controls['Circle'].setValue(
+                this.SelectedCircles ? this.SelectedCircles[0].Id : ''
+            );
             if (this.borrowerForm.value.Branch) {
                 this.changeBranch(this.borrowerForm.value.Branch);
             }
             this.getBorrower();
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+        } else if (
+            !this.LoggedInUserInfo.Branch &&
+            !this.LoggedInUserInfo.UserCircleMappings
+            && this.LoggedInUserInfo.Zone
+        ) {
+            this.Zone = this.LoggedInUserInfo.Zone;
+            this.SelectedZones = this.Zone;
+            this.disable_zone = true;
+            this.borrowerForm.controls['Zone'].setValue(this.SelectedZones?.Id);
+
+            this.selected_z = this.SelectedZones?.ZoneId;
+            this.changeZone(this.selected_z);
+        } else if (
+            !this.LoggedInUserInfo.Branch &&
+            !this.LoggedInUserInfo.Zone &&
+            !this.LoggedInUserInfo.Zone
+        ) {
             this.spinner.show();
             this.userUtilsService.getZone().subscribe((data: any) => {
                 this.Zone = data?.Zones;
@@ -128,10 +145,8 @@ export class BorrowerInformationComponent implements OnInit {
                 this.disable_zone = false;
                 this.spinner.hide();
             });
-
-
         }
-        this.settingPPNoFeild()
+        this.settingPPNoFeild();
     }
 
     ngAfterViewInit() {
@@ -140,11 +155,16 @@ export class BorrowerInformationComponent implements OnInit {
         //    console.log("called")
         //     this.getBorrower();
         // }
-
     }
 
     changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        let changedZone = null;
+        if (changedValue?.value) {
+            changedZone = {Zone: {ZoneId: changedValue.value}};
+        } else {
+            changedZone = {Zone: {ZoneId: changedValue}};
+        }
+        //let changedZone = { Zone: { ZoneId: changedValue.value } };
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
             this.SelectedBranches = this.Branches;
@@ -153,38 +173,35 @@ export class BorrowerInformationComponent implements OnInit {
         });
     }
 
-
     changeBranch(changedValue) {
-        
         let changedBranch = null;
         if (changedValue.value)
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        else
-            changedBranch = {Branch: {BranchCode: changedValue}}
+            changedBranch = {Branch: {BranchCode: changedValue.value}};
+        else changedBranch = {Branch: {BranchCode: changedValue}};
 
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            // this.selected_c = this.SelectedCircles?.Id
-            this.disable_circle = false;
-            if (changedValue.value) {
-                // this.getBorrower();
-            }
-        });
+        this.userUtilsService
+            .getCircle(changedBranch)
+            .subscribe((data: any) => {
+                this.Circles = data.Circles;
+                this.SelectedCircles = this.Circles;
+                // this.selected_c = this.SelectedCircles?.Id
+                this.disable_circle = false;
+                if (changedValue.value) {
+                    // this.getBorrower();
+                }
+            });
     }
 
+    settingPPNoFeild() {
+        console.log('called PPNOVisible');
+        var userInfo = this.userUtilsService.getUserDetails();
 
-    settingPPNoFeild(){
-
-        console.log("called PPNOVisible")
-    var userInfo = this.userUtilsService.getUserDetails();
-
-    // console.log(userInfo);
-    //MCO User
-    if (userInfo.User.userGroup[0].ProfileID == "56") {
-    this.PPNOVisible = false;
-}
-}
+        // console.log(userInfo);
+        //MCO User
+        if (userInfo.User.userGroup[0].ProfileID == '56') {
+            this.PPNOVisible = false;
+        }
+    }
 
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
@@ -193,15 +210,18 @@ export class BorrowerInformationComponent implements OnInit {
             Branch: [userInfo?.Branch?.Name],
             Circle: [],
             Cnic: [null],
-            PPNo:[null],
-        })
+            PPNo: [null],
+        });
     }
-    userInfo = this.userUtilsService.getUserDetails();
-    private assignBranchAndZone() {
 
+    userInfo = this.userUtilsService.getUserDetails();
+
+    private assignBranchAndZone() {
         //Circle
         if (this.SelectedCircles.length) {
-            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+            this.final_cricle = this.SelectedCircles?.filter(
+                (circ) => circ.Id == this.selected_c
+            )[0];
             this.userInfo.Circles = this.final_cricle;
         } else {
             this.final_cricle = this.SelectedCircles;
@@ -209,7 +229,9 @@ export class BorrowerInformationComponent implements OnInit {
         }
         //Branch
         if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.final_branch = this.SelectedBranches?.filter(
+                (circ) => circ.BranchCode == this.selected_b
+            )[0];
             this.userInfo.Branch = this.final_branch;
         } else {
             this.final_branch = this.SelectedBranches;
@@ -217,49 +239,44 @@ export class BorrowerInformationComponent implements OnInit {
         }
         //Zone
         if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.final_zone = this.SelectedZones?.filter(
+                (circ) => circ.ZoneId == this.selected_z
+            )[0];
             this.userInfo.Zone = this.final_zone;
         } else {
             this.final_zone = this.SelectedZones;
             this.userInfo.Zone = this.final_zone;
         }
-
     }
 
-    find(){
+    find() {
         this.OffSet = 0;
         this.itemsPerPage = 10;
 
-        this.getBorrower()
+        this.getBorrower();
     }
 
     getBorrower() {
-      
-        this.assignBranchAndZone()
+        this.assignBranchAndZone();
         if (!this.final_zone) {
             var Message = 'Please select Zone';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
+            this.layoutUtilsService.alertElement('', Message, null);
             return;
         }
 
         if (!this.final_branch) {
             var Message = 'Please select Branch';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
+            this.layoutUtilsService.alertElement('', Message, null);
             return;
         }
 
         let cnic = this.borrowerForm.controls.Cnic.value;
         this.user.ZoneId = this.borrowerForm.controls.Zone.value;
         if (this.SelectedBranches.length != undefined) {
-            this.user.Branch = this.SelectedBranches.filter((branch) => branch.BranchCode == this.borrowerForm.controls.Branch.value);
+            this.user.Branch = this.SelectedBranches.filter(
+                (branch) =>
+                    branch.BranchCode == this.borrowerForm.controls.Branch.value
+            );
         } else {
             this.user.Branch = this.SelectedBranches;
         }
@@ -268,7 +285,17 @@ export class BorrowerInformationComponent implements OnInit {
         let PPNo = this.borrowerForm.controls?.PPNo?.value;
         this.spinner.show();
 
-        this._borrowerInfo.getBorrowerInformation(this.itemsPerPage, this.OffSet, cnic, this.user,PPNo,this.final_zone, this.final_branch, this.final_cricle)
+        this._borrowerInfo
+            .getBorrowerInformation(
+                this.itemsPerPage,
+                this.OffSet,
+                cnic,
+                this.user,
+                PPNo,
+                this.final_zone,
+                this.final_branch,
+                this.final_cricle
+            )
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -279,32 +306,36 @@ export class BorrowerInformationComponent implements OnInit {
                 if (baseResponse.Success === true) {
                     this.dataSource = baseResponse.BorrowerInfo.Borrowers;
                     this.dv = this.dataSource;
-                    this.matTableLenght = true
-                    this.totalItems = baseResponse.BorrowerInfo.Borrowers[0].TotalRecords
+                    this.matTableLenght = true;
+                    this.totalItems =
+                        baseResponse.BorrowerInfo.Borrowers[0].TotalRecords;
                 } else {
-
                     if (this.dv != undefined) {
                         this.matTableLenght = false;
-                        this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
+                        this.dataSource = this.dv.slice(1, 0); //this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         // this.dataSource.data = [];
                         // this._cdf.detectChanges();
                         this.OffSet = 1;
                         this.pageIndex = 1;
                         this.dv = this.dv.slice(1, 0);
-
                     }
-                    this.layoutUtilsService.alertElement("", baseResponse.Message);
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        baseResponse.Message
+                    );
                 }
-            })
+            });
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
         this.getBorrower();
-        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
+        this.dataSource = this.dv.slice(
+            pageIndex * this.itemsPerPage - this.itemsPerPage,
+            pageIndex * this.itemsPerPage
+        );
     }
 
     viewInquiry(borrower) {
@@ -312,10 +343,16 @@ export class BorrowerInformationComponent implements OnInit {
         //var LnTransactionID = this.JvForm.controls.LoanDisbID.value;
 
         const url = this.router.serializeUrl(
-            this.router.createUrlTree(['../loan-recovery/loan-inquiry', {
-                LnTransactionID: "",
-                Lcno: Lcno
-            }], {relativeTo: this.activatedRoute})
+            this.router.createUrlTree(
+                [
+                    '../loan-recovery/loan-inquiry',
+                    {
+                        LnTransactionID: '',
+                        Lcno: Lcno,
+                    },
+                ],
+                {relativeTo: this.activatedRoute}
+            )
             //this.router.createUrlTree(['../loan-inquiry', { LnTransactionID: LnTransactionID, Lcno: Lcno }], { relativeTo: this.activatedRoute })
         );
         window.open(url, '_blank');
@@ -334,5 +371,5 @@ interface Borrowers {
     FatherName: string;
     PermanentAddress: string;
     InterestRate: string;
-    TotalRecords: string
+    TotalRecords: string;
 }
