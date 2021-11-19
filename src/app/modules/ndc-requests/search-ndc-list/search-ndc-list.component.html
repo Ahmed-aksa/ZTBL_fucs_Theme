@@ -30,7 +30,7 @@
             <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
               Please enter valid Input
             </kt-alert> -->
-            <div class="row pt-4">
+            <div class="row">
 
 <!--                <div class="col-lg-4">-->
 <!--                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
@@ -123,19 +123,15 @@
               </div> -->
 
 
-                <div class="col-lg-4 ">
+                <div class="col-lg-3 ">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Cnic</mat-label>
                         <input matInput placeholder="Enter Cnic" formControlName="Cnic" appNumberOnly maxlength="13"
                                autocomplete="off"/>
                     </mat-form-field>
                 </div>
-
-
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-sm-12 ">
-                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="findCnic()"
+                <div class="col-lg-3 col-sm-12 ">
+                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="findCnic()"
                             color="primary" type="button">
                         <mat-icon class="mr-2">search</mat-icon>
                         Search
@@ -144,7 +140,9 @@
                         class="-mt-4">Get All</b></span>
                 </div>
 
+
             </div>
+
 
         </form>
             </div>

@@ -256,7 +256,7 @@ thead{
   tr{
     height: 56px;
     th{
-      line-height: 43px;
+      // line-height: 43px;
       padding-left: 8px;
     }
   }
@@ -461,4 +461,35 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
   padding-right: 20px;
   padding-left: 20px;
   margin-top: var(--bs-gutter-y);
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start,
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap {
+    border-width: 2px !important;
+}
+
+.table td, .table th {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+
+.mat-row {
+  height: auto;
+}
+
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}
+
+.api-table{
+  .mat-header-cell{
+    height: 56px;
+    line-height: 57px;
+    align-self: center;
+  }
+}
+.mat-cell{
+  word-break: break-word;
+
 }

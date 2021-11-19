@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
         
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
         
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">From</mat-label>
@@ -84,7 +84,7 @@
         
                     </div>
                     <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">To</mat-label>
                                 <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy" formControlName="ToDate"  [min]="minDate" [max]="getTodayForTo()" (dateChange)="setToDate()" autocomplete="off">
@@ -132,19 +132,16 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-        
-        
-                        </div>
-                        <div class="row">
                             <div class="col-lg-3 col-sm-12">
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" (click)="SearchTourPlan()"  type="button" class="mat-raised-button mat-button-base mat-primary kt-login__btn-primary btn-block mat-primary">
+                                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" (click)="SearchTourPlan()"  type="button" class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary">
                                         <mat-icon class="mr-2">search</mat-icon> Search
                                     </button>
                                 </div>
                             </div>
-                        </div>
         
+        
+                        </div>
         
         
         

@@ -1,12 +1,26 @@
 <div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
 
     <div class="row py-3">
-        <div class="col-lg-12 col-sm-12">
+        <div class="col-lg-9 col-sm-12">
             <div class="heading">Search Land</div>
         </div>
-    
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2">filter_list</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+        </div>
     </div>
 
+    <!-- Header -->
+
+
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
     <!-- Header -->
     <div  [formGroup]="landSearch">
 
@@ -107,7 +121,8 @@
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                    <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample" class="bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                             type="button" (click)="searchLand()">
                         <mat-icon class="mr-2">search</mat-icon>
                         Search
@@ -120,8 +135,12 @@
 
 
     </div>
-    <div class="flex flex-auto mt-4" style="flex-direction: column;overflow-y: scroll">
-        <div class="example-table-container overflow-scroll" [style.height]="gridHeight">
+        </div>
+    </div>
+
+
+    <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
+        <div class="example-table-container border shadow-xs rounded-sm bg-gray-50  overflow-scroll" [style.height]="gridHeight">
             <!--[style.height]="gridHeight"-->
             <mat-table
                 #table
@@ -200,26 +219,26 @@
 
             </mat-table>
         </div>
-        <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
-            Items per page:
-            <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
-                        style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-                <mat-option [value]="5">5</mat-option>
-                <mat-option [value]="10">10</mat-option>
-                <mat-option [value]="25">25</mat-option>
-                <mat-option [value]="50">50</mat-option>
-                <mat-option [value]="100">100</mat-option>
-                <mat-option [value]="500">500</mat-option>
-                <mat-option [value]="1000">1000</mat-option>
-            </mat-select>
-            <button (click)="paginate(1)">First</button>
-            <pagination-controls display="inline" (pageChange)="paginate($event)"
-                                 style="display: inline-block;"></pagination-controls>
-            <button (click)="paginate(Math.Ceil(totalItems/itemsPerPage))">Last</button>
-            <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
-    
-        </div>
+
 
     </div>
+    <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+        Items per page:
+        <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+            <mat-option [value]="100">100</mat-option>
+            <mat-option [value]="500">500</mat-option>
+            <mat-option [value]="1000">1000</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls display="inline" (pageChange)="paginate($event)"
+                             style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(Math.Ceil(totalItems/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
+    </div>
 </div>
