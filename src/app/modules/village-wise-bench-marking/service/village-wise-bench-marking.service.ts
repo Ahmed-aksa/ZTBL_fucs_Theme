@@ -33,7 +33,7 @@ export class VillageWiseBenchMarkingService{
   userInfo = this.userUtilsService.getUserDetails();
 
   getVillageBenchMark(circle,limit, offset, village){
-    debugger
+    
     // var circle = this.userInfo.UserCircleMappings;
     var circleIds = [];
 
