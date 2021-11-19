@@ -92,7 +92,7 @@ export class EarlyWarningReportsComponent implements OnInit {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm()
-        this.typeLov();
+        // this.typeLov();
 
         if (this.LoggedInUserInfo.Branch != null) {
             this.Circles = this.LoggedInUserInfo.UserCircleMappings;
@@ -167,6 +167,7 @@ export class EarlyWarningReportsComponent implements OnInit {
     }
 
     find() {
+        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
             return;
@@ -175,7 +176,6 @@ export class EarlyWarningReportsComponent implements OnInit {
         this.user.Branch = this.final_branch;
         this.user.Zone = this.final_zone;
         this.user.Circle = null;
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "17";
@@ -219,12 +219,12 @@ export class EarlyWarningReportsComponent implements OnInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
     }
 
-    async typeLov() {
-        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
-        this.statusLov = this.statusLov.LOVs;
-        this.searchCnicForm.controls["AccountStatus"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-        console.log(this.statusLov)
-    }
+    // async typeLov() {
+    //     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
+    //     this.statusLov = this.statusLov.LOVs;
+    //     this.searchCnicForm.controls["AccountStatus"].setValue(this.statusLov ? this.statusLov[0].Value : "")
+    //     console.log(this.statusLov)
+    // }
 
     changeZone(changedValue) {
         let changedZone = {Zone: {ZoneId: changedValue.value}}
