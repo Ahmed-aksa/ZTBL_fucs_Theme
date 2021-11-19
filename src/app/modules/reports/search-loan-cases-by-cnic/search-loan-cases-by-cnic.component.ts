@@ -163,6 +163,7 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
         this.assignBranchAndZone();
         this.user.Branch = this.final_branch;
         this.user.Zone = this.final_zone;
+        this.user.Circle = null;
 
         if (this.searchCnicForm.controls.Cnic.value == null && this.searchCnicForm.controls.CustomerName.value == null && this.searchCnicForm.controls.FatherName.value == null) {
             this.layoutUtilsService.alertElement('', 'Atleast add any one field among Cnic, Father Name or Customer Name')

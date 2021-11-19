@@ -106,9 +106,7 @@ export class VendorListComponent implements OnInit {
 
 
     if (this.LoggedInUserInfo.Branch != null) {
-      this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-      this.SelectedCircles = this.Circles;
-      this.disable_circle = false;
+
 
       this.Branches = this.LoggedInUserInfo.Branch;
       this.SelectedBranches = this.Branches;
@@ -119,9 +117,18 @@ export class VendorListComponent implements OnInit {
       this.selected_z = this.SelectedZones.ZoneId
       this.selected_b = this.SelectedBranches.BranchCode
       this.selected_c = this.SelectedCircles.Id
-      console.log(this.SelectedZones)
       this.listForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
       this.listForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
+
+      if(this.LoggedInUserInfo.UserCircleMappings.length==0)
+      {
+        this.changeBranch(this.selected_b);
+      }
+      else{
+        this.Circles = this.LoggedInUserInfo.UserCircleMappings;
+        this.SelectedCircles = this.Circles;
+        this.disable_circle = false;
+      }
       var fi : any = []
       fi.Id = "null";
       fi.CircleCode = "All";
@@ -332,7 +339,7 @@ export class VendorListComponent implements OnInit {
 
 changeBranch(changedValue) {
     let changedBranch = null;
-    if (changedValue) {
+    if (changedValue.value) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}
