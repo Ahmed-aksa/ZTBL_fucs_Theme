@@ -142,7 +142,7 @@ export class BorrowerInformationComponent implements OnInit {
             this.borrowerForm.controls['Zone'].setValue(this.SelectedZones?.Id);
 
             this.selected_z = this.SelectedZones?.ZoneId;
-            this.changeZone(this.selected_z.ZoneId);
+            this.changeZone(this.selected_z);
         } else if (
             !this.LoggedInUserInfo.Branch &&
             !this.LoggedInUserInfo.Zone &&
@@ -259,6 +259,7 @@ export class BorrowerInformationComponent implements OnInit {
     }
 
     find() {
+        debugger
         this.OffSet = 0;
         this.itemsPerPage = 10;
 
@@ -266,6 +267,7 @@ export class BorrowerInformationComponent implements OnInit {
     }
 
     getBorrower() {
+        debugger
         this.assignBranchAndZone();
         if (!this.final_zone) {
             var Message = 'Please select Zone';

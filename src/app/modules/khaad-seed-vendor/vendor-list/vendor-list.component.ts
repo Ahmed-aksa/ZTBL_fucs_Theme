@@ -147,7 +147,7 @@ export class VendorListComponent implements OnInit {
       
 
       this.selected_z = this.SelectedZones?.ZoneId
-      this.changeZone(this.selected_z.ZoneId);
+      this.changeZone(this.selected_z);
     }
     else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
       this.spinner.show();
@@ -335,6 +335,7 @@ export class VendorListComponent implements OnInit {
   }
 
   changeZone(changedValue) {
+    debugger
     let changedZone=null;
     if(changedValue?.value)
     {
