@@ -226,9 +226,15 @@ export class BorrowerInformationComponent implements OnInit {
 
     }
 
+    find(){
+        this.OffSet = 0;
+        this.itemsPerPage = 10;
+
+        this.getBorrower()
+    }
+
     getBorrower() {
-      this.OffSet = 0;
-      this.itemsPerPage = 10;
+      
         this.assignBranchAndZone()
         if (!this.final_zone) {
             var Message = 'Please select Zone';

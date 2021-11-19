@@ -174,6 +174,8 @@ export class VendorListComponent implements OnInit {
   }
 
   find(){
+    this.offSet = 0;
+    this.itemsPerPage = 10;
     this.searchVendor()
   }
 
@@ -191,8 +193,6 @@ export class VendorListComponent implements OnInit {
   }
 
   searchVendor() {
-    this.offSet = 0;
-    this.itemsPerPage = 10;
     this.loaded = false;
     this.loading = true;
     var phone, name, type;

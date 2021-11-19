@@ -174,10 +174,15 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
   }
 
+  find(){
+    this.Offset = 0;
+    this.itemsPerPage = 10;
+    this.search()
+  }
+
   search() {
       
     this.loaded = false;
-    this.Offset = 0;
     this.Limit = this.itemsPerPage;
 
     this.getVillage.ZoneId = this.getVillageBenchmarkForm.controls.Zone.value;
