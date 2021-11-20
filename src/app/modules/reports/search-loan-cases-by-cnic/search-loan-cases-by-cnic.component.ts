@@ -30,7 +30,7 @@ import {ReportsService} from '../service/reports.service';
     styleUrls: ['./search-loan-cases-by-cnic.component.scss']
 })
 export class SearchLoanCasesByCnicComponent implements OnInit {
-    displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los'];
+    displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Agps','Bcl', 'Los'];
     searchCnicForm: FormGroup;
     selected_b;
     selected_z;

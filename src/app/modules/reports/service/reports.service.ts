@@ -61,7 +61,7 @@ export class ReportsService {
             );
     }
 
-    earlyWarningReport(user, reportsFilter) {
+    updatedList(user, reportsFilter) {
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }
@@ -75,7 +75,49 @@ export class ReportsService {
               CircleCode: user.Circle.CircleId
             }
         }
+        return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
+            .pipe(
+                map((res: BaseResponseModel) => res)
+            );
+    }
 
+    searchNpl(user, reportsFilter) {
+      debugger
+      if(reportsFilter.CircleId == 'null'){
+        reportsFilter.CircleId = null
+      }
+        
+        var request = {
+            ReportsFilterCustom: reportsFilter,
+            User: this.userDetail.User,
+            Zone: user.Zone,
+            Branch: user.Branch,
+            Circle:{
+              CircleId: user.Circle.CircleId,
+              CircleCode: user.Circle.CircleCode
+            }
+        }
+        return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
+            .pipe(
+                map((res: BaseResponseModel) => res)
+            );
+    }
+
+    bifurcation(user, reportsFilter) {
+      debugger
+      if(reportsFilter.CircleId == 'null'){
+        reportsFilter.CircleId = null
+      }
+        
+        var request = {
+            ReportsFilterCustom: reportsFilter,
+            User: this.userDetail.User,
+            Zone: user.Zone,
+            Branch: user.Branch,
+            Circle:{
+              CircleCode: user.Circle.CircleId
+            }
+        }
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
             .pipe(
                 map((res: BaseResponseModel) => res)

@@ -121,7 +121,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "20";
         this.spinner.show();
-        this._reports.reportDynamic(this.user, this.reports)
+        this._reports.updatedList(this.user, this.reports)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
