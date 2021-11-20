@@ -53,7 +53,7 @@ export class VillageWiseBenchMarkingService {
         var request = {
             Circle: {
                 CircleIds: _circles,
-                CircleCode: circle.Id
+                CircleCode: circle?.Id
             },
             VillageBenchMarking: {
                 Limit: limit,

@@ -111,7 +111,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     }
 
     search() {
-
+debugger
         this.loaded = false;
         this.Limit = this.itemsPerPage;
 
