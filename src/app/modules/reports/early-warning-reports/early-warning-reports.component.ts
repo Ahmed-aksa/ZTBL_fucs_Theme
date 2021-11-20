@@ -144,27 +144,6 @@ export class EarlyWarningReportsComponent implements OnInit {
         })
     }
 
-    private assignBranchAndZone() {
-
-
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.LoggedInUserInfo.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.LoggedInUserInfo.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.LoggedInUserInfo.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.LoggedInUserInfo.Zone = this.final_zone;
-        }
-
-    }
 
     find() {
         this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
@@ -172,7 +151,7 @@ export class EarlyWarningReportsComponent implements OnInit {
             this.toastr.error("Please Enter Required values");
             return;
         }
-        this.assignBranchAndZone();
+        
         this.user.Branch = this.final_branch;
         this.user.Zone = this.final_zone;
         this.user.Circle = null;

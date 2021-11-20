@@ -80,6 +80,11 @@ export class VendorListComponent implements OnInit {
     single_circle = true;
     single_zone = true;
 
+    branch: any;
+    zone: any;
+    circle: any;
+    
+
     LoggedInUserInfo: BaseResponseModel;
     user: any = {};
 
@@ -108,59 +113,6 @@ export class VendorListComponent implements OnInit {
 
         this.typeLov();
 
-        if (this.LoggedInUserInfo.Branch != null) {
-
-
-            this.Branches = this.LoggedInUserInfo.Branch;
-            this.SelectedBranches = this.Branches;
-
-            this.Zone = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zone;
-
-            this.selected_z = this.SelectedZones.ZoneId
-            this.selected_b = this.SelectedBranches.BranchCode
-            this.selected_c = this.SelectedCircles.Id
-            this.listForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
-            this.listForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
-
-            if (this.LoggedInUserInfo.UserCircleMappings.length == 0) {
-                this.changeBranch(this.selected_b);
-            } else {
-                this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-                this.SelectedCircles = this.Circles;
-                this.disable_circle = false;
-            }
-            var fi: any = []
-            fi.Id = "null";
-            fi.CircleCode = "All";
-            fi.LovId = "0";
-            fi.TagName = "0";
-            this.SelectedCircles.splice(0, 0, fi)
-            console.log(this.SelectedCircles)
-            this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings && this.LoggedInUserInfo.Zone) {
-
-            this.Zone = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zone;
-            this.disable_zone = true;
-            this.listForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
-
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.changeZone(this.selected_z);
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
-            this.spinner.show();
-
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data.Zones;
-                this.SelectedZones = this.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-
-            });
-        }
-
 
         if (this.LoggedInUserInfo.Branch != null) {
             this.initValues();
@@ -169,8 +121,8 @@ export class VendorListComponent implements OnInit {
 
     initValues() {
         if (this.LoggedInUserInfo.Zone != undefined && this.LoggedInUserInfo.Branch != undefined) {
-            this.user.ZoneId = this.LoggedInUserInfo.Zone.ZoneId;
-            this.user.BranchCode = this.LoggedInUserInfo.Branch.BranchCode;
+            this.user.ZoneId = this.zone.ZoneId;
+            this.user.BranchCode = this.branch.BranchCode;
         }
         this.searchVendor()
     }
@@ -211,9 +163,9 @@ export class VendorListComponent implements OnInit {
         var phone, name, type;
 
         if (this.listForm.controls.ZoneId.value != null && this.listForm.controls.BranchCode.value != null) {
-            this.user.ZoneId = this.listForm.controls.ZoneId.value;
-            this.user.CircleId = this.listForm.controls.CircleId.value;
-            this.user.BranchCode = this.listForm.controls.BranchCode.value;
+            this.user.ZoneId = this.zone.ZoneId;
+            this.user.CircleId = this.circle.CircleId;
+            this.user.BranchCode = this.branch.BranchCode;
         }
 
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
@@ -350,46 +302,12 @@ export class VendorListComponent implements OnInit {
         });
     }
 
-    changeZone(changedValue) {
-        let changedZone = null;
-        if (changedValue?.value) {
-            changedZone = {Zone: {ZoneId: changedValue.value}}
-        } else {
-            changedZone = {Zone: {ZoneId: changedValue}}
-
-        }
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = data.final_circle;
     }
 
-
-    changeBranch(changedValue) {
-        let changedBranch = null;
-        if (changedValue.value) {
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        } else {
-            changedBranch = {Branch: {BranchCode: changedValue}}
-
-        }
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            console.log(data);
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            var fi: any = []
-            fi.Id = "null";
-            fi.CircleCode = "All";
-            fi.LovId = "0";
-            fi.TagName = "0";
-            this.SelectedCircles.splice(0, 0, fi)
-            console.log(this.SelectedCircles)
-            this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-            this.disable_circle = false;
-        });
-    }
 
 }
 

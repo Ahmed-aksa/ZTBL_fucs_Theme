@@ -100,6 +100,10 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
   single_circle = true;
   single_zone = true;
 
+  branch: any
+  circle: any
+  zone: any
+
   loc_text = "Choose Location"
 
   public LovCall = new Lov();
@@ -176,46 +180,6 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     this.createForm();
     this.typeLov();
 
-    if (this.LoggedInUserInfo.Branch != null) {
-      this.disable_circle = false
-      this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-      this.SelectedCircles = this.Circles;
-
-      this.Branches = this.LoggedInUserInfo.Branch;
-      this.SelectedBranches = this.Branches;
-
-      this.Zone = this.LoggedInUserInfo.Zone;
-      this.SelectedZones = this.Zone;
-
-      this.selected_z = this.SelectedZones.ZoneId
-      this.selected_b = this.SelectedBranches.BranchCode
-      console.log(this.SelectedZones)
-      this.vendorForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
-      this.vendorForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
-    }
-    else if(!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings){
-      
-      this.Zone = this.LoggedInUserInfo.Zone;
-      this.SelectedZones = this.Zone;
-      this.disable_zone=true;
-      this.vendorForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
-
-      
-
-      this.selected_z = this.SelectedZones?.ZoneId
-      this.changeZone(this.selected_z);
-    }
-    else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-      this.spinner.show();
-
-      this.userUtilsService.getZone().subscribe((data: any) => {
-          this.Zone = data.Zones;
-          this.SelectedZones = this.Zone;
-          this.single_zone = false;
-          this.disable_zone = false;
-          this.spinner.hide();
-
-      });}
     //For Edit Mode
       this.up = upFlag
     if(upFlag == "1" && this.isEditMode == "1"){
@@ -235,11 +199,17 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     console.log("vendor"+this.vendorLov)
   }
 
+  getAllData(data) {
+    this.zone = data.final_zone;
+    this.branch = data.final_branch;
+    this.circle = data.final_circle;
+}
+
   getVendorInfo(){
 
-    this.user.ZoneId = this.vendorEditView.ZoneId;
-    this.user.BranchCode = this.vendorEditView.BranchCode;
-    this.user.CircleId = this.vendorEditView.CircleId;
+    this.user.ZoneId = this.zone.ZoneId;
+    this.user.BranchCode = this.branch.BranchCode;
+    this.user.CircleId = this.circle.CircleId;
     this.vendor.Id = this.vendorEditView.Id;
 
     var limit = 1, offset = 0;
