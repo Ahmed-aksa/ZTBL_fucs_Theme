@@ -26,6 +26,7 @@ import {CircleService} from 'app/shared/services/circle.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -62,7 +63,8 @@ export class CircleListComponent implements OnInit {
         private _circleService: CircleService,
         private _cdf: ChangeDetectorRef,
         private formBuilder: FormBuilder,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private toastr: ToastrService
     ) {
     }
 
@@ -83,6 +85,10 @@ export class CircleListComponent implements OnInit {
     }
 
     find() {
+        if (this.create_circ_form.invalid) {
+            this.toastr.error("Please enter valid details first");
+            return;
+        }
         this.loadingdata = true;
         this.dataSource.data = [];
         this._circleService.getCircles(this.branch)
@@ -98,13 +104,9 @@ export class CircleListComponent implements OnInit {
                 this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
 
         });
-
-        //this._cdf.detectChanges();
     }
 
-    applyFilter(filterValue
-                    :
-                    string
+    applyFilter(filterValue: string
     ) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();

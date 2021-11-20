@@ -74,6 +74,12 @@ export class ZoneBranchCircleComponent implements OnInit {
                 this.changeBranch(this.selected_b);
             }
 
+        } else if (!this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
+            this.SelectedZones = this.all_data.Zone;
+            this.selected_z = this.SelectedZones?.ZoneId;
+            this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
+            this.changeZone(this.selected_z);
+
         } else if (!this.all_data.Branch && !this.all_data.Zone && !this.all_data.Zone) {
             this.spinner.show();
 
@@ -104,10 +110,14 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        let changedZone = null;
+        if (changedValue.value) {
+            changedZone = {Zone: {ZoneId: changedValue.value}}
+        } else {
+            changedZone = {Zone: {ZoneId: changedValue}}
+        }
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            let branch = data.Branches;
-            this.SelectedBranches = branch;
+            this.SelectedBranches = data.Branches;
             this.single_branch = false;
         });
         this.emitData();
@@ -123,17 +133,17 @@ export class ZoneBranchCircleComponent implements OnInit {
 
     emitData() {
         let final_zone = null;
-        if (this.SelectedZones.length > 1)
+        if (this.SelectedZones?.length > 1)
             final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
         else final_zone = this.SelectedZones
         let final_branch = null;
-        if (this.SelectedBranches.length > 1)
+        if (this.SelectedBranches?.length > 1)
             final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
         else final_branch = this.SelectedBranches
 
 
         let final_circle = null;
-        if (this.SelectedCircles.length > 1)
+        if (this.SelectedCircles?.length > 1)
             final_circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
         else
             final_circle = this.SelectedCircles;
