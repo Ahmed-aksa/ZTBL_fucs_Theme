@@ -120,7 +120,7 @@ export class GeoFencingListComponent implements OnInit {
 
     view(data: any) {
         const dialogRef = this.dialog.open(ViewGetFancingModalComponent, {
-            height: '100%',
+            panelClass: ['h-screen','max-w-full','max-h-full'],
             width: '100%',
             data: data,
             disableClose: true
