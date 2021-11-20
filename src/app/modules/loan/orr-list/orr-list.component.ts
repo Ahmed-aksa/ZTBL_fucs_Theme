@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DatePipe } from '@angular/common';
@@ -9,7 +9,7 @@ import { finalize } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DateFormats, Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
-import { SearchLoan } from 'app/shared/models/Loan.model';
+import {Loan, SearchLoan} from 'app/shared/models/Loan.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { LoanService } from 'app/shared/services/loan.service';
@@ -32,7 +32,7 @@ import { LovService } from 'app/shared/services/lov.service';
 })
 export class OrrListComponent implements OnInit {
 
-  
+    @Input() loanDetail: Loan;
   loanSearch: FormGroup;
   loanFilter = new SearchLoan()
   LoggedInUserInfo: BaseResponseModel;
@@ -72,7 +72,7 @@ export class OrrListComponent implements OnInit {
       this.loggedInUserIsAdmin = true;
 
     this.createForm();
-    this.getLoanStatus(); 
+    this.getLoanStatus();
   }
 
 

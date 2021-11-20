@@ -81,7 +81,7 @@ export class ClLegalHeirsComponent implements OnInit {
       PhoneCell: [this.legalHeirs.PhoneCell, [Validators.required,Validators.maxLength(11)]],
       PhoneOff: [this.legalHeirs.PhoneOff],
       Gender: [this.legalHeirs.Gender, [Validators.required]],
-      Customer: [this.legalHeirs.CustomerName]
+        CustomerName: [this.legalHeirs.CustomerName]
     });
   }
 
@@ -142,22 +142,33 @@ export class ClLegalHeirsComponent implements OnInit {
   }
 
   onClearLegalHeirsForm() {
-    this.legalHeirsForm.controls["CustomerID"].setValue("");
-    this.legalHeirsForm.controls["Cnic"].setValue("");
-    this.legalHeirsForm.controls["LegalHeirsName"].setValue("");
-    this.legalHeirsForm.controls["Dob"].setValue("");
-    this.legalHeirsForm.controls["RelationID"].setValue("");
-    this.legalHeirsForm.controls["PhoneOff"].setValue("");
-    this.legalHeirsForm.controls["PhoneCell"].setValue("");
-    this.legalHeirsForm.controls["Gender"].setValue("");
-    const controls = this.legalHeirsForm.controls;
-    Object.keys(controls).forEach(controlName =>
-      controls[controlName].markAsUntouched()
-    );
+      this.legalHeirsForm.reset();
+      this.legalHeirsForm.markAsPristine();
+      this.legalHeirsForm.markAsUntouched();
+    // this.legalHeirsForm.controls["CustomerID"].setValue("");
+    // this.legalHeirsForm.controls["Cnic"].setValue("");
+    // this.legalHeirsForm.controls["LegalHeirsName"].setValue("");
+    // this.legalHeirsForm.controls["Dob"].setValue("");
+    // this.legalHeirsForm.controls["RelationID"].setValue("");
+    // this.legalHeirsForm.controls["PhoneOff"].setValue("");
+    // this.legalHeirsForm.controls["PhoneCell"].setValue("");
+    // this.legalHeirsForm.controls["Gender"].setValue("");
+    // const controls = this.legalHeirsForm.controls;
+    // Object.keys(controls).forEach(controlName =>
+    //   controls[controlName].markAsUntouched()
+    // );
   }
+
+    onChange(val) {
+
+
+        console.log("device val"+JSON.stringify(val));
+        this.legalHeirsForm.controls.CustomerName.setValue(val.CustomerName)
+    }
 
   onSaveLegalHeirsForm() {
 
+      debugger
     //if (this.loanDetail == null || this.loanDetail == undefined) {
     //  this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
     //  return;
@@ -194,9 +205,8 @@ export class ClLegalHeirsComponent implements OnInit {
     ).subscribe(baseResponse => {
 
         if (baseResponse.Success) {
-
+debugger;
           this.legalHeirs = this.legalHeirsForm.value;
-
           var legalHeirsGrid = new LoanApplicationLegalHeirs();
 
           legalHeirsGrid.CustomerID = this.legalHeirs.CustomerID;
@@ -210,9 +220,12 @@ export class ClLegalHeirsComponent implements OnInit {
           legalHeirsGrid.PhoneOff = this.legalHeirs.PhoneOff;
           legalHeirsGrid.Gender = this.legalHeirs.Gender;
           legalHeirsGrid.Relation = this.currentSelectedRelationship;
+          legalHeirsGrid.UserID = baseResponse.Loan.LoanApplicationLegalHeirs.ID;
 
           this.legalHeirsArray.push(legalHeirsGrid);
-
+            this.legalHeirsForm.reset();
+            this.legalHeirsForm.markAsPristine();
+            this.legalHeirsForm.markAsUntouched();
           this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         }
         else {
@@ -221,8 +234,9 @@ export class ClLegalHeirsComponent implements OnInit {
       });
   }
 
-  onDeleteLegalHeirs(legalHeir) {
+  onDeleteLegalHeirs(legalHeir,index) {
 
+      debugger
     console.log(legalHeir)
 
 
@@ -236,6 +250,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(res => {
+
 
       if (!res) {
         return;
@@ -254,12 +269,20 @@ export class ClLegalHeirsComponent implements OnInit {
             .pipe(
               finalize(() => {
                 this.spinner.hide();
-
               })
             )
             .subscribe(baseResponse => {
-              const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                if(baseResponse.Success===true)
+                {
+                    console.log("called")
+                    this.legalHeirsArray.splice(index, 1);
+                    this.onClearLegalHeirsForm();
+                    const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+
+                }
+
             })
+
         }
 
 
@@ -267,6 +290,9 @@ export class ClLegalHeirsComponent implements OnInit {
 
 
     })
+      this.legalHeirsForm.reset();
+      this.legalHeirsForm.markAsPristine();
+      this.legalHeirsForm.markAsUntouched();
   }
 
 }

@@ -966,6 +966,7 @@ export class LoanService {
     }
 
     deleteLegalHeirs(legalId, loan) {
+        debugger
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         loanInfo.LoanApplicationLegalHeirs = new LoanApplicationLegalHeirs();
@@ -975,6 +976,8 @@ export class LoanService {
         this.request.Loan = loanInfo;
         this.request.TranId = 0;
 
+
+        console.log(this.request)
 
         return this.http
             .post(`${environment.apiUrl}/Loan/DeleteLegalHeirs`, this.request, {
