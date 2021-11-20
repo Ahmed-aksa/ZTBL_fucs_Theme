@@ -99,6 +99,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     changeBranch(changedValue) {
+        this.selected_c = null;
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -112,6 +113,8 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     changeZone(changedValue) {
+        this.selected_b = null;
+        this.selected_c = null;
         let changedZone = null;
         if (changedValue.value) {
             changedZone = {Zone: {ZoneId: changedValue.value}}

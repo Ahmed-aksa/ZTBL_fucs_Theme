@@ -53,23 +53,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     branch: any;
     circle: any;
 
-  //Zone inventory
-  Zones: any = [];
-  SelectedZones: any = [];
-  public Zone = new Zone();
 
-  //Branch inventory
-  Branches: any = [];
-  SelectedBranches: any = [];
-  public Branch = new Branch();
-
-  //Circle inventory
-  Circles: any = [];
-  SelectedCircles: any = [];
-  public Circle = new Circle();
-  selected_b;
-  selected_z;
-  selected_c;
   LoggedInUserInfo: BaseResponseModel;
 
   disable_circle = true;
@@ -195,60 +179,16 @@ debugger
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
-    }
+
+        if(this.circle?.CircleCode){
+            this.addUpdateBenchMarkForm.controls.circleCode.setValue(this.circle?.CircleCode)
+        }
+
+
+  }
   ngOnInit() {
     this.createForm();
     this.LoadLovs();
-
-    this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-
-    if (this.LoggedInUserInfo.Branch != null) {
-      this.disable_circle = false;
-
-
-      this.Branches = this.LoggedInUserInfo.Branch;
-      this.SelectedBranches = this.Branches;
-
-      this.Zone = this.LoggedInUserInfo.Zone;
-      this.SelectedZones = this.Zone;
-
-      this.selected_z = this.SelectedZones.ZoneId
-      this.selected_b = this.SelectedBranches.BranchCode
-      console.log(this.SelectedZones)
-      this.addUpdateBenchMarkForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
-      this.addUpdateBenchMarkForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
-
-      if(this.LoggedInUserInfo.UserCircleMappings.length != 0){
-        this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-        this.SelectedCircles = this.Circles;
-      }
-      else{
-        this.changeBranch(this.selected_b)
-      }
-    }
-    else if(!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings){
-
-      this.Zone = this.LoggedInUserInfo.Zone;
-      this.SelectedZones = this.Zone;
-      this.disable_zone=true;
-      this.addUpdateBenchMarkForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
-
-
-
-      this.selected_z = this.SelectedZones?.ZoneId
-      this.changeZone(this.selected_z);
-    }
-    else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-      this.spinner.show();
-
-      this.userUtilsService.getZone().subscribe((data: any) => {
-          this.Zone = data.Zones;
-          this.SelectedZones = this.Zone;
-          this.single_zone = false;
-          this.disable_zone = false;
-          this.spinner.hide();
-
-      });}
 
   }
 
@@ -589,42 +529,6 @@ for(let i=0;i<this.village.length;i++)
       }
     })
   }
-
-  changeBranch(changedValue) {
-
-    let changedBranch = null;
-    if (changedValue.value) {
-        changedBranch = {Branch: {BranchCode: changedValue.value}}
-    } else {
-        changedBranch = {Branch: {BranchCode: changedValue}}
-
-    }
-    this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-        console.log(data);
-        this.Circles = data.Circles;
-        this.SelectedCircles = this.Circles;
-        this.disable_circle = false;
-    });
-}
-
-    changeZone(changedValue) {
-      let changedZone=null;
-      if(changedValue?.value)
-      {
-       changedZone = {Zone: {ZoneId: changedValue.value}}
-      }
-      else
-      {
-         changedZone = {Zone: {ZoneId: changedValue}}
-
-      }
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
 
     async LoadLovs() {
         this.GenderLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Gender});
