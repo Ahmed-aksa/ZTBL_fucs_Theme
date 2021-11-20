@@ -77,6 +77,10 @@ export class CustomerListComponent implements OnInit {
     final_zone: any;
     final_branch: any;
 
+
+    zone: any;
+    branch: any;
+
     constructor(
         public dialog: MatDialog,
         private activatedRoute: ActivatedRoute,
@@ -99,28 +103,6 @@ export class CustomerListComponent implements OnInit {
             this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus']
         this.LoadLovs();
         this.createForm();
-        var userDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.loggedInUserDetails = userDetails;
-
-        if (this.loggedInUserDetails.Branch && this.loggedInUserDetails.Branch.BranchCode != "All") {
-
-            this.SelectedBranches = this.loggedInUserDetails.Branch;
-            this.SelectedZones = this.loggedInUserDetails.Zone;
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.customerSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.customerSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-        } else if (!this.loggedInUserDetails.Branch && !this.loggedInUserDetails.Zone && !this.loggedInUserDetails.Zone) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-        }
     }
 
     ngAfterViewInit() {
@@ -135,15 +117,6 @@ export class CustomerListComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
 
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
@@ -157,97 +130,12 @@ export class CustomerListComponent implements OnInit {
         });
     }
 
-    GetZones() {
-        this.loading = true;
-        this.spinner.show();
-        this._circleService.getZones()
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                    this.spinner.hide();
-                })
-            ).subscribe(baseResponse => {
-            if (baseResponse.Success) {
-                baseResponse.Zones.forEach(function (value) {
-                    value.ZoneName = value.ZoneName.split("-")[1];
-                })
-                this.Zones = baseResponse.Zones;
-                this.SelectedZones = baseResponse.Zones;
-                this.loading = false;
-                this._cdf.detectChanges();
-            } else
-                this.layoutUtilsService.alertElement("", baseResponse.Message);
-
-        });
-
-    }
-
-    SetBranches(branchId) {
-        this.Branch.BranchCode = branchId.value;
-
-    }
-
-
-    GetBranches(ZoneId) {
-        this.loading = true;
-        this.dataSource.data = [];
-        this.Branches = [];
-        if (ZoneId.value === undefined)
-            this.Zone.ZoneId = ZoneId;
-        else
-            this.Zone.ZoneId = ZoneId.value;
-        this._circleService.getBranchesByZone(this.Zone)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            ).subscribe(baseResponse => {
-            if (baseResponse.Success) {
-                this.loading = false;
-                this.Branches = baseResponse.Branches;
-                this.SelectedBranches = baseResponse.Branches;
-                this._cdf.detectChanges();
-            } else
-                this.layoutUtilsService.alertElement("", baseResponse.Message);
-
-        });
-
-
-    }
-
-
-    searchBranch(branchId) {
-        branchId = branchId.toLowerCase();
-        if (branchId != null && branchId != undefined && branchId != "")
-            this.SelectedBranches = this.Branches.filter(x => x.Name.toLowerCase().indexOf(branchId) > -1);
-        else
-            this.SelectedBranches = this.Branches;
-    }
-
-    validateBranchOnFocusOut() {
-        if (this.SelectedBranches.length == 0)
-            this.SelectedBranches = this.Branches;
-    }
-
-
     hasError(controlName: string, errorName: string): boolean {
         return this.customerSearch.controls[controlName].hasError(errorName);
     }
 
-    private assignBranchAndZone() {
-        if (this.SelectedBranches.length)
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
-        else
-            this.final_branch = this.SelectedBranches;
-        let zone = null;
-        if (this.SelectedZones.length)
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-        else
-            this.final_zone = this.SelectedZones;
-    }
 
     searchCustomer() {
-        this.assignBranchAndZone();
         this._customer.clear();
         this._customer = Object.assign(this._customer, this.customerSearch.value);
         const controlsCust = this.customerSearch.controls;
@@ -263,7 +151,7 @@ export class CustomerListComponent implements OnInit {
         }
         if (this._customer.CustomerStatus == "All")
             this._customer.CustomerStatus = "";
-        this._customerService.searchCustomer(this._customer, this.final_branch, this.final_zone)
+        this._customerService.searchCustomer(this._customer, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -338,4 +226,8 @@ export class CustomerListComponent implements OnInit {
         });
     }
 
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+    }
 }
