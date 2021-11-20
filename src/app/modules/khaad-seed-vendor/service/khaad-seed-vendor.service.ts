@@ -90,7 +90,7 @@ export class KhaadSeedVendorService {
 
     }
 
-    searchVendors(limit, offSet, vendor, user) {
+    searchVendors(limit, offSet, vendor, user,zone="",branch="",circle="") {
 
         if (vendor.Type == 'null' || user.CircleId == 'null') {
             vendor.Type = null
@@ -113,15 +113,9 @@ export class KhaadSeedVendorService {
                 VendorDetail: vendor
             },
             User: this.userDetail.User,
-            Circle: {
-                Id: user.CircleId
-            },
-            Zone: {
-                ZoneId: user.ZoneId
-            },
-            Branch: {
-                BranchCode: user.BranchCode
-            }
+            Circle: circle? "" : null,
+            Zone: zone,
+            Branch: branch,
         }
 
         return this.http.post<any>(`${environment.apiUrl}/SeedKhadVendor/GetVendors`, request)

@@ -144,7 +144,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     }
   ngOnInit() {
 
-    
+
     this.images.push(this.ProfileImageSrc);
     this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
@@ -216,7 +216,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
 
     this.spinner.show();
-    this._khaadSeedVendor.searchVendors(limit, offset, this.vendor, this.user)
+    this._khaadSeedVendor.searchVendors(limit, offset, this.vendor, this.user,this.zone,this.branch,this.circle)
     .pipe(
       finalize(() => {
       this.spinner.hide();
@@ -224,8 +224,8 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
       if (baseResponse.Success === true) {
-        
-        
+
+
         if(this.viewOnly == true){
           this.single_zone = true;
           this.single_branch = true;
@@ -466,7 +466,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
       else
       {
          changedZone = {Zone: {ZoneId: changedValue}}
-  
+
       }
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;

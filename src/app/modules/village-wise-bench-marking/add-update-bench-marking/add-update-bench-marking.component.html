@@ -10,70 +10,8 @@
 
 
       <div class="row ">
-        <div class="col-lg-3 col-sm-12">
-        <div>
-
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
-                    <mat-option [value]="SelectedZones?.ZoneId">
-                        {{SelectedZones?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
-                <mat-label class="customMatLabel">Zone</mat-label>
-                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
-                            (selectionChange)="changeZone($event)">
-                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                [disabled]="disable_zone">
-                        {{zone?.ZoneName}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-        </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-12">
-
-          <div>
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
-                            (selectionChange)="changeBranch($event)"
-                            *ngIf="!single_branch">
-                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                    >
-                        {{branch?.Name}}
-                    </mat-option>
-                </mat-select>
-                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode" [disabled]="disable_branch"
-                            *ngIf="single_branch">
-                    <mat-option [value]="SelectedBranches?.BranchCode"
-                    >
-                        {{SelectedBranches?.Name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        </div>
-
-        <div class="col-lg-3 col-sm-12">
-        <div>
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                <mat-label class="customMatLabel">Circle</mat-label>
-
-                <mat-select formControlName="CircleId" [disabled]="disable_circle" (selectionChange)="circleChange($event)">
-                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
-                    >
-                        {{circle?.CircleCode}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-      </div>
+          <app-zone-branch-circle [form]="addUpdateBenchMarkForm" [should_show_circle]="true"
+                                  (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
           <input matInput hidden formControlName="CircleCode" />
       <div class="col-lg-3 col-sm-12">
