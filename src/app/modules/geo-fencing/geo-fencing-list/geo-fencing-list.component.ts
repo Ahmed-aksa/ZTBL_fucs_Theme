@@ -28,12 +28,6 @@ export class GeoFencingListComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
-    disable_circle = true;
-    disable_zone = true;
-
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
     products: any
     displayedColumns = ['PPNo', 'BranchCode', 'CreatedDate', 'View'];
     itemsPerPage = 5;
@@ -44,26 +38,11 @@ export class GeoFencingListComponent implements OnInit {
     dataSource = new MatTableDataSource();
     listForm: FormGroup
     //Zone inventory
-    Zones: any = [];
-    SelectedZones: any = [];
-    Zone: any;
-
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-    public Branch = new Branch();
-
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
-    public Circle = new Circle();
-
-    selected_b;
-    selected_z;
-    selected_c;
     LoggedInUserInfo: BaseResponseModel;
     user: any = {};
-
+    zone: any;
+    branch: any;
+    circle: any;
 
     constructor(
         private router: Router,
@@ -79,54 +58,11 @@ export class GeoFencingListComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
-
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
-            this.SelectedBranches = this.LoggedInUserInfo.Branch;
-            this.SelectedZones = this.LoggedInUserInfo.Zone;
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.selected_c = this.SelectedCircles?.Id
-            this.listForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
-            this.listForm.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
-            if (this.listForm.value.BranchCode) {
-                this.changeBranch(this.listForm.value.BranchCode)
-            }
-
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-            this.spinner.show();
-
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data.Zones;
-                this.SelectedZones = this.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-
-            });
-
-
-        }
-
-    }
-
-    initValues() {
-        if (this.LoggedInUserInfo.Zone != undefined && this.LoggedInUserInfo.Branch != undefined) {
-            this.user.ZoneId = this.LoggedInUserInfo.Zone.ZoneId;
-            this.user.BranchCode = this.LoggedInUserInfo.Branch.BranchCode;
-        }
-        this.SearchGeoFensePoint();
     }
 
     createForm() {
         this.listForm = this.fb.group({
             PPNo: [null],
-            ZoneId: [null],
-            BranchCode: [null],
-            CircleId: [null],
             StartDate: [null, [Validators.required]],
             EndDate: [null, [Validators.required]]
         })
@@ -152,17 +88,6 @@ export class GeoFencingListComponent implements OnInit {
     }
 
     SearchGeoFensePoint() {
-        let circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
-        let branch = null;
-        if (this.SelectedBranches.length)
-            branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
-        else
-            branch = this.SelectedBranches;
-        let zone = null;
-        if (this.SelectedZones.length)
-            zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-        else
-            zone = this.SelectedZones;
         var request = {
             LocationHistory: {
                 Limit: this.itemsPerPage,
@@ -171,9 +96,9 @@ export class GeoFencingListComponent implements OnInit {
                 StartDate: this.listForm.controls.StartDate.value,
                 EndDate: this.listForm.controls.EndDate.value,
             },
-            Circle: circle,
-            Zone: zone,
-            Branch:  branch,
+            Circle: this.circle,
+            Zone: this.zone,
+            Branch: this.branch,
         }
         this.spinner.show();
         this._geoFencingService.SearchGeoFensePoint(request).pipe(finalize(() => {
@@ -194,7 +119,7 @@ export class GeoFencingListComponent implements OnInit {
     }
 
     view(data: any) {
-        console.log("data"+JSON.stringify(data))
+        console.log("data" + JSON.stringify(data))
         const dialogRef = this.dialog.open(ViewGetFancingModalComponent, {
             height: '100%',
             width: '100%',
@@ -248,30 +173,11 @@ export class GeoFencingListComponent implements OnInit {
         return Math.ceil(value);
     }
 
-
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
-
-
-    changeBranch(changedValue) {
-        let changedBranch = null;
-        if (changedValue.value)
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        else
-            changedBranch = {Branch: {BranchCode: changedValue}}
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            this.SelectedCircles = data.Circles;
-            this.selected_c = this.SelectedCircles[0].Id;
-            this.SearchGeoFensePoint()
-            this.disable_circle = false;
-        });
+    getAllData(data) {
+        console.log(data);
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = data.final_circle;
     }
 }
 
