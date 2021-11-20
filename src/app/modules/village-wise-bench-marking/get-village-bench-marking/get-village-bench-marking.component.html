@@ -8,7 +8,7 @@
       </div>
       <div class="col-lg-3 col-sm-12 self-center">
           <p class="text-right">
-              <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <button class=" mt-2 py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                   <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
               </button>
             </p>
@@ -25,11 +25,11 @@
 
 
 
-          <div class="row">
+          <div class="flex" style="flex-wrap: wrap;">
               <app-zone-branch-circle [form]="getVillageBenchmarkForm" [should_show_circle]="true"
                                       (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-              <div class="col-lg-3 col-sm-12">
-                  <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <div class="mx-2">
+                  <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                       <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                           <mat-label class="customMatLabel">Village Name</mat-label>
@@ -37,28 +37,15 @@
                         </mat-form-field>
                   </div>
               </div>
+              <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+  
+                        <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button class="bg-gray-500 mat-primary"
+                                type="button" (click)="search()"><mat-icon class="mr-2">search</mat-icon> Search</button>
+                    </div>
+                </div>
 
           </div>
-
-
-
-
-          <div class="row">
-              <div class="col-lg-3 col-sm-12">
-                  <div class="flex flex-shrink-0 items-center mt-3 sm:mt-0">
-
-                      <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button class="bg-gray-500 mat-primary"
-                              type="button" (click)="search()"><mat-icon class="mr-2">search</mat-icon> Search</button>
-                  </div>
-              </div>
-
-
-          </div>
-
-
-
-
-
 
 
 
