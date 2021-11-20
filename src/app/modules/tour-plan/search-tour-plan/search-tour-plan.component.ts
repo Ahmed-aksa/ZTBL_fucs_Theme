@@ -207,7 +207,7 @@ export class SearchTourPlanComponent implements OnInit {
 
 
     changeBranch(changedValue){
-        debugger
+        
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -276,7 +276,7 @@ export class SearchTourPlanComponent implements OnInit {
     //             console.log(baseResponse);
     //             if (baseResponse.Success) {
     //                 this.circle = baseResponse.Circles;
-    //                 debugger
+    //                 
     //             }
     //             else {
     //                 this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -295,7 +295,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     // CheckEditStatus(loanUtilization: any) {
-    //   debugger
+    //   
 
     //   if () {
     //     return true
@@ -306,7 +306,7 @@ export class SearchTourPlanComponent implements OnInit {
     // }
 
     setFromDate() {
-        debugger
+        
         // this.TourPlan.controls.FromDate.reset();
         this.minDate = this.TourPlan.controls.FromDate.value;
         var FromDate = this.TourPlan.controls.FromDate.value;
@@ -348,7 +348,7 @@ export class SearchTourPlanComponent implements OnInit {
         }
     }
     setToDate() {
-        debugger
+        
         var ToDate = this.TourPlan.controls.ToDate.value;
         if (ToDate._isAMomentObject == undefined) {
             try {
@@ -536,7 +536,7 @@ export class SearchTourPlanComponent implements OnInit {
         });
     }
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        debugger
+        
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex -1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
@@ -580,7 +580,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
     Plans;
     SearchTourPlan() {
-        debugger
+        
         this.spinner.show();
         if (!this.TourPlan.controls["Status"].value) {
             this.TourPlan.controls["Status"].setValue("All")
@@ -684,7 +684,7 @@ export class SearchTourPlanComponent implements OnInit {
 
     deleteTourPlan(tourPlan){
         tourPlan.Status= "C";
-        debugger
+        
         this.spinner.show();
         this.tourPlanService
             .ChanageTourStatus(tourPlan)

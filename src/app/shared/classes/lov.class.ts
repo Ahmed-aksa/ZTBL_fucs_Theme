@@ -104,6 +104,7 @@ export class LovConfigurationKey {
 
     //village wise benchmarking
     public static readonly FarmSizeForVillageWise: string = 'FarmSizeForVillageWise';
+    public static readonly BifurcationLCStatus: string = 'BifurcationLCStatus';
 
 }
 

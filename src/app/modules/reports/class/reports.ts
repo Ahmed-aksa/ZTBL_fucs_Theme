@@ -15,4 +15,18 @@ export class SearchLoanCaseByCnic{
     ZoneName: string;
     FatherName: string;
     Name: string;
+    PPNO: string;
+    days: string;
+    Status: string;
+    CircleId: string;
+    CircleCode: string;
+}
+
+export class Bufrication{
+    PPNO: string;
+    Status: string;
+    ReportsNo: string;
+    LcNO: string;
+    ReportFormatType: string;
+    WorkingDate: string;
 }

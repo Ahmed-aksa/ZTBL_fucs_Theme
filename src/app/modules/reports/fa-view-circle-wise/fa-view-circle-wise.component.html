@@ -1,1 +1,238 @@
-<p>fa-view-circle-wise works!</p>
+<div
+    class="
+        px-10
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-scroll
+        bg-card
+        dark:bg-transparent
+    "
+>
+    <div class="row py-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Circle/Party Wise Early Warning Reports</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button
+                    class="
+                        py-2
+                        mat-focus-indicator
+                        mat-flat-button
+                        mat-button-base
+                        mat-primary
+                    "
+                    type="button"
+                    color="primary"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                >
+                    <mat-icon class="mr-2">filter_list</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Header -->
+
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div class="py-2" [formGroup]="searchCnicForm">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
+                                            *ngIf="single_zone">
+                                <mat-label class="customMatLabel">Zone</mat-label>
+                                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                                    <mat-option [value]="SelectedZones?.ZoneId">
+                                        {{SelectedZones?.ZoneName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
+                                            *ngIf="!single_zone">
+                                <mat-label class="customMatLabel">Zone</mat-label>
+                                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                                            (selectionChange)="changeZone($event)">
+                                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                                [disabled]="disable_zone">
+                                        {{zone?.ZoneName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong>
+                                </mat-label>
+
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode"
+                                            [disabled]="disable_branch"
+                                            *ngIf="single_branch">
+                                    <mat-option [value]="SelectedBranches?.BranchCode"
+                                    >
+                                        {{SelectedBranches?.Name}}
+                                    </mat-option>
+                                </mat-select>
+
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchCode"
+                                            [disabled]="disable_branch"
+                                            *ngIf="!single_branch">
+                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                                    >
+                                        {{branch?.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Days</mat-label>
+                                <input matInput placeholder="Enter No of Days" formControlName="days"
+                                       appNumberOnly maxlength="5" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                            mat-raised-button color="primary" (click)="find()">
+                        <mat-icon class="mr-2">search</mat-icon>
+                        Find
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div>
+        <!-- <div
+            class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
+        </div> -->
+
+        <div class="mat-table__wrapper">
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                class="lmat-elevation-z8"
+                #table
+                [dataSource]="
+                    dataSource"
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+            >
+                <ng-container matColumnDef="Lcno">
+                    <mat-header-cell *matHeaderCellDef
+                    >LC #
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.LcNO
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell *matHeaderCellDef>CNIC</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.Cnic
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Name">
+                    <mat-header-cell *matHeaderCellDef
+                    >Name
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.CustomerName
+                        }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="FatherName">
+                    <mat-header-cell *matHeaderCellDef>Father Name</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.FatherName
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Address">
+                    <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.PermanetAddress
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Agps">
+                    <mat-header-cell *matHeaderCellDef
+                    >Major Borrower
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.MajorBorrower
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Bcl">
+                    <mat-header-cell *matHeaderCellDef
+                    >Total Sanction Amount
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.TotalSanctionAmount
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Los">
+                    <mat-header-cell *matHeaderCellDef
+                    >Loan Outstanding
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.LoanOutStanding
+                        }}</mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    class="table-header-background"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+            </mat-table>
+
+            <div class="mat-table__message" *ngIf="!loading && !matTableLenght">
+                No Record Found
+            </div>
+            <div class="mat-table__message" *ngIf="loading">
+                Please wait....
+            </div>
+        </div>
+    </div>
+</div>

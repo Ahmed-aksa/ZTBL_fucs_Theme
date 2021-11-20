@@ -1,17 +1,3 @@
-/* eslint-disable no-var */
-/* eslint-disable arrow-parens */
-/* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no- */
-/* eslint-disable eol-last */
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable quotes */
-/* eslint-disable eqeqeq */
-/* eslint-disable @typescript-eslint/semi */
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
@@ -28,11 +14,11 @@ import {ReportsService} from '../service/reports.service';
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-    selector: 'updated-list-of-defaulters',
-    templateUrl: './updated-list-of-defaulters.component.html',
-    styleUrls: ['./updated-list-of-defaulters.component.scss']
+    selector: 'loan-amounts-convert-to-default',
+    templateUrl: './loan-amounts-convert-to-default.component.html',
+    styleUrls: ['./loan-amounts-convert-to-default.component.scss']
 })
-export class UpdatedListOfDefaultersComponent implements OnInit {
+export class LoanAmountsConvertToDefaultComponent implements OnInit {
     displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los'];
     searchCnicForm: FormGroup;
     selected_b;
@@ -96,7 +82,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
         // this.typeLov();
 
         if (this.LoggedInUserInfo.Branch != null) {
-
+            this.Circles = this.LoggedInUserInfo.UserCircleMappings;
             this.SelectedCircles = this.Circles;
             this.disable_circle = false;
 
@@ -109,18 +95,9 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
             this.selected_z = this.SelectedZones.ZoneId
             this.selected_b = this.SelectedBranches.BranchCode
             this.selected_c = this.SelectedCircles.Id
-            console.log(this.SelectedZones)
             this.searchCnicForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
             this.searchCnicForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
             this.changeBranch(this.selected_b)
-            // var fi : any = []
-            // fi.Id = "null";
-            // fi.CircleCode = "All";
-            // fi.LovId = "0";
-            // fi.TagName="0";
-            // this.SelectedCircles.splice(0, 0, fi)
-            // console.log(this.SelectedCircles)
-            // this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
             this.spinner.show();
 
@@ -133,6 +110,8 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
 
             });
         }
+
+
     }
 
     createForm() {
@@ -140,6 +119,8 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
             ZoneId: [null, Validators.required],
             BranchCode: [null, Validators.required],
             CircleCode: [null, Validators.required],
+            // ReportsFormatType: [null, Validators.required],
+            // Status: [null, Validators.required],
             PPNO: [null, Validators.required]
         })
     }
@@ -174,15 +155,15 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
 
     find() {
         this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
+
         if (this.searchCnicForm.invalid) {
-            this.toastr.error("Please enter required values");
+            this.toastr.error("Please enter requried fields");
             return;
         }
         this.assignBranchAndZone();
         this.user.Branch = this.final_branch;
         this.user.Zone = this.final_zone;
         this.user.Circle = this.searchCnicForm.controls.CircleCode.value;
-
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "19";
@@ -199,7 +180,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
                 if (baseResponse.Success === true) {
 
                     this.loading = true;
-                    console.log(baseResponse);
                     this.dataSource = baseResponse.ReportsFilterCustom.SamNplLoans
                     this.dv = this.dataSource;
                     this.matTableLenght = true
@@ -210,7 +190,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                     this.loading = false;
                     this.matTableLenght = false;
-                    this.dataSource = this.dv.slice(1, 0);
+                    this.dataSource = this.dv?.slice(1, 0);
                     //this.offSet = 0;
                     this.pageIndex = 1;
 
@@ -230,7 +210,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     //     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
     //     this.statusLov = this.statusLov.LOVs;
     //     this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-    //     console.log(this.statusLov)
     // }
 
     changeZone(changedValue) {
@@ -253,7 +232,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
 
         }
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            console.log(data);
             this.Circles = data.Circles;
             this.SelectedCircles = this.Circles;
             var fi: any = []
@@ -262,7 +240,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
             fi.LovId = "0";
             fi.TagName = "0";
             this.SelectedCircles.splice(0, 0, fi)
-            console.log(this.SelectedCircles)
             this.searchCnicForm.controls["CircleCode"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
             this.disable_circle = false;
         });
@@ -277,4 +254,5 @@ export interface Selection {
 interface searchLoanCasesByCnic {
     LcNo: string;
 }
+
 

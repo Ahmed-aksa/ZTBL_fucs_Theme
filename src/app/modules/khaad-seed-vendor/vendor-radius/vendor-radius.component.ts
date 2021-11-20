@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -151,6 +151,18 @@ export class VendorRadiusComponent implements OnInit {
       this.disable_circle = false
       this.Circles = this.LoggedInUserInfo.UserCircleMappings;
       this.SelectedCircles = this.Circles;
+    }
+    else if(!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings){
+      
+      this.Zone = this.LoggedInUserInfo.Zone;
+      this.SelectedZones = this.Zone;
+      this.disable_zone=true;
+      this.radiusForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
+
+      
+
+      this.selected_z = this.SelectedZones?.ZoneId
+      this.changeZone(this.selected_z);
     }
     else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
         this.spinner.show();
@@ -322,7 +334,16 @@ export class VendorRadiusComponent implements OnInit {
 }
 
     changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
+      let changedZone=null;
+      if(changedValue?.value)
+      {
+       changedZone = {Zone: {ZoneId: changedValue.value}}
+      }
+      else
+      {
+         changedZone = {Zone: {ZoneId: changedValue}}
+  
+      }
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
             this.SelectedBranches = this.Branches;

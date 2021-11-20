@@ -120,7 +120,7 @@ export class SearchUtilizationComponent implements OnInit {
     private userUtilsService: UserUtilsService) { this.loggedInUser = userUtilsService.getUserDetails(); }
 
   ngOnInit() {
-debugger
+
 
       console.log(this.utilizationSearch);
 

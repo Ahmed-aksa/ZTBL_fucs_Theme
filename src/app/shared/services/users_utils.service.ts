@@ -88,10 +88,16 @@ export class UserUtilsService {
              * Case 4
              */
 
+            this.search_data.Branch = null;
+            this.search_data.UserCircleMappings = null;
+            this.search_data.Zone = null;
+
+        }
+        else if(user_data.Zone)
+        {
             this.search_data.branch = null;
             this.search_data.UserCircleMappings = null;
-            this.search_data.zone = null;
-
+            this.search_data.Zone = user_data.Zone;
         }
         return this.search_data;
     }

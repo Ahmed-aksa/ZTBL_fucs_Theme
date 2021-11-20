@@ -18,49 +18,30 @@ export class BorrowerInformationService {
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
     }
+
     circle = new Circle;
     userDetail = this.userUtilsService.getUserDetails();
 
-    getBorrowerInformation(limit, offset, cnic, user,PPNo,SelectedZones, SelectedBranches ,SelectedCircles) {
-
+    getBorrowerInformation(limit, offset, cnic, user, PPNo, SelectedZones, SelectedBranches, SelectedCircles) {
+        debugger;
         var userInfo = this.userDetail;
         var circle = userInfo.UserCircleMappings;
-        // var circleIds = [];
+        var circleIds = [];
 
-        // if(user.CircleId == 'null'){
-        //     user.CircleId = null
-        //   }
-        // if(circle){
-        //     circle?.forEach(element => {
-        //         circleIds.push(element.CircleId);
-        //     });
-        //     var _circles = JSON.stringify(circleIds)
-        // }
-        // else{
-        //     _circles = JSON.stringify(circles);
-        // }
+        if (user.CircleId == 'null') {
+            user.CircleId = null
+        }
+        if (circle) {
+            circle?.forEach(element => {
+                circleIds.push(element.CircleId);
+            });
+            var _circles = JSON.stringify(circleIds)
+        } else {
+            _circles = JSON.stringify(SelectedCircles);
+        }
 
-        // var circleIds = [];
-        // console.log("len"+SelectedCircles.length)
-        // if(SelectedCircles.length>0){
-        //     SelectedCircles?.forEach(element => {
-        //         if(element.Id>0){
-        //             circleIds.push(element.Id);
-        //         }
-        //     });
-        // }else{
-        //     circleIds = SelectedCircles;
-        // }
-
-
-        //_circles = _circles.replace("\", "")
-        this.circle.CircleIds= JSON.stringify(SelectedCircles);
-        console.log("vallueee"+user?.CircleId)
-           if(user?.CircleId!='null'){
-               console.log("called service")
-               this.circle.CircleCode= user?.CircleId
-           }
-
+        this.circle.CircleIds = JSON.stringify(circleIds);
+        this.circle.CircleCode = SelectedCircles.Id
 
 
         var request = {
@@ -74,7 +55,7 @@ export class BorrowerInformationService {
             TranId: 0,
             Branch: SelectedBranches,
             User: userInfo.User,
-            Zone: {"ZoneId":SelectedZones.ZoneId}
+            Zone: {"ZoneId": SelectedZones.ZoneId}
         };
         return this.http.post(`${environment.apiUrl}/Customer/Gettotalnumberofborrowersdetails`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -85,7 +66,7 @@ export class BorrowerInformationService {
 
 }
 
-export class Circle{
-    CircleIds?:string="";
-    CircleCode?:string="";
+export class Circle {
+    CircleIds?: string = "";
+    CircleCode?: string = "";
 }

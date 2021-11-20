@@ -156,7 +156,7 @@ export class CustomerProfileComponent implements OnInit {
     ngOnInit() {
         this.images.push(this.ProfileImageSrc);
         this.bit = localStorage.getItem('CreateCustomerBit');
-        debugger;
+
         if (this.bit == null || this.bit == undefined || this.bit == '' || this.bit == '10') {
             localStorage.setItem('CreateCustomerBit', '1');
             this.router.navigate(['/customer/check-eligibility'], {relativeTo: this.activatedRoute});
@@ -632,7 +632,7 @@ export class CustomerProfileComponent implements OnInit {
         this.CasteLov.LOVs = this._lovService.SortLovs(this.CasteLov.LOVs);
 
         if (this.bit == '2') {
-            var currentCaste = this.CasteLov.LOVs.filter(x => x.Id == this.createCustomer.Caste.toString())[0];
+            var currentCaste = this.CasteLov.LOVs.filter(x => x.Id == this.createCustomer.Caste?.toString())[0];
             this.roleForm.controls.Caste.setValue(currentCaste.Value);
         }
 

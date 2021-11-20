@@ -8,7 +8,7 @@
     </div>
 
 
-    <div style="flex-direction: column;overflow-y: scroll">
+    <div class="border shadow-xs rounded-sm bg-gray-50 " style="flex-direction: column;overflow-y: scroll">
         <mat-table class="example-table-container"
                    #table
                    [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"

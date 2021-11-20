@@ -5,7 +5,7 @@
             <div class="heading">List of Transactions</div>
         </div>
     </div>
-    <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
+    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 " style="flex-direction: column;overflow-y: scroll">
         <mat-table class="example-table-container"
                    #table
                    [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"

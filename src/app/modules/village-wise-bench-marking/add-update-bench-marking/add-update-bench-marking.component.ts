@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable arrow-parens */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -191,12 +191,11 @@ debugger
     this.createForm();
     this.LoadLovs();
 
-    this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+    this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     if (this.LoggedInUserInfo.Branch != null) {
       this.disable_circle = false;
-      this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-      this.SelectedCircles = this.Circles;
+      
 
       this.Branches = this.LoggedInUserInfo.Branch;
       this.SelectedBranches = this.Branches;
@@ -209,7 +208,28 @@ debugger
       console.log(this.SelectedZones)
       this.addUpdateBenchMarkForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
       this.addUpdateBenchMarkForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
-    }else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+
+      if(this.LoggedInUserInfo.UserCircleMappings.length != 0){
+        this.Circles = this.LoggedInUserInfo.UserCircleMappings;
+        this.SelectedCircles = this.Circles;
+      }
+      else{
+        this.changeBranch(this.selected_b)
+      }
+    }
+    else if(!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings){
+      
+      this.Zone = this.LoggedInUserInfo.Zone;
+      this.SelectedZones = this.Zone;
+      this.disable_zone=true;
+      this.addUpdateBenchMarkForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
+
+      
+
+      this.selected_z = this.SelectedZones?.ZoneId
+      this.changeZone(this.selected_z);
+    }
+    else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
       this.spinner.show();
 
       this.userUtilsService.getZone().subscribe((data: any) => {
@@ -294,7 +314,7 @@ debugger
 
   Add() {
 
-    debugger
+    
 
       this.user.ZoneId = this.addUpdateBenchMarkForm.controls.ZoneId.value;
       this.user.BranchCode = this.addUpdateBenchMarkForm.controls.BranchCode.value;
@@ -522,7 +542,7 @@ console.log("village"+JSON.stringify(this.village))
   }
 
   Submit() {
-        debugger
+        
       console.log("village"+JSON.stringify(this.village));
     //this.hideDelete = true;
       if(this.village?.length>0){
@@ -564,7 +584,7 @@ for(let i=0;i<this.village.length;i++)
   changeBranch(changedValue) {
 
     let changedBranch = null;
-    if (changedValue) {
+    if (changedValue.value) {
         changedBranch = {Branch: {BranchCode: changedValue.value}}
     } else {
         changedBranch = {Branch: {BranchCode: changedValue}}
@@ -579,7 +599,16 @@ for(let i=0;i<this.village.length;i++)
 }
 
     changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
+      let changedZone=null;
+      if(changedValue?.value)
+      {
+       changedZone = {Zone: {ZoneId: changedValue.value}}
+      }
+      else
+      {
+         changedZone = {Zone: {ZoneId: changedValue}}
+  
+      }
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
             this.SelectedBranches = this.Branches;

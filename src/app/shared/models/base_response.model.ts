@@ -20,6 +20,7 @@ export class BaseResponseModel {
     Configurations: any;
     UserHistories: any;
     Profiles: any;
+    ReportsFilterCustom: any;
     _3RdPartyAPILogs: any;
     _3RdPartyAPILog: any;
     Channels: any;

@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable prefer-const */
 /* eslint-disable eol-last */
 /* eslint-disable one-var */
@@ -140,9 +140,9 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     }
   ngOnInit() {
 
-    debugger
+    
     this.images.push(this.ProfileImageSrc);
-    this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+    this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
 
     var upFlag = this.activatedRoute.snapshot.params['upFlag'];
@@ -192,7 +192,20 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
       console.log(this.SelectedZones)
       this.vendorForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
       this.vendorForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
-    }else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
+    }
+    else if(!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings){
+      
+      this.Zone = this.LoggedInUserInfo.Zone;
+      this.SelectedZones = this.Zone;
+      this.disable_zone=true;
+      this.vendorForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
+
+      
+
+      this.selected_z = this.SelectedZones?.ZoneId
+      this.changeZone(this.selected_z);
+    }
+    else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
       this.spinner.show();
 
       this.userUtilsService.getZone().subscribe((data: any) => {
@@ -241,7 +254,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
       if (baseResponse.Success === true) {
-        debugger
+        
         
         if(this.viewOnly == true){
           this.single_zone = true;
@@ -376,7 +389,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy{
 
   //Save & Submit Method
   saveSubmit() {
-debugger
+
     console.log(this.vendorForm.controls)
     this.errorShow = false;
     this.hasFormErrors = false;
@@ -475,7 +488,16 @@ debugger
     });
 }
     changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
+      let changedZone=null;
+      if(changedValue?.value)
+      {
+       changedZone = {Zone: {ZoneId: changedValue.value}}
+      }
+      else
+      {
+         changedZone = {Zone: {ZoneId: changedValue}}
+  
+      }
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
             this.SelectedBranches = this.Branches;

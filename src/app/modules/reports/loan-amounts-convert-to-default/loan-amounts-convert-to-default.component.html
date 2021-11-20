@@ -1,5 +1,3 @@
-
-
 <div
     class="
         px-10
@@ -13,7 +11,7 @@
 >
     <div class="row py-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">Bifurcation of OS balances LC</div>
+            <div class="heading">Loan amounts likely to be converted into default</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
@@ -43,7 +41,7 @@
 
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
-            <div class="py-2" [formGroup]="bufricationForm">
+            <div class="py-2" [formGroup]="searchCnicForm">
                 <div class="row">
                     <div class="col-lg-4 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
@@ -91,7 +89,7 @@
 
                                 <mat-select [(ngModel)]="selected_b" formControlName="BranchCode"
                                             [disabled]="disable_branch"
-                                            *ngIf="!single_branch">
+                                            *ngIf="!single_branch" (selectionChange)="changeBranch($event)">
                                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
                                     >
                                         {{branch?.Name}}
@@ -103,15 +101,15 @@
 
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
 
                     <div class="col-lg-4 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Working Date (ddMMyyyy)</mat-label>
-                                <input matInput placeholder="Enter Working Date" formControlName="WorkingDate"
-                                       maxlength="8" autocomplete="off"
+                                <mat-label class="customMatLabel">CNIC</mat-label>
+                                <input matInput placeholder="Enter Cnic" formControlName="Cnic" maxlength="13"
+                                       autocomplete="off"
                                        appNumberOnly/>
                             </mat-form-field>
                         </div>
@@ -121,60 +119,26 @@
                     <div class="col-lg-4 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">LC NO</mat-label>
-                                <input matInput placeholder="Enter LC NO" formControlName="LcNo" maxlength="30"
-                                       autocomplete="off" appNumberOnly/>
+                                <mat-label class="customMatLabel">Customer Name</mat-label>
+                                <input matInput placeholder="Enter Customer Name" formControlName="CustomerName"
+                                       maxlength="30" autocomplete="off"/>
                             </mat-form-field>
                         </div>
                     </div>
 
-                </div>
-
-                <div class="row">
-
-                    <div class="col-lg-4 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Circle</mat-label>
-
-                                <mat-select [(ngModel)]="selected_c" formControlName="CircleId"
-                                            [disabled]="disable_circle">
-                                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
-                                    >
-                                        {{circle?.CircleCode}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-4 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Account Status<strong
-                                    class="matMandatory">*</strong></mat-label>
-                                <mat-select formControlName="Status">
-                                    <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
-                                        {{lov.Description}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                </div>
+                </div> -->
 
                 <div class="row">
                     <div class="col-lg-4 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Export Format<strong
-                                    class="matMandatory">*</strong></mat-label>
-                                <mat-select formControlName="ReportFormatType">
-                                    <mat-option *ngFor="let lov of select" [value]="lov.Value">
-                                        {{lov.description}}
+                                <mat-label class="customMatLabel">Circle</mat-label>
+
+                                <mat-select [(ngModel)]="selected_c" formControlName="CircleCode"
+                                            [disabled]="disable_circle">
+                                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                                    >
+                                        {{circle?.CircleCode}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
@@ -194,7 +158,115 @@
             </div>
         </div>
     </div>
+
+    <!-- Header -->
+    <div>
+        <!-- <div
+            class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
+        </div> -->
+
+        <div class="mat-table__wrapper">
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                class="lmat-elevation-z8"
+                #table
+                [dataSource]="
+                    dataSource
+                    "
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+            >
+                <ng-container matColumnDef="Lcno">
+                    <mat-header-cell *matHeaderCellDef
+                    >LC #
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.LcNO
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell *matHeaderCellDef>CNIC</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.Cnic
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Name">
+                    <mat-header-cell *matHeaderCellDef
+                    >Name
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.CustomerName
+                        }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="FatherName">
+                    <mat-header-cell *matHeaderCellDef>Father Name</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.FatherName
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Address">
+                    <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.PermanetAddress
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Agps">
+                    <mat-header-cell *matHeaderCellDef
+                    >Major Borrower
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.MajorBorrower
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Bcl">
+                    <mat-header-cell *matHeaderCellDef
+                    >Borrower Credit Limit
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.SanctionLimit
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Los">
+                    <mat-header-cell *matHeaderCellDef
+                    >loan Outstanding
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.LoanOutStanding
+                        }}</mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    class="table-header-background"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+            </mat-table>
+
+            <div class="mat-table__message" *ngIf="!loading && !matTableLenght">
+                No Record Found
+            </div>
+            <div class="mat-table__message" *ngIf="loading">
+                Please wait....
+            </div>
+
+        </div>
+    </div>
 </div>
-
-
-

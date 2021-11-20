@@ -5,7 +5,7 @@
         <div class="col-lg-9 col-sm-12">
             <div class="heading">API Logs</div>
         </div>
-        <div class="col-lg-3 col-sm-12 self-center">
+        <div class="col-lg-3 col-sm-12 self-center mt-2 ">
             <p class="text-right">
                 <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
                         color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
@@ -26,7 +26,7 @@
 
 
                 <div class="row">
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
                             <mat-form-field class="w-full" appearance="outline">
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search"
@@ -36,7 +36,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
                             <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                                 <mat-label>Choose start date</mat-label>
@@ -57,7 +57,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label>Choose end date</mat-label>
@@ -76,20 +76,18 @@
                             </mat-form-field>
                         </div>
                     </div>
-
-                </div>
-                <div class="row pb-2">
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
                                     aria-controls="collapseExample" mat-raised-button
-                                    class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                    class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500 mt-2"
                                     type="button" (click)="loadApiLogs()">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -111,7 +109,7 @@
       </mat-accordion> -->
 
 
-    <section matSort class="mat-elevation-z2 mat-header-row bg-green">
+    <section matSort class="mat-elevation-z2 mat-header-row bg-green api-table">
         <span class="mat-header-cell text-white" mat-sort-header="Id" style="width: 10px;">ID</span>
         <span class="mat-header-cell text-white" mat-sort-header="TransactionId">Transaction ID</span>
         <span class="mat-header-cell text-white" mat-sort-header="ApiName">API Name</span>
