@@ -163,6 +163,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     checkZoneValidation() {
         if (this.form.invalid) {
             this.toastr.error("Please enter required values");
+            return;
         }
     }
 }
