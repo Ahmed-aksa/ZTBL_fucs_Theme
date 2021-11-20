@@ -31,6 +31,11 @@ export class SearchJvRbComponent implements OnInit {
     Math: any;
     OffSet: any;
     //pagination
+
+    branch: any;
+    zone: any;
+    circle: any;
+
     itemsPerPage = 10; //you could use your specified
     totalItems: number | any;
     pageIndex = 1;
@@ -126,6 +131,12 @@ export class SearchJvRbComponent implements OnInit {
         this.find();
     }
 
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
 
     find() {
         this.OffSet = 0;

@@ -59,6 +59,12 @@ export class SearchJvPendingComponent implements OnInit {
     single_branch = true;
     disable_branch = true;
 
+
+    branch: any;
+    zone: any;
+    circle: any;
+
+
     //userDetail : any;
     constructor(
         private cdRef: ChangeDetectorRef,
@@ -129,6 +135,12 @@ export class SearchJvPendingComponent implements OnInit {
         }
         this.find();
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+    }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
     }
 
     async loadLOV() {

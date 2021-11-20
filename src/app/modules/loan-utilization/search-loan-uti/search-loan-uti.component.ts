@@ -47,7 +47,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
 
-
+    branch: any;
+    zone: any;
+    circle: any;
     //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
     //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob','CustomerStatus', 'View'];
 
@@ -167,7 +169,11 @@ export class SearchLoanUtilizationComponent implements OnInit {
         //this.FilterForm.controls["EndDate"].setValue(this.myDate);
 
     }
-
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
     userInfo = this.userUtilsService.getUserDetails();
 
     settingZBC() {

@@ -44,6 +44,12 @@ export class JvFormComponent implements OnInit, OnDestroy {
     @Input() transactionID: string;
     @Input() viewOnly: boolean;
 
+
+
+    branch: any;
+    zone: any;
+    circle: any;
+
     hasFormErrors = false;
     viewLoading = false;
     loadingAfterSubmit = false;
@@ -68,7 +74,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
     maker: any;
     userInfo: any;
     disbDescription: any;
-    
+
     bindGridData: any;
 
     deleteBtn: boolean = true;
@@ -247,6 +253,12 @@ export class JvFormComponent implements OnInit, OnDestroy {
         console.log(this.maker)
         //if(this.maker)
 
+    }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
     }
 
 
@@ -882,7 +894,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
             .subscribe((baseResponse: BaseResponseModel) => {
                 console.log(baseResponse);
                 if (baseResponse.Success === true) {
-                    
+
 
                     rowValue = baseResponse.JournalVoucher.JournalVoucherDataList;
                     for (var a = 0; this.jvGl.length > a; a++) {
@@ -896,7 +908,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                             console.log(rowValue[a])
                             this.JvForm.controls['VoucherNo'].setValue(rowValue[a].ManualVoucherNo);
                             this.JvForm.controls['TransactionMasterID'].setValue(rowValue[a].TransactionMasterCode);
-                            
+
                             let dateString = rowValue[a].EffectiveDate;
                             var day = parseInt(dateString.substring(0, 2));
                             var month = parseInt(dateString.substring(2, 4));

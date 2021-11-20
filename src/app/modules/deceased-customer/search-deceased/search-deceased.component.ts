@@ -34,6 +34,10 @@ export class SearchDeceasedComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
+    branch: any;
+    zone: any;
+    circle: any;
+
     public _apiNameWidth = "350px";
     public _dateWidth = "200px";
     public _IdWidth = "100px";
@@ -118,7 +122,7 @@ export class SearchDeceasedComponent implements OnInit {
         //var u = new UserUtilsService();
         var userDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.loggedInUserDetails = userDetails;
-        
+
 
         //if (userDetails.Branch.BranchCode == "All")
 
@@ -152,8 +156,15 @@ export class SearchDeceasedComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 200 + 'px';
     }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
+
     private assignBranchAndZone() {
-        
+
 
         //Branch
         if (this.SelectedBranches.length) {
@@ -176,7 +187,7 @@ export class SearchDeceasedComponent implements OnInit {
     SearchDeceasedCustomer(){
         this.dataSource.data=[];
         this.assignBranchAndZone();
-        
+
         this.spinner.show()
         this.Customer = Object.assign(this.Customer, this.deceasedCustomerSearch.value);
 
@@ -387,7 +398,7 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     settingZBC() {
-        
+
         this.loggedInUserDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.loggedInUserDetails.Branch && this.loggedInUserDetails.Branch.BranchCode != "All") {
             this.SelectedCircles = this.loggedInUserDetails.UserCircleMappings;

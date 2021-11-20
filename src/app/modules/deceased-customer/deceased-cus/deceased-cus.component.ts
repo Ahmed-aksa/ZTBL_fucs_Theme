@@ -70,6 +70,11 @@ export class DeceasedCusComponent implements OnInit {
         "balance",
     ];
 
+    create_circ_form: FormGroup;
+    branch: any;
+    zone: any;
+    circle: any;
+
     visible:any = true;
     hasFormErrors = false;
     isEmpty:boolean = false;
@@ -236,6 +241,13 @@ export class DeceasedCusComponent implements OnInit {
         //this.elementsFormControls();.
         //console.log(this.DeceasedCustomerAttachedFile)
     }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
+
 
     GetZones() {
 
