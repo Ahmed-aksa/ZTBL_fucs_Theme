@@ -51,7 +51,7 @@ export class ZoneBranchCircleComponent implements OnInit {
 
             this.SelectedBranches = this.all_data.Branch;
             this.SelectedZones = this.all_data.Zone;
-            this.SelectedCircles = this.all_data.UserCircleMappings[0];
+            this.SelectedCircles = this.all_data.UserCircleMappings;
             this.selected_z = this.SelectedZones?.ZoneId
             this.selected_b = this.SelectedBranches?.BranchCode
             this.selected_c = this.SelectedCircles?.Id
