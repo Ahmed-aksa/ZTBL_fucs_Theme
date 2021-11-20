@@ -21,12 +21,12 @@
 
 <div class="collapse" id="collapseExample">
     <div class="card card-body">
-      <div class="row">
+      <div class="flex" style="flex-wrap: wrap;">
           <app-zone-branch-circle [form]="utilizationSearch" [should_show_circle]="false"
                                   (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
-  <div class="col-md-3 col-sm-12">
-        <div class="col-md-12 kt-margin-bottom-10-mobile mr-20">
+        <div class="mx-2" >
+          <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
           <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label>LoanCaseNo</mat-label>
             <input matInput appNumberOnly formControlName="LoanCaseNo" placeholder="Enter LoanCaseNo" maxlength="100"
@@ -34,8 +34,8 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="col-md-3 col-sm-12">
-        <div *ngIf="loanutilizationStatusLov" class="col-md-12 kt-margin-bottom-10-mobile mr-20">
+      <div class="mx-2" >
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
           <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label>Select loanutilization Status</mat-label>
             <mat-select formControlName="Status">
@@ -50,11 +50,9 @@
         </div>
 
 
-  </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3 col-sm-12 pb-2">
-        <div class="flex flex-shrink-0 items-center">
+         </div>
+         <div class="mx-2" >
+          <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
           <button data-bs-toggle="collapse" data-bs-target="#collapseExample"
           aria-expanded="false" (click)="searchloanutilization()" class="bg-gray-500" mat-flat-button [color]="'primary'">
             <mat-icon class="mr-2">search</mat-icon> Search
@@ -62,6 +60,9 @@
         </div>
       </div>
       </div>
+
+
+
     </div>
 
 </div>
