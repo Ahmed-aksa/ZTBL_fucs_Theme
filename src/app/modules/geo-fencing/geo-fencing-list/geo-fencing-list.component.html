@@ -25,9 +25,9 @@
             <!-- Header -->
             <div [formGroup]="listForm" class="mt-2">
 
-                <div class="row">
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <div class="flex" style="flex-wrap: wrap;">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 200px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">PP No.</mat-label>
@@ -36,15 +36,12 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-9 col-sm-12">
-                        <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
+                    <div >
+                    <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
                                                 (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                     </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2" >
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 200px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label>Choose start date</mat-label>
@@ -65,8 +62,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 200px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label>Choose end date</mat-label>
@@ -86,8 +83,8 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 265px;">
 
                             <button data-bs-toggle="collapse" data-bs-target="#collapseExample"
                                     aria-expanded="false" aria-controls="collapseExample" mat-raised-button
@@ -99,6 +96,10 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
             </div>
         </div>
     </div>
