@@ -47,7 +47,21 @@ export class ZoneBranchCircleComponent implements OnInit {
     ngOnInit(): void {
         this.addFormControls(this.should_show_circle);
         this.all_data = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        if (this.all_data.Branch && this.all_data.Branch.BranchCode != "All") {
+        if (this.all_data.Branch && this.all_data.Zone && this.all_data.UserCircleMappings) {
+
+            this.SelectedBranches = this.all_data.Branch;
+            this.SelectedZones = this.all_data.Zone;
+            this.SelectedCircles = this.all_data.UserCircleMappings[0];
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.selected_b = this.SelectedBranches?.BranchCode
+            this.selected_c = this.SelectedCircles?.Id
+            this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
+            this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
+            if (this.should_show_circle)
+                this.form.controls["CircleId"].setValue(this.SelectedCircles.Id);
+
+
+        } else if (this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
             this.SelectedCircles = this.all_data.UserCircleMappings;
             this.SelectedBranches = this.all_data.Branch;
             this.SelectedZones = this.all_data.Zone;
@@ -58,7 +72,7 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
             if (this.form.value.BranchCode) {
-                this.changeBranch(this.form.value.BranchCode)
+                this.changeBranch(this.selected_b);
             }
 
         } else if (!this.all_data.Branch && !this.all_data.Zone && !this.all_data.Zone) {
@@ -74,6 +88,7 @@ export class ZoneBranchCircleComponent implements OnInit {
 
 
         }
+        this.emitData();
     }
 
     changeBranch(changedValue) {
@@ -108,10 +123,21 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     emitData() {
-        let final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-        let final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-        let final_circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+        let final_zone = null;
+        if (this.SelectedZones.length > 1)
+            final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+        else final_zone = this.SelectedZones
+        let final_branch = null;
+        if (this.SelectedBranches.length > 1)
+            final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+        else final_branch = this.SelectedBranches
 
+
+        let final_circle = null;
+        if (this.SelectedCircles.length > 1)
+            final_circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+        else
+            final_circle = this.SelectedCircles;
         this.branchZoneCircleData.emit({
             final_zone: final_zone,
             final_branch: final_branch,
