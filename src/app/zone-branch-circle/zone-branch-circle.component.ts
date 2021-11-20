@@ -59,7 +59,7 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
 
             this.single_circle = false;
-
+            this.emitData();
 
         } else if (this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
             this.SelectedBranches = this.all_data.Branch;
@@ -73,6 +73,7 @@ export class ZoneBranchCircleComponent implements OnInit {
             if (this.form.value.BranchCode) {
                 this.changeBranch(this.selected_b);
             }
+            this.emitData();
 
         } else if (!this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
             this.SelectedZones = this.all_data.Zone;
