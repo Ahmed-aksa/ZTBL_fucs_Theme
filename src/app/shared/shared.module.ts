@@ -52,6 +52,7 @@ import { AlphaNumericFieldDirective } from './directives/alpha-numeric-field.dir
 import { CapsOnlyDirective } from './directives/caps-only.directive';
 import { AlphaNumSpecialDirective } from './directives/alpha-num-special.directive';
 import { NumberAndDecimalDirective } from './directives/number-and-decimal.directive';
+import {ViewMapsComponent} from "./component/view-map/view-map.component";
 
 
 @NgModule({
@@ -73,7 +74,7 @@ import { NumberAndDecimalDirective } from './directives/number-and-decimal.direc
         AlphaNumericFieldDirective,
         CapsOnlyDirective,
         AlphaNumSpecialDirective,
-        NumberAndDecimalDirective
+        NumberAndDecimalDirective,ViewMapsComponent
     ],
     imports: [
         CommonModule,
@@ -167,6 +168,7 @@ import { NumberAndDecimalDirective } from './directives/number-and-decimal.direc
         AlertDialogComponent,
         AlertComponent,
         ActionNotificationComponent,
+        ViewMapsComponent
     ],
     providers: [
         HttpUtilsService,

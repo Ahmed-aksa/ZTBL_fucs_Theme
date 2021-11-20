@@ -327,6 +327,10 @@
                                 >delete_forever</mat-icon
                             >
                         </button>
+
+                        <button style="margin-left: 5px" mat-icon-button *ngIf="checkMap(vendor)" color="primary" (click)="viewMap(vendor)">
+                            <mat-icon title="view benchmarking">location_on</mat-icon>
+                        </button>
                     </mat-cell>
                 </ng-container>
 
@@ -340,7 +344,7 @@
                 ></mat-row>
             </mat-table>
 
-            
+
             <div class="mat-table__message" *ngIf="loading">
                 Please wait....
             </div>

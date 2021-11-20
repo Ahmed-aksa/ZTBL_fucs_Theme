@@ -15,11 +15,11 @@
                   </p>
             </div>
         </div>
-    
+
         <!-- Header -->
-    
-    
-    
+
+
+
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
         <!-- Header -->
@@ -218,6 +218,10 @@
                                 <button mat-icon-button color="primary" *ngIf="submitSubmitStatus(request)"
                                         (click)="SubmitUser(request)">
                                     <mat-icon>check_circle</mat-icon>
+                                </button>
+
+                                <button style="margin-left: 5px" mat-icon-button *ngIf="checkMap(request)" color="primary" (click)="viewMap(request)">
+                                    <mat-icon title="view benchmarking">location_on</mat-icon>
                                 </button>
 
                             </mat-cell>

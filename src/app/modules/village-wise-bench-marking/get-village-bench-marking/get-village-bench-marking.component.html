@@ -200,11 +200,15 @@
             <mat-header-cell class="place-content-center text" *matHeaderCellDef>Action</mat-header-cell>
             <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">
                 <button style="margin-left: 5px" mat-icon-button *ngIf="checkEditStatus(VillageBenchMark)" color="primary" (click)="editVillageBenchMark(VillageBenchMark)">
-                    <mat-icon title="edit Vendor">edit</mat-icon>
+                    <mat-icon title="edit benchmarking">edit</mat-icon>
                 </button>
                 <button style="margin-left: 5px" mat-icon-button *ngIf="checkDeleteStatus(VillageBenchMark)" color="primary" (click)="deleteVillageBenchMark(VillageBenchMark)">
-                <mat-icon title="Delete Vendor">delete</mat-icon>
+                <mat-icon title="Delete benchmarking">delete</mat-icon>
               </button>
+
+                <button style="margin-left: 5px" mat-icon-button *ngIf="checkMap(VillageBenchMark)" color="primary" (click)="viewMap(VillageBenchMark)">
+                    <mat-icon title="view benchmarking">location_on</mat-icon>
+                </button>
 
             </mat-cell>
 
