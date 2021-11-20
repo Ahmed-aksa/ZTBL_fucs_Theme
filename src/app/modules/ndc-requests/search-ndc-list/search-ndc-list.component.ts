@@ -34,6 +34,7 @@ import { UserUtilsService } from 'app/shared/services/users_utils.service';
 import { HttpClient } from '@angular/common/http';
 import { CircleService } from '../../../shared/services/circle.service';
 import { Router } from '@angular/router';
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 @Component({
     selector: 'app-search-ndc-list',
@@ -139,7 +140,7 @@ export class SearchNdcListComponent implements OnInit {
     ngOnInit() {
         this.createForm();
         this.settingZBC();
-        
+
         this.LoggedInUserInfo =
             this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.hasSrNo != true) {
@@ -359,8 +360,29 @@ export class SearchNdcListComponent implements OnInit {
         this.loadUsersList();
     }
 
+    checkMap(data){
+        if(data?.Lat?.length>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    viewMap(data){
+        const dialogRef = this.dialog.open(ViewMapsComponent, { panelClass: ['h-screen','max-w-full','max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+        });
+    }
+
     downloadFile(customer_cnic, customer_id) {
-        
+
         this.spinner.show();
         this.ndc_request_service
             .downloadFile(
@@ -378,7 +400,7 @@ export class SearchNdcListComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success) {
-                    
+
                     // var path = baseResponse.Ndc.ndcFilePath,
                     //     str;
                     // path = path.split('TempReport');
@@ -395,7 +417,7 @@ export class SearchNdcListComponent implements OnInit {
                     );
                     //window.location.reload()
                     //window.open(`${str}${customer_cnic}_NDC.pdf`,'Download');
-                     
+
                     //this.downloadFile1()
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -527,7 +549,7 @@ export class SearchNdcListComponent implements OnInit {
     }
 
     settingZBC() {
-        
+
         this.loggedInUserDetails =
             this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (

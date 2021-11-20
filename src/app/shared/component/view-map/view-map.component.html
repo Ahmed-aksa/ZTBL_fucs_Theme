@@ -1,0 +1,28 @@
+<div id="Kt-portlet">
+
+    <div class="kt-portlet">
+        <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
+        <div class="w-full flex">
+
+            <h3 class="heading w-11/12">Location</h3>
+
+
+            <button  class="w-1/12 text-end" color="danger" (click)="close(0)">
+                <mat-icon class="text-danger">cancel</mat-icon>
+            </button>
+        </div>
+    </div>
+
+
+<agm-map #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng"
+         [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true" (mapReady)="onMapReady($event)"
+
+         class="h-screen">
+    <agm-marker *ngFor="let coordinate of loc_arr; let i=index"
+                [latitude]="isNumber(coordinate.Lat)"
+                [longitude]="isNumber(coordinate.Lng)" [agmFitBounds]="true">
+
+    </agm-marker>
+</agm-map>
+
+</div>

@@ -110,17 +110,15 @@ export class VendorRadiusComponent implements OnInit {
     private _lovService: LovService
   ) {}
 
-  countryRestriction = {
-    latLngBounds: {
-      north: 37.084107,
-      east: 77.823171,
-      south: 23.6345,
-      west: 60.872972
-    },
-    strictBounds: true
-  };
-
-
+    countryRestriction = {
+        latLngBounds: {
+            north: 37.084107,
+            east: 77.823171,
+            south: 23.6345,
+            west: 60.872972
+        },
+        strictBounds: true
+    };
 
   ngOnInit() {
 
@@ -153,13 +151,13 @@ export class VendorRadiusComponent implements OnInit {
       this.SelectedCircles = this.Circles;
     }
     else if(!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings){
-      
+
       this.Zone = this.LoggedInUserInfo.Zone;
       this.SelectedZones = this.Zone;
       this.disable_zone=true;
       this.radiusForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
 
-      
+
 
       this.selected_z = this.SelectedZones?.ZoneId
       this.changeZone(this.selected_z);
@@ -342,7 +340,7 @@ export class VendorRadiusComponent implements OnInit {
       else
       {
          changedZone = {Zone: {ZoneId: changedValue}}
-  
+
       }
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;

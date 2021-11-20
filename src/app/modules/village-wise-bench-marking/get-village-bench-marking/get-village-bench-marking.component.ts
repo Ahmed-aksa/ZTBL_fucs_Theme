@@ -26,6 +26,8 @@ import {finalize} from 'rxjs/operators';
 import {VillageBenchMark} from '../model/village-benchmark.model';
 import {VillageWiseBenchMarkingService} from '../service/village-wise-bench-marking.service';
 import {RemarkDialogComponent} from './remark-dialog/remark-dialog.component';
+import {ViewGetFancingModalComponent} from "../../geo-fencing/view-get-fancing-modal/view-get-fancing-modal.component";
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 @Component({
     selector: 'app-get-village-bench-marking',
@@ -169,6 +171,8 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
     }
 
+
+
     createForm() {
         this.getVillageBenchmarkForm = this.fb.group({
             Zone: [null],
@@ -310,6 +314,27 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/village-wise-bench-marking/add-update-bench-marking'], {
             state: {example: val},
             relativeTo: this.activatedRoute
+        });
+    }
+
+    checkMap(data){
+       if(data.Lat.length>0){
+           return true;
+       }else{
+           return false;
+       }
+    }
+
+    viewMap(data){
+        const dialogRef = this.dialog.open(ViewMapsComponent, { panelClass: ['h-screen','max-w-full','max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
         });
     }
 

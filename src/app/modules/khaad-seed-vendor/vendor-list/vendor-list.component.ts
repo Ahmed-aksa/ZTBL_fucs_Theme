@@ -26,6 +26,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {KhaadSeedVendorService} from '../service/khaad-seed-vendor.service';
 import {VendorDetail} from '../class/vendor-detail';
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
     selector: 'app-vendor-list',
@@ -92,7 +94,8 @@ export class VendorListComponent implements OnInit {
         private _lovService: LovService,
         private activatedRoute: ActivatedRoute,
         private userUtilsService: UserUtilsService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private dialog: MatDialog
     ) {
     }
 
@@ -324,6 +327,27 @@ export class VendorListComponent implements OnInit {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
             })
+    }
+
+    checkMap(data){
+        if(data.Lat.length>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    viewMap(data){
+        const dialogRef = this.dialog.open(ViewMapsComponent, { panelClass: ['h-screen','max-w-full','max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+        });
     }
 
     changeZone(changedValue) {
