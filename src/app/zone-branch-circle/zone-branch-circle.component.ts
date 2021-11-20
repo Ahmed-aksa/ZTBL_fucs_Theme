@@ -3,6 +3,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserUtilsService} from "../shared/services/users_utils.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-zone-branch-circle',
@@ -42,7 +43,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     selected_z: any;
     single_zone = true;
 
-    constructor(private userUtilsService: UserUtilsService, private spinner: NgxSpinnerService) {
+    constructor(private userUtilsService: UserUtilsService, private spinner: NgxSpinnerService, private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
@@ -99,6 +100,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     changeBranch(changedValue) {
+        this.selected_c = null;
         let changedBranch = null;
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
@@ -112,6 +114,8 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     changeZone(changedValue) {
+        this.selected_b = null;
+        this.selected_c = null;
         let changedZone = null;
         if (changedValue.value) {
             changedZone = {Zone: {ZoneId: changedValue.value}}
@@ -128,9 +132,9 @@ export class ZoneBranchCircleComponent implements OnInit {
 
     private addFormControls(should_show_circle) {
         this.form.addControl('ZoneId', new FormControl(null, Validators.required))
-        this.form.addControl('BranchCode', new FormControl(null, Validators.required))
+        this.form.addControl('BranchCode', new FormControl(null))
         if (should_show_circle)
-            this.form.addControl('CircleId', new FormControl(null, Validators.required))
+            this.form.addControl('CircleId', new FormControl(null))
     }
 
     // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -163,5 +167,12 @@ export class ZoneBranchCircleComponent implements OnInit {
 
     changeCircle(event) {
         this.emitData();
+    }
+
+    checkZoneValidation() {
+        if (this.form.invalid) {
+            this.toastr.error("Please enter required values");
+            return;
+        }
     }
 }

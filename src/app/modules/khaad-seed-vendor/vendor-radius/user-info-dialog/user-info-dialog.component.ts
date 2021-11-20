@@ -50,7 +50,7 @@ export class UserInfoDialogComponent implements OnInit {
   }
 
   getVendor(){
-    
+
     this.vendor.Id = this.data.id;
 
     this.user.ZoneId = this.data.zoneId;
@@ -68,13 +68,13 @@ export class UserInfoDialogComponent implements OnInit {
     .subscribe((baseResponse: BaseResponseModel) =>{
       if(baseResponse.Success === true){
         this.vendorInfo = baseResponse.SeedKhadVendor.VendorDetail;
-        
+
         this.vendorDetailForm.controls["Name"].setValue(this.vendorInfo.Name);
         this.vendorDetailForm.controls["TypeName"].setValue(this.vendorInfo.TypeName);
         this.vendorDetailForm.controls["Description"].setValue(this.vendorInfo.Description);
         this.vendorDetailForm.controls["PhoneNumber"].setValue(this.vendorInfo.PhoneNumber);
         this.vendorDetailForm.controls["Address"].setValue(this.vendorInfo.Address);
-        
+
         this.images.push(this.vendorInfo.FilePath);
         console.log(this.vendorInfo)
       }

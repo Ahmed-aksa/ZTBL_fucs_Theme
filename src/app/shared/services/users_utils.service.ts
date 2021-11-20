@@ -92,9 +92,7 @@ export class UserUtilsService {
             this.search_data.UserCircleMappings = null;
             this.search_data.Zone = null;
 
-        }
-        else if(user_data.Zone)
-        {
+        } else if (user_data.Zone) {
             this.search_data.branch = null;
             this.search_data.UserCircleMappings = null;
             this.search_data.Zone = user_data.Zone;
@@ -149,19 +147,22 @@ export class UserUtilsService {
     }
 
     public getUserActivities() {
-        return JSON.parse(localStorage.getItem(environment.userActivities)).Activities;
+        return JSON.parse(localStorage.getItem('ZTBLUser'))?.Activities;
     }
 
     public getActivity(activityName: string): Activity {
         //this.getUserDetails();
         var activities = this.getUserActivities();
-        var act = activities.filter(x => x.ActivityName == activityName)[0];
+        if (activities?.length) {
+            var act = activities.filter(x => x.ActivityName == activityName)[0];
 
-        act.C = act.C == '1' ? true : false
-        act.D = act.D == '1' ? true : false
-        act.U = act.U == '1' ? true : false
-        act.R = act.R == '1' ? true : false
-        return act;
+            act.C = act.C == '1' ? true : false
+            act.D = act.D == '1' ? true : false
+            act.U = act.U == '1' ? true : false
+            act.R = act.R == '1' ? true : false
+            return act;
+        }
+
     }
 
     public isValidUrl(url: string): boolean {
