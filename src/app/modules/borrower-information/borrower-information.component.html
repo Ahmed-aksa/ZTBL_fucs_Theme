@@ -23,12 +23,12 @@
     <!-- Header -->
     <div  [formGroup]="borrowerForm">
 
-        <div class="row">
+        <div class="flex" style="flex-wrap: wrap;">
             <app-zone-branch-circle [form]="borrowerForm" [should_show_circle]="true"
                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Cnic</mat-label>
@@ -38,8 +38,9 @@
                 </div>
             </div>
 
-            <div *ngIf="PPNOVisible" class="col-md-3 col-sm-12">
-                <div class="col-md-12 kt-margin-bottom-10-mobile mr-4">
+
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;" *ngIf="PPNOVisible">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>PPNO.</mat-label>
                         <input appNumberOnly matInput formControlName="PPNo" placeholder="Enter PPNo" maxlength="100"
@@ -48,11 +49,11 @@
                 </div>
             </div>
 
-        </div>
 
-        <div class="row">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+
+            <div>
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                     <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" class=" bg-gray-500 mat-primary" mat-raised-button color="accent"
                             type="button" (click)="getBorrower()">
@@ -62,7 +63,7 @@
                 </div>
             </div>
 
-        </div>
+
 
 
     </div>
@@ -70,7 +71,7 @@
       </div>
 
 
-
+</div>
 
     <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50" style="flex-direction: column; overflow-y: scroll">
         <div class="example-table-container ">
