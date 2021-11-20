@@ -14,6 +14,7 @@ import {Injectable} from '@angular/core';
 import {Activity} from 'app/shared/models/activity.model';
 import {BaseRequestModel} from 'app/shared/models/base_request.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
+import { Circle } from 'app/shared/models/circle.model';
 import {HttpUtilsService} from 'app/shared/services/http_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {environment} from 'environments/environment';
@@ -51,9 +52,7 @@ export class ReportsService {
             //  },
             Zone: user.Zone,
             Branch: user.Branch,
-            Circle:{
-              CircleCode: user.Circle
-            }
+            Circle:user.Circle
         }
 
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
@@ -72,6 +71,9 @@ export class ReportsService {
             User: this.userDetail.User,
             Zone: user.Zone,
             Branch: user.Branch,
+            Circle:{
+              CircleCode: user.Circle.CircleId
+            }
         }
 
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)

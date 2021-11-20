@@ -1,7 +1,7 @@
 /* eslint-disable no-var */
 /* eslint-disable arrow-parens */
 /* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable eol-last */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -39,12 +39,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     selected_z;
     selected_c;
     loaded = true;
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
+    
 
     public reports = new SearchLoanCaseByCnic();
 
@@ -72,8 +67,9 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     //Circle inventory
     Circles: any = [];
     SelectedCircles: any = [];
-    private final_branch: any;
-    private final_zone: any;
+    private branch: any;
+    private zone: any;
+    private circle: any;
 
     statusLov: any;
     public LovCall = new Lov();
@@ -93,78 +89,16 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm()
+        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         // this.typeLov();
-
-        if (this.LoggedInUserInfo.Branch != null) {
-
-            this.SelectedCircles = this.Circles;
-            this.disable_circle = false;
-
-            this.Branches = this.LoggedInUserInfo.Branch;
-            this.SelectedBranches = this.Branches;
-
-            this.Zones = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zones;
-
-            this.selected_z = this.SelectedZones.ZoneId
-            this.selected_b = this.SelectedBranches.BranchCode
-            this.selected_c = this.SelectedCircles.Id
-            console.log(this.SelectedZones)
-            this.searchCnicForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
-            this.searchCnicForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
-            this.changeBranch(this.selected_b)
-            // var fi : any = []
-            // fi.Id = "null";
-            // fi.CircleCode = "All";
-            // fi.LovId = "0";
-            // fi.TagName="0";
-            // this.SelectedCircles.splice(0, 0, fi)
-            // console.log(this.SelectedCircles)
-            // this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-            this.spinner.show();
-
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zones = data.Zones;
-                this.SelectedZones = this.Zones;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-
-            });
-        }
     }
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            ZoneId: [null, Validators.required],
-            BranchCode: [null, Validators.required],
-            CircleCode: [null, Validators.required],
             PPNO: [null, Validators.required]
         })
     }
 
-    private assignBranchAndZone() {
-
-
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.LoggedInUserInfo.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.LoggedInUserInfo.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.LoggedInUserInfo.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.LoggedInUserInfo.Zone = this.final_zone;
-        }
-
-    }
 
     select: Selection[] = [
         {Value: '2', description: 'Portable Document Format (PDF)'},
@@ -173,19 +107,19 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     ];
 
     find() {
+        debugger
         this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required values");
             return;
         }
-        this.assignBranchAndZone();
-        this.user.Branch = this.final_branch;
-        this.user.Zone = this.final_zone;
-        this.user.Circle = this.searchCnicForm.controls.CircleCode.value;
+        this.user.Branch = this.branch;
+        this.user.Zone = this.zone;
+        this.user.Circle = this.circle
 
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
-        this.reports.ReportsNo = "19";
+        this.reports.ReportsNo = "20";
         this.spinner.show();
         this._reports.reportDynamic(this.user, this.reports)
             .pipe(
@@ -209,8 +143,8 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
 
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                     this.loading = false;
-                    this.matTableLenght = false;
-                    this.dataSource = this.dv.slice(1, 0);
+                    // this.matTableLenght = false;
+                    // this.dataSource = this.dv.slice(1, 0);
                     //this.offSet = 0;
                     this.pageIndex = 1;
 
@@ -218,13 +152,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
             })
     }
 
-    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        this.itemsPerPage = pageSize;
-        this.pageIndex = pageIndex;
-        //this.OffSet = pageIndex;
-
-        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
-    }
 
     // async typeLov() {
     //     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
@@ -233,40 +160,12 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     //     console.log(this.statusLov)
     // }
 
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = data.final_circle
     }
 
-    changeBranch(changedValue) {
-
-        let changedBranch = null;
-        if (changedValue.value) {
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        } else {
-            changedBranch = {Branch: {BranchCode: changedValue}}
-
-        }
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            console.log(data);
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            var fi: any = []
-            fi.Id = "null";
-            fi.CircleCode = "----Please Select----";
-            fi.LovId = "0";
-            fi.TagName = "0";
-            this.SelectedCircles.splice(0, 0, fi)
-            console.log(this.SelectedCircles)
-            this.searchCnicForm.controls["CircleCode"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-            this.disable_circle = false;
-        });
-    }
 }
 
 export interface Selection {

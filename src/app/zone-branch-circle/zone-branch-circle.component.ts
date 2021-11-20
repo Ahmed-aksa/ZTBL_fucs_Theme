@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserUtilsService} from "../shared/services/users_utils.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -136,6 +137,7 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.form.addControl('CircleId', new FormControl(null))
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     emitData() {
         let final_zone = null;
         if (this.SelectedZones?.length > 1)
@@ -148,15 +150,19 @@ export class ZoneBranchCircleComponent implements OnInit {
 
 
         let final_circle = null;
+        debugger;
+
         if (this.SelectedCircles?.length > 1)
             final_circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+        else if(this.SelectedCircles.length==1)
+            final_circle=this.SelectedCircles[0];
         else
             final_circle = this.SelectedCircles;
         this.branchZoneCircleData.emit({
             final_zone: final_zone,
             final_branch: final_branch,
             final_circle: final_circle
-        })
+        });
     }
 
     changeCircle(event) {

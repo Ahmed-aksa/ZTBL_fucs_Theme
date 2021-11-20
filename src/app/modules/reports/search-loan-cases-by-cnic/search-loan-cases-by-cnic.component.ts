@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 /* eslint-disable arrow-parens */
 /* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no- */
+/* eslint-disable no-debugger */
 /* eslint-disable eol-last */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -68,8 +69,9 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
     //Circle inventory
     Circles: any = [];
     SelectedCircles: any = [];
-    private final_branch: any;
-    private final_zone: any;
+    private branch: any;
+    private zone: any;
+    private circle: any;
 
 
     constructor(
@@ -83,92 +85,32 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        debugger
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.createForm()
-
-        if (this.LoggedInUserInfo.Branch != null) {
-            this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-            this.SelectedCircles = this.Circles;
-            this.disable_circle = false;
-
-            this.Branches = this.LoggedInUserInfo.Branch;
-            this.SelectedBranches = this.Branches;
-
-            this.Zones = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zones;
-
-            this.selected_z = this.SelectedZones.ZoneId
-            this.selected_b = this.SelectedBranches.BranchCode
-            this.selected_c = this.SelectedCircles.Id
-            console.log(this.SelectedZones)
-            this.searchCnicForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
-            this.searchCnicForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
-            // var fi : any = []
-            // fi.Id = "null";
-            // fi.CircleCode = "All";
-            // fi.LovId = "0";
-            // fi.TagName="0";
-            // this.SelectedCircles.splice(0, 0, fi)
-            // console.log(this.SelectedCircles)
-            // this.listForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-            this.spinner.show();
-
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zones = data.Zones;
-                this.SelectedZones = this.Zones;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-
-            });
-        }
-
-
+        this.createForm();
+        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
     }
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            ZoneId: [null, Validators.required],
-            BranchCode: [null, Validators.required],
             Cnic: [null],
             CustomerName: [null],
-            FatherName: [null]
+            FatherName: [null],
+            PPNO: [Validators.required, null]
         })
     }
 
-    private assignBranchAndZone() {
-
-
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.LoggedInUserInfo.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.LoggedInUserInfo.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.LoggedInUserInfo.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.LoggedInUserInfo.Zone = this.final_zone;
-        }
-
-    }
 
     find() {
-        this.assignBranchAndZone();
-        this.user.Branch = this.final_branch;
-        this.user.Zone = this.final_zone;
-        this.user.Circle = null;
 
-        if (this.searchCnicForm.controls.Cnic.value == null && this.searchCnicForm.controls.CustomerName.value == null && this.searchCnicForm.controls.FatherName.value == null) {
+        if ((this.searchCnicForm.controls.Cnic.value == null || this.searchCnicForm.controls.Cnic.value == '') && (this.searchCnicForm.controls.CustomerName.value == null || this.searchCnicForm.controls.CustomerName.value == '') && (this.searchCnicForm.controls.FatherName.value == null || this.searchCnicForm.controls.FatherName.value == '')) {
             this.layoutUtilsService.alertElement('', 'Atleast add any one field among Cnic, Father Name or Customer Name')
             return
         }
+
+        this.user.Zone = this.zone
+        this.user.Branch = this.branch
+        this.user.Circle = this.circle
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "14";
@@ -193,8 +135,8 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
 
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                     this.loading = false;
-                    this.matTableLenght = false;
-                    this.dataSource = this.dv.slice(1, 0);
+                    // this.matTableLenght = false;
+                    // this.dataSource = this.dv.slice(1, 0);
                     //this.offSet = 0;
                     this.pageIndex = 1;
 
@@ -202,22 +144,11 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
             })
     }
 
-    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        this.itemsPerPage = pageSize;
-        this.pageIndex = pageIndex;
-        //this.OffSet = pageIndex;
-    
-        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
-    }
 
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = null
     }
 }
 

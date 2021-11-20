@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable eqeqeq */
 /* eslint-disable arrow-parens */
 /* eslint-disable prefer-const */
@@ -10,7 +11,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
+import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
@@ -21,11 +22,20 @@ import {Bufrication} from '../class/reports';
 import {ReportsService} from '../service/reports.service';
 import {ToastrService} from "ngx-toastr";
 import { MatDialogRef } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @Component({
     selector: 'bufrication-of-os-balances-lc',
     templateUrl: './bufrication-of-os-balances-lc.component.html',
-    styleUrls: ['./bufrication-of-os-balances-lc.component.scss']
+    styleUrls: ['./bufrication-of-os-balances-lc.component.scss'],
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ],
 })
 export class BufricationOfOsBalancesLcComponent implements OnInit {
 
@@ -53,6 +63,11 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
 
     final_branch: any;
     final_zone: any;
+
+    branch: any;
+    zone: any;
+    circle: any;
+
 
     //Branch inventory
     Branches: any = [];
@@ -88,42 +103,20 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
         this.typeLov();
-        if (this.LoggedInUserInfo.Branch != null) {
-            //this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-            this.SelectedCircles = this.Circles;
-            this.disable_circle = false;
+        this.bufricationForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
+        this.bufricationForm.controls["ReportFormatType"].setValue(this.select ? this.select[0].Value : "");
 
-            this.Branches = this.LoggedInUserInfo.Branch;
-            this.SelectedBranches = this.Branches;
+        //this.bufricationForm.controls["WorkingDate"].setValue(this.LoggedInUserInfo.Branch.WorkingDate);
+        if(this.LoggedInUserInfo.Branch.WorkingDate){
+            let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
+            var day = parseInt(dateString.substring(0, 2));
+        var month = parseInt(dateString.substring(2, 4));
+        var year = parseInt(dateString.substring(4, 8));
 
-            this.Zones = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zones;
-
-            this.selected_z = this.SelectedZones.ZoneId
-            this.selected_b = this.SelectedBranches.BranchCode
-            this.selected_c = this.SelectedCircles.Id
-            this.bufricationForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
-            this.bufricationForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
-            this.bufricationForm.controls["WorkingDate"].setValue(this.LoggedInUserInfo.Branch.WorkingDate);
-            this.changeBranch(this.selected_b);
-            var fi: any = []
-            fi.Id = "null";
-            fi.CircleCode = "----Please Select----";
-            fi.LovId = "0";
-            fi.TagName = "0";
-            this.SelectedCircles.splice(0, 0, fi)
-            this.bufricationForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-            this.spinner.show();
-
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zones = data.Zones;
-                this.SelectedZones = this.Zones;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-
-            });
+        const branchWorkingDate = new Date(year, month - 1, day);
+        this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
+        }else{
+            this.bufricationForm.controls.WorkingDate.setValue(null);
         }
     }
 
@@ -133,64 +126,106 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
     }
 
-    private assignBranchAndZone() {
+    isEnableReceipt() {
+        debugger
+        var workingDate = this.bufricationForm.controls.WorkingDate.value;
+        if (workingDate._isAMomentObject == undefined) {
+            try {
+                var day = this.bufricationForm.controls.WorkingDate.value.getDate();
+                var month = this.bufricationForm.controls.WorkingDate.value.getMonth() + 1;
+                var year = this.bufricationForm.controls.WorkingDate.value.getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                const branchWorkingDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
+            } catch (e) {
 
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.LoggedInUserInfo.Branch = this.final_branch;
+            }
         } else {
-            this.final_branch = this.SelectedBranches;
-            this.LoggedInUserInfo.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.LoggedInUserInfo.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.LoggedInUserInfo.Zone = this.final_zone;
-        }
+            try {
+                var day = this.bufricationForm.controls.WorkingDate.value.toDate().getDate();
+                var month = this.bufricationForm.controls.WorkingDate.value.toDate().getMonth() + 1;
+                var year = this.bufricationForm.controls.WorkingDate.value.toDate().getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                workingDate = day + "" + month + "" + year;
 
+
+                const branchWorkingDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
+            } catch (e) {
+
+            }
+        }
     }
+
 
     createForm() {
         this.bufricationForm = this.fb.group({
-            ZoneId: [null, Validators.required],
-            BranchCode: [null, Validators.required],
             WorkingDate: [null, Validators.required],
             LcNo: [null],
-            CircleId: [null, Validators.required],
             Status: [null, Validators.required],
             ReportFormatType: [null, Validators.required],
             PPNO: [null, Validators.required]
         })
     }
 
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
 
     find() {
 
-        this.bufricationForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             return;
         }
-        this.assignBranchAndZone();
-        this.user.Branch = this.final_branch;
-        this.user.Zone = this.final_zone;
-        this.user.Circle = this.bufricationForm.controls.CircleId.value;
+        this.user.Branch = this.branch;
+        this.user.Zone = this.zone;
+        this.user.Circle = this.circle;
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "18";
+        var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
+        if (myWorkingDate._isAMomentObject == undefined) {
+
+            try {
+                var day = this.bufricationForm.controls.WorkingDate.value.getDate();
+                var month = this.bufricationForm.controls.WorkingDate.value.getMonth() + 1;
+                var year = this.bufricationForm.controls.WorkingDate.value.getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                myWorkingDate.WorkingDate = day + "" + month + "" + year;
+                this.reports.WorkingDate = myWorkingDate.WorkingDate;
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                var day = this.bufricationForm.controls.WorkingDate.value.toDate().getDate();
+                var month = this.bufricationForm.controls.WorkingDate.value.toDate().getMonth() + 1;
+                var year = this.bufricationForm.controls.WorkingDate.value.toDate().getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                this.reports.WorkingDate = day + "" + month + "" + year;
+            } catch (e) {
+
+            }
+        }
+        console.log(this.reports.WorkingDate)
         this.spinner.show();
         this._bufrication.reportDynamic(this.user, this.reports)
             .pipe(
@@ -209,32 +244,14 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             })
     }
 
-    close(res){
-        this.dialogRef.close(res)
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = data.final_circle;
     }
 
-
-    changeBranch(changedValue) {
-
-        let changedBranch = null;
-        if (changedValue.value) {
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        } else {
-            changedBranch = {Branch: {BranchCode: changedValue}}
-
-        }
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            var fi: any = []
-            fi.Id = "null";
-            fi.CircleCode = "----Please Select----";
-            fi.LovId = "0";
-            fi.TagName = "0";
-            this.SelectedCircles.splice(0, 0, fi)
-            this.bufricationForm.controls["CircleId"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-            this.disable_circle = false;
-        });
+    close(res){
+        this.dialogRef.close(res)
     }
 
 
