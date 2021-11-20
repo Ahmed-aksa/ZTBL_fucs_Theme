@@ -20,6 +20,7 @@ import {finalize} from 'rxjs/operators';
 import {Bufrication} from '../class/reports';
 import {ReportsService} from '../service/reports.service';
 import {ToastrService} from "ngx-toastr";
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'bufrication-of-os-balances-lc',
@@ -64,6 +65,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
     user: any = {}
 
     constructor(
+        private dialogRef: MatDialogRef<BufricationOfOsBalancesLcComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -78,8 +80,8 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
 
     select: Selection[] = [
         {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '1', description: 'MS Excel (Formatted)'},
-        {Value: '3', description: 'MS Excel (Data Only Non Formatted)'}
+        {Value: '3', description: 'MS Excel (Formatted)'},
+        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
     ];
 
     ngOnInit(): void {
@@ -205,6 +207,10 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
             })
+    }
+
+    close(res){
+        this.dialogRef.close(res)
     }
 
 

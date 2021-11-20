@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable eqeqeq */
 /* eslint-disable arrow-parens */
@@ -70,6 +71,7 @@ export class FaViewCircleWiseComponent implements OnInit {
     SelectedCircles: any = [];
     private final_branch: any;
     private final_zone: any;
+    private final_circle: any;
 
     statusLov: any;
     public LovCall = new Lov();
@@ -92,9 +94,9 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.typeLov();
 
         if (this.LoggedInUserInfo.Branch != null) {
-            this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-            this.SelectedCircles = this.Circles;
-            this.disable_circle = false;
+            //this.Circles = this.LoggedInUserInfo.UserCircleMappings;
+            // this.SelectedCircles = this.Circles;
+            // this.disable_circle = false;
 
             this.Branches = this.LoggedInUserInfo.Branch;
             this.SelectedBranches = this.Branches;
@@ -108,6 +110,7 @@ export class FaViewCircleWiseComponent implements OnInit {
             console.log(this.SelectedZones)
             this.searchCnicForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
             this.searchCnicForm.controls["BranchCode"].setValue(this.SelectedBranches?.Name);
+            this.changeBranch(this.selected_b);
         } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
             this.spinner.show();
 
@@ -128,7 +131,8 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.searchCnicForm = this.fb.group({
             ZoneId: [null, Validators.required],
             BranchCode: [null, Validators.required],
-            days: [null, Validators.required],
+            CircleCode: [null, Validators.required],
+            //days: [null, Validators.required],
             // ReportsFormatType: [null, Validators.required],
             Status: [null, Validators.required],
             PPNO: [null, Validators.required]
@@ -154,7 +158,14 @@ export class FaViewCircleWiseComponent implements OnInit {
             this.final_zone = this.SelectedZones;
             this.LoggedInUserInfo.Zone = this.final_zone;
         }
-
+        //Circle
+        if (this.SelectedCircles.length) {
+            this.final_circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+            this.LoggedInUserInfo.Zone = this.final_circle;
+        } else {
+            this.final_circle = this.SelectedCircles;
+            this.LoggedInUserInfo.Zone = this.final_circle;
+        }
     }
 
     find() {
@@ -166,10 +177,10 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.assignBranchAndZone();
         this.user.Branch = this.final_branch;
         this.user.Zone = this.final_zone;
-        this.user.Circle = null
+        this.user.Circle = this.final_circle;
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
-        this.reports.ReportsNo = "17";
+        this.reports.ReportsNo = "16";
         this.spinner.show();
         this._reports.reportDynamic(this.user, this.reports)
             .pipe(
@@ -224,6 +235,29 @@ export class FaViewCircleWiseComponent implements OnInit {
             this.SelectedBranches = this.Branches;
             this.single_branch = false;
             this.disable_branch = false;
+        });
+    }
+
+    changeBranch(changedValue) {
+
+        let changedBranch = null;
+        if (changedValue.value) {
+            changedBranch = {Branch: {BranchCode: changedValue.value}}
+        } else {
+            changedBranch = {Branch: {BranchCode: changedValue}}
+
+        }
+        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+            this.Circles = data.Circles;
+            this.SelectedCircles = this.Circles;
+            var fi: any = []
+            fi.Id = "null";
+            fi.CircleCode = "----Please Select----";
+            fi.LovId = "0";
+            fi.TagName = "0";
+            this.SelectedCircles.splice(0, 0, fi)
+            this.searchCnicForm.controls["CircleCode"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
+            this.disable_circle = false;
         });
     }
 }

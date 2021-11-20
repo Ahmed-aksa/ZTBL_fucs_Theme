@@ -29,10 +29,10 @@ const routing = [
         path: 'early-warning-reports',
         component: EarlyWarningReportsComponent
     },
-    {
-        path: 'bifurction-of-os',
-        component: BufricationOfOsBalancesLcComponent
-    },
+    // {
+    //     path: 'bifurction-of-os',
+    //     component: BufricationOfOsBalancesLcComponent
+    // },
     {
         path: 'updated-list',
         component: UpdatedListOfDefaultersComponent
@@ -59,6 +59,9 @@ const routing = [
         RouterModule.forChild(routing),
         SharedModule
     ],
+    entryComponents:[
+        BufricationOfOsBalancesLcComponent
+    ]
 
 })
 export class ReportsModule {

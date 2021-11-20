@@ -39,7 +39,7 @@ public circle=new Circle;
 
   var v = JSON.stringify(this.request)
 console.log(v)
-  
+
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourPlan`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -58,7 +58,7 @@ console.log(v)
 
     var v = JSON.stringify(this.request)
   console.log(v);
-    
+
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -75,7 +75,7 @@ console.log(v)
     };
     var v = JSON.stringify(this.request)
     console.log(v);
-    
+
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
       map((res: BaseResponseModel) => res)
@@ -98,7 +98,7 @@ console.log(v)
 
   var v = JSON.stringify(this.request)
 console.log(v)
-  
+
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanDetail`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -121,28 +121,28 @@ console.log(v)
 
   var v = JSON.stringify(this.request)
 console.log(v)
-  
+
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApprovel`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
       );
   }
-  SearchTourPlan(tourPlan,Limit,Offset){
+  SearchTourPlan(tourPlan,Limit,Offset,branch,zone){
     this.request = new BaseRequestModel();
-    
+
     var userInfo = this.userUtilsService.getUserDetails();
 
     this.request.User = userInfo.User;
     this.request.TourPlan=tourPlan;
     this.request.TourPlan.Limit = Limit;
       this.request.TourPlan.Offset=Offset;
-    this.request.Zone = userInfo.Zone;
-    this.request.Branch = userInfo.Branch;
+    this.request.Zone = zone;
+    this.request.Branch = branch;
 
     var req = JSON.stringify(this.request);
     console.log(req);
 
-    
+
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
         map((res: BaseResponseModel) => res)
@@ -151,7 +151,7 @@ console.log(v)
 
   TourPlanForApproval(tourPlan,Limit,Offset){
     this.request = new BaseRequestModel();
-    
+
     var userInfo = this.userUtilsService.getUserDetails();
 
     this.request.User = userInfo.User;
@@ -164,7 +164,7 @@ console.log(v)
     var req = JSON.stringify(this.request);
     console.log(req);
 
-    
+
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApproval`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
       map((res: BaseResponseModel) => res)

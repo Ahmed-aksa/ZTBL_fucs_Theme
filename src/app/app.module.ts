@@ -12,7 +12,7 @@ import {mockApiServices} from 'app/mock-api';
 import {LayoutModule} from 'app/layout/layout.module';
 import {AppComponent} from 'app/app.component';
 import {appRoutes} from 'app/app.routing';
-import {SharedModule} from  './shared/shared.module';
+import {SharedModule} from './shared/shared.module';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {metaReducers, reducers} from './shared/reducers';
@@ -33,7 +33,7 @@ const routerConfig: ExtraOptions = {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         BrowserModule,
@@ -66,7 +66,6 @@ const routerConfig: ExtraOptions = {
     bootstrap: [
         AppComponent
     ],
-
 })
 export class AppModule {
 }

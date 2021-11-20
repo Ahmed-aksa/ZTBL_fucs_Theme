@@ -162,20 +162,19 @@ export class SearchNdcListComponent implements OnInit {
         //     this.GetZones();
         // }
 
-        // if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
+        // if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
         //   this.Circles = this.LoggedInUserInfo.UserCircleMappings;
         //   this.SelectedCircles = this.Circles;
-        //
+        
         //   this.Branches = this.LoggedInUserInfo.Branch;
         //   this.SelectedBranches = this.Branches;
-        //
+        
         //   this.Zones = this.LoggedInUserInfo.Zone;
         //   this.SelectedZones = this.Zones;
-        //
+        
         //   this.selected_z = this.SelectedZones.ZoneId
         //   this.selected_b = this.SelectedBranches.BranchCode
         //   this.selected_c = this.SelectedCircles.Id
-        //   console.log(this.SelectedZones)
         //   this.ndcForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
         //   this.ndcForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
         // }
@@ -486,7 +485,12 @@ export class SearchNdcListComponent implements OnInit {
     }
 
     changeZone(changedValue) {
-        let changedZone = { Zone: { ZoneId: changedValue.value } };
+        let changedZone=null;
+        if(changedValue?.value)
+     changedZone = { Zone: { ZoneId: changedValue.value } };
+        else
+        changedZone = { Zone: { ZoneId: changedValue } };
+
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
             this.SelectedBranches = this.Branches;
@@ -550,7 +554,7 @@ export class SearchNdcListComponent implements OnInit {
             this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (
             this.loggedInUserDetails.Branch &&
-            this.loggedInUserDetails.Branch.BranchCode != 'All'
+            this.loggedInUserDetails.Branch?.BranchCode != 'All'
         ) {
             this.SelectedCircles = this.loggedInUserDetails.UserCircleMappings;
 
@@ -566,6 +570,16 @@ export class SearchNdcListComponent implements OnInit {
             );
 
             this.loadUsersList();
+        }else if (!this.loggedInUserDetails.Branch && !this.loggedInUserDetails.UserCircleMappings && this.loggedInUserDetails.Zone) {
+
+            this.Zone = this.loggedInUserDetails.Zone;
+            this.SelectedZones = this.Zone;
+            this.disable_zone = true;
+            this.ndcForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
+
+
+            this.selected_z = this.SelectedZones?.ZoneId
+            this.changeZone(this.selected_z);
         } else if (
             !this.loggedInUserDetails.Branch &&
             !this.loggedInUserDetails.Zone &&

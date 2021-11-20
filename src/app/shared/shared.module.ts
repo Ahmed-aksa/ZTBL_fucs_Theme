@@ -44,15 +44,16 @@ import {
 import {MatNativeDateModule} from "@angular/material/core";
 import {HttpUtilsService} from "./services/http_utils.service";
 import {UserUtilsService} from "./services/users_utils.service";
-import { LayoutUtilsService } from "./services/layout_utils.service";
-import { ViewFileComponent } from './component/view-file/view-file.component';
-import { AlphabetOnlyDirective } from './directives/alphabet-only.directive';
-import { NumberOnlyDirective } from './directives/number-only.directive';
-import { AlphaNumericFieldDirective } from './directives/alpha-numeric-field.directive';
-import { CapsOnlyDirective } from './directives/caps-only.directive';
-import { AlphaNumSpecialDirective } from './directives/alpha-num-special.directive';
-import { NumberAndDecimalDirective } from './directives/number-and-decimal.directive';
-import {ViewMapsComponent} from "./component/view-map/view-map.component";
+import {LayoutUtilsService} from "./services/layout_utils.service";
+import {ViewFileComponent} from './component/view-file/view-file.component';
+import {AlphabetOnlyDirective} from './directives/alphabet-only.directive';
+import {NumberOnlyDirective} from './directives/number-only.directive';
+import {AlphaNumericFieldDirective} from './directives/alpha-numeric-field.directive';
+import {CapsOnlyDirective} from './directives/caps-only.directive';
+import {AlphaNumSpecialDirective} from './directives/alpha-num-special.directive';
+import {NumberAndDecimalDirective} from './directives/number-and-decimal.directive';
+import {ZoneBranchCircleComponent} from "../zone-branch-circle/zone-branch-circle.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import {ViewMapsComponent} from "./component/view-map/view-map.component";
         AlphaNumericFieldDirective,
         CapsOnlyDirective,
         AlphaNumSpecialDirective,
-        NumberAndDecimalDirective,ViewMapsComponent
+        NumberAndDecimalDirective,
+        ZoneBranchCircleComponent
     ],
     imports: [
         CommonModule,
@@ -82,7 +84,6 @@ import {ViewMapsComponent} from "./component/view-map/view-map.component";
         ReactiveFormsModule,
         ToastrModule.forRoot(),
         FormsModule,
-        ReactiveFormsModule,
         MatSelectModule,
         MatInputModule,
         MatTableModule,
@@ -110,6 +111,8 @@ import {ViewMapsComponent} from "./component/view-map/view-map.component";
         NgxMaskModule.forRoot(),
         NgxSpinnerModule,
         NgxPaginationModule,
+        MatFormFieldModule,
+        MatInputModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyC3SrcUt_3iPERnX-hk46YYsKJiCTzJ5z0',
             libraries: ['places', 'drawing', 'geometry'],
@@ -154,7 +157,8 @@ import {ViewMapsComponent} from "./component/view-map/view-map.component";
         AlphaNumericFieldDirective,
         CapsOnlyDirective,
         AlphaNumSpecialDirective,
-        NumberAndDecimalDirective
+        NumberAndDecimalDirective,
+        ZoneBranchCircleComponent
     ],
     entryComponents: [
         UpdateStatusDialogComponent,
@@ -168,7 +172,6 @@ import {ViewMapsComponent} from "./component/view-map/view-map.component";
         AlertDialogComponent,
         AlertComponent,
         ActionNotificationComponent,
-        ViewMapsComponent
     ],
     providers: [
         HttpUtilsService,

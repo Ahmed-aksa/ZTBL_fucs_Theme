@@ -30,6 +30,12 @@ export class ReportsComponent implements OnInit {
     ngOnInit(): void {
     }
 
-  
-
+    bufrictionOfOSBalances(){
+        const dialogRef = this.dialog.open(BufricationOfOsBalancesLcComponent, {panelClass: ['w-6/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
 }

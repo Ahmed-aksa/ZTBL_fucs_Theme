@@ -13,7 +13,7 @@
         <div class="col-lg-9 col-sm-12">
             <div class="heading">Updated List of defaulters of a circle for each MCO</div>
         </div>
-        <div class="col-lg-3 col-sm-12 self-center">
+        <div class="col-lg-3 col-sm-12 self-center mt-2">
             <p class="text-right">
                 <button
                     class="
@@ -43,7 +43,7 @@
         <div class="card card-body">
             <div class="py-2" [formGroup]="searchCnicForm">
                 <div class="row">
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
@@ -71,7 +71,7 @@
 
                         </div>
                     </div>
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -98,12 +98,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-
-                </div>
-
-
-                <div class="row">
-                    <div class="col-lg-4 col-sm-12">
+                    <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Circle</mat-label>
@@ -118,18 +113,19 @@
                             </mat-form-field>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <button class="mt-2 bg-gray-500" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                                mat-raised-button color="primary" (click)="find()">
+                            <mat-icon class="mr-2">search</mat-icon>
+                            Find
+                        </button>
+                    </div>
 
                 </div>
+
+
             </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
-                            mat-raised-button color="primary" (click)="find()">
-                        <mat-icon class="mr-2">search</mat-icon>
-                        Find
-                    </button>
-                </div>
-            </div>
+
         </div>
     </div>
 
