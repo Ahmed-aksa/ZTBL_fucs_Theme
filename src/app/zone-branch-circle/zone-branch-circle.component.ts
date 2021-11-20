@@ -57,8 +57,8 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.selected_c = this.SelectedCircles?.Id
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
-            if (this.should_show_circle)
-                this.form.controls["CircleId"].setValue(this.SelectedCircles.Id);
+
+            this.single_circle = false;
 
 
         } else if (this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
