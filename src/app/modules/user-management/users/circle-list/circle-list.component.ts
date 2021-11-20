@@ -155,14 +155,7 @@ export class CircleListComponent implements OnInit {
         });
     }
 
-    getAllData(event
-                   :
-                   {
-                       final_zone: any;
-                       final_branch: any;
-                       final_circle: any
-                   }
-    ) {
+    getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
