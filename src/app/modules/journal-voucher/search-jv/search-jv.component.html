@@ -6,7 +6,7 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <button class="mt-2  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
                 </button>
               </p>
@@ -23,11 +23,11 @@
     <div  [formGroup]="JvSearchForm">
 
 
-        <div class="row mt-4">
+        <div class="flex" style="flex-wrap: wrap;">
             <app-zone-branch-circle [form]="JvSearchForm" [should_show_circle]="false"
                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+                <div class="mx-2" >
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
@@ -42,8 +42,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+            <div class="mx-2" >
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Nature</mat-label>
                         <mat-select formControlName="Nature">
@@ -54,13 +54,8 @@
                     </mat-form-field>
                 </div>
             </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-lg-3 col-sm-12">
-
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <div class="mx-2" >
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
@@ -70,8 +65,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+            <div class="mx-2" >
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Status</mat-label>
                         <mat-select formControlName="Status">
@@ -83,21 +78,18 @@
                 </div>
             </div>
 
+            <div class="mx-2" >
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-
-        </div>
-        <div class="row">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
-
-                    <button class="bg-gray-500" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary"
+                    <button class="bg-gray-500 mt-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary"
                             type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                 </div>
             </div>
+
         </div>
 
+        </div>
 
-    </div>
         </div>
       </div>
 
