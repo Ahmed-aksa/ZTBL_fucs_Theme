@@ -32,6 +32,11 @@ export class BorrowerInformationComponent implements OnInit {
         'InterestRate',
         'PermanentAddress',
     ];
+
+    branch: any;
+    zone: any;
+    circle: any;
+
     matTableLenght: boolean = false;
     PPNOVisible: boolean = true;
     borrowerForm: FormGroup;
@@ -154,6 +159,12 @@ export class BorrowerInformationComponent implements OnInit {
             });
         }
         this.settingPPNoFeild();
+    }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
     }
 
     ngAfterViewInit() {

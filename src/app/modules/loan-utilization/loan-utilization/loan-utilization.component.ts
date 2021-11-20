@@ -340,7 +340,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
 
     createForm() {
         this.customerForm = this.fb.group({
-            Zone: ['', Validators.required],
+            Zone: [''],
             Branch: ['', Validators.required],
             LoanDisbID: [this.loanUtilizationModel.LoanDisbID, Validators.required],
             Lat: [this.loanUtilizationModel.LoanCaseNo],
@@ -681,7 +681,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
     }
 
     save() {
-
+debugger
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
             Object.keys(controls).forEach(controlName =>
