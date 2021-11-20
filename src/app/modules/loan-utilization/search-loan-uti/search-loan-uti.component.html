@@ -25,10 +25,10 @@
             [formGroup]="loanutilizationSearch">
 
 
-            <div class="row">
+            <div class="flex" style="flex-wrap: wrap;">
                 <app-zone-branch-circle [form]="loanutilizationSearch" [should_show_circle]="false"
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                <div class="col-lg-3 col-sm-12">
+                 <div class="mx-2" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">From </mat-label>
                         <input matInput  [matDatepicker]="picker2" formControlName="FromDate" maxlength="8"
@@ -40,7 +40,7 @@
     <!--                    </mat-error>-->
                     </mat-form-field>
                 </div>
-                <div class="col-lg-3 col-sm-12">
+                <div class="mx-2" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">To</mat-label>
                         <input matInput readonly appNumberOnly [matDatepicker]="picker1" placeholder="ddMMyyyy" formControlName="ToDate"
@@ -49,6 +49,43 @@
                         <mat-datepicker #picker1></mat-datepicker>
                     </mat-form-field>
                 </div>
+                <div class="mx-2" style="width: 225px;" >
+                    <div class="col-md-12 kt-margin-bottom-10-mobile mr-4">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>LoanCaseNo</mat-label>
+                            <input appNumberOnly matInput formControlName="LoanCaseNo" placeholder="Enter LoanCaseNo" maxlength="100"
+                                autocomplete="off">
+                        </mat-form-field>
+                    </div>
+                </div>
+        
+                <div class="mx-2" >
+        
+                    <div *ngIf="loanutilizationStatusLov" class="col-md-12 kt-margin-bottom-10-mobile" style="width: 225px;" >
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Select loanutilization Status</mat-label>
+                            <mat-select formControlName="loanutilizationStatus">
+                                <mat-option value="">
+                                    Select
+                                </mat-option>
+                                <mat-option *ngFor="let obj of loanutilizationStatusLov.LOVs" [value]="obj.Value">
+                                    {{obj.Name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+        
+        
+                </div>
+                <div  style="width: 225px;" >
+                    <div class="flex flex-shrink-0 items-center  mb-2">
+                        <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                        aria-controls="collapseExample" (click)="searchloanutilization()" class="mt-2 bg-gray-500" mat-flat-button [color]="'primary'">
+                            <mat-icon class="mr-2">search</mat-icon> Search
+                        </button>
+                    </div>
+                </div>
+        
 
             </div>
 
@@ -103,42 +140,6 @@
 
     <div class="row">
 
-        <div class="col-md-3 col-sm-12">
-            <div class="col-md-12 kt-margin-bottom-10-mobile mr-4">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label>LoanCaseNo</mat-label>
-                    <input appNumberOnly matInput formControlName="LoanCaseNo" placeholder="Enter LoanCaseNo" maxlength="100"
-                        autocomplete="off">
-                </mat-form-field>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-12">
-
-            <div *ngIf="loanutilizationStatusLov" class="col-md-12 kt-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label>Select loanutilization Status</mat-label>
-                    <mat-select formControlName="loanutilizationStatus">
-                        <mat-option value="">
-                            Select
-                        </mat-option>
-                        <mat-option *ngFor="let obj of loanutilizationStatusLov.LOVs" [value]="obj.Value">
-                            {{obj.Name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-
-        </div>
-        <div class="col-lg-3 col-sm-12">
-            <div class="flex flex-shrink-0 items-center  mb-2">
-                <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
-                aria-controls="collapseExample" (click)="searchloanutilization()" class="mt-2 bg-gray-500" mat-flat-button [color]="'primary'">
-                    <mat-icon class="mr-2">search</mat-icon> Search
-                </button>
-            </div>
-        </div>
 
 
 
