@@ -1,26 +1,23 @@
 import {Component, OnInit, Input, ElementRef, ViewChild, ChangeDetectorRef} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
-import { MatDialog} from '@angular/material/dialog';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {finalize} from 'rxjs/operators';
+import {MatDialog} from '@angular/material/dialog';
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
-import { TourPlan } from '../Model/tour-plan.model';
+import {TourPlan} from '../Model/tour-plan.model';
 import {TourPlanService} from "../Service/tour-plan.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
-import { Branch } from 'app/shared/models/branch.model';
-import { Zone } from 'app/shared/models/zone.model';
 import {AppState} from "../../../shared/reducers";
 import {Store} from "@ngrx/store";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LovService} from "../../../shared/services/lov.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import { Circle } from 'app/shared/models/circle.model';
 
 @Component({
     selector: 'search-loan-utilization',
@@ -33,18 +30,17 @@ export class SearchTourPlanComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     @Input() isDialog: any = false;
-    @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
 
-    displayedColumns = ['VisitedDate', 'Purpose', 'Remarks', 'Status', 'TotalRecords',"Actions"];
+    displayedColumns = ['VisitedDate', 'Purpose', 'Remarks', 'Status', 'TotalRecords', "Actions"];
     gridHeight: string;
     TourPlan: FormGroup;
     myDate = new Date().toLocaleDateString();
     isMCO: boolean = false;
     isBM: boolean = false;
-    circle;
     loggedInUser: any;
     public LovCall = new Lov();
     public CustomerStatusLov: any;
@@ -63,7 +59,7 @@ export class SearchTourPlanComponent implements OnInit {
     TourPlans;
 
     // Pagination
-    Limit:any;
+    Limit: any;
     OffSet: number = 0;
     //pagination
     itemsPerPage = 10; //you could use your specified
@@ -73,35 +69,9 @@ export class SearchTourPlanComponent implements OnInit {
     //Start ZBC
 
     LoggedInUserInfo: BaseResponseModel;
-    //Zone inventory
-    Zones: any = [];
-    SelectedZones: any = [];
-    public Zone = new Zone();
 
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-    public Branch = new Branch();
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
-    public Circle = new Circle();
-    selected_b;
-    selected_z;
-    selected_c;
-
-    //final
-    final_branch: any;
-    final_zone: any;
-    final_cricle: any;
-
-    //End ZBC
+    zone: any;
+    branch: any;
 
 
     constructor(private store: Store<AppState>,
@@ -116,8 +86,7 @@ export class SearchTourPlanComponent implements OnInit {
                 private layoutUtilsService: LayoutUtilsService,
                 private _circleService: CircleService,
                 private _cdf: ChangeDetectorRef,
-                private userUtilsService: UserUtilsService)
-    {
+                private userUtilsService: UserUtilsService) {
         this.loggedInUser = userUtilsService.getUserDetails();
     }
 
@@ -136,101 +105,17 @@ export class SearchTourPlanComponent implements OnInit {
     //Start ZBC
     userInfo = this.userUtilsService.getUserDetails();
 
-    settingZBC(){
+    settingZBC() {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
-
-            this.SelectedBranches = this.LoggedInUserInfo.Branch;
-            this.SelectedZones = this.LoggedInUserInfo.Zone;
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.selected_c = this.SelectedCircles?.Id
-            this.TourPlan.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.TourPlan.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-            this.TourPlan.controls["Circle"].setValue(this.SelectedCircles?.Id);
-            // if (this.customerForm.value.Branch) {
-            //     this.changeBranch(this.customerForm.value.Branch);
-            // }
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-        }
     }
 
-    private assignBranchAndZone() {
-
-        //Circle
-        if (this.SelectedCircles.length) {
-            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
-            this.userInfo.Circles = this.final_cricle;
-        } else {
-            this.final_cricle = this.SelectedCircles;
-            this.userInfo.Circles = this.final_cricle;
-        }
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.userInfo.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.userInfo.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.userInfo.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.userInfo.Zone = this.final_zone;
-        }
-
-    }
-
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
-
-
-    changeBranch(changedValue){
-        
-        let changedBranch = null;
-        if (changedValue.value)
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        else
-            changedBranch = {Branch: {BranchCode: changedValue}}
-
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            // this.selected_c = this.SelectedCircles?.Id
-            this.disable_circle = false;
-            if (changedValue.value) {
-                // this.getBorrower();
-            }
-        });
-    }
 
     //End ZBC
 
 
     setUsers() {
         var userInfo = this.userUtilsService.getUserDetails();
-        this.userInfo = this.userUtilsService.getUserDetails();
         // console.log(userInfo);
         //MCO User
         if (userInfo.User.userGroup[0].ProfileID == "56") {
@@ -240,49 +125,7 @@ export class SearchTourPlanComponent implements OnInit {
         if (userInfo.User.userGroup[0].ProfileID == "57") {
             this.isBM = true;
         }
-
-        if (this.isUserAdmin || this.isZoneUser) {
-            userInfo.Branch = {};
-            if (this.Branch.BranchCode != undefined)
-                userInfo.Branch.BranchId = this.Branch.BranchCode;
-            else
-                userInfo.Branch.BranchId = 0;
-        }
-        if (this.isUserAdmin) {
-            userInfo.Zone = {};
-            if (this.Zone.ZoneId != undefined)
-                userInfo.Zone.ZoneId = this.Zone.ZoneId
-            else
-                userInfo.Zone.ZoneId = 0;
-        }
-        //BM User
-        // if(userInfo.User.userGroup[0].ProfileID=="56"){
-        //   this.isMCO=true;
-        // }else{
-        //   this.isMCO=false;
-        // }
-
     }
-    // setCircles() {
-    //
-    //     this._circleService.GetCircleByBranchId()
-    //         .pipe(
-    //             finalize(() => {
-    //                 this.loading = false;
-    //             })
-    //         )
-    //         .subscribe(baseResponse => {
-    //
-    //             console.log(baseResponse);
-    //             if (baseResponse.Success) {
-    //                 this.circle = baseResponse.Circles;
-    //                 
-    //             }
-    //             else {
-    //                 this.layoutUtilsService.alertElement("", baseResponse.Message);
-    //             }
-    //         });
-    // }
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
@@ -295,7 +138,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     // CheckEditStatus(loanUtilization: any) {
-    //   
+    //
 
     //   if () {
     //     return true
@@ -306,7 +149,7 @@ export class SearchTourPlanComponent implements OnInit {
     // }
 
     setFromDate() {
-        
+
         // this.TourPlan.controls.FromDate.reset();
         this.minDate = this.TourPlan.controls.FromDate.value;
         var FromDate = this.TourPlan.controls.FromDate.value;
@@ -326,8 +169,7 @@ export class SearchTourPlanComponent implements OnInit {
                 this.TourPlan.controls.FromDate.setValue(branchWorkingDate)
             } catch (e) {
             }
-        }
-        else {
+        } else {
             try {
                 var day = this.TourPlan.controls.FromDate.value.toDate().getDate();
                 var month = this.TourPlan.controls.FromDate.value.toDate().getMonth() + 1;
@@ -347,8 +189,9 @@ export class SearchTourPlanComponent implements OnInit {
             }
         }
     }
+
     setToDate() {
-        
+
         var ToDate = this.TourPlan.controls.ToDate.value;
         if (ToDate._isAMomentObject == undefined) {
             try {
@@ -365,8 +208,7 @@ export class SearchTourPlanComponent implements OnInit {
                 this.TourPlan.controls.ToDate.setValue(branchWorkingDate)
             } catch (e) {
             }
-        }
-        else {
+        } else {
             try {
                 var day = this.TourPlan.controls.ToDate.value.toDate().getDate();
                 var month = this.TourPlan.controls.ToDate.value.toDate().getMonth() + 1;
@@ -385,6 +227,7 @@ export class SearchTourPlanComponent implements OnInit {
             }
         }
     }
+
     getToday() {
         // Today
 
@@ -399,16 +242,16 @@ export class SearchTourPlanComponent implements OnInit {
             return this.Today;
         }
     }
+
     getTodayForTo() {
         return new Date().toISOString().split('T')[0]
     }
 
     CheckEditStatus(TourPlan: any) {
-        if (TourPlan.Status == "P" || TourPlan.Status == "R"){
-            if(TourPlan.UserId == this.loggedInUserDetails.User.UserId) {
+        if (TourPlan.Status == "P" || TourPlan.Status == "R") {
+            if (TourPlan.UserId == this.loggedInUserDetails.User.UserId) {
                 return true
-            }
-            else {
+            } else {
                 return false
             }
         }
@@ -422,7 +265,7 @@ export class SearchTourPlanComponent implements OnInit {
         // console.log(this.TourPlan.controls["Status"].value)
         // utilization = {Status:this.TourPlan.controls["Status"].value}
         this.router.navigate(['../tour-plan'], {
-            state: { example: TourPlan,flag:1 },
+            state: {example: TourPlan, flag: 1},
             relativeTo: this.activatedRoute
         });
     }
@@ -432,15 +275,13 @@ export class SearchTourPlanComponent implements OnInit {
             if (loanUtilization.Status == "C" || loanUtilization.Status == "S" || loanUtilization.Status == "A") {
                 if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
                     return true
-                }
-                else {
+                } else {
                     return false
                 }
             } else {
                 return false;
             }
-        }
-        else if (this.isBM) {
+        } else if (this.isBM) {
             if (loanUtilization.Status == "C" || loanUtilization.Status == "P" || loanUtilization.Status == "R" || loanUtilization.Status == "A") {
                 return true
             }
@@ -462,99 +303,23 @@ export class SearchTourPlanComponent implements OnInit {
         this.TourPlan = this.filterFB.group({
             Zone: [userInfo?.Zone?.ZoneName],
             Branch: [userInfo?.Branch?.Name],
-            FromDate:[],
-            ToDate:[],
-            Status:["", Validators.required],
-            CircleId:[]
+            FromDate: [],
+            ToDate: [],
+            Status: ["", Validators.required],
+            CircleId: []
         });
 
     }
 
-    GetZones() {
-
-        this.loading = true;
-        this._circleService.getZones()
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            ).subscribe(baseResponse => {
-
-            if (baseResponse.Success) {
-
-                baseResponse.Zones.forEach(function (value) {
-                    value.ZoneName = value.ZoneName.split("-")[1];
-                })
-                this.Zones = baseResponse.Zones;
-                this.SelectedZones = baseResponse.Zones;
-
-                //this.landSearch.controls['ZoneId'].setValue(this.Zones[0].ZoneId);
-                //this.GetBranches(this.Zones[0].ZoneId);
-                this.loading = false;
-                this._cdf.detectChanges();
-            }
-            else
-                this.layoutUtilsService.alertElement("", baseResponse.Message);
-        });
-    }
-
-    SetBranches(branchId) {
-
-        this.Branch.BranchCode = branchId.value;
-    }
-
-
-    GetBranches(ZoneId) {
-        this.loading = true;
-        this.dataSource.data = [];
-        this.Branches = [];
-
-        if (ZoneId.value === undefined)
-            this.Zone.ZoneId = ZoneId;
-        else
-            this.Zone.ZoneId = ZoneId.value;
-        this._circleService.getBranchesByZone(this.Zone)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            ).subscribe(baseResponse => {
-
-            if (baseResponse.Success) {
-                this.loading = false;
-                //baseResponse.Branches.forEach(function (value) {
-                //  value.Name = value.Name.split("-")[1];
-                //})
-
-                this.Branches = baseResponse.Branches;
-                this.SelectedBranches = baseResponse.Branches;
-                //this.landSearch.controls['BranchId'].setValue(this.Branches[0].BranchId);
-                this._cdf.detectChanges();
-            }
-            else
-                this.layoutUtilsService.alertElement("", baseResponse.Message);
-        });
-    }
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        
+
         this.itemsPerPage = pageSize;
-        this.OffSet = (pageIndex -1) * this.itemsPerPage;
+        this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
         this.SearchTourPlan()
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
-    searchBranch(branchId) {
-        branchId = branchId.toLowerCase();
-        if (branchId != null && branchId != undefined && branchId != "")
-            this.SelectedBranches = this.Branches.filter(x => x.Name.toLowerCase().indexOf(branchId) > -1);
-        else
-            this.SelectedBranches = this.Branches;
-    }
-    validateBranchOnFocusOut() {
-        if (this.SelectedBranches.length == 0)
-            this.SelectedBranches = this.Branches;
-    }
 
     hasError(controlName: string, errorName: string): boolean {
         return this.TourPlan.controls[controlName].hasError(errorName);
@@ -578,9 +343,11 @@ export class SearchTourPlanComponent implements OnInit {
 
         }
     }
+
     Plans;
+
     SearchTourPlan() {
-        
+
         this.spinner.show();
         if (!this.TourPlan.controls["Status"].value) {
             this.TourPlan.controls["Status"].setValue("All")
@@ -590,7 +357,7 @@ export class SearchTourPlanComponent implements OnInit {
         var currentIndex = this.OffSet.toString();
 
         this._TourPlan = Object.assign(this.TourPlan.value);
-        this.tourPlanService.SearchTourPlan(this._TourPlan,count,currentIndex)
+        this.tourPlanService.SearchTourPlan(this._TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -617,17 +384,16 @@ export class SearchTourPlanComponent implements OnInit {
                     //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
-                }
-                else {
+                } else {
 
-                    if(this.dv != undefined){
+                    if (this.dv != undefined) {
                         this.matTableLenght = false;
                         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         // this.dataSource.data = [];
                         // this._cdf.detectChanges();
                         this.OffSet = 1;
                         this.pageIndex = 1;
-                        this.dv = this.dv.slice(1,0);
+                        this.dv = this.dv.slice(1, 0);
                         this.layoutUtilsService.alertElement("", baseResponse.Message);
                     }
                 }
@@ -639,18 +405,14 @@ export class SearchTourPlanComponent implements OnInit {
 
         if (status == 'P') {
             return "Submit";
-        }
-        else if (status == 'N') {
+        } else if (status == 'N') {
             return "Pending";
-        }
-        else if (status == 'A') {
+        } else if (status == 'A') {
             return "Authorized";
-        }
-        else if (status == 'R') {
+        } else if (status == 'R') {
             return "Refer Back";
         }
     }
-
 
 
     filterConfiguration(): any {
@@ -669,22 +431,22 @@ export class SearchTourPlanComponent implements OnInit {
 
     editTourPlan(tourPlan: any) {
         var v = JSON.stringify(tourPlan)
-        console.log("Edit case"+v);
+        console.log("Edit case" + v);
         // this.router.navigate(['other']);
 
         // console.log(this.TourPlan.controls["Status"].value)
         // utilization = {Status:this.TourPlan.controls["Status"].value}
 
         this.router.navigate(['../tour-plan'], {
-            state: { example: tourPlan,flag:1 },
+            state: {example: tourPlan, flag: 1},
             relativeTo: this.activatedRoute
         });
     }
 
 
-    deleteTourPlan(tourPlan){
-        tourPlan.Status= "C";
-        
+    deleteTourPlan(tourPlan) {
+        tourPlan.Status = "C";
+
         this.spinner.show();
         this.tourPlanService
             .ChanageTourStatus(tourPlan)
@@ -702,14 +464,15 @@ export class SearchTourPlanComponent implements OnInit {
 
     }
 
-    paginateAs(pageIndex : any, pageSize: any = this.itemsPerPage){
+    paginateAs(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
     }
+
     async LoadLovs() {
 
         //this.ngxService.start();
 
-        this.tourPlanStatusLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.UtilizationTypes })
+        this.tourPlanStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes})
         // console.log(this.CustomerStatusLov.LOVs);
         this.tourPlanStatusLov.LOVs.forEach(function (value) {
             if (!value.Value)
@@ -724,4 +487,8 @@ export class SearchTourPlanComponent implements OnInit {
 
     }
 
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+    }
 }
