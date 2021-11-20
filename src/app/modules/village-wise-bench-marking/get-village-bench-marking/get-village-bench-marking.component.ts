@@ -111,7 +111,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     }
 
     search() {
-
+debugger
         this.loaded = false;
         this.Limit = this.itemsPerPage;
 
@@ -140,6 +140,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
                     this.totalItems = baseResponse.VillageBenchMarking.VillageBenchMarkingList[0].TotalRecords;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
                 } else {
+                    this.dataSource.data = []
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                     this.matTableLenght = false;
 
@@ -195,7 +196,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
                 .subscribe((baseResponse: BaseResponseModel) => {
                     if (baseResponse.Success === true) {
                         this.getVillageBenchmarkForm.controls["VillageName"].reset()
-                        this.getVillageBenchmarkForm.controls["Circle"].setValue(this.circle.Id)
+                        this.getVillageBenchmarkForm.controls["Circle"].setValue(this.circle?.Id)
                         this.Offset = 0;
                         this.Limit = 10;
                         this.search()
