@@ -55,33 +55,12 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
     matTableLenght: boolean = false;
     LoggedInUserInfo: BaseResponseModel;
-
-    selected_b;
-    selected_z;
-
-    //Zone Inventory
-    Zone: any = [];
-    SelectedZones: any = [];
-
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-
-    //Circle Inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
-
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
-
     loaded = false;
-
-    //dataSource = new MatTableDataSource();
     dataSource: MatTableDataSource<VillageBenchMark>
+
+    zone: any;
+    branch: any;
+    circle: any;
 
     constructor(
         private layoutUtilsService: LayoutUtilsService,
@@ -109,68 +88,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
         this.loggedInUserDetails = userDetails;
 
         this.createForm();
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-
-        if (this.LoggedInUserInfo.Branch != null) {
-
-
-            this.Branches = this.LoggedInUserInfo.Branch;
-            this.SelectedBranches = this.Branches;
-
-            this.Zone = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zone;
-
-            this.selected_z = this.SelectedZones.ZoneId
-            this.selected_b = this.SelectedBranches.BranchCode
-            this.getVillageBenchmarkForm.controls["Zone"].setValue(this.SelectedZones.ZoneName);
-            this.getVillageBenchmarkForm.controls["Branch"].setValue(this.SelectedBranches.Name);
-
-            if (this.loggedInUserDetails.UserCircleMappings.length != 0) {
-                this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-            } else {
-                this.changeBranch(this.selected_b);
-            }
-            this.SelectedCircles = this.Circles;
-            this.disable_circle = false;
-
-            var fi: any = []
-            fi.Id = "null";
-            fi.CircleCode = "All";
-            fi.LovId = "0";
-            fi.TagName = "0";
-            this.SelectedCircles.splice(0, 0, fi)
-            this.getVillageBenchmarkForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-
-            this.getVillage.ZoneId = this.getVillageBenchmarkForm.controls.Zone.value;
-            this.getVillage.BranchCode = this.getVillageBenchmarkForm.controls.Branch.value;
-            this.search()
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings && this.LoggedInUserInfo.Zone) {
-
-            this.Zone = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zone;
-            this.disable_zone = true;
-            this.getVillageBenchmarkForm.controls["Zone"].setValue(this.SelectedZones?.Id);
-
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.changeZone(this.selected_z);
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-            this.spinner.show();
-
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data.Zones;
-                this.SelectedZones = this.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.single_branch = false
-                this.spinner.hide();
-
-            });
-        }
-
-
     }
-
 
 
     createForm() {
@@ -202,19 +120,11 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
         this.getVillage.CircleId = this.getVillageBenchmarkForm.controls.Circle.value;
         this.getVillage.VillageName = this.getVillageBenchmarkForm.controls.VillageName.value;
 
-        if (this.getVillage.ZoneId != this.SelectedZones.ZoneId && this.getVillage.BranchCode != this.SelectedBranches.BranchCode) {
-            this.getVillage.ZoneId = this.selected_z;
-            this.getVillage.BranchCode = this.selected_b;
-        }
-
         this.dataSource = new MatTableDataSource();
 
-        // if (this.getVillage.VillageName != null || this.getVillage.CircleId != null) {
-        //   this.Offset = 0;
-        // }
 
         this.spinner.show();
-        this._villageBenchmark.getVillageBenchMark(this.SelectedCircles, this.Limit, this.Offset, this.getVillage)
+        this._villageBenchmark.getVillageBenchMark(this.circle, this.Limit, this.Offset, this.getVillage,this.zone,this.branch)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -285,7 +195,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
                 .subscribe((baseResponse: BaseResponseModel) => {
                     if (baseResponse.Success === true) {
                         this.getVillageBenchmarkForm.controls["VillageName"].reset()
-                        this.getVillageBenchmarkForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
+                        this.getVillageBenchmarkForm.controls["Circle"].setValue(this.circle.Id)
                         this.Offset = 0;
                         this.Limit = 10;
                         this.search()
@@ -317,16 +227,17 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
         });
     }
 
-    checkMap(data){
-       if(data.Lat.length>0){
-           return true;
-       }else{
-           return false;
-       }
+    checkMap(data) {
+        if (data.Lat.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    viewMap(data){
-        const dialogRef = this.dialog.open(ViewMapsComponent, { panelClass: ['h-screen','max-w-full','max-h-full'],
+    viewMap(data) {
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',
             data: data,
             disableClose: true
@@ -338,43 +249,11 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
         });
     }
 
-    changeBranch(changedValue) {
-        let changedBranch = null;
-        if (changedValue.value) {
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        } else {
-            changedBranch = {Branch: {BranchCode: changedValue}}
 
-        }
 
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            console.log(data);
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            var fi: any = []
-            fi.Id = "null";
-            fi.CircleCode = "All";
-            fi.LovId = "0";
-            fi.TagName = "0";
-            this.SelectedCircles.splice(0, 0, fi)
-            this.getVillageBenchmarkForm.controls["Circle"].setValue(this.SelectedCircles ? this.SelectedCircles[0].Id : "")
-            this.disable_circle = false;
-        });
-    }
-
-    changeZone(changedValue) {
-        let changedZone = null;
-        if (changedValue?.value) {
-            changedZone = {Zone: {ZoneId: changedValue.value}}
-        } else {
-            changedZone = {Zone: {ZoneId: changedValue}}
-
-        }
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
     }
 }
