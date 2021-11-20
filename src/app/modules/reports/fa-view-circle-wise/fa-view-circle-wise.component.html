@@ -101,9 +101,27 @@
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Days</mat-label>
-                                <input matInput placeholder="Enter No of Days" formControlName="days"
-                                       appNumberOnly maxlength="5" autocomplete="off"/>
+                                <mat-label class="customMatLabel">Circle</mat-label>
+                
+                                <mat-select [(ngModel)]="selected_c" formControlName="CircleId" [disabled]="disable_circle">
+                                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
+                                    >
+                                        {{circle?.CircleCode}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Account Status<strong class="matMandatory">*</strong></mat-label>
+                                <mat-select formControlName="Status">
+                                    <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
+                                        {{lov.Description}}
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
