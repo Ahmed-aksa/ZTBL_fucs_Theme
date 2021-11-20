@@ -20,20 +20,20 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { finalize } from 'rxjs/operators';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { NdcRequestsService } from '../Services/ndc-requests.service';
-import { BaseResponseModel } from 'app/shared/models/base_response.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { UserUtilsService } from 'app/shared/services/users_utils.service';
-import { HttpClient } from '@angular/common/http';
-import { CircleService } from '../../../shared/services/circle.service';
-import { Router } from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {finalize} from 'rxjs/operators';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {NdcRequestsService} from '../Services/ndc-requests.service';
+import {BaseResponseModel} from 'app/shared/models/base_response.model';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {UserUtilsService} from 'app/shared/services/users_utils.service';
+import {HttpClient} from '@angular/common/http';
+import {CircleService} from '../../../shared/services/circle.service';
+import {Router} from '@angular/router';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 @Component({
@@ -71,16 +71,14 @@ export class SearchNdcListComponent implements OnInit {
         'customer_name',
         'request_on',
     ];
-    @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
     gridHeight: string;
     selected_b;
     hasSrNo: boolean = false;
     hide = true;
-    selected_z;
-    selected_c;
     LoggedInUserInfo: BaseResponseModel;
 
     ndcForm: FormGroup;
@@ -95,35 +93,18 @@ export class SearchNdcListComponent implements OnInit {
     offSet = 0;
     count = 1;
     user: any = {};
-    single_zone = true;
-
     pageIndex = 1;
     pageIndexPending = 1;
 
     dvReq: any;
     dvPending: any;
-    disable_zone = true;
-    disable_branch = true;
-
-    Zones: any = [];
-    Branches: any = [];
-    Circles: any = [];
-
-    SelectedZones: any = [];
-    SelectedBranch: any = [];
-    SelectedCircles: any = [];
     Math: any;
     public Zone = new Zone();
 
     SrNo: number | any;
-    SelectedBranches: any = [];
-    single_branch = true;
-    disable_circle = true;
     private _cdf: ChangeDetectorRef;
     isUserAdmin: boolean = false;
     private loggedInUserDetails: any;
-    private final_branch: any;
-    private final_zone: any;
 
     constructor(
         public dialog: MatDialog,
@@ -141,10 +122,6 @@ export class SearchNdcListComponent implements OnInit {
 
     ngOnInit() {
         this.createForm();
-        this.settingZBC();
-
-        this.LoggedInUserInfo =
-            this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.hasSrNo != true) {
             this.ndc_requests_displayed_columns = [
                 'customer_cnic',
@@ -157,29 +134,6 @@ export class SearchNdcListComponent implements OnInit {
                 'actions',
             ];
         }
-        //
-        // if (this.LoggedInUserInfo.User.App == "1") {
-        //     //admin user
-        //     this.isUserAdmin = true;
-        //     this.GetZones();
-        // }
-
-        // if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
-        //   this.Circles = this.LoggedInUserInfo.UserCircleMappings;
-        //   this.SelectedCircles = this.Circles;
-
-        //   this.Branches = this.LoggedInUserInfo.Branch;
-        //   this.SelectedBranches = this.Branches;
-
-        //   this.Zones = this.LoggedInUserInfo.Zone;
-        //   this.SelectedZones = this.Zones;
-
-        //   this.selected_z = this.SelectedZones.ZoneId
-        //   this.selected_b = this.SelectedBranches.BranchCode
-        //   this.selected_c = this.SelectedCircles.Id
-        //   this.ndcForm.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
-        //   this.ndcForm.controls["BranchCode"].setValue(this.SelectedBranches.Name);
-        // }
     }
 
     createForm() {
@@ -190,6 +144,7 @@ export class SearchNdcListComponent implements OnInit {
             Cnic: [null],
         });
     }
+
     refreshForm() {
         this.ndcForm = this.fb.group({
             Cnic: [null],
@@ -200,25 +155,12 @@ export class SearchNdcListComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
-    // getAllNDC(){
-    //   this.loadUsersList()
-    // }
-
     loadUsersList() {
         this.user.ZoneId = this.ndcForm.controls.ZoneId.value;
         this.user.BranchId = this.ndcForm.controls.BranchId.value;
         this.user.CircleId = this.ndcForm.controls.CircleId.value;
         this.user.Cnic = this.ndcForm.controls.Cnic.value;
 
-        if (
-            this.user.ZoneId != this.SelectedZones.ZoneId &&
-            this.user.BranchCode != this.SelectedBranches.BranchCode
-        ) {
-            this.user.ZoneId = this.selected_z;
-            this.user.BranchId = this.selected_b;
-        }
-
-        this.assignBranchAndZone();
 
         this.spinner.show();
         this.loading = true;
@@ -227,8 +169,8 @@ export class SearchNdcListComponent implements OnInit {
                 this.user,
                 this.pageSize,
                 this.offSet,
-                this.final_zone,
-                this.final_branch
+                this.zone,
+                this.branch
             )
             .pipe(
                 finalize(() => {
@@ -238,7 +180,6 @@ export class SearchNdcListComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success) {
-                    console.log(baseResponse);
                     this.request_data_source = baseResponse.Ndc.Ndcrequests;
                     if (this.request_data_source[0].srNo != undefined) {
                         this.hasSrNo = true;
@@ -296,58 +237,6 @@ export class SearchNdcListComponent implements OnInit {
             });
     }
 
-    GetZones() {
-        this.loading = true;
-        this._circleService
-            .getZones()
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-                    baseResponse.Zones.forEach(function (value) {
-                        value.ZoneName = value.ZoneName.split('-')[1];
-                    });
-                    this.Zones = baseResponse.Zones;
-                    this.SelectedZones = baseResponse.Zones;
-
-                    //this.landSearch.controls['ZoneId'].setValue(this.Zones[0].ZoneId);
-                    //this.GetBranches(this.Zones[0].ZoneId);
-                    this.loading = false;
-                    this._cdf.detectChanges();
-                } else
-                    this.layoutUtilsService.alertElement(
-                        '',
-                        baseResponse.Message
-                    );
-            });
-    }
-    private assignBranchAndZone() {
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter(
-                (circ) => circ.BranchCode == this.selected_b
-            )[0];
-            this.loggedInUserDetails.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.loggedInUserDetails.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter(
-                (circ) => circ.ZoneId == this.selected_z
-            )[0];
-            this.loggedInUserDetails.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.loggedInUserDetails.Zone = this.final_zone;
-        }
-    }
-
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -362,10 +251,10 @@ export class SearchNdcListComponent implements OnInit {
         this.loadUsersList();
     }
 
-    checkMap(data){
-        if(data?.Lat?.length>0){
+    checkMap(data) {
+        if (data?.Lat?.length > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -376,8 +265,9 @@ export class SearchNdcListComponent implements OnInit {
         this.circle = event.final_circle;
     }
 
-    viewMap(data){
-        const dialogRef = this.dialog.open(ViewMapsComponent, { panelClass: ['h-screen','max-w-full','max-h-full'],
+    viewMap(data) {
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',
             data: data,
             disableClose: true
@@ -417,7 +307,7 @@ export class SearchNdcListComponent implements OnInit {
                     // console.log(str);
                     //this.router.navigateByUrl(baseResponse.Ndc.ndcFilePath)
 
-                    window.open(baseResponse.Ndc.ndcFilePath,'Download');
+                    window.open(baseResponse.Ndc.ndcFilePath, 'Download');
 
                     this.layoutUtilsService.alertElementSuccess(
                         '',
@@ -440,7 +330,7 @@ export class SearchNdcListComponent implements OnInit {
         alert('dsds');
         return this.http.get(
             'http://172.16.1.228/ZtblDocument/ndc_Request/TempReport_011121020540.pdf',
-            { responseType: 'blob' }
+            {responseType: 'blob'}
         );
     }
 
@@ -492,38 +382,6 @@ export class SearchNdcListComponent implements OnInit {
         }
     }
 
-    changeZone(changedValue) {
-        let changedZone=null;
-        if(changedValue?.value)
-     changedZone = { Zone: { ZoneId: changedValue.value } };
-        else
-        changedZone = { Zone: { ZoneId: changedValue } };
-
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
-
-    changeBranch(changedValue) {
-        let changedBranch = null;
-        if (changedValue.value)
-            changedBranch = { Branch: { BranchCode: changedValue.value } };
-        else changedBranch = { Branch: { BranchCode: changedValue } };
-
-        this.userUtilsService
-            .getCircle(changedBranch)
-            .subscribe((data: any) => {
-                this.Circles = data.Circles;
-                this.SelectedCircles = this.Circles;
-                this.disable_circle = false;
-                if (changedValue.value) {
-                    // this.getBorrower();
-                }
-            });
-    }
 
     SubmitUser(request) {
         this.user.NDCId = request.NDCId;
@@ -554,54 +412,6 @@ export class SearchNdcListComponent implements OnInit {
     refresh() {
         this.ndcForm.controls['Cnic'].setValue('');
         this.loadUsersList();
-    }
-
-    settingZBC() {
-
-        this.loggedInUserDetails =
-            this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        if (
-            this.loggedInUserDetails.Branch &&
-            this.loggedInUserDetails.Branch?.BranchCode != 'All'
-        ) {
-            this.SelectedCircles = this.loggedInUserDetails.UserCircleMappings;
-
-            this.SelectedBranches = this.loggedInUserDetails.Branch;
-            this.SelectedZones = this.loggedInUserDetails.Zone;
-
-            this.selected_z = this.SelectedZones?.ZoneId;
-            this.selected_b = this.SelectedBranches?.BranchCode;
-            this.selected_c = this.SelectedCircles?.Id;
-            this.ndcForm.controls.ZoneId.setValue(this.SelectedZones.ZoneName);
-            this.ndcForm.controls.BranchId.setValue(
-                this.SelectedBranches.BranchCode
-            );
-
-            this.loadUsersList();
-        }else if (!this.loggedInUserDetails.Branch && !this.loggedInUserDetails.UserCircleMappings && this.loggedInUserDetails.Zone) {
-
-            this.Zone = this.loggedInUserDetails.Zone;
-            this.SelectedZones = this.Zone;
-            this.disable_zone = true;
-            this.ndcForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
-
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.changeZone(this.selected_z);
-        } else if (
-            !this.loggedInUserDetails.Branch &&
-            !this.loggedInUserDetails.Zone &&
-            !this.loggedInUserDetails.Zone
-        ) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-        }
     }
 }
 

@@ -28,32 +28,10 @@ export class BorrowerInformationService {
     userDetail = this.userUtilsService.getUserDetails();
 
     getBorrowerInformation(limit, offset, cnic, user, PPNo, SelectedZones, SelectedBranches, SelectedCircles) {
-        debugger
         var userInfo = this.userDetail;
-        var circle = SelectedCircles;
-        var circleIds = [];
-
-        if (user.CircleId == undefined) {
-            user.CircleId = null
-        }
-        if (circle) {
-            circle.forEach(element => {
-                circleIds.push(element.Id);
-            });
-            var _circles = JSON.stringify(circleIds)
-        } else {
-            _circles = JSON.stringify(SelectedCircles);
-        }
-        // this.circle.CircleIds = circle_ids;
-        // if(SelectedCircles?.Id)
-        // this.circle.CircleCode = SelectedCircles?.Id;
-        // else
-        // this.circle.CircleCode = null;
-
         var request = {
             Circle: {
-                CircleCode: user.CircleId,
-                CircleIds: _circles
+                CircleCode: SelectedCircles?.Id
             },
             BorrowerInfo: {
                 Limit: limit,
@@ -64,7 +42,7 @@ export class BorrowerInformationService {
             TranId: 0,
             Branch: SelectedBranches,
             User: userInfo.User,
-            Zone: {"ZoneId": SelectedZones.ZoneId}
+            Zone: SelectedZones
         };
         return this.http.post(`${environment.apiUrl}/Customer/Gettotalnumberofborrowersdetails`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(

@@ -27,41 +27,41 @@ export class NdcRequestsService {
             'BranchId': '102',
             'BranchCode': '20238',
             'Id': 0,
-        'Name': 'NOORPUR TOWN',
-        'WorkingDate': '11012021'
-      },
-      'Circle': {
-        'CircleIds': '53444,53443,53442,53441'
-      },
-      'CustomerLandRelation': {
-        'Cnic': '',
-        'Limit': '0',
-        'Offset': '0',
-        "ID": "673336"
-      },
-      'DeviceLocation': {
-        'BtsId': '0',
-        'BtsLoc': '',
-        'Lat': '33.65898',
-        'Long': '73.057665',
-        'Src': 'GPS'
-      },
-      'doPerformOTP': false,
-      'TranId': 2830,
-      'User': {
-        'IsActive': 0,
-        'App': 2,
-        'Channel': 'user',
-        'ChannelID': 0,
-        'DisplayName': 'MUHAMMAD ALI',
-        'Lat': 0.0,
-        'Long': 0.0,
-        'ProfileID': 0,
-        'UserId': 'B-4070',
-        'UserIp': '192.168.0.137',
-        'UserName': '131694',
-        'UserType': 0
-      },
+            'Name': 'NOORPUR TOWN',
+            'WorkingDate': '11012021'
+        },
+        'Circle': {
+            'CircleIds': '53444,53443,53442,53441'
+        },
+        'CustomerLandRelation': {
+            'Cnic': '',
+            'Limit': '0',
+            'Offset': '0',
+            "ID": "673336"
+        },
+        'DeviceLocation': {
+            'BtsId': '0',
+            'BtsLoc': '',
+            'Lat': '33.65898',
+            'Long': '73.057665',
+            'Src': 'GPS'
+        },
+        'doPerformOTP': false,
+        'TranId': 2830,
+        'User': {
+            'IsActive': 0,
+            'App': 2,
+            'Channel': 'user',
+            'ChannelID': 0,
+            'DisplayName': 'MUHAMMAD ALI',
+            'Lat': 0.0,
+            'Long': 0.0,
+            'ProfileID': 0,
+            'UserId': 'B-4070',
+            'UserIp': '192.168.0.137',
+            'UserName': '131694',
+            'UserType': 0
+        },
         'Zone': {
             'Id': 0,
             'ZoneId': '50055',
@@ -74,62 +74,45 @@ export class NdcRequestsService {
 
     userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
-    getRequests(user, limit, offset,final_zone,final_branch) {
-      
+    getRequests(user, limit, offset, final_zone, final_branch) {
+        this.userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         limit = String(limit);
         offset = String(offset)
         var circle = this.userInfo.UserCircleMappings;
         var circleIds = [];
 
-      if (circle){
-          circle.forEach(element => {
-              circleIds.push(element.CircleId);
-          });
-      }
+        if (circle) {
+            circle.forEach(element => {
+                circleIds.push(element.CircleId);
+            });
+        }
 
-      var _circles = JSON.stringify(circleIds)
-      _circles
-      var request = {
-        Circle: {
-          CircleIds: _circles,
-          CircleId: user.CircleId
-        },
-        NDCRequest:{
-          Cnic: user.Cnic,
-          Limit: limit,
-          Offset: offset
-        },
-        DeviceLocation: {
-          BtsId: "0",
-          BtsLoc: "",
-          Lat: "0.0",
-          Long: "0.0",
-          Src: "BTS",
-          time: "0",
-          id: 0
-      },
-        TranId: 0,
-        User: this.userInfo.User,
-
-        // Branch: {
-        //   BranchCode: user.BranchCode
-        // },
-        // Zone: {
-        //   ZoneId: user.ZoneId
-        // },
-        Branch: final_branch,
-        Zone:  final_zone,
-    };
-    var r = JSON.stringify(request)
-    console.log(r)
-        //
-        //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
-        //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-        //       map((res: BaseResponseModel) => res)
-        //     );
-        // this.request_response.CustomerLandRelation.Cnic = cnic;
-        // this.request_response.CustomerLandRelation.Offset = offset;
-        // this.request_response.CustomerLandRelation.Limit = limit;
+        var _circles = JSON.stringify(circleIds)
+        _circles
+        var request = {
+            Circle: {
+                CircleIds: _circles,
+                CircleId: user.CircleId
+            },
+            NDCRequest: {
+                Cnic: user.Cnic,
+                Limit: limit,
+                Offset: offset
+            },
+            DeviceLocation: {
+                BtsId: "0",
+                BtsLoc: "",
+                Lat: "0.0",
+                Long: "0.0",
+                Src: "BTS",
+                time: "0",
+                id: 0
+            },
+            TranId: 0,
+            User: this.userInfo.User,
+            Branch: final_branch,
+            Zone: final_zone,
+        };
         return this.http.post(environment.apiUrl + '/NDC/SearchNDCList', request);
     }
 
@@ -186,7 +169,7 @@ export class NdcRequestsService {
         return this.http.post(environment.apiUrl + '/NDC/DeleteNDC', request);
     }
 
-    SubmitUser(user){
+    SubmitUser(user) {
         var circle = this.userInfo.UserCircleMappings;
         var circleIds = [];
         //mycircle =
@@ -245,58 +228,57 @@ export class NdcRequestsService {
         limit = String(limit);
         offset = String(offset)
         var circle = this.userInfo.UserCircleMappings;
-        
+
         var circleIds = [];
-        if(circle == null){
-          //circle = ["CircleId: 0"]
-          circleIds = ["0"]
-        }else{
-          circle.forEach(element => {
-            circleIds.push(element.CircleId);
-          });
+        if (circle == null) {
+            //circle = ["CircleId: 0"]
+            circleIds = ["0"]
+        } else {
+            circle.forEach(element => {
+                circleIds.push(element.CircleId);
+            });
         }
         //mycircle =
 
-        
-      
-      var _circles = JSON.stringify(circleIds)
-      
-      
-      var request = {
-        Circle: {
-          CircleIds: _circles,
-          CircleId: user.CircleId
-        },
-        NDCRequest:{
-          Cnic: cnic,
-          Limit: limit,
-          Offset: offset,
-          NDCId: ncid
-        },
-        DeviceLocation: {
-          BtsId: "0",
-          BtsLoc: "",
-          Lat: "0.0",
-          Long: "0.0",
-          Src: "BTS",
-          time: "0",
-          id: 0
-      },
-        TranId: 0,
-        User: this.userInfo.User,
 
-          // Branch: {
-        //   BranchCode: user.BranchCode
-        // },
-        // Zone: {
-        //   ZoneId: user.ZoneId
-        // },
-        Branch: this.userInfo.Branch,
-        Zone:  this.userInfo.Zone
-    };
+        var _circles = JSON.stringify(circleIds)
+
+
+        var request = {
+            Circle: {
+                CircleIds: _circles,
+                CircleId: user.CircleId
+            },
+            NDCRequest: {
+                Cnic: cnic,
+                Limit: limit,
+                Offset: offset,
+                NDCId: ncid
+            },
+            DeviceLocation: {
+                BtsId: "0",
+                BtsLoc: "",
+                Lat: "0.0",
+                Long: "0.0",
+                Src: "BTS",
+                time: "0",
+                id: 0
+            },
+            TranId: 0,
+            User: this.userInfo.User,
+
+            // Branch: {
+            //   BranchCode: user.BranchCode
+            // },
+            // Zone: {
+            //   ZoneId: user.ZoneId
+            // },
+            Branch: this.userInfo.Branch,
+            Zone: this.userInfo.Zone
+        };
 
         // this.request_response.CustomerLandRelation.Cnic = cnic;
-      // this.request_response.CustomerLandRelation.ID = id;
-      return this.http.post(environment.apiUrl + '/NDC/DownloadNDC', request);
+        // this.request_response.CustomerLandRelation.ID = id;
+        return this.http.post(environment.apiUrl + '/NDC/DownloadNDC', request);
     }
-  }
+}
