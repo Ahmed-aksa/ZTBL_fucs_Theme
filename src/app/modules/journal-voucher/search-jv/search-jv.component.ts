@@ -41,6 +41,11 @@ export class SearchJvComponent implements OnInit {
 
     displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit', 'Status', 'View'];
 
+
+    branch: any;
+    zone: any;
+    circle: any;
+
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
     selected_b: any;
@@ -183,6 +188,12 @@ export class SearchJvComponent implements OnInit {
         this.Nature = this.Nature.LOVs;
         this.cdRef.detectChanges();
 
+    }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
     }
 
     createForm() {
@@ -330,7 +341,7 @@ export class SearchJvComponent implements OnInit {
     }
 
     // viewJv(Jv: any){
-    //   
+    //
     //   Jv.Branch = this.Branches.filter(x => x.BranchId == Jv.BranchId);
     //   Jv.Zone = this.Zones.filter(x => x.ZoneId == Jv.ZoneID);
     //   localStorage.setItem('SearchJvData', JSON.stringify(Jv));

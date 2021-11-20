@@ -53,7 +53,9 @@ export class LoanUtilizationComponent implements OnInit {
 
     customerForm: FormGroup;
     //matElects: FormGroup;
-
+    branch: any;
+    zone: any;
+    circle: any;
     displayedColumns = [
         'LoanCaseNo',
         'gl',
@@ -216,6 +218,11 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
         this.setOptions();
         this.settingZBC();
 
+    }
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
     }
 
     settingZBC(){
@@ -674,7 +681,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
     }
 
     save() {
-        
+
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
             Object.keys(controls).forEach(controlName =>

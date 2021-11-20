@@ -41,6 +41,10 @@ export class SearchUtilizationComponent implements OnInit {
   //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
   //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob','CustomerStatus', 'View'];
 
+    branch: any;
+    zone: any;
+    circle: any;
+
   displayedColumns = ["LoanCaseNo",
     // "GlCode",
 
@@ -59,7 +63,7 @@ export class SearchUtilizationComponent implements OnInit {
   isMCO: boolean = false;
   isBM: boolean = false;
   isAdmin:boolean=false;
-  circle;
+
   loggedInUser: any;
   public maskEnums = MaskEnum;
   errors = errorMessages;
@@ -144,6 +148,13 @@ export class SearchUtilizationComponent implements OnInit {
     this.settingZBC();
 
   }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
+
     //Start ZBC
     private userInfo = this.userUtilsService.getUserDetails();
 

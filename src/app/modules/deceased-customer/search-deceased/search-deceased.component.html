@@ -21,77 +21,12 @@
         <div class="card card-body">
             <div class="kt-form kt-form-margin" [formGroup]="deceasedCustomerSearch">
                 <div >
-        
-        <!--            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">-->
-        <!--                <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="single_zone">-->
-        <!--                    <mat-label class="customMatLabel">Zone</mat-label>-->
-        <!--                    <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" >-->
-        <!--                        <mat-option [value]="SelectedZones?.ZoneId">-->
-        <!--                            {{SelectedZones?.ZoneName}}-->
-        <!--                        </mat-option>-->
-        <!--                    </mat-select>-->
-        <!--                </mat-form-field>-->
-        <!--                <mat-form-field class="mat-form-field-fluid" appearance="outline" *ngIf="!single_zone">-->
-        <!--                    <mat-label class="customMatLabel">Zone</mat-label>-->
-        <!--                    <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" >-->
-        <!--                                (selectionChange)="changeZone($event)">-->
-        <!--                        <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"-->
-        <!--                                    [disabled]="disable_zone">-->
-        <!--                            {{zone?.ZoneName}}-->
-        <!--                        </mat-option>-->
-        <!--                    </mat-select>-->
-        <!--                </mat-form-field>-->
-        <!--            </div>-->
-        
+
+
+
         <div class="row">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
-                            <mat-option [value]="SelectedZones?.ZoneId">
-                                {{SelectedZones?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
-                                    (selectionChange)="changeZone($event)">
-                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                        [disabled]="disable_zone">
-                                {{zone?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-12" >
-        
-                <div class="col-md-12 kt-margin-bottom-10-mobile">
-        
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                            <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
-                                        (selectionChange)="changeBranch($event)"
-                                        *ngIf="!single_branch">
-                                <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                                >
-                                    {{branch?.Name}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
-                                        *ngIf="single_branch">
-                                <mat-option [value]="SelectedBranches?.BranchCode"
-                                >
-                                    {{SelectedBranches?.Name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
+            <app-zone-branch-circle [form]="deceasedCustomerSearch" [should_show_circle]="false"
+                                    (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
             <div class="col-lg-3 col-sm-12">
                 <div class="col-md-12 kt-margin-bottom-10-mobile">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -109,21 +44,21 @@
                                       <mat-error *ngIf="deceasedCustomerSearch.get('Cnic').hasError('maxlength')">
                                         CNIC should consist 13 characters
                                       </mat-error> -->
-        
+
                         <mat-error *ngIf="deceasedCustomerSearch.get('Cnic').hasError('pattern')">
                             CNIC should only contain upto 13 numberic characters.
                         </mat-error>
                     </mat-form-field>
                 </div>
             </div>
-        
+
             <div class="col-lg-3 col-sm-12">
                 <div class="col-md-12 kt-margin-bottom-10-mobile">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Customer Name</mat-label>
                         <input appAlphabetOnly matInput formControlName="CustomerName" placeholder="" maxlength="100" autocomplete="off">
                         <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
-        
+
                     </mat-form-field>
                 </div>
             </div>
@@ -134,12 +69,12 @@
         <!--            &lt;!&ndash;  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>&ndash;&gt;-->
         <!--        </mat-form-field>-->
         <!--    </div>-->
-        
-        
+
+
         </div>
-        
-        
-        
+
+
+
         <div class="row">
 
             <div class="col-lg-3 col-sm-12">
@@ -153,7 +88,7 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div *ngIf="CustomerStatusLov"  class="col-md-12 kt-margin-bottom-10-mobile">
-        
+
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Customer Status</mat-label>
                         <mat-select formControlName="CustomerStatus">
@@ -164,17 +99,17 @@
                                 {{obj.Name}}
                             </mat-option>
                         </mat-select>
-        
+
                     </mat-form-field>
-        
-        
+
+
                     <!--<mat-form-field class="mat-form-field-fluid" appearance="outline">
                   <mat-label>land Status</mat-label>
                   <input matInput formControlName="landStatus" placeholder="Enter land Status" maxlength="30" autocomplete="off">
                   <mat-error *ngIf="hasError('landStatus', 'required')">landStatus <strong>required</strong></mat-error>
                 </mat-form-field>-->
                 </div>
-        
+
             </div>
             <div class="col-lg-2 col-md-3">
                 <div class="col-lg-4 col-sm-12">
@@ -183,14 +118,14 @@
                     </button>
                 </div>
             </div>
-        
-        
+
+
         </div>
-        
-        
-        
-        
-        
+
+
+
+
+
                 </div>
                 <!-- <div class="row align-items-center mb-4">
                   <div class="col-lg-2 col-md-2">
@@ -215,7 +150,7 @@
                       <pagination-controls display="inline" (pageChange)="paginate($event)" style="display: inline-block;"></pagination-controls>
                       <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
                       <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
-        
+
                     </div>
                   </div>
                 </div> -->

@@ -23,47 +23,8 @@
 
 
                 <div class="row">
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-        
-        
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Organizational Limit <strong class="matMandatory">*</strong>
-                                </mat-label>
-                                <mat-select [(ngModel)]="selected_b" formControlName="OrganizationUnit" [disabled]="disable_branch"
-                                            placeholder="Organization Unit"
-                                            *ngIf="!single_branch">
-                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode">
-                                        {{branch?.Name}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-select [(ngModel)]="selected_b" formControlName="OrganizationUnit" [disabled]="disable_branch"
-                                            placeholder="Organization Unit"
-                                            *ngIf="single_branch">
-                                    <mat-option [value]="SelectedBranches?.BranchCode">
-                                        {{SelectedBranches?.Name}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="hasError('OrganizationUnit', 'required')">Organization Unit <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
-                                </mat-label>
-                                <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="8"
-                                       autocomplete="off" [max]="maxDate" appNumberOnly/>
-                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                <mat-datepicker #picker2></mat-datepicker>
-                
-                                <mat-error *ngIf="hasError('TransactionDate', 'required')">Transaction Date <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                    <app-zone-branch-circle [form]="referbackForm" [should_show_circle]="false"
+                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -88,7 +49,7 @@
                     </div>
 
                 </div>
-        
+
                 <div class="row">
 
                     <div class="col-lg-3 col-sm-12">
@@ -109,8 +70,8 @@
                                     type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                         </div>
                     </div>
-        
-                </div>   
+
+                </div>
 
 
             </div>
