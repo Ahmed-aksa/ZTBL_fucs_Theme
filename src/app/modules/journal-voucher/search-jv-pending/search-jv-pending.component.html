@@ -33,11 +33,11 @@
         </div> -->
 
 
-        <div class="row">
+        <div class="flex" style="flex-wrap: wrap;">
             <app-zone-branch-circle [form]="pendingForm" [should_show_circle]="false"
                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
                         </mat-label>
@@ -51,8 +51,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Nature</mat-label>
                         <mat-select formControlName="Nature">
@@ -63,14 +63,8 @@
                     </mat-form-field>
                 </div>
             </div>
-        </div>
-
-
-
-        <div class="row">
-
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
                         <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off"
@@ -79,8 +73,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Select Status</mat-label>
                         <mat-select formControlName="Status" [disabled]="true">
@@ -91,8 +85,8 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center sm:mt-0">
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                     <button class="bg-gray-500 mt-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary"
                             type="button" (click)="find()">
@@ -102,6 +96,8 @@
                 </div>
             </div>
         </div>
+
+
 
 
     </div>
