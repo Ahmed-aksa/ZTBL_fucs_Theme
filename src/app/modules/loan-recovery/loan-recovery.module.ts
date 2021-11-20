@@ -47,94 +47,96 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgxCaptureModule } from 'ngx-capture';
 import { NumberDirective } from 'app/shared/directives/numbers-only.directive';
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [RecoveryFormComponent, LoanInquiryComponent, FaBranchComponent, InterBranchComponent, SbsInterBranchComponent, SearchRecoveryTransactionComponent, SbsFaBranchComponent, LoanReceiptComponent, SearchPendingTransactionComponent, SearchRefferedbackTransactionComponent, SearchSbsPendingTransactionComponent, SearchRecoveryCommonComponent, SignatureDialogComponent,
     NumberDirective
   ],
-  imports: [
-    NgxPrintModule,
-    CommonModule,
-    RouterModule.forChild([
-      {
-        path: 'sbs-fa-branch',        
-        component: SbsFaBranchComponent
-      },
-      {
-        path: 'fa-branch',
-        component: FaBranchComponent
-      },
-      {
-        path: 'fa-branch/:transactionID/:lcno/:viewOnly',
-        component: FaBranchComponent
-      },
-      {
-        path: 'inter-branch',
-        component: InterBranchComponent
-      },
-      {
-        path: 'sbs-inter-branch',
-        component: SbsInterBranchComponent
-      },
-      {
-        path: 'search-recovery-transaction',        
-        component: SearchRecoveryTransactionComponent
-      },
-      {
-        path: 'loan-inquiry',
-        component: LoanInquiryComponent
-      },
-      {        
-        path: 'loan-inquiry/:transactionID/:lcno',
-        component: LoanInquiryComponent
-      },
-      {
-        path: 'search-pending-transaction',
-        component: SearchPendingTransactionComponent
-      },
-      {
-        path: 'search-refferedback-transaction',
-        component: SearchRefferedbackTransactionComponent
-      },
-      {
-        path: 'search-sbs-pending-transaction',
-        component: SearchSbsPendingTransactionComponent
-      },
-    ]),
-    FormsModule,
-    ReactiveFormsModule,
-    MatMenuModule,
-    MatSelectModule,
-    MatInputModule,
-    MatTableModule,
-    MatAutocompleteModule,
-    MatRadioModule,
-    MatIconModule,
-    MatNativeDateModule,
-    MatProgressBarModule,
-    MatDatepickerModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
-    MatSnackBarModule,
-    MatExpansionModule,
-    MatTabsModule,
-    MatTooltipModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatListModule,
-    MatCardModule,
-    MatChipsModule,
-    NgxMatSelectSearchModule,
-    NgxMaskModule.forRoot(),
-    NgxSpinnerModule,
-    SignaturePadModule,
-    NgxBarcodeModule,
-    NgxCaptureModule,
-    NgxPaginationModule
-  ],
+    imports: [
+        NgxPrintModule,
+        CommonModule,
+        RouterModule.forChild([
+            {
+                path: 'sbs-fa-branch',
+                component: SbsFaBranchComponent
+            },
+            {
+                path: 'fa-branch',
+                component: FaBranchComponent
+            },
+            {
+                path: 'fa-branch/:transactionID/:lcno/:viewOnly',
+                component: FaBranchComponent
+            },
+            {
+                path: 'inter-branch',
+                component: InterBranchComponent
+            },
+            {
+                path: 'sbs-inter-branch',
+                component: SbsInterBranchComponent
+            },
+            {
+                path: 'search-recovery-transaction',
+                component: SearchRecoveryTransactionComponent
+            },
+            {
+                path: 'loan-inquiry',
+                component: LoanInquiryComponent
+            },
+            {
+                path: 'loan-inquiry/:transactionID/:lcno',
+                component: LoanInquiryComponent
+            },
+            {
+                path: 'search-pending-transaction',
+                component: SearchPendingTransactionComponent
+            },
+            {
+                path: 'search-refferedback-transaction',
+                component: SearchRefferedbackTransactionComponent
+            },
+            {
+                path: 'search-sbs-pending-transaction',
+                component: SearchSbsPendingTransactionComponent
+            },
+        ]),
+        FormsModule,
+        ReactiveFormsModule,
+        MatMenuModule,
+        MatSelectModule,
+        MatInputModule,
+        MatTableModule,
+        MatAutocompleteModule,
+        MatRadioModule,
+        MatIconModule,
+        MatNativeDateModule,
+        MatProgressBarModule,
+        MatDatepickerModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatCheckboxModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule,
+        MatExpansionModule,
+        MatTabsModule,
+        MatTooltipModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatListModule,
+        MatCardModule,
+        MatChipsModule,
+        NgxMatSelectSearchModule,
+        NgxMaskModule.forRoot(),
+        NgxSpinnerModule,
+        SignaturePadModule,
+        NgxBarcodeModule,
+        NgxCaptureModule,
+        NgxPaginationModule,
+        SharedModule
+    ],
   entryComponents: [
     LoanReceiptComponent,
     SignatureDialogComponent
