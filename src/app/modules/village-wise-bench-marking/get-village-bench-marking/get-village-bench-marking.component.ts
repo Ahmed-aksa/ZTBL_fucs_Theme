@@ -162,7 +162,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     }
 
     checkDeleteStatus(benchmark) {
-        if (benchmark.CreatedBy == this.LoggedInUserInfo.User.UserId) {
+        if (benchmark.CreatedBy == this.loggedInUserDetails?.User?.UserId) {
             return true
         } else {
             return false
@@ -206,8 +206,8 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
 
     checkEditStatus(val) {
-        this.loggedInUserDetails.User.UserId;
-        if (val.CreatedBy == this.loggedInUserDetails.User.UserId) {
+
+        if (val.CreatedBy == this.loggedInUserDetails?.User?.UserId) {
             if (val.Status == "S") {
                 return false;
             } else if (val.Status == "P") {
