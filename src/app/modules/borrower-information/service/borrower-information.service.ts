@@ -31,7 +31,7 @@ export class BorrowerInformationService {
         var userInfo = this.userDetail;
         var request = {
             Circle: {
-                CircleCode: SelectedCircles.Id
+                CircleCode: SelectedCircles?.Id
             },
             BorrowerInfo: {
                 Limit: limit,

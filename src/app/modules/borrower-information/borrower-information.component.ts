@@ -69,9 +69,6 @@ export class BorrowerInformationComponent implements OnInit {
 
     ngOnInit() {
         this.createForm();
-
-        this.getBorrower();
-
         this.settingPPNoFeild();
     }
 
