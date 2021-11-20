@@ -1,3 +1,8 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
@@ -18,6 +23,7 @@ import {UserUtilsService} from '../../shared/services/users_utils.service';
     styleUrls: ['./borrower-information.component.scss'],
 })
 export class BorrowerInformationComponent implements OnInit {
+    final_circle_ids:String='';
     displayedColumns = [
         'CustomerName',
         'FatherName',
@@ -95,7 +101,7 @@ export class BorrowerInformationComponent implements OnInit {
             this.LoggedInUserInfo.Branch &&
             this.LoggedInUserInfo.Branch.BranchCode != 'All'
         ) {
-            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
+            //this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
 
             this.SelectedBranches = this.LoggedInUserInfo.Branch;
             this.SelectedZones = this.LoggedInUserInfo.Zone;
@@ -107,15 +113,16 @@ export class BorrowerInformationComponent implements OnInit {
             this.borrowerForm.controls['Branch'].setValue(
                 this.SelectedBranches?.BranchCode
             );
-            var fi: any = [];
-            fi.Id = 'null';
-            fi.CircleCode = 'All';
-            fi.LovId = '0';
-            fi.TagName = '0';
-            this.SelectedCircles.splice(0, 0, fi);
-            this.borrowerForm.controls['Circle'].setValue(
-                this.SelectedCircles ? this.SelectedCircles[0].Id : ''
-            );
+            // var fi: any = [];
+            // fi.Id = 'null';
+            // fi.CircleCode = 'All';
+            // fi.LovId = '0';
+            // fi.TagName = '0';
+            // this.SelectedCircles.splice(0, 0, fi);
+            // this.borrowerForm.controls['Circle'].setValue(
+            //     this.SelectedCircles ? this.SelectedCircles[0].Id : ''
+            // );
+            this.changeBranch(this.selected_b);
             if (this.borrowerForm.value.Branch) {
                 this.changeBranch(this.borrowerForm.value.Branch);
             }
@@ -208,7 +215,7 @@ export class BorrowerInformationComponent implements OnInit {
         this.borrowerForm = this.fb.group({
             Zone: [userInfo?.Zone?.ZoneName],
             Branch: [userInfo?.Branch?.Name],
-            Circle: [],
+            Circle: [null],
             Cnic: [null],
             PPNo: [null],
         });
@@ -217,12 +224,19 @@ export class BorrowerInformationComponent implements OnInit {
     userInfo = this.userUtilsService.getUserDetails();
 
     private assignBranchAndZone() {
+        debugger
+        this.final_circle_ids='';
+        this.SelectedCircles.forEach(single_circle => {
+
+            this.final_circle_ids+=single_circle.Id+',';
+        });
         //Circle
         if (this.SelectedCircles.length) {
             this.final_cricle = this.SelectedCircles?.filter(
                 (circ) => circ.Id == this.selected_c
             )[0];
             this.userInfo.Circles = this.final_cricle;
+
         } else {
             this.final_cricle = this.SelectedCircles;
             this.userInfo.Circles = this.final_cricle;
@@ -232,10 +246,10 @@ export class BorrowerInformationComponent implements OnInit {
             this.final_branch = this.SelectedBranches?.filter(
                 (circ) => circ.BranchCode == this.selected_b
             )[0];
-            this.userInfo.Branch = this.final_branch;
+            this.user.Branch = this.final_branch;
         } else {
             this.final_branch = this.SelectedBranches;
-            this.userInfo.Branch = this.final_branch;
+            this.user.Branch = this.final_branch;
         }
         //Zone
         if (this.SelectedZones.length) {
@@ -245,7 +259,7 @@ export class BorrowerInformationComponent implements OnInit {
             this.userInfo.Zone = this.final_zone;
         } else {
             this.final_zone = this.SelectedZones;
-            this.userInfo.Zone = this.final_zone;
+            this.user.Zone = this.final_zone;
         }
     }
 
@@ -257,6 +271,7 @@ export class BorrowerInformationComponent implements OnInit {
     }
 
     getBorrower() {
+        debugger
         this.assignBranchAndZone();
         if (!this.final_zone) {
             var Message = 'Please select Zone';
@@ -264,11 +279,6 @@ export class BorrowerInformationComponent implements OnInit {
             return;
         }
 
-        if (!this.final_branch) {
-            var Message = 'Please select Branch';
-            this.layoutUtilsService.alertElement('', Message, null);
-            return;
-        }
 
         let cnic = this.borrowerForm.controls.Cnic.value;
         this.user.ZoneId = this.borrowerForm.controls.Zone.value;
@@ -294,7 +304,8 @@ export class BorrowerInformationComponent implements OnInit {
                 PPNo,
                 this.final_zone,
                 this.final_branch,
-                this.final_cricle
+                this.SelectedCircles
+                //this.final_circle_ids
             )
             .pipe(
                 finalize(() => {

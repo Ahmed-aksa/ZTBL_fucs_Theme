@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-var */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable new-parens */
+/* eslint-disable @typescript-eslint/member-ordering */
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
@@ -23,29 +28,33 @@ export class BorrowerInformationService {
     userDetail = this.userUtilsService.getUserDetails();
 
     getBorrowerInformation(limit, offset, cnic, user, PPNo, SelectedZones, SelectedBranches, SelectedCircles) {
-        debugger;
+        debugger
         var userInfo = this.userDetail;
-        var circle = userInfo.UserCircleMappings;
+        var circle = SelectedCircles;
         var circleIds = [];
 
-        if (user.CircleId == 'null') {
+        if (user.CircleId == undefined) {
             user.CircleId = null
         }
         if (circle) {
-            circle?.forEach(element => {
-                circleIds.push(element.CircleId);
+            circle.forEach(element => {
+                circleIds.push(element.Id);
             });
             var _circles = JSON.stringify(circleIds)
         } else {
             _circles = JSON.stringify(SelectedCircles);
         }
-
-        this.circle.CircleIds = JSON.stringify(circleIds);
-        this.circle.CircleCode = SelectedCircles.Id
-
+        // this.circle.CircleIds = circle_ids;
+        // if(SelectedCircles?.Id)
+        // this.circle.CircleCode = SelectedCircles?.Id;
+        // else
+        // this.circle.CircleCode = null;
 
         var request = {
-            Circle: this.circle,
+            Circle: {
+                CircleCode: user.CircleId,
+                CircleIds: _circles
+            },
             BorrowerInfo: {
                 Limit: limit,
                 Offset: offset,
