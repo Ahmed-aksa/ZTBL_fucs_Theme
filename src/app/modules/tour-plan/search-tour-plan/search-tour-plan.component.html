@@ -21,14 +21,14 @@
 
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
-            <div class="pt-4" [formGroup]="TourPlan">
+            <div  [formGroup]="TourPlan">
 
 
-                <div class="row">
+                <div class="flex"  style="flex-wrap: wrap;">
                     <app-zone-branch-circle [form]="TourPlan" [should_show_circle]="false"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2" >
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">From</mat-label>
@@ -41,8 +41,8 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+                    <div class="mx-2" >
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">To</mat-label>
                                 <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy"
@@ -51,6 +51,31 @@
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2" >
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Select tourPlan Status</mat-label>
+                                <mat-select formControlName="Status">
+                                    <mat-option value="">
+                                        Select
+                                    </mat-option>
+                                    <mat-option *ngFor="let obj of tourPlanStatusLov.LOVs" [value]="obj.Value">
+                                        {{obj.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2" >
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                                    aria-controls="collapseExample" (click)="SearchTourPlan()" type="button"
+                                    class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary">
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Search
+                            </button>
                         </div>
                     </div>
 
@@ -71,35 +96,7 @@
                 <!--            </mat-form-field>-->
                 <!--        </div>-->
 
-                <div class="row">
-                    <div class="col-lg-3 col-sm-12">
-                        <div *ngIf="tourPlanStatusLov" class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label>Select tourPlan Status</mat-label>
-                                <mat-select formControlName="Status">
-                                    <mat-option value="">
-                                        Select
-                                    </mat-option>
-                                    <mat-option *ngFor="let obj of tourPlanStatusLov.LOVs" [value]="obj.Value">
-                                        {{obj.Name}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
-                                    aria-controls="collapseExample" (click)="SearchTourPlan()" type="button"
-                                    class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary">
-                                <mat-icon class="mr-2">search</mat-icon>
-                                Search
-                            </button>
-                        </div>
-                    </div>
 
-
-                </div>
 
 
             </div>
