@@ -62,7 +62,6 @@ export class ZoneBranchCircleComponent implements OnInit {
 
 
         } else if (this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
-            this.SelectedCircles = this.all_data.UserCircleMappings;
             this.SelectedBranches = this.all_data.Branch;
             this.SelectedZones = this.all_data.Zone;
 
