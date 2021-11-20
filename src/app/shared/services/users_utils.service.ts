@@ -147,13 +147,12 @@ export class UserUtilsService {
     }
 
     public getUserActivities() {
-        return JSON.parse(localStorage.getItem(environment.userActivities))?.Activities;
+        return JSON.parse(localStorage.getItem('ZTBLUser'))?.Activities;
     }
 
     public getActivity(activityName: string): Activity {
         //this.getUserDetails();
         var activities = this.getUserActivities();
-        console.log(activities);
         if (activities?.length) {
             var act = activities.filter(x => x.ActivityName == activityName)[0];
 
