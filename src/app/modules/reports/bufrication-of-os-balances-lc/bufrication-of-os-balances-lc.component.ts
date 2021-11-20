@@ -126,8 +126,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
     }
 
-    isEnableReceipt() {
-        debugger
+    isEnableWorkingDate() {
         var workingDate = this.bufricationForm.controls.WorkingDate.value;
         if (workingDate._isAMomentObject == undefined) {
             try {

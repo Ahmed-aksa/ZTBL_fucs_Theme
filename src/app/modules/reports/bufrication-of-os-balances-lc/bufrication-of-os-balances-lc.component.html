@@ -30,7 +30,7 @@
                             <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong class="matMandatory">*</strong>
                             </mat-label>
                             <input matInput [matDatepicker]="picker2" formControlName="WorkingDate" maxlength="30"
-                                   autocomplete="off" (dateChange)="isEnableReceipt()" appNumberOnly/>
+                                   autocomplete="off" (dateChange)="isEnableWorkingDate()" appNumberOnly/>
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>

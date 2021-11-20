@@ -160,7 +160,7 @@ export class FaViewCircleWiseComponent implements OnInit {
         debugger
         this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
         this.statusLov = this.statusLov.LOVs;
-        //this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
+        this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
         console.log(this.statusLov)
     }
 

@@ -1,10 +1,13 @@
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-var */
 import {Router, ActivatedRoute} from '@angular/router';
 import {DatePipe, formatDate} from '@angular/common';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {finalize} from 'rxjs/operators';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {OnInit, Component, ChangeDetectorRef, Input, ViewChild, ElementRef} from '@angular/core';
-import {FormGroup, FormBuilder} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {LoanReceiptComponent} from '../loan-receipt/loan-receipt.component';
 import {SignatureDialogComponent} from '../signature-dialog/signature-dialog.component';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -96,7 +99,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
     pageIndex = 1;
     dv: number | any; //use later
     prevOffSet: any;
-
+    disableWorkingDate = false;
     MatTableLenght: boolean;
 
     findButton = "Find";
@@ -130,6 +133,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
         this.recoveryTypes.push({id: 4, name: 'SBS Inter Branch Recovery'});
         var userInfo = this.userUtilsService.getUserDetails();
         let dateString = userInfo?.Branch?.WorkingDate;
+        console.log(dateString)
         var day = 0;
         var month = 0;
         var year = 0;
@@ -137,13 +141,20 @@ export class SearchRecoveryCommonComponent implements OnInit {
             day = parseInt(dateString.substring(0, 2));
             month = parseInt(dateString.substring(2, 4));
             year = parseInt(dateString.substring(4, 8));
+            const branchWorkingDate = new Date(year, month - 1, day);
+            this.RecoveryForm.controls.TransactionDate.setValue(branchWorkingDate);
+            this.RecoveryForm.controls.WorkingDate.setValue(branchWorkingDate);
         }
 
 
-        const branchWorkingDate = new Date(year, month - 1, day);
-        this.RecoveryForm.controls.TransactionDate.setValue(branchWorkingDate);
         this.maxDate = new Date(year, month - 1, day);
 
+        if(userInfo.Branch.WorkingDate){
+            this.disableWorkingDate = true
+        }
+        else{
+            this.disableWorkingDate = false
+        }
         if (this.SearchType == 1) { //advance search
             this.loadLOV();
             this.RecoveryForm.controls.RecoveryType.setValue(0);
@@ -183,6 +194,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
             TransactionDate: [''],
             VoucherNo: [''],
             InstrumentNO: [''],
+            WorkingDate: [null, Validators.required]
         });
     }
 
@@ -193,7 +205,8 @@ export class SearchRecoveryCommonComponent implements OnInit {
         var voucherNo = this.RecoveryForm.controls.VoucherNo.value;
         var instrumentNO = this.RecoveryForm.controls.InstrumentNO.value;
         var recoveryType = "" + this.RecoveryForm.controls.RecoveryType.value;
-
+        debugger
+        this.branch.WorkingDate =  this.RecoveryForm.controls.WorkingDate.value;
         if (loanCaseNo != "" || voucherNo != "" || instrumentNO != "") {
             this.OffSet = 0;
         }
@@ -401,8 +414,51 @@ export class SearchRecoveryCommonComponent implements OnInit {
     }
 
     getAllData(event) {
+        debugger
         this.circle = event.final_circle;
         this.zone = event.final_zone;
         this.branch = event.final_branch;
     }
+    
+
+    isEnableWorkingDate() {
+        var workingDate = this.RecoveryForm.controls.WorkingDate.value;
+        if (workingDate._isAMomentObject == undefined) {
+            try {
+                var day = this.RecoveryForm.controls.WorkingDate.value.getDate();
+                var month = this.RecoveryForm.controls.WorkingDate.value.getMonth() + 1;
+                var year = this.RecoveryForm.controls.WorkingDate.value.getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                const branchWorkingDate = new Date(year, month - 1, day);
+                this.RecoveryForm.controls.WorkingDate.setValue(branchWorkingDate);
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                var day = this.RecoveryForm.controls.WorkingDate.value.toDate().getDate();
+                var month = this.RecoveryForm.controls.WorkingDate.value.toDate().getMonth() + 1;
+                var year = this.RecoveryForm.controls.WorkingDate.value.toDate().getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                workingDate = day + "" + month + "" + year;
+
+
+                const branchWorkingDate = new Date(year, month - 1, day);
+                this.RecoveryForm.controls.WorkingDate.setValue(branchWorkingDate);
+            } catch (e) {
+
+            }
+        }
+    }
+
 }

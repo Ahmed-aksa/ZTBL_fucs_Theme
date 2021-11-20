@@ -49,38 +49,40 @@
                 </div>
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">PPNO</mat-label>
-                            <input matInput placeholder="Enter PPNO" formControlName="PPNO"
-                                   appNumberOnly maxlength="10" autocomplete="off"/>
-                        </mat-form-field>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">PPNO</mat-label>
+                                <input matInput placeholder="Enter PPNO" formControlName="PPNO"
+                                       appNumberOnly maxlength="10" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+    
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Account Status<strong class="matMandatory">*</strong></mat-label>
+                                <mat-select (selectionChange)="value($event)" formControlName="Status">
+                                    <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
+                                        {{lov.Description}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <button class="bg-gray-500 mt-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                                mat-raised-button color="primary" (click)="find()">
+                            <mat-icon class="mr-2">search</mat-icon>
+                            Find
+                        </button>
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">Account Status<strong class="matMandatory">*</strong></mat-label>
-                            <mat-select (selectionChange)="value($event)" formControlName="Status">
-                                <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
-                                    {{lov.Description}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <button class="bg-gray-500 mt-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
-                            mat-raised-button color="primary" (click)="find()">
-                        <mat-icon class="mr-2">search</mat-icon>
-                        Find
-                    </button>
-                </div>
             </div>
+            
         </div>
     </div>
 
