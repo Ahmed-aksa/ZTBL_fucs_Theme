@@ -84,7 +84,9 @@ export class SearchNdcListComponent implements OnInit {
     LoggedInUserInfo: BaseResponseModel;
 
     ndcForm: FormGroup;
-
+    branch: any;
+    zone: any;
+    circle: any;
     pageSize = 10;
     pageSizePending = 10;
     ndcLength: number;
@@ -165,13 +167,13 @@ export class SearchNdcListComponent implements OnInit {
         // if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
         //   this.Circles = this.LoggedInUserInfo.UserCircleMappings;
         //   this.SelectedCircles = this.Circles;
-        
+
         //   this.Branches = this.LoggedInUserInfo.Branch;
         //   this.SelectedBranches = this.Branches;
-        
+
         //   this.Zones = this.LoggedInUserInfo.Zone;
         //   this.SelectedZones = this.Zones;
-        
+
         //   this.selected_z = this.SelectedZones.ZoneId
         //   this.selected_b = this.SelectedBranches.BranchCode
         //   this.selected_c = this.SelectedCircles.Id
@@ -366,6 +368,12 @@ export class SearchNdcListComponent implements OnInit {
         }else{
             return false;
         }
+    }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
     }
 
     viewMap(data){
