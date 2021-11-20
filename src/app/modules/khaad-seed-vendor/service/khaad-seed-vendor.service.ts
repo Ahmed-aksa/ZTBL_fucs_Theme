@@ -90,8 +90,7 @@ export class KhaadSeedVendorService {
 
     }
 
-    searchVendors(limit, offSet, vendor, user,zone="",branch="",circle="") {
-
+    searchVendors(limit, offSet, vendor, user, zone = null, branch = null, circle = null) {
         if (vendor.Type == 'null' || user.CircleId == 'null') {
             vendor.Type = null
             if (user.CircleId == 'null') {
@@ -113,7 +112,7 @@ export class KhaadSeedVendorService {
                 VendorDetail: vendor
             },
             User: this.userDetail.User,
-            Circle: circle? "" : null,
+            Circle: circle ? circle : null,
             Zone: zone,
             Branch: branch,
         }

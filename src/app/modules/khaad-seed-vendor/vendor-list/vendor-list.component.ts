@@ -108,24 +108,9 @@ export class VendorListComponent implements OnInit {
     ngOnInit(): void {
 
         this.createForm();
-
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-
         this.typeLov();
-
-
-        if (this.LoggedInUserInfo.Branch != null) {
-            this.initValues();
-        }
     }
 
-    initValues() {
-        // if (this.LoggedInUserInfo.Zone != undefined && this.LoggedInUserInfo.Branch != undefined) {
-        //     this.user.ZoneId = this.zone.ZoneId;
-        //     this.user.BranchCode = this.branch.BranchCode;
-        // }
-        this.searchVendor()
-    }
 
     createForm() {
         this.listForm = this.fb.group({
@@ -155,7 +140,7 @@ export class VendorListComponent implements OnInit {
     }
 
     searchVendor() {
-        debugger
+
         this.loaded = false;
         this.loading = true;
         var phone, name, type;
@@ -178,7 +163,7 @@ export class VendorListComponent implements OnInit {
 
 
         this.spinner.show();
-        this._khaadSeedVendor.searchVendors(this.itemsPerPage, this.offSet, this.vendorObj, this.user,this.zone,this.branch,this.circle)
+        this._khaadSeedVendor.searchVendors(this.itemsPerPage, this.offSet, this.vendorObj, this.user, this.zone, this.branch, this.circle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -279,16 +264,17 @@ export class VendorListComponent implements OnInit {
             })
     }
 
-    checkMap(data){
-        if(data.Lat.length>0){
+    checkMap(data) {
+        if (data.Lat.length > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    viewMap(data){
-        const dialogRef = this.dialog.open(ViewMapsComponent, { panelClass: ['h-screen','max-w-full','max-h-full'],
+    viewMap(data) {
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',
             data: data,
             disableClose: true
@@ -306,7 +292,7 @@ export class VendorListComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
-        debugger
+
     }
 
 
