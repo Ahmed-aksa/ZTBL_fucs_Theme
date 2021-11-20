@@ -83,7 +83,7 @@ export class VendorListComponent implements OnInit {
     branch: any;
     zone: any;
     circle: any;
-    
+
 
     LoggedInUserInfo: BaseResponseModel;
     user: any = {};
@@ -120,18 +120,15 @@ export class VendorListComponent implements OnInit {
     }
 
     initValues() {
-        if (this.LoggedInUserInfo.Zone != undefined && this.LoggedInUserInfo.Branch != undefined) {
-            this.user.ZoneId = this.zone.ZoneId;
-            this.user.BranchCode = this.branch.BranchCode;
-        }
+        // if (this.LoggedInUserInfo.Zone != undefined && this.LoggedInUserInfo.Branch != undefined) {
+        //     this.user.ZoneId = this.zone.ZoneId;
+        //     this.user.BranchCode = this.branch.BranchCode;
+        // }
         this.searchVendor()
     }
 
     createForm() {
         this.listForm = this.fb.group({
-            ZoneId: [null],
-            BranchCode: [null],
-            CircleId: [null],
             Type: [null],
             VendorName: [null],
             PhoneNumber: [null]
@@ -158,14 +155,15 @@ export class VendorListComponent implements OnInit {
     }
 
     searchVendor() {
+        debugger
         this.loaded = false;
         this.loading = true;
         var phone, name, type;
 
         if (this.listForm.controls.ZoneId.value != null && this.listForm.controls.BranchCode.value != null) {
-            this.user.ZoneId = this.zone.ZoneId;
-            this.user.CircleId = this.circle.CircleId;
-            this.user.BranchCode = this.branch.BranchCode;
+            this.user.ZoneId = this.zone?.ZoneId;
+            this.user.CircleId = this.circle?.CircleId;
+            this.user.BranchCode = this.branch?.BranchCode;
         }
 
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
@@ -180,7 +178,7 @@ export class VendorListComponent implements OnInit {
 
 
         this.spinner.show();
-        this._khaadSeedVendor.searchVendors(this.itemsPerPage, this.offSet, this.vendorObj, this.user)
+        this._khaadSeedVendor.searchVendors(this.itemsPerPage, this.offSet, this.vendorObj, this.user,this.zone,this.branch,this.circle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -200,7 +198,7 @@ export class VendorListComponent implements OnInit {
                 } else {
                     this.loading = false;
                     this.matTableLenght = false;
-                    this.dataSource = this.dv.slice(1, 0);
+                    this.dataSource = this.dv?.slice(1, 0);
                     this.offSet = 0;
                     this.pageIndex = 1;
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -303,9 +301,12 @@ export class VendorListComponent implements OnInit {
     }
 
     getAllData(data) {
+
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
+
+        debugger
     }
 
 

@@ -49,6 +49,10 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
   ind;
 
+    zone: any;
+    branch: any;
+    circle: any;
+
   //Zone inventory
   Zones: any = [];
   SelectedZones: any = [];
@@ -187,6 +191,11 @@ debugger
 
     }
 
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
   ngOnInit() {
     this.createForm();
     this.LoadLovs();
@@ -195,7 +204,7 @@ debugger
 
     if (this.LoggedInUserInfo.Branch != null) {
       this.disable_circle = false;
-      
+
 
       this.Branches = this.LoggedInUserInfo.Branch;
       this.SelectedBranches = this.Branches;
@@ -218,13 +227,13 @@ debugger
       }
     }
     else if(!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.UserCircleMappings){
-      
+
       this.Zone = this.LoggedInUserInfo.Zone;
       this.SelectedZones = this.Zone;
       this.disable_zone=true;
       this.addUpdateBenchMarkForm.controls["ZoneId"].setValue(this.SelectedZones?.Id);
 
-      
+
 
       this.selected_z = this.SelectedZones?.ZoneId
       this.changeZone(this.selected_z);
@@ -314,7 +323,7 @@ debugger
 
   Add() {
 
-    
+
 
       this.user.ZoneId = this.addUpdateBenchMarkForm.controls.ZoneId.value;
       this.user.BranchCode = this.addUpdateBenchMarkForm.controls.BranchCode.value;
@@ -542,7 +551,7 @@ console.log("village"+JSON.stringify(this.village))
   }
 
   Submit() {
-        
+
       console.log("village"+JSON.stringify(this.village));
     //this.hideDelete = true;
       if(this.village?.length>0){
@@ -607,7 +616,7 @@ for(let i=0;i<this.village.length;i++)
       else
       {
          changedZone = {Zone: {ZoneId: changedValue}}
-  
+
       }
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
