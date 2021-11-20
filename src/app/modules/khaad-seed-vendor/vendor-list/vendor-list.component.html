@@ -22,6 +22,7 @@
                         mat-flat-button
                         mat-button-base
                         mat-primary
+                        mt-2
                     "
                     type="button"
                     color="primary"
@@ -41,12 +42,12 @@
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
             <div class="py-2" [formGroup]="listForm">
-                <div class="row">
-                    <div class="w-full">
+                <div class="flex" style="flex-wrap: wrap;">
                         <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
                                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
+
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <mat-form-field
                             class="mat-form-field-fluid w-full"
                             appearance="outline"
@@ -65,28 +66,28 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-lg-3 col-sm-12">
-                        <mat-form-field
-                            class="mat-form-field-fluid w-full"
-                            appearance="outline"
-                        >
-                            <mat-label class="customMatLabel"
-                                >Vendor Name</mat-label
-                            >
-                            <input
-                                matInput
-                                placeholder="Vendor Name"
-                                formControlName="VendorName"
-                                maxlength="30"
-                                autocomplete="off"
-                            />
-                        </mat-form-field>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field
+                                class="mat-form-field-fluid w-full"
+                                appearance="outline"
+                            >
+                                <mat-label class="customMatLabel"
+                                    >Vendor Name</mat-label
+                                >
+                                <input
+                                    matInput
+                                    placeholder="Vendor Name"
+                                    formControlName="VendorName"
+                                    maxlength="30"
+                                    autocomplete="off"
+                                />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <mat-form-field
                             class="mat-form-field-fluid w-full"
                             appearance="outline"
@@ -104,7 +105,9 @@
                             />
                         </mat-form-field>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <button
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseExample"
@@ -122,19 +125,21 @@
                             <mat-icon class="mr-2">search</mat-icon> Search
                         </button>
                     </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
 
     <!-- Header -->
-    <div>
+    <div class="">
         <!-- <div
             class="absolute inset-x-0 bottom-0">
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
         </div> -->
 
-        <div class="mat-table__wrapper">
+        <div class="mat-table__wrapper border shadow-xs rounded-sm bg-gray-50 ">
             <!--[style.height]="gridHeight"-->
             <mat-table
                 class="lmat-elevation-z8"
