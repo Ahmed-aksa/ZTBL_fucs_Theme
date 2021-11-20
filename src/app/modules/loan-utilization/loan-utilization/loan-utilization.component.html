@@ -4,83 +4,82 @@
 
     <!-- Header -->
     <div class="flex flex-auto px-0 overflow-x-hidden" style="flex-direction: column; overflow-y: scroll">
-        <div class="pt-4" >
+        <div  >
 
 
 
-            <div class="row">
+            <div class="flex" style="flex-wrap: wrap;">
                 <app-zone-branch-circle [form]="customerForm" [should_show_circle]="false"
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">LC NO#</mat-label>
                             <input readonly appNumberOnly matInput placeholder="Enter LC No#" formControlName="LoanCaseNo"
                                    maxlength="13" autocomplete="off"/>
                         </mat-form-field>
                     </div>
                 </div>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Loan GL</mat-label>
+                <!--                [ngClass]="{ 'is-invalid': f.LoanDisbID.touched && f.LoanDisbID.errors }"-->
+                                <mat-select [disabled]="'true'" formControlName="LoanDisbID" >
+                                    <mat-option>
+                                        Select
+                                    </mat-option>
+                                    <mat-option *ngFor="let obj of LoanGls" [value]="obj.LoanDisbID">
+                                        {{obj.DisbDesc}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="isControlHasError('LoanDisbID','required')">
+                                <strong class="mx-3">Loan Disbursment ID is mandatory</strong>
+                            </mat-error>
+                        </div>
+                </div>
+    
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Gl Sub Code</mat-label>
+                                <input readonly appNumberOnly matInput placeholder="Gl Sub Code" formControlName="GlSubCode"
+                                       maxlength="13" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Crop Code</mat-label>
+                                <input readonly appNumberOnly matInput placeholder="CropCode" formControlName="CropCode"
+                                       maxlength="13" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Scheme Code</mat-label>
+                                <input readonly appNumberOnly matInput placeholder="SchemeCode" formControlName="SchemeCode"
+                                       maxlength="13" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <input matInput hidden formControlName="Status" maxlength="13" autocomplete="off"/>
+                        </div>
+                    </div>
+    
             </div>
 
 
-            <div class="row">
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label>Loan GL</mat-label>
-            <!--                [ngClass]="{ 'is-invalid': f.LoanDisbID.touched && f.LoanDisbID.errors }"-->
-                            <mat-select [disabled]="'true'" formControlName="LoanDisbID" >
-                                <mat-option>
-                                    Select
-                                </mat-option>
-                                <mat-option *ngFor="let obj of LoanGls" [value]="obj.LoanDisbID">
-                                    {{obj.DisbDesc}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <mat-error *ngIf="isControlHasError('LoanDisbID','required')">
-                            <strong class="mx-3">Loan Disbursment ID is mandatory</strong>
-                        </mat-error>
-                    </div>
 
 
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label class="customMatLabel">Gl Sub Code</mat-label>
-                            <input readonly appNumberOnly matInput placeholder="Gl Sub Code" formControlName="GlSubCode"
-                                   maxlength="13" autocomplete="off"/>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label class="customMatLabel">Crop Code</mat-label>
-                            <input readonly appNumberOnly matInput placeholder="CropCode" formControlName="CropCode"
-                                   maxlength="13" autocomplete="off"/>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                            <mat-label class="customMatLabel">Scheme Code</mat-label>
-                            <input readonly appNumberOnly matInput placeholder="SchemeCode" formControlName="SchemeCode"
-                                   maxlength="13" autocomplete="off"/>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                        <input matInput hidden formControlName="Status" maxlength="13" autocomplete="off"/>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-12">
-
-                </div>
-            </div>
 
 
 
