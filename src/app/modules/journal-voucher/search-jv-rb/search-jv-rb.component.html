@@ -2,9 +2,9 @@
 
     <div class="row py-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">Search Journal Voucher</div>
+            <div class="heading"> Referred Back Transaction(J.V) </div>
         </div>
-        <div class="col-lg-3 col-sm-12 self-center">
+        <div class="col-lg-3 col-sm-12 self-center mt-2">
             <p class="text-right">
                 <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
@@ -19,7 +19,7 @@
 
       <div class="collapse" id="collapseExample">
         <div class="card card-body">
-            <div [formGroup]="referbackForm" class="mt-4">
+            <div [formGroup]="referbackForm" >
 
 
                 <div class="row">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
                                 </mat-label>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label>Select Nature</mat-label>
                                 <mat-select formControlName="Nature">
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
                                 <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off"
@@ -86,9 +86,11 @@
                             </mat-form-field>
                         </div>
                     </div>
+
                 </div>
         
                 <div class="row">
+
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -101,23 +103,16 @@
                             </mat-form-field>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mb-3 sm:mt-0">
+                            <button class="mt-2 bg-gray-500" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"  mat-raised-button color="primary"
+                                    type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
+                        </div>
+                    </div>
         
                 </div>   
-        
-         <div class="row">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mb-3 sm:mt-0">
-                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"  mat-raised-button color="primary"
-                            type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
-                </div>
-            </div>
-         </div>
-        
-        
-        
-        
-        
-        
+
+
             </div>
         </div>
       </div>

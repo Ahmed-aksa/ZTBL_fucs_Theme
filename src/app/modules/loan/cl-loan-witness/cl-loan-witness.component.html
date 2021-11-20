@@ -32,17 +32,17 @@
                   <tr>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Cnic" />
+                        <input matInput maxlength="13" appNumberOnly formControlName="Cnic" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="FullName" />
+                        <input matInput appAlphabetOnly formControlName="FullName" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Percentage" />
+                        <input matInput maxlength="2" appNumberOnly formControlName="Percentage" />
                       </mat-form-field>
                     </td>
                     <td>
@@ -52,37 +52,37 @@
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Phone" />
+                        <input matInput maxlength="11" appNumberOnly formControlName="Phone" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="AccountNo" />
+                        <input matInput appNumberOnly maxlength="14" formControlName="AccountNo" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="SourceofIncome" />
+                        <input matInput appAlphaNumericField formControlName="SourceofIncome" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="AnnualIncome" />
+                        <input matInput maxlength="13" appNumberOnly formControlName="AnnualIncome" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="AssetValue" />
+                        <input matInput appNumberOnly formControlName="AssetValue" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="PresentDues" />
+                        <input matInput appNumberOnly formControlName="PresentDues" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="NetValue" />
+                        <input matInput appNumberOnly formControlName="NetValue" />
                       </mat-form-field>
                     </td>
                     <td> <span (click)="onSavePersonalSuretiesForm()">Save</span> | <span>Cancle</span></td>
@@ -104,8 +104,8 @@
                           <th>Source Of Income</th>
                           <th>Annual Income</th>
                           <th>Asset Value</th>
-                          <th>persent_dues</th>
-                          <th>net_value</th>
+                          <th>Present Dues</th>
+                          <th>Net Value</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -133,7 +133,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -252,12 +252,12 @@
                   <tr>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Cnic" />
+                        <input matInput appNumberOnly formControlName="Cnic" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Name" />
+                        <input matInput appAlphabetOnly formControlName="Name" />
                       </mat-form-field>
                     </td>
                     <td>
@@ -267,12 +267,12 @@
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Phone" />
+                        <input matInput appNumberOnly formControlName="Phone" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Fax" />
+                        <input matInput appAlphaNumericField formControlName="Fax" />
                       </mat-form-field>
                     </td>
                     <td>
@@ -360,12 +360,12 @@
                   <tr>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Cnic" />
+                        <input matInput maxlength="13" appNumberOnly formControlName="Cnic" />
                       </mat-form-field>
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="WitnessName" />
+                        <input matInput  formControlName="WitnessName" />
                       </mat-form-field>
                     </td>
                     <td>
@@ -445,7 +445,7 @@
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="AmountToPaid" />
+                        <input matInput appNumberOnly  formControlName="AmountToPaid" />
                       </mat-form-field>
                     </td>
                     <td>
@@ -543,7 +543,7 @@
                     </td>
                     <td>
                       <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="TotalDebit" />
+                        <input matInput appNumberOnly formControlName="TotalDebit" />
                       </mat-form-field>
                     </td>
                     <td>
@@ -601,7 +601,7 @@
                           <td>{{loan.Status}}</td>
                           <td>{{loan.FundNonfundFlag}}</td>
 
-                          
+
                           <td> <span (click)="onEditLoanCurrentList(loan.CurrentLoanID)">Edit</span></td>
                         </tr>
                       </tbody>
@@ -622,7 +622,7 @@
 <div class="kt-portlet">
   <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
     <div class="kt-portlet__head-label">
-      <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Documents Attached</h5>  
+      <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Documents Attached</h5>
     </div>
   </div>
   <div class="kt-portlet__body">

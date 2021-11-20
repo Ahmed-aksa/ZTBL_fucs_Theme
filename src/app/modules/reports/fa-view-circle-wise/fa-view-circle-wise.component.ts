@@ -89,7 +89,7 @@ export class FaViewCircleWiseComponent implements OnInit {
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm()
-        this.typeLov();
+        //this.typeLov();
 
         if (this.LoggedInUserInfo.Branch != null) {
             this.Circles = this.LoggedInUserInfo.UserCircleMappings;
@@ -130,7 +130,7 @@ export class FaViewCircleWiseComponent implements OnInit {
             BranchCode: [null, Validators.required],
             days: [null, Validators.required],
             // ReportsFormatType: [null, Validators.required],
-            Status: [null, Validators.required],
+            //Status: [null, Validators.required],
             PPNO: [null, Validators.required]
         })
     }
@@ -169,7 +169,7 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.user.Circle = null
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
-        this.reports.ReportsNo = "17";
+        this.reports.ReportsNo = "16";
         this.spinner.show();
         this._reports.reportDynamic(this.user, this.reports)
             .pipe(
@@ -210,12 +210,12 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
     }
 
-    async typeLov() {
-        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
-        this.statusLov = this.statusLov.LOVs;
-        this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-        console.log(this.statusLov)
-    }
+    // async typeLov() {
+    //     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
+    //     this.statusLov = this.statusLov.LOVs;
+    //     this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
+    //     console.log(this.statusLov)
+    // }
 
     changeZone(changedValue) {
         let changedZone = {Zone: {ZoneId: changedValue.value}}

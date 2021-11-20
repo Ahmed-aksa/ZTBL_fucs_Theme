@@ -114,7 +114,7 @@ export class ClPurposeComponent implements OnInit {
 
   // Load Lovs
   async LoadLovs() {
-    
+
     this.Facility = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Facility })
     this.Facility.LOVs = this._lovService.SortLovs(this.Facility.LOVs);
     this.Facility = this.Facility.LOVs;
@@ -185,11 +185,11 @@ export class ClPurposeComponent implements OnInit {
     }
 
     }
-  
+
 
 
   onEditPurpose(GlSubID) {
-    
+
     this.editLoanApplicationPurpose
 
 
@@ -320,7 +320,7 @@ export class ClPurposeComponent implements OnInit {
       return;
     }
 
-    
+
     this.loanApplicationPurpose.AmountRequired = parseInt(this.purposeForm.controls["AmountRequired"].value);
     this.loanApplicationPurpose.AmountInHand = parseInt(this.purposeForm.controls["AmountInHand"].value);
     this.loanApplicationPurpose.TotalEstimatedCost = parseInt(this.purposeForm.controls["TotalEstimatedCost"].value);
@@ -363,14 +363,14 @@ export class ClPurposeComponent implements OnInit {
       }
     }
 
-    if (this.isCheckedEquity == false) {
-      var MarketPriceValue = this.loanApplicationPurpose.TotalEstimatedCost;
-      var LoanAppliedValue = this.loanApplicationPurpose.AmountRequired;
-      if (MarketPriceValue != LoanAppliedValue) {
-        this.layoutUtilsService.alertMessage("", "Market Price Must be equal to Loan Applied");
-        return
-      }
-    }
+    // if (this.isCheckedEquity == false) {
+    //   var MarketPriceValue = this.loanApplicationPurpose.TotalEstimatedCost;
+    //   var LoanAppliedValue = this.loanApplicationPurpose.AmountRequired;
+    //   if (MarketPriceValue != LoanAppliedValue) {
+    //     this.layoutUtilsService.alertMessage("", "Market Price Must be equal to Loan Applied");
+    //     return
+    //   }
+    // }
 
     this.loanApplicationPurpose.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
     //this.loanApplicationPurpose.LoanAppID = 0;
@@ -395,9 +395,12 @@ export class ClPurposeComponent implements OnInit {
     this.loanApplicationPurpose = Object.assign(this.loanApplicationPurpose, this.purposeForm.getRawValue());
     const dialogRef = this.dialog.open(ClGlSchemeCropConfigurationComponent, { data: { glConfigrationsDetail: this.loanApplicationPurpose.GlSubID }, disableClose: true, panelClass: ['full-screen-modal'] });
     dialogRef.afterClosed().subscribe(res => {
+
+        console.log("res"+res)
       if (!res) {
         return;
       }
+        this.purposeForm.controls.GlSubID.setValue(res.data);
     });
 
   }

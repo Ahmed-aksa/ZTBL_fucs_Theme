@@ -14,7 +14,7 @@
               <mat-label class="customMatLabel">Customers <strong class="matMandatory">*</strong></mat-label>
               <!--<input matInput formControlName="CustomerID">-->
               <mat-select formControlName="CustomerID">
-                <mat-option *ngFor="let obj of SelectedCustomersList" [value]="obj.CustLoanAppID">
+                <mat-option (click)="onChange(obj)" *ngFor="let obj of SelectedCustomersList" [value]="obj.CustLoanAppID">
                   {{obj.CustomerName}}
                 </mat-option>
               </mat-select>
@@ -76,7 +76,7 @@
           <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Cell No <strong class="matMandatory">*</strong></mat-label>
-              <input matInput formControlName="PhoneCell" appNumberOnly>
+              <input maxlength="11" matInput formControlName="PhoneCell" appNumberOnly>
             </mat-form-field>
           </div>
           <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
@@ -125,7 +125,7 @@
                     <td>{{legal.PhoneCell}}</td>
                     <td>{{legal.Dob}}</td>
                     <td>{{legal.Relation}}</td>
-                    <td><button class="btn btn-xs btn-primary" (click)="onDeleteLegalHeirs(legal.UserID)">Delete</button></td>
+                    <td><button class="btn btn-xs btn-primary" (click)="onDeleteLegalHeirs(legal.UserID,i)">Delete</button></td>
                   </tr>
                 </tbody>
               </table>

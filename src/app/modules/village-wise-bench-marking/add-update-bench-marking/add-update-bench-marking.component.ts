@@ -93,14 +93,16 @@ village=[];
     private cdRef: ChangeDetectorRef,
     private userUtilsService: UserUtilsService,
   ) {
-
-      if (this.router.getCurrentNavigation().extras.state !== undefined) {
+debugger
+      if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
           console.log(this.router.getCurrentNavigation().extras.state.example)
           this.req_arr = this.router.getCurrentNavigation().extras.state.example;
           this.updatingCase=true;
 
           // console.log("arr"+JSON.stringify(this.req_arr))
-            }
+            }else{
+
+      }
   }
 
     SubmitSingle(){

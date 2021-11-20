@@ -35,7 +35,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
   GlRangeDetailList: any;
   GlSchemeCropDetailList: any;
   SchemeDetailList: any;
-  
+
 
   dataSource = new MatTableDataSource();
 
@@ -70,7 +70,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
 
 
   ngOnInit() {
-    
+
     this.glConfigrationsDetail.GLCode = this.data.glConfigrationsDetail;
     this.createForm();
    // this.loadData();
@@ -84,12 +84,12 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
 
   //loadData() {
 
-  //  
+  //
   //  this._landService.getData2().subscribe((data: any) => {
   //    this.dv = data;
 
   //    this.dataSource = new MatTableDataSource(data.reverse());
-  //    
+  //
   //    this.length = data.length;
   //    //this.count = length.count;
   //    //for()
@@ -102,9 +102,9 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
 
   paginate(event: any) {
 
-    
+
     this.pageIndex = event;
-    // this.dataService.getData2().subscribe((data:any)=>{ 
+    // this.dataService.getData2().subscribe((data:any)=>{
     // this.dataSource = data.slice(event * this.size - this.size, event * this.size);
     // })
     this.dataSource = this.dv.slice(event * this.size - this.size, event * this.size);
@@ -112,6 +112,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
 
 
   }
+
 
 
   createForm() {
@@ -130,7 +131,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
 
   SearchGLCode() {
 
-    
+
     this.glConfigrationsDetail = Object.assign(this.glConfigrationsDetail, this.glSchemeCropConfigForm.getRawValue());
 
     this._loanService.SearchGLCode(this.glConfigrationsDetail)
@@ -140,14 +141,14 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
         })
       )
       .subscribe(baseResponse => {
-        
+
         if (baseResponse.Success) {
           this.CropDetailList = baseResponse.Loan.GlConfigrationsDetail.CropDetailList;
           this.GLDetailList = baseResponse.Loan.GlConfigrationsDetail.GLDetailList;
           this.GlRangeDetailList = baseResponse.Loan.GlConfigrationsDetail.GlRangeDetailList;
           this.GlSchemeCropDetailList = baseResponse.Loan.GlConfigrationsDetail.GlSchemeCropDetailList;
           this.SchemeDetailList = baseResponse.Loan.GlConfigrationsDetail.SchemeDetailList;
-          
+
 
           console.log(this.CropDetailList);
           console.log(this.GLDetailList);
@@ -159,7 +160,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
           this.dv = this.CropDetailList;
 
           this.dataSource = new MatTableDataSource(this.CropDetailList.reverse());
-          
+
           this.length = this.CropDetailList.length;
           //this.count = length.count;
           //for()
@@ -174,8 +175,19 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
       });
   }
 
+    close(){
+        this.glSchemeCropConfigForm.controls.GLCode.value
+      if(this.glSchemeCropConfigForm.controls.GLCode.value==""){
+
+          return
+      }
+        this.glSchemeCropConfigForm.controls.GLCode.value;
+        this.dialogRef.close({ data: this.glSchemeCropConfigForm.controls.GLCode.value })
+
+        debugger
+    }
+
   onCloseClick(): void {
-    
-    this.dialogRef.close({ data: {} }); // Keep only this row
+    this.dialogRef.close(); // Keep only this row
   }
 }

@@ -157,7 +157,7 @@ export class LoanUtilizationComponent implements OnInit {
     ) {
 
         this.loggedInUser = userUtilsService.getUserDetails();
-        if (this.router.getCurrentNavigation().extras.state !== undefined) {
+        if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
             this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
         } else {
 
