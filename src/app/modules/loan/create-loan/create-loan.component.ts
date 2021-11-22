@@ -44,11 +44,11 @@ export class CreateLoanComponent implements OnInit {
   ) {
 
     router.events.subscribe((val:any) => {
-     
+
       if (val.url == "/loan/create") {
-        
+
         this.onCreateRestForm();
-        
+
       }
     })
   }
@@ -56,7 +56,7 @@ export class CreateLoanComponent implements OnInit {
   public Lcno: string;
   dynamicList: any;
 
-  // Objects 
+  // Objects
   applicationHeaderDetail: any;
   applicationCustomerDetail: any;
   applicationPurposeDetail: any;
@@ -75,7 +75,7 @@ export class CreateLoanComponent implements OnInit {
 
   onCreateRestForm() {
     console.log("rest form")
-    this.applicationHeaderDetail.DevAmount = "";
+    this.applicationHeaderDetail["DevAmount"] = "";
     this.appHeaderComponent.loadAppDataOnUpdate(this.applicationHeaderDetail)
   }
 
@@ -84,12 +84,12 @@ export class CreateLoanComponent implements OnInit {
     this.Lcno = this.route.snapshot.params['Lcno'];
     if ((this.LnTransactionID != undefined && this.LnTransactionID != null) && (this.Lcno != undefined && this.Lcno != null)) {
       this.getLoanDetail();
-      
+
     }
 
- 
+
   }
- 
+
 
 
   onTabChangeClick($event) {
@@ -136,12 +136,12 @@ export class CreateLoanComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.spinner.hide();
-          
+
           this.cdRef.detectChanges();
         })
       )
       .subscribe((baseResponse: BaseResponseModel) => {
-       
+
         if (baseResponse.Success === true) {
           var loanRes = baseResponse.Loan;
           this.loanApplicationReq = new Loan();
@@ -150,17 +150,17 @@ export class CreateLoanComponent implements OnInit {
           this.loanApplicationReq.ApplicationHeader.LoanAppID = loanRes.ApplicationHeader.LoanAppID;
           this.applicationHeaderDetail = loanRes.ApplicationHeader;
           this.appHeaderComponent.loadAppDataOnUpdate(this.applicationHeaderDetail);
-          
+
           this.CustomersLoanAppList = loanRes.CustomersLoanAppList
-          
+
           this.appCustomerComponent.loadAppCustomerDataOnUpdate(loanRes.CustomersLoanAppList)
-          
+
           this.appPurposeComponent.loadAppPurposeDataOnUpdate(loanRes.LoanApplicationpurposeList);
-          
+
           this.securityComponent.loadAppSecuritiesDataOnUpdate(loanRes.LoanSecuritiesList);
-          
+
           this.legalHeirsComponent.loadAppLegalHeirsDataOnUpdate(loanRes.LoanApplicationLegalHeirsList, loanRes.CustomersLoanAppList);
-          
+
           this.appraisalOfProposedComponent.loadAppraisalOfProposedDataOnUpdate(loanRes.AppraisalProposedList, loanRes.CropProductionList);
 
           this.uploadDocumentComponent.loadUploadDocumentsOnUpdate(loanRes.DocumentUploadList, loanCaseNo);
@@ -169,7 +169,7 @@ export class CreateLoanComponent implements OnInit {
             loanRes.CorporateSuretyList, loanRes.LoanRefrencesList, loanRes.LoanPastPaidList,
             loanRes.LoanWitnessList, loanRes.CurrentLoansList);
 
-        
+
 
           this.cdRef.detectChanges();
         }

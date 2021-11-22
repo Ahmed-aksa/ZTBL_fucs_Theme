@@ -155,6 +155,8 @@ export class ClApplicationHeaderComponent implements OnInit {
       ).subscribe(baseResponse => {
         if (baseResponse.Success) {
 
+            console.log("application header response"+JSON.stringify(baseResponse))
+
           baseResponse.Zones.forEach(function (value) {
             value.ZoneName = value.ZoneName.split("-")[1];
           })

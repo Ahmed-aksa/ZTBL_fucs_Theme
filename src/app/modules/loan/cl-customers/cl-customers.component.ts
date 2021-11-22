@@ -192,7 +192,7 @@ export class ClCustomersComponent implements OnInit {
       grid.dob = item.DOB;
       //grid.agps = this.agpsModel
 
-      var tempAgpsLov = tempAgpsLovs.filter(v => v.Id == item.Agps)
+      var tempAgpsLov = tempAgpsLovs?.filter(v => v.Id == item.Agps)
       if (tempAgpsLov.length > 0)
         grid.agpsName = tempAgpsLov[0].Name;
       else
