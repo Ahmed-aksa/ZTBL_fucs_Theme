@@ -218,7 +218,6 @@ export class VendorListComponent implements OnInit {
     }
 
     editVendor(vendor: any) {
-        ;
         localStorage.setItem('SearchVendorData', JSON.stringify(vendor));
         localStorage.setItem('EditVendorData', '1');
         this.router.navigate(['../add-vendor', {upFlag: "1"}], {relativeTo: this.activatedRoute});

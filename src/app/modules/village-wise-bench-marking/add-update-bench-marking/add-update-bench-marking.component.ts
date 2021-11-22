@@ -70,6 +70,8 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     tableLength: boolean = false;
     updatingCase = false;
 
+    is_view: boolean = false;
+
     constructor(
         private layoutUtilsService: LayoutUtilsService,
         private router: Router,
@@ -82,8 +84,8 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
         private userUtilsService: UserUtilsService,
     ) {
         if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
-            console.log(this.router.getCurrentNavigation().extras.state.example)
             this.req_arr = this.router.getCurrentNavigation().extras.state.example;
+            this.is_view = this.router.getCurrentNavigation().extras.state.hide;
             this.updatingCase = true;
 
             // console.log("arr"+JSON.stringify(this.req_arr))
