@@ -80,9 +80,7 @@ export class CircleViewMapComponent implements OnInit {
         this.gridHeight = window.innerHeight - 250 + 'px';
     }
 
-    loadAll() {
-        this.loadCirclesSinglePoints()
-    }
+
 
     loadCirclesSinglePoints() {
         this._circleService.getAllCirclesSinglePoints(this.branch)
@@ -132,7 +130,10 @@ export class CircleViewMapComponent implements OnInit {
     onMapReady(map) {
         this.googleMap = map;
         this.setCurrentLocation()
+        if(this.zone && this.branch)
+        {
         this.loadCirclesSinglePoints();
+        }
     }
 
 

@@ -149,8 +149,8 @@ export class CircleListComponent implements OnInit {
             data: {
                 circle: circle,
                 zone: this.zone,
-                branch: this.branch,
-            }, disableClose: true, panelClass: ['h-screen','max-w-full','max-h-full']
+                branch: this.branch
+            }, disableClose: true, panelClass: ['h-screen','max-w-full','max-h-full','w-full','h-full']
         });
         dialogRef.afterClosed().subscribe(res => {
             dialogRef = null;
