@@ -77,15 +77,10 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
         // this.typeLov();
-
-
-
-
     }
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            PPNO: [null, Validators.required]
         });
     }
 
@@ -109,7 +104,7 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit {
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "19";
         this.spinner.show();
-        this._reports.reportDynamic(this.user, this.reports)
+        this._reports.updatedList(this.user, this.reports)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -150,6 +145,7 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
+        debugger
     }
 
 

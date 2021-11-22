@@ -94,7 +94,6 @@ export class EarlyWarningReportsComponent implements OnInit {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm()
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         // this.typeLov();
 
     }
@@ -102,7 +101,6 @@ export class EarlyWarningReportsComponent implements OnInit {
     createForm() {
         this.searchCnicForm = this.fb.group({
             days: [null, Validators.required],
-            PPNO: [null, Validators.required]
         })
     }
 

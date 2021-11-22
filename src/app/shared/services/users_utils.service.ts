@@ -60,15 +60,15 @@ export class UserUtilsService {
             this.search_data.UserCircleMappings = user_data.UserCircleMappings;
             this.search_data.Zone = user_data.Zone;
         } else if (
-            (user_data.Branch != null || user_data.Branch != undefined) &&
-            (user_data.Zone != null || user_data.Zone != undefined) &&
-            user_data.UserCircleMappings == undefined) {
+            user_data.Branch &&
+            user_data.UserCircleMappings &&
+            !user_data.Zone) {
             /**
              * Case 2
              */
             this.search_data.Branch = user_data.Branch;
-            this.search_data.UserCircleMappings = true;
-            this.search_data.Zone = null;
+            this.search_data.UserCircleMappings = null;
+            this.search_data.Zone = user_data.Zone;
         } else if (
             (user_data.Branch == null || user_data.Branch == undefined) &&
             (user_data.UserCircleMappings == null || user_data.UserCircleMappings == undefined) &&

@@ -75,6 +75,14 @@ export class NdcRequestsService {
     userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     getRequests(user, limit, offset, final_zone, final_branch) {
+
+        if (this.userInfo?.UserCircleMappings?.length != 0) {
+            this.userInfo?.UserCircleMappings?.forEach(element => {
+                circleIds.push(element.CircleId);
+            });
+        } else {
+            circleIds = ["0"]
+        }
         this.userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         limit = String(limit);
         offset = String(offset)
@@ -86,6 +94,8 @@ export class NdcRequestsService {
                 circleIds.push(element.CircleId);
             });
         }
+
+
 
         var _circles = JSON.stringify(circleIds)
         _circles
@@ -110,7 +120,7 @@ export class NdcRequestsService {
             },
             TranId: 0,
             User: this.userInfo.User,
-            Branch: final_branch,
+            Branch:final_branch ? final_branch : null,
             Zone: final_zone,
         };
         return this.http.post(environment.apiUrl + '/NDC/SearchNDCList', request);

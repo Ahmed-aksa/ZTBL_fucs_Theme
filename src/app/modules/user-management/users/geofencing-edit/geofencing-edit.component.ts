@@ -470,6 +470,7 @@ export class GeofencingEditComponent implements OnInit {
             this.request.Circle = this.circle;
             this.request.Zone = this.data.zone;
             this.request.Branch = this.data.branch;
+            console.log(this.request);
 
             this.submitted = true;
             // this.ktDialogService.show();

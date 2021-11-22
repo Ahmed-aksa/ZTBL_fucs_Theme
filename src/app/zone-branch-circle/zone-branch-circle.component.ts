@@ -49,6 +49,9 @@ export class ZoneBranchCircleComponent implements OnInit {
     ngOnInit(): void {
         this.addFormControls(this.should_show_circle);
         this.all_data = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if (this.all_data.UserCircleMappings?.length == 0){
+            this.all_data.UserCircleMappings = null;
+        }
         if (this.all_data.Branch && this.all_data.Zone && this.all_data.UserCircleMappings) {
 
             this.SelectedBranches = this.all_data.Branch;
@@ -150,12 +153,10 @@ export class ZoneBranchCircleComponent implements OnInit {
 
 
         let final_circle = null;
-        debugger;
-
         if (this.SelectedCircles?.length > 1)
             final_circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
-        else if(this.SelectedCircles.length==1)
-            final_circle=this.SelectedCircles[0];
+        else if (this.SelectedCircles?.length == 1)
+            final_circle = this.SelectedCircles[0];
         else
             final_circle = this.SelectedCircles;
         this.branchZoneCircleData.emit({

@@ -90,35 +90,39 @@ export class FaViewCircleWiseComponent implements OnInit {
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+
         this.createForm()
         this.typeLov();
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
+        //this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
+    }
+
+    value(event){
+        debugger
+        console.log(event)
     }
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            //days: [null, Validators.required],
-            // ReportsFormatType: [null, Validators.required],
-            Status: [null, Validators.required],
-            PPNO: [null, Validators.required]
-        })
+            Status: [null, Validators.required]})
     }
 
     find() {
-        
+        debugger
+
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required fields");
             return;
         }
-       
+
         this.user.Branch = this.branch
         this.user.Zone = this.zone
         this.user.Circle = this.circle;
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
-        this.reports.ReportsNo = "17";
+        this.reports.ReportsNo = "16";
+        this.reports.BranchName = this.branch.BranchName;
         this.spinner.show();
-        this._reports.reportDynamic(this.user, this.reports)
+        this._reports.searchNpl(this.user, this.reports)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -151,6 +155,7 @@ export class FaViewCircleWiseComponent implements OnInit {
 
 
     async typeLov() {
+        debugger
         this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
         this.statusLov = this.statusLov.LOVs;
         this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")

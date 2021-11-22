@@ -150,7 +150,7 @@ export class CircleListComponent implements OnInit {
                 circle: circle,
                 zone: this.zone,
                 branch: this.branch
-            }, disableClose: true, panelClass: ['full-screen-modal']
+            }, disableClose: true, panelClass: ['h-screen','max-w-full','max-h-full']
         });
         dialogRef.afterClosed().subscribe(res => {
             dialogRef = null;

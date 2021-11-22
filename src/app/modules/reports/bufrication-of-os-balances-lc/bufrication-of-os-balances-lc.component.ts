@@ -126,8 +126,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
     }
 
-    isEnableReceipt() {
-        debugger
+    isEnableWorkingDate() {
         var workingDate = this.bufricationForm.controls.WorkingDate.value;
         if (workingDate._isAMomentObject == undefined) {
             try {
@@ -173,8 +172,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             WorkingDate: [null, Validators.required],
             LcNo: [null],
             Status: [null, Validators.required],
-            ReportFormatType: [null, Validators.required],
-            PPNO: [null, Validators.required]
+            ReportFormatType: [null, Validators.required]
         })
     }
 
@@ -227,7 +225,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         }
         console.log(this.reports.WorkingDate)
         this.spinner.show();
-        this._bufrication.reportDynamic(this.user, this.reports)
+        this._bufrication.bifurcation(this.user, this.reports)
             .pipe(
                 finalize(() => {
                     this.loaded = true;

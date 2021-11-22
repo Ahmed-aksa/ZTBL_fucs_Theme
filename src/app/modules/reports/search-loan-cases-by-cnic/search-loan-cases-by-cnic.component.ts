@@ -30,7 +30,7 @@ import {ReportsService} from '../service/reports.service';
     styleUrls: ['./search-loan-cases-by-cnic.component.scss']
 })
 export class SearchLoanCasesByCnicComponent implements OnInit {
-    displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los'];
+    displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Agps','Bcl', 'Los'];
     searchCnicForm: FormGroup;
     selected_b;
     selected_z;
@@ -88,15 +88,13 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
         debugger
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
     }
 
     createForm() {
         this.searchCnicForm = this.fb.group({
             Cnic: [null],
             CustomerName: [null],
-            FatherName: [null],
-            PPNO: [Validators.required, null]
+            FatherName: [null]
         })
     }
 
