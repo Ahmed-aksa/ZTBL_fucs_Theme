@@ -103,7 +103,6 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
         this.typeLov();
-        this.bufricationForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         this.bufricationForm.controls["ReportFormatType"].setValue(this.select ? this.select[0].Value : "");
 
         //this.bufricationForm.controls["WorkingDate"].setValue(this.LoggedInUserInfo.Branch.WorkingDate);

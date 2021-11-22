@@ -52,10 +52,19 @@ export class ClLoanWitnessComponent implements OnInit {
     private layoutUtilsService: LayoutUtilsService,
     public datepipe: DatePipe
   ) {
-    
+
   }
 
   ngOnInit() {
+
+      console.log("loan detail"+this.loanDetail)
+
+    this.getPersonalSuretiesForm();
+    this.getCorporateSuretiesForm();
+    this.getLoanRefrencesForm();
+    this.getLoanWitnessForm();
+    this.getLoanPastPaidForm();
+    this.getCurrentLoansForm();
 
     this.createPersonalSuretiesForm();
     this.createCorporateSuretiesForm();
@@ -89,7 +98,7 @@ export class ClLoanWitnessComponent implements OnInit {
   }
 
   onSavePersonalSuretiesForm() {
-    
+
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -106,7 +115,7 @@ export class ClLoanWitnessComponent implements OnInit {
           this.spinner.hide();
         })
     ).subscribe(baseResponse => {
-      
+
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
       });
   }
@@ -131,7 +140,7 @@ export class ClLoanWitnessComponent implements OnInit {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
     }
-    
+
     this.corporateSureties = Object.assign(this.corporateSureties, this.corporateSuretiesForm.getRawValue());
     //this.corporateSureties.LoanAppID = 0;
     this.corporateSureties.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
@@ -143,7 +152,7 @@ export class ClLoanWitnessComponent implements OnInit {
           this.spinner.hide();
         })
     ).subscribe(baseResponse => {
-      
+
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
       });
   }
@@ -168,7 +177,7 @@ export class ClLoanWitnessComponent implements OnInit {
   }
 
   onSaveLoanRefrencesForm() {
-      
+
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -178,7 +187,7 @@ export class ClLoanWitnessComponent implements OnInit {
     //  this.loanRefrences.SrNo = this.editLoanRefrenceArray[2].SrNo;
 
     //}
-    
+
     this.loanRefrences = Object.assign(this.loanRefrences, this.loanRefrencesForm.getRawValue());
     //this.loanRefrences.ReferenceID = 0;
     //this.loanRefrences.LoanAppID = 0;
@@ -191,7 +200,7 @@ export class ClLoanWitnessComponent implements OnInit {
           this.spinner.hide();
         })
     ).subscribe(baseResponse => {
-      
+
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
       });
   }
@@ -212,7 +221,7 @@ export class ClLoanWitnessComponent implements OnInit {
   }
 
   onSaveLoanWitnessForm() {
-    
+
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -230,7 +239,7 @@ export class ClLoanWitnessComponent implements OnInit {
           this.spinner.hide();
         })
     ).subscribe(baseResponse => {
-      
+
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
       });
   }
@@ -259,7 +268,7 @@ export class ClLoanWitnessComponent implements OnInit {
       return;
     }
 
-    
+
     this.loanPastPaid = Object.assign(this.loanPastPaid, this.loanPastPaidForm.getRawValue());
     //this.loanPastPaid.PaidLoanID = 0;
     //this.loanPastPaid.LoanAppID = 0;
@@ -271,7 +280,7 @@ export class ClLoanWitnessComponent implements OnInit {
           this.spinner.hide();
         })
     ).subscribe(baseResponse => {
-      
+
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
       });
   }
@@ -295,19 +304,33 @@ export class ClLoanWitnessComponent implements OnInit {
     });
   }
 
+    /**********************************************************************************************************/
+    /*                        Get Data                                                                        */
+    /**********************************************************************************************************/
+
+    getPersonalSuretiesForm(){}
+    getCorporateSuretiesForm(){}
+    getLoanRefrencesForm(){}
+    getLoanWitnessForm(){}
+    getLoanPastPaidForm(){}
+    getCurrentLoansForm(){}
+
+
+
+
   onSaveCurrentLoansForm() {
-    
+
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
     }
 
-    
+
     this.currentLoans = Object.assign(this.currentLoans, this.currentLoansForm.getRawValue());
     //this.currentLoans.CurrentLoanID = 0;
     //this.currentLoans.LoanAppID = 0;
     this.currentLoans.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-    
+
     this.currentLoans.GurenteeDetail = "";
     this.currentLoans.PurposeID = 8;
     this.currentLoans.BranchID = 10;
@@ -319,7 +342,7 @@ export class ClLoanWitnessComponent implements OnInit {
           this.spinner.hide();
         })
     ).subscribe(baseResponse => {
-      
+
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
       });
   }
@@ -341,7 +364,7 @@ export class ClLoanWitnessComponent implements OnInit {
       return;
     }
 
-    
+
     //this.loanDetail = new Loan();
     //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
 
@@ -357,7 +380,7 @@ export class ClLoanWitnessComponent implements OnInit {
           })
         )
         .subscribe(baseResponse => {
-          
+
           console.log(baseResponse)
           if (baseResponse.Success) {
             this.loanDocumentsCheckList = baseResponse.Loan.LoanDocumentCheckList;
@@ -367,7 +390,7 @@ export class ClLoanWitnessComponent implements OnInit {
     else {
       this.layoutUtilsService.alertMessage("", "Loan details not found");
     }
- 
+
   }
 
   setUnsetDocumentCheckBox(docObj) {
@@ -397,20 +420,20 @@ export class ClLoanWitnessComponent implements OnInit {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
     }
-    
+
     //this.loanDetail = new Loan();
     //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
 
     this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
     this.spinner.show();
-    //const selectedCheckListIds = 
+    //const selectedCheckListIds =
     this._loanService.saveCheckList(this.loanDocumentCheckListArray, this.loanDetail.TranId)
       .pipe(
         finalize(() => {
           this.spinner.hide();
         })
     ).subscribe(baseResponse => {
-      
+
       console.log(baseResponse)
       this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
     });
@@ -418,7 +441,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
 
   loadAppWitnessDataOnUpdate(appPersonalSureties, appReferences, appCorporateSureties, appLoanPastPaidList, appLoanWitnessList, appCurrentLoansList) {
-    
+
     this.editLoanRefrenceArray = appCorporateSureties;
     this.editLoanPersonalSuretiesArray = appPersonalSureties;
     this.editLoanCorporateSuretyArray = appReferences;
@@ -429,7 +452,7 @@ export class ClLoanWitnessComponent implements OnInit {
     if (appLoanPastPaidList.length != 0) {
       var tempCustomerArr: LoanPastPaidGrid[] = [];
       appLoanPastPaidList.forEach(function (item, key) {
-        
+
         var grid = new LoanPastPaidGrid();
         grid.PaidLoanID = item.PaidLoanID;
         grid.BankName = item.BankName;
@@ -444,10 +467,10 @@ export class ClLoanWitnessComponent implements OnInit {
     }
 
     if (appLoanWitnessList.length != 0) {
-      
+
       var tempCustomerArra: LoanWitnessGrid[] = [];
       appLoanWitnessList.forEach(function (item, key) {
-        
+
         var grid = new LoanWitnessGrid();
 
         grid.WitnessesID = item.WitnessesID;
@@ -461,7 +484,7 @@ export class ClLoanWitnessComponent implements OnInit {
       });
       this.loanWitnessArray = tempCustomerArra;
     }
-    
+
     if (appCorporateSureties.length != 0) {
     var tempCustomerArray: ReferenceGrid[] = [];
 
@@ -483,15 +506,15 @@ export class ClLoanWitnessComponent implements OnInit {
       tempCustomerArray.push(grid);
 
     });
-      
+
       this.loanRefrenceArray = tempCustomerArray;
     }
 
     if (appPersonalSureties.length != 0) {
-      
+
       var tempArray: PersonalSuretiesGrid[] = [];
       appPersonalSureties.forEach(function (item, key) {
-        
+
         var grid = new PersonalSuretiesGrid();
 
         grid.PersonalSuretyID = item.PersonalSuretyID;
@@ -517,9 +540,9 @@ export class ClLoanWitnessComponent implements OnInit {
     if (appReferences.length != 0) {
       var temperorayArray: CorporateSuretyGrid[] = [];
       appReferences.forEach((item, key) => {
-        
+
         var grid = new CorporateSuretyGrid();
-        
+
         grid.CompanyName = item.CompanyName;
         grid.MemorandumDate = item.MemorandumDate.toString()
         grid.RefrenceNo = item.RefrenceNo;
@@ -531,17 +554,17 @@ export class ClLoanWitnessComponent implements OnInit {
 
 
       });
-      
+
       this.loanCorporateSuretyArray = temperorayArray;
     }
 
     if (appCurrentLoansList.length != 0) {
-      
+
       var temperorayArr: CurrentLoansGrid[] = [];
       appCurrentLoansList.forEach((item, key) => {
 
         var currentGrid = new CurrentLoansGrid();
-        
+
         currentGrid.FundNonfundFlag = item.FundNonfundFlag;
         currentGrid.CurrentLoanID = item.CurrentLoanID
         currentGrid.BankName = item.BankName;
@@ -559,7 +582,7 @@ export class ClLoanWitnessComponent implements OnInit {
         temperorayArr.push(currentGrid);
 
       });
-      
+
       this.loanCurrentList = temperorayArr;
 
     }
@@ -567,7 +590,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
 
   onEditLoanCurrentList(CurrentLoanID) {
-    
+
     for (var i = 0; i < this.editLoanCurrentList.length; i++) {
       if (this.editLoanCurrentList[i].CurrentLoanID == CurrentLoanID) {
         this.currentLoansForm.controls["BankName"].setValue(this.editLoanCurrentList[i].BankName)
@@ -577,7 +600,7 @@ export class ClLoanWitnessComponent implements OnInit {
         this.currentLoansForm.controls["DateDebitAcheive"].setValue(this.editLoanCurrentList[i].DateDebitAcheive)
         this.currentLoansForm.controls["AmountToPaid"].setValue(this.editLoanCurrentList[i].AmountToPaid)
         this.currentLoansForm.controls["DueDate"].setValue(this.editLoanCurrentList[i].DueDate)
-        
+
         this.currentLoans.CurrentLoanID = this.editLoanCurrentList[i].CurrentLoanID
         this.currentLoans.Status = this.editLoanCurrentList[i].Status;
 
@@ -591,30 +614,30 @@ export class ClLoanWitnessComponent implements OnInit {
         this.loanWitnessForm.controls["Cnic"].setValue(this.editLoanWitnessArray[i].Cnic);
         this.loanWitnessForm.controls["WitnessName"].setValue(this.editLoanWitnessArray[i].WitnessName);
         this.loanWitnessForm.controls["WitnessAddress"].setValue(this.editLoanWitnessArray[i].WitnessAddress);
-        
-        this.loanWitness.WitnessesID = this.editLoanWitnessArray[i].WitnessesID 
+
+        this.loanWitness.WitnessesID = this.editLoanWitnessArray[i].WitnessesID
       }
     }
   }
 
   onEditLoanPastPaidArray(PaidLoanID) {
-    
+
     for (var i = 0; i < this.editLoanPastPaidArray.length; i++) {
       if (this.editLoanPastPaidArray[i].PaidLoanID == PaidLoanID) {
         this.loanPastPaidForm.controls["BankName"].setValue(this.editLoanPastPaidArray[i].BankName);
         this.loanPastPaidForm.controls["AmountToPaid"].setValue(this.editLoanPastPaidArray[i].AmountToPaid);
         this.loanPastPaidForm.controls["DueDate"].setValue(this._common.stringToDate(this.editLoanPastPaidArray[i].DueDate));
         this.loanPastPaidForm.controls["LastPaidDate"].setValue(this._common.stringToDate(this.editLoanPastPaidArray[i].LastPaidDate));
-        
+
         this.loanPastPaid.PaidLoanID = this.editLoanPastPaidArray[i].PaidLoanID
       }
     }
   }
 
   onEditLoanCorporateSuretyArray(RefrenceNo) {
-    
+
     for (var i = 0; i < this.editLoanCorporateSuretyArray.length; i++) {
-      
+
       if (this.editLoanCorporateSuretyArray[i].CorporateSuretyID == RefrenceNo) {
         this.corporateSuretiesForm.controls["CompanyName"].setValue(this.editLoanCorporateSuretyArray[i].CompanyName);
         var date = this.editLoanCorporateSuretyArray[i].MemorandumDate
@@ -622,16 +645,16 @@ export class ClLoanWitnessComponent implements OnInit {
         this.corporateSuretiesForm.controls["MemorandumDate"].setValue(latest_date);
         this.corporateSuretiesForm.controls["RefrenceNo"].setValue(this.editLoanCorporateSuretyArray[i].RefrenceNo);
         this.corporateSureties.CorporateSuretyID = this.editLoanCorporateSuretyArray[i].CorporateSuretyID
-        
+
       }
     }
   }
-  
+
   onEditPersonalSureties(PersonalSuretyID) {
-    
+
     for (var i = 0; i < this.editLoanPersonalSuretiesArray.length; i++) {
-      
-      if (this.editLoanPersonalSuretiesArray[i].PersonalSuretyID == PersonalSuretyID) { 
+
+      if (this.editLoanPersonalSuretiesArray[i].PersonalSuretyID == PersonalSuretyID) {
       //Personal Sureties Form
 
         this.personalSuretiesForm.controls["Cnic"].setValue(this.editLoanPersonalSuretiesArray[i].Cnic);
@@ -652,11 +675,11 @@ export class ClLoanWitnessComponent implements OnInit {
   }
 
   onEditRefrence(ReferenceID) {
-    
+
     for (var i = 0; i < this.editLoanRefrenceArray.length; i++) {
-      
+
       if (this.editLoanRefrenceArray[i].ReferenceID == ReferenceID) {
-        
+
         this.loanRefrencesForm.controls["Cnic"].setValue(this.editLoanRefrenceArray[i].Cnic);
         this.loanRefrencesForm.controls["Address"].setValue(this.editLoanRefrenceArray[i].Address);
         this.loanRefrencesForm.controls["Name"].setValue(this.editLoanRefrenceArray[i].Name);
@@ -667,7 +690,7 @@ export class ClLoanWitnessComponent implements OnInit {
         this.loanRefrences.ReferenceID = this.editLoanRefrenceArray[i].ReferenceID
         this.loanRefrences.SrNo = this.editLoanRefrenceArray[i].LoanAppID
 
-        
+
 
       }
     }
@@ -680,7 +703,7 @@ export class ClLoanWitnessComponent implements OnInit {
       return;
     }
 
-    
+
 
     //this.loanDetail = new Loan();
     //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
@@ -693,7 +716,7 @@ export class ClLoanWitnessComponent implements OnInit {
           this.spinner.hide();
         })
       ).subscribe(baseResponse => {
-        
+
         console.log(baseResponse)
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
       });

@@ -89,7 +89,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm()
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         // this.typeLov();
     }
 
@@ -143,7 +142,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                     this.loading = false;
                     // this.matTableLenght = false;
-                    // this.dataSource = this.dv.slice(1, 0);
+                    this.dataSource = null;
                     //this.offSet = 0;
                     this.pageIndex = 1;
 
