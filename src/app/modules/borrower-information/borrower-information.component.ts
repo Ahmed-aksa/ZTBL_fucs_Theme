@@ -109,7 +109,6 @@ export class BorrowerInformationComponent implements OnInit {
     }
 
     getBorrower() {
-
         let cnic = this.borrowerForm.controls.Cnic.value;
         this.user.ZoneId = this.borrowerForm.controls.Zone.value;
         this.user.CircleId = this.borrowerForm.controls.Circle.value;
@@ -147,7 +146,7 @@ export class BorrowerInformationComponent implements OnInit {
                         this.dataSource = this.dv.slice(1, 0); //this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         // this.dataSource.data = [];
                         // this._cdf.detectChanges();
-                        this.OffSet = 1;
+                        this.OffSet = 0;
                         this.pageIndex = 1;
                         this.dv = this.dv.slice(1, 0);
                     }

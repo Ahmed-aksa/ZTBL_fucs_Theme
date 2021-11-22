@@ -118,7 +118,7 @@ export class RecoveryService {
         branch: any
     ): Observable<BaseResponseModel> {
         var recoveryData = {RecoveryType: recoveryType};
-        debugger;
+        
         var recovery = {
             TransactionDate: transactionDate,
             VoucherNo: voucherNo,

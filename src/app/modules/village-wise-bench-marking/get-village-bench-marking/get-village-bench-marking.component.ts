@@ -26,7 +26,6 @@ import {finalize} from 'rxjs/operators';
 import {VillageBenchMark} from '../model/village-benchmark.model';
 import {VillageWiseBenchMarkingService} from '../service/village-wise-bench-marking.service';
 import {RemarkDialogComponent} from './remark-dialog/remark-dialog.component';
-import {ViewGetFancingModalComponent} from "../../geo-fencing/view-get-fancing-modal/view-get-fancing-modal.component";
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 @Component({
@@ -124,7 +123,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
 
         this.spinner.show();
-        this._villageBenchmark.getVillageBenchMark(this.circle, this.Limit, this.Offset, this.getVillage,this.zone,this.branch)
+        this._villageBenchmark.getVillageBenchMark(this.circle, this.Limit, this.Offset, this.getVillage, this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -142,12 +141,11 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
                 } else {
                     this.dataSource.data = []
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
+                    this.loaded = false;
                     this.matTableLenght = false;
-
-                    // this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
-                    this.pageIndex = 1;
+                    this.dataSource = this.dv?.slice(1, 0);
                     this.Offset = 0;
-
+                    this.pageIndex = 1;
                 }
             })
     }
@@ -219,9 +217,34 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
     }
 
+    checkViewStatus(val) {
+        return true;
+        if (val.CreatedBy != this.loggedInUserDetails?.User?.UserId) {
+            if (val.Status == "S") {
+                return false;
+            } else if (val.Status == "P") {
+                return true;
+            }
+        } else {
+            return false
+        }
+
+    }
+
     editVillageBenchMark(val) {
         this.router.navigate(['/village-wise-bench-marking/add-update-bench-marking'], {
             state: {example: val},
+            relativeTo: this.activatedRoute
+        });
+    }
+
+    viewVillageBenchMark(val) {
+        localStorage.setItem('selected_single_zone', JSON.stringify(val.ZoneId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(val.BranchCode));
+        localStorage.setItem('selected_single_circle', JSON.stringify(val.CircleId));
+
+        this.router.navigate(['/village-wise-bench-marking/add-update-bench-marking'], {
+            state: {example: val, hide: true},
             relativeTo: this.activatedRoute
         });
     }
@@ -248,7 +271,6 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
             }
         });
     }
-
 
 
     getAllData(event) {

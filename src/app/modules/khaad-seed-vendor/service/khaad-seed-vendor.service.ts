@@ -91,32 +91,59 @@ export class KhaadSeedVendorService {
     }
 
     searchVendors(limit, offSet, vendor, user, zone = null, branch = null, circle = null) {
+        
         if (vendor.Type == 'null' || user.CircleId == 'null') {
             vendor.Type = null
             if (user.CircleId == 'null') {
                 user.CircleId = null
             }
         }
-
-        var request = {
-            DeviceLocation: {
-                BtsId: "0",
-                BtsLoc: "",
-                Lat: "0.0",
-                Long: "0.0",
-                Src: "GPS"
-            },
-            SeedKhadVendor: {
-                Limit: limit,
-                Offset: offSet,
-                VendorDetail: vendor
-            },
-            User: this.userDetail.User,
-            Circle: circle ? circle : null,
-            Zone: zone,
-            Branch: branch,
+        let request;
+        if (zone == null && branch == null && circle == null) {
+            request = {
+                DeviceLocation: {
+                    BtsId: "0",
+                    BtsLoc: "",
+                    Lat: "0.0",
+                    Long: "0.0",
+                    Src: "GPS"
+                },
+                SeedKhadVendor: {
+                    Limit: limit,
+                    Offset: offSet,
+                    VendorDetail: vendor
+                },
+                User: this.userDetail.User,
+                Circle: {
+                    CircleCode: user.CircleId
+                },
+                Zone: {
+                    ZoneId: user.ZoneId
+                },
+                Branch: {
+                    BranchCode: user.BranchCode
+                },
+            }
+        } else {
+            request = {
+                DeviceLocation: {
+                    BtsId: "0",
+                    BtsLoc: "",
+                    Lat: "0.0",
+                    Long: "0.0",
+                    Src: "GPS"
+                },
+                SeedKhadVendor: {
+                    Limit: limit,
+                    Offset: offSet,
+                    VendorDetail: vendor
+                },
+                User: this.userDetail.User,
+                Circle: circle ? circle : null,
+                Zone: zone,
+                Branch: branch,
+            }
         }
-
         return this.http.post<any>(`${environment.apiUrl}/SeedKhadVendor/GetVendors`, request)
             .pipe(
                 map((res: BaseResponseModel) => res)

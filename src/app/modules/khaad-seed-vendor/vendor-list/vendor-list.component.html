@@ -32,29 +32,30 @@
         <div class="card card-body">
             <div class="py-2" [formGroup]="listForm">
                 <div class="flex" style="flex-wrap: wrap;">
-                        <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
-                                                    (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
+                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field
-                            class="mat-form-field-fluid w-full"
-                            appearance="outline"
-                        >
-                            <mat-label class="customMatLabel"
-                                >Vendor Type</mat-label
+                            <mat-form-field
+                                class="mat-form-field-fluid w-full"
+                                appearance="outline"
                             >
-
-                            <mat-select formControlName="Type">
-                                <mat-option
-                                    *ngFor="let type of vendorLov"
-                                    [value]="type.Value"
+                                <mat-label class="customMatLabel"
+                                >Vendor Type
+                                </mat-label
                                 >
-                                    {{ type.Name }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
+
+                                <mat-select formControlName="Type">
+                                    <mat-option
+                                        *ngFor="let type of vendorLov"
+                                        [value]="type.Value"
+                                    >
+                                        {{ type.Name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
@@ -63,7 +64,8 @@
                                 appearance="outline"
                             >
                                 <mat-label class="customMatLabel"
-                                    >Vendor Name</mat-label
+                                >Vendor Name
+                                </mat-label
                                 >
                                 <input
                                     matInput
@@ -77,23 +79,24 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field
-                            class="mat-form-field-fluid w-full"
-                            appearance="outline"
-                        >
-                            <mat-label class="customMatLabel"
-                                >Vendor Phone Number</mat-label
+                            <mat-form-field
+                                class="mat-form-field-fluid w-full"
+                                appearance="outline"
                             >
-                            <input
-                                matInput
-                                placeholder="Vendor Phone Number"
-                                formControlName="PhoneNumber"
-                                maxlength="30"
-                                autocomplete="off"
-                                appNumberOnly
-                            />
-                        </mat-form-field>
-                    </div>
+                                <mat-label class="customMatLabel"
+                                >Vendor Phone Number
+                                </mat-label
+                                >
+                                <input
+                                    matInput
+                                    placeholder="Vendor Phone Number"
+                                    formControlName="PhoneNumber"
+                                    maxlength="30"
+                                    autocomplete="off"
+                                    appNumberOnly
+                                />
+                            </mat-form-field>
+                        </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
@@ -106,12 +109,13 @@
                                 bg-gray-500
                                 mt-2
                             "
-                            type="button"
-                            (click)="find()"
-                        >
-                            <mat-icon class="mr-2">search</mat-icon> Search
-                        </button>
-                    </div>
+                                type="button"
+                                (click)="find()"
+                            >
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Search
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -148,49 +152,52 @@
             >
                 <ng-container matColumnDef="CircleCode">
                     <mat-header-cell *matHeaderCellDef
-                        >Circle Code</mat-header-cell
+                    >Circle Code
+                    </mat-header-cell
                     >
                     <mat-cell *matCellDef="let vendor">{{
                         vendor.CircleCode
-                    }}</mat-cell>
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Name">
                     <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
                     <mat-cell *matCellDef="let vendor">{{
                         vendor.Name
-                    }}</mat-cell>
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="bDescription">
                     <mat-header-cell *matHeaderCellDef
-                        >Business Description</mat-header-cell
+                    >Business Description
+                    </mat-header-cell
                     >
                     <mat-cell *matCellDef="let vendor">{{
                         vendor.Description
-                    }}</mat-cell>
+                        }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
                     <mat-cell *matCellDef="let vendor">{{
                         vendor.Address
-                    }}</mat-cell>
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Type">
                     <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
                     <mat-cell *matCellDef="let vendor">{{
                         vendor.TypeName
-                    }}</mat-cell>
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Phone">
                     <mat-header-cell *matHeaderCellDef
-                        >Phone Number</mat-header-cell
+                    >Phone Number
+                    </mat-header-cell
                     >
                     <mat-cell *matCellDef="let vendor">{{
                         vendor.PhoneNumber
-                    }}</mat-cell>
+                        }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Actions">
@@ -202,7 +209,8 @@
                             (click)="viewVendor(vendor)"
                         >
                             <mat-icon title="View Vendor" color="primary"
-                                >visibility</mat-icon
+                            >visibility
+                            </mat-icon
                             >
                         </button>
 
@@ -221,12 +229,14 @@
                             (click)="deleteVendor(vendor)"
                         >
                             <mat-icon title="View Vendor" class="text-red-500"
-                                >delete_forever</mat-icon
+                            >delete_forever
+                            </mat-icon
                             >
                         </button>
 
-                        <button style="margin-left: 5px" mat-icon-button *ngIf="checkMap(vendor)" color="primary" (click)="viewMap(vendor)">
-                            <mat-icon title="view benchmarking">location_on</mat-icon>
+                        <button style="margin-left: 5px" mat-icon-button *ngIf="checkMap(vendor)" color="primary"
+                                (click)="viewMap(vendor)">
+                            <mat-icon title="view Vendor Location">location_on</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>
@@ -242,9 +252,9 @@
             </mat-table>
 
 
-<!--            <div class="mat-table__message" *ngIf="loading">-->
-<!--                Please wait....-->
-<!--            </div>-->
+            <!--            <div class="mat-table__message" *ngIf="loading">-->
+            <!--                Please wait....-->
+            <!--            </div>-->
 
             <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">
                 Items per page:

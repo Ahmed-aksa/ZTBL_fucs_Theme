@@ -147,7 +147,7 @@ export class CustomerService {
         userDetail: BaseResponseModel = null,
     ): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
-        debugger;
+        
         if (customer.CustomerName == null) customer.CustomerName = '';
 
         if (customer.FatherName == null) customer.FatherName = '';
