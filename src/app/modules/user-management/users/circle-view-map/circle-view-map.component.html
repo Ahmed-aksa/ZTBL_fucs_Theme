@@ -49,7 +49,7 @@
 
         <agm-marker *ngFor="let m of fenceMarkers; let i = index"
                     (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedMarker(i, infowindow)"
-                    [latitude]="m.lat" [longitude]="m.lng" [title]="m.BranchId">
+                    [latitude]="m.lat" [longitude]="m.lng" [title]="m.BranchId" class=" h-screen">
 
             <agm-info-window #infowindow>
                 <strong>{{m.BranchId}}</strong>
