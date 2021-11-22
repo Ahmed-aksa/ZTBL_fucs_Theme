@@ -60,9 +60,10 @@
                         <mat-label class="customMatLabel">Phone Number <strong class="matMandatory">*</strong>
                         </mat-label>
                         <input matInput appNumberOnly placeholder="Enter Vendor's Phone Number'"
-                               formControlName="PhoneNumber" maxlength="13" minlength="11" autocomplete="off"
+                               formControlName="PhoneNumber" maxlength="11" minlength="11" autocomplete="off"
                                [readonly]="viewOnly"/>
                     </mat-form-field>
+                    <mat-hint>Hint: 03xxxxxxxxx</mat-hint>
                 </div>
 
             </div>
