@@ -94,7 +94,6 @@ export class EarlyWarningReportsComponent implements OnInit {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm()
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         // this.typeLov();
 
     }
@@ -102,18 +101,17 @@ export class EarlyWarningReportsComponent implements OnInit {
     createForm() {
         this.searchCnicForm = this.fb.group({
             days: [null, Validators.required],
-            PPNO: [null, Validators.required]
         })
     }
 
 
     find() {
-        
+
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
             return;
         }
-        
+
 
         this.user.Zone = this.zone;
         this.user.Branch = this.branch;
@@ -174,7 +172,7 @@ export class EarlyWarningReportsComponent implements OnInit {
     //     console.log(this.statusLov)
     // }
 
- 
+
 }
 
 interface searchLoanCasesByCnic {

@@ -6,11 +6,11 @@
                 <button  class="text-end w-1/12"  (click)="close(0)"><mat-icon class="ml-2 text-white  p-3   bg-danger rounded-md">close</mat-icon></button>
             </div>
             <!-- <span (click)="close(0)"><mat-icon>close</mat-icon></span> -->
-           
-            
+
+
         </div>
     </div>
-  
+
     <form [formGroup]="bufricationForm" class="kt-form kt-form--group-seperator-dashed">
 
         <div class="kt-form">
@@ -21,10 +21,10 @@
                   <div class="form-group kt-form__group row">
 
                     <div class="w-full">
-                        <app-zone-branch-circle [form]="bufricationForm" [should_show_circle]="true"
+                        <app-zone-branch-circle [form]="bufricationForm" [should_show_circle]="true" [is_required_circle]="true"
                                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                     </div>
-                    
+
                     <div class="col-lg-6 kt-margin-bottom-20-mobile">
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong class="matMandatory">*</strong>
@@ -72,13 +72,6 @@
                             </mat-form-field>
                             </div>
                         </div>
-
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">PPNO</mat-label>
-                                <input matInput placeholder="Enter PPNO" formControlName="PPNO" maxlength="15" autocomplete="off" appNumberOnly/>
-                            </mat-form-field>
-                          </div>
                     </div>
 
                 </div>
@@ -94,7 +87,7 @@
             <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
         </div>
       </div>
-  
+
   </div>
 
 

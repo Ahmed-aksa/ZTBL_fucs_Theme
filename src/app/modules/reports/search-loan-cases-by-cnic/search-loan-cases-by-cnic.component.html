@@ -42,13 +42,12 @@
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
             <div class="py-2" [formGroup]="searchCnicForm">
-                <div class="row">
-                    <div class="w-full">
+                <div class="flex" style="flex-wrap: wrap;">
                         <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="false"
                                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">CNIC</mat-label>
@@ -60,8 +59,8 @@
                     </div>
 
 
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Customer Name</mat-label>
                                 <input matInput placeholder="Enter Customer Name" formControlName="CustomerName"
@@ -69,14 +68,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-
-
-                </div>
-
-
-                <div class="row">
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Father Name</mat-label>
                                 <input matInput placeholder="Enter Father Name" formControlName="FatherName"
@@ -84,22 +77,23 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">PPNO</mat-label>
-                                <input matInput placeholder="Enter PPNO" formControlName="PPNO"
-                                       maxlength="30" autocomplete="off"/>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
+
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <button class="mt-2 bg-gray-500" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
                                 mat-raised-button color="primary" (click)="find()">
                             <mat-icon class="mr-2">search</mat-icon>
                             Find
                         </button>
                     </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="row">
+
 
                 </div>
             </div>

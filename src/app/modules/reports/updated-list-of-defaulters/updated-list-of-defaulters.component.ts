@@ -39,7 +39,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     selected_z;
     selected_c;
     loaded = true;
-    
+
 
     public reports = new SearchLoanCaseByCnic();
 
@@ -95,7 +95,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            PPNO: [null, Validators.required]
+
         })
     }
 
@@ -108,7 +108,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
 
     find() {
         debugger
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required values");
             return;

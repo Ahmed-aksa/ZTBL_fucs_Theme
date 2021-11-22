@@ -77,13 +77,10 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
         // this.typeLov();
-
-
     }
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            PPNO: [null, Validators.required]
         });
     }
 

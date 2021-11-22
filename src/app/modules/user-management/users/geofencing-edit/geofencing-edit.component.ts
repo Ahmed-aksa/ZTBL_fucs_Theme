@@ -470,7 +470,6 @@ export class GeofencingEditComponent implements OnInit {
             this.request.Circle = this.circle;
             this.request.Zone = this.data.zone;
             this.request.Branch = this.data.branch;
-
             this.submitted = true;
             // this.ktDialogService.show();
 
@@ -483,7 +482,6 @@ export class GeofencingEditComponent implements OnInit {
                         })
                     )
                     .subscribe((baseResponse: BaseResponseModel) => {
-                        console.log(baseResponse);
                         if (baseResponse.Success === true) {
                             const message = `Polygon has been updated successfully`;
                             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);

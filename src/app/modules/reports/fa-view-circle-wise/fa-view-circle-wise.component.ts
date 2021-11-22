@@ -90,7 +90,7 @@ export class FaViewCircleWiseComponent implements OnInit {
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        
+
         this.createForm()
         this.typeLov();
         //this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
@@ -103,19 +103,17 @@ export class FaViewCircleWiseComponent implements OnInit {
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            Status: [null, Validators.required],
-            PPNO: [null, Validators.required]
-        })
+            Status: [null, Validators.required]})
     }
 
     find() {
         debugger
-        
+
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required fields");
             return;
         }
-       
+
         this.user.Branch = this.branch
         this.user.Zone = this.zone
         this.user.Circle = this.circle;

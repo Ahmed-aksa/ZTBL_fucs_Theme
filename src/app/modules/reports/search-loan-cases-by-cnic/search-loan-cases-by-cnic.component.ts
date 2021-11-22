@@ -88,15 +88,13 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
         debugger
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
     }
 
     createForm() {
         this.searchCnicForm = this.fb.group({
             Cnic: [null],
             CustomerName: [null],
-            FatherName: [null],
-            PPNO: [Validators.required, null]
+            FatherName: [null]
         })
     }
 

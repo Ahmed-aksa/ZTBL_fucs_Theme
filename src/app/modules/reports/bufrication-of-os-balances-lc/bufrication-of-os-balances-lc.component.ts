@@ -172,8 +172,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             WorkingDate: [null, Validators.required],
             LcNo: [null],
             Status: [null, Validators.required],
-            ReportFormatType: [null, Validators.required],
-            PPNO: [null, Validators.required]
+            ReportFormatType: [null, Validators.required]
         })
     }
 
