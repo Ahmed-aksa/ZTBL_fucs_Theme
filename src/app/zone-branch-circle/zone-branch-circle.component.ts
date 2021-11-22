@@ -154,7 +154,7 @@ export class ZoneBranchCircleComponent implements OnInit {
 
         if (this.SelectedCircles?.length > 1)
             final_circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
-        else if(this.SelectedCircles.length==1)
+        else if(this.SelectedCircles?.length==1)
             final_circle=this.SelectedCircles[0];
         else
             final_circle = this.SelectedCircles;
