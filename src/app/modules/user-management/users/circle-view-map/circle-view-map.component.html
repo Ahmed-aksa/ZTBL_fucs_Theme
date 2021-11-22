@@ -26,14 +26,6 @@
             <div class="row">
                 <app-zone-branch-circle [form]="viewForm" [should_show_circle]="false"
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
-                            class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary mat-raised-button"
-                            (click)="loadCirclesSinglePoints()" color="primary">
-                        <mat-icon class="mr-2">search</mat-icon>
-                        Search
-                    </button>
-                </div>
             </div>
         </div>
     </div>
