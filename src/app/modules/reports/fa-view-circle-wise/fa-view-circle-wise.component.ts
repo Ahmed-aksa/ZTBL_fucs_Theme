@@ -30,7 +30,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./fa-view-circle-wise.component.scss']
 })
 export class FaViewCircleWiseComponent implements OnInit {
-    displayedColumns = ['Branch','Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los'];
+    displayedColumns = ['Branch', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'OtherCharges'];
     searchCnicForm: FormGroup;
     selected_b;
     selected_z;
@@ -96,14 +96,15 @@ export class FaViewCircleWiseComponent implements OnInit {
         //this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
     }
 
-    value(event){
+    value(event) {
         debugger
         console.log(event)
     }
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            Status: [null, Validators.required]})
+            Status: [null, Validators.required]
+        })
     }
 
     find() {
@@ -143,7 +144,7 @@ export class FaViewCircleWiseComponent implements OnInit {
                 } else {
 
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-                     this.loading = false;
+                    this.loading = false;
                     // this.matTableLenght = false;
                     this.dataSource = null;
                     //this.offSet = 0;
