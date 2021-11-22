@@ -111,6 +111,9 @@ export class ReportsService {
       if(user.Branch.WorkingDate == undefined){
           user.Branch.WorkingDate = reportsFilter.WorkingDate;
       }
+        if(user.Circle == undefined){
+            user.Circle= null;
+        }
 
         var request = {
             ReportsFilterCustom: reportsFilter,
