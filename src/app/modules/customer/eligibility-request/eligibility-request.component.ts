@@ -89,34 +89,15 @@ export class EligibilityRequestComponent implements OnInit {
     pageIndex = 1;
     LoggedInUserInfo: BaseResponseModel;
     //Zone inventory
-    Zones: any = [];
-    SelectedZones: any = [];
-    private Zone = new Zone();
 
     //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-    private Branch = new Branch();
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
-    public Circle = new Circle();
-    selected_b;
-    selected_z;
-    selected_c;
-
-    //final
-    final_branch: any;
-    final_zone: any;
-    final_circle: any;
     images = [];
     show_pics: boolean;
+
+    branch: any;
+    circle: any;
+    zone: any;
+
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -138,7 +119,6 @@ export class EligibilityRequestComponent implements OnInit {
     ngOnInit() {
         this.LoadLovs();
         this.createForm();
-        this.settingZBC()
 
 
         //this.FilterForm.controls["StartDate"].setValue(this.myDate);
@@ -147,98 +127,6 @@ export class EligibilityRequestComponent implements OnInit {
     }
 
     userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-
-    settingZBC() {
-
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
-            if (this.SelectedCircles.length > 0) {
-                this.disable_circle = false;
-            }
-            this.SelectedBranches = this.LoggedInUserInfo.Branch;
-            this.SelectedZones = this.LoggedInUserInfo.Zone;
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.selected_c = this.SelectedCircles?.Id
-            this.eligibilityRequestForm.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.eligibilityRequestForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-            if (this.SelectedCircles.length == 0) {
-                this.changeBranch(this.selected_b);
-            }
-            this.eligibilityRequestForm.controls["Circle"].setValue(this.SelectedCircles?.Id);
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-        }
-    }
-
-
-    private assignBranchAndZone() {
-
-        //Circle
-        if (this.SelectedCircles.length) {
-            this.final_circle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
-            this.userInfo.Circles = this.final_circle;
-        } else {
-            this.final_circle = this.SelectedCircles;
-            this.userInfo.Circles = this.final_circle;
-        }
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.userInfo.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.userInfo.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.userInfo.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.userInfo.Zone = this.final_zone;
-        }
-
-    }
-
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
-
-
-    changeBranch(changedValue) {
-
-        let changedBranch = null;
-        if (changedValue.value)
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        else
-            changedBranch = {Branch: {BranchCode: changedValue}}
-
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            // this.selected_c = this.SelectedCircles?.Id
-            this.disable_circle = false;
-            if (changedValue.value) {
-                // this.getBorrower();
-            }
-        });
-    }
 
     ngAfterViewInit() {
 
@@ -277,11 +165,6 @@ export class EligibilityRequestComponent implements OnInit {
 
     }
 
-    SetBranches(branchId) {
-
-        this.Branch.BranchCode = branchId.value;
-
-    }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
@@ -296,21 +179,6 @@ export class EligibilityRequestComponent implements OnInit {
     paginateAs(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
     }
-
-
-    searchBranch(branchId) {
-        branchId = branchId.toLowerCase();
-        if (branchId != null && branchId != undefined && branchId != "")
-            this.SelectedBranches = this.Branches.filter(x => x.Name.toLowerCase().indexOf(branchId) > -1);
-        else
-            this.SelectedBranches = this.Branches;
-    }
-
-    validateBranchOnFocusOut() {
-        if (this.SelectedBranches.length == 0)
-            this.SelectedBranches = this.Branches;
-    }
-
 
     hasError(controlName: string, errorName: string): boolean {
         return this.eligibilityRequestForm.controls[controlName].hasError(errorName);
@@ -427,8 +295,7 @@ export class EligibilityRequestComponent implements OnInit {
 
 
     getEligibilityRequestData() {
-        this.assignBranchAndZone();
-        if (!this.final_zone) {
+        if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
                 '',
@@ -438,8 +305,17 @@ export class EligibilityRequestComponent implements OnInit {
             return;
         }
 
-        if (!this.final_branch) {
+        if (!this.branch) {
             var Message = 'Please select Branch';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+        if (!this.circle) {
+            var Message = 'Please select Circle';
             this.layoutUtilsService.alertElement(
                 '',
                 Message,
@@ -449,13 +325,11 @@ export class EligibilityRequestComponent implements OnInit {
         }
         this.spinner.show()
         var request = {
-            Branch: this.final_branch,
-            Zone: this.final_zone,
-            Circle: {
-                Circle: this.final_circle.Id,
-            },
+            Branch: this.branch,
+            Zone: this.zone,
+            Circle: this.circle,
             EligibilityRequest: this.eligibilityRequestForm.value,
-            User: this.userInfo,
+            User: this.userInfo.User,
             Pagination: {
                 Limit: this.itemsPerPage.toString(),
                 Offset: this.OffSet.toString()
@@ -487,8 +361,7 @@ export class EligibilityRequestComponent implements OnInit {
 
                     if (this.dv != undefined) {
                         this.matTableLenght = false;
-                        this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
-                        // this.dataSource.data = [];
+                        this.dataSource.data = [];
                         // this._cdf.detectChanges();
                         this.OffSet = 1;
                         this.pageIndex = 1;
@@ -605,5 +478,11 @@ export class EligibilityRequestComponent implements OnInit {
 
 
         });
+    }
+
+    getAllData(event) {
+        this.branch = event.final_branch;
+        this.zone = event.final_zone;
+        this.circle = event.final_circle;
     }
 }

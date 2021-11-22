@@ -235,6 +235,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     }
 
     viewMap(data) {
+        console.log("data"+JSON.stringify(data))
         const dialogRef = this.dialog.open(ViewMapsComponent, {
             panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',
