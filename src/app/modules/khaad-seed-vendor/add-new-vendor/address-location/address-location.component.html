@@ -19,7 +19,7 @@
       <!-- <label>Search</label> -->
       <button mat-raised-button color="primary" class="org-button my-2 text-right" (click)="onSelect()"><mat-icon class="mr-2"> location_on</mat-icon>Select</button>
 
-      <agm-map class="w-full" #gm [zoom]="zoom" style="height: 500px;"
+      <agm-map class="w-full h-screen" #gm [zoom]="zoom"
                [latitude]="lat"
                [longitude]="lng"
                [mapTypeControlOptions]="controlOptions"

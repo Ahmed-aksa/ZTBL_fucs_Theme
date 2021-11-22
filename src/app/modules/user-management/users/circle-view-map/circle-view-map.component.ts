@@ -11,6 +11,7 @@ import {finalize} from "rxjs/operators";
 import {Branch} from "app/shared/models/branch.model";
 import {LayoutUtilsService} from "../../../../shared/services/layout_utils.service";
 import {Circle} from "app/shared/models/circle.model";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 // declare const google: any;
 
@@ -20,7 +21,7 @@ import {Circle} from "app/shared/models/circle.model";
     templateUrl: './circle-view-map.component.html'
 })
 export class CircleViewMapComponent implements OnInit {
-
+    viewForm: FormGroup;
     loadingAfterSubmit = false;
     viewLoading = false;
     submitted = false;
@@ -44,22 +45,16 @@ export class CircleViewMapComponent implements OnInit {
     controlOptions = {
         mapTypeIds: ["satellite", "roadmap", "hybrid", "terrain"]
     }
-
-    Zone: any;
-    public Branch = new Branch();
-    public zoneInitial = '';
-    public branchInitial = '';
+    zone;
+    branch;
+    circle;
     showViewAllBtn: boolean;
-
-
-    Zones: any = [];
-    Branches: any = [];
-
 
     constructor(
         private _circleService: CircleService,
         private layoutUtilsService: LayoutUtilsService,
-        private _cdf: ChangeDetectorRef
+        private _cdf: ChangeDetectorRef,
+        private fb: FormBuilder
     ) {
     }
 
@@ -76,8 +71,8 @@ export class CircleViewMapComponent implements OnInit {
 
 
     ngOnInit() {
+        this.viewForm = this.fb.group({});
         this.zoom = 0;
-        this.GetZones();
     }
 
 
@@ -85,22 +80,10 @@ export class CircleViewMapComponent implements OnInit {
         this.gridHeight = window.innerHeight - 250 + 'px';
     }
 
-    loadAll() {
-        this.zoneInitial = '';
-        this.branchInitial = '';
-        this.loadCirclesSinglePoints(null)
-    }
 
-    loadCirclesSinglePoints(branch) {
-        this.loading = true;
-        if (branch != null) {
-            branch = branch.value
-            if (this.previousInfoWindow != null) {
-                this.previousInfoWindow.close();
-                this.previousInfoWindow = null
-            }
-        }
-        this._circleService.getAllCirclesSinglePoints(branch)
+
+    loadCirclesSinglePoints() {
+        this._circleService.getAllCirclesSinglePoints(this.branch)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -124,7 +107,7 @@ export class CircleViewMapComponent implements OnInit {
                         });
                     }
                 });
-                if (branch != null && this.fenceMarkers.length > 0) {
+                if (this.branch != null && this.fenceMarkers.length > 0) {
                     this.showViewAllBtn = true
                     this.lat = this.fenceMarkers[0].lat;
                     this.lng = this.fenceMarkers[0].lng;
@@ -138,45 +121,6 @@ export class CircleViewMapComponent implements OnInit {
     }
 
 
-    GetZones() {
-
-        this._circleService.getZones()
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            ).subscribe(baseResponse => {
-
-            if (baseResponse.Success)
-                this.Zones = baseResponse.Zones;
-            else
-                this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
-
-        });
-
-    }
-
-    GetBranches(ZoneId) {
-
-        this.Branches = [];
-
-        this.Zone.ZoneId = ZoneId.value;
-        this._circleService.getBranchesByZone(this.Zone)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            ).subscribe(baseResponse => {
-
-            if (baseResponse.Success)
-                this.Branches = baseResponse.Branches;
-            else
-                this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
-
-        });
-
-    }
-
     getTitle(): string {
         return 'View Circle Fense';
     }
@@ -186,7 +130,10 @@ export class CircleViewMapComponent implements OnInit {
     onMapReady(map) {
         this.googleMap = map;
         this.setCurrentLocation()
-        this.loadCirclesSinglePoints(null);
+        if(this.zone && this.branch)
+        {
+        this.loadCirclesSinglePoints();
+        }
     }
 
 
@@ -302,5 +249,14 @@ export class CircleViewMapComponent implements OnInit {
         }
     }
 
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
+
+    find() {
+
+    }
 }//End of class
 
