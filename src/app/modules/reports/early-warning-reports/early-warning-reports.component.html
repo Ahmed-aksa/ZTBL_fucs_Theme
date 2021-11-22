@@ -33,10 +33,10 @@
             <div class="py-2" [formGroup]="searchCnicForm">
                 <div class="flex" style="flex-wrap: wrap;">
                     <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="false"
-                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
-                        <div class="mx-2">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Days</mat-label>
                                 <input matInput placeholder="Enter No of Days" formControlName="days"
@@ -46,125 +46,134 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <button class="mt-2 bg-gray-500 "
-                                mat-raised-button color="primary" (click)="find()">
-                            <mat-icon class="mr-2">search</mat-icon>
-                            Find
-                        </button>
-                    </div>
+                            <button class="mt-2 bg-gray-500 "
+                                    mat-raised-button color="primary" (click)="find()">
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Find
+                            </button>
+                        </div>
                     </div>
 
 
                 </div>
 
+            </div>
         </div>
-    </div>
 
-    <!-- Header -->
-    <div>
-        <!-- <div
-            class="absolute inset-x-0 bottom-0">
-            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
-        </div> -->
+        <!-- Header -->
+        <div>
+            <!-- <div
+                class="absolute inset-x-0 bottom-0">
+                <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
+            </div> -->
 
-        <div class="mat-table__wrapper">
-            <!--[style.height]="gridHeight"-->
-            <mat-table
-                class="lmat-elevation-z8"
-                #table
-                [dataSource]="
+            <div class="mat-table__wrapper">
+                <!--[style.height]="gridHeight"-->
+                <mat-table
+                    class="lmat-elevation-z8"
+                    #table
+                    [dataSource]="
                     dataSource
                 "
-                matSort
-                #sort1="matSort"
-                matSortActive="id"
-                matSortDirection="asc"
-                matSortDisableClear
-            >
-                <ng-container matColumnDef="Lcno">
-                    <mat-header-cell *matHeaderCellDef
-                    >LC #
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.LcNO
-                        }}</mat-cell>
-                </ng-container>
+                    matSort
+                    #sort1="matSort"
+                    matSortActive="id"
+                    matSortDirection="asc"
+                    matSortDisableClear
+                >
+                    <ng-container matColumnDef="Lcno">
+                        <mat-header-cell *matHeaderCellDef
+                        >LC #
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.LcNO
+                            }}</mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Cnic">
-                    <mat-header-cell *matHeaderCellDef>CNIC</mat-header-cell>
-                    <mat-cell *matCellDef="let report">{{
-                        report.Cnic
-                        }}</mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Cnic">
+                        <mat-header-cell *matHeaderCellDef>CNIC</mat-header-cell>
+                        <mat-cell *matCellDef="let report">{{
+                            report.Cnic
+                            }}</mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Name">
-                    <mat-header-cell *matHeaderCellDef
-                    >Name
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.CustomerName
-                        }}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="FatherName">
-                    <mat-header-cell *matHeaderCellDef>Father Name</mat-header-cell>
-                    <mat-cell *matCellDef="let report">{{
-                        report.FatherName
-                        }}</mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Name">
+                        <mat-header-cell *matHeaderCellDef
+                        >Name
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.CustomerName
+                            }}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="FatherName">
+                        <mat-header-cell *matHeaderCellDef>Father Name</mat-header-cell>
+                        <mat-cell *matCellDef="let report">{{
+                            report.FatherName
+                            }}</mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Address">
-                    <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-                    <mat-cell *matCellDef="let report">{{
-                        report.PermanetAddress
-                        }}</mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Address">
+                        <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+                        <mat-cell *matCellDef="let report">{{
+                            report.PermanetAddress
+                            }}</mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Agps">
-                    <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.MajorBorrower
-                        }}</mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Agps">
+                        <mat-header-cell *matHeaderCellDef
+                        >Major Borrower
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.MajorBorrower
+                            }}</mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Bcl">
-                    <mat-header-cell *matHeaderCellDef
-                    >Total Sanction Amount
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.TotalSanctionAmount
-                        }}</mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Bcl">
+                        <mat-header-cell *matHeaderCellDef
+                        >Total Sanction Amount
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.TotalSanctionAmount
+                            }}</mat-cell>
+                    </ng-container>
 
-                <ng-container matColumnDef="Los">
-                    <mat-header-cell *matHeaderCellDef
-                    >Loan Outstanding
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.LoanOutStanding
-                        }}</mat-cell>
-                </ng-container>
+                    <ng-container matColumnDef="Los">
+                        <mat-header-cell *matHeaderCellDef
+                        >Loan Outstanding
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.LoanOutStanding
+                            }}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="OtherCharges">
+                        <mat-header-cell *matHeaderCellDef
+                        >Other Charges
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report?.OtherCharges
+                            }}</mat-cell>
+                    </ng-container>
 
-                <mat-header-row
-                    *matHeaderRowDef="displayedColumns; sticky: true"
-                    class="table-header-background"
-                ></mat-header-row>
+                    <mat-header-row
+                        *matHeaderRowDef="displayedColumns; sticky: true"
+                        class="table-header-background"
+                    ></mat-header-row>
 
-                <mat-row
-                    *matRowDef="let row; columns: displayedColumns"
-                ></mat-row>
-            </mat-table>
+                    <mat-row
+                        *matRowDef="let row; columns: displayedColumns"
+                    ></mat-row>
+                </mat-table>
 
-            <div class="mat-table__message" *ngIf="loading">
-                Please wait....
+                <div class="mat-table__message" *ngIf="loading">
+                    Please wait....
+                </div>
+
             </div>
-
         </div>
     </div>
-</div>

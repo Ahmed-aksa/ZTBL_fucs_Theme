@@ -145,6 +145,15 @@
                         report.LoanOutStanding
                         }}</mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="OtherCharges">
+                    <mat-header-cell *matHeaderCellDef
+                    >Other Charges
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report?.OtherCharges
+                        }}</mat-cell>
+                </ng-container>
 
                 <mat-header-row
                     *matHeaderRowDef="displayedColumns; sticky: true"
