@@ -1,15 +1,16 @@
 <div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <!-- Header -->
-    <div class="row py-3">
+    <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
             <div class="heading">Search for Loan Utilization</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                        aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2">filter_list</mat-icon>
+                <button class="mt-2  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
+                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
             </p>
@@ -19,7 +20,7 @@
     <!-- Header -->
 
 
-    <div class="collapse" id="collapseExample">
+    <div class="collapse show" id="collapseExample">
         <div class="card card-body">
             <div
             [formGroup]="loanutilizationSearch">
@@ -79,7 +80,7 @@
                 </div>
                 <div  style="width: 225px;" >
                     <div class="flex flex-shrink-0 items-center  mb-2">
-                        <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                        <button
                         aria-controls="collapseExample" (click)="searchloanutilization()" class="mt-2 bg-gray-500" mat-flat-button [color]="'primary'">
                             <mat-icon class="mr-2">search</mat-icon> Search
                         </button>
