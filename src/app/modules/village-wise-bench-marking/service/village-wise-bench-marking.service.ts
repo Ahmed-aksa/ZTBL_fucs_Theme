@@ -70,7 +70,7 @@ export class VillageWiseBenchMarkingService {
                 id: 0
             },
             TranId: 0,
-            Branch: branch,
+            Branch:branch ? branch : null,
             User: this.userInfo.User,
             Zone: zone
         };

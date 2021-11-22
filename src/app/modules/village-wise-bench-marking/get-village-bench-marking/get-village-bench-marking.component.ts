@@ -86,7 +86,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
-
+        console.log(this.loggedInUserDetails)
         this.createForm();
     }
 
@@ -207,7 +207,6 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
 
 
     checkEditStatus(val) {
-
         if (val.CreatedBy == this.loggedInUserDetails?.User?.UserId) {
             if (val.Status == "S") {
                 return false;
@@ -221,7 +220,6 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     }
 
     editVillageBenchMark(val) {
-        console.log("vluueee" + JSON.stringify(val))
         this.router.navigate(['/village-wise-bench-marking/add-update-bench-marking'], {
             state: {example: val},
             relativeTo: this.activatedRoute
