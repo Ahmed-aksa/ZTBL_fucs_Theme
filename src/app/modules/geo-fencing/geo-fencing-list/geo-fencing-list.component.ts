@@ -29,11 +29,11 @@ export class GeoFencingListComponent implements OnInit {
 
 
     products: any
-    displayedColumns = ['CircleCodes','PPNo', 'BranchCode', 'CreatedDate', 'View'];
+    displayedColumns = ['CircleCodes','PPNo', 'BranchCode', 'StartTime','StopTime','CreatedDate', 'View'];
     itemsPerPage = 5;
     pageIndex = 1;
     offSet = 0;
-    totalItems: number | any = 50;
+    totalItems: number | any = 0;
     dv: number | any; //use later
     dataSource = new MatTableDataSource();
     listForm: FormGroup
@@ -84,7 +84,7 @@ export class GeoFencingListComponent implements OnInit {
         this.offSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
         this.SearchGeoFensePoint();
-        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
+        this.dataSource = this.dv?.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
     SearchGeoFensePoint() {
@@ -113,6 +113,7 @@ export class GeoFencingListComponent implements OnInit {
 
             } else {
 
+                this.dataSource.data = []
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }
         });
