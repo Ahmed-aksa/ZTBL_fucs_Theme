@@ -47,7 +47,7 @@
                 <mat-label class="customMatLabel">Circle</mat-label>
 
                 <mat-select [(ngModel)]="selected_c" formControlName="CircleId" *ngIf="!single_circle"
-                            (selectionChange)="changeCircle($event)">
+                            (selectionChange)="changeCircle($event)" [required]="is_required_circle">
                     <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id">
                         {{circle?.CircleCode}}
                     </mat-option>
