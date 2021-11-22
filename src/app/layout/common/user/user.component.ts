@@ -50,6 +50,8 @@ export class UserComponent implements OnInit, OnDestroy {
      */
     ngOnInit(): void {
         this.user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
+
+        console.log("user"+JSON.stringify(this.user))
     }
 
     /**

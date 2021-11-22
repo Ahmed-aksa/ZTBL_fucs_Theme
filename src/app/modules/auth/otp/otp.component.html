@@ -26,7 +26,7 @@
 						<mat-form-field appearance="outline">
 							<!--<mat-label>{{ 'AUTH.INPUT.EMAIL' | translate }}</mat-label>-->
 							<mat-label>OTP</mat-label>
-							<input matInput type="text" placeholder="OTP" formControlName="otp" autocomplete="off" />
+							<input appNumberOnly matInput type="text" placeholder="OTP" formControlName="otp" autocomplete="off" />
 							<mat-error *ngIf="isControlHasError('otp','required')">
 								<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
 							</mat-error>
@@ -46,12 +46,12 @@
 								<button (click)="submit()" id="kt_login_signin_submit" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">{{'Submit'}}</button>
 							</div>
 						</div>
-	
+
 					</div>
 					<!--end::Action-->
 				</form>
 			</div>
-		</div>		
+		</div>
 
 
 		</div>

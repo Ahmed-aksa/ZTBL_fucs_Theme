@@ -72,15 +72,31 @@ export class AuthSignInComponent implements OnInit {
                             width: '20%'
                         });
                         dialogRef.afterClosed().subscribe(res => {
+                            console.log(res)
                             if (res.data.data.Token && res.data.data.RefreshToken) {
-                                localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
-                                localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
-                                localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
+                                console.log("called")
+                                localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));
+                                localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
+                                localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
                                 const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                                console.log(redirectURL)
                                 this._router.navigateByUrl(redirectURL);
+                            }else{
+                                debugger
+                                this.signInNgForm.resetForm();
+                                this.signInForm.enable();
+                                // this.alert = {
+                                //     type: 'error',
+                                //     message: 'invalid OTP',
+                                // };
+                                this._router.navigateByUrl("/auth/sign-in");
+                                // this.showAlert = true;
+
                             }
                         });
                     } else {
+
+                        console.log("called l")
                         this.signInNgForm.resetForm();
                         this.signInForm.enable();
                         this.alert = {
@@ -88,6 +104,8 @@ export class AuthSignInComponent implements OnInit {
                             message: result.Message,
                         };
                         this.showAlert = true;
+
+
                     }
 
                 },
