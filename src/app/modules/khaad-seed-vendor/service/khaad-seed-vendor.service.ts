@@ -91,7 +91,7 @@ export class KhaadSeedVendorService {
     }
 
     searchVendors(limit, offSet, vendor, user, zone = null, branch = null, circle = null) {
-        debugger;
+        
         if (vendor.Type == 'null' || user.CircleId == 'null') {
             vendor.Type = null
             if (user.CircleId == 'null') {

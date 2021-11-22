@@ -205,7 +205,7 @@ export class ClLegalHeirsComponent implements OnInit {
     ).subscribe(baseResponse => {
 
         if (baseResponse.Success) {
-debugger;
+
           this.legalHeirs = this.legalHeirsForm.value;
           var legalHeirsGrid = new LoanApplicationLegalHeirs();
 
