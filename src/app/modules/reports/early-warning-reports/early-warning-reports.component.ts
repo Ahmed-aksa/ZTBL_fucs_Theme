@@ -108,12 +108,12 @@ export class EarlyWarningReportsComponent implements OnInit {
 
 
     find() {
-        
+
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
             return;
         }
-        
+
 
         this.user.Zone = this.zone;
         this.user.Branch = this.branch;
@@ -174,7 +174,7 @@ export class EarlyWarningReportsComponent implements OnInit {
     //     console.log(this.statusLov)
     // }
 
- 
+
 }
 
 interface searchLoanCasesByCnic {
