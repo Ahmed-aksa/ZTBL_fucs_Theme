@@ -93,7 +93,7 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
     createForm() {
         this.searchCnicForm = this.fb.group({
             Cnic: [null],
-            CustomerName: [null],
+            Name: [null],
             FatherName: [null]
         })
     }
@@ -101,7 +101,7 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
 
     find() {
 
-        if ((this.searchCnicForm.controls.Cnic.value == null || this.searchCnicForm.controls.Cnic.value == '') && (this.searchCnicForm.controls.CustomerName.value == null || this.searchCnicForm.controls.CustomerName.value == '') && (this.searchCnicForm.controls.FatherName.value == null || this.searchCnicForm.controls.FatherName.value == '')) {
+        if ((this.searchCnicForm.controls.Cnic.value == null || this.searchCnicForm.controls.Cnic.value == '') && (this.searchCnicForm.controls.Name.value == null || this.searchCnicForm.controls.Name.value == '') && (this.searchCnicForm.controls.FatherName.value == null || this.searchCnicForm.controls.FatherName.value == '')) {
             this.layoutUtilsService.alertElement('', 'Atleast add any one field among Cnic, Father Name or Customer Name')
             return
         }
@@ -134,7 +134,7 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                     this.loading = false;
                     // this.matTableLenght = false;
-                    // this.dataSource = this.dv.slice(1, 0);
+                    this.dataSource = null
                     //this.offSet = 0;
                     this.pageIndex = 1;
 

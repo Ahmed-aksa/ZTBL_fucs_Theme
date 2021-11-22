@@ -93,12 +93,12 @@ export class ClApplicationHeaderComponent implements OnInit {
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
 
-   
+
     //-------------------------------Loading Zone-------------------------------//
     this.GetZones();
 
     //-------------------------------Loading Circle-------------------------------//
-    
+
     if (this.LoggedInUserInfo.Branch?.BranchCode != "All")
     {
       this.Circles = this.LoggedInUserInfo.UserCircleMappings;
@@ -114,7 +114,7 @@ export class ClApplicationHeaderComponent implements OnInit {
     //-------------------------------Creating Form-------------------------------//
     this.createForm();
     if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
-      
+
       this.isZoneReadOnly = true;
       this.isBranchReadOnly = true;
     }
@@ -167,7 +167,7 @@ export class ClApplicationHeaderComponent implements OnInit {
           }
           //this.landSearch.controls['ZoneId'].setValue(this.Zones[0].ZoneId);
           //this.GetBranches(this.Zones[0].ZoneId);
-          
+
           this._cdf.detectChanges();
         }
         //else
@@ -201,12 +201,12 @@ export class ClApplicationHeaderComponent implements OnInit {
     this._circleService.getBranchesByZone(this.Zone)
       .pipe(
         finalize(() => {
-     
+
         })
       ).subscribe(baseResponse => {
 
         if (baseResponse.Success) {
-  
+
           this.Branches = baseResponse.Branches;
           this.SelectedBranches = this.Branches;
           if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
@@ -251,7 +251,7 @@ export class ClApplicationHeaderComponent implements OnInit {
 
   }
   searchircle(circleId) {
-    
+
     circleId = circleId.toLowerCase();
     if (circleId != null && circleId != undefined && circleId != "")
       this.SelectedCircles = this.Circles.filter(x => x.CircleCode.toLowerCase().indexOf(circleId) > -1);
@@ -271,7 +271,7 @@ export class ClApplicationHeaderComponent implements OnInit {
   searchLoanType(loanTypeId) {
     loanTypeId = loanTypeId.toLowerCase();
     if (loanTypeId != null && loanTypeId != undefined && loanTypeId != "")
-      this.SelectedLoanType = this.LoanTypes.LOVs.filter(x => x.Name.toLowerCase().indexOf(loanTypeId) > -1);
+      this.SelectedLoanType = this.LoanTypes?.LOVs?.filter(x => x.Name.toLowerCase().indexOf(loanTypeId) > -1);
     else
       this.SelectedLoanType = this.LoanTypes.LOVs;
   }
@@ -284,7 +284,7 @@ export class ClApplicationHeaderComponent implements OnInit {
   async getLoanCategory() {
     this.LoanCategories = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.LoanCategories })
     this.SelectedLoanCategory = this.LoanCategories.LOVs;
-    
+
   }
   searchLoanCategory(loanCategoryId) {
     loanCategoryId = loanCategoryId.toLowerCase();
@@ -330,8 +330,8 @@ export class ClApplicationHeaderComponent implements OnInit {
         this.applicationHeaderForm.controls['ApplicantionTitle'].setValue(this.loanApplicationHeader.ApplicantionTitle);
       }
       if (this.loanApplicationHeader.DevProdFlag != null, this.loanApplicationHeader.DevProdFlag != undefined) {
-        var devProdFlag = this.LoanTypes.LOVs.filter(x => x.Name == this.loanApplicationHeader.DevProdFlag); //[0].Id;
-        if (devProdFlag.length > 0) {
+        var devProdFlag = this.LoanTypes?.LOVs?.filter(x => x.Name == this.loanApplicationHeader.DevProdFlag); //[0].Id;
+        if (devProdFlag?.length > 0) {
           this.applicationHeaderForm.controls['DevProdFlag'].setValue(devProdFlag[0].Id);
         }      }
 
@@ -350,7 +350,7 @@ export class ClApplicationHeaderComponent implements OnInit {
         })
       )
       .subscribe(baseResponse => {
-        
+
         if (baseResponse.Success) {
           this.applicationHeaderForm.controls["LoanCaseNo"].setValue(baseResponse.Loan.ApplicationHeader.LoanAutoNo);
         }
@@ -359,7 +359,7 @@ export class ClApplicationHeaderComponent implements OnInit {
           this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         }
       });
-    
+
   }
 
   onChangeLoanType(loanType) {
@@ -385,7 +385,7 @@ export class ClApplicationHeaderComponent implements OnInit {
   }
 
   onClearSavApplicationHeader() {
-    
+
     //this.applicationHeaderForm.controls["ZoneId"].setValue("");
     //this.applicationHeaderForm.controls["BranchID"].setValue("");
     //this.applicationHeaderForm.controls["AppDate"].setValue("");
@@ -403,8 +403,8 @@ export class ClApplicationHeaderComponent implements OnInit {
 
   onSaveApplicationHeader() {
 
-   
-    
+
+
     //Parsing dev amount
     let devAmount = this.applicationHeaderForm.controls["DevAmount"].value
     devAmount = devAmount == null || devAmount == undefined || devAmount == "" ? 0 : devAmount;
@@ -467,17 +467,17 @@ export class ClApplicationHeaderComponent implements OnInit {
         return;
       }
     }
-    
+
     //this.loanApplicationHeader.AppDate = this.datePipe.transform(this.loanApplicationHeader.AppDate, "ddMMyyyy");
     this.loanApplicationHeader.AppDate = this.LoggedInUserInfo.Branch.WorkingDate;
-    
+
     this.loanApplicationHeader.CreatedOn = this.datePipe.transform(new Date(), "ddMMyyyy");
 
     //this.loanApplicationHeader.LoanCaseNo = (parseInt(this.loanApplicationHeader.LoanCaseNo) + 11).toString();
 
 
     this.isSaveApplicationHeaderInProgress = true;
-    
+
     this.spinner.show();
     this._loanService.saveApplicationHeader(this.loanApplicationHeader)
       .pipe(
@@ -487,7 +487,7 @@ export class ClApplicationHeaderComponent implements OnInit {
         })
       )
       .subscribe(baseResponse => {
-        
+
         if (baseResponse.Success) {
           this.loanApplicationHeader.LoanAppID = baseResponse.Loan.ApplicationHeader.LoanAppID;
           this.LoanDetail.ApplicationHeader = this.loanApplicationHeader;
