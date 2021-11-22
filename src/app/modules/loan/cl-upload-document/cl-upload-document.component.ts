@@ -222,7 +222,7 @@ export class ClUploadDocumentComponent implements OnInit {
   searchLoanType(loanTypeId) {
     loanTypeId = loanTypeId.toLowerCase();
     if (loanTypeId != null && loanTypeId != undefined && loanTypeId != "")
-      this.SelectedLoanType = this.LoanTypes.LOVs.filter(x => x.Name.toLowerCase().indexOf(loanTypeId) > -1);
+      this.SelectedLoanType = this.LoanTypes?.LOVs?.filter(x => x.Name.toLowerCase().indexOf(loanTypeId) > -1);
     else
       this.SelectedLoanType = this.LoanTypes.LOVs;
   }

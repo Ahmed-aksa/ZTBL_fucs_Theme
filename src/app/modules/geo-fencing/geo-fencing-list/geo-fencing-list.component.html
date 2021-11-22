@@ -113,6 +113,11 @@
                    [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
                    class="example-table"
                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+                <ng-container matColumnDef="CircleCode">
+                    <th mat-header-cell *matHeaderCellDef>Circle Code</th>
+                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.CircleCode}}</td>
+                </ng-container>
+
                 <!-- Number Column -->
                 <ng-container matColumnDef="PPNo">
                     <th mat-header-cell *matHeaderCellDef>PP No</th>
