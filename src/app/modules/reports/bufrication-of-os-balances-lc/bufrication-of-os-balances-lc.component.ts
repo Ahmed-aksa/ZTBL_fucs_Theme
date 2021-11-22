@@ -117,12 +117,12 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         }else{
             this.bufricationForm.controls.WorkingDate.setValue(null);
         }
-        this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
     }
 
     async typeLov() {
         this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
         this.statusLov = this.statusLov.LOVs;
+        this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
     }
 
     isEnableWorkingDate() {
