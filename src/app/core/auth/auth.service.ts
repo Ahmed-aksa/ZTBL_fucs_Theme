@@ -68,7 +68,7 @@ export class AuthService {
         return this.httpUtils.post(`${environment.apiUrl}/Account/Login`, this.request,
             {headers: this.getHTTPHeaders()}).pipe(
             map((response: BaseResponseModel) => {
-                if (response.Success) {
+                if (response.Success && !response.isWebOTPEnabled) {
                     localStorage.setItem('ZTBLUser', JSON.stringify(response));
                     this.accessToken = response.Token;
                     this.ZTBLUserRefreshToke = response.RefreshToken;
@@ -98,13 +98,13 @@ export class AuthService {
     }
 
     refreshToken(token: string) {
-        
+
         this.request = new BaseRequestModel();
         const refreshToken = (localStorage.getItem('ZTBLUserRefreshToke'));
         const expiredToken = (localStorage.getItem('accessToken'));
         this.request.Token = expiredToken;
         this.request.RefreshToken = refreshToken;
-        
+
         return this.httpUtils.post(`${environment.apiUrl}/Account/RefreshToken`, this.request);
     }
 
