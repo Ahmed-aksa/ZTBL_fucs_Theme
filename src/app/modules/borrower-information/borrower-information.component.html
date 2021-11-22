@@ -89,6 +89,16 @@
                 matSortDirection="asc"
                 matSortDisableClear>
 
+                <ng-container matColumnDef="BranchName">
+                    <mat-header-cell *matHeaderCellDef>Branch Name</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">{{borrower?.BranchName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="CircleCode">
+                    <mat-header-cell *matHeaderCellDef>Circle Code</mat-header-cell>
+                    <mat-cell *matCellDef="let borrower">{{borrower?.CircleCode}}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="CustomerName">
                     <mat-header-cell *matHeaderCellDef>Customer Name</mat-header-cell>
                     <mat-cell *matCellDef="let borrower">{{borrower.CustomerName}}</mat-cell>

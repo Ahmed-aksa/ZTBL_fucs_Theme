@@ -25,6 +25,8 @@ import {UserUtilsService} from '../../shared/services/users_utils.service';
 export class BorrowerInformationComponent implements OnInit {
     final_circle_ids: String = '';
     displayedColumns = [
+        'BranchName',
+        'CircleCode',
         'CustomerName',
         'FatherName',
         'Cnic',
