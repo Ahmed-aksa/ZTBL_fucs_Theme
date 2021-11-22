@@ -28,8 +28,8 @@
                          [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true" (mapReady)="onMapReady($event)"
                          class="h-screen">
                     <agm-marker *ngFor="let coordinate of start_end_mark; let i=index"
-                                [latitude]="isNumber(coordinate.Latitude)"
-                                [longitude]="isNumber(coordinate.Longitude)" [agmFitBounds]="true">
+                                [latitude]="isNumber(coordinate?.Latitude)"
+                                [longitude]="isNumber(coordinate?.Longitude)" [agmFitBounds]="true">
 
                     </agm-marker>
 
@@ -50,8 +50,8 @@
                     <agm-polyline [visible]="true" [strokeWeight]="3" [strokeColor]="'#07b57a'">
                         <agm-polyline-point
                             *ngFor="let coordinate of latlong; let i=index"
-                            [latitude]="isNumber(coordinate.Latitude)"
-                            [longitude]="isNumber(coordinate.Longitude)">
+                            [latitude]="isNumber(coordinate?.Latitude)"
+                            [longitude]="isNumber(coordinate?.Longitude)">
                         </agm-polyline-point>
                     </agm-polyline>
                 </agm-map>

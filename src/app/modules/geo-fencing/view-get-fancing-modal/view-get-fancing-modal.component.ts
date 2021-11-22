@@ -230,7 +230,7 @@ export class ViewGetFancingModalComponent implements OnInit {
                 this.LocationHistories = baseResponse.LocationHistory["LocationHistories"]
                 this.latlong = JSON.parse(baseResponse.LocationHistory.LocationHistories[0]["LocationData"]);
                 this.start_end_mark.push(this.latlong[0]);
-                this.start_end_mark.push(this.latlong[this.latlng.length - 1]);
+                this.start_end_mark.push(this.latlong[this.latlng?.length - 1]);
 
                 this.detector.detectChanges();
             } else {
