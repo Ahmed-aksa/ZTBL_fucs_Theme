@@ -15,6 +15,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     @Input('form') form;
     @Input('should_show_circle') should_show_circle;
     @Input('is_required_circle') is_required_circle;
+
     @Output() branchZoneCircleData = new EventEmitter<{
         final_zone: any
         final_branch: any,
@@ -43,11 +44,26 @@ export class ZoneBranchCircleComponent implements OnInit {
     SelectedZones: any;
     selected_z: any;
     single_zone = true;
+    selected_zone = null;
+    selected_branch = null
+    selected_circle = null;
 
     constructor(private userUtilsService: UserUtilsService, private spinner: NgxSpinnerService, private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
+
+        if (localStorage.getItem('selected_zone')) {
+            this.selected_zone = JSON.parse(localStorage.getItem('selected_zone'));
+
+        }
+        if (localStorage.getItem('selected_branch')) {
+            this.selected_branch = JSON.parse(localStorage.getItem('selected_branch'));
+        }
+        if (localStorage.getItem('selected_circle')) {
+            this.selected_circle = JSON.parse(localStorage.getItem('selected_circle'));
+        }
+
         this.addFormControls(this.should_show_circle);
         this.all_data = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.all_data.UserCircleMappings?.length == 0) {
@@ -100,10 +116,36 @@ export class ZoneBranchCircleComponent implements OnInit {
 
 
         }
+
+        if (localStorage.getItem('selected_zone')) {
+
+            this.spinner.show();
+
+
+            this.userUtilsService.getZone().subscribe((data: any) => {
+                this.SelectedZones = data.Zones;
+                this.single_zone = false;
+
+                this.selected_z = this.selected_zone.ZoneId;
+
+
+                if (this.selected_branch) {
+                    this.changeZone(this.selected_z, true);
+                } else {
+                    this.spinner.hide();
+                    localStorage.removeItem('selected_zone');
+                    localStorage.removeItem('selected_branch');
+                    localStorage.removeItem('selected_circle');
+                    this.emitData();
+                }
+
+            });
+        }
+
         this.emitData();
     }
 
-    changeBranch(changedValue) {
+    changeBranch(changedValue, has_circle = false) {
         this.selected_c = null;
         let changedBranch = null;
         if (changedValue.value)
@@ -113,11 +155,22 @@ export class ZoneBranchCircleComponent implements OnInit {
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
             this.SelectedCircles = data.Circles;
             this.single_circle = false;
+
+            if (has_circle) {
+                this.selected_c = this.selected_circle.CircleCode;
+            }
+            this.spinner.hide();
+            localStorage.removeItem('selected_zone');
+            localStorage.removeItem('selected_branch');
+            localStorage.removeItem('selected_circle');
+            this.emitData();
+
+
         });
         this.emitData();
     }
 
-    changeZone(changedValue) {
+    changeZone(changedValue, has_branch = false) {
         this.selected_b = null;
         this.selected_c = null;
         let changedZone = null;
@@ -129,6 +182,22 @@ export class ZoneBranchCircleComponent implements OnInit {
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.SelectedBranches = data.Branches;
             this.single_branch = false;
+
+            if (has_branch) {
+                this.selected_b = this.selected_branch.BranchCode;
+                if (this.selected_circle) {
+
+                    this.changeBranch(this.selected_b, true)
+                } else {
+                    this.spinner.hide();
+                    localStorage.removeItem('selected_zone');
+                    localStorage.removeItem('selected_branch');
+                    localStorage.removeItem('selected_circle');
+                    this.emitData();
+
+                }
+
+            }
         });
         this.emitData();
 
