@@ -173,16 +173,6 @@ export class VendorRadiusComponent implements OnInit {
             })
     }
 
-    // addMarker(lat, lng, name){
-    //
-    //   var myLatLng = { lat: Number(lat), lng: Number(lng) };
-    //   this.vendorLocationMarker = new google.maps.Marker({
-    //     position: myLatLng,
-    //     title: name,
-    //   });
-    //   this.vendorLocationMarker.setMap(this.googleMap)
-    // }
-
     getTitle(): string {
         return 'View Circle Fense';
     }
@@ -196,7 +186,6 @@ export class VendorRadiusComponent implements OnInit {
 
 
     clickedMarker(event, index, infowindow) {
-
         const dialogRef = this.dialog.open(UserInfoDialogComponent, {
             width: '600px',
             height: '600px',
