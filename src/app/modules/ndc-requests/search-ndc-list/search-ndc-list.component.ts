@@ -207,6 +207,8 @@ export class SearchNdcListComponent implements OnInit {
                         baseResponse.Message,
                         baseResponse.Code
                     );
+                    this.request_data_source = this.dvReq.splice(1,0);
+                    this.pending_requests_data_source = this.dvPending.splice(1,0)
                 }
             });
     }

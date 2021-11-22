@@ -55,6 +55,7 @@ import {NumberAndDecimalDirective} from './directives/number-and-decimal.directi
 import {ZoneBranchCircleComponent} from "../zone-branch-circle/zone-branch-circle.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ViewMapsComponent} from "./component/view-map/view-map.component";
+import { WorkingDateComponent } from './component/working-date/working-date.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import {ViewMapsComponent} from "./component/view-map/view-map.component";
         AlphaNumSpecialDirective,
         NumberAndDecimalDirective,
         ZoneBranchCircleComponent,
-        ViewMapsComponent
+        ViewMapsComponent,
+        WorkingDateComponent
     ],
     imports: [
         CommonModule,
@@ -161,6 +163,7 @@ import {ViewMapsComponent} from "./component/view-map/view-map.component";
         AlphaNumSpecialDirective,
         NumberAndDecimalDirective,
         ZoneBranchCircleComponent,
+        WorkingDateComponent,
     ],
     entryComponents: [
         UpdateStatusDialogComponent,
