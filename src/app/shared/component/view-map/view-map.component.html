@@ -7,22 +7,23 @@
             <h3 class="heading w-11/12">Location</h3>
 
 
-            <button  class="w-1/12 text-end" color="danger" (click)="close(0)">
+            <button class="w-1/12 text-end" color="danger" (click)="close(0)">
                 <mat-icon class="text-danger">cancel</mat-icon>
             </button>
         </div>
     </div>
 
 
-<agm-map #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng"
-         [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true" (mapReady)="onMapReady($event)"
+    <agm-map #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng"
+             [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true" (mapReady)="onMapReady($event)"
+             style="height: 600px">
+        <div *ngIf="loc_arr?.length>0">
+            <agm-marker *ngFor="let coordinate of loc_arr; let i=index"
+                        [latitude]="isNumber(coordinate.Lat)"
+                        [longitude]="isNumber(coordinate.Lng)" [agmFitBounds]="true">
 
-         class="h-100">
-    <agm-marker *ngFor="let coordinate of loc_arr; let i=index"
-                [latitude]="isNumber(coordinate.Lat)"
-                [longitude]="isNumber(coordinate.Lng)" [agmFitBounds]="true">
-
-    </agm-marker>
-</agm-map>
+            </agm-marker>
+        </div>
+    </agm-map>
 
 </div>
