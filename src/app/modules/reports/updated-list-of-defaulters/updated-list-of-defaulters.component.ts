@@ -89,7 +89,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm()
-        this.searchCnicForm.controls["PPNO"].setValue(this.LoggedInUserInfo.User.UserName);
         // this.typeLov();
     }
 

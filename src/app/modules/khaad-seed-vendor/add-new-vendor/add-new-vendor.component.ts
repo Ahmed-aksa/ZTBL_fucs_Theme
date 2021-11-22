@@ -326,6 +326,8 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
     //Save & Submit Method
     saveSubmit() {
 
+        //console.log(this.vendorForm)
+        this.vendorForm.controls["CircleCode"].setValue(this.circle?.CircleCode)
         this.errorShow = false;
         this.hasFormErrors = false;
         if (this.vendorForm.invalid) {
@@ -341,8 +343,6 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
         //   this.layoutUtilsService.alertElement("", "Please attach an Image in Png, Jpg or Jpeg format");
         //   return
         // }
-
-
         this.khaadSeedVendor = Object.assign(this.khaadSeedVendor, this.vendorForm.value);
         this.khaadSeedVendor.Lat = this.lat;
         this.khaadSeedVendor.Lng = this.lng

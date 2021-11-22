@@ -44,7 +44,7 @@
             <div class="py-2" [formGroup]="searchCnicForm">
                 <div class="row">
                     <div class="w-9/12">
-                        <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="true"
+                        <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="true" [is_required_circle]="true"
                                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                 </div>
                 </div>
