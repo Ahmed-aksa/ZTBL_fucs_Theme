@@ -29,7 +29,7 @@ export class GeoFencingListComponent implements OnInit {
 
 
     products: any
-    displayedColumns = ['CircleCode','PPNo', 'BranchCode', 'CreatedDate', 'View'];
+    displayedColumns = ['CircleCodes','PPNo', 'BranchCode', 'CreatedDate', 'View'];
     itemsPerPage = 5;
     pageIndex = 1;
     offSet = 0;
