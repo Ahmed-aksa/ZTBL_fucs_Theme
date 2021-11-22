@@ -9,17 +9,13 @@
 
     <div  [formGroup]="vendorForm">
 
-      <div class="w-full">
+        <div class="flex" style="flex-wrap: wrap;">
         <app-zone-branch-circle [form]="vendorForm" [should_show_circle]="true"
                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-    </div>
-
-      <div class="row">
 
 
-        <div class="col-lg-3 col-sm-12">
-
-          <div>
+          <div class="mx-2">
+              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
 
               <mat-label class="customMatLabel">Type <strong class="matMandatory">*</strong></mat-label>
@@ -34,14 +30,13 @@
         </div>
 
 
-      </div>
 
 
-      <div class="row">
 
-        <div class="col-lg-3 col-sm-12">
 
-          <div>
+
+          <div class="mx-2">
+              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Name <strong class="matMandatory">*</strong></mat-label>
               <input matInput placeholder="Enter Name" formControlName="Name" autocomplete="off" [readonly]="viewOnly" />
@@ -50,9 +45,8 @@
 
         </div>
 
-        <div class="col-lg-3 col-sm-12">
-
-          <div>
+          <div class="mx-2">
+              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Business Description<strong class="matMandatory">*</strong></mat-label>
               <input matInput placeholder="Enter Business Description" formControlName="Description" autocomplete="off" [readonly]="viewOnly" />
@@ -61,9 +55,8 @@
 
         </div>
 
-        <div class="col-lg-3 col-sm-12">
-
-          <div>
+          <div class="mx-2">
+              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Phone Number <strong class="matMandatory">*</strong></mat-label>
               <input matInput appNumberOnly placeholder="Enter Vendor's Phone Number'" formControlName="PhoneNumber" maxlength="13" minlength="11" autocomplete="off" [readonly]="viewOnly" />
@@ -72,10 +65,8 @@
 
         </div>
 
-        <div class="col-lg-3 col-sm-12">
-
-
-          <div>
+          <div class="mx-2">
+              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Address <strong class="matMandatory">*</strong></mat-label>
               <input matInput placeholder="Enter Vendor Address" formControlName="Address" autocomplete="off" [readonly]="viewOnly" />
@@ -86,13 +77,11 @@
 
 
 
-      </div>
 
 
-      <div class="row">
 
-        <div class="col-lg-3 col-sm-12">
-
+          <div class="mx-2">
+              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
           <div *ngFor="let url of images">
             <img *ngIf="fileExist" style="width:150px;height: 150px; margin-left: auto;margin-right: auto;" class="img-thumbnail text-right" mat-card-md-image [src]="url" (click)="preview()">
@@ -103,21 +92,21 @@
           </div>
 
         </div>
-        <div class="col-lg-9 flex col-sm-12">
-
-          <div class="col-lg-5">
+              </div>
+          <div class="mx-2">
+              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
               <mat-label class="customMatLabel">Location<strong class="matMandatory">*</strong></mat-label>
               <input matInput formControlName="Location"  autocomplete="off" readonly="readonly" />
             </mat-form-field>
           </div>
-
+          </div>
           <div>
             <input type="button" mat-raised-button color="primary" class=" mx-2 mt-2 mat-raised-button mat-button-base mat-primary searchLCBtn mt-2" *ngIf="!viewOnly" [value]="loc_text" (click)="Add()" />
             <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
           </div>
 
-        </div>
+
       </div>
 
 

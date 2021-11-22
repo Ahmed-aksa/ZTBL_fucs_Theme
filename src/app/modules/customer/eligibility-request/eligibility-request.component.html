@@ -30,81 +30,16 @@
                 [formGroup]="eligibilityRequestForm" class="mt-2">
 
 
-                <div class="row">
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
-                                            *ngIf="single_zone">
-                                <mat-label class="customMatLabel">Zone</mat-label>
-                                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
-                                    <mat-option [value]="SelectedZones?.ZoneId">
-                                        {{SelectedZones?.ZoneName}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
-                                            *ngIf="!single_zone">
-                                <mat-label class="customMatLabel">Zone</mat-label>
-                                <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
-                                            (selectionChange)="changeZone($event)">
-                                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                                [disabled]="disable_zone">
-                                        {{zone?.ZoneName}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong>
-                                </mat-label>
-                                <mat-select [(ngModel)]="selected_b" formControlName="Branch"
-                                            [disabled]="disable_branch"
-                                            (selectionChange)="changeBranch($event)"
-                                            *ngIf="!single_branch">
-                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode">
-                                        {{branch?.Name}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-select [(ngModel)]="selected_b" formControlName="Branch"
-                                            [disabled]="disable_branch"
-                                            *ngIf="single_branch">
-                                    <mat-option [value]="SelectedBranches?.BranchCode"
-                                    >
-                                        {{SelectedBranches?.Name}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Circle</mat-label>
-
-                                <mat-select [(ngModel)]="selected_c" formControlName="Circle"
-                                            [disabled]="disable_circle">
-                                    <mat-option *ngFor="let circle of SelectedCircles" [value]="circle?.Id"
-                                    >
-                                        {{circle?.CircleCode}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <div class="flex" style="flex-wrap: wrap;">
+                    <app-zone-branch-circle [form]="eligibilityRequestForm" [should_show_circle]="true"
+                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Status</mat-label>
 
-                                <mat-select formControlName="status" [disabled]="disable_circle">
+                                <mat-select formControlName="status">
                                     <mat-option *ngFor="let single_status of Statuses" [value]="single_status?.Value"
                                     >
                                         {{single_status?.Name}}
@@ -113,11 +48,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label>Enter CNIC</mat-label>
                                 <input appNumberOnly matInput formControlName="Cnic" placeholder="Enter CNIC"
@@ -126,8 +58,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label>Enter Name</mat-label>
                                 <input matInput formControlName="CustomerName" placeholder="Enter Name"
@@ -135,18 +67,17 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center  mt-2">
-                            <button class="bg-gray-500" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                                    aria-expanded="false" aria-controls="collapseExample"
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <button class="mt-2 bg-gray-500"
                                     (click)="getEligibilityRequestData()" mat-flat-button [color]="'primary'">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
                         </div>
                     </div>
-
                 </div>
+
             </div>
 
         </div>
@@ -178,7 +109,7 @@
                     </ng-container>
                     <ng-container matColumnDef="CircleCode">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Circle code</mat-header-cell>
-                        <mat-cell *matCellDef="let eligibilityRequest"><p 
+                        <mat-cell *matCellDef="let eligibilityRequest"><p
                             style="word-wrap: break-word;
                                 hyphens: auto;
                                 max-width: 200px;">{{eligibilityRequest.CircleName}}</p></mat-cell>
@@ -187,7 +118,8 @@
 
                     <ng-container matColumnDef="CustomerName">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
-                        <mat-cell *matCellDef="let eligibilityRequest"><p class="ml-3">{{eligibilityRequest.CustomerName}}</p></mat-cell>
+                        <mat-cell *matCellDef="let eligibilityRequest"><p
+                            class="ml-3">{{eligibilityRequest.CustomerName}}</p></mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="Cnic">
@@ -198,7 +130,8 @@
                     <ng-container matColumnDef="FatherName">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
                         <mat-cell
-                            *matCellDef="let eligibilityRequest"><p class="ml-3">{{eligibilityRequest.FatherName}}</p></mat-cell>
+                            *matCellDef="let eligibilityRequest"><p class="ml-3">{{eligibilityRequest.FatherName}}</p>
+                        </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="Status">

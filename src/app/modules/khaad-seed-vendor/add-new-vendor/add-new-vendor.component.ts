@@ -162,7 +162,8 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
 
             localStorage.setItem('EditVendorData', '0');
             this.spinner.show();
-            setTimeout(() => this.getVendorInfo(), 5000);
+            setTimeout(() => this.getVendorInfo(), 2000);
+            // this.getVendorInfo();
         }
 
     }
