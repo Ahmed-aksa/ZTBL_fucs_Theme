@@ -16,7 +16,7 @@
 
     <agm-map #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng"
              [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true" (mapReady)="onMapReady($event)"
-             style="height: 500px">
+             style="height: 420px">
         <div *ngIf="loc_arr?.length!=0">
             <agm-marker *ngFor="let coordinate of loc_arr; let i=index"
                         [latitude]="isNumber(coordinate.Lat)"
