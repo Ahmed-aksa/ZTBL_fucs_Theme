@@ -14,6 +14,7 @@ export class ZoneBranchCircleComponent implements OnInit {
 
     @Input('form') form;
     @Input('should_show_circle') should_show_circle;
+    @Input('is_required_circle') is_required_circle;
     @Output() branchZoneCircleData = new EventEmitter<{
         final_zone: any
         final_branch: any,
@@ -49,7 +50,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     ngOnInit(): void {
         this.addFormControls(this.should_show_circle);
         this.all_data = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        if (this.all_data.UserCircleMappings?.length == 0){
+        if (this.all_data.UserCircleMappings?.length == 0) {
             this.all_data.UserCircleMappings = null;
         }
         if (this.all_data.Branch && this.all_data.Zone && this.all_data.UserCircleMappings) {
