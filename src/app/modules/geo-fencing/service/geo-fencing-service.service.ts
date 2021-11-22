@@ -16,7 +16,7 @@ export class GeoFencingService {
     public request = new BaseRequestModel();
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
-        console.log(this.userUtilsService.getUserDetails())
+        // console.log(this.userUtilsService.getUserDetails())
     }
 
     SearchGeoFensePoint(resquest: any): Observable<BaseResponseModel> {
