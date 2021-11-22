@@ -253,6 +253,10 @@ export class CircleViewMapComponent implements OnInit {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
+
+        if (this.branch) {
+            this.loadCirclesSinglePoints();
+        }
     }
 
     find() {
