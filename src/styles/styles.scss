@@ -496,3 +496,10 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
 
 }
 }
+
+button[aria-expanded=true] .up {
+  display: none !important;
+}
+button[aria-expanded=false] .down {
+  display: none !important;
+}
