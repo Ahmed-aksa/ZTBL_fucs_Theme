@@ -1,127 +1,136 @@
-<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+<div
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
 
 
-  <div class="row py-3">
-    <div class="col-lg-12 col-sm-12">
-        <div class="heading">Add New Vendor</div>
+    <div class="row py-3">
+        <div class="col-lg-12 col-sm-12">
+            <div class="heading">Add New Vendor</div>
+        </div>
     </div>
-</div>
 
-    <div  [formGroup]="vendorForm">
+    <div [formGroup]="vendorForm">
 
         <div class="flex" style="flex-wrap: wrap;">
-        <app-zone-branch-circle [form]="vendorForm" [should_show_circle]="true"
+            <app-zone-branch-circle [form]="vendorForm" [should_show_circle]="true"
                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
 
-          <div class="mx-2">
-              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
 
-              <mat-label class="customMatLabel">Type <strong class="matMandatory">*</strong></mat-label>
-              <mat-select formControlName="Type" [disabled]="viewOnly">
-                <mat-option *ngFor="let lov of vendorLov" [value]="lov.Value">
-                  {{lov.Name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+                        <mat-label class="customMatLabel">Type <strong class="matMandatory">*</strong></mat-label>
+                        <mat-select formControlName="Type" [disabled]="viewOnly">
+                            <mat-option *ngFor="let lov of vendorLov" [value]="lov.Value">
+                                {{lov.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Name <strong class="matMandatory">*</strong></mat-label>
+                        <input matInput placeholder="Enter Name" formControlName="Name" autocomplete="off"
+                               [readonly]="viewOnly"/>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Business Description<strong class="matMandatory">*</strong>
+                        </mat-label>
+                        <input matInput placeholder="Enter Business Description" formControlName="Description"
+                               autocomplete="off" [readonly]="viewOnly"/>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Phone Number <strong class="matMandatory">*</strong>
+                        </mat-label>
+                        <input matInput appNumberOnly placeholder="Enter Vendor's Phone Number'"
+                               formControlName="PhoneNumber" maxlength="13" minlength="11" autocomplete="off"
+                               [readonly]="viewOnly"/>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Address <strong class="matMandatory">*</strong></mat-label>
+                        <input matInput placeholder="Enter Vendor Address" formControlName="Address" autocomplete="off"
+                               [readonly]="viewOnly"/>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                    <div *ngFor="let url of images">
+                        <div *ngIf="url.FilePath!=null || url.FilePath!=''">
+                            <img
+                                style="width:150px;height: 150px; margin-left: auto;margin-right: auto;"
+                                class="img-thumbnail text-right" mat-card-md-image [src]="url" (click)="preview()">
+                        </div>
+                    </div>
+
+                    <div style="align-items: center;">
+                        <input *ngIf="!viewOnly" style="margin-left: 10px;margin-right: auto; margin-top: 20px;"
+                               id="uploadprofile" type="file" name="myfile" (change)="onFileChange($event)"
+                               accept="image/jpg,image/jpeg"/>
+                    </div>
+
+                </div>
+            </div>
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Location<strong class="matMandatory">*</strong></mat-label>
+                        <input matInput formControlName="Location" autocomplete="off" readonly="readonly"/>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <input type="button" mat-raised-button color="primary"
+                       class=" mx-2 mt-2 mat-raised-button mat-button-base mat-primary searchLCBtn mt-2"
+                       *ngIf="!viewOnly" [value]="loc_text" (click)="Add()"/>
+                <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
+            </div>
+
 
         </div>
-
-
-
-
-
-
-
-          <div class="mx-2">
-              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Name <strong class="matMandatory">*</strong></mat-label>
-              <input matInput placeholder="Enter Name" formControlName="Name" autocomplete="off" [readonly]="viewOnly" />
-            </mat-form-field>
-          </div>
-
-        </div>
-
-          <div class="mx-2">
-              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Business Description<strong class="matMandatory">*</strong></mat-label>
-              <input matInput placeholder="Enter Business Description" formControlName="Description" autocomplete="off" [readonly]="viewOnly" />
-            </mat-form-field>
-          </div>
-
-        </div>
-
-          <div class="mx-2">
-              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Phone Number <strong class="matMandatory">*</strong></mat-label>
-              <input matInput appNumberOnly placeholder="Enter Vendor's Phone Number'" formControlName="PhoneNumber" maxlength="13" minlength="11" autocomplete="off" [readonly]="viewOnly" />
-            </mat-form-field>
-          </div>
-
-        </div>
-
-          <div class="mx-2">
-              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Address <strong class="matMandatory">*</strong></mat-label>
-              <input matInput placeholder="Enter Vendor Address" formControlName="Address" autocomplete="off" [readonly]="viewOnly" />
-            </mat-form-field>
-          </div>
-
-        </div>
-
-
-
-
-
-
-          <div class="mx-2">
-              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-
-          <div *ngFor="let url of images">
-            <img *ngIf="fileExist" style="width:150px;height: 150px; margin-left: auto;margin-right: auto;" class="img-thumbnail text-right" mat-card-md-image [src]="url" (click)="preview()">
-          </div>
-
-          <div style="align-items: center;">
-            <input *ngIf="!viewOnly" style="margin-left: 10px;margin-right: auto; margin-top: 20px;" id="uploadprofile" type="file" name="myfile" (change)="onFileChange($event)" accept="image/jpg,image/jpeg" />
-          </div>
-
-        </div>
-              </div>
-          <div class="mx-2">
-              <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Location<strong class="matMandatory">*</strong></mat-label>
-              <input matInput formControlName="Location"  autocomplete="off" readonly="readonly" />
-            </mat-form-field>
-          </div>
-          </div>
-          <div>
-            <input type="button" mat-raised-button color="primary" class=" mx-2 mt-2 mat-raised-button mat-button-base mat-primary searchLCBtn mt-2" *ngIf="!viewOnly" [value]="loc_text" (click)="Add()" />
-            <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
-          </div>
-
-
-      </div>
-
-
-
-
-
-
-
 
 
     </div>
 
-    <div class="mt-2 justify-content-center text-right border-t py-4" >
-        <button style="background-color: #01671B;" mat-raised-button color="primary" (click)="saveSubmit()" *ngIf="!viewOnly" ><mat-icon class="mr-2">save</mat-icon>Save & Submit</button>
-        <button mat-raised-button color="primary" class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger ml-2" (click)="deleteVendor()" *ngIf="isEdit" ><mat-icon class="mr-2">delete</mat-icon>Delete Vendor</button>
+    <div class="mt-2 justify-content-center text-right border-t py-4">
+        <button style="background-color: #01671B;" mat-raised-button color="primary" (click)="saveSubmit()"
+                *ngIf="!viewOnly">
+            <mat-icon class="mr-2">save</mat-icon>
+            Save & Submit
+        </button>
+        <button mat-raised-button color="primary"
+                class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger ml-2"
+                (click)="deleteVendor()" *ngIf="isEdit">
+            <mat-icon class="mr-2">delete</mat-icon>
+            Delete Vendor
+        </button>
     </div>
 
 </div>
