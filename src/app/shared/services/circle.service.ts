@@ -138,7 +138,7 @@ export class CircleService {
 
 
     CirclePoligonAdd(request: BaseRequestModel): Observable<BaseResponseModel> {
-
+        debugger
         //this.request = new BaseRequestModel();
         //this.request.Circle = circle;
         return this.http.post(`${environment.apiUrl}/Circle/CirclePoligonAdd`, this.request,
@@ -148,7 +148,7 @@ export class CircleService {
     }
 
     CirclePoligonUpdate(request: BaseRequestModel): Observable<BaseResponseModel> {
-
+        debugger
         //this.request = new BaseRequestModel();
         //this.request.Circle = circle;
 

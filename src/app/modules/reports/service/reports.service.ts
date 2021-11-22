@@ -36,7 +36,7 @@ export class ReportsService {
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }
-        
+
         var request = {
             // DeviceLocation: {
             //   BtsId: "0",
@@ -65,7 +65,7 @@ export class ReportsService {
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }
-        
+
         var request = {
             ReportsFilterCustom: reportsFilter,
             User: this.userDetail.User,
@@ -86,7 +86,7 @@ export class ReportsService {
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }
-        
+
         var request = {
             ReportsFilterCustom: reportsFilter,
             User: this.userDetail.User,
@@ -108,7 +108,10 @@ export class ReportsService {
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }
-        
+      if(user.Branch.WorkingDate == undefined){
+          user.Branch.WorkingDate = reportsFilter.WorkingDate;
+      }
+
         var request = {
             ReportsFilterCustom: reportsFilter,
             User: this.userDetail.User,
