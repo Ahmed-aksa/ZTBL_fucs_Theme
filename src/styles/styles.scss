@@ -340,8 +340,7 @@ button:focus {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 }
 
-element.style {
-}
+
 .mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper .mat-form-field-flex {
     --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
     box-shadow: 0 0 #0000, 0 0 #0000, var(--tw-shadow) !important;
@@ -489,4 +488,11 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
 .mat-cell{
   word-break: break-word;
 
+}
+
+.mat-calendar-table-header{
+   tr {
+    height: auto;
+
+}
 }
