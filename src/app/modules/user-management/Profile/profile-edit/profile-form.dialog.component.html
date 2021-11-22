@@ -1,14 +1,18 @@
 <div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
     
     
-    <div class="row py-3">
+    <div class="row pt-3">
         <div class="col-lg-10 col-sm-12">
             <div class="heading">Assign Pages</div>
         </div>
         <div class="col-lg-2 col-sm-12 self-center mt-2 ">
             <p class="text-right">
-                <button class="  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button" color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2">filter_list</mat-icon> Advance Filter
+                <button class="mt-2  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
+                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                    Advance Filter
                 </button>
               </p>
         </div>
@@ -18,14 +22,14 @@
 
 
 
-      <div class="collapse" id="collapseExample">
+      <div class="collapse show" id="collapseExample">
         <div class="card card-body">
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
-                    <div class="flex flex-shrink-0 items-center mt-4 sm:mt-0">
-                        <mat-form-field data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" class="mat-form-field-fluid w-full" appearance="outline" id="focus-removal">
+                    <div class="flex flex-shrink-0 items-center sm:mt-0">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" id="focus-removal">
                             <mat-label>Roles</mat-label>
-                            <mat-select data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" placeholder="--Select--" name="ProfileID"
+                            <mat-select  placeholder="--Select--" name="ProfileID"
                                         (selectionChange)="getProfile($event)">
                                 <mat-option *ngFor="let profile of profiles" [value]="profile.ProfileID">
                                     {{profile.ProfileName}}
