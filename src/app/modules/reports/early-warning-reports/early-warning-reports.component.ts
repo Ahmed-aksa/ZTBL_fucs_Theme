@@ -10,7 +10,7 @@
 /* eslint-disable @typescript-eslint/semi */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
@@ -30,7 +30,7 @@ import {ToastrService} from "ngx-toastr";
     templateUrl: './early-warning-reports.component.html',
     styleUrls: ['./early-warning-reports.component.scss']
 })
-export class EarlyWarningReportsComponent implements OnInit {
+export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
     displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
     searchCnicForm: FormGroup;
     selected_b;
@@ -121,7 +121,7 @@ export class EarlyWarningReportsComponent implements OnInit {
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "17";
         this.spinner.show();
-        this._reports.reportDynamic(this.user, this.reports)
+        this._reports.searchNpl(this.user, this.reports)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -155,7 +155,7 @@ export class EarlyWarningReportsComponent implements OnInit {
     getAllData(data) {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
-        this.circle = null
+        this.circle = data.final_circle
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
@@ -172,6 +172,11 @@ export class EarlyWarningReportsComponent implements OnInit {
     //     this.searchCnicForm.controls["AccountStatus"].setValue(this.statusLov ? this.statusLov[0].Value : "")
     //     console.log(this.statusLov)
     // }
+
+    ngAfterViewInit() {
+
+        this.gridHeight = window.innerHeight - 300 + 'px';
+    }
 
 
 }

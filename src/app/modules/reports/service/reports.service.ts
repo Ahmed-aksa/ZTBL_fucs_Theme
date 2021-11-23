@@ -82,7 +82,7 @@ export class ReportsService {
     }
 
     searchNpl(user, reportsFilter) {
-      
+
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }
@@ -93,8 +93,8 @@ export class ReportsService {
             Zone: user.Zone,
             Branch: user.Branch,
             Circle:{
-              CircleId: user.Circle.Id,
-              CircleCode: user.Circle.CircleCode
+              CircleId: user.Circle.CircleCode,
+              CircleCode: user.Circle.Id
             }
         }
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
@@ -104,7 +104,7 @@ export class ReportsService {
     }
 
     bifurcation(user, reportsFilter) {
-      
+
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }
