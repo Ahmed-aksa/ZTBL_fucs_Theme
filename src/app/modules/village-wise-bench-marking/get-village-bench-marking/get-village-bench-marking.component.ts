@@ -232,8 +232,12 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     }
 
     editVillageBenchMark(val) {
+        localStorage.setItem('selected_single_zone', JSON.stringify(val.ZoneId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(val.BranchCode));
+        localStorage.setItem('selected_single_circle', JSON.stringify(val.CircleId));
+        console.log(JSON.stringify(val))
         this.router.navigate(['/village-wise-bench-marking/add-update-bench-marking'], {
-            state: {example: val},
+            state: {example: val, hide: true},
             relativeTo: this.activatedRoute
         });
     }
@@ -244,7 +248,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
         localStorage.setItem('selected_single_circle', JSON.stringify(val.CircleId));
 
         this.router.navigate(['/village-wise-bench-marking/add-update-bench-marking'], {
-            state: {example: val, hide: true},
+            state: {example: val, hide: false},
             relativeTo: this.activatedRoute
         });
     }
@@ -258,7 +262,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     }
 
     viewMap(data) {
-        console.log("data"+JSON.stringify(data))
+        console.log("data" + JSON.stringify(data))
         const dialogRef = this.dialog.open(ViewMapsComponent, {
             panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',

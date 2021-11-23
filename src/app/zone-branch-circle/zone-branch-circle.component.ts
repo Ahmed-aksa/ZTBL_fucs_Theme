@@ -184,27 +184,52 @@ export class ZoneBranchCircleComponent implements OnInit {
             changedBranch = {Branch: {BranchCode: changedValue.value}}
         else
             changedBranch = {Branch: {BranchCode: changedValue}}
-
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            this.SelectedCircles = data.Circles;
-            this.single_circle = false;
-
+        if (this.SelectedCircles && this.SelectedCircles.length != 0) {
             if (has_circle) {
-                this.selected_c = this.selected_circle.CircleCode;
+                this.SelectedCircles.filter((single_circle) => {
+                    if (single_circle.CircleId == this.selected_circle.CircleCode) {
+                        this.selected_c = this.selected_circle.CircleCode;
+                    }
+                });
             } else if (has_single_circle) {
-                this.selected_c = this.selected_single_circle;
+                this.SelectedCircles.filter(single_circle => {
+                    if (single_circle.CircleId == this.selected_single_circle) {
+                        this.selected_c = this.selected_single_circle;
+                    }
+                });
             }
-            this.spinner.hide();
             localStorage.removeItem('selected_single_zone');
             localStorage.removeItem('selected_single_branch');
             localStorage.removeItem('selected_single_circle');
             localStorage.removeItem('selected_zone');
             localStorage.removeItem('selected_branch');
             localStorage.removeItem('selected_circle');
-            this.emitData();
+            this.spinner.hide();
 
 
-        });
+        }
+        if (!this.selected_c) {
+            this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
+                this.SelectedCircles = data.Circles;
+                this.single_circle = false;
+
+                if (has_circle) {
+                    this.selected_c = this.selected_circle.CircleCode;
+                } else if (has_single_circle) {
+                    this.selected_c = this.selected_single_circle;
+                }
+                this.spinner.hide();
+                localStorage.removeItem('selected_single_zone');
+                localStorage.removeItem('selected_single_branch');
+                localStorage.removeItem('selected_single_circle');
+                localStorage.removeItem('selected_zone');
+                localStorage.removeItem('selected_branch');
+                localStorage.removeItem('selected_circle');
+                this.emitData();
+
+
+            });
+        }
         this.emitData();
     }
 
