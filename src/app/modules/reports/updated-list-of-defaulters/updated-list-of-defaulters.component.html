@@ -62,7 +62,7 @@
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
         </div> -->
 
-        <div class="mat-table__wrapper">
+        <div class="mat-table__wrapper overflow-scroll border shadow-xs rounded-sm bg-gray-50 " [style.height]="gridHeight">
             <!--[style.height]="gridHeight"-->
             <mat-table
                 class="lmat-elevation-z8"
@@ -157,8 +157,8 @@
                 </ng-container>
 
                 <ng-container matColumnDef="Cnic">
-                    <mat-header-cell *matHeaderCellDef>CNIC</mat-header-cell>
-                    <mat-cell *matCellDef="let report">{{
+                    <mat-header-cell style="min-width: 120px;" *matHeaderCellDef>CNIC</mat-header-cell>
+                    <mat-cell style="min-width: 120px;" *matCellDef="let report">{{
                         report.Cnic
                         }}</mat-cell>
                 </ng-container>
@@ -186,12 +186,12 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Agps">
+                <ng-container  matColumnDef="Agps">
                     <mat-header-cell *matHeaderCellDef
                     >Major Borrower
                     </mat-header-cell
                     >
-                    <mat-cell *matCellDef="let report">{{
+                    <mat-cell class="text-center" *matCellDef="let report">{{
                         report.MajorBorrower
                         }}</mat-cell>
                 </ng-container>
