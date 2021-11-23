@@ -93,7 +93,7 @@ export class ReportsService {
             Zone: user.Zone,
             Branch: user.Branch,
             Circle:{
-              CircleId: user.Circle.CircleId,
+              CircleId: user.Circle.Id,
               CircleCode: user.Circle.CircleCode
             }
         }
