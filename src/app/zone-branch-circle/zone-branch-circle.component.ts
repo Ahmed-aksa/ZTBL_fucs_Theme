@@ -184,7 +184,7 @@ export class ZoneBranchCircleComponent implements OnInit {
             changedBranch = {Branch: {BranchCode: changedValue.value}}
         else
             changedBranch = {Branch: {BranchCode: changedValue}}
-        if (this.SelectedCircles.length != 0) {
+        if (this.SelectedCircles && this.SelectedCircles.length != 0) {
             if (has_circle) {
                 this.SelectedCircles.filter((single_circle) => {
                     if (single_circle.CircleId == this.selected_circle.CircleCode) {
