@@ -183,7 +183,7 @@ export class ZoneBranchCircleComponent implements OnInit {
         if (changedValue.value)
             changedBranch = {Branch: {BranchCode: changedValue.value}}
         else
-            changedBranch = {Branch: {BranchCode: changedValue.toString()}}
+            changedBranch = {Branch: {BranchCode: changedValue}}
 
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
             this.SelectedCircles = data.Circles;
