@@ -85,7 +85,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     ) {
         if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
             this.req_arr = this.router.getCurrentNavigation().extras.state.example;
-            this.is_view = this.router.getCurrentNavigation().extras.state.hide;
+            // this.is_view = this.router.getCurrentNavigation().extras.state.hide;
             this.updatingCase = true;
 
             // console.log("arr"+JSON.stringify(this.req_arr))
