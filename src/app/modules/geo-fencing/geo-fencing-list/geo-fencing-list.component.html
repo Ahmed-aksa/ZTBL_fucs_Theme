@@ -126,11 +126,7 @@
                     <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.PPNo}}</td>
                 </ng-container>
 
-                <!-- Title Column -->
-                <ng-container matColumnDef="ApproxDistanceTraveled">
-                    <th mat-header-cell *matHeaderCellDef>Approximate Distance Traveled</th>
-                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories?.ApproxDistanceTraveled}}</td>
-                </ng-container>
+
 
                 <!-- Title Column -->
                 <ng-container matColumnDef="BranchCode">
@@ -148,6 +144,12 @@
                 <ng-container matColumnDef="StopTime">
                     <th mat-header-cell *matHeaderCellDef>Stop Time</th>
                     <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories?.StopTime}}</td>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="ApproxDistanceTraveled">
+                    <th mat-header-cell *matHeaderCellDef>Approximate Distance Traveled</th>
+                    <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories?.ApproxDistanceTraveled}}</td>
                 </ng-container>
 
                 <!-- State Column -->
