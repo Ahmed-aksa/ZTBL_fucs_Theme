@@ -112,8 +112,8 @@ export class GeoFencingListComponent implements OnInit {
                 this.dv = this.dataSource.data;
 
             } else {
-
-                this.dataSource.data.splice(1,0);
+                this.dataSource = this.dv.slice(1, 0)
+                // this.dataSource.data.splice(1,0);
                  this.dv?.splice(1,0)
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }
