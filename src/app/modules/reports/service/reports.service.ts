@@ -72,7 +72,7 @@ export class ReportsService {
             Zone: user.Zone,
             Branch: user.Branch,
             Circle:{
-              CircleCode: user.Circle.CircleId
+              CircleCode: user.Circle.Id
             }
         }
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
