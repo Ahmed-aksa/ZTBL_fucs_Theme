@@ -219,6 +219,7 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
 
 .heading{
   background-color: #f6fcf8;
+  color: #01671B;
   letter-spacing: -0.025em !important;
   font-weight: 800 !important;
   font-size: 1.5rem !important;
@@ -510,3 +511,26 @@ button[aria-expanded=false] .down {
 //     background-color: #f6fcf8;
 //   }
 // }
+
+@media only screen and (max-width: 600px) {
+  .mat-table {
+    overflow-x: scroll;
+    max-width: 400px;
+  }
+
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.mat-row,
+.mat-header-row {
+  display: table-row;
+}
+}

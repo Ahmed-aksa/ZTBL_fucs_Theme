@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { DatePipe } from '@angular/common'
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {DatePipe} from '@angular/common'
 import {BaseRequestModel} from "../../../shared/models/base_request.model";
 import {HttpUtilsService} from "../../../shared/services/http_utils.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
@@ -13,321 +13,325 @@ import {BaseResponseModel} from "../../../shared/models/base_response.model";
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LoanUtilizationService {
 
-  dod: Date;
+    dod: Date;
 
-  public request = new BaseRequestModel();
-  public activity = new Activity();
+    public request = new BaseRequestModel();
+    public activity = new Activity();
 
-  constructor(
-    private http: HttpClient,
-     private httpUtils: HttpUtilsService,
-     private userUtilsService: UserUtilsService,
-    private _common: CommonService) { }
-
-    GetLoanDetail(value){
-
-    this.request = new BaseRequestModel();
-    this.request.LoanUtilization={"UtilizationDetail":value}
-    this.request.TranId = 2830;
-    this.request.DEVICELOCATION={
-      BTSID :"0",
-      BTSLOC : "",
-      LAT: "33.65898",
-      LONG: "73.057665",
-      SRC: "GPS"
-    },
-
-    this.request.Circle={
-      CircleIds: "53444,53443,53442,53441"
-    },
-
-    this.request.doPerformOTP = false;
-
-    var userInfo = this.userUtilsService.getUserDetails();
-
-    this.request.User = userInfo.User;
-    this.request.Zone = userInfo.Zone;
-    this.request.Branch = userInfo.Branch;
-    this.activity.ActivityID = 1;
-    this.request.Activity = this.activity;
-    var req = JSON.stringify(this.request);
-console.log("GetLoanDetail disbursment"+req)
-    return this.http.post(`${environment.apiUrl}/LoanUtilization/GetLoanDetail`, this.request,
-      { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-        map((res: BaseResponseModel) => res)
-      );
-  }
-    searchUtilization(loanUtilization, userDetail: BaseResponseModel=null): Observable<BaseResponseModel> {
-    this.request = new BaseRequestModel();
-    // if (loanUtilization.CustomerName == null)
-    // loanUtilization.CustomerName = "";
-
-    // if (loanUtilization.FatherName == null)
-    // loanUtilization.FatherName = "";
-
-    // if (loanUtilization.Cnic == null)
-    // loanUtilization.Cnic = "";
-
-
-    var userInfo = this.userUtilsService.getUserDetails();
-    if (userDetail && userDetail.Zone) {
-      userInfo.Zone = userDetail.Zone;
-      userInfo.Branch = userDetail.Branch;
+    constructor(
+        private http: HttpClient,
+        private httpUtils: HttpUtilsService,
+        private userUtilsService: UserUtilsService,
+        private _common: CommonService) {
     }
-    this.request.User = userInfo.User;
-    this.request.LoanUtilization={"UtilizationDetail":loanUtilization}
-    this.request.Zone = userInfo.Zone;
-    this.request.Branch = userInfo.Branch;
 
-    var req = JSON.stringify(this.request);
+    GetLoanDetail(value) {
 
-    return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchUtilizations`, this.request,
-      { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-        map((res: BaseResponseModel) => res)
-      );
-  }
+        this.request = new BaseRequestModel();
+        this.request.LoanUtilization = {"UtilizationDetail": value}
+        this.request.TranId = 2830;
+        this.request.DEVICELOCATION = {
+            BTSID: "0",
+            BTSLOC: "",
+            LAT: "33.65898",
+            LONG: "73.057665",
+            SRC: "GPS"
+        },
 
-    searchLoanUtilization(loanUtilization, userDetail: BaseResponseModel=null,fromdate:string,todate:string,Limit,Offset,SelectedCircles:any): Observable<BaseResponseModel> {
+            this.request.Circle = {
+                CircleIds: "53444,53443,53442,53441"
+            },
 
-    this.request = new BaseRequestModel();
+            this.request.doPerformOTP = false;
 
+        var userInfo = this.userUtilsService.getUserDetails();
 
-    var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-    if (userDetail && userDetail.Zone) {
-      userInfo.Zone = userDetail.Zone;
-      userInfo.Branch = userDetail.Branch;
-    }
-    this.request.User = userInfo.User;
-    if(loanUtilization){
-      this.request.LoanUtilization={"UtilizationDetail":{"LoanCaseNo":loanUtilization}}
-    }else{
-      loanUtilization = null
-      this.request.LoanUtilization={"UtilizationDetail":{"LoanCaseNo":loanUtilization}}
-  }
-      this.request.LoanUtilization["FromDate"]=fromdate;
-      this.request.LoanUtilization["ToDate"]=todate;
-      this.request.LoanUtilization["Offset"]=Offset;
-      this.request.LoanUtilization["Limit"]=Limit;
+        this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
-    var circleIds = [];
-        SelectedCircles.forEach(element => {
-      circleIds.push(element.Id);
-    });
-
-    var _circles = JSON.stringify(circleIds)
-    this.request.Circle = {
-      CircleIds: _circles,
+        this.activity.ActivityID = 1;
+        this.request.Activity = this.activity;
+        var req = JSON.stringify(this.request);
+        return this.http.post(`${environment.apiUrl}/LoanUtilization/GetLoanDetail`, this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
 
-    var req = JSON.stringify(this.request);
+    searchUtilization(loanUtilization, zone, branch, circle): Observable<BaseResponseModel> {
+        this.request = new BaseRequestModel();
+        // if (loanUtilization.CustomerName == null)
+        // loanUtilization.CustomerName = "";
 
-    return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchLoanForUtilization`,  this.request,
-      { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-        map((res: BaseResponseModel) => res)
-      );
-  }
+        // if (loanUtilization.FatherName == null)
+        // loanUtilization.FatherName = "";
 
-    save(value){
-    value.Status="P";
-
-    this.request = new BaseRequestModel();
-    var userInfo = this.userUtilsService.getUserDetails();
-    this.request.DEVICELOCATION={
-      BTSID :"0",
-      BTSLOC : "",
-      LAT: "33.65898",
-      LONG: "73.057665",
-      SRC: "GPS"
-    },
-    this.request.LoanUtilization={"UtilizationDetail":value}
-    this.request.TranId = 2830;
-    this.request.doPerformOTP = false;
-    this.request.Zone = userInfo.Zone;
-    this.request.Branch = userInfo.Branch;
-    this.request.User = userInfo.User;
-    var req = JSON.stringify(this.request);
+        // if (loanUtilization.Cnic == null)
+        // loanUtilization.Cnic = "";
 
 
-      return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/SaveUpdateUtilization`, this.request,
-    ).pipe(
-      map((res: BaseResponseModel) => res)
-    );
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+
+        this.request.User = userInfo.User;
+        this.request.LoanUtilization = {"UtilizationDetail": loanUtilization}
+        this.request.Zone = zone;
+        this.request.Branch = branch;
+        this.request.Circle = circle;
+        return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchUtilizations`, this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
 
-    statusChange(value){
+    searchLoanUtilization(loanUtilization, userDetail: BaseResponseModel = null, fromdate: string, todate: string, Limit, Offset, branch: any, zone: any, circle: any): Observable<BaseResponseModel> {
 
-      this.request = new BaseRequestModel();
-      var userInfo = this.userUtilsService.getUserDetails();
-      this.request.Circle={
-        CircleIds: "53444,53443,53442,53441"
-      },
-      this.request.DEVICELOCATION={
-        BTSID :"0",
-        BTSLOC : "",
-        LAT: "33.65898",
-        LONG: "73.057665",
-        SRC: "GPS"
-      },
-      this.request.LoanUtilization={"UtilizationDetail":value}
-      this.request.TranId = 2830;
-      this.request.doPerformOTP = false;
-      this.request.Zone = userInfo.Zone;
-      this.request.Branch = userInfo.Branch;
-      this.request.User = userInfo.User;
-      var req = JSON.stringify(this.request);
+        this.request = new BaseRequestModel();
+
+
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        if (userDetail && userDetail.Zone) {
+            userInfo.Zone = userDetail.Zone;
+            userInfo.Branch = userDetail.Branch;
+        }
+        this.request.User = userInfo.User;
+        if (loanUtilization) {
+            this.request.LoanUtilization = {"UtilizationDetail": {"LoanCaseNo": loanUtilization}}
+        } else {
+            loanUtilization = null
+            this.request.LoanUtilization = {"UtilizationDetail": {"LoanCaseNo": loanUtilization}}
+        }
+        this.request.LoanUtilization["FromDate"] = fromdate;
+        this.request.LoanUtilization["ToDate"] = todate;
+        this.request.LoanUtilization["Offset"] = Offset;
+        this.request.LoanUtilization["Limit"] = Limit;
+        this.request.Zone = zone;
+        this.request.Branch = branch;
+        var circleIds = [];
+        let SelectedCircles = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().SelectedCircles;
+        if (SelectedCircles?.length > 0) {
+            SelectedCircles.forEach(element => {
+                circleIds.push(element.Id);
+            });
+        }
+
+        var _circles = JSON.stringify(circleIds)
+        this.request.Circle = {
+            CircleIds: _circles,
+            Circle: circle
+        }
+
+
+        return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchLoanForUtilization`, this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
+
+    save(value) {
+        value.Status = "P";
+
+        this.request = new BaseRequestModel();
+        var userInfo = this.userUtilsService.getUserDetails();
+        this.request.DEVICELOCATION = {
+            BTSID: "0",
+            BTSLOC: "",
+            LAT: "33.65898",
+            LONG: "73.057665",
+            SRC: "GPS"
+        },
+            this.request.LoanUtilization = {"UtilizationDetail": value}
+        this.request.TranId = 2830;
+        this.request.doPerformOTP = false;
+        this.request.Zone = userInfo.Zone;
+        this.request.Branch = userInfo.Branch;
+        this.request.User = userInfo.User;
+        var req = JSON.stringify(this.request);
+
+
+        return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/SaveUpdateUtilization`, this.request,
+        ).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
+
+    statusChange(value) {
+
+        this.request = new BaseRequestModel();
+        var userInfo = this.userUtilsService.getUserDetails();
+        this.request.Circle = {
+            CircleIds: "53444,53443,53442,53441"
+        },
+            this.request.DEVICELOCATION = {
+                BTSID: "0",
+                BTSLOC: "",
+                LAT: "33.65898",
+                LONG: "73.057665",
+                SRC: "GPS"
+            },
+            this.request.LoanUtilization = {"UtilizationDetail": value}
+        this.request.TranId = 2830;
+        this.request.doPerformOTP = false;
+        this.request.Zone = userInfo.Zone;
+        this.request.Branch = userInfo.Branch;
+        this.request.User = userInfo.User;
+        var req = JSON.stringify(this.request);
 
         return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/ChangeUtilizationStatus`, this.request,
-      ).pipe(
-        map((res: BaseResponseModel) => res)
-      );
-      }
-
-    SaveMedia(file,loanutilization:any,val:string){
-      //append work
-
-      var formData = new FormData();
-
-      this.request = new BaseRequestModel();
-      var userInfo = this.userUtilsService.getUserDetails();
-      this.request.Circle={
-        CircleIds: "53444,53443,53442,53441"
-      },
-      this.request.DEVICELOCATION={
-        BTSID :"0",
-        BTSLOC : "",
-        LAT: "33.65898",
-        LONG: "73.057665",
-        SRC: "GPS"
-      },
-
-      this.request.TranId = 2830;
-      this.request.doPerformOTP = false;
-      this.request.Zone = userInfo.Zone;
-      this.request.Branch = userInfo.Branch;
-      this.request.User = userInfo.User;
-      var req = JSON.stringify(this.request);
-
-    formData.append('UtilizationID', loanutilization.ID);
-    formData.append('Lat', loanutilization.Lat);
-    formData.append('Lng', loanutilization.Lng);
-    formData.append('UserID', userInfo.User.UserId);
-    formData.append('IsVideo', val);
-    formData.append('File',file);
-
-    return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/UploadUtlization`, formData,
         ).pipe(
-        map((res: BaseResponseModel) => res)
-      );
-    }
-
-    GetMedia(data){
-
-      this.request = new BaseRequestModel();
-      this.request.LoanUtilization={"UtilizationDetail":{"LoanCaseNo": data.LoanCaseNo, "LoanDisbID":data.LoanDisbID}}
-      this.request.TranId = 2830;
-      this.request.DEVICELOCATION={
-        BTSID :"0",
-        BTSLOC : "",
-        LAT: "33.65898",
-        LONG: "73.057665",
-        SRC: "GPS"
-      },
-
-      this.request.Circle={
-        CircleIds: "53444,53443,53442,53441"
-      },
-      this.request.doPerformOTP = false;
-      var userInfo = this.userUtilsService.getUserDetails();
-
-      this.request.User = userInfo.User;
-      this.request.Zone = userInfo.Zone;
-      this.request.Branch = userInfo.Branch;
-      this.activity.ActivityID = 1;
-      this.request.Activity = this.activity;
-      var req = JSON.stringify(this.request);
-
-
-      return this.http.post(
-        `${environment.apiUrl}/LoanUtilization/GetUploadedUtilizations`, this.request,
-        { headers: this.httpUtils.getHTTPHeaders() }
-        ).pipe(
-          map((res: BaseResponseModel) => res)
-        );
-    }
-    DeleteMedia(id:string){
-
-      this.request = new BaseRequestModel();
-      this.request.LoanUtilization={"UtilizationDetail":{"ID": id}}
-      this.request.TranId = 2830;
-      this.request.DEVICELOCATION={
-        BTSID :"0",
-        BTSLOC : "",
-        LAT: "33.65898",
-        LONG: "73.057665",
-        SRC: "GPS"
-      },
-      this.request.Circle={
-        CircleIds: "53444,53443,53442,53441"
-      },
-      this.request.doPerformOTP = false;
-      var userInfo = this.userUtilsService.getUserDetails();
-
-      this.request.User = userInfo.User;
-      this.request.Zone = userInfo.Zone;
-    this.request.Branch = userInfo.Branch;
-      this.activity.ActivityID = 1;
-      this.request.Activity = this.activity;
-      var req = JSON.stringify(this.request);
-
-      return this.http.post(`${environment.apiUrl}/LoanUtilization/DeleteUtilizationFile`, this.request,
-        { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-          map((res: BaseResponseModel) => res)
+            map((res: BaseResponseModel) => res)
         );
     }
 
-    GetLoanGL(value){
+    SaveMedia(file, loanutilization: any, val: string) {
+        //append work
 
-    this.request = new BaseRequestModel();
-    this.request.LoanUtilization={"UtilizationDetail":value}
-    this.request.TranId = 2830;
-    this.request.DEVICELOCATION={
-      BTSID :"0",
-      BTSLOC : "",
-      LAT: "33.65898",
-      LONG: "73.057665",
-      SRC: "GPS"
-    },
+        var formData = new FormData();
 
-    this.request.Circle={
-      CircleIds: "53444,53443,53442,53441"
-    },
+        this.request = new BaseRequestModel();
+        var userInfo = this.userUtilsService.getUserDetails();
+        this.request.Circle = {
+            CircleIds: "53444,53443,53442,53441"
+        },
+            this.request.DEVICELOCATION = {
+                BTSID: "0",
+                BTSLOC: "",
+                LAT: "33.65898",
+                LONG: "73.057665",
+                SRC: "GPS"
+            },
 
-    this.request.doPerformOTP = false;
+            this.request.TranId = 2830;
+        this.request.doPerformOTP = false;
+        this.request.Zone = userInfo.Zone;
+        this.request.Branch = userInfo.Branch;
+        this.request.User = userInfo.User;
+        var req = JSON.stringify(this.request);
 
-    var userInfo = this.userUtilsService.getUserDetails();
+        formData.append('UtilizationID', loanutilization.ID);
+        formData.append('Lat', loanutilization.Lat);
+        formData.append('Lng', loanutilization.Lng);
+        formData.append('UserID', userInfo.User.UserId);
+        formData.append('IsVideo', val);
+        formData.append('File', file);
 
-    this.request.User = userInfo.User;
-    this.request.Zone = userInfo.Zone;
-    this.request.Branch =   {
-      "BranchId": "102",
-      "BranchCode": "20238",
-      "Name": "NOORPUR TOWN",
-      "WorkingDate": "11012021",
-      "Id": 0
-  }
-    this.activity.ActivityID = 1;
-    this.request.Activity = this.activity;
-    var req = JSON.stringify(this.request);
-console.log("GetLoanGL"+req)
-    return this.http.post(`${environment.apiUrl}/LoanUtilization/GetGLForLoan`, this.request,
-      { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-        map((res: BaseResponseModel) => res)
-      );
-  }
+        return this.http.post<any>(`${environment.apiUrl}/LoanUtilization/UploadUtlization`, formData,
+        ).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
+
+    GetMedia(data) {
+
+        this.request = new BaseRequestModel();
+        this.request.LoanUtilization = {
+            "UtilizationDetail": {
+                "LoanCaseNo": data.LoanCaseNo,
+                "LoanDisbID": data.LoanDisbID
+            }
+        }
+        this.request.TranId = 2830;
+        this.request.DEVICELOCATION = {
+            BTSID: "0",
+            BTSLOC: "",
+            LAT: "33.65898",
+            LONG: "73.057665",
+            SRC: "GPS"
+        },
+
+            this.request.Circle = {
+                CircleIds: "53444,53443,53442,53441"
+            },
+            this.request.doPerformOTP = false;
+        var userInfo = this.userUtilsService.getUserDetails();
+
+        this.request.User = userInfo.User;
+        this.request.Zone = userInfo.Zone;
+        this.request.Branch = userInfo.Branch;
+        this.activity.ActivityID = 1;
+        this.request.Activity = this.activity;
+        var req = JSON.stringify(this.request);
+
+
+        return this.http.post(
+            `${environment.apiUrl}/LoanUtilization/GetUploadedUtilizations`, this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}
+        ).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
+
+    DeleteMedia(id: string) {
+
+        this.request = new BaseRequestModel();
+        this.request.LoanUtilization = {"UtilizationDetail": {"ID": id}}
+        this.request.TranId = 2830;
+        this.request.DEVICELOCATION = {
+            BTSID: "0",
+            BTSLOC: "",
+            LAT: "33.65898",
+            LONG: "73.057665",
+            SRC: "GPS"
+        },
+            this.request.Circle = {
+                CircleIds: "53444,53443,53442,53441"
+            },
+            this.request.doPerformOTP = false;
+        var userInfo = this.userUtilsService.getUserDetails();
+
+        this.request.User = userInfo.User;
+        this.request.Zone = userInfo.Zone;
+        this.request.Branch = userInfo.Branch;
+        this.activity.ActivityID = 1;
+        this.request.Activity = this.activity;
+        var req = JSON.stringify(this.request);
+
+        return this.http.post(`${environment.apiUrl}/LoanUtilization/DeleteUtilizationFile`, this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
+
+    GetLoanGL(value) {
+
+        this.request = new BaseRequestModel();
+        this.request.LoanUtilization = {"UtilizationDetail": value}
+        this.request.TranId = 2830;
+        this.request.DEVICELOCATION = {
+            BTSID: "0",
+            BTSLOC: "",
+            LAT: "33.65898",
+            LONG: "73.057665",
+            SRC: "GPS"
+        },
+
+            this.request.Circle = {
+                CircleIds: "53444,53443,53442,53441"
+            },
+
+            this.request.doPerformOTP = false;
+
+        var userInfo = this.userUtilsService.getUserDetails();
+
+        this.request.User = userInfo.User;
+        this.request.Zone = userInfo.Zone;
+        this.request.Branch = {
+            "BranchId": "102",
+            "BranchCode": "20238",
+            "Name": "NOORPUR TOWN",
+            "WorkingDate": "11012021",
+            "Id": 0
+        }
+        this.activity.ActivityID = 1;
+        this.request.Activity = this.activity;
+        var req = JSON.stringify(this.request);
+        return this.http.post(`${environment.apiUrl}/LoanUtilization/GetGLForLoan`, this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
 
 }

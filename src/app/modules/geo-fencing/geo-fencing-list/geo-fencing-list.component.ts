@@ -35,7 +35,7 @@ export class GeoFencingListComponent implements OnInit {
     offSet = 0;
     totalItems: number | any = 0;
     dv: number | any; //use later
-    dataSource;
+    dataSource=new MatTableDataSource();
     listForm: FormGroup
     //Zone inventory
     LoggedInUserInfo: BaseResponseModel;
@@ -112,7 +112,8 @@ export class GeoFencingListComponent implements OnInit {
                 this.dv = this.dataSource.data;
 
             } else {
-                this.dataSource=[]
+                this.dataSource = this.dv.slice(1, 0)
+                // this.dataSource.data.splice(1,0);
                  this.dv?.splice(1,0)
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }

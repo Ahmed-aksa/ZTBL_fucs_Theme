@@ -40,7 +40,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     selected_c;
     loaded = true;
 
-
+    gridHeight: string;
     public reports = new SearchLoanCaseByCnic();
 
     matTableLenght = false;
@@ -160,6 +160,14 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle
+    }
+    ngAfterViewInit() {
+
+        this.gridHeight = window.innerHeight - 300 + 'px';
+
+        //var userInfo = this.userUtilsService.getUserDetails();
+        //this.loanutilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
+        //this.loanutilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
 }

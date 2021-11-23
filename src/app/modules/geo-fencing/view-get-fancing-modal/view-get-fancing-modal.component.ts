@@ -271,6 +271,16 @@ export class ViewGetFancingModalComponent implements OnInit {
 
 
     ///////////////////Os Change Set Map
+    countryRestriction = {
+        latLngBounds: {
+            north: 37.084107,
+            east: 77.823171,
+            south: 23.6345,
+            west: 60.872972
+        },
+        strictBounds: true
+    };
+
     onMapReady(map) {
         this.googleMap = map;
         this.getPoligonGetByIds();

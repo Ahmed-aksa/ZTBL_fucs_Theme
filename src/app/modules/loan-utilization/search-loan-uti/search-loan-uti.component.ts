@@ -60,7 +60,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         "GlSubCode",
         "SchemeCode",
         "CropCode",
-         "LoanCaseNo",
+        "LoanCaseNo",
         "OutStandingPrinciple",
         "DisbursedAmount",
         "prodDevFlag",
@@ -95,33 +95,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     LoggedInUserInfo: BaseResponseModel;
-    //Zone inventory
-    Zones: any = [];
-    SelectedZones: any = [];
-    private Zone = new Zone();
 
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-    private Branch = new Branch();
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
-    public Circle = new Circle();
-    selected_b;
-    selected_z;
-    selected_c;
-
-    //final
-    final_branch: any;
-    final_zone: any;
-    final_cricle: any;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -137,7 +111,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 private _cdf: ChangeDetectorRef,
                 private userUtilsService: UserUtilsService,
                 private _common: CommonService,
-                public datePipe:DatePipe) {
+                public datePipe: DatePipe) {
     }
 
     ngOnInit() {
@@ -162,111 +136,21 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
         this.LoadLovs();
         this.createForm();
-        this.settingZBC()
 
 
         //this.FilterForm.controls["StartDate"].setValue(this.myDate);
         //this.FilterForm.controls["EndDate"].setValue(this.myDate);
 
     }
+
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
+
     userInfo = this.userUtilsService.getUserDetails();
 
-    settingZBC() {
-
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
-
-            this.SelectedBranches = this.LoggedInUserInfo.Branch;
-            this.SelectedZones = this.LoggedInUserInfo.Zone;
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.selected_c = this.SelectedCircles?.Id
-            this.loanutilizationSearch.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.loanutilizationSearch.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-            this.loanutilizationSearch.controls["Circle"].setValue(this.SelectedCircles?.Id);
-            // if (this.customerForm.value.Branch) {
-            //     this.changeBranch(this.customerForm.value.Branch);
-            // }
-            this.searchloanutilization();
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.UserCircleMappings) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-        }
-    }
-
-
-
-    private assignBranchAndZone() {
-
-        //Circle
-        if (this.SelectedCircles.length) {
-            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
-            this.userInfo.Circles = this.final_cricle;
-        } else {
-            this.final_cricle = this.SelectedCircles;
-            this.userInfo.Circles = this.final_cricle;
-        }
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.userInfo.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.userInfo.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.userInfo.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.userInfo.Zone = this.final_zone;
-        }
-
-    }
-
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
-
-
-    changeBranch(changedValue) {
-
-        let changedBranch = null;
-        if (changedValue.value)
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        else
-            changedBranch = {Branch: {BranchCode: changedValue}}
-
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            // this.selected_c = this.SelectedCircles?.Id
-            this.disable_circle = false;
-            if (changedValue.value) {
-                // this.getBorrower();
-            }
-        });
-    }
 
     ngAfterViewInit() {
 
@@ -307,11 +191,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     }
 
-    SetBranches(branchId) {
-
-        this.Branch.BranchCode = branchId.value;
-
-    }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
@@ -328,20 +207,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
 
-    searchBranch(branchId) {
-        branchId = branchId.toLowerCase();
-        if (branchId != null && branchId != undefined && branchId != "")
-            this.SelectedBranches = this.Branches.filter(x => x.Name.toLowerCase().indexOf(branchId) > -1);
-        else
-            this.SelectedBranches = this.Branches;
-    }
-
-    validateBranchOnFocusOut() {
-        if (this.SelectedBranches.length == 0)
-            this.SelectedBranches = this.Branches;
-    }
-
-
     hasError(controlName: string, errorName: string): boolean {
         return this.loanutilizationSearch.controls[controlName].hasError(errorName);
     }
@@ -352,7 +217,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     setFromDate() {
 
         // this.loanutilizationSearch.controls.FromDate.value this.datePipe.transform(this.loanutilizationSearch.controls.FromDate.value, 'ddMMyyyy')
-        this.minDate =  this.loanutilizationSearch.controls.FromDate.value;
+        this.minDate = this.loanutilizationSearch.controls.FromDate.value;
         var FromDate = this.loanutilizationSearch.controls.FromDate.value;
         if (FromDate._isAMomentObject == undefined) {
             try {
@@ -369,9 +234,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 this.fromdate = FromDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
                 // console.log("date"+this.datePipe.transform(branchWorkingDate, 'ddmmyyyy'))
-               // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
-               //  console.log(this._common.stringToDate(newdate))
-               this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate);
+                // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
+                //  console.log(this._common.stringToDate(newdate))
+                this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         } else {
@@ -457,8 +322,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     searchloanutilization() {
-        this.assignBranchAndZone();
-        if (!this.final_zone) {
+        if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
                 '',
@@ -468,7 +332,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
             return;
         }
 
-        if (!this.final_branch) {
+        if (!this.branch) {
             var Message = 'Please select Branch';
             this.layoutUtilsService.alertElement(
                 '',
@@ -515,7 +379,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         // }
 
 
-        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex,this.SelectedCircles)
+        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex, this.branch, this.zone, this.circle)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -597,6 +461,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     addloanutilization(utilization: any) {
+
+        localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(utilization.BranchCode));
+        localStorage.setItem('selected_single_circle', JSON.stringify(utilization.CircleId));
         utilization.Status = "Add";
         this.router.navigate(['../loan-uti'], {
             state: {example: utilization},

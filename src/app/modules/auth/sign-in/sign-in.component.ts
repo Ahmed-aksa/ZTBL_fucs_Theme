@@ -69,7 +69,7 @@ export class AuthSignInComponent implements OnInit {
                             const dialogRef = this.dialog.open(OtpComponent, {
                                 data: {result},
                                 disableClose: true,
-                                panelClass: [ 'max-w-full', 'max-h-full' , 'w-3/12'],
+                                panelClass: [ 'max-w-full', 'max-h-full' , 'sm:w-3/12', 'w-full'],
                             });
                             dialogRef.afterClosed().subscribe(res => {
                                 if (res.data.data != 0) {
@@ -78,6 +78,7 @@ export class AuthSignInComponent implements OnInit {
                                         localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
                                         localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
                                         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                                        window.location.reload();
                                         this._router.navigateByUrl(redirectURL);
                                     } else {
                                         this.signInNgForm.resetForm();
