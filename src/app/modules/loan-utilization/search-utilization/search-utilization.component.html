@@ -23,8 +23,8 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="flex" style="flex-wrap: wrap;">
-                <app-zone-branch-circle [form]="utilizationSearch" [should_show_circle]="true"
+            <div class="flex" style="flex-wrap: wrap;" [formGroup]="utilizationSearch">
+                <app-zone-branch-circle [form]="utilizationSearch" [should_show_circle]="false"
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
                 <div class="mx-2">
@@ -45,7 +45,7 @@
                                 <mat-option value="">
                                     Select
                                 </mat-option>
-                                <mat-option *ngFor="let obj of loanutilizationStatusLov.LOVs" [value]="obj.Value">
+                                <mat-option *ngFor="let obj of loanutilizationStatusLov?.LOVs" [value]="obj.Value">
                                     {{obj.Name}}
                                 </mat-option>
                             </mat-select>

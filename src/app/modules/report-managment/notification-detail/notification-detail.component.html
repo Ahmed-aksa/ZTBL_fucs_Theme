@@ -1,13 +1,13 @@
 <h3 class="text-3xl   font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">View User Location History</h3>
 
-<agm-map [zoom]="zoom" style="width: 500px;height: 500px"
+<agm-map [zoom]="zoom" style="height: 500px"
          [latitude]="lat"
          [longitude]="lng"
          [mapTypeControl]="true"
          (mapReady)="onMapReady($event)"
          [restriction]="countryRestriction">
 
-    <agm-marker [latitude]="userHistory?.Latitude" style="width: 500px;height: 500px;"
+    <agm-marker [latitude]="userHistory?.Latitude" style="height: 500px;"
                 [longitude]="userHistory?.Longitude"
                 [title]="userHistory?.UserId">
 

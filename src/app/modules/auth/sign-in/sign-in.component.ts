@@ -78,6 +78,7 @@ export class AuthSignInComponent implements OnInit {
                                         localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
                                         localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
                                         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                                        window.location.reload();
                                         this._router.navigateByUrl(redirectURL);
                                     } else {
                                         this.signInNgForm.resetForm();
