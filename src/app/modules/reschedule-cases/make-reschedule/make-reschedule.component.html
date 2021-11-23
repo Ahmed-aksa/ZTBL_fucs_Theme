@@ -8,54 +8,12 @@
     </div>
 
     <div class="" [formGroup]="mrForm">
-        
-        <div class="row">
-            <div class="col-lg-4 col-sm-12">
-                <div>
 
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone">
-                            <mat-option [value]="SelectedZones?.ZoneId">
-                                {{SelectedZones?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="Zone" [disabled]="disable_zone"
-                                    (selectionChange)="changeZone($event)">
-                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                        [disabled]="disable_zone">
-                                {{zone?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-        
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <div>
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                                    (selectionChange)="changeBranch($event)"
-                                    *ngIf="!single_branch">
-                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                            >
-                                {{branch?.Name}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-select [(ngModel)]="selected_b" formControlName="Branch" [disabled]="disable_branch"
-                                    *ngIf="single_branch">
-                            <mat-option [value]="SelectedBranches?.BranchCode"
-                            >
-                                {{SelectedBranches?.Name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
+        <div class="row" style="flex-wrap: wrap;">
+            <app-zone-branch-circle [form]="mrForm" [should_show_circle]="false"
+                                    (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+            <div>
+        <div class="row">
             <div class="col-lg-4 col-sm-12">
                 <div>
 
@@ -109,21 +67,21 @@
                     </mat-form-field>
                 </div>
             </div>
-        </div>        
+        </div>
         <div class="row">
             <div class="col-lg-4 col-sm-12">
                 <div>
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Disbursement <strong class="matMandatory">*</strong></mat-label>
-                        <mat-select formControlName="LoanDisbID">                                  
+                        <mat-select formControlName="LoanDisbID">
                            <mat-option *ngFor="let disbur of DisbursementGLList" [value]="disbur.LoanDisbID">
                             {{disbur.Description}}
-                          </mat-option>                                 
+                          </mat-option>
                         </mat-select>
                       </mat-form-field>
                 </div>
             </div>
-        </div>    
+        </div>
 
 
 
@@ -135,7 +93,7 @@
                         <input matInput placeholder="Enter New Gl Code" formControlName="GlSubIDNew"  maxlength="13" autocomplete="off" />
                       </mat-form-field>
                 </div>
-        
+
                 <div class="w-3/12">
                     <input type="button" mat-raised-button color="primary" class=" mx-2 mt-3  mat-raised-button mat-button-base mat-primary searchLCBtn" (click)="newGlDialog()" value="Search"/>
                 </div>
@@ -234,7 +192,7 @@
 
 
 
-        
+
     </div>
     <div class="col-lg-12 text-right py-4 border-t px-4">
 
