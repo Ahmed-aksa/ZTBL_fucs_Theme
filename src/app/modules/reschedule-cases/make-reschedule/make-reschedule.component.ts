@@ -13,14 +13,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MakeReschedule} from 'app/shared/models/Loan.model';
 import {NgxSpinnerService} from "ngx-spinner";
 import {LovService} from "../../../shared/services/lov.service";
 import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {DatePipe} from "@angular/common";
 import {MatDialog} from "@angular/material/dialog";
 import {CircleService} from "../../../shared/services/circle.service";
@@ -73,34 +73,19 @@ export class MakeRcComponent implements OnInit {
     RequestType: any = [];
     SelectedRequestType: any = [];
 
-    Branches: any = [];
-    SelectedBranches: any = [];
-    public Branch = new Branch();
+    zone: any;
+    branch: any;
+    circle: any;
 
-    //Zone inventory
-    Zones: any = [];
-    SelectedZones: any = [];
-    Zone: any;
 
-    //Zone inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
-    public Circle = new Circle();
-
-    selected_b: any;
-    selected_z: any;
-    disable_branch = true;
-    disable_zone = true;
-
-    single_branch = true;
-    single_zone = true;
     public LnAppSanctionID: string;
     loanReschID: string;
 
     public ReschedulingTypes: any;
 
-    final_branch: any;
-    final_zone: any
+
+
+    navigationSubscription: any;
 
 
     constructor(
@@ -121,6 +106,15 @@ export class MakeRcComponent implements OnInit {
             if (val.url == "/reschedule-cases/make-reschedule") {
             }
         });
+
+        //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+        // this.navigationSubscription = this.router.events.subscribe((e: any) => {
+        //     // If it is a NavigationEnd event re-initalise the component
+        //     if (e instanceof NavigationEnd) {
+        //         //this.initialiseInvites();
+        //     }
+        // });
     }
 
     ngAfterViewInit() {
@@ -133,8 +127,6 @@ export class MakeRcComponent implements OnInit {
 
     createForm() {
         this.mrForm = this.fb.group({
-            Zone: ["", Validators.required],
-            Branch: ["", Validators.required],
             TranDate: ["11012021"],
             Lcno: ["", Validators.required],
             LoanAppSanctionID: ["", Validators.required],
@@ -158,6 +150,12 @@ export class MakeRcComponent implements OnInit {
         this.hasFormErrors = false;
     }
 
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = data.final_circle;
+    }
+
     ngOnInit() {
 
 
@@ -165,26 +163,7 @@ export class MakeRcComponent implements OnInit {
       this.createForm();
       this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != null) {
-
-          this.SelectedBranches = this.LoggedInUserInfo.Branch;
-          this.SelectedZones = this.LoggedInUserInfo.Zone;
-          this.selected_z = this.SelectedZones?.ZoneId
-          this.selected_b = this.SelectedBranches?.BranchCode
-          this.mrForm.value.Zone = this.SelectedZones?.ZoneName;
-          this.mrForm.value.Branch = this.SelectedZones?.BranchCode;
-        }else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-          this.spinner.show();
-          this.userUtilsService.getZone().subscribe((data: any) => {
-            this.Zone = data.Zones;
-            this.SelectedZones = this.Zone;
-            this.single_zone = false;
-            this.disable_zone = false;
-            this.spinner.hide();
-        });
-        }
-
-        this.getRequestTypes();
+      this.getRequestTypes();
 
 
     }
@@ -204,12 +183,13 @@ export class MakeRcComponent implements OnInit {
 
 
     GetReshTransaction() {
+        debugger
         this.spinner.show();
         this.loanReschID = this.route.snapshot.params["loanReschID"];
         this.rescheduling.LoanReschID = parseInt(this.loanReschID)
 
         this._reschedulingService
-            .GetReshTransactionByID(this.loanReschID)
+            .GetReshTransactionByID(this.loanReschID, this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -274,55 +254,20 @@ export class MakeRcComponent implements OnInit {
         //   }
         //   this.mrForm.controls.GlSubIDNew.setValue(res);
         // });
-        this.assignBranchAndZone();
         this.dailog.open(NewGlCodeComponent, {
             width: "100%",
-            data: {NGlC: this.mrForm.controls.GlSubIDNew.value, zone: this.final_zone, branch: this.final_branch},
+            data: {NGlC: this.mrForm.controls.GlSubIDNew.value, zone: this.zone, branch: this.branch},
             disableClose: true
         });
     }
 
 
-    GetBranches(ZoneId) {
-        this.Branches = [];
-        this.mrForm.controls["Branch"].setValue(null);
-        this.Zone.ZoneId = ZoneId.value;
-        this._circleService
-            .getBranchesByZone(this.Zone)
-            .pipe(finalize(() => {
-            }))
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    this.Branches = baseResponse.Branches;
-                    this.SelectedBranches = this.Branches;
-                    console.log("Branches loaded", this.SelectedBranches);
-
-                    if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
-                        this.mrForm.controls["Branch"].setValue(
-                            this.LoggedInUserInfo.Branch.Name
-                        );
-                        console.log(
-                            "this.LoggedInUserInfo.Branch.BranchId",
-                            this.LoggedInUserInfo.Branch.BranchId,
-                            "this.LoggedInUserInfo.Branch.BranchCode",
-                            this.LoggedInUserInfo.Branch.BranchCode
-                        );
-
-
-                    }
-                    //this.landSearch.controls['BranchId'].setValue(this.Branches[0].BranchId);
-                    this.cdRef.detectChanges();
-                }
-            });
-    }
-
     SaveData() {
-      this.assignBranchAndZone();
         //this.mrForm.controls["TranDate"].setValue(this.datePipe.transform(new Date(), "ddMMyyyy"))
         this.rescheduling = Object.assign(this.mrForm.getRawValue());
         this.spinner.show();
         this._reschedulingService
-            .SaveMakeRescheduleLoan(this.rescheduling,this.final_branch,this.final_zone)
+            .SaveMakeRescheduleLoan(this.rescheduling,this.branch,this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -391,9 +336,8 @@ export class MakeRcComponent implements OnInit {
         var lCNo;
         this.spinner.show();
         lCNo = this.mrForm.controls["Lcno"].value;
-        this.assignBranchAndZone();
         this._reschedulingService
-        .GetSubProposalGL(lCNo, this.final_branch, this.final_zone)
+        .GetSubProposalGL(lCNo, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -465,9 +409,8 @@ export class MakeRcComponent implements OnInit {
 
     SubmitData() {
         this.spinner.show();
-        this.assignBranchAndZone();
         this._reschedulingService
-        .SubmitRescheduleData(this.rescheduling,this.final_branch,this.final_zone)
+        .SubmitRescheduleData(this.rescheduling,this.branch,this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -478,11 +421,11 @@ export class MakeRcComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
 
                 if (baseResponse.Success === true) {
+                    this.router.navigateByUrl('/search-reschedule')
                 } else {
                     this.layoutUtilsService.alertElement(
                         "",
-                        baseResponse.Message,
-                        baseResponse.Code
+                        baseResponse.Message
                     );
                 }
             });
@@ -534,9 +477,8 @@ export class MakeRcComponent implements OnInit {
 
     cancelTransaction() {
         this.spinner.show();
-        this.assignBranchAndZone();
         this._reschedulingService
-            .CancelRescheduleData(this.rescheduling,this.final_branch,this.final_zone)
+            .CancelRescheduleData(this.rescheduling,this.branch,this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -581,27 +523,11 @@ export class MakeRcComponent implements OnInit {
         window.open(url, '_blank');
     }
 
-  
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
 
-    private assignBranchAndZone() {
-      if (this.SelectedBranches.length)
-          this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
-      else
-          this.final_branch = this.SelectedBranches;
-      let zone = null;
-      if (this.SelectedZones.length)
-          this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-      else
-          this.final_zone = this.SelectedZones;
-  }
+    // ngOnDestroy() {
+    //     if (this.navigationSubscription) {
+    //         this.navigationSubscription.unsubscribe();
+    //     }
+    // }
 
 }

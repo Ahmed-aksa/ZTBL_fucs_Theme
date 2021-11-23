@@ -10,7 +10,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {Lov} from "../../../shared/classes/lov.class";
+import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {NgxSpinnerService} from "ngx-spinner";
 import {LovService} from "../../../shared/services/lov.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -19,11 +19,22 @@ import {ReschedulingService} from "../service/rescheduling.service";
 import {Loan} from "../../../shared/models/Loan.model";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import { UserUtilsService } from 'app/shared/services/users_utils.service';
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {DatePipe} from "@angular/common";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {CircleService} from "../../../shared/services/circle.service";
 
 @Component({
   selector: 'app-refer-back-reschedule-cases',
   templateUrl: './refer-back-reschedule-cases.component.html',
-  styleUrls: ['./refer-back-reschedule-cases.component.scss']
+  styleUrls: ['./refer-back-reschedule-cases.component.scss'],
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ],
 })
 export class ReferBackRescheduleCasesComponent implements OnInit {
 
@@ -38,6 +49,7 @@ export class ReferBackRescheduleCasesComponent implements OnInit {
     "View",
     "Submit",
 ];
+    referbackForm: FormGroup;
 dataSource: MatTableDataSource<ReferBack>;
 LoggedInUserInfo: BaseResponseModel;
 ELEMENT_DATA: ReferBack[] = [];
@@ -51,6 +63,7 @@ public LovCall = new Lov();
 public search = new Loan();
 LoanTypes: any = [];
 allowSubmit: boolean = false;
+maxDate = new Date();
 
 branch = null;
 zone = null;
@@ -63,15 +76,18 @@ dv: number | any; //use later
 OffSet: any;
 
 matTableLenght: boolean;
+private loading: boolean;
 
 constructor(
     private spinner: NgxSpinnerService,
     private _reschedulingService: ReschedulingService,
-    private cdRef: ChangeDetectorRef,
     private userUtilsService: UserUtilsService,
+    private cdRef: ChangeDetectorRef,
+    private fb: FormBuilder,
     private layoutUtilsService: LayoutUtilsService,
-    private _lovService: LovService,
     private router: Router,
+    private _circleService: CircleService,
+    private _lovService: LovService,
     private activatedRoute: ActivatedRoute
 ) {
     // this.getLoanStatus();
@@ -81,18 +97,18 @@ ngOnInit() {
     // this.getLoanStatus();
 
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+    this.createForm();
+    this.getLoanStatus();
+
+    if(this.zone){
+        setTimeout(() => this.find(), 2000);
+    }
 
 
-        //-------------------------------Loading Circle-------------------------------//
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != null) {
-          this.branch = this.LoggedInUserInfo.Branch;
-          this.zone = this.LoggedInUserInfo.Zone;
-        }
-
-    this.spinner.show();
-
-    this.loadData();
-    this.spinner.hide();
+    // this.spinner.show();
+    //
+    // this.loadData();
+    // this.spinner.hide();
 }
 
 getRow(rob) {
@@ -112,6 +128,88 @@ editRefer(updateLoan) {
         { relativeTo: this.activatedRoute }
     );
 }
+
+    async getLoanStatus() {
+        this.LoanStatus = await this._lovService.CallLovAPI(
+            (this.LovCall = { TagName: LovConfigurationKey.RescheduleStatus })
+        );
+        this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
+        this.referbackForm.controls["Status"].setValue(this.SelectedLoanStatus ? this.SelectedLoanStatus[3].Id : "");
+
+        console.log(this.SelectedLoanStatus);
+    }
+
+    createForm(){
+        this.referbackForm = this.fb.group({
+            TrDate: [''],
+            Lcno: [''],
+            Status: ['']
+        });
+    }
+
+    find() {
+        this.spinner.show();
+        this.search = Object.assign(this.referbackForm.getRawValue());
+        console.log(this.search);
+
+        this._reschedulingService
+            .RescheduleSearch(this.search, this.branch, this.zone)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+
+                    this.cdRef.detectChanges();
+                })
+            )
+            .subscribe((baseResponse: BaseResponseModel) => {
+                this.dataSource = null;
+                this.ELEMENT_DATA = [];
+                if (baseResponse.Success === true) {
+                    console.log(baseResponse);
+                    console.log(baseResponse)
+                    this.loading = false;
+                    this.Mydata = baseResponse.Loan.ReschedulingSearch;
+
+                    for (let data in this.Mydata) {
+                        this.ELEMENT_DATA.push({
+                            LoanReschID: this.Mydata[data].LoanReshID,
+                            remarks: this.Mydata[data].Remarks,
+                            branch: this.Mydata[data].OrgUnitName,
+                            transactionDate: this.Mydata[data].WorkingDate,
+                            loanApp: this.Mydata[data].LoanCaseNo,
+                            glDescription: this.Mydata[data].GlDesc,
+                            status: this.Mydata[data].StatusName,
+                            scheme: this.Mydata[data].SchemeCode,
+                            oldDate: this.Mydata[data].LastDueDate,
+                            acStatus: this.Mydata[data].DisbStatusName, submit: false
+                        });
+                    }
+
+                    this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+                    console.log(this.dataSource)
+                    console.log(this.dataSource.data);
+                    if (this.dataSource.data.length > 0)
+                        this.matTableLenght = true;
+                    else this.matTableLenght = false;
+
+                    this.dv = this.dataSource.filteredData;
+
+                    this.totalItems = this.dataSource.filteredData.length;
+                    this.OffSet = this.pageIndex;
+                    this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    //console.log(this.dataSource.filteredData.length)
+                    //console.log(this.dataSource.data.length)
+                } else {
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        baseResponse.Message,
+                        baseResponse.Code
+                    );
+                }
+                this.loading = false;
+            });
+    }
+
 
 loadData() {
     this.search.LcNo = "";
@@ -133,6 +231,8 @@ loadData() {
                 this.Mydata = baseResponse.Loan.ReschedulingSearch;
                 for (let data in this.Mydata) {
                     this.ELEMENT_DATA.push({
+                        branch: "",
+                        submit: false,
                         transactionDate: this.Mydata[data].OrgUnitName,
                         loanApp: this.Mydata[data].LoanCaseNo,
                         glDescription: this.Mydata[data].GlDesc,
@@ -141,7 +241,7 @@ loadData() {
                         oldDate: this.Mydata[data].LastDueDate,
                         acStatus: this.Mydata[data].DisbStatusName,
                         LoanReschID: this.Mydata[data].LoanReshID,
-                        remarks: this.Mydata[data].Remarks,
+                        remarks: this.Mydata[data].Remarks
                     });
                 }
 
@@ -182,6 +282,11 @@ paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
     ); //slice is used to get limited amount of data from APi
 }
 
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+    }
+
 SubmitData() {
     this.spinner.show();
 
@@ -211,15 +316,15 @@ SubmitData() {
 }
 
 interface ReferBack {
-// branch: string;
-transactionDate: string;
-loanApp: string;
-glDescription: string;
-status: string;
-scheme: string;
-oldDate: string;
-acStatus: string;
-// submit: boolean;
-LoanReschID: string;
-remarks: string;
+    branch: string;
+    transactionDate: string;
+    loanApp: string;
+    glDescription: string;
+    status: string;
+    scheme: string;
+    oldDate: string;
+    acStatus: string;
+    submit: boolean;
+    LoanReschID: string;
+    remarks: string;
 }

@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Lov } from '../../../shared/classes/lov.class';
+import {DateFormats, Lov, LovConfigurationKey} from '../../../shared/classes/lov.class';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseResponseModel } from '../../../shared/models/base_response.model';
@@ -15,11 +15,23 @@ import { ReschedulingService } from '../service/rescheduling.service';
 import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
 import { Loan } from '../../../shared/models/Loan.model';
 import { UserUtilsService } from 'app/shared/services/users_utils.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {DatePipe} from '@angular/common';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {CircleService} from '../../../shared/services/circle.service';
+import {LovService} from '../../../shared/services/lov.service';
 
 @Component({
     selector: 'app-pending-reschedule-cases',
     templateUrl: './pending-reschedule-cases.component.html',
     styleUrls: ['./pending-reschedule-cases.component.scss'],
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ],
 })
 export class PendingRescheduleCasesComponent implements OnInit {
     displayedColumns = [
@@ -48,6 +60,9 @@ export class PendingRescheduleCasesComponent implements OnInit {
     dv: number | any; //use later
     LoggedInUserInfo: BaseResponseModel;
     OffSet: any;
+    maxDate = new Date();
+
+    pendingForm: FormGroup;
 
     branch = null;
     zone = null;
@@ -60,37 +75,38 @@ export class PendingRescheduleCasesComponent implements OnInit {
     public LovCall = new Lov();
     public search = new Loan();
     LoanTypes: any = [];
+    private rcSearch: any;
+    private loading: boolean;
 
     constructor(
         private spinner: NgxSpinnerService,
         private _reschedulingService: ReschedulingService,
         private userUtilsService: UserUtilsService,
         private cdRef: ChangeDetectorRef,
+        private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
         private router: Router,
+        private _circleService: CircleService,
+        private _lovService: LovService,
         private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
 
       this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+      this.createForm();
+        this.getLoanStatus();
 
-
-        //-------------------------------Loading Circle-------------------------------//
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != null) {
-            this.branch = this.LoggedInUserInfo.Branch;
-            this.zone = this.LoggedInUserInfo.Zone;
+        if(this.zone){
+            setTimeout(() => this.find(), 2000);
         }
-
-        this.spinner.show();
-        this.spinner.hide();
-        this.loadData();
     }
 
-    loadData() {
-        this.search.LcNo = '';
-        this.search.Appdt = '';
-        this.search.Status = '1';
+    find() {
+        this.spinner.show();
+        this.search = Object.assign(this.pendingForm.getRawValue());
+        console.log(this.search);
+
         this._reschedulingService
             .RescheduleSearch(this.search, this.branch, this.zone)
             .pipe(
@@ -101,11 +117,17 @@ export class PendingRescheduleCasesComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
+                this.dataSource = null;
+                this.ELEMENT_DATA = [];
                 if (baseResponse.Success === true) {
-                    this.allowSubmit = true;
+                    console.log(baseResponse);
+                    this.loading = false;
                     this.Mydata = baseResponse.Loan.ReschedulingSearch;
+
                     for (let data in this.Mydata) {
                         this.ELEMENT_DATA.push({
+                            LoanReschID: this.Mydata[data].LoanReshID,
+                            remarks: this.Mydata[data].Remarks,
                             branch: this.Mydata[data].OrgUnitName,
                             transactionDate: this.Mydata[data].WorkingDate,
                             loanApp: this.Mydata[data].LoanCaseNo,
@@ -113,14 +135,12 @@ export class PendingRescheduleCasesComponent implements OnInit {
                             status: this.Mydata[data].StatusName,
                             scheme: this.Mydata[data].SchemeCode,
                             oldDate: this.Mydata[data].LastDueDate,
-                            acStatus: this.Mydata[data].DisbStatusName,
-                            submit: this.Mydata[data].EnteredDate,
-                            LoanReschID: this.Mydata[data].LoanReshID,
-                            remarks: this.Mydata[data].Remarks,
+                            acStatus: this.Mydata[data].DisbStatusName, submit: false
                         });
                     }
 
                     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+                    console.log(this.dataSource.data);
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
                     else this.matTableLenght = false;
@@ -130,16 +150,40 @@ export class PendingRescheduleCasesComponent implements OnInit {
                     this.totalItems = this.dataSource.filteredData.length;
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    //console.log(this.dataSource.filteredData.length)
+                    //console.log(this.dataSource.data.length)
                 } else {
-                    this.dataSource = null;
-                    this.allowSubmit = false;
                     this.layoutUtilsService.alertElement(
                         '',
-                        baseResponse.Message
+                        baseResponse.Message,
+                        baseResponse.Code
                     );
                 }
+                this.loading = false;
             });
     }
+
+
+
+    createForm(){
+        this.pendingForm = this.fb.group({
+            TrDate: [''],
+            Lcno: [''],
+            Status: ['']
+        });
+    }
+
+    async getLoanStatus() {
+        this.LoanStatus = await this._lovService.CallLovAPI(
+            (this.LovCall = { TagName: LovConfigurationKey.RescheduleStatus })
+        );
+        this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
+        this.pendingForm.controls['Status'].setValue(this.SelectedLoanStatus ? this.SelectedLoanStatus[0].Id : '');
+
+        console.log(this.SelectedLoanStatus);
+    }
+
+
 
     getRow(rob) {
         this.loanResch = rob;
@@ -183,6 +227,11 @@ export class PendingRescheduleCasesComponent implements OnInit {
             pageIndex * this.itemsPerPage - this.itemsPerPage,
             pageIndex * this.itemsPerPage
         ); //slice is used to get limited amount of data from APi
+    }
+
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
     }
 
     editPen(updateLoan) {

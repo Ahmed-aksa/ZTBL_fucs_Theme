@@ -68,8 +68,8 @@ export class SearchRcComponent implements OnInit {
     single_branch: any = true;
     disable_branch: any = true;
 
-    final_branch: any;
-    final_zone: any;
+    branch: any;
+    zone: any;
     Math: any;
 
     //pagination
@@ -82,10 +82,7 @@ export class SearchRcComponent implements OnInit {
 
     matTableLenght: boolean;
 
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-    public Branch = new Branch();
+
     public search = new Loan();
     public LovCall = new Lov();
 
@@ -94,10 +91,7 @@ export class SearchRcComponent implements OnInit {
     loanStatus: any = [];
     SelectedLoanStatus: any = [];
 
-    //Zone inventory
-    Zones: any = [];
-    SelectedZones: any = [];
-    public Zone: any;
+
     displayedColumns = [
         'Branch',
         'TransactionDate',
@@ -138,65 +132,15 @@ export class SearchRcComponent implements OnInit {
         //-------------------------------Loading Zone-------------------------------//
 
         //-------------------------------Loading Circle-------------------------------//
-        if (
-            this.LoggedInUserInfo.Branch &&
-            this.LoggedInUserInfo.Branch.BranchCode != 'All'
-        ) {
-            this.SelectedBranches = this.LoggedInUserInfo.Branch;
-            this.SelectedZones = this.LoggedInUserInfo.Zone;
 
-            this.selected_z = this.SelectedZones?.ZoneId;
-            this.selected_b = this.SelectedBranches?.BranchCode;
-            this.rcSearch.controls['Zone'].setValue(this.SelectedZones?.ZoneId);
-            this.rcSearch.controls['Branch'].setValue(
-                this.SelectedBranches?.BranchCode
-            );
-        } else if (
-            !this.LoggedInUserInfo.Branch &&
-            !this.LoggedInUserInfo.Zone &&
-            !this.LoggedInUserInfo.Zone
-        ) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-        }
         this.getLoanStatus();
 
     }
 
-    changeZone(changedValue) {
-        let changedZone = { Zone: { ZoneId: changedValue.value } };
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
 
-    private assignBranchAndZone() {
-        if (this.SelectedBranches.length)
-            this.final_branch = this.SelectedBranches?.filter(
-                (circ) => circ.BranchCode == this.selected_b
-            )[0];
-        else this.final_branch = this.SelectedBranches;
-        let zone = null;
-        if (this.SelectedZones.length)
-            this.final_zone = this.SelectedZones?.filter(
-                (circ) => circ.ZoneId == this.selected_z
-            )[0];
-        else this.final_zone = this.SelectedZones;
-    }
 
     create() {
         this.rcSearch = this.fb.group({
-            Zone: [''],
-            Branch: [''],
             TrDate: [''],
             Lcno: [''],
             Status: [''],
@@ -232,13 +176,12 @@ export class SearchRcComponent implements OnInit {
     }
 
     find() {
-        this.assignBranchAndZone();
         this.spinner.show();
         this.search = Object.assign(this.rcSearch.getRawValue());
         console.log(this.search);
 
         this._reschedulingService
-            .RescheduleSearch(this.search, this.final_branch, this.final_zone)
+            .RescheduleSearch(this.search, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -301,6 +244,11 @@ export class SearchRcComponent implements OnInit {
             pageIndex * this.itemsPerPage - this.itemsPerPage,
             pageIndex * this.itemsPerPage
         ); //slice is used to get limited amount of data from APi
+    }
+
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
     }
 }
 

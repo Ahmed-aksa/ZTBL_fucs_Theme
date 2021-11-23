@@ -17,7 +17,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BaseRequestModel} from 'app/shared/models/base_request.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {Branch} from 'app/shared/models/branch.model';
-import {Zone} from 'app/shared/models/zone.model';
 import {ReschedulingList} from 'app/shared/models/Loan.model';
 import {
     DateFormats,
@@ -70,14 +69,11 @@ export class RequestForRlComponent implements OnInit {
     idx: any;
     pidx: any;
 
-    single_zone: boolean;
-    disable_zone: boolean;
+    zone: any;
+    branch: any;
 
-    selected_z: any;
-    selected_b: any;
 
-    single_branch: any;
-    disable_branch: any;
+
     response: any = [];
     checkedArr: ReschedulingList[] = [];
     newAdd: ReschedulingList[] = [];
@@ -100,7 +96,6 @@ export class RequestForRlComponent implements OnInit {
 
     //Request Category inventory
     RequestTypes: any = [];
-    RequestType: any = [];
     SelectedRequestType: any = [];
 
     //Zone inventory
@@ -139,54 +134,11 @@ export class RequestForRlComponent implements OnInit {
         //console.log(this.LoggedInUserInfo)
         this.getRequestTypes();
 
-        if (
-            this.LoggedInUserInfo.Branch &&
-            this.LoggedInUserInfo.Branch.BranchCode != null
-        ) {
-            this.Branches = this.LoggedInUserInfo.Branch;
-            this.SelectedBranches = this.Branches;
-            this.Zones = this.LoggedInUserInfo.Zone;
-            this.SelectedZones = this.Zones;
-            this.selected_z = this.SelectedZones?.ZoneId;
-            this.selected_b = this.SelectedBranches?.BranchCode;
-            this.RfrlForm.controls['Zone'].setValue(this.SelectedZones?.ZoneId);
-            this.RfrlForm.controls['Branch'].setValue(
-                this.SelectedBranches?.BranchCode
-            );
-            this.single_branch = true;
-            this.disable_branch = true;
-            this.single_zone = true;
-            this.disable_zone = true;
-        } else if (
-            !this.LoggedInUserInfo.Branch &&
-            !this.LoggedInUserInfo.Zone &&
-            !this.LoggedInUserInfo.Zone
-        ) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-        }
     }
 
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}};
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
 
     create() {
         this.RfrlForm = this.fb.group({
-            Zone: [null, Validators.required],
-            Branch: [null, Validators.required],
             Cnic: ['', Validators.required],
             EffectiveReqDate: ['', Validators.required],
             Remarks: ['', Validators.required],
@@ -213,22 +165,8 @@ export class RequestForRlComponent implements OnInit {
         console.log(this.SelectedRequestType);
     }
 
-    private assignBranchAndZone() {
-        if (this.SelectedBranches.length)
-            this.final_branch = this.SelectedBranches?.filter(
-                (circ) => circ.BranchCode == this.selected_b
-            )[0];
-        else this.final_branch = this.SelectedBranches;
-        let zone = null;
-        if (this.SelectedZones.length)
-            this.final_zone = this.SelectedZones?.filter(
-                (circ) => circ.ZoneId == this.selected_z
-            )[0];
-        else this.final_zone = this.SelectedZones;
-    }
 
     find() {
-        this.assignBranchAndZone();
         this.errorShow = false;
         this.hasFormErrors = false;
 
@@ -260,8 +198,8 @@ export class RequestForRlComponent implements OnInit {
         this._reschedulingService
             .GetRescheduling(
                 this.ReschedulingList,
-                this.final_branch,
-                this.final_zone
+                this.branch,
+                this.zone
             )
             .pipe(
                 finalize(() => {
@@ -345,14 +283,8 @@ export class RequestForRlComponent implements OnInit {
             this.AddTable = true;
             this.checked = false;
 
-            // if(this.tableArr.length != 0){
-            //   alert("SELECTED RECORD ALREADY EXISTS PLEASE CHANGE")
-            // }
-
             this.tableArr = this.checkedArr;
-            //this.checkedArr.length = 0;
         } else {
-            //alert("SELECTED RECORD ALREADY EXISTS PLEASE CHANGE")
             this.AddTable = false;
         }
     }
@@ -411,6 +343,11 @@ export class RequestForRlComponent implements OnInit {
         }
         console.log(this.checkedArr);
     }
+
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+    }
 }
 
 export interface Selection {
@@ -426,9 +363,7 @@ export class ReschedulingGrid {
     Cnic: string;
     LoanCaseNo: string;
     GlSubCode: string;
-    OsPrin: number;
     OsMarkup: number;
-    DisbStatusID: number;
     CustomerName: string;
     FatherName: string;
     PermanentAddress: string;
@@ -438,11 +373,7 @@ export class ReschedulingGrid {
     EffectiveReqDate: string;
     UserID: string;
     GraceMonths: number;
-    RequestCategory: number;
-    RequestStatus: number;
     BranchID: string;
-    ManagerPPNo: number;
-    McoPPNO: number;
     Remarks: string;
     ID: string;
 }

@@ -78,7 +78,7 @@ export class ReschedulingService {
     }
 
     GetRescheduling(res, branch, zone): Observable<BaseResponseModel> {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
@@ -112,7 +112,7 @@ export class ReschedulingService {
     }
 
     SubmitRescheduleData(rescheduling: MakeReschedule, branch, zone): Observable<BaseResponseModel> {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
@@ -173,7 +173,7 @@ export class ReschedulingService {
     }
 
     AddReschedulLoanInstallment(res): Observable<BaseResponseModel> {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun();
@@ -189,7 +189,7 @@ export class ReschedulingService {
     }
 
     RescheduleSearch(search, branch, zone): Observable<BaseResponseModel> {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
@@ -221,8 +221,11 @@ export class ReschedulingService {
         );
     }
 
-    GetReshTransactionByID(loanReschID): Observable<BaseResponseModel> {
+    GetReshTransactionByID(loanReschID, zone, branch): Observable<BaseResponseModel> {
+        //debugger
         this.request = new BaseRequestModel();
+        this.request.Zone = zone;
+        this.request.Branch = branch
         var loanInfo = new Loan();
         this.generalFunction()
         this.MakeReschedule.LoanReschID = loanReschID

@@ -85,25 +85,23 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     ) {
         if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
             this.req_arr = this.router.getCurrentNavigation().extras.state.example;
-            // this.is_view = this.router.getCurrentNavigation().extras.state.hide;
+            this.is_view = this.router.getCurrentNavigation().extras.state.hide;
             this.updatingCase = true;
 
             // console.log("arr"+JSON.stringify(this.req_arr))
         } else {
+            this.is_view=true;
 
         }
     }
 
     SubmitSingle() {
         //this.hideDelete = true;
-
         this.user.ZoneId = this.addUpdateBenchMarkForm.controls.ZoneId.value;
         this.user.BranchCode = this.addUpdateBenchMarkForm.controls.BranchCode.value;
         this.user.CircleId = this.addUpdateBenchMarkForm.controls.CircleId.value;
 
         // this.village[0].Status="S";
-
-
         this.user.ZoneId = this.addUpdateBenchMarkForm.controls.ZoneId.value;
         this.user.BranchCode = this.addUpdateBenchMarkForm.controls.BranchCode.value;
         this.user.CircleId = this.addUpdateBenchMarkForm.controls.CircleId.value;
@@ -186,6 +184,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.createForm();
         this.LoadLovs();
 
