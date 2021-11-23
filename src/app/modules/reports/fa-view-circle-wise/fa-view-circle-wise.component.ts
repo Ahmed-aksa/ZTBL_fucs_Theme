@@ -30,7 +30,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./fa-view-circle-wise.component.scss']
 })
 export class FaViewCircleWiseComponent implements OnInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lsn','Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'l_stats', 'empp','OtherCharges' ];
+    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
     searchCnicForm: FormGroup;
     selected_b;
     selected_z;
@@ -52,6 +52,7 @@ export class FaViewCircleWiseComponent implements OnInit {
     pageIndex = 1;
     totalItems: number | any;
     dv: number | any; //use later
+    gridHeight: string;
 
     dataSource: MatTableDataSource<searchLoanCasesByCnic>;
 

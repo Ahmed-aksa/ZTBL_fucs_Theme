@@ -421,7 +421,7 @@ export class MakeRcComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
 
                 if (baseResponse.Success === true) {
-                    this.router.navigateByUrl('/search-reschedule')
+                    this.router.navigateByUrl('/reschedule-cases/search-reschedule')
                 } else {
                     this.layoutUtilsService.alertElement(
                         "",

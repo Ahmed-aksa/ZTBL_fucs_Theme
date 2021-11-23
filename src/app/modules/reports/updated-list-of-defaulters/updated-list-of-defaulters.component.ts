@@ -33,7 +33,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./updated-list-of-defaulters.component.scss']
 })
 export class UpdatedListOfDefaultersComponent implements OnInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lsn','Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'l_stats', 'empp','OtherCharges' ];
+    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
     searchCnicForm: FormGroup;
     selected_b;
     selected_z;
