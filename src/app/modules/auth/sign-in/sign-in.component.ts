@@ -53,7 +53,7 @@ export class AuthSignInComponent implements OnInit {
         this._authService.signIn(loginMode)
             .subscribe((result) => {
                     if (result.Success) {
-                        
+
                         if (!result.isWebOTPEnabled) {
                             if (result.LoanUtilization) {
                                 localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
@@ -69,8 +69,7 @@ export class AuthSignInComponent implements OnInit {
                             const dialogRef = this.dialog.open(OtpComponent, {
                                 data: {result},
                                 disableClose: true,
-                                height: '40%',
-                                width: '20%'
+                                panelClass: [ 'max-w-full', 'max-h-full' , 'w-3/12'],
                             });
                             dialogRef.afterClosed().subscribe(res => {
                                 if (res.data.data != 0) {
