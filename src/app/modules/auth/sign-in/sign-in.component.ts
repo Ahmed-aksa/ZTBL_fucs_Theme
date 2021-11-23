@@ -69,7 +69,7 @@ export class AuthSignInComponent implements OnInit {
                             const dialogRef = this.dialog.open(OtpComponent, {
                                 data: {result},
                                 disableClose: true,
-                                panelClass: [ 'max-w-full', 'max-h-full' , 'w-3/12'],
+                                panelClass: [ 'max-w-full', 'max-h-full' , 'sm:w-3/12', 'w-full'],
                             });
                             dialogRef.afterClosed().subscribe(res => {
                                 if (res.data.data != 0) {

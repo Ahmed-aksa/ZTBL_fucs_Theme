@@ -26,7 +26,12 @@
             <!-- Header -->
             <div [formGroup]="listForm" class="mt-2">
 
-                <div class="flex" style="flex-wrap: wrap;">
+                <div class="sm:flex grid" style="flex-wrap: wrap;">
+
+                    <div >
+                    <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
+                                                (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
@@ -36,10 +41,6 @@
                                        autocomplete="off"/>
                             </mat-form-field>
                         </div>
-                    </div>
-                    <div >
-                    <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
-                                                (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                     </div>
                     <div class="mx-2" >
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">

@@ -93,7 +93,7 @@ export class OtpComponent implements OnInit {
             if (result.Success) {
                 this.onCloseClick(result);
             } else {
-                this.toaster.error(result.Message, 'danger');
+                this.toaster.error(result.Message);
             }
         });
 
