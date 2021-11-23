@@ -264,12 +264,8 @@ export class SearchUtilizationComponent implements OnInit {
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
         this.utilizationSearch = this.filterFB.group({
-            Zone: [userInfo?.Zone?.ZoneName],
-            Branch: [userInfo?.Branch?.Name],
-            Circle: [],
             LoanCaseNo: [],
             Status: ["", Validators.required],
-            CircleId: []
         });
 
     }
@@ -302,8 +298,6 @@ export class SearchUtilizationComponent implements OnInit {
 
 
         this.spinner.show();
-        // this._customer.clear();
-        // console.log(this.utilizationSearch.controls["Status"].value);
         if (!this.utilizationSearch.controls["Status"].value) {
             this.utilizationSearch.controls["Status"].setValue("All")
         }

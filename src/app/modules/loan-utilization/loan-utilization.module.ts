@@ -6,6 +6,7 @@ import {SearchLoanUtilizationComponent} from './search-loan-uti/search-loan-uti.
 import {SearchUtilizationComponent} from './search-utilization/search-utilization.component';
 import {LoanUtilizationComponent} from './loan-utilization/loan-utilization.component';
 import {ViewFileComponent} from './view-file/view-file.component';
+import {MatInputModule} from "@angular/material/input";
 
 const routing = [
 
@@ -29,6 +30,7 @@ const routing = [
     imports: [
         CommonModule,
         SharedModule,
+        MatInputModule,
         RouterModule.forChild(routing),
     ],
     entryComponents: [
