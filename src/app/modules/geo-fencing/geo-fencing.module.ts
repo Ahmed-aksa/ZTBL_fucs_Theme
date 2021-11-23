@@ -8,18 +8,24 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {RouterModule} from "@angular/router";
 import {GeoFencingService} from "./service/geo-fencing-service.service";
 import {AgmCoreModule} from "@agm/core";
+import {DeviceTrackingComponent} from './device-tracking/device-tracking.component';
 
 const routes = [
     {
         path: '',
         component: GeoFencingListComponent
+    },
+    {
+        path: 'device-tracking',
+        component: DeviceTrackingComponent
     }
 ]
 
 @NgModule({
     declarations: [
         GeoFencingListComponent,
-        ViewGetFancingModalComponent
+        ViewGetFancingModalComponent,
+        DeviceTrackingComponent
     ],
     imports: [
         CommonModule,

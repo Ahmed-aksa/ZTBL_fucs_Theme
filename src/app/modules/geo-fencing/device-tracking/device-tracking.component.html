@@ -1,0 +1,84 @@
+<div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
+
+    <!-- Header -->
+
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Device Tracking</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="mt-2  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
+                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Header -->
+
+
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body">
+            <div class="row" [formGroup]="viewForm">
+                <app-zone-branch-circle [form]="viewForm" [should_show_circle]="true"
+                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">PP No.</mat-label>
+                            <input matInput placeholder="PP No." formControlName="PPNo" maxlength="30"
+                                   autocomplete="off"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                    <button mat-raised-button
+                            class=" bg-gray-500 mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                            type="button" (click)="find()">
+                        <mat-icon class="mr-2">search</mat-icon>
+                        Find
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+    <!-- Main -->
+
+    <!-- Products list -->
+    <agm-map style="width: 500px;height: 500px"
+             #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng" [mapTypeControlOptions]="controlOptions"
+             [mapTypeControl]="true" (mapReady)="onMapReady($event)" [restriction]="countryRestriction"
+             style="height: 500px !important;">
+
+        <agm-marker *ngFor="let m of fenceMarkers; let i = index"
+                    (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedMarker(i, infowindow)"
+                    [latitude]="m.lat" [longitude]="m.lng" [title]="m.BranchId" class=" h-screen">
+
+            <agm-info-window #infowindow>
+                <strong>{{m.BranchId}}</strong>
+            </agm-info-window>
+
+        </agm-marker>
+
+
+    </agm-map>
+
+</div>

@@ -26,6 +26,13 @@ export class GeoFencingService {
         );
     }
 
+    GetDeviceTracking(resquest: any): Observable<BaseResponseModel> {
+        return this.http.post(`${environment.apiUrl}/GeoFencingPoint/GetAgentLocations`, resquest,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
+
 
     CirclePoligonGetByIds(resquest: any): Observable<BaseResponseModel> {
 

@@ -174,7 +174,7 @@ export class ApilogsListComponent implements OnInit {
         //var height = (window.innerHeight - 140) + 'px';
 
         const dialogRef = this.dialog.open(ApilogDetailComponent, { /*height: height,*/
-            panelClass: ['w-8/12'],
+            panelClass: ['w-9/12'],
             height: '500px',
             data: {reportFilter: reportFilter, is_third: is_third},
             disableClose: false
