@@ -9,7 +9,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/member-ordering */
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
@@ -29,7 +29,7 @@ import {ToastrService} from "ngx-toastr";
     templateUrl: './fa-view-circle-wise.component.html',
     styleUrls: ['./fa-view-circle-wise.component.scss']
 })
-export class FaViewCircleWiseComponent implements OnInit {
+export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
     displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
     searchCnicForm: FormGroup;
     selected_b;
@@ -168,6 +168,11 @@ export class FaViewCircleWiseComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle
+    }
+
+    ngAfterViewInit() {
+
+        this.gridHeight = window.innerHeight - 300 + 'px';
     }
 }
 

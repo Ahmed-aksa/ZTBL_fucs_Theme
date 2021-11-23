@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/naming-convention */
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
@@ -23,7 +23,7 @@ import {ToastrService} from "ngx-toastr";
     templateUrl: './loan-amounts-convert-to-default.component.html',
     styleUrls: ['./loan-amounts-convert-to-default.component.scss']
 })
-export class LoanAmountsConvertToDefaultComponent implements OnInit {
+export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewInit {
     displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
     searchCnicForm: FormGroup;
 
@@ -146,6 +146,11 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
+    }
+
+    ngAfterViewInit() {
+
+        this.gridHeight = window.innerHeight - 300 + 'px';
     }
 
 
