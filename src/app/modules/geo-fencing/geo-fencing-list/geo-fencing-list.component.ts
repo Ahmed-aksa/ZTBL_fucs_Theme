@@ -7,8 +7,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {Branch} from "../../../shared/models/branch.model";
-import {Circle} from "../../../shared/models/circle.model";
 import {MatTableDataSource} from "@angular/material/table";
 
 import {finalize} from "rxjs/operators";

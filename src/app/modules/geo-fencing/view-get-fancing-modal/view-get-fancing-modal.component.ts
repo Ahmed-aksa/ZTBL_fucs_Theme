@@ -242,12 +242,13 @@ export class ViewGetFancingModalComponent implements OnInit {
     }
 
 
-    icon(i){
+    iconChange(i){
+
 if(i==0){
-       return "green";
+       return "../../../assets/icons/start.png";
 }else{
 
-    return "red";
+    return "../../../assets/icons/stop.png";
 }
     }
     getPoligonGetByIds() {

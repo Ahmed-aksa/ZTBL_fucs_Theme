@@ -27,7 +27,7 @@
                                <agm-map #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng" [restriction]="countryRestriction"
                          [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true" (mapReady)="onMapReady($event)"
                          class="h-screen">
-                    <agm-marker [iconUrl]="icon(i)" *ngFor="let coordinate of start_end_mark; let i=index"
+                    <agm-marker [iconUrl]="iconChange(i)" *ngFor="let coordinate of start_end_mark; let i=index"
 
                                 [latitude]="isNumber(coordinate?.Latitude)"
                                 [longitude]="isNumber(coordinate?.Longitude)" [agmFitBounds]="true">
