@@ -34,7 +34,7 @@
             <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
               Please enter valid Input
             </kt-alert> -->
-            <div class="flex" style="flex-wrap: wrap;">
+            <div class="sm:flex grid" style="flex-wrap: wrap;">
 
 
                 <app-zone-branch-circle [form]="ndcForm" [should_show_circle]="false"
@@ -82,9 +82,9 @@
                             <mat-cell [style.min-width]="" *matCellDef="let request">{{request.srNo}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="customer_cnic">
-                            <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
+                            <mat-header-cell  style="min-width: 150px;"  *matHeaderCellDef>Customer CNIC
                             </mat-header-cell>
-                            <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Cnic}}</span>
+                            <mat-cell [style.min-width]="" *matCellDef="let request"  style="min-width: 150px;"><span>{{request.Cnic}}</span>
                             </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="name">
@@ -195,10 +195,10 @@
         <div class="mat-table__wrapper  overflow-scroll border shadow-xs rounded-sm bg-gray-50" [style.height]="gridHeight">
             <mat-table class="lmat-elevation-z8"
                        [dataSource]="pending_requests_data_source | paginate: {id:'pendingReq', itemsPerPage: pageSizePending, currentPage: pageIndexPending, totalItems: pendingLength}">
-                <ng-container matColumnDef="customer_cnic">
-                    <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer CNIC
+                <ng-container  matColumnDef="customer_cnic">
+                    <mat-header-cell style="min-width: 150px;" [style.min-width]="" *matHeaderCellDef>Customer CNIC
                     </mat-header-cell>
-                    <mat-cell [style.min-width]="" *matCellDef="let request"><span>{{request.Cnic}}</span></mat-cell>
+                    <mat-cell style="min-width: 150px;" [style.min-width]="" *matCellDef="let request"><span>{{request.Cnic}}</span></mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="customer_name">
                     <mat-header-cell [style.min-width]="" *matHeaderCellDef>Customer Name</mat-header-cell>

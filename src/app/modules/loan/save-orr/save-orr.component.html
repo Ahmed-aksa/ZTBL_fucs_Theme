@@ -96,7 +96,7 @@
               <table class="table table-striped">
                 <thead>
                   <tr class="table-header-background">
-                    <th>CNIC</th>
+                    <th style="min-width: 150px;">CNIC</th>
                     <th>Name</th>
                     <th>AGPS</th>
                     <th>DOB</th>
@@ -109,7 +109,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let obj of CustomerORR; let i = index;">
-                    <td>{{obj.Cnic}}</td>
+                    <td style="min-width: 150px;">{{obj.Cnic}}</td>
                     <td>{{obj.CustomerName}}</td>
                     <td>{{obj.MajorBorrower}}</td>
                     <td>{{obj.Dob}}</td>
