@@ -267,7 +267,7 @@ export class SearchUtilizationComponent implements OnInit {
             Zone: [userInfo?.Zone?.ZoneName],
             Branch: [userInfo?.Branch?.Name],
             Circle: [],
-            LoanCaseNo: [""],
+            LoanCaseNo: [],
             Status: ["", Validators.required],
             CircleId: []
         });

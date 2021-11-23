@@ -45,7 +45,7 @@
                                 <mat-option value="">
                                     Select
                                 </mat-option>
-                                <mat-option *ngFor="let obj of loanutilizationStatusLov.LOVs" [value]="obj.Value">
+                                <mat-option *ngFor="let obj of loanutilizationStatusLov?.LOVs" [value]="obj.Value">
                                     {{obj.Name}}
                                 </mat-option>
                             </mat-select>
