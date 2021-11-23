@@ -134,6 +134,7 @@ export class GeoFencingListComponent implements OnInit {
         });
     }
 
+
     comparisonEnddateValidator(): any {
         let ldStartDate = this.listForm.value['StartDate'];
         let ldEndDate = this.listForm.value['EndDate'];

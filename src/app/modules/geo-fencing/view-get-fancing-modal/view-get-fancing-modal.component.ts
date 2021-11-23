@@ -22,7 +22,7 @@ export class ViewGetFancingModalComponent implements OnInit {
     center: google.maps.LatLngLiteral
     googleMap: any;
     vendorLocationMarker: any;
-    zoom: number = 2;
+    zoom: number = 10;
     PreviousLocation: Loc[] = [];
     images = [];
     LoggedInUserInfo: BaseResponseModel;
@@ -230,15 +230,26 @@ export class ViewGetFancingModalComponent implements OnInit {
                 this.LocationHistories = baseResponse.LocationHistory["LocationHistories"]
                 this.latlong = JSON.parse(baseResponse.LocationHistory.LocationHistories[0]["LocationData"]);
                 this.start_end_mark.push(this.latlong[0]);
-                this.start_end_mark.push(this.latlong[this.latlng?.length - 1]);
+                this.start_end_mark.push(this.latlong[this.latlong?.length - 1]);
 
+                console.log("start_end_mark"+JSON.stringify(this.start_end_mark))
                 this.detector.detectChanges();
+                debugger
             } else {
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }
         });
     }
 
+
+    icon(i){
+if(i==0){
+       return "green";
+}else{
+
+    return "red";
+}
+    }
     getPoligonGetByIds() {
         this.spinner.show()
         var request = {
@@ -280,7 +291,14 @@ export class ViewGetFancingModalComponent implements OnInit {
         },
         strictBounds: true
     };
-
+    Heading(i){
+        if(i==0){
+            return "Start"
+        }
+        else{
+            return "End"
+        }
+    }
     onMapReady(map) {
         this.googleMap = map;
         this.getPoligonGetByIds();
