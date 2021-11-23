@@ -56,7 +56,6 @@ export class LoanUtilizationService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-        console.log("GetLoanDetail disbursment" + req)
         return this.http.post(`${environment.apiUrl}/LoanUtilization/GetLoanDetail`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -88,7 +87,7 @@ export class LoanUtilizationService {
         );
     }
 
-    searchLoanUtilization(loanUtilization, userDetail: BaseResponseModel = null, fromdate: string, todate: string, Limit, Offset, SelectedCircles: any): Observable<BaseResponseModel> {
+    searchLoanUtilization(loanUtilization, userDetail: BaseResponseModel = null, fromdate: string, todate: string, Limit, Offset, branch: any, zone: any, circle: any): Observable<BaseResponseModel> {
 
         this.request = new BaseRequestModel();
 
@@ -109,19 +108,22 @@ export class LoanUtilizationService {
         this.request.LoanUtilization["ToDate"] = todate;
         this.request.LoanUtilization["Offset"] = Offset;
         this.request.LoanUtilization["Limit"] = Limit;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
+        this.request.Zone = zone;
+        this.request.Branch = branch;
         var circleIds = [];
-        SelectedCircles.forEach(element => {
-            circleIds.push(element.Id);
-        });
+        let SelectedCircles = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().SelectedCircles;
+        if (SelectedCircles?.length > 0) {
+            SelectedCircles.forEach(element => {
+                circleIds.push(element.Id);
+            });
+        }
 
         var _circles = JSON.stringify(circleIds)
         this.request.Circle = {
             CircleIds: _circles,
+            Circle: circle
         }
 
-        var req = JSON.stringify(this.request);
 
         return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchLoanForUtilization`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -326,7 +328,6 @@ export class LoanUtilizationService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-        console.log("GetLoanGL" + req)
         return this.http.post(`${environment.apiUrl}/LoanUtilization/GetGLForLoan`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
