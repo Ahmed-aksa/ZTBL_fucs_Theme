@@ -52,6 +52,7 @@ export class CreateLoanComponent implements OnInit {
       }
     })
   }
+    viewPurpose:boolean;
   public LnTransactionID: string;
   public Lcno: string;
   dynamicList: any;
@@ -93,6 +94,9 @@ export class CreateLoanComponent implements OnInit {
 
 
   onTabChangeClick($event) {
+    if ($event.index == 2) {
+      this.viewPurpose = this.appPurposeComponent.getCheckDisable(this.CustomersLoanAppList);
+    }
     if ($event.index == 3) {
       this.securityComponent.getCustomerLand();
     }
@@ -100,15 +104,20 @@ export class CreateLoanComponent implements OnInit {
       this.legalHeirsComponent.loadCustomers(this.CustomersLoanAppList);
     }
     if ($event.index == 7) {
-      this.loanWitnessComponent.getCheckList();
+       this.loanWitnessComponent.getCheckList();
     }
 
+
+
   }
+
+    checkValidation(data){
+
+    }
 
 
   fillLoanApplicationObject(req: Loan) {
     this.loanApplicationReq = req;
-
 
   }
 

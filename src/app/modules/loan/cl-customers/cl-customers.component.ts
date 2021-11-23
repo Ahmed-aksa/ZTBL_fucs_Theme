@@ -33,7 +33,6 @@ export class ClCustomersComponent implements OnInit {
   public customerArray: CustomerGrid[] = [];
   public createCustomer = new CreateCustomer();
   public customerLoanApp = new CustomersLoanApp();
-  ll
   @Input() loanDetail: Loan;
   @Output() loanCustomerCall: EventEmitter<any> = new EventEmitter();
   constructor(private formBuilder: FormBuilder,
@@ -53,7 +52,6 @@ export class ClCustomersComponent implements OnInit {
     this.LoadLovs();
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
     this.createForm();
-
 
   }
   createForm() {
@@ -95,7 +93,7 @@ export class ClCustomersComponent implements OnInit {
 
 
 
-      
+
     this.hasFormErrors = false;
     if (this.loanCustomerForm.invalid) {
       const controls = this.loanCustomerForm.controls;
@@ -310,6 +308,8 @@ export class ClCustomersComponent implements OnInit {
             addedCustomer.CustomerName = cus.name;
             this.loanDetail.CustomersLoanList.push(addedCustomer);
             this.loanDetail.CustomersLoanApp = this.customerLoanApp;
+
+
             this.loanCustomerCall.emit(this.loanDetail);
             //const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
           }

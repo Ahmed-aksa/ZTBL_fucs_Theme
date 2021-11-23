@@ -86,6 +86,7 @@ export class ClLegalHeirsComponent implements OnInit {
   }
 
   loadCustomers(CustomersLoanAppList) {
+
     this.loanDetail.CustomersLoanList = CustomersLoanAppList?? of([CustomersLoanApp])
     if (this.loanDetail != null) {
       if (this.loanDetail.CustomersLoanList.length > 0) {
@@ -168,7 +169,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
   onSaveLegalHeirsForm() {
 
-      
+
     //if (this.loanDetail == null || this.loanDetail == undefined) {
     //  this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
     //  return;
@@ -236,7 +237,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
   onDeleteLegalHeirs(legalHeir,index) {
 
-      
+
     console.log(legalHeir)
 
 

@@ -78,6 +78,21 @@ export class ClPurposeComponent implements OnInit {
   ) {
   }
 
+    getCheckDisable(data)
+    {
+       if(data[0].RelationID != "8" || data[0].Agps !="A"){
+           var Message = 'First customer relation must be Self and Agps must be Applicant';
+           this.layoutUtilsService.alertElement(
+               '',
+               Message,
+               null
+           );
+           return true;
+       }
+        return false;
+
+    }
+
   ngOnInit() {
     this.spinner.show();
     this.isCheckedEquity = false;

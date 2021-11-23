@@ -18,7 +18,7 @@
           <mat-tab label="Customers">
             <kt-cl-customers [loanDetail]="loanApplicationReq" (loanCustomerCall)="fillLoanApplicationObject($event)"></kt-cl-customers>
           </mat-tab>
-          <mat-tab label="Purpose">
+          <mat-tab [disabled]="checkValidation(loanApplicationReq)" label="Purpose">
             <kt-cl-purpose [loanDetail]="loanApplicationReq"></kt-cl-purpose>
           </mat-tab>
           <mat-tab label="Securities" >
