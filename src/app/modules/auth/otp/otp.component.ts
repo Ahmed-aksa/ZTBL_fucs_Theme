@@ -70,7 +70,7 @@ export class OtpComponent implements OnInit {
      */
     initRegistrationForm() {
         this.otpForm = this.fb.group({
-            otp: ['', Validators.compose([
+            otp: [this.data?.result?.OTP?.Text, Validators.compose([
                 Validators.required,
                 //Validators.email,
                 Validators.minLength(3),

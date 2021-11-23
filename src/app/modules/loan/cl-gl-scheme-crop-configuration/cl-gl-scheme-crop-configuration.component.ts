@@ -184,7 +184,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
         this.glSchemeCropConfigForm.controls.GLCode.value;
         this.dialogRef.close({ data: this.glSchemeCropConfigForm.controls.GLCode.value })
 
-        debugger
+        
     }
 
   onCloseClick(): void {

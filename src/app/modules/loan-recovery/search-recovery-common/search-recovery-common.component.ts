@@ -205,7 +205,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
         var voucherNo = this.RecoveryForm.controls.VoucherNo.value;
         var instrumentNO = this.RecoveryForm.controls.InstrumentNO.value;
         var recoveryType = "" + this.RecoveryForm.controls.RecoveryType.value;
-        debugger
+        
         this.branch.WorkingDate =  this.RecoveryForm.controls.WorkingDate.value;
         if (loanCaseNo != "" || voucherNo != "" || instrumentNO != "") {
             this.OffSet = 0;
@@ -414,7 +414,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
     }
 
     getAllData(event) {
-        debugger
+        
         this.circle = event.final_circle;
         this.zone = event.final_zone;
         this.branch = event.final_branch;

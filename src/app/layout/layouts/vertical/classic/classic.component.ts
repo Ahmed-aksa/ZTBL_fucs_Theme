@@ -14,6 +14,7 @@ import { NavigationService } from 'app/core/navigation/navigation.service';
 })
 export class ClassicLayoutComponent implements OnInit, OnDestroy
 {
+    user: any;
     isScreenSmall: boolean;
     navigation: Navigation;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -36,6 +37,8 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy
     }
     ngOnInit(): void
     {
+        this.user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
+
         this._navigationService.navigation$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((navigation: Navigation) => {

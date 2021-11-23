@@ -168,7 +168,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
   onSaveLegalHeirsForm() {
 
-      debugger
+      
     //if (this.loanDetail == null || this.loanDetail == undefined) {
     //  this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
     //  return;
@@ -236,7 +236,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
   onDeleteLegalHeirs(legalHeir,index) {
 
-      debugger
+      
     console.log(legalHeir)
 
 

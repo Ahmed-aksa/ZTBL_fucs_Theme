@@ -1,7 +1,7 @@
 /* eslint-disable no-var */
 /* eslint-disable arrow-parens */
 /* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable eol-last */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -104,7 +104,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     ];
 
     find() {
-        debugger
+        
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required values");
             return;

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable arrow-parens */
 /* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable eol-last */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -85,7 +85,7 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger
+        
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
     }

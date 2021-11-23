@@ -95,7 +95,7 @@ export class ClCustomersComponent implements OnInit {
 
 
 
-      debugger
+      
     this.hasFormErrors = false;
     if (this.loanCustomerForm.invalid) {
       const controls = this.loanCustomerForm.controls;

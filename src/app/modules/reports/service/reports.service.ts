@@ -82,7 +82,7 @@ export class ReportsService {
     }
 
     searchNpl(user, reportsFilter) {
-      debugger
+      
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }
@@ -104,7 +104,7 @@ export class ReportsService {
     }
 
     bifurcation(user, reportsFilter) {
-      debugger
+      
       if(reportsFilter.CircleId == 'null'){
         reportsFilter.CircleId = null
       }

@@ -97,7 +97,7 @@ export class FaViewCircleWiseComponent implements OnInit {
     }
 
     value(event) {
-        debugger
+        
         console.log(event)
     }
 
@@ -108,7 +108,7 @@ export class FaViewCircleWiseComponent implements OnInit {
     }
 
     find() {
-        debugger
+        
 
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required fields");
@@ -156,7 +156,7 @@ export class FaViewCircleWiseComponent implements OnInit {
 
 
     async typeLov() {
-        debugger
+        
         this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
         this.statusLov = this.statusLov.LOVs;
         this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")

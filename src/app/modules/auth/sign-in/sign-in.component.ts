@@ -53,7 +53,7 @@ export class AuthSignInComponent implements OnInit {
         this._authService.signIn(loginMode)
             .subscribe((result) => {
                     if (result.Success) {
-                        debugger;
+                        
                         if (!result.isWebOTPEnabled) {
                             if (result.LoanUtilization) {
                                 localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));

@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-lg-12">
                 <div class="kt-login__title">
                     <!--<h3>{{ 'AUTH.FORGOT.TITLE' | translate }}</h3>-->
@@ -22,8 +22,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <form class="kt-form" [formGroup]="otpForm" autocomplete="off">
-                    <div class="form-group mb-4">
-                        <mat-form-field appearance="outline">
+                    <div class="form-group my-2">
+                        <mat-form-field class="w-full" appearance="outline">
                             <!--<mat-label>{{ 'AUTH.INPUT.EMAIL' | translate }}</mat-label>-->
                             <mat-label>OTP</mat-label>
                             <input appNumberOnly matInput type="text" placeholder="OTP" formControlName="otp"
@@ -40,16 +40,20 @@
                         </mat-form-field>
                     </div>
                     <!--begin::Action-->
-                    <div class="kt-login__actions float-right mr-2">
+                    <div class="kt-login__actions float-right">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <button id="kt_login_signup_cancel" (click)="onCloseClick(0)">
-                                    <mat-icon class="mr-2">cancel</mat-icon>
+                            <div class="col-lg-6 text-end">
+                                <button type="button" mat-raised-button class="mat-focus-indicator btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger" id="kt_login_signup_cancel" (click)="onCloseClick(0)">
+                                   <mat-icon class="mr-2">cancel</mat-icon>
                                     {{'Close'}} </button>
-                                <button (click)="submit()" id="kt_login_signin_submit"
-                                        class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                        [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">{{'Submit'}}</button>
                             </div>
+                            <div class="col-lg-6">
+
+                                <button (click)="submit()" id="kt_login_signin_submit"
+                                        class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
+                                        [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"><mat-icon class="mr-2">check_circle</mat-icon>{{'Submit'}}</button>
+                            </div>
+
                         </div>
 
                     </div>
