@@ -1,11 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
+import {Component, OnInit, ChangeDetectorRef, Input} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {finalize} from 'rxjs/operators';
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import { DatePipe } from '@angular/common';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {DatePipe} from '@angular/common';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {DateFormats} from "../../../shared/classes/lov.class";
 import {LoanUtilizationModel, UtilizationFiles} from "../Model/loan-utilization.model";
@@ -14,10 +14,10 @@ import {MatTableDataSource} from "@angular/material/table";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
 import {LoanUtilizationService} from "../service/loan-utilization.service";
-import { ViewFileComponent } from '../view-file/view-file.component';
+import {ViewFileComponent} from '../view-file/view-file.component';
 import {Zone} from "../../../shared/models/zone.model";
-import { Circle } from 'app/shared/models/circle.model';
-import { Branch } from 'app/shared/models/branch.model';
+import {Circle} from 'app/shared/models/circle.model';
+import {Branch} from 'app/shared/models/branch.model';
 
 @Component({
     selector: 'kt-loan-utilization',
@@ -25,8 +25,8 @@ import { Branch } from 'app/shared/models/branch.model';
     styleUrls: ['./loan-utilization.component.scss'],
     providers: [
         DatePipe,
-        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
         {
             provide: MatDialogRef,
             useValue: {}
@@ -116,32 +116,9 @@ export class LoanUtilizationComponent implements OnInit {
     mediaGetter;
     options: boolean = false;
     select: Selection[] = [
-        { value: '0', viewValue: 'NO' },
-        { value: '1', viewValue: 'Yes' },
+        {value: '0', viewValue: 'NO'},
+        {value: '1', viewValue: 'Yes'},
     ];
-
-    //Zone inventory
-    Zones: any = [];
-    SelectedZones: any = [];
-    public Zone = new Zone();
-
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-    public Branch = new Branch();
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
-    public Circle = new Circle();
-    selected_b;
-    selected_z;
-    selected_c;
 
 
     constructor(
@@ -155,7 +132,6 @@ export class LoanUtilizationComponent implements OnInit {
         private _loanutilization: LoanUtilizationService,
         private dialog: MatDialog,
         private route: ActivatedRoute,
-
     ) {
 
         this.loggedInUser = userUtilsService.getUserDetails();
@@ -174,7 +150,6 @@ export class LoanUtilizationComponent implements OnInit {
 
 
     ngAfterViewInit() {
-console.log("after view"+JSON.stringify(this.loanUtilizationModel))
         if (this.loanUtilizationModel.LoanCaseNo && this.loanUtilizationModel.Status != "Add") {
             this.GetMedia();
         }
@@ -197,13 +172,11 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
     ngOnInit() {
 
         this.setMediaLimits();
-        console.log("loan utilization"+JSON.stringify(this.loanUtilizationModel))
         if (this.loanUtilizationModel.LoanCaseNo) {
             if (this.loanUtilizationModel["view"] == "1") {
                 this.viewonly = true;
                 this.remarksFeild = true;
-            }
-            else {
+            } else {
                 this.viewonly = false;
             }
 
@@ -216,70 +189,15 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
         this.createForm();
         this.checkUser();
         this.setOptions();
-        this.settingZBC();
 
     }
+
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
 
-    settingZBC(){
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-
-        if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.SelectedCircles = this.LoggedInUserInfo.UserCircleMappings;
-
-            this.SelectedBranches = this.LoggedInUserInfo.Branch;
-            this.SelectedZones = this.LoggedInUserInfo.Zone;
-
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.selected_c = this.SelectedCircles?.Id
-            this.customerForm.controls["Zone"].setValue(this.SelectedZones?.Id);
-            this.customerForm.controls["Branch"].setValue(this.SelectedBranches?.BranchCode);
-        } else if (!this.LoggedInUserInfo.Branch && !this.LoggedInUserInfo.Zone && !this.LoggedInUserInfo.Zone) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-        }
-    }
-
-
-
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
-
-    changeBranch(changedValue) {
-        let changedBranch = null;
-        if (changedValue.value)
-            changedBranch = {Branch: {BranchCode: changedValue.value}}
-        else
-            changedBranch = {Branch: {BranchCode: changedValue}}
-
-        this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-
-            this.Circles = data.Circles;
-            this.SelectedCircles = this.Circles;
-            this.disable_circle = false;
-            if (changedValue.value) {
-                // this.getBorrower();
-            }
-        });
-    }
 
     checkUser() {
         var userInfo = this.userUtilsService.getUserDetails();
@@ -289,9 +207,6 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
             this.isBM = true;
             this.customerForm.controls.Remarks.setValidators(Validators.required);
         }
-
-        this.customerForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
-        this.customerForm.controls.Branch.setValue(userInfo.Branch.Name);
     }
 
     setOptions() {
@@ -449,8 +364,10 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
             });
 
     }
+
     imageid;
     videoid;
+
     removeImage(url, val: number) {
         if (!url.includes('base64')) {
             this.imageid = this.images.find(temp => temp.ImageFilePath == url);
@@ -465,7 +382,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
         if (!url.includes('base64')) {
             this.videoid = this.videos.find(temp => temp.VideoFilePath == url);
             this.deleteData(this.videoid['ID'], val, true);
-        }else {
+        } else {
             this.videos.splice(val, 1);
             this.videoUrl.splice(val, 1);
         }
@@ -494,13 +411,13 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
         const dialogRef = this.dialog.open(ViewFileComponent, {
             width: '70%',
             height: '70%',
-            data: { url: url }
+            data: {url: url}
         });
     }
 
     changeStatus(status: string) {
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks.value;
-        if(this.loanUtilizationModel.Remarks == ""){
+        if (this.loanUtilizationModel.Remarks == "") {
             var msg = "Please Enter Remarks before submitting"
             this.layoutUtilsService.alertElement(
                 "",
@@ -510,7 +427,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
             return;
         }
 
-        if(status == "S" && (this.loanUtilizationModel.ID == undefined || this.loanUtilizationModel.ID == null)){
+        if (status == "S" && (this.loanUtilizationModel.ID == undefined || this.loanUtilizationModel.ID == null)) {
             var msg = "Please save before submitting"
             this.layoutUtilsService.alertElement(
                 "",
@@ -520,7 +437,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
             return;
         }
 
-        if(status && !(this.imageUrl.length>0)){
+        if (status && !(this.imageUrl.length > 0)) {
             var msg = "Please Attach image"
             this.layoutUtilsService.alertElement(
                 "",
@@ -529,7 +446,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
             );
             return;
         }
-        if(status && !(this.videoUrl.length>0)){
+        if (status && !(this.videoUrl.length > 0)) {
             var msg = "Please Attach video"
             this.layoutUtilsService.alertElement(
                 "",
@@ -538,7 +455,6 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
             );
             return;
         }
-
 
 
         this.customerForm.controls.Remarks.setValidators(Validators.required);
@@ -553,7 +469,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-                        if(status=="S" || status=="C"){
+                        if (status == "S" || status == "C") {
                             this.router.navigate(['/loan-utilization/search-uti']);
                         }
                         this.layoutUtilsService.alertElementSuccess(
@@ -667,6 +583,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
             this.customerForm.markAsPristine();
         }
     }
+
     isControlHasError(controlName: string, validationType: string): boolean {
         const control = this.customerForm.controls[controlName];
 
@@ -724,7 +641,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
                     if (baseResponse.Success) {
 
                         this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID
-                        if(this.images.length && this.videos.length){
+                        if (this.images.length && this.videos.length) {
                             this.layoutUtilsService.alertElement(
                                 "",
                                 baseResponse.Message,
@@ -743,6 +660,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
                     }
                 });
     }
+
     currentIndex: number = 0;
 
     message = "";
@@ -812,7 +730,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
                 this.SaveVideos()
             }
         } else {
-            if(this.message != ""){
+            if (this.message != "") {
                 this.layoutUtilsService.alertElementSuccess(
                     '',
                     this.message,
@@ -823,7 +741,7 @@ console.log("after view"+JSON.stringify(this.loanUtilizationModel))
                 this.videos = [];
                 this.videoUrl = [];
                 this.GetMedia();
-            }else{
+            } else {
                 this.spinner.hide();
             }
         }

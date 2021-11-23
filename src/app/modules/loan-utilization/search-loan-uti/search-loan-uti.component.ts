@@ -60,7 +60,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         "GlSubCode",
         "SchemeCode",
         "CropCode",
-         "LoanCaseNo",
+        "LoanCaseNo",
         "OutStandingPrinciple",
         "DisbursedAmount",
         "prodDevFlag",
@@ -95,33 +95,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     LoggedInUserInfo: BaseResponseModel;
-    //Zone inventory
-    Zones: any = [];
-    SelectedZones: any = [];
-    private Zone = new Zone();
 
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-    private Branch = new Branch();
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
-    public Circle = new Circle();
-    selected_b;
-    selected_z;
-    selected_c;
-
-    //final
-    final_branch: any;
-    final_zone: any;
-    final_cricle: any;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -137,7 +111,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 private _cdf: ChangeDetectorRef,
                 private userUtilsService: UserUtilsService,
                 private _common: CommonService,
-                public datePipe:DatePipe) {
+                public datePipe: DatePipe) {
     }
 
     ngOnInit() {
@@ -168,11 +142,13 @@ export class SearchLoanUtilizationComponent implements OnInit {
         //this.FilterForm.controls["EndDate"].setValue(this.myDate);
 
     }
+
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
+
     userInfo = this.userUtilsService.getUserDetails();
 
 
@@ -188,6 +164,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     searchLoan;
+
     show() {
         this.searchLoan = Object.assign(this.loanutilizationSearch);
     }
@@ -214,11 +191,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     }
 
-    SetBranches(branchId) {
-
-        this.Branch.BranchCode = branchId.value;
-
-    }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
@@ -235,20 +207,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
 
-    searchBranch(branchId) {
-        branchId = branchId.toLowerCase();
-        if (branchId != null && branchId != undefined && branchId != "")
-            this.SelectedBranches = this.Branches.filter(x => x.Name.toLowerCase().indexOf(branchId) > -1);
-        else
-            this.SelectedBranches = this.Branches;
-    }
-
-    validateBranchOnFocusOut() {
-        if (this.SelectedBranches.length == 0)
-            this.SelectedBranches = this.Branches;
-    }
-
-
     hasError(controlName: string, errorName: string): boolean {
         return this.loanutilizationSearch.controls[controlName].hasError(errorName);
     }
@@ -259,7 +217,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     setFromDate() {
 
         // this.loanutilizationSearch.controls.FromDate.value this.datePipe.transform(this.loanutilizationSearch.controls.FromDate.value, 'ddMMyyyy')
-        this.minDate =  this.loanutilizationSearch.controls.FromDate.value;
+        this.minDate = this.loanutilizationSearch.controls.FromDate.value;
         var FromDate = this.loanutilizationSearch.controls.FromDate.value;
         if (FromDate._isAMomentObject == undefined) {
             try {
@@ -276,9 +234,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 this.fromdate = FromDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
                 // console.log("date"+this.datePipe.transform(branchWorkingDate, 'ddmmyyyy'))
-               // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
-               //  console.log(this._common.stringToDate(newdate))
-               this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate);
+                // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
+                //  console.log(this._common.stringToDate(newdate))
+                this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         } else {
@@ -421,7 +379,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         // }
 
 
-        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex,this.SelectedCircles)
+        this._loanutilizationService.searchLoanUtilization(this._loanUtilizationSearch["LoanCaseNo"], this.userInfo, this.fromdate, this.todate, count, currentIndex, this.branch, this.zone, this.circle)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -503,6 +461,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     addloanutilization(utilization: any) {
+
+        localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(utilization.BranchCode));
+        localStorage.setItem('selected_single_circle', JSON.stringify(utilization.CircleId));
         utilization.Status = "Add";
         this.router.navigate(['../loan-uti'], {
             state: {example: utilization},

@@ -59,7 +59,6 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
         if (localStorage.getItem('selected_zone')) {
             this.selected_zone = JSON.parse(localStorage.getItem('selected_zone'));
         } else if (localStorage.getItem('selected_single_zone')) {
@@ -185,6 +184,7 @@ export class ZoneBranchCircleComponent implements OnInit {
             changedBranch = {Branch: {BranchCode: changedValue.value}}
         else
             changedBranch = {Branch: {BranchCode: changedValue}}
+
         this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
             this.SelectedCircles = data.Circles;
             this.single_circle = false;
@@ -217,6 +217,7 @@ export class ZoneBranchCircleComponent implements OnInit {
         } else {
             changedZone = {Zone: {ZoneId: changedValue}}
         }
+
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.SelectedBranches = data.Branches;
             this.single_branch = false;
