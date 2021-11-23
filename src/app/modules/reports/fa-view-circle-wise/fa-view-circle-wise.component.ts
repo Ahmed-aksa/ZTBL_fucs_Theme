@@ -30,7 +30,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./fa-view-circle-wise.component.scss']
 })
 export class FaViewCircleWiseComponent implements OnInit {
-    displayedColumns = ['Branch', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'OtherCharges'];
+    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lsn','Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'l_stats', 'empp','OtherCharges' ];
     searchCnicForm: FormGroup;
     selected_b;
     selected_z;
@@ -97,7 +97,7 @@ export class FaViewCircleWiseComponent implements OnInit {
     }
 
     value(event) {
-        
+
         console.log(event)
     }
 
@@ -108,7 +108,7 @@ export class FaViewCircleWiseComponent implements OnInit {
     }
 
     find() {
-        
+
 
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required fields");
@@ -156,7 +156,7 @@ export class FaViewCircleWiseComponent implements OnInit {
 
 
     async typeLov() {
-        
+
         this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
         this.statusLov = this.statusLov.LOVs;
         this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")

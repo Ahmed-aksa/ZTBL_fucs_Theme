@@ -81,6 +81,76 @@
                     matSortDirection="asc"
                     matSortDisableClear
                 >
+                    <ng-container matColumnDef="Zone">
+                        <mat-header-cell *matHeaderCellDef
+                        >Zone Name
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.ZoneName
+                            }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Branch">
+                        <mat-header-cell *matHeaderCellDef
+                        >Branch Name
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.BranchName
+                            }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Circle">
+                        <mat-header-cell *matHeaderCellDef
+                        >Circle Code
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.CircleId
+                            }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Dob">
+                        <mat-header-cell *matHeaderCellDef
+                        >Date of Birth
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.DOB
+                            }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Ndd">
+                        <mat-header-cell *matHeaderCellDef
+                        >Next Due Date
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.NextDueDate
+                            }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="MajorBorrower">
+                        <mat-header-cell *matHeaderCellDef
+                        >Major Borrower
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.MajorBorrower
+                            }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Lsn">
+                        <mat-header-cell *matHeaderCellDef
+                        >Loan Status Name
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.LoanStatusName
+                            }}</mat-cell>
+                    </ng-container>
+
                     <ng-container matColumnDef="Lcno">
                         <mat-header-cell *matHeaderCellDef
                         >LC #
@@ -133,23 +203,54 @@
 
                     <ng-container matColumnDef="Bcl">
                         <mat-header-cell *matHeaderCellDef
-                        >Total Sanction Amount
+                        >Borrower Credit Limit
                         </mat-header-cell
                         >
                         <mat-cell *matCellDef="let report">{{
-                            report.TotalSanctionAmount
+                            report.SanctionLimit
+                            }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descr">
+                        <mat-header-cell *matHeaderCellDef
+                        >DESCR
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.DESCR
+                            }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="empp">
+                        <mat-header-cell *matHeaderCellDef
+                        >Emp PPNO
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.EmpPPNO
+                            }}</mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="l_stats">
+                        <mat-header-cell *matHeaderCellDef
+                        >Loan Status
+                        </mat-header-cell
+                        >
+                        <mat-cell *matCellDef="let report">{{
+                            report.LoanStatus
                             }}</mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="Los">
                         <mat-header-cell *matHeaderCellDef
-                        >Loan Outstanding
+                        >loan Outstanding
                         </mat-header-cell
                         >
                         <mat-cell *matCellDef="let report">{{
                             report.LoanOutStanding
                             }}</mat-cell>
                     </ng-container>
+
                     <ng-container matColumnDef="OtherCharges">
                         <mat-header-cell *matHeaderCellDef
                         >Other Charges
@@ -174,6 +275,39 @@
                     Please wait....
                 </div>
 
+                <!-- <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">
+                    Items per page:
+                    <mat-select
+                        display="inline"
+                        [(value)]="itemsPerPage"
+                        (valueChange)="paginate(1, $event)"
+                        style="
+                            width: 50px;
+                            margin-left: 15px;
+                            display: inline-block;
+                            margin-right: 10px;
+                        "
+                    >
+                        <mat-option [value]="5">5</mat-option>
+                        <mat-option [value]="10">10</mat-option>
+                        <mat-option [value]="25">25</mat-option>
+                        <mat-option [value]="50">50</mat-option>
+                    </mat-select>
+                    <button (click)="paginate(1)">First</button>
+                    <pagination-controls
+                        display="inline"
+                        (pageChange)="paginate($event)"
+                        style="display: inline-block"
+                    ></pagination-controls>
+                    <button
+                        (click)="paginate(Math.ceil(totalItems / itemsPerPage))"
+                    >
+                        Last
+                    </button>
+                    <p style="float: right">
+                        Total <b>{{ totalItems }}</b> items
+                    </p>
+                </div> -->
             </div>
         </div>
     </div>

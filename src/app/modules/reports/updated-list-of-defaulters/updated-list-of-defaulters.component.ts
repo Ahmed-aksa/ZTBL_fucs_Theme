@@ -33,7 +33,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./updated-list-of-defaulters.component.scss']
 })
 export class UpdatedListOfDefaultersComponent implements OnInit {
-    displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'OtherCharges'];
+    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lsn','Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'l_stats', 'empp','OtherCharges' ];
     searchCnicForm: FormGroup;
     selected_b;
     selected_z;
@@ -104,7 +104,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     ];
 
     find() {
-        
+
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required values");
             return;

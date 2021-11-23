@@ -24,7 +24,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./loan-amounts-convert-to-default.component.scss']
 })
 export class LoanAmountsConvertToDefaultComponent implements OnInit {
-    displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'OtherCharges'];
+    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lsn','Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'l_stats', 'empp','OtherCharges' ];
     searchCnicForm: FormGroup;
 
     public reports = new SearchLoanCaseByCnic();
@@ -144,7 +144,7 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
-        
+
     }
 
 
