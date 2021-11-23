@@ -29,13 +29,13 @@ export class GeoFencingListComponent implements OnInit {
 
 
     products: any
-    displayedColumns = ['CircleCodes','PPNo', 'BranchCode', 'StartTime','StopTime', 'ApproxDistanceTraveled','CreatedDate', 'View'];
+    displayedColumns = ['CircleCodes','PPNo', 'BranchCode', 'StartTime','StopTime', 'ApproxDistanceTraveled','View'];
     itemsPerPage = 5;
     pageIndex = 1;
     offSet = 0;
     totalItems: number | any = 0;
     dv: number | any; //use later
-    dataSource = new MatTableDataSource();
+    dataSource;
     listForm: FormGroup
     //Zone inventory
     LoggedInUserInfo: BaseResponseModel;
@@ -112,8 +112,8 @@ export class GeoFencingListComponent implements OnInit {
                 this.dv = this.dataSource.data;
 
             } else {
-
-                this.dataSource.data = []
+                this.dataSource=[]
+                 this.dv?.splice(1,0)
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }
         });
