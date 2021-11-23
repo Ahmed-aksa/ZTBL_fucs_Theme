@@ -13,6 +13,8 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {User} from 'app/core/user/user.types';
 import {UserService} from 'app/core/user/user.service';
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {ChangePasswordComponent} from "../change-password/change-password.component";
 
 @Component({
     selector: 'user',
@@ -37,7 +39,8 @@ export class UserComponent implements OnInit, OnDestroy {
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
-        private _userService: UserService
+        private _userService: UserService,
+        private matDialogRef: MatDialog
     ) {
     }
 
@@ -88,5 +91,9 @@ export class UserComponent implements OnInit, OnDestroy {
      */
     signOut(): void {
         this._router.navigate(['/sign-out']);
+    }
+
+    changePassword() {
+        let dialogRef = this.matDialogRef.open(ChangePasswordComponent);
     }
 }
