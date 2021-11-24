@@ -362,7 +362,8 @@ export class EligibilityRequestComponent implements OnInit {
 
                     if (this.dv != undefined) {
                         this.matTableLenght = false;
-                        this.dataSource.data = [];
+                        this.
+                            dataSource.data = [];
 
                         this.OffSet = 1;
                         this.pageIndex = 1;
