@@ -358,15 +358,15 @@ export class EligibilityRequestComponent implements OnInit {
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
                 } else {
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
 
                     if (this.dv != undefined) {
                         this.matTableLenght = false;
                         this.dataSource.data = [];
-                        // this._cdf.detectChanges();
+
                         this.OffSet = 1;
                         this.pageIndex = 1;
                         this.dv = this.dv.slice(1, 0);
-                        this.layoutUtilsService.alertElement("", baseResponse.Message);
                     }
                 }
             });

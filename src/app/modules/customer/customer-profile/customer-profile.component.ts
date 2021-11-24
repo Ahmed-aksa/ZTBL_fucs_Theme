@@ -154,6 +154,7 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.images.push(this.ProfileImageSrc);
         this.bit = localStorage.getItem('CreateCustomerBit');
 
@@ -279,7 +280,7 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     createForm() {
-        debugger
+
         var userInfo = this.userUtilsService.getUserDetails();
         // this.BranchLov = userInfo.Branch;
         // this.ZoneLov = userInfo.Zone;
@@ -500,12 +501,12 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.doSubmit = flag;
 
 
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.BranchLov = userInfo.Branch;
-        this.ZoneLov = userInfo.Zone;
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        this.BranchLov = userInfo?.Branch;
+        this.ZoneLov = userInfo?.Zone;
 
-        this.createCustomer.Zone = userInfo.Zone.ZoneId;
-        this.createCustomer.Branch = userInfo.Branch.BranchId;
+        this.createCustomer.Zone = userInfo.Zone?.ZoneId;
+        this.createCustomer.Branch = userInfo.Branch?.BranchId;
 
 
         this.createCustomer.Dob = this.datePipe.transform(this.createCustomer.Dob, 'ddMMyyyy');

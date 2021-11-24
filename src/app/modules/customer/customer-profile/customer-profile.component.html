@@ -17,9 +17,6 @@
         <form [formGroup]="roleForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="kt-portlet__body container">
-                    <div class="kt-portlet__body-progress">
-                        <mat-spinner [diameter]="20"></mat-spinner>
-                    </div>
                     <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                               (close)="onAlertClose($event)">
                         Please enter valid Input
