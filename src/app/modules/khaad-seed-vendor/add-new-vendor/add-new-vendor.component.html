@@ -63,7 +63,7 @@
                                formControlName="PhoneNumber" maxlength="11" minlength="11" autocomplete="off"
                                [readonly]="viewOnly"/>
                     </mat-form-field>
-                    <mat-hint>Hint: 03xxxxxxxxx</mat-hint>
+                    <!-- <mat-hint>Hint: 03xxxxxxxxx</mat-hint> -->
                 </div>
 
             </div>
@@ -120,7 +120,7 @@
 
     </div>
 
-    <div class="mt-2 justify-content-center text-right border-t py-4">
+    <div class="mt-4 justify-content-center text-right border-t py-4">
         <button style="background-color: #01671B;" mat-raised-button color="primary" (click)="saveSubmit()"
                 *ngIf="!viewOnly">
             <mat-icon class="mr-2">save</mat-icon>
