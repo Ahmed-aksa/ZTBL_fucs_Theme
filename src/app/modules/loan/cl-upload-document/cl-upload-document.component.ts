@@ -129,7 +129,7 @@ export class ClUploadDocumentComponent implements OnInit {
         if (baseResponse.Success) {
 
           baseResponse.Zones.forEach(function (value) {
-            value.ZoneName = value.ZoneName.split("-")[1];
+            value.ZoneName = value?.ZoneName?.split("-")[1];
           })
           this.Zones = baseResponse.Zones;
           this.SelectedZones = this.Zones;
