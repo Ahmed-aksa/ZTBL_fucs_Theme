@@ -1,4 +1,4 @@
-<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
 
 
     <div class="row pt-3">
@@ -26,11 +26,11 @@
         <div class="card card-body">
             <div  [formGroup]="RfrlForm">
 
-                <div class="row">
+                <div class="flex" style="flex-wrap: wrap;">
                     <app-zone-branch-circle [form]="RfrlForm" [should_show_circle]="false"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Cnic <strong class="matMandatory">*</strong></mat-label>
@@ -40,8 +40,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Application Date(ddMMyyyy) <strong class="matMandatory">*</strong>
@@ -54,12 +54,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Branch Remarks<strong class="matMandatory">*</strong></mat-label>
@@ -67,8 +63,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Request Category <strong class="matMandatory">*</strong></mat-label>
                                 <mat-select (selectionChange)="onSelectionChange($event)" formControlName="RequestCategory">
@@ -80,8 +76,9 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12 " *ngIf="graceMonthsSelect">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" *ngIf="graceMonthsSelect">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;" *ngIf="graceMonthsSelect">
+
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Grace Months <strong class="matMandatory">*</strong></mat-label>
                                 <mat-select formControlName="GraceMonths">
@@ -92,8 +89,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Manager PPNO <strong class="matMandatory">*</strong></mat-label>
                                 <input matInput placeholder="Enter Manager PPNO" formControlName="MPpno" appNumberOnly
@@ -101,12 +98,14 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <button class="bg-gray-500 mt-2"  mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                         </div>
                     </div>
                 </div>
+
+
 
 
 
@@ -134,10 +133,8 @@
 
 
 
-    <div *ngIf="Table" class="d-flex justify-content-center">
-        <button mat-raised-button color="primary" (click)="Add()">Add Select Record</button>
-    </div>
-    <div class="flex flex-auto " style="flex-direction: column; overflow-y: scroll">
+
+    <div class="mb-3" style="flex-direction: column; overflow-y: scroll">
         <table class="example-table-container">
             <thead>
             <tr class="table-header-background p-5 ">
@@ -165,10 +162,10 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="AddTable && checkedArr.length>0" class="d-flex justify-content-center">
-        <button mat-raised-button color="primary" (click)="submitData()">Submit</button>
-        <button class="ml-2" mat-raised-button color="primary" (click)="cancelData()">Cancel</button>
+    <div *ngIf="Table" class="d-flex justify-content-center">
+        <button mat-raised-button color="primary" (click)="Add()">Add Select Record</button>
     </div>
+
     <div class="col-lg-12 mt-2">
 
         <table class="table table-striped " *ngIf="AddTable && checkedArr.length>0">
@@ -197,5 +194,9 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div *ngIf="AddTable && checkedArr.length>0" class="d-flex justify-content-center">
+        <button mat-raised-button color="primary" (click)="submitData()">Submit</button>
+        <button class="ml-2" mat-raised-button color="primary" (click)="cancelData()">Cancel</button>
     </div>
 </div>
