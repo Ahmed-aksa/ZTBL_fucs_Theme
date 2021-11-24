@@ -1,55 +1,84 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="text-4xl font-extrabold tracking-tight px-10 mt-4">List of Application</div>
+<div class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+  
   <!-- Header -->
-  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8"
-  [formGroup]="loanSearch">
-  <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-    <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
-      <mat-label>Application Date(ddMMyyyy)</mat-label>
-      <input readonly="readonly" matInput [matDatepicker]="picker3" placeholder="ddMMyyyy" autocomplete="off" formControlName="Appdt">
-      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-      <mat-datepicker #picker3></mat-datepicker>
-    </mat-form-field>
 
-    <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
-      <mat-label>LA File/Booklet#</mat-label>
-      <input matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">
-      <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
-    </mat-form-field>
-
-    <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
-      <mat-label>Status</mat-label>
-      <mat-select formControlName="Status">
-        <mat-option>
-          <ngx-mat-select-search placeholderLabel="Search Loan Status..." (focusout)="validateLoanStatusOnFocusOut()" noEntriesFoundLabel="No Loan Status Found" (keyup)="searchLoanStatus($event.target.value)">
-          </ngx-mat-select-search>
-        </mat-option>
-        <mat-option *ngFor="let loanStatus of SelectedLoanStatus" [value]="loanStatus.Id">
-          {{loanStatus.Name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="mat-form-field-fluid mr-4" appearance="outline">
-      <mat-label>Loan Case#</mat-label>
-      <input matInput placeholder="Enter Loan Case Number" formControlName="LcNo">
-      <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
-    </mat-form-field>
-
-    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4 mb-2">
-      <button (click)="searchLoan()" class="ml-4" mat-flat-button [color]="'primary'">
-        <span class="ml-2 mr-1">Search</span>
-      </button>
+  <div class="row pt-3">
+    <div class="col-lg-9 col-sm-12">
+      <div class="heading">List of Application</div>
     </div>
-
+    <div class="col-lg-3 col-sm-12 self-center">
+        <p class="text-right">
+            <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+            color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+                <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
+                <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                Advance Filter
+            </button>
+        </p>
+    </div>
 </div>
+
+
+<div class="collapse show" id="collapseExample">
+  <div class="card card-body">
+    <div class="row">
+      <div class="col-lg-3 col-sm-12">
+      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+        <mat-label>Application Date(ddMMyyyy)</mat-label>
+        <input readonly="readonly" matInput [matDatepicker]="picker3" placeholder="ddMMyyyy" autocomplete="off" formControlName="Appdt">
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </mat-form-field>
   </div>
+  <div class="col-lg-3 col-sm-12">
+      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+        <mat-label>LA File/Booklet#</mat-label>
+        <input matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">
+        <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-sm-12">
+      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="Status">
+          <mat-option>
+            <ngx-mat-select-search placeholderLabel="Search Loan Status..." (focusout)="validateLoanStatusOnFocusOut()" noEntriesFoundLabel="No Loan Status Found" (keyup)="searchLoanStatus($event.target.value)">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let loanStatus of SelectedLoanStatus" [value]="loanStatus.Id">
+            {{loanStatus.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-3 col-sm-12">
+      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+        <mat-label>Loan Case#</mat-label>
+        <input matInput placeholder="Enter Loan Case Number" formControlName="LcNo">
+        <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
+      </mat-form-field>
+  </div>
+  <div class="col-lg-3 col-sm-12">
+      <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mb-2">
+        <button (click)="searchLoan()" class="bg-gray-500" mat-flat-button [color]="'primary'">
+          <span class="ml-2 mr-1">Search</span>
+        </button>
+      </div>
+  </div>
+    </div>
+  </div> 
+</div>
+  <div
+  [formGroup]="loanSearch">
+
+
 
   <!-- Main -->
-  <div class="flex flex-auto overflow-y-scroll mx-10">
+  <div class="flex flex-auto shadow-xs rounded-sm bg-gray-50 overflow-y-scroll">
 
     <!-- Products list -->
-    <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
+    <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
       <div class="flex flex-col flex-auto sm:mb-18 overflow-scroll sm:overflow-y-auto">
       <mat-table class="lmat-elevation-z8"
                    #table
