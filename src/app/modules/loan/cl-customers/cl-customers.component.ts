@@ -235,6 +235,11 @@ export class ClCustomersComponent implements OnInit {
                         )
                         .subscribe(baseResponse => {
                             if (baseResponse.Success === true) {
+                                if (this.customerArray[0] && (this.customerArray[0]?.agps == 'A' || this.customerArray[0]?.Relationship == '8')) {
+                                    this.disable_tab.emit(false);
+                                } else {
+                                    this.disable_tab.emit(true);
+                                }
                                 const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                                 this.customerArray.splice(index, 1);
                             }
