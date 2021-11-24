@@ -266,62 +266,68 @@ export class ClCustomersComponent implements OnInit {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
-        this.spinner.show();
-        var isCustomerAdded = false;
-        var resMessage = "";
-        var resCode = "";
-        var customerAdded = 0;
+        if (this.customerArray.length > 0) {
+            this.spinner.show();
+            var isCustomerAdded = false;
+            var resMessage = "";
+            var resCode = "";
+            var customerAdded = 0;
 
-        this.customerArray.forEach(cus => {
-            this.customerLoanApp.Cnic = cus.cnic;
-            this.customerLoanApp.RelationID = parseInt(cus.Relationship);
-            this.customerLoanApp.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-            //this.customerLoanApp.LoanAppID = 0;
-            this.customerLoanApp.Agps = cus.agps;
-            this._loanService.saveCustomerWithLoanApp(this.customerLoanApp, this.loanDetail.TranId)
-                .pipe(
-                    finalize(() => {
-                        this.spinner.hide();
+            this.customerArray.forEach(cus => {
+                this.customerLoanApp.Cnic = cus.cnic;
+                this.customerLoanApp.RelationID = parseInt(cus.Relationship);
+                this.customerLoanApp.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
+                //this.customerLoanApp.LoanAppID = 0;
+                this.customerLoanApp.Agps = cus.agps;
+                this._loanService.saveCustomerWithLoanApp(this.customerLoanApp, this.loanDetail.TranId)
+                    .pipe(
+                        finalize(() => {
+                            this.spinner.hide();
 
-                        if (this.customerArray.length == customerAdded) {
-                            const dialogRef = this.layoutUtilsService.alertElementSuccess("", resMessage, resCode);
+                            if (this.customerArray.length == customerAdded) {
+                                const dialogRef = this.layoutUtilsService.alertElementSuccess("", resMessage, resCode);
+                            }
+                        })
+                    )
+                    .subscribe(baseResponse => {
+
+                        customerAdded++;
+                        if (baseResponse.Success) {
+
+                            isCustomerAdded = true;
+                            resMessage = baseResponse.Message;
+                            resCode = baseResponse.Code;
+                            //this.customerLoanApp.CustLoanAppID = baseResponse.Loan.CustomersLoanApp.CustLoanAppID;
+                            cus.CustLoanAppID = baseResponse.Loan.CustomersLoanApp.CustLoanAppID;
+                            var addedCustomer = new CustomersLoanApp();
+                            addedCustomer.CustLoanAppID = baseResponse.Loan.CustomersLoanApp.CustLoanAppID;
+                            addedCustomer.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
+                            addedCustomer.RelationID = parseInt(cus.Relationship);
+                            addedCustomer.Cnic = cus.cnic;
+                            addedCustomer.Agps = cus.agps;
+                            addedCustomer.CustomerName = cus.name;
+                            this.loanDetail.CustomersLoanList.push(addedCustomer);
+                            this.loanDetail.CustomersLoanApp = this.customerLoanApp;
+
+
+                            this.loanCustomerCall.emit(this.loanDetail);
+
+                            // this.customerArray=[];
+                            //   this.searchCustomer()
+                            //const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                        } else {
+                            //this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         }
-                    })
-                )
-                .subscribe(baseResponse => {
-
-                    customerAdded++;
-                    if (baseResponse.Success) {
-
-                        isCustomerAdded = true;
-                        resMessage = baseResponse.Message;
-                        resCode = baseResponse.Code;
-                        //this.customerLoanApp.CustLoanAppID = baseResponse.Loan.CustomersLoanApp.CustLoanAppID;
-                        cus.CustLoanAppID = baseResponse.Loan.CustomersLoanApp.CustLoanAppID;
-                        var addedCustomer = new CustomersLoanApp();
-                        addedCustomer.CustLoanAppID = baseResponse.Loan.CustomersLoanApp.CustLoanAppID;
-                        addedCustomer.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-                        addedCustomer.RelationID = parseInt(cus.Relationship);
-                        addedCustomer.Cnic = cus.cnic;
-                        addedCustomer.Agps = cus.agps;
-                        addedCustomer.CustomerName = cus.name;
-                        this.loanDetail.CustomersLoanList.push(addedCustomer);
-                        this.loanDetail.CustomersLoanApp = this.customerLoanApp;
+                    });
+            })
 
 
-                        this.loanCustomerCall.emit(this.loanDetail);
-
-                        // this.customerArray=[];
-                        //   this.searchCustomer()
-                        //const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                    } else {
-                        //this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                    }
-                });
-        })
-
-
+        } else {
+            this.layoutUtilsService.alertElement("No Record to save", "No Record to Save");
+        }
     }
+
+
 }
 
 export class CustomerGrid {
