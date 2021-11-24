@@ -90,9 +90,11 @@ export class CustomerService {
     refreshEcib(customer: CreateCustomer): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
 
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
         this.request.Customer = customer;
+        this.request.Branch = userInfo.Branch;
+        this.request.Zone = userInfo.Zone;
 
         return this.http
             .post(`${environment.apiUrl}/Customer/RefreshECIB`, this.request, {
@@ -147,7 +149,7 @@ export class CustomerService {
         userDetail: BaseResponseModel = null,
     ): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
-        
+
         if (customer.CustomerName == null) customer.CustomerName = '';
 
         if (customer.FatherName == null) customer.FatherName = '';

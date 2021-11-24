@@ -13,7 +13,7 @@ export const environment = {
     apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl
     // apiUrl: 'http://10.1.32.105/ZTBL.Api', //ZtblPCMustanser
     // apiUrl: 'https://localhost:44346/ZTBL.Api', //admins
-    //apiUrl: 'http://10.1.32.105/ZTBL.Apis', //ztbl2
+    // apiUrl: 'http://10.1.32.105/ZTBL.Apis', //ztbl2
 };
 
 

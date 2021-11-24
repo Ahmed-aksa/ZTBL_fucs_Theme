@@ -406,7 +406,6 @@ export class CheckEligibilityComponent implements OnInit {
 
                         if (this.Customer.ECIBPDFLink == null || this.Customer.ECIBPDFLink == "") {
                             this.EcibLinkView = false;
-                            //this.layoutUtilsService.alertMessage("", "No ECIB Record Available");
                         } else {
                             this.EcibLinkView = true;
                         }
