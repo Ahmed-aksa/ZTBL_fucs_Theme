@@ -33,19 +33,10 @@ export class ClUploadDocumentComponent implements OnInit {
   loanDocumentArray: LoanDocuments[] = [];
 
   //Zone inventory
-  Zones: any = [];
-  SelectedZones: any = [];
-  public Zone = new Zone();
   LoggedInUserInfo: BaseResponseModel;
   applicationHeaderForm: FormGroup;
   public loanApplicationHeader = new LoanApplicationHeader();
 
-  //Branch inventory
-  Branches: any = [];
-  SelectedBranches: any = [];
-  public branch = new Branch();
-
-  //Loan Type inventory
   LoanTypes: any = [];
   loanType: any = [];
   SelectedLoanType: any = [];
@@ -102,7 +93,6 @@ export class ClUploadDocumentComponent implements OnInit {
   ngOnInit() {
     this.isZoneReadOnly = false;
     this.isBranchReadOnly = false;
-    this.GetZones();
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
     if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
 
@@ -118,98 +108,9 @@ export class ClUploadDocumentComponent implements OnInit {
     // console.log(this.PostDocument.value)
   }
 
-  //-------------------------------Zone Core Functions-------------------------------//
-
-  GetZones() {
-    this._circleService.getZones()
-      .pipe(
-        finalize(() => {
-        })
-      ).subscribe(baseResponse => {
-        if (baseResponse.Success) {
-
-          baseResponse.Zones.forEach(function (value) {
-            value.ZoneName = value?.ZoneName?.split("-")[1];
-          })
-          this.Zones = baseResponse.Zones;
-          this.SelectedZones = this.Zones;
-          if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
-            this.PostDocument.controls['zone'].setValue(this.LoggedInUserInfo?.Zone?.ZoneId);
-            this.GetBranches(this.LoggedInUserInfo.Zone.ZoneId);
-          }
-          //this.landSearch.controls['ZoneId'].setValue(this.Zones[0].ZoneId);
-          //this.GetBranches(this.Zones[0].ZoneId);
-
-          this._cdf.detectChanges();
-        }
-        //else
-        //  this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
-      });
-  }
-
-  searchZone(zoneId) {
-    zoneId = zoneId.toLowerCase();
-    if (zoneId != null && zoneId != undefined && zoneId != "")
-      this.SelectedZones = this.Zones.filter(x => x.ZoneName.toLowerCase().indexOf(zoneId) > -1);
-    else
-      this.SelectedZones = this.Zones;
-  }
   async getDocumentLoanType() {
     this.documentLoanTypes = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.ActiveLoanType })
     this.documentSelectedLoanType = this.documentLoanTypes.LOVs;
-  }
-
-
-  validateZoneOnFocusOut() {
-    if (this.SelectedZones.length == 0)
-      this.SelectedZones = this.Zones;
-  }
-
-
-  //-------------------------------Branch Core Functions-------------------------------//
-  SetBranches(branch) {
-    this.branch.BranchCode = branch.value;
-  }
-
-  GetBranches(ZoneId) {
-    this.Branches = [];
-    this.PostDocument.controls["branch"].setValue(null);
-    this.Zone.ZoneId = ZoneId.value;
-    this._circleService.getBranchesByZone(this.Zone)
-      .pipe(
-        finalize(() => {
-
-        })
-      ).subscribe(baseResponse => {
-
-        if (baseResponse.Success) {
-
-          this.Branches = baseResponse.Branches;
-          this.SelectedBranches = this.Branches;
-          if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.PostDocument.controls['branch'].setValue(this.LoggedInUserInfo.Branch.BranchId);
-
-          }
-          //this.landSearch.controls['BranchId'].setValue(this.Branches[0].BranchId);
-          this._cdf.detectChanges();
-        }
-
-
-      });
-
-  }
-
-  searchBranch(branchId) {
-    branchId = branchId.toLowerCase();
-    if (branchId != null && branchId != undefined && branchId != "")
-      this.SelectedBranches = this.Branches.filter(x => x.Name.toLowerCase().indexOf(branchId) > -1);
-    else
-      this.SelectedBranches = this.Branches;
-  }
-
-  validateBranchOnFocusOut() {
-    if (this.SelectedBranches.length == 0)
-      this.SelectedBranches = this.Branches;
   }
 
   //-------------------------------Loan Type Core Functions-------------------------------//
