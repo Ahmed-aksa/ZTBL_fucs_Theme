@@ -96,7 +96,7 @@ export class SubmitCustomersComponent implements OnInit {
   }
 
   searchCustomer() {
-    
+
     this._customer.clear();
     this._customer.CustomerStatus = "P";
     this.spinner.show()
