@@ -111,6 +111,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         public dialog: MatDialog,
+        private datePipe: DatePipe,
         private layoutUtilsService: LayoutUtilsService,
         private _lovService: LovService,
         private router: Router,
@@ -201,12 +202,12 @@ export class SearchRecoveryCommonComponent implements OnInit {
     find() {
         var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
         var status = this.RecoveryForm.controls.Status.value;
-        var transactionDate = this.RecoveryForm.controls.TransactionDate.value;
+        var transactionDate = this.datePipe.transform(this.RecoveryForm.controls.TransactionDate.value, 'ddMMyyyy');
         var voucherNo = this.RecoveryForm.controls.VoucherNo.value;
         var instrumentNO = this.RecoveryForm.controls.InstrumentNO.value;
         var recoveryType = "" + this.RecoveryForm.controls.RecoveryType.value;
-        
-        this.branch.WorkingDate =  this.RecoveryForm.controls.WorkingDate.value;
+
+        this.branch.WorkingDate =  this.datePipe.transform(this.RecoveryForm.controls.WorkingDate.value, 'ddMMyyyy') //this.RecoveryForm.controls.WorkingDate.value;
         if (loanCaseNo != "" || voucherNo != "" || instrumentNO != "") {
             this.OffSet = 0;
         }
@@ -414,12 +415,12 @@ export class SearchRecoveryCommonComponent implements OnInit {
     }
 
     getAllData(event) {
-        
+
         this.circle = event.final_circle;
         this.zone = event.final_zone;
         this.branch = event.final_branch;
     }
-    
+
 
     isEnableWorkingDate() {
         var workingDate = this.RecoveryForm.controls.WorkingDate.value;
