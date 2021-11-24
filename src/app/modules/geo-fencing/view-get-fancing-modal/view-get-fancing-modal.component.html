@@ -24,15 +24,19 @@
                        placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off"
                        spellcheck="off" type="text"
                        #search>
-                               <agm-map #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng"
+                               <agm-map #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng" [restriction]="countryRestriction"
                          [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true" (mapReady)="onMapReady($event)"
                          class="h-screen">
-                    <agm-marker *ngFor="let coordinate of start_end_mark; let i=index"
+                    <agm-marker [iconUrl]="iconChange(i)" *ngFor="let coordinate of start_end_mark; let i=index"
+
                                 [latitude]="isNumber(coordinate?.Latitude)"
                                 [longitude]="isNumber(coordinate?.Longitude)" [agmFitBounds]="true">
 
+                        <agm-info-window [isOpen]="true">
+                            <strong>{{Heading(i)}}</strong>
+                        </agm-info-window>
                     </agm-marker>
-<!--                                   [restriction]="countryRestriction"-->
+<!--                                   -->
 <!--                   <agm-marker *ngFor="let m of fenceMarkers; let i = index"-->
 <!--                               (markerClick)="gm.lastOpen?.close();-->
 <!--                                gm.lastOpen = infoWindow;-->

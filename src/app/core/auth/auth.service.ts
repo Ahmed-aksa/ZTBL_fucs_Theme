@@ -202,4 +202,16 @@ export class AuthService {
         result.set('Content-Type', 'application/json');
         return result;
     }
+
+    changePassword(old_password, new_password) {
+        var request: any;
+        request = {
+            User: JSON.parse(localStorage.getItem('ZTBLUser')).User,
+            UserPasswordDetails: {
+                OldPassword: old_password,
+                Password: new_password
+            }
+        }
+        return this.httpUtils.post(`${environment.apiUrl}/Account/ChangePassword`, request);
+    }
 }
