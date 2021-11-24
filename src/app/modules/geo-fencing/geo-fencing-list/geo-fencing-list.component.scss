@@ -39,3 +39,14 @@ table {
 .mat-column-created {
     max-width: 124px;
 }
+table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  th, td {
+    width: 100px;
+    padding-left: 14px !important;
+    word-wrap: break-word;
+    
+  }
