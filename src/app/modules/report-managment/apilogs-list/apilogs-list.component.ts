@@ -189,17 +189,19 @@ export class ApilogsListComponent implements OnInit {
     }
 
     fetch3rdAPI(event: Event, item: any) {
-        item.TranId = Number(item.Id);
-        item.Id = Number(item.Id);
-        this.spinner.show();
-        this._reportservice.getThirdPartyAPILogs(item).subscribe((data: any) => {
-            this.spinner.hide();
-            if (data._3RdPartyAPILogs.length != 0) {
-                item.third_apis = data._3RdPartyAPILogs;
-            } else {
-                this.third_party_apis = null;
-            }
-        })
+        if (!item.third_apis) {
+            item.TranId = Number(item.Id);
+            item.Id = Number(item.Id);
+            this.spinner.show();
+            this._reportservice.getThirdPartyAPILogs(item).subscribe((data: any) => {
+                this.spinner.hide();
+                if (data._3RdPartyAPILogs.length != 0) {
+                    item.third_apis = data._3RdPartyAPILogs;
+                } else {
+                    item.third_party_apis = null;
+                }
+            })
+        }
     }
 
     toggleAccordion(event: Event, item) {
