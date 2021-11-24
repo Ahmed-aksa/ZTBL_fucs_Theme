@@ -421,6 +421,7 @@ export class MakeRcComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
 
                 if (baseResponse.Success === true) {
+                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
                     this.router.navigateByUrl('/reschedule-cases/search-reschedule')
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -515,7 +516,7 @@ export class MakeRcComponent implements OnInit {
 
 
         const url = this.router.serializeUrl(
-            this.router.createUrlTree(['../loan-inquiry', {
+            this.router.createUrlTree(['/loan-recovery/loan-inquiry', {
                 LnTransactionID: LnTransactionID,
                 Lcno: Lcno
             }], {relativeTo: this.route})
