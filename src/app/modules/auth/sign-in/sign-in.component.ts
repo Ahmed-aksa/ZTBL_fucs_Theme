@@ -53,6 +53,7 @@ export class AuthSignInComponent implements OnInit {
         this._authService.signIn(loginMode)
             .subscribe((result) => {
                     if (result.Success) {
+                        this.toaster.success(result.Message);
 
                         if (!result.isWebOTPEnabled) {
                             if (result.LoanUtilization) {
@@ -60,7 +61,6 @@ export class AuthSignInComponent implements OnInit {
                                 localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
                                 localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
                             }
-                            this.toaster.success(result.Message);
                             const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
                             this._router.navigateByUrl(redirectURL);
                             window.location.reload();
@@ -69,7 +69,7 @@ export class AuthSignInComponent implements OnInit {
                             const dialogRef = this.dialog.open(OtpComponent, {
                                 data: {result},
                                 disableClose: true,
-                                panelClass: [ 'max-w-full', 'max-h-full' , 'sm:w-3/12', 'w-full'],
+                                panelClass: ['max-w-full', 'max-h-full', 'sm:w-3/12', 'w-full'],
                             });
                             dialogRef.afterClosed().subscribe(res => {
                                 if (res.data.data != 0) {
