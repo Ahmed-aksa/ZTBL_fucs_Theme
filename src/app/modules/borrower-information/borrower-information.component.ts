@@ -99,7 +99,6 @@ export class BorrowerInformationComponent implements OnInit {
             Branch: [userInfo?.Branch?.Name],
             Circle: [null],
             Cnic: [null],
-            PPNo: [null],
         });
     }
 
@@ -115,7 +114,6 @@ export class BorrowerInformationComponent implements OnInit {
         this.user.ZoneId = this.borrowerForm.controls.Zone.value;
         this.user.CircleId = this.borrowerForm.controls.Circle.value;
         this.user.ZoneId = this.borrowerForm.controls.Circle.value;
-        let PPNo = this.borrowerForm.controls?.PPNo?.value;
         this.spinner.show();
 
         this._borrowerInfo
@@ -124,7 +122,6 @@ export class BorrowerInformationComponent implements OnInit {
                 this.OffSet,
                 cnic,
                 this.user,
-                PPNo,
                 this.zone,
                 this.branch,
                 this.circle

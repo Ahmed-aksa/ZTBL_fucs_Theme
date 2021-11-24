@@ -154,7 +154,6 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger
         this.images.push(this.ProfileImageSrc);
         this.bit = localStorage.getItem('CreateCustomerBit');
 

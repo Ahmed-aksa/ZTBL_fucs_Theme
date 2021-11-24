@@ -27,7 +27,7 @@ export class BorrowerInformationService {
     circle = new Circle;
     userDetail = this.userUtilsService.getUserDetails();
 
-    getBorrowerInformation(limit, offset, cnic, user, PPNo, SelectedZones, SelectedBranches, SelectedCircles) {
+    getBorrowerInformation(limit, offset, cnic, user, SelectedZones, SelectedBranches, SelectedCircles) {
         var userInfo = this.userDetail;
         var request = {
             Circle: {
@@ -37,7 +37,6 @@ export class BorrowerInformationService {
                 Limit: limit,
                 Offset: offset,
                 Cnic: cnic,
-                PPNo: PPNo
             },
             TranId: 0,
             Branch: SelectedBranches,
