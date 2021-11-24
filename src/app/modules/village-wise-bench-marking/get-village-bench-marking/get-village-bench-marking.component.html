@@ -136,7 +136,7 @@
 
             <ng-container matColumnDef="Delete">
                 <mat-header-cell class="place-content-center text" *matHeaderCellDef>Action</mat-header-cell>
-                <mat-cell class="place-content-center" *matCellDef="let VillageBenchMark">
+                <mat-cell class="place-content-center" style="flex-wrap: wrap;" *matCellDef="let VillageBenchMark">
                     <button style="margin-left: 5px" mat-icon-button *ngIf="checkEditStatus(VillageBenchMark)"
                             color="primary" (click)="editVillageBenchMark(VillageBenchMark)">
                         <mat-icon title="edit benchmarking">edit</mat-icon>
