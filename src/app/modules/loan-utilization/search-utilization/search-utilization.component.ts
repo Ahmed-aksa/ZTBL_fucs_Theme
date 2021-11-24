@@ -191,7 +191,7 @@ export class SearchUtilizationComponent implements OnInit {
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.gridHeight = window.innerHeight - 300 + 'px';
+        this.gridHeight = window.innerHeight - 400 + 'px';
         //var userInfo = this.userUtilsService.getUserDetails();
         //this.utilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
         //this.utilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
