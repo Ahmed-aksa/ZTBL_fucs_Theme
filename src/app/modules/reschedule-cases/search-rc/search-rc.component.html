@@ -6,7 +6,7 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-2  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
                 color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                 aria-expanded="false" aria-controls="collapseExample">
                     <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
@@ -26,11 +26,11 @@
             <div  [formGroup]="rcSearch">
 
 
-                <div class="row">
+                <div class="flex" style="flex-wrap: wrap;">
                     <app-zone-branch-circle [form]="rcSearch" [should_show_circle]="false"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Application Date(ddMMyyyy) <strong class="matMandatory">*</strong>
                                 </mat-label>
@@ -42,8 +42,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Loan Case#</mat-label>
                                 <input matInput placeholder="Enter Loan Case No" formControlName="Lcno" maxlength="10"
@@ -51,13 +51,8 @@
                             </mat-form-field>
                         </div>
                     </div>
-                </div>
-
-
-                <div class="row">
-
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label>Status</mat-label>
                                 <mat-select formControlName="Status">
@@ -75,13 +70,13 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <button mat-raised-button class="mt-2 bg-gray-500" color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
                         </div>
                     </div>
-
                 </div>
+
 
             </div>
         </div>

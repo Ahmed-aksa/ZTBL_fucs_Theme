@@ -1,10 +1,24 @@
 <div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
 
-    <div class="row py-3">
-        <div class="col-lg-12 col-sm-12">
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
             <div class="heading">List of Transactions</div>
         </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
+                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+        </div>
     </div>
+
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body">
 
     <div [formGroup]="referbackForm">
         <!-- <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
@@ -71,6 +85,9 @@
 
 
     </div>
+        </div>
+    </div>
+
     <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 " style="flex-direction: column;overflow-y: scroll">
         <mat-table class="example-table-container"
                    #table
