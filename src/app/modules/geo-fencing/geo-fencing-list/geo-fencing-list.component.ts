@@ -105,14 +105,13 @@ export class GeoFencingListComponent implements OnInit {
             this.spinner.hide();
 
             if (baseResponse.Success === true) {
-                this.dataSource = baseResponse.LocationHistory.LocationHistories;
+                this.dataSource.data = baseResponse.LocationHistory.LocationHistories;
                 this.totalItems = baseResponse.LocationHistory.LocationHistories[0].TotalRecords
                 this.dv = this.dataSource.data;
 
             } else {
-                this.dataSource = null
-                // this.dataSource.data.splice(1,0);
-                 this.dv?.splice(1,0)
+                debugger
+                this.dataSource.data=[];
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
             }
         });
@@ -174,7 +173,7 @@ export class GeoFencingListComponent implements OnInit {
     }
 
     getAllData(data) {
-        console.log(data);
+
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
