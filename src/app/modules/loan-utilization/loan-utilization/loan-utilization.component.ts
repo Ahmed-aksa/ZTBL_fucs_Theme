@@ -255,8 +255,6 @@ export class LoanUtilizationComponent implements OnInit {
 
     createForm() {
         this.customerForm = this.fb.group({
-            Zone: [''],
-            Branch: ['', Validators.required],
             LoanDisbID: [this.loanUtilizationModel.LoanDisbID, Validators.required],
             Lat: [this.loanUtilizationModel.LoanCaseNo],
             Lng: [this.loanUtilizationModel.LoanDisbID],
@@ -598,7 +596,6 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     save() {
-
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
             Object.keys(controls).forEach(controlName =>
@@ -639,11 +636,11 @@ export class LoanUtilizationComponent implements OnInit {
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-
                         this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID
                         if (this.images.length && this.videos.length) {
-                            this.layoutUtilsService.alertElement(
-                                "",
+
+                            this.layoutUtilsService.alertElementSuccess(
+                                '',
                                 baseResponse.Message,
                                 baseResponse.Code = null
                             );
@@ -651,7 +648,6 @@ export class LoanUtilizationComponent implements OnInit {
                         this.SaveImages();
 
                     } else {
-                        console.log("else called")
                         this.layoutUtilsService.alertElement(
                             "",
                             baseResponse.Message,
@@ -669,7 +665,6 @@ export class LoanUtilizationComponent implements OnInit {
         if (this.currentIndex < this.images.length) {
             if (this.images[this.currentIndex].ImageFilePath == undefined) {
 
-                // this.spinner.show();
                 this._loanutilization
                     .SaveMedia(this.images[this.currentIndex].file, this.loanUtilizationModel, '0')
                     .pipe(finalize(() => {
@@ -704,8 +699,6 @@ export class LoanUtilizationComponent implements OnInit {
     SaveVideos() {
         if (this.currentIndex < this.videos.length) {
             if (this.videos[this.currentIndex].VideoFilePath == undefined) {
-
-                // this.spinner.show();
                 this._loanutilization
                     .SaveMedia(this.videos[this.currentIndex].file, this.loanUtilizationModel, '1')
                     .pipe(finalize(() => {
@@ -731,11 +724,11 @@ export class LoanUtilizationComponent implements OnInit {
             }
         } else {
             if (this.message != "") {
-                this.layoutUtilsService.alertElementSuccess(
-                    '',
-                    this.message,
-                    null
-                );
+                // this.layoutUtilsService.alertElementSuccess(
+                //     '',
+                //     this.message,
+                //     null
+                // );
                 this.images = [];
                 this.imageUrl = [];
                 this.videos = [];

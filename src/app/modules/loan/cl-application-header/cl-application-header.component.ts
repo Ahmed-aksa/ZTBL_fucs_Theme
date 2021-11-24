@@ -34,6 +34,10 @@ export class ClApplicationHeaderComponent implements OnInit {
   //Global Variables
   //@Input() childMessage: string;
 
+    zone: any;
+    branch: any;
+    circle: any;
+
   @Input() loanAppHeaderDetails: any;
 
   applicationHeaderForm: FormGroup;
@@ -45,8 +49,6 @@ export class ClApplicationHeaderComponent implements OnInit {
   public LovCall = new Lov();
   public LoanDetail = new Loan();
 
-  isZoneReadOnly: boolean;
-  isBranchReadOnly: boolean;
   isCheckLcInProgress: boolean;
   isSaveApplicationHeaderInProgress: boolean;
   Zones: any = [];
@@ -85,8 +87,6 @@ export class ClApplicationHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.isZoneReadOnly = false;
-    this.isBranchReadOnly = false;
     this.isCheckLcInProgress = false;
     this.isSaveApplicationHeaderInProgress = false;
 
@@ -95,7 +95,7 @@ export class ClApplicationHeaderComponent implements OnInit {
 
 
     //-------------------------------Loading Zone-------------------------------//
-    this.GetZones();
+
 
     //-------------------------------Loading Circle-------------------------------//
 
@@ -113,20 +113,19 @@ export class ClApplicationHeaderComponent implements OnInit {
 
     //-------------------------------Creating Form-------------------------------//
     this.createForm();
-    if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
 
-      this.isZoneReadOnly = true;
-      this.isBranchReadOnly = true;
-    }
     this.spinner.hide();
    // this.getLcNoAutoAssignedByApi();
   }
-
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
   //-------------------------------Form Level Functions-------------------------------//
   createForm() {
     this.applicationHeaderForm = this.formBuilder.group({
-      ZoneId: [this.loanApplicationHeader.ZoneId, [Validators.required]],
-      BranchID: [this.loanApplicationHeader.BranchID, [Validators.required]],
+
       AppDate: [this._common.stringToDate(this.LoggedInUserInfo.Branch?.WorkingDate), [Validators.required]],
       DevProdFlag: [this.loanApplicationHeader.DevProdFlag, [Validators.required]],
       DevAmount: [this.loanApplicationHeader.DevAmount, [Validators.required]],
@@ -145,113 +144,11 @@ export class ClApplicationHeaderComponent implements OnInit {
     return this.applicationHeaderForm?.controls[controlName].hasError(errorName);
   }
 
-
-  //-------------------------------Zone Core Functions-------------------------------//
-  GetZones() {
-    this._circleService.getZones()
-      .pipe(
-        finalize(() => {
-        })
-      ).subscribe(baseResponse => {
-        if (baseResponse.Success) {
-
-            console.log("application header response"+JSON.stringify(baseResponse))
-
-          baseResponse.Zones.forEach(function (value) {
-            value.ZoneName = value.ZoneName.split("-")[1];
-          })
-          this.Zones = baseResponse.Zones;
-          this.SelectedZones = this.Zones;
-          console.log("zone loaded")
-          if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
-            this.applicationHeaderForm.controls['ZoneId'].setValue(this.LoggedInUserInfo.Zone.ZoneId);
-            this.GetBranches(this.LoggedInUserInfo.Zone.ZoneId);
-          }
-          //this.landSearch.controls['ZoneId'].setValue(this.Zones[0].ZoneId);
-          //this.GetBranches(this.Zones[0].ZoneId);
-
-          this._cdf.detectChanges();
-        }
-        //else
-        //  this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
-
-      });
-
-  }
-  searchZone(zoneId) {
-    zoneId = zoneId.toLowerCase();
-    if (zoneId != null && zoneId != undefined && zoneId != "")
-      this.SelectedZones = this.Zones.filter(x => x.ZoneName.toLowerCase().indexOf(zoneId) > -1);
-    else
-      this.SelectedZones = this.Zones;
-  }
-  validateZoneOnFocusOut() {
-    if (this.SelectedZones.length == 0)
-      this.SelectedZones = this.Zones;
-  }
-
-  //-------------------------------Branch Core Functions-------------------------------//
-  SetBranches(branchId) {
-    this.Branch.BranchCode = branchId.value;
-    this.GetCircles(branchId.value)
-  }
-  GetBranches(ZoneId) {
-
-    this.Branches = [];
-    this.applicationHeaderForm.controls["BranchID"].setValue(null);
-    this.Zone.ZoneId = ZoneId.value;
-    this._circleService.getBranchesByZone(this.Zone)
-      .pipe(
-        finalize(() => {
-
-        })
-      ).subscribe(baseResponse => {
-
-        if (baseResponse.Success) {
-
-          this.Branches = baseResponse.Branches;
-          this.SelectedBranches = this.Branches;
-          if (this.LoggedInUserInfo.Branch.BranchCode != "All") {
-            this.applicationHeaderForm.controls['BranchID'].setValue(this.LoggedInUserInfo.Branch.BranchId);
-
-          }
-          //this.landSearch.controls['BranchId'].setValue(this.Branches[0].BranchId);
-          this._cdf.detectChanges();
-        }
-
-
-      });
-
-  }
-  searchBranch(branchId) {
-    branchId = branchId.toLowerCase();
-    if (branchId != null && branchId != undefined && branchId != "")
-      this.SelectedBranches = this.Branches.filter(x => x.Name.toLowerCase().indexOf(branchId) > -1);
-    else
-      this.SelectedBranches  = this.Branches;
-  }
   validateBranchOnFocusOut() {
     if (this.SelectedBranches.length == 0)
       this.SelectedBranches = this.Branches;
   }
 
-  //-------------------------------Circle Core Functions-------------------------------//
-  GetCircles(branchId) {
-    var branchDetail = new Branch();
-    branchDetail = this.Branches.filter(x => x.BranchId == branchId)[0];
-    this._circleService.getCircles(branchDetail)
-      .pipe(
-        finalize(() => {
-        })
-    ).subscribe(baseResponse => {
-        if (baseResponse.Success) {
-          this.Circles = baseResponse.Circles;
-          this.SelectedCircles = this.Circles;
-          this._cdf.detectChanges();
-        }
-      });
-
-  }
   searchircle(circleId) {
 
     circleId = circleId.toLowerCase();

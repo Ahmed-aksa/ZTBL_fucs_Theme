@@ -226,7 +226,6 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
   --tw-border-opacity: 1 !important;
   border-color: rgba(34, 197, 94) !important;
   border-bottom-width: 1px !important;
-  margin-bottom: 0.5rem !important;
 }
 
 button{
@@ -531,4 +530,13 @@ td {
 
 mat-header-cell{
   padding-left: 14px;
+}
+
+.pt-3{
+  .heading{
+    margin-bottom: 0px;
+  }
+  P {
+    margin-bottom: 0px;
+  }
 }

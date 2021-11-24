@@ -175,7 +175,7 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
 
-        this.gridHeight = window.innerHeight - 300 + 'px';
+        this.gridHeight = window.innerHeight - 335 + 'px';
     }
 
 

@@ -13,9 +13,9 @@
         <div class="col-lg-9 col-sm-12">
             <div class="heading">Circle/Party Wise Early Warning Reports</div>
         </div>
-        <div class="col-lg-3 col-sm-12 self-center mt-2">
+        <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-2  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
                         color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                         aria-expanded="false" aria-controls="collapseExample">
                     <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
@@ -30,7 +30,7 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="py-2" [formGroup]="searchCnicForm">
+            <div class="py-1" [formGroup]="searchCnicForm">
                 <div class="flex" style="flex-wrap: wrap;">
                     <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="true" [is_required_circle]="true"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
@@ -73,10 +73,11 @@
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
         </div> -->
 
-        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " [style.height]="gridHeight">
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " >
             <!--[style.height]="gridHeight"-->
             <mat-table
                 class="lmat-elevation-z8 overflow-scroll"
+                [style.height]="gridHeight"
                 #table
                 [dataSource]="
                     dataSource

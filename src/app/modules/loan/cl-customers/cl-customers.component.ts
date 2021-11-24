@@ -313,8 +313,8 @@ export class ClCustomersComponent implements OnInit {
 
             this.loanCustomerCall.emit(this.loanDetail);
 
-            this.customerArray=[];
-              this.searchCustomer()
+            // this.customerArray=[];
+            //   this.searchCustomer()
             //const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
           }
           else {
