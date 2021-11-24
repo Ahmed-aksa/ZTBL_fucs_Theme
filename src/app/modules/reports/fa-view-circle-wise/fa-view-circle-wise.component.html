@@ -73,10 +73,10 @@
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
         </div> -->
 
-        <div class="mat-table__wrapper overflow-scroll border shadow-xs rounded-sm bg-gray-50 " [style.height]="gridHeight">
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " [style.height]="gridHeight">
             <!--[style.height]="gridHeight"-->
             <mat-table
-                class="lmat-elevation-z8"
+                class="lmat-elevation-z8 overflow-scroll"
                 #table
                 [dataSource]="
                     dataSource
