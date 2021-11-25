@@ -128,9 +128,6 @@ export class ZoneBranchCircleComponent implements OnInit {
                 localStorage.removeItem('selected_single_zone');
                 localStorage.removeItem('selected_single_branch');
                 localStorage.removeItem('selected_single_circle');
-                localStorage.removeItem('selected_zone');
-                localStorage.removeItem('selected_branch');
-                localStorage.removeItem('selected_circle');
                 this.spinner.hide();
             }
             if (!this.selected_single_zone) {
@@ -174,9 +171,6 @@ export class ZoneBranchCircleComponent implements OnInit {
             localStorage.removeItem('selected_single_zone');
             localStorage.removeItem('selected_single_branch');
             localStorage.removeItem('selected_single_circle');
-            localStorage.removeItem('selected_zone');
-            localStorage.removeItem('selected_branch');
-            localStorage.removeItem('selected_circle');
             this.spinner.hide();
 
 
@@ -193,9 +187,6 @@ export class ZoneBranchCircleComponent implements OnInit {
                 localStorage.removeItem('selected_single_zone');
                 localStorage.removeItem('selected_single_branch');
                 localStorage.removeItem('selected_single_circle');
-                localStorage.removeItem('selected_zone');
-                localStorage.removeItem('selected_branch');
-                localStorage.removeItem('selected_circle');
                 this.emitData();
 
 
