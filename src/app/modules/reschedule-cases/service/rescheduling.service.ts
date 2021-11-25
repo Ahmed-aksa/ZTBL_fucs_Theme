@@ -23,6 +23,7 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {HttpUtilsService} from "../../../shared/services/http_utils.service";
 import {Activity} from "../../../shared/models/activity.model";
 import {CustomersLoanApp, Loan, MakeReschedule, ReschedulingList} from 'app/shared/models/Loan.model';
+import {DatePipe} from "@angular/common";
 
 
 @Injectable({
@@ -37,7 +38,7 @@ export class ReschedulingService {
     ReschedulingList: ReschedulingList[] = [];
     Rescheduling = new ReschedulingList();
 
-    constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
+    constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService, private datePipe: DatePipe) {
     }
 
     generalFunction() {
@@ -195,7 +196,7 @@ export class ReschedulingService {
         var loanInfo = new Loan();
         this.generalFun()
         loanInfo.Status = search.Status;
-        loanInfo.Appdt = search.TrDate;
+        loanInfo.Appdt = this.datePipe.transform(search.TrDate, 'ddMMyyyy');
         loanInfo.LcNo = search.Lcno;
         this.request.Loan = loanInfo;
         this.request.Branch = branch;

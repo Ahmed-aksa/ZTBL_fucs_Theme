@@ -7,7 +7,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable quotes */
 /* eslint-disable @typescript-eslint/quotes */
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
@@ -36,7 +36,7 @@ import {CircleService} from "../../../shared/services/circle.service";
 
     ],
 })
-export class ReferBackRescheduleCasesComponent implements OnInit {
+export class ReferBackRescheduleCasesComponent implements OnInit, AfterViewInit {
 
   displayedColumns = [
     "TransactionDate",
@@ -148,6 +148,7 @@ editRefer(updateLoan) {
     }
 
     find() {
+
         this.spinner.show();
         this.search = Object.assign(this.referbackForm.getRawValue());
         console.log(this.search);
@@ -313,6 +314,12 @@ SubmitData() {
             }
         });
 }
+
+    ngAfterViewInit(){
+        if(this.zone){
+            setTimeout(() => this.find(), 1000);
+        }
+    }
 }
 
 interface ReferBack {

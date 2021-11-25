@@ -4,7 +4,7 @@
 /* eslint-disable curly */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {DateFormats, Lov, LovConfigurationKey} from '../../../shared/classes/lov.class';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -33,7 +33,7 @@ import {LovService} from '../../../shared/services/lov.service';
 
     ],
 })
-export class PendingRescheduleCasesComponent implements OnInit {
+export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
     displayedColumns = [
         'Branch',
         'TransactionDate',
@@ -92,14 +92,9 @@ export class PendingRescheduleCasesComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-
       this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
       this.createForm();
         this.getLoanStatus();
-
-        if(this.zone){
-            setTimeout(() => this.find(), 2000);
-        }
     }
 
     find() {
@@ -246,6 +241,12 @@ export class PendingRescheduleCasesComponent implements OnInit {
             ],
             { relativeTo: this.activatedRoute }
         );
+    }
+
+    ngAfterViewInit(){
+        if(this.zone){
+            setTimeout(() => this.find(), 1000);
+        }
     }
 }
 
