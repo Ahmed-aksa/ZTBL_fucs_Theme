@@ -194,7 +194,7 @@ export class SearchJvRbComponent implements OnInit {
             )
             .subscribe(baseResponse => {
 
-                console.log(baseResponse)
+                
                 if (baseResponse.Success) {
                     this.loading = false;
 
@@ -246,12 +246,12 @@ export class SearchJvRbComponent implements OnInit {
         this.JvStatuses = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.JvStatus});
 
         this.JvStatuses = this.JvStatuses.LOVs;
-        console.log(this.JvStatuses);
+        
 
         this.Nature = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.JVCategory});
 
         this.Nature = this.Nature.LOVs;
-        console.log(this.Nature);
+        
 
         this.cdRef.detectChanges();
     }

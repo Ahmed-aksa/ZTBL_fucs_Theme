@@ -26,7 +26,7 @@ public circle=new Circle;
   userInfo = this.userUtilsService.getUserDetails();
 
   createTourPlan(TourPlan){
-    console.log(TourPlan)
+    
     this.request = new BaseRequestModel();
     this.request.DEVICELOCATION=this.deviceLocation;
     this.request.TranId = 2830;
@@ -38,7 +38,7 @@ public circle=new Circle;
     this.request.TourPlan= TourPlan;
 
   var v = JSON.stringify(this.request)
-console.log(v)
+
 
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourPlan`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -50,14 +50,14 @@ console.log(v)
     this.request = new BaseRequestModel();
     this.request.User = this.userInfo.User;
     var v = JSON.stringify(tourPlan)
-    console.log("val"+v)
+    
       this.request.TourPlan= {
         "TourPlanStatus": {"Status": tourPlan.Status,"TourPlanIds": [tourPlan.TourPlanId]}
       };
 
 
     var v = JSON.stringify(this.request)
-  console.log(v);
+  
 
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -69,12 +69,12 @@ console.log(v)
     this.request = new BaseRequestModel();
     this.request.User = this.userInfo.User;
     var v = JSON.stringify(tourPlan)
-    console.log("val"+v)
+    
     this.request.TourPlan= {
       "TourPlanStatus": {"Status": tourPlan.Status,"TourPlanIds": tourPlan.TourPlanId}
     };
     var v = JSON.stringify(this.request)
-    console.log(v);
+    
 
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -97,7 +97,7 @@ console.log(v)
   };
 
   var v = JSON.stringify(this.request)
-console.log(v)
+
 
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanDetail`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -120,7 +120,7 @@ console.log(v)
   };
 
   var v = JSON.stringify(this.request)
-console.log(v)
+
 
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApprovel`, request,
       { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -140,7 +140,7 @@ console.log(v)
     this.request.Branch = branch;
 
     var req = JSON.stringify(this.request);
-    console.log(req);
+    
 
 
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
@@ -162,7 +162,7 @@ console.log(v)
     this.request.Branch = userInfo.Branch;
 
     var req = JSON.stringify(this.request);
-    console.log(req);
+    
 
 
     return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApproval`, this.request,

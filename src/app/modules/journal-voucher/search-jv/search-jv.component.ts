@@ -216,7 +216,7 @@ export class SearchJvComponent implements OnInit {
     find() {
         if (this.JvSearchForm.invalid) {
             this.toaster.error("Please Fill All required values");
-            console.log(this.JvSearchForm.value);
+            
         } else {
             this.OffSet = 0;
             this.pageIndex = 0;

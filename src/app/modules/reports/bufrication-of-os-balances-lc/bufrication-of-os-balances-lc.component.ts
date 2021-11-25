@@ -222,7 +222,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
 
             }
         }
-        console.log(this.reports.WorkingDate)
+        
         this.spinner.show();
         this._bufrication.bifurcation(this.user, this.reports)
             .pipe(

@@ -89,8 +89,8 @@ export class LoanInquiryComponent implements OnInit {
 
         if (baseResponse.Success === true) {
           this.dynamicList = JSON.parse(baseResponse.Recovery.DynamicDataList);
-          console.log(this.dynamicList);
-          console.log('loan inquiry new');
+          
+          
          
           this.dataFound = true;
           this.cdRef.detectChanges();

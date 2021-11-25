@@ -149,7 +149,7 @@ export class NewGlCodeComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    console.log(baseResponse);
+                    
 
                     this.table = true;
                     this.CropDetailList =
@@ -203,11 +203,11 @@ export class NewGlCodeComponent implements OnInit {
                         this.sdlfield = false;
                     }
 
-                    console.log(this.CropDetailList);
-                    console.log(this.GLDetailList);
-                    console.log(this.GlRangeDetailList);
-                    console.log(this.GlSchemeCropDetailList);
-                    console.log(this.SchemeDetailList);
+                    
+                    
+                    
+                    
+                    
 
                     this.dv = this.CropDetailList;
 
@@ -219,7 +219,7 @@ export class NewGlCodeComponent implements OnInit {
                     //this.count = length.count;
                     //for()
                     this.paginate(this.pageIndex);
-                    console.log(this.dataSource);
+                    
                     //this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 } else {
                     this.layoutUtilsService.alertElementSuccess(
@@ -286,11 +286,11 @@ export class NewGlCodeComponent implements OnInit {
                     this.SchemeDetailList =
                         baseResponse.Loan.GlConfigrationsDetail.SchemeDetailList;
 
-                    console.log(this.CropDetailList);
-                    console.log(this.GLDetailList);
-                    console.log(this.GlRangeDetailList);
-                    console.log(this.GlSchemeCropDetailList);
-                    console.log(this.SchemeDetailList);
+                    
+                    
+                    
+                    
+                    
 
                     // if(this.CropDetailList.length == 0 || this.GLDetailList.length == 0 || this.GlRangeDetailList.length == 0 || this.GlSchemeCropDetailList.length == 0 || this.SchemeDetailList.length == 0){
                     //   this.table = false;
@@ -347,7 +347,7 @@ export class NewGlCodeComponent implements OnInit {
                     //this.count = length.count;
                     //for()
                     this.paginate(this.pageIndex);
-                    console.log(this.dataSource);
+                    
                     //this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 } else {
                     this.spinner.hide();

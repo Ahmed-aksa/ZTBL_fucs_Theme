@@ -205,4 +205,38 @@
         <span style="color: #01671B;" class="cursor-pointer" id="llcInqiryText" (click)="viewLCInquiry()"><b>View LC Inquiry</b></span>
     </div>
 
+            <div class="col-lg-12">
+                <div class="table-responsive">
+
+                    <table class="table table-striped" *ngIf="table">
+                        <thead>
+                        <tr class="table-header-background">
+                            <th>Int Rate</th>
+                            <th>Seq#</th>
+                            <th>Due Date</th>
+                            <th>Grace Days</th>
+                            <th>Inst Principal</th>
+                            <th>Inst Markup</th>
+                            <th>Inst Amount</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+<!--                        <tr >-->
+                        <tr *ngFor="let inst of installmentPlan">
+                            <td>{{inst.IntRate}}</td>
+                            <td>{{inst.InstSeq}}</td>
+                            <td>{{inst.DueDate}}</td>
+                            <td>{{inst.GraceDays}}</td>
+                            <td>{{inst.InstPrincipal}}</td>
+                            <td>{{inst.InstMarkup}}</td>
+                            <td>{{inst.InstAmount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
 </div>

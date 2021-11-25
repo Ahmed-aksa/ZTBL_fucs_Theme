@@ -84,6 +84,10 @@ const routing= [
     path: 'referback-loan-uti',
     component: ReferbackLoanUtilizationComponent
   },
+    {
+        path: 'upload-documents',
+        component: ClUploadDocumentComponent
+    },
 ]
 
 @NgModule({

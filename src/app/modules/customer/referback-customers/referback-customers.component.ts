@@ -63,8 +63,6 @@ export class ReferbackCustomersComponent implements OnInit {
     ngOnInit() {
         this.LoadLovs();
         this.createForm();
-        this.searchCustomer();
-
         setTimeout(() => {
             if (this.zone) {
                 this.searchCustomer();

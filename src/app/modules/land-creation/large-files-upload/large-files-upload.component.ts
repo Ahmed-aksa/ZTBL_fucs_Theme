@@ -195,7 +195,7 @@ export class LargeFilesUploadComponent implements OnInit {
                         reader.onload = (event: any) => {
 
 
-                            //console.log(event.target.result);
+                            //
 
                             this.uploadDocuments = new UploadDocuments();
 
@@ -318,7 +318,7 @@ export class LargeFilesUploadComponent implements OnInit {
     UploadDocuments() {
 
 
-        console.log(this.myForm.value);
+        
         this.errorMessage = "";
 
         for (var i = 0; i < this.uploadDocumentsData.length; i++) {

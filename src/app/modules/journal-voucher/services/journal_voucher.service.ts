@@ -78,7 +78,7 @@ export class JournalVoucherService {
         };
 
         var req = JSON.stringify(request)
-        console.log(req)
+        
 
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/CreateJVTransaction`, request,
@@ -157,7 +157,7 @@ export class JournalVoucherService {
             circleIds.push(element.CircleId);
         });
         var _circles = JSON.stringify(circleIds)
-        //console.log(userInfo.UserCircleMappings.CircleId[0])
+        //
         var request = {
             JournalVoucher: {
                 GLforJV: {

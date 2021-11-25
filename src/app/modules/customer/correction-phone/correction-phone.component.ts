@@ -33,7 +33,7 @@ export class CorrectionPhoneComponent implements OnInit {
     
     ) {
       this.loggedInUser = userUtilsService.getUserDetails();
-      console.log(this.loggedInUser)
+      
      }
 
   ngOnInit() {
@@ -80,11 +80,11 @@ export class CorrectionPhoneComponent implements OnInit {
         }
 
         
-        //console.log(phone.slice(4))
+        //)
         this.cpForm.controls['CustomerName'].setValue(this.customerRec.CustomerName)
         this.cpForm.controls['FatherName'].setValue(this.customerRec.FatherName)
         this.cpForm.controls['ExistingCnic'].setValue(this.customerRec.Cnic)
-        console.log(baseResponse)
+        
         
       }
       else{

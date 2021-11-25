@@ -45,7 +45,7 @@ export class RemarkDialogComponent implements OnInit {
   }
 
   submit(){
-      console.log(this.remarkForm.controls.Remarks.value)
+      
       if (!this.remarkForm.controls.Remarks.value) {
           var Message = 'Please Enter Remarks';
           this.layoutUtilsService.alertElement(

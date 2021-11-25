@@ -37,8 +37,8 @@ export class LoanReceiptComponent implements OnInit {
 
   ngOnInit() {
     this.receipt = this.data;
-    console.log('Receipt data');
-    console.log(this.receipt);
+    
+    
     this.submitted = true;
     this.spinner.show();
 
@@ -62,7 +62,7 @@ export class LoanReceiptComponent implements OnInit {
       )
       .subscribe((baseResponse: BaseResponseModel) => {
         
-        console.log(baseResponse);
+        
         if (baseResponse.Success === true) {
           this.receiptDetail = baseResponse.Recovery.Receipt;
           this.receiptDetail.forEach(function (part, index) {

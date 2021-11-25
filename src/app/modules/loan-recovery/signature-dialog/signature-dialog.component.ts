@@ -41,8 +41,8 @@ export class SignatureDialogComponent implements OnInit {
 
   ngOnInit() {
     this.receipt = this.data;
-    //console.log('Signature data');
-    //console.log(this.receipt);
+    //
+    //
 
 
   }
@@ -63,7 +63,7 @@ export class SignatureDialogComponent implements OnInit {
 
   drawStart() {
     // will be notified of szimek/signature_pad's onBegin event
-    console.log('begin drawing');
+    
   }
   close(bySystem: Boolean): void {
     this.dialogRef.close(bySystem);
@@ -88,7 +88,7 @@ export class SignatureDialogComponent implements OnInit {
       )
       .subscribe((baseResponse: BaseResponseModel) => {
         
-        console.log(baseResponse);
+        
         if (baseResponse.Success === true) {
           //this.receiptDetail = baseResponse.Recovery.Receipt;
 

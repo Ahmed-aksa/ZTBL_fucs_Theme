@@ -133,7 +133,7 @@ export class SetTargetComponent implements OnInit {
 
     GetTargets(value: any) {
         this.ishidden = false;
-        console.log(value);
+        
         this.spinner.show();
         this._setTarget
             .GetTargets(value)
@@ -245,7 +245,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     onDataChanged(event: any[]): void {
-        console.log(event);
+        
     }
 
     AssignTarget() {
@@ -274,13 +274,13 @@ export class SetTargetComponent implements OnInit {
     Check() {
         var target;
         var heading;
-        console.log('total length len' + this.totalLength.length);
+        
         var h = Object.keys(this.headings);
         var v = Object.values(this.headings);
 
         for (let j = 0; j < this.totalLength.length; j++) {
             for (let i = 0; i < this.targets.length; i++) {
-                console.log(this.totalLength[j]);
+                
                 target = this.targets.find(
                     (temp) => temp[this.totalLength[j]] == 0
                 );

@@ -337,7 +337,7 @@ export class CustLandListComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    console.log(baseResponse)
+                    
                     this.loading = false;
 
                     this.dataSource.data = baseResponse.searchLandData;
@@ -465,8 +465,8 @@ export class CustLandListComponent implements OnInit {
     editland(Land: any) {
 
         //if (this.isUserAdmin) {
-        //  console.log(this.CustomerLandRelation.ZoneId)
-        //  console.log(this.CustomerLandRelation.BranchId)
+        //  
+        //  
         //}
 
         Land.Branch = this.Branches.filter(x => x.BranchId == Land.BranchId);

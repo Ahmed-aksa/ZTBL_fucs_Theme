@@ -49,7 +49,7 @@ export class DeceasedCustomerService {
     }
     MarkAsDeceasedCustomer(form, file: File) {
 
-        console.log(file);
+        
 
         var deceasedInfo = new Customer();
 
@@ -60,7 +60,7 @@ export class DeceasedCustomerService {
 
         //form.IsReferredBack = true;
 
-        console.log(userInfo);
+        
 
         formData.append('CustomerCnic', form.Cnic);
 

@@ -88,9 +88,9 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
             this.is_view = this.router.getCurrentNavigation().extras.state.hide;
             this.updatingCase = true;
 
-            // console.log("arr"+JSON.stringify(this.req_arr))
+            // )
         } else {
-            this.is_view=true;
+            this.is_view = true;
 
         }
     }
@@ -145,12 +145,12 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
         if (this.ind == undefined) {
             this.addUpdateBenchMarkForm.controls.Status.setValue("S")
             this.req_array.push(this.addUpdateBenchMarkForm.value)
-            console.log(this.req_array)
+
         } else {
             this.req_array.splice(this.ind, 1);
             this.req_array.splice(this.ind, 0, this.addUpdateBenchMarkForm.value)
         }
-        console.log("req" + this.req_array)
+
 
         this.spinner.show();
         this._villageBenchmark.addUpdateVillageBenchMark(this.req_array, this.user)
@@ -245,7 +245,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     ID;
 
     update() {
-        console.log("id" + this.addUpdateBenchMarkForm.controls.Id.value)
+
         this.ID = this.addUpdateBenchMarkForm.controls.Id.value;
         this.Add()
 
@@ -298,7 +298,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
         if (this.ind == undefined) {
             this.addUpdateBenchMarkForm.controls.Status.setValue("P")
             this.req_array.push(this.addUpdateBenchMarkForm.value)
-            console.log(this.req_array)
+
         } else {
             this.req_array.splice(this.ind, 1);
             this.req_array.splice(this.ind, 0, this.addUpdateBenchMarkForm.value)
@@ -318,9 +318,8 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
 
                     if (this.ID) {
-                        console.log("id condition working")
 
-                        console.log("village length" + this.village.length)
+
                         if (this.village.length) {
                             for (let i = 0; this.village.length; i++) {
                                 if (this.village[i].Id == this.ID) {
@@ -338,13 +337,11 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
                     }
                     this.req_array = []
                     if (this.updatingCase) {
-                        console.log("called")
+
                         this.village = []
                     }
-                    console.log(JSON.stringify(baseResponse.VillageBenchMarking["VillageBenchMarkingList"]))
                     this.village.push(baseResponse.VillageBenchMarking["VillageBenchMarkingList"][0]);
 
-                    console.log("village" + JSON.stringify(this.village))
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
@@ -457,7 +454,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
     deleteRow(indx, arr) {
 
-        console.log(arr)
+
         this.spinner.show();
         this._villageBenchmark.deleteVillageBenchmark(arr)
             .pipe(
@@ -479,8 +476,6 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     }
 
     Submit() {
-
-        console.log("village" + JSON.stringify(this.village));
         //this.hideDelete = true;
         if (this.village?.length > 0) {
             for (let i = 0; i < this.village.length; i++) {
@@ -490,7 +485,6 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
             this.village[0]["Status"] = "S";
         }
 
-        console.log("village" + JSON.stringify(this.village));
 
         this.user.ZoneId = this.addUpdateBenchMarkForm.controls.ZoneId.value;
         this.user.BranchCode = this.addUpdateBenchMarkForm.controls.BranchCode.value;

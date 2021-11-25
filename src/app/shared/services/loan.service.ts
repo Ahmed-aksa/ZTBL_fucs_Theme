@@ -670,15 +670,6 @@ export class LoanService {
 
         formData.append('file', loanDoc.file);
 
-        console.log('File Data', formData.get('file'));
-        console.log('RefrenceNo data', formData.get('ReferenceNo'));
-        console.log('Description data', formData.get('Description'));
-        console.log('Page number data', formData.get('PageNumber'));
-        console.log('Owner Name', formData.get('OwnerName'));
-        console.log('Loan case id', formData.get('LoanCaseID'));
-        console.log('Parent Doc Id ', formData.get('ParentDocId'));
-        console.log('Created updated by', formData.get('CreatedUpdatedBy'));
-        console.log('Entered by', formData.get('EnteredBy'));
 
         return this.http
             .post<any>(`${environment.apiUrl}/Loan/DocumentUpload`, formData)
@@ -977,7 +968,7 @@ export class LoanService {
         this.request.TranId = 0;
 
 
-        console.log(this.request)
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/DeleteLegalHeirs`, this.request, {

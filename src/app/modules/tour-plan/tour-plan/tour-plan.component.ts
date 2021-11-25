@@ -234,14 +234,14 @@ export class TourPlanComponent implements OnInit {
 
     setValues(){
         var circleId=[], circleCode=[], name, ppno, circleName, circleNo, date, branch,zone;
-        console.log(this.loggedInUser)
+        
         name = this.loggedInUser.User.DisplayName;
         zone =this.loggedInUser?.Zone?.ZoneName;
         branch= this.loggedInUser?.Branch?.Name;
         ppno= this.loggedInUser?.User?.UserName;
         this.circle = this.loggedInUser?.UserCircleMappings;
         if(this.circle?.length==0){
-            console.log("called");
+            
             this.GetCircles()
         }
         this.TourForm.controls['ZoneName'].setValue(zone);
@@ -275,9 +275,9 @@ export class TourPlanComponent implements OnInit {
     }
 
     ApprovalMode(){
-        // console.log(this.flag)
+        // 
         if(this.flag=="2"){
-            console.log("working")
+            
             this.isView=true;
             this.TourForm.controls['Remarks'].setValidators(Validators.required);
         }
@@ -363,7 +363,7 @@ export class TourPlanComponent implements OnInit {
         }
         // this.customerForm.controls.Status.setValue("P");
         var v = JSON.stringify(this.TourForm.value)
-        console.log("form values"+v)
+        
 
         this.TourPlan = Object.assign(this.TourForm.value);
         this.TourPlan.VisitedDate=this.VisitedDate;
@@ -381,7 +381,7 @@ export class TourPlanComponent implements OnInit {
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-                        console.log(baseResponse)
+                        
                         this.isAdd=true;
                         this.isUpdate=false;
 
@@ -415,7 +415,7 @@ export class TourPlanComponent implements OnInit {
 
     Submit()
     {
-        console.log(this.dataSource);
+        
 
     }
 
@@ -429,7 +429,7 @@ export class TourPlanComponent implements OnInit {
         this.TourPlan.VisitedDate=this.VisitedDate;
         this.TourPlan.Status=value;
 
-        console.log("tourplan"+this.TourPlan)
+        
 
         this.spinner.show();
         this.tourPlanService
@@ -472,7 +472,7 @@ export class TourPlanComponent implements OnInit {
                 (baseResponse) => {
                     if (baseResponse.Success) {
                         this.circle = baseResponse.Circles;
-                        console.log(this.circle)
+                        
                     }
                 });
     }

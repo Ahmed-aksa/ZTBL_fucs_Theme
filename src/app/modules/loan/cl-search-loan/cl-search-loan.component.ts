@@ -103,7 +103,7 @@ export class ClSearchLoanComponent implements OnInit {
   async getLoanStatus() {
     this.LoanStatus = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.LoanStatus });
     this.SelectedLoanStatus = this.LoanStatus.LOVs;
-    console.log(this.SelectedLoanStatus);
+    
   }
   searchLoanStatus(loanStatusId) {
     loanStatusId = loanStatusId.toLowerCase();

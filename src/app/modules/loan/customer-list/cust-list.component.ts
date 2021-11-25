@@ -109,7 +109,7 @@ export class CustLoanlistComponent implements OnInit {
         this.data
         if (this.isDialog || this.data.flag==1)
         {
-            console.log("")
+            
             this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus']
         }
 

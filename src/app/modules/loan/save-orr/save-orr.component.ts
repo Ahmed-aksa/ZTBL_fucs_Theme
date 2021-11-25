@@ -67,7 +67,7 @@ export class SaveOrrComponent implements OnInit {
       )
       .subscribe((baseResponse: BaseResponseModel) => {
 
-        console.log(baseResponse);
+        
         if (baseResponse.Success === true) {
           this.Cib = baseResponse.Loan.ORR.Cib;
           this.MarketReputation = baseResponse.Loan.ORR.MarketReputation;
@@ -94,7 +94,7 @@ export class SaveOrrComponent implements OnInit {
         })
       )
       .subscribe((baseResponse: BaseResponseModel) => {
-        console.log(baseResponse);
+        
         if (baseResponse.Success === true) {
           this.SoilIrrigation = baseResponse.Loan.ORR.SoilIrrigation;
           this.LandOwnership = baseResponse.Loan.ORR.LandOwnership;
@@ -197,7 +197,7 @@ export class SaveOrrComponent implements OnInit {
       )
       .subscribe((baseResponse: BaseResponseModel) => {
 
-        console.log(baseResponse);
+        
         if (baseResponse.Success === true) {
           this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
         }

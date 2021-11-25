@@ -166,7 +166,7 @@ export class NdcRequestsService {
             Zone: this.userInfo.Zone
         };
         // var r = JSON.stringify(request)
-        // console.log(r)
+        // 
         //
         //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
         //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(
@@ -219,7 +219,7 @@ export class NdcRequestsService {
             Zone: this.userInfo.Zone
         };
         // var r = JSON.stringify(request)
-        // console.log(r)
+        // 
         //
         //   return this.http.post(`${environment.apiUrl}/NDC/SearchNDCList`, request,
         //     { headers: this.httpUtils.getHTTPHeaders() }).pipe(

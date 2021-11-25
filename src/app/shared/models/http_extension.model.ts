@@ -107,7 +107,7 @@ export class HttpExtenstionsModel {
                         }
                     });
                 } catch (ex) {
-                    console.log(ex, key, searchText);
+                    
                 }
             }
         });

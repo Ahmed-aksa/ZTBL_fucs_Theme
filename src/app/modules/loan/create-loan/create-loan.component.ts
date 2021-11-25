@@ -57,7 +57,7 @@ export class CreateLoanComponent implements OnInit {
     }
 
     checkError(val:boolean){
-        console.log("called")
+        
 
 
     }
@@ -86,7 +86,7 @@ export class CreateLoanComponent implements OnInit {
 
 
     onCreateRestForm() {
-        console.log("rest form")
+        
         this.applicationHeaderDetail["DevAmount"] = "";
         this.appHeaderComponent.loadAppDataOnUpdate(this.applicationHeaderDetail)
     }
@@ -196,7 +196,7 @@ export class CreateLoanComponent implements OnInit {
     }
 
     check_disabled(event: any) {
-        // console.log("called")
+        // 
         // if(event==true){
         //     this.toastr.error("First time AGPS must be Applicant and Relationship must be selected self");
         // }

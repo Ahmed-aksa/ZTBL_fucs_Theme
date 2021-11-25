@@ -50,7 +50,7 @@ export class SignatureDailogDairyComponent implements OnInit {
 
     drawStart() {
         // will be notified of szimek/signature_pad's onBegin event
-        console.log('begin drawing');
+        
     }
     saveSignature() {}
 

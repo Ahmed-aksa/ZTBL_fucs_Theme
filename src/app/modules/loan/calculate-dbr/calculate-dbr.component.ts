@@ -69,7 +69,7 @@ export class CalculateDbrComponent implements OnInit {
         (error) => {
           
           this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
-          console.log(error)
+          
         })
   }
   searchLoanDbr() {
@@ -103,7 +103,7 @@ export class CalculateDbrComponent implements OnInit {
         (error) => {
           
           this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
-          console.log(error)
+          
         })
     
   }

@@ -150,7 +150,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
     this.proposedCropType = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.ProposedCropType })
     this.selectedProposedCropType = this.proposedCropType.LOVs;
-    console.log("this is proposed", this.selectedProposedCropType)
+    
   }
 
   selectedCropTypeValue(event: MatSelectChange) {

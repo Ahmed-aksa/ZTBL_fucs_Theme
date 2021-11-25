@@ -65,12 +65,12 @@ export class RoleEditComponent implements OnInit {
           if (baseResponse.Success) {
     
           this.LOVs = baseResponse.LOVs;
-             console.log(this.LOVs);
+             
            
        
       
             // this.dataSource = baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries;
-            // console.log(this.dataSource);
+            // 
             // this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
           } else {
             
@@ -128,7 +128,7 @@ export class RoleEditComponent implements OnInit {
 
     if (this.data.profile.ProfileID > 0) {
 
-console.log(this.profile)
+
       this._profileService.UpdateRole(this.profile)
         .pipe(
           finalize(() => {
@@ -139,8 +139,8 @@ console.log(this.profile)
         .subscribe((baseResponse: BaseResponseModel) => {
 
           
-          console.log('base response');
-          console.log(baseResponse);
+          
+          
 
           if (baseResponse.Success === true) {
             const message = `Polygon has been updated successfully`;
@@ -169,13 +169,13 @@ console.log(this.profile)
         .subscribe((baseResponse: BaseResponseModel) => {
 
           
-          console.log('base response');
-          console.log(baseResponse);
+          
+          
 
           if (baseResponse.Success === true) {
             const message = `Polygon has been updated successfully`;
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-            console.log(this.profile);
+            
             this.close(this.profile);
           }
           else {
