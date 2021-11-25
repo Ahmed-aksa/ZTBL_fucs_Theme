@@ -110,15 +110,19 @@
        </div>
         <div class="form-group kt-form__group row">
         <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mt-2">
-          <mat-checkbox class="example-margin" [(ngModel)]="isCheckedEquity" [ngModelOptions]="{standalone: true}">Check Equity</mat-checkbox>
+          <mat-checkbox class="example-margin" (click)="onChang(isCheckedEquity)" [checked]="isCheckedEquity" >Check Equity</mat-checkbox>
         </div>
         <div class="col-lg-8 col-sm-12 kt-margin-bottom-20-mobile">
           <mat-label class="customMatLabel mb-4"><b>Borrower Agreed to Pay Insurance For (Opt) Crops</b><strong class="matMandatory">*</strong></mat-label>
           &nbsp;
-          <mat-radio-group class="mt-4" aria-label="Select an option">
-            <mat-radio-button (click)="changeRadio('Y')" value="1">Agree</mat-radio-button>
-            <mat-radio-button class="mx-2" value="2">Not Agree</mat-radio-button>
-          </mat-radio-group>
+              <label>
+                  <input type="radio" value="Y" formControlName="BwrAgreeInsurancePrem">
+                  <span>Yes</span>
+              </label>
+              <label>
+                  <input type="radio" value="N" formControlName="BwrAgreeInsurancePrem">
+                                    <span>No</span>
+              </label>
         </div>
       </div>
         <div class="form-group kt-form__group row mt-2">
@@ -175,10 +179,10 @@
             <td>{{loan.AmountInHand}}</td>
             <td>{{loan.AmountRequired}}</td>
             <td>
-              <span (click)="onEditPurpose(loan.GlSubID)"
+              <span (click)="onEditPurpose(loan)"
                     style="cursor: pointer;
                       color: #ecbd00;font-size: 16px;">Edit</span> |
-              <span style="cursor: pointer; color: #ecbd00;font-size: 16px;" (click)="onDeletePurpose(loan)">Delete</span>
+              <span style="cursor: pointer; color: #ecbd00;font-size: 16px;" (click)="onDeletePurpose(loan,i)">Delete</span>
             </td>
 
 

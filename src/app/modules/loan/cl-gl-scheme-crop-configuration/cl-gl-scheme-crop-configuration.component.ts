@@ -111,7 +111,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
     // this.dataService.getData2().subscribe((data:any)=>{
     // this.dataSource = data.slice(event * this.size - this.size, event * this.size);
     // })
-    this.dataSource = this.dv.slice(event * this.size - this.size, event * this.size);
+    this.dataSource = this.dv?.slice(event * this.size - this.size, event * this.size);
 
 
 
@@ -165,12 +165,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
 
           this.dataSource = new MatTableDataSource(this.CropDetailList);
 
-          this.length = this.CropDetailList.length;
-          //this.count = length.count;
-          //for()
-          this.paginate(this.pageIndex);
-          console.log(this.dataSource);
-
+          this.length = this.CropDetailList?.length;
 
         }
         else {

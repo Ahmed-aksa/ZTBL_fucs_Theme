@@ -155,6 +155,7 @@ export class LoanApplicationPurpose {
     GlSubID: number;
     DevProdID: number;
     SchemeID: number;
+    checkEquity:boolean;
 
 
     //GLCode: string;

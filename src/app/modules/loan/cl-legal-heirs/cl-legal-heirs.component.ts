@@ -185,6 +185,8 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
 
+
+
     //this.legalHeirs = Object.assign(this.legalHeirs, this.legalHeirsForm.getRawValue());
     this.legalHeirs.UserID = "0";
     //this.legalHeirs.LoanAppID = 0;
@@ -196,6 +198,19 @@ export class ClLegalHeirsComponent implements OnInit {
 
     this.legalHeirs = Object.assign(this.legalHeirsForm.value, this.legalHeirsForm.getRawValue());
     var arr = this.loanDetail.ApplicationHeader.LoanAppID;
+
+
+for(let i=0;i<this.legalHeirsArray?.length;i++){
+    if(this.legalHeirsArray[i].Cnic==this.legalHeirs.Cnic){
+        var Message = 'CNIC already added';
+        this.layoutUtilsService.alertElement(
+            '',
+            Message,
+            null
+        );
+        return;
+    }
+  }
 
     this.spinner.show();
     this._loanService.saveLoanApplicationLegalHeirs(this.legalHeirs, this.loanDetail.TranId, arr)
@@ -236,11 +251,7 @@ export class ClLegalHeirsComponent implements OnInit {
   }
 
   onDeleteLegalHeirs(legalHeir,index) {
-
-
-    console.log(legalHeir)
-
-
+      debugger
     const _title = 'Confirmation';
     const _description = 'Do you really want to continue?';
     const _waitDesciption = '';

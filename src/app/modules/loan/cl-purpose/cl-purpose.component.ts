@@ -55,7 +55,7 @@ export class ClPurposeComponent implements OnInit {
     //@Input() childMessage: string;
 
     @Input() loanDetail: Loan;
-
+    index;
     purposeForm: FormGroup;
     public loanApplicationPurpose = new LoanApplicationPurpose();
 
@@ -136,6 +136,8 @@ export class ClPurposeComponent implements OnInit {
             NecessitiesDetail: [
                 this.loanApplicationPurpose.NecessitiesDetail,
                 [Validators.required],
+            ], DevProdID: [
+                this.loanApplicationPurpose.DevProdID
             ],
         });
     }
@@ -221,6 +223,7 @@ export class ClPurposeComponent implements OnInit {
                 grid.TotalEstimatedCost = item.TotalEstimatedCost;
                 grid.Quantity = item.Quantity;
                 grid.AmountInHand = item.AmountInHand;
+                grid.checkEquity = item.checkEquity;
 
                 tempArray.push(grid);
             });
@@ -228,133 +231,156 @@ export class ClPurposeComponent implements OnInit {
         }
     }
 
-    onEditPurpose(GlSubID) {
+    onEditPurpose(data:LoanApplicationPurpose) {
+        debugger
+        this.index;
         this.editLoanApplicationPurpose;
+        this.loanApplicationPurpose = data;
 
-        for (var i = 0; i < this.editLoanApplicationPurpose.length; i++) {
-            if (this.editLoanApplicationPurpose[i].GlSubID == GlSubID) {
-                if (
-                    (this.editLoanApplicationPurpose[i] != null,
-                    this.editLoanApplicationPurpose[i] != undefined)
-                ) {
-                    if (
-                        (this.editLoanApplicationPurpose[i].GlSubID != null,
-                        this.editLoanApplicationPurpose[i].GlSubID != undefined)
-                    ) {
-                        this.purposeForm.controls['GlSubID'].setValue(
-                            this.editLoanApplicationPurpose[i].GlSubID
-                        );
-                    }
-                    if (
-                        (this.editLoanApplicationPurpose[i].FundNonFund != null,
-                        this.editLoanApplicationPurpose[i].FundNonFund != '',
-                        this.editLoanApplicationPurpose[i].FundNonFund !=
-                            undefined)
-                    ) {
-                        //this.purposeForm.controls["FundNonFund"].setValue(this.editLoanApplicationPurpose[i].FundNonFund);
-                        this.Facility;
-                    }
-                    if (
-                        (this.editLoanApplicationPurpose[i].AmountInHand !=
-                            null,
-                        this.editLoanApplicationPurpose[i].AmountInHand !=
-                            undefined)
-                    ) {
-                        this.purposeForm.controls['AmountInHand'].setValue(
-                            this.editLoanApplicationPurpose[i].AmountInHand
-                        );
-                    }
-                    if (
-                        (this.editLoanApplicationPurpose[i].AmountRequired !=
-                            null,
-                        this.editLoanApplicationPurpose[i].AmountRequired !=
-                            undefined)
-                    ) {
-                        this.purposeForm.controls['AmountRequired'].setValue(
-                            this.editLoanApplicationPurpose[i].AmountRequired
-                        );
-                    }
-                    if (
-                        (this.editLoanApplicationPurpose[i].CultivatedArea !=
-                            null,
-                        this.editLoanApplicationPurpose[i].CultivatedArea !=
-                            undefined)
-                    ) {
-                        this.purposeForm.controls['CultivatedArea'].setValue(
-                            this.editLoanApplicationPurpose[i].CultivatedArea
-                        );
-                    }
-                    if (
-                        (this.editLoanApplicationPurpose[i].CropID != null,
-                        this.editLoanApplicationPurpose[i].CropID != undefined)
-                    ) {
-                        this.purposeForm.controls['CropID'].setValue(
-                            this.editLoanApplicationPurpose[i].CropID
-                        );
-                    }
-                    if (
-                        (this.editLoanApplicationPurpose[i].SchemeID != null,
-                        this.editLoanApplicationPurpose[i].SchemeID !=
-                            undefined)
-                    ) {
-                        this.purposeForm.controls['SchemeID'].setValue(
-                            this.editLoanApplicationPurpose[i].SchemeID
-                        );
-                    }
-                    if (
-                        (this.editLoanApplicationPurpose[i]
-                            .TotalEstimatedCost != null,
-                        this.editLoanApplicationPurpose[i].TotalEstimatedCost !=
-                            undefined)
-                    ) {
-                        this.purposeForm.controls[
-                            'TotalEstimatedCost'
-                        ].setValue(
-                            this.editLoanApplicationPurpose[i]
-                                .TotalEstimatedCost
-                        );
-                    }
-                    if (
-                        (this.editLoanApplicationPurpose[i].Quantity != null,
-                        this.editLoanApplicationPurpose[i].Quantity !=
-                            undefined)
-                    ) {
-                        this.purposeForm.controls['Quantity'].setValue(
-                            this.editLoanApplicationPurpose[i].Quantity
-                        );
-                    }
-                    this.LoadLovs();
+        this.purposeForm.value;
 
-                    if (
-                        (this.editLoanApplicationPurpose[i].SchemeID != null,
-                        this.editLoanApplicationPurpose[i].SchemeID !=
-                            undefined)
-                    ) {
-                        this.purposeForm.controls['RequiredItem'].setValue(
-                            this.editLoanApplicationPurpose[i].SchemeID
-                        );
-                    }
-                    //this.purposeForm.controls["FundNonFund"].setValue(this.editLoanApplicationPurpose[i].FundNonFund);
-                    if (
-                        (this.editLoanApplicationPurpose[i].FundNonFund != null,
-                        this.editLoanApplicationPurpose[i].FundNonFund !=
-                            undefined)
-                    ) {
-                        var devProdFlag = this.Facility.filter(
-                            (x) =>
-                                x.Name ==
-                                this.editLoanApplicationPurpose[i].FundNonFund
-                        ); //[0].Id;
-                        console.log(devProdFlag);
-                        if (devProdFlag.length > 0) {
-                            this.purposeForm.controls['FundNonFund'].setValue(
-                                devProdFlag[0].Id
-                            );
-                        }
-                    }
-                }
-            }
-        }
+        this.purposeForm.controls['GlSubID'].setValue(this.loanApplicationPurpose?.GlSubID);
+        this.purposeForm.controls['SchemeID'].setValue(this.loanApplicationPurpose?.SchemeID);
+        this.purposeForm.controls['MarkupCalcMode'].setValue(this.loanApplicationPurpose?.MarkupCalcMode);
+        this.purposeForm.controls['CropID'].setValue(this.loanApplicationPurpose?.CropID);
+        this.purposeForm.controls['CultivatedArea'].setValue(this.loanApplicationPurpose?.CultivatedArea);
+        this.purposeForm.controls['RequiredItem'].setValue(this.loanApplicationPurpose?.RequiredItem);
+        this.purposeForm.controls['Quantity'].setValue(this.loanApplicationPurpose?.Quantity);
+        this.purposeForm.controls['FundNonFund'].setValue(this.loanApplicationPurpose?.FundNonFund);
+        this.purposeForm.controls['TotalEstimatedCost'].setValue(this.loanApplicationPurpose?.TotalEstimatedCost);
+        this.purposeForm.controls['AmountInHand'].setValue(this.loanApplicationPurpose?.AmountInHand);
+        this.purposeForm.controls['AmountRequired'].setValue(this.loanApplicationPurpose?.AmountRequired);
+        this.purposeForm.controls['NecessitiesDetail'].setValue(this.loanApplicationPurpose?.NecessitiesDetail);
+        this.purposeForm.controls['BwrAgreeInsurancePrem'].setValue(this.loanApplicationPurpose?.BwrAgreeInsurancePrem);
+        this.purposeForm.controls['DevProdID'].setValue(this.loanApplicationPurpose?.DevProdID);
+
+        this.isCheckedEquity=true;
+
+        console.log(this.loanApplicationPurpose)
+        // for (var i = 0; i < this.editLoanApplicationPurpose.length; i++) {
+        //     if (this.editLoanApplicationPurpose[i].GlSubID == GlSubID) {
+        //         if (
+        //             (this.editLoanApplicationPurpose[i] != null,
+        //             this.editLoanApplicationPurpose[i] != undefined)
+        //         ) {
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].GlSubID != null,
+        //                 this.editLoanApplicationPurpose[i].GlSubID != undefined)
+        //             ) {
+        //                 this.purposeForm.controls['GlSubID'].setValue(
+        //                     this.editLoanApplicationPurpose[i].GlSubID
+        //                 );
+        //             }
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].FundNonFund != null,
+        //                 this.editLoanApplicationPurpose[i].FundNonFund != '',
+        //                 this.editLoanApplicationPurpose[i].FundNonFund !=
+        //                     undefined)
+        //             ) {
+        //                 //this.purposeForm.controls["FundNonFund"].setValue(this.editLoanApplicationPurpose[i].FundNonFund);
+        //                 this.Facility;
+        //             }
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].AmountInHand !=
+        //                     null,
+        //                 this.editLoanApplicationPurpose[i].AmountInHand !=
+        //                     undefined)
+        //             ) {
+        //                 this.purposeForm.controls['AmountInHand'].setValue(
+        //                     this.editLoanApplicationPurpose[i].AmountInHand
+        //                 );
+        //             }
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].AmountRequired !=
+        //                     null,
+        //                 this.editLoanApplicationPurpose[i].AmountRequired !=
+        //                     undefined)
+        //             ) {
+        //                 this.purposeForm.controls['AmountRequired'].setValue(
+        //                     this.editLoanApplicationPurpose[i].AmountRequired
+        //                 );
+        //             }
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].CultivatedArea !=
+        //                     null,
+        //                 this.editLoanApplicationPurpose[i].CultivatedArea !=
+        //                     undefined)
+        //             ) {
+        //                 this.purposeForm.controls['CultivatedArea'].setValue(
+        //                     this.editLoanApplicationPurpose[i].CultivatedArea
+        //                 );
+        //             }
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].CropID != null,
+        //                 this.editLoanApplicationPurpose[i].CropID != undefined)
+        //             ) {
+        //                 this.purposeForm.controls['CropID'].setValue(
+        //                     this.editLoanApplicationPurpose[i].CropID
+        //                 );
+        //             }
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].SchemeID != null,
+        //                 this.editLoanApplicationPurpose[i].SchemeID !=
+        //                     undefined)
+        //             ) {
+        //                 this.purposeForm.controls['SchemeID'].setValue(
+        //                     this.editLoanApplicationPurpose[i].SchemeID
+        //                 );
+        //             }
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i]
+        //                     .TotalEstimatedCost != null,
+        //                 this.editLoanApplicationPurpose[i].TotalEstimatedCost !=
+        //                     undefined)
+        //             ) {
+        //                 this.purposeForm.controls[
+        //                     'TotalEstimatedCost'
+        //                 ].setValue(
+        //                     this.editLoanApplicationPurpose[i]
+        //                         .TotalEstimatedCost
+        //                 );
+        //             }
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].Quantity != null,
+        //                 this.editLoanApplicationPurpose[i].Quantity !=
+        //                     undefined)
+        //             ) {
+        //                 this.purposeForm.controls['Quantity'].setValue(
+        //                     this.editLoanApplicationPurpose[i].Quantity
+        //                 );
+        //             }
+        //             this.LoadLovs();
+        //
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].SchemeID != null,
+        //                 this.editLoanApplicationPurpose[i].SchemeID !=
+        //                     undefined)
+        //             ) {
+        //                 this.purposeForm.controls['RequiredItem'].setValue(
+        //                     this.editLoanApplicationPurpose[i].SchemeID
+        //                 );
+        //             }
+        //             //this.purposeForm.controls["FundNonFund"].setValue(this.editLoanApplicationPurpose[i].FundNonFund);
+        //             if (
+        //                 (this.editLoanApplicationPurpose[i].FundNonFund != null,
+        //                 this.editLoanApplicationPurpose[i].FundNonFund !=
+        //                     undefined)
+        //             ) {
+        //                 var devProdFlag = this.Facility.filter(
+        //                     (x) =>
+        //                         x.Name ==
+        //                         this.editLoanApplicationPurpose[i].FundNonFund
+        //                 ); //[0].Id;
+        //                 console.log(devProdFlag);
+        //                 if (devProdFlag.length > 0) {
+        //                     this.purposeForm.controls['FundNonFund'].setValue(
+        //                         devProdFlag[0].Id
+        //                     );
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     changeRadio(val)
@@ -363,7 +389,23 @@ export class ClPurposeComponent implements OnInit {
         // this.purposeForm.controls.
 
     }
-    onDeletePurpose(GlSubID) {
+
+
+    onChang(e){
+        console.log(e)
+        if(e == false){
+            this.isCheckedEquity = true
+            // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
+        }
+        else
+        {
+            this.isCheckedEquity = false
+            // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
+        }
+        console.log(e)
+    }
+
+    onDeletePurpose(GlSubID,index) {
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';
@@ -397,12 +439,16 @@ export class ClPurposeComponent implements OnInit {
                             })
                         )
                         .subscribe((baseResponse) => {
-                            const dialogRef =
-                                this.layoutUtilsService.alertElementSuccess(
-                                    '',
-                                    baseResponse.Message,
-                                    baseResponse.Code
-                                );
+                            if(baseResponse.Success===true){
+                                const dialogRef =
+                                    this.layoutUtilsService.alertElementSuccess(
+                                        '',
+                                        baseResponse.Message,
+                                        baseResponse.Code
+                                    );
+                                this.loanPurpose.splice(index,1);
+                            }
+
                         });
                 }
             }
@@ -422,9 +468,26 @@ export class ClPurposeComponent implements OnInit {
         this.purposeForm.controls['AmountInHand'].setValue('');
         this.purposeForm.controls['AmountRequired'].setValue('');
         this.purposeForm.controls['NecessitiesDetail'].setValue('');
+        this.purposeForm.controls['BwrAgreeInsurancePrem'].setValue('');
+        this.purposeForm.controls['DevProdID'].setValue('');
+
+
+        this.isCheckedEquity=false;
     }
 
     onSavePurpose() {
+        debugger
+
+        this.purposeForm.controls
+        console.log(this.purposeForm)
+        if (this.purposeForm.controls['BwrAgreeInsurancePrem'].value=="") {
+            this.layoutUtilsService.alertMessage(
+                '',
+                'Please select Insurance'
+            );
+            return;
+        }
+
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage(
                 '',
@@ -508,8 +571,8 @@ export class ClPurposeComponent implements OnInit {
             var MarketPrice = this.loanApplicationPurpose.TotalEstimatedCost;
             var SumEquityLoan = 0;
             SumEquityLoan =
-                this.loanApplicationPurpose.AmountRequired +
-                this.loanApplicationPurpose.AmountInHand;
+                Number(this.loanApplicationPurpose.AmountRequired) +
+                Number(this.loanApplicationPurpose.AmountInHand);
 
             if (MarketPrice != SumEquityLoan) {
                 this.layoutUtilsService.alertMessage(
@@ -545,12 +608,23 @@ export class ClPurposeComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
+
+                    if(this.purposeForm.controls['DevProdID'].value){
+                        this.loanPurpose.splice(this.index,1)
+                    }
+
                     const dialogRef =
                         this.layoutUtilsService.alertElementSuccess(
                             '',
                             baseResponse.Message,
                             baseResponse.Code
                         );
+
+                    this.loanPurpose.push(baseResponse.Loan.LoanApplicationpurposeList[0])
+                    this.purposeForm.reset()
+                    this.purposeForm.markAsUntouched()
+                    this.isCheckedEquity=false;
+                    this.index=null;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -603,4 +677,5 @@ export class LoanApplicationPurposeGrid {
     GlSubID: number;
     DevProdID: number;
     SchemeID: number;
+    checkEquity:boolean;
 }
