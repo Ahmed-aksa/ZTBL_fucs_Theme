@@ -100,8 +100,6 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
     find() {
         this.spinner.show();
         this.search = Object.assign(this.pendingForm.getRawValue());
-        
-
         this._reschedulingService
             .RescheduleSearch(this.search, this.branch, this.zone)
             .pipe(
@@ -115,7 +113,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
                 this.dataSource = null;
                 this.ELEMENT_DATA = [];
                 if (baseResponse.Success === true) {
-                    
+                    this.allowSubmit = true;
                     this.loading = false;
                     this.Mydata = baseResponse.Loan.ReschedulingSearch;
 
@@ -135,7 +133,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
                     }
 
                     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-                    
+
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
                     else this.matTableLenght = false;
@@ -148,6 +146,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
                     //
                     //
                 } else {
+                    this.allowSubmit = false;
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,
@@ -175,7 +174,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
         this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
         this.pendingForm.controls['Status'].setValue(this.SelectedLoanStatus ? this.SelectedLoanStatus[0].Id : '');
 
-        
+
     }
 
 
@@ -230,7 +229,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
     }
 
     editPen(updateLoan) {
-        
+
         this.router.navigate(
             [
                 '../make-reschedule',

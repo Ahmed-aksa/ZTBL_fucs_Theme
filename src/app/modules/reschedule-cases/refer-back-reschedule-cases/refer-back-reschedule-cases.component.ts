@@ -114,7 +114,7 @@ ngOnInit() {
 getRow(rob) {
     //
     this.loanResch = rob;
-    
+
 }
 editRefer(updateLoan) {
     this.router.navigate(
@@ -136,7 +136,7 @@ editRefer(updateLoan) {
         this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
         this.referbackForm.controls["Status"].setValue(this.SelectedLoanStatus ? this.SelectedLoanStatus[3].Id : "");
 
-        
+
     }
 
     createForm(){
@@ -151,7 +151,7 @@ editRefer(updateLoan) {
 
         this.spinner.show();
         this.search = Object.assign(this.referbackForm.getRawValue());
-        
+
 
         this._reschedulingService
             .RescheduleSearch(this.search, this.branch, this.zone)
@@ -166,8 +166,7 @@ editRefer(updateLoan) {
                 this.dataSource = null;
                 this.ELEMENT_DATA = [];
                 if (baseResponse.Success === true) {
-                    
-                    
+                    this.allowSubmit = true;
                     this.loading = false;
                     this.Mydata = baseResponse.Loan.ReschedulingSearch;
 
@@ -187,8 +186,8 @@ editRefer(updateLoan) {
                     }
 
                     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-                    
-                    
+
+
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
                     else this.matTableLenght = false;
@@ -201,10 +200,10 @@ editRefer(updateLoan) {
                     //
                     //
                 } else {
+                    this.allowSubmit = false;
                     this.layoutUtilsService.alertElement(
                         '',
-                        baseResponse.Message,
-                        baseResponse.Code
+                        baseResponse.Message
                     );
                 }
                 this.loading = false;
@@ -249,7 +248,7 @@ loadData() {
 
 
                 this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-                
+
 
                 if (this.dataSource.data.length > 0) this.matTableLenght = true;
                 else this.matTableLenght = false;

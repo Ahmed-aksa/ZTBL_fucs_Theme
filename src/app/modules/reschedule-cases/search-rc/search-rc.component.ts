@@ -154,7 +154,7 @@ export class SearchRcComponent implements OnInit {
         );
         this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
 
-        
+
     }
 
     searchLoanStatus(loanStatusId) {
@@ -179,7 +179,7 @@ export class SearchRcComponent implements OnInit {
         debugger
         this.spinner.show();
         this.search = Object.assign(this.rcSearch.getRawValue());
-        
+
 
         this._reschedulingService
             .RescheduleSearch(this.search, this.branch, this.zone)
@@ -194,7 +194,7 @@ export class SearchRcComponent implements OnInit {
                 this.dataSource = null;
                 this.ELEMENT_DATA = [];
                 if (baseResponse.Success === true) {
-                    
+
                     this.loading = false;
                     this.Mydata = baseResponse.Loan.ReschedulingSearch;
 
@@ -212,7 +212,7 @@ export class SearchRcComponent implements OnInit {
                     }
 
                     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-                    
+
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
                     else this.matTableLenght = false;
@@ -227,8 +227,7 @@ export class SearchRcComponent implements OnInit {
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
-                        baseResponse.Message,
-                        baseResponse.Code
+                        baseResponse.Message
                     );
                     this.dataSource = this.dv.slice(1,0)
                 }
