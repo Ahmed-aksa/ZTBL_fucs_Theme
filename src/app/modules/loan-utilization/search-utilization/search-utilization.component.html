@@ -81,7 +81,8 @@
 
             <!-- Products list -->
             <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
-                <div class="flex flex-col flex-auto sm:mb-18 overflow-scroll sm:overflow-y-auto" [style.height]="gridHeight">
+                <div class="flex flex-col flex-auto sm:mb-18 overflow-scroll sm:overflow-y-auto"
+                     [style.height]="gridHeight">
                     <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
                                matSortActive="id" matSortDirection="asc" matSortDisableClear>
 
@@ -152,16 +153,10 @@
                     <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
                     <div class="mat-table__message" *ngIf="loading">Please wait....</div>
 
-                    <!--        <div class="mat-table__bottom">-->
-                    <!--          <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>-->
-                    <!--          <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"-->
-                    <!--            [showFirstLastButtons]="true"></mat-paginator>-->
 
-                    <!--          &lt;!&ndash;<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>-->
-                    <!--  <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>&ndash;&gt;-->
-                    <!--        </div>-->
-
-
+                </div>
+                <div class="mat-table__bottom">
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
                 </div>
 
             </div>
@@ -169,3 +164,4 @@
         </div>
 
     </div>
+</div>
