@@ -176,6 +176,7 @@ export class SearchRcComponent implements OnInit {
     }
 
     find() {
+        debugger
         this.spinner.show();
         this.search = Object.assign(this.rcSearch.getRawValue());
         console.log(this.search);
@@ -229,6 +230,7 @@ export class SearchRcComponent implements OnInit {
                         baseResponse.Message,
                         baseResponse.Code
                     );
+                    this.dataSource = this.dv.slice(1,0)
                 }
                 this.loading = false;
             });
