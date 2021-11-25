@@ -52,6 +52,17 @@ export class ClSearchLoanComponent implements OnInit {
 
   gridHeight: string;
 
+    matTableLenght = false;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    Math: any;
+    loading = false;
+
+    //pagination
+    itemsPerPage = 10; //you could use your specified
+    totalItems: number | any;
+    pageIndex = 1;
+    dv: number | any; //use later
+
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -62,14 +73,17 @@ export class ClSearchLoanComponent implements OnInit {
     private _lovService: LovService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-  ) { }
+    private datePipe: DatePipe
+  ) {
+      this.Math = Math;
+  }
 
   ngOnInit() {
     this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
     if (this.LoggedInUserInfo.Branch?.BranchCode == "All")
       this.loggedInUserIsAdmin = true;
     this.createForm();
-    this.getLoanStatus(); 
+    this.getLoanStatus();
   }
 
 
@@ -126,8 +140,10 @@ export class ClSearchLoanComponent implements OnInit {
     if (!this.loggedInUserIsAdmin) {
       this.loanFilter.ZoneId = this.LoggedInUserInfo.Zone.ZoneId;
       this.loanFilter.BranchId = this.LoggedInUserInfo.Branch.BranchId;
+      this.loanFilter.Appdt = this.datePipe.transform(this.loanFilter.Appdt, 'ddMMyyyy')
      // this.circle = this.LoggedInUserInfo.UserCircleMappings;
     }
+    this.pageIndex = 1;
 
     this.spinner.show()
     this._loanService.searchLoanApplication(this.loanFilter)
@@ -138,19 +154,40 @@ export class ClSearchLoanComponent implements OnInit {
       )
       .subscribe(baseResponse => {
         if (baseResponse.Success) {
+            this.loading = false;
+            this.matTableLenght = true;
           this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
+
+            this.dv = this.dataSource.data;
+
+            this.totalItems = baseResponse.Loan.ApplicationHeaderList.length;
+            //this.paginate(this.pageIndex) //calling paginate function
+            //this.OffSet = this.pageIndex;
+            this.dataSource = this.dv.slice(0, this.itemsPerPage);
         }
         else {
-          this.dataSource.data = []
-          this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            this.layoutUtilsService.alertElement("", baseResponse.Message);
+          this.dataSource = this.dv.splice(1,0);
+            this.loading = false;
+            this.matTableLenght = false;
         }
       },
         (error) => {
-          this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
+            this.loading = false;
+            this.matTableLenght = false;
+          this.layoutUtilsService.alertElement("", "Error Occured While Processing Request", "500");
         }
     );
 
   }
+
+    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+        this.itemsPerPage = pageSize;
+        this.pageIndex = pageIndex;
+        //this.OffSet = pageIndex;
+
+        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
+    }
 
   editLoan(updateLoan) {
     this.router.navigate(['../create', { LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo }], { relativeTo: this.activatedRoute });
