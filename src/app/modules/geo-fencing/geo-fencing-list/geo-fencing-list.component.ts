@@ -1,40 +1,47 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NgxSpinnerService} from "ngx-spinner";
-import {GeoFencingService} from '../service/geo-fencing-service.service';
-import {MatDialog} from "@angular/material/dialog";
-import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
-import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {MatTableDataSource} from "@angular/material/table";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { GeoFencingService } from '../service/geo-fencing-service.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
+import { UserUtilsService } from '../../../shared/services/users_utils.service';
+import { BaseResponseModel } from '../../../shared/models/base_response.model';
+import { MatTableDataSource } from '@angular/material/table';
 
-import {finalize} from "rxjs/operators";
-import {ViewGetFancingModalComponent} from '../view-get-fancing-modal/view-get-fancing-modal.component';
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import { finalize } from 'rxjs/operators';
+import { ViewGetFancingModalComponent } from '../view-get-fancing-modal/view-get-fancing-modal.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
     selector: 'app-geo-fencing-list',
     templateUrl: './geo-fencing-list.component.html',
-    styleUrls: ['./geo-fencing-list.component.scss']
+    styleUrls: ['./geo-fencing-list.component.scss'],
 })
 export class GeoFencingListComponent implements OnInit {
     disable_branch = true;
 
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-
-    products: any
-    displayedColumns = ['CircleCodes','PPNo', 'BranchCode', 'StartTime','StopTime', 'ApproxDistanceTraveled','View'];
+    products: any;
+    displayedColumns = [
+        'CircleCodes',
+        'PPNo',
+        'BranchCode',
+        'StartTime',
+        'StopTime',
+        'ApproxDistanceTraveled',
+        'View',
+    ];
     itemsPerPage = 5;
     pageIndex = 1;
     offSet = 0;
     totalItems: number | any = 0;
     dv: number | any; //use later
-    dataSource=new MatTableDataSource();
-    listForm: FormGroup
+    dataSource = new MatTableDataSource();
+    listForm: FormGroup;
     //Zone inventory
     LoggedInUserInfo: BaseResponseModel;
     user: any = {};
@@ -51,8 +58,7 @@ export class GeoFencingListComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private userUtilsService: UserUtilsService,
         private spinner: NgxSpinnerService
-    ) {
-    }
+    ) {}
 
     ngOnInit(): void {
         this.createForm();
@@ -62,27 +68,28 @@ export class GeoFencingListComponent implements OnInit {
         this.listForm = this.fb.group({
             PPNo: [null],
             StartDate: [null, [Validators.required]],
-            EndDate: [null, [Validators.required]]
-        })
+            EndDate: [null, [Validators.required]],
+        });
     }
 
     find() {
-        this.SearchGeoFensePoint()
+        this.SearchGeoFensePoint();
     }
-
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
     }
 
-
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
         this.itemsPerPage = pageSize;
         this.offSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
         this.SearchGeoFensePoint();
-        this.dataSource = this.dv?.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
+        this.dataSource = this.dv?.slice(
+            pageIndex * this.itemsPerPage - this.itemsPerPage,
+            pageIndex * this.itemsPerPage
+        );
     }
 
     SearchGeoFensePoint() {
@@ -97,40 +104,47 @@ export class GeoFencingListComponent implements OnInit {
             Circle: this.circle,
             Zone: this.zone,
             Branch: this.branch,
-        }
+        };
         this.spinner.show();
-        this._geoFencingService.SearchGeoFensePoint(request).pipe(finalize(() => {
-            this.spinner.hide();
-        })).subscribe((baseResponse: BaseResponseModel) => {
-            this.spinner.hide();
+        this._geoFencingService
+            .SearchGeoFensePoint(request)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse: BaseResponseModel) => {
+                this.spinner.hide();
 
-            if (baseResponse.Success === true) {
-                this.dataSource.data = baseResponse.LocationHistory.LocationHistories;
-                this.totalItems = baseResponse.LocationHistory.LocationHistories[0].TotalRecords
-                this.dv = this.dataSource.data;
-
-            } else {
-                debugger
-                this.dataSource.data=[];
-                this.layoutUtilsService.alertElement("", baseResponse.Message);
-            }
-        });
+                if (baseResponse.Success === true) {
+                    this.dataSource.data =
+                        baseResponse.LocationHistory.LocationHistories;
+                    this.totalItems =
+                        baseResponse.LocationHistory.LocationHistories[0].TotalRecords;
+                    this.dv = this.dataSource.data;
+                } else {
+                    this.dataSource.data = [];
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        baseResponse.Message
+                    );
+                }
+            });
     }
 
     view(data: any) {
         const dialogRef = this.dialog.open(ViewGetFancingModalComponent, {
-            panelClass: ['h-screen','max-w-full','max-h-full'],
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',
             data: data,
-            disableClose: true
+            disableClose: true,
         });
-        dialogRef.afterClosed().subscribe(res => {
+        dialogRef.afterClosed().subscribe((res) => {
             if (!res) {
                 return;
             }
         });
     }
-
 
     comparisonEnddateValidator(): any {
         let ldStartDate = this.listForm.value['StartDate'];
@@ -139,13 +153,17 @@ export class GeoFencingListComponent implements OnInit {
         let startnew = new Date(ldStartDate);
         let endnew = new Date(ldEndDate);
         if (startnew > endnew) {
-            return this.listForm.controls['EndDate'].setErrors({'invaliddaterange': true});
+            return this.listForm.controls['EndDate'].setErrors({
+                invaliddaterange: true,
+            });
         }
 
         let oldvalue = startnew;
         this.listForm.controls['StartDate'].reset();
         this.listForm.controls['StartDate'].patchValue(oldvalue);
-        return this.listForm.controls['StartDate'].setErrors({'invaliddaterange': false});
+        return this.listForm.controls['StartDate'].setErrors({
+            invaliddaterange: false,
+        });
     }
 
     comparisonStartdateValidator(): any {
@@ -155,13 +173,17 @@ export class GeoFencingListComponent implements OnInit {
         let startnew = new Date(ldStartDate);
         let endnew = new Date(ldEndDate);
         if (startnew > endnew) {
-            return this.listForm.controls['StartDate'].setErrors({'invaliddaterange': true});
+            return this.listForm.controls['StartDate'].setErrors({
+                invaliddaterange: true,
+            });
         }
 
         let oldvalue = endnew;
         this.listForm.controls['EndDate'].reset();
         this.listForm.controls['EndDate'].patchValue(oldvalue);
-        return this.listForm.controls['EndDate'].setErrors({'invaliddaterange': false});
+        return this.listForm.controls['EndDate'].setErrors({
+            invaliddaterange: false,
+        });
     }
 
     hasError(controlName: string, errorName: string): boolean {
@@ -173,7 +195,6 @@ export class GeoFencingListComponent implements OnInit {
     }
 
     getAllData(data) {
-
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
@@ -184,5 +205,4 @@ interface GeoFencingList {
     User: string;
     Type: string;
     Date: string;
-
 }
