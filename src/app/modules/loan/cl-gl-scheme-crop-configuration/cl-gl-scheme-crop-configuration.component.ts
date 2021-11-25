@@ -98,7 +98,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
   //    //this.count = length.count;
   //    //for()
   //    this.paginate(this.pageIndex);
-  //    console.log(this.dataSource);
+  //    
   //  });
   //}
 
@@ -154,11 +154,11 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
           this.SchemeDetailList = baseResponse.Loan.GlConfigrationsDetail.SchemeDetailList;
 
 
-          console.log(this.CropDetailList);
-          console.log(this.GLDetailList);
-          console.log(this.GlRangeDetailList);
-          console.log(this.GlSchemeCropDetailList);
-          console.log(this.SchemeDetailList);
+          
+          
+          
+          
+          
 
 
           this.dv = this.CropDetailList;
@@ -169,7 +169,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
           //this.count = length.count;
           //for()
           this.paginate(this.pageIndex);
-          console.log(this.dataSource);
+          
 
 
         }

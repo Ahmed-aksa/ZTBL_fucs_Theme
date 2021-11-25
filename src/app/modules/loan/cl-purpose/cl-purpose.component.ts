@@ -345,7 +345,7 @@ export class ClPurposeComponent implements OnInit {
                                 x.Name ==
                                 this.editLoanApplicationPurpose[i].FundNonFund
                         ); //[0].Id;
-                        console.log(devProdFlag);
+                        
                         if (devProdFlag.length > 0) {
                             this.purposeForm.controls['FundNonFund'].setValue(
                                 devProdFlag[0].Id
@@ -577,7 +577,7 @@ export class ClPurposeComponent implements OnInit {
             }
         );
         dialogRef.afterClosed().subscribe((res) => {
-            console.log('res' + res);
+            
             if (!res) {
                 return;
             }

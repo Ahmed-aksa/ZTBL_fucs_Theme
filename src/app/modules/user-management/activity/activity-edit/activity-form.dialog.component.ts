@@ -122,7 +122,7 @@ export class ActivityFormDialogComponent implements OnInit {
           })
         )
         .subscribe((baseResponse: BaseResponseModel) => {
-          console.log(baseResponse);
+          
           if (baseResponse.Success === true) {
             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
             this.close(this.activity);

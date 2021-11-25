@@ -122,7 +122,7 @@ export class SetTargetService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-        // console.log(req);
+        // 
         return this.http
             .post(`${environment.apiUrl}/Target/GetTargets`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -161,7 +161,7 @@ export class SetTargetService {
         // this.request.Target["AssignedTarget"]=AssignedTarget;
 
         var req = JSON.stringify(this.request);
-        console.log(req);
+        
         return this.http
             .post<any>(
                 `${environment.apiUrl}/Target/AddUpdateTarget`,
@@ -191,7 +191,7 @@ export class SetTargetService {
         this.request.Target = { Targets: null };
         this.request.Target.Duration = Duration.toString();
         var req = JSON.stringify(this.request);
-        console.log(req);
+        
         return this.http
             .post<any>(
                 `${environment.apiUrl}/Target/SubmitTarget`,

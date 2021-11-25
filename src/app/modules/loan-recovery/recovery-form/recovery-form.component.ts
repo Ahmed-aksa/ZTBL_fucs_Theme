@@ -224,7 +224,6 @@ export class RecoveryFormComponent implements OnInit {
                 .subscribe((baseResponse: BaseResponseModel) => {
                     if (baseResponse.Success === true) {
                         this.UserCircleMappings = baseResponse.UserCircleMappings;
-                        console.log(this.UserCircleMappings)
 
                         this.UserCircleMappingsDefaultSelected = this.UserCircleMappings[0].CircleId;
                         this.cdRef.detectChanges();
@@ -471,7 +470,6 @@ export class RecoveryFormComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
 
-                console.log(baseResponse);
                 if (baseResponse.Success === true) {
                     this.accountDetail = baseResponse.Recovery.AccountDetailList;
                     this.masterCodes = baseResponse.Recovery.MasterCodesList;
@@ -539,7 +537,6 @@ export class RecoveryFormComponent implements OnInit {
                     if (this.isEditMode && !isSearchClicked)
                         this.getDisbursementByGL();
                 } else {
-                    console.log(baseResponse.Message)
                     this.layoutUtilsService.alertMessage("", baseResponse.Message);
                 }
 
@@ -584,8 +581,6 @@ export class RecoveryFormComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                console.log("GetTransactiondetailByID response");
-                console.log(baseResponse);
                 if (baseResponse.Success === true) {
                     this.isEditMode = true;
                     this.RecoveryLoanTransaction = baseResponse.Recovery.DrCrDetailList;
@@ -738,9 +733,7 @@ export class RecoveryFormComponent implements OnInit {
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
-            Object.keys(controls).forEach(controlName =>
-                console.log(controlName + " - " + controls[controlName].status)
-            );
+
             this.hasFormErrors = true;
             return;
         }
@@ -805,7 +798,6 @@ export class RecoveryFormComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                console.log(baseResponse);
                 if (baseResponse.Success === true) {
                     this.dataSaved = true;
                     this.RecoveryLoanTransaction = baseResponse.Recovery.DrCrDetailList;
@@ -817,13 +809,11 @@ export class RecoveryFormComponent implements OnInit {
                         this.recoveryDataModel = baseResponse.Recovery.RecoveryData;
                         try {
                             let dateString = this.recoveryDataModel.EffectiveDate;
-                            console.log(dateString)
                             var day = parseInt(dateString.substring(0, 2));
                             var month = parseInt(dateString.substring(2, 4));
                             var year = parseInt(dateString.substring(4, 8));
 
                             const branchWorkingDate = new Date(year, month - 1, day);
-                            console.log(branchWorkingDate)
                             this.RecoveryForm.controls.EffectiveDate.setValue(branchWorkingDate);
 
                         } catch (e) {
@@ -1012,7 +1002,6 @@ export class RecoveryFormComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                console.log(baseResponse);
                 if (baseResponse.Success === true) {
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message).afterClosed().subscribe(res => {
                         this.router.navigateByUrl('/dashboard');

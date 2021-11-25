@@ -306,7 +306,7 @@ export class SearchNdcListComponent implements OnInit {
                     // path = path.split('TempReport');
                     // str = path.splice(0, 1, 0);
                     // str = String(str);
-                    // console.log(str);
+                    // 
                     //this.router.navigateByUrl(baseResponse.Ndc.ndcFilePath)
 
                     window.open(baseResponse.Ndc.ndcFilePath, 'Download');

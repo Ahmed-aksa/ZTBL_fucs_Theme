@@ -122,7 +122,7 @@ export class LoanUtilizationService {
         this.request.User = userInfo.User;
         // this.request.LoanUtilization.FromeDate=this._common.dateToString(loanUtilization.from)
         // this.request.LoanUtilization.ToDate=this._common.dateToString(loanUtilization.to)
-        console.log(loanUtilization);
+        
 
         if (loanUtilization) {
             this.request.LoanUtilization = {
@@ -153,7 +153,7 @@ export class LoanUtilizationService {
 
     save(value) {
         value.Status = 'P';
-        console.log('value' + value);
+        
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -232,7 +232,7 @@ export class LoanUtilizationService {
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
         this.request.User = userInfo.User;
-        console.log(this.request.User);
+        
         var req = JSON.stringify(this.request);
 
         formData.append('UtilizationID', loanutilization.ID);
@@ -242,12 +242,12 @@ export class LoanUtilizationService {
         formData.append('IsVideo', val);
         formData.append('File', file);
 
-        console.log('UtilizationID', formData.get('UtilizationID'));
-        console.log('Lat', formData.get('Lat'));
-        console.log('Lng', formData.get('Lng'));
-        console.log('UserID', formData.get('UserID'));
-        console.log('IsVideo', formData.get('IsVideo'));
-        console.log('File Data', formData.get('File'));
+        );
+        );
+        );
+        );
+        );
+        );
 
         return this.http
             .post<any>(
@@ -387,7 +387,7 @@ export class LoanUtilizationService {
     //     this.activity.ActivityID = 1;
     //     this.request.Activity = this.activity;
     //     var req = JSON.stringify(this.request);
-    //     console.log(req);
+    //     
     //
 
     //     return this.http.post(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`, req,

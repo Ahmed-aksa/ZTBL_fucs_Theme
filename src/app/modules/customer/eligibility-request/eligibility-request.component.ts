@@ -206,9 +206,9 @@ export class EligibilityRequestComponent implements OnInit {
                 FromDate = day + "" + month + "" + year;
                 this.fromdate = FromDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                // console.log("date"+this.datePipe.transform(branchWorkingDate, 'ddmmyyyy'))
+                // )
                 // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
-                //  console.log(this._common.stringToDate(newdate))
+                //  )
                 this.eligibilityRequestForm.controls.FromDate.setValue(branchWorkingDate);
             } catch (e) {
             }
@@ -396,7 +396,7 @@ export class EligibilityRequestComponent implements OnInit {
 
 
     ngOnDestroy() {
-        console.log("ondestroy")
+        
         this.eligibilityRequestForm.reset()
     }
 

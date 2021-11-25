@@ -212,7 +212,7 @@ export class DeceasedCusComponent implements OnInit {
                         this.customerForm.controls["IsNadraCertificateVerified"].setValue(false);
                     }
                     this.dataSource = baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries;
-                    // console.log(baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries)
+                    // 
                     this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
                 } else {
                     this.isEmpty = false;
@@ -239,7 +239,7 @@ export class DeceasedCusComponent implements OnInit {
         this.customerForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
         this.customerForm.controls.Branch.setValue(userInfo.Branch.Name);
         //this.elementsFormControls();.
-        //console.log(this.DeceasedCustomerAttachedFile)
+        //
     }
 
     getAllData(event) {
@@ -399,11 +399,11 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     // onChange(e){
-    //   console.log(e);
+    //   
     // }
 
     onChang(e){
-        console.log(e)
+        
         if(e == false){
             this.myModel = true
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
@@ -413,7 +413,7 @@ export class DeceasedCusComponent implements OnInit {
             this.myModel = false
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
         }
-        console.log(e)
+        
     }
 
     previewImg(){
@@ -447,11 +447,11 @@ export class DeceasedCusComponent implements OnInit {
                     this.isEmpty = true;
 
                     var json = JSON.stringify(baseResponse.DeceasedCustomer);
-                    console.log(json);
+                    
                     // console.log()
                     this.DeceasedCustomerInf =  baseResponse.DeceasedCustomer.DeceasedCustomerInfo;
-                    //console.log(this.DeceasedCustomerInf)
-                    console.log(this.DeceasedCustomerInf);
+                    //
+                    
                     this.deceasedCustomerID = baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeceasedID
                     this.customerForm.controls["DateofDeath"].setValue(this._common.stringToDate(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeathDate));
                     // this.DateofDeath = baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeathDate;
@@ -482,7 +482,7 @@ export class DeceasedCusComponent implements OnInit {
 
                     this.dataSource = baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries;
 
-                    console.log(this.dataSource);
+                    
                     //this.savedFiles =
                     this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
 
@@ -594,7 +594,7 @@ export class DeceasedCusComponent implements OnInit {
 
         this.errorShow = false;
         this.hasFormErrors = false;
-        console.log(this.customerForm)
+        
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
             Object.keys(controls).forEach(controlName =>
@@ -615,7 +615,7 @@ export class DeceasedCusComponent implements OnInit {
         if(this.DeceasedCustomerInf.Status == "4"){
             if(this.file == undefined){
                 this.file = this.DeceasedCustomerAttachedFile[0].Path
-                console.log(this.DeceasedCustomerAttachedFile[0].Path)
+                
             }
             this.customerForm.controls["IsReferredBack"].setValue("1");
         }
@@ -667,7 +667,7 @@ export class DeceasedCusComponent implements OnInit {
                                 baseResponse.Message,
                                 baseResponse.Code=null
                             );
-                            console.log(baseResponse)
+                            
                         }
                     });
             }
@@ -707,7 +707,7 @@ export class DeceasedCusComponent implements OnInit {
                                 baseResponse.Message,
                                 baseResponse.Code=null
                             );
-                            console.log(baseResponse)
+                            
                         }
                     });
             }

@@ -206,7 +206,7 @@ export class SearchDeceasedComponent implements OnInit {
                 if (baseResponse.Success) {
 
                     this.dataSource.data = baseResponse.DeceasedCustomer.DeceasedCustomerInfoList;
-                    console.log(this.dataSource.data)
+                    
 
                 } else {
 
@@ -389,7 +389,7 @@ export class SearchDeceasedComponent implements OnInit {
         this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DeceasedCustomerStatus})
 
         this.CustomerStatusLov = this.CustomerStatusLov.LOVs;
-        console.log(this.CustomerStatusLov);
+        
         ////For Bill type
         // this.EducationLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Education })
 
@@ -438,7 +438,7 @@ export class SearchDeceasedComponent implements OnInit {
 
     checkUser() {
         var userInfo = this.userUtilsService.getUserDetails();
-        // console.log(userInfo);
+        // 
         if (userInfo.User.userGroup[0].ProfileID == '56') {
             // this.isMCO = true;
         } else if (userInfo.User.userGroup[0].ProfileID == '57') {

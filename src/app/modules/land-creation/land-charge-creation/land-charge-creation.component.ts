@@ -332,9 +332,9 @@ export class LandChargeCreationComponent implements OnInit {
         var term = "sample1";
         var re = new RegExp("^([a-z0-9]{5,})$");
         if (re.test(term)) {
-            console.log("Valid");
+            
         } else {
-            console.log("Invalid");
+            
         }
     }
 
@@ -496,7 +496,7 @@ export class LandChargeCreationComponent implements OnInit {
         };
         this.dynamicArray.push(this.newDynamic);
         //this.toastr.success('New row added successfully', 'New Row');
-        console.log(this.dynamicArray);
+        
         return true;
     }
 
@@ -677,7 +677,7 @@ export class LandChargeCreationComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
 
 
-                console.log(baseResponse);
+                
                 if (baseResponse.Success === true) {
 
                     this.landChargeCreationDetails = baseResponse.ChargeCreationDetailList;
@@ -740,7 +740,7 @@ export class LandChargeCreationComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
 
-                console.log(baseResponse);
+                
                 if (baseResponse.Success === true) {
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 } else {

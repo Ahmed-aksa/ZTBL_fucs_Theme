@@ -129,7 +129,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
                 if (baseResponse.Success === true) {
 
                     this.loading = true;
-                    console.log(baseResponse);
+                    
                     this.dataSource = baseResponse.ReportsFilterCustom.SamNplLoans
                     this.dv = this.dataSource;
                     this.matTableLenght = true
@@ -153,7 +153,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     //     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
     //     this.statusLov = this.statusLov.LOVs;
     //     this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-    //     console.log(this.statusLov)
+    //     
     // }
 
     getAllData(data) {

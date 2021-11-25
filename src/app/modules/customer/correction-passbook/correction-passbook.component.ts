@@ -43,7 +43,6 @@ export class CorrectionPassbookComponent implements OnInit {
     
     ) {
       this.loggedInUser = userUtilsService.getUserDetails();
-      console.log(this.loggedInUser)
      }
 
   ngOnInit() {
@@ -54,7 +53,6 @@ export class CorrectionPassbookComponent implements OnInit {
   //   Object.keys(this.cpForm.controls).forEach((control: string) => {
   //     const typedControl: AbstractControl = this.cpForm.controls['NewPassBookNo'];
   //     this.newPassBook = typedControl;
-  //     console.log(typedControl) 
   //     // should log the form controls value and be typed correctly
   // });
   }
@@ -93,8 +91,6 @@ export class CorrectionPassbookComponent implements OnInit {
           // this.PassBookRec = Object.assign({},pass);
           this.searchData = true;
         }
-        console.log(this.PassBookRec)
-        console.log(baseResponse)
         
       }
       else{
@@ -117,7 +113,7 @@ export class CorrectionPassbookComponent implements OnInit {
 //     this.newValue = this.PassBookRec.map((row, index) => {
 //       return index !== rowIndex? row: {...row, [propertyKey]: value}
 //     })
-// console.log(this.newValue);
+// 
 //   }
 
 inputvalue;
@@ -156,7 +152,7 @@ inputvalue;
       
       if(baseResponse.Success === true){
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
-        console.log(baseResponse)
+        
         
       }
       else{

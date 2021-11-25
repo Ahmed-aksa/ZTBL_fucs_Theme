@@ -28,7 +28,7 @@ export class AlertDialogConfirmationComponent implements OnInit {
 	 * On init
 	 */
   ngOnInit() {
-    console.log(this.data);
+    
   }
 
 	/**

@@ -116,7 +116,7 @@ export class SearchTourPlanComponent implements OnInit {
 
     setUsers() {
         var userInfo = this.userUtilsService.getUserDetails();
-        // console.log(userInfo);
+        // 
         //MCO User
         if (userInfo.User.userGroup[0].ProfileID == "56") {
             this.isMCO = true;
@@ -237,8 +237,8 @@ export class SearchTourPlanComponent implements OnInit {
         } else {
 
             this.Today = new Date();
-            // console.log(this.Today);
-            // console.log(this.Today.toISOString().split('T')[0]);
+            // 
+            // .split('T')[0]);
             return this.Today;
         }
     }
@@ -260,9 +260,9 @@ export class SearchTourPlanComponent implements OnInit {
 
     viewTourPlan(TourPlan: any) {
         // this.router.navigate(['other']);
-        console.log(TourPlan);
+        
         TourPlan.view = "1";
-        // console.log(this.TourPlan.controls["Status"].value)
+        // 
         // utilization = {Status:this.TourPlan.controls["Status"].value}
         this.router.navigate(['../tour-plan'], {
             state: {example: TourPlan, flag: 1},
@@ -431,10 +431,10 @@ export class SearchTourPlanComponent implements OnInit {
 
     editTourPlan(tourPlan: any) {
         var v = JSON.stringify(tourPlan)
-        console.log("Edit case" + v);
+        
         // this.router.navigate(['other']);
 
-        // console.log(this.TourPlan.controls["Status"].value)
+        // 
         // utilization = {Status:this.TourPlan.controls["Status"].value}
 
         this.router.navigate(['../tour-plan'], {
@@ -456,7 +456,7 @@ export class SearchTourPlanComponent implements OnInit {
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-                        console.log(baseResponse)
+                        
                         // this.layoutUtilsService.alertElement("", baseResponse.Message);
                         this.SearchTourPlan()
                     }
@@ -473,7 +473,7 @@ export class SearchTourPlanComponent implements OnInit {
         //this.ngxService.start();
 
         this.tourPlanStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes})
-        // console.log(this.CustomerStatusLov.LOVs);
+        // 
         this.tourPlanStatusLov.LOVs.forEach(function (value) {
             if (!value.Value)
                 value.Value = "All";

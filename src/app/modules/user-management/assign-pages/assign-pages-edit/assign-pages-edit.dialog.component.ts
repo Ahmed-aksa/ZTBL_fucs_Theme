@@ -49,7 +49,7 @@ export class AssignPageEditDialogComponent implements OnInit, OnDestroy {
 	 */
 	ngOnInit() {
 
-		console.log("dialog"+this.data);
+		
 		if (this.data.roleId) {
 			this.role$ = this.store.pipe(select(selectRoleById(this.data.roleId)));
 		} else {

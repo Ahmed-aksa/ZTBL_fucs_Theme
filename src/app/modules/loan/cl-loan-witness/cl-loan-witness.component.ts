@@ -57,7 +57,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
   ngOnInit() {
 
-      console.log("loan detail"+this.loanDetail)
+      
 
     this.getPersonalSuretiesForm();
     this.getCorporateSuretiesForm();
@@ -369,7 +369,7 @@ export class ClLoanWitnessComponent implements OnInit {
     //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
 
     this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-    console.log(this.loanDetail)
+    
     this.spinner.show();
     if (this.loanDetail != null) {
       this.loanDetail.ApplicationHeader
@@ -381,7 +381,7 @@ export class ClLoanWitnessComponent implements OnInit {
         )
         .subscribe(baseResponse => {
 
-          console.log(baseResponse)
+          
           if (baseResponse.Success) {
             this.loanDocumentsCheckList = baseResponse.Loan.LoanDocumentCheckList;
           }
@@ -434,7 +434,7 @@ export class ClLoanWitnessComponent implements OnInit {
         })
     ).subscribe(baseResponse => {
 
-      console.log(baseResponse)
+      
       this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
     });
   }
@@ -717,7 +717,7 @@ export class ClLoanWitnessComponent implements OnInit {
         })
       ).subscribe(baseResponse => {
 
-        console.log(baseResponse)
+        
         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
       });
 

@@ -112,9 +112,9 @@ ngOnInit() {
 }
 
 getRow(rob) {
-    //console.log(rob);
+    //
     this.loanResch = rob;
-    console.log(this.loanResch);
+    
 }
 editRefer(updateLoan) {
     this.router.navigate(
@@ -136,7 +136,7 @@ editRefer(updateLoan) {
         this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
         this.referbackForm.controls["Status"].setValue(this.SelectedLoanStatus ? this.SelectedLoanStatus[3].Id : "");
 
-        console.log(this.SelectedLoanStatus);
+        
     }
 
     createForm(){
@@ -151,7 +151,7 @@ editRefer(updateLoan) {
 
         this.spinner.show();
         this.search = Object.assign(this.referbackForm.getRawValue());
-        console.log(this.search);
+        
 
         this._reschedulingService
             .RescheduleSearch(this.search, this.branch, this.zone)
@@ -166,8 +166,8 @@ editRefer(updateLoan) {
                 this.dataSource = null;
                 this.ELEMENT_DATA = [];
                 if (baseResponse.Success === true) {
-                    console.log(baseResponse);
-                    console.log(baseResponse)
+                    
+                    
                     this.loading = false;
                     this.Mydata = baseResponse.Loan.ReschedulingSearch;
 
@@ -187,8 +187,8 @@ editRefer(updateLoan) {
                     }
 
                     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-                    console.log(this.dataSource)
-                    console.log(this.dataSource.data);
+                    
+                    
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
                     else this.matTableLenght = false;
@@ -198,8 +198,8 @@ editRefer(updateLoan) {
                     this.totalItems = this.dataSource.filteredData.length;
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
-                    //console.log(this.dataSource.filteredData.length)
-                    //console.log(this.dataSource.data.length)
+                    //
+                    //
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -249,7 +249,7 @@ loadData() {
 
 
                 this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-                console.log(this.dataSource)
+                
 
                 if (this.dataSource.data.length > 0) this.matTableLenght = true;
                 else this.matTableLenght = false;
