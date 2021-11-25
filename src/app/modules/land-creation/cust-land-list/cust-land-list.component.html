@@ -6,7 +6,7 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-2  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
                 color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                 aria-expanded="false" aria-controls="collapseExample">
                     <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
@@ -99,8 +99,8 @@
 
 
         <div class="row">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" *ngIf="LandStatusLov">
+            <div class="col-lg-3 col-sm-12" *ngIf="LandStatusLov">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" >
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Land Status</mat-label>
                         <mat-select formControlName="Status">
