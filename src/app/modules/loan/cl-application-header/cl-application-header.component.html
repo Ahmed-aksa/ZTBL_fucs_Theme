@@ -1,10 +1,10 @@
 <form [formGroup]="applicationHeaderForm" class="kt-form kt-form--group-seperator-dashed">
   <div class="kt-form">
     <div class="kt-portlet__body">
-      <app-zone-branch-circle [form]="applicationHeaderForm" [should_show_circle]="false"
-      (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-      <div class="form-group kt-form__group flex " style="flex-wrap: wrap;">
 
+      <div class="form-group kt-form__group flex " style="flex-wrap: wrap;">
+        <app-zone-branch-circle [form]="applicationHeaderForm" [should_show_circle]="false"
+        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
         <div class="col-lg-4 col-sm-12  kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
           <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label class="customMatLabel">Application Date <strong class="matMandatory">*</strong></mat-label>
@@ -129,7 +129,7 @@
     </div>
   </div>
 </form>
-<div class="form-group kt-form__group row ml-1">
+<div class="form-group kt-form__group row pt-2 ml-0.5">
   <div class="col-lg-12">
     <button style="background-color: #01671B;" [disabled]="isSaveApplicationHeaderInProgress" type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="onSaveApplicationHeader()">
       <mat-icon class="mr-2">save</mat-icon> Save
