@@ -104,10 +104,6 @@ export class CreateLoanComponent implements OnInit {
 
 
     onTabChangeClick($event) {
-        if(this.disabled_tab==true){
-            this.toastr.error("First time AGPS must be Applicant and Relationship must be selected self");
-        }
-
         if ($event.index == 3) {
             this.securityComponent.getCustomerLand();
         }
@@ -166,7 +162,7 @@ export class CreateLoanComponent implements OnInit {
                     this.applicationHeaderDetail = loanRes.ApplicationHeader;
                     this.appHeaderComponent.loadAppDataOnUpdate(this.applicationHeaderDetail);
 
-                    this.CustomersLoanAppList = loanRes.CustomersLoanAppList
+                    this.CustomersLoanAppList = loanRes.CustomersLoanAppList.reverse()
 
                     if (this.CustomersLoanAppList[0]?.Agps == 'A' || this.CustomersLoanAppList[0]?.RelationID == '8') {
                         this.disabled_tab = false;
@@ -200,7 +196,13 @@ export class CreateLoanComponent implements OnInit {
     }
 
     check_disabled(event: any) {
+        // console.log("called")
+        // if(event==true){
+        //     this.toastr.error("First time AGPS must be Applicant and Relationship must be selected self");
+        // }
         this.disabled_tab = event;
+
+
     }
 }
 

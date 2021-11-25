@@ -44,6 +44,7 @@ import { ClSearchLoanComponent } from './cl-search-loan/cl-search-loan.component
 import { CalculateDbrComponent } from './calculate-dbr/calculate-dbr.component';
 import { SearchDbrComponent } from './search-dbr/search-dbr.component';
 import { ReferbackLoanUtilizationComponent } from './referback-loan-utilization/referback-loan-uti.component';
+import {ClPendingLoanComponent} from "./cl-pending-loan/cl-pending-loan.component";
 
 const routing= [
     {
@@ -66,6 +67,10 @@ const routing= [
     path: 'search',
     component: ClSearchLoanComponent
   },
+    {
+    path: 'pending-loan',
+    component: ClPendingLoanComponent
+  },
   {
     path: 'calculte-dbr',
     component: CalculateDbrComponent
@@ -82,23 +87,24 @@ const routing= [
 
 @NgModule({
   declarations: [
-    CreateLoanComponent, 
-    ClApplicationHeaderComponent, 
-    ClCustomersComponent, 
-    ClPurposeComponent, 
-    ClSecuritiesComponent, 
-    ClLegalHeirsComponent, 
-    ClAppraisalOfProposedInvestmentComponent, 
-    ClLoanWitnessComponent, 
+    CreateLoanComponent,
+    ClApplicationHeaderComponent,
+    ClCustomersComponent,
+    ClPurposeComponent,
+    ClSecuritiesComponent,
+    ClLegalHeirsComponent,
+    ClAppraisalOfProposedInvestmentComponent,
+    ClLoanWitnessComponent,
     ClUploadDocumentComponent,
     ClGlSchemeCropConfigurationComponent,
     ClDocumentViewComponent,
     SaveOrrComponent,
     OrrListComponent,
     ClSearchLoanComponent,
+    ClPendingLoanComponent,
     CalculateDbrComponent,
     SearchDbrComponent,
-    ReferbackLoanUtilizationComponent
+    ReferbackLoanUtilizationComponent,
   ],
   imports: [
     CommonModule,
@@ -107,7 +113,7 @@ const routing= [
     FormsModule,
 		ReactiveFormsModule,
     MatButtonModule,
-    
+
 		MatMenuModule,
 		MatSelectModule,
     MatInputModule,

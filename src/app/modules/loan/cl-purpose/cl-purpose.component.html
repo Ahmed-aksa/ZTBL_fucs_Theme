@@ -116,7 +116,7 @@
           <mat-label class="customMatLabel mb-4"><b>Borrower Agreed to Pay Insurance For (Opt) Crops</b><strong class="matMandatory">*</strong></mat-label>
           &nbsp;
           <mat-radio-group class="mt-4" aria-label="Select an option">
-            <mat-radio-button value="1">Agree</mat-radio-button>
+            <mat-radio-button (click)="changeRadio('Y')" value="1">Agree</mat-radio-button>
             <mat-radio-button class="mx-2" value="2">Not Agree</mat-radio-button>
           </mat-radio-group>
         </div>
