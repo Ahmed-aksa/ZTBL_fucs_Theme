@@ -82,13 +82,13 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
           this.lng = place.geometry.location.lng();
           this.zoom = 15;
           this.addmarker(this.lat, this.lng)
-          
+
         });
       });
     });
 
     if(this.data.lat != undefined && this.data.lng != undefined && this.data.iconUrl != undefined){
-      
+
       this.PreviousLocation.push(this.data);
     }
 
@@ -120,8 +120,8 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
   }
 
   // click($event: google.maps.IconMouseEvent){
-  //   
-  //   
+  //
+  //
   //   //this.googleMap.setMap(null)
   //   this.PreviousLocation = []
   //   //this.addmarker(event.coords.lat, event.coords.lng)
@@ -144,7 +144,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
   }
 
   addmarker(lat: any, lng: any): void {
-    
+
     if (this.vendorLocationMarker != null) {
       this.vendorLocationMarker.setMap(null)
     }
@@ -155,17 +155,15 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
       icon: this.iconUrl
     });
     this.vendorLocationMarker.setMap(this.googleMap)
-    )
-    )
   }
 
   onSelect() {
-    
+
     var res = {
       lat: this.vendorLocationMarker.position.lat(), lng : this.vendorLocationMarker.position.lng(), iconUrl: this.iconUrl
     }
     this.data = res;
-    
+
     this.close(this.data)
   }
 

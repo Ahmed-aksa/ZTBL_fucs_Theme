@@ -54,8 +54,6 @@ export class KhaadSeedVendorService {
 
     addNewVendor(vendor, file: File) {
 
-
-        )
         var formData = new FormData();
         var userInfo = this.userUtilsService.getUserDetails();
 
@@ -78,8 +76,6 @@ export class KhaadSeedVendorService {
         formData.append('Lng', vendor.Lng);
         formData.append('File', file);
 
-        )
-        )
         if (formData.append) {
 
             return this.http.post<any>(`${environment.apiUrl}/SeedKhadVendor/AddUpdateVendor`, formData,)
@@ -91,7 +87,7 @@ export class KhaadSeedVendorService {
     }
 
     searchVendors(limit, offSet, vendor, user, zone = null, branch = null, circle = null) {
-        
+
         if (vendor.Type == 'null' || user.CircleId == 'null') {
             vendor.Type = null
             if (user.CircleId == 'null') {

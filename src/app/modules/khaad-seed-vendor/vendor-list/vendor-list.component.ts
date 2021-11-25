@@ -136,7 +136,7 @@ export class VendorListComponent implements OnInit {
         fi.TagName = "0";
         this.vendorLov.LOVs.splice(0, 0, fi)
         this.vendorLov = this.vendorLov.LOVs;
-        
+
     }
 
     searchVendor() {
@@ -174,7 +174,6 @@ export class VendorListComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
                     this.loading = true;
-                    );
                     this.dataSource = baseResponse.SeedKhadVendor.VendorDetails
                     this.dv = this.dataSource;
                     this.matTableLenght = true

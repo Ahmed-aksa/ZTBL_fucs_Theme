@@ -97,12 +97,12 @@ export class GeofencingEditComponent implements OnInit {
 
 
     /*onChoseLocation(event: any) {
-      
+
       this.markers.push({
         lat: event.coords.lat,
         lng: event.coords.lng,
       });
-      
+
 
     }*/
 
@@ -224,8 +224,6 @@ export class GeofencingEditComponent implements OnInit {
                             });
                         }
                     });
-
-                    )
                     if (this.OldFancPoints.length > 0) {
                         this.viewCircleFense()
                         this.lat = this.polygonPoints[2].lat;
@@ -502,8 +500,8 @@ export class GeofencingEditComponent implements OnInit {
                     )
                     .subscribe((baseResponse: BaseResponseModel) => {
 
-                        
-                        
+
+
                         if (baseResponse.Success === true) {
                             const message = `Polygon has been updated successfully`;
                             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -685,7 +683,6 @@ export class GeofencingEditComponent implements OnInit {
             this.pointList.push(
                 path.getAt(i).toJSON()
             );
-            .toJSON())
         }
         var bounds = new google.maps.LatLngBounds();
         this.pointList.forEach((o, i) => {

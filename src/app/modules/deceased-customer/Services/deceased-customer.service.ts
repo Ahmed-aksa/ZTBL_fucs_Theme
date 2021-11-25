@@ -85,8 +85,8 @@ export class DeceasedCustomerService {
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
 
-        
-        
+
+
 
 
         return this.http.post(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`, this.request,
@@ -125,7 +125,7 @@ export class DeceasedCustomerService {
 
     MarkAsDeceasedCustomer(form,file:File){
 
-        
+
 
         var deceasedInfo = new Customer();
 
@@ -136,7 +136,7 @@ export class DeceasedCustomerService {
 
         //form.IsReferredBack = true;
 
-        
+
 
 
 
@@ -174,21 +174,6 @@ export class DeceasedCustomerService {
 
         formData.append('DeceasedID', form.DeceasedID);
 
-
-        );
-        );
-        );
-        );
-        );
-        );
-        );
-        );
-        );
-        );
-        );
-        );
-        );
-        // );
 
 
 

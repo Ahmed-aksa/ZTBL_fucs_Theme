@@ -391,10 +391,6 @@ export class CustomerProfileComponent implements OnInit {
                 controls[controlName].markAsTouched()
             );
 
-            Object.keys(controls).forEach(controlName =>
-                
-            );
-
             this.hasFormErrors = true;
 
             return;
@@ -757,7 +753,7 @@ export class CustomerProfileComponent implements OnInit {
 
                     if (baseResponse.Success) {
                         var customerobj = baseResponse.Customer;
-                        
+
                         this.createCustomer = customerobj;
                         if (this.createCustomer.FatherOrHusbandCnic != undefined && this.createCustomer.FatherOrHusbandCnic != null) {
                             this.createCustomer.FatherOrHusbandCnic = parseInt(this.createCustomer.FatherOrHusbandCnic).toString();

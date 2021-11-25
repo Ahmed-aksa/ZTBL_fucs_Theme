@@ -90,7 +90,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
             // )
         } else {
-            this.is_view=true;
+            this.is_view = true;
 
         }
     }
@@ -145,12 +145,12 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
         if (this.ind == undefined) {
             this.addUpdateBenchMarkForm.controls.Status.setValue("S")
             this.req_array.push(this.addUpdateBenchMarkForm.value)
-            
+
         } else {
             this.req_array.splice(this.ind, 1);
             this.req_array.splice(this.ind, 0, this.addUpdateBenchMarkForm.value)
         }
-        
+
 
         this.spinner.show();
         this._villageBenchmark.addUpdateVillageBenchMark(this.req_array, this.user)
@@ -245,7 +245,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     ID;
 
     update() {
-        
+
         this.ID = this.addUpdateBenchMarkForm.controls.Id.value;
         this.Add()
 
@@ -298,7 +298,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
         if (this.ind == undefined) {
             this.addUpdateBenchMarkForm.controls.Status.setValue("P")
             this.req_array.push(this.addUpdateBenchMarkForm.value)
-            
+
         } else {
             this.req_array.splice(this.ind, 1);
             this.req_array.splice(this.ind, 0, this.addUpdateBenchMarkForm.value)
@@ -318,9 +318,8 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
 
                     if (this.ID) {
-                        
 
-                        
+
                         if (this.village.length) {
                             for (let i = 0; this.village.length; i++) {
                                 if (this.village[i].Id == this.ID) {
@@ -338,13 +337,11 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
                     }
                     this.req_array = []
                     if (this.updatingCase) {
-                        
+
                         this.village = []
                     }
-                    )
                     this.village.push(baseResponse.VillageBenchMarking["VillageBenchMarkingList"][0]);
 
-                    )
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
@@ -457,7 +454,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
     deleteRow(indx, arr) {
 
-        
+
         this.spinner.show();
         this._villageBenchmark.deleteVillageBenchmark(arr)
             .pipe(
@@ -479,8 +476,6 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     }
 
     Submit() {
-
-        );
         //this.hideDelete = true;
         if (this.village?.length > 0) {
             for (let i = 0; i < this.village.length; i++) {
@@ -490,7 +485,6 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
             this.village[0]["Status"] = "S";
         }
 
-        );
 
         this.user.ZoneId = this.addUpdateBenchMarkForm.controls.ZoneId.value;
         this.user.BranchCode = this.addUpdateBenchMarkForm.controls.BranchCode.value;
