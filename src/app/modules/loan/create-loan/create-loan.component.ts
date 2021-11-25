@@ -16,6 +16,7 @@ import {ClLoanWitnessComponent} from '../cl-loan-witness/cl-loan-witness.compone
 import {ClPurposeComponent} from '../cl-purpose/cl-purpose.component';
 import {ClSecuritiesComponent} from '../cl-securities/cl-securities.component';
 import {ClUploadDocumentComponent} from '../cl-upload-document/cl-upload-document.component';
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -41,7 +42,8 @@ export class CreateLoanComponent implements OnInit {
                 private cdRef: ChangeDetectorRef,
                 private layoutUtilsService: LayoutUtilsService,
                 private spinner: NgxSpinnerService,
-                private router: Router
+                private router: Router,
+                private toastr: ToastrService
     ) {
 
         router.events.subscribe((val: any) => {
@@ -52,6 +54,12 @@ export class CreateLoanComponent implements OnInit {
 
             }
         })
+    }
+
+    checkError(val:boolean){
+        console.log("called")
+
+
     }
 
     viewPurpose: boolean;
@@ -96,6 +104,10 @@ export class CreateLoanComponent implements OnInit {
 
 
     onTabChangeClick($event) {
+        if(this.disabled_tab==true){
+            this.toastr.error("First time AGPS must be Applicant and Relationship must be selected self");
+        }
+
         if ($event.index == 3) {
             this.securityComponent.getCustomerLand();
         }

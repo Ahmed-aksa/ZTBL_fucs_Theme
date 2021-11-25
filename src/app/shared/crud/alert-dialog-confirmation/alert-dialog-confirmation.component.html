@@ -5,10 +5,10 @@
       <div class="form-group">
 
         <div class="col-lg-12 text-center mt-1">
-          <img src="./assets/media/icons/confirmation.jpg" class="img-responsive center-block w-12 mx-auto" alt="icon" />
+          <img src="./assets/media/icons/confirmation.jpg" class="img-responsive center-block w-32 mx-auto" alt="icon" />
         </div>
 
-        <div class="col-lg-12 text-center mt-5">
+        <div class="col-lg-12 text-center">
           <span style="font-size: 24px !important; font-weight: 600 !important; color: #0f298f !important; text-align:center">{{data.title}}</span>
         </div>
         <div class="col-lg-12 text-center  mt-1">
@@ -19,8 +19,8 @@
     <div class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit text-center">
       <div class="kt-form__actions kt-form__actions--sm  mt-4">
         <!--<button mat-button (click)="onNoClick()">Cancel</button>&nbsp;-->
-        <button mat-button class="button-red" (click)="onNoClick()">No</button>&nbsp;
-        <button mat-button (click)="onYesClick()" class="btn btn-success" color="primary" cdkFocusInitial [disabled]="viewLoading">Yes</button>
+        <button mat-button class="button-red bg-red-500 text-white" (click)="onNoClick()">No</button>&nbsp;
+        <button mat-button (click)="onYesClick()" class="btn btn-success bg-green" color="primary" cdkFocusInitial [disabled]="viewLoading">Yes</button>
       </div>
     </div>
   </div>
