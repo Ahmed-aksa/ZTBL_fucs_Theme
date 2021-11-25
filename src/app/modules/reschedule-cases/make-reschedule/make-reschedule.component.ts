@@ -77,6 +77,9 @@ export class MakeRcComponent implements OnInit {
     branch: any;
     circle: any;
 
+    table = false;
+    installmentPlan: any;
+
 
     public LnAppSanctionID: string;
     loanReschID: string;
@@ -282,10 +285,16 @@ export class MakeRcComponent implements OnInit {
                         "",
                         baseResponse.Message
                     );
-                    setTimeout(() => {
-                            this.router.navigate(['/reschedule-cases/pending-reschedule']);
-                        },
-                        1000);
+                    this.installmentPlan = baseResponse.Loan.MakeReschedule.InstallmentPlan;
+                    if(this.installmentPlan.length != 0){
+                        this.table = true
+                    }else{
+                        this.table = false;
+                    }
+                    // setTimeout(() => {
+                    //         this.router.navigate(['/reschedule-cases/pending-reschedule']);
+                    //     },
+                    //     1000);
                     this.mrForm.controls["Lcno"].setValue('');
                     this.mrForm.controls["LoanAppSanctionID"].setValue('');
                     this.mrForm.controls["LoanDisbID"].setValue('');
@@ -301,7 +310,7 @@ export class MakeRcComponent implements OnInit {
                     //this.mrForm.get('Lcno').updateValueAndValidity();
 
                     // const obj =     this.mrForm.get('Lcno');
-                    // 
+                    //
 
 
                     this.mrForm.get('LoanAppSanctionID').markAsUntouched();
@@ -353,7 +362,7 @@ export class MakeRcComponent implements OnInit {
                         );
                         this.Disbursement(this.mrForm.controls["LoanAppSanctionID"].value);
                     }
-                    
+
                     this.expand = true;
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -391,7 +400,7 @@ export class MakeRcComponent implements OnInit {
                             this.mrForm.controls["LoanDisbID"].setValue(
                                 this.DisbursementGLList[0].LoanDisbID
                             );
-                            
+
                         }
                     } else {
                         this.layoutUtilsService.alertElement(
@@ -455,7 +464,7 @@ export class MakeRcComponent implements OnInit {
         //this.mrForm.get('Lcno').updateValueAndValidity();
 
         // const obj =     this.mrForm.get('Lcno');
-        // 
+        //
 
 
         this.mrForm.get('LoanAppSanctionID').markAsUntouched();
