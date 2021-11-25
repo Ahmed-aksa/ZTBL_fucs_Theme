@@ -1,5 +1,5 @@
 import {DatePipe} from '@angular/common';
-import {Component, OnInit, ElementRef, ViewChild, Input, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, Input, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
@@ -16,18 +16,18 @@ import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
-import {Zone} from '../../user-management/users/utils/zone.model'
-import {LoanUtilizationService} from "../service/loan-utilization.service";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
+import {Zone} from '../../user-management/users/utils/zone.model';
+import {LoanUtilizationService} from '../service/loan-utilization.service';
+import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {Circle} from 'app/shared/models/circle.model';
-import {LoanUtilizationSearch} from "../Model/loan-utilization.model";
+import {LoanUtilizationSearch} from '../Model/loan-utilization.model';
 
 @Component({
     selector: 'kt-search-utilization',
     templateUrl: './search-utilization.component.html',
     providers: [LoanUtilizationService, DatePipe]
 })
-export class SearchUtilizationComponent implements OnInit {
+export class SearchUtilizationComponent implements OnInit, AfterViewInit {
 
     dataSource = new MatTableDataSource();
     @Input() isDialog: any = false;
@@ -44,18 +44,18 @@ export class SearchUtilizationComponent implements OnInit {
     zone: any;
     circle: any;
 
-    displayedColumns = ["LoanCaseNo",
+    displayedColumns = ['LoanCaseNo',
         // "GlCode",
 
-        "GlSubCode",
-        "SchemeCode",
-        "CropCode",
-        "Status",
-        "Remarks",
-        "Lng",
-        "Lat",
-        "Actions",
-    ]
+        'GlSubCode',
+        'SchemeCode',
+        'CropCode',
+        'Status',
+        'Remarks',
+        'Lng',
+        'Lat',
+        'Actions',
+    ];
     gridHeight: string;
     utilizationSearch: FormGroup;
     myDate = new Date().toLocaleDateString();
@@ -100,17 +100,17 @@ export class SearchUtilizationComponent implements OnInit {
 
     ngOnInit() {
 
-        var userDetails = this.userUtilsService.getUserDetails();
+        const userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
-        this.setUsers()
+        this.setUsers();
         if (this.isDialog)
-            this.displayedColumns = ["LoanCaseNo",
+            {this.displayedColumns = ['LoanCaseNo',
                 // "GlCode",
-                "Status",
-                "Remarks",
-                "Lng",
-                "Lat",
-                "Actions",]
+                'Status',
+                'Remarks',
+                'Lng',
+                'Lat',
+                'Actions',];}
         //else
         //  this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus', 'View']
 
@@ -131,34 +131,34 @@ export class SearchUtilizationComponent implements OnInit {
 
 
     setUsers() {
-        var userInfo = this.userUtilsService.getUserDetails();
+        const userInfo = this.userUtilsService.getUserDetails();
         this.userInfo = this.userUtilsService.getUserDetails();
         // console.log(userInfo);
         //MCO User
-        if (userInfo.User.userGroup[0].ProfileID == "56") {
+        if (userInfo.User.userGroup[0].ProfileID == '56') {
             this.isMCO = true;
         }
 
-        if (userInfo.User.userGroup[0].ProfileID == "57") {
+        if (userInfo.User.userGroup[0].ProfileID == '57') {
             this.isBM = true;
         }
-        if (userInfo.User.userGroup[0].ProfileID == "9999999") {
+        if (userInfo.User.userGroup[0].ProfileID == '9999999') {
             this.isAdmin = true;
         }
 
         if (this.isUserAdmin || this.isZoneUser) {
             userInfo.Branch = {};
             if (this.branch.BranchCode != undefined)
-                userInfo.Branch = this.branch;
+                {userInfo.Branch = this.branch;}
             else
-                userInfo.Branch = null;
+                {userInfo.Branch = null;}
         }
         if (this.isUserAdmin) {
             userInfo.Zone = {};
             if (this.zone.ZoneId != undefined)
-                userInfo.Zone = this.zone
+                {userInfo.Zone = this.zone;}
             else
-                userInfo.Zone = null;
+                {userInfo.Zone = null;}
         }
         //BM User
         // if(userInfo.User.userGroup[0].ProfileID=="56"){
@@ -192,6 +192,9 @@ export class SearchUtilizationComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 200 + 'px';
+        if(this.zone){
+            this.searchloanutilization();
+        }
         //var userInfo = this.userUtilsService.getUserDetails();
         //this.utilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
         //this.utilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
@@ -209,46 +212,46 @@ export class SearchUtilizationComponent implements OnInit {
     // }
 
     CheckEditStatus(loanUtilization: any) {
-        this.loggedInUserDetails.User.UserId
+        this.loggedInUserDetails.User.UserId;
         if (this.isMCO) {
-            if (loanUtilization.Status == "P" || loanUtilization.Status == "R") {
+            if (loanUtilization.Status == 'P' || loanUtilization.Status == 'R') {
                 if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
-                    return true
+                    return true;
                 } else {
-                    return false
+                    return false;
                 }
             } else {
                 return false;
             }
         } else if (this.isBM) {
-            if (loanUtilization.Status == "S") {
-                return true
+            if (loanUtilization.Status == 'S') {
+                return true;
             }
         } else {
-            return false
+            return false;
         }
     }
 
     CheckViewStatus(loanUtilization: any) {
 
         if (this.isMCO) {
-            if (loanUtilization.Status == "C" || loanUtilization.Status == "S" || loanUtilization.Status == "A") {
+            if (loanUtilization.Status == 'C' || loanUtilization.Status == 'S' || loanUtilization.Status == 'A') {
                 if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
-                    return true
+                    return true;
                 } else {
-                    return false
+                    return false;
                 }
             } else {
                 return false;
             }
         } else if (this.isBM) {
-            if (loanUtilization.Status == "C" || loanUtilization.Status == "P" || loanUtilization.Status == "R" || loanUtilization.Status == "A") {
-                return true
+            if (loanUtilization.Status == 'C' || loanUtilization.Status == 'P' || loanUtilization.Status == 'R' || loanUtilization.Status == 'A') {
+                return true;
             }
         } else if (this.isAdmin) {
-            return true
+            return true;
         } else {
-            return false
+            return false;
         }
 
     }
@@ -262,10 +265,10 @@ export class SearchUtilizationComponent implements OnInit {
 
 
     createForm() {
-        var userInfo = this.userUtilsService.getUserDetails();
+        const userInfo = this.userUtilsService.getUserDetails();
         this.utilizationSearch = this.filterFB.group({
             LoanCaseNo: [],
-            Status: ["", Validators.required],
+            Status: ['', Validators.required],
         });
 
     }
@@ -298,8 +301,8 @@ export class SearchUtilizationComponent implements OnInit {
 
 
         this.spinner.show();
-        if (!this.utilizationSearch.controls["Status"].value) {
-            this.utilizationSearch.controls["Status"].setValue("All")
+        if (!this.utilizationSearch.controls['Status'].value) {
+            this.utilizationSearch.controls['Status'].setValue('All');
         }
         this._utilizationSearch = Object.assign(this.utilizationSearch.value);
         this._loanutilizationService.searchUtilization(this._utilizationSearch, this.zone, this.branch, this.circle)
@@ -309,13 +312,13 @@ export class SearchUtilizationComponent implements OnInit {
                     this.spinner.hide();
                 })
             )
-            .subscribe(baseResponse => {
+            .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    this.dataSource.data = baseResponse.LoanUtilization["Utilizations"];
-                    console.log(this.dataSource.data)
+                    this.dataSource.data = baseResponse.LoanUtilization['Utilizations'];
+                    console.log(this.dataSource.data);
                 } else {
-                    this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    this.dataSource.data = []
+                    this.layoutUtilsService.alertElement('', baseResponse.Message);
+                    this.dataSource.data = [];
                 }
             });
     }
@@ -324,13 +327,13 @@ export class SearchUtilizationComponent implements OnInit {
     getStatus(status: string) {
 
         if (status == 'P') {
-            return "Submit";
+            return 'Submit';
         } else if (status == 'N') {
-            return "Pending";
+            return 'Pending';
         } else if (status == 'A') {
-            return "Authorized";
+            return 'Authorized';
         } else if (status == 'R') {
-            return "Refer Back";
+            return 'Refer Back';
         }
     }
 
@@ -374,7 +377,7 @@ export class SearchUtilizationComponent implements OnInit {
 
 
     viewloanutilization(utilization: any) {
-        utilization.view = "1";
+        utilization.view = '1';
         this.router.navigate(['/loan-utilization/loan-uti'], {
             state: {example: utilization},
             relativeTo: this.activatedRoute
@@ -383,11 +386,11 @@ export class SearchUtilizationComponent implements OnInit {
 
     async LoadLovs() {
 
-        this.loanutilizationStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes})
+        this.loanutilizationStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes});
         // console.log(this.CustomerStatusLov.LOVs);
-        this.loanutilizationStatusLov.LOVs.forEach(function (value) {
+        this.loanutilizationStatusLov.LOVs.forEach(function(value) {
             if (!value.Value)
-                value.Value = "All";
+                {value.Value = 'All';}
         });
 
 
