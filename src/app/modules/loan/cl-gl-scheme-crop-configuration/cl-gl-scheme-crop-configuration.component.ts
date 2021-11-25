@@ -35,7 +35,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
   GlRangeDetailList: any;
   GlSchemeCropDetailList: any;
   SchemeDetailList: any;
-
+  gridHeight: string;
 
   dataSource = new MatTableDataSource();
 
@@ -81,6 +81,10 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
 
     return "GL Schemes Crop Configuration";
   }
+  ngAfterViewInit() {
+
+    this.gridHeight = window.innerHeight - 335 + 'px';
+}
 
   //loadData() {
 
