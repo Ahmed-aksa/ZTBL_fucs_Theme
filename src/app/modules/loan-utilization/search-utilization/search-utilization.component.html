@@ -80,9 +80,9 @@
         <div class="flex flex-auto  border shadow-xs rounded-sm bg-gray-50 overflow-scroll">
 
             <!-- Products list -->
-            <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
+            <div class="flex flex-auto overflow-scroll" style="flex-direction: column;" [style.height]="gridHeight">
                 <div class="flex flex-col flex-auto sm:mb-18 overflow-scroll sm:overflow-y-auto"
-                     [style.height]="gridHeight">
+                >
                     <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
                                matSortActive="id" matSortDirection="asc" matSortDisableClear>
 
