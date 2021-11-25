@@ -724,7 +724,7 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    searchLoanApplication(loanFilter: SearchLoan, zone, branch) {
+    searchLoanApplication(loanFilter: SearchLoan) {
         var userInfo = this.userUtilsService.getUserDetails();
         var selectedCircleId = '';
 
@@ -758,9 +758,9 @@ export class LoanService {
             Loan: loanFilter,
             TranId: 0,
             User: userInfo.User,
-            Zone: zone,
+            Zone: selectedZone,
             Activity: this.activity,
-            Branch: branch,
+            Branch: userInfo.Branch,
             Circle: selectedCircle,
         };
 
@@ -987,13 +987,32 @@ export class LoanService {
     }
 
     deletePurpose(purposeId) {
-        var req;
+        var userInfo =
+            this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        let circleIds = [];
+        if (userInfo.UserCircleMappings.length > 0) {
+            userInfo.UserCircleMappings.forEach((single_circle: any) => {
+                circleIds.push(single_circle.CircleId);
+            })
+        }
 
 
+        var request: any = {
+            User: userInfo.User,
+            Branch: userInfo.Branch,
+            Zone: userInfo.Zone,
+            Circle: {
+                CircleIds: JSON.stringify(circleIds)
+            },
+            TranId: 0,
+            Loan: {
+                LoanApplicationpurpose: purposeId
+            }
+        };
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/DeleteLoanpurpose`,
-                this.request,
+                request,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
