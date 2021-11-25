@@ -165,7 +165,9 @@ export class ClApplicationHeaderComponent implements OnInit {
   //-------------------------------Loan Type Core Functions-------------------------------//
   async getLoanType() {
     this.LoanTypes = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.LoanTypes })
+
     this.SelectedLoanType = this.LoanTypes.LOVs;
+  console.log("selectedloan"+JSON.stringify(this.SelectedLoanType))
   }
   searchLoanType(loanTypeId) {
     loanTypeId = loanTypeId.toLowerCase();
@@ -262,20 +264,20 @@ export class ClApplicationHeaderComponent implements OnInit {
   }
 
   onChangeLoanType(loanType) {
-    if (loanType.value == "1") {
+    if (loanType.value == "P") {
 
       this.applicationHeaderForm.controls["ProdAmount"].setValidators([Validators.required]);
       this.applicationHeaderForm.controls["ProdAmount"].updateValueAndValidity();
       this.applicationHeaderForm.controls["DevAmount"].clearValidators();
       this.applicationHeaderForm.controls["DevAmount"].updateValueAndValidity();
     }
-    else if (loanType.value == "2") {
+    else if (loanType.value == "D") {
       this.applicationHeaderForm.controls["DevAmount"].setValidators([Validators.required]);
       this.applicationHeaderForm.controls["DevAmount"].updateValueAndValidity();
       this.applicationHeaderForm.controls["ProdAmount"].clearValidators();
       this.applicationHeaderForm.controls["ProdAmount"].updateValueAndValidity();
     }
-    else if (loanType.value == "3") {
+    else if (loanType.value == "B") {
       this.applicationHeaderForm.controls["DevAmount"].setValidators([Validators.required]);
       this.applicationHeaderForm.controls["DevAmount"].updateValueAndValidity();
       this.applicationHeaderForm.controls["ProdAmount"].setValidators([Validators.required]);

@@ -25,7 +25,7 @@
                 <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateLoanTypeOnFocusOut()" noEntriesFoundLabel="No Loan Type Found" (keyup)="searchLoanType($event.target.value)">
                 </ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let loanType of SelectedLoanType" [value]="loanType.Id">
+              <mat-option *ngFor="let loanType of SelectedLoanType" [value]="loanType.Value">
                 {{loanType.Name }}
               </mat-option>
             </mat-select>

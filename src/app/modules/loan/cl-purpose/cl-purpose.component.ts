@@ -154,7 +154,7 @@ export class ClPurposeComponent implements OnInit {
 
         this.editLoanApplicationPurpose = appPurposeData
 
-        if (appPurposeData.length != 0) {
+        if (appPurposeData.length != 0)     {
 
             var tempArray: LoanApplicationPurposeGrid[] = [];
             appPurposeData.forEach(function (item, key) {
@@ -246,6 +246,7 @@ export class ClPurposeComponent implements OnInit {
     }
 
     onDeletePurpose(GlSubID) {
+
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';
@@ -255,6 +256,7 @@ export class ClPurposeComponent implements OnInit {
 
 
         dialogRef.afterClosed().subscribe(res => {
+            debugger
             if (!res) {
                 return;
             }

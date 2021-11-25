@@ -159,7 +159,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
 
           this.dv = this.CropDetailList;
 
-          this.dataSource = new MatTableDataSource(this.CropDetailList.reverse());
+          this.dataSource = new MatTableDataSource(this.CropDetailList);
 
           this.length = this.CropDetailList.length;
           //this.count = length.count;
@@ -184,7 +184,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
         this.glSchemeCropConfigForm.controls.GLCode.value;
         this.dialogRef.close({ data: this.glSchemeCropConfigForm.controls.GLCode.value })
 
-        
+
     }
 
   onCloseClick(): void {
