@@ -988,6 +988,8 @@ export class LoanService {
 
     deletePurpose(purposeId) {
         var req;
+
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/DeleteLoanpurpose`,
