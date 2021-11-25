@@ -75,7 +75,7 @@ export class PendingCustomersComponent implements OnInit {
             if (this.zone) {
                 this.searchCustomer();
             }
-        }, 3000);
+        }, 1000);
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
     }
@@ -110,10 +110,8 @@ export class PendingCustomersComponent implements OnInit {
     }
 
     searchCustomer() {
-        this._customer.clear();
-        this._customer.CustomerStatus = "N";
         this.spinner.show();
-        this._customerService.searchCustomer(this._customer, this.branch, this.zone)
+        this._customerService.searchCustomer(this.customerSearch.value, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.loading = false;

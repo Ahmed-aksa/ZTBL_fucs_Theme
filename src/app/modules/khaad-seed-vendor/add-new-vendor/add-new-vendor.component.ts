@@ -162,7 +162,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
 
             localStorage.setItem('EditVendorData', '0');
             this.spinner.show();
-            setTimeout(() => this.getVendorInfo(), 2000);
+            setTimeout(() => this.getVendorInfo(), 1000);
             // this.getVendorInfo();
         }
 
@@ -264,7 +264,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
         const dialogRef = this.dialog.open(AddressLocationComponent, {
 
             data: {lat: this.lat, lng: this.lng, type: this.type, iconUrl: this.iconUrl},
-            disableClose: true, panelClass: ['h-screen','max-w-full','max-h-full','w-full','h-full']
+            disableClose: true, panelClass: ['h-screen', 'max-w-full', 'max-h-full', 'w-full', 'h-full']
         });
         dialogRef.afterClosed().subscribe((res) => {
             if (!res) {

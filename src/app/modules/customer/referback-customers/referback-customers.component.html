@@ -1,85 +1,161 @@
-<div class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
+<div
+    class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
 
-  <div class="row pt-3">
-    <div class="col-lg-12 col-sm-12">
-        <div class="heading">Refer Back Customer</div>
+    <div class="row pt-3 pb-0">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Referback Customers</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
+                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+        </div>
     </div>
-  </div>
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body">
+            <div class="flex" style="flex-wrap: wrap;" [formGroup]="customerSearch">
+                <app-zone-branch-circle [form]="customerSearch" [should_show_circle]="false"
+                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Customer Name</mat-label>
+                            <input matInput formControlName="CustomerName" placeholder="Enter Customer Name"
+                                   maxlength="100"
+                                   autocomplete="off" appAlphabetOnly>
+                            <!--  <mat-error *ngIf="hasError('CustomerName', 'required')">CustomerName <strong>required</strong></mat-error>-->
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Cnic</mat-label>
+                            <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100"
+                                   autocomplete="off"
+                                   [mask]="maskEnums.cnic">
+                            <!--      <mat-error *ngIf="hasError('Cnic', 'required')">Cnic <strong>required</strong></mat-error>-->
+                            <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>{{errors.cnic}}</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Father Name</mat-label>
+                            <input matInput formControlName="FatherName" placeholder="Enter Father Name"
+                                   maxlength="100"
+                                   autocomplete="off"
+                                   appAlphabetOnly>
+                            <!--   <mat-error *ngIf="hasError('FatherName', 'required')">FatherName<strong>required</strong></mat-error>-->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                        <button
+                            class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
+                            mat-raised-button
+                            type="button"
+                            (click)="searchCustomer()">
+                            <mat-icon class="mr-2">search</mat-icon>
+                            Search
+                        </button>
+                    </div>
+                </div>
 
 
-
-  <!-- Header -->
-  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between"
-    style="flex-wrap: wrap">
-
-  </div>
-  <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-y-scroll" style="flex-direction: column;">
-
-    <div class="example-table-container">
-      <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort" matSortActive="id"
-        matSortDirection="asc" matSortDisableClear>
-
-        <ng-container matColumnDef="CustomerName">
-          <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
-          <mat-cell *matCellDef="let customer">{{customer.CustomerName}}</mat-cell>
-        </ng-container>
+            </div>
 
 
-        <ng-container matColumnDef="CustomerNumber">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Number</mat-header-cell>
-          <mat-cell *matCellDef="let customer">{{customer.CustomerNumber}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="FatherName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
-          <mat-cell *matCellDef="let customer">{{customer.FatherName}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="Cnic">
-          <mat-header-cell style="min-width: 150px;" *matHeaderCellDef mat-sort-header>Cnic</mat-header-cell>
-          <mat-cell style="min-width: 150px;" *matCellDef="let customer">{{customer.Cnic}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="CurrentAddress">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Current Address</mat-header-cell>
-          <mat-cell *matCellDef="let customer">{{customer.CurrentAddress}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="Dob">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Dob</mat-header-cell>
-          <mat-cell *matCellDef="let customer">{{customer.Dob}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="CustomerStatus">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-          <mat-cell *matCellDef="let customer">{{getStatus(customer.CustomerStatus)}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="View">
-          <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-          <mat-cell *matCellDef="let customer">
-            <button mat-icon-button color="primary" (click)="editCustomer(customer)">
-              <mat-icon style="margin-left: 5px;" title="View Customer">accessibility_new</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">
-        </mat-header-row>
-
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      </mat-table>
-      <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
-      <div class="mat-table__message" *ngIf="loading">Please wait....</div>
-      
-
-
+        </div>
     </div>
 
-  </div>
-  <div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between">
-    <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]" [showFirstLastButtons]="true">
-    </mat-paginator>
-</div>
+
+    <!-- Header -->
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between"
+         style="flex-wrap: wrap">
+
+    </div>
+    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-y-scroll"
+         style="flex-direction: column;">
+
+        <div class="example-table-container">
+            <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
+                       matSortActive="id"
+                       matSortDirection="asc" matSortDisableClear>
+
+                <ng-container matColumnDef="CustomerName">
+                    <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+                    <mat-cell *matCellDef="let customer">{{customer.CustomerName}}</mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="CustomerNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Number</mat-header-cell>
+                    <mat-cell *matCellDef="let customer">{{customer.CustomerNumber}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="FatherName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
+                    <mat-cell *matCellDef="let customer">{{customer.FatherName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell style="min-width: 150px;" *matHeaderCellDef mat-sort-header>Cnic</mat-header-cell>
+                    <mat-cell style="min-width: 150px;" *matCellDef="let customer">{{customer.Cnic}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="CurrentAddress">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Current Address</mat-header-cell>
+                    <mat-cell *matCellDef="let customer">{{customer.CurrentAddress}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Dob">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dob</mat-header-cell>
+                    <mat-cell *matCellDef="let customer">{{customer.Dob}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="CustomerStatus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let customer">{{customer.CustomerStatusDesc}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="View">
+                    <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                    <mat-cell *matCellDef="let customer">
+                        <button mat-icon-button color="primary" (click)="editCustomer(customer)">
+                            <mat-icon style="margin-left: 5px;" title="View Customer">accessibility_new</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">
+                </mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
+            <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+
+
+        </div>
+
+    </div>
+    <div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between">
+        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]" [showFirstLastButtons]="true">
+        </mat-paginator>
+    </div>
 </div>

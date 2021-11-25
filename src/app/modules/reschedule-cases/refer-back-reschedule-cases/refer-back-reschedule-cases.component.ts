@@ -101,7 +101,7 @@ ngOnInit() {
     this.getLoanStatus();
 
     if(this.zone){
-        setTimeout(() => this.find(), 2000);
+        setTimeout(() => this.find(), 1000);
     }
 
 
