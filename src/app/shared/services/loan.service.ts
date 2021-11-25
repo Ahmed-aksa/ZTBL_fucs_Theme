@@ -488,7 +488,7 @@ export class LoanService {
         request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         request.Activity = this.activity;
-        
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/SearchGLCode`, request, {
@@ -724,7 +724,7 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    searchLoanApplication(loanFilter: SearchLoan) {
+    searchLoanApplication(loanFilter: SearchLoan, zone, branch) {
         var userInfo = this.userUtilsService.getUserDetails();
         var selectedCircleId = '';
 
@@ -758,9 +758,9 @@ export class LoanService {
             Loan: loanFilter,
             TranId: 0,
             User: userInfo.User,
-            Zone: selectedZone,
+            Zone: zone,
             Activity: this.activity,
-            Branch: userInfo.Branch,
+            Branch: branch,
             Circle: selectedCircle,
         };
 
@@ -966,7 +966,7 @@ export class LoanService {
     }
 
     deleteLegalHeirs(legalId, loan) {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         loanInfo.LoanApplicationLegalHeirs = new LoanApplicationLegalHeirs();
