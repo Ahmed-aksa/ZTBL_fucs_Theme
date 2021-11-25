@@ -161,6 +161,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
 
+        if(this.zone){
+            this.searchloanutilization();
+        }
+
         //var userInfo = this.userUtilsService.getUserDetails();
         //this.loanutilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
         //this.loanutilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);

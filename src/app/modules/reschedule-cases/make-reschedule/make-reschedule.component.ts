@@ -84,7 +84,6 @@ export class MakeRcComponent implements OnInit {
     public ReschedulingTypes: any;
 
 
-
     navigationSubscription: any;
 
 
@@ -159,11 +158,11 @@ export class MakeRcComponent implements OnInit {
     ngOnInit() {
 
 
-      this.LoadLovs();
-      this.createForm();
-      this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        this.LoadLovs();
+        this.createForm();
+        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
-      this.getRequestTypes();
+        this.getRequestTypes();
 
 
     }
@@ -267,7 +266,7 @@ export class MakeRcComponent implements OnInit {
         this.rescheduling = Object.assign(this.mrForm.getRawValue());
         this.spinner.show();
         this._reschedulingService
-            .SaveMakeRescheduleLoan(this.rescheduling,this.branch,this.zone)
+            .SaveMakeRescheduleLoan(this.rescheduling, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -286,7 +285,7 @@ export class MakeRcComponent implements OnInit {
                     setTimeout(() => {
                             this.router.navigate(['/reschedule-cases/pending-reschedule']);
                         },
-                        2000);
+                        1000);
                     this.mrForm.controls["Lcno"].setValue('');
                     this.mrForm.controls["LoanAppSanctionID"].setValue('');
                     this.mrForm.controls["LoanDisbID"].setValue('');
@@ -335,7 +334,7 @@ export class MakeRcComponent implements OnInit {
         this.spinner.show();
         lCNo = this.mrForm.controls["Lcno"].value;
         this._reschedulingService
-        .GetSubProposalGL(lCNo, this.branch, this.zone)
+            .GetSubProposalGL(lCNo, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -414,7 +413,7 @@ export class MakeRcComponent implements OnInit {
 
         this.spinner.show();
         this._reschedulingService
-        .SubmitRescheduleData(this.rescheduling,this.branch,this.zone)
+            .SubmitRescheduleData(this.rescheduling, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -483,7 +482,7 @@ export class MakeRcComponent implements OnInit {
     cancelTransaction() {
         this.spinner.show();
         this._reschedulingService
-            .CancelRescheduleData(this.rescheduling,this.branch,this.zone)
+            .CancelRescheduleData(this.rescheduling, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -500,9 +499,8 @@ export class MakeRcComponent implements OnInit {
                         baseResponse.Code
                     );
                     setTimeout(() => {
-                            this.router.navigate(['/reschedule-cases/pending-reschedule']);
-                        },
-                        2000);
+                        this.router.navigate(['/reschedule-cases/pending-reschedule']);
+                    }, 1000);
                     this.mrForm.reset();
                 } else {
                     this.layoutUtilsService.alertElement(

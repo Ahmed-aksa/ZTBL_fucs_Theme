@@ -55,6 +55,7 @@ import {NumberAndDecimalDirective} from './directives/number-and-decimal.directi
 import {ZoneBranchCircleComponent} from "../zone-branch-circle/zone-branch-circle.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ViewMapsComponent} from "./component/view-map/view-map.component";
+import {CustLoanlistComponent} from "../modules/loan/customer-list/cust-list.component";
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import {ViewMapsComponent} from "./component/view-map/view-map.component";
         NumberAndDecimalDirective,
         ZoneBranchCircleComponent,
         ViewMapsComponent,
+        CustLoanlistComponent
     ],
     imports: [
         CommonModule,
@@ -174,7 +176,8 @@ import {ViewMapsComponent} from "./component/view-map/view-map.component";
         AlertDialogComponent,
         AlertComponent,
         ActionNotificationComponent,
-        ViewMapsComponent
+        ViewMapsComponent,
+        CustLoanlistComponent
     ],
     providers: [
         HttpUtilsService,

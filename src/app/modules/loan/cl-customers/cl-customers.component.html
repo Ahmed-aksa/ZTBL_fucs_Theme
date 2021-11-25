@@ -50,11 +50,13 @@
           </mat-form-field>
         </div>
         <div class="col-lg-2 kt-margin-bottom-20-mobile">
-          <button class=" mb-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary" (click)="searchCustomer()" type="button"><mat-icon class="mr-2">search</mat-icon> Search</button>
+          <button class=" mb-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary" (click)="searchCustomer()" type="button"><mat-icon class="mr-2">add</mat-icon> Attach</button>
           <!--<button type="button" class="btn btn-primary mt-10p" mat-raised-button color="primary" >
             Search
           </button>-->
         </div>
+          <a (click)="viewCustomer()">Search Cutomer </a>
+
       </div>
       <div class="form-group kt-form__group row">
 
@@ -72,7 +74,7 @@
                   <th>DOB</th>
                   <th>AGPS</th>
                   <th>Relationship</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>

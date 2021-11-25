@@ -13,6 +13,10 @@ import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
+import {ClGlSchemeCropConfigurationComponent} from "../cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CustomerListComponent} from "../../customer/customer-list/customer-list.component";
+import {CustLoanlistComponent} from "../customer-list/cust-list.component";
 
 @Component({
     selector: 'kt-cl-customers',
@@ -46,7 +50,8 @@ export class ClCustomersComponent implements OnInit {
                 private layoutUtilsService: LayoutUtilsService,
                 private _loanService: LoanService,
                 private spinner: NgxSpinnerService,
-                private _customerService: CustomerService) {
+                private _customerService: CustomerService,
+                public dialog: MatDialog,) {
     }
 
     ngOnInit() {
@@ -201,6 +206,23 @@ export class ClCustomersComponent implements OnInit {
 
     }
 
+    viewCustomer(){
+
+        const dialogRef = this.dialog.open(CustLoanlistComponent, {
+            data: {flag:1},
+             disableClose: true,
+            panelClass: ['w-full','h-screen','max-w-full','max-h-full']
+        });
+        dialogRef.afterClosed().subscribe(res => {
+
+            if (!res) {
+                return;
+            }
+        });
+
+
+    }
+
     deleteRow(customerObj, index) {
 
         const _title = 'Confirmation';
@@ -235,7 +257,7 @@ export class ClCustomersComponent implements OnInit {
                         )
                         .subscribe(baseResponse => {
                             if (baseResponse.Success === true) {
-                                if (this.customerArray[0] && (this.customerArray[0]?.agps == 'A' || this.customerArray[0]?.Relationship == '8')) {
+                                if (this.customerArray[0] && (this.customerArray[0]?.agps == 'A' || this.customerArray[0]?.agps=='Applicant'|| this.customerArray[0]?.Relationship == '8')) {
                                     this.disable_tab.emit(false);
                                 } else {
                                     this.disable_tab.emit(true);

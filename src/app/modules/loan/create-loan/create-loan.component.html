@@ -23,7 +23,11 @@
                                          (loanCustomerCall)="fillLoanApplicationObject($event)"></kt-cl-customers>
                     </mat-tab>
 
-                        <mat-tab  label="Purpose" (click)="checkError(disabled_tab)" [disabled]="disabled_tab" >
+                        <mat-tab  label="Purpose"  [disabled]="disabled_tab" >
+                            <ng-template mat-tab-label>
+                                <span (click)="checkError(disabled_tab)">Purpose</span>
+                            </ng-template>
+
                             <kt-cl-purpose
                                 [loanDetail]="loanApplicationReq"></kt-cl-purpose>
                         </mat-tab>

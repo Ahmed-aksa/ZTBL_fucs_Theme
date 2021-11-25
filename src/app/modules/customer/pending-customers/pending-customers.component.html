@@ -65,11 +65,11 @@
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                        <button 
-                                class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
-                                mat-raised-button
-                                type="button"
-                                (click)="searchCustomer()">
+                        <button
+                            class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
+                            mat-raised-button
+                            type="button"
+                            (click)="searchCustomer()">
                             <mat-icon class="mr-2">search</mat-icon>
                             Search
                         </button>
@@ -117,7 +117,7 @@
 
                 <ng-container matColumnDef="CustomerStatus">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                    <mat-cell *matCellDef="let customer">{{getStatus(customer.CustomerStatus)}}</mat-cell>
+                    <mat-cell *matCellDef="let customer">{{customer.CustomerStatusDesc}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="View">
