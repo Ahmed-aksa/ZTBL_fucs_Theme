@@ -67,6 +67,7 @@ const routing= [
     path: 'search',
     component: ClSearchLoanComponent
   },
+
     {
     path: 'pending-loan',
     component: ClPendingLoanComponent
