@@ -88,6 +88,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     maxDate: any;
 
+    Math: any;
+
     Limit: any;
     OffSet: number = 0;
     //pagination
@@ -112,6 +114,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 private userUtilsService: UserUtilsService,
                 private _common: CommonService,
                 public datePipe: DatePipe) {
+                this.Math = Math;
     }
 
     ngOnInit() {
@@ -193,7 +196,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-
+        debugger
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
