@@ -279,10 +279,9 @@ export class MakeRcComponent implements OnInit {
 
                 if (baseResponse.Success === true) {
                     this.rescheduling.LoanReschID = baseResponse.Loan.MakeReschedule.LoanReschID
-                    this.layoutUtilsService.alertElement(
+                    this.layoutUtilsService.alertElementSuccess(
                         "",
-                        baseResponse.Message,
-                        baseResponse.Code
+                        baseResponse.Message
                     );
                     setTimeout(() => {
                             this.router.navigate(['/reschedule-cases/pending-reschedule']);
@@ -325,8 +324,7 @@ export class MakeRcComponent implements OnInit {
                 } else {
                     this.layoutUtilsService.alertElement(
                         "",
-                        baseResponse.Message,
-                        baseResponse.Code
+                        baseResponse.Message
                     );
                 }
             });
@@ -408,6 +406,12 @@ export class MakeRcComponent implements OnInit {
     }
 
     SubmitData() {
+
+        if(this.rescheduling.LoanReschID == null || this.rescheduling.LoanReschID == undefined){
+            this.layoutUtilsService.alertElement('', "Please save before submitting.")
+            return
+        }
+
         this.spinner.show();
         this._reschedulingService
         .SubmitRescheduleData(this.rescheduling,this.branch,this.zone)

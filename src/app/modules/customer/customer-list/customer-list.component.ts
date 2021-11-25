@@ -7,46 +7,56 @@ import {
     ChangeDetectionStrategy,
     OnDestroy,
     Input,
-    ChangeDetectorRef
+    ChangeDetectorRef,
 } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {ActivatedRoute, Router} from '@angular/router';
-import {errorMessages, Lov, LovConfigurationKey, MaskEnum, regExps} from 'app/shared/classes/lov.class';
-import {Branch} from 'app/shared/models/branch.model';
-import {CreateCustomer} from 'app/shared/models/customer.model';
-import {CircleService} from 'app/shared/services/circle.service';
-import {CustomerService} from 'app/shared/services/customer.service';
-import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
-import {LovService} from 'app/shared/services/lov.service';
-import {UserUtilsService} from 'app/shared/services/users_utils.service';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {finalize} from 'rxjs/operators';
-import {Zone} from '../../../modules/user-management/users/utils/zone.model'
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+    errorMessages,
+    Lov,
+    LovConfigurationKey,
+    MaskEnum,
+    regExps,
+} from 'app/shared/classes/lov.class';
+import { Branch } from 'app/shared/models/branch.model';
+import { CreateCustomer } from 'app/shared/models/customer.model';
+import { CircleService } from 'app/shared/services/circle.service';
+import { CustomerService } from 'app/shared/services/customer.service';
+import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
+import { LovService } from 'app/shared/services/lov.service';
+import { UserUtilsService } from 'app/shared/services/users_utils.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { finalize } from 'rxjs/operators';
+import { Zone } from '../../../modules/user-management/users/utils/zone.model';
 
 @Component({
     selector: 'kt-customer-list',
-    templateUrl: './customer-list.component.html'
+    templateUrl: './customer-list.component.html',
 })
 export class CustomerListComponent implements OnInit {
-
     dataSource = new MatTableDataSource();
     @Input() isDialog: any = false;
-    @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+    @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
     loading: boolean;
-    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus', 'View']
+    displayedColumns = [
+        'CustomerName',
+        'FatherName',
+        'Cnic',
+        'CurrentAddress',
+        'CustomerStatus',
+        'View',
+    ];
 
     gridHeight: string;
     customerSearch: FormGroup;
     myDate = new Date().toLocaleDateString();
-
 
     public maskEnums = MaskEnum;
     errors = errorMessages;
@@ -70,13 +80,11 @@ export class CustomerListComponent implements OnInit {
     selected_z: any;
     selected_b: any;
 
-
     disable_branch = true;
     disable_zone = true;
 
     final_zone: any;
     final_branch: any;
-
 
     zone: any;
     branch: any;
@@ -93,14 +101,18 @@ export class CustomerListComponent implements OnInit {
         private _circleService: CircleService,
         private _cdf: ChangeDetectorRef,
         private userUtilsService: UserUtilsService,
-        private spinner: NgxSpinnerService) {
-    }
+        private spinner: NgxSpinnerService
+    ) {}
 
     ngOnInit() {
-
-
         if (this.isDialog)
-            this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus']
+            this.displayedColumns = [
+                'CustomerName',
+                'FatherName',
+                'Cnic',
+                'CurrentAddress',
+                'CustomerStatus',
+            ];
         this.LoadLovs();
         this.createForm();
     }
@@ -110,13 +122,11 @@ export class CustomerListComponent implements OnInit {
         this.dataSource.sort = this.sort;
     }
 
-
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
     }
-
 
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
@@ -126,7 +136,7 @@ export class CustomerListComponent implements OnInit {
             CustomerName: [this._customer.CustomerName],
             Cnic: [this._customer.Cnic],
             FatherName: [this._customer.FatherName],
-            CustomerStatus: [this._customer.CustomerStatus]
+            CustomerStatus: [this._customer.CustomerStatus],
         });
     }
 
@@ -134,11 +144,12 @@ export class CustomerListComponent implements OnInit {
         return this.customerSearch.controls[controlName].hasError(errorName);
     }
 
-
     searchCustomer() {
-        debugger
         this._customer.clear();
-        this._customer = Object.assign(this._customer, this.customerSearch.value);
+        this._customer = Object.assign(
+            this._customer,
+            this.customerSearch.value
+        );
         const controlsCust = this.customerSearch.controls;
         // if ((this._customer.CustomerName == null || this._customer.CustomerName == "") && (this._customer.Cnic == null || this._customer.Cnic == "") && (this._customer.FatherName == null || this._customer.FatherName == "") && (this._customer.CustomerStatus == null || this._customer.CustomerStatus == "")) {
         //     Object.keys(controlsCust).forEach(controlName =>
@@ -150,40 +161,40 @@ export class CustomerListComponent implements OnInit {
         //         controlsCust[controlName].markAsUntouched()
         //     );
         // }
-        if (this._customer.CustomerStatus == "All")
-            this._customer.CustomerStatus = "";
-        this._customerService.searchCustomer(this._customer, this.branch, this.zone)
+        if (this._customer.CustomerStatus == 'All')
+            this._customer.CustomerStatus = '';
+        this._customerService
+            .searchCustomer(this._customer, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.loading = false;
                 })
             )
-            .subscribe(baseResponse => {
+            .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     this.dataSource.data = baseResponse.Customers;
                     this.total_customers_length = baseResponse.Customers.length;
                 } else {
-                    this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    this.dataSource.data = []
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        baseResponse.Message
+                    );
+                    this.dataSource.data = [];
                 }
-
             });
     }
 
-
     getStatus(status: string) {
-
         if (status == 'P') {
-            return "Submit";
+            return 'Submit';
         } else if (status == 'N') {
-            return "Pending";
+            return 'Pending';
         } else if (status == 'A') {
-            return "Authorized";
+            return 'Authorized';
         } else if (status == 'R') {
-            return "Refer Back";
+            return 'Refer Back';
         }
     }
-
 
     exportToExcel() {
         //this.exportActivities = [];
@@ -205,25 +216,24 @@ export class CustomerListComponent implements OnInit {
         return filter;
     }
 
+    ngOnDestroy() {}
 
-    ngOnDestroy() {
-    }
-
-    masterToggle() {
-
-    }
+    masterToggle() {}
 
     editCustomer(Customer: any) {
         localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
         localStorage.setItem('CreateCustomerBit', '2');
-        this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
+        this.router.navigate(['/customer/customerProfile'], {
+            relativeTo: this.activatedRoute,
+        });
     }
 
     async LoadLovs() {
-        this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus})
+        this.CustomerStatusLov = await this._lovService.CallLovAPI(
+            (this.LovCall = { TagName: LovConfigurationKey.CustomerStatus })
+        );
         this.CustomerStatusLov.LOVs.forEach(function (value) {
-            if (!value.Value)
-                value.Value = "All";
+            if (!value.Value) value.Value = 'All';
         });
     }
 
