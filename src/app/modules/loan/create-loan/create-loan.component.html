@@ -23,10 +23,12 @@
                         <kt-cl-customers [loanDetail]="loanApplicationReq" (disable_tab)="check_disabled($event)"
                                          (loanCustomerCall)="fillLoanApplicationObject($event)"></kt-cl-customers>
                     </mat-tab>
-                    <mat-tab label="Purpose" [disabled]="disabled_tab">
-                        <kt-cl-purpose
-                            [loanDetail]="loanApplicationReq"></kt-cl-purpose>
-                    </mat-tab>
+
+                        <mat-tab  label="Purpose" (click)="checkError(disabled_tab)" [disabled]="disabled_tab" >
+                            <kt-cl-purpose
+                                [loanDetail]="loanApplicationReq"></kt-cl-purpose>
+                        </mat-tab>
+
                     <mat-tab label="Securities" [disabled]="disabled_tab">
                         <kt-cl-securities [loanDetail]="loanApplicationReq"></kt-cl-securities>
                     </mat-tab>

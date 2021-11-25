@@ -488,7 +488,7 @@ export class LoanService {
         request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         request.Activity = this.activity;
-        
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/SearchGLCode`, request, {
@@ -966,7 +966,7 @@ export class LoanService {
     }
 
     deleteLegalHeirs(legalId, loan) {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         loanInfo.LoanApplicationLegalHeirs = new LoanApplicationLegalHeirs();
@@ -988,6 +988,8 @@ export class LoanService {
 
     deletePurpose(purposeId) {
         var req;
+
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/DeleteLoanpurpose`,

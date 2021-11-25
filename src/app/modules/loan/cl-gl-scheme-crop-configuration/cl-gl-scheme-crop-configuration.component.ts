@@ -133,7 +133,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
 
 
     this.glConfigrationsDetail = Object.assign(this.glConfigrationsDetail, this.glSchemeCropConfigForm.getRawValue());
-
+      this.spinner.show();
     this._loanService.SearchGLCode(this.glConfigrationsDetail)
       .pipe(
         finalize(() => {
