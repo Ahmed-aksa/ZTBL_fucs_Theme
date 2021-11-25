@@ -396,7 +396,7 @@ export class ClPurposeComponent implements OnInit {
         const dialogRef = this.dialog.open(ClGlSchemeCropConfigurationComponent, {
             data: {glConfigrationsDetail: this.loanApplicationPurpose.GlSubID},
             disableClose: true,
-            panelClass: ['full-screen-modal']
+            panelClass: ['w-full','h-screen','max-w-full','max-h-full']
         });
         dialogRef.afterClosed().subscribe(res => {
 
