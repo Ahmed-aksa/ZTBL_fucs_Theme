@@ -134,7 +134,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
         this.recoveryTypes.push({id: 4, name: 'SBS Inter Branch Recovery'});
         var userInfo = this.userUtilsService.getUserDetails();
         let dateString = userInfo?.Branch?.WorkingDate;
-        console.log(dateString)
+        
         var day = 0;
         var month = 0;
         var year = 0;
@@ -180,8 +180,8 @@ export class SearchRecoveryCommonComponent implements OnInit {
         this.CustomerStatuses = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus});
 
         this.CustomerStatuses = this.CustomerStatuses.LOVs;
-        console.log('RecoveryStatus');
-        console.log(this.CustomerStatuses);
+        
+        
 
         this.cdRef.detectChanges();
 
@@ -231,13 +231,13 @@ export class SearchRecoveryCommonComponent implements OnInit {
                 if (baseResponse.Success === true) {
                     this.MatTableLenght = true;
                     this.RecoveryLoanTransaction = baseResponse.Recovery.RecoveryLoanTransaction;
-                    console.log('getLoanTransaction output');
+                    
 
                     this.recoveryDetail = this.RecoveryLoanTransaction;
                     this.totalItems = baseResponse.Recovery.RecoveryLoanTransaction[0].TotalCount;
                     this.RecoveryLoanTransaction = this.recoveryDetail.slice(0, this.totalItems)
 
-                    console.log(this.pageIndex)
+                    
 
                     var recoveryType = this.RecoveryForm.get('RecoveryType').value;
                     this.searchSBS = (recoveryType == 4 || recoveryType == 3);
@@ -292,7 +292,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
                         })
                     )
                     .subscribe((baseResponse: BaseResponseModel) => {
-                        console.log(baseResponse);
+                        
                         if (baseResponse.Success === true) {
 
                             //Show Receipt
@@ -326,7 +326,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                console.log(baseResponse);
+                
                 if (baseResponse.Success === true) {
                     this.find();
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);

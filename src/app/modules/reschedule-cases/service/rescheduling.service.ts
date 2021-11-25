@@ -118,7 +118,7 @@ export class ReschedulingService {
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
-        console.log(rescheduling.LoanReschID)
+        
         let loanResch = rescheduling.LoanReschID;
         this.MakeReschedule.LoanReschID = loanResch;
         this.MakeReschedule.Remarks = "ok"
@@ -136,7 +136,7 @@ export class ReschedulingService {
         var req = JSON.stringify(this.request);
         this.request.Branch = branch;
         this.request.Zone = zone;
-        console.log(req)
+        
         return this.http.post(`${environment.apiUrl}/Loan/SubmitRescheduleData`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)

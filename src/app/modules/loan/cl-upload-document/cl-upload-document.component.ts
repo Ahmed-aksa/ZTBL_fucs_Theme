@@ -105,7 +105,7 @@ export class ClUploadDocumentComponent implements OnInit {
   }
 
   PostDocuments(PostDocument: any) {
-    // console.log(this.PostDocument.value)
+    // 
   }
 
   async getDocumentLoanType() {
@@ -183,7 +183,7 @@ export class ClUploadDocumentComponent implements OnInit {
           this.spinner.hide();
         })
     ).subscribe(baseResponse => {
-      console.log("this is Document response", baseResponse.ViewDocumnets)
+      
 
 
       this.url = baseResponse.ViewDocumnets.Path
@@ -250,7 +250,7 @@ export class ClUploadDocumentComponent implements OnInit {
     this.document = await this._lovService.GetDocumentTypeLOV()
 
     this.SelectedDocument = this.document.LOVs;
-    console.log(this.SelectedDocument)
+    
   }
 
   onFileChange(event) {

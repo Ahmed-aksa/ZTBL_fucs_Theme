@@ -123,7 +123,7 @@ export class ReferbackDeceasedComponent implements OnInit {
     }
 
     CheckViewStatus(deceased: any) {
-        //console.log(jv)
+        //
         if (deceased.MakerUserID != this.loggedInUser.UserId) {
             return true;
         } else {

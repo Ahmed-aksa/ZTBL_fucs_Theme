@@ -301,7 +301,7 @@ export class MakeRcComponent implements OnInit {
                     //this.mrForm.get('Lcno').updateValueAndValidity();
 
                     // const obj =     this.mrForm.get('Lcno');
-                    // console.log('obj', obj);
+                    // 
 
 
                     this.mrForm.get('LoanAppSanctionID').markAsUntouched();
@@ -353,7 +353,7 @@ export class MakeRcComponent implements OnInit {
                         );
                         this.Disbursement(this.mrForm.controls["LoanAppSanctionID"].value);
                     }
-                    console.log(this.mrForm.value)
+                    
                     this.expand = true;
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -391,7 +391,7 @@ export class MakeRcComponent implements OnInit {
                             this.mrForm.controls["LoanDisbID"].setValue(
                                 this.DisbursementGLList[0].LoanDisbID
                             );
-                            console.log(this.DisbursementGLList)
+                            
                         }
                     } else {
                         this.layoutUtilsService.alertElement(
@@ -455,7 +455,7 @@ export class MakeRcComponent implements OnInit {
         //this.mrForm.get('Lcno').updateValueAndValidity();
 
         // const obj =     this.mrForm.get('Lcno');
-        // console.log('obj', obj);
+        // 
 
 
         this.mrForm.get('LoanAppSanctionID').markAsUntouched();

@@ -164,7 +164,7 @@ export class ProfileService {
     // "AccessToData": "1",
     // "GroupName": "ZDPM"
 
-    console.log(req);
+    
     return this.http.post(`${environment.apiUrl}/Profile/AddRole`, req,
       {headers: this.httpUtils.getHTTPHeaders()}).pipe(
       map((res: BaseResponseModel) => res)

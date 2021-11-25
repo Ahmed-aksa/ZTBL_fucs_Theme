@@ -121,7 +121,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
 
   // click($event: google.maps.IconMouseEvent){
   //   
-  //   console.log($event)
+  //   
   //   //this.googleMap.setMap(null)
   //   this.PreviousLocation = []
   //   //this.addmarker(event.coords.lat, event.coords.lng)
@@ -155,8 +155,8 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
       icon: this.iconUrl
     });
     this.vendorLocationMarker.setMap(this.googleMap)
-    console.log(this.vendorLocationMarker.position.lat())
-    console.log(this.vendorLocationMarker.position.lng())
+    )
+    )
   }
 
   onSelect() {
@@ -165,7 +165,7 @@ export class AddressLocationComponent implements OnInit, OnDestroy {
       lat: this.vendorLocationMarker.position.lat(), lng : this.vendorLocationMarker.position.lng(), iconUrl: this.iconUrl
     }
     this.data = res;
-    console.log(this.data)
+    
     this.close(this.data)
   }
 

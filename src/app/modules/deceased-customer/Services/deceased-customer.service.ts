@@ -85,8 +85,8 @@ export class DeceasedCustomerService {
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
 
-        console.log(req);
-        console.log(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`);
+        
+        
 
 
         return this.http.post(`${environment.apiUrl}/Customer/SearchDeceasedCustomer`, this.request,
@@ -125,7 +125,7 @@ export class DeceasedCustomerService {
 
     MarkAsDeceasedCustomer(form,file:File){
 
-        console.log(file)
+        
 
         var deceasedInfo = new Customer();
 
@@ -136,7 +136,7 @@ export class DeceasedCustomerService {
 
         //form.IsReferredBack = true;
 
-        console.log(userInfo);
+        
 
 
 
@@ -175,20 +175,20 @@ export class DeceasedCustomerService {
         formData.append('DeceasedID', form.DeceasedID);
 
 
-        console.log("CustomerCnic", formData.get('CustomerCnic'));
-        console.log("PPNo",formData.get('PPNo'));
-        console.log("UserID",formData.get('UserID'));
-        console.log("BranchID",formData.get('BranchID'));
-        console.log("NadraNo",formData.get('NadraNo'));
-        console.log("IsReferredBack",formData.get('IsReferredBack'));
-        console.log("IsNadraCertificateVerified ",formData.get('IsNadraCertificateVerified'));
-        console.log("DateOfDeath",formData.get('DateOfDeath'));
-        console.log("Remarks",formData.get('Remarks'));
-        console.log("OtherSourceOfIncome",formData.get('OtherSourceOfIncome'));
-        console.log("LegalHeirPay",formData.get('LegalHeirPay'));
-        console.log("File Data",formData.get('File'));
-        console.log("DeceasedID",formData.get('DeceasedID'));
-        // console.log("DeceasedId",formData.get('DeceasedId'));
+        );
+        );
+        );
+        );
+        );
+        );
+        );
+        );
+        );
+        );
+        );
+        );
+        );
+        // );
 
 
 

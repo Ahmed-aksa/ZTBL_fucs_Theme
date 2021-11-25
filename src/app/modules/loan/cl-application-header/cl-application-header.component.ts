@@ -167,7 +167,7 @@ export class ClApplicationHeaderComponent implements OnInit {
     this.LoanTypes = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.LoanTypes })
 
     this.SelectedLoanType = this.LoanTypes.LOVs;
-  console.log("selectedloan"+JSON.stringify(this.SelectedLoanType))
+  )
   }
   searchLoanType(loanTypeId) {
     loanTypeId = loanTypeId.toLowerCase();

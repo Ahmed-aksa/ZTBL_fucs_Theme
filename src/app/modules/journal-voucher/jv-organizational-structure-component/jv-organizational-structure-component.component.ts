@@ -67,7 +67,7 @@ export class DynamicDatabase {
         return baseResponse;
         // var myTreeElements =[];
         // if (baseResponse.Success === true) {
-        //   console.log(' output', baseResponse);
+        //   
         //   baseResponse.JournalVoucher.ChildNodesList.forEach(element => {
         //
         //     myTreeElements.push(element.Description +'-'+element.OrgUnitID);
@@ -92,7 +92,7 @@ export class DynamicDatabase {
         //
         //   var myTreeElements =[];
         //   if (baseResponse.Success === true) {
-        //     console.log(' output', baseResponse);
+        //     
         //     baseResponse.JournalVoucher.ChildNodesList.forEach(element => {
         //
         //       myTreeElements.push(element.Description +'-'+element.OrgUnitID);
@@ -108,7 +108,7 @@ export class DynamicDatabase {
         // },
         //   (error) => {
         //
-        //     console.log(error)
+        //     
         //   });
         // return this.dataMap.get(node);
     }

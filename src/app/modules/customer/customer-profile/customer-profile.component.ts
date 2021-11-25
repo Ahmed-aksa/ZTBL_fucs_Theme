@@ -392,7 +392,7 @@ export class CustomerProfileComponent implements OnInit {
             );
 
             Object.keys(controls).forEach(controlName =>
-                console.log(controls[controlName])
+                
             );
 
             this.hasFormErrors = true;
@@ -638,8 +638,8 @@ export class CustomerProfileComponent implements OnInit {
         }
 
 
-        //console.log('cast lov')
-        //console.log(this.CasteLov.LOVs)
+        //
+        //
 
 
         this.ReligionLov.LOVs = this._lovService.SortLovs(this.ReligionLov.LOVs);
@@ -757,7 +757,7 @@ export class CustomerProfileComponent implements OnInit {
 
                     if (baseResponse.Success) {
                         var customerobj = baseResponse.Customer;
-                        console.log(this.CasteLov);
+                        
                         this.createCustomer = customerobj;
                         if (this.createCustomer.FatherOrHusbandCnic != undefined && this.createCustomer.FatherOrHusbandCnic != null) {
                             this.createCustomer.FatherOrHusbandCnic = parseInt(this.createCustomer.FatherOrHusbandCnic).toString();

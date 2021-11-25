@@ -47,7 +47,7 @@ export class UserInfoDialogComponent implements OnInit {
     ngOnInit() {
         this.createForm();
         this.getVendor();
-        //console.log(this.data.id)
+        //
     }
 
     getVendor() {
@@ -76,7 +76,7 @@ export class UserInfoDialogComponent implements OnInit {
                     this.vendorDetailForm.controls["Address"].setValue(this.vendorInfo.Address);
 
                     this.images.push(this.vendorInfo.FilePath);
-                    console.log(this.vendorInfo)
+                    
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

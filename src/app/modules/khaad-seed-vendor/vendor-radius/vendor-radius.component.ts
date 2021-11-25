@@ -152,9 +152,9 @@ export class VendorRadiusComponent implements OnInit {
 
                 //var lat,lng,name;
                 if (baseResponse.Success === true) {
-                    console.log(baseResponse)
+                    
                     this.radiusInfo = baseResponse.SeedKhadVendor.VendorDetails;
-                    console.log(this.radiusInfo)
+                    
                     for (let i = 0; i < this.radiusInfo.length; i++) {
                         if (this.radiusInfo[i].Type == '1') {
                             this.iconUrl = '../../../assets/icons/seed.png';

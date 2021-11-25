@@ -61,7 +61,7 @@ export class MapNotificationStatusComponent implements OnInit {
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      console.log(baseResponse)
+      
       if(baseResponse.Success === true){
         this.status = baseResponse.Message
         if(this.status != 'TRUE'){
@@ -89,7 +89,7 @@ export class MapNotificationStatusComponent implements OnInit {
           )
           .subscribe((baseResponse: BaseResponseModel) =>{
             
-            console.log(baseResponse)
+            
             if(baseResponse.Success === true){
               this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
             }

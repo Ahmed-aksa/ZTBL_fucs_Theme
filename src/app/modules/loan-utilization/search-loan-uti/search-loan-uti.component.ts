@@ -119,7 +119,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     ngOnInit() {
 
-        console.log(this.loanutilizationSearch);
+        
         if (this.isDialog)
             this.displayedColumns = [
 
@@ -240,9 +240,9 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 FromDate = day + "" + month + "" + year;
                 this.fromdate = FromDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                // console.log("date"+this.datePipe.transform(branchWorkingDate, 'ddmmyyyy'))
+                // )
                 // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
-                //  console.log(this._common.stringToDate(newdate))
+                //  )
                 this.loanutilizationSearch.controls.FromDate.setValue(branchWorkingDate);
             } catch (e) {
             }
@@ -450,7 +450,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     ngOnDestroy() {
-        console.log("ondestroy")
+        
         this.loanutilizationSearch.reset()
     }
 

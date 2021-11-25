@@ -55,7 +55,7 @@ export class KhaadSeedVendorService {
     addNewVendor(vendor, file: File) {
 
 
-        console.log("vendor" + JSON.stringify(vendor))
+        )
         var formData = new FormData();
         var userInfo = this.userUtilsService.getUserDetails();
 
@@ -78,8 +78,8 @@ export class KhaadSeedVendorService {
         formData.append('Lng', vendor.Lng);
         formData.append('File', file);
 
-        console.log("CircleCode" + formData.get("CircleCode"))
-        console.log("CircleId" + formData.get("CircleId"))
+        )
+        )
         if (formData.append) {
 
             return this.http.post<any>(`${environment.apiUrl}/SeedKhadVendor/AddUpdateVendor`, formData,)

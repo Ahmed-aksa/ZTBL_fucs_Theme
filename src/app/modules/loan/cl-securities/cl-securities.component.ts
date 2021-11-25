@@ -136,8 +136,8 @@ export class ClSecuritiesComponent implements OnInit {
 
 
     this.editLoanSecuritiesArray = appSecuritiesData
-    console.log("in app Securities console")
-    console.log(appSecuritiesData)
+    
+    
 
     var tempCustomerArray: SecuritiesGrid[] = [];
     if (appSecuritiesData.length != 0) {
@@ -195,7 +195,7 @@ export class ClSecuritiesComponent implements OnInit {
   attachCustomerLandtoLoan() {
     
 
-    console.log(this.customerLandList)
+    
     if (this.customerLandList.length > 0) {
       this.spinner.show();
       this._loanService.attachCustomersLand(this.customerLandList, this.loanDetail.TranId)
@@ -287,7 +287,7 @@ export class ClSecuritiesComponent implements OnInit {
           loanGrid.SecurityType = this.loanSecurities.SecurityType;
           loanGrid.UnitPrice = this.loanSecurities.UnitPrice;
           this.loanSecuritiesArray.push(loanGrid);
-          console.log(this.loanSecuritiesArray)
+          
           this._cdf.detectChanges();
           this.LoanSecuritiesForm.controls["CollTypeID"].setValue("");
           this.LoanSecuritiesForm.controls["Quantity"].setValue("");
@@ -321,7 +321,7 @@ export class ClSecuritiesComponent implements OnInit {
     for (var i = 0; i < this.editLoanSecuritiesArray.length; i++) {
 
       if (this.editLoanSecuritiesArray[i].AppSecurityID == AppSecurityID) {
-        console.log("This is AppSecurityID array", this.editLoanSecuritiesArray[i])
+        
         
         this.LoanSecuritiesForm.controls["Quantity"].setValue(this.editLoanSecuritiesArray[i].Quantity);
         this.LoanSecuritiesForm.controls["UnitPrice"].setValue(this.editLoanSecuritiesArray[i].UnitPrice);

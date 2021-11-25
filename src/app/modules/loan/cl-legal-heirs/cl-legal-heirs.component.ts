@@ -108,11 +108,11 @@ export class ClLegalHeirsComponent implements OnInit {
   loadAppLegalHeirsDataOnUpdate(appLegalHeirsData, appCustomersLoanAppList) {
 
     this.legalHeirs = appLegalHeirsData
-    console.log("in app Legal Heirs console")
-    console.log(appLegalHeirsData, "this is legalhier")
+    
+    
 
     var tempCustomerArray: LegalHiersGrid[] = [];
-    console.log(this.RelationshipLov)
+    
 
     for (var i = 0; i < appLegalHeirsData.length; i++) {
 
@@ -163,7 +163,7 @@ export class ClLegalHeirsComponent implements OnInit {
     onChange(val) {
 
 
-        console.log("device val"+JSON.stringify(val));
+        );
         this.legalHeirsForm.controls.CustomerName.setValue(val.CustomerName)
     }
 
@@ -191,7 +191,7 @@ export class ClLegalHeirsComponent implements OnInit {
     this.legalHeirs.DobTxt = this.datePipe.transform(this.legalHeirs.Dob, "dd-MM-yyyy");
     this.legalHeirs.Dob = this.datePipe.transform(this.legalHeirs.Dob, "ddMMyyyy");
     this.legalHeirsForm.controls["Dob"].setValue(this.datePipe.transform(this.legalHeirsForm.value.Dob, "ddMMyyyy"))
-    console.log(this.legalHeirs)
+    
 
 
     this.legalHeirs = Object.assign(this.legalHeirsForm.value, this.legalHeirsForm.getRawValue());
@@ -238,7 +238,7 @@ export class ClLegalHeirsComponent implements OnInit {
   onDeleteLegalHeirs(legalHeir,index) {
 
 
-    console.log(legalHeir)
+    
 
 
     const _title = 'Confirmation';
@@ -275,7 +275,7 @@ export class ClLegalHeirsComponent implements OnInit {
             .subscribe(baseResponse => {
                 if(baseResponse.Success===true)
                 {
-                    console.log("called")
+                    
                     this.legalHeirsArray.splice(index, 1);
                     this.onClearLegalHeirsForm();
                     const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);

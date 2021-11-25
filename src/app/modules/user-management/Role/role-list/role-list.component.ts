@@ -197,8 +197,8 @@ export class RoleListComponent implements OnInit, OnDestroy {
       ).subscribe((x) => {
         this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
         this.loadActivitiesPage();
-        console.log('output');
-        console.log(x);
+        
+        
       });
 
     });

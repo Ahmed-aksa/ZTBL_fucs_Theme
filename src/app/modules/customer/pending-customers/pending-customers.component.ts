@@ -120,7 +120,7 @@ export class PendingCustomersComponent implements OnInit {
             )
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
-                    console.log(baseResponse)
+                    
                     this.dataSource.data = baseResponse.Customers;
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);

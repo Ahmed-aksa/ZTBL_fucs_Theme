@@ -62,7 +62,7 @@ export class ViolateDialogComponent implements OnInit {
     .subscribe((baseResponse: BaseResponseModel) =>{
       
       if(baseResponse.Success === true){
-        console.log(baseResponse)
+        
         this.loading = false;
         this.mappingVoilation = baseResponse.Notifications;
         this.dv = this.mappingVoilation;
@@ -81,7 +81,7 @@ export class ViolateDialogComponent implements OnInit {
   }
 
   viewStatus(voilation){
-    console.log(voilation)
+    
     const type = 'violation'
     const dialogRef = this.dialog.open(MapNotificationStatusComponent, { panelClass: ['w-8/12'], data: {mapp: voilation, type: type},  disableClose: true });
     dialogRef.afterClosed().subscribe(res => {

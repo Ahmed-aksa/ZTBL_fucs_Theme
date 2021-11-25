@@ -332,7 +332,7 @@ export class LandService {
         };
 
         var v = JSON.stringify(request);
-        console.log(v)
+        
 
         return this.http.post(`${environment.apiUrl}/Land/PassbookCorrection`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
