@@ -20,59 +20,68 @@
 </div>
 
 
-<div class="collapse show" id="collapseExample">
-  <div class="card card-body">
-      <div class="flex" style="flex-wrap: wrap;">
-        <app-zone-branch-circle [form]="loanSearch" [should_show_circle]="false"
-                                (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-          <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-        <mat-label>Application Date(ddMMyyyy)</mat-label>
-        <input readonly="readonly" matInput [matDatepicker]="picker3" placeholder="ddMMyyyy" autocomplete="off" formControlName="Appdt">
-        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-        <mat-datepicker #picker3></mat-datepicker>
-      </mat-form-field>
-  </div>
-          <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-        <mat-label>LA File/Booklet#</mat-label>
-        <input matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">
-        <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
-      </mat-form-field>
-    </div>
-          <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-        <mat-label>Status</mat-label>
-        <mat-select formControlName="Status">
-          <mat-option>
-            <ngx-mat-select-search placeholderLabel="Search Loan Status..." (focusout)="validateLoanStatusOnFocusOut()" noEntriesFoundLabel="No Loan Status Found" (keyup)="searchLoanStatus($event.target.value)">
-            </ngx-mat-select-search>
-          </mat-option>
-          <mat-option *ngFor="let loanStatus of SelectedLoanStatus" [value]="loanStatus.Id">
-            {{loanStatus.Name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-          <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-      <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-        <mat-label>Loan Case#</mat-label>
-        <input matInput placeholder="Enter Loan Case Number" formControlName="LcNo">
-        <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
-      </mat-form-field>
-  </div>
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body" [formGroup]="loanSearch">
+            <div class="flex" style="flex-wrap: wrap;" >
+                <app-zone-branch-circle [form]="loanSearch" [should_show_circle]="false"
+                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Application Date(ddMMyyyy)</mat-label>
+                            <input readonly="readonly" matInput [matDatepicker]="picker3" placeholder="ddMMyyyy" autocomplete="off" formControlName="Appdt">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
+                            <mat-label>LA File/Booklet#</mat-label>
+                            <input matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
+                            <mat-label>Status</mat-label>
+                            <mat-select formControlName="Status">
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="Search Loan Status..." (focusout)="validateLoanStatusOnFocusOut()" noEntriesFoundLabel="No Loan Status Found" (keyup)="searchLoanStatus($event.target.value)">
+                                    </ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngFor="let loanStatus of SelectedLoanStatus" [value]="loanStatus.Id">
+                                    {{loanStatus.Name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
+                            <mat-label>Loan Case#</mat-label>
+                            <input matInput placeholder="Enter Loan Case Number" formControlName="LcNo">
+                        </mat-form-field>
 
-          <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-        <button (click)="searchLoan()" class="bg-gray-500" mat-flat-button [color]="'primary'">
-          <span class="ml-2 mr-1">Search</span>
-        </button>
-      </div>
+                    </div>
+                </div>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <div class="flex flex-shrink-0 items-center mt-2 mb-2">
+                            <button class="bg-gray-500" (click)="searchLoan()" mat-flat-button [color]="'primary'">
+                                <mat-icon class="mr-2">search</mat-icon> Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
     </div>
-  </div>
-</div>
-  <div
-  [formGroup]="loanSearch">
+  <div>
 
 
 
