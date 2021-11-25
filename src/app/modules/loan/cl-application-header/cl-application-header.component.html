@@ -25,7 +25,7 @@
                 <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateLoanTypeOnFocusOut()" noEntriesFoundLabel="No Loan Type Found" (keyup)="searchLoanType($event.target.value)">
                 </ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let loanType of SelectedLoanType" [value]="loanType.Id">
+              <mat-option *ngFor="let loanType of SelectedLoanType" [value]="loanType.Value">
                 {{loanType.Name }}
               </mat-option>
             </mat-select>
@@ -141,9 +141,9 @@
     </button>
   </div>
 </div>
-<ngx-spinner bdColor="rgba(51,51,51,0.8)"
+<!-- <ngx-spinner bdColor="rgba(51,51,51,0.8)"
              size="medium"
              color="#ecbd00"
              type="ball-scale-multiple">
   <p style="font-size: 20px; color: white">Loading...</p>
-</ngx-spinner>
+</ngx-spinner> -->

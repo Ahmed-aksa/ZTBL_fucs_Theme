@@ -44,13 +44,6 @@ export class ZoneBranchCircleComponent implements OnInit {
     SelectedZones: any;
     selected_z: any;
     single_zone = true;
-
-
-    selected_zone = null;
-    selected_branch = null
-    selected_circle = null;
-
-
     selected_single_circle = null;
     selected_single_zone = null;
     selected_single_branch = null;
@@ -59,19 +52,13 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (localStorage.getItem('selected_zone')) {
-            this.selected_zone = JSON.parse(localStorage.getItem('selected_zone'));
-        } else if (localStorage.getItem('selected_single_zone')) {
+        if (localStorage.getItem('selected_single_zone')) {
             this.selected_single_zone = JSON.parse(localStorage.getItem('selected_single_zone'));
         }
-        if (localStorage.getItem('selected_branch')) {
-            this.selected_branch = JSON.parse(localStorage.getItem('selected_branch'));
-        } else if (localStorage.getItem('selected_single_branch')) {
+        if (localStorage.getItem('selected_single_branch')) {
             this.selected_single_branch = JSON.parse(localStorage.getItem('selected_single_branch'));
         }
-        if (localStorage.getItem('selected_circle')) {
-            this.selected_circle = JSON.parse(localStorage.getItem('selected_circle'));
-        } else if (localStorage.getItem('selected_single_circle')) {
+        if (localStorage.getItem('selected_single_circle')) {
             this.selected_single_circle = JSON.parse(localStorage.getItem('selected_single_circle'));
 
         }
@@ -129,49 +116,38 @@ export class ZoneBranchCircleComponent implements OnInit {
 
         }
 
-        if (localStorage.getItem('selected_zone')) {
-
+        if (localStorage.getItem('selected_single_zone')) {
             this.spinner.show();
 
+            if (this.SelectedZones && this.SelectedZones.length != 0) {
+                this.SelectedCircles.filter(single_circle => {
+                    if (single_circle.CircleId == this.selected_single_circle) {
+                        this.selected_c = this.selected_single_circle;
+                    }
+                });
+                localStorage.removeItem('selected_single_zone');
+                localStorage.removeItem('selected_single_branch');
+                localStorage.removeItem('selected_single_circle');
+                this.spinner.hide();
+            }
+            if (!this.selected_single_zone) {
+                this.userUtilsService.getZone().subscribe((data: any) => {
+                    this.SelectedZones = data.Zones;
+                    this.single_zone = false;
 
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.SelectedZones = data.Zones;
-                this.single_zone = false;
+                    this.selected_z = this.selected_single_zone;
+                    if (this.selected_single_branch) {
+                        this.changeZone(this.selected_single_zone, false, true);
+                    } else {
+                        this.spinner.hide();
+                        localStorage.removeItem('selected_single_zone');
+                        localStorage.removeItem('selected_single_branch');
+                        localStorage.removeItem('selected_single_circle');
+                        this.emitData();
+                    }
 
-                this.selected_z = this.selected_zone.ZoneId;
-
-
-                if (this.selected_branch) {
-                    this.changeZone(this.selected_z, true);
-                } else {
-                    this.spinner.hide();
-                    localStorage.removeItem('selected_zone');
-                    localStorage.removeItem('selected_branch');
-                    localStorage.removeItem('selected_circle');
-                    this.emitData();
-                }
-
-            });
-        } else if (localStorage.getItem('selected_single_zone')) {
-            this.spinner.show();
-
-
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                this.SelectedZones = data.Zones;
-                this.single_zone = false;
-
-                this.selected_z = this.selected_single_zone;
-                if (this.selected_single_branch) {
-                    this.changeZone(this.selected_single_zone, false, true);
-                } else {
-                    this.spinner.hide();
-                    localStorage.removeItem('selected_single_zone');
-                    localStorage.removeItem('selected_single_branch');
-                    localStorage.removeItem('selected_single_circle');
-                    this.emitData();
-                }
-
-            });
+                });
+            }
         }
 
         this.emitData();
@@ -185,13 +161,7 @@ export class ZoneBranchCircleComponent implements OnInit {
         else
             changedBranch = {Branch: {BranchCode: changedValue}}
         if (this.SelectedCircles && this.SelectedCircles.length != 0) {
-            if (has_circle) {
-                this.SelectedCircles.filter((single_circle) => {
-                    if (single_circle.CircleId == this.selected_circle.CircleCode) {
-                        this.selected_c = this.selected_circle.CircleCode;
-                    }
-                });
-            } else if (has_single_circle) {
+            if (has_single_circle) {
                 this.SelectedCircles.filter(single_circle => {
                     if (single_circle.CircleId == this.selected_single_circle) {
                         this.selected_c = this.selected_single_circle;
@@ -201,9 +171,6 @@ export class ZoneBranchCircleComponent implements OnInit {
             localStorage.removeItem('selected_single_zone');
             localStorage.removeItem('selected_single_branch');
             localStorage.removeItem('selected_single_circle');
-            localStorage.removeItem('selected_zone');
-            localStorage.removeItem('selected_branch');
-            localStorage.removeItem('selected_circle');
             this.spinner.hide();
 
 
@@ -213,18 +180,13 @@ export class ZoneBranchCircleComponent implements OnInit {
                 this.SelectedCircles = data.Circles;
                 this.single_circle = false;
 
-                if (has_circle) {
-                    this.selected_c = this.selected_circle.CircleCode;
-                } else if (has_single_circle) {
+                if (has_single_circle) {
                     this.selected_c = this.selected_single_circle;
                 }
                 this.spinner.hide();
                 localStorage.removeItem('selected_single_zone');
                 localStorage.removeItem('selected_single_branch');
                 localStorage.removeItem('selected_single_circle');
-                localStorage.removeItem('selected_zone');
-                localStorage.removeItem('selected_branch');
-                localStorage.removeItem('selected_circle');
                 this.emitData();
 
 
@@ -246,21 +208,7 @@ export class ZoneBranchCircleComponent implements OnInit {
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.SelectedBranches = data.Branches;
             this.single_branch = false;
-
-            if (has_branch) {
-                this.selected_b = this.selected_branch.BranchCode;
-                if (this.selected_circle) {
-
-                    this.changeBranch(this.selected_b, true)
-                } else {
-                    this.spinner.hide();
-                    localStorage.removeItem('selected_zone');
-                    localStorage.removeItem('selected_branch');
-                    localStorage.removeItem('selected_circle');
-                    this.emitData();
-
-                }
-            } else if (has_single_branch) {
+            if (has_single_branch) {
                 this.selected_b = this.selected_single_branch;
                 if (this.selected_single_circle) {
                     this.changeBranch(this.selected_b, false, true)
