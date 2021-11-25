@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {map} from 'rxjs/operators';
 import {BaseRequestModel} from '../models/base_request.model';
@@ -66,6 +66,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveApplicationHeader`,
@@ -92,6 +93,7 @@ export class LoanService {
         this.request.Zone = userInfo.Zone;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
+
 
         return this.http
             .post(
@@ -161,6 +163,7 @@ export class LoanService {
 
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveLoanSecurities`,
@@ -182,6 +185,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
+
 
         return this.http
             .post(
@@ -212,6 +216,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveLoanApplicationLegalheirs`,
@@ -236,6 +241,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
+
 
         return this.http
             .post(
@@ -262,6 +268,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/Saveupdatecorporatesurety`,
@@ -283,6 +290,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
+
 
         return this.http
             .post(
@@ -306,6 +314,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveupdateWitnesses`,
@@ -328,6 +337,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveupdatePastPaidLoans`,
@@ -340,6 +350,7 @@ export class LoanService {
     getDocumentNo(TranId: any) {
         this.request = new BaseRequestModel();
         this.request.TranId = TranId;
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/GetDocumentNo`, this.request, {
@@ -363,6 +374,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(`${environment.apiUrl}/Loan/GetCheckList`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -384,6 +396,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(`${environment.apiUrl}/Loan/SaveCheckList`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -404,6 +417,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
+
 
         return this.http
             .post(
@@ -428,6 +442,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveupdateCurrentLoans`,
@@ -449,6 +464,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
+
 
         return this.http
             .post(
@@ -473,6 +489,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         request.Activity = this.activity;
 
+
         return this.http
             .post(`${environment.apiUrl}/Loan/SearchGLCode`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -494,6 +511,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(`${environment.apiUrl}/Loan/AddCropDetail`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -514,6 +532,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
+
 
         return this.http
             .post(
@@ -540,6 +559,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/GetORRDropDownByAppID`,
@@ -562,6 +582,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
+
 
         return this.http
             .post(
@@ -693,6 +714,7 @@ export class LoanService {
         this.request.Branch = userInfo.Branch;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetViewLoanDocument`,
@@ -745,9 +767,11 @@ export class LoanService {
         var req = JSON.stringify(request);
 
         return this.http
-            .post(`${environment.apiUrl}/Loan/SearchLoanApplication`, request, {
-                headers: this.httpUtils.getHTTPHeaders(),
-            })
+            .post(
+                `${environment.apiUrl}/Loan/SearchLoanApplication`,
+                request,
+                {headers: this.httpUtils.getHTTPHeaders()}
+            )
             .pipe(map((res: BaseResponseModel) => res));
     }
 
@@ -824,6 +848,7 @@ export class LoanService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
 
+
         return this.http
             .post(`${environment.apiUrl}/Loan/SaveDBR`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -896,6 +921,7 @@ export class LoanService {
 
         this.request.Loan = loanInfo;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/DeleteCustomerLoanApplication`,
@@ -919,6 +945,7 @@ export class LoanService {
 
         this.request.Loan = loanInfo;
 
+
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/DeleteLoanpurpose`,
@@ -939,6 +966,7 @@ export class LoanService {
     }
 
     deleteLegalHeirs(legalId, loan) {
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         loanInfo.LoanApplicationLegalHeirs = new LoanApplicationLegalHeirs();
@@ -948,7 +976,8 @@ export class LoanService {
         this.request.Loan = loanInfo;
         this.request.TranId = 0;
 
-        console.log(this.request);
+
+        console.log(this.request)
 
         return this.http
             .post(`${environment.apiUrl}/Loan/DeleteLegalHeirs`, this.request, {

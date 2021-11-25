@@ -181,14 +181,14 @@ export class ClCustomersComponent implements OnInit {
             //grid.agps = this.agpsModel
 
             var tempAgpsLov = tempAgpsLovs?.filter(v => v.Id == item.Agps)
-            if (tempAgpsLov.length > 0)
+            if (tempAgpsLov?.length > 0)
                 grid.agpsName = tempAgpsLov[0].Name;
             else
                 grid.agpsName = item.Agps;
             //grid.Relationship = this.relationshipModel;
 
-            var tempRealtionshipLov = tempRelationshipLovs.filter(v => v.Id == item.RelationID);
-            if (tempRealtionshipLov.length > 0)
+            var tempRealtionshipLov = tempRelationshipLovs?.filter(v => v.Id == item.RelationID);
+            if (tempRealtionshipLov?.length > 0)
                 grid.RelationshipName = tempRealtionshipLov[0].Name;
             else
                 grid.RelationshipName = "";
@@ -257,6 +257,8 @@ export class ClCustomersComponent implements OnInit {
     }
 
     onSaveCustomer() {
+
+debugger
         if (this.customerArray[0] && (this.customerArray[0]?.agps == 'A' || this.customerArray[0]?.Relationship == '8')) {
             this.disable_tab.emit(false);
         } else {
@@ -266,6 +268,12 @@ export class ClCustomersComponent implements OnInit {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
+
+        if(this.customerArray[this.customerArray.length-1]?.CustLoanAppID){
+            this.layoutUtilsService.alertMessage("", "Records already saved");
+            return;
+        }
+
         if (this.customerArray.length > 0) {
             this.spinner.show();
             var isCustomerAdded = false;

@@ -411,6 +411,12 @@ export class MakeRcComponent implements OnInit {
     }
 
     SubmitData() {
+
+        if(this.rescheduling.LoanReschID == null || this.rescheduling.LoanReschID == undefined){
+            this.layoutUtilsService.alertElement('', "Please save before submitting.")
+            return
+        }
+
         this.spinner.show();
         this._reschedulingService
             .SubmitRescheduleData(this.rescheduling, this.branch, this.zone)

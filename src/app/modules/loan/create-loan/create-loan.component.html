@@ -1,10 +1,9 @@
 <div
-    class=" px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
-         style="background-color: #f6fcf8;">Loan Application
+    class=" px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="heading">Loan Application
     </div>
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4">
+    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pt-3">
 
     </div>
 
@@ -13,7 +12,7 @@
 
         <!-- Products list -->
         <div class="flex flex-auto overflow-y-scroll" style="flex-direction: column;">
-            <div class="flex flex-col flex-auto sm:mb-18 overflow-scroll sm:overflow-y-auto">
+            <div class="flex flex-col flex-auto sm:mb-4 overflow-scroll sm:overflow-y-auto">
                 <mat-tab-group mat-align-tabs="start" (selectedTabChange)="onTabChangeClick($event)">
                     <mat-tab label="Application Header">
                         <kt-cl-application-header [loanAppHeaderDetails]="applicationHeaderDetail"
@@ -23,10 +22,12 @@
                         <kt-cl-customers [loanDetail]="loanApplicationReq" (disable_tab)="check_disabled($event)"
                                          (loanCustomerCall)="fillLoanApplicationObject($event)"></kt-cl-customers>
                     </mat-tab>
-                    <mat-tab label="Purpose" [disabled]="disabled_tab">
-                        <kt-cl-purpose
-                            [loanDetail]="loanApplicationReq"></kt-cl-purpose>
-                    </mat-tab>
+
+                        <mat-tab  label="Purpose" (click)="checkError(disabled_tab)" [disabled]="disabled_tab" >
+                            <kt-cl-purpose
+                                [loanDetail]="loanApplicationReq"></kt-cl-purpose>
+                        </mat-tab>
+
                     <mat-tab label="Securities" [disabled]="disabled_tab">
                         <kt-cl-securities [loanDetail]="loanApplicationReq"></kt-cl-securities>
                     </mat-tab>

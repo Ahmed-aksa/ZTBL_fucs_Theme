@@ -17,7 +17,7 @@
                     </kt-alert>
 
                     <!--Get Customer Info-->
-                    <div [style.height]="gridHeight" *ngIf="NDCActionPerformSuccess">
+                    <div  *ngIf="NDCActionPerformSuccess">
                         <div class="form-group kt-form__group row ">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -42,27 +42,21 @@
 
 
                         </div>
-                        <div class="form-group kt-form__group row" *ngIf="NDCPerform" style="margin-top: 150px">
-                            <div class="col-lg-3 kt-margin-bottom-20-mobile">
-
-                            </div>
+                        <div class="form-group kt-form__group row p-4 py-2 mx-0 border mt-10" *ngIf="NDCPerform" >
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                                <h5 style="color:blue;">NDC</h5>
+                                <h5 class="text-green">NDC</h5>
                                 <h6 [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</h6>
                             </div>
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <a *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank" mat-icon-button
                                    color="primary">
-                                    <mat-icon title="view">visibility</mat-icon>
+                                    <mat-icon class="text-green" title="view">insert_drive_file</mat-icon> View Page
                                 </a>
                             </div>
                         </div>
 
-                        <div class="form-group kt-form__group row" *ngIf="IsNdcDefaulter">
-                            <div class="col-lg-3 kt-margin-bottom-20-mobile">
-
-                            </div>
-                            <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                        <div class="form-group kt-form__group p-4 py-2 mx-0 border row mt-2" *ngIf="IsNdcDefaulter">
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile">
                                 <h5 class="text-blue">Summary</h5>
                                 <h5>Customer is not eligible due to following reasons</h5>
                                 <table class="col-lg-6">
@@ -86,7 +80,7 @@
 
                     </div>
                     <!--BioMatric Case Perform-->
-                    <div [style.height]="gridHeight" *ngIf="BiMatricCasePerfom">
+                    <div  *ngIf="BiMatricCasePerfom">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-2 kt-margin-bottom-20-mobile">
 
@@ -124,7 +118,7 @@
                         </div>
                     </div>
                     <!--Biometric Credentials-->
-                    <div [style.height]="gridHeight" *ngIf="BioMetricCapture">
+                    <div  *ngIf="BioMetricCapture">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -199,7 +193,7 @@
 
                     </div>
                     <!--CWR-->
-                    <div [style.height]="gridHeight" *ngIf="BiometricCredentials">
+                    <div  *ngIf="BiometricCredentials">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -267,7 +261,7 @@
 
                     <!--ECIB-->
                     <!-- [style.height]="gridHeight"   not able to understand  -->
-                    <div [style.height]="gridHeight" *ngIf="ECIBPerformForm">
+                    <div  *ngIf="ECIBPerformForm">
                         <div class="form-group kt-form__group">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <h5>ECIB</h5>
@@ -313,43 +307,43 @@
 
               </div>-->
                     <!--Actions Fields-->
-                    <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
+                    <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border px-2 mt-6">
                         <div class="kt-form__actions kt-form__actions--solid">
                             <div class="row text-right">
                                 <div class="col-lg-12">
-                                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit" color="primary" type="button"
-                                            class="btn btn-primary mt-19 kt-login__btn-primary"
+                                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit"  type="button"
+                                            class="btn btn-primary bg-green "
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
-                                        <span><i class="fas fa-arrow-right"> &nbsp;</i> Next</span>
+                                            >
+                                         Next
                                     </button>
-                                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture" color="primary"
-                                            type="button" class="btn btn-primary mt-19 kt-login__btn-primary"
+                                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture" 
+                                            type="button" class="btn btn-primary bg-green kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
-                                        <span><i class="fas fa-arrow-right"> &nbsp;</i>Save & Next</span>
+                                            >
+                                        Save & Next
                                     </button>
                                     <button (click)="submitCWR()"
-                                            *ngIf="BiometricCredentials" color="primary" type="button"
-                                            class="btn btn-primary mt-19 kt-login__btn-primary"
+                                            *ngIf="BiometricCredentials"  type="button"
+                                            class="btn btn-primary  kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
-                                        <span><i class="fas fa-arrow-right"> &nbsp;</i>Next</span>
+                                            >
+                                       Next
                                     </button>
                                     <button type="button"
                                             (click)="refreshEcib()"
-                                            *ngIf="ECIBPerform" color="primary"
-                                            class="btn btn-primary mt-19 kt-login__btn-primary"
+                                            *ngIf="ECIBPerform" 
+                                            class="btn btn-primary kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
+                                            >
                                         Refresh
                                     </button>
                                     <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
-                                            color="primary" type="button"
-                                            class="btn btn-primary mt-19 kt-login__btn-primary"
+                                             type="button"
+                                            class="btn btn-primary kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            style="width:30%;">
-                                        <span><i class="fas fa-arrow-right"> &nbsp;</i>Next</span>
+                                            >
+                                            Next
                                     </button>
                                 </div>
                             </div>

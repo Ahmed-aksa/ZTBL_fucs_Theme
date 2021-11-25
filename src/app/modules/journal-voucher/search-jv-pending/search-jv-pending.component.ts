@@ -64,7 +64,6 @@ export class SearchJvPendingComponent implements OnInit {
     zone: any;
     circle: any;
 
-
     //userDetail : any;
     constructor(
         private cdRef: ChangeDetectorRef,
