@@ -75,7 +75,7 @@ export class PendingCustomersComponent implements OnInit {
             if (this.zone) {
                 this.searchCustomer();
             }
-        }, 3000);
+        }, 1000);
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
     }

@@ -41,6 +41,11 @@ export class AuthorizedCustomersComponent implements OnInit {
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
 
+
+    branch: any;
+    zone: any;
+
+
     constructor(
         public dialog: MatDialog,
         private activatedRoute: ActivatedRoute,
@@ -56,7 +61,11 @@ export class AuthorizedCustomersComponent implements OnInit {
     ngOnInit() {
         this.LoadLovs();
         this.createForm();
-        this.searchCustomer();
+        setTimeout(() => {
+            if (this.zone) {
+                this.searchCustomer();
+            }
+        }, 1000);
     }
 
     ngAfterViewInit() {
@@ -79,7 +88,7 @@ export class AuthorizedCustomersComponent implements OnInit {
             CustomerName: [this._customer.CustomerName, [Validators.required]],
             Cnic: [this._customer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
             FatherName: [this._customer.FatherName, [Validators.required]],
-            CustomerStatus: [this._customer.CustomerStatus, [Validators.required]]
+            CustomerStatus: ['A', [Validators.required]]
         });
     }
 
@@ -89,10 +98,8 @@ export class AuthorizedCustomersComponent implements OnInit {
     }
 
     searchCustomer() {
-        this._customer.clear();
-        this._customer.CustomerStatus = "A";
         this.spinner.show()
-        this._customerService.searchCustomer(this._customer)
+        this._customerService.searchCustomer(this.customerSearch.value, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide()
@@ -162,4 +169,8 @@ export class AuthorizedCustomersComponent implements OnInit {
 
     }
 
+    getAllData(event: { final_zone: any; final_branch: any; final_circle: any }) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+    }
 }
