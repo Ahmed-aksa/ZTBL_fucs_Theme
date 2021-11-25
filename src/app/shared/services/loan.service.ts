@@ -670,15 +670,6 @@ export class LoanService {
 
         formData.append('file', loanDoc.file);
 
-        );
-        );
-        );
-        );
-        );
-        );
-        );
-        );
-        );
 
         return this.http
             .post<any>(`${environment.apiUrl}/Loan/DocumentUpload`, formData)
@@ -977,7 +968,7 @@ export class LoanService {
         this.request.TranId = 0;
 
 
-        
+
 
         return this.http
             .post(`${environment.apiUrl}/Loan/DeleteLegalHeirs`, this.request, {
