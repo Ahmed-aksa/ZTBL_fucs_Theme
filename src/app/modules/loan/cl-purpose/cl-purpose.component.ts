@@ -119,6 +119,7 @@ export class ClPurposeComponent implements OnInit {
                 [Validators.required],
             ],
             CropID: [this.loanApplicationPurpose.CropID],
+            BwrAgreeInsurancePrem:['',[Validators.required]],
             CultivatedArea: [this.loanApplicationPurpose.CultivatedArea],
             RequiredItem: [this.loanApplicationPurpose.RequiredItem],
             Quantity: [this.loanApplicationPurpose.Quantity],
@@ -356,6 +357,12 @@ export class ClPurposeComponent implements OnInit {
         }
     }
 
+    changeRadio(val)
+    {
+        // this.
+        // this.purposeForm.controls.
+
+    }
     onDeletePurpose(GlSubID) {
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';

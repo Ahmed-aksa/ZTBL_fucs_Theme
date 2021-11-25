@@ -125,8 +125,8 @@ export class ClLegalHeirsComponent implements OnInit {
       grid.Cnic = appLegalHeirsData[i].Cnic;
       grid.PhoneCell = appLegalHeirsData[i].PhoneCell;
       grid.Dob = appLegalHeirsData[i].Dob;
-      var devProdFlag = this.RelationshipLov.filter(x => x.Id == appLegalHeirsData[i].RelationID)
-      if (devProdFlag.length > 0) {
+      var devProdFlag = this.RelationshipLov?.filter(x => x.Id == appLegalHeirsData[i].RelationID)
+      if (devProdFlag?.length > 0) {
         grid.Relation = devProdFlag[0].Description;
       }
 
