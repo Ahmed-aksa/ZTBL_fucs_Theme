@@ -724,7 +724,7 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    searchLoanApplication(loanFilter: SearchLoan) {
+    searchLoanApplication(loanFilter: SearchLoan, zone, branch) {
         var userInfo = this.userUtilsService.getUserDetails();
         var selectedCircleId = '';
 
@@ -758,9 +758,9 @@ export class LoanService {
             Loan: loanFilter,
             TranId: 0,
             User: userInfo.User,
-            Zone: selectedZone,
+            Zone: zone,
             Activity: this.activity,
-            Branch: userInfo.Branch,
+            Branch: branch,
             Circle: selectedCircle,
         };
 
