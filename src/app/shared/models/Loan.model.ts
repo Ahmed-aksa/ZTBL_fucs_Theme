@@ -155,6 +155,7 @@ export class LoanApplicationPurpose {
     GlSubID: number;
     DevProdID: number;
     SchemeID: number;
+    checkEquity:boolean;
 
 
     //GLCode: string;
@@ -188,6 +189,7 @@ export class LoanSecurities {
     EnteredBy: string;
     SecurityType: string;
     OrgUnitID: string;
+    SecurityTypeName:string;
 }
 
 // By Adnan

@@ -16,7 +16,7 @@
                   <ngx-mat-select-search placeholderLabel="Search Security Type..." (focusout)="validateSecurityTypeOnFocusOut()" (keyup)="searchSecurityType($event.target.value)" noEntriesFoundLabel="No Security Type Found">
                   </ngx-mat-select-search>
                 </mat-option>
-                <mat-option *ngFor="let securityType of SelectedSecurityType" [value]="securityType.LovId">
+                <mat-option *ngFor="let securityType of SelectedSecurityType" [value]="securityType.Id">
                   {{securityType.Name }}
                 </mat-option>
               </mat-select>
@@ -24,7 +24,7 @@
             </mat-form-field>
           </div>
           <!--<div class="col-lg-2 kt-margin-bottom-20-mobile">
-           
+
           </div>-->
           <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -45,11 +45,11 @@
                   {{areaQuantity.Name}}
                 </mat-option>
               </mat-select>
-              
+
             </mat-form-field>
           </div>
           <!--<div class="col-lg-2 kt-margin-bottom-20-mobile">
-           
+
           </div>-->
           <div class="col-lg-4 kt-margin-bottom-20-mobile">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -86,18 +86,18 @@
                 </thead>
                 <tbody class="">
                   <tr *ngFor="let loan of loanSecuritiesArray; let i = index;">
-                    <td>{{loan.SecurityType}}</td>
+                    <td>{{loan.SecurityTypeName}}</td>
                     <td>{{loan.BasisofMutation}}</td>
                     <td>{{loan.Quantity}}</td>
                     <td>{{loan.UnitPrice}}</td>
                     <td>{{loan.PludgedValue}}</td>
                     <td>{{loan.MaxCreditLimit}}</td>
-                    <td><button class="btn btn-xs btn-primary" (click)="showUpdateSecuritiesForm(loan.AppSecurityID)">Edit</button></td>
+                    <td><button class="btn btn-xs btn-primary" (click)="showUpdateSecuritiesForm(loan)">Edit</button></td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -137,14 +137,14 @@
                 <td>{{custLand.OwnAreaAddress}}</td>
                 <td>{{custLand.AttachedFlag}}</td>
                 <td>
-                  <mat-checkbox>
+                  <mat-checkbox [checked]="checkBOX(custLand?.ID)">
                   </mat-checkbox>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        
+
       </div>
     </div>
     <div class="row">

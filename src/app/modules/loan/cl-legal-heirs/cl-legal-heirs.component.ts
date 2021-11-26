@@ -86,7 +86,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
     loadCustomers(CustomersLoanAppList) {
 
-        this.loanDetail.CustomersLoanList = CustomersLoanAppList ?? of([CustomersLoanApp])
+        this.loanDetail.CustomersLoanList = JSON.parse(localStorage.getItem('customer_loan_list'));
         if (this.loanDetail != null) {
             if (this.loanDetail.CustomersLoanList.length > 0) {
                 this.SelectedCustomersList = this.loanDetail.CustomersLoanList;

@@ -98,7 +98,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
   //    //this.count = length.count;
   //    //for()
   //    this.paginate(this.pageIndex);
-  //    
+  //    console.log(this.dataSource);
   //  });
   //}
 
@@ -111,7 +111,7 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
     // this.dataService.getData2().subscribe((data:any)=>{
     // this.dataSource = data.slice(event * this.size - this.size, event * this.size);
     // })
-    this.dataSource = this.dv.slice(event * this.size - this.size, event * this.size);
+    this.dataSource = this.dv?.slice(event * this.size - this.size, event * this.size);
 
 
 
@@ -154,23 +154,18 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
           this.SchemeDetailList = baseResponse.Loan.GlConfigrationsDetail.SchemeDetailList;
 
 
-          
-          
-          
-          
-          
+          console.log(this.CropDetailList);
+          console.log(this.GLDetailList);
+          console.log(this.GlRangeDetailList);
+          console.log(this.GlSchemeCropDetailList);
+          console.log(this.SchemeDetailList);
 
 
           this.dv = this.CropDetailList;
 
           this.dataSource = new MatTableDataSource(this.CropDetailList);
 
-          this.length = this.CropDetailList.length;
-          //this.count = length.count;
-          //for()
-          this.paginate(this.pageIndex);
-          
-
+          this.length = this.CropDetailList?.length;
 
         }
         else {
