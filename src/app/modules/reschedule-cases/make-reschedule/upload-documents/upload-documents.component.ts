@@ -84,7 +84,9 @@ export class UploadDocumentsComponent implements OnInit {
         this.PostDocument = frmbuilder.group({
             ParentDocId: [this.loanDocument.ParentDocId, Validators.required],//Document Type Lov
             LcNo: [this.loanDocument.LcNo, Validators.required],
+            LoanStatus: [this.loanDocument.LoanStatus, Validators.required],
             DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
+            CategoryName: [this.loanDocument.CategoryName, Validators.required],
             Description: [this.loanDocument.Description, Validators.required],
             PageNumber: [this.loanDocument.PageNumber],
             DocumentRefNo: ['', Validators.required],
@@ -236,7 +238,14 @@ export class UploadDocumentsComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe((baseResponse) => {
-            this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+            if (baseResponse.Success === true){
+                var response = baseResponse.Loan.ApplicationHeader;
+                this.PostDocument.controls['LoanStatus'].setValue(response.AppStatusName);
+                this.PostDocument.controls['CategoryName'].setValue(response.CategoryName);
+            }
+            else{
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
         });
     }
 }
