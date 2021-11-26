@@ -359,6 +359,7 @@ export class LoanDocuments {
     EnteredBy: number;
     file: any;
     DocLoanId: string;
+    LcNo: string
 }
 
 export class SearchLoan {

@@ -643,12 +643,15 @@ export class LoanService {
     //    );
 
     //  }
-    documentUpload(loanDoc: LoanDocuments, tranId: number, loanCaseNo: string) {
-        tranId = 12121;
+    documentUpload(loanDoc: LoanDocuments) {
+        //tranId = 12121;
+        debugger
+
         var formData = new FormData();
         var loanInfo = new Loan();
 
         var userInfo = this.userUtilsService.getUserDetails();
+
 
         loanDoc.DocumentId = 1;
 
@@ -660,7 +663,7 @@ export class LoanService {
 
         formData.append('OwnerName', userInfo.User.UserName);
 
-        formData.append('LoanCaseID', loanCaseNo);
+        formData.append('LoanCaseID', loanDoc.LcNo);
 
         formData.append('ParentDocId', loanDoc.ParentDocId.toString());
 
