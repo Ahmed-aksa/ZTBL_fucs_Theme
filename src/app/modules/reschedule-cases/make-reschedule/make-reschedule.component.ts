@@ -239,9 +239,9 @@ export class MakeRcComponent implements OnInit {
                     );
 
                     this.installmentPlan = baseResponse.Loan.MakeReschedule.InstallmentPlans;
-                    if(this.installmentPlan.length != 0){
+                    if (this.installmentPlan.length != 0) {
                         this.table = true
-                    }else{
+                    } else {
                         this.table = false;
                     }
                 } else {
@@ -296,9 +296,9 @@ export class MakeRcComponent implements OnInit {
                         baseResponse.Message
                     );
                     this.installmentPlan = baseResponse.Loan.MakeReschedule.InstallmentPlans;
-                    if(this.installmentPlan.length != 0){
+                    if (this.installmentPlan.length != 0) {
                         this.table = true
-                    }else{
+                    } else {
                         this.table = false;
                     }
                     // setTimeout(() => {
@@ -423,17 +423,22 @@ export class MakeRcComponent implements OnInit {
         }
     }
 
-    uploadDocuments(){
+    uploadDocuments() {
         var lc = this.mrForm.controls.Lcno.value;
 
-        if(!lc){
+        if (!lc) {
             this.layoutUtilsService.alertElement('', "Please Add Loan Case number First");
             return
         }
 
-        const dialogRef = this.dialog.open(UploadDocumentsComponent, {data: {lcno: lc},panelClass: ['w-8/12'], height: "700px",disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+        const dialogRef = this.dialog.open(UploadDocumentsComponent, {
+            data: {lcno: lc},
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })
@@ -441,7 +446,7 @@ export class MakeRcComponent implements OnInit {
 
     SubmitData() {
 
-        if(this.rescheduling.LoanReschID == null || this.rescheduling.LoanReschID == undefined){
+        if (this.rescheduling.LoanReschID == null || this.rescheduling.LoanReschID == undefined) {
             this.layoutUtilsService.alertElement('', "Please save before submitting.")
             return
         }
@@ -460,7 +465,7 @@ export class MakeRcComponent implements OnInit {
 
                 if (baseResponse.Success === true) {
                     this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
-                    this.router.navigateByUrl('/reschedule-cases/search-reschedule')
+                    this.router.navigateByUrl('/dashboard');
                 } else {
                     this.layoutUtilsService.alertElement(
                         "",
