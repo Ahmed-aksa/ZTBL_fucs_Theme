@@ -118,7 +118,7 @@ export class ReschedulingService {
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
-        
+
         let loanResch = rescheduling.LoanReschID;
         this.MakeReschedule.LoanReschID = loanResch;
         this.MakeReschedule.Remarks = "ok"
@@ -136,7 +136,7 @@ export class ReschedulingService {
         var req = JSON.stringify(this.request);
         this.request.Branch = branch;
         this.request.Zone = zone;
-        
+
         return this.http.post(`${environment.apiUrl}/Loan/SubmitRescheduleData`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -209,6 +209,22 @@ export class ReschedulingService {
     }
 
     GetSubProposalGL(lCNo, branch, zone): Observable<BaseResponseModel> {
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        var circleIds = [];
+
+        if (userInfo.UserCircleMappings.length != 0) {
+            userInfo.UserCircleMappings.forEach(element => {
+                circleIds.push(element.CircleId);
+            });
+        } else {
+            circleIds = ["0"]
+        }
+        var _circles = circleIds.toString();
+        let circle = {
+            CircleIds: _circles
+        }
+        debugger
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
@@ -217,6 +233,7 @@ export class ReschedulingService {
         var req = JSON.stringify(this.request);
         this.request.Branch = branch;
         this.request.Zone = zone;
+        this.request.Circle = circle;
         return this.http.post(`${environment.apiUrl}/Loan/GetSubProposalGL`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)

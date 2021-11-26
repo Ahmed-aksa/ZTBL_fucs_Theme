@@ -30,15 +30,19 @@
 
                     <div class="form-group kt-form__group row">
 
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" >
                                 <mat-label class="customMatLabel">Loancase NO: <strong class="matMandatory">*</strong></mat-label>
-                                <input matInput formControlName="LcNo" [readOnly]="disable_lc">
+                                <input matInput formControlName="LcNo" [readonly]="disable_lc">
                                 <mat-error *ngIf="hasError('DocumentRefNo', 'required')">LcNo <strong>required</strong></mat-error>
                             </mat-form-field>
                         </div>
 
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                        <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                            <button (click)="loanCase()" mat-raised-button color="primary">Search</button>
+                        </div>
+
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Status: <strong class="matMandatory">*</strong></mat-label>
                                 <input matInput formControlName="DocumentRefNo">
