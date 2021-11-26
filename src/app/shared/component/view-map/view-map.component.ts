@@ -135,7 +135,6 @@ export class ViewMapsComponent implements OnInit {
     loc_arr = [];
 
     ngOnInit() {
-
     }
 
 

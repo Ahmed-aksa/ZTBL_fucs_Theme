@@ -6,18 +6,19 @@ import {finalize} from 'rxjs/operators';
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {DatePipe} from '@angular/common';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
-import {DateFormats} from "../../../shared/classes/lov.class";
-import {LoanUtilizationModel, UtilizationFiles} from "../Model/loan-utilization.model";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {MatTableDataSource} from "@angular/material/table";
-import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
-import {LoanUtilizationService} from "../service/loan-utilization.service";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {DateFormats} from '../../../shared/classes/lov.class';
+import {LoanUtilizationModel, UtilizationFiles} from '../Model/loan-utilization.model';
+import {BaseResponseModel} from '../../../shared/models/base_response.model';
+import {MatTableDataSource} from '@angular/material/table';
+import {UserUtilsService} from '../../../shared/services/users_utils.service';
+import {LayoutUtilsService} from '../../../shared/services/layout-utils.service';
+import {LoanUtilizationService} from '../service/loan-utilization.service';
 import {ViewFileComponent} from '../view-file/view-file.component';
-import {Zone} from "../../../shared/models/zone.model";
+import {Zone} from '../../../shared/models/zone.model';
 import {Circle} from 'app/shared/models/circle.model';
 import {Branch} from 'app/shared/models/branch.model';
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 @Component({
     selector: 'kt-loan-utilization',
@@ -56,6 +57,9 @@ export class LoanUtilizationComponent implements OnInit {
     branch: any;
     zone: any;
     circle: any;
+
+    Lat = [];
+    Lng = [];
     displayedColumns = [
         'LoanCaseNo',
         'gl',
@@ -141,7 +145,7 @@ export class LoanUtilizationComponent implements OnInit {
 
         }
 
-        this.mediaGetter = Object.assign(this.loanUtilizationModel)
+        this.mediaGetter = Object.assign(this.loanUtilizationModel);
         router.events.subscribe((val: any) => {
             if (val.url == '/deceased-customer/customers') {
             }
@@ -150,7 +154,7 @@ export class LoanUtilizationComponent implements OnInit {
 
 
     ngAfterViewInit() {
-        if (this.loanUtilizationModel.LoanCaseNo && this.loanUtilizationModel.Status != "Add") {
+        if (this.loanUtilizationModel.LoanCaseNo && this.loanUtilizationModel.Status != 'Add') {
             this.GetMedia();
         }
         // this.GetDisbursement();
@@ -173,7 +177,7 @@ export class LoanUtilizationComponent implements OnInit {
 
         this.setMediaLimits();
         if (this.loanUtilizationModel.LoanCaseNo) {
-            if (this.loanUtilizationModel["view"] == "1") {
+            if (this.loanUtilizationModel['view'] == '1') {
                 this.viewonly = true;
                 this.remarksFeild = true;
             } else {
@@ -200,7 +204,7 @@ export class LoanUtilizationComponent implements OnInit {
 
 
     checkUser() {
-        var userInfo = this.userUtilsService.getUserDetails();
+        const userInfo = this.userUtilsService.getUserDetails();
         if (userInfo.User.userGroup[0].ProfileID == '56') {
             this.isMCO = true;
         } else if (userInfo.User.userGroup[0].ProfileID == '57') {
@@ -216,18 +220,18 @@ export class LoanUtilizationComponent implements OnInit {
                 this.isSubmit = true;
                 this.remarksFeild = false;
                 this.isDelete = true;
-            } else if (this.loanUtilizationModel.Status == "R") {
+            } else if (this.loanUtilizationModel.Status == 'R') {
                 this.isSave = true;
                 this.isSubmit = true;
                 this.isDelete = true;
                 this.remarksFeild = false;
-            } else if (this.loanUtilizationModel.Status == "Add") {
+            } else if (this.loanUtilizationModel.Status == 'Add') {
                 this.isSave = true;
                 this.isSubmit = true;
                 this.remarksFeild = false;
             }
         } else if (this.isBM) {
-            if (this.loanUtilizationModel.Status == "S") {
+            if (this.loanUtilizationModel.Status == 'S') {
                 this.isReffer = true;
                 this.isAuthorize = true;
                 this.viewonly = true;
@@ -282,15 +286,15 @@ export class LoanUtilizationComponent implements OnInit {
         if (this.images.length < this.MaxNumberOfImages) {
 
             if (event.target.files && event.target.files[0]) {
-                var Name = event.target.files[0].name.split('.').pop();
+                const Name = event.target.files[0].name.split('.').pop();
                 if (Name != undefined) {
                     if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
-                        var reader = new FileReader();
+                        const reader = new FileReader();
                         reader.onload = (event: any) => {
                             this.imageUrl.push(event.target.result);
                         };
                         reader.readAsDataURL(event.target.files[0]);
-                        var utilizationFile = new UtilizationFiles();
+                        const utilizationFile = new UtilizationFiles();
                         utilizationFile.file = Object.assign(event.target.files[0]);
                         this.images.push(utilizationFile);
                     } else {
@@ -308,15 +312,15 @@ export class LoanUtilizationComponent implements OnInit {
     onSelectFileV(event) {
         if (this.videos.length < this.MaxNumberOfVideo) {
             if (event.target.files && event.target.files[0]) {
-                var Name = event.target.files[0].name.split('.').pop();
+                const Name = event.target.files[0].name.split('.').pop();
                 if (Name != undefined) {
                     if (Name.toLowerCase() == 'mp4') {
-                        var reader = new FileReader();
+                        const reader = new FileReader();
                         reader.onload = (event: any) => {
                             this.videoUrl.push(event.target.result);
                         };
                         reader.readAsDataURL(event.target.files[0]);
-                        var utilizationFile = new UtilizationFiles();
+                        const utilizationFile = new UtilizationFiles();
                         utilizationFile.file = Object.assign(event.target.files[0]);
                         this.videos.push(utilizationFile);
                     } else {
@@ -415,41 +419,41 @@ export class LoanUtilizationComponent implements OnInit {
 
     changeStatus(status: string) {
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks.value;
-        if (this.loanUtilizationModel.Remarks == "") {
-            var msg = "Please Enter Remarks before submitting"
+        if (this.loanUtilizationModel.Remarks == '') {
+            var msg = 'Please Enter Remarks before submitting';
             this.layoutUtilsService.alertElement(
-                "",
+                '',
                 msg,
-                ""
+                ''
             );
             return;
         }
 
-        if (status == "S" && (this.loanUtilizationModel.ID == undefined || this.loanUtilizationModel.ID == null)) {
-            var msg = "Please save before submitting"
+        if (status == 'S' && (this.loanUtilizationModel.ID == undefined || this.loanUtilizationModel.ID == null)) {
+            var msg = 'Please save before submitting';
             this.layoutUtilsService.alertElement(
-                "",
+                '',
                 msg,
-                ""
+                ''
             );
             return;
         }
 
         if (status && !(this.imageUrl.length > 0)) {
-            var msg = "Please Attach image"
+            var msg = 'Please Attach image';
             this.layoutUtilsService.alertElement(
-                "",
+                '',
                 msg,
-                ""
+                ''
             );
             return;
         }
         if (status && !(this.videoUrl.length > 0)) {
-            var msg = "Please Attach video"
+            var msg = 'Please Attach video';
             this.layoutUtilsService.alertElement(
-                "",
+                '',
                 msg,
-                ""
+                ''
             );
             return;
         }
@@ -467,7 +471,7 @@ export class LoanUtilizationComponent implements OnInit {
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-                        if (status == "S" || status == "C") {
+                        if (status == 'S' || status == 'C') {
                             this.router.navigate(['/loan-utilization/search-uti']);
                         }
                         this.layoutUtilsService.alertElementSuccess(
@@ -526,10 +530,12 @@ export class LoanUtilizationComponent implements OnInit {
                 .subscribe((baseResponse) => {
                     if (baseResponse.Success) {
                         this.isEmpty = true;
-                        var utilizationFiles = baseResponse.LoanUtilization['UtilizationFiles'];
+                        const utilizationFiles = baseResponse.LoanUtilization['UtilizationFiles'];
                         if (utilizationFiles) {
                             for (let i = 0; i < utilizationFiles.length; i++) {
                                 if (utilizationFiles[i].ImageFilePath) {
+                                    this.Lat.push(utilizationFiles[i].Lat);
+                                    this.Lng.push(utilizationFiles[i].Lng);
                                     this.images.push(utilizationFiles[i]);
                                     this.imageUrl.push(utilizationFiles[i].ImageFilePath);
                                 } else {
@@ -636,7 +642,7 @@ export class LoanUtilizationComponent implements OnInit {
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-                        this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID
+                        this.loanUtilizationModel.ID = baseResponse.LoanUtilization.UtilizationDetail.ID;
                         if (this.images.length && this.videos.length) {
 
                             this.layoutUtilsService.alertElementSuccess(
@@ -649,7 +655,7 @@ export class LoanUtilizationComponent implements OnInit {
 
                     } else {
                         this.layoutUtilsService.alertElement(
-                            "",
+                            '',
                             baseResponse.Message,
                             baseResponse.Code = null
                         );
@@ -659,7 +665,7 @@ export class LoanUtilizationComponent implements OnInit {
 
     currentIndex: number = 0;
 
-    message = "";
+    message = '';
 
     SaveImages() {
         if (this.currentIndex < this.images.length) {
@@ -672,9 +678,9 @@ export class LoanUtilizationComponent implements OnInit {
                     }))
                     .subscribe((baseResponse) => {
                         if (baseResponse.Success) {
-                            this.message = baseResponse.Message
-                            this.currentIndex++
-                            this.SaveImages()
+                            this.message = baseResponse.Message;
+                            this.currentIndex++;
+                            this.SaveImages();
 
                         } else {
 
@@ -686,12 +692,12 @@ export class LoanUtilizationComponent implements OnInit {
                         }
                     });
             } else {
-                this.currentIndex++
-                this.SaveImages()
+                this.currentIndex++;
+                this.SaveImages();
             }
 
         } else {
-            this.currentIndex = 0
+            this.currentIndex = 0;
             this.SaveVideos();
         }
     }
@@ -706,9 +712,9 @@ export class LoanUtilizationComponent implements OnInit {
                     }))
                     .subscribe((baseResponse) => {
                         if (baseResponse.Success) {
-                            this.message = baseResponse.Message
-                            this.currentIndex++
-                            this.SaveVideos()
+                            this.message = baseResponse.Message;
+                            this.currentIndex++;
+                            this.SaveVideos();
 
                         } else {
                             this.layoutUtilsService.alertElement(
@@ -719,11 +725,11 @@ export class LoanUtilizationComponent implements OnInit {
                         }
                     });
             } else {
-                this.currentIndex++
-                this.SaveVideos()
+                this.currentIndex++;
+                this.SaveVideos();
             }
         } else {
-            if (this.message != "") {
+            if (this.message != '') {
                 // this.layoutUtilsService.alertElementSuccess(
                 //     '',
                 //     this.message,
@@ -740,6 +746,23 @@ export class LoanUtilizationComponent implements OnInit {
         }
     }
 
+    viewMap(i) {
+        let data = {
+            Lat: this.Lat[i],
+            Lng: this.Lng[i]
+        };
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+        });
+    }
 }
 
 

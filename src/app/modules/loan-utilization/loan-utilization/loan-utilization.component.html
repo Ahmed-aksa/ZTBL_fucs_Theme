@@ -219,8 +219,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="width: 320px;height: 240px;">
-                            <img [src]="url" (click)="previewImg(url)" width="320" height="240">
+                        <div style="width: 240px;">
+                            <img [src]="url" (click)="previewImg(url)">
+                            <button mat-flat-button color="accent" (click)="viewMap(i)">View Location</button>
                         </div>
                     </div>
                 </div>
