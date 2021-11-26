@@ -63,7 +63,7 @@ export class ClSecuritiesComponent implements OnInit {
     private layoutUtilsService: LayoutUtilsService,
     private spinner: NgxSpinnerService
   ) {
-    
+
   }
 
   ngOnInit() {
@@ -80,9 +80,19 @@ export class ClSecuritiesComponent implements OnInit {
     this.SecurityTypes = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.SecurityType })
 
     this.SelectedSecurityType = this.SecurityTypes.LOVs;
-    
+
 
   }
+
+    checkBOX(ID){
+      if(ID>0){
+          return true;
+      }
+      else{
+          return false;
+      }
+
+    }
   searchSecurityType(securityTypeId) {
     securityTypeId = securityTypeId.toLowerCase();
     if (securityTypeId != null && securityTypeId != undefined && securityTypeId != "")
@@ -91,7 +101,7 @@ export class ClSecuritiesComponent implements OnInit {
       this.SelectedSecurityType = this.SecurityTypes.LOVs;
   }
   validateSecurityTypeOnFocusOut() {
-    
+
     if (this.SelectedSecurityType.length == 0)
       this.SelectedSecurityType = this.SecurityTypes.LOVs;
   }
@@ -103,7 +113,7 @@ export class ClSecuritiesComponent implements OnInit {
     this.areaQuantities = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Quantity })
 
     this.SelectedAreaQuantities = this.areaQuantities.LOVs;
-    
+
   }
   searchAreaQuantit(areaId) {
     areaId = areaId.toLowerCase();
@@ -124,7 +134,8 @@ export class ClSecuritiesComponent implements OnInit {
       QuantityUnit: [this.loanSecurities.QuantityUnit, [Validators.required]], //quantity area
       Quantity:  [this.loanSecurities.Quantity], //quantity area
       UnitPrice: [this.loanSecurities.UnitPrice, [Validators.required]], // unit price
-     
+      AppSecurityID: [],
+
     });
   }
 
@@ -136,15 +147,15 @@ export class ClSecuritiesComponent implements OnInit {
 
 
     this.editLoanSecuritiesArray = appSecuritiesData
-    
-    
+
+
 
     var tempCustomerArray: SecuritiesGrid[] = [];
     if (appSecuritiesData.length != 0) {
     appSecuritiesData.forEach(function (item, key) {
 
       var grid = new SecuritiesGrid();
-      
+
       grid.EnteredBy = item.EnteredBy
       grid.CollTypeID = item.CollTypeID;
       grid.QuantityUnit = item.QuantityUnit;
@@ -158,13 +169,14 @@ export class ClSecuritiesComponent implements OnInit {
       grid.Quantity = item.Quantity;
       grid.EnteredDate = item.EnteredDate;
       grid.SecurityType = item.SecurityType;
+      grid.SecurityTypeName = item.SecurityTypeName;
       grid.OrgUnitID = item.OrgUnitID;
       tempCustomerArray.push(grid);
 
 
     });
     }
-    
+
     this.loanSecuritiesArray = tempCustomerArray;
   }
 
@@ -175,7 +187,7 @@ export class ClSecuritiesComponent implements OnInit {
       return;
     }
 
-    
+
     this._loanService.getCustomerLand(this.loanDetail.ApplicationHeader.LoanAppID)
       .pipe(
         finalize(() => {
@@ -193,9 +205,9 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   attachCustomerLandtoLoan() {
-    
 
-    
+
+
     if (this.customerLandList.length > 0) {
       this.spinner.show();
       this._loanService.attachCustomersLand(this.customerLandList, this.loanDetail.TranId)
@@ -204,7 +216,7 @@ export class ClSecuritiesComponent implements OnInit {
             this.spinner.hide();
           })
       ).subscribe(baseResponse => {
-        
+
           if (baseResponse.Success) {
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
           }
@@ -219,7 +231,7 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   onSaveLoanSecurities() {
-    
+
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -249,17 +261,21 @@ export class ClSecuritiesComponent implements OnInit {
 
     this.loanSecurities.Remarks = "";
     this.loanSecurities.AppSecurityID = this.currentUpdateSecurityRecordId;
+    if(this.LoanSecuritiesForm.controls["AppSecurityID"].value>0){
+        this.loanSecurities.AppSecurityID=this.LoanSecuritiesForm.controls["AppSecurityID"].value;
+    }
+    debugger
     this.loanSecurities.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
     //this.loanSecurities.LoanAppID = 0;
     this.loanSecurities.BasisofMutation = "PIU";
     this.loanSecurities.EnteredDate = this.datePipe.transform(new Date(), "ddMMyyyy");
-    
+
     this.loanSecurities.SecurityType = this.currentSelectedSecurityType
 
-    
+
     this.spinner.show();
     this.isSecuritiesFormInProgress = true;
-    
+
     this._loanService.saveLoanSecurities(this.loanSecurities, this.loanDetail.TranId)
       .pipe(
         finalize(() => {
@@ -268,12 +284,12 @@ export class ClSecuritiesComponent implements OnInit {
         })
       )
       .subscribe(baseResponse => {
-        
+
         if (baseResponse.Success) {
-          
+
           this.isSecuritiesFormInProgress = false;
           var loanGrid = new LoanSecurities();
-          loanGrid.AppSecurityID = 
+          loanGrid.AppSecurityID =
           loanGrid.AppSecurityID = this.loanSecurities.AppSecurityID;
           loanGrid.BasisofMutation = this.loanSecurities.BasisofMutation;
           loanGrid.CollTypeID = this.loanSecurities.CollTypeID;
@@ -287,7 +303,7 @@ export class ClSecuritiesComponent implements OnInit {
           loanGrid.SecurityType = this.loanSecurities.SecurityType;
           loanGrid.UnitPrice = this.loanSecurities.UnitPrice;
           this.loanSecuritiesArray.push(loanGrid);
-          
+
           this._cdf.detectChanges();
           this.LoanSecuritiesForm.controls["CollTypeID"].setValue("");
           this.LoanSecuritiesForm.controls["Quantity"].setValue("");
@@ -316,13 +332,13 @@ export class ClSecuritiesComponent implements OnInit {
     });
   }
 
-  showUpdateSecuritiesForm(AppSecurityID) {
-    
+  showUpdateSecuritiesForm(loan) {
+  let AppSecurityID = loan.AppSecurityID;
+      console.log("loanSecuritiesArray"+JSON.stringify(this.loanSecuritiesArray))
     for (var i = 0; i < this.editLoanSecuritiesArray.length; i++) {
 
       if (this.editLoanSecuritiesArray[i].AppSecurityID == AppSecurityID) {
-        
-        
+          this.LoanSecuritiesForm.controls["CollTypeID"].setValue(this.editLoanSecuritiesArray[i].CollTypeID);
         this.LoanSecuritiesForm.controls["Quantity"].setValue(this.editLoanSecuritiesArray[i].Quantity);
         this.LoanSecuritiesForm.controls["UnitPrice"].setValue(this.editLoanSecuritiesArray[i].UnitPrice);
         this.loanSecurities.MaxCreditLimit = this.editLoanSecuritiesArray[i].MaxCreditLimit;
@@ -333,6 +349,8 @@ export class ClSecuritiesComponent implements OnInit {
             this.LoanSecuritiesForm.controls["CollTypeID"].setValue(devProdFlag[0].CollTypeID);
           }
         }
+          this.LoanSecuritiesForm.controls["CollTypeID"].setValue(this.editLoanSecuritiesArray[i].CollTypeID);
+          this.LoanSecuritiesForm.controls["AppSecurityID"].setValue(AppSecurityID);
 
         if (this.editLoanSecuritiesArray[i].CollTypeID != null, this.editLoanSecuritiesArray[i].CollTypeID != undefined) {
           var devProdFlag = this.SelectedAreaQuantities.filter(x => x.Name == this.editLoanSecuritiesArray[i].BasisofMutation); //[0].Id;
@@ -359,4 +377,5 @@ export class SecuritiesGrid {
   SecurityType: string;
   EnteredBy: string;
   OrgUnitID: string;
+    SecurityTypeName:string;
 }
