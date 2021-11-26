@@ -9,6 +9,7 @@ import {SearchRcComponent} from './search-rc/search-rc.component';
 import {NewGlCodeComponent} from './make-reschedule/new-gl-code/new-gl-code.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { UploadDocumentsComponent } from './make-reschedule/upload-documents/upload-documents.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
         ReferBackRescheduleCasesComponent,
         RequestForRlComponent,
         SearchRcComponent,
-        NewGlCodeComponent
+        NewGlCodeComponent,
+        UploadDocumentsComponent
     ],
     imports: [
         CommonModule,
