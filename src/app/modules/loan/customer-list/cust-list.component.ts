@@ -105,11 +105,9 @@ export class CustLoanlistComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger
         this.data
-        if (this.isDialog || this.data.flag==1)
-        {
-            
+        if (this.isDialog || this.data.flag == 1) {
+
             this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus']
         }
 
@@ -148,20 +146,9 @@ export class CustLoanlistComponent implements OnInit {
 
 
     searchCustomer() {
-        debugger
         this._customer.clear();
         this._customer = Object.assign(this._customer, this.customerSearch.value);
         const controlsCust = this.customerSearch.controls;
-        // if ((this._customer.CustomerName == null || this._customer.CustomerName == "") && (this._customer.Cnic == null || this._customer.Cnic == "") && (this._customer.FatherName == null || this._customer.FatherName == "") && (this._customer.CustomerStatus == null || this._customer.CustomerStatus == "")) {
-        //     Object.keys(controlsCust).forEach(controlName =>
-        //         controlsCust[controlName].markAsTouched()
-        //     );
-        //     return;
-        // } else {
-        //     Object.keys(controlsCust).forEach(controlName =>
-        //         controlsCust[controlName].markAsUntouched()
-        //     );
-        // }
         if (this._customer.CustomerStatus == "All")
             this._customer.CustomerStatus = "";
         this._customerService.searchCustomer(this._customer, this.branch, this.zone)

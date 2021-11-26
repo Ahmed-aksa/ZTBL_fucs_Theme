@@ -569,25 +569,26 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    deleteAppraisalItemDetail(appraisal: AppraisalProposed, tranId: number) {
-        this.request = new BaseRequestModel();
+    deleteAppraisalItemDetail(appraisal: any, tranId: number) {
+        var request = new BaseRequestModel();
 
         var loanInfo = new Loan();
-        loanInfo.AppraisalProposed = appraisal;
-        this.request.Loan = loanInfo;
+        loanInfo.CropProduction = appraisal;
+        request.Loan = loanInfo;
         this.request.TranId = tranId;
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
-        this.activity.ActivityID = 1;
-        this.request.Activity = this.activity;
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        request.User = userInfo.User;
+        request.Zone = userInfo.Zone;
+        request.Branch = userInfo.Branch;
+        request.Activity = {
+            ActivityId: 1
+        };
 
 
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/DeleteAppraisalItemDetail`,
-                this.request,
+                request,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
@@ -969,8 +970,6 @@ export class LoanService {
         loanInfo.LoanApplicationLegalHeirs.ID = legalId;
         this.request.Loan = loanInfo;
         this.request.TranId = 0;
-
-
 
 
         return this.http
