@@ -77,9 +77,9 @@ export class ClCustomersComponent implements OnInit {
     async LoadLovs() {
 
         //this.ngxService.start();
+
         var tempArray = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.AGPS});
         this.AGPSLov = tempArray.LOVs;
-
         tempArray = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Relationship})
         this.RelationshipLov = tempArray.LOVs;
 
