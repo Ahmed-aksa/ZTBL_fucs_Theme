@@ -289,20 +289,21 @@ export class ClSecuritiesComponent implements OnInit {
 
           this.isSecuritiesFormInProgress = false;
           var loanGrid = new LoanSecurities();
-          loanGrid.AppSecurityID =
-          loanGrid.AppSecurityID = this.loanSecurities.AppSecurityID;
-          loanGrid.BasisofMutation = this.loanSecurities.BasisofMutation;
-          loanGrid.CollTypeID = this.loanSecurities.CollTypeID;
-          loanGrid.EnteredDate = this.loanSecurities.EnteredDate;
-          loanGrid.LoanAppID = this.loanSecurities.LoanAppID;
-          loanGrid.MaxCreditLimit = this.loanSecurities.MaxCreditLimit;
-          loanGrid.PludgedValue = this.loanSecurities.PludgedValue;
-          loanGrid.Quantity = this.loanSecurities.Quantity;
-          loanGrid.QuantityUnit = this.loanSecurities.QuantityUnit;
-          loanGrid.Remarks = this.loanSecurities.Remarks;
-          loanGrid.SecurityType = this.loanSecurities.SecurityType;
-          loanGrid.UnitPrice = this.loanSecurities.UnitPrice;
-          this.loanSecuritiesArray.push(loanGrid);
+          // loanGrid.AppSecurityID =
+          // loanGrid.AppSecurityID = this.loanSecurities.AppSecurityID;
+          // loanGrid.BasisofMutation = this.loanSecurities.BasisofMutation;
+          // loanGrid.CollTypeID = this.loanSecurities.CollTypeID;
+          // loanGrid.EnteredDate = this.loanSecurities.EnteredDate;
+          // loanGrid.LoanAppID = this.loanSecurities.LoanAppID;
+          // loanGrid.MaxCreditLimit = this.loanSecurities.MaxCreditLimit;
+          // loanGrid.PludgedValue = this.loanSecurities.PludgedValue;
+          // loanGrid.Quantity = this.loanSecurities.Quantity;
+          // loanGrid.QuantityUnit = this.loanSecurities.QuantityUnit;
+          // loanGrid.Remarks = this.loanSecurities.Remarks;
+          // loanGrid.SecurityType = this.loanSecurities.SecurityType;
+          // loanGrid.UnitPrice = this.loanSecurities.UnitPrice;
+            this.loanSecuritiesArray=[];
+          this.loanSecuritiesArray = baseResponse.Loan["LoanSecuritiesList"];
 
           this._cdf.detectChanges();
           this.LoanSecuritiesForm.controls["CollTypeID"].setValue("");
@@ -313,10 +314,11 @@ export class ClSecuritiesComponent implements OnInit {
             this.LoanSecuritiesForm.get(key).markAsUntouched();
           });
           const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            this.LoanSecuritiesForm.markAsUntouched();
         }
         else {
           //this.isSaveApplicationHeaderInProgress = false;
-          this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+          this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code)
         }
       });
 
@@ -333,33 +335,15 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   showUpdateSecuritiesForm(loan) {
-  let AppSecurityID = loan.AppSecurityID;
-      console.log("loanSecuritiesArray"+JSON.stringify(this.loanSecuritiesArray))
-    for (var i = 0; i < this.editLoanSecuritiesArray.length; i++) {
+      console.log(JSON.stringify(loan))
 
-      if (this.editLoanSecuritiesArray[i].AppSecurityID == AppSecurityID) {
-          this.LoanSecuritiesForm.controls["CollTypeID"].setValue(this.editLoanSecuritiesArray[i].CollTypeID);
-        this.LoanSecuritiesForm.controls["Quantity"].setValue(this.editLoanSecuritiesArray[i].Quantity);
-        this.LoanSecuritiesForm.controls["UnitPrice"].setValue(this.editLoanSecuritiesArray[i].UnitPrice);
-        this.loanSecurities.MaxCreditLimit = this.editLoanSecuritiesArray[i].MaxCreditLimit;
+        this.LoanSecuritiesForm.controls["Quantity"].setValue(loan.Quantity);
+        this.LoanSecuritiesForm.controls["UnitPrice"].setValue(loan.UnitPrice);
+        this.loanSecurities.MaxCreditLimit = loan?.MaxCreditLimit;
+          this.LoanSecuritiesForm.controls["CollTypeID"].setValue(loan?.CollTypeID);
+          this.LoanSecuritiesForm.controls["AppSecurityID"].setValue(loan?.AppSecurityID);
+          this.LoanSecuritiesForm.controls["QuantityUnit"].setValue(loan?.Quantity);
 
-        if (this.editLoanSecuritiesArray[i].CollTypeID != null, this.editLoanSecuritiesArray[i].CollTypeID != undefined) {
-          var devProdFlag = this.SelectedSecurityType.filter(x => x.Id == this.editLoanSecuritiesArray[i].CollTypeID); //[0].Id;
-          if (devProdFlag.length > 0) {
-            this.LoanSecuritiesForm.controls["CollTypeID"].setValue(devProdFlag[0].CollTypeID);
-          }
-        }
-          this.LoanSecuritiesForm.controls["CollTypeID"].setValue(this.editLoanSecuritiesArray[i].CollTypeID);
-          this.LoanSecuritiesForm.controls["AppSecurityID"].setValue(AppSecurityID);
-
-        if (this.editLoanSecuritiesArray[i].CollTypeID != null, this.editLoanSecuritiesArray[i].CollTypeID != undefined) {
-          var devProdFlag = this.SelectedAreaQuantities.filter(x => x.Name == this.editLoanSecuritiesArray[i].BasisofMutation); //[0].Id;
-          if (devProdFlag.length > 0) {
-            this.LoanSecuritiesForm.controls["QuantityUnit"].setValue(devProdFlag[0].Id);
-          }
-        }
-      }
-    }
   }
 }
 export class SecuritiesGrid {
