@@ -155,6 +155,7 @@ export class LoanApplicationPurpose {
     GlSubID: number;
     DevProdID: number;
     SchemeID: number;
+    checkEquity:boolean;
 
 
     //GLCode: string;
@@ -361,6 +362,7 @@ export class LoanDocuments {
     EnteredBy: number;
     file: any;
     DocLoanId: string;
+    LcNo: string
 }
 
 export class SearchLoan {

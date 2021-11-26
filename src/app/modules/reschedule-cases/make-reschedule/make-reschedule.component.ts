@@ -22,7 +22,7 @@ import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {DatePipe} from "@angular/common";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {CircleService} from "../../../shared/services/circle.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {NewGlCodeComponent} from "./new-gl-code/new-gl-code.component";
@@ -34,6 +34,8 @@ import {Zone} from 'app/shared/models/zone.model';
 import {ReschedulingService} from '../service/rescheduling.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {BufricationOfOsBalancesLcComponent} from "../../reports/bufrication-of-os-balances-lc/bufrication-of-os-balances-lc.component";
+import {UploadDocumentsComponent} from "./upload-documents/upload-documents.component";
 
 @Component({
     selector: 'app-make-rc',
@@ -103,6 +105,7 @@ export class MakeRcComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private datePipe: DatePipe,
+        private dialog: MatDialog
     ) {
         router.events.subscribe((val: any) => {
             if (val.url == "/reschedule-cases/make-reschedule") {
@@ -234,6 +237,13 @@ export class MakeRcComponent implements OnInit {
                     this.mrForm.controls["GlSubIDNew"].setValue(
                         baseResponse.Loan.MakeReschedule.GlSubIDNew
                     );
+
+                    this.installmentPlan = baseResponse.Loan.MakeReschedule.InstallmentPlans;
+                    if(this.installmentPlan.length != 0){
+                        this.table = true
+                    }else{
+                        this.table = false;
+                    }
                 } else {
                     this.layoutUtilsService.alertElement(
                         "",
@@ -285,7 +295,7 @@ export class MakeRcComponent implements OnInit {
                         "",
                         baseResponse.Message
                     );
-                    this.installmentPlan = baseResponse.Loan.MakeReschedule.InstallmentPlan;
+                    this.installmentPlan = baseResponse.Loan.MakeReschedule.InstallmentPlans;
                     if(this.installmentPlan.length != 0){
                         this.table = true
                     }else{
@@ -411,6 +421,16 @@ export class MakeRcComponent implements OnInit {
                     }
                 });
         }
+    }
+
+    uploadDocuments(){
+        var lc = this.mrForm.controls.Lcno.value;
+        const dialogRef = this.dialog.open(UploadDocumentsComponent, {data: {lcno: lc},panelClass: ['w-8/12'], height: "700px",disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
     }
 
     SubmitData() {
