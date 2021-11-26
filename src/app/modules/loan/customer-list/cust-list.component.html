@@ -17,7 +17,8 @@
                     <mat-icon class="mr-2">filter_list</mat-icon>
                     Advance Filter
                 </button>
-                <button  *ngIf="data?.flag==1" (click)="onNoClick()" class="mt-2 text-danger-500" mat-icon-button  style="float:right">
+                <button *ngIf="data?.flag==1" (click)="onNoClick()" class="mt-2 text-danger-500" mat-icon-button
+                        style="float:right">
                     <mat-icon>cancel</mat-icon>
                 </button>
             </p>
@@ -36,8 +37,8 @@
                     <div class="flex" style="flex-wrap: wrap;">
                         <app-zone-branch-circle [form]="customerSearch" [should_show_circle]="false"
                                                 (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                            <div class="mx-2">
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label>Customer Name</mat-label>
                                     <input matInput formControlName="CustomerName" placeholder="Enter Customer Name"
@@ -75,7 +76,8 @@
                             </div>
                         </div>
                         <div class="mx-2">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;" *ngIf="CustomerStatusLov">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;"
+                                 *ngIf="CustomerStatusLov">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label>Select Customer Status</mat-label>
                                     <mat-select formControlName="CustomerStatus">
@@ -143,6 +145,10 @@
                 <ng-container matColumnDef="Cnic">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Cnic</mat-header-cell>
                     <mat-cell *matCellDef="let customer">{{customer.Cnic}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="CustomerType">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+                    <mat-cell *matCellDef="let customer">{{customer.CustomerType}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="CurrentAddress">
