@@ -95,9 +95,8 @@
                         <table class="table table-striped">
                             <thead>
                             <tr class="table-header-background">
-                                <th>Customer Id</th>
-                                <th>Customer Name</th>
                                 <th style="min-width: 150px;">Cnic</th>
+                                <th>Customer Name</th>
                                 <th>Father Name</th>
                                 <th>AGPS</th>
                                 <th>DOB</th>
@@ -105,10 +104,8 @@
                             </thead>
                             <tbody>
                             <tr *ngFor="let item of LoanApplicants;">
-
-                                <td>{{item.CustomerId}}</td>
-                                <td>{{item.CustomerName}}</td>
                                 <td style="min-width: 150px;">{{item.Cnic}}</td>
+                                <td>{{item.CustomerName}}</td>
                                 <td>{{item.FatherName}}</td>
                                 <td>{{item.Agps}}</td>
                                 <td>{{item.DOB | date: 'dd-MM-yyyy'}}</td>
@@ -203,32 +200,32 @@
 
         <div class="row">
             <div class="col-lg-12 col-sm-12">
-            <input *ngIf="!viewonly" (click)="ifResetRequired()" type='file' formControlName="file"
-                   accept="image/jpg, image/jpeg" (change)="onSelectFile($event)"/>
-            <div class="mt-4 overflow-scroll" *ngIf="imageUrl.length>0 && visible"
-                 style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
-                <div *ngFor='let url of imageUrl; let i = index'>
-                    <!-- <button *ngIf="!viewonly" (click)="removeImage(url,i)">
-                        X"
-                    </button> -->
-                    <div class="row">
-                        <div class="col-lg-12  text-right relative">
-                            <div class="bg-white float-right">
-                                <button mat-icon-button *ngIf="!viewonly" (click)="removeImage(url,i)"
-                                        class="close-button float-right absolute right-4 top-2 bg-red-500">
-                                    <!-- X -->
-                                    <mat-icon class="close-icon w-12 h-12 text-white">close</mat-icon>
-                                </button>
+                <input *ngIf="!viewonly" (click)="ifResetRequired()" type='file' formControlName="file"
+                       accept="image/jpg, image/jpeg" (change)="onSelectFile($event)"/>
+                <div class="mt-4 overflow-scroll" *ngIf="imageUrl.length>0 && visible"
+                     style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
+                    <div *ngFor='let url of imageUrl; let i = index'>
+                        <!-- <button *ngIf="!viewonly" (click)="removeImage(url,i)">
+                            X"
+                        </button> -->
+                        <div class="row">
+                            <div class="col-lg-12  text-right relative">
+                                <div class="bg-white float-right">
+                                    <button mat-icon-button *ngIf="!viewonly" (click)="removeImage(url,i)"
+                                            class="close-button float-right absolute right-4 top-2 bg-red-500">
+                                        <!-- X -->
+                                        <mat-icon class="close-icon w-12 h-12 text-white">close</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div style="width: 320px;height: 240px;">
-                        <img [src]="url" (click)="previewImg(url)" width="320" height="240">
+                        <div style="width: 320px;height: 240px;">
+                            <img [src]="url" (click)="previewImg(url)" width="320" height="240">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
         </div>
         <!--        Video-->
         <div class="kt-portlet__head kt-portlet__head__custom">
