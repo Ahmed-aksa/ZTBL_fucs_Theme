@@ -646,7 +646,14 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
                     })
                 )
                 .subscribe(baseResponse => {
-
+                    this.list_ids_array.forEach((id) => {
+                        this.productionArray.forEach((single_array) => {
+                            if (single_array.ItemDetailID == id) {
+                                // @ts-ignore
+                                this.productionArray.pop(single_array);
+                            }
+                        })
+                    })
                     if (baseResponse.Success) {
                         const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                     } else {

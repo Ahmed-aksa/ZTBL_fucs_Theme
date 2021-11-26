@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectorRef, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
@@ -37,6 +37,11 @@ export class ClCustomersComponent implements OnInit {
     public customerArray: CustomerGrid[] = [];
     public createCustomer = new CreateCustomer();
     public customerLoanApp = new CustomersLoanApp();
+
+
+    loan_data: any;
+
+
     @Input() loanDetail: Loan;
     @Output() loanCustomerCall: EventEmitter<any> = new EventEmitter();
     @Output() disable_tab: EventEmitter<any> = new EventEmitter();
@@ -55,7 +60,6 @@ export class ClCustomersComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.LoadLovs();
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
         this.createForm();
@@ -68,6 +72,8 @@ export class ClCustomersComponent implements OnInit {
             AGPS: [this.loanCustomer.AGPS, [Validators.required]],
             Relationship: [this.loanCustomer.RelationShip, [Validators.required]]
         });
+        this.loan_data = JSON.parse(localStorage.getItem('customer_loan_list'));
+
     }
 
     hasError(controlName: string, errorName: string): boolean {
@@ -76,10 +82,10 @@ export class ClCustomersComponent implements OnInit {
 
     async LoadLovs() {
 
-        //this.ngxService.start();
 
         var tempArray = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.AGPS});
         this.AGPSLov = tempArray.LOVs;
+
         tempArray = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Relationship})
         this.RelationshipLov = tempArray.LOVs;
 
@@ -89,16 +95,26 @@ export class ClCustomersComponent implements OnInit {
         this.hasFormErrors = false;
     }
 
-    searchCustomer() {
+    attachCustomer() {
 
-        if (this.customerArray.length == 0) {
-            if (this.loanCustomerForm.controls.AGPS.value != "1") {
+        if (this.loan_data && this.loan_data.length == 0) {
+            if (this.loanCustomerForm.controls.AGPS.value != "A") {
                 this.layoutUtilsService.alertElement("", "First time AGPS must be Applicant");
                 return
             }
 
             if (this.loanCustomerForm.controls.Relationship.value != "8") {
                 this.layoutUtilsService.alertElement("", "First time Relationship must be selected self");
+                return
+            }
+        } else {
+            if (this.loanCustomerForm.controls.AGPS.value == "A") {
+                this.layoutUtilsService.alertElement("", "Second time AGPS must not be Applicant");
+                return
+            }
+
+            if (this.loanCustomerForm.controls.Relationship.value == "8") {
+                this.layoutUtilsService.alertElement("", "Second time Relationship must not be selected self");
                 return
             }
         }
@@ -114,9 +130,7 @@ export class ClCustomersComponent implements OnInit {
             this.hasFormErrors = true;
             return;
         }
-
-
-        var duplicateCustomer = this.customerArray.filter(x => x.cnic == this.loanCustomerForm.controls['CNIC'].value)[0];
+        var duplicateCustomer = this.loan_data.filter(x => x.Cnic == this.loanCustomerForm.controls['CNIC'].value)[0];
         if (duplicateCustomer != undefined && duplicateCustomer != null) {
             this.layoutUtilsService.alertElement("", "Customer CNIC Already Added", "Duplicate Cutomer");
             return;
@@ -136,20 +150,22 @@ export class ClCustomersComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-
                     var customer = baseResponse.Customers[0];
-                    var grid = new CustomerGrid();
-                    grid.cnic = this.loanCustomerForm.controls['CNIC'].value
-                    grid.name = customer.CustomerName
-                    grid.fatherName = customer.FatherName
-                    grid.dob = customer.Dob
-                    grid.agps = this.agpsModel
-                    grid.agpsName = this.AGPSLov.filter(v => v.Id == this.agpsModel)[0].Name;
-                    grid.Relationship = this.relationshipModel;
-                    grid.RelationshipName = this.RelationshipLov.filter(v => v.Id == this.relationshipModel)[0].Name;
-                    this.customerArray.push(grid);
+                    var grid = {
+                        Cnic: customer.Cnic,
+                        CustomerName: customer.CustomerName,
+                        FatherName: customer.FatherName,
+                        DOB: customer.Dob,
+                        Agps: this.loanCustomerForm.value.AGPS,
+                        RelationID: this.loanCustomerForm.value.Relationship,
+                        CustomerID:customer.CustomerID
+                    };
+                    this.loan_data.push(grid);
 
-                    //this.dynamicArray[index].area = this.createCustomer
+                    localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
+
+
+                    this.checkArray();
 
 
                     this.cdRef.detectChanges();
@@ -206,12 +222,12 @@ export class ClCustomersComponent implements OnInit {
 
     }
 
-    viewCustomer(){
+    viewCustomer() {
 
         const dialogRef = this.dialog.open(CustLoanlistComponent, {
-            data: {flag:1},
-             disableClose: true,
-            panelClass: ['w-full','h-screen','max-w-full','max-h-full']
+            data: {flag: 1},
+            disableClose: true,
+            panelClass: ['w-full', 'h-screen', 'max-w-full', 'max-h-full']
         });
         dialogRef.afterClosed().subscribe(res => {
 
@@ -239,11 +255,13 @@ export class ClCustomersComponent implements OnInit {
                 return;
             }
 
-            if (this.customerArray.length == 0) {
+            if (this.loan_data.length == 0) {
                 return false;
             } else {
                 if (customerObj.CustLoanAppID == null || customerObj.CustLoanAppID == undefined || customerObj.CustLoanAppID == "") {
-                    this.customerArray.splice(index, 1);
+                    this.loan_data.splice(index, 1);
+                    localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
+
                     this.cdRef.detectChanges();
                     return true;
                 } else {
@@ -257,13 +275,11 @@ export class ClCustomersComponent implements OnInit {
                         )
                         .subscribe(baseResponse => {
                             if (baseResponse.Success === true) {
-                                if (this.customerArray[0] && (this.customerArray[0]?.agps == 'A' || this.customerArray[0]?.agps=='Applicant'|| this.customerArray[0]?.Relationship == '8')) {
-                                    this.disable_tab.emit(false);
-                                } else {
-                                    this.disable_tab.emit(true);
-                                }
+                                this.checkArray()
                                 const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                                this.customerArray.splice(index, 1);
+                                this.loan_data.splice(index, 1);
+                                localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
+                                this.checkArray();
                             }
 
                         })
@@ -279,42 +295,36 @@ export class ClCustomersComponent implements OnInit {
     }
 
     onSaveCustomer() {
-
-debugger
-        if (this.customerArray[0] && (this.customerArray[0]?.agps == 'A' || this.customerArray[0]?.Relationship == '8')) {
-            this.disable_tab.emit(false);
-        } else {
-            this.disable_tab.emit(true);
-        }
+        this.checkArray()
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
 
-        if(this.customerArray[this.customerArray.length-1]?.CustLoanAppID){
+        if (this.loan_data[this.loan_data.length - 1]?.CustLoanAppID) {
             this.layoutUtilsService.alertMessage("", "Records already saved");
             return;
         }
 
-        if (this.customerArray.length > 0) {
+        if (this.loan_data.length > 0) {
             this.spinner.show();
             var isCustomerAdded = false;
             var resMessage = "";
             var resCode = "";
             var customerAdded = 0;
 
-            this.customerArray.forEach(cus => {
-                this.customerLoanApp.Cnic = cus.cnic;
-                this.customerLoanApp.RelationID = parseInt(cus.Relationship);
+            this.loan_data.forEach(cus => {
+                this.customerLoanApp.Cnic = cus.Cnic;
+                this.customerLoanApp.RelationID = parseInt(cus.RelationID);
                 this.customerLoanApp.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
                 //this.customerLoanApp.LoanAppID = 0;
-                this.customerLoanApp.Agps = cus.agps;
+                this.customerLoanApp.Agps = cus.Agps;
                 this._loanService.saveCustomerWithLoanApp(this.customerLoanApp, this.loanDetail.TranId)
                     .pipe(
                         finalize(() => {
                             this.spinner.hide();
 
-                            if (this.customerArray.length == customerAdded) {
+                            if (this.loan_data.length == customerAdded) {
                                 const dialogRef = this.layoutUtilsService.alertElementSuccess("", resMessage, resCode);
                             }
                         })
@@ -332,7 +342,7 @@ debugger
                             var addedCustomer = new CustomersLoanApp();
                             addedCustomer.CustLoanAppID = baseResponse.Loan.CustomersLoanApp.CustLoanAppID;
                             addedCustomer.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-                            addedCustomer.RelationID = parseInt(cus.Relationship);
+                            addedCustomer.RelationID = cus.RelationID;
                             addedCustomer.Cnic = cus.cnic;
                             addedCustomer.Agps = cus.agps;
                             addedCustomer.CustomerName = cus.name;
@@ -358,6 +368,35 @@ debugger
     }
 
 
+    private checkArray() {
+        if (this.loan_data[0] && (this.loan_data[0]?.Agps == 'A' || this.loan_data[0]?.Agps == 'Applicant' || this.loan_data[0]?.RelationID == '8')) {
+            this.disable_tab.emit(false);
+        } else {
+            this.disable_tab.emit(true);
+        }
+    }
+
+    returnKeyValuePair(value: any, type: string) {
+        let key = '';
+        if (type == 'agps') {
+            if (this.AGPSLov) {
+                this.AGPSLov?.filter((single_agps) => {
+                    if (single_agps.Value == value) {
+                        key = single_agps.Name
+                    }
+                })
+            }
+        } else if (type = 'relation') {
+            if (this.RelationshipLov) {
+                this.RelationshipLov?.filter((single_relation_ship) => {
+                    if (single_relation_ship.Value == value) {
+                        key = single_relation_ship.Name
+                    }
+                })
+            }
+        }
+        return key;
+    }
 }
 
 export class CustomerGrid {
