@@ -77,7 +77,7 @@ export class LoanUtilizationService {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
         var circleIds = [];
-        let SelectedCircles = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().UserCircleMappings;
+        let SelectedCircles = userInfo.UserCircleMappings;
         if (SelectedCircles?.length > 0) {
             SelectedCircles.forEach(element => {
                 circleIds.push(element.Id);
