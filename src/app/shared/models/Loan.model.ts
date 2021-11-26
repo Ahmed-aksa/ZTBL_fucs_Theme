@@ -326,11 +326,13 @@ export class CropProduction {
     ExpPrec: string;
     AppraisalType: string;
     Remarks: string;
+    IDsList: string;
 
 }
 
 export class AppraisalProposed {
-    ItemID: number;
+    ItemDetailID: number;
+    IDsList: string;
     CmAppraisalID: number;
     FirstEntry: number;
     LandUncultivaed: string;
@@ -360,6 +362,7 @@ export class LoanDocuments {
     EnteredBy: number;
     file: any;
     DocLoanId: string;
+    LcNo: string
 }
 
 export class SearchLoan {

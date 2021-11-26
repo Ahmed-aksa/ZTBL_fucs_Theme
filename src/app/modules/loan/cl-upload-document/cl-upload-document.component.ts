@@ -81,6 +81,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     this.PostDocument = frmbuilder.group({
       ParentDocId: [this.loanDocument.ParentDocId, Validators.required],//Document Type Lov
+        Lnco: [this.loanDocument.LcNo, Validators.required],
       DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
       Description: [this.loanDocument.Description, Validators.required],
       PageNumber: [this.loanDocument.PageNumber],
@@ -105,7 +106,7 @@ export class ClUploadDocumentComponent implements OnInit {
   }
 
   PostDocuments(PostDocument: any) {
-    // 
+    //
   }
 
   async getDocumentLoanType() {
@@ -170,7 +171,7 @@ export class ClUploadDocumentComponent implements OnInit {
         grid.LoanCaseID = item.LoanCaseID;
         tempDocumentArr.push(grid);
       });
-      this.loanDocumentArray = tempDocumentArr
+      //this.loanDocumentArray = tempDocumentArr
     }
     this.loanCaseNo = loanCaseNo
   }
@@ -183,7 +184,7 @@ export class ClUploadDocumentComponent implements OnInit {
           this.spinner.hide();
         })
     ).subscribe(baseResponse => {
-      
+
 
 
       this.url = baseResponse.ViewDocumnets.Path
@@ -250,7 +251,7 @@ export class ClUploadDocumentComponent implements OnInit {
     this.document = await this._lovService.GetDocumentTypeLOV()
 
     this.SelectedDocument = this.document.LOVs;
-    
+
   }
 
   onFileChange(event) {
@@ -291,7 +292,7 @@ export class ClUploadDocumentComponent implements OnInit {
       return;
     }
     this.spinner.show();
-    this._loanService.documentUpload(this.loanDocument, this.loanDetail.TranId, this.loanCaseNo)
+    this._loanService.documentUpload(this.loanDocument)
       .pipe(
         finalize(() => {
           this.spinner.hide();
