@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 import {map} from 'rxjs/operators';
 import {BaseRequestModel} from '../models/base_request.model';
@@ -678,6 +678,7 @@ export class LoanService {
         return this.http
             .post<any>(`${environment.apiUrl}/Loan/DocumentUpload`, formData)
             .pipe(map((res: BaseResponseModel) => res));
+        debugger
     }
 
     GetViewLoanDocument(app) {
@@ -825,6 +826,28 @@ export class LoanService {
         };
         return this.http
             .post(`${environment.apiUrl}/Loan/GetLoanDetails`, request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+    getLoanDetailsByLcNo(LcNo, Branch) {
+        var userInfo = this.userUtilsService.getUserDetails();
+        var branch = {
+            BranchId: Branch.BranchId,
+        };
+        var loan = {
+            LcNo: LcNo,
+            ApplicationHeader: {
+                LoanCaseNo: LcNo
+            },
+        };
+
+        var request = {
+            Branch: Branch,
+            Loan: loan,
+        };
+        return this.http
+            .post(`${environment.apiUrl}/Loan/GetLoanDetailByLoanNumber`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
