@@ -102,7 +102,7 @@ export class LoanUtilizationService {
 
     searchLoanUtilization(loanUtilization, userDetail: BaseResponseModel = null, fromdate: string, todate: string, Limit, Offset, branch: any, zone: any, circle: any): Observable<BaseResponseModel> {
 
-        this.request = new BaseRequestModel();
+        var request = new BaseRequestModel();
 
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -110,19 +110,19 @@ export class LoanUtilizationService {
             userInfo.Zone = userDetail.Zone;
             userInfo.Branch = userDetail.Branch;
         }
-        this.request.User = userInfo.User;
+        request.User = userInfo.User;
         if (loanUtilization) {
-            this.request.LoanUtilization = {"UtilizationDetail": {"LoanCaseNo": loanUtilization}}
+            request.LoanUtilization = {"UtilizationDetail": {"LoanCaseNo": loanUtilization}}
         } else {
             loanUtilization = null
-            this.request.LoanUtilization = {"UtilizationDetail": {"LoanCaseNo": loanUtilization}}
+            request.LoanUtilization = {"UtilizationDetail": {"LoanCaseNo": loanUtilization}}
         }
-        this.request.LoanUtilization["FromDate"] = fromdate;
-        this.request.LoanUtilization["ToDate"] = todate;
-        this.request.LoanUtilization["Offset"] = Offset;
-        this.request.LoanUtilization["Limit"] = Limit;
-        this.request.Zone = zone;
-        this.request.Branch = branch;
+        request.LoanUtilization["FromDate"] = fromdate;
+        request.LoanUtilization["ToDate"] = todate;
+        request.LoanUtilization["Offset"] = Offset;
+        request.LoanUtilization["Limit"] = Limit;
+        request.Zone = zone;
+        request.Branch = branch;
         var circleIds = [];
         let SelectedCircles = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().UserCircleMappings;
         if (SelectedCircles?.length > 0) {
@@ -132,13 +132,13 @@ export class LoanUtilizationService {
         }
 
         var _circles = circleIds.toString();
-        this.request.Circle = {
+        request.Circle = {
             CircleIds: _circles,
-            Circle: circle
+            CircleCode: circle?.CircleId
         }
 
 
-        return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchLoanForUtilization`, this.request,
+        return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchLoanForUtilization`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );

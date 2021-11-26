@@ -16,9 +16,9 @@ import {finalize} from 'rxjs/operators';
 import {ClDocumentViewComponent} from '../../../loan/cl-document-view/cl-document-view.component';
 
 @Component({
-  selector: 'app-upload-documents',
-  templateUrl: './upload-documents.component.html',
-  styleUrls: ['./upload-documents.component.scss']
+    selector: 'app-upload-documents',
+    templateUrl: './upload-documents.component.html',
+    styleUrls: ['./upload-documents.component.scss']
 })
 export class UploadDocumentsComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class UploadDocumentsComponent implements OnInit {
 
     PostDocument: FormGroup;
     loanDocument = new LoanDocuments();
-    rawData = new LoanDocuments();
+    rawData: LoanDocuments[] = [];
 
     url: string;
     loanDocumentArray: LoanDocuments[] = [];
@@ -62,7 +62,7 @@ export class UploadDocumentsComponent implements OnInit {
     branch: any;
     circle: any;
     disable_lc = false;
-
+    number_of_files: number;
 
     constructor(
         public dialogRef: MatDialogRef<UploadDocumentsComponent>,
@@ -82,7 +82,7 @@ export class UploadDocumentsComponent implements OnInit {
     ) {
 
         this.PostDocument = frmbuilder.group({
-            ParentDocId: [this.loanDocument.ParentDocId, Validators.required],//Document Type Lov
+            ParentDocId: ['25', Validators.required],//Document Type Lov
             LcNo: [this.loanDocument.LcNo, Validators.required],
             LoanStatus: [this.loanDocument.LoanStatus, Validators.required],
             DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
@@ -96,7 +96,6 @@ export class UploadDocumentsComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
@@ -178,7 +177,7 @@ export class UploadDocumentsComponent implements OnInit {
         this.document = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DocumentType});
 
         this.SelectedDocument = this.document.LOVs;
-
+        this.PostDocument.value.ParentDocId = '25';
     }
 
     onFileChange(event) {
@@ -191,7 +190,7 @@ export class UploadDocumentsComponent implements OnInit {
                 if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
                     const reader = new FileReader();
                     reader.onload = (event: any) => {
-                        this.rawData.file = file;
+                        this.rawData.push(file);
 
                     };
                     reader.readAsDataURL(file);
@@ -208,26 +207,27 @@ export class UploadDocumentsComponent implements OnInit {
     }
 
     saveLoanDocuments() {
-        debugger;
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
-        this.loanDocument.file = this.rawData.file;
-        if (this.PostDocument.invalid) {
-            const controls = this.PostDocument.controls;
-            Object.keys(controls).forEach(controlName =>
-                controls[controlName].markAsTouched()
-            );
-            return;
-        }
-        this.spinner.show();
-        this._loanService.documentUpload(this.loanDocument)
-            .pipe(
-                finalize(() => {
-                    this.spinner.hide();
-                })
-            ).subscribe((baseResponse) => {
-            this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+        this.rawData.forEach((single_file) => {
+            this.loanDocument.file = single_file;
+            if (this.PostDocument.invalid) {
+                const controls = this.PostDocument.controls;
+                Object.keys(controls).forEach(controlName =>
+                    controls[controlName].markAsTouched()
+                );
+                return;
+            }
+            this.spinner.show();
+            this._loanService.documentUpload(this.loanDocument)
+                .pipe(
+                    finalize(() => {
+                        this.spinner.hide();
+                    })
+                ).subscribe((baseResponse) => {
+                this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
 
-        });
+            });
+        })
 
     }
 
@@ -238,15 +238,19 @@ export class UploadDocumentsComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe((baseResponse) => {
-            if (baseResponse.Success === true){
+            if (baseResponse.Success === true) {
                 var response = baseResponse.Loan.ApplicationHeader;
                 this.PostDocument.controls['LoanStatus'].setValue(response.AppStatusName);
                 this.PostDocument.controls['CategoryName'].setValue(response.CategoryName);
-            }
-            else{
+            } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
         });
+    }
+
+    changeFilesQuantity() {
+
+        this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
     }
 }
 
