@@ -43,7 +43,7 @@ export class CreateLoanComponent implements OnInit {
                 private layoutUtilsService: LayoutUtilsService,
                 private spinner: NgxSpinnerService,
                 private router: Router,
-                private toastr: ToastrService
+                private toastr: ToastrService,
     ) {
 
         router.events.subscribe((val: any) => {
@@ -56,8 +56,7 @@ export class CreateLoanComponent implements OnInit {
         })
     }
 
-    checkError(val:boolean){
-        
+    checkError(val: boolean) {
 
 
     }
@@ -86,7 +85,7 @@ export class CreateLoanComponent implements OnInit {
 
 
     onCreateRestForm() {
-        
+
         this.applicationHeaderDetail["DevAmount"] = "";
         this.appHeaderComponent.loadAppDataOnUpdate(this.applicationHeaderDetail)
     }
@@ -155,6 +154,7 @@ export class CreateLoanComponent implements OnInit {
 
                 if (baseResponse.Success === true) {
                     var loanRes = baseResponse.Loan;
+                    localStorage.setItem('customer_loan_list', JSON.stringify(loanRes.CustomersLoanAppList));
                     this.loanApplicationReq = new Loan();
                     this.loanApplicationReq.TranId = baseResponse.TranId;
                     this.loanApplicationReq.ApplicationHeader = new LoanApplicationHeader();
@@ -196,7 +196,7 @@ export class CreateLoanComponent implements OnInit {
     }
 
     check_disabled(event: any) {
-        // 
+        //
         // if(event==true){
         //     this.toastr.error("First time AGPS must be Applicant and Relationship must be selected self");
         // }
