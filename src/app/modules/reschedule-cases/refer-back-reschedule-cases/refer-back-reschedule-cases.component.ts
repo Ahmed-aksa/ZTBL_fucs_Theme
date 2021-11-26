@@ -72,7 +72,7 @@ itemsPerPage = 10; //you could use your specified
 totalItems: number | any;
 pageIndex = 1;
 dv: number | any; //use later
-
+today = new Date()
 OffSet: any;
 
 matTableLenght: boolean;
@@ -103,6 +103,20 @@ ngOnInit() {
     if(this.zone){
         setTimeout(() => this.find(), 1000);
     }
+
+    if(this.LoggedInUserInfo.Branch.WorkingDate){
+        let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
+        var day = parseInt(dateString.substring(0, 2));
+        var month = parseInt(dateString.substring(2, 4));
+        var year = parseInt(dateString.substring(4, 8));
+        this.maxDate = new Date(year, month - 1, day);
+    }
+    else{
+        let dateString = '11012021';
+        var day = parseInt(dateString.substring(0, 2));
+        var month = parseInt(dateString.substring(2, 4));
+        var year = parseInt(dateString.substring(4, 8));
+        this.maxDate = new Date(year, month - 1, day);}
 
 
     // this.spinner.show();
