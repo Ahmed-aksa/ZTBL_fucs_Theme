@@ -233,10 +233,10 @@ export class ClPurposeComponent implements OnInit {
 
     onEditPurpose(data:LoanApplicationPurpose) {
         debugger
+        console.log(JSON.stringify(data))
         this.index;
         this.editLoanApplicationPurpose;
         this.loanApplicationPurpose = data;
-
         this.purposeForm.value;
 
         this.purposeForm.controls['GlSubID'].setValue(this.loanApplicationPurpose?.GlSubID);
@@ -254,7 +254,7 @@ export class ClPurposeComponent implements OnInit {
         this.purposeForm.controls['BwrAgreeInsurancePrem'].setValue(this.loanApplicationPurpose?.BwrAgreeInsurancePrem);
         this.purposeForm.controls['DevProdID'].setValue(this.loanApplicationPurpose?.DevProdID);
 
-        this.isCheckedEquity=true;
+        // this.isCheckedEquity=true;
 
         console.log(this.loanApplicationPurpose)
         // for (var i = 0; i < this.editLoanApplicationPurpose.length; i++) {
