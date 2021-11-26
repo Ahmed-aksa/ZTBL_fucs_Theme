@@ -157,7 +157,7 @@ export class CreateLoanComponent implements OnInit {
                     localStorage.setItem('customer_loan_list', JSON.stringify(loanRes.CustomersLoanAppList));
                     this.loanApplicationReq = new Loan();
                     this.loanApplicationReq.TranId = baseResponse.TranId;
-                    this.loanApplicationReq.ApplicationHeader = new LoanApplicationHeader();
+                    this.loanApplicationReq.ApplicationHeader = loanRes.ApplicationHeader;
                     this.loanApplicationReq.ApplicationHeader.LoanAppID = loanRes.ApplicationHeader.LoanAppID;
                     this.applicationHeaderDetail = loanRes.ApplicationHeader;
                     this.appHeaderComponent.loadAppDataOnUpdate(this.applicationHeaderDetail);
