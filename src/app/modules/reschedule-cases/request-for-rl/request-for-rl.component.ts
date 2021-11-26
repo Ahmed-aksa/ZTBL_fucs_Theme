@@ -128,11 +128,27 @@ export class RequestForRlComponent implements OnInit {
     }
 
     ngOnInit() {
+        debugger
         //
         this.create();
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         //
         this.getRequestTypes();
+
+        if(this.LoggedInUserInfo.Branch.WorkingDate){
+            let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
+            var day = parseInt(dateString.substring(0, 2));
+            var month = parseInt(dateString.substring(2, 4));
+            var year = parseInt(dateString.substring(4, 8));
+            this.today = new Date(year, month - 1, day);
+        }
+        else{
+            let dateString = '11012021';
+            var day = parseInt(dateString.substring(0, 2));
+            var month = parseInt(dateString.substring(2, 4));
+            var year = parseInt(dateString.substring(4, 8));
+            this.today = new Date(year, month - 1, day);}
+
 
     }
 
@@ -162,7 +178,7 @@ export class RequestForRlComponent implements OnInit {
             (this.LovCall = {TagName: LovConfigurationKey.RequestCategory})
         );
         this.SelectedRequestType = this.RequestTypes.LOVs;
-        
+
     }
 
 
@@ -246,7 +262,7 @@ export class RequestForRlComponent implements OnInit {
 
         if (event.checked == true && this.checkedArr.length == 0) {
             this.checkedArr.push(id);
-            
+
 
             this.AddTable = false;
         } else if (this.checkedArr.length != 0 && prev_i == index) {
@@ -255,14 +271,14 @@ export class RequestForRlComponent implements OnInit {
             for (var i = 0; this.checkedArr.length > i; i++) {
                 if (this.checkedArr[i].LoanAppID == id.LoanAppID) {
                     this.checkedArr.splice(i);
-                    
+
                 }
             }
         }
     }
 
     onSelectionChange(e) {
-        
+
         if (this.RfrlForm.controls.RequestCategory.value && e.value != '3') {
             this.graceMonthsSelect = false;
             this.RfrlForm.controls['GraceMonths'].setValue('');
@@ -278,7 +294,7 @@ export class RequestForRlComponent implements OnInit {
     }
 
     Add() {
-        
+
         if (this.checkedArr.length > 0) {
             this.AddTable = true;
             this.checked = false;
@@ -293,10 +309,10 @@ export class RequestForRlComponent implements OnInit {
         this.spinner.show();
         this.request = new BaseRequestModel();
         let shantoo = this.RfrlForm.controls.EffectiveReqDate.value;
-        
+
         //this.RfrlForm.controls["EffectiveReqDate"].setValue(this.datePipe.transform(shantoo._d, "ddMMyyyy"))
         let newDate = this.datePipe.transform(shantoo._d, 'ddMMyyyy');
-        
+
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
         for (var i = 0; this, this.checkedArr.length > i; i++) {
@@ -341,7 +357,7 @@ export class RequestForRlComponent implements OnInit {
         for (var i = 0; this.checkedArr.length > i; i++) {
             this.checkedArr.splice(i);
         }
-        
+
     }
 
     getAllData(data) {
