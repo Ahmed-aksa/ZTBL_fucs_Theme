@@ -563,11 +563,11 @@ export class LoanUtilizationComponent implements OnInit {
                     this.isEmpty = true;
                     this.LoanGls = baseResponse.LoanUtilization['LoanGls'];
                 } else {
-                    this.layoutUtilsService.alertElement(
-                        '',
-                        baseResponse.Message,
-                        baseResponse.Code = null
-                    );
+                    // this.layoutUtilsService.alertElement(
+                    //     '',
+                    //     baseResponse.Message,
+                    //     baseResponse.Code = null
+                    // );
                 }
             });
     }

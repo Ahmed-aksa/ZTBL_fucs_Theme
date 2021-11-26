@@ -76,11 +76,24 @@ export class LoanUtilizationService {
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
+        var circleIds = [];
+        let SelectedCircles = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().UserCircleMappings;
+        if (SelectedCircles?.length > 0) {
+            SelectedCircles.forEach(element => {
+                circleIds.push(element.Id);
+            });
+        }
+
+        var _circles = circleIds.toString();
         this.request.User = userInfo.User;
         this.request.LoanUtilization = {"UtilizationDetail": loanUtilization}
         this.request.Zone = zone;
         this.request.Branch = branch;
-        this.request.Circle = circle;
+        this.request.Circle =
+            {
+                CircleIds: _circles,
+                CircleCode: circle?.CircleId
+            };
         return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchUtilizations`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -111,14 +124,14 @@ export class LoanUtilizationService {
         this.request.Zone = zone;
         this.request.Branch = branch;
         var circleIds = [];
-        let SelectedCircles = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().SelectedCircles;
+        let SelectedCircles = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().UserCircleMappings;
         if (SelectedCircles?.length > 0) {
             SelectedCircles.forEach(element => {
                 circleIds.push(element.Id);
             });
         }
 
-        var _circles = JSON.stringify(circleIds)
+        var _circles = circleIds.toString();
         this.request.Circle = {
             CircleIds: _circles,
             Circle: circle
