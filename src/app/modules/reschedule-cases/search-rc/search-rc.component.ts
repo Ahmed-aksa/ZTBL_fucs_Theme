@@ -129,6 +129,19 @@ export class SearchRcComponent implements OnInit {
 
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
+        if(this.LoggedInUserInfo.Branch.WorkingDate){
+            let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
+            var day = parseInt(dateString.substring(0, 2));
+            var month = parseInt(dateString.substring(2, 4));
+            var year = parseInt(dateString.substring(4, 8));
+            this.today = new Date(year, month - 1, day);
+        }else{
+            let dateString = '11012021';
+            var day = parseInt(dateString.substring(0, 2));
+            var month = parseInt(dateString.substring(2, 4));
+            var year = parseInt(dateString.substring(4, 8));
+            this.today = new Date(year, month - 1, day);}
+
         //-------------------------------Loading Zone-------------------------------//
 
         //-------------------------------Loading Circle-------------------------------//

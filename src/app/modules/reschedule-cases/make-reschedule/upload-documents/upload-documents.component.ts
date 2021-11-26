@@ -100,7 +100,6 @@ export class UploadDocumentsComponent implements OnInit {
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
-
         if (this.data.lcno) {
             this.PostDocument.controls['LcNo'].setValue(this.data.lcno)
             this.disable_lc = true;
