@@ -43,7 +43,7 @@ export class CustLoanlistComponent implements OnInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
-    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus', 'View']
+    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CustomerType', 'CurrentAddress', 'CustomerStatus', 'View']
 
     gridHeight: string;
     customerSearch: FormGroup;
@@ -105,10 +105,9 @@ export class CustLoanlistComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.data
         if (this.isDialog || this.data.flag == 1) {
 
-            this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus']
+            this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CustomerType', 'CurrentAddress', 'CustomerStatus']
         }
 
         this.LoadLovs();

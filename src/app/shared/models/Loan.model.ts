@@ -115,6 +115,7 @@ export class LoanApplicationHeader {
     CreatedOn: string;
     AppStatus: number = 1;
     MCORemarks: string = "";
+    AppStatusName: string;
     AppBusProposalID: number = 0;
     AppBusSubProposalID: number = 0;
 }
@@ -356,6 +357,7 @@ export class LoanDocuments {
     DocumentRefNo: string;
     DocumentNumber: number;
     DocumentType: string;
+    CategoryName: string;
     OwnerName: string;
     LoanCaseID: number;
     ParentDocId: number;

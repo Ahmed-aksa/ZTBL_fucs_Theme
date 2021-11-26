@@ -425,6 +425,12 @@ export class MakeRcComponent implements OnInit {
 
     uploadDocuments(){
         var lc = this.mrForm.controls.Lcno.value;
+
+        if(!lc){
+            this.layoutUtilsService.alertElement('', "Please Add Loan Case number First");
+            return
+        }
+
         const dialogRef = this.dialog.open(UploadDocumentsComponent, {data: {lcno: lc},panelClass: ['w-8/12'], height: "700px",disableClose: true });
         dialogRef.afterClosed().subscribe((res)=>{
             if(!res){

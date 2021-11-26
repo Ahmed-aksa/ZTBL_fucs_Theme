@@ -266,7 +266,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
         if (CropProductionList[0] != '', CropProductionList[0] != null, CropProductionList[0] != undefined) {
             if (CropProductionList[0].AppraisalType != '', CropProductionList[0].AppraisalType != null, CropProductionList[0].AppraisalType != undefined) {
-                var cropType = this.selectedProposedCropType.filter(x => x.Value == CropProductionList[0].AppraisalType)
+                var cropType = this.selectedProposedCropType?.filter(x => x.Value == CropProductionList[0].AppraisalType)
                 if (cropType.length > 0) {
 
                     this.LoanAOPIForm.controls["Type"].setValue(cropType[0].Id);
@@ -636,7 +636,10 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
 
             this.appraisalProposed.IDsList = this.list_ids_array.toString();
-
+            if (this.appraisalProposed.IDsList == '') {
+                this.toastr.error("Please Save First");
+                return;
+            }
             this.spinner.show();
             this._loanService.deleteAppraisalItemDetail
             (this.appraisalProposed, this.loanDetail.TranId)
