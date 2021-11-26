@@ -189,6 +189,7 @@ export class LoanSecurities {
     EnteredBy: string;
     SecurityType: string;
     OrgUnitID: string;
+    SecurityTypeName:string;
 }
 
 // By Adnan
