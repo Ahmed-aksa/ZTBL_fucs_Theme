@@ -129,7 +129,7 @@ export class SearchRcComponent implements OnInit {
 
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
-        if(this.LoggedInUserInfo.Branch.WorkingDate){
+        if(this.LoggedInUserInfo.Branch){
             let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));

@@ -55,7 +55,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     displayedColumns = [
 
-        // "BranchName",
+        "BranchName",
         "BranchCode",
         "GlSubCode",
         "SchemeCode",
@@ -119,7 +119,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
     ngOnInit() {
 
-        
+
         if (this.isDialog)
             this.displayedColumns = [
 
@@ -450,7 +450,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     ngOnDestroy() {
-        
+
         this.loanutilizationSearch.reset()
     }
 

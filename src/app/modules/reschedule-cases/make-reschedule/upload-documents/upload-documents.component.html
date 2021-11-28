@@ -53,7 +53,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Status: <strong class="matMandatory">*</strong>
                                 </mat-label>
-                                <input matInput formControlName="LoanStatus">
+                                <input matInput formControlName="LoanStatus" readonly>
                                 <mat-error *ngIf="hasError('LoanStatus', 'required')">Document Ref No
                                     <strong>required</strong></mat-error>
                             </mat-form-field>
@@ -172,14 +172,14 @@
                                 <tr class="table-header-background">
                                     <th>Files</th>
                                     <th>Page No</th>
-
+                                    <th>Description</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 <tr *ngFor="let item of [].constructor(number_of_files); let i = index">
                                     <td>
-                                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                                        <div class="col-lg-8 kt-margin-bottom-20-mobile">
                                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                                                 <input formControlName="file" type="file" id="file_{{i}}"
                                                        (change)="onFileChange($event)">
@@ -187,12 +187,23 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                                                 <mat-form-field class="mat-form-field-fluid w-full"
                                                                 appearance="outline">
                                                     <mat-label class="customMatLabel">Page No</mat-label>
                                                     <input matInput formControlName="PageNumber">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                                                <mat-form-field class="mat-form-field-fluid w-full"
+                                                                appearance="outline">
+                                                    <mat-label class="customMatLabel">Description</mat-label>
+                                                    <input matInput formControlName="DescriptionTab">
                                                 </mat-form-field>
                                             </div>
                                         </div>

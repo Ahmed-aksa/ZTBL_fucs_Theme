@@ -54,6 +54,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         'Remarks',
         'Lng',
         'Lat',
+        'AddedOn',
         'Actions',
     ];
     gridHeight: string;
@@ -133,7 +134,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
     setUsers() {
         const userInfo = this.userUtilsService.getUserDetails();
         this.userInfo = this.userUtilsService.getUserDetails();
-        // 
+        //
         //MCO User
         if (userInfo.User.userGroup[0].ProfileID == '56') {
             this.isMCO = true;
@@ -289,15 +290,15 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
             return;
         }
 
-        if (!this.branch) {
-            var Message = 'Please select Branch';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
+        // if (!this.branch) {
+        //     var Message = 'Please select Branch';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
 
 
         this.spinner.show();
@@ -315,7 +316,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     this.dataSource.data = baseResponse.LoanUtilization['Utilizations'];
-                    
+
                 } else {
                     this.layoutUtilsService.alertElement('', baseResponse.Message);
                     this.dataSource.data = [];
@@ -387,7 +388,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
     async LoadLovs() {
 
         this.loanutilizationStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes});
-        // 
+        //
         this.loanutilizationStatusLov.LOVs.forEach(function(value) {
             if (!value.Value)
                 {value.Value = 'All';}

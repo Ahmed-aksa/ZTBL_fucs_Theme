@@ -92,7 +92,7 @@ export class LoanUtilizationService {
         this.request.Circle =
             {
                 CircleIds: _circles,
-                CircleCode: circle?.CircleId
+                CircleCode: circle?.Id
             };
         return this.http.post(`${environment.apiUrl}/LoanUtilization/SearchUtilizations`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(

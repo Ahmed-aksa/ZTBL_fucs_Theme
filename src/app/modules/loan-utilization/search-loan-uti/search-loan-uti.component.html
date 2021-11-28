@@ -122,10 +122,16 @@
                     <!--                        <mat-cell *matCellDef="let loanutilization">{{loanutilization.BranchName}}</mat-cell>-->
                     <!--                    </ng-container>-->
 
+                    <ng-container matColumnDef="BranchName">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Name</mat-header-cell>
+                        <mat-cell *matCellDef="let loanutilization">{{loanutilization.BranchName}}</mat-cell>
+                    </ng-container>
+
                     <ng-container matColumnDef="BranchCode">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Branch Code</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.BranchCode}}</mat-cell>
                     </ng-container>
+
 
                     <ng-container matColumnDef="GlSubCode">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Gl Sub Code</mat-header-cell>
@@ -182,6 +188,7 @@
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Status Name</mat-header-cell>
                         <mat-cell *matCellDef="let loanutilization">{{loanutilization.StatusName}}</mat-cell>
                     </ng-container>
+
 
                     <!-- <ng-container matColumnDef="loanutilizationStatus">
                       <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
