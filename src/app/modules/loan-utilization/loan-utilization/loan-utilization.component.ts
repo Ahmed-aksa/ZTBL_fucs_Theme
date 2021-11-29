@@ -654,6 +654,7 @@ export class LoanUtilizationComponent implements OnInit {
                         this.SaveImages();
 
                     } else {
+                       this.spinner.hide();
                         this.layoutUtilsService.alertElement(
                             '',
                             baseResponse.Message,
@@ -683,7 +684,7 @@ export class LoanUtilizationComponent implements OnInit {
                             this.SaveImages();
 
                         } else {
-
+                         this.spinner.hide();
                             this.layoutUtilsService.alertElement(
                                 '',
                                 baseResponse.Message,
@@ -717,6 +718,7 @@ export class LoanUtilizationComponent implements OnInit {
                             this.SaveVideos();
 
                         } else {
+                           this.spinner.hide();
                             this.layoutUtilsService.alertElement(
                                 '',
                                 baseResponse.Message,
