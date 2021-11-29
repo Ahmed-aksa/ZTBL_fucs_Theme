@@ -62,7 +62,7 @@ export class LoanUtilizationService {
         );
     }
 
-    searchUtilization(loanUtilization, zone, branch, circle): Observable<BaseResponseModel> {
+    searchUtilization(loanUtilization, zone, branch, circle, Limit, Offset): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         // if (loanUtilization.CustomerName == null)
         // loanUtilization.CustomerName = "";
@@ -89,6 +89,8 @@ export class LoanUtilizationService {
         this.request.LoanUtilization = {"UtilizationDetail": loanUtilization}
         this.request.Zone = zone;
         this.request.Branch = branch;
+        this.request.LoanUtilization["Offset"] = Offset;
+        this.request.LoanUtilization["Limit"] = Limit;
         this.request.Circle =
             {
                 CircleIds: _circles,

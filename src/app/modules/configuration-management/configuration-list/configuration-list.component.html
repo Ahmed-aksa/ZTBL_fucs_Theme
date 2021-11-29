@@ -1,4 +1,4 @@
-<div class="px-10  absolute inset-0 bg-white flex flex-col min-w-0 overflow-y-scroll" cdkScrollable>
+<div class="px-10  absolute inset-0 bg-white flex flex-col min-w-0 overflow-y-scroll overflow-x-hidden" cdkScrollable>
 
     <div class="row py-3">
         <div class="col-lg-9 col-sm-12">
@@ -71,10 +71,10 @@
                             <tbody>
                             <tr *ngFor="let child of parent_configuration.ChildConfigurations;let i=index;">
                                 <td>{{i + 1}}</td>
-                                <td>{{child.KeyName}}</td>
-                                <td>{{child.KeyValue}}</td>
+                                <td class="break-all w-5/12">{{child.KeyName}}</td>
+                                <td  class="break-all w-5/12">{{child.KeyValue}}</td>
                                 <td>
-                                    <div>
+                                    <div class="flex">
                                         <button mat-icon-button color="primary">
                                             <mat-icon>delete</mat-icon>
                                         </button>

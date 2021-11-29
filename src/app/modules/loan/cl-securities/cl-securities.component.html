@@ -137,7 +137,7 @@
                 <td>{{custLand.OwnAreaAddress}}</td>
                 <td>{{custLand.AttachedFlag}}</td>
                 <td>
-                  <mat-checkbox [checked]="checkBOX(custLand?.ID)">
+                  <mat-checkbox (click)="onChang(custLand.IsAttached)" [disabled]="IfDisabledBOX(custLand.IsAttached)" [checked]="checkBOX(custLand?.ID)">
                   </mat-checkbox>
                 </td>
               </tr>

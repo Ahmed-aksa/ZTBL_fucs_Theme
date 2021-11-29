@@ -93,6 +93,25 @@ export class ClSecuritiesComponent implements OnInit {
       }
 
     }
+
+    IfDisabledBOX(IsAttached){
+      if(IsAttached==true){
+          return true
+      }else if(IsAttached==false){
+          return false
+      }else{
+          return true
+      }
+
+    }
+
+    onChang(IsAttached){
+     if(IsAttached==false){
+
+     }
+
+    }
+
   searchSecurityType(securityTypeId) {
     securityTypeId = securityTypeId.toLowerCase();
     if (securityTypeId != null && securityTypeId != undefined && securityTypeId != "")
