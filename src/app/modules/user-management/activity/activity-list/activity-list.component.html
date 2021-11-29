@@ -1,4 +1,5 @@
-<div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div
+    class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
 
     <!-- Header -->
 
@@ -24,9 +25,8 @@
     <!-- Header -->
 
 
-
     <!-- Main -->
-    <div >
+    <div>
 
         <!-- CONTENT GOES HERE -->
         <div>
@@ -40,7 +40,7 @@
                          *ngFor="let activity of userActivities;let i=index">
                         <div class="custom-accordion-head border-0" (click)="toggleAccordion(activity.ActivityID)"
                              style="cursor: pointer">
-                             <div class="self-center ml-8">
+                            <div class="self-center ml-8">
                                 <span class="font-bold text-green">
                                     {{activity.ActivityName}}
                                 </span>

@@ -32,6 +32,7 @@ export class ConfigurationListComponent implements OnInit {
     // Selection
     gridHeight: string;
     loading: boolean = false;
+    lists_record: any = [];
 
     constructor(
         private store: Store<AppState>,
@@ -111,13 +112,13 @@ export class ConfigurationListComponent implements OnInit {
             disableClose: true
         });
         dialogRef.afterClosed().subscribe(res => {
-            this.loadConfigurationsList();
 
             if (!res) {
                 return;
-            }
+            } else {
+                this.loadConfigurationsList();
 
-            this.loadConfigurationsList();
+            }
         });
     }
 
@@ -125,7 +126,16 @@ export class ConfigurationListComponent implements OnInit {
         this.dialog.open(ConfigurationHistoryComponent);
     }
 
-    toggleAccordion(i: number) {
+    toggleAccordion(i: string) {
+        if (!this.lists_record.includes(i)) {
+            this.lists_record.push(i)
+            document.getElementById('table_' + i).style.display = 'block';
+        } else {
+            this.lists_record.pop(i);
+            document.getElementById('table_' + i).style.display = 'none';
+        }
+
+
         let down_arrow = document.getElementById('arrow_down_' + i).style.display;
         if (down_arrow == 'block') {
             document.getElementById('arrow_down_' + i).style.display = 'none';

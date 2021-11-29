@@ -60,6 +60,10 @@ export class LoanUtilizationComponent implements OnInit {
 
     Lat = [];
     Lng = [];
+
+
+    video_lat = [];
+    video_lng = [];
     displayedColumns = [
         'LoanCaseNo',
         'gl',
@@ -480,6 +484,8 @@ export class LoanUtilizationComponent implements OnInit {
                             baseResponse.Code = null
                         );
 
+                        this.router.navigate(['/loan-utilization/search-uti']);
+
                     } else {
 
                         this.layoutUtilsService.alertElement(
@@ -539,6 +545,8 @@ export class LoanUtilizationComponent implements OnInit {
                                     this.images.push(utilizationFiles[i]);
                                     this.imageUrl.push(utilizationFiles[i].ImageFilePath);
                                 } else {
+                                    this.video_lng.push(utilizationFiles[i].Lng);
+                                    this.video_lat.push(utilizationFiles[i].Lat);
                                     this.videos.push(utilizationFiles[i]);
                                     this.videoUrl.push(utilizationFiles[i].VideoFilePath);
                                 }
@@ -654,7 +662,7 @@ export class LoanUtilizationComponent implements OnInit {
                         this.SaveImages();
 
                     } else {
-                       this.spinner.hide();
+                        this.spinner.hide();
                         this.layoutUtilsService.alertElement(
                             '',
                             baseResponse.Message,
@@ -684,7 +692,7 @@ export class LoanUtilizationComponent implements OnInit {
                             this.SaveImages();
 
                         } else {
-                         this.spinner.hide();
+                            this.spinner.hide();
                             this.layoutUtilsService.alertElement(
                                 '',
                                 baseResponse.Message,
@@ -718,7 +726,7 @@ export class LoanUtilizationComponent implements OnInit {
                             this.SaveVideos();
 
                         } else {
-                           this.spinner.hide();
+                            this.spinner.hide();
                             this.layoutUtilsService.alertElement(
                                 '',
                                 baseResponse.Message,
@@ -748,11 +756,19 @@ export class LoanUtilizationComponent implements OnInit {
         }
     }
 
-    viewMap(i) {
-        let data = {
-            Lat: this.Lat[i],
-            Lng: this.Lng[i]
-        };
+    viewMap(i, is_video) {
+        let data = null;
+        if (is_video) {
+            data = {
+                Lat: this.video_lat[i],
+                Lng: this.video_lng[i]
+            };
+        } else {
+            data = {
+                Lat: this.Lat[i],
+                Lng: this.Lng[i]
+            };
+        }
         const dialogRef = this.dialog.open(ViewMapsComponent, {
             panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',
