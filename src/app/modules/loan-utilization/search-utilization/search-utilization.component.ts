@@ -44,6 +44,19 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
     zone: any;
     circle: any;
 
+    matTableLenght: any;
+    dv: number | any; //use later
+
+
+    Math: any;
+
+    Limit: any;
+    OffSet: number = 0;
+    //pagination
+    itemsPerPage = 10; //you could use your specified
+    totalItems: number | any;
+    pageIndex = 1;
+
     displayedColumns = ['LoanCaseNo',
         // "GlCode",
 
@@ -121,6 +134,20 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
 
     }
 
+    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+
+        this.itemsPerPage = pageSize;
+        this.OffSet = (pageIndex - 1) * this.itemsPerPage;
+        this.pageIndex = pageIndex;
+        this.searchloanutilization()
+        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
+    }
+
+
+    paginateAs(pageIndex: any, pageSize: any = this.itemsPerPage) {
+
+    }
+
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
@@ -170,24 +197,6 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
 
     }
 
-    // setCircles() {
-    //     var userInfo = this.userUtilsService.getUserDetails();
-    //     if(userInfo.User.userGroup[0].ProfileID != "9999999"){
-    //         this._circleService.GetCircleByBranchId()
-    //             .pipe(
-    //                 finalize(() => {
-    //                     this.loading = false;
-    //                 })
-    //             )
-    //             .subscribe(baseResponse => {
-    //                 if (baseResponse.Success) {
-    //                     this.circle = baseResponse.Circles;
-    //                 } else {
-    //                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-    //                 }
-    //             });
-    //     }
-    // }
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
@@ -196,21 +205,9 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         if(this.zone){
             this.searchloanutilization();
         }
-        //var userInfo = this.userUtilsService.getUserDetails();
-        //this.utilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);
-        //this.utilizationSearch.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
-    // CheckEditStatus(loanUtilization: any) {
-    //
 
-    //   if () {
-    //     return true
-    //   }
-    //   else {
-    //     return false
-    //   }
-    // }
 
     CheckEditStatus(loanUtilization: any) {
         this.loggedInUserDetails.User.UserId;
@@ -289,16 +286,8 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
             );
             return;
         }
-
-        // if (!this.branch) {
-        //     var Message = 'Please select Branch';
-        //     this.layoutUtilsService.alertElement(
-        //         '',
-        //         Message,
-        //         null
-        //     );
-        //     return;
-        // }
+        var count = this.itemsPerPage.toString();
+        var currentIndex = this.OffSet.toString();
 
 
         this.spinner.show();
@@ -306,7 +295,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
             this.utilizationSearch.controls['Status'].setValue('All');
         }
         this._utilizationSearch = Object.assign(this.utilizationSearch.value);
-        this._loanutilizationService.searchUtilization(this._utilizationSearch, this.zone, this.branch, this.circle)
+        this._loanutilizationService.searchUtilization(this._utilizationSearch, this.zone, this.branch, this.circle,count, currentIndex)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -316,10 +305,28 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     this.dataSource.data = baseResponse.LoanUtilization['Utilizations'];
+                    if (this.dataSource.data.length > 0)
+                        this.matTableLenght = true;
+                    else
+                        this.matTableLenght = false;
+
+                    this.dv = this.dataSource.data;
+                    this.totalItems = baseResponse.LoanUtilization.Utilizations[0].TotalRecords;
+                    this.dataSource.data = this.dv.slice(0, this.totalItems)
+                    this.OffSet = this.pageIndex;
+                    this.dataSource = this.dv.slice(0, this.itemsPerPage);
 
                 } else {
-                    this.layoutUtilsService.alertElement('', baseResponse.Message);
-                    this.dataSource.data = [];
+                    if (this.dv != undefined) {
+                        this.matTableLenght = false;
+                        this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
+                        // this.dataSource.data = [];
+                        // this._cdf.detectChanges();
+                        this.OffSet = 1;
+                        this.pageIndex = 1;
+                        this.dv = this.dv.slice(1, 0);
+                        this.layoutUtilsService.alertElement("", baseResponse.Message);
+                    }
                 }
             });
     }

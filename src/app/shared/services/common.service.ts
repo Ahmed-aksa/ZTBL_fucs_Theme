@@ -27,7 +27,7 @@ export class CommonService {
   }
 
   workingDate(){
-      debugger
+
       this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
       if(this.LoggedInUserInfo?.Branch){
           let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
