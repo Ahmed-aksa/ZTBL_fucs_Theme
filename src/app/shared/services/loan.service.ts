@@ -646,7 +646,6 @@ export class LoanService {
     //  }
     documentUpload(loanDoc: LoanDocuments) {
         //tranId = 12121;
-        debugger
 
         var formData = new FormData();
         var loanInfo = new Loan();
@@ -678,7 +677,6 @@ export class LoanService {
         return this.http
             .post<any>(`${environment.apiUrl}/Loan/DocumentUpload`, formData)
             .pipe(map((res: BaseResponseModel) => res));
-        debugger
     }
 
     GetViewLoanDocument(app) {
