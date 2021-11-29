@@ -96,7 +96,6 @@ export class ReschedulingService {
     }
 
     SaveMakeRescheduleLoan(res: MakeReschedule, branch, zone): Observable<BaseResponseModel> {
-        debugger
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFunction()
@@ -223,8 +222,6 @@ export class ReschedulingService {
         let circle = {
             CircleIds: _circles
         }
-        debugger
-
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         this.generalFun()
@@ -241,7 +238,6 @@ export class ReschedulingService {
     }
 
     GetReshTransactionByID(loanReschID, zone, branch): Observable<BaseResponseModel> {
-        //debugger
         this.request = new BaseRequestModel();
         this.request.Zone = zone;
         this.request.Branch = branch

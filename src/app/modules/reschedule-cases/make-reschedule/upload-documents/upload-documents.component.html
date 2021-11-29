@@ -23,118 +23,119 @@
                 <div class="col-lg-12">
 
                     <div class="kt-portlet__head-label flex w-full">
-                        <h6 class="heading w-11/12">Loan Information</h6>
+                        <h6 class="heading w-full">Loan Information</h6>
                     </div>
 
-                    <div class="form-group kt-form__group row">
+                    <div class="flex" style="flex-wrap: wrap;">
                         <app-zone-branch-circle [form]="PostDocument" [should_show_circle]="false"
                                                 (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-
-                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Loancase NO: <strong class="matMandatory">*</strong>
-                                </mat-label>
-                                <input matInput formControlName="LcNo" readonly>
-                                <mat-error *ngIf="hasError('DocumentRefNo', 'required')">LcNo <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                            <input type="button" mat-raised-button color="primary"
-                                   class=" mx-2 mt-3 mat-raised-button mat-button-base mat-primary searchLCBtn"
-                                   (click)="loanCase()" value="Search"/>
-                        </div>
-
-                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Status: <strong class="matMandatory">*</strong>
-                                </mat-label>
-                                <input matInput formControlName="LoanStatus" readonly>
-                                <mat-error *ngIf="hasError('LoanStatus', 'required')">Document Ref No
-                                    <strong>required</strong></mat-error>
-                            </mat-form-field>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-
-                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Loan Type: <strong class="matMandatory">*</strong>
-                                </mat-label>
-                                <input matInput formControlName="CategoryName" readonly>
-                                <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Loan Type
-                                    <strong>required</strong></mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Loan Doc Type:<strong class="matMandatory">*</strong>
-                                </mat-label>
-                                <mat-select formControlName="DocLoanId">
-                                    <!--                                    <mat-option>-->
-                                    <!--                                        <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateLoanTypeOnFocusOut()" noEntriesFoundLabel="No Loan Type Found" (keyup)="searchLoanType($event.target.value)">-->
-                                    <!--                                        </ngx-mat-select-search>-->
-                                    <!--                                    </mat-option>-->
-                                    <mat-option *ngFor="let documentType of documentSelectedLoanType"
-                                                [value]="documentType.Id">
-                                        {{documentType.Name }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="hasError('ParentDocId', 'required')">Parent Doc Id
-                                    <strong>required</strong></mat-error>
-                            </mat-form-field>
-                        </div>
-
-                    </div>
-
-                    <div class="kt-portlet__head-label flex w-full">
-                        <h6 class="heading w-11/12">Documents Information</h6>
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-
-                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Documents:<strong class="matMandatory">*</strong>
-                                </mat-label>
-                                <mat-select formControlName="ParentDocId">
-                                    <!--                                    <mat-option>-->
-                                    <!--                                        <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateLoanTypeOnFocusOut()" noEntriesFoundLabel="No Loan Type Found" (keyup)="searchLoanType($event.target.value)">-->
-                                    <!--                                        </ngx-mat-select-search>-->
-                                    <!--                                    </mat-option>-->
-                                    <mat-option *ngFor="let documentType of SelectedDocument" [value]="documentType.Id">
-                                        {{documentType.Name }}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="hasError('ParentDocId', 'required')">Parent Doc Id
-                                    <strong>required</strong></mat-error>
-                            </mat-form-field>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group kt-form__group row">
-
-                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Document Ref No. <strong
-                                        class="matMandatory">*</strong></mat-label>
-                                    <input matInput formControlName="DocumentRefNo">
-                                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Document Ref No <strong>required</strong>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                <mat-form-field class="w-6/12 mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Loancase NO: <strong
+                                        class="matMandatory">*</strong>
+                                    </mat-label>
+                                    <input matInput formControlName="LcNo" readonly>
+                                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">LcNo
+                                        <strong>required</strong>
                                     </mat-error>
+                                </mat-form-field>
+                                <input type="button" mat-raised-button color="primary"
+                                       class="  mx-2 w-5/12 mat-raised-button mat-button-base mat-primary searchLCBtn"
+                                       (click)="loanCase()" value="Search"/>
+                            </div>
+
+                        </div>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Status: <strong class="matMandatory">*</strong>
+                                    </mat-label>
+                                    <input matInput formControlName="LoanStatus" readonly>
+                                    <mat-error *ngIf="hasError('LoanStatus', 'required')">Document Ref No
+                                        <strong>required</strong></mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Loan Type: <strong class="matMandatory">*</strong>
+                                    </mat-label>
+                                    <input matInput formControlName="CategoryName" readonly>
+                                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Loan Type
+                                        <strong>required</strong></mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Loan Doc Type:<strong
+                                        class="matMandatory">*</strong>
+                                    </mat-label>
+                                    <mat-select formControlName="DocLoanId">
+                                        <!--                                    <mat-option>-->
+                                        <!--                                        <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateLoanTypeOnFocusOut()" noEntriesFoundLabel="No Loan Type Found" (keyup)="searchLoanType($event.target.value)">-->
+                                        <!--                                        </ngx-mat-select-search>-->
+                                        <!--                                    </mat-option>-->
+                                        <mat-option *ngFor="let documentType of documentSelectedLoanType"
+                                                    [value]="documentType.Id">
+                                            {{documentType.Name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="hasError('ParentDocId', 'required')">Parent Doc Id
+                                        <strong>required</strong></mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="kt-portlet__head-label flex w-full">
+                        <h6 class="heading w-full">Documents Information</h6>
+                    </div>
+                    <div class="flex" style="flex-wrap: wrap;">
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Documents:<strong class="matMandatory">*</strong>
+                                    </mat-label>
+                                    <mat-select formControlName="ParentDocId" disabled>
+                                        <!--                                    <mat-option>-->
+                                        <!--                                        <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateLoanTypeOnFocusOut()" noEntriesFoundLabel="No Loan Type Found" (keyup)="searchLoanType($event.target.value)">-->
+                                        <!--                                        </ngx-mat-select-search>-->
+                                        <!--                                    </mat-option>-->
+                                        <mat-option *ngFor="let documentType of SelectedDocument"
+                                                    [value]="documentType.Id">
+                                            {{documentType.Name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="hasError('ParentDocId', 'required')">Parent Doc Id
+                                        <strong>required</strong></mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Document Ref No. <strong
+                                            class="matMandatory">*</strong></mat-label>
+                                        <input matInput formControlName="DocumentRefNo">
+                                        <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Document Ref No
+                                            <strong>required</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label class="customMatLabel">No of Files to Upload<strong class="matMandatory">*</strong>
                                     </mat-label>
@@ -145,23 +146,21 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group kt-form__group row">
 
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label class="customMatLabel">Description</mat-label>
                                     <input matInput formControlName="Description">
                                 </mat-form-field>
                             </div>
                         </div>
-
                     </div>
 
+
                     <div class="kt-portlet__head-label flex w-full">
-                        <h6 class="heading w-11/12">Attachments:</h6>
+                        <h6 class="heading w-full">Attachments:</h6>
                     </div>
 
                     <div class="col-lg-12">
@@ -175,21 +174,22 @@
                                     <th>Description</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="bg-white">
 
                                 <tr *ngFor="let item of [].constructor(number_of_files); let i = index">
                                     <td>
-                                        <div class="col-lg-8 kt-margin-bottom-20-mobile">
+                                        <div class="col-lg-12 kt-margin-bottom-20-mobile">
                                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                                                 <input formControlName="file" type="file" id="file_{{i}}"
+                                                       accept="image/png, image/jpg, image/jpeg"
                                                        (change)="onFileChange($event)">
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
                                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                                <mat-form-field class="mat-form-field-fluid w-full"
+                                                <mat-form-field class=" mat-form-field-fluid w-full"
                                                                 appearance="outline">
                                                     <mat-label class="customMatLabel">Page No</mat-label>
                                                     <input matInput formControlName="PageNumber" id="page_{{i}}">
@@ -198,9 +198,10 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                                <mat-form-field class="mat-form-field-fluid w-full"
+                                        <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                                                 style="font-size: 14px;">
+                                                <mat-form-field class=" mat-form-field-fluid w-full"
                                                                 appearance="outline">
                                                     <mat-label class="customMatLabel">Description</mat-label>
                                                     <input matInput formControlName="DescriptionTab"

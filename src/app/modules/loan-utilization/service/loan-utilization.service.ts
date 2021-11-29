@@ -321,9 +321,6 @@ export class LoanUtilizationService {
             SRC: "GPS"
         },
 
-            this.request.Circle = {
-                CircleIds: "53444,53443,53442,53441"
-            },
 
             this.request.doPerformOTP = false;
 
@@ -331,13 +328,7 @@ export class LoanUtilizationService {
 
         this.request.User = userInfo.User;
         this.request.Zone = userInfo.Zone;
-        this.request.Branch = {
-            "BranchId": "102",
-            "BranchCode": "20238",
-            "Name": "NOORPUR TOWN",
-            "WorkingDate": "11012021",
-            "Id": 0
-        }
+        this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
