@@ -84,8 +84,8 @@ export class ClSecuritiesComponent implements OnInit {
 
   }
 
-    checkBOX(ID){
-      if(ID>0){
+    checkBOX(IsAttached){
+      if(IsAttached==true){
           return true;
       }
       else{
@@ -106,7 +106,10 @@ export class ClSecuritiesComponent implements OnInit {
     }
     newARR=[];
     onChang(custLand,i){
-   debugger
+        debugger
+        if(custLand.IsAttached==true){
+            return
+        }
       for(let i=0;i<this.newARR?.length;i++){
           if(this.newARR[i].PassbookNo==custLand.PassbookNo){
         this.newARR[i].ID="-1";
@@ -245,6 +248,8 @@ export class ClSecuritiesComponent implements OnInit {
       ).subscribe(baseResponse => {
 
           if (baseResponse.Success) {
+              this.customerLandList = baseResponse.Loan.CustomersLoanLands;
+              this.newARR=[];
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
           }
           else {
