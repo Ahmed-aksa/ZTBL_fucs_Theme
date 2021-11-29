@@ -307,7 +307,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         }
     }
 
-    Today = new Date;
+    Today = this._common.workingDate();
 
     getToday() {
         // Today
@@ -317,14 +317,19 @@ export class SearchLoanUtilizationComponent implements OnInit {
             return this.Today;
         } else {
 
-            this.Today = new Date();
+            // this.Today = new Date();
+            this.Today = this._common.workingDate();
             return this.Today;
         }
     }
 
     getTodayForTo() {
-        return new Date().toISOString().split('T')[0]
+        // return new Date().toISOString().split('T')[0]
+        return this._common.workingDate();
     }
+
+
+    // workingDate();
 
 
     searchloanutilization() {
