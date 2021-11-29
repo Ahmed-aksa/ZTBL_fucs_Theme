@@ -95,20 +95,22 @@ export class ClSecuritiesComponent implements OnInit {
     }
 
     IfDisabledBOX(IsAttached){
-      if(IsAttached==true){
-          return true
-      }else if(IsAttached==false){
-          return false
-      }else{
-          return true
-      }
+      // if(IsAttached==true){
+      //     return true
+      // }else if(IsAttached==false){
+      //     return false
+      // }else{
+      //     return true
+      // }
 
     }
 
-    onChang(IsAttached){
-     if(IsAttached==false){
-
+    onChang(custLand,i){
+     if(custLand.IsAttached==false){
+this.customerLandList[i].IsAttached=true;
      }
+
+     console.log(JSON.stringify(this.customerLandList))
 
     }
 

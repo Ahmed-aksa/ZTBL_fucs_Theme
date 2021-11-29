@@ -201,7 +201,7 @@
             <div class="col-lg-12 col-sm-12">
                 <input *ngIf="!viewonly" (click)="ifResetRequired()" type='file' formControlName="file"
                        accept="image/jpg, image/jpeg" (change)="onSelectFile($event)"/>
-                <div class="mt-4 overflow-scroll" *ngIf="imageUrl.length>0 && visible"
+                <div class="mt-2 overflow-scroll" *ngIf="imageUrl.length>0 && visible"
                      style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
                     <div *ngFor='let url of imageUrl; let i = index'>
                         <!-- <button *ngIf="!viewonly" (click)="removeImage(url,i)">
@@ -218,9 +218,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="width: 240px;">
+                        <div style="width: 240px; position: relative;">
                             <img [src]="url" (click)="previewImg(url)">
-                            <button class="my-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-flat-button  (click)="viewMap(i,false)"><mat-icon class="mr-2">remove_red_eye</mat-icon>View Location</button>
+                            <button *ngIf="viewonly" class=" mat-focus-indicator mat-flat-button mat-button-base mat-primary" style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;" mat-flat-button  (click)="viewMap(i,false)"><mat-icon>location_on</mat-icon></button>
                         </div>
                     </div>
                 </div>
@@ -261,12 +261,12 @@
                         </div>
                     </div>
                     <!-- <button type="button" class="btn-close" aria-label="Close" (click)="removeVideo(i)"></button> -->
-                    <div>
+                    <div style="position: relative; width: 240px;">
                         <!-- <video (loadedmetadata)="getDuration($event,i)"  height="240px" width="320px" [src]="url" controls></video> -->
-                        <video style="height: 240px;" #video width="320" height="240" controls [attr.src]="url"
+                        <video style="height: 240px;" height="240" controls [attr.src]="url"
                                (loadedmetadata)="getDuration($event,i)">
                         </video>
-                        <button class="my-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-flat-button  (click)="viewMap(i,true)"><mat-icon class="mr-2">remove_red_eye</mat-icon>View Location</button>
+                        <button *ngIf="viewonly" class=" mat-focus-indicator mat-flat-button mat-button-base mat-primary" style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;" mat-flat-button  (click)="viewMap(i,true)"><mat-icon >location_on</mat-icon></button>
 
                     </div>
                 </div>
@@ -291,7 +291,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 text-right">
-                <div class="float-right mr-4 mt-4 border-t py-6">
+                <div class="float-right mr-4 mt-2 border-t py-6">
                     <button class="ml-2 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" *ngIf="isSave" mat-raised-button  (click)="save()"><mat-icon class="mr-2">save</mat-icon>Save</button>
                     <button class="ml-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">
                         <mat-icon class="mr-2">check_circle</mat-icon>Submit
