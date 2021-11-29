@@ -129,7 +129,7 @@
               </tr>
             </thead>
             <tbody class="">
-              <tr *ngFor="let custLand of customerLandList">
+              <tr *ngFor="let custLand of customerLandList; let i = index;">
                 <td>{{custLand.PassbookNo}}</td>
                 <td>{{custLand.LandTypeFlag}}</td>
                 <td>{{custLand.TotalArea}}</td>
@@ -137,7 +137,7 @@
                 <td>{{custLand.OwnAreaAddress}}</td>
                 <td>{{custLand.AttachedFlag}}</td>
                 <td>
-                  <mat-checkbox (click)="onChang(custLand.IsAttached)" [disabled]="IfDisabledBOX(custLand.IsAttached)" [checked]="checkBOX(custLand?.ID)">
+                  <mat-checkbox (click)="onChang(custLand,i)" [disabled]="IfDisabledBOX(custLand.IsAttached)" [checked]="checkBOX(custLand?.ID)">
                   </mat-checkbox>
                 </td>
               </tr>
