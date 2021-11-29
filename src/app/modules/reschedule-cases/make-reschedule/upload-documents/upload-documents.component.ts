@@ -64,6 +64,10 @@ export class UploadDocumentsComponent implements OnInit {
     disable_lc = false;
     number_of_files: number;
 
+
+    page_number = [];
+    description = [];
+
     constructor(
         public dialogRef: MatDialogRef<UploadDocumentsComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -208,8 +212,14 @@ export class UploadDocumentsComponent implements OnInit {
 
     saveLoanDocuments() {
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
-        this.rawData.forEach((single_file) => {
+        this.rawData.forEach((single_file, index) => {
             this.loanDocument.file = single_file;
+            // @ts-ignore
+            let page_number = document.getElementById(`page_${index}`).value;
+            // @ts-ignore
+            let description = document.getElementById(`description_${index}`).value;
+            this.loanDocument.PageNumber = page_number;
+            this.loanDocument.Description = description;
             if (this.PostDocument.invalid) {
                 const controls = this.PostDocument.controls;
                 Object.keys(controls).forEach(controlName =>
