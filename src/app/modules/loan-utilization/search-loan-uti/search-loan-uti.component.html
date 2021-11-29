@@ -88,6 +88,9 @@
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
+
+                            <span class="cursor-pointer mt-2  mx-4" id="llcInquiryText" (click)="getAllValues()"><b
+                                class="-mt-4 text-green">Get All</b></span>
                         </div>
                     </div>
 
@@ -244,7 +247,7 @@
         </div>
 
     </div>
-    <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+    <div class="mat-select" style="padding:5px;">
         Items per page:
         <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">

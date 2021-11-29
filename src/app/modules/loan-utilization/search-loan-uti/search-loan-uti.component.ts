@@ -327,11 +327,21 @@ export class SearchLoanUtilizationComponent implements OnInit {
         return this._common.workingDate();
     }
 
+    getAllValues(){
+        debugger
+        this.OffSet = 0;
+        this.itemsPerPage = 10;
+        this.todate = null ;
+        this.fromdate = null;
+        this.searchloanutilization(true)
+    }
+
 
     // workingDate();
 
 
     searchloanutilization(is_first = false) {
+        debugger
         if (is_first) {
             this.OffSet = 0;
         }
@@ -364,6 +374,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
         //     );
         //     return;
         // }
+
+
 
         this.spinner.show()
         if (this.loanutilizationSearch.controls.LoanCaseNo.value != "") {
@@ -418,17 +430,15 @@ export class SearchLoanUtilizationComponent implements OnInit {
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
                 } else {
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
+                    this.matTableLenght = true;
+                    this.dataSource = this.dv?.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
 
-                    if (this.dv != undefined) {
-                        this.matTableLenght = true;
-                        this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
-                        // this.dataSource.data = [];
-                        // this._cdf.detectChanges();
-                        this.OffSet = 1;
-                        this.pageIndex = 1;
-                        this.dv = this.dv.slice(1, 0);
-                        this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    }
+                    this.OffSet = 0;
+                    this.totalItems = 0;
+                    this.pageIndex = 1;
+                    this.dv = this.dataSource;
+
                 }
             });
     }
