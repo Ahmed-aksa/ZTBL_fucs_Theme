@@ -520,6 +520,10 @@ export class MakeRcComponent implements OnInit {
 
 
     cancelTransaction() {
+        if (this.rescheduling.LoanReschID == null || this.rescheduling.LoanReschID == undefined) {
+            this.layoutUtilsService.alertElement('', "Please save before Cancelling Transaction.")
+            return
+        }
         this.spinner.show();
         this._reschedulingService
             .CancelRescheduleData(this.rescheduling, this.branch, this.zone)
