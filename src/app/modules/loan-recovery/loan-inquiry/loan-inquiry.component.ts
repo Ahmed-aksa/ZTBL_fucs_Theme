@@ -24,6 +24,8 @@ export class LoanInquiryComponent implements OnInit {
   RecoveryForm: FormGroup;
   hasFormErrors = false;
   dataFound = false;
+  zone;
+  branch
 
   constructor(
     private _recoveryService: RecoveryService,
@@ -52,7 +54,7 @@ export class LoanInquiryComponent implements OnInit {
     var lcno = this.route.snapshot.params['Lcno'];
 
     var userInfo = this.userUtilsService.getUserDetails();
-    
+
 
     this.RecoveryForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
     this.RecoveryForm.controls.Branch.setValue(userInfo.Branch.Name);
@@ -80,7 +82,7 @@ export class LoanInquiryComponent implements OnInit {
     this.spinner.show();
     this.submitted = true;
     this._recoveryService
-      .getLoanApplicationsInquiry(loanCaseNo, transactionId)
+      .getLoanApplicationsInquiry(loanCaseNo, transactionId, this.zone, this.branch)
       .pipe(
         finalize(() => {
           this.submitted = false;
@@ -107,7 +109,7 @@ export class LoanInquiryComponent implements OnInit {
     this.spinner.show();
     this.submitted = true;
     this._recoveryService
-      .getViewLoanDocument(documentType, documentId)
+      .getViewLoanDocument(documentType, documentId, this.zone, this.branch)
       .pipe(
         finalize(() => {
           this.submitted = false;
@@ -135,7 +137,7 @@ export class LoanInquiryComponent implements OnInit {
     this.spinner.show();
     this.submitted = true;
     this._recoveryService
-      .getLoanApplicationsInquiryDisbursment(loanDisbursmentId.toString())
+      .getLoanApplicationsInquiryDisbursment(loanDisbursmentId.toString(), this.zone, this.branch)
       .pipe(
         finalize(() => {
           this.submitted = false;

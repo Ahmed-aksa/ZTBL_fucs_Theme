@@ -118,7 +118,7 @@ export class RecoveryService {
         branch: any
     ): Observable<BaseResponseModel> {
         var recoveryData = {RecoveryType: recoveryType};
-        
+
         var recovery = {
             TransactionDate: transactionDate,
             VoucherNo: voucherNo,
@@ -382,10 +382,12 @@ export class RecoveryService {
 
     getLoanApplicationsInquiry(
         lcNo: string,
-        LnTransactionID: string
+        LnTransactionID: string,
+        zone,
+        branch
     ): Observable<BaseResponseModel> {
         var userInfo = this.userUtilsService.getUserDetails();
-        var branch = {BranchId: userInfo.Branch.BranchId};
+        //var branch = {BranchId: userInfo.Branch.BranchId};
         var recovery = {Lcno: lcNo, LnTransactionID: LnTransactionID};
         var request = {Branch: branch, Recovery: recovery};
         return this.http
@@ -398,7 +400,9 @@ export class RecoveryService {
     }
 
     getLoanApplicationsInquiryDisbursment(
-        LnTransactionID: string
+        LnTransactionID: string,
+        zone,
+        branch
     ): Observable<BaseResponseModel> {
         var recovery = {LnTransactionID: LnTransactionID};
         var request = {Recovery: recovery};
@@ -413,7 +417,9 @@ export class RecoveryService {
 
     getViewLoanDocument(
         documentType: string,
-        documentId: string
+        documentId: string,
+        zone,
+        branch
     ): Observable<BaseResponseModel> {
         var ViewDocumnets = {ID: documentId, Type: documentType};
         var request = {ViewDocumnets: ViewDocumnets};

@@ -26,6 +26,9 @@ export class LoanInquiryComponent implements OnInit {
   hasFormErrors = false;
   dataFound = false;
 
+  zone;
+  branch;
+
   constructor(
     private _recoveryService: RecoveryService,
     public dialog: MatDialog,
@@ -64,6 +67,11 @@ export class LoanInquiryComponent implements OnInit {
     //this.getLoanApplicationsInquiry();
   }
 
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+    }
+
   find() {
     var transactionId = this.RecoveryForm.controls.TransactionId.value;
     var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
@@ -76,7 +84,7 @@ export class LoanInquiryComponent implements OnInit {
     this.spinner.show();
     this.submitted = true;
     this._recoveryService
-      .getLoanApplicationsInquiry(loanCaseNo, transactionId)
+      .getLoanApplicationsInquiry(loanCaseNo, transactionId, this.zone, this.branch)
       .pipe(
         finalize(() => {
           this.submitted = false;
@@ -89,9 +97,9 @@ export class LoanInquiryComponent implements OnInit {
 
         if (baseResponse.Success === true) {
           this.dynamicList = JSON.parse(baseResponse.Recovery.DynamicDataList);
-          
-          
-         
+
+
+
           this.dataFound = true;
           this.cdRef.detectChanges();
         }
@@ -107,7 +115,7 @@ export class LoanInquiryComponent implements OnInit {
     this.spinner.show();
     this.submitted = true;
     this._recoveryService
-      .getViewLoanDocument(documentType, documentId)
+      .getViewLoanDocument(documentType, documentId, this.zone, this.branch)
       .pipe(
         finalize(() => {
           this.submitted = false;
@@ -135,7 +143,7 @@ export class LoanInquiryComponent implements OnInit {
     this.spinner.show();
     this.submitted = true;
     this._recoveryService
-      .getLoanApplicationsInquiryDisbursment(loanDisbursmentId.toString())
+      .getLoanApplicationsInquiryDisbursment(loanDisbursmentId.toString(), this.zone, this.branch)
       .pipe(
         finalize(() => {
           this.submitted = false;
