@@ -1,8 +1,7 @@
 <div
     class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll bg-card dark:bg-transparent"
     [formGroup]="customerForm">
-    <div class="text-3xl font-extrabold tracking-tight mt-6 pb-2 border-b mb-2 border-green-500 p-2"
-         style="background-color: #f6fcf8;">Loan Utilization
+    <div class="heading">Loan Utilization
     </div>
 
 
@@ -83,7 +82,7 @@
 
 
         </div>
-        <div class="col-lg-12 tab-box">
+        <div class="col-lg-12 py-2 tab-box">
 
             <div class="heading">Loan Application
             </div>
@@ -198,7 +197,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row py-2">
             <div class="col-lg-12 col-sm-12">
                 <input *ngIf="!viewonly" (click)="ifResetRequired()" type='file' formControlName="file"
                        accept="image/jpg, image/jpeg" (change)="onSelectFile($event)"/>
@@ -221,7 +220,7 @@
                         </div>
                         <div style="width: 240px;">
                             <img [src]="url" (click)="previewImg(url)">
-                            <button mat-flat-button color="accent" (click)="viewMap(i)">View Location</button>
+                            <button class="my-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-flat-button  (click)="viewMap(i)"><mat-icon class="mr-2">remove_red_eye</mat-icon>View Location</button>
                         </div>
                     </div>
                 </div>
@@ -231,8 +230,7 @@
         <!--        Video-->
         <div class="kt-portlet__head kt-portlet__head__custom">
             <div class="kt-portlet__head-label">
-                <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
-                     style="background-color: #f6fcf8;">Attach Videos
+                <div class="heading mb-2">Attach Videos
                 </div>
                 <mat-error *ngIf="hasError('fileV', 'required')">Must Contain a Video<strong>required</strong>
                 </mat-error>
@@ -244,7 +242,7 @@
                    accept="video/*" (change)="onSelectFileV($event)"/>
         </div>
 
-        <ng-container>
+        <ng-container class="py-2">
             <div *ngIf="videoUrl.length>0 && visible"
                  style="display: flex !important;flex-direction: row !important;flex-wrap: wrap !important;gap: 10px">
                 <div class="item m-2" *ngFor="let url of videoUrl;let i = index">
@@ -292,9 +290,9 @@
         <div class="row">
             <div class="col-lg-12 text-right">
                 <div class="float-right mr-4 mt-4 border-t py-6">
-                    <button class="ml-2" *ngIf="isSave" mat-raised-button color="primary" (click)="save()">Save</button>
-                    <button class="ml-2" *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">
-                        Submit
+                    <button class="ml-2 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" *ngIf="isSave" mat-raised-button  (click)="save()"><mat-icon class="mr-2">save</mat-icon>Save</button>
+                    <button class="ml-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">
+                        <mat-icon class="mr-2">check_circle</mat-icon>Submit
                     </button>
                     <button class="ml-2" *ngIf="isReffer" mat-raised-button color="primary" (click)="changeStatus('R')">
                         Reffer
