@@ -55,7 +55,7 @@
 
     <!-- Products list -->
     <div class="flex flex-auto overflow-y-scroll" style="flex-direction: column;">
-      <div class="flex flex-col flex-auto sm:mb-18 overflow-scroll sm:overflow-y-auto">
+      <div class="flex flex-col flex-auto sm:mb-4 overflow-scroll sm:overflow-y-auto">
         <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound && dataFound">
 
           <div class="col-lg-12">
@@ -284,7 +284,7 @@
                         <td>{{item.STATUSNAME}}</td>
                         <td>{{item.LOANTYPE}}</td>
                         <td>{{item.LOANCASENUMBER}}</td>
-                        <td><span (click)="getDocument('1',item.DOCID)">View</span></td>
+                        <td><span class="cursor-pointer" (click)="getDocument('1',item.DOCID)">View</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -366,7 +366,7 @@
                         <td>{{item.FILE_NAME}}</td>
                         <td>{{item.REQUEST_SIZE}}</td>
                         <td>{{item.FILE_NO}}</td>
-                        <td><span (click)="getDocument('2',item.REQUEST_ID)">View</span></td>
+                        <td><span class="cursor-pointer" (click)="getDocument('2',item.REQUEST_ID)">View</span></td>
                       </tr>
                     </tbody>
                   </table>

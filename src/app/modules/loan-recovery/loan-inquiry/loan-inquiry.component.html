@@ -54,7 +54,7 @@
 
                   </div>
 
-                  
+
 
                 </div>
 
@@ -290,7 +290,7 @@
                             <td>{{item.STATUSNAME}}</td>
                             <td>{{item.LOANTYPE}}</td>
                             <td>{{item.LOANCASENUMBER}}</td>
-                            <td><span (click)="getDocument('1',item.DOCID)">View</span></td>
+                            <td class="cursor-pointer"><span class="cursor-pointer" (click)="getDocument('1',item.DOCID)">View</span></td>
                           </tr>
                         </tbody>
                       </table>
@@ -372,7 +372,7 @@
                             <td>{{item.FILE_NAME}}</td>
                             <td>{{item.REQUEST_SIZE}}</td>
                             <td>{{item.FILE_NO}}</td>
-                            <td><span (click)="getDocument('2',item.REQUEST_ID)">View</span></td>
+                            <td><span class="cursor-pointer" (click)="getDocument('2',item.REQUEST_ID)">View</span></td>
                           </tr>
                         </tbody>
                       </table>
@@ -618,7 +618,7 @@
                       </table>
                     </div>
                     <h3 *ngIf="dynamicList.GetRescheduleActivity.length==0">Data not found.</h3>
-                  </mat-tab>             
+                  </mat-tab>
                 </mat-tab-group>
               </div>
             </div>
