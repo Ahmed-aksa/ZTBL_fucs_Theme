@@ -67,6 +67,8 @@ export class UploadDocumentsComponent implements OnInit {
 
     page_number = [];
     description = [];
+    private LoanCaseId: any;
+
 
     constructor(
         public dialogRef: MatDialogRef<UploadDocumentsComponent>,
@@ -211,6 +213,7 @@ export class UploadDocumentsComponent implements OnInit {
     }
 
     saveLoanDocuments() {
+
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         this.rawData.forEach((single_file, index) => {
             this.loanDocument.file = single_file;
@@ -227,6 +230,8 @@ export class UploadDocumentsComponent implements OnInit {
                 );
                 return;
             }
+            this.loanDocument.LcNo = this.LoanCaseId;
+
             this.spinner.show();
             this._loanService.documentUpload(this.loanDocument)
                 .pipe(
@@ -234,7 +239,14 @@ export class UploadDocumentsComponent implements OnInit {
                         this.spinner.hide();
                     })
                 ).subscribe((baseResponse) => {
-                this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                if (baseResponse.Success) {
+                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                    this.dialogRef.close();
+                } else {
+                    this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                    return
+
+                }
 
             });
         })
@@ -252,6 +264,9 @@ export class UploadDocumentsComponent implements OnInit {
                 var response = baseResponse.Loan.ApplicationHeader;
                 this.PostDocument.controls['LoanStatus'].setValue(response.AppStatusName);
                 this.PostDocument.controls['CategoryName'].setValue(response.CategoryName);
+                this.LoanCaseId = response.DocumentLoanCaseID;
+
+
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
