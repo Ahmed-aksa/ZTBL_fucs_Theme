@@ -333,6 +333,8 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.itemsPerPage = 10;
         this.todate = null ;
         this.fromdate = null;
+        this.loanutilizationSearch.controls['ToDate'].reset();
+        this.loanutilizationSearch.controls['FromDate'].reset();
         this.searchloanutilization(true)
     }
 
