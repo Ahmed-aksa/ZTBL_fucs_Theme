@@ -211,9 +211,9 @@
                             <div class="col-lg-12  text-right relative">
                                 <div class="bg-white float-right">
                                     <button mat-icon-button *ngIf="!viewonly" (click)="removeImage(url,i)"
-                                            class="close-button float-right absolute right-4 top-2 bg-red-500">
+                                            class="close-button float-right absolute right-4 top-0 bg-red-500">
                                         <!-- X -->
-                                        <mat-icon class="close-icon w-12 h-12 text-white">close</mat-icon>
+                                        <mat-icon class="close-icon w-12 h-12 text-white bg-danger">close</mat-icon>
                                     </button>
                                 </div>
                             </div>
@@ -253,9 +253,9 @@
                         <div class="col-lg-12 text-right relative">
                             <div class="bg-white float-right">
                                 <button mat-icon-button *ngIf="!viewonly" (click)="removeVideo(url,i)"
-                                        class="close-button float-right absolute right-4 top-2 bg-red-500">
+                                        class="close-button float-right absolute right-4 top bg-red-500">
                                     <!-- X -->
-                                    <mat-icon class="close-icon text-white w-12 h-12 text-white">close</mat-icon>
+                                    <mat-icon class="close-icon text-white w-12 h-12 text-white bg-danger">close</mat-icon>
                                 </button>
                             </div>
                         </div>
@@ -304,8 +304,8 @@
                             (click)="changeStatus('A')">
                         Authorize
                     </button>
-                    <button *ngIf="isDelete" class="ml-2" mat-raised-button color="primary" (click)="changeStatus('C')">
-                        Delete
+                    <button *ngIf="isDelete" class="ml-2 bg-danger" mat-raised-button color="primary" (click)="changeStatus('C')">
+                        <mat-icon class="mr-2">delete_forever</mat-icon> Delete
                     </button>
                 </div>
             </div>
