@@ -201,7 +201,7 @@ export class UploadDocumentsComponent implements OnInit {
 
                 } else {
                     this.layoutUtilsService.alertElement('', 'Only jpeg,jpg and png files are allowed', '99');
-
+                    event.target.files = null;
                     return;
                 }
             }
