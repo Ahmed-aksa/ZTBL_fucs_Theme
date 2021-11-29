@@ -220,7 +220,7 @@
                         </div>
                         <div style="width: 240px;">
                             <img [src]="url" (click)="previewImg(url)">
-                            <button class="my-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-flat-button  (click)="viewMap(i)"><mat-icon class="mr-2">remove_red_eye</mat-icon>View Location</button>
+                            <button class="my-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-flat-button  (click)="viewMap(i,false)"><mat-icon class="mr-2">remove_red_eye</mat-icon>View Location</button>
                         </div>
                     </div>
                 </div>
@@ -266,6 +266,8 @@
                         <video style="height: 240px;" #video width="320" height="240" controls [attr.src]="url"
                                (loadedmetadata)="getDuration($event,i)">
                         </video>
+                        <button class="my-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-flat-button  (click)="viewMap(i,true)"><mat-icon class="mr-2">remove_red_eye</mat-icon>View Location</button>
+
                     </div>
                 </div>
             </div>

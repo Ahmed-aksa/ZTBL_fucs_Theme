@@ -113,7 +113,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 private userUtilsService: UserUtilsService,
                 private _common: CommonService,
                 public datePipe: DatePipe) {
-                this.Math = Math;
+        this.Math = Math;
     }
 
     ngOnInit() {
@@ -160,7 +160,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
 
-        if(this.zone){
+        if (this.zone) {
             this.searchloanutilization();
         }
 
@@ -199,7 +199,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        debugger
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
@@ -332,7 +331,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
     // workingDate();
 
 
-    searchloanutilization() {
+    searchloanutilization(is_first = false) {
+        if (is_first) {
+            this.OffSet = 0;
+        }
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -401,10 +403,10 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
                 if (baseResponse.Success) {
                     this.dataSource.data = baseResponse.LoanUtilization.LoanDetails;
-                    if (this.dataSource.data.length > 0)
-                        this.matTableLenght = true;
-                    else
-                        this.matTableLenght = false;
+                    // if (this.dataSource.data.length > 0)
+                    this.matTableLenght = true;
+                    // else
+                    //     this.matTableLenght = false;
 
                     this.dv = this.dataSource.data;
                     this.totalItems = baseResponse.LoanUtilization.LoanDetails[0].TotalRecords;
@@ -418,7 +420,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
                 } else {
 
                     if (this.dv != undefined) {
-                        this.matTableLenght = false;
+                        this.matTableLenght = true;
                         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         // this.dataSource.data = [];
                         // this._cdf.detectChanges();
