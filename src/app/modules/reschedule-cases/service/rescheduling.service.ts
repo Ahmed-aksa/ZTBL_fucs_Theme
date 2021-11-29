@@ -211,7 +211,7 @@ export class ReschedulingService {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         var circleIds = [];
 
-        if (userInfo.UserCircleMappings.length != 0) {
+        if (userInfo.UserCircleMappings && userInfo.UserCircleMappings.length != 0) {
             userInfo.UserCircleMappings.forEach(element => {
                 circleIds.push(element.CircleId);
             });

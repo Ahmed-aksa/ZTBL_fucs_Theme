@@ -6,8 +6,8 @@
   <div class="flex flex-auto overflow-y-scroll">
 
     <!-- Products list -->
-    <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
-      <div class="flex flex-col flex-auto sm:mb-6 overflow-scroll sm:overflow-y-auto">
+    <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
+      <div class="flex flex-col flex-auto sm:mb-6 overflow-x-hidden border shadow-xs rounded-sm bg-gray-50  sm:overflow-y-auto">
         <mat-table class="lmat-elevation-z8"
         #table
         [dataSource]="dataSource"
