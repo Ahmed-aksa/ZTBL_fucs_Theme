@@ -269,4 +269,13 @@ export class ZoneBranchCircleComponent implements OnInit {
             return;
         }
     }
+
+    clearForm() {
+
+        Object.keys(this.form.controls).forEach((key) => {
+            if (key != 'BranchCode' && key != 'CircleId' && key != 'ZoneId')
+                this.form.get(key).reset();
+        });
+        this.emitData();
+    }
 }
