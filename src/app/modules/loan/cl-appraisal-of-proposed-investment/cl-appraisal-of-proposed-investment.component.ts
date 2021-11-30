@@ -192,7 +192,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
 
     loadAppraisalOfProposedDataOnUpdate(appAppraisalOfProposedData, CropProductionList) {
-
+        console.log(JSON.stringify(CropProductionList))
         // if (appAppraisalOfProposedData.length != 0, appAppraisalOfProposedData != undefined) {
         //
         //     //crop
@@ -320,37 +320,38 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         //     }
         // }
         //Creating Grid
-        var tempArr: ProductionGrid[] = [];
-
-        CropProductionList.forEach((item, key) => {
-            var grid = new ProductionGrid();
-
-            var Type = this.selectedProposedCropType.filter(x => x.Value == CropProductionList[0].AppraisalType)
-            if (Type.length > 0) {
-                grid.typeName = Type[0].Description;
-            }
-
-            var Crop = this.selectedCrops.filter(x => x.Name == CropProductionList[0].CropType)
-            if (Crop.length > 0) {
-                grid.cropName = Crop[0].Description;
-            }
-            grid.AppraisalType = item.AppraisalType
-            grid.ItemDetailID = item.ItemDetailID
-            grid.area = item.Area
-            grid.output = item.TotalOutput
-            grid.price = item.Price
-            grid.expenditure = item.ExpPrec
-            grid.totalIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
-            grid.totalExpenditure = ((parseInt(grid.expenditure) * parseInt(grid.totalIncome) / 100)).toString()
-            grid.netIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
-            tempArr.push(grid)
-
-        });
-        this.productionArray = tempArr;
+        // var tempArr: ProductionGrid[] = [];
+        //
+        // CropProductionList.forEach((item, key) => {
+        //     var grid = new ProductionGrid();
+        //
+        //     var Type = this.selectedProposedCropType.filter(x => x.Value == CropProductionList[0].AppraisalType)
+        //     if (Type.length > 0) {
+        //         grid.typeName = Type[0].Description;
+        //     }
+        //
+        //     var Crop = this.selectedCrops.filter(x => x.Name == CropProductionList[0].CropType)
+        //     if (Crop.length > 0) {
+        //         grid.cropName = Crop[0].Description;
+        //     }
+        //     grid.AppraisalType = item.AppraisalType
+        //     grid.ItemDetailID = item.ItemDetailID
+        //     grid.area = item.Area
+        //     grid.output = item.TotalOutput
+        //     grid.price = item.Price
+        //     grid.expenditure = item.ExpPrec
+        //     grid.totalIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
+        //     grid.totalExpenditure = ((parseInt(grid.expenditure) * parseInt(grid.totalIncome) / 100)).toString()
+        //     grid.netIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
+        //     tempArr.push(grid)
+        //
+        // });
+        this.productionArray = CropProductionList;
     }
 
 
     AddCropDetail() {
+
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
@@ -379,7 +380,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         this.cropProduction.TotalOutput = parseInt(this.getValue("Output"));
         this.cropProduction.Price = parseInt(this.getValue("Price"));
         this.cropProduction.ExpPrec = this.getValue("Expenditure");
-        this.cropProduction.AppraisalType = this.getValue("Crop");
+        this.cropProduction.AppraisalType = this.getValue("Type");
         this.cropProduction.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         this.cropProduction.Remarks = "";
 
@@ -395,24 +396,31 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    // baseResponse.Loan.CropProductionList
-                    //
-                    // let crop_producttion_list=baseResponse.Loan.CropProductionList.forEach((single_item)=>{
-                    //
-                    // })
-                    var grid = new ProductionGrid();
-                    grid.ItemDetailID = baseResponse.Loan.CropProduction.ItemDetailID;
-                    //cnic: this.loanCustomerForm.controls['CNIC'].value
-                    grid.typeName = this.getValue("Type");
-                    grid.cropName = this.getValue("Crop");
-                    grid.area = this.getValue("Area");
-                    grid.output = this.getValue("Output");
-                    grid.price = this.getValue("Price");
-                    grid.expenditure = this.getValue("Expenditure");
-                    grid.totalIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
-                    grid.totalExpenditure = (parseInt(grid.output) / parseInt(grid.expenditure)).toString()
-                    grid.netIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
-                    this.productionArray.push(grid);
+                    this.productionArray=[];
+                    this.productionArray = baseResponse.Loan["CropProductionList"];
+                    this.LoanAOPIForm.reset();
+                    this.getProposedCropType();
+                    this.getCrops();
+                    this.LoanAOPIForm.markAsUntouched()
+                    // // baseResponse.Loan.CropProductionList
+                    // //
+                    // // let crop_producttion_list=baseResponse.Loan.CropProductionList.forEach((single_item)=>{
+                    // //
+                    // // })
+                    // var grid = new ProductionGrid();
+                    // grid.ItemDetailID = baseResponse.Loan.CropProduction.ItemDetailID;
+                    // //cnic: this.loanCustomerForm.controls['CNIC'].value
+                    // grid.typeName = this.getValue("Type");
+                    // grid.cropName = this.getValue("Crop");
+                    // grid.area = this.getValue("Area");
+                    // grid.output = this.getValue("Output");
+                    // grid.price = this.getValue("Price");
+                    // grid.expenditure = this.getValue("Expenditure");
+                    // grid.totalIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
+                    // grid.totalExpenditure = (parseInt(grid.output) / parseInt(grid.expenditure)).toString()
+                    // grid.netIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
+                    // this.productionArray.push(grid);
+
 
                     const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 } else {
@@ -616,7 +624,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         this.appraisalProposedList.push(increaseAppriasalProposed);
 
         this.spinner.show();
-
+debugger
         this._loanService.addAppraisalProposed(this.appraisalProposedList, this.loanDetail.TranId)
             .pipe(
                 finalize(() => {
@@ -667,15 +675,17 @@ if(baseResponse.Success==true){
                     })
                 )
                 .subscribe(baseResponse => {
+                    debugger
                     this.list_ids_array.forEach((id) => {
-                        this.productionArray.forEach((single_array) => {
+                        this.productionArray.forEach((single_array,index) => {
                             if (single_array.ItemDetailID == id) {
-                                // @ts-ignore
-                                this.productionArray.pop(single_array);
+                                this.productionArray.splice(index,1)
                             }
                         })
                     })
                     if (baseResponse.Success) {
+
+
                         const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                     } else {
 
@@ -710,17 +720,28 @@ if(baseResponse.Success==true){
 }
 
 export class ProductionGrid {
-    ItemDetailID: number;
-    type: string;
-    typeName: string;
-    crop: string;
-    cropName: string;
-    area: string;
-    output: string;
-    price: string;
-    totalIncome: string;
-    expenditure: string;
-    totalExpenditure: string;
-    netIncome: string;
+    // ItemDetailID: number;
+    // type: string;
+    // typeName: string;
+    // crop: string;
+    // cropName: string;
+    // area: string;
+    // output: string;
+    // price: string;
+    // totalIncome: string;
+    // expenditure: string;
+    // totalExpenditure: string;
+    // netIncome: string;
+    // AppraisalType: string;
+
+    ItemDetailID: string;
+    Area: string;
+    TotalOutput: string;
+    Price: string;
+    ExpPrec: string;
     AppraisalType: string;
+    CropType: string;
+    TotalIncome_RS: string;
+    Expense_RS: string;
+    NetIncomeFromCrop: string;
 }
