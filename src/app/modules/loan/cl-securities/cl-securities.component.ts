@@ -84,8 +84,8 @@ export class ClSecuritiesComponent implements OnInit {
 
   }
 
-    checkBOX(ID){
-      if(ID>0){
+    checkBOX(IsAttached){
+      if(IsAttached==true){
           return true;
       }
       else{
@@ -95,22 +95,30 @@ export class ClSecuritiesComponent implements OnInit {
     }
 
     IfDisabledBOX(IsAttached){
-      // if(IsAttached==true){
-      //     return true
-      // }else if(IsAttached==false){
-      //     return false
-      // }else{
-      //     return true
-      // }
+      if(IsAttached==true){
+          return true
+      }else if(IsAttached==false){
+          return false
+      }else{
+          return true
+      }
 
     }
-
+    newARR=[];
     onChang(custLand,i){
-     if(custLand.IsAttached==false){
-this.customerLandList[i].IsAttached=true;
-     }
-
-     console.log(JSON.stringify(this.customerLandList))
+        debugger
+        if(custLand.IsAttached==true){
+            return
+        }
+      for(let i=0;i<this.newARR?.length;i++){
+          if(this.newARR[i].PassbookNo==custLand.PassbookNo){
+        this.newARR[i].ID="-1";
+        this.newARR.splice(i,1)
+              return
+          }
+      }
+        custLand.ID="0";
+        this.newARR.push(custLand);
 
     }
 
@@ -229,9 +237,10 @@ this.customerLandList[i].IsAttached=true;
 
 
 
-    if (this.customerLandList.length > 0) {
+    if (this.newARR?.length > 0) {
       this.spinner.show();
-      this._loanService.attachCustomersLand(this.customerLandList, this.loanDetail.TranId)
+      debugger
+      this._loanService.attachCustomersLand(this.newARR, this.loanDetail.TranId)
         .pipe(
           finalize(() => {
             this.spinner.hide();
@@ -239,6 +248,8 @@ this.customerLandList[i].IsAttached=true;
       ).subscribe(baseResponse => {
 
           if (baseResponse.Success) {
+              this.customerLandList = baseResponse.Loan.CustomersLoanLands;
+              this.newARR=[];
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
           }
           else {
@@ -247,7 +258,7 @@ this.customerLandList[i].IsAttached=true;
         });
     }
     else {
-      this.layoutUtilsService.alertMessage("", "Customer land details not found");
+      this.layoutUtilsService.alertMessage("", "Please make changes before attaching");
     }
   }
 
@@ -296,7 +307,7 @@ this.customerLandList[i].IsAttached=true;
 
     this.spinner.show();
     this.isSecuritiesFormInProgress = true;
-
+debugger
     this._loanService.saveLoanSecurities(this.loanSecurities, this.loanDetail.TranId)
       .pipe(
         finalize(() => {
