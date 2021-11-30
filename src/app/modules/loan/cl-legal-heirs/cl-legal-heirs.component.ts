@@ -36,9 +36,8 @@ export class ClLegalHeirsComponent implements OnInit {
     public RelationshipLov: any;
     public LovCall = new Lov();
     public GenderLov: any;
-    public SelectedCustomersList: any = [];
     currentSelectedRelationship: string;
-
+    customers_list: any;
     public maskEnums = MaskEnum;
     today = new Date();
     containers = [];
@@ -84,12 +83,15 @@ export class ClLegalHeirsComponent implements OnInit {
         });
     }
 
-    loadCustomers(CustomersLoanAppList) {
+    loadCustomers() {
 
         this.loanDetail.CustomersLoanList = JSON.parse(localStorage.getItem('customer_loan_list'));
         if (this.loanDetail != null) {
             if (this.loanDetail.CustomersLoanList.length > 0) {
-                this.SelectedCustomersList = this.loanDetail.CustomersLoanList;
+                this.customers_list = this.loanDetail.CustomersLoanList;
+                this.customers_list.forEach((element, index) => {
+                    if (!element.CustLoanAppID) this.customers_list.splice(index, 1);
+                });
             }
         }
     }
@@ -146,8 +148,7 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onChange(val) {
-
-        this.legalHeirsForm.controls.CustomerName.setValue(val)
+        this.legalHeirsForm.value.CustomerName = val;
     }
 
     onSaveLegalHeirsForm() {

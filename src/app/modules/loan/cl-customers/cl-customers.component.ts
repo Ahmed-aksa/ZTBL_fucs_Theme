@@ -374,11 +374,14 @@ export class ClCustomersComponent implements OnInit {
 
 
     private checkArray() {
-        if (this.loan_data[0] && (this.loan_data[0]?.Agps == 'A' || this.loan_data[0]?.Agps == 'Applicant' || this.loan_data[0]?.RelationID == '8')) {
-            this.disable_tab.emit(false);
-        } else {
-            this.disable_tab.emit(true);
-        }
+        let has_agps_and_relation = true;
+
+        this.loan_data.forEach(single_data => {
+            if (single_data.Agps == 'A' && single_data.RelationID == '8') {
+                has_agps_and_relation = false;
+            }
+        })
+        this.disable_tab.emit(has_agps_and_relation);
     }
 
     returnKeyValuePair(value: any, type: string) {
