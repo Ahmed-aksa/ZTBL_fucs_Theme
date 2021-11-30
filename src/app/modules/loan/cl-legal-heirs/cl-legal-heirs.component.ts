@@ -155,15 +155,12 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onChange(val) {
-        debugger
         this.legalHeirsForm.controls["CustomerName"].setValue(val.CustomerName)
-        this.custID=val.CustomerID;
+        this.custID = val.CustomerID;
     }
 
     onSaveLegalHeirsForm() {
         this.legalHeirs
-debugger
-
         //if (this.loanDetail == null || this.loanDetail == undefined) {
         //  this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
         //  return;
@@ -195,7 +192,7 @@ debugger
 
         this.legalHeirs = Object.assign(this.legalHeirsForm.value, this.legalHeirsForm.getRawValue());
         var arr = this.loanDetail.ApplicationHeader.LoanAppID;
-this.legalHeirs.CustomerID=this.custID;
+        this.legalHeirs.CustomerID = this.custID;
         this.spinner.show();
         this._loanService.saveLoanApplicationLegalHeirs(this.legalHeirs, this.loanDetail.TranId, arr)
             .pipe(
@@ -244,7 +241,6 @@ this.legalHeirs.CustomerID=this.custID;
         const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
         dialogRef.afterClosed().subscribe(res => {
 
-            debugger;
             if (!res) {
                 return;
             }
