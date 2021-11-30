@@ -24,7 +24,7 @@
                                          (loanCustomerCall)="fillLoanApplicationObject($event)"></kt-cl-customers>
                     </mat-tab>
 
-                    <mat-tab label="Purpose" [disabled]="check_localstroage()">
+                    <mat-tab label="Purpose" [disabled]="disabled_tab">
                         <ng-template mat-tab-label>
                             <span (click)="checkError(disabled_tab)">Purpose</span>
                         </ng-template>
