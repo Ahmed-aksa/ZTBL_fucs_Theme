@@ -74,7 +74,7 @@ export class SearchDeceasedComponent implements OnInit {
     dataSource = new MatTableDataSource();
 
     dataSourceEmpty = new MatTableDataSource();
-        //Zone inventory
+    //Zone inventory
     Zones: any = [];
     SelectedZones: any = [];
 
@@ -90,7 +90,7 @@ export class SearchDeceasedComponent implements OnInit {
     selected_c;
     private final_branch: any;
     private final_zone: any;
-    entry : any = {}
+    entry: any = {}
 
     constructor(
         private userUtilsService: UserUtilsService,
@@ -130,8 +130,7 @@ export class SearchDeceasedComponent implements OnInit {
             //admin user
             this.isUserAdmin = true;
             this.GetZones();
-        }
-        else if (userDetails.User.AccessToData == "1") {
+        } else if (userDetails.User.AccessToData == "1") {
             //zone user
             this.isZoneUser = true;
             this.deceasedCustomerSearch.value.ZoneId = userDetails.Zone.ZoneId;
@@ -141,8 +140,7 @@ export class SearchDeceasedComponent implements OnInit {
             this.deceasedCustomerSearch.controls.Zone.setValue(userDetails.Zone.ZoneName);
             this.deceasedCustomerSearch.controls.Branch.setValue(userDetails.Branch.Name);
             this.GetBranches(userDetails.Zone.ZoneId);
-        }
-        else {
+        } else {
             //branch
             this.Zone.ZoneName = userDetails.Zone.ZoneName;
             this.Branch.Name = userDetails.Branch.Name;
@@ -184,8 +182,9 @@ export class SearchDeceasedComponent implements OnInit {
         }
 
     }
-    SearchDeceasedCustomer(){
-        this.dataSource.data=[];
+
+    SearchDeceasedCustomer() {
+        this.dataSource.data = [];
         this.assignBranchAndZone();
 
         this.spinner.show()
@@ -197,7 +196,7 @@ export class SearchDeceasedComponent implements OnInit {
         // this.entry.Zone = zoneData;
         // this.entry.Branch = branchData;
         this._deceasedCustomer
-            .SearchDeceasedCustomer(this.Customer, this.isUserAdmin, this.isZoneUser, this.final_zone,this.final_branch)
+            .SearchDeceasedCustomer(this.Customer, this.isUserAdmin, this.isZoneUser, this.final_zone, this.final_branch)
             // .SearchDeceasedCustomer()
             .pipe(finalize(() => {
                 this.spinner.hide();
@@ -206,7 +205,7 @@ export class SearchDeceasedComponent implements OnInit {
                 if (baseResponse.Success) {
 
                     this.dataSource.data = baseResponse.DeceasedCustomer.DeceasedCustomerInfoList;
-                    
+
 
                 } else {
 
@@ -217,7 +216,6 @@ export class SearchDeceasedComponent implements OnInit {
                 }
             });
     }
-
 
 
     //pagination
@@ -236,7 +234,7 @@ export class SearchDeceasedComponent implements OnInit {
 
         this.Customer = Object.assign(this.Customer, this.deceasedCustomerSearch.value);
 
-        this._deceasedCustomer.SearchDeceasedCustomer(this.Customer, this.isUserAdmin, this.isZoneUser,this.final_zone,this.final_branch)
+        this._deceasedCustomer.SearchDeceasedCustomer(this.Customer, this.isUserAdmin, this.isZoneUser, this.final_zone, this.final_branch)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -272,8 +270,7 @@ export class SearchDeceasedComponent implements OnInit {
                     //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
-                }
-                else {
+                } else {
 
                     this.matTableLenght = false;
 
@@ -282,7 +279,7 @@ export class SearchDeceasedComponent implements OnInit {
                     //this._cdf.detectChanges();
                     this.OffSet = 1;
                     this.pageIndex = 1;
-                    this.dv = this.dv.slice(1,0);
+                    this.dv = this.dv.slice(1, 0);
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
 
@@ -292,8 +289,12 @@ export class SearchDeceasedComponent implements OnInit {
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+        if (Number.isNaN(pageIndex)) {
+            this.pageIndex = this.pageIndex + 1;
+        } else {
+            this.pageIndex = pageIndex;
+        }
         this.itemsPerPage = pageSize;
-        this.pageIndex = pageIndex;
         this.OffSet = pageIndex;
         this.SearchLandData();
         //this.dv.slice(event * this.itemsPerPage - this.itemsPerPage, event * this.itemsPerPage);
@@ -322,8 +323,7 @@ export class SearchDeceasedComponent implements OnInit {
                 //this.GetBranches(this.Zones[0].ZoneId);
                 this.loading = false;
                 this._cdf.detectChanges();
-            }
-            else
+            } else
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
 
         });
@@ -360,9 +360,7 @@ export class SearchDeceasedComponent implements OnInit {
                 this.SelectedBranches = baseResponse.Branches;
                 //this.landSearch.controls['BranchId'].setValue(this.Branches[0].BranchId);
                 this._cdf.detectChanges();
-            }
-
-            else
+            } else
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
 
         });
@@ -373,7 +371,7 @@ export class SearchDeceasedComponent implements OnInit {
             CustomerName: [this.Customer.CustomerName],
             FatherName: [this.Customer.FatherName],
             // Cnic: [this.Customer.Cnic, [Validators.pattern(regExps.cnic)]],
-            Cnic: [this.Customer.Cnic,Validators.pattern("^[0-9]{5}[0-9]{7}[0-9]$")],
+            Cnic: [this.Customer.Cnic, Validators.pattern("^[0-9]{5}[0-9]{7}[0-9]$")],
             // Validators.pattern("^[0-9]*$"),
             CustomerStatus: [this.Customer.CustomerStatus],
             ZoneId: [this.Zone.ZoneId],
@@ -389,7 +387,7 @@ export class SearchDeceasedComponent implements OnInit {
         this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DeceasedCustomerStatus})
 
         this.CustomerStatusLov = this.CustomerStatusLov.LOVs;
-        
+
         ////For Bill type
         // this.EducationLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Education })
 
@@ -438,7 +436,7 @@ export class SearchDeceasedComponent implements OnInit {
 
     checkUser() {
         var userInfo = this.userUtilsService.getUserDetails();
-        // 
+        //
         if (userInfo.User.userGroup[0].ProfileID == '56') {
             // this.isMCO = true;
         } else if (userInfo.User.userGroup[0].ProfileID == '57') {
@@ -469,29 +467,32 @@ export class SearchDeceasedComponent implements OnInit {
     }
 }
 
-export interface DeceasedCustomer{
+export interface DeceasedCustomer {
     CustomerName: string;
     FatherName: string;
     DeathDate: string;
     Cnic: string;
     Address: string;
     PermanentAddress: string;
-    Status : string;
+    Status: string;
     BranchCode: string;
     IsCertificateVerified: string;
     LegalHeairHasIncome: string
 }
+
 class Customer {
-    CustomerName:string;
-    Cnic:string;
-    FatherName:string;
-    CustomerStatus:string;
+    CustomerName: string;
+    Cnic: string;
+    FatherName: string;
+    CustomerStatus: string;
 }
+
 export class Zone {
     ZoneId: number;
     ZoneName: string;
 
 }
+
 export class Branch {
 
     BranchId: number;

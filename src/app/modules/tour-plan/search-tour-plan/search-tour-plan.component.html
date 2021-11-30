@@ -3,12 +3,12 @@
 
 
     <div class="row pt-3">
-        <div class="col-lg-10 col-sm-12">
+        <div class="col-lg-9 col-sm-12">
             <div class="heading">Tour Plan List</div>
         </div>
-        <div class="col-lg-2 col-sm-12 self-center">
+        <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-2  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
                 color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                 aria-expanded="false" aria-controls="collapseExample">
                     <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
@@ -25,7 +25,7 @@
             <div  [formGroup]="TourPlan">
 
 
-                <div class="flex"  style="flex-wrap: wrap;">
+                <div class="flex mt-1"  style="flex-wrap: wrap;">
                     <app-zone-branch-circle [form]="TourPlan" [should_show_circle]="false"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                     <div class="mx-2" >

@@ -48,8 +48,9 @@ export class CreateLoanComponent implements OnInit {
 
         router.events.subscribe((val: any) => {
             if (val.url == "/loan/create") {
+                localStorage.removeItem('customer_loan_list');
                 this.onCreateRestForm();
-                localStorage.removeItem('customer_loan_list')
+
             }
         })
     }

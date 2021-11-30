@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { GeoFencingService } from '../service/geo-fencing-service.service';
-import { MatDialog } from '@angular/material/dialog';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { UserUtilsService } from '../../../shared/services/users_utils.service';
-import { BaseResponseModel } from '../../../shared/models/base_response.model';
-import { MatTableDataSource } from '@angular/material/table';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {GeoFencingService} from '../service/geo-fencing-service.service';
+import {MatDialog} from '@angular/material/dialog';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {UserUtilsService} from '../../../shared/services/users_utils.service';
+import {BaseResponseModel} from '../../../shared/models/base_response.model';
+import {MatTableDataSource} from '@angular/material/table';
 
-import { finalize } from 'rxjs/operators';
-import { ViewGetFancingModalComponent } from '../view-get-fancing-modal/view-get-fancing-modal.component';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import {finalize} from 'rxjs/operators';
+import {ViewGetFancingModalComponent} from '../view-get-fancing-modal/view-get-fancing-modal.component';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
     selector: 'app-geo-fencing-list',
@@ -22,8 +22,8 @@ import { MatSort } from '@angular/material/sort';
 export class GeoFencingListComponent implements OnInit {
     disable_branch = true;
 
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     products: any;
     displayedColumns = [
@@ -58,7 +58,8 @@ export class GeoFencingListComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private userUtilsService: UserUtilsService,
         private spinner: NgxSpinnerService
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.createForm();
@@ -73,7 +74,7 @@ export class GeoFencingListComponent implements OnInit {
     }
 
     find() {
-        this.SearchGeoFensePoint();
+        this.SearchGeoFensePoint(true);
     }
 
     ngAfterViewInit() {
@@ -82,17 +83,23 @@ export class GeoFencingListComponent implements OnInit {
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+        if (Number.isNaN(pageIndex)) {
+            this.pageIndex = this.pageIndex + 1;
+        } else {
+            this.pageIndex = pageIndex;
+        }
         this.itemsPerPage = pageSize;
-        this.offSet = (pageIndex - 1) * this.itemsPerPage;
-        this.pageIndex = pageIndex;
+        this.offSet = (this.pageIndex - 1) * this.itemsPerPage;
+
         this.SearchGeoFensePoint();
-        this.dataSource = this.dv?.slice(
-            pageIndex * this.itemsPerPage - this.itemsPerPage,
-            pageIndex * this.itemsPerPage
-        );
+
+
     }
 
-    SearchGeoFensePoint() {
+    SearchGeoFensePoint(is_first = false) {
+        if (is_first) {
+            this.offSet = 0;
+        }
         var request = {
             LocationHistory: {
                 Limit: this.itemsPerPage,
@@ -119,7 +126,7 @@ export class GeoFencingListComponent implements OnInit {
                 if (baseResponse.Success === true) {
                     this.dataSource.data =
                         baseResponse.LocationHistory.LocationHistories;
-                    this.totalItems =baseResponse.LocationHistory.LocationHistories[0].TotalRecords;
+                    this.totalItems = baseResponse.LocationHistory.LocationHistories[0].TotalRecords;
                     this.dv = this.dataSource.data;
                 } else {
                     this.dataSource.data = [];
