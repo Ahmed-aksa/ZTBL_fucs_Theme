@@ -239,7 +239,7 @@
                                 <tbody>
                                 <tr *ngFor="let production of productionArray; let i = index;">
                                     <td>
-                                        {{production.typeName}}
+                                        {{appraisalType(production.AppraisalType)}}
                                     </td>
                                     <td>
                                         {{production.cropName}}

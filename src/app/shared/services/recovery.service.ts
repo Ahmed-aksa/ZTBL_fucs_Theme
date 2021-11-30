@@ -421,11 +421,34 @@ export class RecoveryService {
         zone,
         branch
     ): Observable<BaseResponseModel> {
+        debugger
+        documentId = documentId.toString();
         var ViewDocumnets = {ID: documentId, Type: documentType};
-        var request = {ViewDocumnets: ViewDocumnets};
+        var _circles;
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        var circleIds = [];
+        if (userInfo.UserCircleMappings && userInfo.UserCircleMappings.length != 0) {
+            userInfo.UserCircleMappings.forEach(element => {
+                circleIds.push(element.CircleId);
+            });
+            _circles = circleIds.toString();
+        } else {
+            circleIds = ["0"];
+            _circles = ""
+        }
+
+        var request = {
+            ViewDocumnets: ViewDocumnets,
+            Zone: zone,
+            Branch: branch,
+            Circle:{
+             CircleIds: _circles
+            },
+            User: userInfo.User
+        };
         return this.http
             .post(
-                `${environment.apiUrl}/Recovery/GetLoanApplicationsInquiryDisbursment`,
+                `${environment.apiUrl}/Recovery/GetViewLoanDocument`,
                 request,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
