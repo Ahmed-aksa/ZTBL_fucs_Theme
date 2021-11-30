@@ -36,9 +36,8 @@ export class ClLegalHeirsComponent implements OnInit {
     public RelationshipLov: any;
     public LovCall = new Lov();
     public GenderLov: any;
-    public SelectedCustomersList: any = [];
     currentSelectedRelationship: string;
-
+    customers_list: any;
     public maskEnums = MaskEnum;
     today = new Date();
     containers = [];
@@ -84,12 +83,15 @@ export class ClLegalHeirsComponent implements OnInit {
         });
     }
 
-    loadCustomers(CustomersLoanAppList) {
+    loadCustomers() {
 
         this.loanDetail.CustomersLoanList = JSON.parse(localStorage.getItem('customer_loan_list'));
         if (this.loanDetail != null) {
             if (this.loanDetail.CustomersLoanList.length > 0) {
-                this.SelectedCustomersList = this.loanDetail.CustomersLoanList;
+                this.customers_list = this.loanDetail.CustomersLoanList;
+                this.customers_list.forEach((element, index) => {
+                    if (!element.CustLoanAppID) this.customers_list.splice(index, 1);
+                });
             }
         }
     }
@@ -140,25 +142,13 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onClearLegalHeirsForm() {
-
-
-        this.legalHeirsForm.controls["CustomerID"].setValue("");
-        this.legalHeirsForm.controls["Cnic"].setValue("");
-        this.legalHeirsForm.controls["LegalHeirsName"].setValue("");
-        this.legalHeirsForm.controls["Dob"].setValue("");
-        this.legalHeirsForm.controls["RelationID"].setValue("");
-        this.legalHeirsForm.controls["PhoneOff"].setValue("");
-        this.legalHeirsForm.controls["PhoneCell"].setValue("");
-        this.legalHeirsForm.controls["Gender"].setValue("");
-        const controls = this.legalHeirsForm.controls;
-        Object.keys(controls).forEach(controlName =>
-            controls[controlName].markAsUntouched()
-        );
+        this.legalHeirsForm.reset();
+        this.legalHeirsForm.markAsPristine();
+        this.legalHeirsForm.markAsUntouched();
     }
 
     onChange(val) {
-
-        this.legalHeirsForm.controls.CustomerName.setValue(val.CustomerName)
+        this.legalHeirsForm.value.CustomerName = val;
     }
 
     onSaveLegalHeirsForm() {
@@ -235,6 +225,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
     onDeleteLegalHeirs(legalHeir, index) {
 
+
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';
@@ -242,9 +233,11 @@ export class ClLegalHeirsComponent implements OnInit {
         this.legalHeirs.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
 
         const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
+
+
         dialogRef.afterClosed().subscribe(res => {
 
-            debugger;
+
             if (!res) {
                 return;
             }
@@ -253,6 +246,7 @@ export class ClLegalHeirsComponent implements OnInit {
                 return false;
             } else {
                 if (legalHeir == null || legalHeir == undefined || legalHeir == "") {
+                    this.cdRef.detectChanges();
                     return true;
                 } else {
                     this.spinner.show();
@@ -266,8 +260,8 @@ export class ClLegalHeirsComponent implements OnInit {
                             if (baseResponse.Success === true) {
 
                                 this.legalHeirsArray.splice(index, 1);
-
-                                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                                this.onClearLegalHeirsForm();
+                                const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
 
                             }
 
@@ -280,10 +274,11 @@ export class ClLegalHeirsComponent implements OnInit {
 
 
         })
+        this.legalHeirsForm.reset();
+        this.legalHeirsForm.markAsPristine();
+        this.legalHeirsForm.markAsUntouched();
     }
-
 }
-
 
 export class LegalHiersGrid {
     UserID: string;

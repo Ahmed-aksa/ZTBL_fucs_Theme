@@ -63,7 +63,7 @@ export class PaymentBehaviorComponent implements OnInit {
 
     createForm() {
         this.bufricationForm = this.fb.group({
-            Cnic: [null],
+            Cnic: [null, Validators.required],
         })
     }
 

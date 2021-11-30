@@ -19,12 +19,12 @@
                                                   (applicationCall)="fillLoanApplicationObject($event)"></kt-cl-application-header>
                     </mat-tab>
                     <mat-tab label="Customers">
-                        <kt-cl-customers #child [loanDetail]="loanApplicationReq" (disable_tab)="check_disabled($event)"
+                        <kt-cl-customers #child [loanDetail]="loanApplicationReq"
                                          [customersList]="CustomersLoanAppList"
                                          (loanCustomerCall)="fillLoanApplicationObject($event)"></kt-cl-customers>
                     </mat-tab>
 
-                    <mat-tab label="Purpose" [disabled]="disabled_tab">
+                    <mat-tab label="Purpose">
                         <ng-template mat-tab-label>
                             <span (click)="checkError(disabled_tab)">Purpose</span>
                         </ng-template>
@@ -33,20 +33,20 @@
                             [loanDetail]="loanApplicationReq"></kt-cl-purpose>
                     </mat-tab>
 
-                    <mat-tab label="Securities" [disabled]="disabled_tab">
+                    <mat-tab label="Securities">
                         <kt-cl-securities [loanDetail]="loanApplicationReq"></kt-cl-securities>
                     </mat-tab>
-                    <mat-tab label="LegalHeirs" [disabled]="disabled_tab">
+                    <mat-tab label="LegalHeirs">
                         <kt-cl-legal-heirs [loanDetail]="loanApplicationReq"></kt-cl-legal-heirs>
                     </mat-tab>
-                    <mat-tab label="Appraisal Of Proposed Investment" [disabled]="disabled_tab">
+                    <mat-tab label="Appraisal Of Proposed Investment">
                         <kt-cl-appraisal-of-proposed-investment
                             [loanDetail]="loanApplicationReq"></kt-cl-appraisal-of-proposed-investment>
                     </mat-tab>
-                    <mat-tab label="Documents" [disabled]="disabled_tab">
+                    <mat-tab label="Documents">
                         <kt-cl-upload-document [loanDetail]="loanApplicationReq"></kt-cl-upload-document>
                     </mat-tab>
-                    <mat-tab label="Loan Details/Witnesses" [disabled]="disabled_tab">
+                    <mat-tab label="Loan Details/Witnesses">
                         <kt-cl-loan-witness [loanDetail]="loanApplicationReq"></kt-cl-loan-witness>
                     </mat-tab>
                 </mat-tab-group>
