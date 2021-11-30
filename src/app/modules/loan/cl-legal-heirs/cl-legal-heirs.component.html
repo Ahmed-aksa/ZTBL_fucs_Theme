@@ -14,11 +14,13 @@
               <mat-label class="customMatLabel">Customers <strong class="matMandatory">*</strong></mat-label>
               <!--<input matInput formControlName="CustomerID">-->
               <mat-select formControlName="CustomerID">
+                  <mat-option  [value]="undefined">
+                      {{'--Select Customer-- '}}
+                  </mat-option>
                 <mat-option (click)="onChange(obj)" *ngFor="let obj of SelectedCustomersList" [value]="obj.CustLoanAppID">
                   {{obj.CustomerName}}
                 </mat-option>
               </mat-select>
-              <!--<mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>-->
             </mat-form-field>
           </div>
           <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">

@@ -43,6 +43,7 @@ export class ClCustomersComponent implements OnInit {
 
 
     @Input() loanDetail: Loan;
+    @Input('customersList') customer_list;
     @Output() loanCustomerCall: EventEmitter<any> = new EventEmitter();
     @Output() disable_tab: EventEmitter<any> = new EventEmitter();
 
@@ -60,10 +61,16 @@ export class ClCustomersComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this.loan_data = JSON.parse(localStorage.getItem('customer_loan_list'));
         this.LoadLovs();
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
         this.createForm();
 
+    }
+
+    callfromPartnet() {
+        this.loan_data = JSON.parse(localStorage.getItem('customer_loan_list'));
     }
 
     createForm() {
@@ -72,7 +79,6 @@ export class ClCustomersComponent implements OnInit {
             AGPS: [this.loanCustomer.AGPS, [Validators.required]],
             Relationship: [this.loanCustomer.RelationShip, [Validators.required]]
         });
-        this.loan_data = JSON.parse(localStorage.getItem('customer_loan_list'));
 
     }
 
@@ -158,10 +164,9 @@ export class ClCustomersComponent implements OnInit {
                         DOB: customer.Dob,
                         Agps: this.loanCustomerForm.value.AGPS,
                         RelationID: this.loanCustomerForm.value.Relationship,
-                        CustomerID:customer.CustomerID
+                        CustomerID: customer.CustomerID
                     };
                     this.loan_data.push(grid);
-
                     localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
 
 
