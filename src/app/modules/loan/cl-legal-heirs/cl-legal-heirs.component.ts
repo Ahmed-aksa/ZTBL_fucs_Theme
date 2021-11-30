@@ -143,23 +143,11 @@ export class ClLegalHeirsComponent implements OnInit {
         this.legalHeirsForm.reset();
         this.legalHeirsForm.markAsPristine();
         this.legalHeirsForm.markAsUntouched();
-        // this.legalHeirsForm.controls["CustomerID"].setValue("");
-        // this.legalHeirsForm.controls["Cnic"].setValue("");
-        // this.legalHeirsForm.controls["LegalHeirsName"].setValue("");
-        // this.legalHeirsForm.controls["Dob"].setValue("");
-        // this.legalHeirsForm.controls["RelationID"].setValue("");
-        // this.legalHeirsForm.controls["PhoneOff"].setValue("");
-        // this.legalHeirsForm.controls["PhoneCell"].setValue("");
-        // this.legalHeirsForm.controls["Gender"].setValue("");
-        // const controls = this.legalHeirsForm.controls;
-        // Object.keys(controls).forEach(controlName =>
-        //   controls[controlName].markAsUntouched()
-        // );
     }
 
     onChange(val) {
 
-        this.legalHeirsForm.controls.CustomerName.setValue(val.CustomerName)
+        this.legalHeirsForm.controls.CustomerName.setValue(val)
     }
 
     onSaveLegalHeirsForm() {

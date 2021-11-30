@@ -151,10 +151,10 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
     }
 
-    appraisalType(type){
-        if(type=="1"){
+    appraisalType(type) {
+        if (type == "1") {
             return "Proposed"
-        }else if(type=="2"){
+        } else if (type == "2") {
             return "Existing"
         }
     }
@@ -318,7 +318,6 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             }
         }
         //Creating Grid
-        debugger
         var tempArr: ProductionGrid[] = [];
 
         CropProductionList.forEach((item, key) => {
@@ -712,5 +711,5 @@ export class ProductionGrid {
     expenditure: string;
     totalExpenditure: string;
     netIncome: string;
-    AppraisalType:string;
+    AppraisalType: string;
 }

@@ -1,663 +1,688 @@
 <!-- Personal Sureties Begin -->
 <div class="kt-portlet">
-  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Personal Sureties</h5>
-    </div>
-  </div>
-  <div class="kt-portlet__body">
-    <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="personalSuretiesForm">
-      <div class="kt-form">
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-12">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="table-header-background">
-                    <th>CNIC</th>
-                    <th>Name</th>
-                    <th>Parentge</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Account No</th>
-                    <th>Source Of Income</th>
-                    <th>Annual  Income</th>
-                    <th>Asset Value</th>
-                    <th>persent_dues</th>
-                    <th>net_value</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput maxlength="13" appNumberOnly formControlName="Cnic" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appAlphabetOnly formControlName="FullName" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput maxlength="2" appNumberOnly formControlName="Percentage" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Address" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput maxlength="11" appNumberOnly formControlName="Phone" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appNumberOnly maxlength="14" formControlName="AccountNo" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appAlphaNumericField formControlName="SourceofIncome" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput maxlength="13" appNumberOnly formControlName="AnnualIncome" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appNumberOnly formControlName="AssetValue" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appNumberOnly formControlName="PresentDues" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appNumberOnly formControlName="NetValue" />
-                      </mat-form-field>
-                    </td>
-                    <td> <span (click)="onSavePersonalSuretiesForm()">Save</span> | <span>Cancle</span></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="form-group kt-form__group row">
-                <div class="col-lg-12">
-                  <div class="table-responsive">
-                    <table class="table table-striped" *ngIf="loanPersonalSuretiesArray.length !=0">
-                      <thead>
-                        <tr class="table-header-background">
-                          <th>CNIC</th>
-                          <th>Name</th>
-                          <th>Percentage</th>
-                          <th>Address</th>
-                          <th>Phone</th>
-                          <th>Account No</th>
-                          <th>Source Of Income</th>
-                          <th>Annual Income</th>
-                          <th>Asset Value</th>
-                          <th>Present Dues</th>
-                          <th>Net Value</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody class="">
-                        <tr *ngFor="let loan of loanPersonalSuretiesArray; let i = index;">
-                          <td>{{loan.Cnic}}</td>
-                          <td>{{loan.FullName}}</td>
-                          <td>{{loan.Percentage}}</td>
-                          <td>{{loan.Address}}</td>
-                          <td>{{loan.Phone}}</td>
-                          <td>{{loan.AccountNo}}</td>
-                          <td>{{loan.SourceofIncome}}</td>
-                          <td>{{loan.AnnualIncome}}</td>
-                          <td>{{loan.AssetValue}}</td>
-                          <td>{{loan.PresentDues}}</td>
-                          <td>{{loan.NetValue}}</td>
-
-
-                          <td> <span (click)="onEditPersonalSureties(loan.PersonalSuretyID)">Edit</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Personal Sureties</h5>
         </div>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="kt-portlet__body">
+        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="personalSuretiesForm">
+            <div class="kt-form">
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>CNIC</th>
+                                    <th>Name</th>
+                                    <th>Parentge</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Account No</th>
+                                    <th>Source Of Income</th>
+                                    <th>Annual Income</th>
+                                    <th>Asset Value</th>
+                                    <th>persent_dues</th>
+                                    <th>net_value</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput maxlength="13" appNumberOnly formControlName="Cnic"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appAlphabetOnly formControlName="FullName"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput maxlength="2" appNumberOnly formControlName="Percentage"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="Address"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput maxlength="11" appNumberOnly formControlName="Phone"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appNumberOnly maxlength="14" formControlName="AccountNo"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appAlphaNumericField formControlName="SourceofIncome"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput maxlength="13" appNumberOnly
+                                                   formControlName="AnnualIncome"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appNumberOnly formControlName="AssetValue"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appNumberOnly formControlName="PresentDues"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appNumberOnly formControlName="NetValue"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td><span (click)="onSavePersonalSuretiesForm()">Save</span> | <span>Cancle</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group kt-form__group row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" *ngIf="loanPersonalSuretiesArray.length !=0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>CNIC</th>
+                                                <th>Name</th>
+                                                <th>Percentage</th>
+                                                <th>Address</th>
+                                                <th>Phone</th>
+                                                <th>Account No</th>
+                                                <th>Source Of Income</th>
+                                                <th>Annual Income</th>
+                                                <th>Asset Value</th>
+                                                <th>Present Dues</th>
+                                                <th>Net Value</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="">
+                                            <tr *ngFor="let loan of loanPersonalSuretiesArray; let i = index;">
+                                                <td>{{loan.Cnic}}</td>
+                                                <td>{{loan.FullName}}</td>
+                                                <td>{{loan.Percentage}}</td>
+                                                <td>{{loan.Address}}</td>
+                                                <td>{{loan.Phone}}</td>
+                                                <td>{{loan.AccountNo}}</td>
+                                                <td>{{loan.SourceofIncome}}</td>
+                                                <td>{{loan.AnnualIncome}}</td>
+                                                <td>{{loan.AssetValue}}</td>
+                                                <td>{{loan.PresentDues}}</td>
+                                                <td>{{loan.NetValue}}</td>
+
+
+                                                <td><span
+                                                    (click)="onEditPersonalSureties(loan.PersonalSuretyID)">Edit</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <!-- Personal Sureties End -->
 <!-- Corporate sureties Begin -->
 <div class="kt-portlet">
-  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Corporate sureties</h5>
-    </div>
-  </div>
-  <div class="kt-portlet__body">
-    <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="corporateSuretiesForm">
-      <div class="kt-form">
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-12 ">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="table-header-background">
-                    <th>Company Name</th>
-                    <th>Memorandum Date</th>
-                    <th>Reference No.</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="CompanyName" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input readonly="readonly" matInput [matDatepicker]="picker3" formControlName="MemorandumDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                        <mat-datepicker #picker3></mat-datepicker>
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="RefrenceNo" />
-                      </mat-form-field>
-                    </td>
-                    <td> <span (click)="onSaveCorporateSuretiesForm()">Save</span> | <span>Cancle</span></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="form-group kt-form__group row">
-                <div class="col-lg-12">
-                  <div class="table-responsive">
-                    <table class="table table-striped" *ngIf="loanCorporateSuretyArray.length!=0">
-                      <thead>
-                        <tr class="table-header-background">
-                          <th>Company Name</th>
-                          <th>Memorandum Date</th>
-                          <th>Reference No.</th>
-                          <th></th>
-
-                        </tr>
-                      </thead>
-                      <tbody class="">
-                        <tr *ngFor="let loan of loanCorporateSuretyArray; let i = index;">
-                          <td>{{loan.CompanyName}}</td>
-                          <td>{{loan.MemorandumDate}}</td>
-                          <td>{{loan.RefrenceNo}}</td>
-
-
-                          <td> <span (click)="onEditLoanCorporateSuretyArray(loan.CorporateSuretyID)">Edit</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Corporate sureties</h5>
         </div>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="kt-portlet__body">
+        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="corporateSuretiesForm">
+            <div class="kt-form">
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12 ">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>Company Name</th>
+                                    <th>Memorandum Date</th>
+                                    <th>Reference No.</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="CompanyName"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input readonly="readonly" matInput [matDatepicker]="picker3"
+                                                   formControlName="MemorandumDate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker3></mat-datepicker>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="RefrenceNo"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td><span (click)="onSaveCorporateSuretiesForm()">Save</span> | <span>Cancle</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group kt-form__group row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" *ngIf="loanCorporateSuretyArray.length!=0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>Company Name</th>
+                                                <th>Memorandum Date</th>
+                                                <th>Reference No.</th>
+                                                <th></th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody class="">
+                                            <tr *ngFor="let loan of loanCorporateSuretyArray; let i = index;">
+                                                <td>{{loan.CompanyName}}</td>
+                                                <td>{{loan.MemorandumDate}}</td>
+                                                <td>{{loan.RefrenceNo}}</td>
+
+
+                                                <td><span
+                                                    (click)="onEditLoanCorporateSuretyArray(loan.CorporateSuretyID)">Edit</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <!-- Corporate sureties End -->
 <!-- References Begin -->
 <div class="kt-portlet">
-  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">References</h5>
-    </div>
-  </div>
-  <div class="kt-portlet__body">
-    <form class="kt-form kt-form--group-seperator-dashed"   [formGroup]="loanRefrencesForm">
-      <div class="kt-form">
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-12">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>CNIC</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>FAX</th>
-                    <th>Email</th>
-                    <th>NTN</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appNumberOnly formControlName="Cnic" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appAlphabetOnly formControlName="Name" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Address" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appNumberOnly formControlName="Phone" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appAlphaNumericField formControlName="Fax" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Email" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="Ntn" />
-                      </mat-form-field>
-                    </td>
-                    <td> <span (click)="onSaveLoanRefrencesForm()">Save</span> | <span>Cancle</span></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="form-group kt-form__group row">
-                <div class="col-lg-12">
-                  <div class="table-responsive">
-                    <table class="table table-striped" *ngIf="loanRefrenceArray.length!=0">
-                      <thead>
-                        <tr class="table-header-background">
-                          <th>ID</th>
-                          <th>CNIC</th>
-                          <th>Name</th>
-                          <th>Address</th>
-                          <th>Phone</th>
-                          <th>FAX</th>
-                          <th>Email</th>
-                          <th>NTN</th>
-                          <th></th>
-
-                        </tr>
-                      </thead>
-                      <tbody class="">
-                        <tr *ngFor="let loan of loanRefrenceArray; let i = index;">
-                          <td>{{loan.Cnic}}</td>
-                          <td>{{loan.Name}}</td>
-                          <td>{{loan.Address}}</td>
-                          <td>{{loan.Phone}}</td>
-                          <td>{{loan.Fax}}</td>
-                          <td>{{loan.Email}}</td>
-                          <td>{{loan.Ntn}}</td>
-
-
-                          <td> <span (click)="onEditRefrence(loan.ReferenceID)">Edit</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">References</h5>
         </div>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="kt-portlet__body">
+        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="loanRefrencesForm">
+            <div class="kt-form">
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>CNIC</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>FAX</th>
+                                    <th>Email</th>
+                                    <th>NTN</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appNumberOnly formControlName="Cnic"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appAlphabetOnly formControlName="Name"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="Address"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appNumberOnly formControlName="Phone"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appAlphaNumericField formControlName="Fax"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="Email"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="Ntn"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td><span (click)="onSaveLoanRefrencesForm()">Save</span> | <span>Cancle</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group kt-form__group row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" *ngIf="loanRefrenceArray.length!=0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>ID</th>
+                                                <th>CNIC</th>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Phone</th>
+                                                <th>FAX</th>
+                                                <th>Email</th>
+                                                <th>NTN</th>
+                                                <th></th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody class="">
+                                            <tr *ngFor="let loan of loanRefrenceArray; let i = index;">
+                                                <td>{{loan.Cnic}}</td>
+                                                <td>{{loan.Name}}</td>
+                                                <td>{{loan.Address}}</td>
+                                                <td>{{loan.Phone}}</td>
+                                                <td>{{loan.Fax}}</td>
+                                                <td>{{loan.Email}}</td>
+                                                <td>{{loan.Ntn}}</td>
+
+
+                                                <td><span (click)="onEditRefrence(loan.ReferenceID)">Edit</span></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <!-- References End -->
 <!-- Witnesses Begin -->
 <div class="kt-portlet">
-  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Witnesses</h5>
-    </div>
-  </div>
-  <div class="kt-portlet__body">
-    <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="loanWitnessForm">
-      <div class="kt-form">
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-12">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="table-header-background">
-                    <th>CNIC</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput maxlength="13" appNumberOnly formControlName="Cnic" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput  formControlName="WitnessName" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="WitnessAddress" />
-                      </mat-form-field>
-                    </td>
-                    <td> <span (click)="onSaveLoanWitnessForm()">Save</span> | <span>Cancle</span></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="form-group kt-form__group row">
-                <div class="col-lg-12">
-                  <div class="table-responsive">
-                    <table class="table table-striped" *ngIf="loanWitnessArray.length!=0">
-                      <thead>
-                        <tr class="table-header-background">
-                          <th>Cnic</th>
-                          <th>Name</th>
-                          <th>Address</th>
-                          <th></th>
-
-                        </tr>
-                      </thead>
-                      <tbody class="">
-                        <tr *ngFor="let loan of loanWitnessArray; let i = index;">
-                          <td>{{loan.Cnic}}</td>
-                          <td>{{loan.WitnessName}}</td>
-                          <td>{{loan.WitnessAddress}}</td>
-
-
-                          <td> <span (click)="onEditLoanWitnessArray(loan.WitnessesID)">Edit</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Witnesses</h5>
         </div>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="kt-portlet__body">
+        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="loanWitnessForm">
+            <div class="kt-form">
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>CNIC</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput maxlength="13" appNumberOnly formControlName="Cnic"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="WitnessName"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="WitnessAddress"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td><span (click)="onSaveLoanWitnessForm()">Save</span> | <span>Cancle</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group kt-form__group row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" *ngIf="loanWitnessArray.length!=0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>Cnic</th>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th></th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody class="">
+                                            <tr *ngFor="let loan of loanWitnessArray; let i = index;">
+                                                <td>{{loan.Cnic}}</td>
+                                                <td>{{loan.WitnessName}}</td>
+                                                <td>{{loan.WitnessAddress}}</td>
+
+
+                                                <td><span (click)="onEditLoanWitnessArray(loan.WitnessesID)">Edit</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <!-- Witnesses End -->
 <!-- Past Paid Loans Begin -->
 <div class="kt-portlet">
-  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Past Paid Loans</h5>
-    </div>
-  </div>
-  <div class="kt-portlet__body">
-    <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="loanPastPaidForm">
-      <div class="kt-form">
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-12">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="table-header-background">
-                    <th>Bank Name</th>
-                    <th>Due Amount</th>
-                    <th>Due Date</th>
-                    <th>Last Payment On</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="BankName" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appNumberOnly  formControlName="AmountToPaid" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input readonly="readonly" matInput [matDatepicker]="picker4" formControlName="DueDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                        <mat-datepicker #picker4></mat-datepicker>
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input readonly="readonly" matInput [matDatepicker]="picker5" formControlName="LastPaidDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-                        <mat-datepicker #picker5></mat-datepicker>
-                      </mat-form-field>
-                    </td>
-                    <td> <span (click)="onSaveLoanPastPaidForm()">Save</span> | <span>Cancle</span></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="form-group kt-form__group row">
-                <div class="col-lg-12">
-                  <div class="table-responsive">
-                    <table class="table table-striped" *ngIf="loanPastPaidArray.length!=0">
-                      <thead>
-                        <tr class="table-header-background">
-                          <th>Bank Name</th>
-                          <th>Due Amount</th>
-                          <th>Due Date</th>
-                          <th>Last Payment On</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody class="">
-                        <tr *ngFor="let loan of loanPastPaidArray; let i = index;">
-                          <td>{{loan.BankName}}</td>
-                          <td>{{loan.AmountToPaid}}</td>
-                          <td>{{loan.DueDate}}</td>
-                          <td>{{loan.LastPaidDate}}</td>
-
-
-                          <td> <span (click)="onEditLoanPastPaidArray(loan.PaidLoanID)">Edit</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Past Paid Loans</h5>
         </div>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="kt-portlet__body">
+        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="loanPastPaidForm">
+            <div class="kt-form">
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>Bank Name</th>
+                                    <th>Due Amount</th>
+                                    <th>Due Date</th>
+                                    <th>Last Payment On</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="BankName"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appNumberOnly formControlName="AmountToPaid"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input readonly="readonly" matInput [matDatepicker]="picker4"
+                                                   formControlName="DueDate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker4></mat-datepicker>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input readonly="readonly" matInput [matDatepicker]="picker5"
+                                                   formControlName="LastPaidDate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker5></mat-datepicker>
+                                        </mat-form-field>
+                                    </td>
+                                    <td><span (click)="onSaveLoanPastPaidForm()">Save</span> | <span>Cancle</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group kt-form__group row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" *ngIf="loanPastPaidArray.length!=0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>Bank Name</th>
+                                                <th>Due Amount</th>
+                                                <th>Due Date</th>
+                                                <th>Last Payment On</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="">
+                                            <tr *ngFor="let loan of loanPastPaidArray; let i = index;">
+                                                <td>{{loan.BankName}}</td>
+                                                <td>{{loan.AmountToPaid}}</td>
+                                                <td>{{loan.DueDate}}</td>
+                                                <td>{{loan.LastPaidDate}}</td>
+
+
+                                                <td><span (click)="onEditLoanPastPaidArray(loan.PaidLoanID)">Edit</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <!-- Past Paid Loans End -->
 <!-- Current Loans Begin -->
 <div class="kt-portlet">
-  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Current Loans</h5>
-    </div>
-  </div>
-  <div class="kt-portlet__body">
-    <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="currentLoansForm">
-      <div class="kt-form">
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-12">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="table-header-background">
-                    <th>Purpose</th>
-                    <th>Bank Name</th>
-                    <th>Total Loan</th>
-                    <th>Security/Surety</th>
-                    <th>Date Loan Availed</th>
-                    <th>Outstanding Amount</th>
-                    <th>Due Date</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="PurposeDetail" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="BankName" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput appNumberOnly formControlName="TotalDebit" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="FundNonfundFlag" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="DateDebitAcheive" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="AmountToPaid" />
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <input matInput formControlName="DueDate" />
-                      </mat-form-field>
-                    </td>
-                    <td> <span (click)="onSaveCurrentLoansForm()">Save</span> | <span>Cancle</span></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="form-group kt-form__group row">
-                <div class="col-lg-12">
-                  <div class="table-responsive">
-                    <table class="table table-striped" *ngIf="loanCurrentList.length !=0">
-                      <thead>
-                        <tr class="table-header-background">
-                          <th>Purpose</th>
-                          <th>Bank Name</th>
-                          <th>Total Loan</th>
-                          <th>Security/Surety</th>
-                          <th>Date Loan Availed</th>
-                          <th>Outstanding Amount	</th>
-                          <th>Due Date</th>
-                          <th>STATUS	</th>
-                          <th>Facility	</th>
-
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody class="">
-                        <tr *ngFor="let loan of loanCurrentList; let i = index;">
-                          <td>{{loan.PurposeDetail}}</td>
-                          <td>{{loan.BankName}}</td>
-                          <td>{{loan.TotalDebit}}</td>
-                          <td>{{loan.GurenteeDetail}}</td>
-                          <td>{{loan.DateDebitAcheive}}</td>
-                          <td>{{loan.AmountToPaid}}</td>
-                          <td>{{loan.DueDate}}</td>
-                          <td>{{loan.Status}}</td>
-                          <td>{{loan.FundNonfundFlag}}</td>
-
-
-                          <td> <span (click)="onEditLoanCurrentList(loan.CurrentLoanID)">Edit</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Current Loans</h5>
         </div>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div class="kt-portlet__body">
+        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="currentLoansForm">
+            <div class="kt-form">
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>Purpose</th>
+                                    <th>Bank Name</th>
+                                    <th>Total Loan</th>
+                                    <th>Security/Surety</th>
+                                    <th>Date Loan Availed</th>
+                                    <th>Outstanding Amount</th>
+                                    <th>Due Date</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="PurposeDetail"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="BankName"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput appNumberOnly formControlName="TotalDebit"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="FundNonfundFlag"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="DateDebitAcheive"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="AmountToPaid"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <input matInput formControlName="DueDate"/>
+                                        </mat-form-field>
+                                    </td>
+                                    <td><span (click)="onSaveCurrentLoansForm()">Save</span> | <span>Cancle</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group kt-form__group row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped" *ngIf="loanCurrentList.length !=0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>Purpose</th>
+                                                <th>Bank Name</th>
+                                                <th>Total Loan</th>
+                                                <th>Security/Surety</th>
+                                                <th>Date Loan Availed</th>
+                                                <th>Outstanding Amount</th>
+                                                <th>Due Date</th>
+                                                <th>STATUS</th>
+                                                <th>Facility</th>
+
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="">
+                                            <tr *ngFor="let loan of loanCurrentList; let i = index;">
+                                                <td>{{loan.PurposeDetail}}</td>
+                                                <td>{{loan.BankName}}</td>
+                                                <td>{{loan.TotalDebit}}</td>
+                                                <td>{{loan.GurenteeDetail}}</td>
+                                                <td>{{loan.DateDebitAcheive}}</td>
+                                                <td>{{loan.AmountToPaid}}</td>
+                                                <td>{{loan.DueDate}}</td>
+                                                <td>{{loan.Status}}</td>
+                                                <td>{{loan.FundNonfundFlag}}</td>
+
+
+                                                <td><span
+                                                    (click)="onEditLoanCurrentList(loan.CurrentLoanID)">Edit</span></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <!-- Current Loans End -->
 <!-- Documents Attached Begin -->
 <div class="kt-portlet">
-  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Documents Attached</h5>
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h5 class="kt-portlet__head-title" style="font-size: 18px !important;">Documents Attached</h5>
+        </div>
     </div>
-  </div>
-  <div class="kt-portlet__body">
-    <form class="kt-form kt-form--group-seperator-dashed" > <!--  CheckListForm -->
-      <div class="kt-form">
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-12 kt-margin-bottom-20-mobile">
-            <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary float-right" (click)="getCheckList()">Refresh Check List</button>
-          </div>
-          <div class="col-lg-12 kt-margin-bottom-20-mobile">
-            <div *ngFor="let doc of loanDocumentsCheckList; let i = index;" style="display:inline; margin-right:1%">
-              <!--<mat-form-field class="mat-form-field-fluid" appearance="outline">
+    <div class="kt-portlet__body">
+        <form class="kt-form kt-form--group-seperator-dashed"> <!--  CheckListForm -->
+            <div class="kt-form">
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                        <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary float-right"
+                                (click)="getCheckList()">Refresh Check List
+                        </button>
+                    </div>
+                    <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                        <div *ngFor="let doc of loanDocumentsCheckList; let i = index;"
+                             style="display:inline; margin-right:1%">
+                            <!--<mat-form-field class="mat-form-field-fluid" appearance="outline">
 
-    </mat-form-field>-->
-              <mat-checkbox [value]="doc.DocumentID" (change)="setUnsetDocumentCheckBox($event)">
-                <!--  formControlName="selectedCheckBox" -->
-                {{doc.DocName}}
-              </mat-checkbox>
+                  </mat-form-field>-->
+                            <mat-checkbox [value]="doc.DocumentID" (change)="setUnsetDocumentCheckBox($event)">
+                                <!--  formControlName="selectedCheckBox" -->
+                                {{doc.DocName}}
+                            </mat-checkbox>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                        <button style="background-color: #01671B;"
+                                class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                              (click)="saveCheckList()">
+                            <mat-icon class="mr-2">save</mat-icon>
+                            Save
+                        </button>
+                        <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary mx-2"
+                                (click)="submitLoanApplication()">
+                            <mat-icon class="mr-2">check_circle</mat-icon>
+                            Submit
+                        </button>
+                        <!--<button class="btn btn-primary mr-1p">New Case</button>
+                        <button class="btn btn-primary mr-1p">Pending List</button>-->
+                    </div>
+                </div>
 
             </div>
-          </div>
-        </div>
-
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-12 kt-margin-bottom-20-mobile">
-            <button style="background-color: #01671B;" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="saveCheckList()"><mat-icon class="mr-2">save</mat-icon> Save</button>
-            <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary mx-2" (click)="submitLoanApplication()" ><mat-icon class="mr-2">check_circle</mat-icon> Submit</button>
-            <!--<button class="btn btn-primary mr-1p">New Case</button>
-            <button class="btn btn-primary mr-1p">Pending List</button>-->
-          </div>
-        </div>
-
-      </div>
-    </form>
-  </div>
+        </form>
+    </div>
 </div>
 <!-- Documents Attached End -->
 
