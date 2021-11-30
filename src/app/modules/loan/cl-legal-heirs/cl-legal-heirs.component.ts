@@ -167,6 +167,12 @@ export class ClLegalHeirsComponent implements OnInit {
             return;
         }
 
+        var duplicateCustomer = this.legalHeirsArray.filter(x => x.Cnic == this.legalHeirsForm.controls['Cnic'].value)[0];
+        if (duplicateCustomer != undefined && duplicateCustomer != null) {
+            this.layoutUtilsService.alertElement("", "Customer CNIC Already Added", "Duplicate Cutomer");
+            return;
+        }
+
 
         //this.legalHeirs = Object.assign(this.legalHeirs, this.legalHeirsForm.getRawValue());
         this.legalHeirs.UserID = "0";

@@ -13,6 +13,10 @@ import {LoanAmountsConvertToDefaultComponent} from '../loan-amounts-convert-to-d
 import {FaViewCircleWiseComponent} from '../fa-view-circle-wise/fa-view-circle-wise.component';
 import {SearchLoanCasesByCnicComponent} from '../search-loan-cases-by-cnic/search-loan-cases-by-cnic.component';
 import {UpdatedListOfDefaultersComponent} from '../updated-list-of-defaulters/updated-list-of-defaulters.component';
+import {VoucherPostingDayComponent} from "../voucher-posting-day/voucher-posting-day.component";
+import {DailyVoucherProofComponent} from "../daily-voucher-proof/daily-voucher-proof.component";
+import {PaymentBehaviorComponent} from "../payment-behavior/payment-behavior.component";
+import {AffidavitForLegalHeirsComponent} from "../affidavit-for-legal-heirs/affidavit-for-legal-heirs.component";
 
 @Component({
     selector: 'app-reports',
@@ -32,6 +36,42 @@ export class ReportsComponent implements OnInit {
 
     bufrictionOfOSBalances(){
         const dialogRef = this.dialog.open(BufricationOfOsBalancesLcComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    voucherPostingDay(){
+        const dialogRef = this.dialog.open(VoucherPostingDayComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    dailyVoucherProof(){
+        const dialogRef = this.dialog.open(DailyVoucherProofComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    paymentBehavior(){
+        const dialogRef = this.dialog.open(PaymentBehaviorComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    affidavitForLegalHeirs(){
+        const dialogRef = this.dialog.open(AffidavitForLegalHeirsComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
         dialogRef.afterClosed().subscribe((res)=>{
             if(!res){
                 return

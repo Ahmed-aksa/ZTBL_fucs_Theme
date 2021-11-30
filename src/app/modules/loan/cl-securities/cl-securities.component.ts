@@ -263,6 +263,7 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   onSaveLoanSecurities() {
+        debugger
 
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
@@ -375,7 +376,7 @@ debugger
         this.loanSecurities.MaxCreditLimit = loan?.MaxCreditLimit;
           this.LoanSecuritiesForm.controls["CollTypeID"].setValue(loan?.CollTypeID);
           this.LoanSecuritiesForm.controls["AppSecurityID"].setValue(loan?.AppSecurityID);
-          this.LoanSecuritiesForm.controls["QuantityUnit"].setValue(loan?.Quantity);
+          this.LoanSecuritiesForm.controls["QuantityUnit"].setValue(loan?.QuantityUnit);
 
   }
 }
