@@ -17,7 +17,7 @@ import {ClPurposeComponent} from '../cl-purpose/cl-purpose.component';
 import {ClSecuritiesComponent} from '../cl-securities/cl-securities.component';
 import {ClUploadDocumentComponent} from '../cl-upload-document/cl-upload-document.component';
 import {ToastrService} from "ngx-toastr";
-
+import {ElementRef} from '@angular/core';
 
 @Component({
     selector: 'kt-create-loan',
@@ -47,18 +47,13 @@ export class CreateLoanComponent implements OnInit {
     ) {
 
         router.events.subscribe((val: any) => {
-
             if (val.url == "/loan/create") {
-
                 this.onCreateRestForm();
-
             }
         })
     }
 
     checkError(val: boolean) {
-
-
     }
 
     viewPurpose: boolean;
@@ -79,6 +74,7 @@ export class CreateLoanComponent implements OnInit {
 
     CustomersLoanAppList: any;
     disabled_tab: boolean = true;
+    @ViewChild(ClCustomersComponent) child:ClCustomersComponent;
 
     ngOnInit() {
     }
@@ -112,8 +108,9 @@ export class CreateLoanComponent implements OnInit {
         if ($event.index == 7) {
             this.loanWitnessComponent.getCheckList();
         }
-
-
+        if($event.index==1){
+            this.child.callfromPartnet()
+        }
     }
 
 
@@ -128,19 +125,12 @@ export class CreateLoanComponent implements OnInit {
 
 
     getLoanDetail() {
-
         var LoanAppID = this.LnTransactionID;
         var loanCaseNo = this.Lcno;
-
-
         if ((LoanAppID == undefined || LoanAppID == "") && (loanCaseNo == undefined || loanCaseNo == "")) {
-
-
             return;
         }
-
         this.spinner.show();
-
         this._loanService
             .getLoanDetails(loanCaseNo, LoanAppID)
             .pipe(
@@ -151,19 +141,16 @@ export class CreateLoanComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-
                 if (baseResponse.Success === true) {
                     var loanRes = baseResponse.Loan;
                     localStorage.setItem('customer_loan_list', JSON.stringify(loanRes.CustomersLoanAppList));
+                    this.CustomersLoanAppList = loanRes.CustomersLoanAppList.reverse()
                     this.loanApplicationReq = new Loan();
                     this.loanApplicationReq.TranId = baseResponse.TranId;
                     this.loanApplicationReq.ApplicationHeader = loanRes.ApplicationHeader;
                     this.loanApplicationReq.ApplicationHeader.LoanAppID = loanRes.ApplicationHeader.LoanAppID;
                     this.applicationHeaderDetail = loanRes.ApplicationHeader;
                     this.appHeaderComponent.loadAppDataOnUpdate(this.applicationHeaderDetail);
-
-                    this.CustomersLoanAppList = loanRes.CustomersLoanAppList.reverse()
-
                     if (this.CustomersLoanAppList[0]?.Agps == 'A' || this.CustomersLoanAppList[0]?.RelationID == '8') {
                         this.disabled_tab = false;
                     } else {

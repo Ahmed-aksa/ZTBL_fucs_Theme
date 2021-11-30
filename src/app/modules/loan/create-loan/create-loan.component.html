@@ -19,7 +19,8 @@
                                                   (applicationCall)="fillLoanApplicationObject($event)"></kt-cl-application-header>
                     </mat-tab>
                     <mat-tab label="Customers">
-                        <kt-cl-customers [loanDetail]="loanApplicationReq" (disable_tab)="check_disabled($event)"
+                        <kt-cl-customers #child [loanDetail]="loanApplicationReq" (disable_tab)="check_disabled($event)"
+                                         [customersList]="CustomersLoanAppList"
                                          (loanCustomerCall)="fillLoanApplicationObject($event)"></kt-cl-customers>
                     </mat-tab>
 

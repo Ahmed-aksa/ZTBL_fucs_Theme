@@ -205,5 +205,22 @@ export class UserUtilsService {
     getZone() {
         return this.http.post(`${environment.apiUrl}/Zone/GetZones`, null);
     }
+
+    getEligibilityLogs(request, final_branch: any, final_zone: any, final_circle) {
+        let final_request = {
+            EligibilityRequest: request,
+            Branch: final_branch,
+            Zone: final_zone,
+            Circle: {
+                CircleCode: final_circle?.Id
+            },
+            Pagination: {
+                Limit: 10,
+                Offset: 0
+            }
+        }
+
+        return this.http.post(`${environment.apiUrl}/Customer/GetEligibilityCheckLogs`, final_request)
+    }
 }
 
