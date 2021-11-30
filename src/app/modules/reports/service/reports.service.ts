@@ -34,65 +34,15 @@ export class ReportsService {
 
 
     updatedList(user, reportsFilter) {
-        if (reportsFilter.CircleId == 'null') {
-            reportsFilter.CircleId = null
-        }
-
-        var request = {
-            ReportsFilterCustom: reportsFilter,
-            User: this.userDetail.User,
-            Zone: user.Zone,
-            Branch: user.Branch,
-            Circle: {
-                CircleCode: user.Circle.Id
-            }
-        }
-        return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
-            .pipe(
-                map((res: BaseResponseModel) => res)
-            );
-    }
-
-    searchNpl(user, reportsFilter) {
-
-        if (reportsFilter.CircleId == 'null') {
-            reportsFilter.CircleId = null
-        }
-
-        var request = {
-            ReportsFilterCustom: reportsFilter,
-            User: this.userDetail.User,
-            Zone: user.Zone,
-            Branch: user.Branch,
-            Circle: {
-                CircleId: user.Circle.CircleCode,
-                CircleCode: user.Circle.Id
-            }
-        }
-        return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
-            .pipe(
-                map((res: BaseResponseModel) => res)
-            );
-    }
-
-    bifurcation(user, reportsFilter) {
         debugger
 
-        if (user.Branch.WorkingDate == undefined) {
-            user.Branch.WorkingDate = reportsFilter.WorkingDate;
-        }
-        if (user.Circle == undefined) {
-            user.Circle = null;
-        }
-
         var request = {
             ReportsFilterCustom: reportsFilter,
             User: this.userDetail.User,
             Zone: user.Zone,
             Branch: user.Branch,
             Circle: {
-                CircleCode: user.Circle.CircleId,
-                CircleId: user.Circle.CircleCode
+                CircleCode: user.Circle.Id
             }
         }
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
@@ -102,6 +52,7 @@ export class ReportsService {
     }
 
     reportDynamic(reportsFilter, zone = null, branch = null, circle = null) {
+        debugger
         let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         let final_zone = null;
         let final_branch = null;
@@ -110,9 +61,7 @@ export class ReportsService {
         if (zone == null) {
             final_zone = user.Zone;
             final_branch = user.Branch;
-            if (final_branch.WorkingDate == undefined) {
-                final_branch.WorkingDate = reportsFilter.WorkingDate;
-            } else if (final_branch == undefined) {
+             if (final_branch == undefined) {
                 final_branch = null
             }
         } else {

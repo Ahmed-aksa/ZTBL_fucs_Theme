@@ -623,7 +623,16 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
+if(baseResponse.Success==true){
 
+    this.productionArray=[];
+    this.productionArray = baseResponse.Loan["CropProductionList"];
+    this.LoanAOPIForm.reset();
+    this.getProposedCropType();
+    this.getCrops();
+    this.LoanAOPIForm.markAsUntouched()
+
+}
             const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
 
         })
