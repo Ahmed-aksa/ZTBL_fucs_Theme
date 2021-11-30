@@ -305,11 +305,11 @@ export class ClCustomersComponent implements OnInit {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
-
-        if (this.loan_data[this.loan_data.length - 1]?.CustLoanAppID) {
-            this.layoutUtilsService.alertMessage("", "Records already saved");
-            return;
-        }
+        //
+        // if (this.loan_data[this.loan_data.length - 1]?.CustLoanAppID) {
+        //     this.layoutUtilsService.alertMessage("", "Records already saved");
+        //     return;
+        // }
 
         if (this.loan_data.length > 0) {
             this.spinner.show();
