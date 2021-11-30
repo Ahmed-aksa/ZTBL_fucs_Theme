@@ -192,7 +192,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
 
     loadAppraisalOfProposedDataOnUpdate(appAppraisalOfProposedData, CropProductionList) {
-        console.log(JSON.stringify(CropProductionList))
+
         // if (appAppraisalOfProposedData.length != 0, appAppraisalOfProposedData != undefined) {
         //
         //     //crop
