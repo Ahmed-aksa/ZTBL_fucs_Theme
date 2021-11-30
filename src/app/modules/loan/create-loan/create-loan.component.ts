@@ -144,7 +144,7 @@ export class CreateLoanComponent implements OnInit {
                 if (baseResponse.Success === true) {
                     var loanRes = baseResponse.Loan;
                     localStorage.setItem('customer_loan_list', JSON.stringify(loanRes.CustomersLoanAppList.reverse()));
-                    this.CustomersLoanAppList = loanRes.CustomersLoanAppList.reverse()
+                    this.CustomersLoanAppList = loanRes.CustomersLoanAppList
                     this.loanApplicationReq = new Loan();
                     this.loanApplicationReq.TranId = baseResponse.TranId;
                     this.loanApplicationReq.ApplicationHeader = loanRes.ApplicationHeader;
@@ -183,13 +183,19 @@ export class CreateLoanComponent implements OnInit {
     }
 
     check_disabled(event: any) {
-        //
-        // if(event==true){
-        //     this.toastr.error("First time AGPS must be Applicant and Relationship must be selected self");
-        // }
         this.disabled_tab = event;
 
 
+    }
+
+    check_localstroage() {
+        let customers_loan_data = JSON.parse(localStorage.getItem('customer_loan_list'))[0];
+
+        if (customers_loan_data && customers_loan_data?.Agps == 'A' && customers_loan_data.RelationID == '8') {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 

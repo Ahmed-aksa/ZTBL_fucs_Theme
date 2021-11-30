@@ -119,8 +119,7 @@ export class GeoFencingListComponent implements OnInit {
                 if (baseResponse.Success === true) {
                     this.dataSource.data =
                         baseResponse.LocationHistory.LocationHistories;
-                    this.totalItems =
-                        baseResponse.LocationHistory.LocationHistories[0].TotalRecords;
+                    this.totalItems =baseResponse.LocationHistory.LocationHistories[0].TotalRecords;
                     this.dv = this.dataSource.data;
                 } else {
                     this.dataSource.data = [];

@@ -151,6 +151,14 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
     }
 
+    appraisalType(type){
+        if(type=="1"){
+            return "Proposed"
+        }else if(type=="2"){
+            return "Existing"
+        }
+    }
+
     getValue(controlName: string): string {
         return this.LoanAOPIForm.controls[controlName].value;
     }
@@ -182,7 +190,6 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
 
     loadAppraisalOfProposedDataOnUpdate(appAppraisalOfProposedData, CropProductionList) {
-
 
         if (appAppraisalOfProposedData.length != 0, appAppraisalOfProposedData != undefined) {
 
@@ -311,6 +318,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             }
         }
         //Creating Grid
+        debugger
         var tempArr: ProductionGrid[] = [];
 
         CropProductionList.forEach((item, key) => {
@@ -325,6 +333,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             if (Crop.length > 0) {
                 grid.cropName = Crop[0].Description;
             }
+            grid.AppraisalType = item.AppraisalType
             grid.ItemDetailID = item.ItemDetailID
             grid.area = item.Area
             grid.output = item.TotalOutput
@@ -337,7 +346,6 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
         });
         this.productionArray = tempArr;
-
     }
 
 
@@ -704,4 +712,5 @@ export class ProductionGrid {
     expenditure: string;
     totalExpenditure: string;
     netIncome: string;
+    AppraisalType:string;
 }
