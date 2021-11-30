@@ -111,7 +111,7 @@ export class LoanInquiryComponent implements OnInit {
   }
 
   getDocument(documentType: string, documentId: string) {
-
+      debugger
     this.spinner.show();
     this.submitted = true;
     this._recoveryService
