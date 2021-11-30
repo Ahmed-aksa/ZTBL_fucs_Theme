@@ -43,18 +43,6 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewIn
 
     LoggedInUserInfo: BaseResponseModel;
 
-    //Zone inventory
-    Zones: any = [];
-    user: any = {};
-    SelectedZones: any = [];
-
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
     private branch: any;
     private zone: any;
     private circle: any;
@@ -97,14 +85,10 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewIn
             this.toastr.error("Please enter requried fields");
             return;
         }
-        this.user.Branch = this.branch;
-        this.user.Zone = this.zone;
-        this.user.Circle = this.circle;
-
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "19";
         this.spinner.show();
-        this._reports.updatedList(this.user, this.reports)
+        this._reports.reportDynamic(this.reports,this.branch,this.zone,this.circle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;

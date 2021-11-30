@@ -1,11 +1,11 @@
-<div class="sm:flex grid" [formGroup]="form" (submit)="checkZoneValidation()">
+<div class="sm:flex grid" [formGroup]="form">
 
     <div class="mx-2">
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Zone</mat-label>
                 <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" *ngIf="!single_zone"
-                            (selectionChange)="changeZone($event)">
+                            (selectionChange)="changeZone($event)" required>
                     <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId">
                         {{zone?.ZoneName}}
                     </mat-option>
@@ -23,7 +23,7 @@
     <div class="mx-2">
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
+                <mat-label class="customMatLabel">Branch</mat-label>
                 <mat-select matInput [(ngModel)]="selected_b" formControlName="BranchCode" *ngIf="!single_branch"
                             (selectionChange)="changeBranch($event)">
                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode">
@@ -62,7 +62,8 @@
             </mat-form-field>
         </div>
     </div>
-        <a class="cursor-pointer text-md font-bold text-danger text-center text-danger position-absolute top-0.5 right-9 " (click)="clearForm()">Clear Filters</a>
+    <a class="cursor-pointer text-md font-bold text-danger text-center text-danger position-absolute top-0.5 right-9 "
+       (click)="clearForm()">Clear Filters</a>
 
 </div>
 

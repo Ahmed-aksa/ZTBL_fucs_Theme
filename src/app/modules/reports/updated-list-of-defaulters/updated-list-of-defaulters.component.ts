@@ -33,11 +33,8 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./updated-list-of-defaulters.component.scss']
 })
 export class UpdatedListOfDefaultersComponent implements OnInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
+    displayedColumns = ['Zone', 'Branch', 'Circle', 'Dob', 'Ndd', 'MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'descr', 'OtherCharges'];
     searchCnicForm: FormGroup;
-    selected_b;
-    selected_z;
-    selected_c;
     loaded = true;
 
     gridHeight: string;
@@ -55,18 +52,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
 
     LoggedInUserInfo: BaseResponseModel;
 
-    //Zone inventory
-    Zones: any = [];
-    user: any = {}
-    SelectedZones: any = [];
-
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
     private branch: any;
     private zone: any;
     private circle: any;
@@ -109,15 +94,10 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
             this.toastr.error("Please enter required values");
             return;
         }
-        this.user.Branch = this.branch;
-        this.user.Zone = this.zone;
-        this.user.Circle = this.circle
-
-
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "20";
         this.spinner.show();
-        this._reports.updatedList(this.user, this.reports)
+        this._reports.reportDynamic(this.reports, this.zone, this.branch, this.circle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -129,7 +109,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
                 if (baseResponse.Success === true) {
 
                     this.loading = true;
-                    
+
                     this.dataSource = baseResponse.ReportsFilterCustom.SamNplLoans
                     this.dv = this.dataSource;
                     this.matTableLenght = true
@@ -153,7 +133,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     //     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
     //     this.statusLov = this.statusLov.LOVs;
     //     this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-    //     
+    //
     // }
 
     getAllData(data) {
@@ -161,6 +141,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = data.final_circle
     }
+
     ngAfterViewInit() {
 
         this.gridHeight = window.innerHeight - 300 + 'px';

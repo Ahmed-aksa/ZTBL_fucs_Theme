@@ -140,21 +140,20 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onClearLegalHeirsForm() {
-        this.legalHeirsForm.reset();
-        this.legalHeirsForm.markAsPristine();
-        this.legalHeirsForm.markAsUntouched();
-        // this.legalHeirsForm.controls["CustomerID"].setValue("");
-        // this.legalHeirsForm.controls["Cnic"].setValue("");
-        // this.legalHeirsForm.controls["LegalHeirsName"].setValue("");
-        // this.legalHeirsForm.controls["Dob"].setValue("");
-        // this.legalHeirsForm.controls["RelationID"].setValue("");
-        // this.legalHeirsForm.controls["PhoneOff"].setValue("");
-        // this.legalHeirsForm.controls["PhoneCell"].setValue("");
-        // this.legalHeirsForm.controls["Gender"].setValue("");
-        // const controls = this.legalHeirsForm.controls;
-        // Object.keys(controls).forEach(controlName =>
-        //   controls[controlName].markAsUntouched()
-        // );
+
+
+        this.legalHeirsForm.controls["CustomerID"].setValue("");
+        this.legalHeirsForm.controls["Cnic"].setValue("");
+        this.legalHeirsForm.controls["LegalHeirsName"].setValue("");
+        this.legalHeirsForm.controls["Dob"].setValue("");
+        this.legalHeirsForm.controls["RelationID"].setValue("");
+        this.legalHeirsForm.controls["PhoneOff"].setValue("");
+        this.legalHeirsForm.controls["PhoneCell"].setValue("");
+        this.legalHeirsForm.controls["Gender"].setValue("");
+        const controls = this.legalHeirsForm.controls;
+        Object.keys(controls).forEach(controlName =>
+            controls[controlName].markAsUntouched()
+        );
     }
 
     onChange(val) {
@@ -176,6 +175,12 @@ export class ClLegalHeirsComponent implements OnInit {
                 controls[controlName].markAsTouched()
             );
 
+            return;
+        }
+
+        var duplicateCustomer = this.legalHeirsArray.filter(x => x.Cnic == this.legalHeirsForm.controls['Cnic'].value)[0];
+        if (duplicateCustomer != undefined && duplicateCustomer != null) {
+            this.layoutUtilsService.alertElement("", "Customer CNIC Already Added", "Duplicate Cutomer");
             return;
         }
 
@@ -230,7 +235,6 @@ export class ClLegalHeirsComponent implements OnInit {
 
     onDeleteLegalHeirs(legalHeir, index) {
 
-
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';
@@ -238,11 +242,9 @@ export class ClLegalHeirsComponent implements OnInit {
         this.legalHeirs.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
 
         const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
-
-
         dialogRef.afterClosed().subscribe(res => {
 
-
+            debugger;
             if (!res) {
                 return;
             }
@@ -251,7 +253,6 @@ export class ClLegalHeirsComponent implements OnInit {
                 return false;
             } else {
                 if (legalHeir == null || legalHeir == undefined || legalHeir == "") {
-                    this.cdRef.detectChanges();
                     return true;
                 } else {
                     this.spinner.show();
@@ -265,8 +266,8 @@ export class ClLegalHeirsComponent implements OnInit {
                             if (baseResponse.Success === true) {
 
                                 this.legalHeirsArray.splice(index, 1);
-                                this.onClearLegalHeirsForm();
-                                const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+
+                                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
 
                             }
 
@@ -279,9 +280,6 @@ export class ClLegalHeirsComponent implements OnInit {
 
 
         })
-        this.legalHeirsForm.reset();
-        this.legalHeirsForm.markAsPristine();
-        this.legalHeirsForm.markAsUntouched();
     }
 
 }

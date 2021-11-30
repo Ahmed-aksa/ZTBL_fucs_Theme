@@ -23,10 +23,11 @@ export class SearchLoanCaseByCnic{
 }
 
 export class Bufrication{
-    PPNO: string;
     Status: string;
     ReportsNo: string;
-    LcNO: string;
+    LcNo: string;
     ReportFormatType: string;
     WorkingDate: string;
+    VoucherNo: string;
+    Cnic: string;
 }

@@ -57,7 +57,12 @@ export class EligibilityLogsComponent implements OnInit {
     branch: any;
     zone: any;
     circle: any;
-    dataSource: MatTableDataSource<any>;
+    dataSource = new MatTableDataSource;
+    offset: number;
+    pageIndex: number;
+    totalItems: number;
+    items_per_page: number = 5;
+
 
     constructor(
         private fb: FormBuilder,
@@ -97,13 +102,45 @@ export class EligibilityLogsComponent implements OnInit {
         let request = {
             Cnic: this.eligibility_log.value.Cnic
         };
-
+        let final_request = {
+            EligibilityRequest: request,
+            Branch: this.branch,
+            Zone: this.zone,
+            Circle: {
+                CircleCode: this.circle?.Id
+            },
+            Pagination: {
+                Limit: this.items_per_page,
+                Offset: this.offset
+            }
+        }
         this.userUtilsService.getEligibilityLogs(request, this.branch, this.zone, this.circle).subscribe((data: any) => {
             if (data.Success) {
                 this.dataSource.data = data.EligibilityRequest;
+                this.totalItems = data.EligibilityRequest[0].TotalItems;
+
+
             } else {
                 this.layoutUtilsService.alertMessage("", data.Message);
             }
         })
+    }
+
+    paginate(pageIndex: any, pageSize: any = this.items_per_page) {
+        if (Number.isNaN(pageIndex)) {
+            this.pageIndex = this.pageIndex + 1;
+        } else {
+            this.pageIndex = pageIndex;
+        }
+        this.items_per_page = pageSize;
+        this.offset = (this.pageIndex - 1) * this.items_per_page;
+
+        this.find();
+
+
+    }
+
+    MathCeil(number: number) {
+        return Math.ceil(number);
     }
 }

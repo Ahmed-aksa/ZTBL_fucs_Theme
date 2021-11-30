@@ -282,6 +282,7 @@ export class ClUploadDocumentComponent implements OnInit {
   }
 
   saveLoanDocuments() {
+      debugger
     this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
     this.loanDocument.file = this.rawData.file
     if (this.PostDocument.invalid) {
