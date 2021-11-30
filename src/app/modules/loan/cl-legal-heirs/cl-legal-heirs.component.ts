@@ -278,9 +278,7 @@ export class ClLegalHeirsComponent implements OnInit {
         this.legalHeirsForm.markAsPristine();
         this.legalHeirsForm.markAsUntouched();
     }
-
 }
-
 
 export class LegalHiersGrid {
     UserID: string;
