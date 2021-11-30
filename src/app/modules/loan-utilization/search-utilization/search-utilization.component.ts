@@ -288,12 +288,13 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
             );
             return;
         }
+        if (from_Search == true) {
+            this.OffSet = 0;
+        }
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
 
-        if (from_Search) {
-            this.OffSet = 0;
-        }
+
         this.spinner.show();
         if (!this.utilizationSearch.controls['Status'].value) {
             this.utilizationSearch.controls['Status'].setValue('All');
