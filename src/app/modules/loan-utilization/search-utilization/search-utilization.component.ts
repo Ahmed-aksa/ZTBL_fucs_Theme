@@ -117,14 +117,15 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         const userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
         this.setUsers();
-        if (this.isDialog)
-            {this.displayedColumns = ['LoanCaseNo',
+        if (this.isDialog) {
+            this.displayedColumns = ['LoanCaseNo',
                 // "GlCode",
                 'Status',
                 'Remarks',
                 'Lng',
                 'Lat',
-                'Actions',];}
+                'Actions',];
+        }
         //else
         //  this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus', 'View']
 
@@ -176,17 +177,19 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
 
         if (this.isUserAdmin || this.isZoneUser) {
             userInfo.Branch = {};
-            if (this.branch.BranchCode != undefined)
-                {userInfo.Branch = this.branch;}
-            else
-                {userInfo.Branch = null;}
+            if (this.branch.BranchCode != undefined) {
+                userInfo.Branch = this.branch;
+            } else {
+                userInfo.Branch = null;
+            }
         }
         if (this.isUserAdmin) {
             userInfo.Zone = {};
-            if (this.zone.ZoneId != undefined)
-                {userInfo.Zone = this.zone;}
-            else
-                {userInfo.Zone = null;}
+            if (this.zone.ZoneId != undefined) {
+                userInfo.Zone = this.zone;
+            } else {
+                userInfo.Zone = null;
+            }
         }
         //BM User
         // if(userInfo.User.userGroup[0].ProfileID=="56"){
@@ -202,11 +205,10 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 200 + 'px';
-        if(this.zone){
+        if (this.zone) {
             this.searchloanutilization();
         }
     }
-
 
 
     CheckEditStatus(loanUtilization: any) {
@@ -276,7 +278,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         return this.utilizationSearch.controls[controlName].hasError(errorName);
     }
 
-    searchloanutilization() {
+    searchloanutilization(from_Search = false) {
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -285,6 +287,9 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
                 null
             );
             return;
+        }
+        if (from_Search == true) {
+            this.OffSet = 0;
         }
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
@@ -295,7 +300,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
             this.utilizationSearch.controls['Status'].setValue('All');
         }
         this._utilizationSearch = Object.assign(this.utilizationSearch.value);
-        this._loanutilizationService.searchUtilization(this._utilizationSearch, this.zone, this.branch, this.circle,count, currentIndex)
+        this._loanutilizationService.searchUtilization(this._utilizationSearch, this.zone, this.branch, this.circle, count, currentIndex)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -396,9 +401,10 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
 
         this.loanutilizationStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes});
         //
-        this.loanutilizationStatusLov.LOVs.forEach(function(value) {
-            if (!value.Value)
-                {value.Value = 'All';}
+        this.loanutilizationStatusLov.LOVs.forEach(function (value) {
+            if (!value.Value) {
+                value.Value = 'All';
+            }
         });
 
 

@@ -74,7 +74,7 @@ export class CreateLoanComponent implements OnInit {
 
     CustomersLoanAppList: any;
     disabled_tab: boolean = true;
-    @ViewChild(ClCustomersComponent) child:ClCustomersComponent;
+    @ViewChild(ClCustomersComponent) child: ClCustomersComponent;
 
     ngOnInit() {
     }
@@ -108,7 +108,7 @@ export class CreateLoanComponent implements OnInit {
         if ($event.index == 7) {
             this.loanWitnessComponent.getCheckList();
         }
-        if($event.index==1){
+        if ($event.index == 1) {
             this.child.callfromPartnet()
         }
     }
@@ -143,7 +143,7 @@ export class CreateLoanComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
                     var loanRes = baseResponse.Loan;
-                    localStorage.setItem('customer_loan_list', JSON.stringify(loanRes.CustomersLoanAppList));
+                    localStorage.setItem('customer_loan_list', JSON.stringify(loanRes.CustomersLoanAppList.reverse()));
                     this.CustomersLoanAppList = loanRes.CustomersLoanAppList.reverse()
                     this.loanApplicationReq = new Loan();
                     this.loanApplicationReq.TranId = baseResponse.TranId;

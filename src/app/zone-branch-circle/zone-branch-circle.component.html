@@ -1,10 +1,5 @@
 <div class="sm:flex grid" [formGroup]="form" (submit)="checkZoneValidation()">
-    <div class="mx-2">
 
-
-        <a (click)="clearForm()">Clear Filters</a>
-
-    </div>
     <div class="mx-2">
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -67,5 +62,7 @@
             </mat-form-field>
         </div>
     </div>
+        <a class="cursor-pointer text-md font-bold text-danger text-center text-danger position-absolute top-1 right-8 " (click)="clearForm()">Clear Filters</a>
+
 </div>
 
