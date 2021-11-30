@@ -14,7 +14,7 @@ import {Injectable} from '@angular/core';
 import {Activity} from 'app/shared/models/activity.model';
 import {BaseRequestModel} from 'app/shared/models/base_request.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import { Circle } from 'app/shared/models/circle.model';
+import {Circle} from 'app/shared/models/circle.model';
 import {HttpUtilsService} from 'app/shared/services/http_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {environment} from 'environments/environment';
@@ -32,47 +32,19 @@ export class ReportsService {
 
     userDetail = this.userUtilsService.getUserDetails();
 
-    reportDynamic(user, reportsFilter) {
-      if(reportsFilter.CircleId == 'null'){
-        reportsFilter.CircleId = null
-      }
-
-        var request = {
-            // DeviceLocation: {
-            //   BtsId: "0",
-            //   BtsLoc: "",
-            //   Lat: "0.0",
-            //   Long: "0.0",
-            //   Src: "GPS"
-            // },
-            ReportsFilterCustom: reportsFilter,
-            User: this.userDetail.User,
-            //  Circle: {
-            //    Id: user.CircleId
-            //  },
-            Zone: user.Zone,
-            Branch: user.Branch,
-            Circle:user.Circle
-        }
-
-        return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
-            .pipe(
-                map((res: BaseResponseModel) => res)
-            );
-    }
 
     updatedList(user, reportsFilter) {
-      if(reportsFilter.CircleId == 'null'){
-        reportsFilter.CircleId = null
-      }
+        if (reportsFilter.CircleId == 'null') {
+            reportsFilter.CircleId = null
+        }
 
         var request = {
             ReportsFilterCustom: reportsFilter,
             User: this.userDetail.User,
             Zone: user.Zone,
             Branch: user.Branch,
-            Circle:{
-              CircleCode: user.Circle.Id
+            Circle: {
+                CircleCode: user.Circle.Id
             }
         }
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
@@ -83,18 +55,18 @@ export class ReportsService {
 
     searchNpl(user, reportsFilter) {
 
-      if(reportsFilter.CircleId == 'null'){
-        reportsFilter.CircleId = null
-      }
+        if (reportsFilter.CircleId == 'null') {
+            reportsFilter.CircleId = null
+        }
 
         var request = {
             ReportsFilterCustom: reportsFilter,
             User: this.userDetail.User,
             Zone: user.Zone,
             Branch: user.Branch,
-            Circle:{
-              CircleId: user.Circle.CircleCode,
-              CircleCode: user.Circle.Id
+            Circle: {
+                CircleId: user.Circle.CircleCode,
+                CircleCode: user.Circle.Id
             }
         }
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
@@ -104,15 +76,13 @@ export class ReportsService {
     }
 
     bifurcation(user, reportsFilter) {
+        debugger
 
-      if(reportsFilter.CircleId == 'null'){
-        reportsFilter.CircleId = null
-      }
-      if(user.Branch.WorkingDate == undefined){
-          user.Branch.WorkingDate = reportsFilter.WorkingDate;
-      }
-        if(user.Circle == undefined){
-            user.Circle= null;
+        if (user.Branch.WorkingDate == undefined) {
+            user.Branch.WorkingDate = reportsFilter.WorkingDate;
+        }
+        if (user.Circle == undefined) {
+            user.Circle = null;
         }
 
         var request = {
@@ -120,8 +90,9 @@ export class ReportsService {
             User: this.userDetail.User,
             Zone: user.Zone,
             Branch: user.Branch,
-            Circle:{
-              CircleCode: user.Circle.CircleId
+            Circle: {
+                CircleCode: user.Circle.CircleId,
+                CircleId: user.Circle.CircleCode
             }
         }
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
@@ -129,4 +100,81 @@ export class ReportsService {
                 map((res: BaseResponseModel) => res)
             );
     }
+
+    reportDynamic(reportsFilter, zone = null, branch = null, circle = null) {
+        let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        let final_zone = null;
+        let final_branch = null;
+        let final_circle = null;
+
+        if (zone == null) {
+            final_zone = user.Zone;
+            final_branch = user.Branch;
+            if (final_branch.WorkingDate == undefined) {
+                final_branch.WorkingDate = reportsFilter.WorkingDate;
+            } else if (final_branch == undefined) {
+                final_branch = null
+            }
+        } else {
+            final_zone = zone;
+            final_branch = branch;
+        }
+        let request = null;
+        if (reportsFilter.ReportsNo == '20' || reportsFilter.ReportsNo == '19' || reportsFilter.ReportsNo == '17' || reportsFilter.ReportsNo == '16') {
+            request = {
+                ReportsFilterCustom: reportsFilter,
+                User: user.User,
+                Zone: final_zone,
+                Branch: final_branch,
+                Circle: {
+                    CircleCode: circle.CircleId,
+                    CircleId: circle.CircleCode
+                }
+            }
+        } else {
+            request = {
+                ReportsFilterCustom: reportsFilter,
+                User: user.User,
+                Zone: final_zone,
+                Branch: final_branch,
+            }
+        }
+
+
+        return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
+            .pipe(
+                map((res: BaseResponseModel) => res)
+            );
+    }
+
+    voucher(reportsFilter, zone = null, branch = null) {
+        let user = null;
+        let final_zone = null;
+        let final_branch = null;
+
+        if (zone == null) {
+            user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+            if (user.Branch.WorkingDate == undefined) {
+                user.Branch.WorkingDate = reportsFilter.WorkingDate;
+            } else if (user.Branch == undefined) {
+                user.Branch = null
+            }
+        } else {
+            final_zone = zone;
+            final_branch = branch;
+        }
+
+        let request = {
+            ReportsFilterCustom: reportsFilter,
+            User: this.userDetail.User,
+            Zone: final_zone,
+            Branch: final_branch,
+        }
+
+        return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
+            .pipe(
+                map((res: BaseResponseModel) => res)
+            );
+    }
+
 }

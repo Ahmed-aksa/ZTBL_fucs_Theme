@@ -30,19 +30,9 @@ import {ReportsService} from '../service/reports.service';
     styleUrls: ['./search-loan-cases-by-cnic.component.scss']
 })
 export class SearchLoanCasesByCnicComponent implements OnInit {
-    displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Agps','Bcl', 'Los'];
+    displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Agps', 'Bcl', 'Los'];
     searchCnicForm: FormGroup;
-    selected_b;
-    selected_z;
-    selected_c;
     loaded = true;
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
-
     public reports = new SearchLoanCaseByCnic();
 
     matTableLenght = false;
@@ -57,18 +47,8 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
 
     LoggedInUserInfo: BaseResponseModel;
 
-    //Zone inventory
-    Zones: any = [];
-    user: any = {}
     SelectedZones: any = [];
 
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
     private branch: any;
     private zone: any;
     private circle: any;
@@ -85,7 +65,7 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
+
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
     }
@@ -105,15 +85,10 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
             this.layoutUtilsService.alertElement('', 'Atleast add any one field among Cnic, Father Name or Customer Name')
             return
         }
-
-        this.user.Zone = this.zone
-        this.user.Branch = this.branch
-        this.user.Circle = this.circle
-
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "14";
         this.spinner.show();
-        this._reports.reportDynamic(this.user, this.reports)
+        this._reports.reportDynamic(this.reports, this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.loaded = true;

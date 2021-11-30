@@ -32,16 +32,7 @@ import {ToastrService} from "ngx-toastr";
 export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
     displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
     searchCnicForm: FormGroup;
-    selected_b;
-    selected_z;
-    selected_c;
     loaded = true;
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
 
     public reports = new SearchLoanCaseByCnic();
 
@@ -57,19 +48,6 @@ export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
     dataSource: MatTableDataSource<searchLoanCasesByCnic>;
 
     LoggedInUserInfo: BaseResponseModel;
-
-    //Zone inventory
-    Zones: any = [];
-    user: any = {}
-    SelectedZones: any = [];
-
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
     private branch: any;
     private zone: any;
     private circle: any;
@@ -99,7 +77,7 @@ export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
 
     value(event) {
 
-        
+
     }
 
     createForm() {
@@ -116,15 +94,11 @@ export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
             return;
         }
 
-        this.user.Branch = this.branch
-        this.user.Zone = this.zone
-        this.user.Circle = this.circle;
-
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "16";
         this.reports.BranchName = this.branch.BranchName;
         this.spinner.show();
-        this._reports.searchNpl(this.user, this.reports)
+        this._reports.reportDynamic(this.reports,this.zone,this.branch,this.circle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -136,7 +110,7 @@ export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
                 if (baseResponse.Success === true) {
 
                     this.loading = true;
-                    
+
                     this.dataSource = baseResponse.ReportsFilterCustom.SamNplLoans
                     this.dv = this.dataSource;
                     this.matTableLenght = true
@@ -161,7 +135,7 @@ export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
         this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
         this.statusLov = this.statusLov.LOVs;
         this.searchCnicForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-        
+
     }
 
     getAllData(data) {
