@@ -45,7 +45,6 @@ export class ClCustomersComponent implements OnInit {
     @Input() loanDetail: Loan;
     @Input('customersList') customer_list;
     @Output() loanCustomerCall: EventEmitter<any> = new EventEmitter();
-    @Output() disable_tab: EventEmitter<any> = new EventEmitter();
 
     constructor(private formBuilder: FormBuilder,
                 private userUtilsService: UserUtilsService,
@@ -61,8 +60,6 @@ export class ClCustomersComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        this.loan_data = JSON.parse(localStorage.getItem('customer_loan_list'));
         this.LoadLovs();
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
         this.createForm();
@@ -113,19 +110,7 @@ export class ClCustomersComponent implements OnInit {
                 this.layoutUtilsService.alertElement("", "First time Relationship must be selected self");
                 return
             }
-        } else {
-            if (this.loanCustomerForm.controls.AGPS.value == "A") {
-                this.layoutUtilsService.alertElement("", "Second time AGPS must not be Applicant");
-                return
-            }
-
-            if (this.loanCustomerForm.controls.Relationship.value == "8") {
-                this.layoutUtilsService.alertElement("", "Second time Relationship must not be selected self");
-                return
-            }
         }
-
-
         this.hasFormErrors = false;
         if (this.loanCustomerForm.invalid) {
             const controls = this.loanCustomerForm.controls;
@@ -143,12 +128,15 @@ export class ClCustomersComponent implements OnInit {
         }
         this.createCustomer.CustomerStatus = 'A';
 
-        this.createCustomer.Cnic = this.loanCustomerForm.controls['CNIC'].value;
-
+        this.customerLoanApp.Cnic = this.loanCustomerForm.controls['CNIC'].value;
+        this.customerLoanApp.RelationID = parseInt(this.loanCustomerForm.controls['Relationship'].value);
+        this.customerLoanApp.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
+        // this.customerLoanApp.LoanCaseNumber = this.loanDetail.ApplicationHeader.LoanCaseNo;
+        this.customerLoanApp.Agps = this.loanCustomerForm.controls['AGPS'].value;
 
         this.spinner.show();
-        this._customerService
-            .searchCustomer(this.createCustomer)
+        this._loanService
+            .saveCustomerWithLoanApp(this.customerLoanApp, this.loanDetail.TranId)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -156,25 +144,13 @@ export class ClCustomersComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    var customer = baseResponse.Customers[0];
-                    var grid = {
-                        Cnic: customer.Cnic,
-                        CustomerName: customer.CustomerName,
-                        FatherName: customer.FatherName,
-                        DOB: customer.Dob,
-                        Agps: this.loanCustomerForm.value.AGPS,
-                        RelationID: this.loanCustomerForm.value.Relationship,
-                        CustomerID: customer.CustomerID
-                    };
-                    this.loan_data.push(grid);
-                    localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
+                    let loan_case_number = this.loanDetail.ApplicationHeader.LoanCaseNo;
+                    let loan_case_id = this.loanDetail.ApplicationHeader.LoanAppID;
 
-
-                    this.checkArray();
-
-
-                    this.cdRef.detectChanges();
-
+                    this._loanService.getLoanDetails(loan_case_number, loan_case_id).subscribe((data: any) => {
+                        this.loan_data = data.Loan.CustomersLoanAppList
+                        localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
+                    })
                     this.loanCustomerForm.controls['CNIC'].setValue("");
                     this.loanCustomerForm.controls['AGPS'].setValue("");
                     this.loanCustomerForm.controls['Relationship'].setValue("");
@@ -266,7 +242,6 @@ export class ClCustomersComponent implements OnInit {
                 if (customerObj.CustLoanAppID == null || customerObj.CustLoanAppID == undefined || customerObj.CustLoanAppID == "") {
                     this.loan_data.splice(index, 1);
                     localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
-
                     this.cdRef.detectChanges();
                     return true;
                 } else {
@@ -280,11 +255,9 @@ export class ClCustomersComponent implements OnInit {
                         )
                         .subscribe(baseResponse => {
                             if (baseResponse.Success === true) {
-                                this.checkArray()
                                 const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                                 this.loan_data.splice(index, 1);
                                 localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
-                                this.checkArray();
                             }
 
                         })
@@ -300,7 +273,6 @@ export class ClCustomersComponent implements OnInit {
     }
 
     onSaveCustomer() {
-        this.checkArray()
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
@@ -370,18 +342,6 @@ export class ClCustomersComponent implements OnInit {
         } else {
             this.layoutUtilsService.alertElement("No Record to save", "No Record to Save");
         }
-    }
-
-
-    private checkArray() {
-        let has_agps_and_relation = true;
-
-        this.loan_data.forEach(single_data => {
-            if (single_data.Agps == 'A' && single_data.RelationID == '8') {
-                has_agps_and_relation = false;
-            }
-        })
-        this.disable_tab.emit(has_agps_and_relation);
     }
 
     returnKeyValuePair(value: any, type: string) {

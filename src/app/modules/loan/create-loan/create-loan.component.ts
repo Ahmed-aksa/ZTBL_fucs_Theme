@@ -185,11 +185,6 @@ export class CreateLoanComponent implements OnInit {
             });
     }
 
-    check_disabled(event: any) {
-        this.disabled_tab = event;
-
-
-    }
 
     check_localstroage() {
         let customers_loan_data = JSON.parse(localStorage.getItem('customer_loan_list'));

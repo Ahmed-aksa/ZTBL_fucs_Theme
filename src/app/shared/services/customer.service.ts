@@ -26,7 +26,7 @@ export class CustomerService {
     }
 
     createCustomerSave(
-        customer: CreateCustomer
+        customer
     ): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
