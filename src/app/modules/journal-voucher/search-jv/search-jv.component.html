@@ -27,7 +27,7 @@
     <div  [formGroup]="JvSearchForm">
 
 
-        <div class="flex" style="flex-wrap: wrap;">
+        <div class="flex mt-1" style="flex-wrap: wrap;">
             <app-zone-branch-circle [form]="JvSearchForm" [should_show_circle]="false"
                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                 <div class="mx-2" >
@@ -175,23 +175,24 @@
             <div class="mat-table__message" *ngIf="loading">Please wait....</div>
 
         </div>
-        <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
-            <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-            Items per page:
-            <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
-                        style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-                <mat-option [value]="5">5</mat-option>
-                <mat-option [value]="10">10</mat-option>
-                <mat-option [value]="25">25</mat-option>
-                <mat-option [value]="50">50</mat-option>
-            </mat-select>
-            <button (click)="paginate(1)">First</button>
-            <pagination-controls display="inline" (pageChange)="paginate($event)"
-                                 style="display: inline-block;"></pagination-controls>
-            <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-            <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
-        </div>
+
+    </div>
+    <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+        <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
+        Items per page:
+        <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls display="inline" (pageChange)="paginate($event)"
+                             style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
     </div>
 </div>
