@@ -58,6 +58,7 @@ export class AuthService {
 
 
     signIn(credentials: { email: string; password: string, App: string }): Observable<any> {
+
         this.request = new BaseRequestModel();
         this.request.User = credentials;
         this.request.UserPasswordDetails = credentials;
@@ -68,6 +69,7 @@ export class AuthService {
         return this.httpUtils.post(`${environment.apiUrl}/Account/Login`, this.request,
             {headers: this.getHTTPHeaders()}).pipe(
             map((response: BaseResponseModel) => {
+                debugger;
                 if (response.Success && !response.isWebOTPEnabled) {
                     localStorage.setItem('ZTBLUser', JSON.stringify(response));
                     this.accessToken = response.Token;

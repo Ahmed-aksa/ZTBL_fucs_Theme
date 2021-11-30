@@ -13,6 +13,8 @@ import {finalize} from 'rxjs/operators';
 import {ViewGetFancingModalComponent} from '../view-get-fancing-modal/view-get-fancing-modal.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {PaginationService} from "ngx-pagination";
+import {PaginatorService} from "../../../shared/services/paginator.service";
 
 @Component({
     selector: 'app-geo-fencing-list',
@@ -57,7 +59,8 @@ export class GeoFencingListComponent implements OnInit {
         private dialog: MatDialog,
         private layoutUtilsService: LayoutUtilsService,
         private userUtilsService: UserUtilsService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private paginationService:PaginatorService
     ) {
     }
 
@@ -83,6 +86,7 @@ export class GeoFencingListComponent implements OnInit {
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+
         if (Number.isNaN(pageIndex)) {
             this.pageIndex = this.pageIndex + 1;
         } else {
@@ -90,7 +94,6 @@ export class GeoFencingListComponent implements OnInit {
         }
         this.itemsPerPage = pageSize;
         this.offSet = (this.pageIndex - 1) * this.itemsPerPage;
-
         this.SearchGeoFensePoint();
 
 

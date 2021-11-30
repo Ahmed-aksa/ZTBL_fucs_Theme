@@ -31,19 +31,9 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./early-warning-reports.component.scss']
 })
 export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
+    displayedColumns = ['Zone', 'Branch', 'Circle', 'Dob', 'Ndd', 'MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'descr', 'OtherCharges'];
     searchCnicForm: FormGroup;
-    selected_b;
-    selected_z;
-    selected_c;
     loaded = true;
-    disable_circle = true;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_circle = true;
-    single_zone = true;
-
     public reports = new SearchLoanCaseByCnic();
 
     matTableLenght = false;
@@ -59,19 +49,7 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
 
     LoggedInUserInfo: BaseResponseModel;
 
-    //Zone inventory
-    Zones: any = [];
     user: any = {}
-    SelectedZones: any = [];
-
-    //Branch inventory
-    Branches: any = [];
-    SelectedBranches: any = [];
-
-    //Circle inventory
-    Circles: any = [];
-    SelectedCircles: any = [];
-
     private branch: any;
     private zone: any;
     private circle: any;
@@ -114,14 +92,10 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
         }
 
 
-        this.user.Zone = this.zone;
-        this.user.Branch = this.branch;
-        this.user.Circle = this.circle;
-
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "17";
         this.spinner.show();
-        this._reports.searchNpl(this.user, this.reports)
+        this._reports.reportDynamic(this.reports, this.zone, this.branch, this.circle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -133,7 +107,7 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
                 if (baseResponse.Success === true) {
 
                     this.loading = true;
-                    
+
                     this.dataSource = baseResponse.ReportsFilterCustom.SamNplLoans
                     this.dv = this.dataSource;
                     this.matTableLenght = true
@@ -170,7 +144,7 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
     //     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
     //     this.statusLov = this.statusLov.LOVs;
     //     this.searchCnicForm.controls["AccountStatus"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-    //     
+    //
     // }
 
     ngAfterViewInit() {

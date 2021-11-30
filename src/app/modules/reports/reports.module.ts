@@ -11,6 +11,10 @@ import {SearchLoanCasesByCnicComponent} from './search-loan-cases-by-cnic/search
 import {FaViewCircleWiseComponent} from './fa-view-circle-wise/fa-view-circle-wise.component';
 import {SharedModule} from 'app/shared/shared.module';
 import {RouterModule} from '@angular/router';
+import { DailyVoucherProofComponent } from './daily-voucher-proof/daily-voucher-proof.component';
+import { AffidavitForLegalHeirsComponent } from './affidavit-for-legal-heirs/affidavit-for-legal-heirs.component';
+import { PaymentBehaviorComponent } from './payment-behavior/payment-behavior.component';
+import { VoucherPostingDayComponent } from './voucher-posting-day/voucher-posting-day.component';
 
 const routing = [
     {
@@ -52,7 +56,11 @@ const routing = [
         LoanAmountsConvertToDefaultComponent,
         UpdatedListOfDefaultersComponent,
         SearchLoanCasesByCnicComponent,
-        FaViewCircleWiseComponent
+        FaViewCircleWiseComponent,
+        DailyVoucherProofComponent,
+        AffidavitForLegalHeirsComponent,
+        PaymentBehaviorComponent,
+        VoucherPostingDayComponent
     ],
     imports: [
         CommonModule,
