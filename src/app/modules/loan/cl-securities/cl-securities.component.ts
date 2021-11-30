@@ -367,6 +367,7 @@ debugger
   }
 
   showUpdateSecuritiesForm(loan) {
+        debugger
       console.log(JSON.stringify(loan))
 
         this.LoanSecuritiesForm.controls["Quantity"].setValue(loan.Quantity);
