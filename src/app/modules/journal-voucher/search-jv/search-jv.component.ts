@@ -48,8 +48,6 @@ export class SearchJvComponent implements OnInit {
 
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
-    selected_b: any;
-    selected_z: any;
     hasFormErrors = false;
     viewLoading = false;
     loadingAfterSubmit = false;
@@ -63,17 +61,8 @@ export class SearchJvComponent implements OnInit {
     tranId: string;
     public recoveryTypes: any[] = [];
     maxDate = new Date();
-    Zones: any = [];
-    Branches: any = [];
-    SelectedBranches: any = [];
-    SelectedZones: any = [];
-    public Zone = new Zone();
     LoggedInUserInfo: BaseResponseModel;
     loggedInUserDetails: any;
-    disable_zone = true;
-    disable_branch = true;
-    single_branch = true;
-    single_zone = true;
     OffSet: any;
     //pagination
     itemsPerPage = 10; //you could use your specified
@@ -91,11 +80,7 @@ export class SearchJvComponent implements OnInit {
     matTableLenght: any;
 
 
-    findButton = "Find";
     requiryTypeRequired = false;
-
-
-    newDynamic: any = {};
 
     constructor(
         private formBuilder: FormBuilder,
@@ -123,55 +108,6 @@ export class SearchJvComponent implements OnInit {
 
         this.createForm();
         this.loadLOV();
-
-        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-
-
-        if (userInfo.Branch && userInfo.Branch.BranchCode != "All") {
-
-            this.Branches = userInfo.Branch;
-            this.SelectedBranches = this.Branches;
-
-            this.Zone = userInfo.Zone;
-            this.SelectedZones = this.Zone;
-
-            this.selected_z = this.SelectedZones.ZoneId
-            this.selected_b = this.SelectedBranches.BranchCode
-            this.JvSearchForm.controls["ZoneId"]?.setValue(this.SelectedZones.Id);
-            this.JvSearchForm.controls["OrganizationUnit"]?.setValue(this.SelectedBranches.Name);
-            let dateString = userInfo?.Branch?.WorkingDate;
-            var day = parseInt(dateString?.substring(0, 2));
-            var month = parseInt(dateString?.substring(2, 4));
-            var year = parseInt(dateString?.substring(4, 8));
-
-            const branchWorkingDate = new Date(year, month - 1, day);
-            this.JvSearchForm.controls.TransactionDate.setValue(branchWorkingDate);
-            this.JvSearchForm.controls.ZoneId.setValue(userInfo?.Zone?.ZoneName);
-            this.JvSearchForm.controls.OrganizationUnit.setValue(userInfo?.Branch?.Name);
-            this.maxDate = new Date(year, month - 1, day);
-        } else if (!userInfo.Branch && !userInfo.Zone && !userInfo.Zone) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                let dateString = String(new Date());
-                dateString = this.datePipe.transform(dateString, 'ddMMyyyy');
-                var day = parseInt(dateString?.substring(0, 2));
-                var month = parseInt(dateString?.substring(2, 4));
-                var year = parseInt(dateString?.substring(4, 8));
-
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.JvSearchForm.controls.TransactionDate.setValue(branchWorkingDate);
-                this.JvSearchForm.controls.ZoneId.setValue(userInfo?.Zone?.ZoneName);
-                this.JvSearchForm.controls.OrganizationUnit.setValue(userInfo?.Branch?.Name);
-                this.maxDate = new Date(year, month - 1, day);
-                this.Zone = data?.Zones;
-                this.SelectedZones = this?.Zone;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-
-        }
-        this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
 
     getKeys(obj: any) {
@@ -198,8 +134,6 @@ export class SearchJvComponent implements OnInit {
 
     createForm() {
         this.JvSearchForm = this.formBuilder.group({
-            ZoneId: [null, Validators.required],
-            OrganizationUnit: [null, Validators.required],
             TransactionDate: [null, Validators.required],
             Nature: [''],
             VoucherNo: [''],
@@ -207,16 +141,10 @@ export class SearchJvComponent implements OnInit {
         });
     }
 
-    validateZoneOnFocusOut() {
-        if (this.SelectedZones.length == 0)
-            this.SelectedZones = this.Zones;
-    }
-
-
     find() {
         if (this.JvSearchForm.invalid) {
             this.toaster.error("Please Fill All required values");
-            
+
         } else {
             this.OffSet = 0;
             this.pageIndex = 0;
@@ -236,16 +164,6 @@ export class SearchJvComponent implements OnInit {
         var nature = this.JvSearchForm.controls.Nature.value;
         var manualVoucher = this.JvSearchForm.controls.VoucherNo.value;
         var trDate = this.datePipe.transform(this.JvSearchForm.controls.TransactionDate.value, 'ddMMyyyy');
-        let branch = null;
-        if (this.SelectedBranches.length)
-            branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
-        else
-            branch = this.SelectedBranches;
-        let zone = null;
-        if (this.SelectedZones.length)
-            zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-        else
-            zone = this.SelectedZones;
         if (status == '') {
             status = 'ALL';
         }
@@ -255,7 +173,7 @@ export class SearchJvComponent implements OnInit {
         }
         this.JournalVoucher = Object.assign(this.JournalVoucher, status);
 
-        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate, branch, zone)
+        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -332,8 +250,6 @@ export class SearchJvComponent implements OnInit {
     }
 
     editJv(Jv: any) {
-        Jv.Branch = this.Branches;
-        Jv.Zone = this.Zones;
         Jv.obj = "o";
         localStorage.setItem('SearchJvData', JSON.stringify(Jv));
         localStorage.setItem('EditJvData', '1');
@@ -371,16 +287,6 @@ export class SearchJvComponent implements OnInit {
     clearForm() {
 
         this.JvSearchForm.reset();
-    }
-
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
     }
 }
 

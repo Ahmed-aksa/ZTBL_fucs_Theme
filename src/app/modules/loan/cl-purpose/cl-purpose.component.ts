@@ -609,10 +609,8 @@ export class ClPurposeComponent implements OnInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
 
-                    if(this.purposeForm.controls['DevProdID'].value){
-                        this.loanPurpose.splice(this.index,1)
-                    }
-
+                    this.loanPurpose=[]
+                    this.loanPurpose = baseResponse.Loan["LoanApplicationpurposeList"];
                     const dialogRef =
                         this.layoutUtilsService.alertElementSuccess(
                             '',
@@ -621,9 +619,10 @@ export class ClPurposeComponent implements OnInit {
                         );
 
                     this.loanPurpose.push(baseResponse.Loan.LoanApplicationpurposeList[0])
-                    this.purposeForm.reset()
+                    this.onClearSavePurpose();
                     this.purposeForm.markAsUntouched()
-                    this.isCheckedEquity=false;
+                    console.log(this.MarkupCalcMode)
+
                     this.index=null;
                 } else {
                     this.layoutUtilsService.alertElement(

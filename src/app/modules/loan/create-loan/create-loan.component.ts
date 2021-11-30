@@ -48,7 +48,9 @@ export class CreateLoanComponent implements OnInit {
 
         router.events.subscribe((val: any) => {
             if (val.url == "/loan/create") {
+                localStorage.removeItem('customer_loan_list');
                 this.onCreateRestForm();
+
             }
         })
     }
@@ -189,9 +191,9 @@ export class CreateLoanComponent implements OnInit {
     }
 
     check_localstroage() {
-        let customers_loan_data = JSON.parse(localStorage.getItem('customer_loan_list'))[0];
+        let customers_loan_data = JSON.parse(localStorage.getItem('customer_loan_list'));
 
-        if (customers_loan_data && customers_loan_data?.Agps == 'A' && customers_loan_data.RelationID == '8') {
+        if (customers_loan_data && customers_loan_data[0] && customers_loan_data?.Agps == 'A' && customers_loan_data.RelationID == '8') {
             return false;
         } else {
             return true;
