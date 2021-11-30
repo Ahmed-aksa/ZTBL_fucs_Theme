@@ -21,6 +21,7 @@ import {LoanService} from 'app/shared/services/loan.service';
 import {CommonService} from 'app/shared/services/common.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from "../../../shared/services/lov.service";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 @Component({
     selector: 'kt-cl-loan-witness',
@@ -65,7 +66,8 @@ export class ClLoanWitnessComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private layoutUtilsService: LayoutUtilsService,
         public datepipe: DatePipe,
-        private lovService: LovService
+        private lovService: LovService,
+        private userUtilsService: UserUtilsService,
     ) {
 
     }
@@ -134,7 +136,7 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-
+            this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -161,6 +163,8 @@ export class ClLoanWitnessComponent implements OnInit {
         }
 
         this.corporateSureties = Object.assign(this.corporateSureties, this.corporateSuretiesForm.getRawValue());
+        this.corporateSureties.MemorandumDate = this.datepipe.transform(this.corporateSuretiesForm.value.MemorandumDate, "ddMMyyyy");
+
         //this.corporateSureties.LoanAppID = 0;
         this.corporateSureties.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         //this.corporateSureties.SrNo = 0;
@@ -171,7 +175,7 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-
+            this.loanCorporateSuretyArray = baseResponse.Loan.CorporateSuretyList;
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -260,7 +264,7 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-
+            this.loanWitnessArray = baseResponse.Loan.LoanWitnessList;
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -291,8 +295,9 @@ export class ClLoanWitnessComponent implements OnInit {
 
 
         this.loanPastPaid = Object.assign(this.loanPastPaid, this.loanPastPaidForm.getRawValue());
-        //this.loanPastPaid.PaidLoanID = 0;
-        //this.loanPastPaid.LoanAppID = 0;
+        this.loanPastPaid.DueDate = this.datepipe.transform(this.loanPastPaidForm.value.DueDate, "ddMMyyyy");
+        this.loanPastPaid.LastPaidDate = this.datepipe.transform(this.loanPastPaidForm.value.LastPaidDate, "ddMMyyyy");
+
         this.loanPastPaid.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         this.spinner.show();
         this._loanService.SaveUpdatePastPaidLoans(this.loanPastPaid, this.loanDetail.TranId)
@@ -301,6 +306,9 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
+            if (baseResponse.Loan.LoanPastPaidList) {
+                this.loanPastPaidArray = baseResponse.Loan.LoanPastPaidList;
+            }
 
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
@@ -360,13 +368,14 @@ export class ClLoanWitnessComponent implements OnInit {
 
 
         this.currentLoans = Object.assign(this.currentLoans, this.currentLoansForm.getRawValue());
+
         //this.currentLoans.CurrentLoanID = 0;
         //this.currentLoans.LoanAppID = 0;
         this.currentLoans.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-
-        this.currentLoans.GurenteeDetail = "";
+        this.currentLoans.DateDebitAcheive = this.datepipe.transform(this.currentLoansForm.value.DateDebitAcheive, "ddMMyyyy");
+        this.currentLoans.DueDate = this.datepipe.transform(this.currentLoansForm.value.DueDate, "ddMMyyyy");
         this.currentLoans.PurposeID = 8;
-        this.currentLoans.BranchID = 10;
+        this.currentLoans.BranchID = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().Branch.BranchId;
         //this.currentLoans.Status = "";
         this.spinner.show();
         this._loanService.saveUpdateCurrentLoans(this.currentLoans, this.loanDetail.TranId)
@@ -388,6 +397,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
     //CheckListForm: FormGroup;
     loanDocumentCheckListArray: LoanDocumentCheckList[] = [];
+    today = new Date();
 
 
     getCheckList() {
@@ -555,6 +565,7 @@ export class ClLoanWitnessComponent implements OnInit {
                 grid.FullName = item.FullName;
                 grid.Address = item.Address;
                 grid.LoanAppID = item.LoanAppID;
+                grid.SourceofIncome = item.SourceofIncome;
                 grid.Cnic = item.Cnic;
                 grid.Phone = item.Phone;
                 grid.SrNo = item.SrNo;
@@ -633,7 +644,6 @@ export class ClLoanWitnessComponent implements OnInit {
                 this.currentLoansForm.controls["FundNonfundFlag"].setValue(this.editLoanCurrentList[i].FundNonfundFlag)
                 this.currentLoansForm.controls["GurenteeDetail"].setValue(this.editLoanCurrentList[i].GurenteeDetail)
                 this.currentLoansForm.controls["Status"].setValue(this.editLoanCurrentList[i].Status)
-
                 this.currentLoansForm.controls["DateDebitAcheive"].setValue(this._common.stringToDate(this.editLoanCurrentList[i].DateDebitAcheive))
                 this.currentLoansForm.controls["AmountToPaid"].setValue(this.editLoanCurrentList[i].AmountToPaid)
                 this.currentLoansForm.controls["DueDate"].setValue(this._common.stringToDate(this.editLoanCurrentList[i].DueDate))
