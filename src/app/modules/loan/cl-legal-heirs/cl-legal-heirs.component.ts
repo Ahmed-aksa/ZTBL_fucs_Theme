@@ -31,6 +31,7 @@ import {finalize} from 'rxjs/operators';
 export class ClLegalHeirsComponent implements OnInit {
     @Input() loanDetail: Loan;
     legalHeirsForm: FormGroup;
+    custID;
     public legalHeirs = new LoanApplicationLegalHeirs();
     legalHeirsArray: LoanApplicationLegalHeirs[] = [];
     public RelationshipLov: any;
@@ -102,11 +103,7 @@ export class ClLegalHeirsComponent implements OnInit {
         this.GenderLov = this._lovService.SortLovs(this.GenderLov.LOVs);
     }
 
-
     loadAppLegalHeirsDataOnUpdate(appLegalHeirsData, appCustomersLoanAppList) {
-
-        this.legalHeirs = appLegalHeirsData
-
 
         var tempCustomerArray: LegalHiersGrid[] = [];
 
@@ -158,12 +155,14 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onChange(val) {
-
-        this.legalHeirsForm.controls.CustomerName.setValue(val)
+        debugger
+        this.legalHeirsForm.controls["CustomerName"].setValue(val.CustomerName)
+        this.custID=val.CustomerID;
     }
 
     onSaveLegalHeirsForm() {
-
+        this.legalHeirs
+debugger
 
         //if (this.loanDetail == null || this.loanDetail == undefined) {
         //  this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
@@ -196,7 +195,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
         this.legalHeirs = Object.assign(this.legalHeirsForm.value, this.legalHeirsForm.getRawValue());
         var arr = this.loanDetail.ApplicationHeader.LoanAppID;
-
+this.legalHeirs.CustomerID=this.custID;
         this.spinner.show();
         this._loanService.saveLoanApplicationLegalHeirs(this.legalHeirs, this.loanDetail.TranId, arr)
             .pipe(
