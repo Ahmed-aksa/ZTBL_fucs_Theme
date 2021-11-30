@@ -104,52 +104,55 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     }
 
     dtInputChange() {
-        var CropIncomeFutureControl = this.getValue('CropIncomeFutureControl') === null ? 0 : parseInt(this.getValue('CropIncomeFutureControl'));
-        var CropIncomePresnetControl = this.getValue('CropIncomePresnetControl') === null ? null : parseInt(this.getValue('CropIncomePresnetControl'));
-        var LiveStockIncomeFutureControl = this.getValue('LiveStockIncomeFutureControl') === null ? 0 : parseInt(this.getValue('LiveStockIncomeFutureControl'));
-        var LiveStockIncomePresnetControl = this.getValue('LiveStockIncomePresnetControl') === null ? 0 : parseInt(this.getValue('LiveStockIncomePresnetControl'));
-        var OthersFutureControl = this.getValue('OthersFutureControl') === null ? 0 : parseInt(this.getValue('OthersFutureControl'));
-        var OthersPresnetControl = this.getValue('OthersPresnetControl') === null ? 0 : parseInt(this.getValue('OthersPresnetControl'));
-        var TotalIncomeFutureControl = this.getValue('TotalIncomeFutureControl') === null ? 0 : parseInt(this.getValue('TotalIncomeFutureControl'));
-        var TotalIncomePresnetControl = this.getValue('TotalIncomePresnetControl') === null ? 0 : parseInt(this.getValue('TotalIncomePresnetControl'));
-        var CropRaisingFutureControl = this.getValue('CropRaisingFutureControl') === null ? 0 : parseInt(this.getValue('CropRaisingFutureControl'));
-        var CropRaisingPresnetControl = this.getValue('CropRaisingPresnetControl') === null ? 0 : parseInt(this.getValue('CropRaisingPresnetControl'));
-        var LiveStockFarmingFutureControl = this.getValue('LiveStockFarmingFutureControl') === null ? 0 : parseInt(this.getValue('LiveStockFarmingFutureControl'));
-        var LiveStockFarmingPresnetControl = this.getValue('LiveStockFarmingPresnetControl') === null ? 0 : parseInt(this.getValue('LiveStockFarmingPresnetControl'));
-        var OtherExpenditureFutureControl = this.getValue('OtherExpenditureFutureControl') === null ? 0 : parseInt(this.getValue('OtherExpenditureFutureControl'));
-        var OtherExpenditurePresnetControl = this.getValue('OtherExpenditurePresnetControl') === null ? 0 : parseInt(this.getValue('OtherExpenditurePresnetControl'));
-        var LoanFutureControl = this.getValue('LoanFutureControl') === null ? 0 : parseInt(this.getValue('LoanFutureControl'));
-        var LoanPresnetControl = this.getValue('LoanPresnetControl') === null ? 0 : parseInt(this.getValue('LoanPresnetControl'));
-        var ExpenditureFutureControl = this.getValue('ExpenditureFutureControl') === null ? 0 : parseInt(this.getValue('ExpenditureFutureControl'));
-        var ExpenditurePresnetControl = this.getValue('ExpenditurePresnetControl') === null ? 0 : parseInt(this.getValue('ExpenditurePresnetControl'));
-        var NetIncomeFutureControl = this.getValue('NetIncomeFutureControl') === null ? 0 : parseInt(this.getValue('NetIncomeFutureControl'));
-        var NetIncomePresnetControl = this.getValue('NetIncomePresnetControl') === null ? 0 : parseInt(this.getValue('NetIncomePresnetControl'));
-        var IncreaseFutureControl = this.getValue('IncreaseFutureControl') === null ? 0 : parseInt(this.getValue('IncreaseFutureControl'));
-        var IncreasePresnetControl = this.getValue('IncreasePresnetControl') === null ? 0 : parseInt(this.getValue('IncreasePresnetControl'));
 
+        //***************Commented on the Instructions of Mustanser********************
 
-        TotalIncomeFutureControl = CropIncomeFutureControl + LiveStockIncomeFutureControl + OthersFutureControl;
-        this.setValue('TotalIncomeFutureControl', "" + TotalIncomeFutureControl);
-
-        TotalIncomePresnetControl = CropIncomePresnetControl + LiveStockIncomePresnetControl + OthersPresnetControl;
-        this.setValue('TotalIncomePresnetControl', "" + TotalIncomePresnetControl);
-
-        ExpenditureFutureControl = CropRaisingFutureControl + LiveStockFarmingFutureControl + OtherExpenditureFutureControl + LoanFutureControl;
-        this.setValue('ExpenditureFutureControl', "" + ExpenditureFutureControl);
-
-        ExpenditurePresnetControl = CropRaisingPresnetControl + LiveStockFarmingPresnetControl + OtherExpenditurePresnetControl + LoanPresnetControl;
-        this.setValue('ExpenditurePresnetControl', "" + ExpenditurePresnetControl);
-
-        NetIncomeFutureControl = TotalIncomeFutureControl - ExpenditureFutureControl;
-        this.setValue('NetIncomeFutureControl', "" + NetIncomeFutureControl);
-
-        NetIncomePresnetControl = TotalIncomePresnetControl - ExpenditurePresnetControl;
-        this.setValue('NetIncomePresnetControl', "" + NetIncomePresnetControl);
-
-        IncreaseFutureControl = NetIncomeFutureControl - NetIncomePresnetControl;
-        this.setValue('IncreaseFutureControl', "" + IncreaseFutureControl);
-
-        this.setValue('IncreasePresnetControl', "0");
+        // var CropIncomeFutureControl = this.getValue('CropIncomeFutureControl') === null ? 0 : parseInt(this.getValue('CropIncomeFutureControl'));
+        // var CropIncomePresnetControl = this.getValue('CropIncomePresnetControl') === null ? null : parseInt(this.getValue('CropIncomePresnetControl'));
+        // var LiveStockIncomeFutureControl = this.getValue('LiveStockIncomeFutureControl') === null ? 0 : parseInt(this.getValue('LiveStockIncomeFutureControl'));
+        // var LiveStockIncomePresnetControl = this.getValue('LiveStockIncomePresnetControl') === null ? 0 : parseInt(this.getValue('LiveStockIncomePresnetControl'));
+        // var OthersFutureControl = this.getValue('OthersFutureControl') === null ? 0 : parseInt(this.getValue('OthersFutureControl'));
+        // var OthersPresnetControl = this.getValue('OthersPresnetControl') === null ? 0 : parseInt(this.getValue('OthersPresnetControl'));
+        // var TotalIncomeFutureControl = this.getValue('TotalIncomeFutureControl') === null ? 0 : parseInt(this.getValue('TotalIncomeFutureControl'));
+        // var TotalIncomePresnetControl = this.getValue('TotalIncomePresnetControl') === null ? 0 : parseInt(this.getValue('TotalIncomePresnetControl'));
+        // var CropRaisingFutureControl = this.getValue('CropRaisingFutureControl') === null ? 0 : parseInt(this.getValue('CropRaisingFutureControl'));
+        // var CropRaisingPresnetControl = this.getValue('CropRaisingPresnetControl') === null ? 0 : parseInt(this.getValue('CropRaisingPresnetControl'));
+        // var LiveStockFarmingFutureControl = this.getValue('LiveStockFarmingFutureControl') === null ? 0 : parseInt(this.getValue('LiveStockFarmingFutureControl'));
+        // var LiveStockFarmingPresnetControl = this.getValue('LiveStockFarmingPresnetControl') === null ? 0 : parseInt(this.getValue('LiveStockFarmingPresnetControl'));
+        // var OtherExpenditureFutureControl = this.getValue('OtherExpenditureFutureControl') === null ? 0 : parseInt(this.getValue('OtherExpenditureFutureControl'));
+        // var OtherExpenditurePresnetControl = this.getValue('OtherExpenditurePresnetControl') === null ? 0 : parseInt(this.getValue('OtherExpenditurePresnetControl'));
+        // var LoanFutureControl = this.getValue('LoanFutureControl') === null ? 0 : parseInt(this.getValue('LoanFutureControl'));
+        // var LoanPresnetControl = this.getValue('LoanPresnetControl') === null ? 0 : parseInt(this.getValue('LoanPresnetControl'));
+        // var ExpenditureFutureControl = this.getValue('ExpenditureFutureControl') === null ? 0 : parseInt(this.getValue('ExpenditureFutureControl'));
+        // var ExpenditurePresnetControl = this.getValue('ExpenditurePresnetControl') === null ? 0 : parseInt(this.getValue('ExpenditurePresnetControl'));
+        // var NetIncomeFutureControl = this.getValue('NetIncomeFutureControl') === null ? 0 : parseInt(this.getValue('NetIncomeFutureControl'));
+        // var NetIncomePresnetControl = this.getValue('NetIncomePresnetControl') === null ? 0 : parseInt(this.getValue('NetIncomePresnetControl'));
+        // var IncreaseFutureControl = this.getValue('IncreaseFutureControl') === null ? 0 : parseInt(this.getValue('IncreaseFutureControl'));
+        // var IncreasePresnetControl = this.getValue('IncreasePresnetControl') === null ? 0 : parseInt(this.getValue('IncreasePresnetControl'));
+        //
+        //
+        // TotalIncomeFutureControl = CropIncomeFutureControl + LiveStockIncomeFutureControl + OthersFutureControl;
+        // this.setValue('TotalIncomeFutureControl', "" + TotalIncomeFutureControl);
+        //
+        // TotalIncomePresnetControl = CropIncomePresnetControl + LiveStockIncomePresnetControl + OthersPresnetControl;
+        // this.setValue('TotalIncomePresnetControl', "" + TotalIncomePresnetControl);
+        //
+        // ExpenditureFutureControl = CropRaisingFutureControl + LiveStockFarmingFutureControl + OtherExpenditureFutureControl + LoanFutureControl;
+        // this.setValue('ExpenditureFutureControl', "" + ExpenditureFutureControl);
+        //
+        // ExpenditurePresnetControl = CropRaisingPresnetControl + LiveStockFarmingPresnetControl + OtherExpenditurePresnetControl + LoanPresnetControl;
+        // this.setValue('ExpenditurePresnetControl', "" + ExpenditurePresnetControl);
+        //
+        // NetIncomeFutureControl = TotalIncomeFutureControl - ExpenditureFutureControl;
+        // this.setValue('NetIncomeFutureControl', "" + NetIncomeFutureControl);
+        //
+        // NetIncomePresnetControl = TotalIncomePresnetControl - ExpenditurePresnetControl;
+        // this.setValue('NetIncomePresnetControl', "" + NetIncomePresnetControl);
+        //
+        // IncreaseFutureControl = NetIncomeFutureControl - NetIncomePresnetControl;
+        // this.setValue('IncreaseFutureControl', "" + IncreaseFutureControl);
+        //
+        // this.setValue('IncreasePresnetControl', "0");
 
     }
 
