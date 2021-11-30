@@ -66,7 +66,7 @@ export class MapReqDialogComponent implements OnInit {
         this.mappingRequest = baseResponse.Notifications
         this.dv = this.mappingRequest;
         this.matTableLenght = true
-        //this.totalItems = baseResponse.SeedKhadVendor.VendorDetails[0].TotalRecords     
+        //this.totalItems = baseResponse.SeedKhadVendor.VendorDetails[0].TotalRecords
       }
       else {
         this.mappingRequest = []
@@ -107,10 +107,13 @@ export class MapReqDialogComponent implements OnInit {
   }
 
   paginate(pageIndex : any, pageSize: any = this.itemsPerPage){
-    
+      if (Number.isNaN(pageIndex)) {
+          this.pageIndex = this.pageIndex + 1;
+      } else {
+          this.pageIndex = pageIndex;
+      }
     this.itemsPerPage = pageSize;
       this.Offset = (pageIndex -1) * this.itemsPerPage;
-    this.pageIndex = pageIndex;
     this.Search();
     this.mappingRequest = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
   }

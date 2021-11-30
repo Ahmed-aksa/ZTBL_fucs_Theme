@@ -60,9 +60,9 @@ export class ViolateDialogComponent implements OnInit {
     })
     )
     .subscribe((baseResponse: BaseResponseModel) =>{
-      
+
       if(baseResponse.Success === true){
-        
+
         this.loading = false;
         this.mappingVoilation = baseResponse.Notifications;
         this.dv = this.mappingVoilation;
@@ -81,7 +81,7 @@ export class ViolateDialogComponent implements OnInit {
   }
 
   viewStatus(voilation){
-    
+
     const type = 'violation'
     const dialogRef = this.dialog.open(MapNotificationStatusComponent, { panelClass: ['w-8/12'], data: {mapp: voilation, type: type},  disableClose: true });
     dialogRef.afterClosed().subscribe(res => {
@@ -106,7 +106,6 @@ export class ViolateDialogComponent implements OnInit {
   }
 
   paginate(pageIndex : any, pageSize: any = this.itemsPerPage){
-    
     this.itemsPerPage = pageSize;
       this.Offset = (pageIndex -1) * this.itemsPerPage;
     this.pageIndex = pageIndex;
