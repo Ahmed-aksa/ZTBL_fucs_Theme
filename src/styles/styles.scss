@@ -572,6 +572,9 @@ img{
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .mat-sort-header-content{
+    color: white;
+  }
 
   .row > *{
     padding: 0%;

@@ -117,6 +117,13 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     controlReset(){
+        //Document Info
+        this.PostDocument.controls['ParentDocId'].reset();
+        this.PostDocument.controls['DocumentRefNo'].reset();
+        this.PostDocument.controls['NoOfFilesToUpload'].reset();
+        this.PostDocument.controls['Description'].reset();
+
+        //Attachments
         this.PostDocument.controls['file'].reset();
         this.PostDocument.controls['PageNumber'].reset();
         this.PostDocument.controls['DescriptionTab'].reset();
@@ -167,7 +174,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     this.cdRef.detectChanges();
                 }
                 else {
-                    this.layoutUtilsService.alertMessage("", baseResponse.Message);
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
             });
     }
@@ -210,6 +217,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     getLoanDocument(){
+        debugger
         var loanId = this.applicationHeader.LoanAppID;
         this._loanService.getLoanDocuments(loanId, this.branch, this.zone)
             .pipe(
