@@ -59,6 +59,8 @@ export class DailyVoucherProofComponent implements OnInit {
     zone: any;
     circle: any;
 
+    today = new Date();
+
 
     //Branch inventory
     Branches: any = [];
@@ -104,8 +106,9 @@ export class DailyVoucherProofComponent implements OnInit {
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
 
-            const branchWorkingDate = new Date(year, month - 1, day);
-            this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
+            this.today = new Date(year, month - 1, day);
+            //const branchWorkingDate = new Date(year, month - 1, day);
+            this.bufricationForm.controls.WorkingDate.setValue(this.today);
             this.dateDisable = true
         } else {
             this.bufricationForm.controls.WorkingDate.setValue(null);
@@ -113,7 +116,7 @@ export class DailyVoucherProofComponent implements OnInit {
     }
 
     async typeLov() {
-        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
+        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DailyVoucherStatus});
         this.statusLov = this.statusLov.LOVs;
         this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
     }
@@ -180,7 +183,7 @@ export class DailyVoucherProofComponent implements OnInit {
         this.user.Circle = this.circle;
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
-        this.reports.ReportsNo = "18";
+        this.reports.ReportsNo = "5";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         if (myWorkingDate._isAMomentObject == undefined) {
 
@@ -214,6 +217,10 @@ export class DailyVoucherProofComponent implements OnInit {
             } catch (e) {
 
             }
+        }
+
+        if(this.branch.WorkingDate == undefined){
+            this.branch.WorkingDate = this.reports.WorkingDate;
         }
 
         this.spinner.show();

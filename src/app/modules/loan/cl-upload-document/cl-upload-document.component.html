@@ -3,6 +3,73 @@
     <div
         class=" px-10  sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
 
+
+        <!-- Header -->
+
+        <div class="row pt-3">
+            <div class="col-lg-12 col-sm-12">
+                <div class="heading">Land Information</div>
+            </div>
+
+        </div>
+
+        <div class="row pt-3">
+            <div class="col-lg-6 col-sm-12">
+                <app-zone-branch-circle [form]="PostDocument" [should_show_circle]="false"
+                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+            </div>
+
+            <div class="col-lg-4 col-sm-12">
+                <mat-form-field class=" mat-form-field-fluid" appearance="outline">
+                    <mat-label class="customMatLabel">Loancase NO: <strong class="matMandatory">*</strong>
+                    </mat-label>
+                    <input matInput formControlName="LcNo" readonly>
+                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">LcNo
+                        <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+
+
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">Status: <strong class="matMandatory">*</strong>
+                    </mat-label>
+                    <input matInput formControlName="LoanStatus" readonly>
+                    <mat-error *ngIf="hasError('LoanStatus', 'required')">Document Ref No
+                        <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">Loan Type: <strong class="matMandatory">*</strong>
+                    </mat-label>
+                    <input matInput formControlName="CategoryName" readonly>
+                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Loan Type
+                        <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">Loan Doc Type:<strong
+                        class="matMandatory">*</strong>
+                    </mat-label>
+                    <mat-select formControlName="DocLoanId">
+                        <mat-option *ngFor="let documentType of documentSelectedLoanType"
+                                    [value]="documentType.Id">
+                            {{documentType.Name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('ParentDocId', 'required')">Parent Doc Id
+                        <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+
         <div class="row pt-3">
             <div class="col-lg-12 col-sm-12">
                 <div class="heading">Document Information</div>
@@ -10,76 +77,111 @@
 
         </div>
 
-        <!-- Header -->
-
         <div class="row pt-3">
             <div class="col-lg-3 col-sm-12">
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label class="customMatLabel">Document Loan Type  <strong class="matMandatory">*</strong></mat-label>
-                    <mat-select formControlName="DocLoanId">
-                        <mat-option>
-                            <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateLoanTypeOnFocusOut()" noEntriesFoundLabel="No Loan Type Found" (keyup)="searchLoanType($event.target.value)">
-                            </ngx-mat-select-search>
-                        </mat-option>
-                        <mat-option *ngFor="let documentType of documentSelectedLoanType" [value]="documentType.Id">
-                            {{documentType.Name }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="hasError('ParentDocId', 'required')">Parent Doc Id <strong>required</strong></mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label class="customMatLabel">Documents <strong class="matMandatory">*</strong></mat-label>
+                    <mat-label class="customMatLabel">Documents:<strong class="matMandatory">*</strong>
+                    </mat-label>
                     <mat-select formControlName="ParentDocId">
-                        <mat-option>
-                            <ngx-mat-select-search placeholderLabel="Search Loan Type..." (focusout)="validateLoanTypeOnFocusOut()" noEntriesFoundLabel="No Loan Type Found" (keyup)="searchLoanType($event.target.value)">
-                            </ngx-mat-select-search>
-                        </mat-option>
-                        <mat-option *ngFor="let documentType of SelectedDocument" [value]="documentType.Id">
+                        <mat-option *ngFor="let documentType of SelectedDocument"
+                                    [value]="documentType.Id">
                             {{documentType.Name }}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="hasError('ParentDocId', 'required')">Parent Doc Id <strong>required</strong></mat-error>
+                    <mat-error *ngIf="hasError('ParentDocId', 'required')">Parent Doc Id
+                        <strong>required</strong></mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label class="customMatLabel">Document Ref No. <strong class="matMandatory">*</strong></mat-label>
-                    <input matInput formControlName="DocumentRefNo">
-                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Document Ref No <strong>required</strong></mat-error>
-                    <!--<mat-select formControlName="CustomerID">
-              <mat-option>
-                test
-              </mat-option>
 
-            </mat-select>-->
-                    <!--<mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>-->
-                </mat-form-field>
-            </div>
             <div class="col-lg-3 col-sm-12">
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label class="customMatLabel">No of Files to Upload<strong class="matMandatory">*</strong></mat-label>
-                    <input matInput formControlName="NoOfFilesToUpload">
-                    <mat-error *ngIf="hasError('NoOfFilesToUpload', 'required')">No Of Files To Upload <strong>required</strong></mat-error>
+                    <mat-label class="customMatLabel">Document Ref No. <strong
+                        class="matMandatory">*</strong></mat-label>
+                    <input matInput formControlName="DocumentRefNo">
+                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Document Ref No
+                        <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">No of Files to Upload<strong class="matMandatory">*</strong>
+                    </mat-label>
+                    <input matInput formControlName="NoOfFilesToUpload"
+                           (change)="changeFilesQuantity()">
+                    <mat-error *ngIf="hasError('NoOfFilesToUpload', 'required')">No Of Files To Upload
+                        <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">Description</mat-label>
+                    <input matInput formControlName="Description">
                 </mat-form-field>
             </div>
 
         </div>
 
         <div class="row pt-3">
-            <div class="col-lg-3 col-sm-12">
-                <input formControlName="file" id="file" type="file" (change)="onFileChange($event)">
+            <div class="col-lg-12 col-sm-12">
+                <div class="heading">Attachments</div>
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <mat-label class="customMatLabel">Page No</mat-label>
-                    <input matInput formControlName="PageNumber">
-                </mat-form-field>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <button  type="button" class="mt-2 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="saveLoanDocuments()"><mat-icon class="mr-2">save</mat-icon> Save</button>
 
+        </div>
+
+        <div class="row pt-3">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr class="table-header-background">
+                        <th>Files</th>
+                        <th>Page No</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white">
+
+                    <tr *ngFor="let item of [].constructor(number_of_files); let i = index">
+                        <td>
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                                    <input formControlName="file" type="file" id="file_{{i}}"
+                                           accept="image/png, image/jpg, image/jpeg"
+                                           (change)="onFileChange($event)">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline">
+                                        <mat-label class="customMatLabel">Page No</mat-label>
+                                        <input matInput formControlName="PageNumber" id="page_{{i}}">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                                     style="font-size: 14px;">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline">
+                                        <mat-label class="customMatLabel">Description</mat-label>
+                                        <input matInput formControlName="DescriptionTab"
+                                               id="description_{{i}}">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
@@ -89,13 +191,15 @@
 
   </div>
 
-<!--<div class="row">-->
-<!--  <div class="col-lg-12">-->
-<!--    <button style="background-color: #01671B;" type="button" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="saveLoanDocuments()"><mat-icon class="mr-2">save</mat-icon> Save</button>-->
-<!--  </div>-->
-<!--</div>-->
+<div class="row ml-2">
+  <div class="col-lg-12">
+    <button style="background-color: #01671B;" type="button" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="saveLoanDocuments()"><mat-icon class="mr-2">save</mat-icon> Save</button>
+  </div>
+</div>
 
 </form>
+
+
 
 
 <div class="form-group kt-form__group row" style="margin-top: 2%">
@@ -104,23 +208,22 @@
       <table class="table table-striped" *ngIf="loanDocumentArray.length !=0">
         <thead>
           <tr class="table-header-background">
+            <th>Loan Case No</th>
+            <th>Document</th>
+            <th>Document Status</th>
             <th>Loan Type</th>
-            <th>Loan Status</th>
-            <th>Document Id</th>
-            <th>Description</th>
-            <th>Loan Case ID</th>
-            <th></th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody class="">
           <tr *ngFor="let loan of loanDocumentArray; let i = index;">
+            <td>{{loan.LoanCaseNumber}}</td>
+            <td>{{loan.DocName}}</td>
+            <td>{{loan.StatusName}}</td>
             <td>{{loan.LoanType}}</td>
-            <td>{{loan.LoanStatus}}</td>
-            <td>{{loan.DocumentId}}</td>
-            <td>{{loan.Description}}</td>
-            <td>{{loan.LoanCaseID}}</td>
 
-            <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(loan.DocumentId, $event)">View</span> | <span (click)="deleteDocument(loan.DocumentId)" >Delete</span></td>
+            <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(loan.DocID, loan.ImageID)">View</span> | <span (click)="deleteDocument(loan.ImageID)" >Delete</span></td>
+<!--              <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(1, loan.ImageID)">View</span> | <span (click)="deleteDocument(loan.DocumentId)" >Delete</span></td>-->
           </tr>
         </tbody>
       </table>

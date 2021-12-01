@@ -76,6 +76,47 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
+    getViewLoanDocument(
+        documentType: string,
+        documentId: string,
+        zone,
+        branch
+    ): Observable<BaseResponseModel> {
+        debugger
+        documentId = documentId.toString();
+        documentType = documentType.toString();
+        var ViewDocumnets = {ID: documentId, Type: documentType};
+        var _circles;
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        var circleIds = [];
+        if (userInfo.UserCircleMappings && userInfo.UserCircleMappings.length != 0) {
+            userInfo.UserCircleMappings.forEach(element => {
+                circleIds.push(element.CircleId);
+            });
+            _circles = circleIds.toString();
+        } else {
+            circleIds = ["0"];
+            _circles = ""
+        }
+
+        var request = {
+            ViewDocumnets: ViewDocumnets,
+            Zone: zone,
+            Branch: branch,
+            Circle:{
+                CircleIds: _circles
+            },
+            User: userInfo.User
+        };
+        return this.http
+            .post(
+                `${environment.apiUrl}/Recovery/GetViewLoanDocument`,
+                request,
+                {headers: this.httpUtils.getHTTPHeaders()}
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
     saveLoanApplicationPurpose(
         loanReq: LoanApplicationPurpose,
         tranId: number
@@ -971,11 +1012,30 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    documentDelete(docId) {
+    documentDelete(id, branch, zone) {
+        debugger
+        var userInfo = this.userUtilsService.getUserDetails();
+        var circles = userInfo.UserCircleMappings, circleIds=[];
+        circles.forEach(element=>{
+            circleIds.push(element.CircleId)
+        });
+        var _circles = circleIds.toString();
         var req;
-
+        req = {
+            Zone: zone,
+            Branch: branch,
+            Circle: {
+                CircleIds: _circles
+            },
+            Loan: {
+                ApplicationHeader:{
+                    LoanAppID: id
+                }
+            },
+            User: userInfo.User
+        }
         return this.http
-            .post(`${environment.apiUrl}/Loan/DocumentDelete`, this.request, {
+            .post(`${environment.apiUrl}/Loan/DocumentDelete`, req, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
