@@ -134,19 +134,5 @@ export class ConfigurationListComponent implements OnInit {
             this.lists_record.pop(i);
             document.getElementById('table_' + i).style.display = 'none';
         }
-
-
-        let down_arrow = document.getElementById('arrow_down_' + i).style.display;
-        if (down_arrow == 'block') {
-            document.getElementById('arrow_down_' + i).style.display = 'none';
-            document.getElementById('arrow_up_' + i).style.display = 'block';
-            document.getElementById('table_' + i).style.display = 'block';
-        } else {
-            document.getElementById('arrow_up_' + i).style.display = 'none';
-            document.getElementById('arrow_down_' + i).style.display = 'block';
-            document.getElementById('table_' + i).style.display = 'none';
-
-        }
-
     }
 }
