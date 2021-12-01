@@ -49,19 +49,22 @@
                                 <mat-icon>edit</mat-icon>
                             </button>
                             <button mat-icon-button id="{{'arrow_down_'+parent_configuration.KeyID}}"
+                                    *ngIf="!lists_record.includes(parent_configuration.KeyID)"
                                     style="display: block">
                                 <mat-icon>expand_more</mat-icon>
                             </button>
                             <button mat-icon-button id="{{'arrow_up_'+parent_configuration.KeyID}}"
+                                    *ngIf="lists_record.includes(parent_configuration.KeyID)"
                                     style="display:none;">
                                 <mat-icon>expand_less</mat-icon>
                             </button>
                         </div>
                     </div>
-                    <div class="custom-accordion-body bg-white border-t bg-gray-50 rounded" id="{{'table_'+parent_configuration.KeyID}}"
+                    <div class="custom-accordion-body bg-white border-t bg-gray-50 rounded"
+                         id="{{'table_'+parent_configuration.KeyID}}"
                          style="display: none">
                         <table class="table table-responsive bg-gray-50" style="display: inline-table !important;"
-                               >
+                        >
                             <thead class="thead-light">
                             <tr>
                                 <th>Sr.</th>
