@@ -216,6 +216,10 @@ export class DailyVoucherProofComponent implements OnInit {
             }
         }
 
+        if(this.branch.WorkingDate == undefined){
+            this.branch.WorkingDate = this.reports.WorkingDate;
+        }
+
         this.spinner.show();
         this._reports.reportDynamic(this.reports)
             .pipe(
