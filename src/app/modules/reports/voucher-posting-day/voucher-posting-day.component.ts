@@ -58,6 +58,7 @@ export class VoucherPostingDayComponent implements OnInit {
     circle: any;
 
     dateDisable: boolean = false;
+    today = new Date();
 
 
     //Branch inventory
@@ -104,8 +105,9 @@ export class VoucherPostingDayComponent implements OnInit {
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
 
-            const branchWorkingDate = new Date(year, month - 1, day);
-            this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
+            this.today = new Date(year, month - 1, day);
+            //const branchWorkingDate = new Date(year, month - 1, day);
+            this.bufricationForm.controls.WorkingDate.setValue(this.today);
             this.dateDisable = true
         } else {
             this.bufricationForm.controls.WorkingDate.setValue(null);
@@ -132,6 +134,7 @@ export class VoucherPostingDayComponent implements OnInit {
                     day = "0" + day;
                 }
                 const branchWorkingDate = new Date(year, month - 1, day);
+
                 this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
             } catch (e) {
 

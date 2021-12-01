@@ -145,7 +145,6 @@ export class CreateLoanComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    debugger
                     console.log(baseResponse)
                     var loanRes = baseResponse.Loan;
                     localStorage.setItem('customer_loan_list', JSON.stringify(loanRes.CustomersLoanAppList.reverse()));
