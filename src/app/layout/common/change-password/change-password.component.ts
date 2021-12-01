@@ -29,14 +29,18 @@ export class ChangePasswordComponent implements OnInit {
 
     changePassword() {
         if (this.change_password_form.value.new_password != this.change_password_form.value.confirm_password) {
-            this.toastr.error("Password Confirmation Failed");
+            document.getElementById('error_to_display').innerHTML="Password Confirmation Failed";
+            document.getElementById('success_to_display').innerHTML='';
+
         } else {
             this.authService.changePassword(this.change_password_form.value.old_password, this.change_password_form.value.new_password).subscribe((data: any) => {
                 if (data.Success) {
-                    this.toastr.success("Password Changed Successfully");
-                    this.matDialogRef.close();
+                    document.getElementById('success_to_display').innerHTML=data.Message;
+                    document.getElementById('error_to_display').innerHTML='';
                 } else {
-                    this.toastr.error(data.Message);
+                    document.getElementById('error_to_display').innerHTML=data.Message;
+            document.getElementById('success_to_display').innerHTML='';
+
                 }
             });
         }
