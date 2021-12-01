@@ -117,6 +117,8 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
+
+
     saveLoanApplicationPurpose(
         loanReq: LoanApplicationPurpose,
         tranId: number
@@ -388,6 +390,42 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
+    getLoanDocuments(loanAppId, zone, branch){
+        var _circles;
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        var circleIds = [];
+        if (userInfo.UserCircleMappings && userInfo.UserCircleMappings.length != 0) {
+            userInfo.UserCircleMappings.forEach(element => {
+                circleIds.push(element.CircleId);
+            });
+            _circles = circleIds.toString();
+        } else {
+            circleIds = ["0"];
+            _circles = ""
+        }
+
+        var request = {
+            Loan:{
+                ApplicationHeader: {
+                    LoanAppID: loanAppId
+                }
+                },
+            Zone: zone,
+            Branch: branch,
+            Circle:{
+                CircleIds: _circles
+            },
+            User: userInfo.User
+        };
+        return this.http
+            .post(
+                `${environment.apiUrl}/Loan/GetLoanDocuments`,
+                request,
+                {headers: this.httpUtils.getHTTPHeaders()}
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
     getDocumentNo(TranId: any) {
         this.request = new BaseRequestModel();
         this.request.TranId = TranId;
@@ -635,56 +673,6 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    //  documentUpload(loanDoc: LoanDocuments, tranId: number) {
-
-    //    tranId= 12121
-    //    const formData = new FormData();
-    //    loanDoc.DocumentId = 1;
-    //    if (loanDoc.DocumentId != undefined, loanDoc.DocumentId != null) {
-    //      formData.append('DocumentId', loanDoc.DocumentId.toString());
-    //    }
-    //    if (loanDoc.Description != undefined, loanDoc.Description != null)
-    //    {
-    //      formData.append('Description', loanDoc.Description.toString());
-    //  }
-    //    if (loanDoc.PageNumber != undefined, loanDoc.PageNumber != null)
-    //    {
-    //formData.append('PageNumber', loanDoc.PageNumber.toString());
-    //}
-    //    if (loanDoc.DocumentNumber != undefined, loanDoc.DocumentNumber != null)
-    //    {
-    //  formData.append('DocumentNumber', loanDoc.DocumentNumber.toString());
-    //}
-    //    if (loanDoc.OwnerName != undefined, loanDoc.OwnerName != null)
-    //    {
-    //  formData.append('OwnerName', loanDoc.OwnerName.toString());
-    //}
-    //    if (loanDoc.LoanCaseID != undefined, loanDoc.LoanCaseID != null)
-    //    {
-    //  formData.append('LoanCaseID', loanDoc.LoanCaseID.toString());
-    //}
-    //    if (loanDoc.ParentDocId != undefined, loanDoc.ParentDocId != null)
-    //    {
-    //  formData.append('ParentDocId', loanDoc.ParentDocId.toString());
-    //}
-    //    if (loanDoc.CreatedUpdatedBy != undefined, loanDoc.CreatedUpdatedBy != null)
-    //    {
-    //  formData.append('CreatedUpdatedBy', loanDoc.CreatedUpdatedBy.toString());
-    //}
-    //    if (loanDoc.EnteredBy != undefined, loanDoc.EnteredBy != null)
-    //    {
-    //  formData.append('EnteredBy', loanDoc.EnteredBy.toString());
-    //}
-    //    if (loanDoc.file != undefined, loanDoc.file != null)
-    //    {
-    //  formData.append('file', loanDoc.file);
-    //}
-    //    return this.http.post<any>(`${environment.apiUrl}/Loan/DocumentUpload`, formData,
-    //    ).pipe(
-    //      map((res: BaseResponseModel) => res)
-    //    );
-
-    //  }
     documentUpload(loanDoc: LoanDocuments) {
         //tranId = 12121;
 
@@ -720,44 +708,6 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    GetViewLoanDocument(app) {
-        this.request = new BaseRequestModel();
-        var userInfo = this.userUtilsService.getUserDetails();
-        var selectedCircleId = '';
-
-        if (userInfo.UserCircleMappings.length > 0) {
-            userInfo.UserCircleMappings.forEach(function (value, key) {
-                if (userInfo.UserCircleMappings.length == key + 1) {
-                    selectedCircleId += value.CircleId;
-                } else {
-                    selectedCircleId += value.CircleId + ',';
-                }
-            });
-        }
-
-        this.request.Circle = {
-            CircleIds: selectedCircleId,
-        };
-        this.request.TranId = 0;
-        this.activity.ActivityID = 1;
-        this.request.ViewDocumnets = {
-            ID: app,
-            Type: '2',
-        };
-        this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
-        this.request.Activity = this.activity;
-
-
-        return this.http
-            .post(
-                `${environment.apiUrl}/Recovery/GetViewLoanDocument`,
-                this.request,
-                {headers: this.httpUtils.getHTTPHeaders()}
-            )
-            .pipe(map((res: BaseResponseModel) => res));
-    }
 
     searchLoanApplication(loanFilter: SearchLoan, zone, branch) {
         var userInfo = this.userUtilsService.getUserDetails();

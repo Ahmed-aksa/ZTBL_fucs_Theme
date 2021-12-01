@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
@@ -46,6 +46,7 @@ export class ClUploadDocumentComponent implements OnInit {
     documentLoanTypes: any = [];
     documentloanType: any = [];
     documentSelectedLoanType: any = [];
+
 
     loanCaseNo: string;
 
@@ -108,6 +109,7 @@ export class ClUploadDocumentComponent implements OnInit {
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
+
     }
 
     PostDocuments(PostDocument: any) {
@@ -115,6 +117,13 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     controlReset(){
+        //Document Info
+        this.PostDocument.controls['ParentDocId'].reset();
+        this.PostDocument.controls['DocumentRefNo'].reset();
+        this.PostDocument.controls['NoOfFilesToUpload'].reset();
+        this.PostDocument.controls['Description'].reset();
+
+        //Attachments
         this.PostDocument.controls['file'].reset();
         this.PostDocument.controls['PageNumber'].reset();
         this.PostDocument.controls['DescriptionTab'].reset();
@@ -122,14 +131,11 @@ export class ClUploadDocumentComponent implements OnInit {
 
     loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanApplicationHeader) {
         debugger
-        if (appUploadDocumentsData.length != 0) {
-            this.loanDocumentArray = appUploadDocumentsData;
-            console.log()
-        }
+
         this.applicationHeader = loanApplicationHeader;
         this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
         this.loanCase();
-
+        this.getLoanDocument();
     }
 
     async getDocumentLoanType() {
@@ -168,7 +174,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     this.cdRef.detectChanges();
                 }
                 else {
-                    this.layoutUtilsService.alertMessage("", baseResponse.Message);
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
             });
     }
@@ -183,6 +189,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     deleteDocument(id){
         debugger
+        this.spinner.show();
         this._loanService.documentDelete(id, this.branch, this.zone)
             .pipe(
                 finalize(() => {
@@ -190,7 +197,8 @@ export class ClUploadDocumentComponent implements OnInit {
                 })
             ).subscribe((baseResponse) => {
             if (baseResponse.Success === true) {
-                this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
+                this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                this.getLoanDocument();
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
@@ -205,7 +213,25 @@ export class ClUploadDocumentComponent implements OnInit {
         this.document = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DocumentType});
 
         this.SelectedDocument = this.document.LOVs;
-        this.PostDocument.value.ParentDocId = '25';
+        //this.PostDocument.value.ParentDocId = '25';
+    }
+
+    getLoanDocument(){
+        debugger
+        var loanId = this.applicationHeader.LoanAppID;
+        this._loanService.getLoanDocuments(loanId, this.branch, this.zone)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe((baseResponse) => {
+            if (baseResponse.Success === true) {
+                this.loanDocumentArray = baseResponse.Loan.DocumentUploadList;
+                //this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
+            } else {
+                //this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+        });
     }
 
     onFileChange(event) {
@@ -235,15 +261,23 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
+        debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         this.rawData.forEach((single_file, index) => {
+            debugger
             this.loanDocument.file = single_file;
 
             // @ts-ignore
             let page_number = document.getElementById(`page_${index}`).value;
             // @ts-ignore
             let description = document.getElementById(`description_${index}`).value;
+
+
+            if(single_file == undefined || page_number[index] == undefined || description[index] == undefined){
+                this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages')
+            }
+
             this.loanDocument.PageNumber = page_number;
             this.loanDocument.Description = description;
             if (this.PostDocument.invalid) {
@@ -266,9 +300,11 @@ export class ClUploadDocumentComponent implements OnInit {
                     debugger
                     count = count+1;
                     if(count == this.rawData.length){
+                        this.getLoanDocument();
                         this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                        this.controlReset();
                     }
-                    this.controlReset();
+
                 } else {
                     this.layoutUtilsService.alertMessage('', baseResponse.Message);
                     return
@@ -295,7 +331,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
 
             } else {
-                this.layoutUtilsService.alertElement('', baseResponse.Message);
+                //this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
         });
     }
@@ -304,6 +340,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
         this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
     }
+
 }
 
 export class LoanDocumentsGrid {

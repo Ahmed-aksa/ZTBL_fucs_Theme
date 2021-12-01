@@ -165,15 +165,14 @@ export class ClApplicationHeaderComponent implements OnInit {
     //-------------------------------Loan Type Core Functions-------------------------------//
     async getLoanType() {
         this.LoanTypes = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.LoanTypes})
-
         this.SelectedLoanType = this.LoanTypes.LOVs;
     }
 
     searchLoanType(loanTypeId) {
         loanTypeId = loanTypeId.toLowerCase();
-        if (loanTypeId != null && loanTypeId != undefined && loanTypeId != "")
+        if (loanTypeId != null && loanTypeId != undefined && loanTypeId != "") {
             this.SelectedLoanType = this.LoanTypes?.LOVs?.filter(x => x.Name.toLowerCase().indexOf(loanTypeId) > -1);
-        else
+        } else
             this.SelectedLoanType = this.LoanTypes.LOVs;
     }
 
@@ -208,6 +207,9 @@ export class ClApplicationHeaderComponent implements OnInit {
             if (this.loanApplicationHeader.DevAmount != null, this.loanApplicationHeader.DevAmount != undefined) {
                 this.applicationHeaderForm.controls['DevAmount'].setValue(this.loanApplicationHeader.DevAmount);
             }
+            if (this.loanApplicationHeader.DevProdFlag != null, this.loanApplicationHeader.DevProdFlag != undefined) {
+                this.applicationHeaderForm.controls['DevProdFlag'].setValue(this.loanApplicationHeader.DevProdFlag);
+            }
             if (this.loanApplicationHeader.ProdAmount != null, this.loanApplicationHeader.ProdAmount != undefined) {
                 this.applicationHeaderForm.controls['ProdAmount'].setValue(this.loanApplicationHeader.ProdAmount);
             }
@@ -232,14 +234,6 @@ export class ClApplicationHeaderComponent implements OnInit {
             if (this.loanApplicationHeader.ApplicantionTitle != null, this.loanApplicationHeader.ApplicantionTitle != undefined) {
                 this.applicationHeaderForm.controls['ApplicantionTitle'].setValue(this.loanApplicationHeader.ApplicantionTitle);
             }
-            if (this.loanApplicationHeader.DevProdFlag != null, this.loanApplicationHeader.DevProdFlag != undefined) {
-                var devProdFlag = this.LoanTypes?.LOVs?.filter(x => x.Name == this.loanApplicationHeader.DevProdFlag); //[0].Id;
-                if (devProdFlag?.length > 0) {
-                    this.applicationHeaderForm.controls['DevProdFlag'].setValue(devProdFlag[0].Id);
-                }
-            }
-
-
         }
     }
 

@@ -10,13 +10,13 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center text-end">
 
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                        aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
-                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
-                    Advance Filter
-                </button>
+            <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                    color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample">
+                <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
+                <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                Advance Filter
+            </button>
 
         </div>
     </div>
@@ -142,7 +142,7 @@
                     <ng-container matColumnDef="Actions">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
                         <mat-cell *matCellDef="let eligibilityRequest" style="flex-wrap: wrap">
-                            <a [href]="eligibilityRequest.NDCFilePath" mat-icon-button color="accent"
+                            <a [href]="eligibilityRequest.NdcFilePath" mat-icon-button color="accent"
                                aria-label="View Files">
                                 <mat-icon>description</mat-icon>
                             </a>
@@ -150,12 +150,12 @@
                                     (click)="getImagesData(eligibilityRequest.Id)">
                                 <mat-icon>visibility</mat-icon>
                             </button>
-                            <button mat-icon-button color="accent" aria-label="Approve"
+                            <button mat-icon-button color="accent" aria-label="Approve" matTooltip="Approve"
                                     (click)="changeStatus('A',eligibilityRequest.Id)"
                                     *ngIf="eligibilityRequest.Status=='P'">
                                 <mat-icon>check</mat-icon>
                             </button>
-                            <button mat-icon-button color="accent" aria-label="Reject"
+                            <button mat-icon-button color="accent" aria-label="Reject" matTooltip="Reject"
                                     (click)="changeStatus('R',eligibilityRequest.Id)"
                                     *ngIf="eligibilityRequest.Status=='P'">
                                 <mat-icon>cancel</mat-icon>

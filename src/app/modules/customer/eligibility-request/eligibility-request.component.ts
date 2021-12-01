@@ -314,14 +314,8 @@ export class EligibilityRequestComponent implements OnInit {
             );
             return;
         }
-        if (!this.circle) {
-            var Message = 'Please select Circle';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
+        this.circle = {
+            CircleCode: this.circle?.Id
         }
         this.spinner.show()
         var request = {
@@ -362,8 +356,7 @@ export class EligibilityRequestComponent implements OnInit {
 
                     if (this.dv != undefined) {
                         this.matTableLenght = false;
-                        this.
-                            dataSource.data = [];
+                        this.dataSource.data = [];
 
                         this.OffSet = 1;
                         this.pageIndex = 1;
@@ -396,7 +389,7 @@ export class EligibilityRequestComponent implements OnInit {
 
 
     ngOnDestroy() {
-        
+
         this.eligibilityRequestForm.reset()
     }
 

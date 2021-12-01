@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
@@ -7,17 +7,17 @@ import {
 } from '@angular/forms';
 
 // RXJS
-import { finalize } from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 
-import { DatePipe } from '@angular/common';
+import {DatePipe} from '@angular/common';
 
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
 import {
     DateAdapter,
     MAT_DATE_FORMATS,
     MAT_DATE_LOCALE,
 } from '@angular/material/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {
     DateFormats,
     Lov,
@@ -28,13 +28,13 @@ import {
     Loan,
     LoanApplicationPurpose,
 } from 'app/shared/models/Loan.model';
-import { BaseResponseModel } from 'app/shared/models/base_response.model';
-import { MatDialog } from '@angular/material/dialog';
-import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
-import { UserUtilsService } from 'app/shared/services/users_utils.service';
-import { LoanService } from 'app/shared/services/loan.service';
-import { LovService } from 'app/shared/services/lov.service';
-import { ClGlSchemeCropConfigurationComponent } from '../cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component';
+import {BaseResponseModel} from 'app/shared/models/base_response.model';
+import {MatDialog} from '@angular/material/dialog';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {UserUtilsService} from 'app/shared/services/users_utils.service';
+import {LoanService} from 'app/shared/services/loan.service';
+import {LovService} from 'app/shared/services/lov.service';
+import {ClGlSchemeCropConfigurationComponent} from '../cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component';
 
 @Component({
     selector: 'kt-cl-purpose',
@@ -47,7 +47,7 @@ import { ClGlSchemeCropConfigurationComponent } from '../cl-gl-scheme-crop-confi
             useClass: MomentDateAdapter,
             deps: [MAT_DATE_LOCALE],
         },
-        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
     ],
 })
 export class ClPurposeComponent implements OnInit {
@@ -68,7 +68,7 @@ export class ClPurposeComponent implements OnInit {
     today = new Date();
     hasFormErrors = false;
     MarkupCalcReadOnly: boolean;
-    isCheckedEquity: boolean;
+    isCheckedEquity: boolean = false;
     LoggedInUserInfo: BaseResponseModel;
 
     //Lovs
@@ -94,7 +94,9 @@ export class ClPurposeComponent implements OnInit {
         private _lovService: LovService,
         private cdRef: ChangeDetectorRef,
         private spinner: NgxSpinnerService
-    ) {}
+    ) {
+    }
+
     ngOnInit() {
         this.spinner.show();
         this.isCheckedEquity = false;
@@ -119,7 +121,7 @@ export class ClPurposeComponent implements OnInit {
                 [Validators.required],
             ],
             CropID: [this.loanApplicationPurpose.CropID],
-            BwrAgreeInsurancePrem:['',[Validators.required]],
+            BwrAgreeInsurancePrem: ['', [Validators.required]],
             CultivatedArea: [this.loanApplicationPurpose.CultivatedArea],
             RequiredItem: [this.loanApplicationPurpose.RequiredItem],
             Quantity: [this.loanApplicationPurpose.Quantity],
@@ -149,14 +151,14 @@ export class ClPurposeComponent implements OnInit {
     // Load Lovs
     async LoadLovs() {
         this.Facility = await this._lovService.CallLovAPI(
-            (this.LovCall = { TagName: LovConfigurationKey.Facility })
+            (this.LovCall = {TagName: LovConfigurationKey.Facility})
         );
         this.Facility.LOVs = this._lovService.SortLovs(this.Facility.LOVs);
         this.Facility = this.Facility.LOVs;
         //MarkupCalcMode
 
         this.MarkupCalcMode = await this._lovService.CallLovAPI(
-            (this.LovCall = { TagName: LovConfigurationKey.MarkupCalcMode })
+            (this.LovCall = {TagName: LovConfigurationKey.MarkupCalcMode})
         );
         this.MarkupCalcMode.LOVs = this._lovService.SortLovs(
             this.MarkupCalcMode.LOVs
@@ -167,7 +169,7 @@ export class ClPurposeComponent implements OnInit {
         );
 
         this.MakeCapacity = await this._lovService.CallLovAPI(
-            (this.LovCall = { TagName: LovConfigurationKey.MakeCapacity })
+            (this.LovCall = {TagName: LovConfigurationKey.MakeCapacity})
         );
         this.MakeCapacity.LOVs = this._lovService.SortLovs(
             this.MakeCapacity.LOVs
@@ -176,7 +178,7 @@ export class ClPurposeComponent implements OnInit {
         this.MakeCapacitySelected = this.MakeCapacity;
 
         this.CultivatedUnits = await this._lovService.CallLovAPI(
-            (this.LovCall = { TagName: LovConfigurationKey.Units })
+            (this.LovCall = {TagName: LovConfigurationKey.Units})
         );
         this.CultivatedUnits.LOVs = this._lovService.SortLovs(
             this.CultivatedUnits.LOVs
@@ -231,7 +233,7 @@ export class ClPurposeComponent implements OnInit {
         }
     }
 
-    onEditPurpose(data:LoanApplicationPurpose) {
+    onEditPurpose(data: LoanApplicationPurpose) {
         debugger
         console.log(JSON.stringify(data))
         this.index;
@@ -383,29 +385,26 @@ export class ClPurposeComponent implements OnInit {
         // }
     }
 
-    changeRadio(val)
-    {
+    changeRadio(val) {
         // this.
         // this.purposeForm.controls.
 
     }
 
 
-    onChang(e){
+    onChang(e) {
         console.log(e)
-        if(e == false){
+        if (e == false) {
             this.isCheckedEquity = true
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
-        }
-        else
-        {
+        } else {
             this.isCheckedEquity = false
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
         }
         console.log(e)
     }
 
-    onDeletePurpose(GlSubID,index) {
+    onDeletePurpose(GlSubID, index) {
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';
@@ -439,14 +438,14 @@ export class ClPurposeComponent implements OnInit {
                             })
                         )
                         .subscribe((baseResponse) => {
-                            if(baseResponse.Success===true){
+                            if (baseResponse.Success === true) {
                                 const dialogRef =
                                     this.layoutUtilsService.alertElementSuccess(
                                         '',
                                         baseResponse.Message,
                                         baseResponse.Code
                                     );
-                                this.loanPurpose.splice(index,1);
+                                this.loanPurpose.splice(index, 1);
                             }
 
                         });
@@ -472,15 +471,13 @@ export class ClPurposeComponent implements OnInit {
         this.purposeForm.controls['DevProdID'].setValue('');
 
 
-        this.isCheckedEquity=false;
+        this.isCheckedEquity = false;
     }
 
     onSavePurpose() {
-        debugger
-
         this.purposeForm.controls
         console.log(this.purposeForm)
-        if (this.purposeForm.controls['BwrAgreeInsurancePrem'].value=="") {
+        if (this.purposeForm.controls['BwrAgreeInsurancePrem'].value == "") {
             this.layoutUtilsService.alertMessage(
                 '',
                 'Please select Insurance'
@@ -568,30 +565,18 @@ export class ClPurposeComponent implements OnInit {
             this.purposeForm.getRawValue()
         );
 
-            var MarketPrice = this.loanApplicationPurpose.TotalEstimatedCost;
-            var SumEquityLoan = 0;
-            SumEquityLoan =
-                Number(this.loanApplicationPurpose.AmountRequired) +
-                Number(this.loanApplicationPurpose.AmountInHand);
-
-            if (MarketPrice != SumEquityLoan) {
-                this.layoutUtilsService.alertMessage(
-                    '',
-                    'Market Price Must be equal to sum of Equity and Loan Applied'
-                );
-                return;
-            }
-
-
-        // if (this.isCheckedEquity == false) {
-        //   var MarketPriceValue = this.loanApplicationPurpose.TotalEstimatedCost;
-        //   var LoanAppliedValue = this.loanApplicationPurpose.AmountRequired;
-        //   if (MarketPriceValue != LoanAppliedValue) {
-        //     this.layoutUtilsService.alertMessage("", "Market Price Must be equal to Loan Applied");
-        //     return
-        //   }
-        // }
-
+        var MarketPrice = this.loanApplicationPurpose.TotalEstimatedCost;
+        var SumEquityLoan = 0;
+        SumEquityLoan =
+            Number(this.loanApplicationPurpose.AmountRequired) +
+            Number(this.loanApplicationPurpose.AmountInHand);
+        if (this.isCheckedEquity && MarketPrice != SumEquityLoan) {
+            this.layoutUtilsService.alertMessage(
+                '',
+                'Market Price Must be equal to sum of Equity and Loan Applied'
+            );
+            return;
+        }
         this.loanApplicationPurpose.LoanAppID =
             this.loanDetail.ApplicationHeader.LoanAppID;
         //this.loanApplicationPurpose.LoanAppID = 0;
@@ -609,7 +594,7 @@ export class ClPurposeComponent implements OnInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
 
-                    this.loanPurpose=[]
+                    this.loanPurpose = []
                     this.loanPurpose = baseResponse.Loan["LoanApplicationpurposeList"];
                     const dialogRef =
                         this.layoutUtilsService.alertElementSuccess(
@@ -622,7 +607,7 @@ export class ClPurposeComponent implements OnInit {
                     this.purposeForm.markAsUntouched()
                     console.log(this.MarkupCalcMode)
 
-                    this.index=null;
+                    this.index = null;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -675,5 +660,5 @@ export class LoanApplicationPurposeGrid {
     GlSubID: number;
     DevProdID: number;
     SchemeID: number;
-    checkEquity:boolean;
+    checkEquity: boolean;
 }

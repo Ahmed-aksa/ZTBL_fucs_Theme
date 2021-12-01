@@ -561,3 +561,37 @@ img{
     overflow:hidden;
   }
 }
+
+.text-red-500{
+  color: #ef4444;
+}
+
+.bg-red-500{
+  background-color: #ef4444;
+}
+
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .mat-sort-header-content{
+    color: white;
+  }
+  .bg-gray-50{
+    background-color: #f8fafc;
+  }
+
+  .row > *{
+    padding: 0%;
+  }
+  .mat-form-field-flex{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background: transparent;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start,
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap {
+    border-width: 0px !important;
+}
+
+}
