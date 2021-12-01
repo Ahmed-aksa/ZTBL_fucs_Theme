@@ -86,7 +86,8 @@
                                             <input matInput appNumberOnly formControlName="NetValue"/>
                                         </mat-form-field>
                                     </td>
-                                    <td><span (click)="onSavePersonalSuretiesForm()">Save</span> | <span>Cancel</span>
+                                    <td><span (click)="onSavePersonalSuretiesForm()">Save</span> | <span
+                                        (click)="personalSuretiesForm.reset()">Cancel</span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -187,7 +188,8 @@
                                             <input matInput formControlName="RefrenceNo"/>
                                         </mat-form-field>
                                     </td>
-                                    <td><span (click)="onSaveCorporateSuretiesForm()">Save</span> | <span>Cancel</span>
+                                    <td><span (click)="onSaveCorporateSuretiesForm()">Save</span> | <span
+                                        (click)="corporateSuretiesForm.reset()">Cancel</span>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -293,7 +295,8 @@
                                             <input matInput formControlName="Ntn"/>
                                         </mat-form-field>
                                     </td>
-                                    <td><span (click)="onSaveLoanRefrencesForm()">Save</span> | <span>Cancel</span></td>
+                                    <td><span (click)="onSaveLoanRefrencesForm()">Save</span> | <span
+                                        (click)="loanRefrencesForm.reset()">Cancel</span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -382,7 +385,8 @@
                                             <input matInput formControlName="WitnessAddress"/>
                                         </mat-form-field>
                                     </td>
-                                    <td><span (click)="onSaveLoanWitnessForm()">Save</span> | <span>Cancel</span></td>
+                                    <td><span (click)="onSaveLoanWitnessForm()">Save</span> | <span
+                                        (click)="loanWitnessForm.reset()">Cancel</span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -474,7 +478,8 @@
                                             <mat-datepicker #picker5></mat-datepicker>
                                         </mat-form-field>
                                     </td>
-                                    <td><span (click)="onSaveLoanPastPaidForm()">Save</span> | <span>Cancel</span></td>
+                                    <td><span (click)="onSaveLoanPastPaidForm()">Save</span> | <span
+                                        (click)="loanPastPaidForm.reset()">Cancel</span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -604,7 +609,8 @@
                                             </mat-select>
                                         </mat-form-field>
                                     </td>
-                                    <td><span (click)="onSaveCurrentLoansForm()">Save</span> | <span>Cancel</span></td>
+                                    <td><span (click)="onSaveCurrentLoansForm()">Save</span> | <span
+                                        (click)="currentLoansForm.reset()">Cancel</span></td>
                                 </tr>
                                 </tbody>
                             </table>
