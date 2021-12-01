@@ -37,7 +37,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appAlphabetOnly formControlName="FullName"/>
+                                            <input matInput maxlength="50" appAlphabetOnly formControlName="FullName"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
@@ -47,7 +47,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="Address"/>
+                                            <input matInput maxlength="150" formControlName="Address"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
@@ -57,12 +57,13 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appNumberOnly maxlength="14" formControlName="AccountNo"/>
+                                            <input matInput appNumberOnly maxlength="13" formControlName="AccountNo"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appAlphaNumericField formControlName="SourceofIncome"/>
+                                            <input matInput maxlength="50" appAlphaNumericField
+                                                   formControlName="SourceofIncome"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
@@ -73,16 +74,17 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appNumberOnly formControlName="AssetValue"/>
+                                            <input matInput maxlength="13" appNumberOnly formControlName="AssetValue"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appNumberOnly formControlName="PresentDues"/>
+                                            <input matInput maxlength="13" appNumberOnly formControlName="PresentDues"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
-                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                        <mat-form-field class="mat-form-field-fluid" maxlength="13"
+                                                        appearance="outline">
                                             <input matInput appNumberOnly formControlName="NetValue"/>
                                         </mat-form-field>
                                     </td>
@@ -128,7 +130,7 @@
 
 
                                                 <td><span
-                                                    (click)="onEditPersonalSureties(loan.PersonalSuretyID)">Edit</span>
+                                                    (click)="onEditPersonalSureties(loan)">Edit</span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -172,7 +174,7 @@
                                 <tr>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="CompanyName"/>
+                                            <input matInput maxlength="50" formControlName="CompanyName"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
@@ -185,7 +187,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="RefrenceNo"/>
+                                            <input matInput maxlength="50" formControlName="RefrenceNo"/>
                                         </mat-form-field>
                                     </td>
                                     <td><span (click)="onSaveCorporateSuretiesForm()">Save</span> | <span
@@ -215,7 +217,7 @@
 
 
                                                 <td><span
-                                                    (click)="onEditLoanCorporateSuretyArray(loan.CorporateSuretyID)">Edit</span>
+                                                    (click)="onEditLoanCorporateSuretyArray(loan)">Edit</span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -262,37 +264,37 @@
                                 <tr>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appNumberOnly formControlName="Cnic"/>
+                                            <input matInput maxlength="13" appNumberOnly formControlName="Cnic"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appAlphabetOnly formControlName="Name"/>
+                                            <input matInput maxlength="50" appAlphabetOnly formControlName="Name"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="Address"/>
+                                            <input matInput maxlength="150" formControlName="Address"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appNumberOnly formControlName="Phone"/>
+                                            <input matInput maxlength="11" appNumberOnly formControlName="Phone"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appAlphaNumericField formControlName="Fax"/>
+                                            <input matInput maxlength="11" appAlphaNumericField formControlName="Fax"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="Email"/>
+                                            <input matInput maxlength="50" formControlName="Email"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="Ntn"/>
+                                            <input matInput maxlength="13" formControlName="Ntn"/>
                                         </mat-form-field>
                                     </td>
                                     <td><span (click)="onSaveLoanRefrencesForm()">Save</span> | <span
@@ -330,7 +332,7 @@
                                                 <td>{{loan.Ntn}}</td>
 
 
-                                                <td><span (click)="onEditRefrence(loan.ReferenceID)">Edit</span></td>
+                                                <td><span (click)="onEditRefrence(loan)">Edit</span></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -377,12 +379,12 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="WitnessName"/>
+                                            <input matInput maxlength="50" formControlName="WitnessName"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="WitnessAddress"/>
+                                            <input matInput maxlength="150" formControlName="WitnessAddress"/>
                                         </mat-form-field>
                                     </td>
                                     <td><span (click)="onSaveLoanWitnessForm()">Save</span> | <span
@@ -410,7 +412,7 @@
                                                 <td>{{loan.WitnessAddress}}</td>
 
 
-                                                <td><span (click)="onEditLoanWitnessArray(loan.WitnessesID)">Edit</span>
+                                                <td><span (click)="onEditLoanWitnessArray(loan)">Edit</span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -504,7 +506,7 @@
                                                 <td>{{loan.LastPaidDate}}</td>
 
 
-                                                <td><span (click)="onEditLoanPastPaidArray(loan.PaidLoanID)">Edit</span>
+                                                <td><span (click)="onEditLoanPastPaidArray(loan)">Edit</span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -647,7 +649,7 @@
 
 
                                                 <td><span
-                                                    (click)="onEditLoanCurrentList(loan.CurrentLoanID)">Edit</span></td>
+                                                    (click)="onEditLoanCurrentList(loan)">Edit</span></td>
                                             </tr>
                                             </tbody>
                                         </table>
