@@ -69,7 +69,6 @@ export class AuthService {
         return this.httpUtils.post(`${environment.apiUrl}/Account/Login`, this.request,
             {headers: this.getHTTPHeaders()}).pipe(
             map((response: BaseResponseModel) => {
-                debugger;
                 if (response.Success && !response.isWebOTPEnabled) {
                     localStorage.setItem('ZTBLUser', JSON.stringify(response));
                     this.accessToken = response.Token;

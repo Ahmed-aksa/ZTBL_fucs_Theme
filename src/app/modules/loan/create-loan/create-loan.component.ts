@@ -77,6 +77,7 @@ export class CreateLoanComponent implements OnInit {
     CustomersLoanAppList: any;
     disabled_tab: boolean = true;
     @ViewChild(ClCustomersComponent) child: ClCustomersComponent;
+    @ViewChild(ClLegalHeirsComponent) legal_child: ClLegalHeirsComponent;
 
     ngOnInit() {
     }
@@ -105,7 +106,7 @@ export class CreateLoanComponent implements OnInit {
             this.securityComponent.getCustomerLand();
         }
         if ($event.index == 4) {
-            this.legalHeirsComponent.loadCustomers(this.CustomersLoanAppList);
+            this.legal_child.loadCustomers()
         }
         if ($event.index == 7) {
             this.loanWitnessComponent.getCheckList();
@@ -186,11 +187,6 @@ export class CreateLoanComponent implements OnInit {
             });
     }
 
-    check_disabled(event: any) {
-        this.disabled_tab = event;
-
-
-    }
 
     check_localstroage() {
         let customers_loan_data = JSON.parse(localStorage.getItem('customer_loan_list'));

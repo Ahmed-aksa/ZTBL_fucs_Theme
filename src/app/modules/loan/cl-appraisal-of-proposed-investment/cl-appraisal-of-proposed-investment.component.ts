@@ -104,52 +104,55 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     }
 
     dtInputChange() {
-        var CropIncomeFutureControl = this.getValue('CropIncomeFutureControl') === null ? 0 : parseInt(this.getValue('CropIncomeFutureControl'));
-        var CropIncomePresnetControl = this.getValue('CropIncomePresnetControl') === null ? null : parseInt(this.getValue('CropIncomePresnetControl'));
-        var LiveStockIncomeFutureControl = this.getValue('LiveStockIncomeFutureControl') === null ? 0 : parseInt(this.getValue('LiveStockIncomeFutureControl'));
-        var LiveStockIncomePresnetControl = this.getValue('LiveStockIncomePresnetControl') === null ? 0 : parseInt(this.getValue('LiveStockIncomePresnetControl'));
-        var OthersFutureControl = this.getValue('OthersFutureControl') === null ? 0 : parseInt(this.getValue('OthersFutureControl'));
-        var OthersPresnetControl = this.getValue('OthersPresnetControl') === null ? 0 : parseInt(this.getValue('OthersPresnetControl'));
-        var TotalIncomeFutureControl = this.getValue('TotalIncomeFutureControl') === null ? 0 : parseInt(this.getValue('TotalIncomeFutureControl'));
-        var TotalIncomePresnetControl = this.getValue('TotalIncomePresnetControl') === null ? 0 : parseInt(this.getValue('TotalIncomePresnetControl'));
-        var CropRaisingFutureControl = this.getValue('CropRaisingFutureControl') === null ? 0 : parseInt(this.getValue('CropRaisingFutureControl'));
-        var CropRaisingPresnetControl = this.getValue('CropRaisingPresnetControl') === null ? 0 : parseInt(this.getValue('CropRaisingPresnetControl'));
-        var LiveStockFarmingFutureControl = this.getValue('LiveStockFarmingFutureControl') === null ? 0 : parseInt(this.getValue('LiveStockFarmingFutureControl'));
-        var LiveStockFarmingPresnetControl = this.getValue('LiveStockFarmingPresnetControl') === null ? 0 : parseInt(this.getValue('LiveStockFarmingPresnetControl'));
-        var OtherExpenditureFutureControl = this.getValue('OtherExpenditureFutureControl') === null ? 0 : parseInt(this.getValue('OtherExpenditureFutureControl'));
-        var OtherExpenditurePresnetControl = this.getValue('OtherExpenditurePresnetControl') === null ? 0 : parseInt(this.getValue('OtherExpenditurePresnetControl'));
-        var LoanFutureControl = this.getValue('LoanFutureControl') === null ? 0 : parseInt(this.getValue('LoanFutureControl'));
-        var LoanPresnetControl = this.getValue('LoanPresnetControl') === null ? 0 : parseInt(this.getValue('LoanPresnetControl'));
-        var ExpenditureFutureControl = this.getValue('ExpenditureFutureControl') === null ? 0 : parseInt(this.getValue('ExpenditureFutureControl'));
-        var ExpenditurePresnetControl = this.getValue('ExpenditurePresnetControl') === null ? 0 : parseInt(this.getValue('ExpenditurePresnetControl'));
-        var NetIncomeFutureControl = this.getValue('NetIncomeFutureControl') === null ? 0 : parseInt(this.getValue('NetIncomeFutureControl'));
-        var NetIncomePresnetControl = this.getValue('NetIncomePresnetControl') === null ? 0 : parseInt(this.getValue('NetIncomePresnetControl'));
-        var IncreaseFutureControl = this.getValue('IncreaseFutureControl') === null ? 0 : parseInt(this.getValue('IncreaseFutureControl'));
-        var IncreasePresnetControl = this.getValue('IncreasePresnetControl') === null ? 0 : parseInt(this.getValue('IncreasePresnetControl'));
 
+        //***************Commented on the Instructions of Mustanser********************
 
-        TotalIncomeFutureControl = CropIncomeFutureControl + LiveStockIncomeFutureControl + OthersFutureControl;
-        this.setValue('TotalIncomeFutureControl', "" + TotalIncomeFutureControl);
-
-        TotalIncomePresnetControl = CropIncomePresnetControl + LiveStockIncomePresnetControl + OthersPresnetControl;
-        this.setValue('TotalIncomePresnetControl', "" + TotalIncomePresnetControl);
-
-        ExpenditureFutureControl = CropRaisingFutureControl + LiveStockFarmingFutureControl + OtherExpenditureFutureControl + LoanFutureControl;
-        this.setValue('ExpenditureFutureControl', "" + ExpenditureFutureControl);
-
-        ExpenditurePresnetControl = CropRaisingPresnetControl + LiveStockFarmingPresnetControl + OtherExpenditurePresnetControl + LoanPresnetControl;
-        this.setValue('ExpenditurePresnetControl', "" + ExpenditurePresnetControl);
-
-        NetIncomeFutureControl = TotalIncomeFutureControl - ExpenditureFutureControl;
-        this.setValue('NetIncomeFutureControl', "" + NetIncomeFutureControl);
-
-        NetIncomePresnetControl = TotalIncomePresnetControl - ExpenditurePresnetControl;
-        this.setValue('NetIncomePresnetControl', "" + NetIncomePresnetControl);
-
-        IncreaseFutureControl = NetIncomeFutureControl - NetIncomePresnetControl;
-        this.setValue('IncreaseFutureControl', "" + IncreaseFutureControl);
-
-        this.setValue('IncreasePresnetControl', "0");
+        // var CropIncomeFutureControl = this.getValue('CropIncomeFutureControl') === null ? 0 : parseInt(this.getValue('CropIncomeFutureControl'));
+        // var CropIncomePresnetControl = this.getValue('CropIncomePresnetControl') === null ? null : parseInt(this.getValue('CropIncomePresnetControl'));
+        // var LiveStockIncomeFutureControl = this.getValue('LiveStockIncomeFutureControl') === null ? 0 : parseInt(this.getValue('LiveStockIncomeFutureControl'));
+        // var LiveStockIncomePresnetControl = this.getValue('LiveStockIncomePresnetControl') === null ? 0 : parseInt(this.getValue('LiveStockIncomePresnetControl'));
+        // var OthersFutureControl = this.getValue('OthersFutureControl') === null ? 0 : parseInt(this.getValue('OthersFutureControl'));
+        // var OthersPresnetControl = this.getValue('OthersPresnetControl') === null ? 0 : parseInt(this.getValue('OthersPresnetControl'));
+        // var TotalIncomeFutureControl = this.getValue('TotalIncomeFutureControl') === null ? 0 : parseInt(this.getValue('TotalIncomeFutureControl'));
+        // var TotalIncomePresnetControl = this.getValue('TotalIncomePresnetControl') === null ? 0 : parseInt(this.getValue('TotalIncomePresnetControl'));
+        // var CropRaisingFutureControl = this.getValue('CropRaisingFutureControl') === null ? 0 : parseInt(this.getValue('CropRaisingFutureControl'));
+        // var CropRaisingPresnetControl = this.getValue('CropRaisingPresnetControl') === null ? 0 : parseInt(this.getValue('CropRaisingPresnetControl'));
+        // var LiveStockFarmingFutureControl = this.getValue('LiveStockFarmingFutureControl') === null ? 0 : parseInt(this.getValue('LiveStockFarmingFutureControl'));
+        // var LiveStockFarmingPresnetControl = this.getValue('LiveStockFarmingPresnetControl') === null ? 0 : parseInt(this.getValue('LiveStockFarmingPresnetControl'));
+        // var OtherExpenditureFutureControl = this.getValue('OtherExpenditureFutureControl') === null ? 0 : parseInt(this.getValue('OtherExpenditureFutureControl'));
+        // var OtherExpenditurePresnetControl = this.getValue('OtherExpenditurePresnetControl') === null ? 0 : parseInt(this.getValue('OtherExpenditurePresnetControl'));
+        // var LoanFutureControl = this.getValue('LoanFutureControl') === null ? 0 : parseInt(this.getValue('LoanFutureControl'));
+        // var LoanPresnetControl = this.getValue('LoanPresnetControl') === null ? 0 : parseInt(this.getValue('LoanPresnetControl'));
+        // var ExpenditureFutureControl = this.getValue('ExpenditureFutureControl') === null ? 0 : parseInt(this.getValue('ExpenditureFutureControl'));
+        // var ExpenditurePresnetControl = this.getValue('ExpenditurePresnetControl') === null ? 0 : parseInt(this.getValue('ExpenditurePresnetControl'));
+        // var NetIncomeFutureControl = this.getValue('NetIncomeFutureControl') === null ? 0 : parseInt(this.getValue('NetIncomeFutureControl'));
+        // var NetIncomePresnetControl = this.getValue('NetIncomePresnetControl') === null ? 0 : parseInt(this.getValue('NetIncomePresnetControl'));
+        // var IncreaseFutureControl = this.getValue('IncreaseFutureControl') === null ? 0 : parseInt(this.getValue('IncreaseFutureControl'));
+        // var IncreasePresnetControl = this.getValue('IncreasePresnetControl') === null ? 0 : parseInt(this.getValue('IncreasePresnetControl'));
+        //
+        //
+        // TotalIncomeFutureControl = CropIncomeFutureControl + LiveStockIncomeFutureControl + OthersFutureControl;
+        // this.setValue('TotalIncomeFutureControl', "" + TotalIncomeFutureControl);
+        //
+        // TotalIncomePresnetControl = CropIncomePresnetControl + LiveStockIncomePresnetControl + OthersPresnetControl;
+        // this.setValue('TotalIncomePresnetControl', "" + TotalIncomePresnetControl);
+        //
+        // ExpenditureFutureControl = CropRaisingFutureControl + LiveStockFarmingFutureControl + OtherExpenditureFutureControl + LoanFutureControl;
+        // this.setValue('ExpenditureFutureControl', "" + ExpenditureFutureControl);
+        //
+        // ExpenditurePresnetControl = CropRaisingPresnetControl + LiveStockFarmingPresnetControl + OtherExpenditurePresnetControl + LoanPresnetControl;
+        // this.setValue('ExpenditurePresnetControl', "" + ExpenditurePresnetControl);
+        //
+        // NetIncomeFutureControl = TotalIncomeFutureControl - ExpenditureFutureControl;
+        // this.setValue('NetIncomeFutureControl', "" + NetIncomeFutureControl);
+        //
+        // NetIncomePresnetControl = TotalIncomePresnetControl - ExpenditurePresnetControl;
+        // this.setValue('NetIncomePresnetControl', "" + NetIncomePresnetControl);
+        //
+        // IncreaseFutureControl = NetIncomeFutureControl - NetIncomePresnetControl;
+        // this.setValue('IncreaseFutureControl', "" + IncreaseFutureControl);
+        //
+        // this.setValue('IncreasePresnetControl', "0");
 
     }
 
@@ -320,37 +323,38 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         //     }
         // }
         //Creating Grid
-        var tempArr: ProductionGrid[] = [];
-
-        CropProductionList.forEach((item, key) => {
-            var grid = new ProductionGrid();
-
-            var Type = this.selectedProposedCropType.filter(x => x.Value == CropProductionList[0].AppraisalType)
-            if (Type.length > 0) {
-                grid.typeName = Type[0].Description;
-            }
-
-            var Crop = this.selectedCrops.filter(x => x.Name == CropProductionList[0].CropType)
-            if (Crop.length > 0) {
-                grid.cropName = Crop[0].Description;
-            }
-            grid.AppraisalType = item.AppraisalType
-            grid.ItemDetailID = item.ItemDetailID
-            grid.area = item.Area
-            grid.output = item.TotalOutput
-            grid.price = item.Price
-            grid.expenditure = item.ExpPrec
-            grid.totalIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
-            grid.totalExpenditure = ((parseInt(grid.expenditure) * parseInt(grid.totalIncome) / 100)).toString()
-            grid.netIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
-            tempArr.push(grid)
-
-        });
-        this.productionArray = tempArr;
+        // var tempArr: ProductionGrid[] = [];
+        //
+        // CropProductionList.forEach((item, key) => {
+        //     var grid = new ProductionGrid();
+        //
+        //     var Type = this.selectedProposedCropType.filter(x => x.Value == CropProductionList[0].AppraisalType)
+        //     if (Type.length > 0) {
+        //         grid.typeName = Type[0].Description;
+        //     }
+        //
+        //     var Crop = this.selectedCrops.filter(x => x.Name == CropProductionList[0].CropType)
+        //     if (Crop.length > 0) {
+        //         grid.cropName = Crop[0].Description;
+        //     }
+        //     grid.AppraisalType = item.AppraisalType
+        //     grid.ItemDetailID = item.ItemDetailID
+        //     grid.area = item.Area
+        //     grid.output = item.TotalOutput
+        //     grid.price = item.Price
+        //     grid.expenditure = item.ExpPrec
+        //     grid.totalIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
+        //     grid.totalExpenditure = ((parseInt(grid.expenditure) * parseInt(grid.totalIncome) / 100)).toString()
+        //     grid.netIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
+        //     tempArr.push(grid)
+        //
+        // });
+        this.productionArray = CropProductionList;
     }
 
 
     AddCropDetail() {
+
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
@@ -379,7 +383,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         this.cropProduction.TotalOutput = parseInt(this.getValue("Output"));
         this.cropProduction.Price = parseInt(this.getValue("Price"));
         this.cropProduction.ExpPrec = this.getValue("Expenditure");
-        this.cropProduction.AppraisalType = this.getValue("Crop");
+        this.cropProduction.AppraisalType = this.getValue("Type");
         this.cropProduction.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         this.cropProduction.Remarks = "";
 
@@ -395,24 +399,31 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    // baseResponse.Loan.CropProductionList
-                    //
-                    // let crop_producttion_list=baseResponse.Loan.CropProductionList.forEach((single_item)=>{
-                    //
-                    // })
-                    var grid = new ProductionGrid();
-                    grid.ItemDetailID = baseResponse.Loan.CropProduction.ItemDetailID;
-                    //cnic: this.loanCustomerForm.controls['CNIC'].value
-                    grid.typeName = this.getValue("Type");
-                    grid.cropName = this.getValue("Crop");
-                    grid.area = this.getValue("Area");
-                    grid.output = this.getValue("Output");
-                    grid.price = this.getValue("Price");
-                    grid.expenditure = this.getValue("Expenditure");
-                    grid.totalIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
-                    grid.totalExpenditure = (parseInt(grid.output) / parseInt(grid.expenditure)).toString()
-                    grid.netIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
-                    this.productionArray.push(grid);
+                    this.productionArray=[];
+                    this.productionArray = baseResponse.Loan["CropProductionList"];
+                    this.LoanAOPIForm.reset();
+                    this.getProposedCropType();
+                    this.getCrops();
+                    this.LoanAOPIForm.markAsUntouched()
+                    // // baseResponse.Loan.CropProductionList
+                    // //
+                    // // let crop_producttion_list=baseResponse.Loan.CropProductionList.forEach((single_item)=>{
+                    // //
+                    // // })
+                    // var grid = new ProductionGrid();
+                    // grid.ItemDetailID = baseResponse.Loan.CropProduction.ItemDetailID;
+                    // //cnic: this.loanCustomerForm.controls['CNIC'].value
+                    // grid.typeName = this.getValue("Type");
+                    // grid.cropName = this.getValue("Crop");
+                    // grid.area = this.getValue("Area");
+                    // grid.output = this.getValue("Output");
+                    // grid.price = this.getValue("Price");
+                    // grid.expenditure = this.getValue("Expenditure");
+                    // grid.totalIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
+                    // grid.totalExpenditure = (parseInt(grid.output) / parseInt(grid.expenditure)).toString()
+                    // grid.netIncome = (parseInt(grid.output) * parseInt(grid.price)).toString();
+                    // this.productionArray.push(grid);
+
 
                     const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 } else {
@@ -616,7 +627,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         this.appraisalProposedList.push(increaseAppriasalProposed);
 
         this.spinner.show();
-
+debugger
         this._loanService.addAppraisalProposed(this.appraisalProposedList, this.loanDetail.TranId)
             .pipe(
                 finalize(() => {
@@ -667,15 +678,17 @@ if(baseResponse.Success==true){
                     })
                 )
                 .subscribe(baseResponse => {
+                    debugger
                     this.list_ids_array.forEach((id) => {
-                        this.productionArray.forEach((single_array) => {
+                        this.productionArray.forEach((single_array,index) => {
                             if (single_array.ItemDetailID == id) {
-                                // @ts-ignore
-                                this.productionArray.pop(single_array);
+                                this.productionArray.splice(index,1)
                             }
                         })
                     })
                     if (baseResponse.Success) {
+
+
                         const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                     } else {
 
@@ -710,17 +723,28 @@ if(baseResponse.Success==true){
 }
 
 export class ProductionGrid {
-    ItemDetailID: number;
-    type: string;
-    typeName: string;
-    crop: string;
-    cropName: string;
-    area: string;
-    output: string;
-    price: string;
-    totalIncome: string;
-    expenditure: string;
-    totalExpenditure: string;
-    netIncome: string;
+    // ItemDetailID: number;
+    // type: string;
+    // typeName: string;
+    // crop: string;
+    // cropName: string;
+    // area: string;
+    // output: string;
+    // price: string;
+    // totalIncome: string;
+    // expenditure: string;
+    // totalExpenditure: string;
+    // netIncome: string;
+    // AppraisalType: string;
+
+    ItemDetailID: string;
+    Area: string;
+    TotalOutput: string;
+    Price: string;
+    ExpPrec: string;
     AppraisalType: string;
+    CropType: string;
+    TotalIncome_RS: string;
+    Expense_RS: string;
+    NetIncomeFromCrop: string;
 }

@@ -31,6 +31,7 @@ import {finalize} from 'rxjs/operators';
 export class ClLegalHeirsComponent implements OnInit {
     @Input() loanDetail: Loan;
     legalHeirsForm: FormGroup;
+    custID;
     public legalHeirs = new LoanApplicationLegalHeirs();
     legalHeirsArray: LoanApplicationLegalHeirs[] = [];
     public RelationshipLov: any;
@@ -84,7 +85,7 @@ export class ClLegalHeirsComponent implements OnInit {
         });
     }
 
-    loadCustomers(CustomersLoanAppList) {
+    loadCustomers() {
 
         this.loanDetail.CustomersLoanList = JSON.parse(localStorage.getItem('customer_loan_list'));
         if (this.loanDetail != null) {
@@ -102,11 +103,7 @@ export class ClLegalHeirsComponent implements OnInit {
         this.GenderLov = this._lovService.SortLovs(this.GenderLov.LOVs);
     }
 
-
     loadAppLegalHeirsDataOnUpdate(appLegalHeirsData, appCustomersLoanAppList) {
-
-        this.legalHeirs = appLegalHeirsData
-
 
         var tempCustomerArray: LegalHiersGrid[] = [];
 
@@ -140,8 +137,6 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onClearLegalHeirsForm() {
-
-
         this.legalHeirsForm.controls["CustomerID"].setValue("");
         this.legalHeirsForm.controls["Cnic"].setValue("");
         this.legalHeirsForm.controls["LegalHeirsName"].setValue("");
@@ -154,16 +149,18 @@ export class ClLegalHeirsComponent implements OnInit {
         Object.keys(controls).forEach(controlName =>
             controls[controlName].markAsUntouched()
         );
+        this.legalHeirsForm.reset();
+        this.legalHeirsForm.markAsPristine();
+        this.legalHeirsForm.markAsUntouched();
     }
 
     onChange(val) {
-
-        this.legalHeirsForm.controls.CustomerName.setValue(val.CustomerName)
+        this.legalHeirsForm.controls["CustomerName"].setValue(val.CustomerName)
+        this.custID = val.CustomerID;
     }
 
     onSaveLegalHeirsForm() {
-
-
+        this.legalHeirs
         //if (this.loanDetail == null || this.loanDetail == undefined) {
         //  this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
         //  return;
@@ -195,7 +192,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
         this.legalHeirs = Object.assign(this.legalHeirsForm.value, this.legalHeirsForm.getRawValue());
         var arr = this.loanDetail.ApplicationHeader.LoanAppID;
-
+        this.legalHeirs.CustomerID = this.custID;
         this.spinner.show();
         this._loanService.saveLoanApplicationLegalHeirs(this.legalHeirs, this.loanDetail.TranId, arr)
             .pipe(
@@ -244,7 +241,6 @@ export class ClLegalHeirsComponent implements OnInit {
         const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
         dialogRef.afterClosed().subscribe(res => {
 
-            debugger;
             if (!res) {
                 return;
             }

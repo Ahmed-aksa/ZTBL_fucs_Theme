@@ -160,6 +160,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -242,35 +243,35 @@
                                         {{appraisalType(production.AppraisalType)}}
                                     </td>
                                     <td>
-                                        {{production.cropName}}
+                                        {{production.CropType}}
                                     </td>
                                     <td>
-                                        {{production.area}}
+                                        {{production.Area}}
                                     </td>
                                     <td>
-                                        {{production.output}}
+                                        {{production.TotalOutput}}
                                     </td>
                                     <td>
-                                        {{production.price}}
+                                        {{production.Price}}
                                     </td>
                                     <td>
-                                        {{production.totalIncome}}
+                                        {{production.TotalIncome_RS}}
                                     </td>
                                     <td>
-                                        {{production.expenditure}}
+                                        {{production.ExpPrec}}
                                     </td>
                                     <td>
-                                        {{production.totalExpenditure}}
+                                        {{production.Expense_RS}}
                                     </td>
                                     <td>
-                                        {{production.netIncome}}
+                                        {{production.NetIncomeFromCrop}}
                                     </td>
                                     <td style="cursor:pointer;">
                                         <input type="checkbox" (change)="changeChecked($event,production)"/>
                                     </td>
                                 </tr>
                                 </tbody>
-                                <button mat-flat-button color="warn" (click)="deleteAppraisalItemDetail()"
+                                <button mat-flat-button color="warn" type="button" (click)="deleteAppraisalItemDetail()"
                                         style="float:right">
                                     Delete
                                 </button>

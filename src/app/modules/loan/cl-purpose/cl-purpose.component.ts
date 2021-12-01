@@ -567,7 +567,7 @@ export class ClPurposeComponent implements OnInit {
             this.loanApplicationPurpose,
             this.purposeForm.getRawValue()
         );
-        if (this.isCheckedEquity == true) {
+
             var MarketPrice = this.loanApplicationPurpose.TotalEstimatedCost;
             var SumEquityLoan = 0;
             SumEquityLoan =
@@ -581,7 +581,7 @@ export class ClPurposeComponent implements OnInit {
                 );
                 return;
             }
-        }
+
 
         // if (this.isCheckedEquity == false) {
         //   var MarketPriceValue = this.loanApplicationPurpose.TotalEstimatedCost;
@@ -618,7 +618,6 @@ export class ClPurposeComponent implements OnInit {
                             baseResponse.Code
                         );
 
-                    this.loanPurpose.push(baseResponse.Loan.LoanApplicationpurposeList[0])
                     this.onClearSavePurpose();
                     this.purposeForm.markAsUntouched()
                     console.log(this.MarkupCalcMode)
