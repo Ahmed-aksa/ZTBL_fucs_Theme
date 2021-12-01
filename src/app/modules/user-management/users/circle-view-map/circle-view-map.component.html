@@ -35,14 +35,15 @@
     <!-- Main -->
 
     <!-- Products list -->
-    <agm-map style="width: 500px;height: 500px"
+    <div class="flex flex-auto" style="flex-direction: column;">
+    <agm-map style="width: 500px; overflow: scroll;"
              #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng" [mapTypeControlOptions]="controlOptions"
              [mapTypeControl]="true" (mapReady)="onMapReady($event)" [restriction]="countryRestriction"
-             style="height: 500px !important;">
+             style="height: 58vh !important;">
 
         <agm-marker *ngFor="let m of fenceMarkers; let i = index"
                     (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedMarker(i, infowindow)"
-                    [latitude]="m.lat" [longitude]="m.lng" [title]="m.BranchId" class=" h-screen">
+                    [latitude]="m.lat" [longitude]="m.lng" [title]="m.BranchId">
 
             <agm-info-window #infowindow>
                 <strong>{{m.BranchId}}</strong>
@@ -52,5 +53,6 @@
 
 
     </agm-map>
+    </div>
 
 </div>
