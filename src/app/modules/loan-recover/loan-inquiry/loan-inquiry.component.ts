@@ -67,19 +67,30 @@ export class LoanInquiryComponent implements OnInit {
     //this.getLoanApplicationsInquiry();
   }
 
-    getAllData(data) {
+  getAllData(data) {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
     }
 
   find() {
+      debugger
     var transactionId = this.RecoveryForm.controls.TransactionId.value;
     var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
-    this.hasFormErrors = false;
-    if ((transactionId == undefined || transactionId == "") && (loanCaseNo == undefined || loanCaseNo == "")) {
-      this.hasFormErrors = true;
-      return;
-    }
+    // this.hasFormErrors = false;
+    // if ((transactionId == undefined || transactionId == "") && (loanCaseNo == undefined || loanCaseNo == "")) {
+    //   this.hasFormErrors = true;
+    //   return;
+    // }
+
+      if (!loanCaseNo) {
+          var Message = 'Please Enter loan Case No.';
+          this.layoutUtilsService.alertElement(
+              '',
+              Message,
+              null
+          );
+          return;
+      }
 
     this.spinner.show();
     this.submitted = true;
@@ -154,7 +165,11 @@ export class LoanInquiryComponent implements OnInit {
       .subscribe((baseResponse: BaseResponseModel) => {
         if (baseResponse.Success === true) {
           this.recoveryList = JSON.parse(baseResponse.Recovery.DynamicDataList);
-          this.cdRef.detectChanges();
+
+            // let recoverylist = JSON.parse(baseResponse.Recovery.DynamicDataList);
+            // recoverylist[]
+            // this.recoveryList
+            this.cdRef.detectChanges();
         }
         else {
           this.layoutUtilsService.alertMessage("", baseResponse.Message);

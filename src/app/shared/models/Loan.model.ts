@@ -281,9 +281,10 @@ export class LoanPastPaid {
 
 
 export class LoanDocumentCheckList {
-    AppDocID: number;
+    DocumentID: number;
     ChecklistID: number;
     LoanAppID: number;
+    is_checked: boolean;
 }
 
 

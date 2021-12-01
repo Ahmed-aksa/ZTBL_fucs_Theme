@@ -498,7 +498,7 @@ export class ClLoanWitnessComponent implements OnInit {
     }
 
     setUnsetDocumentCheckBox(docObj) {
-
+debugger
         //this.loanDetail = new Loan();
         //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
 
@@ -506,19 +506,23 @@ export class ClLoanWitnessComponent implements OnInit {
 
         if (docObj.checked) {
             var obj = new LoanDocumentCheckList();
-            obj.AppDocID = docObj.source.value;
-            obj.ChecklistID = 0;
+            obj.DocumentID = docObj.source.value;
+            obj.is_checked = true;
             obj.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
             this.loanDocumentCheckListArray.push(obj)
         } else {
-            var docIndex = this.loanDocumentCheckListArray.findIndex(x => x.AppDocID == docObj.source.value);
+            var docIndex = this.loanDocumentCheckListArray.findIndex(x => x.DocumentID == docObj.source.value);
             this.loanDocumentCheckListArray.splice(docIndex, 1)
         }
 
     }
+    CheckAttached(val)
+    {
+        return val;
+    }
 
     saveCheckList() {
-
+debugger
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
@@ -526,15 +530,15 @@ export class ClLoanWitnessComponent implements OnInit {
 
         //this.loanDetail = new Loan();
         //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
-        let final_checklist = []
-        this.loanDocumentsCheckList.forEach((single_checklist: any) => {
-            if (single_checklist.IsActive == 'Y') {
-                final_checklist.push(single_checklist);
-            }
-        })
+        // let final_checklist = []
+        // this.loanDocumentsCheckList.forEach((single_checklist: any) => {
+        //     if (single_checklist.is_checked == true) {
+        //         final_checklist.push(single_checklist);
+        //     }
+        // })
         this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         this.spinner.show();
-        this._loanService.saveCheckList(final_checklist, this.loanDetail.TranId)
+        this._loanService.saveCheckList(this.loanDocumentCheckListArray, this.loanDetail.TranId)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

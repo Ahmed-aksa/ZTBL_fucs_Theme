@@ -685,7 +685,7 @@
                         <div *ngFor="let doc of loanDocumentsCheckList; let i = index;"
                              style="display:inline; margin-right:1%">
                             <mat-checkbox [value]="doc.DocumentID" (change)="setUnsetDocumentCheckBox($event)"
-                                          [checked]="doc.IsActive=='Y'">
+                                          [checked]="CheckAttached(doc.isAttached)">
                                 {{doc.DocName}}
                             </mat-checkbox>
 
