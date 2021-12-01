@@ -54,7 +54,7 @@
                                     <mat-label class="customMatLabel">Transaction Status<strong class="matMandatory">*</strong></mat-label>
                                     <mat-select formControlName="Status">
                                         <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
-                                            {{lov.Description}}
+                                            {{lov.Name}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>

@@ -179,7 +179,7 @@ export class VoucherPostingDayComponent implements OnInit {
             return;
         }
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
-        this.reports.ReportsNo = "18";
+        this.reports.ReportsNo = "2";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         if (myWorkingDate._isAMomentObject == undefined) {
 

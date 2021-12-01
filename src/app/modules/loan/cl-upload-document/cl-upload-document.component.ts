@@ -180,25 +180,6 @@ export class ClUploadDocumentComponent implements OnInit {
         }
     }
 
-    onChangeLoanType(loanType) {
-        if (loanType.value == '1') {
-
-            //this.applicationHeaderForm.controls["ProdAmount"].setValidators([Validators.required]);
-            //this.applicationHeaderForm.controls["ProdAmount"].updateValueAndValidity();
-            //this.applicationHeaderForm.controls["DevAmount"].clearValidators();
-            //this.applicationHeaderForm.controls["DevAmount"].updateValueAndValidity();
-        } else if (loanType.value == '2') {
-            // this.applicationHeaderForm.controls["DevAmount"].setValidators([Validators.required]);
-            // this.applicationHeaderForm.controls["DevAmount"].updateValueAndValidity();
-            // this.applicationHeaderForm.controls["ProdAmount"].clearValidators();
-            // this.applicationHeaderForm.controls["ProdAmount"].updateValueAndValidity();
-        } else if (loanType.value == '3') {
-            // this.applicationHeaderForm.controls["DevAmount"].setValidators([Validators.required]);
-            // this.applicationHeaderForm.controls["DevAmount"].updateValueAndValidity();
-            // this.applicationHeaderForm.controls["ProdAmount"].setValidators([Validators.required]);
-            // this.applicationHeaderForm.controls["ProdAmount"].updateValueAndValidity();
-        }
-    }
 
     deleteDocument(id){
         debugger

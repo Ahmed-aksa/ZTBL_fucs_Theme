@@ -116,7 +116,7 @@ export class DailyVoucherProofComponent implements OnInit {
     }
 
     async typeLov() {
-        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
+        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DailyVoucherStatus});
         this.statusLov = this.statusLov.LOVs;
         this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
     }
@@ -183,7 +183,7 @@ export class DailyVoucherProofComponent implements OnInit {
         this.user.Circle = this.circle;
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
-        this.reports.ReportsNo = "18";
+        this.reports.ReportsNo = "5";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         if (myWorkingDate._isAMomentObject == undefined) {
 
