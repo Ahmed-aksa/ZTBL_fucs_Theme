@@ -145,6 +145,7 @@ export class CreateLoanComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
+                    console.log(baseResponse)
                     var loanRes = baseResponse.Loan;
                     localStorage.setItem('customer_loan_list', JSON.stringify(loanRes.CustomersLoanAppList.reverse()));
                     this.CustomersLoanAppList = loanRes.CustomersLoanAppList
@@ -170,7 +171,7 @@ export class CreateLoanComponent implements OnInit {
 
                     this.appraisalOfProposedComponent.loadAppraisalOfProposedDataOnUpdate(loanRes.AppraisalProposedList, loanRes.CropProductionList);
 
-                    this.uploadDocumentComponent.loadUploadDocumentsOnUpdate(loanRes.DocumentUploadList, loanCaseNo);
+                    this.uploadDocumentComponent.loadUploadDocumentsOnUpdate(loanRes.DocumentUploadList, this.loanApplicationReq.ApplicationHeader);
 
                     this.loanWitnessComponent.loadAppWitnessDataOnUpdate(loanRes.PersonalSuretiesList,
                         loanRes.CorporateSuretyList, loanRes.LoanRefrencesList, loanRes.LoanPastPaidList,

@@ -30,7 +30,7 @@
                                 <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong class="matMandatory">*</strong>
                                 </mat-label>
                                 <input matInput [matDatepicker]="picker2" formControlName="WorkingDate" maxlength="30"
-                                       autocomplete="off" (dateChange)="isEnableWorkingDate()" appNumberOnly [disabled]="dateDisable"/>
+                                       autocomplete="off" (dateChange)="isEnableWorkingDate()" appNumberOnly [max]="today"/>
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
                             </mat-form-field>
@@ -54,7 +54,7 @@
                                     <mat-label class="customMatLabel">Transaction Status<strong class="matMandatory">*</strong></mat-label>
                                     <mat-select formControlName="Status">
                                         <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
-                                            {{lov.Description}}
+                                            {{lov.Name}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>

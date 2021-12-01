@@ -58,6 +58,7 @@ export class VoucherPostingDayComponent implements OnInit {
     circle: any;
 
     dateDisable: boolean = false;
+    today = new Date();
 
 
     //Branch inventory
@@ -104,8 +105,9 @@ export class VoucherPostingDayComponent implements OnInit {
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
 
-            const branchWorkingDate = new Date(year, month - 1, day);
-            this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
+            this.today = new Date(year, month - 1, day);
+            //const branchWorkingDate = new Date(year, month - 1, day);
+            this.bufricationForm.controls.WorkingDate.setValue(this.today);
             this.dateDisable = true
         } else {
             this.bufricationForm.controls.WorkingDate.setValue(null);
@@ -132,6 +134,7 @@ export class VoucherPostingDayComponent implements OnInit {
                     day = "0" + day;
                 }
                 const branchWorkingDate = new Date(year, month - 1, day);
+
                 this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
             } catch (e) {
 
@@ -176,7 +179,7 @@ export class VoucherPostingDayComponent implements OnInit {
             return;
         }
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
-        this.reports.ReportsNo = "18";
+        this.reports.ReportsNo = "2";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         if (myWorkingDate._isAMomentObject == undefined) {
 
@@ -210,6 +213,10 @@ export class VoucherPostingDayComponent implements OnInit {
             } catch (e) {
 
             }
+        }
+
+        if(this.branch.WorkingDate == undefined){
+            this.branch.WorkingDate = this.reports.WorkingDate;
         }
 
         this.spinner.show();

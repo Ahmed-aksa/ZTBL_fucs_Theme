@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
 import { BaseResponseModel } from 'app/shared/models/base_response.model';
 import { Branch } from 'app/shared/models/branch.model';
@@ -23,288 +23,287 @@ import {Zone } from '../../user-management/users/utils/zone.model'
 })
 export class ClUploadDocumentComponent implements OnInit {
 
-  @Input() loanDetail: Loan;
+    @Input() loanDetail: Loan;
 
-  PostDocument: FormGroup;
-  loanDocument = new LoanDocuments();
-  rawData = new LoanDocuments();
+    PostDocument: FormGroup;
+    loanDocument = new LoanDocuments();
+    rawData: LoanDocuments[] = [];
 
-  url : string
-  loanDocumentArray: LoanDocuments[] = [];
+    url: string;
+    loanDocumentArray: LoanDocuments[] = [];
 
-  //Zone inventory
-  LoggedInUserInfo: BaseResponseModel;
-  applicationHeaderForm: FormGroup;
-  public loanApplicationHeader = new LoanApplicationHeader();
+    //Zone inventory
+    LoggedInUserInfo: BaseResponseModel;
+    applicationHeaderForm: FormGroup;
+    public loanApplicationHeader = new LoanApplicationHeader();
 
-  LoanTypes: any = [];
-  loanType: any = [];
-  SelectedLoanType: any = [];
+    LoanTypes: any = [];
+    loanType: any = [];
+    SelectedLoanType: any = [];
+    applicationHeader: any;
 
-  //Document Loan Type inventory
-  documentLoanTypes: any = [];
-  documentloanType: any = [];
-  documentSelectedLoanType: any = [];
+    //Document Loan Type inventory
+    documentLoanTypes: any = [];
+    documentloanType: any = [];
+    documentSelectedLoanType: any = [];
 
-  loanCaseNo: string;
+    loanCaseNo: string;
 
-  //Document inventory
-  document: any = [];
-  SelectedDocument: any = [];
+    //Document inventory
+    document: any = [];
+    SelectedDocument: any = [];
 
-  public LovCall = new Lov();
-  public lovDoc = new Lov();
-  isZoneReadOnly: boolean;
-  isBranchReadOnly: boolean;
+    public LovCall = new Lov();
+    public lovDoc = new Lov();
+    isZoneReadOnly: boolean;
+    isBranchReadOnly: boolean;
 
     isUserAdmin: boolean = false;
 
-
-  constructor(
-    //public dialogRef: MatDialogRef<ClDocumentViewComponent>,
-    //@Inject(MAT_DIALOG_DATA) public data: any,
-    private frmbuilder: FormBuilder,
-    private http: HttpClient,
-    private _circleService: CircleService,
-    private _cdf: ChangeDetectorRef,
-    private _common: CommonService,
-    private _lovService: LovService,
-    private userUtilsService: UserUtilsService,
-    private _loanService: LoanService,
-    private layoutUtilsService: LayoutUtilsService,
-    private spinner: NgxSpinnerService,
-    private dialog: MatDialog,
-    private cdRef: ChangeDetectorRef,
+    zone: any;
+    branch: any;
+    circle: any;
+    disable_lc = false;
+    number_of_files: number;
 
 
-  ) {
+    page_number = [];
+    description = [];
+    private LoanCaseId: any;
+    loan: any = {}
 
-    this.PostDocument = frmbuilder.group({
-      ParentDocId: [this.loanDocument.ParentDocId, Validators.required],//Document Type Lov
-        Lnco: [this.loanDocument.LcNo, Validators.required],
-      DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
-      Description: [this.loanDocument.Description, Validators.required],
-      PageNumber: [this.loanDocument.PageNumber],
-      DocumentRefNo: ['', Validators.required],
-      NoOfFilesToUpload: ['', Validators.required],
-      file: ['', Validators.required],
-    })
-  }
 
-  ngOnInit() {
-    this.isZoneReadOnly = false;
-    this.isBranchReadOnly = false;
-    this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
-    if (this.LoggedInUserInfo.Branch?.BranchCode != "All") {
 
-      this.isZoneReadOnly = true;
-      this.isBranchReadOnly = true;
+    constructor(
+        private frmbuilder: FormBuilder,
+        private http: HttpClient,
+        private _circleService: CircleService,
+        private _cdf: ChangeDetectorRef,
+        private _common: CommonService,
+        private _lovService: LovService,
+        private userUtilsService: UserUtilsService,
+        private _loanService: LoanService,
+        private layoutUtilsService: LayoutUtilsService,
+        private spinner: NgxSpinnerService,
+        private cdRef: ChangeDetectorRef,
+    ) {
+
+        this.PostDocument = frmbuilder.group({
+            ParentDocId: [this.loanDocument.ParentDocId, Validators.required],//Document Type Lov
+            LcNo: [this.loanDocument.LcNo, Validators.required],
+            LoanStatus: [this.loanDocument.LoanStatus, Validators.required],
+            DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
+            CategoryName: [this.loanDocument.CategoryName, Validators.required],
+            Description: [this.loanDocument.Description, Validators.required],
+            PageNumber: [this.loanDocument.PageNumber, Validators.required],
+            DescriptionTab: ['', Validators.required],
+            DocumentRefNo: ['', Validators.required],
+            NoOfFilesToUpload: ['', Validators.required],
+            file: ['', Validators.required],
+        });
     }
-    this.getLoanType();
-    this.getDocument();
-    this.getDocumentLoanType();
-  }
 
-  PostDocuments(PostDocument: any) {
-    //
-  }
-
-  async getDocumentLoanType() {
-    this.documentLoanTypes = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.ActiveLoanType })
-    this.documentSelectedLoanType = this.documentLoanTypes.LOVs;
-  }
-
-  //-------------------------------Loan Type Core Functions-------------------------------//
-  async getLoanType() {
-
-    this.LoanTypes = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.LoanTypes })
-    this.SelectedLoanType = this.LoanTypes.LOVs;
-  }
-
-  searchLoanType(loanTypeId) {
-    loanTypeId = loanTypeId.toLowerCase();
-    if (loanTypeId != null && loanTypeId != undefined && loanTypeId != "")
-      this.SelectedLoanType = this.LoanTypes?.LOVs?.filter(x => x.Name.toLowerCase().indexOf(loanTypeId) > -1);
-    else
-      this.SelectedLoanType = this.LoanTypes.LOVs;
-  }
-
-  validateLoanTypeOnFocusOut() {
-    if (this.SelectedLoanType.length == 0)
-      this.SelectedLoanType = this.LoanTypes;
-  }
-
-  onChangeLoanType(loanType) {
-    if (loanType.value == "1") {
-
-      //this.applicationHeaderForm.controls["ProdAmount"].setValidators([Validators.required]);
-      //this.applicationHeaderForm.controls["ProdAmount"].updateValueAndValidity();
-      //this.applicationHeaderForm.controls["DevAmount"].clearValidators();
-      //this.applicationHeaderForm.controls["DevAmount"].updateValueAndValidity();
+    ngOnInit() {
+        debugger
+        this.getLoanType();
+        this.getDocument();
+        this.getDocumentLoanType();
     }
-    else if (loanType.value == "2") {
-      // this.applicationHeaderForm.controls["DevAmount"].setValidators([Validators.required]);
-      // this.applicationHeaderForm.controls["DevAmount"].updateValueAndValidity();
-      // this.applicationHeaderForm.controls["ProdAmount"].clearValidators();
-      // this.applicationHeaderForm.controls["ProdAmount"].updateValueAndValidity();
+
+    PostDocuments(PostDocument: any) {
+        //
     }
-    else if (loanType.value == "3") {
-      // this.applicationHeaderForm.controls["DevAmount"].setValidators([Validators.required]);
-      // this.applicationHeaderForm.controls["DevAmount"].updateValueAndValidity();
-      // this.applicationHeaderForm.controls["ProdAmount"].setValidators([Validators.required]);
-      // this.applicationHeaderForm.controls["ProdAmount"].updateValueAndValidity();
+
+    controlReset(){
+        this.PostDocument.controls['file'].reset();
+        this.PostDocument.controls['PageNumber'].reset();
+        this.PostDocument.controls['DescriptionTab'].reset();
     }
-  }
 
-
-  loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanCaseNo) {
-    if (appUploadDocumentsData.length != 0) {
-      var tempDocumentArr: LoanDocumentsGrid[] = [];
-      appUploadDocumentsData.forEach(function (item, key) {
-        var grid = new LoanDocumentsGrid();
-        grid.DocLoanId = item.DocLoanId;
-        grid.DocumentRefNo = item.DocumentRefNo
-        grid.LoanType = item.LoanType;
-        grid.LoanStatus = item.StatusName;
-        grid.DocumentId = item.DocID;
-        grid.Description = item.DocName;
-        grid.LoanCaseID = item.LoanCaseID;
-        tempDocumentArr.push(grid);
-      });
-      //this.loanDocumentArray = tempDocumentArr
-    }
-    this.loanCaseNo = loanCaseNo
-  }
-
-  viewDocument(DocID, event) {
-
-    this._loanService.GetViewLoanDocument(DocID)
-      .pipe(
-        finalize(() => {
-          this.spinner.hide();
-        })
-    ).subscribe(baseResponse => {
-
-
-
-      this.url = baseResponse.ViewDocumnets.Path
-      const dialogRef = this.dialog.open(ClDocumentViewComponent, {
-        width: '50%',
-        height: '50%',
-        data: { documentView: baseResponse, url: this.url }
-      });
-      });
-  }
-
-
-  deleteDocument(DocId) {
-    const _title = 'Confirmation';
-    const _description = 'Do you really want to continue?';
-    const _waitDesciption = '';
-    const _deleteMessage = ``;
-
-    const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
-
-
-    dialogRef.afterClosed().subscribe(res => {
-
-      if (!res) {
-        return;
-      }
-
-      if (this.loanDocumentArray.length == 0) {
-        return false;
-      } else {
-        if (DocId == null || DocId == undefined || DocId == "") {
-          this.cdRef.detectChanges();
-          return true;
+    loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanApplicationHeader) {
+        debugger
+        if (appUploadDocumentsData.length != 0) {
+            this.loanDocumentArray = appUploadDocumentsData;
+            console.log()
         }
-        else {
-          this.spinner.show();
-          this._loanService.documentDelete(DocId)
+        this.applicationHeader = loanApplicationHeader;
+        this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
+        this.loanCase();
+
+    }
+
+    async getDocumentLoanType() {
+        this.documentLoanTypes = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.ActiveLoanType});
+        this.documentSelectedLoanType = this.documentLoanTypes.LOVs;
+    }
+
+
+    //-------------------------------Loan Type Core Functions-------------------------------//
+    async getLoanType() {
+
+        this.LoanTypes = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.LoanTypes});
+        this.SelectedLoanType = this.LoanTypes.LOVs;
+        console.log(this.SelectedLoanType)
+    }
+
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+    }
+
+    viewDocument(documentType: string, documentId: string) {
+        debugger
+        this.spinner.show();
+        this._loanService
+            .getViewLoanDocument(documentType, documentId, this.zone, this.branch)
             .pipe(
-              finalize(() => {
-                this.spinner.hide();
-
-              })
+                finalize(() => {
+                    this.spinner.hide();
+                })
             )
-            .subscribe(baseResponse => {
-              const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-            })
-        }
-
-
-      }
-
-
-    })
-
-
-
-  }
-  hasError(controlName: string, errorName: string): boolean {
-    return this.PostDocument.controls[controlName].hasError(errorName);
-  }
-
-  async getDocument() {
-
-    this.document = await this._lovService.GetDocumentTypeLOV()
-
-    this.SelectedDocument = this.document.LOVs;
-
-  }
-
-  onFileChange(event) {
-
-    if (event.target.files && event.target.files[0]) {
-      var filesAmount = event.target.files.length;
-      var file = event.target.files[0];
-      var Name = file.name.split('.').pop();
-      if (Name != undefined) {
-        if (Name.toLowerCase() == "jpg" || Name.toLowerCase() == "jpeg" || Name.toLowerCase() == "png") {
-          var reader = new FileReader();
-          reader.onload = (event: any) => {
-            this.rawData.file = file;
-
-          }
-          reader.readAsDataURL(file);
-
-        }
-        else {
-          this.layoutUtilsService.alertElement("", "Only jpeg,jpg and png files are allowed", "99");
-
-          return;
-        }
-      }
+            .subscribe((baseResponse: BaseResponseModel) => {
+                if (baseResponse.Success === true) {
+                    var documents = baseResponse.ViewDocumnets;
+                    window.open(documents.Path, "_blank");
+                    this.cdRef.detectChanges();
+                }
+                else {
+                    this.layoutUtilsService.alertMessage("", baseResponse.Message);
+                }
+            });
     }
 
 
-  }
-
-  saveLoanDocuments() {
-      debugger
-    this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
-    this.loanDocument.file = this.rawData.file
-    if (this.PostDocument.invalid) {
-      const controls = this.PostDocument.controls;
-      Object.keys(controls).forEach(controlName =>
-        controls[controlName].markAsTouched()
-      );
-      return;
+    validateLoanTypeOnFocusOut() {
+        if (this.SelectedLoanType.length == 0) {
+            this.SelectedLoanType = this.LoanTypes;
+        }
     }
-    this.spinner.show();
-    this._loanService.documentUpload(this.loanDocument)
-      .pipe(
-        finalize(() => {
-          this.spinner.hide();
+
+
+    deleteDocument(id){
+        debugger
+        this._loanService.documentDelete(id, this.branch, this.zone)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe((baseResponse) => {
+            if (baseResponse.Success === true) {
+                this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
+            } else {
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+        });    }
+
+    hasError(controlName: string, errorName: string): boolean {
+        return this.PostDocument.controls[controlName].hasError(errorName);
+    }
+
+    async getDocument() {
+
+        this.document = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DocumentType});
+
+        this.SelectedDocument = this.document.LOVs;
+        this.PostDocument.value.ParentDocId = '25';
+    }
+
+    onFileChange(event) {
+
+        if (event.target.files && event.target.files[0]) {
+            const filesAmount = event.target.files.length;
+            const file = event.target.files[0];
+            const Name = file.name.split('.').pop();
+            if (Name != undefined) {
+                if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
+                    const reader = new FileReader();
+                    reader.onload = (event: any) => {
+                        this.rawData.push(file);
+
+                    };
+                    reader.readAsDataURL(file);
+
+                } else {
+                    this.layoutUtilsService.alertElement('', 'Only jpeg,jpg and png files are allowed', '99');
+                    event.target.files = null;
+                    return;
+                }
+            }
+        }
+
+
+    }
+
+    saveLoanDocuments() {
+        this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
+        var count = 0;
+        this.rawData.forEach((single_file, index) => {
+            this.loanDocument.file = single_file;
+
+            // @ts-ignore
+            let page_number = document.getElementById(`page_${index}`).value;
+            // @ts-ignore
+            let description = document.getElementById(`description_${index}`).value;
+            this.loanDocument.PageNumber = page_number;
+            this.loanDocument.Description = description;
+            if (this.PostDocument.invalid) {
+                const controls = this.PostDocument.controls;
+                Object.keys(controls).forEach(controlName =>
+                    controls[controlName].markAsTouched()
+                );
+                return;
+            }
+            this.loanDocument.LcNo = this.LoanCaseId;
+
+            this.spinner.show();
+            this._loanService.documentUpload(this.loanDocument)
+                .pipe(
+                    finalize(() => {
+                        this.spinner.hide();
+                    })
+                ).subscribe((baseResponse) => {
+                if (baseResponse.Success) {
+                    debugger
+                    count = count+1;
+                    if(count == this.rawData.length){
+                        this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                    }
+                    this.controlReset();
+                } else {
+                    this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                    return
+
+                }
+
+            });
         })
-      ).subscribe(baseResponse => {
-        this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
 
-      });
+    }
 
-  }
+    loanCase() {
+        this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, this.branch)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe((baseResponse) => {
+            if (baseResponse.Success === true) {
+                var response = baseResponse.Loan.ApplicationHeader;
+                this.PostDocument.controls['LoanStatus'].setValue(response.AppStatusName);
+                this.PostDocument.controls['CategoryName'].setValue(response.CategoryName);
+                this.LoanCaseId = response.DocumentLoanCaseID;
 
+
+            } else {
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+        });
+    }
+
+    changeFilesQuantity() {
+
+        this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
+    }
 }
 
 export class LoanDocumentsGrid {
