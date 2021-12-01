@@ -75,4 +75,5 @@ export class BaseResponseModel {
     TourPlanAndDiaryDto:any;
     TourPlan:any;
     LocationHistory:any;
+    DocumentDetail: any;
 }
