@@ -405,9 +405,11 @@ export class LoanService {
         }
 
         var request = {
-            ApplicationHeader: {
-                LoanAppId: loanAppId
-            },
+            Loan:{
+                ApplicationHeader: {
+                    LoanAppID: loanAppId
+                }
+                },
             Zone: zone,
             Branch: branch,
             Circle:{

@@ -47,6 +47,7 @@ export class ClUploadDocumentComponent implements OnInit {
     documentloanType: any = [];
     documentSelectedLoanType: any = [];
 
+
     loanCaseNo: string;
 
     //Document inventory
@@ -123,10 +124,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanApplicationHeader) {
         debugger
-        if (appUploadDocumentsData.length != 0) {
-            this.loanDocumentArray = appUploadDocumentsData;
-            console.log()
-        }
+
         this.applicationHeader = loanApplicationHeader;
         this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
         this.loanCase();
@@ -184,6 +182,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     deleteDocument(id){
         debugger
+        this.spinner.show();
         this._loanService.documentDelete(id, this.branch, this.zone)
             .pipe(
                 finalize(() => {
@@ -191,7 +190,8 @@ export class ClUploadDocumentComponent implements OnInit {
                 })
             ).subscribe((baseResponse) => {
             if (baseResponse.Success === true) {
-                this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
+                this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                this.getLoanDocument();
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
@@ -218,6 +218,7 @@ export class ClUploadDocumentComponent implements OnInit {
                 })
             ).subscribe((baseResponse) => {
             if (baseResponse.Success === true) {
+                this.loanDocumentArray = baseResponse.Loan.DocumentUploadList;
                 //this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
             } else {
                 //this.layoutUtilsService.alertElement('', baseResponse.Message);
@@ -252,9 +253,11 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
+        debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         this.rawData.forEach((single_file, index) => {
+            debugger
             this.loanDocument.file = single_file;
 
             // @ts-ignore
@@ -262,8 +265,9 @@ export class ClUploadDocumentComponent implements OnInit {
             // @ts-ignore
             let description = document.getElementById(`description_${index}`).value;
 
-            if(single_file == undefined || page_number == undefined || description == undefined){
 
+            if(single_file == undefined || page_number[index] == undefined || description[index] == undefined){
+                this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages')
             }
 
             this.loanDocument.PageNumber = page_number;
@@ -288,9 +292,11 @@ export class ClUploadDocumentComponent implements OnInit {
                     debugger
                     count = count+1;
                     if(count == this.rawData.length){
+                        this.getLoanDocument();
                         this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                        this.controlReset();
                     }
-                    this.controlReset();
+
                 } else {
                     this.layoutUtilsService.alertMessage('', baseResponse.Message);
                     return
