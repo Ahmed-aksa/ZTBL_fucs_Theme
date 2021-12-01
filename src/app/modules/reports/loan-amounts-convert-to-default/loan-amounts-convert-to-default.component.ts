@@ -134,7 +134,7 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewIn
 
     ngAfterViewInit() {
 
-        this.gridHeight = window.innerHeight - 300 + 'px';
+        this.gridHeight = window.innerHeight - 200 + 'px';
     }
 
 
