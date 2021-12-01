@@ -86,8 +86,8 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             NetIncomePresnetControl: [''],
             IncreaseFutureControl: [''],
             IncreasePresnetControl: [''],
-            UncultivatedLand: ['',[Validators.pattern(regExps.landMarla)]],
-            NocultivatedLand: ['',[Validators.pattern(regExps.landMarla)]],
+            UncultivatedLand: ['',[Validators.pattern(regExps.landMarla),Validators.required]],
+            NocultivatedLand: ['',[Validators.pattern(regExps.landMarla),Validators.required]],
             Type: ['',[Validators.required]],
             Crop: ['',[Validators.required]],
             Area: ['',[Validators.required, Validators.pattern(regExps.landMarla)]],
@@ -157,9 +157,9 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     }
 
     appraisalType(type) {
-        if (type == "1") {
+        if (type == "I") {
             return "Proposed"
-        } else if (type == "2") {
+        } else if (type == "E") {
             return "Existing"
         }
     }
@@ -195,85 +195,84 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
 
     loadAppraisalOfProposedDataOnUpdate(appAppraisalOfProposedData, CropProductionList) {
+        if (appAppraisalOfProposedData.length != 0, appAppraisalOfProposedData != undefined) {
 
-        // if (appAppraisalOfProposedData.length != 0, appAppraisalOfProposedData != undefined) {
-        //
-        //     //crop
-        //
-        //     if ((appAppraisalOfProposedData[0].PresentValue != null, appAppraisalOfProposedData[0].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[0].FutureValue != null, appAppraisalOfProposedData[0].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["CropIncomePresnetControl"].setValue(appAppraisalOfProposedData[0].PresentValue);
-        //         this.LoanAOPIForm.controls["CropIncomeFutureControl"].setValue(appAppraisalOfProposedData[0].FutureValue);
-        //     }
-        //
-        //     //Livestock / Dairy Income
-        //     if ((appAppraisalOfProposedData[1].PresentValue != null, appAppraisalOfProposedData[1].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[1].FutureValue != null, appAppraisalOfProposedData[1].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["LiveStockIncomePresnetControl"].setValue(appAppraisalOfProposedData[1].PresentValue);
-        //         this.LoanAOPIForm.controls["LiveStockIncomeFutureControl"].setValue(appAppraisalOfProposedData[1].FutureValue);
-        //     }
-        //     //Others(Specify)
-        //     if ((appAppraisalOfProposedData[2].PresentValue != null, appAppraisalOfProposedData[2].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[2].FutureValue != null, appAppraisalOfProposedData[2].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["OthersPresnetControl"].setValue(appAppraisalOfProposedData[2].PresentValue);
-        //         this.LoanAOPIForm.controls["OthersFutureControl"].setValue(appAppraisalOfProposedData[2].FutureValue);
-        //     }
-        //     //Total Income
-        //     if ((appAppraisalOfProposedData[3].PresentValue != null, appAppraisalOfProposedData[3].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[3].FutureValue != null, appAppraisalOfProposedData[3].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["TotalIncomePresnetControl"].setValue(appAppraisalOfProposedData[3].PresentValue);
-        //         this.LoanAOPIForm.controls["TotalIncomeFutureControl"].setValue(appAppraisalOfProposedData[3].FutureValue);
-        //     }
-        //     //Crop Raising Expenditure
-        //     if ((appAppraisalOfProposedData[4].PresentValue != null, appAppraisalOfProposedData[4].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[4].FutureValue != null, appAppraisalOfProposedData[4].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["CropRaisingPresnetControl"].setValue(appAppraisalOfProposedData[4].PresentValue);
-        //         this.LoanAOPIForm.controls["CropRaisingFutureControl"].setValue(appAppraisalOfProposedData[4].FutureValue);
-        //     }
-        //     //Livestock / Dairy Farming Expenditure
-        //     if ((appAppraisalOfProposedData[5].PresentValue != null, appAppraisalOfProposedData[5].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[5].FutureValue != null, appAppraisalOfProposedData[5].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["LiveStockFarmingPresnetControl"].setValue(appAppraisalOfProposedData[5].PresentValue);
-        //         this.LoanAOPIForm.controls["LiveStockFarmingFutureControl"].setValue(appAppraisalOfProposedData[5].FutureValue);
-        //     }
-        //     //Rents, Lease, Payments and others(Specify)
-        //     if ((appAppraisalOfProposedData[6].PresentValue != null, appAppraisalOfProposedData[6].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[6].FutureValue != null, appAppraisalOfProposedData[6].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["OtherExpenditurePresnetControl"].setValue(appAppraisalOfProposedData[6].PresentValue);
-        //         this.LoanAOPIForm.controls["OtherExpenditureFutureControl"].setValue(appAppraisalOfProposedData[6].FutureValue);
-        //     }
-        //     //Loan Installments(ZTBL & other Bank if any)
-        //     if ((appAppraisalOfProposedData[7].PresentValue != null, appAppraisalOfProposedData[7].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[7].FutureValue != null, appAppraisalOfProposedData[7].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["LoanPresnetControl"].setValue(appAppraisalOfProposedData[7].PresentValue);
-        //         this.LoanAOPIForm.controls["LoanFutureControl"].setValue(appAppraisalOfProposedData[7].FutureValue);
-        //     }
-        //     //Total Expenditure
-        //     if ((appAppraisalOfProposedData[8].PresentValue != null, appAppraisalOfProposedData[8].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[8].FutureValue != null, appAppraisalOfProposedData[8].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["ExpenditurePresnetControl"].setValue(appAppraisalOfProposedData[8].PresentValue);
-        //         this.LoanAOPIForm.controls["ExpenditureFutureControl"].setValue(appAppraisalOfProposedData[8].FutureValue);
-        //     }
-        //     //Total Net Income
-        //     if ((appAppraisalOfProposedData[9].PresentValue != null, appAppraisalOfProposedData[9].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[9].FutureValue != null, appAppraisalOfProposedData[9].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["NetIncomePresnetControl"].setValue(appAppraisalOfProposedData[9].PresentValue);
-        //         this.LoanAOPIForm.controls["NetIncomeFutureControl"].setValue(appAppraisalOfProposedData[9].FutureValue);
-        //     }
-        //     //Increase in Net Income
-        //     if ((appAppraisalOfProposedData[10].PresentValue != null, appAppraisalOfProposedData[10].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[10].FutureValue != null, appAppraisalOfProposedData[10].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["IncreasePresnetControl"].setValue(appAppraisalOfProposedData[10].PresentValue);
-        //         this.LoanAOPIForm.controls["IncreaseFutureControl"].setValue(appAppraisalOfProposedData[10].FutureValue);
-        //     }
-        //     //Caltivated and Un-caltivated
-        //     if ((appAppraisalOfProposedData[0].PresentValue != null, appAppraisalOfProposedData[0].PresentValue != undefined)
-        //         || (appAppraisalOfProposedData[0].FutureValue != null, appAppraisalOfProposedData[0].FutureValue != undefined)) {
-        //         this.LoanAOPIForm.controls["UncultivatedLand"].setValue(appAppraisalOfProposedData[0].LandUncultivaed);
-        //         this.LoanAOPIForm.controls["NocultivatedLand"].setValue(appAppraisalOfProposedData[0].LandNotCultivated);
-        //     }
-        // }
-        //
+            //crop
+
+            if ((appAppraisalOfProposedData[0].PresentValue != null, appAppraisalOfProposedData[0].PresentValue != undefined)
+                || (appAppraisalOfProposedData[0].FutureValue != null, appAppraisalOfProposedData[0].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["CropIncomePresnetControl"].setValue(appAppraisalOfProposedData[0].PresentValue);
+                this.LoanAOPIForm.controls["CropIncomeFutureControl"].setValue(appAppraisalOfProposedData[0].FutureValue);
+            }
+
+            //Livestock / Dairy Income
+            if ((appAppraisalOfProposedData[1].PresentValue != null, appAppraisalOfProposedData[1].PresentValue != undefined)
+                || (appAppraisalOfProposedData[1].FutureValue != null, appAppraisalOfProposedData[1].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["LiveStockIncomePresnetControl"].setValue(appAppraisalOfProposedData[1].PresentValue);
+                this.LoanAOPIForm.controls["LiveStockIncomeFutureControl"].setValue(appAppraisalOfProposedData[1].FutureValue);
+            }
+            //Others(Specify)
+            if ((appAppraisalOfProposedData[2].PresentValue != null, appAppraisalOfProposedData[2].PresentValue != undefined)
+                || (appAppraisalOfProposedData[2].FutureValue != null, appAppraisalOfProposedData[2].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["OthersPresnetControl"].setValue(appAppraisalOfProposedData[2].PresentValue);
+                this.LoanAOPIForm.controls["OthersFutureControl"].setValue(appAppraisalOfProposedData[2].FutureValue);
+            }
+            //Total Income
+            if ((appAppraisalOfProposedData[3].PresentValue != null, appAppraisalOfProposedData[3].PresentValue != undefined)
+                || (appAppraisalOfProposedData[3].FutureValue != null, appAppraisalOfProposedData[3].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["TotalIncomePresnetControl"].setValue(appAppraisalOfProposedData[3].PresentValue);
+                this.LoanAOPIForm.controls["TotalIncomeFutureControl"].setValue(appAppraisalOfProposedData[3].FutureValue);
+            }
+            //Crop Raising Expenditure
+            if ((appAppraisalOfProposedData[4].PresentValue != null, appAppraisalOfProposedData[4].PresentValue != undefined)
+                || (appAppraisalOfProposedData[4].FutureValue != null, appAppraisalOfProposedData[4].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["CropRaisingPresnetControl"].setValue(appAppraisalOfProposedData[4].PresentValue);
+                this.LoanAOPIForm.controls["CropRaisingFutureControl"].setValue(appAppraisalOfProposedData[4].FutureValue);
+            }
+            //Livestock / Dairy Farming Expenditure
+            if ((appAppraisalOfProposedData[5].PresentValue != null, appAppraisalOfProposedData[5].PresentValue != undefined)
+                || (appAppraisalOfProposedData[5].FutureValue != null, appAppraisalOfProposedData[5].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["LiveStockFarmingPresnetControl"].setValue(appAppraisalOfProposedData[5].PresentValue);
+                this.LoanAOPIForm.controls["LiveStockFarmingFutureControl"].setValue(appAppraisalOfProposedData[5].FutureValue);
+            }
+            //Rents, Lease, Payments and others(Specify)
+            if ((appAppraisalOfProposedData[6].PresentValue != null, appAppraisalOfProposedData[6].PresentValue != undefined)
+                || (appAppraisalOfProposedData[6].FutureValue != null, appAppraisalOfProposedData[6].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["OtherExpenditurePresnetControl"].setValue(appAppraisalOfProposedData[6].PresentValue);
+                this.LoanAOPIForm.controls["OtherExpenditureFutureControl"].setValue(appAppraisalOfProposedData[6].FutureValue);
+            }
+            //Loan Installments(ZTBL & other Bank if any)
+            if ((appAppraisalOfProposedData[7].PresentValue != null, appAppraisalOfProposedData[7].PresentValue != undefined)
+                || (appAppraisalOfProposedData[7].FutureValue != null, appAppraisalOfProposedData[7].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["LoanPresnetControl"].setValue(appAppraisalOfProposedData[7].PresentValue);
+                this.LoanAOPIForm.controls["LoanFutureControl"].setValue(appAppraisalOfProposedData[7].FutureValue);
+            }
+            //Total Expenditure
+            if ((appAppraisalOfProposedData[8].PresentValue != null, appAppraisalOfProposedData[8].PresentValue != undefined)
+                || (appAppraisalOfProposedData[8].FutureValue != null, appAppraisalOfProposedData[8].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["ExpenditurePresnetControl"].setValue(appAppraisalOfProposedData[8].PresentValue);
+                this.LoanAOPIForm.controls["ExpenditureFutureControl"].setValue(appAppraisalOfProposedData[8].FutureValue);
+            }
+            //Total Net Income
+            if ((appAppraisalOfProposedData[9].PresentValue != null, appAppraisalOfProposedData[9].PresentValue != undefined)
+                || (appAppraisalOfProposedData[9].FutureValue != null, appAppraisalOfProposedData[9].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["NetIncomePresnetControl"].setValue(appAppraisalOfProposedData[9].PresentValue);
+                this.LoanAOPIForm.controls["NetIncomeFutureControl"].setValue(appAppraisalOfProposedData[9].FutureValue);
+            }
+            //Increase in Net Income
+            if ((appAppraisalOfProposedData[10].PresentValue != null, appAppraisalOfProposedData[10].PresentValue != undefined)
+                || (appAppraisalOfProposedData[10].FutureValue != null, appAppraisalOfProposedData[10].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["IncreasePresnetControl"].setValue(appAppraisalOfProposedData[10].PresentValue);
+                this.LoanAOPIForm.controls["IncreaseFutureControl"].setValue(appAppraisalOfProposedData[10].FutureValue);
+            }
+            //Caltivated and Un-caltivated
+            if ((appAppraisalOfProposedData[0].PresentValue != null, appAppraisalOfProposedData[0].PresentValue != undefined)
+                || (appAppraisalOfProposedData[0].FutureValue != null, appAppraisalOfProposedData[0].FutureValue != undefined)) {
+                this.LoanAOPIForm.controls["UncultivatedLand"].setValue(appAppraisalOfProposedData[0].LandUncultivaed);
+                this.LoanAOPIForm.controls["NocultivatedLand"].setValue(appAppraisalOfProposedData[0].LandNotCultivated);
+            }
+        }
+
         // //Type
         //
         // if (CropProductionList[0] != '', CropProductionList[0] != null, CropProductionList[0] != undefined) {
@@ -378,7 +377,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         //this.dynamicArray[index].area = this.createCustomer
 
         this.cropProduction.ItemDetailID = 0;
-        this.cropProduction.CropID = parseInt(this.getValue("Type"));
+        this.cropProduction.CropID = parseInt(this.getValue("Crop"));
         this.cropProduction.Area = this.getValue("Area");
         this.cropProduction.TotalOutput = parseInt(this.getValue("Output"));
         this.cropProduction.Price = parseInt(this.getValue("Price"));
@@ -401,10 +400,12 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.productionArray=[];
                     this.productionArray = baseResponse.Loan["CropProductionList"];
-                    this.LoanAOPIForm.reset();
-                    this.getProposedCropType();
-                    this.getCrops();
-                    this.LoanAOPIForm.markAsUntouched()
+                    this.clearForm()
+                    // this.LoanAOPIForm.reset();
+                    // this.getProposedCropType();
+                    // this.getCrops();
+                    // this.LoanAOPIForm.markAsUntouched()
+
                     // // baseResponse.Loan.CropProductionList
                     // //
                     // // let crop_producttion_list=baseResponse.Loan.CropProductionList.forEach((single_item)=>{
@@ -458,6 +459,35 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             return;
         }
 
+        if (!this.LoanAOPIForm.controls.UncultivatedLand.value) {
+            var Message = 'Please Enter Uncultivated Land';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+        if (!this.LoanAOPIForm.controls.NocultivatedLand.value) {
+            var Message = 'Please Enter Nocultivated Land';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+        if (!this.productionArray) {
+            var Message = 'Please Enter Crop';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        this.appraisalProposedList=[]
 
         //this.loanDetail = new Loan();
         //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
@@ -635,13 +665,11 @@ debugger
                 })
             ).subscribe(baseResponse => {
 if(baseResponse.Success==true){
-
-    this.productionArray=[];
-    this.productionArray = baseResponse.Loan["CropProductionList"];
-    this.LoanAOPIForm.reset();
-    this.getProposedCropType();
-    this.getCrops();
-    this.LoanAOPIForm.markAsUntouched()
+    this.clearForm();
+    // this.LoanAOPIForm.reset();
+    // this.getProposedCropType();
+    // this.getCrops();
+    // this.LoanAOPIForm.markAsUntouched()
 
 }
             const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -711,6 +739,15 @@ if(baseResponse.Success==true){
 
     }
 
+    clearForm(){
+
+        this.LoanAOPIForm.controls["Type"].setValue('');
+        this.LoanAOPIForm.controls["Crop"].setValue('');
+        this.LoanAOPIForm.controls["Area"].setValue('');
+        this.LoanAOPIForm.controls["Output"].setValue('');
+        this.LoanAOPIForm.controls["Price"].setValue('');
+        this.LoanAOPIForm.controls["Expenditure"].setValue('');
+    }
 
     changeChecked(event: any, production: any) {
         debugger
@@ -755,4 +792,5 @@ export class ProductionGrid {
     TotalIncome_RS: string;
     Expense_RS: string;
     NetIncomeFromCrop: string;
+    AppraisalTypeName:string;
 }
