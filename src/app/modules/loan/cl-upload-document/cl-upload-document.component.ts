@@ -174,7 +174,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     this.cdRef.detectChanges();
                 }
                 else {
-                    this.layoutUtilsService.alertMessage("", baseResponse.Message);
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
             });
     }
