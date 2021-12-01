@@ -114,7 +114,8 @@ export class ClLoanWitnessComponent implements OnInit {
             AnnualIncome: [this.personalSureties.AnnualIncome],
             AssetValue: [this.personalSureties.AssetValue],
             PresentDues: [this.personalSureties.PresentDues],
-            NetValue: [this.personalSureties.NetValue]
+            NetValue: [this.personalSureties.NetValue],
+            PersonalSuretyID: [this.personalSureties.PersonalSuretyID]
         });
     }
 
@@ -124,11 +125,25 @@ export class ClLoanWitnessComponent implements OnInit {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
+        let duplicate_cnic = false;
+        this.loanPersonalSuretiesArray.forEach((single_array) => {
+            if (single_array.Cnic == this.personalSuretiesForm.value.Cnic) {
+                if (this.personalSureties.PersonalSuretyID != null)
+                    duplicate_cnic = true;
+            }
 
+        })
+        if (duplicate_cnic) {
+            this.layoutUtilsService.alertElementSuccess("Duplicate CNIC", "CNIC Already Exists");
+            return;
+        }
         this.personalSureties = Object.assign(this.personalSureties, this.personalSuretiesForm.getRawValue());
         //this.personalSureties.LoanAppID = 0;
         this.personalSureties.SrNo = 0;
         this.personalSureties.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
+        if (this.personalSureties.PersonalSuretyID == null) {
+            delete this.personalSureties.PersonalSuretyID
+        }
         this.spinner.show();
         this._loanService.saveUpdatePersonalSureties(this.personalSureties, this.loanDetail.TranId)
             .pipe(
@@ -136,8 +151,9 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            if (baseResponse.Loan.PersonalSuretiesList)
+            if (baseResponse.Loan?.PersonalSuretiesList)
                 this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
+            this.personalSuretiesForm.reset()
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -152,7 +168,8 @@ export class ClLoanWitnessComponent implements OnInit {
         this.corporateSuretiesForm = this.formBuilder.group({
             CompanyName: [this.corporateSureties.CompanyName],
             MemorandumDate: [this.corporateSureties.MemorandumDate],
-            RefrenceNo: [this.corporateSureties.RefrenceNo]
+            RefrenceNo: [this.corporateSureties.RefrenceNo],
+            CorporateSuretyID: [this.corporateSureties.CorporateSuretyID]
         });
     }
 
@@ -169,6 +186,10 @@ export class ClLoanWitnessComponent implements OnInit {
         //this.corporateSureties.LoanAppID = 0;
         this.corporateSureties.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         //this.corporateSureties.SrNo = 0;
+
+        if (this.corporateSureties.CorporateSuretyID == null) {
+            delete this.corporateSureties.CorporateSuretyID;
+        }
         this.spinner.show();
         this._loanService.saveUpdateCorporateSurety(this.corporateSureties, this.loanDetail.TranId)
             .pipe(
@@ -176,7 +197,9 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            this.loanCorporateSuretyArray = baseResponse.Loan.CorporateSuretyList;
+            if (baseResponse.Loan.CorporateSuretyList)
+                this.loanCorporateSuretyArray = baseResponse.Loan.CorporateSuretyList;
+            this.corporateSuretiesForm.reset()
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -196,7 +219,8 @@ export class ClLoanWitnessComponent implements OnInit {
             Phone: [this.loanRefrences.Phone],
             Fax: [this.loanRefrences.Fax],
             Email: [this.loanRefrences.Email],
-            Ntn: [this.loanRefrences.Ntn]
+            Ntn: [this.loanRefrences.Ntn],
+            ReferenceID: [this.loanRefrences.ReferenceID]
         });
     }
 
@@ -206,17 +230,25 @@ export class ClLoanWitnessComponent implements OnInit {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
-        //if (this.editLoanRefrenceArray != null, this.editLoanRefrenceArray != undefined) {
-        //  this.loanRefrences.ReferenceID = this.editLoanRefrenceArray[2].ReferenceID;
-        //  this.loanRefrences.SrNo = this.editLoanRefrenceArray[2].SrNo;
-
-        //}
-
+        let duplicate_cnic = false;
+        this.loanRefrenceArray.forEach((single_array) => {
+            if (single_array.Cnic == this.loanRefrencesForm.value.Cnic) {
+                if (this.loanRefrences.ReferenceID != null) {
+                    duplicate_cnic = true;
+                }
+            }
+        })
+        if (duplicate_cnic) {
+            this.layoutUtilsService.alertElementSuccess("Duplicate CNIC", "CNIC Already Exists");
+            return;
+        }
         this.loanRefrences = Object.assign(this.loanRefrences, this.loanRefrencesForm.getRawValue());
-        //this.loanRefrences.ReferenceID = 0;
-        //this.loanRefrences.LoanAppID = 0;
         this.loanRefrences.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         //this.loanRefrences.SrNo = 0;
+
+        if (this.loanRefrences.ReferenceID == null) {
+            delete this.loanRefrences.ReferenceID;
+        }
         this.spinner.show();
         this._loanService.saveUpdateReferences(this.loanRefrences, this.loanDetail.TranId)
             .pipe(
@@ -224,9 +256,9 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            if (baseResponse.Loan.LoanRefrencesList) {
+            if (baseResponse.Loan.LoanRefrencesList)
                 this.loanRefrenceArray = baseResponse.Loan.LoanRefrencesList
-            }
+            this.loanRefrencesForm.reset()
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -242,22 +274,38 @@ export class ClLoanWitnessComponent implements OnInit {
         this.loanWitnessForm = this.formBuilder.group({
             Cnic: [this.loanWitness.Cnic],
             WitnessName: [this.loanWitness.WitnessName],
-            WitnessAddress: [this.loanWitness.WitnessAddress]
+            WitnessAddress: [this.loanWitness.WitnessAddress],
+            WitnessesID: [this.loanWitness.WitnessesID]
         });
     }
 
     onSaveLoanWitnessForm() {
-
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
-
+        let duplicate_cnic = false;
+        this.loanWitnessArray.forEach((single_array) => {
+                if (single_array.Cnic == this.loanWitnessForm.value.Cnic) {
+                    if (this.loanWitness.WitnessesID != null) {
+                        duplicate_cnic = true;
+                    }
+                }
+            }
+        )
+        if (duplicate_cnic) {
+            this.layoutUtilsService.alertElementSuccess("Duplicate CNIC", "CNIC Already Exists");
+            return;
+        }
         this.loanWitness = Object.assign(this.loanWitness, this.loanWitnessForm.getRawValue());
         //this.loanWitness.WitnessesID = 0;
         //this.loanWitness.LoanAppID = 0;
         this.loanWitness.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         //this.loanWitness.SrNo = 0;
+
+        if (this.loanWitness.WitnessesID == null) {
+            delete this.loanWitness.WitnessesID;
+        }
         this.spinner.show();
         this._loanService.SaveUpdateWitnesses(this.loanWitness, this.loanDetail.TranId)
             .pipe(
@@ -265,7 +313,9 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            this.loanWitnessArray = baseResponse.Loan.LoanWitnessList;
+            if (baseResponse.Loan.LoanWitnessList)
+                this.loanWitnessArray = baseResponse.Loan.LoanWitnessList;
+            this.loanWitnessForm.reset()
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -283,6 +333,7 @@ export class ClLoanWitnessComponent implements OnInit {
             AmountToPaid: [this.loanPastPaid.AmountToPaid],
             DueDate: [this.loanPastPaid.DueDate],
             LastPaidDate: [this.loanPastPaid.LastPaidDate],
+            PaidLoanID: [this.loanPastPaid?.PaidLoanID]
         });
     }
 
@@ -300,6 +351,9 @@ export class ClLoanWitnessComponent implements OnInit {
         this.loanPastPaid.LastPaidDate = this.datepipe.transform(this.loanPastPaidForm.value.LastPaidDate, "ddMMyyyy");
 
         this.loanPastPaid.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
+        if (this.loanPastPaid.PaidLoanID == null) {
+            delete this.loanPastPaid.PaidLoanID;
+        }
         this.spinner.show();
         this._loanService.SaveUpdatePastPaidLoans(this.loanPastPaid, this.loanDetail.TranId)
             .pipe(
@@ -310,6 +364,7 @@ export class ClLoanWitnessComponent implements OnInit {
             if (baseResponse.Loan.LoanPastPaidList) {
                 this.loanPastPaidArray = baseResponse.Loan.LoanPastPaidList;
             }
+            this.loanPastPaidForm.reset();
 
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
@@ -332,7 +387,8 @@ export class ClLoanWitnessComponent implements OnInit {
             Status: [this.currentLoans.Status],
             DateDebitAcheive: [this.currentLoans.DateDebitAcheive],
             AmountToPaid: [this.currentLoans.AmountToPaid],
-            DueDate: [this.currentLoans.DueDate]
+            DueDate: [this.currentLoans.DueDate],
+            CurrentLoanID: [this.currentLoans.CurrentLoanID],
         });
     }
 
@@ -378,6 +434,10 @@ export class ClLoanWitnessComponent implements OnInit {
         this.currentLoans.PurposeID = 8;
         this.currentLoans.BranchID = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().Branch.BranchId;
         //this.currentLoans.Status = "";
+
+        if (this.currentLoans.CurrentLoanID == null) {
+            delete this.currentLoans.CurrentLoanID;
+        }
         this.spinner.show();
         this._loanService.saveUpdateCurrentLoans(this.currentLoans, this.loanDetail.TranId)
             .pipe(
@@ -385,7 +445,9 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            this.loanCurrentList = baseResponse.Loan.CurrentLoansList;
+            if (baseResponse.Loan.CurrentLoansList)
+                this.loanCurrentList = baseResponse.Loan.CurrentLoansList;
+            this.currentLoansForm.reset()
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -636,110 +698,55 @@ export class ClLoanWitnessComponent implements OnInit {
 
 
     onEditLoanCurrentList(CurrentLoanID) {
-
-        for (var i = 0; i < this.editLoanCurrentList.length; i++) {
-            if (this.editLoanCurrentList[i].CurrentLoanID == CurrentLoanID) {
-                this.currentLoansForm.controls["BankName"].setValue(this.editLoanCurrentList[i].BankName)
-                this.currentLoansForm.controls["PurposeDetail"].setValue(this.editLoanCurrentList[i].PurposeDetail)
-                this.currentLoansForm.controls["TotalDebit"].setValue(this.editLoanCurrentList[i].TotalDebit)
-                this.currentLoansForm.controls["FundNonfundFlag"].setValue(this.editLoanCurrentList[i].FundNonfundFlag)
-                this.currentLoansForm.controls["GurenteeDetail"].setValue(this.editLoanCurrentList[i].GurenteeDetail)
-                this.currentLoansForm.controls["Status"].setValue(this.editLoanCurrentList[i].Status)
-                this.currentLoansForm.controls["DateDebitAcheive"].setValue(this._common.stringToDate(this.editLoanCurrentList[i].DateDebitAcheive))
-                this.currentLoansForm.controls["AmountToPaid"].setValue(this.editLoanCurrentList[i].AmountToPaid)
-                this.currentLoansForm.controls["DueDate"].setValue(this._common.stringToDate(this.editLoanCurrentList[i].DueDate))
-
-                this.currentLoans.CurrentLoanID = this.editLoanCurrentList[i].CurrentLoanID
-                this.currentLoans.Status = this.editLoanCurrentList[i].Status;
-
-            }
+        delete CurrentLoanID.PurposeID;
+        delete CurrentLoanID.BranchID
+        delete CurrentLoanID.FundNonfundFlagName
+        delete CurrentLoanID.StatusName
+        if (CurrentLoanID.GurenteeDetail == undefined) {
+            CurrentLoanID.GurenteeDetail = "";
         }
+        CurrentLoanID = this.deleteInvalid(CurrentLoanID);
+
+        this.currentLoansForm.setValue(CurrentLoanID);
+        this.currentLoansForm.controls["DateDebitAcheive"].setValue(this._common.stringToDate(CurrentLoanID.DateDebitAcheive))
+        this.currentLoansForm.controls["DueDate"].setValue(this._common.stringToDate(CurrentLoanID.DueDate))
     }
 
     onEditLoanWitnessArray(WitnessesID) {
-        for (var i = 0; i < this.editLoanWitnessArray.length; i++) {
-            if (this.editLoanWitnessArray[i].WitnessesID == WitnessesID) {
-                this.loanWitnessForm.controls["Cnic"].setValue(this.editLoanWitnessArray[i].Cnic);
-                this.loanWitnessForm.controls["WitnessName"].setValue(this.editLoanWitnessArray[i].WitnessName);
-                this.loanWitnessForm.controls["WitnessAddress"].setValue(this.editLoanWitnessArray[i].WitnessAddress);
-
-                this.loanWitness.WitnessesID = this.editLoanWitnessArray[i].WitnessesID
-            }
-        }
+        delete WitnessesID.branchId;
+        WitnessesID = this.deleteInvalid(WitnessesID);
+        this.loanWitnessForm.setValue(WitnessesID);
     }
 
-    onEditLoanPastPaidArray(PaidLoanID) {
-
-        for (var i = 0; i < this.editLoanPastPaidArray.length; i++) {
-            if (this.editLoanPastPaidArray[i].PaidLoanID == PaidLoanID) {
-                this.loanPastPaidForm.controls["BankName"].setValue(this.editLoanPastPaidArray[i].BankName);
-                this.loanPastPaidForm.controls["AmountToPaid"].setValue(this.editLoanPastPaidArray[i].AmountToPaid);
-                this.loanPastPaidForm.controls["DueDate"].setValue(this._common.stringToDate(this.editLoanPastPaidArray[i].DueDate));
-                this.loanPastPaidForm.controls["LastPaidDate"].setValue(this._common.stringToDate(this.editLoanPastPaidArray[i].LastPaidDate));
-
-                this.loanPastPaid.PaidLoanID = this.editLoanPastPaidArray[i].PaidLoanID
-            }
-        }
+    onEditLoanPastPaidArray(data
+                                :
+                                any
+    ) {
+        data = this.deleteInvalid(data);
+        this.loanPastPaidForm.setValue(data);
+        this.loanPastPaidForm.controls["DueDate"].setValue(this._common.stringToDate(data.DueDate));
+        this.loanPastPaidForm.controls["LastPaidDate"].setValue(this._common.stringToDate(data.LastPaidDate));
     }
 
-    onEditLoanCorporateSuretyArray(RefrenceNo) {
-
-        for (var i = 0; i < this.editLoanCorporateSuretyArray.length; i++) {
-
-            if (this.editLoanCorporateSuretyArray[i].CorporateSuretyID == RefrenceNo) {
-                this.corporateSuretiesForm.controls["CompanyName"].setValue(this.editLoanCorporateSuretyArray[i].CompanyName);
-                var date = this.editLoanCorporateSuretyArray[i].MemorandumDate
-                let latest_date = this.datepipe.transform(date, 'yyyy-MM-dd');
-                this.corporateSuretiesForm.controls["MemorandumDate"].setValue(latest_date);
-                this.corporateSuretiesForm.controls["RefrenceNo"].setValue(this.editLoanCorporateSuretyArray[i].RefrenceNo);
-                this.corporateSureties.CorporateSuretyID = this.editLoanCorporateSuretyArray[i].CorporateSuretyID
-
-            }
-        }
+    onEditLoanCorporateSuretyArray(data
+                                       :
+                                       any
+    ) {
+        delete data.MemoDate
+        data = this.deleteInvalid(data);
+        this.corporateSuretiesForm.setValue(data);
+        this.corporateSuretiesForm.controls["MemorandumDate"].setValue(this.convertDate(data.MemorandumDate));
     }
 
     onEditPersonalSureties(PersonalSuretyID) {
-
-        for (var i = 0; i < this.editLoanPersonalSuretiesArray.length; i++) {
-
-            if (this.editLoanPersonalSuretiesArray[i].PersonalSuretyID == PersonalSuretyID) {
-                //Personal Sureties Form
-
-                this.personalSuretiesForm.controls["Cnic"].setValue(this.editLoanPersonalSuretiesArray[i].Cnic);
-
-                this.personalSuretiesForm.controls["FullName"].setValue(this.editLoanPersonalSuretiesArray[i].FullName);
-                this.personalSuretiesForm.controls["Percentage"].setValue(this.editLoanPersonalSuretiesArray[i].Percentage);
-                this.personalSuretiesForm.controls["Address"].setValue(this.editLoanPersonalSuretiesArray[i].Address);
-                this.personalSuretiesForm.controls["Phone"].setValue(this.editLoanPersonalSuretiesArray[i].Phone);
-                this.personalSuretiesForm.controls["AccountNo"].setValue(this.editLoanPersonalSuretiesArray[i].AccountNo);
-                this.personalSuretiesForm.controls["SourceofIncome"].setValue(this.editLoanPersonalSuretiesArray[i].SourceofIncome);
-                this.personalSuretiesForm.controls["AnnualIncome"].setValue(this.editLoanPersonalSuretiesArray[i].AnnualIncome);
-                this.personalSuretiesForm.controls["AssetValue"].setValue(this.editLoanPersonalSuretiesArray[i].AssetValue);
-                this.personalSuretiesForm.controls["PresentDues"].setValue(this.editLoanPersonalSuretiesArray[i].PresentDues);
-                this.personalSuretiesForm.controls["NetValue"].setValue(this.editLoanPersonalSuretiesArray[i].NetValue);
-                this.personalSureties.PersonalSuretyID = this.editLoanPersonalSuretiesArray[i].PersonalSuretyID
-            }
-        }
+        PersonalSuretyID = this.deleteInvalid(PersonalSuretyID);
+        this.personalSuretiesForm.setValue(PersonalSuretyID);
     }
 
     onEditRefrence(ReferenceID) {
+        ReferenceID = this.deleteInvalid(ReferenceID);
 
-        for (var i = 0; i < this.editLoanRefrenceArray.length; i++) {
-
-            if (this.editLoanRefrenceArray[i].ReferenceID == ReferenceID) {
-
-                this.loanRefrencesForm.controls["Cnic"].setValue(this.editLoanRefrenceArray[i].Cnic);
-                this.loanRefrencesForm.controls["Address"].setValue(this.editLoanRefrenceArray[i].Address);
-                this.loanRefrencesForm.controls["Name"].setValue(this.editLoanRefrenceArray[i].Name);
-                this.loanRefrencesForm.controls["Phone"].setValue(this.editLoanRefrenceArray[i].Phone);
-                this.loanRefrencesForm.controls["Fax"].setValue(this.editLoanRefrenceArray[i].Fax);
-                this.loanRefrencesForm.controls["Email"].setValue(this.editLoanRefrenceArray[i].Email);
-                this.loanRefrencesForm.controls["Ntn"].setValue(this.editLoanRefrenceArray[i].Ntn);
-                this.loanRefrences.ReferenceID = this.editLoanRefrenceArray[i].ReferenceID
-
-
-            }
-        }
+        this.loanRefrencesForm.setValue(ReferenceID);
     }
 
     submitLoanApplication() {
@@ -768,9 +775,21 @@ export class ClLoanWitnessComponent implements OnInit {
 
     }
 
+
     async loadLovs() {
         this.status_lovs = await this.lovService.CallLovAPI({TagName: 'CurrentLoanStatus'})
         this.funded_lovs = await this.lovService.CallLovAPI({TagName: 'Facility'})
+    }
+
+    private convertDate(date) {
+        var dateParts = date.split("-");
+        return new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+    }
+
+    private deleteInvalid(data) {
+        delete data.LoanAppID;
+        delete data.SrNo;
+        return data;
     }
 }
 
