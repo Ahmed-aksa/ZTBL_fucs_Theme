@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
@@ -108,6 +108,7 @@ export class ClUploadDocumentComponent implements OnInit {
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
+
     }
 
     PostDocuments(PostDocument: any) {
@@ -129,7 +130,7 @@ export class ClUploadDocumentComponent implements OnInit {
         this.applicationHeader = loanApplicationHeader;
         this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
         this.loanCase();
-
+        this.getLoanDocument();
     }
 
     async getDocumentLoanType() {
@@ -205,7 +206,23 @@ export class ClUploadDocumentComponent implements OnInit {
         this.document = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DocumentType});
 
         this.SelectedDocument = this.document.LOVs;
-        this.PostDocument.value.ParentDocId = '25';
+        //this.PostDocument.value.ParentDocId = '25';
+    }
+
+    getLoanDocument(){
+        var loanId = this.applicationHeader.LoanAppID;
+        this._loanService.getLoanDocuments(loanId, this.branch, this.zone)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe((baseResponse) => {
+            if (baseResponse.Success === true) {
+                //this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
+            } else {
+                //this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+        });
     }
 
     onFileChange(event) {
@@ -244,6 +261,11 @@ export class ClUploadDocumentComponent implements OnInit {
             let page_number = document.getElementById(`page_${index}`).value;
             // @ts-ignore
             let description = document.getElementById(`description_${index}`).value;
+
+            if(single_file == undefined || page_number == undefined || description == undefined){
+
+            }
+
             this.loanDocument.PageNumber = page_number;
             this.loanDocument.Description = description;
             if (this.PostDocument.invalid) {
@@ -304,6 +326,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
         this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
     }
+
 }
 
 export class LoanDocumentsGrid {
