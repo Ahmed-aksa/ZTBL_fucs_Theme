@@ -66,7 +66,7 @@ export class ClUploadDocumentComponent implements OnInit {
     circle: any;
     disable_lc = false;
     number_of_files: number;
-
+    docId = []
 
     page_number = [];
     description = [];
@@ -264,6 +264,8 @@ export class ClUploadDocumentComponent implements OnInit {
         debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
+        var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
+        totLength = Number(totLength)
         this.rawData.forEach((single_file, index) => {
             debugger
             this.loanDocument.file = single_file;
@@ -274,44 +276,52 @@ export class ClUploadDocumentComponent implements OnInit {
             let description = document.getElementById(`description_${index}`).value;
 
 
-            if(single_file == undefined || page_number[index] == undefined || description[index] == undefined){
-                this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages')
+            if(single_file == undefined || page_number == "" || description == ""){
+                this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages');
+                return
+            }else if(this.docId[index]){
+                count = count+1;
+                return
             }
+            else{
+                this.loanDocument.PageNumber = page_number;
+                this.loanDocument.Description = description;
+                if (this.PostDocument.invalid) {
+                    const controls = this.PostDocument.controls;
+                    Object.keys(controls).forEach(controlName =>
+                        controls[controlName].markAsTouched()
+                    );
+                    return;
+                }
+                this.loanDocument.LcNo = this.LoanCaseId;
 
-            this.loanDocument.PageNumber = page_number;
-            this.loanDocument.Description = description;
-            if (this.PostDocument.invalid) {
-                const controls = this.PostDocument.controls;
-                Object.keys(controls).forEach(controlName =>
-                    controls[controlName].markAsTouched()
-                );
-                return;
-            }
-            this.loanDocument.LcNo = this.LoanCaseId;
+                this.spinner.show();
+                this._loanService.documentUpload(this.loanDocument)
+                    .pipe(
+                        finalize(() => {
+                            this.spinner.hide();
+                        })
+                    ).subscribe((baseResponse) => {
+                    if (baseResponse.Success) {
+                        debugger
+                        count = count+1;
+                        this.docId.push(baseResponse.DocumentDetail.Id);
+                        if(count == totLength){
+                            this.getLoanDocument();
+                            this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                            this.docId = [];
+                            this.controlReset();
+                        }
 
-            this.spinner.show();
-            this._loanService.documentUpload(this.loanDocument)
-                .pipe(
-                    finalize(() => {
-                        this.spinner.hide();
-                    })
-                ).subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    debugger
-                    count = count+1;
-                    if(count == this.rawData.length){
-                        this.getLoanDocument();
-                        this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
-                        this.controlReset();
+                    } else {
+                        this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                        return
+
                     }
 
-                } else {
-                    this.layoutUtilsService.alertMessage('', baseResponse.Message);
-                    return
+                });
+            }
 
-                }
-
-            });
         })
 
     }
