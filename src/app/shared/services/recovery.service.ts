@@ -389,7 +389,7 @@ export class RecoveryService {
         var userInfo = this.userUtilsService.getUserDetails();
         //var branch = {BranchId: userInfo.Branch.BranchId};
         var recovery = {Lcno: lcNo, LnTransactionID: LnTransactionID};
-        var request = {Branch: branch, Recovery: recovery};
+        var request = {Zone: zone,Branch: branch, Recovery: recovery};
         return this.http
             .post(
                 `${environment.apiUrl}/Recovery/GetLoanApplicationsInquiry`,
