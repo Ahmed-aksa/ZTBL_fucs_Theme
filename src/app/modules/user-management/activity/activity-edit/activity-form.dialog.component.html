@@ -1,13 +1,17 @@
 <div class="kt-portlet"
      [class]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
   <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h3 class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</h3>
+    <div class="kt-portlet__head-label flex">
+      <h3 class=" w-11/12 text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</h3>
+      <button type="button"   color="danger" class="w-1/12 text-right" [mat-dialog-close]="data.animal"
+      cdkFocusInitial>
+      <mat-icon class="text-red-500">cancel</mat-icon>
+      </button>
     </div>
   </div>
   <div>
     <form [formGroup]="activityForm" class="kt-form kt-form--group-seperator-dashed">
-      <div class="kt-form mt-4">
+      <div class="kt-form">
         <div class="kt-portlet__body">
           <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                     (close)="onAlertClose($event)">
@@ -20,7 +24,7 @@
                 <input matInput placeholder="Enter Page Name" formControlName="ActivityName" maxlength="30"
                        autocomplete="off"/>
                 <mat-error *ngIf="hasError('ActivityName', 'required')">Name <strong>required</strong></mat-error>
-                <mat-hint align="start">Please enter <strong>Page Name</strong></mat-hint>
+                <!-- <mat-hint align="start">Please enter <strong>Page Name</strong></mat-hint> -->
               </mat-form-field>
             </div>
             <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
@@ -53,7 +57,7 @@
             </div>
             <div class="row">
 
-              <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile" style="margin-top: 15px">
+              <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile" >
                 <mat-checkbox style="margin-top: 15px;" formControlName="IsParent"
                               [checked]="this.data.activity.isParent"
                               (change)="showOrHide($event)"><span>Is Parent?</span>
@@ -61,7 +65,7 @@
               </div>
             </div>
             <div class="row">  
-              <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3" style="margin-top: 15px">
+              <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3" >
                 <mat-checkbox style="margin-top: 15px;" formControlName="IsActive"
                               [checked]="this.data.activity.isActive"
                               ><span>Is Active?</span>
@@ -96,15 +100,12 @@
           </div>
         </div>
 
-        <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border py-4 border-t">
+        <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border pt-4 border-t">
           <div class="kt-form__actions kt-form__actions--solid">
             <div class="row text-right">
               <div class="col-lg-12">
-                <button type="button" class="shadow-md btn bg-red-500 text-white rounded-md mx-4"  color="danger" mat-raised-button [mat-dialog-close]="data.animal"
-                        cdkFocusInitial>
-                        <mat-icon class="mr-2">cancel</mat-icon>Cancel
-                </button>&nbsp;
-                <button style="background-color: #01671B;" type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="onSubmit()"
+
+                <button  type="button" class="btn btn-primary bg-green" mat-raised-button color="primary" (click)="onSubmit()"
                         [disabled]="viewLoading || submitted">
                         <mat-icon class="mr-2">save</mat-icon> Save
                 </button>
