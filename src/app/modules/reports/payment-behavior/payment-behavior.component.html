@@ -42,6 +42,9 @@
                                 <input matInput placeholder="Enter Cnic" formControlName="Cnic" maxlength="13" autocomplete="off" appNumberOnly/>
                             </mat-form-field>
                         </div>
+                        <div class="col-lg-4 kt-margin-bottom-20-mobile mat-table mt-3 d-flex justify-between">
+                            <button class="bg-gray-500" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
+                        </div>
 
                     </div>
 
@@ -82,11 +85,7 @@
 
     </form>
 
-    <div class="form-group kt-form__group row">
-        <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table mt-3 d-flex justify-between">
-            <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
-        </div>
-    </div>
+
 
 </div>
 

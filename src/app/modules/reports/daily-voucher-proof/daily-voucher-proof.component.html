@@ -10,7 +10,8 @@
 
         </div>
     </div>
-
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body">
     <form [formGroup]="bufricationForm" class="kt-form kt-form--group-seperator-dashed">
 
         <div class="kt-form">
@@ -18,14 +19,12 @@
             <div class="kt-portlet__body">
 
                 <div class="col-lg-12">
-                    <div class="form-group kt-form__group row">
-
-                        <div class="w-full">
+                    <div class="flex" style="flex-wrap: wrap;">
                             <app-zone-branch-circle [form]="bufricationForm" [should_show_circle]="false" [is_required_circle]="false"
                                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                        </div>
+                 
 
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong class="matMandatory">*</strong>
                                 </mat-label>
@@ -36,43 +35,43 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                   
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Voucher#</mat-label>
                                 <input matInput placeholder="Enter Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off" appNumberOnly/>
                             </mat-form-field>
                         </div>
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Transaction Status<strong class="matMandatory">*</strong></mat-label>
+                                <mat-select formControlName="Status">
+                                    <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
+                                        {{lov.Description}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Export Format<strong class="matMandatory">*</strong></mat-label>
+                                <mat-select formControlName="ReportFormatType">
+                                    <mat-option *ngFor="let lov of select" [value]="lov.Value">
+                                        {{lov.description}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+
+                            <button class="bg-gray-500" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
+                        </div>
 
                     </div>
 
 
-                    <div class="form-group kt-form__group row">
-
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Transaction Status<strong class="matMandatory">*</strong></mat-label>
-                                    <mat-select formControlName="Status">
-                                        <mat-option *ngFor="let lov of statusLov" [value]="lov.Value">
-                                            {{lov.Description}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Export Format<strong class="matMandatory">*</strong></mat-label>
-                                    <mat-select formControlName="ReportFormatType">
-                                        <mat-option *ngFor="let lov of select" [value]="lov.Value">
-                                            {{lov.description}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
 
@@ -81,11 +80,7 @@
 
 
     </form>
-
-    <div class="form-group kt-form__group row">
-        <div class="col-lg-12 kt-margin-bottom-20-mobile mat-table mt-3 d-flex justify-between">
-            <button data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
-        </div>
+    </div>
     </div>
 
 </div>
