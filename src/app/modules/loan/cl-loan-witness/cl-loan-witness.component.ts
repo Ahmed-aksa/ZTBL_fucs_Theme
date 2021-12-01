@@ -138,7 +138,6 @@ export class ClLoanWitnessComponent implements OnInit {
             return;
         }
         this.personalSureties = Object.assign(this.personalSureties, this.personalSuretiesForm.getRawValue());
-        //this.personalSureties.LoanAppID = 0;
         this.personalSureties.SrNo = 0;
         this.personalSureties.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         if (this.personalSureties.PersonalSuretyID == null) {
@@ -153,7 +152,7 @@ export class ClLoanWitnessComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Loan?.PersonalSuretiesList)
                 this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
-            this.personalSuretiesForm.reset()
+            // this.personalSuretiesForm.reset()
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }

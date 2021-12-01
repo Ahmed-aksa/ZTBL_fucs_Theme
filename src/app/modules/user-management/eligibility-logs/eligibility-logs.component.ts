@@ -47,7 +47,7 @@ export class EligibilityLogsComponent implements OnInit {
         "BranchName",
         "CircleName",
         "CNIC",
-        "BMVStatus",
+        "BMVSStatus",
         "NIVSStatus",
         "NDCStatus",
         "CWRStatus",
@@ -58,8 +58,8 @@ export class EligibilityLogsComponent implements OnInit {
     zone: any;
     circle: any;
     dataSource = new MatTableDataSource;
-    offset: number;
-    pageIndex: number;
+    offset: number = 0;
+    pageIndex: number = 0;
     TotalRecords: number;
     items_per_page: number = 5;
 
@@ -102,8 +102,8 @@ export class EligibilityLogsComponent implements OnInit {
         if (is_first) {
             this.offset = 0;
         }
-        if (this.zone) {
-            this.layoutUtilsService.alertMessage("Please enter Zone");
+        if (!this.zone) {
+            this.layoutUtilsService.alertMessage("", "Please enter Zone");
             return;
         }
         let request = {
@@ -121,13 +121,10 @@ export class EligibilityLogsComponent implements OnInit {
                 Offset: this.offset
             }
         }
-        this.userUtilsService.getEligibilityLogs(request, this.branch, this.zone, this.circle).subscribe((data: any) => {
+        this.userUtilsService.getEligibilityLogs(final_request).subscribe((data: any) => {
             if (data.Success) {
-                this.dataSource.data = data.EligibilityRequest;
-                if (data.EligibilityRequest.length > 0)
-                    this.TotalRecords = data.EligibilityRequest[0]?.TotalRecords;
-
-
+                this.dataSource.data = data.EligibilityRequest.EligibilityRequests;
+                this.TotalRecords = data.EligibilityRequest.EligibilityRequests[0]?.TotalRecords;
             } else {
                 this.layoutUtilsService.alertMessage("", data.Message);
             }
@@ -135,6 +132,7 @@ export class EligibilityLogsComponent implements OnInit {
     }
 
     paginate(pageIndex: any, pageSize: any = this.items_per_page) {
+        debugger;
         if (Number.isNaN(pageIndex)) {
             this.pageIndex = this.pageIndex + 1;
         } else {
