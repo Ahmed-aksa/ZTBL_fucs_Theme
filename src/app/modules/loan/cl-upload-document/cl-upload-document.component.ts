@@ -317,7 +317,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
 
             } else {
-                this.layoutUtilsService.alertElement('', baseResponse.Message);
+                //this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
         });
     }
