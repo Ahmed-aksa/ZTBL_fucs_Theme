@@ -679,16 +679,17 @@ if(baseResponse.Success==true){
                 )
                 .subscribe(baseResponse => {
                     debugger
-                    this.list_ids_array.forEach((id) => {
-                        this.productionArray.forEach((single_array,index) => {
-                            if (single_array.ItemDetailID == id) {
-                                this.productionArray.splice(index,1)
-                            }
-                        })
-                    })
+
                     if (baseResponse.Success) {
 
-
+                        this.list_ids_array.forEach((id) => {
+                            this.productionArray.forEach((single_array,index) => {
+                                if (single_array.ItemDetailID == id) {
+                                    this.productionArray.splice(index,1)
+                                }
+                            })
+                        })
+                        this.list_ids_array=[];
                         const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                     } else {
 
@@ -712,12 +713,19 @@ if(baseResponse.Success==true){
 
 
     changeChecked(event: any, production: any) {
+        debugger
         if (!this.list_ids_array.includes(production.ItemDetailID)) {
             this.list_ids_array.push(production.ItemDetailID);
         } else {
-            // @ts-ignore
-            this.list_ids_array.pop(production.ItemDetailID);
+
+            this.list_ids_array.forEach((id,index) => {
+                    if (id== production.ItemDetailID) {
+                        this.list_ids_array.splice(index,1)
+                    }
+            })
+
         }
+        console.log(JSON.stringify(this.list_ids_array));
 
     }
 }
