@@ -556,3 +556,8 @@ mat-header-cell{
 img{
   content-visibility: auto;
 }
+.location-box{
+  .mat-dialog-container{
+    overflow:hidden;
+  }
+}
