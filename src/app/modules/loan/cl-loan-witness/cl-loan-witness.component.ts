@@ -136,7 +136,8 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
+            if (baseResponse.Loan.PersonalSuretiesList)
+                this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
