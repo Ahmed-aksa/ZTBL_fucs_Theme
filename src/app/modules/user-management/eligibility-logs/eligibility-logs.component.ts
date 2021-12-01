@@ -60,7 +60,7 @@ export class EligibilityLogsComponent implements OnInit {
     dataSource = new MatTableDataSource;
     offset: number;
     pageIndex: number;
-    totalItems: number;
+    TotalRecords: number;
     items_per_page: number = 5;
 
 
@@ -99,6 +99,10 @@ export class EligibilityLogsComponent implements OnInit {
     }
 
     find() {
+        if (this.zone) {
+            this.layoutUtilsService.alertMessage("Please enter Zone");
+            return;
+        }
         let request = {
             Cnic: this.eligibility_log.value.Cnic
         };
@@ -117,7 +121,8 @@ export class EligibilityLogsComponent implements OnInit {
         this.userUtilsService.getEligibilityLogs(request, this.branch, this.zone, this.circle).subscribe((data: any) => {
             if (data.Success) {
                 this.dataSource.data = data.EligibilityRequest;
-                this.totalItems = data.EligibilityRequest[0].TotalItems;
+                if (data.EligibilityRequest.length > 0)
+                    this.TotalRecords = data.EligibilityRequest[0]?.TotalRecords;
 
 
             } else {

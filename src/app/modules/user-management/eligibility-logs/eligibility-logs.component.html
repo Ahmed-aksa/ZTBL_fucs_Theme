@@ -119,8 +119,8 @@
                 <button (click)="paginate(1)">First</button>
                 <pagination-controls display="inline" (pageChange)="paginate($event)"
                                      style="display: inline-block;"></pagination-controls>
-                <button (click)="paginate(MathCeil(totalItems/items_per_page))">Last</button>
-                <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+                <button (click)="paginate(MathCeil(TotalRecords/items_per_page))">Last</button>
+                <p style="float:right;">Total <b>{{TotalRecords}}</b> items</p>
 
             </div>
         </div>

@@ -249,6 +249,7 @@ export class ClLegalHeirsComponent implements OnInit {
                 return false;
             } else {
                 if (legalHeir == null || legalHeir == undefined || legalHeir == "") {
+                    this.legalHeirsArray.splice(index, 1);
                     return true;
                 } else {
                     this.spinner.show();
