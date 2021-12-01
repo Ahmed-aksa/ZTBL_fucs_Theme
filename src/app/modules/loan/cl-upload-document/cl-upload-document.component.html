@@ -28,6 +28,10 @@
                         <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
+
+                <input style="width: 50px;" type="button" mat-raised-button color="primary"
+                       class="ml-2 w-1/12 mat-raised-button mat-button-base mat-primary searchLCBtn"
+                       (click)="loanCase(false)" value="..."/>
             </div>
 
 
@@ -161,7 +165,9 @@
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
                                         <mat-label class="customMatLabel">Page No</mat-label>
-                                        <input matInput formControlName="PageNumber" id="page_{{i}}">
+                                        <input matInput formControlName="PageNumber" id="page_{{i}}" >
+<!--                                        <mat-error *ngIf="hasError('PageNumber', 'pattern')">Please add Valid Number-->
+<!--                                            <strong>required</strong></mat-error>-->
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -222,8 +228,7 @@
             <td>{{loan.StatusName}}</td>
             <td>{{loan.LoanType}}</td>
 
-            <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(loan.DocID, loan.ImageID)">View</span> | <span (click)="deleteDocument(loan.ImageID)" >Delete</span></td>
-<!--              <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(1, loan.ImageID)">View</span> | <span (click)="deleteDocument(loan.DocumentId)" >Delete</span></td>-->
+              <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(1, loan.ImageID)">View</span> | <span (click)="deleteDocument(loan.DocumentId)" >Delete</span></td>
           </tr>
         </tbody>
       </table>

@@ -16,6 +16,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { ClDocumentViewComponent } from '../cl-document-view/cl-document-view.component';
 import {Zone } from '../../user-management/users/utils/zone.model'
+import {ToastrService} from "ngx-toastr";
 @Component({
   selector: 'kt-cl-upload-document',
   templateUrl: './cl-upload-document.component.html',
@@ -66,12 +67,14 @@ export class ClUploadDocumentComponent implements OnInit {
     circle: any;
     disable_lc = false;
     number_of_files: number;
-    docId = []
+    docId = [];
+    first: boolean;
 
     page_number = [];
     description = [];
     private LoanCaseId: any;
     loan: any = {}
+    pattern = /[^0-9]/g;
 
 
 
@@ -83,12 +86,12 @@ export class ClUploadDocumentComponent implements OnInit {
         private _common: CommonService,
         private _lovService: LovService,
         private userUtilsService: UserUtilsService,
+        private toastr: ToastrService,
         private _loanService: LoanService,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private cdRef: ChangeDetectorRef,
     ) {
-
         this.PostDocument = frmbuilder.group({
             ParentDocId: [this.loanDocument.ParentDocId, Validators.required],//Document Type Lov
             LcNo: [this.loanDocument.LcNo, Validators.required],
@@ -96,7 +99,7 @@ export class ClUploadDocumentComponent implements OnInit {
             DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
             CategoryName: [this.loanDocument.CategoryName, Validators.required],
             Description: [this.loanDocument.Description, Validators.required],
-            PageNumber: [this.loanDocument.PageNumber, Validators.required],
+            PageNumber: [this.loanDocument.PageNumber, [Validators.required,  Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
             DescriptionTab: ['', Validators.required],
             DocumentRefNo: ['', Validators.required],
             NoOfFilesToUpload: ['', Validators.required],
@@ -105,7 +108,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
@@ -130,11 +132,10 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanApplicationHeader) {
-        debugger
 
         this.applicationHeader = loanApplicationHeader;
         this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
-        this.loanCase();
+        this.loanCase(true);
         this.getLoanDocument();
     }
 
@@ -217,7 +218,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     getLoanDocument(){
-        debugger
+
         var loanId = this.applicationHeader.LoanAppID;
         this._loanService.getLoanDocuments(loanId, this.branch, this.zone)
             .pipe(
@@ -291,6 +292,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     Object.keys(controls).forEach(controlName =>
                         controls[controlName].markAsTouched()
                     );
+                    this.toastr.error("Please Enter Required values");
                     return;
                 }
                 this.loanDocument.LcNo = this.LoanCaseId;
@@ -311,14 +313,17 @@ export class ClUploadDocumentComponent implements OnInit {
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                             this.docId = [];
                             this.controlReset();
+                            this.rawData.length = 0;
                         }else if(this.rawData.length != totLength){
                             this.layoutUtilsService.alertElement('', 'Please add Remaining Entries');
                         }
 
 
                     } else {
+                        debugger
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
-                        return
+                        index = totLength
+                        //return
 
                     }
 
@@ -329,7 +334,8 @@ export class ClUploadDocumentComponent implements OnInit {
 
     }
 
-    loanCase() {
+    loanCase(bool) {
+        this.first = bool;
         this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, this.branch)
             .pipe(
                 finalize(() => {
@@ -344,7 +350,10 @@ export class ClUploadDocumentComponent implements OnInit {
 
 
             } else {
-                //this.layoutUtilsService.alertElement('', baseResponse.Message);
+                if(this.first == false){
+                    this.layoutUtilsService.alertElement('', baseResponse.Message);
+                }
+                //
             }
         });
     }
