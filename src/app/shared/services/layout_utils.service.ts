@@ -118,7 +118,7 @@ export class LayoutUtilsService {
         return this.dialog.open(AlertDialogComponent, {
             data: {title, description, code},
             width: '440px',
-            height: '450px'
+            height: 'auto'
         });
     }
 
