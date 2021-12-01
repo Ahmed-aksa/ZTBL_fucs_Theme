@@ -98,7 +98,10 @@ export class EligibilityLogsComponent implements OnInit {
         });
     }
 
-    find() {
+    find(is_first = false) {
+        if (is_first) {
+            this.offset = 0;
+        }
         if (this.zone) {
             this.layoutUtilsService.alertMessage("Please enter Zone");
             return;
