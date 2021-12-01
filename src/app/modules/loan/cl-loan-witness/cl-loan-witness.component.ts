@@ -507,7 +507,6 @@ debugger
         if (docObj.checked) {
             var obj = new LoanDocumentCheckList();
             obj.DocumentID = docObj.source.value;
-            obj.ChecklistID = 0;
             obj.is_checked = true;
             obj.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
             this.loanDocumentCheckListArray.push(obj)
