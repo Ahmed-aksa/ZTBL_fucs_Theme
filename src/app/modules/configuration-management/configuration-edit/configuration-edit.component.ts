@@ -104,7 +104,10 @@ export class ConfigurationEditComponent implements OnInit {
         this.configuration = Object.assign(this.configuration, this.configurationForm.value);
 
         this.submitted = true;
-
+        // if(this.configuration.IsParent==null)
+        // {
+        //     delete this.configuration.IsParent;
+        // }
         //if (this.data.configuration && this.data.configuration.KeyID > 0) {
 
         if (this.is_edit) {

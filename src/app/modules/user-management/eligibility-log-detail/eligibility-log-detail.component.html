@@ -1,0 +1,37 @@
+<div>
+    <div class="w-full flex">
+
+        <h3 class="heading w-11/12">Eligibility Log for CNIC# : {{data.Cnic}}</h3>
+        <button mat-icon-button (click)="onNoClick()" color="warn" style="float:right">
+            <mat-icon>cancel</mat-icon>
+        </button>&nbsp;
+    </div>
+    <div>
+        <div>
+            <div class="form-group" style="margin-top: 20px;">
+                <div style="display: flex;flex-direction: row;background-color:#f6fcf8 ;gap: 20px">
+                    <div style="display: flex;flex-direction: column;gap: 20px">
+                        <span class="left-heading">BMVS Status : </span>
+                        <span class="left-heading"> NIVS Status : </span>
+                        <span class="left-heading">NDC Status : </span>
+                        <span class="left-heading"> CWR Status : </span>
+                        <span class="left-heading">ECIB Status : </span>
+                        <span class="left-heading">ECIB Regeneration Status : </span>
+                        <span class="left-heading">ECIB Status After Regeneration : </span>
+                    </div>
+                    <div style="display: flex;flex-direction: column;gap: 20px">
+                        <span style="white-space: nowrap;">{{data.BMVSStatus ? data.BMVSStatus : '-'}}</span>
+                        <span style="white-space: nowrap;">{{data.NIVSStatus ? data.NIVSStatus : '-'}}</span>
+                        <span style="white-space: nowrap;">{{data.NDCStatus ? data.NDCStatus : '-'}}</span>
+                        <span style="white-space: nowrap;">{{data.CWRStatus ? data.CWRStatus : '-'}}</span>
+                        <span style="white-space: nowrap;">{{data.ECIBStatus ? data.ECIBStatus : '-'}}</span>
+                        <span
+                            style="white-space: nowrap;">{{data.ECIBRegenerationStatus ? data.ECIBRegenerationStatus : '-'}}</span>
+                        <span
+                            style="white-space: nowrap;">{{data.ECIBStatusAfterRegeneration ? data.ECIBStatusAfterRegeneration : '-'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

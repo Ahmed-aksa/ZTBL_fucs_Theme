@@ -44,6 +44,7 @@ import {CircleListComponent} from './users/circle-list/circle-list.component';
 import {GeofencingEditComponent} from './users/geofencing-edit/geofencing-edit.component';
 import {CircleViewMapComponent} from './users/circle-view-map/circle-view-map.component';
 import {EligibilityLogsComponent} from './eligibility-logs/eligibility-logs.component';
+import {EligibilityLogDetailComponent} from './eligibility-log-detail/eligibility-log-detail.component';
 
 
 const route = [
@@ -89,7 +90,8 @@ const route = [
         CircleListComponent,
         GeofencingEditComponent,
         CircleViewMapComponent,
-        EligibilityLogsComponent
+        EligibilityLogsComponent,
+        EligibilityLogDetailComponent
     ],
     imports: [
         CommonModule,
@@ -132,7 +134,7 @@ const route = [
 
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    entryComponents: [],
+    entryComponents: [EligibilityLogDetailComponent],
     providers: []
 })
 export class UserManagementModule {

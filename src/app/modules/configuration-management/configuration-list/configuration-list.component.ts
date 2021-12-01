@@ -11,7 +11,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AppState} from "../../../shared/reducers";
-import {LayoutUtilsService, MessageType} from "../../../shared/services/layout-utils.service";
+import {LayoutUtilsService, MessageType} from "../../../shared/services/layout_utils.service";
 import {Configuration} from "../models/configuration.model";
 import {ConfigurationEditComponent} from "../configuration-edit/configuration-edit.component";
 import {ConfigurationService} from "../service/configuration.service";

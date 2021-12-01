@@ -81,7 +81,7 @@ export class AuthSignInComponent implements OnInit {
                                     panelClass: ['max-w-full', 'max-h-full', 'sm:w-3/12', 'w-full'],
                                 });
                                 dialogRef.afterClosed().subscribe(res => {
-                                    if (res.data.data != 0) {
+                                    if (res.data.data.Success) {
                                         if (res.data.data.Token && res.data.data.RefreshToken) {
                                             localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));
                                             localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));

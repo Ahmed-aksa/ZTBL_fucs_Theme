@@ -17,6 +17,8 @@ import {ViewFileComponent} from "../../deceased-customer/view-file/view-file.com
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
+import {EligibilityLogDetailComponent} from "../eligibility-log-detail/eligibility-log-detail.component";
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 @Component({
     selector: 'app-eligibility-logs',
@@ -47,11 +49,10 @@ export class EligibilityLogsComponent implements OnInit {
         "BranchName",
         "CircleName",
         "CNIC",
-        "BMVSStatus",
-        "NIVSStatus",
-        "NDCStatus",
-        "CWRStatus",
-        "CreatedDate"];
+        "BranchWorkingDate",
+        "CreatedDate",
+        "Actions"
+    ];
 
     eligibility_log: FormGroup;
     branch: any;
@@ -121,7 +122,9 @@ export class EligibilityLogsComponent implements OnInit {
                 Offset: this.offset
             }
         }
+        this.spinner.show();
         this.userUtilsService.getEligibilityLogs(final_request).subscribe((data: any) => {
+            this.spinner.hide();
             if (data.Success) {
                 this.dataSource.data = data.EligibilityRequest.EligibilityRequests;
                 this.TotalRecords = data.EligibilityRequest.EligibilityRequests[0]?.TotalRecords;
@@ -148,5 +151,27 @@ export class EligibilityLogsComponent implements OnInit {
 
     MathCeil(number: number) {
         return Math.ceil(number);
+    }
+
+    viewDetail(EligibilityLog) {
+        const dialogRef = this.dialog.open(EligibilityLogDetailComponent, {
+            data: {EligibilityLog},
+            width: '80%',
+            height: '80%',
+            panelClass: ['h-screen', 'max-w-full', 'max-h-half', 'provide-margin-top'],
+        })
+    }
+
+    showLocation(EligibilityLog) {
+        let data = {
+            Lat: EligibilityLog.Lat,
+            Lng: EligibilityLog.Lng
+        };
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
     }
 }

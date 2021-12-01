@@ -94,6 +94,7 @@ export class OtpComponent implements OnInit {
                 this.onCloseClick(result);
             } else {
                 this.toaster.error(result.Message);
+                localStorage.clear();
             }
         });
 

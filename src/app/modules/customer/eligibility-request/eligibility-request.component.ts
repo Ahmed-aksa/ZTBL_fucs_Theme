@@ -12,7 +12,7 @@ import {CreateCustomer} from 'app/shared/models/customer.model';
 import {LoanUtilizationSearch} from 'app/modules/loan-utilization/Model/loan-utilization.model';
 import {CircleService} from 'app/shared/services/circle.service';
 import {CommonService} from 'app/shared/services/common.service';
-import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {LayoutUtilsService, MessageType} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -26,6 +26,10 @@ import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {CustomerService} from "../../../shared/services/customer.service";
+import {environment} from "../../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import {ConsentFormComponent} from "../consent-form/consent-form.component";
+import {AlertDialogConfirmationComponent} from "../../../shared/crud";
 
 @Component({
     selector: 'app-eligibility-request',
@@ -113,7 +117,8 @@ export class EligibilityRequestComponent implements OnInit {
                 private _cdf: ChangeDetectorRef,
                 private userUtilsService: UserUtilsService,
                 private _common: CommonService,
-                public datePipe: DatePipe) {
+                public datePipe: DatePipe,
+                private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -155,9 +160,6 @@ export class EligibilityRequestComponent implements OnInit {
     createForm() {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.eligibilityRequestForm = this.filterFB.group({
-            Circle: [userInfo?.UserCircleMappings?.Id],
-            Zone: [userInfo?.Zone?.ZoneName],
-            Branch: [userInfo?.Branch?.Name],
             Cnic: [null],
             CustomerName: [null],
             status: [null]
@@ -431,10 +433,35 @@ export class EligibilityRequestComponent implements OnInit {
                 Status: r
             }
         }
+        if (r == 'A') {
+            this.http.post(`${environment.apiUrl}/Customer/GetEligibilityConsent`, {}).subscribe((data: any) => {
+                let text = data.EligibilityRequest.ConsentText;
+
+                let dialog_ref = this.dialog.open(ConsentFormComponent, {
+                    data: {text},
+                });
+                dialog_ref.afterClosed().subscribe(res => {
+                    if (!res) {
+                        return;
+                    }
+                    this.changeFinalStatus(request);
+
+                });
+
+
+            })
+        } else {
+            this.changeFinalStatus(request);
+        }
+    }
+
+    changeFinalStatus(request) {
         this.customerService.changeStatus(request).subscribe((baseResponse: any) => {
 
             if (baseResponse.Success) {
                 this.getEligibilityRequestData();
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
+
             } else {
 
                 if (this.dv != undefined) {
