@@ -572,6 +572,10 @@ img{
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+  .row > *{
+    padding: 0%;
+  }
   .mat-form-field-flex{
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     background: transparent;
