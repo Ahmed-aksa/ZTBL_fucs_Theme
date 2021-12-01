@@ -266,6 +266,16 @@ export class ClUploadDocumentComponent implements OnInit {
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
+
+        if (this.PostDocument.invalid) {
+            const controls = this.PostDocument.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+            this.toastr.error("Please Enter Required values");
+            return;
+        }
+
         totLength = Number(totLength)
         this.rawData.forEach((single_file, index) => {
             debugger
@@ -287,14 +297,7 @@ export class ClUploadDocumentComponent implements OnInit {
             else{
                 this.loanDocument.PageNumber = page_number;
                 this.loanDocument.Description = description;
-                if (this.PostDocument.invalid) {
-                    const controls = this.PostDocument.controls;
-                    Object.keys(controls).forEach(controlName =>
-                        controls[controlName].markAsTouched()
-                    );
-                    this.toastr.error("Please Enter Required values");
-                    return;
-                }
+
                 this.loanDocument.LcNo = this.LoanCaseId;
 
                 this.spinner.show();
@@ -322,8 +325,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     } else {
                         debugger
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
-                        index = totLength
-                        //return
+                        return false;
 
                     }
 

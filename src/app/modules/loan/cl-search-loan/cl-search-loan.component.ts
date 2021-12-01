@@ -95,7 +95,7 @@ export class ClSearchLoanComponent implements OnInit {
       LcNo: [this.loanFilter.LcNo],
       AppNo: [this.loanFilter.AppNo],
       Appdt: [this.loanFilter.Appdt],
-      Status: [this.loanFilter.Status, [Validators.required]]
+      Status: [this.loanFilter.Status]
     });
   }
 
@@ -103,7 +103,7 @@ export class ClSearchLoanComponent implements OnInit {
   async getLoanStatus() {
     this.LoanStatus = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.LoanStatus });
     this.SelectedLoanStatus = this.LoanStatus.LOVs;
-    
+
   }
   searchLoanStatus(loanStatusId) {
     loanStatusId = loanStatusId.toLowerCase();
