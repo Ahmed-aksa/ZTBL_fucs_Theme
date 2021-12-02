@@ -381,10 +381,12 @@ export class ProfileFormDialogComponent implements OnInit {
                 flat_array.push(child);
             });
         });
+        this.spinner.show();
         this._profileService
             .updateProfile(flat_array, this.profile.ProfileID)
             .pipe(
                 finalize(() => {
+                    this.spinner.hide();
                     this.submitted = false;
                 })
             )

@@ -16,15 +16,15 @@
                                 <tr class="table-header-background">
                                     <th>CNIC</th>
                                     <th>Name</th>
-                                    <th>Parentge</th>
+                                    <th>Percentage</th>
                                     <th>Address</th>
                                     <th>Phone</th>
                                     <th>Account No</th>
                                     <th>Source Of Income</th>
                                     <th>Annual Income</th>
                                     <th>Asset Value</th>
-                                    <th>persent_dues</th>
-                                    <th>net_value</th>
+                                    <th>Present dues</th>
+                                    <th>Net Value</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -57,35 +57,35 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput appNumberOnly maxlength="13" formControlName="AccountNo"/>
+                                            <input matInput appNumberOnly maxlength="14" formControlName="AccountNo"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="50" appAlphaNumericField
+                                            <input matInput maxlength="13" appAlphaNumericField
                                                    formControlName="SourceofIncome"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="13" appNumberOnly
+                                            <input matInput maxlength="8" appNumberOnly
                                                    formControlName="AnnualIncome"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="13" appNumberOnly formControlName="AssetValue"/>
+                                            <input matInput maxlength="8" appNumberOnly formControlName="AssetValue"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="13" appNumberOnly formControlName="PresentDues"/>
+                                            <input matInput maxlength="8" appNumberOnly formControlName="PresentDues"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid"
                                                         appearance="outline">
-                                            <input matInput appNumberOnly formControlName="NetValue" maxlength="13"/>
+                                            <input matInput appNumberOnly formControlName="NetValue" maxlength="8"/>
                                         </mat-form-field>
                                     </td>
                                     <td><span (click)="onSavePersonalSuretiesForm()">Save</span> | <span
@@ -629,7 +629,7 @@
                                                 <th>Date Loan Availed</th>
                                                 <th>Outstanding Amount</th>
                                                 <th>Due Date</th>
-                                                <th>STATUS</th>
+                                                <th>Status</th>
                                                 <th>Facility</th>
 
                                                 <th></th>

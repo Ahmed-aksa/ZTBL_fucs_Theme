@@ -139,6 +139,7 @@ export class ClLoanWitnessComponent implements OnInit {
         }
         this.personalSureties = Object.assign(this.personalSureties, this.personalSuretiesForm.getRawValue());
         this.personalSureties.SrNo = 0;
+        delete this.personalSureties.SrNo;
         this.personalSureties.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         if (this.personalSureties.PersonalSuretyID == null) {
             delete this.personalSureties.PersonalSuretyID
@@ -498,7 +499,7 @@ export class ClLoanWitnessComponent implements OnInit {
     }
 
     setUnsetDocumentCheckBox(docObj) {
-debugger
+        debugger
         //this.loanDetail = new Loan();
         //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
 
@@ -516,13 +517,13 @@ debugger
         }
 
     }
-    CheckAttached(val)
-    {
+
+    CheckAttached(val) {
         return val;
     }
 
     saveCheckList() {
-debugger
+        debugger
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
