@@ -17,7 +17,7 @@
                     </kt-alert>
 
                     <!--Get Customer Info-->
-                    <div  *ngIf="NDCActionPerformSuccess">
+                    <div *ngIf="NDCActionPerformSuccess">
                         <div class="form-group kt-form__group row ">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -42,15 +42,16 @@
 
 
                         </div>
-                        <div class="form-group kt-form__group row p-4 py-2 mx-0 border mt-10" *ngIf="NDCPerform" >
+                        <div class="form-group kt-form__group row p-4 py-2 mx-0 border mt-10" *ngIf="NDCPerform">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <h5 class="text-green">NDC</h5>
                                 <h6 [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</h6>
                             </div>
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                                <a *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank" mat-icon-button
+                                <a *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank" mat-flat-button
                                    color="primary">
-                                    <mat-icon class="text-green" title="view">insert_drive_file</mat-icon> View Page
+                                    <mat-icon class="text-green" title="view">insert_drive_file</mat-icon>
+                                    View PDF
                                 </a>
                             </div>
                         </div>
@@ -80,7 +81,7 @@
 
                     </div>
                     <!--BioMatric Case Perform-->
-                    <div  *ngIf="BiMatricCasePerfom">
+                    <div *ngIf="BiMatricCasePerfom">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-2 kt-margin-bottom-20-mobile">
 
@@ -118,7 +119,7 @@
                         </div>
                     </div>
                     <!--Biometric Credentials-->
-                    <div  *ngIf="BioMetricCapture">
+                    <div *ngIf="BioMetricCapture">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -189,11 +190,17 @@
                                     <mat-hint align="left">Please enter address <strong></strong></mat-hint>
                                 </mat-form-field>
                             </div>
+                            <!--                            <div class="col-lg-4 kt-margin-bottom-20-mobile">-->
+                            <!--                                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+                            <!--                                    <input matInput placeholder="District" formControlName="District"-->
+                            <!--                                           maxlength="200" autocomplete="off"/>-->
+                            <!--                                </mat-form-field>-->
+                            <!--                            </div>-->
                         </div>
 
                     </div>
                     <!--CWR-->
-                    <div  *ngIf="BiometricCredentials">
+                    <div *ngIf="BiometricCredentials">
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -242,6 +249,7 @@
                                 </mat-form-field>
                             </div>
 
+
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                     <mat-label class="customMatLabel">Select Gender <strong
@@ -254,6 +262,12 @@
 
                                 </mat-form-field>
                             </div>
+                            <!--                            <div class="col-lg-4 kt-margin-bottom-20-mobile">-->
+                            <!--                                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
+                            <!--                                    <input matInput placeholder="District" formControlName="District"-->
+                            <!--                                           maxlength="200" autocomplete="off"/>-->
+                            <!--                                </mat-form-field>-->
+                            <!--                            </div>-->
                         </div>
 
                     </div>
@@ -261,7 +275,7 @@
 
                     <!--ECIB-->
                     <!-- [style.height]="gridHeight"   not able to understand  -->
-                    <div  *ngIf="ECIBPerformForm">
+                    <div *ngIf="ECIBPerformForm">
                         <div class="form-group kt-form__group">
                             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                 <h5>ECIB</h5>
@@ -311,39 +325,39 @@
                         <div class="kt-form__actions kt-form__actions--solid">
                             <div class="row text-right">
                                 <div class="col-lg-12">
-                                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit"  type="button"
+                                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit" type="button"
                                             class="btn btn-primary bg-green "
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            >
-                                         Next
+                                    >
+                                        Next
                                     </button>
-                                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture" 
+                                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture"
                                             type="button" class="btn btn-primary bg-green kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            >
+                                    >
                                         Save & Next
                                     </button>
                                     <button (click)="submitCWR()"
-                                            *ngIf="BiometricCredentials"  type="button"
+                                            *ngIf="BiometricCredentials" type="button"
                                             class="btn btn-primary  kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            >
-                                       Next
+                                    >
+                                        Next
                                     </button>
                                     <button type="button"
                                             (click)="refreshEcib()"
-                                            *ngIf="ECIBPerform" 
+                                            *ngIf="ECIBPerform"
                                             class="btn btn-primary kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            >
+                                    >
                                         Refresh
                                     </button>
                                     <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
-                                             type="button"
+                                            type="button"
                                             class="btn btn-primary kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                            >
-                                            Next
+                                    >
+                                        Next
                                     </button>
                                 </div>
                             </div>
