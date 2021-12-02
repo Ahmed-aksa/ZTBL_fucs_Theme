@@ -30,4 +30,6 @@ export class Bufrication{
     WorkingDate: string;
     VoucherNo: string;
     Cnic: string;
+    GLCode: string;
+    OnlyZOne: number;
 }
