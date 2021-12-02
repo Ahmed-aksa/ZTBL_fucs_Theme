@@ -54,14 +54,14 @@ export class CustomerService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    submitNdc(customer: CreateCustomer): Observable<BaseResponseModel> {
+    submitNdc(customer: CreateCustomer, tranId): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
         this.request.Customer = customer;
         this.request.Branch = userInfo.Branch;
-
+        this.request.TranId = tranId;
         return this.http
             .post(`${environment.apiUrl}/Customer/SubmitNDC`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -69,7 +69,7 @@ export class CustomerService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    addCustomerInfo(customer: CreateCustomer): Observable<BaseResponseModel> {
+    addCustomerInfo(customer: CreateCustomer, tran_id): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
@@ -77,7 +77,7 @@ export class CustomerService {
         this.request.Customer = customer;
         this.request.Branch = userInfo.Branch;
         this.request.Zone = userInfo.Zone;
-
+        this.request.TranId = tran_id;
         return this.http
             .post(
                 `${environment.apiUrl}/Customer/AddCustomerInfo`,
@@ -87,7 +87,7 @@ export class CustomerService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    refreshEcib(customer: CreateCustomer): Observable<BaseResponseModel> {
+    refreshEcib(customer: CreateCustomer, tran_id): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -95,6 +95,7 @@ export class CustomerService {
         this.request.Customer = customer;
         this.request.Branch = userInfo.Branch;
         this.request.Zone = userInfo.Zone;
+        this.request.TranId = tran_id;
 
         return this.http
             .post(`${environment.apiUrl}/Customer/RefreshECIB`, this.request, {

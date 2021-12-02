@@ -60,7 +60,7 @@ export class CheckEligibilityComponent implements OnInit {
     ECIBPerform: boolean;
     ECIBPerformForm: boolean;
     loadingAfterSubmit = false;
-
+    tran_id: any;
     public LovCall = new Lov();
     public GenderLov: any;
 
@@ -194,6 +194,7 @@ export class CheckEligibilityComponent implements OnInit {
                         this.IsNdcDefaulter = false;
                     }
                     this.Ftb = baseResponse.Ftb;
+                    this.tran_id = baseResponse.TranId;
                     this._cdf.detectChanges();
 
                     if (this.Customer.NDCPDFLink == null || this.Customer.NDCPDFLink == "") {
@@ -227,7 +228,7 @@ export class CheckEligibilityComponent implements OnInit {
 
                 this.loading = true;
                 this._customer = this.Customer;
-                this._customerService.submitNdc(this._customer)
+                this._customerService.submitNdc(this._customer, this.tran_id)
                     .pipe(
                         finalize(() => {
                             this.submitted = false;
@@ -319,7 +320,7 @@ export class CheckEligibilityComponent implements OnInit {
 
         this.Customer = this._customer;
 
-        this._customerService.addCustomerInfo(this._customer)
+        this._customerService.addCustomerInfo(this._customer, this.tran_id)
             .pipe(
                 finalize(() => {
                     this.submitted = false;
@@ -378,7 +379,7 @@ export class CheckEligibilityComponent implements OnInit {
             this.loading = true;
             this._customer = this.Customer;
             this.spinner.show()
-            this._customerService.refreshEcib(this._customer)
+            this._customerService.refreshEcib(this._customer, this.tran_id)
                 .pipe(
                     finalize(() => {
                         this.refreshEcibLoading = true;
