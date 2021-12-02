@@ -62,7 +62,7 @@
 
                         </div>
                         <!--                        *ngIf="IsNdcDefaulter"-->
-                        <div class="form-group kt-form__group px-2 py-2 mx-0 border row mt-6">
+                        <div class="form-group kt-form__group px-2 py-2 mx-0 border row mt-6" *ngIf="IsNdcDefaulter">
                             <div class="col-lg-12 kt-margin-bottom-20-mobile py-3">
                                 <h5 class="text-blue">Summary</h5>
                                 <p>Customer is not eligible due to following reasons</p>
@@ -87,7 +87,7 @@
                                    class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary">Close/Exit</a>
                             </div>
                         </div>
-                        <div class="py-2">
+                        <div class="py-2"  *ngIf="IsNdcDefaulter">
                             <div class="heading">Regenerate ECIB Request</div>
 
                             <button mat-flat-button class=" my-3 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary">Regenerate</button>
@@ -98,14 +98,14 @@
                               </mat-form-field>
 
                         </div>
-                        <div class="py-2">
+                        <div class="py-2"  *ngIf="IsNdcDefaulter">
                             <div class="heading ">Attach An Image</div>
                             <div class="py-3">
                                 <input type="file">
                             </div>
                         </div>
 
-                        <div>
+                        <div  *ngIf="IsNdcDefaulter">
                             <button mat-flat-button class="bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button">Submit</button>
                         </div>
 
