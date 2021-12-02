@@ -17,6 +17,8 @@ import {VoucherPostingDayComponent} from "../voucher-posting-day/voucher-posting
 import {DailyVoucherProofComponent} from "../daily-voucher-proof/daily-voucher-proof.component";
 import {PaymentBehaviorComponent} from "../payment-behavior/payment-behavior.component";
 import {AffidavitForLegalHeirsComponent} from "../affidavit-for-legal-heirs/affidavit-for-legal-heirs.component";
+import {DisbursementPerformanceReportComponent} from "../disbursement-performance-report/disbursement-performance-report.component";
+import {DisbursementPerformancePurposeWiseComponent} from "../disbursement-performance-purpose-wise/disbursement-performance-purpose-wise.component";
 
 @Component({
     selector: 'app-reports',
@@ -72,6 +74,24 @@ export class ReportsComponent implements OnInit {
 
     affidavitForLegalHeirs(){
         const dialogRef = this.dialog.open(AffidavitForLegalHeirsComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    disbursement(){
+        const dialogRef = this.dialog.open(DisbursementPerformanceReportComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    disbursementPurposeWise(){
+        const dialogRef = this.dialog.open(DisbursementPerformancePurposeWiseComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
         dialogRef.afterClosed().subscribe((res)=>{
             if(!res){
                 return
