@@ -336,20 +336,20 @@
                                             class="btn btn-primary bg-green "
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                        Next
+                                    <mat-icon class="mr-2">navigate_next</mat-icon>   Next
                                     </button>
                                     <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture"
                                             type="button" class="btn btn-primary bg-green kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                        Save & Next
+                                    <mat-icon class="mr-2">navigate_next</mat-icon>   Save & Next
                                     </button>
                                     <button (click)="submitCWR()"
                                             *ngIf="BiometricCredentials" type="button"
                                             class="btn btn-primary  kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                        Next
+                                    <mat-icon class="mr-2">navigate_next</mat-icon>   Next
                                     </button>
                                     <button type="button"
                                             (click)="refreshEcib()"
@@ -357,14 +357,14 @@
                                             class="btn btn-primary kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                        Refresh
+                                    <mat-icon class="mr-2">refresh</mat-icon>   Refresh
                                     </button>
                                     <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
                                             type="button"
                                             class="btn btn-primary kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                        Next
+                                    <mat-icon class="mr-2">navigate_next</mat-icon>   Next
                                     </button>
                                 </div>
                             </div>
