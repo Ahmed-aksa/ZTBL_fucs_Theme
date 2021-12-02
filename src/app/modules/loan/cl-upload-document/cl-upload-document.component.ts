@@ -313,7 +313,7 @@ export class ClUploadDocumentComponent implements OnInit {
                             this.docId = [];
                             this.controlReset();
                             this.rawData.length = 0;
-                        }else if(this.rawData.length != totLength){
+                        }else if(this.rawData.length != totLength && count == this.rawData.length){
                             this.layoutUtilsService.alertElement('', 'Please add Remaining Entries');
                         }
 
