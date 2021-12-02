@@ -140,7 +140,8 @@
             <ng-container matColumnDef="Location">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
                 <mat-cell *matCellDef="let history">
-                    <button mat-icon-button (click)="showLocation(history)">
+                    <button mat-icon-button (click)="showLocation(history)"
+                            [disabled]="!history.Latitude && !history.Longitude">
                         <mat-icon>location_on</mat-icon>
                     </button>
                 </mat-cell>

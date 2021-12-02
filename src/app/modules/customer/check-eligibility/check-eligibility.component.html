@@ -50,7 +50,8 @@
                                         <h6 [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</h6>
                                     </div>
                                     <div class="col-lg-6 text-right kt-margin-bottom-20-mobile self-center">
-                                        <a *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank" mat-flat-button
+                                        <a *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank"
+                                           mat-flat-button
                                            color="primary">
                                             <mat-icon class="text-green mr-2" title="view">insert_drive_file</mat-icon>
                                             View PDF
@@ -60,8 +61,8 @@
                             </div>
 
                         </div>
-
-                        <div class="form-group kt-form__group p-4 py-2 mx-0 border row mt-2" *ngIf="IsNdcDefaulter">
+                        <!--                        *ngIf="IsNdcDefaulter"-->
+                        <div class="form-group kt-form__group p-4 py-2 mx-0 border row mt-2">
                             <div class="col-lg-12 kt-margin-bottom-20-mobile">
                                 <h5 class="text-blue">Summary</h5>
                                 <h5>Customer is not eligible due to following reasons</h5>
@@ -81,7 +82,28 @@
                                     </tr>
                                     </tbody>
                                 </table>
+
+                                <a mat-flat-button [routerLink]="['dashboard']"
+                                   class="bg-red-500 text-white">Close/Exit</a>
                             </div>
+                        </div>
+                        <div>
+                            <div class="heading">Regenerate ECIB Request</div>
+
+                            <button mat-flat-button class="bg-green">Regenerate</button>
+
+                            <div class="heading">Remarks</div>
+                            <textarea placeholder="Remarks..."></textarea>
+
+
+                            <div class="heading">Attach An Image</div>
+                            <div>
+                                <input type="file">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button mat-flat-button class="bg-green" type="button">Submit</button>
                         </div>
 
                     </div>
@@ -99,9 +121,8 @@
                                     <span style="font-size: 14px !important; text-align:center">Please Place your fingertip on the scanner to verify your identity</span>
                                 </div>
                                 <div class="col-lg-12 text-center mt-1 mb-3">
-                                    <img src="./assets/media/icons/capture.jpg" style="height: 20%;
-    margin: auto;
-    width: 20%;"
+                                    <img src="./assets/media/icons/capture.jpg"
+                                         style="height: 20%; margin: auto;width: 20%;"
                                          alt="icon"/>
                                 </div>
                                 <div class="col-lg-12 text-center mt-5 mb-3">
@@ -256,7 +277,6 @@
                         <div class="form-group kt-form__group row mt-2">
 
 
-
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label class="customMatLabel">Select Gender <strong
@@ -269,12 +289,6 @@
 
                                 </mat-form-field>
                             </div>
-                            <!--                            <div class="col-lg-4 kt-margin-bottom-20-mobile">-->
-                            <!--                                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
-                            <!--                                    <input matInput placeholder="District" formControlName="District"-->
-                            <!--                                           maxlength="200" autocomplete="off"/>-->
-                            <!--                                </mat-form-field>-->
-                            <!--                            </div>-->
                         </div>
 
                     </div>
@@ -319,15 +333,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--For Process Next-->
-                    <!--<div [style.height]="gridHeight" *ngIf="ECIBPerformSuccess">
-                <div class="form-group kt-form__group row">
-
-                </div>
-
-              </div>-->
-                    <!--Actions Fields-->
                     <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border mt-2">
                         <div class="kt-form__actions kt-form__actions--solid">
                             <div class="row">
@@ -336,20 +341,20 @@
                                             class="btn  bg-green "
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                       Next
+                                        Next
                                     </button>
                                     <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture"
                                             type="button" class="btn btn-primary bg-green kt-login__btn-primary"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                       Save & Next
+                                        Save & Next
                                     </button>
                                     <button (click)="submitCWR()"
                                             *ngIf="BiometricCredentials" type="button"
                                             class="btn btn-primary  kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                     Next
+                                        Next
                                     </button>
                                     <button type="button"
                                             (click)="refreshEcib()"
@@ -357,14 +362,14 @@
                                             class="btn btn-primary kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                      Refresh
+                                        Refresh
                                     </button>
                                     <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
                                             type="button"
                                             class="btn btn-primary kt-login__btn-primary bg-green"
                                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                     >
-                                   Next
+                                        Next
                                     </button>
                                 </div>
                             </div>
