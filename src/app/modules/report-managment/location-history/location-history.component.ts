@@ -28,7 +28,7 @@ export class LocationHistoryListComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
 
-    displayedColumns = ['UserId', 'Created', 'LastAction','AppChannel', 'Remarks', 'Location'];
+    displayedColumns = ['UserId', 'Created', 'LastAction', 'AppChannel', 'Remarks', 'Location'];
 
     gridHeight: string;
     FilterForm: FormGroup;
@@ -200,8 +200,8 @@ export class LocationHistoryListComponent implements OnInit {
 
     showLocation(history) {
         let data = {
-            Lat: history.Lat,
-            Lng: history.Lng
+            Lat: history.Latitude,
+            Lng: history.Longitude
         };
         const dialogRef = this.dialog.open(ViewMapsComponent, {
             panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
