@@ -116,6 +116,7 @@ export class ClApplicationHeaderComponent implements OnInit {
         // this.getLcNoAutoAssignedByApi();
     }
 
+
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
@@ -258,6 +259,14 @@ export class ClApplicationHeaderComponent implements OnInit {
             });
 
     }
+    checkDisable(){
+        if(this.isCheckLcInProgress==true || this.applicationHeaderForm.controls["LoanCaseNo"]?.value){
+            return true
+        }else{
+            return false
+        }
+    }
+
 
     onChangeLoanType(loanType) {
         if (loanType.value == "P") {

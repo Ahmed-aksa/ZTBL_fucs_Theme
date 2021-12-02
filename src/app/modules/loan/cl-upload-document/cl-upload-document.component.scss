@@ -1,11 +1,11 @@
 .mt-1p {
     margin-top: 1% !important;
   }
-  
+
   .mt-10p {
     margin-top: 10% !important;
   }
-  
+
   .ml-1p {
     margin-left: 1% !important;
   }
@@ -13,5 +13,14 @@
     background-color: #00661a;
     color: white;
   }
-  
-  
+/* For Chrome Safari and Edge*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

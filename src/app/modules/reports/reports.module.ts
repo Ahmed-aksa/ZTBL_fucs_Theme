@@ -15,6 +15,8 @@ import { DailyVoucherProofComponent } from './daily-voucher-proof/daily-voucher-
 import { AffidavitForLegalHeirsComponent } from './affidavit-for-legal-heirs/affidavit-for-legal-heirs.component';
 import { PaymentBehaviorComponent } from './payment-behavior/payment-behavior.component';
 import { VoucherPostingDayComponent } from './voucher-posting-day/voucher-posting-day.component';
+import { DisbursementPerformanceReportComponent } from './disbursement-performance-report/disbursement-performance-report.component';
+import { DisbursementPerformancePurposeWiseComponent } from './disbursement-performance-purpose-wise/disbursement-performance-purpose-wise.component';
 
 const routing = [
     {
@@ -60,7 +62,9 @@ const routing = [
         DailyVoucherProofComponent,
         AffidavitForLegalHeirsComponent,
         PaymentBehaviorComponent,
-        VoucherPostingDayComponent
+        VoucherPostingDayComponent,
+        DisbursementPerformanceReportComponent,
+        DisbursementPerformancePurposeWiseComponent
     ],
     imports: [
         CommonModule,

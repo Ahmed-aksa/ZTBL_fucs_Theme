@@ -69,8 +69,8 @@
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
 
 
-                    <button [disabled]="isCheckLcInProgress" type="button" class="mt-2 btn btn-primary w-full"
-                            mat-raised-button color="primary" (click)="getLcNoAutoAssignedByApi()">
+                    <button [disabled]="checkDisable()" type="button" class="mt-2 btn btn-primary w-full"
+                            mat-raised-button color="primary"  (click)="getLcNoAutoAssignedByApi()">
                         Check LC #
                     </button>
                 </div>
