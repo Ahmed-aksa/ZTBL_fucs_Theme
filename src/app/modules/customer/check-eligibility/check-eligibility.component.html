@@ -62,48 +62,51 @@
 
                         </div>
                         <!--                        *ngIf="IsNdcDefaulter"-->
-                        <div class="form-group kt-form__group p-4 py-2 mx-0 border row mt-2">
-                            <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                        <div class="form-group kt-form__group px-2 py-2 mx-0 border row mt-6">
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile py-3">
                                 <h5 class="text-blue">Summary</h5>
-                                <h5>Customer is not eligible due to following reasons</h5>
-                                <table class="col-lg-6">
+                                <p>Customer is not eligible due to following reasons</p>
+                                <table class="col-lg-12">
                                     <tbody>
                                     <tr>
-                                        <td class="text-blue">BMVS/NIVS:</td>
-                                        <td [ngClass]="{'text-red': BMVS_NIVS == 'Not Found'}">{{BMVS_NIVS}}</td>
+                                        <td class="text-blue pl-0">BMVS/NIVS:</td>
+                                        <td class="pl-0" [ngClass]="{'text-red': BMVS_NIVS == 'Not Found'}">{{BMVS_NIVS}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-blue">NDC:</td>
+                                        <td class="text-blue pl-0">NDC:</td>
                                         <td style="color:red;">Defaulter</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-blue">ECIB:</td>
+                                        <td class="text-blue pl-0">ECIB:</td>
                                         <td>Not Checked</td>
                                     </tr>
                                     </tbody>
                                 </table>
 
                                 <a mat-flat-button [routerLink]="['dashboard']"
-                                   class="bg-red-500 text-white">Close/Exit</a>
+                                   class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary">Close/Exit</a>
                             </div>
                         </div>
-                        <div>
+                        <div class="py-2">
                             <div class="heading">Regenerate ECIB Request</div>
 
-                            <button mat-flat-button class="bg-green">Regenerate</button>
+                            <button mat-flat-button class=" my-3 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary">Regenerate</button>
 
                             <div class="heading">Remarks</div>
-                            <textarea placeholder="Remarks..."></textarea>
+                            <mat-form-field appearance="outline" class="w-full mt-2">
+                                <input matInput placeholder="Remarks">
+                              </mat-form-field>
 
-
-                            <div class="heading">Attach An Image</div>
-                            <div>
+                        </div>
+                        <div class="py-2">
+                            <div class="heading ">Attach An Image</div>
+                            <div class="py-3">
                                 <input type="file">
                             </div>
                         </div>
 
                         <div>
-                            <button mat-flat-button class="bg-green" type="button">Submit</button>
+                            <button mat-flat-button class="bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button">Submit</button>
                         </div>
 
                     </div>
