@@ -99,7 +99,7 @@ export class ClUploadDocumentComponent implements OnInit {
             DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
             CategoryName: [this.loanDocument.CategoryName, Validators.required],
             Description: [this.loanDocument.Description, Validators.required],
-            PageNumber: [this.loanDocument.PageNumber, [Validators.required,  Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+            PageNumber: [this.loanDocument.PageNumber, Validators.required],
             DescriptionTab: ['', Validators.required],
             DocumentRefNo: ['', Validators.required],
             NoOfFilesToUpload: ['', Validators.required],
