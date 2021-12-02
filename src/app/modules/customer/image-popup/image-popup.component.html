@@ -1,0 +1,11 @@
+<div>
+    <div class="heading">Images
+        <button mat-icon-button (click)="dialogRef.close()" color="warn" style="float: right">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+
+    <ng-image-slider [images]="images" id="image" #image [imagePopup]="true">
+    </ng-image-slider>
+
+</div>
