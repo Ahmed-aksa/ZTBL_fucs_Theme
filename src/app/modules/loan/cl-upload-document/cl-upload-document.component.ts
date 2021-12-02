@@ -159,7 +159,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     viewDocument(documentType: string, documentId: string) {
-        debugger
         this.spinner.show();
         this._loanService
             .getViewLoanDocument(documentType, documentId, this.zone, this.branch)
@@ -189,7 +188,6 @@ export class ClUploadDocumentComponent implements OnInit {
 
 
     deleteDocument(id){
-        debugger
         this.spinner.show();
         this._loanService.documentDelete(id, this.branch, this.zone)
             .pipe(
@@ -230,13 +228,13 @@ export class ClUploadDocumentComponent implements OnInit {
                 this.loanDocumentArray = baseResponse.Loan.DocumentUploadList;
                 //this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
             } else {
+                this.loanDocumentArray.length = 0;
                 //this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
         });
     }
 
     onFileChange(event) {
-
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -262,7 +260,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
-        debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
@@ -287,7 +284,7 @@ export class ClUploadDocumentComponent implements OnInit {
             let description = document.getElementById(`description_${index}`).value;
 
 
-            if(single_file == undefined || page_number == "" || description == ""){
+            if(single_file == undefined || single_file == null || page_number == "" || description == ""){
                 this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages');
                 return
             }else if(this.docId[index]){
@@ -308,7 +305,6 @@ export class ClUploadDocumentComponent implements OnInit {
                         })
                     ).subscribe((baseResponse) => {
                     if (baseResponse.Success) {
-                        debugger
                         count = count+1;
                         this.docId.push(baseResponse.DocumentDetail.Id);
                         if(count == totLength){
@@ -325,6 +321,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     } else {
                         debugger
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                        this.rawData.length = 0;
                         return false;
 
                     }
