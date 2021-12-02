@@ -140,7 +140,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
         var dateFormat = this.datepipe.transform(this.bufricationForm.controls.WorkingDate.value, 'ddMMyyyy');
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
-        this.reports.ReportsNo = "18";
+        this.reports.ReportsNo = "12";
         this.reports.WorkingDate = dateFormat;
         this.reports.ReportFormatType = "2";
         if(this.zoneCheck == true){
