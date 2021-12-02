@@ -230,13 +230,14 @@ export class ClUploadDocumentComponent implements OnInit {
                 this.loanDocumentArray = baseResponse.Loan.DocumentUploadList;
                 //this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
             } else {
+                this.loanDocumentArray.length = 0;
                 //this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
         });
     }
 
     onFileChange(event) {
-
+        debugger
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -287,7 +288,7 @@ export class ClUploadDocumentComponent implements OnInit {
             let description = document.getElementById(`description_${index}`).value;
 
 
-            if(single_file == undefined || page_number == "" || description == ""){
+            if(single_file == undefined || single_file == null || page_number == "" || description == ""){
                 this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages');
                 return
             }else if(this.docId[index]){
@@ -325,6 +326,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     } else {
                         debugger
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                        this.rawData.length = 0;
                         return false;
 
                     }

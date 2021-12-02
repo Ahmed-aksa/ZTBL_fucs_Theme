@@ -675,7 +675,7 @@ export class LoanService {
 
     documentUpload(loanDoc: LoanDocuments) {
         //tranId = 12121;
-
+        debugger
         var formData = new FormData();
         var loanInfo = new Loan();
 
