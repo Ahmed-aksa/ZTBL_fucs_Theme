@@ -675,7 +675,7 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    documentUpload(loanDoc: LoanDocuments) {
+   documentUpload(loanDoc: LoanDocuments) {
         //tranId = 12121;
         debugger
         var formData = new FormData();

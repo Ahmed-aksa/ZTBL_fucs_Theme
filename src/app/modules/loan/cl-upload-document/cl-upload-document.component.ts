@@ -50,7 +50,6 @@ export class ClUploadDocumentComponent implements OnInit {
 
 
     loanCaseNo: string;
-
     //Document inventory
     document: any = [];
     SelectedDocument: any = [];
@@ -243,6 +242,11 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     onFileChange(event) {
+
+        for(let i = 0; i < this.docId.length; i++){
+            this.rawData.splice(i,1)
+        }
+
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -302,16 +306,15 @@ export class ClUploadDocumentComponent implements OnInit {
                 count = count+1;
                 return
             }
+            else if(page_number > this.loanDocument.NoOfFilesToUpload){
+                this.layoutUtilsService.alertElement('', 'Page Number should not be greater than No. of Files to upload')
+                return false;
+            }
             else{
                 this.loanDocument.PageNumber = page_number;
                 this.loanDocument.Description = description;
 
                 this.loanDocument.LcNo = this.LoanCaseId;
-
-                if(this.loanDocument.PageNumber != this.loanDocument.NoOfFilesToUpload){
-                    this.layoutUtilsService.alertElement('', 'Page Number should not be greater than No. of Files to upload')
-                    return false;
-                }
 
                 this.spinner.show();
                 this._loanService.documentUpload(this.loanDocument)
@@ -321,7 +324,9 @@ export class ClUploadDocumentComponent implements OnInit {
                         })
                     ).subscribe((baseResponse) => {
                     if (baseResponse.Success) {
+                        debugger
                         count = count+1;
+
                         this.docId.push(baseResponse.DocumentDetail.Id);
                         //this.rawData.push(this.uploaded)
                         if(count == totLength){
@@ -337,7 +342,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
                     } else {
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
-                        this.rawData.length = 0;
+                        //this.rawData.length = 0;
                         return false;
 
                     }
