@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { ReportFilters } from '../models/report-filters.model';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {ReportFilters} from '../models/report-filters.model';
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ReportService} from "../services/report.service";
@@ -10,23 +10,25 @@ import {Store} from "@ngrx/store";
 import {finalize} from "rxjs/operators";
 import {AppState} from "../../../shared/reducers";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
-  selector: 'app-location-history',
-  templateUrl: './location-history.component.html',
-  styleUrls: ['./location-history.component.scss']
+    selector: 'app-location-history',
+    templateUrl: './location-history.component.html',
+    styleUrls: ['./location-history.component.scss']
 })
 export class LocationHistoryListComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     reportFilter: ReportFilters = new ReportFilters();
-    @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
 
-    displayedColumns = ['UserId', 'Created', 'LastAction', 'Remarks'];
+    displayedColumns = ['UserId', 'Created', 'LastAction', 'AppChannel', 'Remarks', 'Location'];
 
     gridHeight: string;
     FilterForm: FormGroup;
@@ -35,22 +37,19 @@ export class LocationHistoryListComponent implements OnInit {
     EndDate: Date;
 
 
-
-
-
     constructor(
         private store: Store<AppState>,
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
         private filterFB: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
-        private _reportservice: ReportService) { }
+        private spinner: NgxSpinnerService,
+        private _reportservice: ReportService) {
+    }
 
     ngOnInit() {
 
         this.createForm();
-        this.loadUserHistory();
-
     }
 
     createForm() {
@@ -70,7 +69,6 @@ export class LocationHistoryListComponent implements OnInit {
     }
 
 
-
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
@@ -84,7 +82,6 @@ export class LocationHistoryListComponent implements OnInit {
     }
 
 
-
     keyPress(event: any) {
 
         const pattern = /[0-9\+\-\ ]/;
@@ -94,9 +91,6 @@ export class LocationHistoryListComponent implements OnInit {
             event.preventDefault();
         }
     }
-
-
-
 
 
     hasError(controlName: string, errorName: string): boolean {
@@ -109,13 +103,12 @@ export class LocationHistoryListComponent implements OnInit {
     }
 
 
-
     loadUserHistory() {
 
 
         this.hasFormErrors = false;
         this.reportFilter = Object.assign(this.reportFilter, this.FilterForm.value);
-
+        this.spinner.show();
         if (this.reportFilter.PPNumber == null || this.reportFilter.PPNumber.toString() == "") {
             const controls = this.FilterForm.controls;
 
@@ -127,8 +120,7 @@ export class LocationHistoryListComponent implements OnInit {
                 this.hasFormErrors = true;
                 return;
             }
-        }
-        else {
+        } else {
             this._reportservice.getUserHistory(this.reportFilter)
                 .pipe(
                     finalize(() => {
@@ -136,6 +128,7 @@ export class LocationHistoryListComponent implements OnInit {
                     })
                 )
                 .subscribe(baseResponse => {
+                    this.spinner.hide();
 
                     if (baseResponse.Success)
                         this.dataSource.data = baseResponse.UserHistories;
@@ -155,13 +148,13 @@ export class LocationHistoryListComponent implements OnInit {
         let startnew = new Date(ldStartDate);
         let endnew = new Date(ldEndDate);
         if (startnew > endnew) {
-            return this.FilterForm.controls['EndDate'].setErrors({ 'invaliddaterange': true });
+            return this.FilterForm.controls['EndDate'].setErrors({'invaliddaterange': true});
         }
 
         let oldvalue = startnew;
         this.FilterForm.controls['StartDate'].reset();
         this.FilterForm.controls['StartDate'].patchValue(oldvalue);
-        return this.FilterForm.controls['StartDate'].setErrors({ 'invaliddaterange': false });
+        return this.FilterForm.controls['StartDate'].setErrors({'invaliddaterange': false});
     }
 
     comparisonStartdateValidator(): any {
@@ -171,20 +164,14 @@ export class LocationHistoryListComponent implements OnInit {
         let startnew = new Date(ldStartDate);
         let endnew = new Date(ldEndDate);
         if (startnew > endnew) {
-            return this.FilterForm.controls['StartDate'].setErrors({ 'invaliddaterange': true });
+            return this.FilterForm.controls['StartDate'].setErrors({'invaliddaterange': true});
         }
 
         let oldvalue = endnew;
         this.FilterForm.controls['EndDate'].reset();
         this.FilterForm.controls['EndDate'].patchValue(oldvalue);
-        return this.FilterForm.controls['EndDate'].setErrors({ 'invaliddaterange': false });
+        return this.FilterForm.controls['EndDate'].setErrors({'invaliddaterange': false});
     }
-
-
-
-
-
-
 
 
     exportToExcel() {
@@ -211,5 +198,16 @@ export class LocationHistoryListComponent implements OnInit {
 
     }
 
-
+    showLocation(history) {
+        let data = {
+            Lat: history.Latitude,
+            Lng: history.Longitude
+        };
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+    }
 }

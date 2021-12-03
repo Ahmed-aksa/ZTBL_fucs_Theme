@@ -43,11 +43,13 @@ import {CustomerComponent} from './customer.component';
 import {AuthorizedCustomerComponent} from './authorized-customer/authorized-customer.component';
 import {EligibilityRequestComponent} from './eligibility-request/eligibility-request.component';
 import {ConsentFormComponent} from './consent-form/consent-form.component';
+import {NgImageSliderModule} from "ng-image-slider";
+import {ImagePopupComponent} from './image-popup/image-popup.component';
 
 //import {NgImageSliderModule} from "ng-image-slider";
 
 @NgModule({
-    declarations: [CheckEligibilityComponent, CustomerProfileComponent, CustomerListComponent, AuthorizedCustomersComponent, PendingCustomersComponent, SubmitCustomersComponent, ReferbackCustomersComponent, CorrectionPassbookComponent, CorrectionPhoneComponent, CustomerComponent, AuthorizedCustomerComponent, EligibilityRequestComponent, ConsentFormComponent],
+    declarations: [CheckEligibilityComponent, CustomerProfileComponent, CustomerListComponent, AuthorizedCustomersComponent, PendingCustomersComponent, SubmitCustomersComponent, ReferbackCustomersComponent, CorrectionPassbookComponent, CorrectionPhoneComponent, CustomerComponent, AuthorizedCustomerComponent, EligibilityRequestComponent, ConsentFormComponent, ImagePopupComponent],
     exports: [CustomerListComponent],
     imports: [
         CommonModule,
@@ -136,9 +138,10 @@ import {ConsentFormComponent} from './consent-form/consent-form.component';
         NgxMatSelectSearchModule,
         NgxMaskModule.forRoot(),
         NgxSpinnerModule,
+        NgImageSliderModule,
         //NgImageSliderModule
     ],
-    entryComponents: [ConsentFormComponent]
+    entryComponents: [ConsentFormComponent, ImagePopupComponent]
 
 })
 export class CustomerModule {

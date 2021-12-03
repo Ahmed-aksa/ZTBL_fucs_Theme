@@ -29,7 +29,7 @@ import {CustomerService} from "../../../shared/services/customer.service";
 import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {ConsentFormComponent} from "../consent-form/consent-form.component";
-import {AlertDialogConfirmationComponent} from "../../../shared/crud";
+import {ImagePopupComponent} from "../image-popup/image-popup.component";
 
 @Component({
     selector: 'app-eligibility-request',
@@ -43,10 +43,10 @@ import {AlertDialogConfirmationComponent} from "../../../shared/crud";
     ],
 })
 export class EligibilityRequestComponent implements OnInit {
-
     dataSource = new MatTableDataSource();
     @Input() isDialog: any = false;
     @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
+    @ViewChild('image') image_pop: ElementRef;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
@@ -95,7 +95,7 @@ export class EligibilityRequestComponent implements OnInit {
     //Zone inventory
 
     //Branch inventory
-    images = [];
+    images: Array<object> = [];
     show_pics: boolean;
 
     branch: any;
@@ -342,6 +342,7 @@ export class EligibilityRequestComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
+                    this.images = [];
                     this.dataSource.data = baseResponse.EligibilityRequest.EligibilityRequests;
                     if (this.dataSource.data.length > 0)
                         this.matTableLenght = true;
@@ -485,19 +486,20 @@ export class EligibilityRequestComponent implements OnInit {
             }
         }
         this.customerService.getImages(request).subscribe((baseResponse: any) => {
-            this.show_pics = true;
             let image = baseResponse.EligibilityRequest?.Attachments;
+            let images = [];
             for (let i = 0; i < image.length; i++) {
-                let image_obj = {
-                    image: image[0].ImageFilePath,
-                    thumbImage: image[0].ImageFilePath,
-                    alt: 'alt',
-                    title: 'title'
-                }
-                this.images.push(image_obj);
+                images.push({
+                    image: image[i].ImageFilePath,
+                    posterImage: image[i].ImageFilePath,
+                    thumbImage: image[i].ImageFilePath,
+                });
             }
-
-
+            let dialog_ref = this.dialog.open(ImagePopupComponent, {
+                data: {images},
+                panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+                width: '100%',
+            });
         });
     }
 

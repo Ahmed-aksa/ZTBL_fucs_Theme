@@ -76,6 +76,8 @@ export class ClUploadDocumentComponent implements OnInit {
     loan: any = {}
     pattern = /[^0-9]/g;
 
+    uploaded = "File Uploaded"
+
 
 
     constructor(
@@ -102,7 +104,7 @@ export class ClUploadDocumentComponent implements OnInit {
             PageNumber: [this.loanDocument.PageNumber, Validators.required],
             DescriptionTab: ['', Validators.required],
             DocumentRefNo: ['', Validators.required],
-            NoOfFilesToUpload: ['', Validators.required],
+            NoOfFilesToUpload: [this.loanDocument.NoOfFilesToUpload, Validators.required],
             file: ['', Validators.required],
         });
     }
@@ -159,7 +161,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     viewDocument(documentType: string, documentId: string) {
-        debugger
         this.spinner.show();
         this._loanService
             .getViewLoanDocument(documentType, documentId, this.zone, this.branch)
@@ -189,7 +190,6 @@ export class ClUploadDocumentComponent implements OnInit {
 
 
     deleteDocument(id){
-        debugger
         this.spinner.show();
         this._loanService.documentDelete(id, this.branch, this.zone)
             .pipe(
@@ -230,13 +230,13 @@ export class ClUploadDocumentComponent implements OnInit {
                 this.loanDocumentArray = baseResponse.Loan.DocumentUploadList;
                 //this.layoutUtilsService.alertElementSuccess('', baseResponse.Message)
             } else {
+                this.loanDocumentArray.length = 0;
                 //this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
         });
     }
 
     onFileChange(event) {
-
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -276,6 +276,10 @@ export class ClUploadDocumentComponent implements OnInit {
             return;
         }
 
+        if(this.rawData.length != 1){
+            this.rawData = this.rawData.reverse();
+        }
+
         totLength = Number(totLength)
         this.rawData.forEach((single_file, index) => {
             debugger
@@ -287,7 +291,7 @@ export class ClUploadDocumentComponent implements OnInit {
             let description = document.getElementById(`description_${index}`).value;
 
 
-            if(single_file == undefined || page_number == "" || description == ""){
+            if(single_file == undefined || single_file == null || page_number == "" || description == ""){
                 this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages');
                 return
             }else if(this.docId[index]){
@@ -300,6 +304,11 @@ export class ClUploadDocumentComponent implements OnInit {
 
                 this.loanDocument.LcNo = this.LoanCaseId;
 
+                if(this.loanDocument.PageNumber != this.loanDocument.NoOfFilesToUpload){
+                    this.layoutUtilsService.alertElement('', 'Page Number should not be greater than No. of Files to upload')
+                    return false;
+                }
+
                 this.spinner.show();
                 this._loanService.documentUpload(this.loanDocument)
                     .pipe(
@@ -308,16 +317,16 @@ export class ClUploadDocumentComponent implements OnInit {
                         })
                     ).subscribe((baseResponse) => {
                     if (baseResponse.Success) {
-                        debugger
                         count = count+1;
                         this.docId.push(baseResponse.DocumentDetail.Id);
+                        //this.rawData.push(this.uploaded)
                         if(count == totLength){
                             this.getLoanDocument();
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                             this.docId = [];
                             this.controlReset();
                             this.rawData.length = 0;
-                        }else if(this.rawData.length != totLength){
+                        }else if(this.rawData.length != totLength && count == this.rawData.length){
                             this.layoutUtilsService.alertElement('', 'Please add Remaining Entries');
                         }
 
@@ -325,6 +334,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     } else {
                         debugger
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                        this.rawData.length = 0;
                         return false;
 
                     }
