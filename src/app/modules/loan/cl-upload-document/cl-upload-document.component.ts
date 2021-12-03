@@ -1,26 +1,27 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
-import { BaseResponseModel } from 'app/shared/models/base_response.model';
-import { Branch } from 'app/shared/models/branch.model';
-import { Loan, LoanApplicationHeader, LoanDocuments } from 'app/shared/models/Loan.model';
-import { CircleService } from 'app/shared/services/circle.service';
-import { CommonService } from 'app/shared/services/common.service';
-import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
-import { LoanService } from 'app/shared/services/loan.service';
-import { LovService } from 'app/shared/services/lov.service';
-import { UserUtilsService } from 'app/shared/services/users_utils.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
-import { ClDocumentViewComponent } from '../cl-document-view/cl-document-view.component';
-import {Zone } from '../../user-management/users/utils/zone.model'
+import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
+import {BaseResponseModel} from 'app/shared/models/base_response.model';
+import {Branch} from 'app/shared/models/branch.model';
+import {Loan, LoanApplicationHeader, LoanDocuments} from 'app/shared/models/Loan.model';
+import {CircleService} from 'app/shared/services/circle.service';
+import {CommonService} from 'app/shared/services/common.service';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {LoanService} from 'app/shared/services/loan.service';
+import {LovService} from 'app/shared/services/lov.service';
+import {UserUtilsService} from 'app/shared/services/users_utils.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {finalize} from 'rxjs/operators';
+import {ClDocumentViewComponent} from '../cl-document-view/cl-document-view.component';
+import {Zone} from '../../user-management/users/utils/zone.model'
 import {ToastrService} from "ngx-toastr";
+
 @Component({
-  selector: 'kt-cl-upload-document',
-  templateUrl: './cl-upload-document.component.html',
-  styleUrls: ['./cl-upload-document.component.scss'],
+    selector: 'kt-cl-upload-document',
+    templateUrl: './cl-upload-document.component.html',
+    styleUrls: ['./cl-upload-document.component.scss'],
 })
 export class ClUploadDocumentComponent implements OnInit {
 
@@ -78,7 +79,6 @@ export class ClUploadDocumentComponent implements OnInit {
     uploaded = "File Uploaded"
 
 
-
     constructor(
         private frmbuilder: FormBuilder,
         private http: HttpClient,
@@ -100,7 +100,10 @@ export class ClUploadDocumentComponent implements OnInit {
             DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
             CategoryName: [this.loanDocument.CategoryName],
             Description: [this.loanDocument.Description, Validators.required],
-            PageNumber: [this.loanDocument.PageNumber, Validators.required],
+            PageNumber: [this.loanDocument.PageNumber ? this.loanDocument.PageNumber : null, {
+                validator: Validators.required,
+                disabled: true
+            }],
             DescriptionTab: ['', Validators.required],
             DocumentRefNo: ['', Validators.required],
             NoOfFilesToUpload: [this.loanDocument.NoOfFilesToUpload, Validators.required],
@@ -120,7 +123,7 @@ export class ClUploadDocumentComponent implements OnInit {
         //
     }
 
-    controlReset(){
+    controlReset() {
         //Document Info
         this.PostDocument.controls['ParentDocId'].reset();
         this.PostDocument.controls['DocumentRefNo'].reset();
@@ -136,12 +139,12 @@ export class ClUploadDocumentComponent implements OnInit {
     loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanApplicationHeader) {
         this.applicationHeader = loanApplicationHeader;
 
-            this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
-        if(loanApplicationHeader?.LoanCaseNo?.length>0){
+        this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
+        if (loanApplicationHeader?.LoanCaseNo?.length > 0) {
             this.PostDocument.controls['LcNo'].disable();
         }
-            this.loanCase(true);
-            this.getLoanDocument();
+        this.loanCase(true);
+        this.getLoanDocument();
 
 
     }
@@ -179,8 +182,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     var documents = baseResponse.ViewDocumnets;
                     window.open(documents.Path, "_blank");
                     this.cdRef.detectChanges();
-                }
-                else {
+                } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
             });
@@ -194,7 +196,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
 
-    deleteDocument(id){
+    deleteDocument(id) {
         this.spinner.show();
         this._loanService.documentDelete(id, this.branch, this.zone)
             .pipe(
@@ -208,7 +210,8 @@ export class ClUploadDocumentComponent implements OnInit {
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
-        });    }
+        });
+    }
 
     hasError(controlName: string, errorName: string): boolean {
         return this.PostDocument.controls[controlName].hasError(errorName);
@@ -222,7 +225,7 @@ export class ClUploadDocumentComponent implements OnInit {
         //this.PostDocument.value.ParentDocId = '25';
     }
 
-    getLoanDocument(){
+    getLoanDocument() {
 
         var loanId = this.applicationHeader.LoanAppID;
         this._loanService.getLoanDocuments(loanId, this.branch, this.zone)
@@ -243,8 +246,8 @@ export class ClUploadDocumentComponent implements OnInit {
 
     onFileChange(event) {
 
-        for(let i = 0; i < this.docId.length; i++){
-            this.rawData.splice(i,1)
+        for (let i = 0; i < this.docId.length; i++) {
+            this.rawData.splice(i, 1)
         }
 
         if (event.target.files && event.target.files[0]) {
@@ -285,7 +288,7 @@ export class ClUploadDocumentComponent implements OnInit {
             return;
         }
 
-        if(this.rawData.length != 1){
+        if (this.rawData.length != 1) {
             this.rawData = this.rawData.reverse();
         }
 
@@ -299,18 +302,16 @@ export class ClUploadDocumentComponent implements OnInit {
             let description = document.getElementById(`description_${index}`).value;
 
 
-            if(single_file == undefined || single_file == null || page_number == "" || description == ""){
+            if (single_file == undefined || single_file == null || page_number == "" || description == "") {
                 this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages');
                 return
-            }else if(this.docId[index]){
-                count = count+1;
+            } else if (this.docId[index]) {
+                count = count + 1;
                 return
-            }
-            else if(page_number > this.loanDocument.NoOfFilesToUpload){
+            } else if (page_number > this.loanDocument.NoOfFilesToUpload) {
                 this.layoutUtilsService.alertElement('', 'Page Number should not be greater than No. of Files to upload')
                 return false;
-            }
-            else{
+            } else {
                 this.loanDocument.PageNumber = page_number;
                 this.loanDocument.Description = description;
 
@@ -325,17 +326,17 @@ export class ClUploadDocumentComponent implements OnInit {
                     ).subscribe((baseResponse) => {
                     if (baseResponse.Success) {
                         debugger
-                        count = count+1;
+                        count = count + 1;
 
                         this.docId.push(baseResponse.DocumentDetail.Id);
                         //this.rawData.push(this.uploaded)
-                        if(count == totLength){
+                        if (count == totLength) {
                             this.getLoanDocument();
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                             this.docId = [];
                             this.controlReset();
                             this.rawData.length = 0;
-                        }else if(this.rawData.length != totLength && count == this.rawData.length){
+                        } else if (this.rawData.length != totLength && count == this.rawData.length) {
                             this.layoutUtilsService.alertElement('', 'Please add Remaining Entries');
                         }
 
@@ -372,7 +373,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
 
             } else {
-                if(this.first == false){
+                if (this.first == false) {
                     // this.layoutUtilsService.alertElement('', baseResponse.Message);
 
                 }
@@ -385,26 +386,32 @@ export class ClUploadDocumentComponent implements OnInit {
     changeFilesQuantity() {
 
         this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
+        // for (let i = 0; i < this.number_of_files; i++) {
+        //     // @ts-ignore
+        //     document.getElementById('page_' + i)?.value = i + 1;
+        //     this.PostDocument.controls['PageNumber'].disable();
+        // }
+
     }
 
 }
 
 export class LoanDocumentsGrid {
-  ZoneId: number;
-  BranchID: number;
-  LoanType: string;
-  LoanStatus: string;
-  DocumentId: number;
-  Description: string;
-  PageNumber: number;
-  DocumentNumber: number;
-  DocumentType: string;
-  OwnerName: string;
-  LoanCaseID: number;
-  ParentDocId: number;
-  DocLoanId: string;
-  CreatedUpdatedBy: number;
-  EnteredBy: number;
-  file: any;
-  DocumentRefNo: string;
+    ZoneId: number;
+    BranchID: number;
+    LoanType: string;
+    LoanStatus: string;
+    DocumentId: number;
+    Description: string;
+    PageNumber: number;
+    DocumentNumber: number;
+    DocumentType: string;
+    OwnerName: string;
+    LoanCaseID: number;
+    ParentDocId: number;
+    DocLoanId: string;
+    CreatedUpdatedBy: number;
+    EnteredBy: number;
+    file: any;
+    DocumentRefNo: string;
 }
