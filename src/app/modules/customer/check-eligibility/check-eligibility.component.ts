@@ -218,7 +218,7 @@ export class CheckEligibilityComponent implements OnInit {
         } else {
 
             const _title = 'Confirmation';
-            const _description = 'Do you really want to continue?';
+            const _description = 'Do you really want to submit NDC for approval?';
             const _waitDesciption = '';
             const _deleteMessage = `Role has been deleted`;
 
