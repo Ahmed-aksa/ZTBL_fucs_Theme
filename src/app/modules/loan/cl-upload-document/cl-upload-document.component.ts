@@ -135,7 +135,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanApplicationHeader) {
-debugger
         this.applicationHeader = loanApplicationHeader;
 
             this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
@@ -269,7 +268,6 @@ debugger
     }
 
     saveLoanDocuments() {
-        debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
@@ -289,7 +287,6 @@ debugger
 
         totLength = Number(totLength)
         this.rawData.forEach((single_file, index) => {
-            debugger
             this.loanDocument.file = single_file;
 
             // @ts-ignore
@@ -339,7 +336,6 @@ debugger
 
 
                     } else {
-                        debugger
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
                         this.rawData.length = 0;
                         return false;
@@ -354,7 +350,7 @@ debugger
     }
 
     loanCase(bool) {
-        debugger
+
         this.first = bool;
         this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, this.branch)
             .pipe(
@@ -372,7 +368,6 @@ debugger
 
             } else {
                 if(this.first == false){
-                    debugger
                     // this.layoutUtilsService.alertElement('', baseResponse.Message);
 
                 }
