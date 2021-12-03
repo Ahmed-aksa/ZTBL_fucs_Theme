@@ -351,20 +351,14 @@ export class EligibilityRequestComponent implements OnInit {
 
                     this.dv = this.dataSource.data;
                     this.totalItems = baseResponse.EligibilityRequest.EligibilityRequests[0].TotalRecords;
-                    this.dataSource.data = this.dv.slice(0, this.totalItems)
-                    this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-
-                    if (this.dv != undefined) {
-                        this.matTableLenght = false;
-                        this.dataSource.data = [];
-
-                        this.OffSet = 1;
-                        this.pageIndex = 1;
-                        this.dv = this.dv.slice(1, 0);
-                    }
+                    this.matTableLenght = false;
+                    this.OffSet = 1;
+                    this.pageIndex = 1;
+                    this.dataSource = this.dv.splice(1, 0);
+                    this.totalItems = 0;
                 }
             });
     }
@@ -487,16 +481,16 @@ export class EligibilityRequestComponent implements OnInit {
         }
         this.customerService.getImages(request).subscribe((baseResponse: any) => {
             let image = baseResponse.EligibilityRequest?.Attachments;
-            this.images = [];
+            let images = [];
             for (let i = 0; i < image.length; i++) {
-                this.images.push({
-                    image: image.ImageFilePath,
-                    posterImage: image.ImageFilePath,
-                    thumbImage: image.ImageFilePath,
+                images.push({
+                    image: image[i].ImageFilePath,
+                    posterImage: image[i].ImageFilePath,
+                    thumbImage: image[i].ImageFilePath,
                 });
             }
             let dialog_ref = this.dialog.open(ImagePopupComponent, {
-                data: {images: this.images},
+                data: {images},
                 panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
                 width: '100%',
             });
@@ -507,5 +501,9 @@ export class EligibilityRequestComponent implements OnInit {
         this.branch = event.final_branch;
         this.zone = event.final_zone;
         this.circle = event.final_circle;
+    }
+
+    MathCeil(value: any) {
+        return Math.ceil(value);
     }
 }

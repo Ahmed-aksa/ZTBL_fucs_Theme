@@ -15,7 +15,8 @@ import { finalize } from 'rxjs/operators';
 })
 export class CalculateDbrComponent implements OnInit {
   dataSource = new LoanDbr();
-  public LnTransactionID: number;
+  public LnTransactionID: string;
+  public Lcno: string;
 
   constructor(private route: ActivatedRoute,
     private _loanService: LoanService,
@@ -27,9 +28,16 @@ export class CalculateDbrComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.LnTransactionID = this.route.snapshot.params['LnTransactionID'];
-    this.searchLoanDbr();
+
+      this.LnTransactionID = this.route.snapshot.params['LnTransactionID'];
+      this.Lcno = this.route.snapshot.params['Lcno'];
+      if ((this.LnTransactionID != undefined && this.LnTransactionID != null) && (this.Lcno != undefined && this.Lcno != null)) {
+          this.searchLoanDbr();
+
   }
+
+
+}
 
   onIncomeChange(e) {
     let index = this.dataSource.DBRIncomeList.findIndex(inc => inc.ID === e.srcElement.id);
@@ -56,7 +64,7 @@ export class CalculateDbrComponent implements OnInit {
           this.cdRef.detectChanges();
         }))
       .subscribe((baseResponse: BaseResponseModel) => {
-        
+
         if (baseResponse.Success === true) {
           this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
           this.cdRef.detectChanges();
@@ -67,17 +75,16 @@ export class CalculateDbrComponent implements OnInit {
         }
       },
         (error) => {
-          
+
           this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
-          
+
         })
   }
   searchLoanDbr() {
+      debugger
     this.spinner.show();
     let loanFilter = new SearchLoanDbr();
-    loanFilter.LoanAppID = this.LnTransactionID//20201642051;
-    if (loanFilter.LoanAppID == undefined || loanFilter.LoanAppID == null)
-      loanFilter.LoanAppID = 20201642051;
+    loanFilter.LoanAppID = Number(this.LnTransactionID)//20201642051;
 
 
     this._loanService
@@ -85,14 +92,14 @@ export class CalculateDbrComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.spinner.hide();
-          
+
           this.cdRef.detectChanges();
         }))
       .subscribe((baseResponse: BaseResponseModel) => {
-        
+
         if (baseResponse.Success === true) {
           this.dataSource = baseResponse.Loan.DBR;
-          this.dataSource.LoanAppID = 20201642051;
+          this.dataSource.LoanAppID = Number(this.LnTransactionID);
           this.cdRef.detectChanges();
         }
         else {
@@ -101,11 +108,11 @@ export class CalculateDbrComponent implements OnInit {
         }
       },
         (error) => {
-          
+
           this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
-          
+
         })
-    
+
   }
 
 }

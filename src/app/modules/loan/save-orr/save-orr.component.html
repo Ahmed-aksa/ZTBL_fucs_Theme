@@ -1,226 +1,253 @@
-<div class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="heading">Applying ORR</div>
-  <!-- Header -->
-  <div class="pt-4" [formGroup]="ORRForm">
+<div
+    class="px-10 pt-4 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="heading">Applying ORR</div>
+    <!-- Header -->
+    <div class="pt-4" [formGroup]="ORRForm">
 
 
-
-    <div class="row">
-      <div class="col-lg-3 col-sm-12">
-        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-          <mat-label>Soil/Irrigation Type <strong class="matMandatory">*</strong></mat-label>
-          <mat-select formControlName="SoilTypeORRID">
-            <mat-option *ngFor="let obj of SoilIrrigation" [value]="obj.GradeID">
-              {{obj.Description}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="hasError('SoilTypeORRID', 'required')">Soil/Irrigation Type <strong>required</strong></mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-lg-3 col-sm-12">
-        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-          <mat-label>Land Ownership <strong class="matMandatory">*</strong></mat-label>
-          <mat-select formControlName="LandOwnershipORRID">
-            <mat-option *ngFor="let obj of LandOwnership" [value]="obj.GradeID">
-              {{obj.Description}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="hasError('LandOwnershipORRID', 'required')">Land Ownership <strong>required</strong></mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-lg-3 col-sm-12">
-        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-          <mat-label>Availability Of Market <strong class="matMandatory">*</strong></mat-label>
-          <mat-select formControlName="MarketAvailabilityORRID">
-            <mat-option *ngFor="let obj of AvailabilityMarket" [value]="obj.GradeID">
-              {{obj.Description}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="hasError('MarketAvailabilityORRID', 'required')">Availability Of Market <strong>required</strong></mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-lg-3 col-sm-12">
-        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-          <mat-label>Net Income <strong class="matMandatory">*</strong></mat-label>
-          <mat-select formControlName="NetIncodeORRID">
-            <mat-option *ngFor="let obj of NetIncome" [value]="obj.GradeID">
-              {{obj.Description}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="hasError('NetIncodeORRID', 'required')">Net Income <strong>required</strong></mat-error>
-        </mat-form-field>
-      </div>
-
-  </div>
-
-  </div>
-  <div class="flex flex-auto overflow-y-scroll overflow-x-hidden ">
-    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
-      <div class="flex flex-col flex-auto sm:mb-2 overflow-x-hidden sm:overflow-y-auto">
-      
-        <div class="form-group kt-form__group row" *ngIf="dataFetched && ApplicationORR.length>0">
-          <div class="col-lg-12">
-            <h3 class="heading">Application</h3>
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="table-header-background">
-                    <th>LA File/Booklet #</th>
-                    <th>Soil Type</th>
-                    <th>Land ownership</th>
-                    <th>Market Availability</th>
-                    <th>Net Income</th>
-                    <th>Re Payment</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let obj of ApplicationORR; let i = index;">
-                    <td>{{obj.AppNumberManual}}</td>
-                    <td>{{obj.SoilTypeORR}}</td>
-                    <td>{{obj.LandOwnershipORRID}}</td>
-                    <td>{{obj.MarketAvailORR}}</td>
-                    <td>{{obj.NetInORR}}</td>
-                    <td>{{obj.RepaymentORR}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-          </div>
-        </div>
-
-        <div class="form-group kt-form__group row " *ngIf="dataFetched && CustomerORR.length>0">
-          <div class="col-lg-12">
-            <span class="heading">Customers</span>
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="table-header-background">
-                    <th style="min-width: 150px;">CNIC</th>
-                    <th>Name</th>
-                    <th>AGPS</th>
-                    <th>DOB</th>
-                    <th>AGE</th>
-                    <th>CIB Report</th>
-                    <th>Default Days</th>
-                    <th>Experience</th>
-                    <th>Market Reputation</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let obj of CustomerORR; let i = index;">
-                    <td style="min-width: 150px;">{{obj.Cnic}}</td>
-                    <td>{{obj.CustomerName}}</td>
-                    <td>{{obj.MajorBorrower}}</td>
-                    <td>{{obj.Dob}}</td>
-                    <td>{{obj.CustAgeORR}}</td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <mat-select [(ngModel)]="obj.EcibORRID" [ngModelOptions]="{standalone: true}">
-                          <mat-option *ngFor="let obj of Cib" [value]="obj.GradeID">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label>Soil/Irrigation Type <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select formControlName="SoilTypeORRID">
+                        <mat-option *ngFor="let obj of SoilIrrigation" [value]="obj.GradeID">
                             {{obj.Description}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </td>
-                    <!--<td>{{obj.CustMarketRepORR}}</td>-->
-                    <td><input matInput [(ngModel)]="obj.DefaultDays" maxlength="5" autocomplete="off" [ngModelOptions]="{standalone: true}" /></td>
-                    <td><input matInput [(ngModel)]="obj.ExperienceORRID" maxlength="8" autocomplete="off" [ngModelOptions]="{standalone: true}" /></td>
-                    <td>
-                      <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                        <mat-select [(ngModel)]="obj.MarketReputatinORRID" [ngModelOptions]="{standalone: true}">
-                          <mat-option *ngFor="let obj of MarketReputation" [value]="obj.GradeID">
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('SoilTypeORRID', 'required')">Soil/Irrigation Type
+                        <strong>required</strong></mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label>Land Ownership <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select formControlName="LandOwnershipORRID">
+                        <mat-option *ngFor="let obj of LandOwnership" [value]="obj.GradeID">
                             {{obj.Description}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('LandOwnershipORRID', 'required')">Land Ownership
+                        <strong>required</strong></mat-error>
+                </mat-form-field>
             </div>
-            
-          </div>
-        </div>
-
-        <div class="form-group kt-form__group row" *ngIf="dataFetched && GlProposalORR && GlProposalORR.length>0">
-          <div class="col-lg-12">
-            <h3 class="heading">Proposals/GL</h3>
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="table-header-background">
-                    <th>GL Description</th>
-                    <th>Prod/Dev</th>
-                    <th>ORR</th>
-                    <th>Applied Amount</th>
-                    <th>Recommended Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let obj of GlProposalORR; let i = index;">
-                    <td>{{obj.GL}}</td>
-                    <td>{{obj.ProdID}}</td>
-                    <td>{{obj.ORR}}</td>
-                    <td>{{obj.AmountRequired}}</td>
-                    <td>
-                      <input matInput [(ngModel)]="obj.AmountRecommended" maxlength="8" autocomplete="off" [ngModelOptions]="{standalone: true}" />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label>Availability Of Market <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select formControlName="MarketAvailabilityORRID">
+                        <mat-option *ngFor="let obj of AvailabilityMarket" [value]="obj.GradeID">
+                            {{obj.Description}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('MarketAvailabilityORRID', 'required')">Availability Of Market <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label>Net Income <strong class="matMandatory">*</strong></mat-label>
+                    <mat-select formControlName="NetIncodeORRID">
+                        <mat-option *ngFor="let obj of NetIncome" [value]="obj.GradeID">
+                            {{obj.Description}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('NetIncodeORRID', 'required')">Net Income <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
             </div>
 
-          </div>
         </div>
-
-        <div class="secondPage" *ngIf="showFinalOrrTable">
-          <div class="form-group kt-form__group row" *ngIf="dataFetched && ApplicationORR.length>0">
-            <div class="col-lg-12">
-              <h3>Final ORR</h3>
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr class="table-header-background">
-                      <th>CNIC</th>
-                      <th>Name</th>
-                      <th>GL Description</th>
-                      <th>ORR</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let obj of ApplicationORR; let i = index;">
-                      <td>{{obj.AppNumberManual}}</td>
-                      <td>{{obj.SoilTypeORR}}</td>
-                      <td>{{obj.LandOwnershipORRID}}</td>
-                      <td>{{obj.MarketAvailORR}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-     
-
-
-
-      </div>
 
     </div>
-    
+    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden ">
+        <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
+            <div class="flex flex-col flex-auto sm:mb-2 overflow-x-hidden sm:overflow-y-auto">
 
-  </div>
-  <div class="form-group kt-form__group mb-2 row">
-    <div class="col-lg-12 kt-margin-bottom-20-mobile">
-      <button class="bg-green" mat-raised-button color="primary" (click)="save()" [disabled]="submitted"><mat-icon class="mr-2">save</mat-icon>{{showFinalOrrTable?"Submit":"Save"}}</button>
-      <button mat-raised-button color="primary" class="ml-2" (click)="togglePage()" [disabled]="submitted"><mat-icon>navigate_next</mat-icon>{{showFinalOrrTable?"Back":"Next"}}</button>
-      &nbsp;&nbsp;&nbsp;&nbsp;<span id="llcInquiryText" class="cursor-pointer" (click)="goToPendingList()"><b>Pending List</b></span>
-      <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
+                <div class="form-group kt-form__group row" *ngIf="dataFetched && ApplicationORR.length>0">
+                    <div class="col-lg-12">
+                        <h3 class="heading">Application</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>LA File/Booklet #</th>
+                                    <th>Soil Type</th>
+                                    <th>Land ownership</th>
+                                    <th>Market Availability</th>
+                                    <th>Net Income</th>
+                                    <th>Re Payment</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let obj of ApplicationORR; let i = index;">
+                                    <td>{{obj.AppNumberManual}}</td>
+                                    <td>{{obj.SoilTypeORR}}</td>
+                                    <td>{{obj.LandOwnershipORRID}}</td>
+                                    <td>{{obj.MarketAvailORR}}</td>
+                                    <td>{{obj.NetInORR}}</td>
+                                    <td>{{obj.RepaymentORR}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group kt-form__group row " *ngIf="dataFetched && CustomerORR.length>0">
+                    <div class="col-lg-12">
+                        <span class="heading">Customers</span>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th style="min-width: 150px;">CNIC</th>
+                                    <th>Name</th>
+                                    <th>AGPS</th>
+                                    <th>DOB</th>
+                                    <th>AGE</th>
+                                    <th>CIB Report</th>
+                                    <th>Default Days</th>
+                                    <th>Experience</th>
+                                    <th>Market Reputation</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let obj of CustomerORR; let i = index;">
+                                    <td style="min-width: 150px;">{{obj.Cnic}}</td>
+                                    <td>{{obj.CustomerName}}</td>
+                                    <td>{{obj.MajorBorrower}}</td>
+                                    <td>{{obj.Dob}}</td>
+                                    <td>{{obj.CustAgeORR}}</td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-select [(ngModel)]="obj.EcibORRID"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                <mat-option *ngFor="let obj of Cib" [value]="obj.GradeID">
+                                                    {{obj.Description}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                    <!--<td>{{obj.CustMarketRepORR}}</td>-->
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-label class="customMatLabel">Default Days<strong class="matMandatory">*</strong>
+                                            </mat-label>
+                                        <input matInput [(ngModel)]="obj.DefaultDays" maxlength="5" autocomplete="off"
+                                               [ngModelOptions]="{standalone: true}"/>
+                                        </mat-form-field></td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-label class="customMatLabel">Experience<strong class="matMandatory">*</strong>
+                                            </mat-label>
+                                        <input matInput [(ngModel)]="obj.ExperienceORRID" maxlength="8"
+                                               autocomplete="off" [ngModelOptions]="{standalone: true}"/>
+                                        </mat-form-field>
+                                    </td>
+
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-select [(ngModel)]="obj.MarketReputationORRID"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                <mat-option *ngFor="let obj of MarketReputation" [value]="obj.GradeID">
+                                                    {{obj.Description}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group kt-form__group row"
+                     *ngIf="dataFetched && GlProposalORR && GlProposalORR.length>0">
+                    <div class="col-lg-12">
+                        <h3 class="heading">Proposals/GL</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>GL Description</th>
+                                    <th>Prod/Dev</th>
+                                    <th>ORR</th>
+                                    <th>Applied Amount</th>
+                                    <th>Recommended Amount</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let obj of GlProposalORR; let i = index;">
+                                    <td>{{obj.GL}}</td>
+                                    <td>{{obj.ProdID}}</td>
+                                    <td>{{obj.ORR}}</td>
+                                    <td>{{obj.AmountRequired}}</td>
+                                    <td>
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-label class="customMatLabel">Amount Recommended<strong class="matMandatory">*</strong>
+                                            </mat-label>
+                                        <input matInput [(ngModel)]="obj.AmountRecommended" maxlength="8"
+                                               autocomplete="off" [ngModelOptions]="{standalone: true}"/>
+                                        </mat-form-field></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="secondPage" *ngIf="showFinalOrrTable">
+                    <div class="form-group kt-form__group row" *ngIf="dataFetched && ApplicationORR.length>0">
+                        <div class="col-lg-12">
+                            <h3>Final ORR</h3>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr class="table-header-background">
+                                        <th>CNIC</th>
+                                        <th>Name</th>
+                                        <th>GL Description</th>
+                                        <th>ORR</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let obj of ApplicationORR; let i = index;">
+                                        <td>{{obj.AppNumberManual}}</td>
+                                        <td>{{obj.SoilTypeORR}}</td>
+                                        <td>{{obj.LandOwnershipORRID}}</td>
+                                        <td>{{obj.MarketAvailORR}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
     </div>
-  </div>
+    <div class="form-group kt-form__group mb-2 row">
+        <div class="col-lg-12 kt-margin-bottom-20-mobile">
+            <button class="bg-green" mat-raised-button color="primary" (click)="save()" [disabled]="submitted">
+                <mat-icon class="mr-2">save</mat-icon>
+                {{showFinalOrrTable ? "Submit" : "Save"}}</button>
+            <button mat-raised-button color="primary" class="ml-2" (click)="togglePage()" [disabled]="submitted">
+                <mat-icon>navigate_next</mat-icon>
+                {{showFinalOrrTable ? "Back" : "Next"}}</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span id="llcInquiryText" class="cursor-pointer" (click)="goToPendingList()"><b>Pending List</b></span>
+            <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
+        </div>
+    </div>
 </div>
 
 

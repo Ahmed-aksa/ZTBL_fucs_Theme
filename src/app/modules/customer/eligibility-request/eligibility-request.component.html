@@ -168,7 +168,7 @@
                     <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
                                     class="table-header-background"></mat-header-row>
 
-                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns" ></mat-row>
 
                 </mat-table>
 
@@ -196,7 +196,7 @@
         <button (click)="paginate(1)">First</button>
         <pagination-controls display="inline" (pageChange)="paginate($event)"
                              style="display: inline-block;"></pagination-controls>
-        <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+        <button (click)="paginate(MathCeil(totalItems/itemsPerPage))">Last</button>
         <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
     </div>

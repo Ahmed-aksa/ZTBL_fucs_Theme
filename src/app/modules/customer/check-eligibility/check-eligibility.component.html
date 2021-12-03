@@ -46,7 +46,7 @@
                             <div class="col-lg-6 shadow-md ">
                                 <div class="row p-4">
                                     <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                                        <h5 class="text-green">NDC</h5>
+                                        <h5 class="text-green">NDC - Status</h5>
                                         <h6 [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</h6>
                                     </div>
                                     <div class="col-lg-6 text-right kt-margin-bottom-20-mobile self-center">
@@ -54,7 +54,7 @@
                                            mat-flat-button
                                            color="primary">
                                             <mat-icon class="text-green mr-2" title="view">insert_drive_file</mat-icon>
-                                            View PDF
+                                            View NDC
                                         </a>
                                     </div>
                                 </div>
@@ -70,7 +70,8 @@
                                     <tbody>
                                     <tr>
                                         <td class="text-blue pl-0">BMVS/NIVS:</td>
-                                        <td class="pl-0" [ngClass]="{'text-red': BMVS_NIVS == 'Not Found'}">{{BMVS_NIVS}}</td>
+                                        <td class="pl-0"
+                                            [ngClass]="{'text-red': BMVS_NIVS == 'Not Found'}">{{BMVS_NIVS}}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-blue pl-0">NDC:</td>
@@ -82,32 +83,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
-
-                                <a mat-flat-button [routerLink]="['dashboard']"
-                                   class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary">Close/Exit</a>
-                            </div>
-                        </div>
-                        <div class="py-2"  *ngIf="IsNdcDefaulter">
-                            <div class="heading">Regenerate ECIB Request</div>
-
-                            <button mat-flat-button class=" my-3 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary">Regenerate</button>
-
-                            <div class="heading">Remarks</div>
-                            <mat-form-field appearance="outline" class="w-full mt-2">
-                                <input matInput placeholder="Remarks">
-                              </mat-form-field>
-
-                        </div>
-                        <div class="py-2"  *ngIf="IsNdcDefaulter">
-                            <div class="heading ">Attach An Image</div>
-                            <div class="py-3">
-                                <input type="file">
                             </div>
                         </div>
 
-                        <div  *ngIf="IsNdcDefaulter">
-                            <button mat-flat-button class="bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button">Submit</button>
-                        </div>
 
                     </div>
                     <!--BioMatric Case Perform-->
@@ -220,12 +198,6 @@
                                     <mat-hint align="left">Please enter address <strong></strong></mat-hint>
                                 </mat-form-field>
                             </div>
-                            <!--                            <div class="col-lg-4 kt-margin-bottom-20-mobile">-->
-                            <!--                                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
-                            <!--                                    <input matInput placeholder="District" formControlName="District"-->
-                            <!--                                           maxlength="200" autocomplete="off"/>-->
-                            <!--                                </mat-form-field>-->
-                            <!--                            </div>-->
                         </div>
 
                     </div>
@@ -274,6 +246,13 @@
                                         <strong>required</strong></mat-error>
                                     <mat-hint align="left">Please enter address <strong></strong></mat-hint>
                                 </mat-form-field>
+                                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                        <input matInput placeholder="City" formControlName="District"
+                                               [disabled]="disable_district_field"
+                                               maxlength="200" autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
                             </div>
                         </div>
 
@@ -333,7 +312,36 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <a mat-flat-button [routerLink]="['dashboard']"
+                                   class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary">Close/Exit</a>
                             </div>
+                        </div>
+                        <div class="py-2" *ngIf="IsEcibDefaulter">
+                            <div class="heading">Regenerate ECIB Request</div>
+
+                            <button mat-flat-button
+                                    class=" my-3 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary">
+                                Regenerate
+                            </button>
+
+                            <div class="heading">Remarks</div>
+                            <mat-form-field appearance="outline" class="w-full mt-2">
+                                <input matInput placeholder="Remarks">
+                            </mat-form-field>
+
+                        </div>
+                        <div class="py-2" *ngIf="IsEcibDefaulter">
+                            <div class="heading ">Attach An Image</div>
+                            <div class="py-3">
+                                <input type="file">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button mat-flat-button
+                                    class="bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                    type="button">Submit
+                            </button>
                         </div>
                     </div>
                     <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border mt-2">
