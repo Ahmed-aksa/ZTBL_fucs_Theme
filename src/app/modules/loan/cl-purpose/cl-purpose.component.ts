@@ -213,6 +213,7 @@ export class ClPurposeComponent implements OnInit {
                 grid.MarkupCalcMode = item.MarkupCalcMode;
                 grid.LoanAppID = item.LoanAppID;
                 grid.CropID = item.CropID;
+                grid.CropName = item.CropName;
                 grid.CultivatedArea = item.CultivatedArea;
                 grid.Unit = item.Unit;
                 grid.SchemeID = item.SchemeID;
@@ -660,5 +661,6 @@ export class LoanApplicationPurposeGrid {
     GlSubID: number;
     DevProdID: number;
     SchemeID: number;
+    CropName: string;
     checkEquity: boolean;
 }

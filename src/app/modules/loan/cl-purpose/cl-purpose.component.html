@@ -187,6 +187,7 @@
                 <tr class="table-header-background">
                     <th>GL Code</th>
                     <th>Scheme Code</th>
+                    <th>Crop</th>
                     <th>Crop Code</th>
                     <th>Caltivated Area(Marla)</th>
                     <th>Quantity</th>
@@ -200,6 +201,7 @@
                 <tr *ngFor="let loan of loanPurpose; let i = index;">
                     <td>{{loan.GlSubID}}</td>
                     <td>{{loan.SchemeID}}</td>
+                    <td>{{loan.CropName}}</td>
                     <td>{{loan.CropID}}</td>
                     <td>{{loan.CultivatedArea}}</td>
                     <td>{{loan.Quantity}}</td>
