@@ -193,14 +193,15 @@ export class CheckEligibilityComponent implements OnInit {
                     else
                         this.BMVS_NIVS = "Not Found";
 
+                    this.IsNdcDefaulter = true;
 
                     this.CustomerNdc = baseResponse.customerNDC;
-                    if (this.CustomerNdc.Code == "449") {
-                        this.IsNdcDefaulter = true;
-                        this.NDC_Val = this.CustomerNdc.Message;
-                    } else {
-                        this.IsNdcDefaulter = false;
-                    }
+                    // if (this.CustomerNdc.Code == "449") {
+                    //     this.IsNdcDefaulter = true;
+                    //     this.NDC_Val = this.CustomerNdc.Message;
+                    // } else {
+                    //     this.IsNdcDefaulter = false;
+                    // }
                     this.Ftb = baseResponse.Ftb;
                     this.tran_id = baseResponse.TranId;
                     this._cdf.detectChanges();
@@ -213,7 +214,6 @@ export class CheckEligibilityComponent implements OnInit {
                     if (baseResponse.Ftb == 1) {
                         this.router.navigate(['/dashboard']);
                     }
-                    this.disable_buttons = false;
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                 }
 
