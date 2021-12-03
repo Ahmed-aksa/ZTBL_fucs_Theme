@@ -26,10 +26,13 @@ export class Bufrication{
     Status: string;
     ReportsNo: string;
     LcNo: string;
+    LcNO: string;
     ReportFormatType: string;
     WorkingDate: string;
     VoucherNo: string;
     Cnic: string;
     GLCode: string;
     OnlyZOne: number;
+    ToDate: string;
+    FromDate: string
 }

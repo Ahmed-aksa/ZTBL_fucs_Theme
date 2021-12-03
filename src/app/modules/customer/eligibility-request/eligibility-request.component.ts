@@ -351,20 +351,14 @@ export class EligibilityRequestComponent implements OnInit {
 
                     this.dv = this.dataSource.data;
                     this.totalItems = baseResponse.EligibilityRequest.EligibilityRequests[0].TotalRecords;
-                    this.dataSource.data = this.dv.slice(0, this.totalItems)
-                    this.OffSet = this.pageIndex;
                     this.dataSource = this.dv.slice(0, this.itemsPerPage);
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-
-                    if (this.dv != undefined) {
-                        this.matTableLenght = false;
-                        this.dataSource.data = [];
-
-                        this.OffSet = 1;
-                        this.pageIndex = 1;
-                        this.dv = this.dv.slice(1, 0);
-                    }
+                    this.matTableLenght = false;
+                    this.OffSet = 1;
+                    this.pageIndex = 1;
+                    this.dataSource = this.dv.splice(1, 0);
+                    this.totalItems = 0;
                 }
             });
     }
@@ -507,5 +501,9 @@ export class EligibilityRequestComponent implements OnInit {
         this.branch = event.final_branch;
         this.zone = event.final_zone;
         this.circle = event.final_circle;
+    }
+
+    MathCeil(value: any) {
+        return Math.ceil(value);
     }
 }

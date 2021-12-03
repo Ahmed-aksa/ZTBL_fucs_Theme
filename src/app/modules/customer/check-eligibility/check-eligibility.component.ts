@@ -34,7 +34,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
     ],
 })
 export class CheckEligibilityComponent implements OnInit {
-
     saving = false;
     submitted = false;
     customerInfo: FormGroup;
@@ -84,6 +83,9 @@ export class CheckEligibilityComponent implements OnInit {
     todayMax = new Date();
     todayMin = new Date();
 
+
+    disable_district_field: boolean;
+    disrtrict_value;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -216,10 +218,10 @@ export class CheckEligibilityComponent implements OnInit {
         } else {
 
             const _title = 'Confirmation';
-            const _description = 'Do you really want to continue?';
+            const _description = 'Do you really want to submit NDC for approval?';
             const _waitDesciption = '';
             const _deleteMessage = `Role has been deleted`;
-
+            this.spinner.show();
             const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
             dialogRef.afterClosed().subscribe(res => {
                 if (!res) {
@@ -232,7 +234,8 @@ export class CheckEligibilityComponent implements OnInit {
                     .pipe(
                         finalize(() => {
                             this.submitted = false;
-                            this.loading = false;
+                            this.spinner.hide();
+
                         })
                     )
                     .subscribe((baseResponse: BaseResponseModel) => {
@@ -272,7 +275,19 @@ export class CheckEligibilityComponent implements OnInit {
                 this._customer = new CreateCustomer();
                 this._customer = Object.assign(this._customer, Data.Customer);
             }
+
+            if (this._customer.District) {
+                this.disrtrict_value = this._customer.District;
+                this.disable_district_field = true;
+            } else if (this._customer.City) {
+                this.disrtrict_value = this._customer.City;
+                this.disable_district_field = true;
+            } else {
+                this.disable_district_field = false;
+                this.disrtrict_value = '';
+            }
             this.createForm();
+
             this._cdf.detectChanges();
         }
 
@@ -319,12 +334,13 @@ export class CheckEligibilityComponent implements OnInit {
         this._customer.Gender = this.customerInfo.controls['Gender'].value;
 
         this.Customer = this._customer;
-
+        this.spinner.show();
         this._customerService.addCustomerInfo(this._customer, this.tran_id)
             .pipe(
                 finalize(() => {
                     this.submitted = false;
                     this.loading = false;
+                    this.spinner.hide();
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
@@ -446,7 +462,7 @@ export class CheckEligibilityComponent implements OnInit {
             FatherName: [this._customer.FatherName, [Validators.required]],
             CurrentAddress: [this._customer.CurrentAddress, [Validators.required]],
             Gender: [this._customer.Gender, [Validators.required]],
-            // District: [this._customer.District, [Validators.required]]
+            District: [null, [Validators.required]]
         });
 
     }
@@ -485,5 +501,18 @@ export class CheckEligibilityComponent implements OnInit {
         this.hasFormErrors = false;
     }
 
+    prev() {
+        if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials && this.ECIBPerform && this.ECIBPerformSuccess) {
+            this.ECIBPerformSuccess = false;
+        } else if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials && this.ECIBPerform) {
+            this.ECIBPerform = false;
+        } else if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials) {
+            this.BiometricCredentials = false;
+        } else if (this.NdcSubmit && this.BioMetricCapture) {
+            this.BioMetricCapture = false;
+        } else if (this.NdcSubmit) {
+            this.NdcSubmit = false;
+        }
+    }
 }
 

@@ -266,7 +266,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     clearForm() {
 
         Object.keys(this.form.controls).forEach((key) => {
-            if (key != 'BranchCode' && key != 'CircleId' && key != 'ZoneId')
+            if (key != 'BranchCode'  && key != 'ZoneId')
                 this.form.get(key).reset();
         });
         this.emitData();
