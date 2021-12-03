@@ -132,8 +132,9 @@ export class ClUploadDocumentComponent implements OnInit {
 
         //Attachments
         this.PostDocument.controls['file'].reset();
-        this.PostDocument.controls['PageNumber'].reset();
+        //this.PostDocument.controls['PageNumber'].reset();
         this.PostDocument.controls['DescriptionTab'].reset();
+
     }
 
     loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanApplicationHeader) {
@@ -327,9 +328,9 @@ export class ClUploadDocumentComponent implements OnInit {
                     if (baseResponse.Success) {
                         debugger
                         count = count + 1;
-
+                        // @ts-ignore
+                        document.getElementById(`page_${index}`).value = ''
                         this.docId.push(baseResponse.DocumentDetail.Id);
-                        //this.rawData.push(this.uploaded)
                         if (count == totLength) {
                             this.getLoanDocument();
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
