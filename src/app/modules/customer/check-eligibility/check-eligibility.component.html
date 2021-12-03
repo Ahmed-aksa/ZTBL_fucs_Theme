@@ -354,13 +354,13 @@
             <div class="row">
                 <div class="col-lg-12 text-right">
                     <button (click)="SubmitNdc()" *ngIf="NdcSubmit"
-                            class="btn  bg-green "
+                            class="btn w-32  bg-green "
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Next
                     </button>
                     <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture"
-                            type="button" class="btn btn-primary bg-green kt-login__btn-primary"
+                            type="button" class="btn btn-primary  w-32    bg-green kt-login__btn-primary"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Save & Next
@@ -368,21 +368,21 @@
                     <button (click)="submitCWR()"
                             *ngIf="BiometricCredentials" type="button"
                             class="btn btn-primary  kt-login__btn-primary bg-green"
-                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                            [ngClass]="{'kt-spinner  w-32  kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Next
                     </button>
                     <button type="button"
                             (click)="refreshEcib()"
                             *ngIf="ECIBPerform"
-                            class="btn btn-primary kt-login__btn-primary bg-green"
+                            class="btn btn-primary  w-32  kt-login__btn-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Refresh
                     </button>
                     <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
                             type="button"
-                            class="btn btn-primary kt-login__btn-primary bg-green"
+                            class="btn w-32 btn-primary kt-login__btn-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Next
