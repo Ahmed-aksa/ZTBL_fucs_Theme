@@ -604,7 +604,6 @@ img{
   white-space: normal;
 }
 .mat-select-panel mat-option.mat-option {
-  margin: 1rem 0;
   overflow: visible;
   line-height: initial;
   word-wrap: break-word;
@@ -613,6 +612,7 @@ img{
   
   .mat-option-text.mat-option-text {
   white-space: normal;
+  padding: 10px 0px;
   }
 
   .mat-select-panel-wrap{
