@@ -196,12 +196,12 @@ export class CheckEligibilityComponent implements OnInit {
                     this.IsNdcDefaulter = true;
 
                     this.CustomerNdc = baseResponse.customerNDC;
-                    // if (this.CustomerNdc.Code == "449") {
-                    //     this.IsNdcDefaulter = true;
-                    //     this.NDC_Val = this.CustomerNdc.Message;
-                    // } else {
-                    //     this.IsNdcDefaulter = false;
-                    // }
+                    if (this.CustomerNdc.Code == "449") {
+                        this.IsNdcDefaulter = true;
+                        this.NDC_Val = this.CustomerNdc.Message;
+                    } else {
+                        this.IsNdcDefaulter = false;
+                    }
                     this.Ftb = baseResponse.Ftb;
                     this.tran_id = baseResponse.TranId;
                     this._cdf.detectChanges();
