@@ -502,7 +502,17 @@ export class CheckEligibilityComponent implements OnInit {
     }
 
     prev() {
-        
+        if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials && this.ECIBPerform && this.ECIBPerformSuccess) {
+            this.ECIBPerformSuccess = false;
+        } else if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials && this.ECIBPerform) {
+            this.ECIBPerform = false;
+        } else if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials) {
+            this.BiometricCredentials = false;
+        } else if (this.NdcSubmit && this.BioMetricCapture) {
+            this.BioMetricCapture = false;
+        } else if (this.NdcSubmit) {
+            this.NdcSubmit = false;
+        }
     }
 }
 
