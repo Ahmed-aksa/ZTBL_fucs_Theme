@@ -487,16 +487,16 @@ export class EligibilityRequestComponent implements OnInit {
         }
         this.customerService.getImages(request).subscribe((baseResponse: any) => {
             let image = baseResponse.EligibilityRequest?.Attachments;
-            this.images = [];
+            let images = [];
             for (let i = 0; i < image.length; i++) {
-                this.images.push({
-                    image: image.ImageFilePath,
-                    posterImage: image.ImageFilePath,
-                    thumbImage: image.ImageFilePath,
+                images.push({
+                    image: image[i].ImageFilePath,
+                    posterImage: image[i].ImageFilePath,
+                    thumbImage: image[i].ImageFilePath,
                 });
             }
             let dialog_ref = this.dialog.open(ImagePopupComponent, {
-                data: {images: this.images},
+                data: {images},
                 panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
                 width: '100%',
             });

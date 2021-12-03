@@ -4,8 +4,36 @@
             <mat-icon>cancel</mat-icon>
         </button>
     </div>
+    <!--    <ng-image-slider [images]="images" id="image" #image [imagePopup]="true">-->
+    <!--    </ng-image-slider>-->
 
-    <ng-image-slider [images]="images" id="image" #image [imagePopup]="true">
-    </ng-image-slider>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators"
+                    *ngFor="let single_image of images;let i=index" data-bs-slide-to="{{i}}" class="active"
+                    aria-current="true"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let single_image of images; let i=index" [class]="i==0?'active':''">
+                <img [src]="single_image.image" class="d-block w-100" [alt]="single_image"
+                     style="margin-left: 30%;margin-right:30%">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                style="background: black"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                style="background: black"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
 
 </div>
+
+
