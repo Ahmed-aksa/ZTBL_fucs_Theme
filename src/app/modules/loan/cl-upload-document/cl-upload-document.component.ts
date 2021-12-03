@@ -110,6 +110,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
@@ -134,11 +135,17 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanApplicationHeader) {
-
+debugger
         this.applicationHeader = loanApplicationHeader;
-        this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
-        this.loanCase(true);
-        this.getLoanDocument();
+
+            this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
+        if(loanApplicationHeader?.LoanCaseNo?.length>0){
+            this.PostDocument.controls['LcNo'].disable();
+        }
+            this.loanCase(true);
+            this.getLoanDocument();
+
+
     }
 
     async getDocumentLoanType() {
@@ -347,6 +354,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     loanCase(bool) {
+        debugger
         this.first = bool;
         this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, this.branch)
             .pipe(
@@ -355,6 +363,7 @@ export class ClUploadDocumentComponent implements OnInit {
                 })
             ).subscribe((baseResponse) => {
             if (baseResponse.Success === true) {
+                this.PostDocument.controls['LoanStatus'].setValue("New Case");
                 var response = baseResponse.Loan.ApplicationHeader;
                 this.PostDocument.controls['LoanStatus'].setValue(response.AppStatusName);
                 this.PostDocument.controls['CategoryName'].setValue(response.CategoryName);
@@ -363,8 +372,11 @@ export class ClUploadDocumentComponent implements OnInit {
 
             } else {
                 if(this.first == false){
-                    this.layoutUtilsService.alertElement('', baseResponse.Message);
+                    debugger
+                    // this.layoutUtilsService.alertElement('', baseResponse.Message);
+
                 }
+                this.PostDocument.controls['LoanStatus'].setValue("New Case");
                 //
             }
         });
