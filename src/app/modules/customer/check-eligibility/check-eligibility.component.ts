@@ -213,6 +213,7 @@ export class CheckEligibilityComponent implements OnInit {
                     if (baseResponse.Ftb == 1) {
                         this.router.navigate(['/dashboard']);
                     }
+                    this.disable_buttons = false;
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                 }
 
