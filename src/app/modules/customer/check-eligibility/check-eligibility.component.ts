@@ -221,7 +221,7 @@ export class CheckEligibilityComponent implements OnInit {
             const _description = 'Do you really want to submit NDC for approval?';
             const _waitDesciption = '';
             const _deleteMessage = `Role has been deleted`;
-
+            this.spinner.show();
             const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
             dialogRef.afterClosed().subscribe(res => {
                 if (!res) {
@@ -234,7 +234,8 @@ export class CheckEligibilityComponent implements OnInit {
                     .pipe(
                         finalize(() => {
                             this.submitted = false;
-                            this.loading = false;
+                            this.spinner.hide();
+
                         })
                     )
                     .subscribe((baseResponse: BaseResponseModel) => {
@@ -333,12 +334,13 @@ export class CheckEligibilityComponent implements OnInit {
         this._customer.Gender = this.customerInfo.controls['Gender'].value;
 
         this.Customer = this._customer;
-
+        this.spinner.show();
         this._customerService.addCustomerInfo(this._customer, this.tran_id)
             .pipe(
                 finalize(() => {
                     this.submitted = false;
                     this.loading = false;
+                    this.spinner.hide();
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
@@ -499,5 +501,18 @@ export class CheckEligibilityComponent implements OnInit {
         this.hasFormErrors = false;
     }
 
+    prev() {
+        if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials && this.ECIBPerform && this.ECIBPerformSuccess) {
+            this.ECIBPerformSuccess = false;
+        } else if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials && this.ECIBPerform) {
+            this.ECIBPerform = false;
+        } else if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials) {
+            this.BiometricCredentials = false;
+        } else if (this.NdcSubmit && this.BioMetricCapture) {
+            this.BioMetricCapture = false;
+        } else if (this.NdcSubmit) {
+            this.NdcSubmit = false;
+        }
+    }
 }
 

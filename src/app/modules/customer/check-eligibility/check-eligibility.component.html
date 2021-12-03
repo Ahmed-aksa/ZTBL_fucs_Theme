@@ -7,7 +7,8 @@
 
     </div>
     <!-- Header -->
-    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden pb-4" style="flex-direction: column;" [style.height]="gridHeight">
+    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden pb-4" style="flex-direction: column;"
+         [style.height]="gridHeight">
         <form [formGroup]="customerInfo" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="kt-portlet__body" style="margin-top: 5px">
@@ -353,6 +354,13 @@
         <div class="kt-form__actions kt-form__actions--solid">
             <div class="row">
                 <div class="col-lg-12 text-right">
+                    <button (click)="prev()"
+                            class="bg-green mat-flat-button mat-button-base mat-primary mat-focus-indicator"
+                            mat-raised-button
+                            *ngIf="NdcSubmit || BioMetricCapture || BiometricCredentials || ECIBPerform || ECIBPerformSuccess">
+                        <!--                        <mat-icon>arrow_back</mat-icon>-->
+                        Previous
+                    </button>
                     <button (click)="SubmitNdc()" *ngIf="NdcSubmit"
                             class="btn w-32  bg-green "
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
