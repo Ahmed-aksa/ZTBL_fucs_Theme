@@ -17,6 +17,8 @@ import { PaymentBehaviorComponent } from './payment-behavior/payment-behavior.co
 import { VoucherPostingDayComponent } from './voucher-posting-day/voucher-posting-day.component';
 import { DisbursementPerformanceReportComponent } from './disbursement-performance-report/disbursement-performance-report.component';
 import { DisbursementPerformancePurposeWiseComponent } from './disbursement-performance-purpose-wise/disbursement-performance-purpose-wise.component';
+import { InsuranceReportComponent } from './insurance-report/insurance-report.component';
+import { LoanAccountBalanceComponent } from './loan-account-balance/loan-account-balance.component';
 
 const routing = [
     {
@@ -64,7 +66,9 @@ const routing = [
         PaymentBehaviorComponent,
         VoucherPostingDayComponent,
         DisbursementPerformanceReportComponent,
-        DisbursementPerformancePurposeWiseComponent
+        DisbursementPerformancePurposeWiseComponent,
+        InsuranceReportComponent,
+        LoanAccountBalanceComponent
     ],
     imports: [
         CommonModule,
