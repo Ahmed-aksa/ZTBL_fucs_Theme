@@ -194,6 +194,7 @@ export class ClSearchLoanComponent implements OnInit {
     }
 
   editLoan(updateLoan) {
+      console.log(this.activatedRoute)
     this.router.navigate(['../create', { LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo }], { relativeTo: this.activatedRoute });
   }
 }

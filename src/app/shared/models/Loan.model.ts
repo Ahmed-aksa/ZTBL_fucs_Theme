@@ -88,8 +88,10 @@ export class ReschedulingList {
 }
 
 export class ORR {
-    LoanAppID: number;
+    LoanAppID: string;
 }
+
+
 
 export class LoanApplicationHeader {
     ZoneId: number;

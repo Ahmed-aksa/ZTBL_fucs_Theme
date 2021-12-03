@@ -622,13 +622,15 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    getORRDropDownByAppID(loanAppID: string) {
+    getORRDropDownByAppID(loanAppID: string,Lcno:string) {
         this.request = new BaseRequestModel();
 
         var loanInfo = new Loan();
         var oRR = new ORR();
-        oRR.LoanAppID = 2016727529;
+
+        oRR.LoanAppID = loanAppID;
         loanInfo.ORR = oRR;
+        loanInfo.LcNo=Lcno;
         this.request.Loan = loanInfo;
         this.request.TranId = 0;
         var userInfo = this.userUtilsService.getUserDetails();
