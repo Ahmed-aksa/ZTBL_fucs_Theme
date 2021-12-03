@@ -100,11 +100,11 @@ export class InsuranceReportComponent implements OnInit {
         this.instypeLov = this.instypeLov.LOVs;
         this.bufricationForm.controls["Type"].setValue(this.instypeLov ? this.instypeLov[0].Value : "")
 
-        this.categoryLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.InsReportType});
+        this.categoryLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.InsReportCategory});
         this.categoryLov = this.categoryLov.LOVs;
         this.bufricationForm.controls["Category"].setValue(this.categoryLov ? this.categoryLov[0].Value : "")
 
-        this.criteriaLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.InsReportType});
+        this.criteriaLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.InsReportCriteria});
         this.criteriaLov = this.criteriaLov.LOVs;
         this.bufricationForm.controls["Criteria"].setValue(this.criteriaLov ? this.criteriaLov[0].Value : "")
     }
