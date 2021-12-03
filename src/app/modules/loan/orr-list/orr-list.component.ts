@@ -85,7 +85,7 @@ export class OrrListComponent implements OnInit {
       LcNo: [this.loanFilter.LcNo],
       AppNo: [this.loanFilter.AppNo],
       Appdt: [this.loanFilter.Appdt],
-      Status: [this.loanFilter.Status, [Validators.required]]
+      Status: ["4"]
     });
   }
 
@@ -93,7 +93,7 @@ export class OrrListComponent implements OnInit {
   async getLoanStatus() {
     this.LoanStatus = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.LoanStatus });
     this.SelectedLoanStatus = this.LoanStatus.LOVs;
-    
+
   }
   searchLoanStatus(loanStatusId) {
     loanStatusId = loanStatusId.toLowerCase();
@@ -132,6 +132,7 @@ export class OrrListComponent implements OnInit {
       this.loanFilter.ZoneId = this.zone.ZoneId;
       this.loanFilter.BranchId = this.branch.BranchId;
       this.loanFilter.Appdt = this.datePipe.transform(this.loanFilter.Appdt, 'ddMMyyyy');
+
     this.spinner.show();
     this._loanService.searchLoanApplication(this.loanFilter, this.zone, this.branch)
       .pipe(
@@ -151,7 +152,19 @@ export class OrrListComponent implements OnInit {
 
   }
 
-  editLoan(updateLoan) {
-    this.router.navigate(['../create', { LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo }], { relativeTo: this.activatedRoute });
+  ApplyOrr(updateLoan) {
+    this.router.navigate(
+        ['../save-orr',
+            { LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo }],
+        { relativeTo: this.activatedRoute }
+    );
   }
+
+  ViewOrr(updateLoan) {
+        this.router.navigate(
+            ['../save-orr',
+                { LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo }],
+            { relativeTo: this.activatedRoute }
+        );
+    }
 }

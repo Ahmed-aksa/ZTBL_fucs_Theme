@@ -8,18 +8,14 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ActivatedRoute, Router} from '@angular/router';
 import {errorMessages, Lov, LovConfigurationKey, MaskEnum} from 'app/shared/classes/lov.class';
-import {Branch} from 'app/shared/models/branch.model';
-import {CreateCustomer} from 'app/shared/models/customer.model';
 import {CircleService} from 'app/shared/services/circle.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
-import {Zone} from '../../user-management/users/utils/zone.model';
 import {LoanUtilizationService} from '../service/loan-utilization.service';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
-import {Circle} from 'app/shared/models/circle.model';
 import {LoanUtilizationSearch} from '../Model/loan-utilization.model';
 
 @Component({

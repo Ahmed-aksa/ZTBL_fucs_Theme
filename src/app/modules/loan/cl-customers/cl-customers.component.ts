@@ -121,7 +121,7 @@ export class ClCustomersComponent implements OnInit {
             this.hasFormErrors = true;
             return;
         }
-        var duplicateCustomer = this.loan_data.filter(x => x.Cnic == this.loanCustomerForm.controls['CNIC'].value)[0];
+        var duplicateCustomer = this.loan_data?.filter(x => x.Cnic == this.loanCustomerForm.controls['CNIC'].value)[0];
         if (duplicateCustomer != undefined && duplicateCustomer != null) {
             this.layoutUtilsService.alertElement("", "Customer CNIC Already Added", "Duplicate Cutomer");
             return;
