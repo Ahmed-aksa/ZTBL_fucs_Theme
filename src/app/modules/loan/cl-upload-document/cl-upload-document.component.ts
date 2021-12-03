@@ -387,11 +387,13 @@ export class ClUploadDocumentComponent implements OnInit {
     changeFilesQuantity() {
 
         this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
-        // for (let i = 0; i < this.number_of_files; i++) {
-        //     // @ts-ignore
-        //     document.getElementById('page_' + i)?.value = i + 1;
-        //     this.PostDocument.controls['PageNumber'].disable();
-        // }
+        for (let i = 0; i < this.number_of_files; i++) {
+            // @ts-ignore
+            //document.getElementById('page_' + i)?.value = i + 1;
+            // @ts-ignore
+            document.getElementById(`page_${i}`).value = i+1
+            //this.PostDocument.controls['PageNumber'].disable();
+        }
 
     }
 
