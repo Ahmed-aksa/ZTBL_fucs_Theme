@@ -296,7 +296,10 @@ export class EligibilityRequestComponent implements OnInit {
     }
 
 
-    getEligibilityRequestData() {
+    getEligibilityRequestData(is_first = false) {
+        if (is_first == true) {
+            this.OffSet = 0;
+        }
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -344,14 +347,11 @@ export class EligibilityRequestComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.images = [];
                     this.dataSource.data = baseResponse.EligibilityRequest.EligibilityRequests;
-                    if (this.dataSource.data.length > 0)
-                        this.matTableLenght = true;
-                    else
-                        this.matTableLenght = false;
-
-                    this.dv = this.dataSource.data;
-                    this.totalItems = baseResponse.EligibilityRequest.EligibilityRequests[0].TotalRecords;
-                    this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    if (this.dataSource.data?.length > 0) {
+                        this.dv = this.dataSource.data;
+                        this.totalItems = baseResponse.EligibilityRequest.EligibilityRequests[0].TotalRecords;
+                        this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    }
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                     this.matTableLenght = false;
