@@ -20,6 +20,7 @@ import {AffidavitForLegalHeirsComponent} from "../affidavit-for-legal-heirs/affi
 import {DisbursementPerformanceReportComponent} from "../disbursement-performance-report/disbursement-performance-report.component";
 import {DisbursementPerformancePurposeWiseComponent} from "../disbursement-performance-purpose-wise/disbursement-performance-purpose-wise.component";
 import {LoanAccountBalanceComponent} from "../loan-account-balance/loan-account-balance.component";
+import {InsuranceReportComponent} from "../insurance-report/insurance-report.component";
 
 @Component({
     selector: 'app-reports',
@@ -102,6 +103,15 @@ export class ReportsComponent implements OnInit {
 
     loanAccountBalance(){
         const dialogRef = this.dialog.open(LoanAccountBalanceComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    insuranceReport(){
+        const dialogRef = this.dialog.open(InsuranceReportComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
         dialogRef.afterClosed().subscribe((res)=>{
             if(!res){
                 return
