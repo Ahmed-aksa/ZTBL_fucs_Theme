@@ -368,7 +368,8 @@ export class LoanDocuments {
     EnteredBy: number;
     file: any;
     DocLoanId: string;
-    LcNo: string
+    LcNo: string;
+    NoOfFilesToUpload: number;
 }
 
 export class SearchLoan {

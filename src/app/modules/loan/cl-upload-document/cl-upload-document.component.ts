@@ -76,6 +76,8 @@ export class ClUploadDocumentComponent implements OnInit {
     loan: any = {}
     pattern = /[^0-9]/g;
 
+    uploaded = "File Uploaded"
+
 
 
     constructor(
@@ -102,7 +104,7 @@ export class ClUploadDocumentComponent implements OnInit {
             PageNumber: [this.loanDocument.PageNumber, Validators.required],
             DescriptionTab: ['', Validators.required],
             DocumentRefNo: ['', Validators.required],
-            NoOfFilesToUpload: ['', Validators.required],
+            NoOfFilesToUpload: [this.loanDocument.NoOfFilesToUpload, Validators.required],
             file: ['', Validators.required],
         });
     }
@@ -260,6 +262,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
+        debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
@@ -271,6 +274,10 @@ export class ClUploadDocumentComponent implements OnInit {
             );
             this.toastr.error("Please Enter Required values");
             return;
+        }
+
+        if(this.rawData.length != 1){
+            this.rawData = this.rawData.reverse();
         }
 
         totLength = Number(totLength)
@@ -297,6 +304,11 @@ export class ClUploadDocumentComponent implements OnInit {
 
                 this.loanDocument.LcNo = this.LoanCaseId;
 
+                if(this.loanDocument.PageNumber != this.loanDocument.NoOfFilesToUpload){
+                    this.layoutUtilsService.alertElement('', 'Page Number should not be greater than No. of Files to upload')
+                    return false;
+                }
+
                 this.spinner.show();
                 this._loanService.documentUpload(this.loanDocument)
                     .pipe(
@@ -307,6 +319,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     if (baseResponse.Success) {
                         count = count+1;
                         this.docId.push(baseResponse.DocumentDetail.Id);
+                        //this.rawData.push(this.uploaded)
                         if(count == totLength){
                             this.getLoanDocument();
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
