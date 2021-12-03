@@ -37,6 +37,8 @@ export class InsuranceReportComponent implements OnInit {
     categoryLov: any;
     criteriaLov: any;
 
+    dateCheck = new Date();
+
     loading = false;
 
     public reports = new Bufrication();
@@ -204,7 +206,7 @@ export class InsuranceReportComponent implements OnInit {
 
 
     find() {
-
+        debugger
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             return;
@@ -214,9 +216,18 @@ export class InsuranceReportComponent implements OnInit {
             if (!(key != 'BranchCode' && key != 'CircleId' && key != 'ZoneId'))
                 this.bufricationForm.get(key).reset();
         });
+
+        this.dateCheck = new Date(this.bufricationForm.controls.FromDate.value.getTime()+(30*24*60*60*1000))
+
+        if(this.bufricationForm.controls.ToDate.value >= this.dateCheck){
+            this.layoutUtilsService.alertElement('', 'To Date should not exceed more than 30 days to From Date');
+            return
+        }
+
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "10";
         var toDate = this.datepipe.transform(this.bufricationForm.controls.ToDate.value, 'ddMMyyyy');
+
         var fromDate = this.datepipe.transform(this.bufricationForm.controls.FromDate.value, 'ddMMyyyy');
         this.reports.ToDate = toDate;
         this.reports.FromDate = fromDate;
@@ -251,6 +262,8 @@ export class InsuranceReportComponent implements OnInit {
     close(res) {
         this.dialogRef.close(res)
     }
+
+    setDate(){}
 
 
 }

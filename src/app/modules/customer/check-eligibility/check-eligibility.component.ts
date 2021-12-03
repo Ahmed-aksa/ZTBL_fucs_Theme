@@ -87,6 +87,11 @@ export class CheckEligibilityComponent implements OnInit {
     disable_district_field: boolean;
     disrtrict_value;
 
+
+    last_log_name: string = '';
+    disable_buttons: boolean = true;
+    show_ndc = false;
+
     constructor(
         private formBuilder: FormBuilder,
         private _customerService: CustomerService,
@@ -139,7 +144,8 @@ export class CheckEligibilityComponent implements OnInit {
 
     //Get Customer Info
     getCustomerInfo() {
-
+        this.disable_buttons = true;
+        this.show_ndc = true;
         this.checkEligibiltyCnic = true;
         const controlsCust = this.customerInfo.controls;
         this._customer = Object.assign(this._customer, this.customerInfo.value);
@@ -187,6 +193,7 @@ export class CheckEligibilityComponent implements OnInit {
                     else
                         this.BMVS_NIVS = "Not Found";
 
+                    this.IsNdcDefaulter = true;
 
                     this.CustomerNdc = baseResponse.customerNDC;
                     if (this.CustomerNdc.Code == "449") {
@@ -203,8 +210,12 @@ export class CheckEligibilityComponent implements OnInit {
                         this.NDCLinkView = false;
                         this.layoutUtilsService.alertMessage("", "No NDCP Record Available");
                     }
-                } else
+                } else {
+                    if (baseResponse.Ftb == 1) {
+                        this.router.navigate(['/dashboard']);
+                    }
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+                }
 
             });
 
@@ -221,12 +232,12 @@ export class CheckEligibilityComponent implements OnInit {
             const _description = 'Do you really want to submit NDC for approval?';
             const _waitDesciption = '';
             const _deleteMessage = `Role has been deleted`;
-            this.spinner.show();
             const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
             dialogRef.afterClosed().subscribe(res => {
                 if (!res) {
                     return;
                 }
+                this.spinner.show();
 
                 this.loading = true;
                 this._customer = this.Customer;
@@ -234,6 +245,7 @@ export class CheckEligibilityComponent implements OnInit {
                     .pipe(
                         finalize(() => {
                             this.submitted = false;
+                            this.last_log_name = 'ndc_submitted';
                             this.spinner.hide();
 
                         })
@@ -246,6 +258,9 @@ export class CheckEligibilityComponent implements OnInit {
                             this.PerformUseCases(baseResponse);
                             this._cdf.detectChanges();
                         } else {
+                            if (baseResponse.Ftb == 1) {
+                                this.router.navigate(['/dashboard']);
+                            }
                             this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                         }
 
@@ -377,6 +392,9 @@ export class CheckEligibilityComponent implements OnInit {
 
 
                 } else {
+                    if (baseResponse.Ftb == 1) {
+                        this.router.navigate(['/dashboard']);
+                    }
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                 }
 
@@ -428,6 +446,9 @@ export class CheckEligibilityComponent implements OnInit {
                         }
 
                     } else {
+                        if (baseResponse.Ftb == 1) {
+                            this.router.navigate(['/dashboard']);
+                        }
                         this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                     }
 
@@ -501,17 +522,15 @@ export class CheckEligibilityComponent implements OnInit {
         this.hasFormErrors = false;
     }
 
-    prev() {
-        if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials && this.ECIBPerform && this.ECIBPerformSuccess) {
-            this.ECIBPerformSuccess = false;
-        } else if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials && this.ECIBPerform) {
-            this.ECIBPerform = false;
-        } else if (this.NdcSubmit && this.BioMetricCapture && this.BiometricCredentials) {
-            this.BiometricCredentials = false;
-        } else if (this.NdcSubmit && this.BioMetricCapture) {
-            this.BioMetricCapture = false;
-        } else if (this.NdcSubmit) {
-            this.NdcSubmit = false;
+    change_cnic(value: string) {
+        this.Customer = null;
+        this.NDCPerform = false;
+
+        if (value.length == 13) {
+            this.disable_buttons = false;
+        } else {
+            this.disable_buttons = true;
+            this.show_ndc = false;
         }
     }
 }
