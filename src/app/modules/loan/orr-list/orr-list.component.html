@@ -145,9 +145,8 @@
           <ng-container matColumnDef="Action">
             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
             <mat-cell *matCellDef="let loan">
-              <button mat-icon-button color="primary" (click)="ApplyOrr(loan)">
-                <mat-icon style="margin-left: 5px;" title="View Loan">add</mat-icon>
-              </button>
+
+                <a class="self-center cursor-pointer text-green" (click)="ApplyOrr(loan)"> Apply ORR</a>
                 <button mat-icon-button color="primary" (click)="ViewOrr(loan)">
                     <mat-icon style="margin-left: 5px;" title="View Loan">visibility</mat-icon>
                 </button>
