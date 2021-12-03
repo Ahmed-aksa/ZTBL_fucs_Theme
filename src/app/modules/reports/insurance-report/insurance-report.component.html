@@ -29,7 +29,7 @@
                                         <mat-label class="customMatLabel">From Date<strong class="matMandatory">*</strong>
                                         </mat-label>
                                         <input matInput [matDatepicker]="picker2" formControlName="FromDate" maxlength="30"
-                                               autocomplete="off" (dateChange)="isEnableToDate()" appNumberOnly/>
+                                               autocomplete="off" (dateChange)="isEnableFromDate()" appNumberOnly/>
                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
                                     </mat-form-field>
