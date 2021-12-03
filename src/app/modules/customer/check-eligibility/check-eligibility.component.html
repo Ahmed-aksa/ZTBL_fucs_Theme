@@ -46,7 +46,7 @@
                             <div class="col-lg-6 shadow-md ">
                                 <div class="row p-4">
                                     <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                                        <h5 class="text-green">NDC</h5>
+                                        <h5 class="text-green">NDC - Status</h5>
                                         <h6 [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</h6>
                                     </div>
                                     <div class="col-lg-6 text-right kt-margin-bottom-20-mobile self-center">
@@ -54,7 +54,7 @@
                                            mat-flat-button
                                            color="primary">
                                             <mat-icon class="text-green mr-2" title="view">insert_drive_file</mat-icon>
-                                            View PDF
+                                            View NDC
                                         </a>
                                     </div>
                                 </div>
@@ -198,12 +198,6 @@
                                     <mat-hint align="left">Please enter address <strong></strong></mat-hint>
                                 </mat-form-field>
                             </div>
-                            <!--                            <div class="col-lg-4 kt-margin-bottom-20-mobile">-->
-                            <!--                                <mat-form-field class="mat-form-field-fluid" appearance="outline">-->
-                            <!--                                    <input matInput placeholder="District" formControlName="District"-->
-                            <!--                                           maxlength="200" autocomplete="off"/>-->
-                            <!--                                </mat-form-field>-->
-                            <!--                            </div>-->
                         </div>
 
                     </div>
@@ -252,6 +246,13 @@
                                         <strong>required</strong></mat-error>
                                     <mat-hint align="left">Please enter address <strong></strong></mat-hint>
                                 </mat-form-field>
+                                <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                        <input matInput placeholder="City" formControlName="District"
+                                               [disabled]="disable_district_field"
+                                               maxlength="200" autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
                             </div>
                         </div>
 
