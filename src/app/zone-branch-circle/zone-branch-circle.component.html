@@ -63,6 +63,7 @@
         </div>
     </div>
     <a class="cursor-pointer text-md font-bold text-center text-red-500 position-absolute top-0.5 right-9 "
+       *ngIf="should_filter"
        (click)="clearForm()">Clear Filters</a>
 
 </div>
