@@ -53,12 +53,9 @@ export class EligibilityRequestComponent implements OnInit {
 
 
     Statuses: any;
-    //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
-    //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob','CustomerStatus', 'View'];
     displayedColumns = [
         "ZoneName",
         "BranchName",
-        "CircleCode",
         "CustomerName",
         "Cnic",
         "FatherName",
@@ -97,11 +94,12 @@ export class EligibilityRequestComponent implements OnInit {
     //Branch inventory
     images: Array<object> = [];
     show_pics: boolean;
-
+    should_show_approve_and_reject: boolean = false;
     branch: any;
     circle: any;
     zone: any;
 
+    userInfo: any;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -128,17 +126,24 @@ export class EligibilityRequestComponent implements OnInit {
 
         //this.FilterForm.controls["StartDate"].setValue(this.myDate);
         //this.FilterForm.controls["EndDate"].setValue(this.myDate);
-
     }
 
-    userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     ngAfterViewInit() {
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
-
+        this.userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        let user_groups = this.userInfo.User.userGroup;
+        if (user_groups) {
+            let length_of_usergroups = user_groups.length;
+            for (let i = 0; i < length_of_usergroups; i++) {
+                if (user_groups[i].ProfileID == '57') {
+                    this.should_show_approve_and_reject = true;
+                }
+            }
+        }
         //var userInfo = this.userUtilsService.getUserDetails();
         //this.eligibilityRequestForm.controls['Zone'].setValue(userInfo.Zone.ZoneName);
         //this.eligibilityRequestForm.controls['Branch'].setValue(userInfo.Branch.Name);
@@ -158,7 +163,6 @@ export class EligibilityRequestComponent implements OnInit {
     }
 
     createForm() {
-        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.eligibilityRequestForm = this.filterFB.group({
             Cnic: [null],
             CustomerName: [null],
@@ -296,7 +300,10 @@ export class EligibilityRequestComponent implements OnInit {
     }
 
 
-    getEligibilityRequestData() {
+    getEligibilityRequestData(is_first = false) {
+        if (is_first == true) {
+            this.OffSet = 0;
+        }
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -344,14 +351,11 @@ export class EligibilityRequestComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.images = [];
                     this.dataSource.data = baseResponse.EligibilityRequest.EligibilityRequests;
-                    if (this.dataSource.data.length > 0)
-                        this.matTableLenght = true;
-                    else
-                        this.matTableLenght = false;
-
-                    this.dv = this.dataSource.data;
-                    this.totalItems = baseResponse.EligibilityRequest.EligibilityRequests[0].TotalRecords;
-                    this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    if (this.dataSource.data?.length > 0) {
+                        this.dv = this.dataSource.data;
+                        this.totalItems = baseResponse.EligibilityRequest.EligibilityRequests[0].TotalRecords;
+                        this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    }
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                     this.matTableLenght = false;

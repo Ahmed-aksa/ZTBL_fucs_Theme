@@ -46,12 +46,12 @@
 
 
                         </div>
-                        <div class="form-group kt-form__group row pl-0 p-1 py-2 mx-0  mt-4"
+                        <div class="form-group kt-form__group row  py-2 mx-0  mt-2"
                              *ngIf="NDCPerform && show_ndc">
-                            <div class="col-lg-12 shadow-md " style="background-color: #f6fcf8 !important;">
+                            <div class="col-lg-12 shadow-md border " style="background-color: #f6fcf8 !important;">
                                 <div class="row p-4">
                                     <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                                        <h5 class="text-green">NDC - Status</h5>
+                                        <h5 class="text-green mb-0">NDC - Status</h5>
                                         <p class="text-sm"
                                            [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc?.Message}}</p>
                                     </div>
@@ -68,27 +68,30 @@
 
                         </div>
                         <!--                        *ngIf="IsNdcDefaulter"-->
-                        <div class="form-group kt-form__group px-2 py-2 mx-0 border row mt-6" *ngIf="IsNdcDefaulter">
-                            <div class="col-lg-12 kt-margin-bottom-20-mobile py-3">
-                                <h5 class="text-blue">Summary</h5>
-                                <p>Customer is not eligible due to following reasons</p>
-                                <table class="col-lg-12">
-                                    <tbody>
-                                    <tr>
-                                        <td class="text-blue pl-0">BMVS/NIVS:</td>
-                                        <td class="pl-0"
-                                            [ngClass]="{'text-red': BMVS_NIVS == 'Not Found'}">{{BMVS_NIVS}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-blue pl-0">NDC:</td>
-                                        <td style="color:red;">Defaulter</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-blue pl-0">ECIB:</td>
-                                        <td>Not Checked</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                        <div class="form-group kt-form__group py-2 mx-0 row mt-2" *ngIf="IsNdcDefaulter">
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile py-1 border shadow-md" style="background-color: #f6fcf8 !important;">
+                                <div class="row p-4">
+                                    <h5 class="text-green">Summary</h5>
+                                    <p>Customer is not eligible due to following reasons</p>
+                                    <table class="col-lg-12">
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-blue">BMVS/NIVS:</td>
+                                            <td class="pl-0"
+                                                [ngClass]="{'text-red': BMVS_NIVS == 'Not Found'}">{{BMVS_NIVS}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-blue">NDC:</td>
+                                            <td style="color:red;" class=" pl-0">Defaulter</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-blue">ECIB:</td>
+                                            <td class=" pl-0">Not Checked</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
 
@@ -345,7 +348,7 @@
 
                         <div>
                             <button mat-flat-button
-                                    class="bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                    class="bg-green mat-focus-indicator  w-32  mat-flat-button mat-button-base mat-primary"
                                     type="button">Submit
                             </button>
                         </div>
@@ -360,21 +363,21 @@
             <div class="row">
                 <div class="col-lg-12 text-right">
                     <button (click)="SubmitNdc()" *ngIf="NdcSubmit"
-                            class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
+                            class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Next
                     </button>
                     <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture"
                             type="button"
-                            class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
+                            class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Save & Next
                     </button>
                     <button (click)="submitCWR()"
                             *ngIf="BiometricCredentials" type="button"
-                            class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                            class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Next
@@ -382,14 +385,14 @@
                     <button type="button"
                             (click)="refreshEcib()"
                             *ngIf="ECIBPerform"
-                            class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
+                            class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Refresh
                     </button>
                     <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
                             type="button"
-                            class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
+                            class="mat-focus-indicator w-32 mat-flat-button mat-button-base mat-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Next
