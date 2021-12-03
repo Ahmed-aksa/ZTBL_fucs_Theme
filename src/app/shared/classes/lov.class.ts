@@ -104,9 +104,13 @@ export class LovConfigurationKey {
 
     //village wise benchmarking
     public static readonly FarmSizeForVillageWise: string = 'FarmSizeForVillageWise';
-    public static readonly BifurcationLCStatus: string = 'BifurcationLCStatus';
 
+    //Reports
+    public static readonly BifurcationLCStatus: string = 'BifurcationLCStatus';
     public static readonly DailyVoucherStatus: string = 'DailyVoucherStatus';
+    public static readonly InsReportCategory: string = 'InsReportCategory';
+    public static readonly InsReportType: string = 'InsReportType';
+    public static readonly InsReportCriteria: string = 'InsReportCriteria';
 
 }
 

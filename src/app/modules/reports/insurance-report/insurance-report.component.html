@@ -1,1 +1,120 @@
-<p>insurance-report works!</p>
+<div id="Kt-portlet-margin-top">
+    <div class="kt-portlet">
+        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header" style="display: flex;flex-direction: row;justify-content: space-between; margin-bottom: 10px;">
+            <div class="kt-portlet__head-label flex w-full">
+                <h3 class="heading w-11/12">Insurance Premium Reports</h3>
+                <button  class="text-end w-1/12"  (click)="close(0)"><mat-icon class="ml-2 text-white  p-3   bg-danger rounded-md">close</mat-icon></button>
+            </div>
+            <!-- <span (click)="close(0)"><mat-icon>close</mat-icon></span> -->
+
+
+        </div>
+    </div>
+
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body">
+            <form [formGroup]="bufricationForm" class="kt-form kt-form--group-seperator-dashed">
+
+                <div class="kt-form">
+
+                    <div class="kt-portlet__body">
+
+                        <div class="col-lg-12">
+                            <div class="flex" style="flex-wrap: wrap;">
+                                <app-zone-branch-circle [form]="bufricationForm" [should_show_circle]="false" [is_required_circle]="false"
+                                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">From Date<strong class="matMandatory">*</strong>
+                                        </mat-label>
+                                        <input matInput [matDatepicker]="picker2" formControlName="FromDate" maxlength="30"
+                                               autocomplete="off" (dateChange)="isEnableFromDate()" appNumberOnly/>
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">To Date<strong class="matMandatory">*</strong>
+                                        </mat-label>
+                                        <input matInput [matDatepicker]="picker2" formControlName="ToDate" maxlength="30"
+                                               autocomplete="off" (dateChange)="isEnableToDate()" appNumberOnly/>
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Category<strong class="matMandatory">*</strong></mat-label>
+                                        <mat-select formControlName="Category">
+                                            <mat-option *ngFor="let lov of categoryLov" [value]="lov.Value">
+                                                {{lov.Description}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Payment Status<strong class="matMandatory">*</strong></mat-label>
+                                        <mat-select formControlName="Type">
+                                            <mat-option *ngFor="let lov of instypeLov" [value]="lov.Value">
+                                                {{lov.Description}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Loan Case#</mat-label>
+                                        <input matInput placeholder="Enter LC NO" formControlName="LcNO" maxlength="30" autocomplete="off" appNumberOnly/>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Criteria Based On<strong class="matMandatory">*</strong></mat-label>
+                                        <mat-select formControlName="Criteria">
+                                            <mat-option *ngFor="let lov of criteriaLov" [value]="lov.Value">
+                                                {{lov.Description}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Export Format<strong class="matMandatory">*</strong></mat-label>
+                                        <mat-select formControlName="ReportFormatType">
+                                            <mat-option *ngFor="let lov of select" [value]="lov.Value">
+                                                {{lov.description}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <button class="bg-gray-500"  mat-raised-button color="primary" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Find</button>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+
+
+</div>

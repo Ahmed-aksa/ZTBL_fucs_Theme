@@ -110,6 +110,10 @@ export class OrrListComponent implements OnInit {
 
   ngAfterViewInit() {
     this.gridHeight = window.innerHeight - 400 + 'px';
+    if(this.zone){
+        this.searchLoan();
+    }
+
   }
 
     getAllData(data) {

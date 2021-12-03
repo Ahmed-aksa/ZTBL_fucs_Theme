@@ -80,14 +80,12 @@ export class SaveOrrComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
 
-
                 if (baseResponse.Success === true) {
                     this.Cib = baseResponse.Loan.ORR.Cib;
                     this.MarketReputation = baseResponse.Loan.ORR.MarketReputation;
                     this.ApplicationORR = baseResponse.Loan.ORR.ApplicationORR;
                     this.CustomerORR = baseResponse.Loan.ORR.CustomerORR;
                     this.GlProposalORR = baseResponse.Loan.ORR.GlProposalORR;
-
                     this.ORRForm.controls.SoilTypeORRID.setValue(this.ApplicationORR[0]?.SoilTypeORRID);
                     this.ORRForm.controls.LandOwnershipORRID.setValue(this.ApplicationORR[0]?.LandOwnershipORRID);
                     this.ORRForm.controls.MarketAvailabilityORRID.setValue(this.ApplicationORR[0]?.MarketAvailbilityORRID);
