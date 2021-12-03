@@ -7,7 +7,8 @@
 
     </div>
     <!-- Header -->
-    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden pb-4" style="flex-direction: column;">
+    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden pb-4" style="flex-direction: column;"
+         [style.height]="gridHeight">
         <form [formGroup]="customerInfo" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="kt-portlet__body" style="margin-top: 5px">
@@ -43,11 +44,11 @@
 
                         </div>
                         <div class="form-group kt-form__group row pl-0 p-1 py-2 mx-0  mt-4" *ngIf="NDCPerform">
-                            <div class="col-lg-6 shadow-md ">
+                            <div class="col-lg-12 shadow-md " style="background-color: #f6fcf8 !important;">
                                 <div class="row p-4">
                                     <div class="col-lg-6 kt-margin-bottom-20-mobile">
                                         <h5 class="text-green">NDC - Status</h5>
-                                        <h6 [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</h6>
+                                        <p [ngClass]="{'text-red': IsNdcDefaulter == true, 'text-green': IsNdcDefaulter == false}">{{CustomerNdc.Message}}</p>
                                     </div>
                                     <div class="col-lg-6 text-right kt-margin-bottom-20-mobile self-center">
                                         <a *ngIf="NDCLinkView" href="{{Customer.NDCPDFLink}}" target="_blank"
@@ -344,51 +345,59 @@
                             </button>
                         </div>
                     </div>
-                    <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border mt-2">
-                        <div class="kt-form__actions kt-form__actions--solid">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit"
-                                            class="btn  bg-green "
-                                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                    >
-                                        Next
-                                    </button>
-                                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture"
-                                            type="button" class="btn btn-primary bg-green kt-login__btn-primary"
-                                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                    >
-                                        Save & Next
-                                    </button>
-                                    <button (click)="submitCWR()"
-                                            *ngIf="BiometricCredentials" type="button"
-                                            class="btn btn-primary  kt-login__btn-primary bg-green"
-                                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                    >
-                                        Next
-                                    </button>
-                                    <button type="button"
-                                            (click)="refreshEcib()"
-                                            *ngIf="ECIBPerform"
-                                            class="btn btn-primary kt-login__btn-primary bg-green"
-                                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                    >
-                                        Refresh
-                                    </button>
-                                    <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
-                                            type="button"
-                                            class="btn btn-primary kt-login__btn-primary bg-green"
-                                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                                    >
-                                        Next
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </form>
+    </div>
+    <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border mt-2">
+        <div class="kt-form__actions kt-form__actions--solid">
+            <div class="row">
+                <div class="col-lg-12 text-right">
+                    <button (click)="prev()"
+                            class="bg-green mat-flat-button mat-button-base mat-primary mat-focus-indicator"
+                            mat-raised-button
+                            *ngIf="NdcSubmit || BioMetricCapture || BiometricCredentials || ECIBPerform || ECIBPerformSuccess">
+                        <!--                        <mat-icon>arrow_back</mat-icon>-->
+                        Previous
+                    </button>
+                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit"
+                            class="btn w-32  bg-green "
+                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                    >
+                        Next
+                    </button>
+                    <button (click)="saveBiomatricdata()" *ngIf="BioMetricCapture"
+                            type="button" class="btn btn-primary  w-32    bg-green kt-login__btn-primary"
+                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                    >
+                        Save & Next
+                    </button>
+                    <button (click)="submitCWR()"
+                            *ngIf="BiometricCredentials" type="button"
+                            class="btn btn-primary  kt-login__btn-primary bg-green"
+                            [ngClass]="{'kt-spinner  w-32  kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                    >
+                        Next
+                    </button>
+                    <button type="button"
+                            (click)="refreshEcib()"
+                            *ngIf="ECIBPerform"
+                            class="btn btn-primary  w-32  kt-login__btn-primary bg-green"
+                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                    >
+                        Refresh
+                    </button>
+                    <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
+                            type="button"
+                            class="btn w-32 btn-primary kt-login__btn-primary bg-green"
+                            [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                    >
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

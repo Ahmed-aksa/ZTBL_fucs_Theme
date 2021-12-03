@@ -620,3 +620,11 @@ img{
       min-width: calc(100% + 9px) !important;
     }
   }
+  .bg-gray-50{
+    background-color: #f8fafc;
+  }
+
+  .mat-sort-header-arrow:hover {
+    color: #fff !important;
+    opacity: 1 !important;
+}

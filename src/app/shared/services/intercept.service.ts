@@ -42,27 +42,21 @@ export class InterceptService implements HttpInterceptor {
             });
         }
 
-        // 
-        // 
-        // 
+        //
+        //
+        //
 
         return next.handle(request).pipe(
             tap(
                 (event) => {
                     if (event instanceof HttpResponse) {
-                        // 
+                        //
                         // http response status code
-                        // 
+                        //
                     }
                 },
                 (error) => {
-                    // http response status code
-                    // 
-                    // console.error('status code:');
-                    // tslint:disable-next-line:no-
-                    console.error(error.status);
-                    console.error(error.message);
-                    // 
+                    //
                 }
             )
         );
