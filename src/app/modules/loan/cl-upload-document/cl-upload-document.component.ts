@@ -97,9 +97,9 @@ export class ClUploadDocumentComponent implements OnInit {
         this.PostDocument = frmbuilder.group({
             ParentDocId: [this.loanDocument.ParentDocId, Validators.required],//Document Type Lov
             LcNo: [this.loanDocument.LcNo, Validators.required],
-            LoanStatus: [this.loanDocument.LoanStatus, Validators.required],
+            LoanStatus: [this.loanDocument.LoanStatus],
             DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
-            CategoryName: [this.loanDocument.CategoryName, Validators.required],
+            CategoryName: [this.loanDocument.CategoryName],
             Description: [this.loanDocument.Description, Validators.required],
             PageNumber: [this.loanDocument.PageNumber, Validators.required],
             DescriptionTab: ['', Validators.required],
