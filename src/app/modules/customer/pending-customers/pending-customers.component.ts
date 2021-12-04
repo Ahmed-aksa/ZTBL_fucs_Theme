@@ -100,7 +100,7 @@ export class PendingCustomersComponent implements OnInit {
             CustomerName: [this._customer.CustomerName, [Validators.required]],
             Cnic: [this._customer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
             FatherName: [this._customer.FatherName, [Validators.required]],
-            CustomerStatus: ['P', [Validators.required]]
+            CustomerStatus: ['N', [Validators.required]]
         });
     }
 
@@ -120,7 +120,7 @@ export class PendingCustomersComponent implements OnInit {
             )
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
-                    
+
                     this.dataSource.data = baseResponse.Customers;
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
