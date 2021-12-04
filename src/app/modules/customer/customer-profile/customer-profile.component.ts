@@ -19,6 +19,7 @@ import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {CommonService} from 'app/shared/services/common.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'kt-customer-profile',
@@ -145,7 +146,8 @@ export class CustomerProfileComponent implements OnInit {
         private cdRef: ChangeDetectorRef,
         private datePipe: DatePipe,
         private _common: CommonService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private toastr: ToastrService
     ) {
 
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -390,9 +392,8 @@ export class CustomerProfileComponent implements OnInit {
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
-
             this.hasFormErrors = true;
-
+            this.toastr.error("Please Enter Required values");
             return;
         }
 
