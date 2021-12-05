@@ -154,7 +154,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                                     <input formControlName="file" type="file" id="file_{{i}}"
                                            accept="image/png, image/jpg, image/jpeg"
-                                           (change)="onFileChange($event)">
+                                           (change)="onFileChange($event, i)">
                                 </div>
                             </div>
                         </td>
