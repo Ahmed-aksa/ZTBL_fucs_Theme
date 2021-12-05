@@ -241,11 +241,7 @@ export class ClUploadDocumentComponent implements OnInit {
         });
     }
 
-    onFileChange(event) {
-
-        for (let i = 0; i < this.docId.length; i++) {
-            this.rawData.splice(i, 1)
-        }
+    onFileChange(event, i) {
 
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
@@ -255,8 +251,12 @@ export class ClUploadDocumentComponent implements OnInit {
                 if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
                     const reader = new FileReader();
                     reader.onload = (event: any) => {
-                        this.rawData.push(file);
-
+                        if(this.rawData[i]){
+                            this.rawData.splice(i, 1);
+                            this.rawData.splice(i,0, file);
+                        }else{
+                            this.rawData.push(file);
+                        }
                     };
                     reader.readAsDataURL(file);
 
