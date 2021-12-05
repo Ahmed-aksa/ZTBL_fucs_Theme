@@ -1,5 +1,6 @@
 <div
-    class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
+
 
     <div class="row pt-3 pb-0">
         <div class="col-lg-9 col-sm-12">
@@ -68,7 +69,7 @@
                             class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
                             mat-raised-button
                             type="button"
-                            (click)="searchCustomer()">
+                            (click)="searchCustomer(true)">
                             <mat-icon class="mr-2">search</mat-icon>
                             Search
                         </button>
@@ -81,17 +82,11 @@
 
         </div>
     </div>
-
-
-    <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between"
-         style="flex-wrap: wrap">
-
-    </div>
     <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-y-scroll"
          style="flex-direction: column;">
 
         <div class="example-table-container">
+
             <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
                        matSortActive="id"
                        matSortDirection="asc" matSortDisableClear>
@@ -103,18 +98,14 @@
                 </ng-container>
 
 
-                <ng-container matColumnDef="CustomerNumber">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Number</mat-header-cell>
-                    <mat-cell *matCellDef="let customer">{{customer.CustomerNumber}}</mat-cell>
-                </ng-container>
-
                 <ng-container matColumnDef="FatherName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
                     <mat-cell *matCellDef="let customer">{{customer.FatherName}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Cnic">
-                    <mat-header-cell style="min-width: 150px;" *matHeaderCellDef mat-sort-header>Cnic</mat-header-cell>
+                    <mat-header-cell style="min-width: 150px;" *matHeaderCellDef mat-sort-header>Cnic
+                    </mat-header-cell>
                     <mat-cell style="min-width: 150px;" *matCellDef="let customer">{{customer.Cnic}}</mat-cell>
                 </ng-container>
 
@@ -123,10 +114,6 @@
                     <mat-cell *matCellDef="let customer">{{customer.CurrentAddress}}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Dob">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dob</mat-header-cell>
-                    <mat-cell *matCellDef="let customer">{{customer.Dob}}</mat-cell>
-                </ng-container>
 
                 <ng-container matColumnDef="CustomerStatus">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
@@ -134,28 +121,57 @@
                 </ng-container>
 
                 <ng-container matColumnDef="View">
-                    <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
                     <mat-cell *matCellDef="let customer">
-                        <button mat-icon-button color="primary" (click)="editCustomer(customer)">
-                            <mat-icon style="margin-left: 5px;" title="View Customer">accessibility_new</mat-icon>
+                        <button mat-icon-button color="primary" *ngIf="CheckEditStatus(customer)"
+                                (click)="editCustomer(customer)">
+                            <!-- <mat-icon style="margin-left: 5px;" title="View Customer">accessibility_new</mat-icon> -->
+                            <mat-icon style="margin-left: 2px;" title="Edit Customer">edit</mat-icon>
+                        </button>
+
+                        <button mat-icon-button color="primary" *ngIf="CheckViewStatus(customer)"
+                                (click)="viewCustomer(customer)">
+                            <mat-icon style="margin-left: 2px;" title="View Customer">visibility</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>
+
+                <!-- <ng-container matColumnDef="View">
+        <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+        <mat-cell *matCellDef="let customer">
+         <button mat-icon-button color="primary" (click)="viewCustomer(customer)">
+           <mat-icon style="margin-left: 5px;" title="View Customer">visibility</mat-icon>
+         </button>
+        </mat-cell>
+        </ng-container> -->
 
                 <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background">
                 </mat-header-row>
 
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
-            <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
+
+            <div class="mat-table__message" *ngIf="!loading && dataSource?.data?.length==0">No records found</div>
             <div class="mat-table__message" *ngIf="loading">Please wait....</div>
 
 
         </div>
 
     </div>
-    <div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between">
-        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]" [showFirstLastButtons]="true">
-        </mat-paginator>
+    <div class="mat-select" style="padding:5px;">
+        Items per page:
+        <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls display="inline" (pageChange)="paginate($event)"
+                             style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(MathCeil(total_customers_length/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b>{{total_customers_length}}</b> items</p>
+
     </div>
 </div>

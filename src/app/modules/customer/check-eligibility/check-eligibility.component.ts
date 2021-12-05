@@ -91,6 +91,7 @@ export class CheckEligibilityComponent implements OnInit {
     last_log_name: string = '';
     disable_buttons: boolean = true;
     show_ndc = false;
+    IS_NIVS: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -186,18 +187,24 @@ export class CheckEligibilityComponent implements OnInit {
                     this.NDCPerform = true;
                     this.NdcSubmit = true;
                     this.Customer = baseResponse.Customer;
+                    debugger;
 
-                    this.BMVS_NIVS = this.Customer.isBMVSAvailable;
-                    if (this.Customer.isBMVSAvailable)
+                    this.BMVS_NIVS = this.Customer?.isBMVSAvailable;
+                    if (this.Customer?.isBMVSAvailable)
                         this.BMVS_NIVS = "Success";
                     else
                         this.BMVS_NIVS = "Not Found";
+                    if (this.Customer?.isNIVSExempted) {
+                        this.IS_NIVS = "Success";
+                    } else {
+                        this.IS_NIVS = "Not Found";
+                    }
 
-                    this.IsNdcDefaulter = true;
 
                     this.CustomerNdc = baseResponse.customerNDC;
-                    if (this.CustomerNdc.Code == "449") {
+                    if (this.CustomerNdc?.Code == "449") {
                         this.IsNdcDefaulter = true;
+                        this.disable_defaulter = true;
                         this.NDC_Val = this.CustomerNdc.Message;
                     } else {
                         this.IsNdcDefaulter = false;
@@ -404,6 +411,8 @@ export class CheckEligibilityComponent implements OnInit {
 
 
     //Refresh Ecib
+    disable_defaulter: boolean = false;
+
     refreshEcib() {
 
         this.refreshEcibLoading = true;
@@ -531,6 +540,7 @@ export class CheckEligibilityComponent implements OnInit {
         } else {
             this.disable_buttons = true;
             this.show_ndc = false;
+            this.disable_defaulter = false;
         }
     }
 }

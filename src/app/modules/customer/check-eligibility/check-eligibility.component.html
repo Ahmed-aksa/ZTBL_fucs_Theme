@@ -68,8 +68,10 @@
 
                         </div>
                         <!--                        *ngIf="IsNdcDefaulter"-->
-                        <div class="form-group kt-form__group py-2 mx-0 row mt-2" *ngIf="IsNdcDefaulter">
-                            <div class="col-lg-12 kt-margin-bottom-20-mobile py-1 border shadow-md" style="background-color: #f6fcf8 !important;">
+                        <div class="form-group kt-form__group py-2 mx-0 row mt-2"
+                             *ngIf="IsNdcDefaulter && disable_defaulter">
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile py-1 border shadow-md"
+                                 style="background-color: #f6fcf8 !important;">
                                 <div class="row p-4">
                                     <h5 class="text-green">Summary</h5>
                                     <p>Customer is not eligible due to following reasons</p>

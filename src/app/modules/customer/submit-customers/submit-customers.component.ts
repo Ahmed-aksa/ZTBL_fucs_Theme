@@ -1,48 +1,60 @@
 import {Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatSort} from '@angular/material/sort';
+import {finalize} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
-import {ActivatedRoute, Router} from '@angular/router';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import {errorMessages, Lov, LovConfigurationKey, MaskEnum, regExps} from 'app/shared/classes/lov.class';
 import {CreateCustomer} from 'app/shared/models/customer.model';
+import {MatDialog} from '@angular/material/dialog';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {CustomerService} from 'app/shared/services/customer.service';
-import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {finalize} from 'rxjs/operators';
 
+//src/app/core/_base/crud/utils/user-utils.service
 
 @Component({
-    selector: 'kt-submit-customers',
-    templateUrl: './submit-customers.component.html',
-    styleUrls: ['./submit-customers.component.scss']
+    selector: 'kt-pending-customers',
+    templateUrl: './pending-customers.component.html',
+    styleUrls: ['./pending-customers.component.scss']
 })
-export class SubmitCustomersComponent implements OnInit {
+export class PendingCustomersComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
+    loggedInUserDetails: any;
+    dv: number | any; //use later
 
 
     //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
-    displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
+    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus', 'View'];
 
     gridHeight: string;
     customerSearch: FormGroup;
     myDate = new Date().toLocaleDateString();
 
-    branch: any;
+
     zone: any;
+    branch: any;
+
     public maskEnums = MaskEnum;
     errors = errorMessages;
     public LovCall = new Lov();
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
+    pending_customer_form: FormGroup;
+    total_customers_length: number | any;
+    itemsPerPage = 5;
+    private OffSet: number = 0;
+    private pageIndex: any = 0;
 
     constructor(
         public dialog: MatDialog,
@@ -53,17 +65,24 @@ export class SubmitCustomersComponent implements OnInit {
         private _customerService: CustomerService,
         private _lovService: LovService,
         private layoutUtilsService: LayoutUtilsService,
+        private userUtilsService: UserUtilsService,
         private spinner: NgxSpinnerService) {
     }
 
     ngOnInit() {
+
         this.LoadLovs();
+
         this.createForm();
+
+
         setTimeout(() => {
             if (this.zone) {
                 this.searchCustomer();
             }
-        }, 200);
+        }, 1000);
+        var userDetails = this.userUtilsService.getUserDetails();
+        this.loggedInUserDetails = userDetails;
     }
 
     ngAfterViewInit() {
@@ -95,21 +114,35 @@ export class SubmitCustomersComponent implements OnInit {
         return this.customerSearch.controls[controlName].hasError(errorName);
     }
 
-    searchCustomer() {
-        this.spinner.show()
-        this._customerService.searchCustomer(this.customerSearch.value, this.branch, this.zone)
+    searchCustomer(is_first = false) {
+        if (is_first == true) {
+            this.OffSet = 0;
+        }
+        this.spinner.show();
+        this._customerService.searchCustomer(this.customerSearch.value, this.branch, this.zone, this.loggedInUserDetails, this.OffSet, this.itemsPerPage)
             .pipe(
                 finalize(() => {
                     this.loading = false;
-                    this.spinner.hide()
+                    this.spinner.hide();
                 })
             )
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
+
                     this.dataSource.data = baseResponse.Customers;
+                    if (this.dataSource.data?.length > 0) {
+                        this.dv = this.dataSource.data;
+                        this.total_customers_length = baseResponse.Customers[0].TotalRecords;
+                        this.dataSource = this.dv?.splice(0, this.itemsPerPage);
+                    }
+
+
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    this.dataSource.data = []
+                    this.OffSet = 1;
+                    this.pageIndex = 1;
+                    this.dataSource = this.dv?.splice(1, 0);
+                    this.total_customers_length = 0;
                 }
 
             });
@@ -145,6 +178,30 @@ export class SubmitCustomersComponent implements OnInit {
 
     }
 
+    CheckEditStatus(customer: any) {
+        if (customer.CreatedBy == this.loggedInUserDetails.User.UserId) {
+            return true
+            // if (jv.MakerID == this.loggedInUserDetails.User.UserId) {
+            //   return true
+            // }
+            // else {
+            //   return false
+            // }
+        } else {
+            return false
+        }
+
+    }
+
+    CheckViewStatus(customer: any) {
+        if (customer.CreatedBy != this.loggedInUserDetails.User.UserId) {
+            return true
+        } else {
+            return false
+        }
+
+    }
+
     editCustomer(Customer: any) {
         localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
         localStorage.setItem('CreateCustomerBit', '2');
@@ -152,19 +209,46 @@ export class SubmitCustomersComponent implements OnInit {
 
     }
 
+    viewCustomer(Customer: any) {
+        localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
+        localStorage.setItem('CreateCustomerBit', '2');
+        this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
+
+    }
 
     getStatus(status: string) {
-        if (status == 'P') {
-            return "Submit";
+
+        if (status == 'N') {
+            return "Pending";
         }
+
     }
+
 
     async LoadLovs() {
         this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus})
     }
 
-    getAllData(event: { final_zone: any; final_branch: any; final_circle: any }) {
+    getAllData(event) {
         this.zone = event.final_zone;
-        this.branch = event.final_branch;
+        this.branch = event.final_branch
+    }
+
+    MathCeil(value: any) {
+        return Math.ceil(value);
+    }
+
+    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+        if (Number.isNaN(pageIndex)) {
+            this.pageIndex = this.pageIndex + 1;
+        } else {
+            this.pageIndex = pageIndex;
+        }
+        this.itemsPerPage = pageSize;
+        this.OffSet = (this.pageIndex - 1) * this.itemsPerPage;
+        if (this.OffSet < 0) {
+            this.OffSet = 0;
+        }
+        this.searchCustomer();
     }
 }

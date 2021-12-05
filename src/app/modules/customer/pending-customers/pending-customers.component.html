@@ -69,7 +69,7 @@
                             class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
                             mat-raised-button
                             type="button"
-                            (click)="searchCustomer()">
+                            (click)="searchCustomer(true)">
                             <mat-icon class="mr-2">search</mat-icon>
                             Search
                         </button>
@@ -151,16 +151,27 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
+            <div class="mat-table__message" *ngIf="!loading && dataSource?.data?.length==0">No records found</div>
             <div class="mat-table__message" *ngIf="loading">Please wait....</div>
 
 
         </div>
 
     </div>
-    <div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between">
-        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"
-                       [showFirstLastButtons]="true">
-        </mat-paginator>
+    <div class="mat-select" style="padding:5px;">
+        Items per page:
+        <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls display="inline" (pageChange)="paginate($event)"
+                             style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(MathCeil(total_customers_length/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b>{{total_customers_length}}</b> items</p>
+
     </div>
 </div>

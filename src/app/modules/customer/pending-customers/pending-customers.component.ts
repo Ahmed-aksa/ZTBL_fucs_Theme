@@ -31,6 +31,7 @@ export class PendingCustomersComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
     loggedInUserDetails: any;
+    dv: number | any; //use later
 
 
     //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
@@ -50,6 +51,10 @@ export class PendingCustomersComponent implements OnInit {
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
     pending_customer_form: FormGroup;
+    total_customers_length: number | any;
+    itemsPerPage = 5;
+    private OffSet: number = 0;
+    private pageIndex: any = 0;
 
     constructor(
         public dialog: MatDialog,
@@ -100,7 +105,7 @@ export class PendingCustomersComponent implements OnInit {
             CustomerName: [this._customer.CustomerName, [Validators.required]],
             Cnic: [this._customer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
             FatherName: [this._customer.FatherName, [Validators.required]],
-            CustomerStatus: ['P', [Validators.required]]
+            CustomerStatus: ['N', [Validators.required]]
         });
     }
 
@@ -109,9 +114,12 @@ export class PendingCustomersComponent implements OnInit {
         return this.customerSearch.controls[controlName].hasError(errorName);
     }
 
-    searchCustomer() {
+    searchCustomer(is_first = false) {
+        if (is_first == true) {
+            this.OffSet = 0;
+        }
         this.spinner.show();
-        this._customerService.searchCustomer(this.customerSearch.value, this.branch, this.zone)
+        this._customerService.searchCustomer(this.customerSearch.value, this.branch, this.zone, this.loggedInUserDetails, this.OffSet, this.itemsPerPage)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -120,11 +128,21 @@ export class PendingCustomersComponent implements OnInit {
             )
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
-                    
+
                     this.dataSource.data = baseResponse.Customers;
+                    if (this.dataSource.data?.length > 0) {
+                        this.dv = this.dataSource.data;
+                        this.total_customers_length = baseResponse.Customers[0].TotalRecords;
+                        this.dataSource = this.dv?.splice(0, this.itemsPerPage);
+                    }
+
+
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    this.dataSource.data = []
+                    this.OffSet = 1;
+                    this.pageIndex = 1;
+                    this.dataSource = this.dv?.splice(1, 0);
+                    this.total_customers_length = 0;
                 }
 
             });
@@ -214,5 +232,23 @@ export class PendingCustomersComponent implements OnInit {
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch
+    }
+
+    MathCeil(value: any) {
+        return Math.ceil(value);
+    }
+
+    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+        if (Number.isNaN(pageIndex)) {
+            this.pageIndex = this.pageIndex + 1;
+        } else {
+            this.pageIndex = pageIndex;
+        }
+        this.itemsPerPage = pageSize;
+        this.OffSet = (this.pageIndex - 1) * this.itemsPerPage;
+        if (this.OffSet < 0) {
+            this.OffSet = 0;
+        }
+        this.searchCustomer();
     }
 }

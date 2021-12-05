@@ -147,7 +147,7 @@ export class CustomerService {
 
     searchCustomer(
         customer: CreateCustomer, branch = null, zone = null,
-        userDetail: BaseResponseModel = null,
+        userDetail = null, offset = null, itemperpage = null
     ): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
 
@@ -166,6 +166,17 @@ export class CustomerService {
         this.request.Zone = zone;
         this.request.Branch = branch;
 
+        var request1 = {
+            User: userInfo.User,
+            Customer: customer,
+            Zone: zone,
+            Branch: branch,
+            Pagination: {
+                Offset: offset,
+                Limit: itemperpage
+            }
+        }
+
         if (!branch && !zone) {
 
             this.request.Zone = userInfo.Zone;
@@ -174,7 +185,7 @@ export class CustomerService {
         return this.http
             .post(
                 `${environment.apiUrl}/Customer/SearchCustomer`,
-                this.request,
+                request1,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));

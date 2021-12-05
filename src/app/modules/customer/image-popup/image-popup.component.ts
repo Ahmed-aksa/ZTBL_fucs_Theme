@@ -16,7 +16,6 @@ export class ImagePopupComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger;
         this.images = this.data.images;
     }
 
