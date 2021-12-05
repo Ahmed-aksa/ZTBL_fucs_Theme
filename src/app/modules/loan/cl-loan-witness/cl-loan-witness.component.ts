@@ -128,7 +128,7 @@ export class ClLoanWitnessComponent implements OnInit {
         let duplicate_cnic = false;
         this.loanPersonalSuretiesArray.forEach((single_array) => {
             if (single_array.Cnic == this.personalSuretiesForm.value.Cnic) {
-                if (this.personalSureties.PersonalSuretyID != null)
+                if (!this.personalSuretiesForm?.controls?.PersonalSuretyID?.value)
                     duplicate_cnic = true;
             }
 
@@ -153,7 +153,7 @@ export class ClLoanWitnessComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Loan?.PersonalSuretiesList)
                 this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
-            // this.personalSuretiesForm.reset()
+            this.personalSuretiesForm.reset()
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -225,15 +225,17 @@ export class ClLoanWitnessComponent implements OnInit {
     }
 
     onSaveLoanRefrencesForm() {
-
+debugger
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
+        // if(){}
+
         let duplicate_cnic = false;
         this.loanRefrenceArray.forEach((single_array) => {
             if (single_array.Cnic == this.loanRefrencesForm.value.Cnic) {
-                if (this.loanRefrences.ReferenceID != null) {
+                if (!this.loanRefrencesForm?.controls?.ReferenceID?.value) {
                     duplicate_cnic = true;
                 }
             }
@@ -256,10 +258,15 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            if (baseResponse.Loan.LoanRefrencesList)
+            if (baseResponse.Loan.LoanRefrencesList){
                 this.loanRefrenceArray = baseResponse.Loan.LoanRefrencesList
-            this.loanRefrencesForm.reset()
-            this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.loanRefrencesForm.reset()
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            } else{
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+
         });
     }
 
@@ -287,7 +294,7 @@ export class ClLoanWitnessComponent implements OnInit {
         let duplicate_cnic = false;
         this.loanWitnessArray.forEach((single_array) => {
                 if (single_array.Cnic == this.loanWitnessForm.value.Cnic) {
-                    if (this.loanWitness.WitnessesID != null) {
+                    if (!this.loanWitnessForm?.controls?.WitnessesID?.value) {
                         duplicate_cnic = true;
                     }
                 }
@@ -313,10 +320,15 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            if (baseResponse.Loan.LoanWitnessList)
+            if (baseResponse.Loan.LoanWitnessList){
                 this.loanWitnessArray = baseResponse.Loan.LoanWitnessList;
-            this.loanWitnessForm.reset()
-            this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.loanWitnessForm.reset()
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            }else{
+
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
         });
     }
 
@@ -526,6 +538,16 @@ export class ClLoanWitnessComponent implements OnInit {
         debugger
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
+            return;
+        }
+
+        if(this.loanDocumentCheckListArray?.length==0){
+            var Message = 'Please choose atleast one option';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
             return;
         }
 
@@ -745,11 +767,12 @@ export class ClLoanWitnessComponent implements OnInit {
     onEditPersonalSureties(PersonalSuretyID) {
         PersonalSuretyID = this.deleteInvalid(PersonalSuretyID);
         this.personalSuretiesForm.setValue(PersonalSuretyID);
+        console.log()
     }
 
     onEditRefrence(ReferenceID) {
+        debugger
         ReferenceID = this.deleteInvalid(ReferenceID);
-
         this.loanRefrencesForm.setValue(ReferenceID);
     }
 
@@ -765,7 +788,7 @@ export class ClLoanWitnessComponent implements OnInit {
         //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
 
         this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-
+this.spinner.show();
         this._loanService.submitLoanApplication(this.loanDetail.ApplicationHeader, this.loanDetail.TranId)
             .pipe(
                 finalize(() => {

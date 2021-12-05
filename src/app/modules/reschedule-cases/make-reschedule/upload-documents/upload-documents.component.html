@@ -28,11 +28,14 @@
 
                     <div class="flex" style="flex-wrap: wrap;">
                         <app-zone-branch-circle [form]="PostDocument" [should_show_circle]="false"
+                                                [should_filter]="false"
                                                 (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                         <div class="mx-2">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                                <mat-form-field style="width: 150px;" class=" mat-form-field-fluid" appearance="outline">
-                                    <mat-label class="customMatLabel">Loancase NO: <strong class="matMandatory">*</strong>
+                                <mat-form-field style="width: 150px;" class=" mat-form-field-fluid"
+                                                appearance="outline">
+                                    <mat-label class="customMatLabel">Loancase NO: <strong
+                                        class="matMandatory">*</strong>
                                     </mat-label>
                                     <input matInput formControlName="LcNo" readonly>
                                     <mat-error *ngIf="hasError('DocumentRefNo', 'required')">LcNo

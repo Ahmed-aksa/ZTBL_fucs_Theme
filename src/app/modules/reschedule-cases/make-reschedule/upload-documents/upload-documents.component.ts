@@ -218,9 +218,9 @@ export class UploadDocumentsComponent implements OnInit {
         this.rawData.forEach((single_file, index) => {
             this.loanDocument.file = single_file;
             // @ts-ignore
-            let page_number = document.getElementById(`page_${index}`).value;
+            let page_number = document.getElementById(`page_${index}`)?.value;
             // @ts-ignore
-            let description = document.getElementById(`description_${index}`).value;
+            let description = document.getElementById(`description_${index}`)?.value;
             this.loanDocument.PageNumber = page_number;
             this.loanDocument.Description = description;
             if (this.PostDocument.invalid) {

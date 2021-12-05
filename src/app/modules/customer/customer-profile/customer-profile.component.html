@@ -17,10 +17,10 @@
         <form [formGroup]="roleForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="kt-portlet__body container">
-                    <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
-                              (close)="onAlertClose($event)">
-                        Please enter valid Input
-                    </kt-alert>
+<!--                    <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"-->
+<!--                              (close)="onAlertClose($event)">-->
+<!--                        Please enter valid Input-->
+<!--                    </kt-alert>-->
                     <div class="form-group kt-form__group row mb-3">
 
 
@@ -263,7 +263,10 @@
                                     class="matMandatory">*</strong></mat-label>
                                 <input readonly="readonly" [disabled]="CnicExpiryreadoly" matInput
                                        [matDatepicker]="picker2" formControlName="CnicExpiry"
-                                       autocomplete="off" [min]="todayMin">
+                                       autocomplete="off">
+<!--                                <input readonly="readonly" [disabled]="CnicExpiryreadoly" matInput-->
+<!--                                       [matDatepicker]="picker2" formControlName="CnicExpiry"-->
+<!--                                       autocomplete="off" [min]="todayMin">-->
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
                                 <mat-error *ngIf="hasError('CnicExpiry', 'required')">CNIC Expiry Date

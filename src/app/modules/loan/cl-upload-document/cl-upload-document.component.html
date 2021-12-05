@@ -35,7 +35,6 @@
             </div>
 
 
-
             <div class="col-lg-3 col-sm-12">
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Status: <strong class="matMandatory">*</strong>
@@ -46,15 +45,15 @@
                 </mat-form-field>
             </div>
 
-<!--            <div class="col-lg-3 col-sm-12">-->
-<!--                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                    <mat-label class="customMatLabel">Loan Type: <strong class="matMandatory">*</strong>-->
-<!--                    </mat-label>-->
-<!--                    <input matInput formControlName="CategoryName" readonly>-->
-<!--                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Loan Type-->
-<!--                        <strong>required</strong></mat-error>-->
-<!--                </mat-form-field>-->
-<!--            </div>-->
+            <!--            <div class="col-lg-3 col-sm-12">-->
+            <!--                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+            <!--                    <mat-label class="customMatLabel">Loan Type: <strong class="matMandatory">*</strong>-->
+            <!--                    </mat-label>-->
+            <!--                    <input matInput formControlName="CategoryName" readonly>-->
+            <!--                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Loan Type-->
+            <!--                        <strong>required</strong></mat-error>-->
+            <!--                </mat-form-field>-->
+            <!--            </div>-->
 
             <div class="col-lg-3 col-sm-12">
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -165,9 +164,10 @@
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
                                         <mat-label class="customMatLabel">Page No</mat-label>
-                                        <input matInput formControlName="PageNumber" type="number" id="page_{{i}}" >
-<!--                                        <mat-error *ngIf="hasError('PageNumber', 'pattern')">Please add Valid Number-->
-<!--                                            <strong>required</strong></mat-error>-->
+                                        <input matInput type="number" [value]="i+1"
+                                               id="page_{{i}}" [disabled]="true">
+                                        <!--                                        <mat-error *ngIf="hasError('PageNumber', 'pattern')">Please add Valid Number-->
+                                        <!--                                            <strong>required</strong></mat-error>-->
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -193,46 +193,49 @@
         </div>
 
 
+    </div>
 
-
-  </div>
-
-<div class="row ml-2">
-  <div class="col-lg-12">
-    <button style="background-color: #01671B;" type="button" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="saveLoanDocuments()"><mat-icon class="mr-2">save</mat-icon> Save</button>
-  </div>
-</div>
+    <div class="row ml-2">
+        <div class="col-lg-12">
+            <button style="background-color: #01671B;" type="button"
+                    class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                    (click)="saveLoanDocuments()">
+                <mat-icon class="mr-2">save</mat-icon>
+                Save
+            </button>
+        </div>
+    </div>
 
 </form>
 
 
-
-
 <div class="form-group kt-form__group row" style="margin-top: 2%">
-  <div class="col-lg-12">
-    <div class="table-responsive">
-      <table class="table table-striped" *ngIf="loanDocumentArray.length !=0">
-        <thead>
-          <tr class="table-header-background">
-            <th>Loan Case No</th>
-            <th>Document</th>
-            <th>Document Status</th>
-            <th>Loan Type</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody class="">
-          <tr *ngFor="let loan of loanDocumentArray; let i = index;">
-            <td>{{loan.LoanCaseNumber}}</td>
-            <td>{{loan.DocName}}</td>
-            <td>{{loan.StatusName}}</td>
-            <td>{{loan.LoanType}}</td>
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table table-striped" *ngIf="loanDocumentArray.length !=0">
+                <thead>
+                <tr class="table-header-background">
+                    <th>Loan Case No</th>
+                    <th>Document</th>
+                    <th>Document Status</th>
+                    <th>Loan Type</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody class="">
+                <tr *ngFor="let loan of loanDocumentArray; let i = index;">
+                    <td>{{loan.LoanCaseNumber}}</td>
+                    <td>{{loan.DocName}}</td>
+                    <td>{{loan.StatusName}}</td>
+                    <td>{{loan.LoanType}}</td>
 
-              <td style="cursor: pointer; color: #ecbd00;"> <span (click)="viewDocument(1, loan.ImageID)">View</span> | <span (click)="deleteDocument(loan.ImageID)" >Delete</span></td>
-          </tr>
-        </tbody>
-      </table>
+                    <td style="cursor: pointer; color: #ecbd00;"><span
+                        (click)="viewDocument(1, loan.ImageID)">View</span> | <span
+                        (click)="deleteDocument(loan.ImageID)">Delete</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-  </div>
-  </div>
+</div>
