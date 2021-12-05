@@ -1,5 +1,4 @@
 import {Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
-import {Store} from '@ngrx/store';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
@@ -14,6 +13,7 @@ import {LovService} from 'app/shared/services/lov.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {finalize} from 'rxjs/operators';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 
 @Component({
@@ -23,28 +23,37 @@ import {NgxSpinnerService} from 'ngx-spinner';
 })
 export class AuthorizedCustomersComponent implements OnInit {
 
+
     dataSource = new MatTableDataSource();
     @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
-    displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
+    loggedInUserDetails: any;
+    dv: number | any; //use later
+
+
+    //displayedColumns = ['CustomerName', 'CustomerNumber', 'FatherName', 'Cnic', 'CurrentAddress', 'Dob', 'CustomerStatus', 'View'];
+    displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CurrentAddress', 'CustomerStatus', 'View'];
 
     gridHeight: string;
     customerSearch: FormGroup;
     myDate = new Date().toLocaleDateString();
 
 
+    zone: any;
+    branch: any;
+
     public maskEnums = MaskEnum;
     errors = errorMessages;
     public LovCall = new Lov();
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
-
-
-    branch: any;
-    zone: any;
-
+    pending_customer_form: FormGroup;
+    total_customers_length: number | any;
+    itemsPerPage = 5;
+    private OffSet: number = 0;
+    private pageIndex: any = 0;
 
     constructor(
         public dialog: MatDialog,
@@ -55,17 +64,24 @@ export class AuthorizedCustomersComponent implements OnInit {
         private _customerService: CustomerService,
         private _lovService: LovService,
         private layoutUtilsService: LayoutUtilsService,
+        private userUtilsService: UserUtilsService,
         private spinner: NgxSpinnerService) {
     }
 
     ngOnInit() {
+
         this.LoadLovs();
+
         this.createForm();
+
+
         setTimeout(() => {
             if (this.zone) {
                 this.searchCustomer();
             }
         }, 1000);
+        var userDetails = this.userUtilsService.getUserDetails();
+        this.loggedInUserDetails = userDetails;
     }
 
     ngAfterViewInit() {
@@ -97,21 +113,37 @@ export class AuthorizedCustomersComponent implements OnInit {
         return this.customerSearch.controls[controlName].hasError(errorName);
     }
 
-    searchCustomer() {
-        this.spinner.show()
-        this._customerService.searchCustomer(this.customerSearch.value, this.branch, this.zone)
+    searchCustomer(is_first = false) {
+        if (is_first == true) {
+            this.OffSet = 0;
+        }
+        this.spinner.show();
+        this._customerService.searchCustomer(this.customerSearch.value, this.branch, this.zone, this.loggedInUserDetails, this.OffSet, this.itemsPerPage)
             .pipe(
                 finalize(() => {
-                    this.spinner.hide()
+                    this.loading = false;
+                    this.spinner.hide();
                 })
             )
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
+
                     this.dataSource.data = baseResponse.Customers;
+                    if (this.dataSource.data?.length > 0) {
+                        this.dv = this.dataSource.data;
+                        this.total_customers_length = baseResponse.Customers[0].TotalRecords;
+                        this.dataSource = this.dv?.splice(0, this.itemsPerPage);
+                    }
+
+
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    this.dataSource.data = []
+                    this.OffSet = 1;
+                    this.pageIndex = 1;
+                    this.dataSource = this.dv?.splice(1, 0);
+                    this.total_customers_length = 0;
                 }
+
             });
     }
 
@@ -142,6 +174,16 @@ export class AuthorizedCustomersComponent implements OnInit {
 
 
     masterToggle() {
+
+    }
+
+    CheckEditStatus(customer: any) {
+        if ((customer.CreatedBy == this.loggedInUserDetails.User.UserId) && (customer.CustomerStatus == 'R' || customer.CustomerStatus == 'N')) {
+            return true
+        } else {
+            return false
+        }
+
     }
 
     editCustomer(Customer: any) {
@@ -151,26 +193,46 @@ export class AuthorizedCustomersComponent implements OnInit {
 
     }
 
+    viewCustomer(Customer: any) {
+        localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
+        localStorage.setItem('CreateCustomerBit', '2');
+        this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
+
+    }
 
     getStatus(status: string) {
 
-        if (status == 'A') {
-            return "Approved";
+        if (status == 'N') {
+            return "Pending";
         }
 
     }
 
+
     async LoadLovs() {
         this.CustomerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus})
-        ////For Bill type
-        // this.EducationLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Education })
-
-        // this.ngxService.stop();
-
     }
 
-    getAllData(event: { final_zone: any; final_branch: any; final_circle: any }) {
+    getAllData(event) {
         this.zone = event.final_zone;
-        this.branch = event.final_branch;
+        this.branch = event.final_branch
+    }
+
+    MathCeil(value: any) {
+        return Math.ceil(value);
+    }
+
+    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+        if (Number.isNaN(pageIndex)) {
+            this.pageIndex = this.pageIndex + 1;
+        } else {
+            this.pageIndex = pageIndex;
+        }
+        this.itemsPerPage = pageSize;
+        this.OffSet = (this.pageIndex - 1) * this.itemsPerPage;
+        if (this.OffSet < 0) {
+            this.OffSet = 0;
+        }
+        this.searchCustomer();
     }
 }

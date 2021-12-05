@@ -141,6 +141,8 @@ import {SharedModule} from "../../shared/shared.module";
     LoanReceiptComponent,
     SignatureDialogComponent
   ],
-  exports: []
+    exports: [
+        NumberDirective
+    ]
 })
 export class LoanRecoveryModule { }

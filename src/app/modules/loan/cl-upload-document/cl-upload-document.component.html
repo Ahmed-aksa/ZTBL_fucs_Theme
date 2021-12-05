@@ -85,7 +85,7 @@
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Loan Doc Type:<strong class="matMandatory">*</strong>
                     </mat-label>
-                    <mat-select formControlName="ParentDocId">
+                    <mat-select formControlName="ParentDocId" (selectionChange)="changeDocType($event.value)">
                         <mat-option *ngFor="let documentType of SelectedDocument"
                                     [value]="documentType.Id">
                             {{documentType.Name }}
@@ -112,7 +112,7 @@
                     <mat-label class="customMatLabel">No of Files to Upload<strong class="matMandatory">*</strong>
                     </mat-label>
                     <input matInput formControlName="NoOfFilesToUpload"
-                           (keyup)="changeFilesQuantity()" appNumberOnly>
+                           (keyup)="changeFilesQuantity()" appNumberOnly min="1">
                     <mat-error *ngIf="hasError('NoOfFilesToUpload', 'required')">No Of Files To Upload
                         <strong>required</strong></mat-error>
                 </mat-form-field>
@@ -152,7 +152,7 @@
                         <td>
                             <div class="col-lg-12 kt-margin-bottom-20-mobile">
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                    <input formControlName="file" type="file" id="file_{{i}}"
+                                    <input type="file" id="file_{{i}}"
                                            accept="image/png, image/jpg, image/jpeg"
                                            (change)="onFileChange($event)">
                                 </div>
@@ -179,7 +179,7 @@
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
                                         <mat-label class="customMatLabel">Description</mat-label>
-                                        <input matInput formControlName="DescriptionTab"
+                                        <input matInput
                                                id="description_{{i}}" appAlphaNumericField>
                                     </mat-form-field>
                                 </div>

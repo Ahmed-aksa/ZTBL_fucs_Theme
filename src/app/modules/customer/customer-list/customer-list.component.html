@@ -32,8 +32,8 @@
                     <div class="flex" style="flex-wrap: wrap;">
                         <app-zone-branch-circle [form]="customerSearch" [should_show_circle]="false"
                                                 (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                            <div class="mx-2">
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <div class="mx-2">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label>Customer Name</mat-label>
                                     <input matInput formControlName="CustomerName" placeholder="Enter Customer Name"
@@ -71,7 +71,8 @@
                             </div>
                         </div>
                         <div class="mx-2">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;" *ngIf="CustomerStatusLov">
+                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;"
+                                 *ngIf="CustomerStatusLov">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label>Select Customer Status</mat-label>
                                     <mat-select formControlName="CustomerStatus">
@@ -89,11 +90,11 @@
                         <div class="mx-2">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                                <button 
-                                        class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
-                                        mat-raised-button
-                                        type="button"
-                                        (click)="searchCustomer()">
+                                <button
+                                    class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
+                                    mat-raised-button
+                                    type="button"
+                                    (click)="searchCustomer()">
                                     <mat-icon class="mr-2">search</mat-icon>
                                     Search
                                 </button>
@@ -151,8 +152,7 @@
                 <ng-container matColumnDef="View" *ngIf="!isDialog">
                     <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
                     <mat-cell *matCellDef="let customer">
-                        <button *ngIf="!isDialog" mat-icon-button color="primary" (click)="editCustomer(customer)">
-                            <!--<mat-icon style="margin-left: 5px;" title="Edit land">edit</mat-icon>   loggedInUserDetails.User.UserId        -->
+                        <button *ngIf="!isDialog" mat-icon-button color="primary" (click)="viewCustomer(customer)">
                             <mat-icon class="text-green-500" style="margin-left: 2px; color: #01671b !important;"
                                       title="View Customer">visibility
                             </mat-icon>
@@ -166,7 +166,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
-            <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
+            <div class="mat-table__message" *ngIf="!loading && dataSource.data?.length==0">No records found</div>
             <div class="mat-table__message p-3 text-green" *ngIf="loading">Please wait....</div>
 
 
@@ -174,11 +174,21 @@
 
 
     </div>
-    <div style="display: flex;flex-direction: row;flex-wrap: wrap;justify-content: space-between">
-        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"
-                       [showFirstLastButtons]="true">
-        </mat-paginator>
-        <span>Total Count :<strong>{{total_customers_length}}</strong></span>
+    <div class="mat-select" style="padding:5px;">
+        Items per page:
+        <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls display="inline" (pageChange)="paginate($event)"
+                             style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(MathCeil(total_customers_length/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b>{{total_customers_length}}</b> items</p>
+
     </div>
 
 </div>

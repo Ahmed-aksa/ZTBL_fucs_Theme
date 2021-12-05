@@ -631,7 +631,7 @@ export class CustomerProfileComponent implements OnInit {
 
         if (this.bit == '2') {
             var currentCaste = this.CasteLov.LOVs.filter(x => x.Id == this.createCustomer.Caste?.toString())[0];
-            this.roleForm.controls.Caste.setValue(currentCaste.Value);
+            this.roleForm.controls.Caste.setValue(currentCaste?.Value);
         }
 
 

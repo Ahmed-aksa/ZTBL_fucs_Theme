@@ -27,6 +27,8 @@ export class ClUploadDocumentComponent implements OnInit {
 
     @Input() loanDetail: Loan;
 
+    previous_loan_type: string;
+
     PostDocument: FormGroup;
     loanDocument = new LoanDocuments();
     rawData: LoanDocuments[] = [];
@@ -66,7 +68,7 @@ export class ClUploadDocumentComponent implements OnInit {
     branch: any;
     circle: any;
     disable_lc = false;
-    number_of_files: number;
+    number_of_files: number = 0;
     docId = [];
     first: boolean;
 
@@ -100,14 +102,8 @@ export class ClUploadDocumentComponent implements OnInit {
             DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
             CategoryName: [this.loanDocument.CategoryName],
             Description: [this.loanDocument.Description, Validators.required],
-            PageNumber: [this.loanDocument.PageNumber ? this.loanDocument.PageNumber : null, {
-                validator: Validators.required,
-                disabled: true
-            }],
-            DescriptionTab: ['', Validators.required],
             DocumentRefNo: ['', Validators.required],
             NoOfFilesToUpload: [this.loanDocument.NoOfFilesToUpload, Validators.required],
-            file: ['', Validators.required],
         });
     }
 
@@ -131,9 +127,9 @@ export class ClUploadDocumentComponent implements OnInit {
         this.PostDocument.controls['Description'].reset();
 
         //Attachments
-        this.PostDocument.controls['file'].reset();
+        // this.PostDocument.controls['file'].reset();
         //this.PostDocument.controls['PageNumber'].reset();
-        this.PostDocument.controls['DescriptionTab'].reset();
+        // this.PostDocument.controls['DescriptionTab'].reset();
 
     }
 
@@ -294,7 +290,13 @@ export class ClUploadDocumentComponent implements OnInit {
         }
 
         totLength = Number(totLength)
+        let ok = true;
+        if (this.rawData.length < this.loanDocument.NoOfFilesToUpload) {
+            this.layoutUtilsService.alertElement('', 'Please add all files');
+            return;
+        }
         this.rawData.forEach((single_file, index) => {
+
             this.loanDocument.file = single_file;
 
             // @ts-ignore
@@ -304,15 +306,27 @@ export class ClUploadDocumentComponent implements OnInit {
 
 
             if (single_file == undefined || single_file == null || page_number == "" || description == "") {
+                ok = false;
                 this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages');
                 return
             } else if (this.docId[index]) {
                 count = count + 1;
                 return
             } else if (page_number > this.loanDocument.NoOfFilesToUpload) {
+                ok = false;
                 this.layoutUtilsService.alertElement('', 'Page Number should not be greater than No. of Files to upload')
                 return false;
-            } else {
+            }
+        });
+        if (ok)
+            this.rawData.forEach((single_file, index) => {
+                this.loanDocument.file = single_file;
+
+                // @ts-ignore
+                let page_number = document.getElementById(`page_${index}`).value;
+                // @ts-ignore
+                let description = document.getElementById(`description_${index}`).value;
+
                 this.loanDocument.PageNumber = page_number;
                 this.loanDocument.Description = description;
 
@@ -350,9 +364,8 @@ export class ClUploadDocumentComponent implements OnInit {
                     }
 
                 });
-            }
 
-        })
+            })
 
     }
 
@@ -385,18 +398,38 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     changeFilesQuantity() {
+        if (!isNaN(parseInt(this.PostDocument.value.NoOfFilesToUpload))) {
+            this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
+        }
+        this.cdRef.detectChanges();
+    }
 
-        this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
-        for (let i = 0; i < this.number_of_files; i++) {
-            // @ts-ignore
-            //document.getElementById('page_' + i)?.value = i + 1;
-            // @ts-ignore
-            document.getElementById(`page_${i}`).value = i+1
-            //this.PostDocument.controls['PageNumber'].disable();
+    changeDocType(value) {
+
+        if (this.rawData.length > 0) {
+            const confirmAlert = this.layoutUtilsService.AlertElementConfirmation("Alert", "By Changing Document Type, You will lose Already selected files,Do you want to keep the files", "");
+            confirmAlert.afterClosed().subscribe(res => {
+
+                if (!res) {
+                    this.PostDocument.controls['ParentDocId'].setValue(this.previous_loan_type);
+                    return;
+                }
+
+                this.previous_loan_type = value;
+                this.PostDocument.controls['DocumentRefNo'].reset();
+                this.PostDocument.controls['NoOfFilesToUpload'].reset();
+                this.PostDocument.controls['Description'].reset();
+                this.rawData.forEach((single_file, index) => {
+                    // @ts-ignore
+                    document.getElementById('file_' + index).value = null;
+                });
+
+            });
+        } else {
+            this.previous_loan_type = value;
         }
 
     }
-
 }
 
 export class LoanDocumentsGrid {

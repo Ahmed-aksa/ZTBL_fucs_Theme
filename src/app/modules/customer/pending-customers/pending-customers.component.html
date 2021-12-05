@@ -121,7 +121,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="View">
-                    <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                     <mat-cell *matCellDef="let customer">
                         <button mat-icon-button color="primary" *ngIf="CheckEditStatus(customer)"
                                 (click)="editCustomer(customer)">
@@ -129,7 +129,7 @@
                             <mat-icon style="margin-left: 2px;" title="Edit Customer">edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button color="primary" *ngIf="CheckViewStatus(customer)"
+                        <button mat-icon-button color="primary" *ngIf="!CheckEditStatus(customer)"
                                 (click)="viewCustomer(customer)">
                             <mat-icon style="margin-left: 2px;" title="View Customer">visibility</mat-icon>
                         </button>

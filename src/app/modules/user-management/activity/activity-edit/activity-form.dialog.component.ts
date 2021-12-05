@@ -48,7 +48,7 @@ export class ActivityFormDialogComponent implements OnInit {
       }
     );
 
-    
+
     if (this.data.activity && this.data.activity.ActivityID) {
       this.activity = this.data.activity;
     }
@@ -67,6 +67,7 @@ export class ActivityFormDialogComponent implements OnInit {
       IsParent: [this.activity.IsParent],
       ActivityID: [this.activity.ActivityID],
       IsActive: [this.activity.IsActive],
+      PageSequence: [this.activity.PageSequence],
       checkAll: [false],
     });
 
@@ -122,7 +123,7 @@ export class ActivityFormDialogComponent implements OnInit {
           })
         )
         .subscribe((baseResponse: BaseResponseModel) => {
-          
+
           if (baseResponse.Success === true) {
             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
             this.close(this.activity);
@@ -155,7 +156,7 @@ export class ActivityFormDialogComponent implements OnInit {
 
 
   showOrHide($event) {
-    
+
     if ($event.checked === true) {
       this.isVisible = false;
     } else {

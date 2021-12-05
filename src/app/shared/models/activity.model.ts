@@ -1,4 +1,5 @@
 export class Activity {
+    PageSequence: string;
     ActivityID: number;
     ProfileID: number;
     ActivityName: string;

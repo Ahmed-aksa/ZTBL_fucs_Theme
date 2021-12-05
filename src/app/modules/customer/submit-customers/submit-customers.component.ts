@@ -179,28 +179,14 @@ export class SubmitCustomersComponent implements OnInit {
     }
 
     CheckEditStatus(customer: any) {
-        if (customer.CreatedBy == this.loggedInUserDetails.User.UserId) {
-            return true
-            // if (jv.MakerID == this.loggedInUserDetails.User.UserId) {
-            //   return true
-            // }
-            // else {
-            //   return false
-            // }
-        } else {
-            return false
-        }
-
-    }
-
-    CheckViewStatus(customer: any) {
-        if (customer.CreatedBy != this.loggedInUserDetails.User.UserId) {
+        if (customer.CreatedBy == this.loggedInUserDetails.User.UserId && (customer.Status == 'R' || customer.Status == 'N')) {
             return true
         } else {
             return false
         }
 
     }
+
 
     editCustomer(Customer: any) {
         localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));

@@ -13,7 +13,9 @@ import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
-import {ClGlSchemeCropConfigurationComponent} from "../cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component";
+import {
+    ClGlSchemeCropConfigurationComponent
+} from "../cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CustomerListComponent} from "../../customer/customer-list/customer-list.component";
 import {CustLoanlistComponent} from "../customer-list/cust-list.component";
@@ -258,6 +260,8 @@ export class ClCustomersComponent implements OnInit {
                                 const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                                 this.loan_data.splice(index, 1);
                                 localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
+                            } else {
+                                this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                             }
 
                         })

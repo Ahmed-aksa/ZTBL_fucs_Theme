@@ -1,5 +1,6 @@
 export class Activity {
-    ProfileID:any
+    PageSequence: string;
+    ProfileID: any
     ActivityID: number;
     ActivityName: string;
     ParentActivityName: string;
@@ -10,8 +11,8 @@ export class Activity {
     IsParent: any;
     Status: boolean;
     IsReadOnly: boolean;
-    TagName:string;
-    PageIcon:string;
+    TagName: string;
+    PageIcon: string;
     C: boolean;
     R: boolean;
     U: boolean;
@@ -19,25 +20,25 @@ export class Activity {
     CreatedBy: string;
     UpdatedBy: string;
     EndedBy: string;
-  
-  
+
+
     //userInfo: UserInfoModel;
-  
+
     clear() {
-      this.ActivityID = 0;
-      this.ActivityName = '';
-      this.ActivityUrl = '';
-      this.ParentActivityID=0;
-      this.C = false;
-      this.R = false;
-      this.U = false;
-      this.D = false;
-      this.IsParent = false;
-      this.IsReadOnly = false;
-      this.IsActive = false;
+        this.ActivityID = 0;
+        this.ActivityName = '';
+        this.ActivityUrl = '';
+        this.ParentActivityID = 0;
+        this.C = false;
+        this.R = false;
+        this.U = false;
+        this.D = false;
+        this.IsParent = false;
+        this.IsReadOnly = false;
+        this.IsActive = false;
     }
 }
-  
+
 export class Profile {
     ProfileID: number;
     ProfileName: string;
@@ -50,5 +51,4 @@ export class Profile {
     Status: boolean;
     isSelected: boolean;
     AccessToData: number;
-  }
-  
+}
