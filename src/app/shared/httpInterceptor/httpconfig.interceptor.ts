@@ -39,7 +39,7 @@ export class TokenInterceptor implements HttpInterceptor {
         return throwError(error);
       }
       if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
-          
+
         return this.handle401Error(authReq, next);
       }
 
@@ -49,28 +49,30 @@ export class TokenInterceptor implements HttpInterceptor {
 
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    if (!this.isRefreshing) {
-      this.isRefreshing = true;
-      this.refreshTokenSubject.next(null);
-      
-      const token = localStorage.getItem('ZTBLUserRefreshToke');
-      if (token)
-        return this._authService.refreshToken(token).pipe(
-          switchMap((token: any) => {
-            this.isRefreshing = false;
-            localStorage.setItem('accessToken', token['Token']);
-            localStorage.setItem('ZTBLUserRefreshToke', token['RefreshToken']);
-            this.refreshTokenSubject.next(token['Token']);
-            return next.handle(this.addTokenHeader(request, token['Token']));
-          }),
-          catchError((err) => {
-            
-            this.isRefreshing = false;
-            this.router.navigateByUrl('sign-out');
-            return throwError(err);
-          })
-        );
-    }
+      this.router.navigateByUrl('sign-out');
+      localStorage.clear();
+    // if (!this.isRefreshing) {
+    //   this.isRefreshing = true;
+    //   this.refreshTokenSubject.next(null);
+    //
+    //   const token = localStorage.getItem('ZTBLUserRefreshToke');
+    //   if (token)
+    //     return this._authService.refreshToken(token).pipe(
+    //       switchMap((token: any) => {
+    //         this.isRefreshing = false;
+    //         localStorage.setItem('accessToken', token['Token']);
+    //         localStorage.setItem('ZTBLUserRefreshToke', token['RefreshToken']);
+    //         this.refreshTokenSubject.next(token['Token']);
+    //         return next.handle(this.addTokenHeader(request, token['Token']));
+    //       }),
+    //       catchError((err) => {
+    //
+    //         this.isRefreshing = false;
+    //         this.router.navigateByUrl('sign-out');
+    //         return throwError(err);
+    //       })
+    //     );
+    // }
 
     return this.refreshTokenSubject.pipe(
       filter(token => token !== null),
