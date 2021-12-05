@@ -19,11 +19,11 @@ import {NgxSpinnerService} from 'ngx-spinner';
 //src/app/core/_base/crud/utils/user-utils.service
 
 @Component({
-    selector: 'kt-pending-customers',
-    templateUrl: './pending-customers.component.html',
-    styleUrls: ['./pending-customers.component.scss']
+    selector: 'kt-referback-customers',
+    templateUrl: './referback-customers.component.html',
+    styleUrls: ['./referback-customers.component.scss']
 })
-export class PendingCustomersComponent implements OnInit {
+export class ReferbackCustomersComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
