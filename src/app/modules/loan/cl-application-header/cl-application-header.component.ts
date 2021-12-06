@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {finalize} from 'rxjs/operators';
@@ -18,6 +18,7 @@ import {LoanService} from 'app/shared/services/loan.service';
 import {Zone} from '../../../modules/user-management/users/utils/zone.model'
 import {CommonService} from 'app/shared/services/common.service';
 import {LovService} from 'app/shared/services/lov.service';
+import {ClUploadDocumentComponent} from "../cl-upload-document/cl-upload-document.component";
 
 @Component({
     selector: 'kt-cl-application-header',
@@ -40,6 +41,9 @@ export class ClApplicationHeaderComponent implements OnInit {
     circle: any;
 
     @Input() loanAppHeaderDetails: any;
+
+    @ViewChild(ClUploadDocumentComponent, {static: false}) uploadDocumentComponent: ClUploadDocumentComponent;
+    loanApplicationReq: Loan;
 
     applicationHeaderForm: FormGroup;
     public loanApplicationHeader = new LoanApplicationHeader();
@@ -259,10 +263,11 @@ export class ClApplicationHeaderComponent implements OnInit {
             });
 
     }
-    checkDisable(){
-        if(this.isCheckLcInProgress==true || this.applicationHeaderForm.controls["LoanCaseNo"]?.value){
+
+    checkDisable() {
+        if (this.isCheckLcInProgress == true || this.applicationHeaderForm.controls["LoanCaseNo"]?.value) {
             return true
-        }else{
+        } else {
             return false
         }
     }
@@ -306,7 +311,6 @@ export class ClApplicationHeaderComponent implements OnInit {
     }
 
     onSaveApplicationHeader() {
-
 
         //Parsing dev amount
         let devAmount = this.applicationHeaderForm.controls["DevAmount"].value
@@ -389,11 +393,18 @@ export class ClApplicationHeaderComponent implements OnInit {
 
                 if (baseResponse.Success) {
                     this.loanApplicationHeader.LoanAppID = baseResponse.Loan.ApplicationHeader.LoanAppID;
+                    this.loanApplicationReq = baseResponse.Loan.ApplicationHeader;
+                    this.loanApplicationReq.LoanCaseNo = this.applicationHeaderForm.controls.LoanCaseNo.value;
                     this.LoanDetail.ApplicationHeader = this.loanApplicationHeader;
                     this.LoanDetail.TranId = baseResponse.TranId;
                     this.applicationCall.emit(this.LoanDetail);
                     this.isSaveApplicationHeaderInProgress = false;
+                    localStorage.setItem('loan_case_number', this.loanApplicationReq.LoanCaseNo);
+                    localStorage.setItem('loan_app_id', this.loanApplicationReq.LoanAppID);
+
                     const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+
+                    // this.uploadDocumentComponent.loadUploadDocumentsOnUpdate(this.loanApplicationReq);
                 } else {
                     this.isSaveApplicationHeaderInProgress = false;
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);

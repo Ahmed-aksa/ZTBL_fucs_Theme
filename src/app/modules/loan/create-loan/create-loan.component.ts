@@ -114,6 +114,10 @@ export class CreateLoanComponent implements OnInit {
         if ($event.index == 1) {
             this.child.callfromPartnet()
         }
+        if ($event.index == 6) {
+            debugger;
+            this.uploadDocumentComponent.assignLoanCaseNo();
+        }
     }
 
 
@@ -171,7 +175,8 @@ export class CreateLoanComponent implements OnInit {
 
                     this.appraisalOfProposedComponent.loadAppraisalOfProposedDataOnUpdate(loanRes.AppraisalProposedList, loanRes.CropProductionList);
 
-                    this.uploadDocumentComponent.loadUploadDocumentsOnUpdate(loanRes.DocumentUploadList, this.loanApplicationReq.ApplicationHeader);
+                    // this.uploadDocumentComponent.loadUploadDocumentsOnUpdate(loanRes.DocumentUploadList, this.loanApplicationReq.ApplicationHeader);
+                    this.uploadDocumentComponent.loadUploadDocumentsOnUpdate(this.loanApplicationReq.ApplicationHeader);
 
                     this.loanWitnessComponent.loadAppWitnessDataOnUpdate(loanRes.PersonalSuretiesList,
                         loanRes.CorporateSuretyList, loanRes.LoanRefrencesList, loanRes.LoanPastPaidList,

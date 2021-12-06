@@ -18,7 +18,9 @@ export class Loan {
     AppraisalProposedList: AppraisalProposed[] = [];
     AppraisalProposed: AppraisalProposed;
     TranId: number;
+    LoanAppID: string;
     LcNo: string;
+    LoanCaseNo: string;
     Status: string;
     Appdt: string;
     ORR: ORR;

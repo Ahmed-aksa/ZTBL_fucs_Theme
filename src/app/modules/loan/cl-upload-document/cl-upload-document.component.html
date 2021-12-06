@@ -23,7 +23,7 @@
                 <mat-form-field class=" mat-form-field-fluid" appearance="outline">
                     <mat-label class="customMatLabel">Loancase NO: <strong class="matMandatory">*</strong>
                     </mat-label>
-                    <input matInput formControlName="LcNo">
+                    <input matInput formControlName="LcNo" readonly>
                     <mat-error *ngIf="hasError('DocumentRefNo', 'required')">LcNo
                         <strong>required</strong>
                     </mat-error>

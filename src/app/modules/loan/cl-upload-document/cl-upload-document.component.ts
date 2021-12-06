@@ -78,6 +78,8 @@ export class ClUploadDocumentComponent implements OnInit {
     loan: any = {}
     pattern = /[^0-9]/g;
 
+    loanAppID: any;
+
     uploaded = "File Uploaded"
 
 
@@ -113,6 +115,11 @@ export class ClUploadDocumentComponent implements OnInit {
         this.getDocument();
         this.getDocumentLoanType();
 
+        // if (localStorage.getItem('loan_case_number')) {
+        //     this.PostDocument.value.LcNo = localStorage.getItem('loan_case_number');
+        //     localStorage.removeItem('loan_case_number');
+        // }
+
     }
 
     PostDocuments(PostDocument: any) {
@@ -133,13 +140,14 @@ export class ClUploadDocumentComponent implements OnInit {
 
     }
 
-    loadUploadDocumentsOnUpdate(appUploadDocumentsData, loanApplicationHeader) {
+    loadUploadDocumentsOnUpdate(loanApplicationHeader) {
         this.applicationHeader = loanApplicationHeader;
 
         this.PostDocument.controls['LcNo'].setValue(loanApplicationHeader.LoanCaseNo)
-        if (loanApplicationHeader?.LoanCaseNo?.length > 0) {
-            this.PostDocument.controls['LcNo'].disable();
-        }
+        this.loanAppID = this.applicationHeader.LoanAppID;
+        // if (loanApplicationHeader?.LoanCaseNo?.length > 0) {
+        //     this.PostDocument.controls['LcNo'].disable();
+        // }
         this.loanCase(true);
         this.getLoanDocument();
 
@@ -224,8 +232,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     getLoanDocument() {
 
-        var loanId = this.applicationHeader.LoanAppID;
-        this._loanService.getLoanDocuments(loanId, this.branch, this.zone)
+        this._loanService.getLoanDocuments(this.loanAppID, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -251,10 +258,10 @@ export class ClUploadDocumentComponent implements OnInit {
                 if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
                     const reader = new FileReader();
                     reader.onload = (event: any) => {
-                        if(this.rawData[i]){
+                        if (this.rawData[i]) {
                             this.rawData.splice(i, 1);
-                            this.rawData.splice(i,0, file);
-                        }else{
+                            this.rawData.splice(i, 0, file);
+                        } else {
                             this.rawData.push(file);
                         }
                     };
@@ -272,6 +279,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
+        debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
@@ -320,6 +328,7 @@ export class ClUploadDocumentComponent implements OnInit {
         });
         if (ok)
             this.rawData.forEach((single_file, index) => {
+                debugger
                 this.loanDocument.file = single_file;
 
                 // @ts-ignore
@@ -340,7 +349,6 @@ export class ClUploadDocumentComponent implements OnInit {
                         })
                     ).subscribe((baseResponse) => {
                     if (baseResponse.Success) {
-                        debugger
                         count = count + 1;
                         // @ts-ignore
                         document.getElementById(`page_${index}`).value = ''
@@ -370,7 +378,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     loanCase(bool) {
-
+        debugger
         this.first = bool;
         this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, this.branch)
             .pipe(
@@ -388,7 +396,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
             } else {
                 if (this.first == false) {
-                    // this.layoutUtilsService.alertElement('', baseResponse.Message);
+                    //this.layoutUtilsService.alertElement('', baseResponse.Message);
 
                 }
                 this.PostDocument.controls['LoanStatus'].setValue("New Case");
@@ -429,6 +437,17 @@ export class ClUploadDocumentComponent implements OnInit {
             this.previous_loan_type = value;
         }
 
+    }
+
+    assignLoanCaseNo() {
+        debugger
+        if (localStorage.getItem('loan_case_number')) {
+            this.PostDocument.controls['LcNo'].setValue(localStorage.getItem('loan_case_number'));
+            this.loanAppID = localStorage.getItem('loan_app_id');
+            localStorage.removeItem('loan_case_number');
+            localStorage.removeItem('loan_app_id');
+            this.loanCase(true);
+        }
     }
 }
 
