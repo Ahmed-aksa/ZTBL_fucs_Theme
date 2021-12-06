@@ -14,6 +14,7 @@ import {finalize} from 'rxjs/operators';
     styles: []
 })
 export class SaveOrrComponent implements OnInit {
+    Orrapplied:boolean= false;
     public LnTransactionID: string;
     public Lcno: string;
     ORRForm: FormGroup;
@@ -31,6 +32,7 @@ export class SaveOrrComponent implements OnInit {
     dataFetched = false;
     showFinalOrrTable = false;
     submitted = false;
+    submitArray;
 
     constructor(
         private route: ActivatedRoute,
@@ -146,19 +148,119 @@ export class SaveOrrComponent implements OnInit {
         return ORR;
     }
 
+    getOrrRequestForSubmit() {
+        var ORR = {
+            OrrSubmitList: this.submitArray,
+            // LoanAppGLDALList: this.GlProposalORR,
+            // LoanAppORRID: 0,
+            // SoilTypeORRID: this.ORRForm.controls.SoilTypeORRID.value,
+            // LandOwnershipORRID: this.ORRForm.controls.LandOwnershipORRID.value,
+            // MarketAvailabilityORRID: this.ORRForm.controls.MarketAvailabilityORRID.value,
+            // NetIncodeORRID: this.ORRForm.controls.NetIncodeORRID.value,
+            // LoanAppID: this.LnTransactionID,
+            // RepaymentBehaviorORRID: 55,
+        };
+
+        return ORR;
+    }
+
     goToPendingList() {
         this.router.navigate(['../orr-list'], {relativeTo: this.activatedRoute});
     }
 
     SaveOrSubmit() {
+        debugger
+        this.GlProposalORR;
+        console.log(this.CustomerORR);
+        for(let i=0;i<this.CustomerORR?.length;i++){
+           if (!this.CustomerORR[i]?.EcibORRID) {
+                var Message = 'Please select CIB Report against CNIC '+ this.CustomerORR[i].Cnic;
+                this.layoutUtilsService.alertElement(
+                    '',
+                    Message,
+                    null
+                );
+                return;
+            }
+        }
 
-        if(this.showFinalOrrTable){
-            this.Save();
-        }else{
+        for(let i=0;i<this.CustomerORR?.length;i++){
+            if (!this.CustomerORR[i]?.MarketReputationORRID) {
+                var Message = 'Please select Market Reputation against CNIC'+ this.CustomerORR[i].Cnic;
+                this.layoutUtilsService.alertElement(
+                    '',
+                    Message,
+                    null
+                );
+                return;
+            }
+        }
+
+        for(let i=0;i<this.GlProposalORR?.length;i++){
+            if (this.GlProposalORR[i]?.AmountRecommended==0) {
+                var Message = 'Please Enter recommended amount';
+                this.layoutUtilsService.alertElement(
+                    '',
+                    Message,
+                    null
+                );
+                return;
+            }
+        }
+
+
+
+
+        if(this.showFinalOrrTable===true){
             this.Submit();
+        }else{
+            this.Save();
+
         }
     }
-    Submit(){}
+    Submit(){
+
+        if (this.Orrapplied===false) {
+            var Message = 'Please check ORR Applied before submitting';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        this.hasFormErrors = false;
+        if (this.ORRForm.invalid) {
+            const controls = this.ORRForm.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+
+            this.hasFormErrors = true;
+            return;
+        }
+
+        this.spinner.show();
+        this.submitted = true;
+        var request = this.getOrrRequestForSubmit();
+        this._loanService
+            .submitOrr(request)
+            .pipe(
+                finalize(() => {
+                    this.submitted = false;
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse: BaseResponseModel) => {
+                if (baseResponse.Success === true) {
+                    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
+                } else {
+                    this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+                }
+
+            });
+    }
 
     Save(){
 
@@ -187,6 +289,8 @@ export class SaveOrrComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
+debugger
+                    this.submitArray=baseResponse.Loan.ORR["OrrSubmitList"];
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
