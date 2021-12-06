@@ -249,7 +249,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     onFileChange(event, i) {
-
+        debugger
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -262,7 +262,8 @@ export class ClUploadDocumentComponent implements OnInit {
                             this.rawData.splice(i, 1);
                             this.rawData.splice(i, 0, file);
                         } else {
-                            this.rawData.push(file);
+                            //this.rawData.push(file);
+                            this.rawData.splice(i, 0, file);
                         }
                     };
                     reader.readAsDataURL(file);
@@ -273,6 +274,9 @@ export class ClUploadDocumentComponent implements OnInit {
                     return;
                 }
             }
+        }
+        else{
+            this.rawData.splice(i, 1);
         }
 
 
@@ -316,7 +320,14 @@ export class ClUploadDocumentComponent implements OnInit {
 
             if (single_file == undefined || single_file == null || page_number == "" || description == "") {
                 ok = false;
-                this.layoutUtilsService.alertElement('', 'Please add File, Page Number and Description same as No. of Pages');
+                if(single_file == undefined && single_file == null && description == ""){
+                    this.layoutUtilsService.alertElement('', 'Please add Files and Description on entries of Attachments, as per No. of Files to upload');
+                }else if(single_file == undefined || single_file == null  && description != ""){
+                    this.layoutUtilsService.alertElement('', 'Please add File(s) missing from row(s) file field');
+                }
+                else if(description == ""){
+                    this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s) description field');
+                }
                 return
             } else if (this.docId[index]) {
                 count = count + 1;
@@ -373,9 +384,8 @@ export class ClUploadDocumentComponent implements OnInit {
 
                     } else {
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
-                        //this.rawData.length = 0;
+                        ok = false;
                         return false;
-
                     }
 
                 });
