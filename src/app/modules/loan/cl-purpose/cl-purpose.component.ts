@@ -458,7 +458,7 @@ export class ClPurposeComponent implements OnInit {
     onClearSavePurpose() {
         this.purposeForm.controls['GlSubID'].setValue('');
         this.purposeForm.controls['SchemeID'].setValue('');
-        this.purposeForm.controls['MarkupCalcMode'].setValue('');
+        // this.purposeForm.controls['MarkupCalcMode'].setValue('');
         this.purposeForm.controls['CropID'].setValue('');
         this.purposeForm.controls['CultivatedArea'].setValue('');
         this.purposeForm.controls['RequiredItem'].setValue('');

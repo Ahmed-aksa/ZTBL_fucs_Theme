@@ -463,24 +463,25 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             return;
         }
 
-        if (!this.LoanAOPIForm.controls.UncultivatedLand.value) {
-            var Message = 'Please Enter Uncultivated Land';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
-        if (!this.LoanAOPIForm.controls.NocultivatedLand.value) {
-            var Message = 'Please Enter Nocultivated Land';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
+        // if (!this.LoanAOPIForm.controls.UncultivatedLand.value) {
+        //     var Message = 'Please Enter Uncultivated Land';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
+        // if (!this.LoanAOPIForm.controls.NocultivatedLand.value) {
+        //     var Message = 'Please Enter Nocultivated Land';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
+
         if (!this.productionArray) {
             var Message = 'Please Enter Crop';
             this.layoutUtilsService.alertElement(
