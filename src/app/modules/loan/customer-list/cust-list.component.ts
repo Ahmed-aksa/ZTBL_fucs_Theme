@@ -66,22 +66,13 @@ export class CustLoanlistComponent implements OnInit {
     loggedInUserDetails: any;
 
     total_customers_length = 0;
-    single_zone = true;
-    single_branch = true;
-
-    selected_z: any;
-    selected_b: any;
-
-
-    disable_branch = true;
-    disable_zone = true;
-
-    final_zone: any;
-    final_branch: any;
 
 
     zone: any;
     branch: any;
+    itemsPerPage = 5;
+    private OffSet: number = 0;
+    private pageIndex: any = 0;
 
     constructor(
         public dialog: MatDialog,
@@ -144,13 +135,16 @@ export class CustLoanlistComponent implements OnInit {
     }
 
 
-    searchCustomer() {
+    searchCustomer(is_first = false) {
+        debugger;
+        if (is_first == true)
+            this.OffSet = 0;
         this._customer.clear();
         this._customer = Object.assign(this._customer, this.customerSearch.value);
         const controlsCust = this.customerSearch.controls;
         if (this._customer.CustomerStatus == "All")
             this._customer.CustomerStatus = "";
-        this._customerService.searchCustomer(this._customer, this.branch, this.zone)
+        this._customerService.searchCustomer(this._customer, this.branch, this.zone, this.OffSet, this.itemsPerPage)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -228,5 +222,23 @@ export class CustLoanlistComponent implements OnInit {
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
+    }
+
+    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+        if (Number.isNaN(pageIndex)) {
+            this.pageIndex = this.pageIndex + 1;
+        } else {
+            this.pageIndex = pageIndex;
+        }
+        this.itemsPerPage = pageSize;
+        this.OffSet = (this.pageIndex - 1) * this.itemsPerPage;
+        if (this.OffSet < 0) {
+            this.OffSet = 0;
+        }
+        this.searchCustomer();
+    }
+
+    MathCeil(value: any) {
+        return Math.ceil(value);
     }
 }
