@@ -307,6 +307,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
             this.loanDocument.file = single_file;
 
+
             // @ts-ignore
             let page_number = document.getElementById(`page_${index}`).value;
             // @ts-ignore
@@ -350,8 +351,14 @@ export class ClUploadDocumentComponent implements OnInit {
                     ).subscribe((baseResponse) => {
                     if (baseResponse.Success) {
                         count = count + 1;
+
                         // @ts-ignore
                         document.getElementById(`page_${index}`).value = ''
+                        // @ts-ignore
+                        document.getElementById(`description_${index}`).value = ''
+                        // @ts-ignore
+                        document.getElementById(`file_${index}`).value = ''
+
                         this.docId.push(baseResponse.DocumentDetail.Id);
                         if (count == totLength) {
                             this.getLoanDocument();
