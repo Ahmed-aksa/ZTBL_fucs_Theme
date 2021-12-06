@@ -81,7 +81,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of dynamicList.dtGetApplicationMain; let i = index;">
+                  <tr *ngFor="let item of dynamicList?.dtGetApplicationMain; let i = index;">
                     <td>{{item.BRANCHNAME}}</td>
                     <td>{{item.CIRCLE_CODE}}</td>
                     <td>{{item.LOAN_CASE_NO}}</td>
@@ -249,7 +249,7 @@
 
               <mat-tab label="Appraisal of Proposed Investment">
                 <div class="table-responsive">
-                  <table class="table table-striped" *ngIf="dynamicList.GetPropsedInvestment.length>0">
+                  <table class="table table-striped" *ngIf="dynamicList?.GetPropsedInvestmentDetail?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Farm Income/Expenditure</th>
@@ -258,7 +258,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetPropsedInvestment;">
+                      <tr *ngFor="let item of dynamicList?.GetPropsedInvestmentDetail;">
                         <td>{{item.NAME}}</td>
                         <td>{{item.FUTURE_VALUE}}</td>
                         <td>{{item.PRESENT_VALUE}}</td>
@@ -266,12 +266,12 @@
                     </tbody>
                   </table>
                 </div>
-                  <h3 *ngIf="dynamicList.GetPropsedInvestment.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetPropsedInvestmentDetail?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="Loan Documents">
                 <div class="table-responsive">
-                  <table class="table table-striped table-bordered" *ngIf="dynamicList.GetDocumentLoanApplication.length>0">
+                  <table class="table table-striped table-bordered" *ngIf="dynamicList?.GetDocumentLoanApplication?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Document</th>
@@ -282,7 +282,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetDocumentLoanApplication;">
+                      <tr *ngFor="let item of dynamicList?.GetDocumentLoanApplication;">
                         <td>{{item.DOCNAME}}</td>
                         <td>{{item.STATUSNAME}}</td>
                         <td>{{item.LOANTYPE}}</td>
@@ -292,12 +292,12 @@
                     </tbody>
                   </table>
                 </div>
-                  <h3 *ngIf="dynamicList.GetDocumentLoanApplication.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetDocumentLoanApplication?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="References">
                 <div class="table-responsive">
-                  <table class="table table-striped" *ngIf="dynamicList.GetLoanReferanceDetail.length>0">
+                  <table class="table table-striped" *ngIf="dynamicList?.GetLoanReferanceDetail?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Name</th>
@@ -310,7 +310,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetLoanReferanceDetail;">
+                      <tr *ngFor="let item of dynamicList?.GetLoanReferanceDetail;">
                         <td>{{item.REFERENCE_NAME}}</td>
                         <td>{{item.REFERENCE_ADDRESS}}</td>
                         <td>{{item.CNIC}}</td>
@@ -322,12 +322,12 @@
                     </tbody>
                   </table>
                   </div>
-                  <h3 *ngIf="dynamicList.GetLoanReferanceDetail.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetLoanReferanceDetail?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="Witnesses">
                 <div class="table-responsive">
-                  <table class="table table-striped" *ngIf="dynamicList.GetWitnessDetail.length>0">
+                  <table class="table table-striped" *ngIf="dynamicList?.GetWitnessDetail?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Name</th>
@@ -336,7 +336,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetWitnessDetail;">
+                      <tr *ngFor="let item of dynamicList?.GetWitnessDetail;">
                         <td>{{item.WITNESS_NAME}}</td>
                         <td>{{item.WITNESS_ADDRESS}}</td>
                         <td>{{item.CNIC}}</td>
@@ -344,12 +344,12 @@
                     </tbody>
                   </table>
                 </div>
-                  <h3 *ngIf="dynamicList.GetWitnessDetail.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetWitnessDetail?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="CWR">
                 <div class="table-responsive">
-                  <table class="table table-striped" *ngIf="dynamicList.GetCWR.length>0">
+                  <table class="table table-striped" *ngIf="dynamicList?.GetCWR?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Name</th>
@@ -362,7 +362,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetCWR;">
+                      <tr *ngFor="let item of dynamicList?.GetCWR;">
                         <td>{{item.CUSTOMERNAME}}</td>
                         <td>{{item.LOAN_ACCOUNT_NO}}</td>
                         <td>{{item.REQUEST_DATE | date: 'dd-MM-yyyy'}}</td>
@@ -374,12 +374,12 @@
                     </tbody>
                   </table>
                 </div>
-                  <h3 *ngIf="dynamicList.GetCWR.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetCWR?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="ORR">
                 <div class="table-responsive">
-                  <table class="table table-striped" *ngIf="dynamicList.GetORR.length>0">
+                  <table class="table table-striped" *ngIf="dynamicList?.GetORR.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Name</th>
@@ -390,7 +390,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetORR;">
+                      <tr *ngFor="let item of dynamicList?.GetORR;">
                         <td>{{item.CUSTOMERNAME}}</td>
                         <td>{{item.CNIC}}</td>
                         <td>{{item.GL}}</td>
@@ -400,13 +400,13 @@
                     </tbody>
                   </table>
                 </div>
-                  <h3 *ngIf="dynamicList.GetORR.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetORR?.length==0">Data not found.</h3>
               </mat-tab>
 
 
               <mat-tab label="Sanction">
                 <div class="table-responsive">
-                  <table class="table table-striped" *ngIf="dynamicList.GetSanctionList.length>0">
+                  <table class="table table-striped" *ngIf="dynamicList?.GetSanctionList?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>GL Description</th>
@@ -423,7 +423,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetSanctionList;">
+                      <tr *ngFor="let item of dynamicList?.GetSanctionList;">
                         <td>{{item.GL_DESCRIPTION}}</td>
                         <td>{{item.PROD_DEV}}</td>
                         <td>{{item.AMOUNT_REQUIRED}}</td>
@@ -439,12 +439,12 @@
                     </tbody>
                   </table>
                 </div>
-                  <h3 *ngIf="dynamicList.GetSanctionList.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetSanctionList?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="SAC Checklist">
                 <div class="table-responsive">
-                  <table class="table table-striped table-bordered" *ngIf="dynamicList.GetSAC.length>0">
+                  <table class="table table-striped table-bordered" *ngIf="dynamicList?.GetSAC?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Code</th>
@@ -453,7 +453,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetSAC;">
+                      <tr *ngFor="let item of dynamicList?.GetSAC;">
                         <td>{{item.CODE}}</td>
                         <td>{{item.DESCRIPTION}}</td>
                         <td style="min-width: 200px;">
@@ -466,12 +466,12 @@
                     </tbody>
                   </table>
                 </div>
-                  <h3 *ngIf="dynamicList.GetSAC.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetSAC?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="DAC Checklist">
                 <div class="table-responsive">
-                  <table class="table table-striped" *ngIf="dynamicList.GetDAC.length>0">
+                  <table class="table table-striped" *ngIf="dynamicList?.GetDAC?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Code</th>
@@ -480,7 +480,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetDAC;">
+                      <tr *ngFor="let item of dynamicList?.GetDAC;">
                         <td>{{item.CODE}}</td>
                         <td>{{item.DESCRIPTION}}</td>
                         <td style="min-width: 200px;">
@@ -492,12 +492,12 @@
                     </tbody>
                   </table>
                 </div>
-                  <h3 *ngIf="dynamicList.GetDAC.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetDAC?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="Declarations">
                 <div class="table-responsive">
-                  <table class="table table-striped " *ngIf="dynamicList.GetDeclarations.length>0">
+                  <table class="table table-striped " *ngIf="dynamicList?.GetDeclarations?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Declaration</th>
@@ -506,7 +506,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetDeclarations;">
+                      <tr *ngFor="let item of dynamicList?.GetDeclarations;">
                         <td>{{item.TEXT}}</td>
                         <td>{{item.ENTRY_DATE | date: 'dd-MM-yyyy h:mm a'}}</td>
                         <td>{{item.STATUS_NAME}}</td>
@@ -514,12 +514,12 @@
                     </tbody>
                   </table>
                   </div>
-                  <h3 *ngIf="dynamicList.GetDeclarations.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetDeclarations?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="Work Flow">
                 <div class="table-responsive">
-                  <table class="table table-striped " *ngIf="dynamicList.GetWorkFlow.length>0">
+                  <table class="table table-striped " *ngIf="dynamicList?.GetWorkFlow?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>User Id</th>
@@ -529,7 +529,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetWorkFlow;">
+                      <tr *ngFor="let item of dynamicList?.GetWorkFlow;">
                         <td>{{item.USER_ID}}</td>
                         <td>{{item.COMMENTS}}</td>
                         <td>{{item.STATUS_NAME}}</td>
@@ -538,12 +538,12 @@
                     </tbody>
                   </table>
                   </div>
-                  <h3 *ngIf="dynamicList.GetWorkFlow.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetWorkFlow?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="Rollover Activity">
                 <div class="table-responsive">
-                  <table class="table table-striped " *ngIf="dynamicList.GetRolloverActivity.length>0">
+                  <table class="table table-striped " *ngIf="dynamicList?.GetRolloverActivity?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>GL</th>
@@ -560,7 +560,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetRolloverActivity;">
+                      <tr *ngFor="let item of dynamicList?.GetRolloverActivity;">
                         <td>{{item.GLSUBCODE}}</td>
                         <td>{{item.SEQ_NO}}</td>
                         <td>{{item.MGR_PP_NO}}</td>
@@ -576,12 +576,12 @@
                     </tbody>
                   </table>
                   </div>
-                  <h3 *ngIf="dynamicList.GetRolloverActivity.length==0">Data not found.</h3>
+                  <h3 *ngIf="dynamicList?.GetRolloverActivity?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="Reschedule Activity">
                 <div class="table-responsive">
-                  <table class="table table-striped " *ngIf="dynamicList.GetRescheduleActivity.length>0">
+                  <table class="table table-striped " *ngIf="dynamicList?.GetRescheduleActivity?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>GL</th>
@@ -598,7 +598,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of dynamicList.GetRescheduleActivity;">
+                      <tr *ngFor="let item of dynamicList?.GetRescheduleActivity;">
                         <td>{{item.GLSUBCODE}}</td>
                         <td>{{item.SEQ_NO}}</td>
                         <td>{{item.MGR_PP_NO}}</td>
@@ -614,7 +614,7 @@
                     </tbody>
                   </table>
                 </div>
-                <h3 *ngIf="dynamicList.GetRescheduleActivity.length==0">Data not found.</h3>
+                <h3 *ngIf="dynamicList?.GetRescheduleActivity?.length==0">Data not found.</h3>
               </mat-tab>
             </mat-tab-group>
           </div>
@@ -625,7 +625,7 @@
           <div class="col-lg-12">
             <h3>Disbursements / Recoveries</h3>
             <div class="table-responsive">
-              <table class="table table-striped" *ngIf="dynamicList.GetDisbursementsRecoveries.length>0">
+              <table class="table table-striped" *ngIf="dynamicList?.GetDisbursementsRecoveries?.length>0">
                 <thead>
                   <tr class="table-header-background">
                     <th>GL</th>
@@ -657,7 +657,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of dynamicList.GetDisbursementsRecoveries; let i = index;">
+                  <tr *ngFor="let item of dynamicList?.GetDisbursementsRecoveries; let i = index;">
                     <td>{{item.GL_DESCRIPTION}}</td>
                     <td>{{item.SCHEME_CODE}}</td>
                     <td>{{item.CROP_CODE}}</td>
@@ -688,14 +688,14 @@
                 </tbody>
               </table>
             </div>
-              <h3 *ngIf="dynamicList.GetDisbursementsRecoveries.length==0">Data not found.</h3>
+              <h3 *ngIf="dynamicList?.GetDisbursementsRecoveries?.length==0">Data not found.</h3>
             </div>
 
             <div class="col-lg-12" *ngIf="recoveryDataFetched">
               <mat-tab-group mat-align-tabs="start">
                 <mat-tab label="Installments Detail">
                   <div class="table-responsive">
-                    <table class="table table-striped" *ngIf="recoveryList.GetLoanInstallments.length>0">
+                    <table class="table table-striped" *ngIf="recoveryList?.GetLoanInstallments?.length>0">
                       <thead>
                         <tr class="table-header-background">
                           <th>Seq#</th>
@@ -713,7 +713,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let item of recoveryList.GetLoanInstallments; let i = index;">
+                        <tr *ngFor="let item of recoveryList?.GetLoanInstallments; let i = index;">
                           <td>{{i+1}}</td>
                           <td>{{item.INTRATE}}</td>
                           <td>{{item.DUE_DATE | date: 'dd-MM-yyyy'}}</td>
@@ -730,10 +730,10 @@
                       </tbody>
                     </table>
                   </div>
-                    <h3 *ngIf="recoveryList.GetLoanInstallments.length==0">Data not found.</h3>
+                    <h3 *ngIf="recoveryList?.GetLoanInstallments?.length==0">Data not found.</h3>
                 </mat-tab>
                 <mat-tab label="Transactions Recoveries/Disbursment">
-                  <table class="table table-striped table-bordered" *ngIf="recoveryList.GetAllDisbursementRecoveries.length>0">
+                  <table class="table table-striped table-bordered" *ngIf="recoveryList?.GetAllDisbursementRecoveries?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Branch</th>
@@ -748,7 +748,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of recoveryList.GetAllDisbursementRecoveries; let i = index;">
+                      <tr *ngFor="let item of recoveryList?.GetAllDisbursementRecoveries; let i = index;">
                         <td>{{item.BRNAME}}</td>
                         <td>{{item.TRANSACTIONDATE | date: 'dd-MM-yyyy'}}</td>
                         <td>{{item.WORKINGDATE | date: 'dd-MM-yyyy'}}</td>
@@ -761,10 +761,10 @@
                       </tr>
                     </tbody>
                   </table>
-                  <h3 *ngIf="recoveryList.GetAllDisbursementRecoveries.length==0">Data not found.</h3>
+                  <h3 *ngIf="recoveryList?.GetAllDisbursementRecoveries?.length==0">Data not found.</h3>
                 </mat-tab>
                 <mat-tab label="J.V Transactions">
-                  <table class="table table-striped table-bordered" *ngIf="recoveryList.GetLoanJVTransaction.length>0">
+                  <table class="table table-striped table-bordered" *ngIf="recoveryList?.GetLoanJVTransaction?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Transaction Date</th>
@@ -778,7 +778,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of recoveryList.GetLoanJVTransaction; let i = index;">
+                      <tr *ngFor="let item of recoveryList?.GetLoanJVTransaction; let i = index;">
 
                         <td>{{item.TRANSACTIONDATE | date: 'dd-MM-yyyy'}}</td>
                         <td>{{item.WORKINGDATE | date: 'dd-MM-yyyy'}}</td>
@@ -794,7 +794,7 @@
                   <h3 *ngIf="recoveryList.GetLoanJVTransaction.length==0">Data not found.</h3>
                 </mat-tab>
                 <mat-tab label="Balances (PD/CD/ND)">
-                  <table class="table table-striped table-bordered" *ngIf="recoveryList.GetBalancesPDCDND.length>0">
+                  <table class="table table-striped table-bordered" *ngIf="recoveryList?.GetBalancesPDCDND?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Year</th>
@@ -814,7 +814,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of recoveryList.GetBalancesPDCDND; let i = index;">
+                      <tr *ngFor="let item of recoveryList?.GetBalancesPDCDND; let i = index;">
 
                         <td>{{item.VYEAR}}</td>
                         <td>{{item.PDP_O_CURR}}</td>
@@ -833,10 +833,10 @@
                       </tr>
                     </tbody>
                   </table>
-                  <h3 *ngIf="recoveryList.GetBalancesPDCDND.length==0">Data not found.</h3>
+                  <h3 *ngIf="recoveryList?.GetBalancesPDCDND?.length==0">Data not found.</h3>
                 </mat-tab>
                 <mat-tab label="Recovery (During the Year)">
-                  <table class="table table-striped table-bordered" *ngIf="recoveryList.GetRecoveryDuringYear.length>0">
+                  <table class="table table-striped table-bordered" *ngIf="recoveryList?.GetRecoveryDuringYear?.length>0">
                     <thead>
                       <tr class="table-header-background">
                         <th>Year</th>
@@ -857,7 +857,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of recoveryList.GetRecoveryDuringYear; let i = index;">
+                      <tr *ngFor="let item of recoveryList?.GetRecoveryDuringYear; let i = index;">
 
                         <td>{{item.VYEAR}}</td>
                         <td>{{item.PDP_RECOVERY_CURR}}</td>
@@ -877,7 +877,7 @@
                       </tr>
                     </tbody>
                   </table>
-                  <h3 *ngIf="recoveryList.GetRecoveryDuringYear.length==0">Data not found.</h3>
+                  <h3 *ngIf="recoveryList?.GetRecoveryDuringYear?.length==0">Data not found.</h3>
                 </mat-tab>
               </mat-tab-group>
             </div>

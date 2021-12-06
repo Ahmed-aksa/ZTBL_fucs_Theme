@@ -73,7 +73,7 @@ export class LoanInquiryComponent implements OnInit {
     }
 
   find() {
-      debugger
+
     var transactionId = this.RecoveryForm.controls.TransactionId.value;
     var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
     // this.hasFormErrors = false;
@@ -107,10 +107,9 @@ export class LoanInquiryComponent implements OnInit {
       .subscribe((baseResponse: BaseResponseModel) => {
 
         if (baseResponse.Success === true) {
+            debugger
           this.dynamicList = JSON.parse(baseResponse.Recovery.DynamicDataList);
-
-
-
+            console.log(this.dynamicList)
           this.dataFound = true;
           this.cdRef.detectChanges();
         }
