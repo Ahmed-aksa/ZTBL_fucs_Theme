@@ -538,7 +538,7 @@ export class CustomerProfileComponent implements OnInit {
                     }
                 } else {
 
-                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
+                    this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
                 }
             });
 
@@ -868,18 +868,19 @@ export class CustomerProfileComponent implements OnInit {
     ReadWriteForm() {
 
         var customerStatus = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
+        var user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
+        if (customerStatus.CustomerStatus.toLowerCase() == 'a' || customerStatus.CustomerStatus.toLowerCase() == 'p')
+            if (customerStatus.CreatedBy != user.UserId) {
+                this.roleForm.disable();
+                //this.roleForm.controls["Gender"].disabled;
+                this.isGenderDisabled = true;
+                this.HideShowSaveButton = false;
+                this.CurrentAddressreadoly = true;
+            } else {
+                this.CurrentAddressreadoly = false;
 
-        if (customerStatus.CustomerStatus.toLowerCase() == 'a' || customerStatus.CustomerStatus.toLowerCase() == 'p') {
-            this.roleForm.disable();
-            //this.roleForm.controls["Gender"].disabled;
-            this.isGenderDisabled = true;
-            this.HideShowSaveButton = false;
-            this.CurrentAddressreadoly = true;
-        } else {
-            this.CurrentAddressreadoly = false;
-
-            this.roleForm.controls['PermanentAddress'].updateValueAndValidity();
-        }
+                this.roleForm.controls['PermanentAddress'].updateValueAndValidity();
+            }
 
 
         this.GenderChange(null);
