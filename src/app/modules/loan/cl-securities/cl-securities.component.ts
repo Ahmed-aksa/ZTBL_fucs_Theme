@@ -343,6 +343,7 @@ debugger
           this.LoanSecuritiesForm.controls["Quantity"].setValue("");
           this.LoanSecuritiesForm.controls["QuantityUnit"].setValue("");
           this.LoanSecuritiesForm.controls["UnitPrice"].setValue("");
+          this.LoanSecuritiesForm.controls["AppSecurityID"].setValue("");
           Object.keys(this.LoanSecuritiesForm.controls).forEach(key => {
             this.LoanSecuritiesForm.get(key).markAsUntouched();
           });
@@ -362,6 +363,7 @@ debugger
     this.LoanSecuritiesForm.controls["Quantity"].setValue("");
     this.LoanSecuritiesForm.controls["QuantityUnit"].setValue("");
     this.LoanSecuritiesForm.controls["UnitPrice"].setValue("");
+      this.LoanSecuritiesForm.controls["AppSecurityID"].setValue("");
     Object.keys(this.LoanSecuritiesForm.controls).forEach(key => {
       this.LoanSecuritiesForm.get(key).markAsUntouched();
     });
@@ -369,8 +371,6 @@ debugger
 
   showUpdateSecuritiesForm(loan) {
         debugger
-      console.log(JSON.stringify(loan))
-
         this.LoanSecuritiesForm.controls["Quantity"].setValue(loan.Quantity);
         this.LoanSecuritiesForm.controls["UnitPrice"].setValue(loan.UnitPrice);
         this.loanSecurities.MaxCreditLimit = loan?.MaxCreditLimit;
