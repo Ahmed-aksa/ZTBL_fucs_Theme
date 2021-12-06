@@ -187,8 +187,6 @@ export class CheckEligibilityComponent implements OnInit {
                     this.NDCPerform = true;
                     this.NdcSubmit = true;
                     this.Customer = baseResponse.Customer;
-                    debugger;
-
                     this.BMVS_NIVS = this.Customer?.isBMVSAvailable;
                     if (this.Customer?.isBMVSAvailable)
                         this.BMVS_NIVS = "Success";
@@ -286,23 +284,23 @@ export class CheckEligibilityComponent implements OnInit {
         if (Data.Customer != '' && Data.Customer != null && Data.Customer != undefined) {
             var check = Data.Customer.isBMVSAvailable;
             if (check) {
-                this.BiMatricCasePerfom = false;
+                this.BiMatricCasePerfom = true;
                 this._customer = new CreateCustomer();
                 this._customer = Object.assign(this._customer, Data.Customer);
-                this.BiometricCredentials = true;
+                this.BiometricCredentials = false;
 
             } else {
-                this.BiMatricCasePerfom = true;
-                this.BiometricCredentials = false;
+                this.BiMatricCasePerfom = false;
+                this.BiometricCredentials = true;
                 this._customer = new CreateCustomer();
                 this._customer = Object.assign(this._customer, Data.Customer);
             }
 
-            if (this._customer.District) {
-                this.disrtrict_value = this._customer.District;
-                this.disable_district_field = true;
-            } else if (this._customer.City) {
+            if (this._customer.City) {
                 this.disrtrict_value = this._customer.City;
+                this.disable_district_field = true;
+            } else if (this._customer.District) {
+                this.disrtrict_value = this._customer.District;
                 this.disable_district_field = true;
             } else {
                 this.disable_district_field = false;
