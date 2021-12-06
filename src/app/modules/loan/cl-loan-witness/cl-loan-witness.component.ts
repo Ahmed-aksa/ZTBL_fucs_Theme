@@ -40,6 +40,9 @@ export class ClLoanWitnessComponent implements OnInit {
     loanDocumentsCheckList: any = [];
     loanRefrenceArray: LoanRefrences[] = [];
     editLoanRefrenceArray: LoanRefrences[] = [];
+    EditableCnicReference;
+    EditableCnicWitness;
+    EditableCnicSureties;
 
     loanPersonalSuretiesArray: PersonalSureties[] = [];
     editLoanPersonalSuretiesArray: PersonalSureties[] = [];
@@ -125,13 +128,19 @@ export class ClLoanWitnessComponent implements OnInit {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
+
         let duplicate_cnic = false;
         this.loanPersonalSuretiesArray.forEach((single_array) => {
             if (single_array.Cnic == this.personalSuretiesForm.value.Cnic) {
-                if (!this.personalSuretiesForm?.controls?.PersonalSuretyID?.value)
-                    duplicate_cnic = true;
-            }
+                if (this.EditableCnicSureties) {
+                    if (this.EditableCnicSureties != single_array.Cnic) {
+                        duplicate_cnic = true;
 
+                    }
+                }else
+                    duplicate_cnic = true;
+
+            }
         })
         if (duplicate_cnic) {
             this.layoutUtilsService.alertElementSuccess("Duplicate CNIC", "CNIC Already Exists");
@@ -153,7 +162,8 @@ export class ClLoanWitnessComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Loan?.PersonalSuretiesList)
                 this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
-            this.personalSuretiesForm.reset()
+            this.personalSuretiesForm.reset();
+            this.EditableCnicSureties=null;
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -186,6 +196,7 @@ export class ClLoanWitnessComponent implements OnInit {
         //this.corporateSureties.LoanAppID = 0;
         this.corporateSureties.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
         //this.corporateSureties.SrNo = 0;
+
 
         if (this.corporateSureties.CorporateSuretyID == null) {
             delete this.corporateSureties.CorporateSuretyID;
@@ -223,21 +234,36 @@ export class ClLoanWitnessComponent implements OnInit {
             ReferenceID: [this.loanRefrences.ReferenceID]
         });
     }
+    onClearLoanRefrencesForm(){
+        this.loanRefrencesForm.reset()
+        this.EditableCnicReference=null;
+    }
+    onClearLoanWitnessForm(){
+        this.loanWitnessForm.reset()
+        this.EditableCnicWitness=null;
+    }
+    onClearLoanSuretiesForm(){
+        this.personalSuretiesForm.reset()
+        this.EditableCnicSureties=null;
+    }
 
     onSaveLoanRefrencesForm() {
-debugger
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
-        // if(){}
 
         let duplicate_cnic = false;
         this.loanRefrenceArray.forEach((single_array) => {
             if (single_array.Cnic == this.loanRefrencesForm.value.Cnic) {
-                if (!this.loanRefrencesForm?.controls?.ReferenceID?.value) {
-                    duplicate_cnic = true;
-                }
+                if (this.EditableCnicReference) {
+                    if (this.EditableCnicReference != single_array.Cnic) {
+                        duplicate_cnic = true;
+
+                    }
+                }else
+                        duplicate_cnic = true;
+
             }
         })
         if (duplicate_cnic) {
@@ -258,11 +284,12 @@ debugger
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            if (baseResponse.Loan.LoanRefrencesList){
+            if (baseResponse.Loan.LoanRefrencesList) {
                 this.loanRefrenceArray = baseResponse.Loan.LoanRefrencesList
                 this.loanRefrencesForm.reset()
+                this.EditableCnicReference=null;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-            } else{
+            } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
 
@@ -293,17 +320,22 @@ debugger
         }
         let duplicate_cnic = false;
         this.loanWitnessArray.forEach((single_array) => {
-                if (single_array.Cnic == this.loanWitnessForm.value.Cnic) {
-                    if (!this.loanWitnessForm?.controls?.WitnessesID?.value) {
+            if (single_array.Cnic == this.loanWitnessForm.value.Cnic) {
+                if (this.EditableCnicWitness) {
+                    if (this.EditableCnicWitness != single_array.Cnic) {
                         duplicate_cnic = true;
+
                     }
-                }
+                }else
+                    duplicate_cnic = true;
+
             }
-        )
+        })
         if (duplicate_cnic) {
             this.layoutUtilsService.alertElementSuccess("Duplicate CNIC", "CNIC Already Exists");
             return;
         }
+
         this.loanWitness = Object.assign(this.loanWitness, this.loanWitnessForm.getRawValue());
         //this.loanWitness.WitnessesID = 0;
         //this.loanWitness.LoanAppID = 0;
@@ -320,11 +352,12 @@ debugger
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            if (baseResponse.Loan.LoanWitnessList){
+            if (baseResponse.Loan.LoanWitnessList) {
                 this.loanWitnessArray = baseResponse.Loan.LoanWitnessList;
-                this.loanWitnessForm.reset()
+                this.loanWitnessForm.reset();
+                this.EditableCnicWitness=null;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-            }else{
+            } else {
 
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
@@ -511,7 +544,6 @@ debugger
     }
 
     setUnsetDocumentCheckBox(docObj) {
-        debugger
         //this.loanDetail = new Loan();
         //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
 
@@ -535,14 +567,13 @@ debugger
     }
 
     saveCheckList() {
-        debugger
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
 
-        if(this.loanDocumentCheckListArray?.length==0){
-            var Message = 'Please choose atleast one option';
+        if (this.loanDocumentCheckListArray?.length == 0) {
+            var Message = 'Please attach atleast one document';
             this.layoutUtilsService.alertElement(
                 '',
                 Message,
@@ -742,6 +773,7 @@ debugger
         delete WitnessesID.branchId;
         WitnessesID = this.deleteInvalid(WitnessesID);
         this.loanWitnessForm.setValue(WitnessesID);
+        this.EditableCnicWitness=WitnessesID.Cnic;
     }
 
     onEditLoanPastPaidArray(data
@@ -767,13 +799,13 @@ debugger
     onEditPersonalSureties(PersonalSuretyID) {
         PersonalSuretyID = this.deleteInvalid(PersonalSuretyID);
         this.personalSuretiesForm.setValue(PersonalSuretyID);
-        console.log()
+        this.EditableCnicSureties=PersonalSuretyID.Cnic;
     }
 
     onEditRefrence(ReferenceID) {
-        debugger
         ReferenceID = this.deleteInvalid(ReferenceID);
         this.loanRefrencesForm.setValue(ReferenceID);
+        this.EditableCnicReference = ReferenceID.Cnic;
     }
 
     submitLoanApplication() {
@@ -788,7 +820,7 @@ debugger
         //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
 
         this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-this.spinner.show();
+        this.spinner.show();
         this._loanService.submitLoanApplication(this.loanDetail.ApplicationHeader, this.loanDetail.TranId)
             .pipe(
                 finalize(() => {
