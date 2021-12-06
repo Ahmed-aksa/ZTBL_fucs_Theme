@@ -799,6 +799,27 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
+    submitOrr(orrRequest: any) {
+        this.request = new BaseRequestModel();
+        var loanInfo = new Loan();
+        //var oRR = new ORR();
+        //oRR = orrRequest;
+        loanInfo.ORR = orrRequest;
+        this.request.Loan = loanInfo;
+        this.request.TranId = 0;
+        var userInfo = this.userUtilsService.getUserDetails();
+        this.request.User = userInfo.User;
+        this.request.Zone = userInfo.Zone;
+        this.request.Branch = userInfo.Branch;
+        this.activity.ActivityID = 1;
+        this.request.Activity = this.activity;
+        return this.http
+            .post(`${environment.apiUrl}/Loan/SubmitORR`, this.request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
     getLoanDetails(LcNo: any, LoanAppID) {
         var userInfo = this.userUtilsService.getUserDetails();
         var branch = {
