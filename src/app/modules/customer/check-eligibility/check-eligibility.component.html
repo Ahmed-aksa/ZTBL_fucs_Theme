@@ -263,16 +263,16 @@
                                     <mat-hint align="left">Please enter address <strong></strong></mat-hint>
                                 </mat-form-field>
                             </div>
-                            <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                                <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                    <input matInput placeholder="City" formControlName="District"/>
-                                </mat-form-field>
-                            </div>
+
                         </div>
 
                         <div class="form-group kt-form__group row mt-2">
 
-
+                            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <input matInput placeholder="City" formControlName="District"/>
+                                </mat-form-field>
+                            </div>
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label class="customMatLabel">Select Gender <strong
@@ -382,7 +382,7 @@
                     </button>
                     <button (click)="submitCWR()"
                             *ngIf="BiometricCredentials" type="button"
-                            class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary"
+                            class="mat-focus-indicator w-32  mat-flat-button mat-button-base bg-green mat-primary"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Next

@@ -7,7 +7,7 @@
 
     <form  [formGroup]="roleForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="flex gt-xs:flex-row mt-2">
-            <mat-form-field   class="flex-auto gt-xs:pr-3 mr-5">
+            <mat-form-field   class="flex-auto mr-3  w-6/12">
                 <mat-label>Profile Name</mat-label>
                 <input matInput id="ProfileName"  placeholder="Role Code" formControlName="ProfileName" >
                   <!-- <mat-error *ngIf="errorHandling('ProfileName', 'required')">
@@ -15,7 +15,7 @@
                  </mat-error> -->
                 
             </mat-form-field>
-            <mat-form-field  class="flex-auto gt-xs:pl-3">
+            <mat-form-field  class="flex-auto   w-6/12">
                 <mat-label>Description</mat-label>
                 <input matInput id="ProfileDesc" placeholder="Role Name" formControlName="ProfileDesc">
                 <!-- <mat-error *ngIf="errorHandling('ProfileDesc', 'required')">
@@ -23,8 +23,8 @@
                  </mat-error> -->
             </mat-form-field>
         </div>
-        <div  class="col-lg-4 kt-margin-bottom-20-mobile">
-          <mat-form-field class="mat-form-field-fluid w-full map-fields" appearance="outline">
+        <div class="flex gt-xs:flex-row mt-2">
+          <mat-form-field class="mat-form-field-fluid mr-4 w-6/12 map-fields" appearance="outline">
             <mat-label>Group</mat-label>
             <mat-select formControlName="ProfileID">
               <mat-option *ngFor="let lov of LOVs" [value]="lov.Id">
@@ -32,8 +32,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
-      
+      </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions class="py-3 border-t" align="end">
