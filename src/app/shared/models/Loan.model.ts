@@ -17,6 +17,7 @@ export class Loan {
     CropProduction: CropProduction;
     AppraisalProposedList: AppraisalProposed[] = [];
     AppraisalProposed: AppraisalProposed;
+    RefDepositAcc: string;
     TranId: number;
     LoanAppID: string;
     LcNo: string;

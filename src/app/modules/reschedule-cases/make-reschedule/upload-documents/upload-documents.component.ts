@@ -254,7 +254,13 @@ export class UploadDocumentsComponent implements OnInit {
     }
 
     loanCase() {
-        this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, this.branch)
+        var LoanDoc = this.PostDocument.controls.DocLoanId.value;
+
+        if(LoanDoc){
+            //
+        }
+
+        this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, LoanDoc, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

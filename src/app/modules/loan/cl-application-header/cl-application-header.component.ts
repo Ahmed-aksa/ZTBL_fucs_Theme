@@ -393,14 +393,19 @@ export class ClApplicationHeaderComponent implements OnInit {
 
                 if (baseResponse.Success) {
                     this.loanApplicationHeader.LoanAppID = baseResponse.Loan.ApplicationHeader.LoanAppID;
-                    this.loanApplicationReq = baseResponse.Loan.ApplicationHeader;
-                    this.loanApplicationReq.LoanCaseNo = this.applicationHeaderForm.controls.LoanCaseNo.value;
                     this.LoanDetail.ApplicationHeader = this.loanApplicationHeader;
                     this.LoanDetail.TranId = baseResponse.TranId;
                     this.applicationCall.emit(this.LoanDetail);
                     this.isSaveApplicationHeaderInProgress = false;
+
+
+                    this.loanApplicationReq = baseResponse.Loan.ApplicationHeader;
+                    this.loanApplicationReq.LoanCaseNo = this.applicationHeaderForm.controls.LoanCaseNo.value;
+                    this.loanApplicationReq.RefDepositAcc = this.applicationHeaderForm.controls.RefDepositAcc.value;
+
                     localStorage.setItem('loan_case_number', this.loanApplicationReq.LoanCaseNo);
                     localStorage.setItem('loan_app_id', this.loanApplicationReq.LoanAppID);
+                    localStorage.setItem('loan_ref_deposit', this.loanApplicationReq.RefDepositAcc);
 
                     const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
 

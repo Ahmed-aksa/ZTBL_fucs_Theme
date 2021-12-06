@@ -32,6 +32,7 @@ export class ClUploadDocumentComponent implements OnInit {
     PostDocument: FormGroup;
     loanDocument = new LoanDocuments();
     rawData: LoanDocuments[] = [];
+    refDepositAccount: any;
 
     url: string;
     loanDocumentArray: LoanDocuments[] = [];
@@ -45,6 +46,8 @@ export class ClUploadDocumentComponent implements OnInit {
     loanType: any = [];
     SelectedLoanType: any = [];
     applicationHeader: any;
+
+    loanId: any = {}
 
     //Document Loan Type inventory
     documentLoanTypes: any = [];
@@ -148,7 +151,7 @@ export class ClUploadDocumentComponent implements OnInit {
         // if (loanApplicationHeader?.LoanCaseNo?.length > 0) {
         //     this.PostDocument.controls['LcNo'].disable();
         // }
-        this.loanCase(true);
+        //this.loanCase(true);
         this.getLoanDocument();
 
 
@@ -288,6 +291,12 @@ export class ClUploadDocumentComponent implements OnInit {
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
 
+        // if(!this.LoanCaseId){
+        //     this.getLoanCaseId()
+        // }
+
+        this.loanDocument.LcNo = this.LoanCaseId;
+
         if (this.PostDocument.invalid) {
             const controls = this.PostDocument.controls;
             Object.keys(controls).forEach(controlName =>
@@ -310,6 +319,7 @@ export class ClUploadDocumentComponent implements OnInit {
         this.rawData.forEach((single_file, index) => {
 
             this.loanDocument.file = single_file;
+
 
 
             // @ts-ignore
@@ -350,8 +360,6 @@ export class ClUploadDocumentComponent implements OnInit {
 
                 this.loanDocument.PageNumber = page_number;
                 this.loanDocument.Description = description;
-
-                this.loanDocument.LcNo = this.LoanCaseId;
 
                 this.spinner.show();
                 this._loanService.documentUpload(this.loanDocument)
@@ -394,10 +402,17 @@ export class ClUploadDocumentComponent implements OnInit {
 
     }
 
-    loanCase(bool) {
+    loanCase() {
         debugger
-        this.first = bool;
-        this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, this.branch)
+        var LoanDoc = this.PostDocument.controls.DocLoanId.value;
+
+        if(LoanDoc == undefined || LoanDoc == null){
+            this.layoutUtilsService.alertElement('', 'Please select Loan Type');
+            return
+        }
+
+        //this.first = bool;
+        this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, LoanDoc ,this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -459,11 +474,16 @@ export class ClUploadDocumentComponent implements OnInit {
     assignLoanCaseNo() {
         debugger
         if (localStorage.getItem('loan_case_number')) {
+
             this.PostDocument.controls['LcNo'].setValue(localStorage.getItem('loan_case_number'));
             this.loanAppID = localStorage.getItem('loan_app_id');
+            this.refDepositAccount = localStorage.getItem('loan_ref_deposit');
+
             localStorage.removeItem('loan_case_number');
             localStorage.removeItem('loan_app_id');
-            this.loanCase(true);
+            localStorage.removeItem('loan_ref_deposit');
+
+            //this.loanCase(true);
         }
     }
 }

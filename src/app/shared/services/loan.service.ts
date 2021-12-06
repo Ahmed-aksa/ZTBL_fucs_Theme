@@ -821,7 +821,7 @@ export class LoanService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
-    getLoanDetailsByLcNo(LcNo, Branch) {
+    getLoanDetailsByLcNo(LcNo, LoanDoc,Branch, Zone) {
         var userInfo = this.userUtilsService.getUserDetails();
         var branch = {
             BranchId: Branch.BranchId,
@@ -831,10 +831,12 @@ export class LoanService {
             ApplicationHeader: {
                 LoanCaseNo: LcNo
             },
+            LoanDocID: LoanDoc
         };
 
         var request = {
             Branch: Branch,
+            Zone: Zone,
             Loan: loan,
         };
         return this.http
@@ -988,6 +990,34 @@ export class LoanService {
         }
         return this.http
             .post(`${environment.apiUrl}/Loan/DocumentDelete`, req, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
+    getLoanCaseID(loan, docID,branch, zone) {
+        debugger
+        var userInfo = this.userUtilsService.getUserDetails();
+        var circles = userInfo.UserCircleMappings, circleIds=[];
+        circles.forEach(element=>{
+            circleIds.push(element.CircleId)
+        });
+        var _circles = circleIds.toString();
+        var req;
+        req = {
+            Zone: zone,
+            Branch: branch,
+            Circle: {
+                CircleIds: _circles
+            },
+            Loan: {
+                ApplicationHeader: loan,
+                LoanDocID: docID
+            },
+            User: userInfo.User
+        }
+        return this.http
+            .post(`${environment.apiUrl}/Loan/GetDocumentLoanCaseID`, req, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));

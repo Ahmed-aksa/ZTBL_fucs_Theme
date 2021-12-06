@@ -146,15 +146,28 @@ export class ViewGetFancingModalComponent implements OnInit {
         this.isLoadingFence = true;
         for (let i = 0; i < this.geo_fence_points.length; i++) {
             const polygonCoordinate = [];
-            this.geo_fence_points[i].forEach((o, i) => {
-                if (o.Long != 0 && o.Lat != 0) {
-                    // for view only
-                    polygonCoordinate.push({
-                        lat: o.Lat,
-                        lng: o.Long,
-                    });
-                }
-            });
+            if(this.geo_fence_points[0]?.Long){
+                this.geo_fence_points[i].forEach((o, i) => {
+                    if (o.Long != 0 && o.Lat != 0) {
+                        // for view only
+                        polygonCoordinate.push({
+                            lat: o.Lat,
+                            lng: o.Long,
+                        });
+                    }
+                });
+            }else if(this.geo_fence_points[0]?.Longitude){
+                this.geo_fence_points[i].forEach((o, i) => {
+                    if (o.Long != 0 && o.Lat != 0) {
+                        // for view only
+                        polygonCoordinate.push({
+                            lat: o.Latitude,
+                            lng: o.Longitude,
+                        });
+                    }
+                });
+            }
+
             if (polygonCoordinate.length > 0) {
                 this.addPolygon(polygonCoordinate);
             }
