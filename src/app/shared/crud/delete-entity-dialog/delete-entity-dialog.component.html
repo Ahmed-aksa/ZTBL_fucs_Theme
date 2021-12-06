@@ -6,7 +6,7 @@
 		</div>
 		<div class="kt-portlet__head-label flex">
 			<h3 class="w-11/12 text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{data.title}}</h3>
-			<button  class="w-1/12 " color="primary" (click)="onNoClick()" cdkFocusInitial [disabled]="viewLoading"><mat-icon class="mr-2 text-red-500">cancel</mat-icon></button>
+			<button  class="w-1/12 text-right" color="primary" (click)="onNoClick()" cdkFocusInitial [disabled]="viewLoading"><mat-icon class=" text-red-500">cancel</mat-icon></button>
 			<span class="kt-portlet__head-icon kt-hide">
 				<i class="la la-gear"></i>
 			</span>
@@ -22,7 +22,7 @@
 		</div>
 		<div class=" py-3 border-t kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit text-right">
 			<div class="kt-form__actions kt-form__actions--sm">
-				<button  class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-raised-button color="primary" (click)="onYesClick()" cdkFocusInitial [disabled]="viewLoading"><mat-icon class="mr-2  text-white">delete_forever</mat-icon> Delete</button>
+				<button  class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-red-500" mat-raised-button color="primary" (click)="onYesClick()" cdkFocusInitial [disabled]="viewLoading"><mat-icon class="mr-2  text-white">delete_forever</mat-icon> Delete</button>
 			</div>
 		</div>
 	</div>
