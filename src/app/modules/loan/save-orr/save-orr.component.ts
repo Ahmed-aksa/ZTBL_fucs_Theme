@@ -150,7 +150,17 @@ export class SaveOrrComponent implements OnInit {
         this.router.navigate(['../orr-list'], {relativeTo: this.activatedRoute});
     }
 
-    save() {
+    SaveOrSubmit() {
+
+        if(this.showFinalOrrTable){
+            this.Save();
+        }else{
+            this.Submit();
+        }
+    }
+    Submit(){}
+
+    Save(){
 
         this.hasFormErrors = false;
         if (this.ORRForm.invalid) {
