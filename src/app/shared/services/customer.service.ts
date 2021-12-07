@@ -347,4 +347,21 @@ export class CustomerService {
     getImages(request: { EligibilityRequest: { Id: any } }) {
         return this.http.post(`${environment.apiUrl}/Customer/GetEligibilityRequestFiles`, request);
     }
+
+    regenerateEcib(_customer: CreateCustomer, tran_id: any) {
+        this.request = new BaseRequestModel();
+
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        this.request.User = userInfo.User;
+        this.request.Customer = _customer;
+        this.request.Branch = userInfo.Branch;
+        this.request.Zone = userInfo.Zone;
+        this.request.TranId = tran_id;
+
+        return this.http
+            .post(`${environment.apiUrl}/Customer/RegenerateECIB`, this.request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
 }

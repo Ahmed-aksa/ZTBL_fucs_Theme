@@ -21,6 +21,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -38,7 +39,6 @@ export class CheckEligibilityComponent implements OnInit {
     submitted = false;
     customerInfo: FormGroup;
     _activity: Activity = new Activity();
-    hasFormErrors = false;
     loading = false;
     viewLoading = false;
     dataID = "Test"
@@ -66,7 +66,9 @@ export class CheckEligibilityComponent implements OnInit {
     submitCwrLoading = false;
     refreshEcibLoading = false;
 
-    BMVS_NIVS: string;
+    customer_ndc: any;
+    customer_nivs: any;
+    customer_bmvs: any;
     NDC_Val: string;
     ECIB_Val: string;
     NDCLinkView: boolean;
@@ -92,6 +94,8 @@ export class CheckEligibilityComponent implements OnInit {
     disable_buttons: boolean = true;
     show_ndc = false;
     IS_NIVS: string;
+
+    should_regenerate: boolean = true;
     private first_request_response: BaseResponseModel;
 
     constructor(
@@ -106,7 +110,8 @@ export class CheckEligibilityComponent implements OnInit {
         private router: Router,
         private datePipe: DatePipe,
         private _common: CommonService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private toaster: ToastrService
     ) {
 
         var bit = localStorage.getItem("CreateCustomerBit");
@@ -154,11 +159,9 @@ export class CheckEligibilityComponent implements OnInit {
         if (this.customerInfo.controls["Cnic"].invalid) {
             controlsCust["Cnic"].markAsTouched()
 
-            this.hasFormErrors = true;
             this.checkEligibiltyCnic = false;
             return;
         } else {
-            this.hasFormErrors = false;
         }
 
         this.loading = true;
@@ -185,23 +188,14 @@ export class CheckEligibilityComponent implements OnInit {
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
 
-                    this.first_request_response=baseResponse;
+                    this.first_request_response = baseResponse;
                     this.loading = false;
                     this.NDCPerform = true;
                     this.NdcSubmit = true;
                     this.Customer = baseResponse.Customer;
-                    this.BMVS_NIVS = this.Customer?.isBMVSAvailable;
-                    if (this.Customer?.isBMVSAvailable)
-                        this.BMVS_NIVS = "Success";
-                    else
-                        this.BMVS_NIVS = "Not Found";
-                    if (this.Customer?.isNIVSExempted) {
-                        this.IS_NIVS = "Success";
-                    } else {
-                        this.IS_NIVS = "Not Found";
-                    }
-
-
+                    this.customer_ndc = baseResponse.EligibilityRequest.CustomerNDC;
+                    this.customer_bmvs = baseResponse.EligibilityRequest.CustomerBMVS;
+                    this.customer_nivs = baseResponse.EligibilityRequest.CUSTOMERNIVS;
                     this.CustomerNdc = baseResponse.customerNDC;
                     if (this.CustomerNdc?.Code == "449") {
                         this.IsNdcDefaulter = true;
@@ -352,10 +346,11 @@ export class CheckEligibilityComponent implements OnInit {
     saveBiomatricdata() {
         const controls = this.customerInfo.controls;
         this._customer = Object.assign(this._customer, this.customerInfo.value);
-        if ((this._customer.Cnic == null || this._customer.Cnic == "") || (this._customer.CnicExpiry == null || this._customer.CnicExpiry == "") || (this._customer.Dob == null || this._customer.Dob == "") || (this._customer.CustomerName == null || this._customer.CustomerName == "") || (this._customer.FatherName == null || this._customer.FatherName == "") || (this._customer.CurrentAddress == null || this._customer.CurrentAddress == "")) {
+        if ((this._customer.Cnic == null || this._customer.Cnic == "") || (this._customer.CnicExpiry == null || this._customer.CnicExpiry == "") || (this._customer.Dob == null || this._customer.Dob == "") || (this._customer.CustomerName == null || this._customer.CustomerName == "") || (this._customer.FatherName == null || this._customer.FatherName == "") || (this._customer.CurrentAddress == null || this._customer.CurrentAddress == "") || (this._customer.Gender == null || this._customer.Gender == "")) {
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
+            this.toaster.error("Please Enter All Required fields");
             return;
         }
         this._customer.Dob = this.datePipe.transform(this._customer.Dob, "ddMMyyyy");
@@ -367,13 +362,12 @@ export class CheckEligibilityComponent implements OnInit {
     //Submit CWR
     submitCWR() {
         this.submitCwrLoading = true;
-        this.hasFormErrors = false;
         const controls = this.customerInfo.controls;
         if (this.customerInfo.invalid) {
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
-            this.hasFormErrors = true;
+            this.toaster.error("Please Enter All Required fields");
             return;
         }
         this.loading = true;
@@ -397,19 +391,20 @@ export class CheckEligibilityComponent implements OnInit {
                     this.BiometricCredentials = false;
                     this.ECIBPerform = true;
                     this.ECIBPerformForm = true;
-                    if (this.Customer.isBMVSAvailable)
-                        this.BMVS_NIVS = "Success";
-                    else
-                        this.BMVS_NIVS = "Not Found";
+
                     this.Customer = baseResponse.Customer;
                     this.CustomerECIB = baseResponse.Ecib;
-                    // console.log(this.Customer);
-                    // console.log(this.CustomerECIB)
 
                     if (this.CustomerECIB.Code == "549") {
                         this.IsEcibDefaulter = true;
+                        this.should_regenerate = true;
                     } else {
                         this.IsEcibDefaulter = false;
+                    }
+
+                    if (this.CustomerECIB.Code == '552' || this.CustomerECIB.Code == '550') {
+                        this.should_regenerate = false;
+                        this.IsEcibDefaulter = true;
                     }
                     if (this.Customer.ECIBPDFLink == null || this.Customer.ECIBPDFLink == "") {
                         this.EcibLinkView = false;
@@ -443,9 +438,10 @@ export class CheckEligibilityComponent implements OnInit {
     refreshEcib() {
 
         this.refreshEcibLoading = true;
-        if (this.CustomerECIB.Code == '549') {
-            this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
-        } else {
+        // if (this.CustomerECIB.Code == '549') {
+        //     this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
+        // } else
+        {
             this.loading = true;
             this._customer = this.Customer;
             this.spinner.show()
@@ -462,8 +458,12 @@ export class CheckEligibilityComponent implements OnInit {
                     this.refreshEcibLoading = true;
                     if (baseResponse.Success === true) {
                         this.BiometricCredentials = false;
+                        this.customer_ndc = baseResponse.EligibilityRequest.CustomerNDC;
+                        this.customer_bmvs = baseResponse.EligibilityRequest.CustomerBMVS;
+                        this.customer_nivs = baseResponse.EligibilityRequest.CUSTOMERNIVS;
                         this.Customer = baseResponse.Customer;
                         this.CustomerECIB = baseResponse.Ecib;
+
                         localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
                         var bit = localStorage.getItem("CreateCustomerBit");
                         if (bit == '10') {
@@ -554,10 +554,6 @@ export class CheckEligibilityComponent implements OnInit {
     }
 
 
-    onAlertClose($event) {
-        this.hasFormErrors = false;
-    }
-
     change_cnic(value: string) {
         this.Customer = null;
         this.NDCPerform = false;
@@ -570,5 +566,41 @@ export class CheckEligibilityComponent implements OnInit {
             this.disable_defaulter = false;
         }
     }
+
+    regenerate() {
+
+        this.loading = true;
+        this._customer = this.Customer;
+        this.spinner.show()
+
+        this._customerService.regenerateEcib(this._customer, this.tran_id)
+            .pipe(
+                finalize(() => {
+                    this.refreshEcibLoading = true;
+                    this.submitted = false;
+                    this.loading = false;
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse: BaseResponseModel) => {
+                this.refreshEcibLoading = true;
+                if (baseResponse.Success === true) {
+                    this.BiometricCredentials = false;
+                    this.Customer = baseResponse.Customer;
+
+                    this.IsEcibDefaulter = false;
+                    this.toaster.success(baseResponse.Message)
+                } else {
+                    if (baseResponse.Ftb == 1) {
+                        this.router.navigate(['/dashboard']);
+                    }
+                    this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+                }
+
+            });
+    }
+
+    //this.refreshEcibLoading = false;
+
 }
 
