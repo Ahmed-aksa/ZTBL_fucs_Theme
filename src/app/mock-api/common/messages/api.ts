@@ -1,20 +1,18 @@
-import { Injectable } from '@angular/core';
-import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
-import { messages as messagesData } from 'app/mock-api/common/messages/data';
+import {Injectable} from '@angular/core';
+import {assign, cloneDeep} from 'lodash-es';
+import {FuseMockApiService, FuseMockApiUtils} from '@fuse/lib/mock-api';
+import {messages as messagesData} from 'app/mock-api/common/messages/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MessagesMockApi
-{
+export class MessagesMockApi {
     private _messages: any = messagesData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _fuseMockApiService: FuseMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -26,8 +24,7 @@ export class MessagesMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Messages - GET
         // -----------------------------------------------------------------------------------------------------
@@ -72,8 +69,7 @@ export class MessagesMockApi
                 // Find the message and update it
                 this._messages.forEach((item: any, index: number, messages: any[]) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the message
                         messages[index] = assign({}, messages[index], message);
 
@@ -147,8 +143,7 @@ export class MessagesMockApi
                 // Find the message and update it
                 this._messages.forEach((item: any, index: number, messages: any[]) => {
 
-                    if ( item.id === message.id )
-                    {
+                    if (item.id === message.id) {
                         // Update the message
                         messages[index].read = message.read;
 

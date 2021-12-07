@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 /* eslint-disable eol-last */
-export class SearchLoanCaseByCnic{
+export class SearchLoanCaseByCnic {
     WorkingDate: string;
     VoucherNo: string;
     ReportFormatType: string;
@@ -22,7 +23,7 @@ export class SearchLoanCaseByCnic{
     CircleCode: string;
 }
 
-export class Bufrication{
+export class Bufrication {
     Status: string;
     ReportsNo: string;
     LcNo: string;

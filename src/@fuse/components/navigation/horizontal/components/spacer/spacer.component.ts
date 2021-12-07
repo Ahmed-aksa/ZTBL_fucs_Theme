@@ -1,17 +1,16 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {FuseHorizontalNavigationComponent} from '@fuse/components/navigation/horizontal/horizontal.component';
+import {FuseNavigationService} from '@fuse/components/navigation/navigation.service';
+import {FuseNavigationItem} from '@fuse/components/navigation/navigation.types';
 
 @Component({
-    selector       : 'fuse-horizontal-navigation-spacer-item',
-    templateUrl    : './spacer.component.html',
+    selector: 'fuse-horizontal-navigation-spacer-item',
+    templateUrl: './spacer.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FuseHorizontalNavigationSpacerItemComponent implements OnInit, OnDestroy
-{
+export class FuseHorizontalNavigationSpacerItemComponent implements OnInit, OnDestroy {
     @Input() item: FuseNavigationItem;
     @Input() name: string;
 
@@ -24,8 +23,7 @@ export class FuseHorizontalNavigationSpacerItemComponent implements OnInit, OnDe
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService
-    )
-    {
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -35,8 +33,7 @@ export class FuseHorizontalNavigationSpacerItemComponent implements OnInit, OnDe
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Get the parent navigation component
         this._fuseHorizontalNavigationComponent = this._fuseNavigationService.getComponent(this.name);
 
@@ -53,8 +50,7 @@ export class FuseHorizontalNavigationSpacerItemComponent implements OnInit, OnDe
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();

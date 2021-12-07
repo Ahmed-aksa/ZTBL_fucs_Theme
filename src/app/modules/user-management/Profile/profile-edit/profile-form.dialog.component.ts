@@ -59,7 +59,7 @@ export class ProfileFormDialogComponent implements OnInit {
     isLoading: boolean = false;
     _currentActivity: Activity = new Activity();
     private componentSubscriptions: Subscription;
-    lists_record:any=[];
+    lists_record: any = [];
 
     /**
      * Component constructor
@@ -469,11 +469,13 @@ export class ProfileFormDialogComponent implements OnInit {
             this.componentSubscriptions.unsubscribe();
         }
     }
+
     expendTable() {
         this.lists_record.forEach(i => {
             document.getElementById('table_' + i).style.display = 'block';
         });
     }
+
     /**
      * Returns role for save
      */

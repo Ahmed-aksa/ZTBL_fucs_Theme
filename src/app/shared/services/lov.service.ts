@@ -1,11 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from 'environments/environment';
 
-import { map } from 'rxjs/operators';
-import { ChildLov, Lov } from '../classes/lov.class';
-import { BaseResponseModel } from '../models/base_response.model';
-import { HttpUtilsService } from './http_utils.service';
+import {map} from 'rxjs/operators';
+import {ChildLov, Lov} from '../classes/lov.class';
+import {BaseResponseModel} from '../models/base_response.model';
+import {HttpUtilsService} from './http_utils.service';
+
 @Injectable({
     providedIn: 'root',
 })
@@ -13,10 +14,11 @@ export class LovService {
     constructor(
         private http: HttpClient,
         private httpUtils: HttpUtilsService
-    ) {}
+    ) {
+    }
 
     public async CallLovAPI(DataObj: Lov) {
-        var req = { LovPagination: { TagName: DataObj.TagName } };
+        var req = {LovPagination: {TagName: DataObj.TagName}};
 
         return this.http
             .post(`${environment.apiUrl}/LOV/GetLOVsByTag`, req, {

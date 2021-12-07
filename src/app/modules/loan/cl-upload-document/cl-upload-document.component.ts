@@ -273,8 +273,7 @@ export class ClUploadDocumentComponent implements OnInit {
                     return;
                 }
             }
-        }
-        else{
+        } else {
             this.rawData.splice(i, 1);
         }
 
@@ -319,7 +318,6 @@ export class ClUploadDocumentComponent implements OnInit {
             this.loanDocument.file = single_file;
 
 
-
             // @ts-ignore
             let page_number = document.getElementById(`page_${index}`).value;
             // @ts-ignore
@@ -328,12 +326,11 @@ export class ClUploadDocumentComponent implements OnInit {
 
             if (single_file == undefined || single_file == null || page_number == "" || description == "") {
                 ok = false;
-                if(single_file == undefined && single_file == null && description == ""){
+                if (single_file == undefined && single_file == null && description == "") {
                     this.layoutUtilsService.alertElement('', 'Please add Files and Description on entries of Attachments, as per No. of Files to upload');
-                }else if(single_file == undefined || single_file == null  && description != ""){
+                } else if (single_file == undefined || single_file == null && description != "") {
                     this.layoutUtilsService.alertElement('', 'Please add File(s) missing from row(s)');
-                }
-                else if(description == ""){
+                } else if (description == "") {
                     this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s)');
                 }
                 return
@@ -406,13 +403,13 @@ export class ClUploadDocumentComponent implements OnInit {
         debugger
         var LoanDoc = this.PostDocument.controls.DocLoanId.value;
 
-        if(LoanDoc == undefined || LoanDoc == null){
+        if (LoanDoc == undefined || LoanDoc == null) {
             this.layoutUtilsService.alertElement('', 'Please select Loan Type');
             return
         }
 
         //this.first = bool;
-        this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, LoanDoc ,this.branch, this.zone)
+        this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, LoanDoc, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

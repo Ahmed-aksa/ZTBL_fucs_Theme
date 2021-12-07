@@ -1,18 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
-import { fromPairs, map } from 'lodash-es';
+import {Injectable} from '@angular/core';
+import {Observable, ReplaySubject} from 'rxjs';
+import {fromPairs, map} from 'lodash-es';
 import * as extractedTailwindConfigStyle from '@fuse/styles/core/tailwind-config.scss';
 
 @Injectable()
-export class FuseTailwindService
-{
+export class FuseTailwindService {
     private _tailwindConfig: ReplaySubject<any> = new ReplaySubject<any>(1);
 
     /**
      * Constructor
      */
-    constructor()
-    {
+    constructor() {
         // Prepare the config object
         const config: any = {};
 
@@ -25,11 +23,9 @@ export class FuseTailwindService
         let rules = regexp.exec(style);
 
         // Add to the config
-        while ( rules !== null )
-        {
+        while (rules !== null) {
             const configGroup = /--([\s\S]*?)-/g.exec(rules[1])[1];
-            if ( !config[configGroup] )
-            {
+            if (!config[configGroup]) {
                 config[configGroup] = {};
             }
 
@@ -51,8 +47,7 @@ export class FuseTailwindService
     /**
      * Getter for _tailwindConfig
      */
-    get tailwindConfig$(): Observable<any>
-    {
+    get tailwindConfig$(): Observable<any> {
         return this._tailwindConfig.asObservable();
     }
 }

@@ -1,5 +1,5 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { FuseAnimationCurves, FuseAnimationDurations } from '@fuse/animations/defaults';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {FuseAnimationCurves, FuseAnimationDurations} from '@fuse/animations/defaults';
 
 // -----------------------------------------------------------------------------------------------------
 // @ Slide in top
@@ -249,4 +249,4 @@ const slideOutRight = trigger('slideOutRight',
     ]
 );
 
-export { slideInTop, slideInBottom, slideInLeft, slideInRight, slideOutTop, slideOutBottom, slideOutLeft, slideOutRight };
+export {slideInTop, slideInBottom, slideInLeft, slideInRight, slideOutTop, slideOutBottom, slideOutLeft, slideOutRight};

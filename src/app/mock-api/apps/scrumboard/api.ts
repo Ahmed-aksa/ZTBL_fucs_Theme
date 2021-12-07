@@ -1,13 +1,18 @@
-import { Injectable } from '@angular/core';
-import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
-import { boards as boardsData, cards as cardsData, labels as labelsData, lists as listsData, members as membersData } from 'app/mock-api/apps/scrumboard/data';
+import {Injectable} from '@angular/core';
+import {assign, cloneDeep} from 'lodash-es';
+import {FuseMockApiService, FuseMockApiUtils} from '@fuse/lib/mock-api';
+import {
+    boards as boardsData,
+    cards as cardsData,
+    labels as labelsData,
+    lists as listsData,
+    members as membersData
+} from 'app/mock-api/apps/scrumboard/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ScrumboardMockApi
-{
+export class ScrumboardMockApi {
     // Private
     private _boards: any[] = boardsData;
     private _cards: any[] = cardsData;
@@ -18,8 +23,7 @@ export class ScrumboardMockApi
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _fuseMockApiService: FuseMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -31,8 +35,7 @@ export class ScrumboardMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Boards - GET
         // -----------------------------------------------------------------------------------------------------
@@ -132,8 +135,7 @@ export class ScrumboardMockApi
                 // Find the list and update it
                 this._lists.forEach((item, index, lists) => {
 
-                    if ( item.id === list.id )
-                    {
+                    if (item.id === list.id) {
                         // Update the list
                         lists[index] = assign({}, lists[index], list);
 
@@ -245,8 +247,7 @@ export class ScrumboardMockApi
                 // Find the card and update it
                 this._cards.forEach((item, index, cards) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the card
                         cards[index] = assign({}, cards[index], card);
 
@@ -407,8 +408,7 @@ export class ScrumboardMockApi
                 // Find the label and update it
                 this._labels.forEach((item, index, labels) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the label
                         labels[index] = assign({}, labels[index], label);
 

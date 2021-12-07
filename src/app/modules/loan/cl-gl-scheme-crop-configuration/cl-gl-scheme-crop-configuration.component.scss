@@ -1,35 +1,34 @@
 table > thead {
-  background-color: #00661a;
-  color: white;
+    background-color: #00661a;
+    color: white;
 }
 
 .mt-10p {
-  margin-top: 3% !important;
+    margin-top: 3% !important;
 }
-
 
 
 .ngx-pagination li {
-  display: inline-block !important;
-  background-color: #f6fcf8 !important;
-  margin-left: 10px !important;
-  border: #c6ecd3 1px solid !important;
+    display: inline-block !important;
+    background-color: #f6fcf8 !important;
+    margin-left: 10px !important;
+    border: #c6ecd3 1px solid !important;
 }
 
 .my-pagination[_ngcontent-pcd-c37] .ngx-pagination .current {
-  z-index: 1 !important;
-  color: #FFFFFF !important;
-  background-color: #00661a !important;
-  padding: 4px 12px !important;
+    z-index: 1 !important;
+    color: #FFFFFF !important;
+    background-color: #00661a !important;
+    padding: 4px 12px !important;
 }
 
 .mat-table__bottom {
-  float: left !important;
-  margin-top: 20px !important;
+    float: left !important;
+    margin-top: 20px !important;
 }
 
 .mat-select {
-  margin-top: -10px !important;
+    margin-top: -10px !important;
 }
 
 
@@ -51,15 +50,16 @@ table > thead {
   color: #fefefe;
   cursor: default;
 }*/
-@media only screen and (max-width: 600px){
-.mat-row, .mat-header-row {
-    display: inline-flex;
-    position: sticky;
+@media only screen and (max-width: 600px) {
+    .mat-row, .mat-header-row {
+        display: inline-flex;
+        position: sticky;
+    }
 }
-}
-@media only screen and (max-width: 600px){
-.mat-table {
-    overflow-x: scroll;
-    max-width: 100%;
-}
+
+@media only screen and (max-width: 600px) {
+    .mat-table {
+        overflow-x: scroll;
+        max-width: 100%;
+    }
 }

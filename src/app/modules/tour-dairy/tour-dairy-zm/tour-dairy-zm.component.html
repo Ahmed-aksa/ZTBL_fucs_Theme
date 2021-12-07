@@ -3,7 +3,8 @@
         <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
         <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
             <div class="text-4xl font-extrabold tracking-tight">
-                TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
+                TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)
+            </div>
         </div>
     </div>
 
@@ -52,7 +53,9 @@
                     <th colspan="2">Arrival at</th>
                     <th colspan="6">Portfolio of the branch visited</th>
                     <th colspan="3">Recovery</th>
-                    <th rowspan="4">No. of loan cases in which recovery suits have been filed in Banking Court by the branch</th>
+                    <th rowspan="4">No. of loan cases in which recovery suits have been filed in Banking Court by the
+                        branch
+                    </th>
                 </tr>
                 <tr class="table-header-background text-center">
                     <th rowspan="2"></th>
@@ -103,12 +106,18 @@
             <table class="table table-striped">
                 <thead>
                 <tr class="table-header-background text-center">
-                    <th rowspan="2">No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not been issued to borrowers</th>
-                    <th rowspan="2">Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour Plan </th>
+                    <th rowspan="2">No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not
+                        been issued to borrowers
+                    </th>
+                    <th rowspan="2">Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour
+                        Plan
+                    </th>
                     <th rowspan="2">Any short comings in Tour Diaries of MCOs/Branch Manager</th>
-                    <th rowspan="2">No. of zero recovery cases of the branch </th>
-                    <th colspan="2" >No. of loan cases where Reschedulement/Restructuring/write-off remission of mark-up done by the branch</th>
-                    <th rowspan="2">No. of Defaulters contacted by the Z.M (Rec. & SAM) </th>
+                    <th rowspan="2">No. of zero recovery cases of the branch</th>
+                    <th colspan="2">No. of loan cases where Reschedulement/Restructuring/write-off remission of mark-up
+                        done by the branch
+                    </th>
+                    <th rowspan="2">No. of Defaulters contacted by the Z.M (Rec. & SAM)</th>
                     <th rowspan="2">Remarks</th>
                 </tr>
                 <tr class="table-header-background text-center">
@@ -150,10 +159,10 @@
                 <tr class="table-header-background text-center">
                     <!-- UTILIZATIONS -->
                     <th colspan="3">Amount in default up to the month under report (TARGET)</th>
-                    <th colspan="3">Recovery during the month under report </th>
-                    <th colspan="3">Balance Recoverable </th>
-                    <th colspan="3">Recovery during corresponding period </th>
-                    <th rowspan="2">Increase/Deficit  </th>
+                    <th colspan="3">Recovery during the month under report</th>
+                    <th colspan="3">Balance Recoverable</th>
+                    <th colspan="3">Recovery during corresponding period</th>
+                    <th rowspan="2">Increase/Deficit</th>
                     <th colspan="2">Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
                 </tr>
                 <tr class="table-header-background text-center">
@@ -219,8 +228,10 @@
 
             <div class="col-lg-4 kt-margin-bottom-20-mobile">
                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                    <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong></mat-label>
-                    <input matInput [matDatepicker]="picker2" formControlName="Date" maxlength="30" autocomplete="off" [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly />
+                    <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>
+                    </mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="Date" maxlength="30" autocomplete="off"
+                           [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>

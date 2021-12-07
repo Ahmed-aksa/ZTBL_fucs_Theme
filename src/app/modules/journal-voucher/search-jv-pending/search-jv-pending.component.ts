@@ -147,12 +147,12 @@ export class SearchJvPendingComponent implements OnInit {
         this.JvStatuses = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.JvStatus});
 
         this.JvStatuses = this.JvStatuses.LOVs;
-        
+
 
         this.Nature = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.JVCategory});
 
         this.Nature = this.Nature.LOVs;
-        
+
 
         this.cdRef.detectChanges();
     }
@@ -199,7 +199,7 @@ export class SearchJvPendingComponent implements OnInit {
             zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
         else
             zone = this.SelectedZones;
-        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate,branch,zone)
+        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate, branch, zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -207,7 +207,7 @@ export class SearchJvPendingComponent implements OnInit {
             )
             .subscribe(baseResponse => {
 
-                
+
                 if (baseResponse.Success) {
                     this.loading = false;
 

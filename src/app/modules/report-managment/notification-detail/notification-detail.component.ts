@@ -189,7 +189,7 @@ export class NotificationDetailsComponent implements OnInit {
                         this.loading = false;
                     })
                 ).subscribe(baseResponse => {
-                
+
                 if (baseResponse.Success === true) {
                     const message = `User has been blocked successfully.`;
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);

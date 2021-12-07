@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {DatePipe} from '@angular/common';
 import {
     DateAdapter,
     MAT_DATE_FORMATS,
     MAT_DATE_LOCALE,
 } from '@angular/material/core';
-import { DateFormats } from '../../../shared/classes/lov.class';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { UserUtilsService } from '../../../shared/services/users_utils.service';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { SignatureDailogDairyComponent } from '../signature-dailog-dairy/signature-dailog-dairy.component';
+import {DateFormats} from '../../../shared/classes/lov.class';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {UserUtilsService} from '../../../shared/services/users_utils.service';
+import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {SignatureDailogDairyComponent} from '../signature-dailog-dairy/signature-dailog-dairy.component';
 
 @Component({
     selector: 'app-tour-dairy-zm',
@@ -26,7 +26,7 @@ import { SignatureDailogDairyComponent } from '../signature-dailog-dairy/signatu
             useClass: MomentDateAdapter,
             deps: [MAT_DATE_LOCALE],
         },
-        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
     ],
 })
 export class TourDairyZmComponent implements OnInit {
@@ -35,6 +35,7 @@ export class TourDairyZmComponent implements OnInit {
     maxDate: Date;
 
     sign;
+
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
@@ -65,7 +66,8 @@ export class TourDairyZmComponent implements OnInit {
                 }
                 const branchWorkingDate = new Date(year, month - 1, day);
                 this.gridForm.controls.Date.setValue(branchWorkingDate);
-            } catch (e) {}
+            } catch (e) {
+            }
         } else {
             try {
                 var day = this.gridForm.controls.Date.value.toDate().getDate();
@@ -84,7 +86,8 @@ export class TourDairyZmComponent implements OnInit {
 
                 const branchWorkingDate = new Date(year, month - 1, day);
                 this.gridForm.controls.Date.setValue(branchWorkingDate);
-            } catch (e) {}
+            } catch (e) {
+            }
         }
     }
 
@@ -103,7 +106,7 @@ export class TourDairyZmComponent implements OnInit {
     submit() {
         const signatureDialogRef = this.dialog.open(
             SignatureDailogDairyComponent,
-            { width: '500px', disableClose: true }
+            {width: '500px', disableClose: true}
         );
     }
 }

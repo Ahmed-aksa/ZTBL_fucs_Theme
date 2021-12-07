@@ -5,7 +5,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {RouterModule} from "@angular/router";
 
 
-const route=[
+const route = [
     {
         path: '',
         component: BorrowerInformationComponent

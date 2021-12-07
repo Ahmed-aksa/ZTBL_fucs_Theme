@@ -1,4 +1,4 @@
-import { BaseModel } from "app/shared/models/base-model.model";
+import {BaseModel} from "app/shared/models/base-model.model";
 
 
 export class Permission extends BaseModel {
@@ -18,5 +18,5 @@ export class Permission extends BaseModel {
         this.isSelected = false;
         this.name = '';
         this._children = [];
-	}
+    }
 }

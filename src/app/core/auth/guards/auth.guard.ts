@@ -13,7 +13,7 @@ import {
 import {Observable, of} from 'rxjs';
 import {AuthService} from 'app/core/auth/auth.service';
 import {switchMap} from 'rxjs/operators';
-import { asLiteral } from '@angular/compiler/src/render3/view/util';
+import {asLiteral} from '@angular/compiler/src/render3/view/util';
 
 @Injectable({
     providedIn: 'root'

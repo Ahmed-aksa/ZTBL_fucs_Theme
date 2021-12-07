@@ -1,10 +1,8 @@
-export class FuseMockApiUtils
-{
+export class FuseMockApiUtils {
     /**
      * Constructor
      */
-    constructor()
-    {
+    constructor() {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -14,15 +12,13 @@ export class FuseMockApiUtils
     /**
      * Generate a globally unique id
      */
-    static guid(): string
-    {
+    static guid(): string {
         /* eslint-disable */
 
         let d = new Date().getTime();
 
         // Use high-precision timer if available
-        if ( typeof performance !== 'undefined' && typeof performance.now === 'function' )
-        {
+        if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
             d += performance.now();
         }
 

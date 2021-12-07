@@ -1,87 +1,93 @@
-<div class=" px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-  <div class="heading">List Loan Utilization</div>
-  <!-- Header -->
+<div
+    class=" px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="heading">List Loan Utilization</div>
+    <!-- Header -->
 
-  <!-- Main -->
-  <div class="flex flex-auto overflow-y-scroll">
+    <!-- Main -->
+    <div class="flex flex-auto overflow-y-scroll">
 
-    <!-- Products list -->
-    <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
-      <div class="flex flex-col flex-auto sm:mb-6 overflow-x-hidden border shadow-xs rounded-sm bg-gray-50  sm:overflow-y-auto">
-        <mat-table class="lmat-elevation-z8"
-        #table
-        [dataSource]="dataSource"
-        matSort
-        #sort1="matSort"
-        matSortActive="id"
-        matSortDirection="asc"
-        matSortDisableClear>
-<ng-container matColumnDef="customer_name">
- <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.CustomerName}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="father_name">
- <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.FatherName}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="death_date">
- <mat-header-cell *matHeaderCellDef mat-sort-header>Death Date</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.DeathDate}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="Cnic">
- <mat-header-cell style="min-width: 150px;" *matHeaderCellDef mat-sort-header>CNIC</mat-header-cell>
- <mat-cell style="min-width: 150px;" *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Cnic}}</mat-cell>
-</ng-container>
+        <!-- Products list -->
+        <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
+            <div
+                class="flex flex-col flex-auto sm:mb-6 overflow-x-hidden border shadow-xs rounded-sm bg-gray-50  sm:overflow-y-auto">
+                <mat-table class="lmat-elevation-z8"
+                           #table
+                           [dataSource]="dataSource"
+                           matSort
+                           #sort1="matSort"
+                           matSortActive="id"
+                           matSortDirection="asc"
+                           matSortDisableClear>
+                    <ng-container matColumnDef="customer_name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+                        <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.CustomerName}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="father_name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Father Name</mat-header-cell>
+                        <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.FatherName}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="death_date">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Death Date</mat-header-cell>
+                        <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.DeathDate}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Cnic">
+                        <mat-header-cell style="min-width: 150px;" *matHeaderCellDef mat-sort-header>CNIC
+                        </mat-header-cell>
+                        <mat-cell style="min-width: 150px;"
+                                  *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Cnic}}</mat-cell>
+                    </ng-container>
 
-<ng-container matColumnDef="address">
- <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Address}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="per_address">
- <mat-header-cell *matHeaderCellDef mat-sort-header>Per Address</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.PermanentAddress}}</mat-cell>
-</ng-container>
-<ng-container matColumnDef="status">
- <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Status}}</mat-cell>
-</ng-container>
+                    <ng-container matColumnDef="address">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+                        <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Address}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="per_address">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Per Address</mat-header-cell>
+                        <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.PermanentAddress}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                        <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Status}}</mat-cell>
+                    </ng-container>
 
-<ng-container matColumnDef="branch_code">
- <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.BranchCode}}</mat-cell>
-</ng-container>
+                    <ng-container matColumnDef="branch_code">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                        <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.BranchCode}}</mat-cell>
+                    </ng-container>
 
-<ng-container matColumnDef="certificate_verified">
- <mat-header-cell *matHeaderCellDef mat-sort-header>Certificate Verified</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.IsCertificateVerified}}</mat-cell>
-</ng-container>
+                    <ng-container matColumnDef="certificate_verified">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Certificate Verified</mat-header-cell>
+                        <mat-cell
+                            *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.IsCertificateVerified}}</mat-cell>
+                    </ng-container>
 
-<ng-container matColumnDef="legal_heir">
- <mat-header-cell *matHeaderCellDef mat-sort-header>Legal Heir Income</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.LegalHeairHasIncome}}</mat-cell>
-</ng-container>
+                    <ng-container matColumnDef="legal_heir">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Legal Heir Income</mat-header-cell>
+                        <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.LegalHeairHasIncome}}</mat-cell>
+                    </ng-container>
 
 
-<ng-container matColumnDef="View">
- <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
- <mat-cell *matCellDef="let DeceasedCustomer">
-   <button mat-icon-button color="primary" (click)="viewDeceased(DeceasedCustomer)">
-     <mat-icon style="margin-left: 5px;" title="View">edit</mat-icon>
-   </button>
- </mat-cell>
-</ng-container>
+                    <ng-container matColumnDef="View">
+                        <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
+                        <mat-cell *matCellDef="let DeceasedCustomer">
+                            <button mat-icon-button color="primary" (click)="viewDeceased(DeceasedCustomer)">
+                                <mat-icon style="margin-left: 5px;" title="View">edit</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
 
-<mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background"></mat-header-row>
+                    <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                    class="table-header-background"></mat-header-row>
 
-<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
-</mat-table>
-        <div class="mat-table__message" *ngIf="dataSource?.data?.length==0">No records found</div>
-      </div>
+                </mat-table>
+                <div class="mat-table__message" *ngIf="dataSource?.data?.length==0">No records found</div>
+            </div>
+
+        </div>
 
     </div>
-
-  </div>
 
 </div>
 

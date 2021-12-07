@@ -78,7 +78,6 @@ export class JournalVoucherService {
         };
 
         var req = JSON.stringify(request)
-        
 
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/CreateJVTransaction`, request,

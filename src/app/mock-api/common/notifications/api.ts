@@ -1,20 +1,18 @@
-import { Injectable } from '@angular/core';
-import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
-import { notifications as notificationsData } from 'app/mock-api/common/notifications/data';
+import {Injectable} from '@angular/core';
+import {assign, cloneDeep} from 'lodash-es';
+import {FuseMockApiService, FuseMockApiUtils} from '@fuse/lib/mock-api';
+import {notifications as notificationsData} from 'app/mock-api/common/notifications/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class NotificationsMockApi
-{
+export class NotificationsMockApi {
     private _notifications: any = notificationsData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _fuseMockApiService: FuseMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -26,8 +24,7 @@ export class NotificationsMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Notifications - GET
         // -----------------------------------------------------------------------------------------------------
@@ -72,8 +69,7 @@ export class NotificationsMockApi
                 // Find the notification and update it
                 this._notifications.forEach((item: any, index: number, notifications: any[]) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the notification
                         notifications[index] = assign({}, notifications[index], notification);
 
@@ -147,8 +143,7 @@ export class NotificationsMockApi
                 // Find the notification and update it
                 this._notifications.forEach((item: any, index: number, notifications: any[]) => {
 
-                    if ( item.id === notification.id )
-                    {
+                    if (item.id === notification.id) {
                         // Update the notification
                         notifications[index].read = notification.read;
 

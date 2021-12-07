@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
@@ -259,7 +259,8 @@ export class InsuranceReportComponent implements OnInit {
         this.dialogRef.close(res)
     }
 
-    setDate(){}
+    setDate() {
+    }
 
 
 }

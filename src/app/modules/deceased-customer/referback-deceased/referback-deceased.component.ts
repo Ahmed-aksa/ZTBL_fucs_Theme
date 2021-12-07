@@ -1,13 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserUtilsService } from '../../../shared/services/users_utils.service';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserUtilsService} from '../../../shared/services/users_utils.service';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 import {MatPaginator} from "@angular/material/paginator";
-import { DeceasedCustomerService } from '../../../shared/services/deceased-customer.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import {DeceasedCustomerService} from '../../../shared/services/deceased-customer.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {finalize} from 'rxjs/operators';
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
@@ -56,8 +56,8 @@ export class ReferbackDeceasedComponent implements OnInit {
     gridHeight: string;
 
     select: Selection[] = [
-        { value: '1', viewValue: 'NO' },
-        { value: '2', viewValue: 'Yes' },
+        {value: '1', viewValue: 'NO'},
+        {value: '2', viewValue: 'Yes'},
     ];
     DeceasedCustomerInf;
 
@@ -70,7 +70,8 @@ export class ReferbackDeceasedComponent implements OnInit {
         private _deceasedCustomer: DeceasedCustomerService,
         private router: Router,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.createForm();
@@ -81,7 +82,8 @@ export class ReferbackDeceasedComponent implements OnInit {
         this.referBackForm.controls.Branch.setValue(userInfo.Branch.Name);
         this._deceasedCustomer
             .GetListOfRejectedDeceasedPerson()
-            .pipe(finalize(() => {}))
+            .pipe(finalize(() => {
+            }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     this.dataSource =
@@ -112,7 +114,8 @@ export class ReferbackDeceasedComponent implements OnInit {
         });
     }
 
-    find() {}
+    find() {
+    }
 
     CheckEditStatus(deceased: any) {
         if (deceased.MakerUserID == this.loggedInUser.UserId) {
@@ -142,9 +145,10 @@ export class ReferbackDeceasedComponent implements OnInit {
                     ViewObj: Deceased.obj,
                 },
             ],
-            { relativeTo: this.activatedRoute }
+            {relativeTo: this.activatedRoute}
         );
     }
+
     ngAfterViewInit() {
         this.gridHeight = window.innerHeight - 200 + 'px';
     }
@@ -158,7 +162,7 @@ export class ReferbackDeceasedComponent implements OnInit {
                     CustomerName: Deceased.CustomerName,
                 },
             ],
-            { relativeTo: this.activatedRoute }
+            {relativeTo: this.activatedRoute}
         );
     }
 }

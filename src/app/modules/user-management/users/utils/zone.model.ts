@@ -1,5 +1,5 @@
 export class Zone {
-  ZoneId: number;
-  ZoneName: string;
+    ZoneId: number;
+    ZoneName: string;
 
 }

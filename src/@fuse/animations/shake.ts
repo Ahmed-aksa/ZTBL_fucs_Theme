@@ -1,4 +1,4 @@
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import {animate, keyframes, style, transition, trigger} from '@angular/animations';
 
 // -----------------------------------------------------------------------------------------------------
 // @ Shake
@@ -16,47 +16,47 @@ const shake = trigger('shake',
                     keyframes([
                         style({
                             transform: 'translate3d(0, 0, 0)',
-                            offset   : 0
+                            offset: 0
                         }),
                         style({
                             transform: 'translate3d(-10px, 0, 0)',
-                            offset   : 0.1
+                            offset: 0.1
                         }),
                         style({
                             transform: 'translate3d(10px, 0, 0)',
-                            offset   : 0.2
+                            offset: 0.2
                         }),
                         style({
                             transform: 'translate3d(-10px, 0, 0)',
-                            offset   : 0.3
+                            offset: 0.3
                         }),
                         style({
                             transform: 'translate3d(10px, 0, 0)',
-                            offset   : 0.4
+                            offset: 0.4
                         }),
                         style({
                             transform: 'translate3d(-10px, 0, 0)',
-                            offset   : 0.5
+                            offset: 0.5
                         }),
                         style({
                             transform: 'translate3d(10px, 0, 0)',
-                            offset   : 0.6
+                            offset: 0.6
                         }),
                         style({
                             transform: 'translate3d(-10px, 0, 0)',
-                            offset   : 0.7
+                            offset: 0.7
                         }),
                         style({
                             transform: 'translate3d(10px, 0, 0)',
-                            offset   : 0.8
+                            offset: 0.8
                         }),
                         style({
                             transform: 'translate3d(-10px, 0, 0)',
-                            offset   : 0.9
+                            offset: 0.9
                         }),
                         style({
                             transform: 'translate3d(0, 0, 0)',
-                            offset   : 1
+                            offset: 1
                         })
                     ])
                 )
@@ -70,4 +70,4 @@ const shake = trigger('shake',
     ]
 );
 
-export { shake };
+export {shake};

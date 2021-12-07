@@ -1,143 +1,161 @@
 <div class="kt-portlet">
-  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h5 class="kt-portlet__head-title">Legal Heirs Entry</h5>
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h5 class="kt-portlet__head-title">Legal Heirs Entry</h5>
+        </div>
     </div>
-  </div>
 
-  <div class="kt-portlet__body">
-    <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="legalHeirsForm">
-      <div class="kt-form">
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Customers <strong class="matMandatory">*</strong></mat-label>
-              <!--<input matInput formControlName="CustomerID">-->
-              <mat-select formControlName="CustomerID">
-                  <mat-option  [value]="undefined">
-                      {{'--Select Customer-- '}}
-                  </mat-option>
-                <mat-option (click)="onChange(obj)" *ngFor="let obj of SelectedCustomersList" [value]="obj.CustLoanAppID">
-                  {{obj.CustomerName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">CNIC/B FORM <strong class="matMandatory">*</strong></mat-label>
-              <input matInput formControlName="Cnic" maxlength="15" autocomplete="off" [mask]="maskEnums.cnic">
-            </mat-form-field>
-          </div>
-          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Legal Heir Name <strong class="matMandatory">*</strong></mat-label>
-              <input matInput formControlName="LegalHeirsName">
-            </mat-form-field>
-          </div>
+    <div class="kt-portlet__body">
+        <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="legalHeirsForm">
+            <div class="kt-form">
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Customers <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <!--<input matInput formControlName="CustomerID">-->
+                            <mat-select formControlName="CustomerID">
+                                <mat-option [value]="undefined">
+                                    {{'--Select Customer-- '}}
+                                </mat-option>
+                                <mat-option (click)="onChange(obj)" *ngFor="let obj of SelectedCustomersList"
+                                            [value]="obj.CustLoanAppID">
+                                    {{obj.CustomerName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">CNIC/B FORM <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <input matInput formControlName="Cnic" maxlength="15" autocomplete="off"
+                                   [mask]="maskEnums.cnic">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Legal Heir Name <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <input matInput formControlName="LegalHeirsName">
+                        </mat-form-field>
+                    </div>
 
-        </div>
-        <div class="form-group  kt-form__group row">
-          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">DOB(ddMMyyyy) <strong class="matMandatory">*</strong></mat-label>
-              <input readonly="readonly" matInput [matDatepicker]="picker3" formControlName="Dob" [max]="today">
-              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-              <mat-datepicker #picker3></mat-datepicker>
-              <!--<mat-error *ngIf="hasError('AppDate', 'required')">Application Date <strong>required</strong></mat-error>-->
-            </mat-form-field>
-          </div>
-          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Relationship <strong class="matMandatory">*</strong></mat-label>
-              <mat-select formControlName="RelationID">
+                </div>
+                <div class="form-group  kt-form__group row">
+                    <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">DOB(ddMMyyyy) <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <input readonly="readonly" matInput [matDatepicker]="picker3" formControlName="Dob"
+                                   [max]="today">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                            <!--<mat-error *ngIf="hasError('AppDate', 'required')">Application Date <strong>required</strong></mat-error>-->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Relationship <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <mat-select formControlName="RelationID">
 
-                <mat-option>
-                  <ngx-mat-select-search placeholderLabel="Search Relationship...">
+                                <mat-option>
+                                    <ngx-mat-select-search placeholderLabel="Search Relationship...">
 
-                  </ngx-mat-select-search>
-                </mat-option>
+                                    </ngx-mat-select-search>
+                                </mat-option>
 
-                <mat-option *ngFor="let obj of RelationshipLov" [value]="obj.Id">
-                  {{obj.Name}}
-                </mat-option>
+                                <mat-option *ngFor="let obj of RelationshipLov" [value]="obj.Id">
+                                    {{obj.Name}}
+                                </mat-option>
 
-              </mat-select>
-              <!--<mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>-->
-            </mat-form-field>
-          </div>
-          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Tel(Res)NO</mat-label>
-              <input maxlength="7" matInput formControlName="PhoneOff" appNumberOnly>
-            </mat-form-field>
-          </div>
+                            </mat-select>
+                            <!--<mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>-->
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Tel(Res)NO</mat-label>
+                            <input maxlength="7" matInput formControlName="PhoneOff" appNumberOnly>
+                        </mat-form-field>
+                    </div>
 
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Cell No <strong class="matMandatory">*</strong></mat-label>
-              <input maxlength="11" matInput formControlName="PhoneCell" appNumberOnly>
-            </mat-form-field>
-          </div>
-          <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-              <mat-label class="customMatLabel">Gender <strong class="matMandatory">*</strong></mat-label>
-              <mat-select formControlName="Gender" (selectionChange)="setRelationshipValue($event)">
-                <mat-option *ngFor="let obj of GenderLov" [value]="obj.Value">
-                  {{obj.Name}}
-                </mat-option>
-              </mat-select>
-              <!--<mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>-->
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-3 mb-2">
-            <button style="background-color: #01671B;" type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="onSaveLegalHeirsForm()">
-              <mat-icon class="mr-2">save</mat-icon> Save
-            </button>
-            <button type="button" class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"  color="danger" (click)="onClearLegalHeirsForm()">
-              <mat-icon class="mr-2"> clear_all</mat-icon>Clear
-            </button>
-          </div>
-        </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Cell No <strong class="matMandatory">*</strong>
+                            </mat-label>
+                            <input maxlength="11" matInput formControlName="PhoneCell" appNumberOnly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Gender <strong class="matMandatory">*</strong></mat-label>
+                            <mat-select formControlName="Gender" (selectionChange)="setRelationshipValue($event)">
+                                <mat-option *ngFor="let obj of GenderLov" [value]="obj.Value">
+                                    {{obj.Name}}
+                                </mat-option>
+                            </mat-select>
+                            <!--<mat-error *ngIf="hasError('ZoneId', 'required')">Zone <strong>required</strong></mat-error>-->
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-3 mb-2">
+                        <button style="background-color: #01671B;" type="button" class="btn btn-primary"
+                                mat-raised-button color="primary" (click)="onSaveLegalHeirsForm()">
+                            <mat-icon class="mr-2">save</mat-icon>
+                            Save
+                        </button>
+                        <button type="button"
+                                class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                                color="danger" (click)="onClearLegalHeirsForm()">
+                            <mat-icon class="mr-2"> clear_all</mat-icon>
+                            Clear
+                        </button>
+                    </div>
+                </div>
 
-        <div class="form-group kt-form__group row">
-          <div class="col-lg-12">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="table-header-background">
-                    <th>Customer Name</th>
-                    <th>Legal Heirs Name</th>
-                    <th>Legal Heirs CNIC</th>
-                    <th>Cell No</th>
-                    <th>DOB</th>
-                    <th>Relation</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody class="">
-                  <tr *ngFor="let legal of legalHeirsArray; let i = index;">
-                    <td>{{legal.CustomerName}}</td>
-                    <td>{{legal.LegalHeirsName}}</td>
-                    <td>{{legal.Cnic}}</td>
-                    <td>{{legal.PhoneCell}}</td>
-                    <td>{{legal.Dob}}</td>
-                    <td>{{legal.Relation}}</td>
-                    <td><button type="button" class="btn btn-xs btn-primary" (click)="onDeleteLegalHeirs(legal.UserID,i)">Delete</button></td>
-                  </tr>
-                </tbody>
-              </table>
+                <div class="form-group kt-form__group row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>Customer Name</th>
+                                    <th>Legal Heirs Name</th>
+                                    <th>Legal Heirs CNIC</th>
+                                    <th>Cell No</th>
+                                    <th>DOB</th>
+                                    <th>Relation</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody class="">
+                                <tr *ngFor="let legal of legalHeirsArray; let i = index;">
+                                    <td>{{legal.CustomerName}}</td>
+                                    <td>{{legal.LegalHeirsName}}</td>
+                                    <td>{{legal.Cnic}}</td>
+                                    <td>{{legal.PhoneCell}}</td>
+                                    <td>{{legal.Dob}}</td>
+                                    <td>{{legal.Relation}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-xs btn-primary"
+                                                (click)="onDeleteLegalHeirs(legal.UserID,i)">Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
+        </form>
+    </div>
 </div>
 <!-- <ngx-spinner bdColor="rgba(51,51,51,0.8)"
              size="medium"

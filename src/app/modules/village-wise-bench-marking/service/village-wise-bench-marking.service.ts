@@ -70,12 +70,12 @@ export class VillageWiseBenchMarkingService {
                 id: 0
             },
             TranId: 0,
-            Branch:branch ? branch : null,
+            Branch: branch ? branch : null,
             User: this.userInfo.User,
             Zone: zone
         };
         var r = JSON.stringify(request)
-        
+
 
         return this.http.post(`${environment.apiUrl}/VillageBenchMarking/GetVillageBenchMarking`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -85,7 +85,7 @@ export class VillageWiseBenchMarkingService {
 
     addUpdateVillageBenchMark(village, user) {
 
-        
+
         var circle = this.userInfo.UserCircleMappings;
         var circleIds = [];
         //mycircle =
@@ -126,7 +126,7 @@ export class VillageWiseBenchMarkingService {
             }
         };
         var r = JSON.stringify(request)
-        
+
 
         return this.http.post(`${environment.apiUrl}/VillageBenchMarking/AddUpdateBenchMarking`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -178,7 +178,7 @@ export class VillageWiseBenchMarkingService {
             }
         };
         var r = JSON.stringify(request)
-        
+
 
         return this.http.post(`${environment.apiUrl}/VillageBenchMarking/DeleteBenchMarking`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(

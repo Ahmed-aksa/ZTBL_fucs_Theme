@@ -61,7 +61,7 @@ export class ReportsService {
         if (zone == null) {
             final_zone = user.Zone;
             final_branch = user.Branch;
-             if (final_branch == undefined) {
+            if (final_branch == undefined) {
                 final_branch = null
             }
         } else {

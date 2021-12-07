@@ -1,5 +1,5 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { FuseAnimationCurves, FuseAnimationDurations } from '@fuse/animations/defaults';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {FuseAnimationCurves, FuseAnimationDurations} from '@fuse/animations/defaults';
 
 // -----------------------------------------------------------------------------------------------------
 // @ Zoom in
@@ -9,14 +9,14 @@ const zoomIn = trigger('zoomIn',
 
         state('void',
             style({
-                opacity  : 0,
+                opacity: 0,
                 transform: 'scale(0.5)'
             })
         ),
 
         state('*',
             style({
-                opacity  : 1,
+                opacity: 1,
                 transform: 'scale(1)'
             })
         ),
@@ -43,14 +43,14 @@ const zoomOut = trigger('zoomOut',
 
         state('*',
             style({
-                opacity  : 1,
+                opacity: 1,
                 transform: 'scale(1)'
             })
         ),
 
         state('void',
             style({
-                opacity  : 0,
+                opacity: 0,
                 transform: 'scale(0.5)'
             })
         ),
@@ -69,5 +69,5 @@ const zoomOut = trigger('zoomOut',
     ]
 );
 
-export { zoomIn, zoomOut };
+export {zoomIn, zoomOut};
 

@@ -17,7 +17,7 @@
         <div class="carousel-inner">
             <div class="carousel-item" *ngFor="let single_image of images; let i=index" [class]="i==0?'active':''">
                 <img [src]="single_image.image" class="d-block w-100" style="height: 83vh;" [alt]="single_image"
-                    >
+                >
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"

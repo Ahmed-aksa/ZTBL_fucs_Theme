@@ -1,20 +1,18 @@
-import { Injectable } from '@angular/core';
-import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
-import { shortcuts as shortcutsData } from 'app/mock-api/common/shortcuts/data';
+import {Injectable} from '@angular/core';
+import {assign, cloneDeep} from 'lodash-es';
+import {FuseMockApiService, FuseMockApiUtils} from '@fuse/lib/mock-api';
+import {shortcuts as shortcutsData} from 'app/mock-api/common/shortcuts/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ShortcutsMockApi
-{
+export class ShortcutsMockApi {
     private _shortcuts: any = shortcutsData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _fuseMockApiService: FuseMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -26,8 +24,7 @@ export class ShortcutsMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Shortcuts - GET
         // -----------------------------------------------------------------------------------------------------
@@ -72,8 +69,7 @@ export class ShortcutsMockApi
                 // Find the shortcut and update it
                 this._shortcuts.forEach((item: any, index: number, shortcuts: any[]) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the shortcut
                         shortcuts[index] = assign({}, shortcuts[index], shortcut);
 

@@ -24,7 +24,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./loan-amounts-convert-to-default.component.scss']
 })
 export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
+    displayedColumns = ['Zone', 'Branch', 'Circle', 'Dob', 'Ndd', 'MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'descr', 'OtherCharges'];
     searchCnicForm: FormGroup;
 
     public reports = new SearchLoanCaseByCnic();
@@ -88,7 +88,7 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewIn
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "19";
         this.spinner.show();
-        this._reports.reportDynamic(this.reports,this.branch,this.zone,this.circle)
+        this._reports.reportDynamic(this.reports, this.branch, this.zone, this.circle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;

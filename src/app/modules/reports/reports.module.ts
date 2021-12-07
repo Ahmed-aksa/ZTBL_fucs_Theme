@@ -85,7 +85,7 @@ const routing = [
         RouterModule.forChild(routing),
         SharedModule
     ],
-    entryComponents:[
+    entryComponents: [
         BufricationOfOsBalancesLcComponent
     ]
 

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-correction-passbook',
-  templateUrl: './correction-passbook.component.html',
-  styleUrls: ['./correction-passbook.component.scss']
+    selector: 'app-correction-passbook',
+    templateUrl: './correction-passbook.component.html',
+    styleUrls: ['./correction-passbook.component.scss']
 })
 export class CorrectionPassbookComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

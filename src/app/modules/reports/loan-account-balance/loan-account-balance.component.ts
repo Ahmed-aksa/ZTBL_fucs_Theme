@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
@@ -67,7 +67,7 @@ export class LoanAccountBalanceComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
 
-        if(this.branch){
+        if (this.branch) {
             let dateString = this.branch.WorkingDate;
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
@@ -75,7 +75,7 @@ export class LoanAccountBalanceComponent implements OnInit {
 
             const branchWorkingDate = new Date(year, month - 1, day);
             this.bufricationForm.controls['WorkingDate'].setValue(branchWorkingDate);
-        }else{
+        } else {
             let dateString = '11012021';
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));

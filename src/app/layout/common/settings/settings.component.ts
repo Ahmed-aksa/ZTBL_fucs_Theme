@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { FuseConfigService } from '@fuse/services/config';
-import { FuseTailwindService } from '@fuse/services/tailwind';
-import { AppConfig, Scheme, Theme } from 'app/core/config/app.config';
-import { Layout } from 'app/layout/layout.types';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {FuseConfigService} from '@fuse/services/config';
+import {FuseTailwindService} from '@fuse/services/tailwind';
+import {AppConfig, Scheme, Theme} from 'app/core/config/app.config';
+import {Layout} from 'app/layout/layout.types';
 
 @Component({
-    selector     : 'settings',
-    templateUrl  : './settings.component.html',
-    styles       : [
+    selector: 'settings',
+    templateUrl: './settings.component.html',
+    styles: [
         `
             settings {
                 position: static;
@@ -22,8 +22,7 @@ import { Layout } from 'app/layout/layout.types';
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class SettingsComponent implements OnInit, OnDestroy
-{
+export class SettingsComponent implements OnInit, OnDestroy {
     config: AppConfig;
     layout: Layout;
     scheme: 'dark' | 'light';
@@ -38,8 +37,7 @@ export class SettingsComponent implements OnInit, OnDestroy
         private _router: Router,
         private _fuseConfigService: FuseConfigService,
         private _fuseTailwindService: FuseTailwindService
-    )
-    {
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -49,8 +47,7 @@ export class SettingsComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Get the themes
         this._fuseTailwindService.tailwindConfig$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -71,8 +68,7 @@ export class SettingsComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -87,11 +83,10 @@ export class SettingsComponent implements OnInit, OnDestroy
      *
      * @param layout
      */
-    setLayout(layout: string): void
-    {
+    setLayout(layout: string): void {
         // Clear the 'layout' query param to allow layout changes
         this._router.navigate([], {
-            queryParams        : {
+            queryParams: {
                 layout: null
             },
             queryParamsHandling: 'merge'
@@ -107,8 +102,7 @@ export class SettingsComponent implements OnInit, OnDestroy
      *
      * @param scheme
      */
-    setScheme(scheme: Scheme): void
-    {
+    setScheme(scheme: Scheme): void {
         this._fuseConfigService.config = {scheme};
     }
 
@@ -117,8 +111,7 @@ export class SettingsComponent implements OnInit, OnDestroy
      *
      * @param theme
      */
-    setTheme(theme: Theme): void
-    {
+    setTheme(theme: Theme): void {
         this._fuseConfigService.config = {theme};
     }
 }

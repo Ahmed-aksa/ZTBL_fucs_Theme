@@ -1,22 +1,20 @@
-import { Injectable } from '@angular/core';
-import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiUtils } from '@fuse/lib/mock-api/mock-api.utils';
-import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { tags as tagsData, tasks as tasksData } from 'app/mock-api/apps/tasks/data';
+import {Injectable} from '@angular/core';
+import {assign, cloneDeep} from 'lodash-es';
+import {FuseMockApiUtils} from '@fuse/lib/mock-api/mock-api.utils';
+import {FuseMockApiService} from '@fuse/lib/mock-api/mock-api.service';
+import {tags as tagsData, tasks as tasksData} from 'app/mock-api/apps/tasks/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class TasksMockApi
-{
+export class TasksMockApi {
     private _tags: any[] = tagsData;
     private _tasks: any[] = tasksData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _fuseMockApiService: FuseMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -28,8 +26,7 @@ export class TasksMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Tags - GET
         // -----------------------------------------------------------------------------------------------------
@@ -79,8 +76,7 @@ export class TasksMockApi
                 // Find the tag and update it
                 this._tags.forEach((item, index, tags) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the tag
                         tags[index] = assign({}, tags[index], tag);
 
@@ -156,14 +152,13 @@ export class TasksMockApi
                 let results;
 
                 // If the query exists...
-                if ( query )
-                {
+                if (query) {
                     // Clone the tasks
                     let tasks = cloneDeep(this._tasks);
 
                     // Filter the tasks
                     tasks = tasks.filter(task => task.title && task.title.toLowerCase().includes(query.toLowerCase()) || task.notes && task.notes.toLowerCase()
-                                                                                                                                           .includes(query.toLowerCase()));
+                        .includes(query.toLowerCase()));
 
                     // Mark the found chars
                     tasks.forEach((task) => {
@@ -175,8 +170,7 @@ export class TasksMockApi
                     results = tasks;
                 }
                 // Otherwise, set the results to null
-                else
-                {
+                else {
                     results = null;
                 }
 
@@ -244,15 +238,15 @@ export class TasksMockApi
 
                 // Generate a new task
                 const newTask = {
-                    id       : FuseMockApiUtils.guid(),
-                    type     : request.body.type,
-                    title    : '',
-                    notes    : null,
+                    id: FuseMockApiUtils.guid(),
+                    type: request.body.type,
+                    title: '',
+                    notes: null,
                     completed: false,
-                    dueDate  : null,
-                    priority : 1,
-                    tags     : [],
-                    order    : 0
+                    dueDate: null,
+                    priority: 1,
+                    tags: [],
+                    order: 0
                 };
 
                 // Unshift the new task
@@ -286,8 +280,7 @@ export class TasksMockApi
                 // Find the task and update it
                 this._tasks.forEach((item, index, tasks) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the task
                         tasks[index] = assign({}, tasks[index], task);
 

@@ -256,7 +256,7 @@ export class UploadDocumentsComponent implements OnInit {
     loanCase() {
         var LoanDoc = this.PostDocument.controls.DocLoanId.value;
 
-        if(LoanDoc){
+        if (LoanDoc) {
             //
         }
 

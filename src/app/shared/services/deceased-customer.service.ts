@@ -27,7 +27,7 @@ export class DeceasedCustomerService {
     ) {
     }
 
-    GetDeceasedCustomer(form , final_branch,final_zone) {
+    GetDeceasedCustomer(form, final_branch, final_zone) {
         var deceasedInfo = new Customer();
         deceasedInfo = form;
         this.request = new BaseRequestModel();
@@ -47,9 +47,9 @@ export class DeceasedCustomerService {
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
+
     MarkAsDeceasedCustomer(form, file: File) {
 
-        
 
         var deceasedInfo = new Customer();
 
@@ -60,7 +60,6 @@ export class DeceasedCustomerService {
 
         //form.IsReferredBack = true;
 
-        
 
         formData.append('CustomerCnic', form.Cnic);
 

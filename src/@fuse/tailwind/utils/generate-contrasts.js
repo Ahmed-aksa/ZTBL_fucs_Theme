@@ -9,14 +9,12 @@ const _ = require('lodash');
  * @param palette
  * @private
  */
-const generateContrasts = (palette) =>
-{
+const generateContrasts = (palette) => {
     const lightColor = '#FFFFFF';
     let darkColor = '#FFFFFF';
 
     // Iterate through the palette to find the darkest color
-    _.forEach(palette, ((color) =>
-    {
+    _.forEach(palette, ((color) => {
         darkColor = chroma.contrast(color, '#FFFFFF') > chroma.contrast(darkColor, '#FFFFFF') ? color : darkColor;
     }));
 

@@ -10,8 +10,7 @@
                 <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
                         color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                         aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
-                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                    <mat-icon class="mr-2" id="arrow">keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
             </p>
@@ -28,8 +27,8 @@
 
                 <div class="sm:flex grid" style="flex-wrap: wrap;">
 
-                    <div >
-                    <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
+                    <div>
+                        <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
                                                 (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                     </div>
                     <div class="mx-2">
@@ -42,7 +41,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="mx-2" >
+                    <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -88,7 +87,7 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 235px;">
 
-                            <button  mat-raised-button
+                            <button mat-raised-button
                                     class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
                                     type="button" (click)="find()">
                                 <mat-icon class="mr-2">search</mat-icon>
@@ -97,8 +96,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
 
             </div>
@@ -125,7 +122,6 @@
                     <th mat-header-cell *matHeaderCellDef>PP No</th>
                     <td mat-cell *matCellDef="let LocationHistories">{{LocationHistories.PPNo}}</td>
                 </ng-container>
-
 
 
                 <!-- Title Column -->

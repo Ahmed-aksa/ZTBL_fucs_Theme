@@ -33,7 +33,7 @@ const routing = [
         RouterModule.forChild(routing),
     ],
     entryComponents: [
-    //    ViewFileComponent
+        //    ViewFileComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

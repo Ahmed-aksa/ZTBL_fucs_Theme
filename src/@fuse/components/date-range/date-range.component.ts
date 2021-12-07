@@ -1,28 +1,43 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnDestroy, OnInit, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { Overlay } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { MatCalendarCellCssClasses, MatMonthView } from '@angular/material/datepicker';
-import { Subject } from 'rxjs';
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef,
+    ViewEncapsulation
+} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
+import {Overlay} from '@angular/cdk/overlay';
+import {TemplatePortal} from '@angular/cdk/portal';
+import {MatCalendarCellCssClasses, MatMonthView} from '@angular/material/datepicker';
+import {Subject} from 'rxjs';
 import * as moment from 'moment';
-import { Moment } from 'moment';
+import {Moment} from 'moment';
 
 @Component({
-    selector     : 'fuse-date-range',
-    templateUrl  : './date-range.component.html',
-    styleUrls    : ['./date-range.component.scss'],
+    selector: 'fuse-date-range',
+    templateUrl: './date-range.component.html',
+    styleUrls: ['./date-range.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    exportAs     : 'fuseDateRange',
-    providers    : [
+    exportAs: 'fuseDateRange',
+    providers: [
         {
-            provide    : NG_VALUE_ACCESSOR,
+            provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => FuseDateRangeComponent),
-            multi      : true
+            multi: true
         }
     ]
 })
-export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnDestroy
-{
+export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnDestroy {
     @Output() readonly rangeChanged: EventEmitter<{ start: string; end: string }> = new EventEmitter<{ start: string; end: string }>();
     @ViewChild('matMonthView1') private _matMonthView1: MatMonthView<any>;
     @ViewChild('matMonthView2') private _matMonthView2: MatMonthView<any>;
@@ -43,7 +58,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     private _programmaticChange!: boolean;
     private _range: { start: Moment | null; end: Moment | null } = {
         start: null,
-        end  : null
+        end: null
     };
     private _timeFormat: string;
     private _timeRange: boolean;
@@ -59,8 +74,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         private _overlay: Overlay,
         private _renderer2: Renderer2,
         private _viewContainerRef: ViewContainerRef
-    )
-    {
+    ) {
         this._onChange = (): void => {
         };
         this._onTouched = (): void => {
@@ -82,11 +96,9 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      * @param value
      */
     @Input()
-    set dateFormat(value: string)
-    {
+    set dateFormat(value: string) {
         // Return if the values are the same
-        if ( this._dateFormat === value )
-        {
+        if (this._dateFormat === value) {
             return;
         }
 
@@ -94,8 +106,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         this._dateFormat = value;
     }
 
-    get dateFormat(): string
-    {
+    get dateFormat(): string {
         return this._dateFormat;
     }
 
@@ -105,11 +116,9 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      * @param value
      */
     @Input()
-    set timeFormat(value: string)
-    {
+    set timeFormat(value: string) {
         // Return if the values are the same
-        if ( this._timeFormat === value )
-        {
+        if (this._timeFormat === value) {
             return;
         }
 
@@ -117,8 +126,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         this._timeFormat = value === '12' ? 'hh:mmA' : 'HH:mm';
     }
 
-    get timeFormat(): string
-    {
+    get timeFormat(): string {
         return this._timeFormat;
     }
 
@@ -128,11 +136,9 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      * @param value
      */
     @Input()
-    set timeRange(value: boolean)
-    {
+    set timeRange(value: boolean) {
         // Return if the values are the same
-        if ( this._timeRange === value )
-        {
+        if (this._timeRange === value) {
             return;
         }
 
@@ -140,17 +146,15 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         this._timeRange = value;
 
         // If the time range turned off...
-        if ( !value )
-        {
+        if (!value) {
             this.range = {
                 start: this._range.start.clone().startOf('day'),
-                end  : this._range.end.clone().endOf('day')
+                end: this._range.end.clone().endOf('day')
             };
         }
     }
 
-    get timeRange(): boolean
-    {
+    get timeRange(): boolean {
         return this._timeRange;
     }
 
@@ -160,16 +164,13 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      * @param value
      */
     @Input()
-    set range(value)
-    {
-        if ( !value )
-        {
+    set range(value) {
+        if (!value) {
             return;
         }
 
         // Check if the value is an object and has 'start' and 'end' values
-        if ( !value.start || !value.end )
-        {
+        if (!value.start || !value.end) {
             console.error('Range input must have "start" and "end" properties!');
 
             return;
@@ -183,25 +184,20 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         const end = moment(value.end);
 
         // If we are only setting the start date...
-        if ( whichDate === 'start' )
-        {
+        if (whichDate === 'start') {
             // Set the start date
             this._range.start = start.clone();
 
             // If the selected start date is after the end date...
-            if ( this._range.start.isAfter(this._range.end) )
-            {
+            if (this._range.start.isAfter(this._range.end)) {
                 // Set the end date to the start date but keep the end date's time
                 const endDate = start.clone().hours(this._range.end.hours()).minutes(this._range.end.minutes()).seconds(this._range.end.seconds());
 
                 // Test this new end date to see if it's ahead of the start date
-                if ( this._range.start.isBefore(endDate) )
-                {
+                if (this._range.start.isBefore(endDate)) {
                     // If it's, set the new end date
                     this._range.end = endDate;
-                }
-                else
-                {
+                } else {
                     // Otherwise, set the end date same as the start date
                     this._range.end = start.clone();
                 }
@@ -209,25 +205,20 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         }
 
         // If we are only setting the end date...
-        if ( whichDate === 'end' )
-        {
+        if (whichDate === 'end') {
             // Set the end date
             this._range.end = end.clone();
 
             // If the selected end date is before the start date...
-            if ( this._range.start.isAfter(this._range.end) )
-            {
+            if (this._range.start.isAfter(this._range.end)) {
                 // Set the start date to the end date but keep the start date's time
                 const startDate = end.clone().hours(this._range.start.hours()).minutes(this._range.start.minutes()).seconds(this._range.start.seconds());
 
                 // Test this new end date to see if it's ahead of the start date
-                if ( this._range.end.isAfter(startDate) )
-                {
+                if (this._range.end.isAfter(startDate)) {
                     // If it's, set the new start date
                     this._range.start = startDate;
-                }
-                else
-                {
+                } else {
                     // Otherwise, set the start date same as the end date
                     this._range.start = end.clone();
                 }
@@ -235,8 +226,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         }
 
         // If we are setting both dates...
-        if ( !whichDate )
-        {
+        if (!whichDate) {
             // Set the start date
             this._range.start = start.clone();
 
@@ -248,7 +238,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         // Prepare another range object that holds the ISO formatted range dates
         const range = {
             start: this._range.start.clone().toISOString(),
-            end  : this._range.end.clone().toISOString()
+            end: this._range.end.clone().toISOString()
         };
 
         // Emit the range changed event with the range
@@ -258,8 +248,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         // Because programmatic changes trigger writeValue which triggers onChange and onTouched
         // internally causing them to trigger twice which breaks the form's pristine and touched
         // statuses.
-        if ( !this._programmaticChange )
-        {
+        if (!this._programmaticChange) {
             this._onTouched(range);
             this._onChange(range);
         }
@@ -276,8 +265,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
 
         // Run ngAfterContentInit on month views to trigger
         // re-render on month views if they are available
-        if ( this._matMonthView1 && this._matMonthView2 )
-        {
+        if (this._matMonthView1 && this._matMonthView2) {
             this._matMonthView1.ngAfterContentInit();
             this._matMonthView2.ngAfterContentInit();
         }
@@ -286,8 +274,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         this._programmaticChange = false;
     }
 
-    get range(): any
-    {
+    get range(): any {
         // Clone the range start and end
         const start = this._range.start.clone();
         const end = this._range.end.clone();
@@ -296,8 +283,8 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         return {
             startDate: start.clone().format(this.dateFormat),
             startTime: this.timeRange ? start.clone().format(this.timeFormat) : null,
-            endDate  : end.clone().format(this.dateFormat),
-            endTime  : this.timeRange ? end.clone().format(this.timeFormat) : null
+            endDate: end.clone().format(this.dateFormat),
+            endTime: this.timeRange ? end.clone().format(this.timeFormat) : null
         };
     }
 
@@ -310,8 +297,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      *
      * @param fn
      */
-    registerOnChange(fn: any): void
-    {
+    registerOnChange(fn: any): void {
         this._onChange = fn;
     }
 
@@ -320,8 +306,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      *
      * @param fn
      */
-    registerOnTouched(fn: any): void
-    {
+    registerOnTouched(fn: any): void {
         this._onTouched = fn;
     }
 
@@ -330,8 +315,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      *
      * @param range
      */
-    writeValue(range: { start: string; end: string }): void
-    {
+    writeValue(range: { start: string; end: string }): void {
         // Set this change as a programmatic one
         this._programmaticChange = true;
 
@@ -346,16 +330,14 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
 
     }
 
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -372,32 +354,31 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     /**
      * Open the picker panel
      */
-    openPickerPanel(): void
-    {
+    openPickerPanel(): void {
         // Create the overlay
         const overlayRef = this._overlay.create({
-            panelClass      : 'fuse-date-range-panel',
-            backdropClass   : '',
-            hasBackdrop     : true,
-            scrollStrategy  : this._overlay.scrollStrategies.reposition(),
+            panelClass: 'fuse-date-range-panel',
+            backdropClass: '',
+            hasBackdrop: true,
+            scrollStrategy: this._overlay.scrollStrategies.reposition(),
             positionStrategy: this._overlay.position()
-                                  .flexibleConnectedTo(this._pickerPanelOrigin)
-                                  .withPositions([
-                                      {
-                                          originX : 'start',
-                                          originY : 'bottom',
-                                          overlayX: 'start',
-                                          overlayY: 'top',
-                                          offsetY : 8
-                                      },
-                                      {
-                                          originX : 'start',
-                                          originY : 'top',
-                                          overlayX: 'start',
-                                          overlayY: 'bottom',
-                                          offsetY : -8
-                                      }
-                                  ])
+                .flexibleConnectedTo(this._pickerPanelOrigin)
+                .withPositions([
+                    {
+                        originX: 'start',
+                        originY: 'bottom',
+                        overlayX: 'start',
+                        overlayY: 'top',
+                        offsetY: 8
+                    },
+                    {
+                        originX: 'start',
+                        originY: 'top',
+                        overlayX: 'start',
+                        overlayY: 'bottom',
+                        offsetY: -8
+                    }
+                ])
         });
 
         // Create a portal from the template
@@ -407,15 +388,13 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         overlayRef.backdropClick().subscribe(() => {
 
             // If template portal exists and attached...
-            if ( templatePortal && templatePortal.isAttached )
-            {
+            if (templatePortal && templatePortal.isAttached) {
                 // Detach it
                 templatePortal.detach();
             }
 
             // If overlay exists and attached...
-            if ( overlayRef && overlayRef.hasAttached() )
-            {
+            if (overlayRef && overlayRef.hasAttached()) {
                 // Detach it
                 overlayRef.detach();
                 overlayRef.dispose();
@@ -431,10 +410,8 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      *
      * @param month
      */
-    getMonthLabel(month: number): string
-    {
-        if ( month === 1 )
-        {
+    getMonthLabel(month: number): string {
+        if (month === 1) {
             return this.activeDates.month1.clone().format('MMMM Y');
         }
 
@@ -444,31 +421,26 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     /**
      * Date class function to add/remove class names to calendar days
      */
-    dateClass(): any
-    {
+    dateClass(): any {
         return (date: Moment): MatCalendarCellCssClasses => {
 
             // If the date is both start and end date...
-            if ( date.isSame(this._range.start, 'day') && date.isSame(this._range.end, 'day') )
-            {
+            if (date.isSame(this._range.start, 'day') && date.isSame(this._range.end, 'day')) {
                 return ['fuse-date-range', 'fuse-date-range-start', 'fuse-date-range-end'];
             }
 
             // If the date is the start date...
-            if ( date.isSame(this._range.start, 'day') )
-            {
+            if (date.isSame(this._range.start, 'day')) {
                 return ['fuse-date-range', 'fuse-date-range-start'];
             }
 
             // If the date is the end date...
-            if ( date.isSame(this._range.end, 'day') )
-            {
+            if (date.isSame(this._range.end, 'day')) {
                 return ['fuse-date-range', 'fuse-date-range-end'];
             }
 
             // If the date is in between start and end dates...
-            if ( date.isBetween(this._range.start, this._range.end, 'day') )
-            {
+            if (date.isBetween(this._range.start, this._range.end, 'day')) {
                 return ['fuse-date-range', 'fuse-date-range-mid'];
             }
 
@@ -479,8 +451,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     /**
      * Date filter to enable/disable calendar days
      */
-    dateFilter(): any
-    {
+    dateFilter(): any {
         // If we are selecting the end date, disable all the dates that comes before the start date
         return (date: Moment): boolean => !(this.setWhichDate === 'end' && date.isBefore(this._range.start, 'day'));
     }
@@ -490,23 +461,19 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      *
      * @param date
      */
-    onSelectedDateChange(date: Moment): void
-    {
+    onSelectedDateChange(date: Moment): void {
         // Create a new range object
         const newRange = {
-            start    : this._range.start.clone().toISOString(),
-            end      : this._range.end.clone().toISOString(),
+            start: this._range.start.clone().toISOString(),
+            end: this._range.end.clone().toISOString(),
             whichDate: null
         };
 
         // Replace either the start or the end date with the new one
         // depending on which date we are setting
-        if ( this.setWhichDate === 'start' )
-        {
+        if (this.setWhichDate === 'start') {
             newRange.start = moment(newRange.start).year(date.year()).month(date.month()).date(date.date()).toISOString();
-        }
-        else
-        {
+        } else {
             newRange.end = moment(newRange.end).year(date.year()).month(date.month()).date(date.date()).toISOString();
         }
 
@@ -523,8 +490,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     /**
      * Go to previous month on both views
      */
-    prev(): void
-    {
+    prev(): void {
         this.activeDates.month1 = moment(this.activeDates.month1).subtract(1, 'month');
         this.activeDates.month2 = moment(this.activeDates.month2).subtract(1, 'month');
     }
@@ -532,8 +498,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
     /**
      * Go to next month on both views
      */
-    next(): void
-    {
+    next(): void {
         this.activeDates.month1 = moment(this.activeDates.month1).add(1, 'month');
         this.activeDates.month2 = moment(this.activeDates.month2).add(1, 'month');
     }
@@ -543,14 +508,12 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      *
      * @param event
      */
-    updateStartTime(event): void
-    {
+    updateStartTime(event): void {
         // Parse the time
         const parsedTime = this._parseTime(event.target.value);
 
         // Go back to the previous value if the form control is not valid
-        if ( this.startTimeFormControl.invalid )
-        {
+        if (this.startTimeFormControl.invalid) {
             // Override the time
             const time = this._range.start.clone().format(this._timeFormat);
 
@@ -566,8 +529,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
 
         // If the new start date is after the current end date,
         // use the end date's time and set the start date again
-        if ( startDate.isAfter(this._range.end) )
-        {
+        if (startDate.isAfter(this._range.end)) {
             const endDateHours = this._range.end.hours();
             const endDateMinutes = this._range.end.minutes();
 
@@ -577,8 +539,8 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
 
         // If everything is okay, set the new date
         this.range = {
-            start    : startDate.toISOString(),
-            end      : this._range.end.clone().toISOString(),
+            start: startDate.toISOString(),
+            end: this._range.end.clone().toISOString(),
             whichDate: 'start'
         };
     }
@@ -588,14 +550,12 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      *
      * @param event
      */
-    updateEndTime(event): void
-    {
+    updateEndTime(event): void {
         // Parse the time
         const parsedTime = this._parseTime(event.target.value);
 
         // Go back to the previous value if the form control is not valid
-        if ( this.endTimeFormControl.invalid )
-        {
+        if (this.endTimeFormControl.invalid) {
             // Override the time
             const time = this._range.end.clone().format(this._timeFormat);
 
@@ -611,8 +571,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
 
         // If the new end date is before the current start date,
         // use the start date's time and set the end date again
-        if ( endDate.isBefore(this._range.start) )
-        {
+        if (endDate.isBefore(this._range.start)) {
             const startDateHours = this._range.start.hours();
             const startDateMinutes = this._range.start.minutes();
 
@@ -622,8 +581,8 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
 
         // If everything is okay, set the new date
         this.range = {
-            start    : this._range.start.clone().toISOString(),
-            end      : endDate.toISOString(),
+            start: this._range.start.clone().toISOString(),
+            end: endDate.toISOString(),
             whichDate: 'end'
         };
     }
@@ -637,8 +596,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      *
      * @private
      */
-    private _init(): void
-    {
+    private _init(): void {
         // Start and end time form controls
         this.startTimeFormControl = new FormControl('', [Validators.pattern(this._timeRegExp)]);
         this.endTimeFormControl = new FormControl('', [Validators.pattern(this._timeRegExp)]);
@@ -647,7 +605,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         this._programmaticChange = true;
         this.range = {
             start: moment().startOf('day').toISOString(),
-            end  : moment().add(1, 'day').endOf('day').toISOString()
+            end: moment().add(1, 'day').endOf('day').toISOString()
         };
 
         // Set the default time range
@@ -661,8 +619,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
      * @param value
      * @private
      */
-    private _parseTime(value: string): Moment
-    {
+    private _parseTime(value: string): Moment {
         // Parse the time using the time regexp
         const timeArr = value.split(this._timeRegExp).filter(part => part !== '');
 
@@ -670,8 +627,7 @@ export class FuseDateRangeComponent implements ControlValueAccessor, OnInit, OnD
         const meridiem = timeArr[2] || null;
 
         // If meridiem exists...
-        if ( meridiem )
-        {
+        if (meridiem) {
             // Create a moment using 12-hours format and return it
             return moment(value, 'hh:mmA').seconds(0);
         }

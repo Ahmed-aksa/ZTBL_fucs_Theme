@@ -14,11 +14,10 @@
                     <mat-icon class="mr-2 text-white">visibility</mat-icon>
                     View Map
                 </button>
-                <button class="  py-1 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                        aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
-                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary"
+                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
 
@@ -33,8 +32,8 @@
             <div class="flex" style="flex-wrap: wrap;">
                 <app-zone-branch-circle [form]="create_circ_form" [should_show_circle]="false"
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                    <div class="mx-2">
-                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                         <button mat-raised-button
                                 class=" bg-gray-500 mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"

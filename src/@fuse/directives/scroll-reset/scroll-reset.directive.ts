@@ -1,14 +1,13 @@
-import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import {Directive, ElementRef, OnDestroy, OnInit} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {filter, takeUntil} from 'rxjs/operators';
 
 @Directive({
     selector: '[fuseScrollReset]',
     exportAs: 'fuseScrollReset'
 })
-export class FuseScrollResetDirective implements OnInit, OnDestroy
-{
+export class FuseScrollResetDirective implements OnInit, OnDestroy {
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -17,8 +16,7 @@ export class FuseScrollResetDirective implements OnInit, OnDestroy
     constructor(
         private _elementRef: ElementRef,
         private _router: Router
-    )
-    {
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -28,8 +26,7 @@ export class FuseScrollResetDirective implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Subscribe to NavigationEnd event
         this._router.events.pipe(
             filter(event => event instanceof NavigationEnd),
@@ -44,8 +41,7 @@ export class FuseScrollResetDirective implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();

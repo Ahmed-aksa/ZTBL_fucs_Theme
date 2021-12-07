@@ -11,8 +11,8 @@ import {DatePipe} from "@angular/common";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {finalize} from "rxjs/operators";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
 
 @Component({
@@ -194,7 +194,7 @@ export class SearchJvRbComponent implements OnInit {
             )
             .subscribe(baseResponse => {
 
-                
+
                 if (baseResponse.Success) {
                     this.loading = false;
 
@@ -246,12 +246,12 @@ export class SearchJvRbComponent implements OnInit {
         this.JvStatuses = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.JvStatus});
 
         this.JvStatuses = this.JvStatuses.LOVs;
-        
+
 
         this.Nature = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.JVCategory});
 
         this.Nature = this.Nature.LOVs;
-        
+
 
         this.cdRef.detectChanges();
     }
