@@ -30,7 +30,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./fa-view-circle-wise.component.scss']
 })
 export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle','Dob','Ndd','MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los',  'descr', 'OtherCharges' ];
+    displayedColumns = ['Zone', 'Branch', 'Circle', 'Dob', 'Ndd', 'MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'descr', 'OtherCharges'];
     searchCnicForm: FormGroup;
     loaded = true;
 
@@ -98,7 +98,7 @@ export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
         this.reports.ReportsNo = "16";
         this.reports.BranchName = this.branch.BranchName;
         this.spinner.show();
-        this._reports.reportDynamic(this.reports,this.zone,this.branch,this.circle)
+        this._reports.reportDynamic(this.reports, this.zone, this.branch, this.circle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;

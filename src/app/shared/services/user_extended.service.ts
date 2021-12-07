@@ -28,7 +28,7 @@ export class UserService {
         };
         var req = JSON.stringify(this.request);
 
-        
+
         return this.http.post(`${environment.apiUrl}/User/AddAdminUser`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -42,7 +42,7 @@ export class UserService {
 
         var req = JSON.stringify(this.request);
 
-        
+
         return this.http.post(`${environment.apiUrl}/User/UpdateUser`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -71,7 +71,7 @@ export class UserService {
     }
 
     GetUserLovs(): Observable<BaseResponseModel> {
-        
+
         return this.http.post(`${environment.apiUrl}/User/GetLovs`,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -80,7 +80,7 @@ export class UserService {
 
 
     blockUser(request: BaseRequestModel): Observable<BaseResponseModel> {
-        
+
         var userInfo = this.userUtilsService.getUserDetails();
         //this.request = new BaseRequestModel();
         request.User = userInfo.User;
@@ -94,7 +94,7 @@ export class UserService {
 
 
     unBlockUser(user: User): Observable<BaseResponseModel> {
-        
+
 
         this.request = new BaseRequestModel();
         this.request.UserInfo = user;

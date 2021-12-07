@@ -1,12 +1,11 @@
-
-
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { each } from 'lodash';
-import { RolesState } from '../reducers/role.reducers';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {each} from 'lodash';
+import {RolesState} from '../reducers/role.reducers';
 import * as fromRole from '../reducers/role.reducers';
-import { Role } from 'app/modules/user-management/assign-pages/role.model';
-import { HttpExtenstionsModel } from '../models/http_extension.model';
-import { QueryResultsModel } from '../models/query-result.model';
+import {Role} from 'app/modules/user-management/assign-pages/role.model';
+import {HttpExtenstionsModel} from '../models/http_extension.model';
+import {QueryResultsModel} from '../models/query-result.model';
+
 export const selectRolesState = createFeatureSelector<RolesState>('roles');
 
 export const selectRoleById = (roleId: number) => createSelector(

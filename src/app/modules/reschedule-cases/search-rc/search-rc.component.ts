@@ -10,32 +10,32 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/member-ordering */
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { LovService } from '../../../shared/services/lov.service';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {LovService} from '../../../shared/services/lov.service';
 import {
     DateFormats,
     Lov,
     LovConfigurationKey,
 } from '../../../shared/classes/lov.class';
-import { BaseResponseModel } from '../../../shared/models/base_response.model';
-import { MatTableDataSource } from '@angular/material/table';
-import { CircleService } from '../../../shared/services/circle.service';
-import { UserUtilsService } from '../../../shared/services/users_utils.service';
-import { finalize } from 'rxjs/operators';
-import { ReschedulingService } from '../service/rescheduling.service';
-import { Loan } from '../../../shared/models/Loan.model';
-import { Branch } from 'app/shared/models/branch.model';
-import { Zone } from 'app/shared/models/zone.model';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { DatePipe } from '@angular/common';
+import {BaseResponseModel} from '../../../shared/models/base_response.model';
+import {MatTableDataSource} from '@angular/material/table';
+import {CircleService} from '../../../shared/services/circle.service';
+import {UserUtilsService} from '../../../shared/services/users_utils.service';
+import {finalize} from 'rxjs/operators';
+import {ReschedulingService} from '../service/rescheduling.service';
+import {Loan} from '../../../shared/models/Loan.model';
+import {Branch} from 'app/shared/models/branch.model';
+import {Zone} from 'app/shared/models/zone.model';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {DatePipe} from '@angular/common';
 import {
     DateAdapter,
     MAT_DATE_FORMATS,
     MAT_DATE_LOCALE,
 } from '@angular/material/core';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
 @Component({
     selector: 'app-search-rc',
@@ -48,7 +48,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
             useClass: MomentDateAdapter,
             deps: [MAT_DATE_LOCALE],
         },
-        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
     ],
 })
 export class SearchRcComponent implements OnInit {
@@ -129,18 +129,19 @@ export class SearchRcComponent implements OnInit {
 
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
-        if(this.LoggedInUserInfo.Branch){
+        if (this.LoggedInUserInfo.Branch) {
             let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
             this.today = new Date(year, month - 1, day);
-        }else{
+        } else {
             let dateString = '11012021';
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
-            this.today = new Date(year, month - 1, day);}
+            this.today = new Date(year, month - 1, day);
+        }
 
         //-------------------------------Loading Zone-------------------------------//
 
@@ -149,7 +150,6 @@ export class SearchRcComponent implements OnInit {
         this.getLoanStatus();
 
     }
-
 
 
     create() {
@@ -163,7 +163,7 @@ export class SearchRcComponent implements OnInit {
     //-------------------------------Loan Status Functions-------------------------------//
     async getLoanStatus() {
         this.LoanStatus = await this._lovService.CallLovAPI(
-            (this.LovCall = { TagName: LovConfigurationKey.RescheduleStatus })
+            (this.LovCall = {TagName: LovConfigurationKey.RescheduleStatus})
         );
         this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
 
@@ -242,7 +242,7 @@ export class SearchRcComponent implements OnInit {
                         '',
                         baseResponse.Message
                     );
-                    this.dataSource = this.dv.slice(1,0)
+                    this.dataSource = this.dv.slice(1, 0)
                 }
                 this.loading = false;
             });

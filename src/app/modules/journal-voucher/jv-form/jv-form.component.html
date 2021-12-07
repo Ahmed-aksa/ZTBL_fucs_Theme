@@ -1,4 +1,5 @@
-<div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+<div
+    class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
     <div class="heading">Journal Voucher</div>
     <div class="pt-3" [formGroup]="JvForm">
         <div class="flex" style="flex-wrap: wrap;">
@@ -6,11 +7,12 @@
 
             <app-zone-branch-circle [form]="JvForm" [should_show_circle]="false"
                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                <div class="mx-2">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Working Date<strong class="matMandatory">*</strong></mat-label>
+                        <mat-label class="customMatLabel">Working Date<strong class="matMandatory">*</strong>
+                        </mat-label>
                         <input matInput formControlName="BranchWorkingDate" maxlength="30" autocomplete="off"
                                readonly="readonly"/>
                     </mat-form-field>
@@ -32,10 +34,13 @@
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-8/12" appearance="outline">
-                        <mat-label class="customMatLabel">Master Code <strong class="matMandatory">*</strong></mat-label>
+                        <mat-label class="customMatLabel">Master Code <strong class="matMandatory">*</strong>
+                        </mat-label>
                         <input matInput placeholder="Master Code" formControlName="TransactionMasterID" maxlength="5"
-                               autocomplete="off" appNumberOnly [readonly]="recoverySaved || transactionEdit || viewOnly"/>
-                        <mat-error *ngIf="hasError('TransactionMasterID', 'required')">Master Code <strong>required</strong>
+                               autocomplete="off" appNumberOnly
+                               [readonly]="recoverySaved || transactionEdit || viewOnly"/>
+                        <mat-error *ngIf="hasError('TransactionMasterID', 'required')">Master Code
+                            <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                     <input type="button" mat-raised-button color="primary"
@@ -47,7 +52,8 @@
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Effective Date (ddMMyyyy) <strong class="matMandatory">*</strong>
+                        <mat-label class="customMatLabel">Effective Date (ddMMyyyy) <strong
+                            class="matMandatory">*</strong>
                         </mat-label>
                         <input matInput [matDatepicker]="picker2" formControlName="EffectiveDate" maxlength="30"
                                autocomplete="off" [max]="maxDate" (dateChange)="isEnableReceipt(false)"
@@ -56,13 +62,13 @@
                                                [disabled]="submitted || transactionEdit || viewOnly"></mat-datepicker-toggle>
                         <mat-datepicker #picker2></mat-datepicker>
 
-                        <mat-error *ngIf="hasError('EffectiveDate', 'required')">Effective Date <strong>required</strong>
+                        <mat-error *ngIf="hasError('EffectiveDate', 'required')">Effective Date
+                            <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
 
             </div>
-
 
 
             <div class="mx-2">
@@ -101,12 +107,14 @@
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Total Amount <strong class="matMandatory">*</strong></mat-label>
+                        <mat-label class="customMatLabel">Total Amount <strong class="matMandatory">*</strong>
+                        </mat-label>
                         <input matInput placeholder="Total Amount" formControlName="Amount" maxlength="14"
                                autocomplete="off" [readonly]="recoverySaved || transactionEdit || viewOnly"
                                [disabled]="recoverySaved || transactionEdit || viewOnly" appNumberOnly/>
                         <!-- <mat-error *ngIf="hasError('Amount', 'required')">Total Amount <strong>required</strong></mat-error> -->
-                        <mat-error *ngIf="hasError('Amount', 'required')">Total Amount <strong>required</strong></mat-error>
+                        <mat-error *ngIf="hasError('Amount', 'required')">Total Amount <strong>required</strong>
+                        </mat-error>
 
                     </mat-form-field>
                     <mat-error *ngIf="amountError">Total Amount not more then Total OS</mat-error>
@@ -124,7 +132,6 @@
 
                 </div>
             </div>
-
 
 
             <div class="mx-2">
@@ -145,7 +152,8 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Advice #</mat-label>
-                        <input matInput placeholder="Advice No" formControlName="AdviceNo" maxlength="30" autocomplete="off"
+                        <input matInput placeholder="Advice No" formControlName="AdviceNo" maxlength="30"
+                               autocomplete="off"
                                appNumberOnly [readonly]="recoverySaved || transactionEdit || viewOnly"/>
                         <!-- <mat-error *ngIf="hasError('AdviceNo', 'required')">Advice No <strong>required</strong></mat-error> -->
                     </mat-form-field>
@@ -158,8 +166,10 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Contra Branch Code</mat-label>
-                        <input matInput placeholder="Contra Branch Code" formControlName="ContraBranchCode" maxlength="6"
-                               autocomplete="off" appNumberOnly [readonly]="recoverySaved || transactionEdit || viewOnly"/>
+                        <input matInput placeholder="Contra Branch Code" formControlName="ContraBranchCode"
+                               maxlength="6"
+                               autocomplete="off" appNumberOnly
+                               [readonly]="recoverySaved || transactionEdit || viewOnly"/>
                         <!-- <mat-error *ngIf="hasError('ContraBranchCode', 'required')">Contra Branch Code <strong>required</strong></mat-error> -->
                     </mat-form-field>
                 </div>
@@ -169,7 +179,8 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid  w-8/12" appearance="outline">
                         <mat-label class="customMatLabel">Dept Code</mat-label>
-                        <input matInput placeholder="Dept Code" formControlName="OrgDeptID" maxlength="6" autocomplete="off"
+                        <input matInput placeholder="Dept Code" formControlName="OrgDeptID" maxlength="6"
+                               autocomplete="off"
                                appNumberOnly [readonly]="recoverySaved || transactionEdit || viewOnly"/>
                         <!-- <mat-error *ngIf="hasError('OrgDeptID', 'required')">Deposit Code <strong>required</strong></mat-error> -->
                     </mat-form-field>
@@ -197,30 +208,35 @@
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field *ngIf="!expandDisbursement" class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field *ngIf="!expandDisbursement" class="mat-form-field-fluid w-full"
+                                    appearance="outline">
                         <mat-label>Disbursement/LC GL</mat-label>
-                        <mat-select formControlName="LoanDisbID" [disabled]="recoverySaved || transactionEdit || viewOnly">
+                        <mat-select formControlName="LoanDisbID"
+                                    [disabled]="recoverySaved || transactionEdit || viewOnly">
                             <mat-option *ngFor="let list of DisbursementGLList" [value]="list.LoanDisbID">
                                 {{list.Description}}
                             </mat-option>
                         </mat-select>
                         <!-- <mat-error *ngIf="hasError('LoanDisbID', 'required')">Disbursement ID <strong>required</strong></mat-error> -->
                     </mat-form-field>
-            
-            </div>
+
                 </div>
-                <div class="mx-2 mt-4">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field *ngIf="expandDisbursement" class="mat-form-field-fluid w-11/12" appearance="outline">
+            </div>
+            <div class="mx-2 mt-4">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <mat-form-field *ngIf="expandDisbursement" class="mat-form-field-fluid w-11/12"
+                                    appearance="outline">
                         <mat-label>Disbursement/LC GL</mat-label>
-                        <mat-select formControlName="LoanDisbID" [disabled]="recoverySaved || transactionEdit || viewOnly">
+                        <mat-select formControlName="LoanDisbID"
+                                    [disabled]="recoverySaved || transactionEdit || viewOnly">
                             <mat-option *ngFor="let list of DisbursementGLList" [value]="list.LoanDisbID">
                                 {{list.Description}}
                             </mat-option>
                         </mat-select>
                         <!-- <mat-error *ngIf="hasError('LoanDisbID', 'required')">Disbursement ID <strong>required</strong></mat-error> -->
                     </mat-form-field>
-                    <span style="color: #01671B;"  class="cursor-pointer mx-4" id="llcInquiryText" *ngIf="!viewOnly" (click)="viewLLCInquiryGL()"><b>View LC Inquiry</b></span>
+                    <span style="color: #01671B;" class="cursor-pointer mx-4" id="llcInquiryText" *ngIf="!viewOnly"
+                          (click)="viewLLCInquiryGL()"><b>View LC Inquiry</b></span>
                 </div>
             </div>
 
@@ -236,15 +252,13 @@
             </div>
 
 
-
-
-
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Contra Voucher #</mat-label>
                         <input matInput placeholder="Contra Voucher No" formControlName="ContraVoucherNo" maxlength="14"
-                               autocomplete="off" appNumberOnly [readonly]="recoverySaved || transactionEdit || viewOnly"/>
+                               autocomplete="off" appNumberOnly
+                               [readonly]="recoverySaved || transactionEdit || viewOnly"/>
                         <!-- <mat-error *ngIf="hasError('ContraVoucherNo', 'required')">Contra Voucher No <strong>required</strong></mat-error> -->
                     </mat-form-field>
                 </div>
@@ -253,7 +267,8 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Rec #</mat-label>
-                        <input matInput placeholder="Record No" formControlName="RecordNo" maxlength="7" autocomplete="off"
+                        <input matInput placeholder="Record No" formControlName="RecordNo" maxlength="7"
+                               autocomplete="off"
                                appNumberOnly [readonly]="recoverySaved || transactionEdit || viewOnly"/>
                         <!-- <mat-error *ngIf="hasError('RecordNo', 'required')">Record No <strong>required</strong></mat-error> -->
                     </mat-form-field>
@@ -271,43 +286,45 @@
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                <div *ngIf="showInstrument">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Instrument Type</mat-label>
-                        <mat-select formControlName="InstrumentType"
-                                    [disabled]="recoverySaved || transactionEdit || viewOnly">
-                            <mat-option *ngFor="let list of InstrumentTypes" [value]="list.Value">
-                                {{list.Name}}
-                            </mat-option>
-                        </mat-select>
-                        <!-- <mat-error *ngIf="hasError('InstrumentType', 'required')">Instrument Type <strong>required</strong></mat-error> -->
-                    </mat-form-field>
+                    <div *ngIf="showInstrument">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label>Instrument Type</mat-label>
+                            <mat-select formControlName="InstrumentType"
+                                        [disabled]="recoverySaved || transactionEdit || viewOnly">
+                                <mat-option *ngFor="let list of InstrumentTypes" [value]="list.Value">
+                                    {{list.Name}}
+                                </mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="hasError('InstrumentType', 'required')">Instrument Type <strong>required</strong></mat-error> -->
+                        </mat-form-field>
+                    </div>
                 </div>
-            </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                <div *ngIf="showInstrument">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel"></mat-label>
-                        <input matInput placeholder="" formControlName="InstrumentNO1" maxlength="6" autocomplete="off"
-                               [readonly]="recoverySaved || transactionEdit || viewOnly"/>
-                        <!-- <mat-error *ngIf="hasError('InstrumentNO1', 'required')">Instrument # <strong>required</strong></mat-error> -->
-                    </mat-form-field>
+                    <div *ngIf="showInstrument">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel"></mat-label>
+                            <input matInput placeholder="" formControlName="InstrumentNO1" maxlength="6"
+                                   autocomplete="off"
+                                   [readonly]="recoverySaved || transactionEdit || viewOnly"/>
+                            <!-- <mat-error *ngIf="hasError('InstrumentNO1', 'required')">Instrument # <strong>required</strong></mat-error> -->
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
-</div>
-<div class="mx-2">
-    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                <div *ngIf="showInstrument">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel"></mat-label>
-                        <input matInput placeholder="" formControlName="InstrumentNO2" maxlength="10" autocomplete="off"
-                               [readonly]="recoverySaved || transactionEdit || viewOnly"/>
-                        <!-- <mat-error *ngIf="hasError('InstrumentNO2', 'required')">Instrument # <strong>required</strong></mat-error> -->
-                    </mat-form-field>
+            <div class="mx-2">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <div *ngIf="showInstrument">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel"></mat-label>
+                            <input matInput placeholder="" formControlName="InstrumentNO2" maxlength="10"
+                                   autocomplete="off"
+                                   [readonly]="recoverySaved || transactionEdit || viewOnly"/>
+                            <!-- <mat-error *ngIf="hasError('InstrumentNO2', 'required')">Instrument # <strong>required</strong></mat-error> -->
+                        </mat-form-field>
+                    </div>
                 </div>
-            </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
@@ -321,12 +338,12 @@
             </div>
 
 
-
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Note:</mat-label>
-                        <input matInput placeholder="Note" formControlName="Note" autocomplete="off" [disabled]="!viewOnly"
+                        <input matInput placeholder="Note" formControlName="Note" autocomplete="off"
+                               [disabled]="!viewOnly"
                                [readonly]="recoverySaved || transactionEdit || viewOnly"/>
                     </mat-form-field>
                     <!-- <mat-error *ngIf="remarksError">Note <strong>required</strong></mat-error> -->
@@ -354,12 +371,12 @@
             </div>
 
 
-
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Remarks:</mat-label>
-                        <input maxlength="200" matInput placeholder="Remarks" formControlName="Remarks" autocomplete="off"
+                        <input maxlength="200" matInput placeholder="Remarks" formControlName="Remarks"
+                               autocomplete="off"
                                [disabled]="!viewOnly" [readonly]="recoverySaved || transactionEdit || viewOnly"/>
                     </mat-form-field>
                     <!-- <mat-error *ngIf="remarksError">Remarks <strong>required</strong></mat-error> -->
@@ -367,9 +384,7 @@
             </div>
 
 
-
-
-</div>
+        </div>
 
 
         <!-- <div  class="">
@@ -377,49 +392,44 @@
         </div> -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
     <div class="col-lg-12 text-left pt-4 border-t">
 
 
         <button style="background-color: #01671B;" mat-raised-button color="primary" (click)="save()" type="submit"
-                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly"><mat-icon class="mr-2">save</mat-icon> Save
+                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly">
+            <mat-icon class="mr-2">save</mat-icon>
+            Save
         </button>
-        <button mat-raised-button color="primary" class="ml-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" (click)="clearForm()"
-                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly"><mat-icon class="mr-2"> clear_all</mat-icon>Clear
+        <button mat-raised-button color="primary"
+                class="ml-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                (click)="clearForm()"
+                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly">
+            <mat-icon class="mr-2"> clear_all</mat-icon>
+            Clear
         </button>
         <!-- <button mat-raised-button color="primary" class="ml-2" type="reset" [disabled]="submitted || transactionEdit">Clear</button> -->
 
         <button mat-raised-button color="primary" class="ml-2" (click)="submitJv()"
-                [disabled]="submitted || viewOnly" *ngIf="!viewOnly"><mat-icon class="mr-2">check_circle</mat-icon> Submit
+                [disabled]="submitted || viewOnly" *ngIf="!viewOnly">
+            <mat-icon class="mr-2">check_circle</mat-icon>
+            Submit
         </button>
         <button mat-raised-button color="primary" class="ml-2" (click)=" backToList()"
-                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly"><mat-icon class="mr-2">list</mat-icon>Back To List
+                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly">
+            <mat-icon class="mr-2">list</mat-icon>
+            Back To List
         </button>
 
         <button mat-raised-button color="primary" class="ml-2" (click)="deleteJv()"
-                [disabled]="submitted || viewOnly" *ngIf="isEditMode && deleteBtn && !viewOnly"><mat-icon class="mr-2">delete_forever</mat-icon> Delete
+                [disabled]="submitted || viewOnly" *ngIf="isEditMode && deleteBtn && !viewOnly">
+            <mat-icon class="mr-2">delete_forever</mat-icon>
+            Delete
         </button>
         <button mat-raised-button color="primary" class="ml-2" [disabled]="submitted || transactionEdit"
-                (click)="findJv()" *ngIf="!viewOnly"><mat-icon class="mr-2">search</mat-icon> Search
+                (click)="findJv()" *ngIf="!viewOnly">
+            <mat-icon class="mr-2">search</mat-icon>
+            Search
         </button>
         <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
     </div>

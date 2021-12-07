@@ -37,7 +37,7 @@ export class BaseResponseModel {
     Customers: any;
     Customer: any;
     GeoFancPoints: any;
-    GeoFancPoint:any;
+    GeoFancPoint: any;
     Users: any;
     User: any;
     searchLandData: any;
@@ -66,15 +66,15 @@ export class BaseResponseModel {
     JournalVoucher: any;
     SeedKhadVendor: any;
     CanCollectRecoveryForAllMCO: boolean;
-    DeceasedCustomer:any;
-    ViewDocumnetsList:any;
-    Target:any;
-    Heading:any;
-    LoanUtilization:any;
+    DeceasedCustomer: any;
+    ViewDocumnetsList: any;
+    Target: any;
+    Heading: any;
+    LoanUtilization: any;
     BorrowerInfo: any;
     VillageBenchMarking: any;
-    TourPlanAndDiaryDto:any;
-    TourPlan:any;
-    LocationHistory:any;
+    TourPlanAndDiaryDto: any;
+    TourPlan: any;
+    LocationHistory: any;
     DocumentDetail: any;
 }

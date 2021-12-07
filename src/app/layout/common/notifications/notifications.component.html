@@ -5,7 +5,8 @@
     #notificationsOrigin>
     <ng-container *ngIf="unreadCount > 0">
         <span class="absolute top-0 right-0 left-0 flex items-center justify-center h-3">
-            <span class="flex items-center justify-center flex-shrink-0 min-w-4 h-4 px-1 ml-4 mt-2.5 rounded-full bg-teal-600 text-indigo-50 text-xs font-medium">
+            <span
+                class="flex items-center justify-center flex-shrink-0 min-w-4 h-4 px-1 ml-4 mt-2.5 rounded-full bg-teal-600 text-indigo-50 text-xs font-medium">
                 {{unreadCount}}
             </span>
         </span>
@@ -16,7 +17,8 @@
 <!-- Notifications panel -->
 <ng-template #notificationsPanel>
 
-    <div class="fixed inset-0 sm:static sm:inset-auto flex flex-col sm:min-w-90 sm:w-90 sm:rounded-2xl overflow-hidden shadow-lg">
+    <div
+        class="fixed inset-0 sm:static sm:inset-auto flex flex-col sm:min-w-90 sm:w-90 sm:rounded-2xl overflow-hidden shadow-lg">
 
         <!-- Header -->
         <div class="flex flex-shrink-0 items-center py-4 pr-4 pl-6 bg-primary text-on-primary">
@@ -109,7 +111,8 @@
                 <ng-template #notificationContent>
                     <!-- Icon -->
                     <ng-container *ngIf="notification.icon && !notification.image">
-                        <div class="flex flex-shrink-0 items-center justify-center w-8 h-8 mr-4 rounded-full bg-gray-100 dark:bg-gray-700">
+                        <div
+                            class="flex flex-shrink-0 items-center justify-center w-8 h-8 mr-4 rounded-full bg-gray-100 dark:bg-gray-700">
                             <mat-icon
                                 class="icon-size-5"
                                 [svgIcon]="notification.icon">
@@ -151,7 +154,9 @@
                             [svgIcon]="'heroicons_outline:bell'"></mat-icon>
                     </div>
                     <div class="mt-5 text-2xl font-semibold tracking-tight">No notifications</div>
-                    <div class="w-full max-w-60 mt-1 text-md text-center text-secondary">When you have notifications, they will appear here.</div>
+                    <div class="w-full max-w-60 mt-1 text-md text-center text-secondary">When you have notifications,
+                        they will appear here.
+                    </div>
                 </div>
             </ng-container>
 

@@ -5,16 +5,16 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/naming-convention */
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import {MatTableDataSource} from '@angular/material/table';
 import {DateFormats, Lov, LovConfigurationKey} from '../../../shared/classes/lov.class';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BaseResponseModel } from '../../../shared/models/base_response.model';
-import { finalize } from 'rxjs/operators';
-import { ReschedulingService } from '../service/rescheduling.service';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { Loan } from '../../../shared/models/Loan.model';
-import { UserUtilsService } from 'app/shared/services/users_utils.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BaseResponseModel} from '../../../shared/models/base_response.model';
+import {finalize} from 'rxjs/operators';
+import {ReschedulingService} from '../service/rescheduling.service';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {Loan} from '../../../shared/models/Loan.model';
+import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
@@ -89,26 +89,27 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
         private _circleService: CircleService,
         private _lovService: LovService,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
-      this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
-      this.createForm();
+        this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+        this.createForm();
         this.getLoanStatus();
 
-        if(this.LoggedInUserInfo.Branch.WorkingDate){
+        if (this.LoggedInUserInfo.Branch.WorkingDate) {
             let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
             this.maxDate = new Date(year, month - 1, day);
-        }
-        else{
+        } else {
             let dateString = '11012021';
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
-            this.maxDate = new Date(year, month - 1, day);}
+            this.maxDate = new Date(year, month - 1, day);
+        }
     }
 
     find() {
@@ -172,8 +173,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
     }
 
 
-
-    createForm(){
+    createForm() {
         this.pendingForm = this.fb.group({
             TrDate: [''],
             Lcno: [''],
@@ -183,14 +183,13 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
 
     async getLoanStatus() {
         this.LoanStatus = await this._lovService.CallLovAPI(
-            (this.LovCall = { TagName: LovConfigurationKey.RescheduleStatus })
+            (this.LovCall = {TagName: LovConfigurationKey.RescheduleStatus})
         );
         this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
         this.pendingForm.controls['Status'].setValue(this.SelectedLoanStatus ? this.SelectedLoanStatus[0].Id : '');
 
 
     }
-
 
 
     getRow(rob) {
@@ -252,12 +251,12 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
                     loanReschID: updateLoan.LoanReschID,
                 },
             ],
-            { relativeTo: this.activatedRoute }
+            {relativeTo: this.activatedRoute}
         );
     }
 
-    ngAfterViewInit(){
-        if(this.zone){
+    ngAfterViewInit() {
+        if (this.zone) {
             setTimeout(() => this.find(), 1000);
         }
     }

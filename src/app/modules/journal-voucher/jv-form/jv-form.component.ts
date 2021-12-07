@@ -45,7 +45,6 @@ export class JvFormComponent implements OnInit, OnDestroy {
     @Input() viewOnly: boolean;
 
 
-
     branch: any;
     zone: any;
     circle: any;
@@ -120,7 +119,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
     contDept: any;
     jvObject: any;
 
-    expandDisbursement : boolean = false;
+    expandDisbursement: boolean = false;
 
 
     public LovCall = new Lov();
@@ -206,7 +205,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
         this.userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
-        
+
         this.branchId = parseInt(this.userInfo.Branch.BranchId);
         this.branchCode = parseInt(this.userInfo.Branch.BranchCode);
         this.JvForm.controls.ZoneId.setValue(this.userInfo.Zone.ZoneName);
@@ -250,7 +249,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
         //   this.getJvInfo();
         // }
 
-        
+
         //if(this.maker)
 
     }
@@ -274,11 +273,8 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
 
         this.cdRef.detectChanges();
-        
-        
 
-        
-        
+
     }
 
     createForm() {
@@ -357,7 +353,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
             })
         ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
+
                 this.tf = false;
                 this.table = true;
 
@@ -365,7 +361,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                 this.jvMaster = baseResponse.JournalVoucher.JVMasterDetailList;
 
                 this.jvMaster.forEach(element => {
-                    
+
                     this.JvForm.controls['VoucherNo'].setValue(element.ManualVoucherNo);
                     this.JvForm.controls['TransactionMasterID'].setValue(element.TransactionMasterCode);
                     this.maker = element.MakerID;
@@ -462,7 +458,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                
+
                 if (baseResponse.Success === true) {
                     this.expandDisbursement = true
                     this.DisbursementGLList = baseResponse.Recovery.DisbursementGLList;
@@ -515,31 +511,30 @@ export class JvFormComponent implements OnInit, OnDestroy {
                     this.spinner.hide();
                 })
             ).subscribe((baseResponse: BaseResponseModel) => {
-                
-                if (baseResponse.Success === true) {
-                    this.expandDisbursement = true;
-                    var listGL = baseResponse.JournalVoucher.GLforJVList;
-                    this.DisbursementGLList.splice(0, 0);
-                    listGL.forEach((part, index) => {
-                        var tempDisbursementGLList = new DisbursementGLModel();
-                        tempDisbursementGLList.LoanDisbID = part.LoanDisbID;
-                        tempDisbursementGLList.Description = part.DisbDesc;
-                        this.DisbursementGLList.push(tempDisbursementGLList);
-                    }, listGL);
-                }
-                else{
-                    this.expandDisbursement = false;
-                    this.DisbursementGLList = []
-                    this.layoutUtilsService.alertElement("", "Error Occured While Processing Request");
-                }
-            });
-            // ,
-            // (error) => {
-            //     this.expandDisbursement = false;
-            //     this.DisbursementGLList = []
-            //     this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request");
-            //     
-            // });
+
+            if (baseResponse.Success === true) {
+                this.expandDisbursement = true;
+                var listGL = baseResponse.JournalVoucher.GLforJVList;
+                this.DisbursementGLList.splice(0, 0);
+                listGL.forEach((part, index) => {
+                    var tempDisbursementGLList = new DisbursementGLModel();
+                    tempDisbursementGLList.LoanDisbID = part.LoanDisbID;
+                    tempDisbursementGLList.Description = part.DisbDesc;
+                    this.DisbursementGLList.push(tempDisbursementGLList);
+                }, listGL);
+            } else {
+                this.expandDisbursement = false;
+                this.DisbursementGLList = []
+                this.layoutUtilsService.alertElement("", "Error Occured While Processing Request");
+            }
+        });
+        // ,
+        // (error) => {
+        //     this.expandDisbursement = false;
+        //     this.DisbursementGLList = []
+        //     this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request");
+        //
+        // });
     }
 
     viewLLCInquiryGL() {
@@ -692,7 +687,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                
+
                 this.lcno = this.JvForm.controls.LoanCaseID.value;
                 this.accNo = this.JvForm.controls.DepositAccID.value;
                 this.advNo = this.JvForm.controls.AdviceNo.value;
@@ -720,7 +715,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                     // this.jvGl.forEach(element => {
                     //   this.journalVocherData.TransactionDetailID = element.TransactionDetailID;
                     // });
-                    if(this.journalVocherData.TransactionDetailID != undefined){
+                    if (this.journalVocherData.TransactionDetailID != undefined) {
                         this.journalVocherData.TransactionDetailID = undefined;
                     }
 
@@ -770,7 +765,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
             });
 
-        
+
         this.myPrevID.TrMasterIDJv = myjournalVocherData.TrMasterIDJv
     }
 
@@ -819,12 +814,12 @@ export class JvFormComponent implements OnInit, OnDestroy {
                     this.spinner.hide();
                 })
             ).subscribe((baseResponse: BaseResponseModel) => {
-            
+
             if (baseResponse.Success === true) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 this.router.navigateByUrl("/journal-voucher/search-pending");
             } else {
-                
+
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
                 this.cdRef.detectChanges();
             }
@@ -850,12 +845,12 @@ export class JvFormComponent implements OnInit, OnDestroy {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                
+
                 if (baseResponse.Success === true) {
                     responseDetail = baseResponse.JournalVoucher.JournalVoucherData;
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                     trow = []
-                    
+
                     this.cdRef.detectChanges();
                     this.getJvInfo();
                 } else {
@@ -873,13 +868,12 @@ export class JvFormComponent implements OnInit, OnDestroy {
     }
 
     editRow(hi) {
-        
 
 
         var transactionID;
         let rowValue;
         this.jvGl.forEach(element => {
-            
+
             transactionID = element.TransactionID;
         });
         this.spinner.show();
@@ -892,7 +886,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                
+
                 if (baseResponse.Success === true) {
 
 
@@ -905,7 +899,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                                 this.DisbursementGLList = []
                             }
 
-                            
+
                             this.JvForm.controls['VoucherNo'].setValue(rowValue[a].ManualVoucherNo);
                             this.JvForm.controls['TransactionMasterID'].setValue(rowValue[a].TransactionMasterCode);
 
@@ -946,12 +940,11 @@ export class JvFormComponent implements OnInit, OnDestroy {
                                             this.submitted = false;
                                         })
                                     ).subscribe((baseResponse: BaseResponseModel) => {
-                                        
+
                                         if (baseResponse.Success === true) {
 
                                             var listGL = baseResponse.JournalVoucher.GLforJVList;
                                             this.DisbursementGLList.splice(0, 0);
-                                            
 
 
                                             listGL.forEach((part, index) => {
@@ -967,7 +960,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                                     },
                                     (error) => {
                                         this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
-                                        
+
                                     });
                             }
 
@@ -1033,7 +1026,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                
+
                 if (baseResponse.Success === true) {
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                     this.router.navigateByUrl("/journal-voucher/search-pending");

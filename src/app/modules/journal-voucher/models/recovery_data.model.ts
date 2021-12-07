@@ -1,4 +1,3 @@
-
 export enum RecoveryTypes {
     Recovery = 1,
     InterBranchRecovery = 2,
@@ -104,8 +103,8 @@ export class MasterCodes {
 
 export class RecoveryDataModel {
 
-    LfNumber : string;
-    TranDate : string;
+    LfNumber: string;
+    TranDate: string;
     RecoveryThroughType: string;
     LnAccountID: string;
     RecoveryType: string;

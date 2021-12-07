@@ -1,22 +1,20 @@
-import { Injectable } from '@angular/core';
-import { cloneDeep } from 'lodash-es';
-import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { labels as labelsData, notes as notesData } from 'app/mock-api/apps/notes/data';
-import { FuseMockApiUtils } from '@fuse/lib/mock-api';
+import {Injectable} from '@angular/core';
+import {cloneDeep} from 'lodash-es';
+import {FuseMockApiService} from '@fuse/lib/mock-api/mock-api.service';
+import {labels as labelsData, notes as notesData} from 'app/mock-api/apps/notes/data';
+import {FuseMockApiUtils} from '@fuse/lib/mock-api';
 
 @Injectable({
     providedIn: 'root'
 })
-export class NotesMockApi
-{
+export class NotesMockApi {
     private _labels: any[] = labelsData;
     private _notes: any[] = notesData;
 
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _fuseMockApiService: FuseMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -28,8 +26,7 @@ export class NotesMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Labels - GET
         // -----------------------------------------------------------------------------------------------------
@@ -49,7 +46,7 @@ export class NotesMockApi
 
                 // Create a new label
                 const label = {
-                    id   : FuseMockApiUtils.guid(),
+                    id: FuseMockApiUtils.guid(),
                     title: request.body.title
                 };
 
@@ -74,8 +71,7 @@ export class NotesMockApi
 
                 // Update the label
                 this._labels = this._labels.map((label) => {
-                    if ( label.id === updatedLabel.id )
-                    {
+                    if (label.id === updatedLabel.id) {
                         return {
                             ...label,
                             title: updatedLabel.title
@@ -129,17 +125,15 @@ export class NotesMockApi
 
                 // Update the note
                 this._notes = this._notes.map((note) => {
-                    if ( note.id === updatedNote.id )
-                    {
+                    if (note.id === updatedNote.id) {
                         // Update the tasks
-                        if ( !note.tasks )
-                        {
+                        if (!note.tasks) {
                             note.tasks = [];
                         }
 
                         note.tasks.push({
-                            id       : FuseMockApiUtils.guid(),
-                            content  : task,
+                            id: FuseMockApiUtils.guid(),
+                            content: task,
                             completed: false
                         });
 
@@ -219,8 +213,7 @@ export class NotesMockApi
 
                 // Update the note
                 this._notes = this._notes.map((note) => {
-                    if ( note.id === updatedNote.id )
-                    {
+                    if (note.id === updatedNote.id) {
                         return {
                             ...updatedNote
                         };
@@ -248,8 +241,7 @@ export class NotesMockApi
                 // Find the note and delete it
                 this._notes.forEach((item, index) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         this._notes.splice(index, 1);
                     }
                 });

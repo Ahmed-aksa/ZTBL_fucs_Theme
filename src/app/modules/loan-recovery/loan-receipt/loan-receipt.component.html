@@ -1,114 +1,121 @@
 <style>
-  @media print {
-    #print-section {
-      overflow-y: visible !important;
-      position: relative;
+    @media print {
+        #print-section {
+            overflow-y: visible !important;
+            position: relative;
+        }
+
+        #data-section {
+            overflow-y: visible !important;
+            position: relative;
+        }
     }
-    #data-section {
-      overflow-y: visible !important;
-      position: relative;
-    }
-  }
 </style>
 <div #screen>
-  <div class="kt-portlet" style="padding:10px !important">
-    <div id="print-section">
-      <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-        <div class="kt-portlet__head-label">
-         
-        </div>
-      </div>
-      <div>
+    <div class="kt-portlet" style="padding:10px !important">
+        <div id="print-section">
+            <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+                <div class="kt-portlet__head-label">
 
-        <div class="kt-form" *ngIf="!submitted">
-          <div class="kt-portlet__body" id="data-section" style="padding:0px !important;overflow-x: hidden !important;">
-            <!--<div class="kt-portlet__body" id="data-section" style="padding:0px !important;overflow-x: hidden !important;max-height: 70vh !important;">-->
-              <div id="" *ngFor="let item of receiptDetail">
-
-                <div class="customReceiptTitle" *ngIf="item.Type=='1'">
-
-                  <h4>{{item.LabelL}}</h4>
                 </div>
+            </div>
+            <div>
 
-                <div *ngIf="item.Type=='2'">
-                  <div class="row">
-                    <div class="{{item.LabelR?'col-lg-6 mt-3':'col-lg-12 mt-3'}}">
-                      <b id="receiptHeadingColor">{{item.LabelL}}</b>
-                      : &nbsp;
-                      <span [innerHTML]="item.ValueL"></span>
-                    </div>
-                    <div class="col-lg-6 mt-3" *ngIf="item.LabelR">
-                      <b id="receiptHeadingColor">{{item.LabelR}}</b>
-                      : &nbsp;
-                      {{item.ValueR}}
-                    </div>
-                  </div>
-                </div>
+                <div class="kt-form" *ngIf="!submitted">
+                    <div class="kt-portlet__body" id="data-section"
+                         style="padding:0px !important;overflow-x: hidden !important;">
+                        <!--<div class="kt-portlet__body" id="data-section" style="padding:0px !important;overflow-x: hidden !important;max-height: 70vh !important;">-->
+                        <div id="" *ngFor="let item of receiptDetail">
 
-                <div class="customReceiptTitle" *ngIf="item.Type=='3'">
-                  <h4>{{item.LabelL}}</h4>
-                </div>
+                            <div class="customReceiptTitle" *ngIf="item.Type=='1'">
 
-                <div class="row" *ngIf="item.Type=='3'">
-                  <div class="col-lg-12 mt-3" *ngIf="item.ValueL">
-                    <img src="{{'data:image/jpeg;base64,'+item.ValueL}}" style="width:300px;margin-left:30%;" />
-                  </div>
-                </div>
+                                <h4>{{item.LabelL}}</h4>
+                            </div>
 
-                <div class="customReceiptTitle" *ngIf="item.Type=='4'">
-                  <h4>{{item.LabelL}}</h4>
-                </div>
+                            <div *ngIf="item.Type=='2'">
+                                <div class="row">
+                                    <div class="{{item.LabelR?'col-lg-6 mt-3':'col-lg-12 mt-3'}}">
+                                        <b id="receiptHeadingColor">{{item.LabelL}}</b>
+                                        : &nbsp;
+                                        <span [innerHTML]="item.ValueL"></span>
+                                    </div>
+                                    <div class="col-lg-6 mt-3" *ngIf="item.LabelR">
+                                        <b id="receiptHeadingColor">{{item.LabelR}}</b>
+                                        : &nbsp;
+                                        {{item.ValueR}}
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="row" *ngIf="item.Type=='4'">
-                  <div class="col-lg-12 mt-3" *ngIf="item.ValueL">
-                    <ngx-barcode [bc-value]="item.ValueL" [bc-display-value]="false" [bc-height]="50"></ngx-barcode>
-                  </div>
-                </div>
+                            <div class="customReceiptTitle" *ngIf="item.Type=='3'">
+                                <h4>{{item.LabelL}}</h4>
+                            </div>
 
+                            <div class="row" *ngIf="item.Type=='3'">
+                                <div class="col-lg-12 mt-3" *ngIf="item.ValueL">
+                                    <img src="{{'data:image/jpeg;base64,'+item.ValueL}}"
+                                         style="width:300px;margin-left:30%;"/>
+                                </div>
+                            </div>
+
+                            <div class="customReceiptTitle" *ngIf="item.Type=='4'">
+                                <h4>{{item.LabelL}}</h4>
+                            </div>
+
+                            <div class="row" *ngIf="item.Type=='4'">
+                                <div class="col-lg-12 mt-3" *ngIf="item.ValueL">
+                                    <ngx-barcode [bc-value]="item.ValueL" [bc-display-value]="false"
+                                                 [bc-height]="50"></ngx-barcode>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--<div class="customReceiptTitle">
+                <h4>Signature</h4>
               </div>
 
-              <!--<div class="customReceiptTitle">
-      <h4>Signature</h4>
-    </div>
+              <div class="row">
+                <div class="col-lg-12 mt-3" *ngIf="item.Type=='3'">
+                  <img [src]="signature" style="width:300px;margin-left:30%;" />
+                </div>
+              </div>
 
-    <div class="row">
-      <div class="col-lg-12 mt-3" *ngIf="item.Type=='3'">
-        <img [src]="signature" style="width:300px;margin-left:30%;" />
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12 mt-3 ml-4" *ngIf="item.Type=='4'">
-        <ngx-barcode [bc-value]="barcode" [bc-display-value]="false" [bc-height]="50"></ngx-barcode>
-      </div>
-    </div>-->
+              <div class="row">
+                <div class="col-lg-12 mt-3 ml-4" *ngIf="item.Type=='4'">
+                  <ngx-barcode [bc-value]="barcode" [bc-display-value]="false" [bc-height]="50"></ngx-barcode>
+                </div>
+              </div>-->
 
 
+                    </div>
+
+                </div>
             </div>
-
-          </div>
-      </div>
-      </div>
-      <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
-        <div class="kt-form__actions kt-form__actions--solid" style="padding: 0px !important;">
-          <div class="row">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10 mt-3 mb-3">
-
-              <!--<button mat-raised-button color="primary" class="col-md-3 pull-left" (click)="downloadReceipt()">Download</button>-->
-              <button mat-raised-button color="primary" class="col-md-3 pull-left" [useExistingCss]="true" printSectionId="print-section" ngxPrint>Download</button>
-              <button mat-raised-button color="primary" class="col-md-8 pull-right" (click)="close()">{{receipt.buttonText}}</button>
-
-            </div>
-
-          </div>
         </div>
-      </div>
+        <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
+            <div class="kt-form__actions kt-form__actions--solid" style="padding: 0px !important;">
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10 mt-3 mb-3">
+
+                        <!--<button mat-raised-button color="primary" class="col-md-3 pull-left" (click)="downloadReceipt()">Download</button>-->
+                        <button mat-raised-button color="primary" class="col-md-3 pull-left" [useExistingCss]="true"
+                                printSectionId="print-section" ngxPrint>Download
+                        </button>
+                        <button mat-raised-button color="primary" class="col-md-8 pull-right"
+                                (click)="close()">{{receipt.buttonText}}</button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 
     </div>
 
-  </div>
+</div>
 
 <!--<div id="Kt-portlet-margin-top">
   <div class="kt-portlet">

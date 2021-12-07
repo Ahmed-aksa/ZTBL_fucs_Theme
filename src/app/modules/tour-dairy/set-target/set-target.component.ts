@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
     DateAdapter,
     MAT_DATE_FORMATS,
@@ -10,19 +10,19 @@ import {
     MatDialog,
     MatDialogRef,
 } from '@angular/material/dialog';
-import { DatePipe } from '@angular/common';
+import {DatePipe} from '@angular/common';
 
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateFormats } from '../../../shared/classes/lov.class';
-import { UserUtilsService } from '../../../shared/services/users_utils.service';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from '../../../shared/services/common.service';
-import { Target } from '@angular/compiler';
-import { finalize } from 'rxjs/operators';
-import { BaseResponseModel } from '../../../shared/models/base_response.model';
-import { SetTargetService } from './Services/set-target.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateFormats} from '../../../shared/classes/lov.class';
+import {UserUtilsService} from '../../../shared/services/users_utils.service';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CommonService} from '../../../shared/services/common.service';
+import {Target} from '@angular/compiler';
+import {finalize} from 'rxjs/operators';
+import {BaseResponseModel} from '../../../shared/models/base_response.model';
+import {SetTargetService} from './Services/set-target.service';
 
 class SetTarget {
     Id: number;
@@ -47,7 +47,7 @@ class TargetDuration {
             useClass: MomentDateAdapter,
             deps: [MAT_DATE_LOCALE],
         },
-        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
         {
             provide: MatDialogRef,
             useValue: {},
@@ -117,7 +117,8 @@ export class SetTargetComponent implements OnInit {
     GetTragetDuration() {
         this._setTarget
             .GetTragetDuration()
-            .pipe(finalize(() => {}))
+            .pipe(finalize(() => {
+            }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     this.TargetDuration = baseResponse.Target.TargetDuration;
@@ -133,7 +134,7 @@ export class SetTargetComponent implements OnInit {
 
     GetTargets(value: any) {
         this.ishidden = false;
-        
+
         this.spinner.show();
         this._setTarget
             .GetTargets(value)
@@ -229,14 +230,14 @@ export class SetTargetComponent implements OnInit {
         return this.array;
     }
 
-    onInputChanged (value: Event, rowIndex: number, propertyKey: string): void {
+    onInputChanged(value: Event, rowIndex: number, propertyKey: string): void {
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex
                 ? row
                 : {
-                      ...row,
-                      [propertyKey]: (value.target as HTMLInputElement).value,
-                  };
+                    ...row,
+                    [propertyKey]: (value.target as HTMLInputElement).value,
+                };
         });
 
         this.targets = Object.assign(this.newValue);
@@ -245,7 +246,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     onDataChanged(event: any[]): void {
-        
+
     }
 
     AssignTarget() {
@@ -274,13 +275,13 @@ export class SetTargetComponent implements OnInit {
     Check() {
         var target;
         var heading;
-        
+
         var h = Object.keys(this.headings);
         var v = Object.values(this.headings);
 
         for (let j = 0; j < this.totalLength.length; j++) {
             for (let i = 0; i < this.targets.length; i++) {
-                
+
                 target = this.targets.find(
                     (temp) => temp[this.totalLength[j]] == 0
                 );

@@ -1,9 +1,9 @@
-import { createFeatureSelector } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import {createFeatureSelector} from '@ngrx/store';
+import {EntityState, EntityAdapter, createEntityAdapter} from '@ngrx/entity';
 
-import { QueryParamsModel } from '../models/query_params.model';
-import { UserActions, UserActionTypes } from '../actions/user.actions';
-import { User } from '../models/user.model';
+import {QueryParamsModel} from '../models/query_params.model';
+import {UserActions, UserActionTypes} from '../actions/user.actions';
+import {User} from '../models/user.model';
 
 export interface UsersState extends EntityState<User> {
     listLoading: boolean;
@@ -20,30 +20,37 @@ export const initialUsersState: UsersState = adapter.getInitialState({
     listLoading: false,
     actionsloading: false,
     totalCount: 0,
-    lastQuery:  new QueryParamsModel({}),
+    lastQuery: new QueryParamsModel({}),
     lastCreatedUserId: undefined,
     showInitWaitingMessage: true
 });
 
 export function usersReducer(state = initialUsersState, action: UserActions): UsersState {
-    switch  (action.type) {
-        case UserActionTypes.UsersPageToggleLoading: return {
-            ...state, listLoading: action.payload.isLoading, lastCreatedUserId: undefined
-        };
-        case UserActionTypes.UsersActionToggleLoading: return {
-            ...state, actionsloading: action.payload.isLoading
-        };
-        case UserActionTypes.UserOnServerCreated: return {
-            ...state
-        };
-      case UserActionTypes.UserCreated: return adapter.addOne(action.payload.user, {
-        ...state, lastCreatedUserId: action.payload.user.Id
-        });
-        case UserActionTypes.UserUpdated: return adapter.updateOne(action.payload.partialUser, state);
-        case UserActionTypes.UserDeleted: return adapter.removeOne(action.payload.id, state);
-        case UserActionTypes.UsersPageCancelled: return {
-            ...state, listLoading: false, lastQuery: new QueryParamsModel({})
-        };
+    switch (action.type) {
+        case UserActionTypes.UsersPageToggleLoading:
+            return {
+                ...state, listLoading: action.payload.isLoading, lastCreatedUserId: undefined
+            };
+        case UserActionTypes.UsersActionToggleLoading:
+            return {
+                ...state, actionsloading: action.payload.isLoading
+            };
+        case UserActionTypes.UserOnServerCreated:
+            return {
+                ...state
+            };
+        case UserActionTypes.UserCreated:
+            return adapter.addOne(action.payload.user, {
+                ...state, lastCreatedUserId: action.payload.user.Id
+            });
+        case UserActionTypes.UserUpdated:
+            return adapter.updateOne(action.payload.partialUser, state);
+        case UserActionTypes.UserDeleted:
+            return adapter.removeOne(action.payload.id, state);
+        case UserActionTypes.UsersPageCancelled:
+            return {
+                ...state, listLoading: false, lastQuery: new QueryParamsModel({})
+            };
         case UserActionTypes.UsersPageLoaded: {
             return adapter.addMany(action.payload.users, {
                 ...initialUsersState,
@@ -53,7 +60,8 @@ export function usersReducer(state = initialUsersState, action: UserActions): Us
                 showInitWaitingMessage: false
             });
         }
-        default: return state;
+        default:
+            return state;
     }
 }
 

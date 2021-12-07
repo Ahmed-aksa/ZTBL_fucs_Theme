@@ -36,8 +36,8 @@ import {CircleService} from "../../../shared/services/circle.service";
     styleUrls: ['./deceased-cus.component.scss'],
     providers: [
         DatePipe,
-        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
         {
             provide: MatDialogRef,
             useValue: {}
@@ -75,16 +75,16 @@ export class DeceasedCusComponent implements OnInit {
     zone: any;
     circle: any;
 
-    visible:any = true;
+    visible: any = true;
     hasFormErrors = false;
-    isEmpty:boolean = false;
+    isEmpty: boolean = false;
     viewerOpen = false;
-    txtValue:string = null;
-    len:string=null;
+    txtValue: string = null;
+    len: string = null;
     deceasedCustomerID = null
-    public markDeceasedCustomer= new MarkDeceasedCustomer();
+    public markDeceasedCustomer = new MarkDeceasedCustomer();
     imageUrl: any;
-    file:File;
+    file: File;
     rawData = new Documents();
     errorShow: boolean;
     viewOnly: boolean;
@@ -112,18 +112,18 @@ export class DeceasedCusComponent implements OnInit {
 
     ELEMENT_DATA: DeceasedCust[] = [];
     isEditMode;
-    myModel:boolean=false;
+    myModel: boolean = false;
     DeceasedCustomerInf;
     DeceasedCustomerDisbursementRecoveries = [];
     DeceasedCustomerAttachedFile = [];
-    url : string
+    url: string
     public deceasedInfo = new Customer();
 
     cnicn;
     name;
     select: Selection[] = [
-        { value: "0", viewValue: "NO" },
-        { value: "1", viewValue: "Yes" },
+        {value: "0", viewValue: "NO"},
+        {value: "1", viewValue: "Yes"},
     ];
     private loggedInUserDetails: any;
     private final_branch: any;
@@ -145,7 +145,6 @@ export class DeceasedCusComponent implements OnInit {
         private route: ActivatedRoute,
         private _common: CommonService,
         private datePipe: DatePipe,
-
     ) {
 
         router.events.subscribe((val: any) => {
@@ -172,20 +171,19 @@ export class DeceasedCusComponent implements OnInit {
         return new Date().toISOString().split('T')[0]
     }
 
-    GetReshTransaction()
-    {
+    GetReshTransaction() {
 
         this.spinner.show();
         this.cnicn = this.route.snapshot.params["LnTransactionID"];
         this.name = this.route.snapshot.params["CustomerName"];
-        if(this.route.snapshot.params["ViewObj"]){
+        if (this.route.snapshot.params["ViewObj"]) {
             this.viewOnly = true;
         }
         this.deceasedInfo.Cnic = this.cnicn
         this.deceasedInfo.CustomerName = this.name
 
         this._deceasedCustomer
-            .GetDeceasedCustomer(this.deceasedInfo,this.final_branch,this.final_zone)
+            .GetDeceasedCustomer(this.deceasedInfo, this.final_branch, this.final_zone)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
@@ -193,7 +191,7 @@ export class DeceasedCusComponent implements OnInit {
                 if (baseResponse.Success) {
 
                     this.isEmpty = true;
-                    this.DeceasedCustomerInf =  baseResponse.DeceasedCustomer.DeceasedCustomerInfo;
+                    this.DeceasedCustomerInf = baseResponse.DeceasedCustomer.DeceasedCustomerInfo;
                     this.deceasedCustomerID = baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeceasedID
                     this.customerForm.controls["DateofDeath"].setValue(this._common.stringToDate(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeathDate));
                     this.customerForm.controls["Cn"].setValue(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.Cnic);
@@ -202,17 +200,15 @@ export class DeceasedCusComponent implements OnInit {
                     this.customerForm.controls["FatherName"].setValue(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.FatherName);
                     this.customerForm.controls["NadraNo"].setValue(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.NadraNo);
                     this.customerForm.controls["MakerRemarks"].setValue(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.MakerRemarks);
-                    if(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.IsCertificateVerified == "Y")
-                    {
+                    if (baseResponse.DeceasedCustomer.DeceasedCustomerInfo.IsCertificateVerified == "Y") {
                         this.myModel = true
                         this.customerForm.controls["IsNadraCertificateVerified"].setValue(true);
-                    }
-                    else {
+                    } else {
                         this.myModel = false
                         this.customerForm.controls["IsNadraCertificateVerified"].setValue(false);
                     }
                     this.dataSource = baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries;
-                    // 
+                    //
                     this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
                 } else {
                     this.isEmpty = false;
@@ -271,8 +267,7 @@ export class DeceasedCusComponent implements OnInit {
                 //this.GetBranches(this.Zones[0].ZoneId);
                 this.loading = false;
                 this._cdf.detectChanges();
-            }
-            else
+            } else
                 this.layoutUtilsService.alertElement("", baseResponse.Message);
 
         });
@@ -329,8 +324,6 @@ export class DeceasedCusComponent implements OnInit {
     }
 
 
-
-
     hasError(controlName: string, errorName: string): boolean {
         //
         return this.customerForm.controls[controlName].hasError(errorName);
@@ -342,9 +335,9 @@ export class DeceasedCusComponent implements OnInit {
         this.customerForm = this.fb.group({
             ZoneId: ["", Validators.required],
             BranchId: ["", Validators.required],
-            PPNo:[""],
+            PPNo: [""],
             Cnic: [""],
-            DateofDeath:['', Validators.required],
+            DateofDeath: ['', Validators.required],
             NadraNo: ['', Validators.required],
             DetailSourceIncome: [''],
             CustomerName: [''],
@@ -353,9 +346,9 @@ export class DeceasedCusComponent implements OnInit {
             MakerRemarks: ['', Validators.required],
             IsNadraCertificateVerified: [''],
             IsReferredBack: [''],
-            LegalHeirPay:['', Validators.required],
+            LegalHeirPay: ['', Validators.required],
             file: [''],
-            DeceasedID:[''],
+            DeceasedID: [''],
 
 
         });
@@ -381,17 +374,15 @@ export class DeceasedCusComponent implements OnInit {
                     }
 
 
-
                     reader.readAsDataURL(this.file);
 
-                }
-                else {
+                } else {
                     this.layoutUtilsService.alertElement("", "Only jpeg,jpg and png files are allowed", "99");
 
                     return;
                 }
             }
-        }else{
+        } else {
             this.visible = true;
         }
 
@@ -399,24 +390,22 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     // onChange(e){
-    //   
+    //
     // }
 
-    onChang(e){
-        
-        if(e == false){
+    onChang(e) {
+
+        if (e == false) {
             this.myModel = true
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
-        }
-        else
-        {
+        } else {
             this.myModel = false
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
         }
-        
+
     }
 
-    previewImg(){
+    previewImg() {
         // for(var a=0 ; this.DeceasedCustomerAttachedFile.length > a; a++)
         // {
         //
@@ -430,7 +419,7 @@ export class DeceasedCusComponent implements OnInit {
         const dialogRef = this.dialog.open(ViewFileComponent, {
             width: '90%',
             height: '90%',
-            data: { documentView: this.DeceasedCustomerAttachedFile, url: this.imageUrl }
+            data: {documentView: this.DeceasedCustomerAttachedFile, url: this.imageUrl}
         });
     }
 
@@ -438,7 +427,7 @@ export class DeceasedCusComponent implements OnInit {
         this.assignBranchAndZone();
         this.spinner.show();
         this._deceasedCustomer
-            .GetDeceasedCustomer(this.customerForm.value,this.final_branch,this.final_zone)
+            .GetDeceasedCustomer(this.customerForm.value, this.final_branch, this.final_zone)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
@@ -447,11 +436,11 @@ export class DeceasedCusComponent implements OnInit {
                     this.isEmpty = true;
 
                     var json = JSON.stringify(baseResponse.DeceasedCustomer);
-                    
+
                     // console.log()
-                    this.DeceasedCustomerInf =  baseResponse.DeceasedCustomer.DeceasedCustomerInfo;
+                    this.DeceasedCustomerInf = baseResponse.DeceasedCustomer.DeceasedCustomerInfo;
                     //
-                    
+
                     this.deceasedCustomerID = baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeceasedID
                     this.customerForm.controls["DateofDeath"].setValue(this._common.stringToDate(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeathDate));
                     // this.DateofDeath = baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeathDate;
@@ -462,12 +451,9 @@ export class DeceasedCusComponent implements OnInit {
                     this.customerForm.controls["DeceasedID"].setValue(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.DeceasedID);
                     this.customerForm.controls["MakerRemarks"].setValue(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.MakerRemarks);
 
-                    if(baseResponse.DeceasedCustomer.DeceasedCustomerInfo.IsCertificateVerified == "Y")
-                    {
+                    if (baseResponse.DeceasedCustomer.DeceasedCustomerInfo.IsCertificateVerified == "Y") {
                         this.myModel = true
-                    }
-                    else
-                    {
+                    } else {
                         this.myModel = false
                     }
 
@@ -482,7 +468,7 @@ export class DeceasedCusComponent implements OnInit {
 
                     this.dataSource = baseResponse.DeceasedCustomer.DeceasedCustomerDisbursementRecoveries;
 
-                    
+
                     //this.savedFiles =
                     this.DeceasedCustomerAttachedFile = baseResponse.ViewDocumnetsList
 
@@ -492,11 +478,12 @@ export class DeceasedCusComponent implements OnInit {
                     this.layoutUtilsService.alertElement(
                         "",
                         baseResponse.Message,
-                        baseResponse.Code=null
+                        baseResponse.Code = null
                     );
                 }
             });
     }
+
     settingZBC() {
 
         this.loggedInUserDetails = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -526,13 +513,11 @@ export class DeceasedCusComponent implements OnInit {
         }
     }
 
-    viewDocument(id){
+    viewDocument(id) {
 
-        for(var a=0 ; this.DeceasedCustomerAttachedFile.length > a; a++)
-        {
+        for (var a = 0; this.DeceasedCustomerAttachedFile.length > a; a++) {
 
-            if(id == this.DeceasedCustomerAttachedFile[a].ID)
-            {
+            if (id == this.DeceasedCustomerAttachedFile[a].ID) {
 
                 this.url = this.DeceasedCustomerAttachedFile[a].Path
             }
@@ -541,26 +526,24 @@ export class DeceasedCusComponent implements OnInit {
         const dialogRef = this.dialog.open(ViewFileComponent, {
             width: '50%',
             height: '50%',
-            data: { documentView: this.DeceasedCustomerAttachedFile, url: this.url }
+            data: {documentView: this.DeceasedCustomerAttachedFile, url: this.url}
         });
     }
 
-    OnChangeDisable(value){
-        if(value=="0"){
+    OnChangeDisable(value) {
+        if (value == "0") {
             this.customerForm.controls["DetailSourceIncome"].reset();
             this.customerForm.controls["DetailSourceIncome"].disable();
-            this.markDeceasedCustomer.OtherSourceOfIncome=null;
-        }
-        else if(value=="1"){
+            this.markDeceasedCustomer.OtherSourceOfIncome = null;
+        } else if (value == "1") {
             this.customerForm.controls["DetailSourceIncome"].reset();
             this.customerForm.controls["DetailSourceIncome"].enable();
             this.customerForm.controls["DetailSourceIncome"].setValidators(Validators.required);
             this.customerForm.controls["DetailSourceIncome"].updateValueAndValidity();
-        }
-        else{
+        } else {
             this.customerForm.controls["DetailSourceIncome"].reset();
             this.customerForm.controls["DetailSourceIncome"].disable();
-            this.markDeceasedCustomer.OtherSourceOfIncome=null;
+            this.markDeceasedCustomer.OtherSourceOfIncome = null;
         }
     }
 
@@ -576,11 +559,9 @@ export class DeceasedCusComponent implements OnInit {
     // }
 
 
-
-    changed(value){
+    changed(value) {
         this.len = value.target.value;
-        if(this.len.length <= 13)
-        {
+        if (this.len.length <= 13) {
             //this.customerForm.reset();
             this.isEmpty = false;
 
@@ -589,12 +570,12 @@ export class DeceasedCusComponent implements OnInit {
         }
     }
 
-    MarkAsDeceasedCustomer(){
+    MarkAsDeceasedCustomer() {
 
 
         this.errorShow = false;
         this.hasFormErrors = false;
-        
+
         if (this.customerForm.invalid) {
             const controls = this.customerForm.controls;
             Object.keys(controls).forEach(controlName =>
@@ -605,17 +586,16 @@ export class DeceasedCusComponent implements OnInit {
             return;
         }
 
-        if(this.customerForm.controls["IsNadraCertificateVerified"].value == "true"){
+        if (this.customerForm.controls["IsNadraCertificateVerified"].value == "true") {
             this.customerForm.controls["IsNadraCertificateVerified"].setValue("N");
-        }
-        else{
+        } else {
             this.customerForm.controls["IsNadraCertificateVerified"].setValue("Y");
         }
 
-        if(this.DeceasedCustomerInf.Status == "4"){
-            if(this.file == undefined){
+        if (this.DeceasedCustomerInf.Status == "4") {
+            if (this.file == undefined) {
                 this.file = this.DeceasedCustomerAttachedFile[0].Path
-                
+
             }
             this.customerForm.controls["IsReferredBack"].setValue("1");
         }
@@ -625,28 +605,26 @@ export class DeceasedCusComponent implements OnInit {
         //if(this.deceasedCustomerID != null){
         //  this.markDeceasedCustomer.DeceasedID = this.deceasedCustomerID
         //}
-        if(this.customerForm.controls["LegalHeirPay"].value == 0){
-            this.markDeceasedCustomer.LegalHeirPay= "N";
+        if (this.customerForm.controls["LegalHeirPay"].value == 0) {
+            this.markDeceasedCustomer.LegalHeirPay = "N";
+        } else {
+            this.markDeceasedCustomer.LegalHeirPay = "Y";
         }
-        else{
-            this.markDeceasedCustomer.LegalHeirPay= "Y";
-        }
-        if(this.DeceasedCustomerInf.Status != undefined && this.DeceasedCustomerInf.Status != "4"){
+        if (this.DeceasedCustomerInf.Status != undefined && this.DeceasedCustomerInf.Status != "4") {
             // if(!this.deceasedCustomerID == null){
             //   var Message;
             //   var Code;
             //   this.layoutUtilsService.alertElement("", Message="Please Attach Image",Code=null);
             // }
-            if(!this.customerForm.controls.file.value || !this.DeceasedCustomerAttachedFile){
+            if (!this.customerForm.controls.file.value || !this.DeceasedCustomerAttachedFile) {
                 var Message;
                 var Code;
-                this.layoutUtilsService.alertElement("", Message="Please Attach Image",Code=null);
-            }
-            else{
+                this.layoutUtilsService.alertElement("", Message = "Please Attach Image", Code = null);
+            } else {
 
                 this.spinner.show();
                 this._deceasedCustomer
-                    .MarkAsDeceasedCustomer(this.markDeceasedCustomer,this.file)
+                    .MarkAsDeceasedCustomer(this.markDeceasedCustomer, this.file)
                     .pipe(finalize(() => {
                         this.spinner.hide();
                     }))
@@ -655,38 +633,34 @@ export class DeceasedCusComponent implements OnInit {
 
                             this.layoutUtilsService.alertElementSuccess(
                                 "",
-                                Message="Information Saved Successfully",
-                                baseResponse.Code=null
+                                Message = "Information Saved Successfully",
+                                baseResponse.Code = null
                             );
                             this.router.navigateByUrl('deceased-customer/search')
-                        }
-                        else {
+                        } else {
 
                             this.layoutUtilsService.alertElement(
                                 "",
                                 baseResponse.Message,
-                                baseResponse.Code=null
+                                baseResponse.Code = null
                             );
-                            
+
                         }
                     });
             }
-        }
-        else{
+        } else {
 
 
-
-            if(!this.customerForm.controls.file.value && !this.DeceasedCustomerAttachedFile){
+            if (!this.customerForm.controls.file.value && !this.DeceasedCustomerAttachedFile) {
                 var Message;
                 var Code;
-                this.layoutUtilsService.alertElement("", Message="Please Attach Image",Code=null);
-            }
-            else{
-                this.markDeceasedCustomer.DeceasedID=this.deceasedCustomerID;
+                this.layoutUtilsService.alertElement("", Message = "Please Attach Image", Code = null);
+            } else {
+                this.markDeceasedCustomer.DeceasedID = this.deceasedCustomerID;
                 this.spinner.show();
 
                 this._deceasedCustomer
-                    .MarkAsDeceasedCustomer(this.markDeceasedCustomer,this.file)
+                    .MarkAsDeceasedCustomer(this.markDeceasedCustomer, this.file)
                     .pipe(finalize(() => {
                         this.spinner.hide();
                     }))
@@ -695,19 +669,18 @@ export class DeceasedCusComponent implements OnInit {
 
                             this.layoutUtilsService.alertElementSuccess(
                                 "",
-                                Message="Information Saved Successfully",
-                                baseResponse.Code=null
+                                Message = "Information Saved Successfully",
+                                baseResponse.Code = null
                             );
                             this.router.navigateByUrl('deceased-customer/search')
-                        }
-                        else {
+                        } else {
 
                             this.layoutUtilsService.alertElement(
                                 "",
                                 baseResponse.Message,
-                                baseResponse.Code=null
+                                baseResponse.Code = null
                             );
-                            
+
                         }
                     });
             }
@@ -740,6 +713,7 @@ export interface DeceasedCust {
 function stringToDate(DeathDate: any) {
     throw new Error("Function not implemented.");
 }
+
 export class Zone {
     ZoneId: number;
     ZoneName: string;

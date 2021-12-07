@@ -1,22 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
-import { MatDialog} from '@angular/material/dialog';
-import { DatePipe } from '@angular/common';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {Component, OnInit, Input} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {finalize} from 'rxjs/operators';
+import {MatDialog} from '@angular/material/dialog';
+import {DatePipe} from '@angular/common';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
-import { TourPlan } from '../Model/tour-plan.model';
+import {TourPlan} from '../Model/tour-plan.model';
 import {TourPlanService} from "../Service/tour-plan.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {CommonService} from "../../../shared/services/common.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import { Circle } from 'app/shared/models/circle.model';
-import { Branch } from 'app/shared/models/branch.model';
-import { Zone } from 'app/shared/models/zone.model';
+import {Circle} from 'app/shared/models/circle.model';
+import {Branch} from 'app/shared/models/branch.model';
+import {Zone} from 'app/shared/models/zone.model';
 import {SlashDateFormats} from "../../../shared/models/slash-format.class";
 
 @Component({
@@ -25,8 +25,8 @@ import {SlashDateFormats} from "../../../shared/models/slash-format.class";
     styleUrls: ['./tour-plan.component.scss'],
     providers: [
         DatePipe,
-        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-        { provide: MAT_DATE_FORMATS, useValue: SlashDateFormats }
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: SlashDateFormats}
 
     ],
 
@@ -35,8 +35,8 @@ export class TourPlanComponent implements OnInit {
     @Input() tourplan: any;
     @Input() flag: any;
     id;
-    displayedColumns = ["VisitedDate","Purpose","Edit","Delete"]
-    dataSource:[]=[];
+    displayedColumns = ["VisitedDate", "Purpose", "Edit", "Delete"]
+    dataSource: [] = [];
     TourForm: FormGroup;
     loggedInUser: any;
     onAdd: boolean = false;
@@ -46,14 +46,14 @@ export class TourPlanComponent implements OnInit {
     circle;
     VisitedDate;
     TourPlan = new TourPlan;
-    isAdd:boolean=true;
-    isUpdate:boolean=false;
-    isTable:boolean=true;
-    isSubmit:boolean=false;
-    isAuthorize:boolean=false;
-    isApproval:boolean=false;
-    isView:boolean=false;
-    readonly:boolean=false;
+    isAdd: boolean = true;
+    isUpdate: boolean = false;
+    isTable: boolean = true;
+    isSubmit: boolean = false;
+    isAuthorize: boolean = false;
+    isApproval: boolean = false;
+    isView: boolean = false;
+    readonly: boolean = false;
 
     //Start ZBC
 
@@ -97,8 +97,8 @@ export class TourPlanComponent implements OnInit {
         public dialog: MatDialog,
         private router: Router,
         private _circleService: CircleService,
-        private tourPlanService:TourPlanService,
-        private commonService:CommonService,
+        private tourPlanService: TourPlanService,
+        private commonService: CommonService,
     ) {
         this.loggedInUser = userUtilsService.getUserDetails();
         if (this.router.getCurrentNavigation().extras.state !== undefined) {
@@ -106,10 +106,9 @@ export class TourPlanComponent implements OnInit {
             this.flag = this.router.getCurrentNavigation().extras.state.flag;
 
 
-        }
-        else{
-            this.isAdd=true;
-            this.isUpdate=false;
+        } else {
+            this.isAdd = true;
+            this.isUpdate = false;
         }
     }
 
@@ -123,7 +122,7 @@ export class TourPlanComponent implements OnInit {
     //Start ZBC
     userInfo = this.userUtilsService.getUserDetails();
 
-    settingZBC(){
+    settingZBC() {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.LoggedInUserInfo.Branch && this.LoggedInUserInfo.Branch.BranchCode != "All") {
@@ -191,7 +190,7 @@ export class TourPlanComponent implements OnInit {
     }
 
 
-    changeBranch(changedValue){
+    changeBranch(changedValue) {
 
         let changedBranch = null;
         if (changedValue.value)
@@ -209,39 +208,40 @@ export class TourPlanComponent implements OnInit {
             }
         });
     }
+
     //End ZBC
 
 
-    setValuesForEdit(){
-        if(this.TourPlan.TourPlanId){
+    setValuesForEdit() {
+        if (this.TourPlan.TourPlanId) {
             this.TourForm.controls['CircleId'].setValue(this.TourPlan.CircleId);
             this.TourForm.controls['VisitedDate'].setValue(this.commonService.stringToDate(this.TourPlan.VisitedDate));
             // this.isTable=false;
-            this.isAdd=false;
-            this.isUpdate=true;
-            if(this.flag==2){
-                this.isAdd=false;
-                this.isUpdate=false;
-                this.isSubmit=true;
-                this.isApproval=true;
+            this.isAdd = false;
+            this.isUpdate = true;
+            if (this.flag == 2) {
+                this.isAdd = false;
+                this.isUpdate = false;
+                this.isSubmit = true;
+                this.isApproval = true;
             }
-            if(this.TourPlan["view"]=="1"){
-                this.readonly=true;
-                this.isView=true;
+            if (this.TourPlan["view"] == "1") {
+                this.readonly = true;
+                this.isView = true;
             }
         }
     }
 
-    setValues(){
-        var circleId=[], circleCode=[], name, ppno, circleName, circleNo, date, branch,zone;
-        
+    setValues() {
+        var circleId = [], circleCode = [], name, ppno, circleName, circleNo, date, branch, zone;
+
         name = this.loggedInUser.User.DisplayName;
-        zone =this.loggedInUser?.Zone?.ZoneName;
-        branch= this.loggedInUser?.Branch?.Name;
-        ppno= this.loggedInUser?.User?.UserName;
+        zone = this.loggedInUser?.Zone?.ZoneName;
+        branch = this.loggedInUser?.Branch?.Name;
+        ppno = this.loggedInUser?.User?.UserName;
         this.circle = this.loggedInUser?.UserCircleMappings;
-        if(this.circle?.length==0){
-            
+        if (this.circle?.length == 0) {
+
             this.GetCircles()
         }
         this.TourForm.controls['ZoneName'].setValue(zone);
@@ -253,32 +253,32 @@ export class TourPlanComponent implements OnInit {
     }
 
 
-    createForm(){
+    createForm() {
         this.TourForm = this.fb.group({
 
-            ZoneName:[],
-            BranchName:[],
-            McoName:[],
-            PPNO:[],
-            TourPlanId:[this.TourPlan.TourPlanId],
-            CircleId:[this.TourPlan.CircleId],
-            CircleName:[],
-            ZoneId:[this.loggedInUser.User.ZoneId],
-            UserId:[this.loggedInUser.User.UserId],
-            BranchId:[this.loggedInUser.User.BranchId],
-            VisitedDate:[this.TourPlan.VisitedDate],
-            Purpose:[this.TourPlan.Purpose],
-            Remarks:[this.TourPlan.Remarks],
-            Status:[this.TourPlan.Status],
+            ZoneName: [],
+            BranchName: [],
+            McoName: [],
+            PPNO: [],
+            TourPlanId: [this.TourPlan.TourPlanId],
+            CircleId: [this.TourPlan.CircleId],
+            CircleName: [],
+            ZoneId: [this.loggedInUser.User.ZoneId],
+            UserId: [this.loggedInUser.User.UserId],
+            BranchId: [this.loggedInUser.User.BranchId],
+            VisitedDate: [this.TourPlan.VisitedDate],
+            Purpose: [this.TourPlan.Purpose],
+            Remarks: [this.TourPlan.Remarks],
+            Status: [this.TourPlan.Status],
         })
         this.ApprovalMode();
     }
 
-    ApprovalMode(){
-        // 
-        if(this.flag=="2"){
-            
-            this.isView=true;
+    ApprovalMode() {
+        //
+        if (this.flag == "2") {
+
+            this.isView = true;
             this.TourForm.controls['Remarks'].setValidators(Validators.required);
         }
     }
@@ -301,8 +301,7 @@ export class TourPlanComponent implements OnInit {
                 this.TourForm.controls.VisitedDate.setValue(branchWorkingDate)
             } catch (e) {
             }
-        }
-        else {
+        } else {
             try {
                 var day = this.TourForm.controls.VisitedDate.value.toDate().getDate();
                 var month = this.TourForm.controls.VisitedDate.value.toDate().getMonth() + 1;
@@ -322,31 +321,31 @@ export class TourPlanComponent implements OnInit {
         }
     }
 
-    reset(){
+    reset() {
     }
 
-    CheckEditStatus(tourPlan){
+    CheckEditStatus(tourPlan) {
     }
 
-    CheckDeleteStatus(tourPlan){
+    CheckDeleteStatus(tourPlan) {
     }
 
-    deleteList(tourPlan){
+    deleteList(tourPlan) {
 
     }
 
-    editList(tourPlan){
-        this.TourPlan=new TourPlan();
+    editList(tourPlan) {
+        this.TourPlan = new TourPlan();
         this.TourPlan = Object.assign(tourPlan);
         this.createForm();
         this.setValues();
         this.setValuesForEdit();
-        this.isAdd=false;
-        this.isUpdate=true;
+        this.isAdd = false;
+        this.isUpdate = true;
         // this.isTable=false;
     }
 
-    Update(){
+    Update() {
         this.Add();
 
     }
@@ -363,11 +362,11 @@ export class TourPlanComponent implements OnInit {
         }
         // this.customerForm.controls.Status.setValue("P");
         var v = JSON.stringify(this.TourForm.value)
-        
+
 
         this.TourPlan = Object.assign(this.TourForm.value);
-        this.TourPlan.VisitedDate=this.VisitedDate;
-        this.TourPlan.Status="P";
+        this.TourPlan.VisitedDate = this.VisitedDate;
+        this.TourPlan.Status = "P";
         // if(this.flag==1)
         // {this.TourPlan.TourPlanId=this.id;
         // }
@@ -381,9 +380,9 @@ export class TourPlanComponent implements OnInit {
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-                        
-                        this.isAdd=true;
-                        this.isUpdate=false;
+
+                        this.isAdd = true;
+                        this.isUpdate = false;
 
                         this.TourForm.controls.TourPlanId.reset();
                         this.TourForm.controls.CircleId.reset();
@@ -397,7 +396,7 @@ export class TourPlanComponent implements OnInit {
                             baseResponse.Message,
                             baseResponse.Code = null
                         );
-                        if(this.flag){
+                        if (this.flag) {
                             this.router.navigate(['/tour-plan/search-tour-plan']);
                         }
 
@@ -413,9 +412,8 @@ export class TourPlanComponent implements OnInit {
                 });
     }
 
-    Submit()
-    {
-        
+    Submit() {
+
 
     }
 
@@ -423,13 +421,12 @@ export class TourPlanComponent implements OnInit {
         return this.TourForm.controls[controlName].hasError(errorName);
     }
 
-    ChanageTourStatus(value:string){
+    ChanageTourStatus(value: string) {
 
         this.TourPlan = Object.assign(this.TourForm.value);
-        this.TourPlan.VisitedDate=this.VisitedDate;
-        this.TourPlan.Status=value;
+        this.TourPlan.VisitedDate = this.VisitedDate;
+        this.TourPlan.Status = value;
 
-        
 
         this.spinner.show();
         this.tourPlanService
@@ -457,12 +454,12 @@ export class TourPlanComponent implements OnInit {
                 });
     }
 
-    ngOnDestroy(){
-        this.isAdd=true;
-        this.isUpdate=false;
+    ngOnDestroy() {
+        this.isAdd = true;
+        this.isUpdate = false;
     }
 
-    GetCircles(){
+    GetCircles() {
         this._circleService
             .getCircles(this.loggedInUser.Branch)
             .pipe(finalize(() => {
@@ -472,7 +469,7 @@ export class TourPlanComponent implements OnInit {
                 (baseResponse) => {
                     if (baseResponse.Success) {
                         this.circle = baseResponse.Circles;
-                        
+
                     }
                 });
     }

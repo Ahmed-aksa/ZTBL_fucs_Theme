@@ -1,26 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 100 40" style="enable-background:new 0 0 100 40;" xml:space="preserve">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+     y="0px"
+     viewBox="0 0 100 40" style="enable-background:new 0 0 100 40;" xml:space="preserve">
 <style type="text/css">
-	.st0{clip-path:url(#SVGID_2_);}
-	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#FFCC05;}
-	.st2{clip-path:url(#SVGID_4_);}
-	.st3{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
-	.st4{fill:#FFFFFF;}
-	.st5{font-family:'MyriadPro-Regular';}
-	.st6{font-size:5.5px;}
-	.st7{fill-rule:evenodd;clip-rule:evenodd;fill:#FECD0B;}
+	.st0 {
+        clip-path: url(#SVGID_2_);
+    }
+
+    .st1 {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        fill: #FFCC05;
+    }
+
+    .st2 {
+        clip-path: url(#SVGID_4_);
+    }
+
+    .st3 {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        fill: #FFFFFF;
+    }
+
+    .st4 {
+        fill: #FFFFFF;
+    }
+
+    .st5 {
+        font-family: 'MyriadPro-Regular';
+    }
+
+    .st6 {
+        font-size: 5.5px;
+    }
+
+    .st7 {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        fill: #FECD0B;
+    }
 </style>
-<g id="surface1_1_">
+    <g id="surface1_1_">
 	<g>
 		<defs>
 			<rect id="SVGID_1_" x="3.87" y="3.9" width="16.99" height="32.02"/>
 		</defs>
-		<clipPath id="SVGID_2_">
-			<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+        <clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_" style="overflow:visible;"/>
 		</clipPath>
-		<g class="st0">
+        <g class="st0">
 			<path class="st1" d="M12,3.9h0.74v12.77c0.83,0.79,1.5,1.73,1.97,2.75V5.22h0.74v17.7h0c-0.04,2.18-0.97,4.49-3.08,6.6
 				c-2.11-2.11-3.04-4.42-3.08-6.6h0V5.22h0.74v14.19c0.47-1.02,1.14-1.95,1.97-2.75V3.9z M20.87,23.66
 				c-0.03,3.43-0.81,6.52-3.23,8.46c-2.23,1.79-3.1,1.03-5.27,3.72c-2.17-2.69-3.04-1.93-5.27-3.72c-2.41-1.93-3.2-5.03-3.23-8.46
@@ -29,25 +59,25 @@
 				c0.57-0.5,1.09-1.01,1.49-1.54c0.39-0.51,0.46-0.77,0.48-1.16V8.94h0.74V23.66z"/>
 		</g>
 	</g>
-	<g>
+        <g>
 		<defs>
 			<rect id="SVGID_3_" x="52.81" y="9.34" width="6.49" height="14.1"/>
 		</defs>
-		<clipPath id="SVGID_4_">
-			<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+            <clipPath id="SVGID_4_">
+			<use xlink:href="#SVGID_3_" style="overflow:visible;"/>
 		</clipPath>
-		<g class="st2">
+            <g class="st2">
 			<path class="st3" d="M53.04,23.44V9.4h2.44v12.01h3.82v2.03H53.04z"/>
 		</g>
 	</g>
-	<path class="st3" d="M44.2,23.44V9.4h3.26c1.31,0,2.33,0.32,3.05,0.96c0.71,0.64,1.07,1.54,1.07,2.7c0,0.7-0.14,1.31-0.42,1.84
+        <path class="st3" d="M44.2,23.44V9.4h3.26c1.31,0,2.33,0.32,3.05,0.96c0.71,0.64,1.07,1.54,1.07,2.7c0,0.7-0.14,1.31-0.42,1.84
 		c-0.28,0.53-0.71,0.98-1.3,1.36c0.65,0.33,1.14,0.77,1.45,1.33c0.31,0.55,0.47,1.25,0.47,2.09c0,1.28-0.32,2.23-0.96,2.84
 		c-0.64,0.61-1.63,0.92-2.98,0.92H44.2z M46.64,21.41h1.06c0.54,0,0.92-0.16,1.17-0.48c0.24-0.32,0.37-0.83,0.37-1.52
 		c0-0.77-0.14-1.31-0.41-1.64c-0.28-0.33-0.74-0.49-1.39-0.49h-0.8V21.41z M46.64,15.25h1c0.45,0,0.8-0.17,1.05-0.5
 		c0.25-0.34,0.38-0.81,0.38-1.42c0-0.67-0.13-1.15-0.38-1.45c-0.26-0.3-0.67-0.45-1.24-0.45h-0.8V15.25z"/>
-	<path class="st3" d="M35.36,11.43V9.4h7.58v2.03h-2.56v12.01h-2.47V11.43H35.36z"/>
-	<path class="st3" d="M27.01,23.44v-2.17l4.41-9.7h-4.05V9.4h6.72v2.03l-4.46,9.84h4.46v2.17H27.01z"/>
-	<text transform="matrix(1.0725 0 0 1 27.0125 32.1065)" class="st4 st5 st6">Zarai Taraqiati Bank Limited</text>
-	<polygon class="st7" points="49.05,32.94 49.05,34.8 42.74,36.1 	"/>
+        <path class="st3" d="M35.36,11.43V9.4h7.58v2.03h-2.56v12.01h-2.47V11.43H35.36z"/>
+        <path class="st3" d="M27.01,23.44v-2.17l4.41-9.7h-4.05V9.4h6.72v2.03l-4.46,9.84h4.46v2.17H27.01z"/>
+        <text transform="matrix(1.0725 0 0 1 27.0125 32.1065)" class="st4 st5 st6">Zarai Taraqiati Bank Limited</text>
+        <polygon class="st7" points="49.05,32.94 49.05,34.8 42.74,36.1 	"/>
 </g>
 </svg>

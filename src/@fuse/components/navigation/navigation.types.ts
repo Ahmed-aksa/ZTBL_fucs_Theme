@@ -1,7 +1,6 @@
-import { IsActiveMatchOptions } from '@angular/router';
+import {IsActiveMatchOptions} from '@angular/router';
 
-export interface FuseNavigationItem
-{
+export interface FuseNavigationItem {
     id?: string;
     title?: string;
     subtitle?: string;

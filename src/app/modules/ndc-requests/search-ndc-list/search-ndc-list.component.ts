@@ -207,8 +207,8 @@ export class SearchNdcListComponent implements OnInit {
                         baseResponse.Message,
                         baseResponse.Code
                     );
-                    this.request_data_source = this.dvReq.splice(1,0);
-                    this.pending_requests_data_source = this.dvPending.splice(1,0)
+                    this.request_data_source = this.dvReq.splice(1, 0);
+                    this.pending_requests_data_source = this.dvPending.splice(1, 0)
                 }
             });
     }
@@ -306,7 +306,7 @@ export class SearchNdcListComponent implements OnInit {
                     // path = path.split('TempReport');
                     // str = path.splice(0, 1, 0);
                     // str = String(str);
-                    // 
+                    //
                     //this.router.navigateByUrl(baseResponse.Ndc.ndcFilePath)
 
                     window.open(baseResponse.Ndc.ndcFilePath, 'Download');

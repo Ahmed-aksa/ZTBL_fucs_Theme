@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
     selector: 'kt-view-file',
@@ -18,5 +18,6 @@ export class ViewFileComponent implements OnInit {
         this.viewFileArray = data.documentView;
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 }

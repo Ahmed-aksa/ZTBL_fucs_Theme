@@ -14,7 +14,7 @@ import {finalize} from 'rxjs/operators';
     styles: []
 })
 export class SaveOrrComponent implements OnInit {
-    Orrapplied:boolean= false;
+    Orrapplied: boolean = false;
     public LnTransactionID: string;
     public Lcno: string;
     ORRForm: FormGroup;
@@ -174,9 +174,9 @@ export class SaveOrrComponent implements OnInit {
         debugger
         this.GlProposalORR;
         console.log(this.CustomerORR);
-        for(let i=0;i<this.CustomerORR?.length;i++){
-           if (!this.CustomerORR[i]?.EcibORRID) {
-                var Message = 'Please select CIB Report against CNIC '+ this.CustomerORR[i].Cnic;
+        for (let i = 0; i < this.CustomerORR?.length; i++) {
+            if (!this.CustomerORR[i]?.EcibORRID) {
+                var Message = 'Please select CIB Report against CNIC ' + this.CustomerORR[i].Cnic;
                 this.layoutUtilsService.alertElement(
                     '',
                     Message,
@@ -186,9 +186,9 @@ export class SaveOrrComponent implements OnInit {
             }
         }
 
-        for(let i=0;i<this.CustomerORR?.length;i++){
-           if (!this.CustomerORR[i]?.CustAgeORR) {
-                var Message = 'Please Enter default days against CNIC '+ this.CustomerORR[i].Cnic;
+        for (let i = 0; i < this.CustomerORR?.length; i++) {
+            if (!this.CustomerORR[i]?.CustAgeORR) {
+                var Message = 'Please Enter default days against CNIC ' + this.CustomerORR[i].Cnic;
                 this.layoutUtilsService.alertElement(
                     '',
                     Message,
@@ -198,9 +198,9 @@ export class SaveOrrComponent implements OnInit {
             }
         }
 
-        for(let i=0;i<this.CustomerORR?.length;i++){
+        for (let i = 0; i < this.CustomerORR?.length; i++) {
             if (!this.CustomerORR[i]?.Experience) {
-                var Message = 'Please Enter Experience against CNIC '+ this.CustomerORR[i].Cnic;
+                var Message = 'Please Enter Experience against CNIC ' + this.CustomerORR[i].Cnic;
                 this.layoutUtilsService.alertElement(
                     '',
                     Message,
@@ -210,9 +210,9 @@ export class SaveOrrComponent implements OnInit {
             }
         }
 
-        for(let i=0;i<this.CustomerORR?.length;i++){
+        for (let i = 0; i < this.CustomerORR?.length; i++) {
             if (!this.CustomerORR[i]?.MarketReputationORRID) {
-                var Message = 'Please select Market Reputation against CNIC'+ this.CustomerORR[i].Cnic;
+                var Message = 'Please select Market Reputation against CNIC' + this.CustomerORR[i].Cnic;
                 this.layoutUtilsService.alertElement(
                     '',
                     Message,
@@ -222,8 +222,8 @@ export class SaveOrrComponent implements OnInit {
             }
         }
 
-        for(let i=0;i<this.GlProposalORR?.length;i++){
-            if (this.GlProposalORR[i]?.AmountRecommended==0) {
+        for (let i = 0; i < this.GlProposalORR?.length; i++) {
+            if (this.GlProposalORR[i]?.AmountRecommended == 0) {
                 var Message = 'Please Enter recommended amount';
                 this.layoutUtilsService.alertElement(
                     '',
@@ -235,18 +235,17 @@ export class SaveOrrComponent implements OnInit {
         }
 
 
-
-
-        if(this.showFinalOrrTable===true){
+        if (this.showFinalOrrTable === true) {
             this.Submit();
-        }else{
+        } else {
             this.Save();
 
         }
     }
-    Submit(){
 
-        if (this.Orrapplied===false) {
+    Submit() {
+
+        if (this.Orrapplied === false) {
             var Message = 'Please check ORR Applied before submitting';
             this.layoutUtilsService.alertElement(
                 '',
@@ -280,6 +279,11 @@ export class SaveOrrComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
+                    this.router.navigate(
+                        ['../calculte-dbr',
+                            { LnTransactionID: this.LnTransactionID, Lcno: this.Lcno }],
+                        { relativeTo: this.activatedRoute }
+                    );
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
@@ -288,7 +292,7 @@ export class SaveOrrComponent implements OnInit {
             });
     }
 
-    Save(){
+    Save() {
 
         this.hasFormErrors = false;
         if (this.ORRForm.invalid) {
@@ -315,8 +319,8 @@ export class SaveOrrComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-debugger
-                    this.submitArray=baseResponse.Loan.ORR["OrrSubmitList"];
+                    debugger
+                    this.submitArray = baseResponse.Loan.ORR["OrrSubmitList"];
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
@@ -327,7 +331,7 @@ debugger
 
     togglePage() {
 
-        this.Orrapplied=false;
+        this.Orrapplied = false;
         this.showFinalOrrTable = !this.showFinalOrrTable;
     }
 }

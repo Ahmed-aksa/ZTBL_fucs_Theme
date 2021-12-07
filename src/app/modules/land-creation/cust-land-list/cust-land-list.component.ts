@@ -316,7 +316,7 @@ export class CustLandListComponent implements OnInit {
             this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
         else
             this.final_zone = this.SelectedZones;
-        
+
     }
 
     SearchLandData() {
@@ -337,7 +337,7 @@ export class CustLandListComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    
+
                     this.loading = false;
 
                     this.dataSource.data = baseResponse.searchLandData;
@@ -465,8 +465,8 @@ export class CustLandListComponent implements OnInit {
     editland(Land: any) {
 
         //if (this.isUserAdmin) {
-        //  
-        //  
+        //
+        //
         //}
 
         Land.Branch = this.Branches.filter(x => x.BranchId == Land.BranchId);

@@ -1,15 +1,17 @@
-<div class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div  *ngIf="isAdd" class="heading mt-3">Create Tour Plan</div>
-    <div  *ngIf="isUpdate" class="heading mt-3">Update Tour Plan</div>
+<div
+    class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div *ngIf="isAdd" class="heading mt-3">Create Tour Plan</div>
+    <div *ngIf="isUpdate" class="heading mt-3">Update Tour Plan</div>
     <!-- Header -->
-    <div  [formGroup]="TourForm" class="mt-3">
+    <div [formGroup]="TourForm" class="mt-3">
 
         <div class="row">
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Zone Name</mat-label>
-                        <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="ZoneName"  appNumberOnly autocomplete="off" readonly="readonly"/>
+                        <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="ZoneName"
+                               appNumberOnly autocomplete="off" readonly="readonly"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -17,7 +19,8 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Branch Name</mat-label>
-                        <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="BranchName"  appNumberOnly autocomplete="off" readonly="readonly"/>
+                        <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="BranchName"
+                               appNumberOnly autocomplete="off" readonly="readonly"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -25,7 +28,8 @@
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">MCO's Name</mat-label>
-                        <input matInput placeholder="Enter Vendor Address" formControlName="McoName" autocomplete="off" readonly="readonly"/>
+                        <input matInput placeholder="Enter Vendor Address" formControlName="McoName" autocomplete="off"
+                               readonly="readonly"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -34,7 +38,8 @@
 
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">P.P.NO</mat-label>
-                        <input matInput placeholder="Enter Vendor Address" formControlName="PPNO" autocomplete="off" readonly="readonly"/>
+                        <input matInput placeholder="Enter Vendor Address" formControlName="PPNO" autocomplete="off"
+                               readonly="readonly"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -42,14 +47,12 @@
         </div>
 
 
-
-
         <div class="row">
             <div class="col-lg-3 col-sm-12" *ngIf="circle?.length>0">
-                <div  class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label>Circle No</mat-label>
-                        <mat-select  [disabled]='isView' formControlName="CircleId">
+                        <mat-select [disabled]='isView' formControlName="CircleId">
                             <mat-option>
                                 Select
                             </mat-option>
@@ -58,67 +61,65 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    </div>
+                </div>
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong></mat-label>
-                        <input disabled matInput [matDatepicker]="picker" formControlName="VisitedDate"  autocomplete="off" (dateChange)="setVisitedDate()" [min]="minDate"  />
+                        <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong
+                            class="matMandatory">*</strong></mat-label>
+                        <input disabled matInput [matDatepicker]="picker" formControlName="VisitedDate"
+                               autocomplete="off" (dateChange)="setVisitedDate()" [min]="minDate"/>
 
                         <mat-datepicker-toggle [disabled]='isView' matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker [disabled]='isView' #picker></mat-datepicker>
                     </mat-form-field>
-                    </div>
+                </div>
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Purpose<strong class="matMandatory">*</strong></mat-label>
-                        <input [readonly]='isView' matInput placeholder="Enter Tour Purpose" formControlName="Purpose" autocomplete="off"/>
+                        <input [readonly]='isView' matInput placeholder="Enter Tour Purpose" formControlName="Purpose"
+                               autocomplete="off"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-12">
 
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                <mat-label class="customMatLabel">Remarks</mat-label>
-                <input matInput [readonly]='readonly' appAlphaNumericField placeholder="Enter Remarks" formControlName="Remarks" autocomplete="off"/>
-            </mat-form-field>
-        </div>
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-label class="customMatLabel">Remarks</mat-label>
+                        <input matInput [readonly]='readonly' appAlphaNumericField placeholder="Enter Remarks"
+                               formControlName="Remarks" autocomplete="off"/>
+                    </mat-form-field>
+                </div>
             </div>
 
         </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-<!--        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">-->
-<!--        -->
-<!--        </div>-->
+        <!--        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">-->
+        <!--        -->
+        <!--        </div>-->
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-            <button  mat-raised-button color="primary" *ngIf="isAdd" (click)="Add()"><mat-icon class="mr-2">add_circle</mat-icon>Add</button>
-            <button  mat-raised-button color="primary" *ngIf="isUpdate" (click)="Update()">Update</button>
-            <button *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('A')">Authorize</button>
-            <button  *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('R')">Reffer Back</button>
-            <button  *ngIf="flag=='1'" mat-raised-button color="primary" (click)="ChanageTourStatus('S')">Submit</button>
-            <button  *ngIf="flag=='1'" mat-raised-button color="primary" (click)="ChanageTourStatus('C')">Cancel</button>
+            <button mat-raised-button color="primary" *ngIf="isAdd" (click)="Add()">
+                <mat-icon class="mr-2">add_circle</mat-icon>
+                Add
+            </button>
+            <button mat-raised-button color="primary" *ngIf="isUpdate" (click)="Update()">Update</button>
+            <button *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('A')">Authorize
+            </button>
+            <button *ngIf="isApproval" mat-raised-button color="primary" (click)="ChanageTourStatus('R')">Reffer Back
+            </button>
+            <button *ngIf="flag=='1'" mat-raised-button color="primary" (click)="ChanageTourStatus('S')">Submit</button>
+            <button *ngIf="flag=='1'" mat-raised-button color="primary" (click)="ChanageTourStatus('C')">Cancel</button>
         </div>
 
     </div>
     <div class="flex flex-auto mt-10" style="flex-direction: column;overflow-y: scroll">
-        <div  *ngIf="dataSource.length>0 && isTable" class="example-table-container">
+        <div *ngIf="dataSource.length>0 && isTable" class="example-table-container">
             <!--[style.height]="gridHeight"-->
             <mat-table class="lmat-elevation-z8"
                        #table
@@ -158,17 +159,21 @@
                         <!--              *ngIf="CheckDeleteStatus(list)"-->
                         <button mat-icon-button color="primary"
                                 (click)="deleteList(list)">
-                            <mat-icon title="Delete Tour Plan">delete </mat-icon>
+                            <mat-icon title="Delete Tour Plan">delete</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>
-                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background"></mat-header-row>
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
 
         </div>
         <div class="flex flex-shrink-0 items-center py-4 " *ngIf="dataSource.length>0">
-            <button mat-raised-button color="primary" (click)="Submit()"><mat-icon class="mr-2">check_circle</mat-icon> Submit All</button>
+            <button mat-raised-button color="primary" (click)="Submit()">
+                <mat-icon class="mr-2">check_circle</mat-icon>
+                Submit All
+            </button>
         </div>
 
     </div>

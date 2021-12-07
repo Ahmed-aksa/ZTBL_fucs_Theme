@@ -127,7 +127,7 @@ export class LandService {
 
 
     getCustomerAllLandInfo(landInfo: LandInfo, branch, zone): Observable<BaseResponseModel> {
-        
+
 
         var request = new BaseRequestModel();
 
@@ -332,7 +332,7 @@ export class LandService {
         };
 
         var v = JSON.stringify(request);
-        
+
 
         return this.http.post(`${environment.apiUrl}/Land/PassbookCorrection`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(

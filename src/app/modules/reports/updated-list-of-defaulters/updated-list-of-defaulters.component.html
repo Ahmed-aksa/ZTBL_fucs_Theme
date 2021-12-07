@@ -18,8 +18,7 @@
                 <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
                         color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                         aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
-                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                    <mat-icon class="mr-2" id="arrow">keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
             </p>
@@ -62,7 +61,7 @@
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
         </div> -->
 
-        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " >
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">
             <!--[style.height]="gridHeight"-->
             <mat-table
                 class="lmat-elevation-z8 overflow-scroll"
@@ -178,7 +177,7 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container  matColumnDef="Agps">
+                <ng-container matColumnDef="Agps">
                     <mat-header-cell *matHeaderCellDef
                     >Major Borrower
                     </mat-header-cell

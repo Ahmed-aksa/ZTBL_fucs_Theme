@@ -96,7 +96,6 @@ export class ORR {
 }
 
 
-
 export class LoanApplicationHeader {
     ZoneId: number;
     BranchID: number;

@@ -22,7 +22,7 @@ export class DynamicFlatNode {
  * Database for dynamic data. When expanding a node in the tree, the data source will need to fetch
  * the descendants data from the database.
  */
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: "root"})
 export class DynamicDatabase {
     /** Initial data from database */
     initialData(): DynamicFlatNode[] {
@@ -31,9 +31,13 @@ export class DynamicDatabase {
             (name) => new DynamicFlatNode(name, 0, true)
         );
     }
+
     //this.jv.getChildNodesWithCode()
     rootLevelNodes: string[] = ["ZTBL"];
-    constructor(public _journalVoucherService: JournalVoucherService) {}
+
+    constructor(public _journalVoucherService: JournalVoucherService) {
+    }
+
     dataMap = new Map<string, string[]>([]);
 
     async getChildren(node: string, id: string) {
@@ -67,7 +71,7 @@ export class DynamicDatabase {
         return baseResponse;
         // var myTreeElements =[];
         // if (baseResponse.Success === true) {
-        //   
+        //
         //   baseResponse.JournalVoucher.ChildNodesList.forEach(element => {
         //
         //     myTreeElements.push(element.Description +'-'+element.OrgUnitID);
@@ -92,7 +96,7 @@ export class DynamicDatabase {
         //
         //   var myTreeElements =[];
         //   if (baseResponse.Success === true) {
-        //     
+        //
         //     baseResponse.JournalVoucher.ChildNodesList.forEach(element => {
         //
         //       myTreeElements.push(element.Description +'-'+element.OrgUnitID);
@@ -108,7 +112,7 @@ export class DynamicDatabase {
         // },
         //   (error) => {
         //
-        //     
+        //
         //   });
         // return this.dataMap.get(node);
     }
@@ -118,6 +122,7 @@ export class DynamicDatabase {
         //return this.dataMap.has(node);
     }
 }
+
 /**
  * File database, it can build a tree structured Json object from string.
  * Each node in Json object represents a file or a directory. For a file, it has filename and type.
@@ -125,13 +130,14 @@ export class DynamicDatabase {
  * The input will be a json object string, and the output is a list of `FileNode` with nested
  * structure.
  */
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: "root"})
 export class DynamicDataSource {
     dataChange = new BehaviorSubject<DynamicFlatNode[]>([]);
 
     get data(): DynamicFlatNode[] {
         return this.dataChange.value;
     }
+
     set data(value: DynamicFlatNode[]) {
         this._treeControl.dataNodes = value;
         this.dataChange.next(value);
@@ -140,7 +146,8 @@ export class DynamicDataSource {
     constructor(
         private _treeControl: FlatTreeControl<DynamicFlatNode>,
         private _database: DynamicDatabase
-    ) {}
+    ) {
+    }
 
     connect(collectionViewer: CollectionViewer): Observable<DynamicFlatNode[]> {
         this._treeControl.expansionModel.changed.subscribe((change) => {
@@ -203,7 +210,8 @@ export class DynamicDataSource {
                     let i = index + 1;
                     i < this.data.length && this.data[i].level > node.level;
                     i++, count++
-                ) {}
+                ) {
+                }
                 this.data.splice(index + 1, count);
             }
 

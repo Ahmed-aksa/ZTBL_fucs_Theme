@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { LandInfo } from 'app/shared/models/land_info.model';
-import { UploadDocuments } from '../models/upload_documents.model';
+import {LandInfo} from 'app/shared/models/land_info.model';
+import {UploadDocuments} from '../models/upload_documents.model';
 import {NgxSpinnerService} from "ngx-spinner";
 import {Store} from "@ngrx/store";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
@@ -13,9 +13,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 
 @Component({
-  selector: 'app-large-files-upload',
-  templateUrl: './large-files-upload.component.html',
-  styleUrls: ['./large-files-upload.component.scss']
+    selector: 'app-large-files-upload',
+    templateUrl: './large-files-upload.component.html',
+    styleUrls: ['./large-files-upload.component.scss']
 })
 export class LargeFilesUploadComponent implements OnInit {
 
@@ -51,7 +51,6 @@ export class LargeFilesUploadComponent implements OnInit {
     });
 
 
-
     constructor(
         public dialogRef: MatDialogRef<LargeFilesUploadComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -61,10 +60,10 @@ export class LargeFilesUploadComponent implements OnInit {
         private _landService: LandService,
         private userUtilsService: UserUtilsService,
         private spinner: NgxSpinnerService,
-        private cdRef: ChangeDetectorRef) { }
+        private cdRef: ChangeDetectorRef) {
+    }
 
     newDynamic: any = {};
-
 
 
     ngOnInit() {
@@ -101,14 +100,11 @@ export class LargeFilesUploadComponent implements OnInit {
                         if (this.landInfoDatalist[i].Path.includes("image/jpeg")) {
                             this.uploadDocuments.Path = this.landInfoDatalist[i].Path;
                         }
-                    }
-                    else {
+                    } else {
                         if (this.landInfoDatalist[i].Path.includes("jpg")) {
                             this.uploadDocuments.Path = this.landInfoDatalist[i].Path;
                         }
                     }
-
-
 
 
                 }
@@ -120,14 +116,11 @@ export class LargeFilesUploadComponent implements OnInit {
                         if (this.landInfoDatalist[i].Path.includes("video/mp4")) {
                             this.uploadDocuments.VideoPath = this.landInfoDatalist[i].Path;
                         }
-                    }
-                    else {
+                    } else {
                         if (this.landInfoDatalist[i].Path.includes("mp4")) {
                             this.uploadDocuments.VideoPath = this.landInfoDatalist[i].Path;
                         }
                     }
-
-
 
 
                 }
@@ -157,7 +150,6 @@ export class LargeFilesUploadComponent implements OnInit {
         }
 
 
-
         this._landService.getPosition().then(pos => {
             this.Lat = pos.lat;
             this.Lng = pos.lng;
@@ -183,8 +175,7 @@ export class LargeFilesUploadComponent implements OnInit {
 
                         if (Name.toLowerCase() == "mp4") {
                             this.uploadDocumentsFinal.videofile = file;
-                        }
-                        else {
+                        } else {
                             this.uploadDocumentsFinal.file = file;
                         }
 
@@ -205,8 +196,7 @@ export class LargeFilesUploadComponent implements OnInit {
                             if (Name.toLowerCase() == "mp4") {
                                 this.uploadDocuments.VideoPath = event.target.result;
                                 this.uploadDocuments.videofile = file;
-                            }
-                            else {
+                            } else {
 
                                 this.uploadDocuments.Path = event.target.result;
                                 this.uploadDocuments.file = file;
@@ -219,8 +209,7 @@ export class LargeFilesUploadComponent implements OnInit {
                             });
                         }
                         reader.readAsDataURL(event.target.files[i]);
-                    }
-                    else {
+                    } else {
                         this.layoutUtilsService.alertElement("", "Only jpeg,jpg,mp4, files are allowed", "99");
 
                         return;
@@ -242,8 +231,7 @@ export class LargeFilesUploadComponent implements OnInit {
                 if (url.includes("video/mp4")) {
                     this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.VideoPath == url)[0];
                 }
-            }
-            else {
+            } else {
                 if (url.includes("jpeg") || url.includes("jpg")) {
                     this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.Path == url)[0];
                 }
@@ -252,8 +240,6 @@ export class LargeFilesUploadComponent implements OnInit {
                     this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.VideoPath == url)[0];
                 }
             }
-
-
 
 
             if (this.uploadDocuments.Path !== undefined && this.uploadDocuments.Path !== '') {
@@ -265,15 +251,13 @@ export class LargeFilesUploadComponent implements OnInit {
                     this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
                     this.uploadDocumentsDataFinal.splice(i, 1);
                     return
-                }
-                else {
+                } else {
 
                     this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
                     this.uploadDocumentsDataFinal.splice(i, 1);
                     return
                 }
-            }
-            else if (this.uploadDocuments.VideoPath !== undefined && this.uploadDocuments.VideoPath !== '') {
+            } else if (this.uploadDocuments.VideoPath !== undefined && this.uploadDocuments.VideoPath !== '') {
                 if (this.uploadDocuments.VideoPath.indexOf("http") !== -1) {
 
 
@@ -281,15 +265,13 @@ export class LargeFilesUploadComponent implements OnInit {
                     this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.VideoPath !== url);
                     this.uploadDocumentsDataFinal.splice(i, 1);
                     return
-                }
-                else {
+                } else {
 
                     this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.VideoPath !== url);
                     this.uploadDocumentsDataFinal.splice(i, 1);
                     return
                 }
-            }
-            else {
+            } else {
 
 
                 this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
@@ -297,16 +279,14 @@ export class LargeFilesUploadComponent implements OnInit {
 
                 return
             }
-        }
-        else if (Id != undefined || Id != null) {
+        } else if (Id != undefined || Id != null) {
 
             this.uploadDocuments = this.uploadDocumentsData.filter((I) => I.ImageID == Id)[0];
             this.DeleteLandData();
             this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.ImageID !== Id);
             this.uploadDocumentsDataFinal.splice(i, 1);
             return
-        }
-        else {
+        } else {
 
             this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
             this.uploadDocumentsDataFinal.splice(i, 1);
@@ -318,7 +298,6 @@ export class LargeFilesUploadComponent implements OnInit {
     UploadDocuments() {
 
 
-        
         this.errorMessage = "";
 
         for (var i = 0; i < this.uploadDocumentsData.length; i++) {
@@ -373,7 +352,6 @@ export class LargeFilesUploadComponent implements OnInit {
     // Documents Upload
 
 
-
     file: any;
     filesLength: any;
     imageUrl: any;
@@ -395,8 +373,7 @@ export class LargeFilesUploadComponent implements OnInit {
                 if (baseResponse.Success) {
 
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                }
-                else {
+                } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
 
                 }
@@ -428,7 +405,6 @@ export class LargeFilesUploadComponent implements OnInit {
         }
 
 
-
         this.spinner.show();
 
         this._landService.landDocumentsUpload(this.ImageData, this.VideoData, this.uploadDocuments)
@@ -441,8 +417,7 @@ export class LargeFilesUploadComponent implements OnInit {
 
                 if (baseResponse.Success) {
 
-                }
-                else {
+                } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
 
                 }
@@ -455,16 +430,13 @@ export class LargeFilesUploadComponent implements OnInit {
         if (Url != null && Url != undefined && Url != "") {
             if (Url.includes("image/jpeg") || Url.includes("jpg")) {
                 return true;
-            }
-            else if (Url.includes("video/mp4") || Url.includes("mp4")) {
+            } else if (Url.includes("video/mp4") || Url.includes("mp4")) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
 
-        }
-        else {
+        } else {
             return
         }
     }
@@ -472,7 +444,7 @@ export class LargeFilesUploadComponent implements OnInit {
 
     onCloseClick(): void {
 
-        this.dialogRef.close({ data: { uploadDocumentsData: this.uploadDocumentsData } }); // Keep only this row
+        this.dialogRef.close({data: {uploadDocumentsData: this.uploadDocumentsData}}); // Keep only this row
     }
 
 }

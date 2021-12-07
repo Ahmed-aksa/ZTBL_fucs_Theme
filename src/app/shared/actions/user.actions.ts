@@ -1,9 +1,9 @@
 // NGRX
-import { Action } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
+import {Action} from '@ngrx/store';
+import {Update} from '@ngrx/entity';
 
-import { QueryParamsModel } from '../models/query_params.model';
-import { User } from '../models/user.model';
+import {QueryParamsModel} from '../models/query_params.model';
+import {User} from '../models/user.model';
 
 
 export enum UserActionTypes {
@@ -22,36 +22,48 @@ export enum UserActionTypes {
 
 export class UserOnServerCreated implements Action {
     readonly type = UserActionTypes.UserOnServerCreated;
-    constructor(public payload: { user: User }) { }
+
+    constructor(public payload: { user: User }) {
+    }
 }
 
 export class UserCreated implements Action {
     readonly type = UserActionTypes.UserCreated;
-    constructor(public payload: { user: User }) { }
+
+    constructor(public payload: { user: User }) {
+    }
 }
 
 
 export class UserUpdated implements Action {
     readonly type = UserActionTypes.UserUpdated;
+
     constructor(public payload: {
         partialUser: Update<User>,
         user: User
-    }) { }
+    }) {
+    }
 }
 
 export class UserDeleted implements Action {
     readonly type = UserActionTypes.UserDeleted;
-    constructor(public payload: { id: number }) {}
+
+    constructor(public payload: { id: number }) {
+    }
 }
 
 export class UsersPageRequested implements Action {
     readonly type = UserActionTypes.UsersPageRequested;
-    constructor(public payload: { page: QueryParamsModel }) { }
+
+    constructor(public payload: { page: QueryParamsModel }) {
+    }
 }
 
 export class UsersPageLoaded implements Action {
     readonly type = UserActionTypes.UsersPageLoaded;
-    constructor(public payload: { users: User[], totalCount: number, page: QueryParamsModel  }) { }
+
+    constructor(public payload: { users: User[], totalCount: number, page: QueryParamsModel }) {
+    }
 }
 
 
@@ -61,20 +73,24 @@ export class UsersPageCancelled implements Action {
 
 export class UsersPageToggleLoading implements Action {
     readonly type = UserActionTypes.UsersPageToggleLoading;
-    constructor(public payload: { isLoading: boolean }) { }
+
+    constructor(public payload: { isLoading: boolean }) {
+    }
 }
 
 export class UsersActionToggleLoading implements Action {
     readonly type = UserActionTypes.UsersActionToggleLoading;
-    constructor(public payload: { isLoading: boolean }) { }
+
+    constructor(public payload: { isLoading: boolean }) {
+    }
 }
 
 export type UserActions = UserCreated
-| UserUpdated
-| UserDeleted
-| UserOnServerCreated
-| UsersPageLoaded
-| UsersPageCancelled
-| UsersPageToggleLoading
-| UsersPageRequested
-| UsersActionToggleLoading;
+    | UserUpdated
+    | UserDeleted
+    | UserOnServerCreated
+    | UsersPageLoaded
+    | UsersPageCancelled
+    | UsersPageToggleLoading
+    | UsersPageRequested
+    | UsersActionToggleLoading;

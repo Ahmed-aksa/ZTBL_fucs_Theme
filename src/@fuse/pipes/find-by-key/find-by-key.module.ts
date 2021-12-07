@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
-import { FuseFindByKeyPipe } from '@fuse/pipes/find-by-key/find-by-key.pipe';
+import {NgModule} from '@angular/core';
+import {FuseFindByKeyPipe} from '@fuse/pipes/find-by-key/find-by-key.pipe';
 
 @NgModule({
     declarations: [
         FuseFindByKeyPipe
     ],
-    exports     : [
+    exports: [
         FuseFindByKeyPipe
     ]
 })
-export class FuseFindByKeyPipeModule
-{
+export class FuseFindByKeyPipeModule {
 }

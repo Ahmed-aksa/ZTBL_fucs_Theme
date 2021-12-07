@@ -220,7 +220,12 @@
                         </div>
                         <div style="width: 240px; position: relative;">
                             <img [src]="url" (click)="previewImg(url)">
-                            <button *ngIf="viewonly" class=" mat-focus-indicator mat-flat-button mat-button-base mat-primary" style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;" mat-flat-button  (click)="viewMap(i,false)"><mat-icon>location_on</mat-icon></button>
+                            <button *ngIf="viewonly"
+                                    class=" mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                    style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;"
+                                    mat-flat-button (click)="viewMap(i,false)">
+                                <mat-icon>location_on</mat-icon>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -255,7 +260,8 @@
                                 <button mat-icon-button *ngIf="!viewonly" (click)="removeVideo(url,i)"
                                         class="close-button float-right absolute right-4 top bg-red-500">
                                     <!-- X -->
-                                    <mat-icon class="close-icon text-white w-12 h-12 text-white bg-danger">close</mat-icon>
+                                    <mat-icon class="close-icon text-white w-12 h-12 text-white bg-danger">close
+                                    </mat-icon>
                                 </button>
                             </div>
                         </div>
@@ -266,7 +272,12 @@
                         <video style="height: 240px;" height="240" controls [attr.src]="url"
                                (loadedmetadata)="getDuration($event,i)">
                         </video>
-                        <button *ngIf="viewonly" class=" mat-focus-indicator mat-flat-button mat-button-base mat-primary" style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;" mat-flat-button  (click)="viewMap(i,true)"><mat-icon >location_on</mat-icon></button>
+                        <button *ngIf="viewonly"
+                                class=" mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                style="position: absolute; top: 0px; right:0px; border-radius: 0% !important;"
+                                mat-flat-button (click)="viewMap(i,true)">
+                            <mat-icon>location_on</mat-icon>
+                        </button>
 
                     </div>
                 </div>
@@ -292,9 +303,15 @@
         <div class="row">
             <div class="col-lg-12 text-right">
                 <div class="float-right mr-4 mt-2 border-t py-6">
-                    <button class="ml-2 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" *ngIf="isSave" mat-raised-button  (click)="save()"><mat-icon class="mr-2">save</mat-icon>Save</button>
-                    <button class="ml-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">
-                        <mat-icon class="mr-2">check_circle</mat-icon>Submit
+                    <button class="ml-2 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                            *ngIf="isSave" mat-raised-button (click)="save()">
+                        <mat-icon class="mr-2">save</mat-icon>
+                        Save
+                    </button>
+                    <button class="ml-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                            *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">
+                        <mat-icon class="mr-2">check_circle</mat-icon>
+                        Submit
                     </button>
                     <button class="ml-2" *ngIf="isReffer" mat-raised-button color="primary" (click)="changeStatus('R')">
                         Reffer
@@ -304,8 +321,10 @@
                             (click)="changeStatus('A')">
                         Authorize
                     </button>
-                    <button *ngIf="isDelete" class="ml-2 bg-danger" mat-raised-button color="primary" (click)="changeStatus('C')">
-                        <mat-icon class="mr-2 ">delete_forever</mat-icon> Delete
+                    <button *ngIf="isDelete" class="ml-2 bg-danger" mat-raised-button color="primary"
+                            (click)="changeStatus('C')">
+                        <mat-icon class="mr-2 ">delete_forever</mat-icon>
+                        Delete
                     </button>
                 </div>
             </div>

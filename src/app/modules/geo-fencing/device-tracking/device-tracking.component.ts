@@ -5,15 +5,15 @@
 // import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 // import {finalize} from 'rxjs/operators';
 
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { finalize } from 'rxjs/operators';
-import { Circle } from 'app/shared/models/circle.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CircleService } from '../../../shared/services/circle.service';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { BaseResponseModel } from '../../../shared/models/base_response.model';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { GeoFencingService } from '../service/geo-fencing-service.service';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {finalize} from 'rxjs/operators';
+import {Circle} from 'app/shared/models/circle.model';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {CircleService} from '../../../shared/services/circle.service';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {BaseResponseModel} from '../../../shared/models/base_response.model';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {GeoFencingService} from '../service/geo-fencing-service.service';
 
 // declare const google: any;
 
@@ -60,7 +60,8 @@ export class DeviceTrackingComponent implements OnInit {
         private fb: FormBuilder,
         private spinner: NgxSpinnerService,
         public _geoFencingService: GeoFencingService
-    ) {}
+    ) {
+    }
 
     countryRestriction = {
         latLngBounds: {

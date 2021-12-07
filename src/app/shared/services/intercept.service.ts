@@ -1,5 +1,5 @@
 // Angular
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
     HttpEvent,
     HttpInterceptor,
@@ -8,8 +8,8 @@ import {
     HttpResponse,
 } from '@angular/common/http';
 // RxJS
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 /**
  * More information there => https://medium.com/@MetonymyQT/angular-http-interceptors-what-are-they-and-how-to-use-them-52e060321088

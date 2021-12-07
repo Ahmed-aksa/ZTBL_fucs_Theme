@@ -94,7 +94,7 @@ export class UserComponent implements OnInit, OnDestroy {
     }
 
     changePassword() {
-        let dialogRef = this.matDialogRef.open(ChangePasswordComponent,{
+        let dialogRef = this.matDialogRef.open(ChangePasswordComponent, {
             panelClass: ['w-4/12', 'max-w-full', 'max-h-full']
         });
     }

@@ -1,896 +1,951 @@
 <div id="Kt-portlet-margin-top">
-  <div class="kt-portlet">
-    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-      <div class="kt-portlet__head-label">
-        <h3 class="heading">>Loan Case Inquiry</h3>
-      </div>
-    </div>
-    <div>
-      <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
-        <div class="kt-form">
-          <div class="kt-portlet__body">
-            <div class="kt-portlet__body-progress">
-              <mat-spinner [diameter]="20"></mat-spinner>
+    <div class="kt-portlet">
+        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+            <div class="kt-portlet__head-label">
+                <h3 class="heading">>Loan Case Inquiry</h3>
             </div>
-            <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true">
-              Please enter valid Input
-            </kt-alert>
-
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="form-group kt-form__group row">
-
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                      <mat-label class="customMatLabel">Zone <strong class="matMandatory">*</strong></mat-label>
-                      <input matInput placeholder="Enter Zone" formControlName="Zone" readonly="readonly" maxlength="30" autocomplete="off" />
-                    </mat-form-field>
-                  </div>
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                      <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                      <input matInput placeholder="Enter Branch" formControlName="Branch" readonly="readonly" maxlength="30" autocomplete="off" />
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                      <mat-label class="customMatLabel">LA File/Booklet #</mat-label>
-                      <input matInput placeholder="Enter Transaction Id" formControlName="TransactionId" maxlength="30" autocomplete="off" />
-                      <mat-error *ngIf="hasError('TransactionId', 'required')">LA File/Booklet # <strong>required</strong></mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                      <mat-label class="customMatLabel">Loan Case #</mat-label>
-                      <input matInput placeholder="Enter Loan Case #" formControlName="LoanCaseNo" maxlength="30" autocomplete="off" />
-                      <mat-error *ngIf="hasError('LoanCaseNo', 'required')">Loan Case # <strong>required</strong></mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-lg-2 kt-margin-bottom-20-mobile">
-                    <button class="btn btn-secondary mt-19 kt-login__btn-primary btn-block" color="primary" type="button" (click)="find()"><span><i class="fa fa-search"> &nbsp;</i> Find</span></button>
-
-                  </div>
-
-
-
-                </div>
-
-
-              </div>
-            </div>
-
-            <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound && dataFound">
-
-              <div class="col-lg-12">
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr class="table-header-background">
-                        <th>Branch</th>
-                        <th>Circle #</th>
-                        <th>LC #</th>
-                        <th>LC Auto#</th>
-                        <th>LA File/Booklet#</th>
-                        <th>Application Date</th>
-                        <th>Status</th>
-                        <th>Status (Post Sanction)</th>
-                        <th>Dev Amount</th>
-                        <th>Prod Amount</th>
-                        <th>DEPOSIT ACC#</th>
-                        <th>Sanction Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let item of dynamicList.dtGetApplicationMain; let i = index;">
-                        <td>{{item.BRANCHNAME}}</td>
-                        <td>{{item.CIRCLE_CODE}}</td>
-                        <td>{{item.LOAN_CASE_NO}}</td>
-                        <td>{{item.LOAN_ACCOUNT_NO}}</td>
-                        <td>{{item.APP_NUMBER_MANUAL}}</td>
-                        <td>{{item.APP_DATE | date: 'dd-MM-yyyy'}}</td>
-                        <td>{{item.STATUS_NAME}}</td>
-                        <td>{{item.STAUS_NAME_PS}}</td>
-                        <td>{{item.DEV_AMOUNT}}</td>
-                        <td>{{item.PROD_AMOUNT}}</td>
-                        <td>{{item.ACCOUNT_NO}}</td>
-                        <td>{{item.SANCTION_DATE | date: 'dd-MM-yyyy'}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              </div>
-
-            <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound">
-              <div class="col-lg-12">
-                <mat-tab-group mat-align-tabs="start">
-                  <mat-tab label="Applicants">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.dtGetPurposeLoanApplication.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>CNIC</th>
-                            <th>NAME</th>
-                            <th>FATHER NAME</th>
-                            <th>DOB</th>
-                            <th>AGPS</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.dtGetCustomer;">
-                            <td>{{item.CNIC}}</td>
-                            <td>{{item.CUSTOMERNAME}}</td>
-                            <td>{{item.FATHERNAME}}</td>
-                            <td>{{item.DOB | date: 'dd-MM-yyyy'}}</td>
-                            <td>{{item.MAJOR_BORROWER}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.dtGetPurposeLoanApplication.length==0">Data not found.</h3>
-                  </mat-tab>
-                  <mat-tab label="Purpose">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.dtGetPurposeLoanApplication.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>GL Description</th>
-                            <th>Crop</th>
-                            <th>Capacity</th>
-                            <th>Qty</th>
-                            <th>Est Cost</th>
-                            <th>Equity</th>
-                            <th>Amount Required</th>
-                            <th>Prod/Dev Flag</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.dtGetPurposeLoanApplication;">
-                            <td>{{item.GL_DESCRIPTION}}</td>
-                            <td>{{item.CROP_NAME}}</td>
-                            <td>{{item.DEV_ITEM_NAME}}</td>
-                            <td>{{item.QUANTITY}}</td>
-                            <td>{{item.TOTAL_ESTIMATED_COST}}</td>
-                            <td>{{item.AMOUNT_IN_HAND}}</td>
-                            <td>{{item.AMOUNT_REQUIRED}}</td>
-                            <td>{{item.PROD_DEV}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.dtGetPurposeLoanApplication.length==0">Data not found.</h3>
-                  </mat-tab>
-                  <mat-tab label="Land Information">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetLandInformationByloanappId.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Passbook Number</th>
-                            <th>Category</th>
-                            <th>Area(Marla)</th>
-                            <th>Address</th>
-                            <th>Village</th>
-                            <th>Attached</th>
-                            <th>IS REDEEM</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetLandInformationByloanappId;">
-                            <td>{{item.PASSBOOK_NO}}</td>
-                            <td>{{item.LAND_TYPE_FLAG}}</td>
-                            <td>{{item.TOT_AREA}}</td>
-                            <td>{{item.OWN_AREA_ADDRESS}}</td>
-                            <td>{{item.VILLAGE_NAME}}</td>
-                            <td>{{item.ATTACHED_FLAG}}</td>
-                            <td>{{item.IS_REDEEM}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetLandInformationByloanappId.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="Loan Securities">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetSecurityLoanApplication.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Security Type</th>
-                            <th>Basis of Valuation</th>
-                            <th>Qty</th>
-                            <th>Unit Price</th>
-                            <th>Accepted Value</th>
-                            <th>Max Credit Limit</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetSecurityLoanApplication;">
-                            <td>{{item.COLLECTRAL_TYPE_DESC}}</td>
-                            <td>{{item.BASIS_OF_EVALUATION}}</td>
-                            <td>{{item.QUANTITY}}</td>
-                            <td>{{item.UNIT_PRICE}}</td>
-                            <td>{{item.PLUDGED_VALUE}}</td>
-                            <td>{{item.MAX_CREDIT_LIMIT}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetSecurityLoanApplication.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="Customer Legal Heirs">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetLegalheirsLoanApplication.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Customer Name</th>
-                            <th>Legal Heirs Name</th>
-                            <th>Legal Heirs CNIC</th>
-                            <th>Cell No</th>
-                            <th>DOB</th>
-                            <th>Relation</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetLegalheirsLoanApplication;">
-                            <td>{{item.CUSTOMERNAME}}</td>
-                            <td>{{item.LH_NAME}}</td>
-                            <td>{{item.LH_CNIC}}</td>
-                            <td>{{item.PHONECELL}}</td>
-                            <td>{{item.DOB | date: 'dd-MM-yyyy'}}</td>
-                            <td>{{item.DESCRIPTION}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetLegalheirsLoanApplication.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="Appraisal of Proposed Investment">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetPropsedInvestment.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Farm Income/Expenditure</th>
-                            <th>Future Value</th>
-                            <th>Present Value</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetPropsedInvestment;">
-                            <td>{{item.NAME}}</td>
-                            <td>{{item.FUTURE_VALUE}}</td>
-                            <td>{{item.PRESENT_VALUE}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetPropsedInvestment.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="Loan Documents">
-                    <div class="table-responsive">
-                      <table class="table table-striped table-bordered" *ngIf="dynamicList.GetDocumentLoanApplication.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Document</th>
-                            <th>Document Status</th>
-                            <th>Loan Type</th>
-                            <th>Loan Case No</th>
-                            <th>Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetDocumentLoanApplication;">
-                            <td>{{item.DOCNAME}}</td>
-                            <td>{{item.STATUSNAME}}</td>
-                            <td>{{item.LOANTYPE}}</td>
-                            <td>{{item.LOANCASENUMBER}}</td>
-                            <td class="cursor-pointer"><span class="cursor-pointer" (click)="getDocument('1',item.DOCID)">View</span></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetDocumentLoanApplication.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="References">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetLoanReferanceDetail.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>CNIC</th>
-                            <th>Phone</th>
-                            <th>NTN</th>
-                            <th>FAX</th>
-                            <th>Email</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetLoanReferanceDetail;">
-                            <td>{{item.REFERENCE_NAME}}</td>
-                            <td>{{item.REFERENCE_ADDRESS}}</td>
-                            <td>{{item.CNIC}}</td>
-                            <td>{{item.PHONE}}</td>
-                            <td>{{item.NTN}}</td>
-                            <td>{{item.FAX}}</td>
-                            <td>{{item.EMAIL}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      </div>
-                      <h3 *ngIf="dynamicList.GetLoanReferanceDetail.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="Witnesses">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetWitnessDetail.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>CNIC</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetWitnessDetail;">
-                            <td>{{item.WITNESS_NAME}}</td>
-                            <td>{{item.WITNESS_ADDRESS}}</td>
-                            <td>{{item.CNIC}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetWitnessDetail.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="CWR">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetCWR.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Name</th>
-                            <th>Loan APP#</th>
-                            <th>Date</th>
-                            <th>File Name</th>
-                            <th>File Size</th>
-                            <th>File No</th>
-                            <th>Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetCWR;">
-                            <td>{{item.CUSTOMERNAME}}</td>
-                            <td>{{item.LOAN_ACCOUNT_NO}}</td>
-                            <td>{{item.REQUEST_DATE | date: 'dd-MM-yyyy'}}</td>
-                            <td>{{item.FILE_NAME}}</td>
-                            <td>{{item.REQUEST_SIZE}}</td>
-                            <td>{{item.FILE_NO}}</td>
-                            <td><span class="cursor-pointer" (click)="getDocument('2',item.REQUEST_ID)">View</span></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetCWR.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="ORR">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetORR.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Name</th>
-                            <th>CNIC</th>
-                            <th>GL Description</th>
-                            <th>Manual ORR</th>
-                            <th>ORR</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetORR;">
-                            <td>{{item.CUSTOMERNAME}}</td>
-                            <td>{{item.CNIC}}</td>
-                            <td>{{item.GL}}</td>
-                            <td>{{item.MANUAL_ORR}}</td>
-                            <td>{{item.CALCULATED_ORR}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetORR.length==0">Data not found.</h3>
-                  </mat-tab>
-
-
-                  <mat-tab label="Sanction">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetSanctionList.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>GL Description</th>
-                            <th>Prod / Dev</th>
-                            <th>Amount Required</th>
-                            <th>Recommended</th>
-                            <th>(CAD)Max Limit</th>
-                            <th>Sanction Amount</th>
-                            <th>Disbursement</th>
-                            <th>Recovered Principal</th>
-                            <th>Recovered Markup</th>
-                            <th>Expiry Date</th>
-                            <th>IS ACTIVE</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetSanctionList;">
-                            <td>{{item.GL_DESCRIPTION}}</td>
-                            <td>{{item.PROD_DEV}}</td>
-                            <td>{{item.AMOUNT_REQUIRED}}</td>
-                            <td>{{item.AMOUNT_RECOMMEDNED}}</td>
-                            <td>{{item.CAD_LIMIT}}</td>
-                            <td>{{item.SANCTIONED_AMOUNT}}</td>
-                            <td>{{item.TOTAL_DISBURSEMENT}}</td>
-                            <td>{{item.RECOVERED_PRINCIPAL}}</td>
-                            <td>{{item.RECOVERED_MARKUP}}</td>
-                            <td>{{item.EXPIRY_DATE | date: 'dd-MM-yyyy'}}</td>
-                            <td>{{item.IS_ACTIVE}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetSanctionList.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="SAC Checklist">
-                    <div class="table-responsive">
-                      <table class="table table-striped table-bordered" *ngIf="dynamicList.GetSAC.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Code</th>
-                            <th>Description</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetSAC;">
-                            <td>{{item.CODE}}</td>
-                            <td>{{item.DESCRIPTION}}</td>
-                            <td style="min-width: 200px;">
-                              <input type="radio" name="{{item.CODE}}" id="1{{item.CODE}}" class="with-gap" [value]="0" [checked]="item.VAL==null || item.VAL=='Y'"> YES &nbsp;&nbsp;
-                              <input type="radio" name="{{item.CODE}}" id="2{{item.CODE}}" class="with-gap" [value]="1" [checked]="item.VAL=='N'"> NO &nbsp;&nbsp;
-                              <input type="radio" name="{{item.CODE}}" id="3{{item.CODE}}" class="with-gap" [value]="2" [checked]="item.VAL=='NA'"> N/A &nbsp;&nbsp;
-
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetSAC.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="DAC Checklist">
-                    <div class="table-responsive">
-                      <table class="table table-striped" *ngIf="dynamicList.GetDAC.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Code</th>
-                            <th>Description</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetDAC;">
-                            <td>{{item.CODE}}</td>
-                            <td>{{item.DESCRIPTION}}</td>
-                            <td style="min-width: 200px;">
-                              <input type="radio" name="{{item.CODE}}" id="1{{item.CODE}}" class="with-gap" [value]="0" [checked]="item.VAL==null || item.VAL=='Y'"> YES &nbsp;&nbsp;
-                              <input type="radio" name="{{item.CODE}}" id="2{{item.CODE}}" class="with-gap" [value]="1" [checked]="item.VAL=='N'"> NO &nbsp;&nbsp;
-                              <input type="radio" name="{{item.CODE}}" id="3{{item.CODE}}" class="with-gap" [value]="2" [checked]="item.VAL=='NA'"> N/A &nbsp;&nbsp;
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                      <h3 *ngIf="dynamicList.GetDAC.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="Declarations">
-                    <div class="table-responsive">
-                      <table class="table table-striped " *ngIf="dynamicList.GetDeclarations.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Declaration</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetDeclarations;">
-                            <td>{{item.TEXT}}</td>
-                            <td>{{item.ENTRY_DATE | date: 'dd-MM-yyyy h:mm a'}}</td>
-                            <td>{{item.STATUS_NAME}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      </div>
-                      <h3 *ngIf="dynamicList.GetDeclarations.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="Work Flow">
-                    <div class="table-responsive">
-                      <table class="table table-striped " *ngIf="dynamicList.GetWorkFlow.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>User Id</th>
-                            <th>Remarks</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetWorkFlow;">
-                            <td>{{item.USER_ID}}</td>
-                            <td>{{item.COMMENTS}}</td>
-                            <td>{{item.STATUS_NAME}}</td>
-                            <td>{{item.COMMENT_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      </div>
-                      <h3 *ngIf="dynamicList.GetWorkFlow.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="Rollover Activity">
-                    <div class="table-responsive">
-                      <table class="table table-striped " *ngIf="dynamicList.GetRolloverActivity.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>GL</th>
-                            <th>seq_no</th>
-                            <th>mgr_pp_no</th>
-                            <th>mgr_remarks</th>
-                            <th>mg_process_date</th>
-                            <th>lsu_pp_no</th>
-                            <th>lsu_rmarks</th>
-                            <th>lsu_prcoess_date</th>
-                            <th>lsu2_pp_no</th>
-                            <th>lsu2_remarks</th>
-                            <th>final_status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetRolloverActivity;">
-                            <td>{{item.GLSUBCODE}}</td>
-                            <td>{{item.SEQ_NO}}</td>
-                            <td>{{item.MGR_PP_NO}}</td>
-                            <td>{{item.MGR_REMARKS}}</td>
-                            <td>{{item.MGR_PROCESS_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
-                            <td>{{item.LSU1_PP_NO}}</td>
-                            <td>{{item.LSU1_REMARKS}}</td>
-                            <td>{{item.LSU1_PROCESS_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
-                            <td>{{item.LSU2_PP_NO}}</td>
-                            <td>{{item.LSU2_REMARKS}}</td>
-                            <td>{{item.FINAL_STATUS}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      </div>
-                      <h3 *ngIf="dynamicList.GetRolloverActivity.length==0">Data not found.</h3>
-                  </mat-tab>
-
-                  <mat-tab label="Reschedule Activity">
-                    <div class="table-responsive">
-                      <table class="table table-striped " *ngIf="dynamicList.GetRescheduleActivity.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>GL</th>
-                            <th>seq_no</th>
-                            <th>mgr_pp_no</th>
-                            <th>mgr_remarks</th>
-                            <th>mg_process_date</th>
-                            <th>lsu_pp_no</th>
-                            <th>lsu_rmarks</th>
-                            <th>lsu_prcoess_date</th>
-                            <th>lsu2_pp_no</th>
-                            <th>lsu2_remarks</th>
-                            <th>final_status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of dynamicList.GetRescheduleActivity;">
-                            <td>{{item.GLSUBCODE}}</td>
-                            <td>{{item.SEQ_NO}}</td>
-                            <td>{{item.MGR_PP_NO}}</td>
-                            <td>{{item.MGR_REMARKS}}</td>
-                            <td>{{item.MGR_PROCESS_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
-                            <td>{{item.LSU1_PP_NO}}</td>
-                            <td>{{item.LSU1_REMARKS}}</td>
-                            <td>{{item.LSU1_PROCESS_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
-                            <td>{{item.LSU2_PP_NO}}</td>
-                            <td>{{item.LSU2_REMARKS}}</td>
-                            <td>{{item.FINAL_STATUS}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <h3 *ngIf="dynamicList.GetRescheduleActivity.length==0">Data not found.</h3>
-                  </mat-tab>
-                </mat-tab-group>
-              </div>
-            </div>
-
-            <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound">
-
-              <div class="col-lg-12">
-                <h3>Disbursements / Recoveries</h3>
-                <div class="table-responsive">
-                  <table class="table table-striped" *ngIf="dynamicList.GetDisbursementsRecoveries.length>0">
-                    <thead>
-                      <tr class="table-header-background">
-                        <th>GL</th>
-                        <th>SCM</th>
-                        <th>CRP</th>
-                        <th>Rate</th>
-                        <th>Disb Date	</th>
-                        <th>Disb (AMT)</th>
-                        <th>Pricipal(REC)</th>
-                        <th>TOT Markup</th>
-                        <th>Markup(REC)</th>
-                        <th>Other Charges</th>
-                        <th>Legal Charges</th>
-                        <th>SAM Cost of Fund (OS)</th>
-                        <th>SAM Cost of Fund (Rec)</th>
-                        <th>Balance</th>
-                        <th>W.Off</th>
-                        <th>REMIS</th>
-                        <th>Disb Status</th>
-                        <th>Tag Date</th>
-                        <th>Due Date</th>
-                        <th>Date	Last Recy On</th>
-                        <th>T.Accrued</th>
-                        <th>Add MR</th>
-                        <th>Active</th>
-                        <th>Stop MRK?</th>
-                        <th>Close On</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let item of dynamicList.GetDisbursementsRecoveries; let i = index;">
-                        <td>{{item.GL_DESCRIPTION}}</td>
-                        <td>{{item.SCHEME_CODE}}</td>
-                        <td>{{item.CROP_CODE}}</td>
-                        <td>{{item.INT_RATE}}</td>
-                        <td>{{item.DISB_DATE | date: 'dd-MM-yyyy'}}</td>
-                        <td>{{item.DISBURSED_AMOUNT}}</td>
-                        <td>{{item.RECOVERED_PRINCIPAL}}</td>
-                        <td>{{item.TODATE_MARKUP}}</td>
-                        <td>{{item.RECOVERED_MARKUP}}</td>
-                        <td>{{item.OTHER_RECEIVEABLE}}</td>
-                        <td>{{item.LEGAL_CHARGES_RECIVEABLE}}</td>
-                        <td>{{item.SAM_COST_OF_FUND}}</td>
-                        <td>{{item.SAM_COST_OF_FUND_REC}}</td>
-                        <td>{{item.BALANCE}}</td>
-                        <td>{{item.PROG_WRTOFF}}</td>
-                        <td>{{item.PROG_REMISSION}}</td>
-                        <td>{{item.DISB_STATUS_NAME}}</td>
-                        <td>{{item.NEXT_DUE_DATE | date: 'dd-MM-yyyy'}}</td>
-                        <td>{{item.NEW_NEXT_DUE_DATE | date: 'dd-MM-yyyy'}}</td>
-                        <td>{{item.LAST_RECOVERY_DATE | date: 'dd-MM-yyyy'}}</td>
-                        <td>{{item.TODATE_ACCRUAL}}</td>
-                        <td>{{item.PROG_ADDTIONAL_MARKUP}}</td>
-                        <td>{{item.IS_ACTIVE}}</td>
-                        <td>{{item.MARKUP_STOP_FLAG}}</td>
-                        <td>{{item.VALID_UNTIL | date: 'dd-MM-yyyy'}}</td>
-                        <td id="llcInquiryText" (click)="getDisbursments(item.LOAN_DISB_ID)">Details</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                  <h3 *ngIf="dynamicList.GetDisbursementsRecoveries.length==0">Data not found.</h3>
-                </div>
-
-                <div class="col-lg-12" *ngIf="recoveryDataFetched">
-                  <mat-tab-group mat-align-tabs="start">
-                    <mat-tab label="Installments Detail">
-                      <div class="table-responsive">
-                        <table class="table table-striped" *ngIf="recoveryList.GetLoanInstallments.length>0">
-                          <thead>
-                            <tr class="table-header-background">
-                              <th>Seq#</th>
-                              <th>I-Rate</th>
-                              <th>Due Date</th>
-                              <th>Grace Days</th>
-                              <th>Inst Principal</th>
-                              <th>Inst Markup</th>
-                              <th>Total Amount</th>
-                              <th>Principal Recovered</th>
-                              <th>Markup Recovered</th>
-                              <th>Total Recovery</th>
-                              <th>Remaining Principal</th>
-                              <th>Adjusted Inst Amount</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let item of recoveryList.GetLoanInstallments; let i = index;">
-                              <td>{{i+1}}</td>
-                              <td>{{item.INTRATE}}</td>
-                              <td>{{item.DUE_DATE | date: 'dd-MM-yyyy'}}</td>
-                              <td>{{item.GRACE_DAYS}}</td>
-                              <td>{{item.INST_PRINCIPAL}}</td>
-                              <td>{{item.INST_MARKUP}}</td>
-                              <td>{{item.INST_AMOUNT}}</td>
-                              <td>{{item.PRINCIPAL_RECOVERED}}</td>
-                              <td>{{item.MARKUP_RECOVERED}}</td>
-                              <td>{{item.AMOUNT_PAID}}</td>
-                              <td>{{item.REMAINING_PRINCIPAL}}</td>
-                              <td>{{item.INST_AMOUNT_RECOVERED}}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                        <h3 *ngIf="recoveryList.GetLoanInstallments.length==0">Data not found.</h3>
-                    </mat-tab>
-                    <mat-tab label="Transactions Recoveries/Disbursment">
-                      <table class="table table-striped table-bordered" *ngIf="recoveryList.GetAllDisbursementRecoveries.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Branch</th>
-                            <th>Transaction Date</th>
-                            <th>Working Date</th>
-                            <th>Nor/Rev</th>
-                            <th>LC #</th>
-                            <th>Tran Master</th>
-                            <th>Debit</th>
-                            <th>Credit</th>
-                            <th>STATUS</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of recoveryList.GetAllDisbursementRecoveries; let i = index;">
-                            <td>{{item.BRNAME}}</td>
-                            <td>{{item.TRANSACTIONDATE | date: 'dd-MM-yyyy'}}</td>
-                            <td>{{item.WORKINGDATE | date: 'dd-MM-yyyy'}}</td>
-                            <td>{{item.TRANSACTIONFLAG}}</td>
-                            <td>{{item.LOAN_CASE_NO}}</td>
-                            <td>{{item.DESCRIPTION}}</td>
-                            <td>{{item.DRAMOUNT}}</td>
-                            <td>{{item.CRAMOUNT}}</td>
-                            <td>{{item.STATUS_NAME}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <h3 *ngIf="recoveryList.GetAllDisbursementRecoveries.length==0">Data not found.</h3>
-                    </mat-tab>
-                    <mat-tab label="J.V Transactions">
-                      <table class="table table-striped table-bordered" *ngIf="recoveryList.GetLoanJVTransaction.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Transaction Date</th>
-                            <th>Working Date</th>
-                            <th>Nor/Rev</th>
-                            <th>LC #</th>
-                            <th>Tran Master</th>
-                            <th>Debit</th>
-                            <th>Credit</th>
-                            <th>STATUS</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of recoveryList.GetLoanJVTransaction; let i = index;">
-
-                            <td>{{item.TRANSACTIONDATE | date: 'dd-MM-yyyy'}}</td>
-                            <td>{{item.WORKINGDATE | date: 'dd-MM-yyyy'}}</td>
-                            <td>{{item.TRANSACTIONFLAG}}</td>
-                            <td>{{item.LOAN_CASE_NO}}</td>
-                            <td>{{item.TR_MATER_DESC}}</td>
-                            <td>{{item.DRAMOUNT}}</td>
-                            <td>{{item.CRAMOUNT}}</td>
-                            <td>{{item.TRANSACTIONSTATUS}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <h3 *ngIf="recoveryList.GetLoanJVTransaction.length==0">Data not found.</h3>
-                    </mat-tab>
-                    <mat-tab label="Balances (PD/CD/ND)">
-                      <table class="table table-striped table-bordered" *ngIf="recoveryList.GetBalancesPDCDND.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Year</th>
-                            <th>PDP(O)</th>
-                            <th>PDI(O)</th>
-                            <th>CDP(O)</th>
-                            <th>CDI(O)</th>
-                            <th>NDP(O)</th>
-                            <th>NDI(O)</th>
-                            <th>PDP Bal</th>
-                            <th>PDI Bal</th>
-                            <th>CDP Bal</th>
-                            <th>CDI Bal</th>
-                            <th>NDP Bal</th>
-                            <th>NDI Bal</th>
-                            <th>Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of recoveryList.GetBalancesPDCDND; let i = index;">
-
-                            <td>{{item.VYEAR}}</td>
-                            <td>{{item.PDP_O_CURR}}</td>
-                            <td>{{item.PDI_O_CURR}}</td>
-                            <td>{{item.CDP_OPENING}}</td>
-                            <td>{{item.CDI_OPENING}}</td>
-                            <td>{{item.NDP_OPENING}}</td>
-                            <td>{{item.NDI_OPENING}}</td>
-                            <td>{{item.PD_PRINC_AMT}}</td>
-                            <td>{{item.PD_MRK_AMT}}</td>
-                            <td>{{item.CD_PRINC_AMT}}</td>
-                            <td>{{item.CD_MRK_AMT}}</td>
-                            <td>{{item.ND_PRINC_AMT}}</td>
-                            <td>{{item.ND_MRK_AMT}}</td>
-                            <td>{{item.TOT_OS}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <h3 *ngIf="recoveryList.GetBalancesPDCDND.length==0">Data not found.</h3>
-                    </mat-tab>
-                    <mat-tab label="Recovery (During the Year)">
-                      <table class="table table-striped table-bordered" *ngIf="recoveryList.GetRecoveryDuringYear.length>0">
-                        <thead>
-                          <tr class="table-header-background">
-                            <th>Year</th>
-                            <th>PDP Recovery</th>
-                            <th>CDP Recovery</th>
-                            <th>NDP Recovery</th>
-                            <th>PDI Recovery</th>
-                            <th>CDI Recovery</th>
-                            <th>NDI Recovery</th>
-                            <th>PD(WOF)</th>
-                            <th>CD(WOF)</th>
-                            <th>ND(WF)</th>
-                            <th>PD(REMIS)</th>
-                            <th>CD(REMIS)</th>
-                            <th>ND(REMIS)</th>
-                            <th>PD Resch</th>
-                            <th>CD Resch</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of recoveryList.GetRecoveryDuringYear; let i = index;">
-
-                            <td>{{item.VYEAR}}</td>
-                            <td>{{item.PDP_RECOVERY_CURR}}</td>
-                            <td>{{item.CDP_RECOVERY_CURR}}</td>
-                            <td>{{item.NDP_RECOVERY_CURR}}</td>
-                            <td>{{item.PDI_RECOVERY_CURR}}</td>
-                            <td>{{item.CDI_RECOVERY_CURR}}</td>
-                            <td>{{item.NDI_RECOVERY_CURR}}</td>
-                            <td>{{item.PD_WOFF}}</td>
-                            <td>{{item.CD_WOFF}}</td>
-                            <td>{{item.ND_WOFF}}</td>
-                            <td>{{item.PD_REMIS}}</td>
-                            <td>{{item.CD_REMIS}}</td>
-                            <td>{{item.ND_REMIS}}</td>
-                            <td>{{item.PD_RESCH}}</td>
-                            <td>{{item.CD_RESCH}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <h3 *ngIf="recoveryList.GetRecoveryDuringYear.length==0">Data not found.</h3>
-                    </mat-tab>
-                  </mat-tab-group>
-                </div>
-              </div>
-
-          </div>
         </div>
-      </form>
+        <div>
+            <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
+                <div class="kt-form">
+                    <div class="kt-portlet__body">
+                        <div class="kt-portlet__body-progress">
+                            <mat-spinner [diameter]="20"></mat-spinner>
+                        </div>
+                        <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true">
+                            Please enter valid Input
+                        </kt-alert>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group kt-form__group row">
+
+                                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-label class="customMatLabel">Zone <strong
+                                                class="matMandatory">*</strong></mat-label>
+                                            <input matInput placeholder="Enter Zone" formControlName="Zone"
+                                                   readonly="readonly" maxlength="30" autocomplete="off"/>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-label class="customMatLabel">Branch <strong
+                                                class="matMandatory">*</strong></mat-label>
+                                            <input matInput placeholder="Enter Branch" formControlName="Branch"
+                                                   readonly="readonly" maxlength="30" autocomplete="off"/>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-label class="customMatLabel">LA File/Booklet #</mat-label>
+                                            <input matInput placeholder="Enter Transaction Id"
+                                                   formControlName="TransactionId" maxlength="30" autocomplete="off"/>
+                                            <mat-error *ngIf="hasError('TransactionId', 'required')">LA File/Booklet #
+                                                <strong>required</strong></mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                                        <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                            <mat-label class="customMatLabel">Loan Case #</mat-label>
+                                            <input matInput placeholder="Enter Loan Case #" formControlName="LoanCaseNo"
+                                                   maxlength="30" autocomplete="off"/>
+                                            <mat-error *ngIf="hasError('LoanCaseNo', 'required')">Loan Case # <strong>required</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                                        <button class="btn btn-secondary mt-19 kt-login__btn-primary btn-block"
+                                                color="primary" type="button" (click)="find()"><span><i
+                                            class="fa fa-search"> &nbsp;</i> Find</span></button>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound && dataFound">
+
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr class="table-header-background">
+                                            <th>Branch</th>
+                                            <th>Circle #</th>
+                                            <th>LC #</th>
+                                            <th>LC Auto#</th>
+                                            <th>LA File/Booklet#</th>
+                                            <th>Application Date</th>
+                                            <th>Status</th>
+                                            <th>Status (Post Sanction)</th>
+                                            <th>Dev Amount</th>
+                                            <th>Prod Amount</th>
+                                            <th>DEPOSIT ACC#</th>
+                                            <th>Sanction Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let item of dynamicList.dtGetApplicationMain; let i = index;">
+                                            <td>{{item.BRANCHNAME}}</td>
+                                            <td>{{item.CIRCLE_CODE}}</td>
+                                            <td>{{item.LOAN_CASE_NO}}</td>
+                                            <td>{{item.LOAN_ACCOUNT_NO}}</td>
+                                            <td>{{item.APP_NUMBER_MANUAL}}</td>
+                                            <td>{{item.APP_DATE | date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{item.STATUS_NAME}}</td>
+                                            <td>{{item.STAUS_NAME_PS}}</td>
+                                            <td>{{item.DEV_AMOUNT}}</td>
+                                            <td>{{item.PROD_AMOUNT}}</td>
+                                            <td>{{item.ACCOUNT_NO}}</td>
+                                            <td>{{item.SANCTION_DATE | date: 'dd-MM-yyyy'}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound">
+                            <div class="col-lg-12">
+                                <mat-tab-group mat-align-tabs="start">
+                                    <mat-tab label="Applicants">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="dynamicList.dtGetPurposeLoanApplication.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>CNIC</th>
+                                                    <th>NAME</th>
+                                                    <th>FATHER NAME</th>
+                                                    <th>DOB</th>
+                                                    <th>AGPS</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.dtGetCustomer;">
+                                                    <td>{{item.CNIC}}</td>
+                                                    <td>{{item.CUSTOMERNAME}}</td>
+                                                    <td>{{item.FATHERNAME}}</td>
+                                                    <td>{{item.DOB | date: 'dd-MM-yyyy'}}</td>
+                                                    <td>{{item.MAJOR_BORROWER}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.dtGetPurposeLoanApplication.length==0">Data not
+                                            found.</h3>
+                                    </mat-tab>
+                                    <mat-tab label="Purpose">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="dynamicList.dtGetPurposeLoanApplication.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>GL Description</th>
+                                                    <th>Crop</th>
+                                                    <th>Capacity</th>
+                                                    <th>Qty</th>
+                                                    <th>Est Cost</th>
+                                                    <th>Equity</th>
+                                                    <th>Amount Required</th>
+                                                    <th>Prod/Dev Flag</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.dtGetPurposeLoanApplication;">
+                                                    <td>{{item.GL_DESCRIPTION}}</td>
+                                                    <td>{{item.CROP_NAME}}</td>
+                                                    <td>{{item.DEV_ITEM_NAME}}</td>
+                                                    <td>{{item.QUANTITY}}</td>
+                                                    <td>{{item.TOTAL_ESTIMATED_COST}}</td>
+                                                    <td>{{item.AMOUNT_IN_HAND}}</td>
+                                                    <td>{{item.AMOUNT_REQUIRED}}</td>
+                                                    <td>{{item.PROD_DEV}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.dtGetPurposeLoanApplication.length==0">Data not
+                                            found.</h3>
+                                    </mat-tab>
+                                    <mat-tab label="Land Information">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="dynamicList.GetLandInformationByloanappId.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Passbook Number</th>
+                                                    <th>Category</th>
+                                                    <th>Area(Marla)</th>
+                                                    <th>Address</th>
+                                                    <th>Village</th>
+                                                    <th>Attached</th>
+                                                    <th>IS REDEEM</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetLandInformationByloanappId;">
+                                                    <td>{{item.PASSBOOK_NO}}</td>
+                                                    <td>{{item.LAND_TYPE_FLAG}}</td>
+                                                    <td>{{item.TOT_AREA}}</td>
+                                                    <td>{{item.OWN_AREA_ADDRESS}}</td>
+                                                    <td>{{item.VILLAGE_NAME}}</td>
+                                                    <td>{{item.ATTACHED_FLAG}}</td>
+                                                    <td>{{item.IS_REDEEM}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetLandInformationByloanappId.length==0">Data not
+                                            found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="Loan Securities">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="dynamicList.GetSecurityLoanApplication.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Security Type</th>
+                                                    <th>Basis of Valuation</th>
+                                                    <th>Qty</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Accepted Value</th>
+                                                    <th>Max Credit Limit</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetSecurityLoanApplication;">
+                                                    <td>{{item.COLLECTRAL_TYPE_DESC}}</td>
+                                                    <td>{{item.BASIS_OF_EVALUATION}}</td>
+                                                    <td>{{item.QUANTITY}}</td>
+                                                    <td>{{item.UNIT_PRICE}}</td>
+                                                    <td>{{item.PLUDGED_VALUE}}</td>
+                                                    <td>{{item.MAX_CREDIT_LIMIT}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetSecurityLoanApplication.length==0">Data not
+                                            found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="Customer Legal Heirs">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="dynamicList.GetLegalheirsLoanApplication.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Customer Name</th>
+                                                    <th>Legal Heirs Name</th>
+                                                    <th>Legal Heirs CNIC</th>
+                                                    <th>Cell No</th>
+                                                    <th>DOB</th>
+                                                    <th>Relation</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetLegalheirsLoanApplication;">
+                                                    <td>{{item.CUSTOMERNAME}}</td>
+                                                    <td>{{item.LH_NAME}}</td>
+                                                    <td>{{item.LH_CNIC}}</td>
+                                                    <td>{{item.PHONECELL}}</td>
+                                                    <td>{{item.DOB | date: 'dd-MM-yyyy'}}</td>
+                                                    <td>{{item.DESCRIPTION}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetLegalheirsLoanApplication.length==0">Data not
+                                            found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="Appraisal of Proposed Investment">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="dynamicList.GetPropsedInvestment.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Farm Income/Expenditure</th>
+                                                    <th>Future Value</th>
+                                                    <th>Present Value</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetPropsedInvestment;">
+                                                    <td>{{item.NAME}}</td>
+                                                    <td>{{item.FUTURE_VALUE}}</td>
+                                                    <td>{{item.PRESENT_VALUE}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetPropsedInvestment.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="Loan Documents">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered"
+                                                   *ngIf="dynamicList.GetDocumentLoanApplication.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Document</th>
+                                                    <th>Document Status</th>
+                                                    <th>Loan Type</th>
+                                                    <th>Loan Case No</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetDocumentLoanApplication;">
+                                                    <td>{{item.DOCNAME}}</td>
+                                                    <td>{{item.STATUSNAME}}</td>
+                                                    <td>{{item.LOANTYPE}}</td>
+                                                    <td>{{item.LOANCASENUMBER}}</td>
+                                                    <td class="cursor-pointer"><span class="cursor-pointer"
+                                                                                     (click)="getDocument('1',item.DOCID)">View</span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetDocumentLoanApplication.length==0">Data not
+                                            found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="References">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="dynamicList.GetLoanReferanceDetail.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Name</th>
+                                                    <th>Address</th>
+                                                    <th>CNIC</th>
+                                                    <th>Phone</th>
+                                                    <th>NTN</th>
+                                                    <th>FAX</th>
+                                                    <th>Email</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetLoanReferanceDetail;">
+                                                    <td>{{item.REFERENCE_NAME}}</td>
+                                                    <td>{{item.REFERENCE_ADDRESS}}</td>
+                                                    <td>{{item.CNIC}}</td>
+                                                    <td>{{item.PHONE}}</td>
+                                                    <td>{{item.NTN}}</td>
+                                                    <td>{{item.FAX}}</td>
+                                                    <td>{{item.EMAIL}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetLoanReferanceDetail.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="Witnesses">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="dynamicList.GetWitnessDetail.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Name</th>
+                                                    <th>Address</th>
+                                                    <th>CNIC</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetWitnessDetail;">
+                                                    <td>{{item.WITNESS_NAME}}</td>
+                                                    <td>{{item.WITNESS_ADDRESS}}</td>
+                                                    <td>{{item.CNIC}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetWitnessDetail.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="CWR">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped" *ngIf="dynamicList.GetCWR.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Name</th>
+                                                    <th>Loan APP#</th>
+                                                    <th>Date</th>
+                                                    <th>File Name</th>
+                                                    <th>File Size</th>
+                                                    <th>File No</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetCWR;">
+                                                    <td>{{item.CUSTOMERNAME}}</td>
+                                                    <td>{{item.LOAN_ACCOUNT_NO}}</td>
+                                                    <td>{{item.REQUEST_DATE | date: 'dd-MM-yyyy'}}</td>
+                                                    <td>{{item.FILE_NAME}}</td>
+                                                    <td>{{item.REQUEST_SIZE}}</td>
+                                                    <td>{{item.FILE_NO}}</td>
+                                                    <td><span class="cursor-pointer"
+                                                              (click)="getDocument('2',item.REQUEST_ID)">View</span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetCWR.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="ORR">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped" *ngIf="dynamicList.GetORR.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Name</th>
+                                                    <th>CNIC</th>
+                                                    <th>GL Description</th>
+                                                    <th>Manual ORR</th>
+                                                    <th>ORR</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetORR;">
+                                                    <td>{{item.CUSTOMERNAME}}</td>
+                                                    <td>{{item.CNIC}}</td>
+                                                    <td>{{item.GL}}</td>
+                                                    <td>{{item.MANUAL_ORR}}</td>
+                                                    <td>{{item.CALCULATED_ORR}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetORR.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+
+                                    <mat-tab label="Sanction">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="dynamicList.GetSanctionList.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>GL Description</th>
+                                                    <th>Prod / Dev</th>
+                                                    <th>Amount Required</th>
+                                                    <th>Recommended</th>
+                                                    <th>(CAD)Max Limit</th>
+                                                    <th>Sanction Amount</th>
+                                                    <th>Disbursement</th>
+                                                    <th>Recovered Principal</th>
+                                                    <th>Recovered Markup</th>
+                                                    <th>Expiry Date</th>
+                                                    <th>IS ACTIVE</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetSanctionList;">
+                                                    <td>{{item.GL_DESCRIPTION}}</td>
+                                                    <td>{{item.PROD_DEV}}</td>
+                                                    <td>{{item.AMOUNT_REQUIRED}}</td>
+                                                    <td>{{item.AMOUNT_RECOMMEDNED}}</td>
+                                                    <td>{{item.CAD_LIMIT}}</td>
+                                                    <td>{{item.SANCTIONED_AMOUNT}}</td>
+                                                    <td>{{item.TOTAL_DISBURSEMENT}}</td>
+                                                    <td>{{item.RECOVERED_PRINCIPAL}}</td>
+                                                    <td>{{item.RECOVERED_MARKUP}}</td>
+                                                    <td>{{item.EXPIRY_DATE | date: 'dd-MM-yyyy'}}</td>
+                                                    <td>{{item.IS_ACTIVE}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetSanctionList.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="SAC Checklist">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered"
+                                                   *ngIf="dynamicList.GetSAC.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Code</th>
+                                                    <th>Description</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetSAC;">
+                                                    <td>{{item.CODE}}</td>
+                                                    <td>{{item.DESCRIPTION}}</td>
+                                                    <td style="min-width: 200px;">
+                                                        <input type="radio" name="{{item.CODE}}" id="1{{item.CODE}}"
+                                                               class="with-gap" [value]="0"
+                                                               [checked]="item.VAL==null || item.VAL=='Y'"> YES &nbsp;&nbsp;
+                                                        <input type="radio" name="{{item.CODE}}" id="2{{item.CODE}}"
+                                                               class="with-gap" [value]="1" [checked]="item.VAL=='N'">
+                                                        NO &nbsp;&nbsp;
+                                                        <input type="radio" name="{{item.CODE}}" id="3{{item.CODE}}"
+                                                               class="with-gap" [value]="2" [checked]="item.VAL=='NA'">
+                                                        N/A &nbsp;&nbsp;
+
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetSAC.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="DAC Checklist">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped" *ngIf="dynamicList.GetDAC.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Code</th>
+                                                    <th>Description</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetDAC;">
+                                                    <td>{{item.CODE}}</td>
+                                                    <td>{{item.DESCRIPTION}}</td>
+                                                    <td style="min-width: 200px;">
+                                                        <input type="radio" name="{{item.CODE}}" id="1{{item.CODE}}"
+                                                               class="with-gap" [value]="0"
+                                                               [checked]="item.VAL==null || item.VAL=='Y'"> YES &nbsp;&nbsp;
+                                                        <input type="radio" name="{{item.CODE}}" id="2{{item.CODE}}"
+                                                               class="with-gap" [value]="1" [checked]="item.VAL=='N'">
+                                                        NO &nbsp;&nbsp;
+                                                        <input type="radio" name="{{item.CODE}}" id="3{{item.CODE}}"
+                                                               class="with-gap" [value]="2" [checked]="item.VAL=='NA'">
+                                                        N/A &nbsp;&nbsp;
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetDAC.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="Declarations">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped "
+                                                   *ngIf="dynamicList.GetDeclarations.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Declaration</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetDeclarations;">
+                                                    <td>{{item.TEXT}}</td>
+                                                    <td>{{item.ENTRY_DATE | date: 'dd-MM-yyyy h:mm a'}}</td>
+                                                    <td>{{item.STATUS_NAME}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetDeclarations.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="Work Flow">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped "
+                                                   *ngIf="dynamicList.GetWorkFlow.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>User Id</th>
+                                                    <th>Remarks</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetWorkFlow;">
+                                                    <td>{{item.USER_ID}}</td>
+                                                    <td>{{item.COMMENTS}}</td>
+                                                    <td>{{item.STATUS_NAME}}</td>
+                                                    <td>{{item.COMMENT_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetWorkFlow.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="Rollover Activity">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped "
+                                                   *ngIf="dynamicList.GetRolloverActivity.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>GL</th>
+                                                    <th>seq_no</th>
+                                                    <th>mgr_pp_no</th>
+                                                    <th>mgr_remarks</th>
+                                                    <th>mg_process_date</th>
+                                                    <th>lsu_pp_no</th>
+                                                    <th>lsu_rmarks</th>
+                                                    <th>lsu_prcoess_date</th>
+                                                    <th>lsu2_pp_no</th>
+                                                    <th>lsu2_remarks</th>
+                                                    <th>final_status</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetRolloverActivity;">
+                                                    <td>{{item.GLSUBCODE}}</td>
+                                                    <td>{{item.SEQ_NO}}</td>
+                                                    <td>{{item.MGR_PP_NO}}</td>
+                                                    <td>{{item.MGR_REMARKS}}</td>
+                                                    <td>{{item.MGR_PROCESS_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
+                                                    <td>{{item.LSU1_PP_NO}}</td>
+                                                    <td>{{item.LSU1_REMARKS}}</td>
+                                                    <td>{{item.LSU1_PROCESS_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
+                                                    <td>{{item.LSU2_PP_NO}}</td>
+                                                    <td>{{item.LSU2_REMARKS}}</td>
+                                                    <td>{{item.FINAL_STATUS}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetRolloverActivity.length==0">Data not found.</h3>
+                                    </mat-tab>
+
+                                    <mat-tab label="Reschedule Activity">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped "
+                                                   *ngIf="dynamicList.GetRescheduleActivity.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>GL</th>
+                                                    <th>seq_no</th>
+                                                    <th>mgr_pp_no</th>
+                                                    <th>mgr_remarks</th>
+                                                    <th>mg_process_date</th>
+                                                    <th>lsu_pp_no</th>
+                                                    <th>lsu_rmarks</th>
+                                                    <th>lsu_prcoess_date</th>
+                                                    <th>lsu2_pp_no</th>
+                                                    <th>lsu2_remarks</th>
+                                                    <th>final_status</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dynamicList.GetRescheduleActivity;">
+                                                    <td>{{item.GLSUBCODE}}</td>
+                                                    <td>{{item.SEQ_NO}}</td>
+                                                    <td>{{item.MGR_PP_NO}}</td>
+                                                    <td>{{item.MGR_REMARKS}}</td>
+                                                    <td>{{item.MGR_PROCESS_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
+                                                    <td>{{item.LSU1_PP_NO}}</td>
+                                                    <td>{{item.LSU1_REMARKS}}</td>
+                                                    <td>{{item.LSU1_PROCESS_DATE | date: 'dd-MM-yyyy HH:mm'}}</td>
+                                                    <td>{{item.LSU2_PP_NO}}</td>
+                                                    <td>{{item.LSU2_REMARKS}}</td>
+                                                    <td>{{item.FINAL_STATUS}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="dynamicList.GetRescheduleActivity.length==0">Data not found.</h3>
+                                    </mat-tab>
+                                </mat-tab-group>
+                            </div>
+                        </div>
+
+                        <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound">
+
+                            <div class="col-lg-12">
+                                <h3>Disbursements / Recoveries</h3>
+                                <div class="table-responsive">
+                                    <table class="table table-striped"
+                                           *ngIf="dynamicList.GetDisbursementsRecoveries.length>0">
+                                        <thead>
+                                        <tr class="table-header-background">
+                                            <th>GL</th>
+                                            <th>SCM</th>
+                                            <th>CRP</th>
+                                            <th>Rate</th>
+                                            <th>Disb Date</th>
+                                            <th>Disb (AMT)</th>
+                                            <th>Pricipal(REC)</th>
+                                            <th>TOT Markup</th>
+                                            <th>Markup(REC)</th>
+                                            <th>Other Charges</th>
+                                            <th>Legal Charges</th>
+                                            <th>SAM Cost of Fund (OS)</th>
+                                            <th>SAM Cost of Fund (Rec)</th>
+                                            <th>Balance</th>
+                                            <th>W.Off</th>
+                                            <th>REMIS</th>
+                                            <th>Disb Status</th>
+                                            <th>Tag Date</th>
+                                            <th>Due Date</th>
+                                            <th>Date Last Recy On</th>
+                                            <th>T.Accrued</th>
+                                            <th>Add MR</th>
+                                            <th>Active</th>
+                                            <th>Stop MRK?</th>
+                                            <th>Close On</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let item of dynamicList.GetDisbursementsRecoveries; let i = index;">
+                                            <td>{{item.GL_DESCRIPTION}}</td>
+                                            <td>{{item.SCHEME_CODE}}</td>
+                                            <td>{{item.CROP_CODE}}</td>
+                                            <td>{{item.INT_RATE}}</td>
+                                            <td>{{item.DISB_DATE | date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{item.DISBURSED_AMOUNT}}</td>
+                                            <td>{{item.RECOVERED_PRINCIPAL}}</td>
+                                            <td>{{item.TODATE_MARKUP}}</td>
+                                            <td>{{item.RECOVERED_MARKUP}}</td>
+                                            <td>{{item.OTHER_RECEIVEABLE}}</td>
+                                            <td>{{item.LEGAL_CHARGES_RECIVEABLE}}</td>
+                                            <td>{{item.SAM_COST_OF_FUND}}</td>
+                                            <td>{{item.SAM_COST_OF_FUND_REC}}</td>
+                                            <td>{{item.BALANCE}}</td>
+                                            <td>{{item.PROG_WRTOFF}}</td>
+                                            <td>{{item.PROG_REMISSION}}</td>
+                                            <td>{{item.DISB_STATUS_NAME}}</td>
+                                            <td>{{item.NEXT_DUE_DATE | date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{item.NEW_NEXT_DUE_DATE | date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{item.LAST_RECOVERY_DATE | date: 'dd-MM-yyyy'}}</td>
+                                            <td>{{item.TODATE_ACCRUAL}}</td>
+                                            <td>{{item.PROG_ADDTIONAL_MARKUP}}</td>
+                                            <td>{{item.IS_ACTIVE}}</td>
+                                            <td>{{item.MARKUP_STOP_FLAG}}</td>
+                                            <td>{{item.VALID_UNTIL | date: 'dd-MM-yyyy'}}</td>
+                                            <td id="llcInquiryText" (click)="getDisbursments(item.LOAN_DISB_ID)">
+                                                Details
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <h3 *ngIf="dynamicList.GetDisbursementsRecoveries.length==0">Data not found.</h3>
+                            </div>
+
+                            <div class="col-lg-12" *ngIf="recoveryDataFetched">
+                                <mat-tab-group mat-align-tabs="start">
+                                    <mat-tab label="Installments Detail">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped"
+                                                   *ngIf="recoveryList.GetLoanInstallments.length>0">
+                                                <thead>
+                                                <tr class="table-header-background">
+                                                    <th>Seq#</th>
+                                                    <th>I-Rate</th>
+                                                    <th>Due Date</th>
+                                                    <th>Grace Days</th>
+                                                    <th>Inst Principal</th>
+                                                    <th>Inst Markup</th>
+                                                    <th>Total Amount</th>
+                                                    <th>Principal Recovered</th>
+                                                    <th>Markup Recovered</th>
+                                                    <th>Total Recovery</th>
+                                                    <th>Remaining Principal</th>
+                                                    <th>Adjusted Inst Amount</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of recoveryList.GetLoanInstallments; let i = index;">
+                                                    <td>{{i + 1}}</td>
+                                                    <td>{{item.INTRATE}}</td>
+                                                    <td>{{item.DUE_DATE | date: 'dd-MM-yyyy'}}</td>
+                                                    <td>{{item.GRACE_DAYS}}</td>
+                                                    <td>{{item.INST_PRINCIPAL}}</td>
+                                                    <td>{{item.INST_MARKUP}}</td>
+                                                    <td>{{item.INST_AMOUNT}}</td>
+                                                    <td>{{item.PRINCIPAL_RECOVERED}}</td>
+                                                    <td>{{item.MARKUP_RECOVERED}}</td>
+                                                    <td>{{item.AMOUNT_PAID}}</td>
+                                                    <td>{{item.REMAINING_PRINCIPAL}}</td>
+                                                    <td>{{item.INST_AMOUNT_RECOVERED}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <h3 *ngIf="recoveryList.GetLoanInstallments.length==0">Data not found.</h3>
+                                    </mat-tab>
+                                    <mat-tab label="Transactions Recoveries/Disbursment">
+                                        <table class="table table-striped table-bordered"
+                                               *ngIf="recoveryList.GetAllDisbursementRecoveries.length>0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>Branch</th>
+                                                <th>Transaction Date</th>
+                                                <th>Working Date</th>
+                                                <th>Nor/Rev</th>
+                                                <th>LC #</th>
+                                                <th>Tran Master</th>
+                                                <th>Debit</th>
+                                                <th>Credit</th>
+                                                <th>STATUS</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let item of recoveryList.GetAllDisbursementRecoveries; let i = index;">
+                                                <td>{{item.BRNAME}}</td>
+                                                <td>{{item.TRANSACTIONDATE | date: 'dd-MM-yyyy'}}</td>
+                                                <td>{{item.WORKINGDATE | date: 'dd-MM-yyyy'}}</td>
+                                                <td>{{item.TRANSACTIONFLAG}}</td>
+                                                <td>{{item.LOAN_CASE_NO}}</td>
+                                                <td>{{item.DESCRIPTION}}</td>
+                                                <td>{{item.DRAMOUNT}}</td>
+                                                <td>{{item.CRAMOUNT}}</td>
+                                                <td>{{item.STATUS_NAME}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <h3 *ngIf="recoveryList.GetAllDisbursementRecoveries.length==0">Data not
+                                            found.</h3>
+                                    </mat-tab>
+                                    <mat-tab label="J.V Transactions">
+                                        <table class="table table-striped table-bordered"
+                                               *ngIf="recoveryList.GetLoanJVTransaction.length>0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>Transaction Date</th>
+                                                <th>Working Date</th>
+                                                <th>Nor/Rev</th>
+                                                <th>LC #</th>
+                                                <th>Tran Master</th>
+                                                <th>Debit</th>
+                                                <th>Credit</th>
+                                                <th>STATUS</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let item of recoveryList.GetLoanJVTransaction; let i = index;">
+
+                                                <td>{{item.TRANSACTIONDATE | date: 'dd-MM-yyyy'}}</td>
+                                                <td>{{item.WORKINGDATE | date: 'dd-MM-yyyy'}}</td>
+                                                <td>{{item.TRANSACTIONFLAG}}</td>
+                                                <td>{{item.LOAN_CASE_NO}}</td>
+                                                <td>{{item.TR_MATER_DESC}}</td>
+                                                <td>{{item.DRAMOUNT}}</td>
+                                                <td>{{item.CRAMOUNT}}</td>
+                                                <td>{{item.TRANSACTIONSTATUS}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <h3 *ngIf="recoveryList.GetLoanJVTransaction.length==0">Data not found.</h3>
+                                    </mat-tab>
+                                    <mat-tab label="Balances (PD/CD/ND)">
+                                        <table class="table table-striped table-bordered"
+                                               *ngIf="recoveryList.GetBalancesPDCDND.length>0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>Year</th>
+                                                <th>PDP(O)</th>
+                                                <th>PDI(O)</th>
+                                                <th>CDP(O)</th>
+                                                <th>CDI(O)</th>
+                                                <th>NDP(O)</th>
+                                                <th>NDI(O)</th>
+                                                <th>PDP Bal</th>
+                                                <th>PDI Bal</th>
+                                                <th>CDP Bal</th>
+                                                <th>CDI Bal</th>
+                                                <th>NDP Bal</th>
+                                                <th>NDI Bal</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let item of recoveryList.GetBalancesPDCDND; let i = index;">
+
+                                                <td>{{item.VYEAR}}</td>
+                                                <td>{{item.PDP_O_CURR}}</td>
+                                                <td>{{item.PDI_O_CURR}}</td>
+                                                <td>{{item.CDP_OPENING}}</td>
+                                                <td>{{item.CDI_OPENING}}</td>
+                                                <td>{{item.NDP_OPENING}}</td>
+                                                <td>{{item.NDI_OPENING}}</td>
+                                                <td>{{item.PD_PRINC_AMT}}</td>
+                                                <td>{{item.PD_MRK_AMT}}</td>
+                                                <td>{{item.CD_PRINC_AMT}}</td>
+                                                <td>{{item.CD_MRK_AMT}}</td>
+                                                <td>{{item.ND_PRINC_AMT}}</td>
+                                                <td>{{item.ND_MRK_AMT}}</td>
+                                                <td>{{item.TOT_OS}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <h3 *ngIf="recoveryList.GetBalancesPDCDND.length==0">Data not found.</h3>
+                                    </mat-tab>
+                                    <mat-tab label="Recovery (During the Year)">
+                                        <table class="table table-striped table-bordered"
+                                               *ngIf="recoveryList.GetRecoveryDuringYear.length>0">
+                                            <thead>
+                                            <tr class="table-header-background">
+                                                <th>Year</th>
+                                                <th>PDP Recovery</th>
+                                                <th>CDP Recovery</th>
+                                                <th>NDP Recovery</th>
+                                                <th>PDI Recovery</th>
+                                                <th>CDI Recovery</th>
+                                                <th>NDI Recovery</th>
+                                                <th>PD(WOF)</th>
+                                                <th>CD(WOF)</th>
+                                                <th>ND(WF)</th>
+                                                <th>PD(REMIS)</th>
+                                                <th>CD(REMIS)</th>
+                                                <th>ND(REMIS)</th>
+                                                <th>PD Resch</th>
+                                                <th>CD Resch</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let item of recoveryList.GetRecoveryDuringYear; let i = index;">
+
+                                                <td>{{item.VYEAR}}</td>
+                                                <td>{{item.PDP_RECOVERY_CURR}}</td>
+                                                <td>{{item.CDP_RECOVERY_CURR}}</td>
+                                                <td>{{item.NDP_RECOVERY_CURR}}</td>
+                                                <td>{{item.PDI_RECOVERY_CURR}}</td>
+                                                <td>{{item.CDI_RECOVERY_CURR}}</td>
+                                                <td>{{item.NDI_RECOVERY_CURR}}</td>
+                                                <td>{{item.PD_WOFF}}</td>
+                                                <td>{{item.CD_WOFF}}</td>
+                                                <td>{{item.ND_WOFF}}</td>
+                                                <td>{{item.PD_REMIS}}</td>
+                                                <td>{{item.CD_REMIS}}</td>
+                                                <td>{{item.ND_REMIS}}</td>
+                                                <td>{{item.PD_RESCH}}</td>
+                                                <td>{{item.CD_RESCH}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <h3 *ngIf="recoveryList.GetRecoveryDuringYear.length==0">Data not found.</h3>
+                                    </mat-tab>
+                                </mat-tab-group>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 
 </div>
 

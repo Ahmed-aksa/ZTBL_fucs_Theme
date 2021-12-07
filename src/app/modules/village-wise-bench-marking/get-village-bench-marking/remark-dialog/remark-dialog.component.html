@@ -1,6 +1,6 @@
 <!-- <div>
     <div class="kt-portlet">
-     
+
       <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
         <div class="kt-portlet__head-label">
           <h3 class="text-3xl mt-4  font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Get Remarks</h3>
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    
+
     <form [formGroup]="remarkForm" class="kt-form kt-form--group-seperator-dashed">
         <div class="kt-form">
           <div class="kt-portlet__body">
@@ -33,42 +33,50 @@
             <mat-icon class="mr-2">cancel</mat-icon>Close
           </button>
           <button mat-raised-button color="primary" class="org-button"  (click)="submit()">Submit</button>
-          
+
         </div>
     </div>
-      
+
 
 </div> -->
 
 
 <form [formGroup]="remarkForm" class="kt-form kt-form--group-seperator-dashed h-screen">
-  <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">Enter Remarks</div>
-
-  <div class="kt-form">
-    <div class="kt-portlet__body">
-
-      <div class="row">
-        <div class="col-lg-4 col-sm-12">
-          <mat-form-field class=" mat-form-field-fluid" appearance="outline">
-            <mat-label class="customMatLabel">Remarks:</mat-label>
-            <input matInput placeholder="Enter Remarks" formControlName="Remarks" maxlength="30" autocomplete="off" />
-          </mat-form-field>
-        </div>
+    <div class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
+         style="background-color: #f6fcf8;">Enter Remarks
     </div>
-    </div>
-  </div>
-  <div>
-    <div class="kt-form__actions kt-form__actions--solid  py-4 border-t">
-        <div class="row text-right">
-            <div class="col-lg-12">
-              <button type="button" class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" mat-raised-button cdkFocusInitial
-              value="Cancel" [mat-dialog-close]="false" (click)="close(0)">
-              <mat-icon class="mr-2">cancel</mat-icon>Close
-            </button>
-            <button mat-raised-button color="primary" class="org-button"  (click)="submit()"><mat-icon class="mr-2">save</mat-icon>Submit</button>
+
+    <div class="kt-form">
+        <div class="kt-portlet__body">
+
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <mat-form-field class=" mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">Remarks:</mat-label>
+                        <input matInput placeholder="Enter Remarks" formControlName="Remarks" maxlength="30"
+                               autocomplete="off"/>
+                    </mat-form-field>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div>
+        <div class="kt-form__actions kt-form__actions--solid  py-4 border-t">
+            <div class="row text-right">
+                <div class="col-lg-12">
+                    <button type="button"
+                            class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                            mat-raised-button cdkFocusInitial
+                            value="Cancel" [mat-dialog-close]="false" (click)="close(0)">
+                        <mat-icon class="mr-2">cancel</mat-icon>
+                        Close
+                    </button>
+                    <button mat-raised-button color="primary" class="org-button" (click)="submit()">
+                        <mat-icon class="mr-2">save</mat-icon>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-  

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/naming-convention */
+
 /* eslint-disable no-trailing-spaces */
 export class KhaadSeedVendor {
     Id: string;
@@ -16,6 +17,6 @@ export class KhaadSeedVendor {
     Lng: string;
     PhoneNumber: string;
     Radius: number;
-    CircleId:number;
+    CircleId: number;
     File: string;
 }
