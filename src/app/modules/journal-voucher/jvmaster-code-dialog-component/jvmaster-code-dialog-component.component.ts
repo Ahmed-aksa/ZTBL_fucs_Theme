@@ -115,10 +115,10 @@ export class JvmasterCodeDialogComponentComponent implements OnInit {
         fi.LovId = "12389"
         fi.Id = "0";
         fi.Description = "PLEASE SELECT---"
-        
+
 
         // var arr = fi.concat(this.JVCategories.LOVs)
-        // 
+        //
 
 
         this.JVCategories.LOVs.push(fi)
@@ -126,9 +126,6 @@ export class JvmasterCodeDialogComponentComponent implements OnInit {
         this.JVCategories = this.JVCategories.LOVs;
         //
 
-
-        
-        
 
         this.cdRef.detectChanges();
 
@@ -143,14 +140,13 @@ export class JvmasterCodeDialogComponentComponent implements OnInit {
 
     selectedRow() {
         var index, table = document.getElementById("codeTable");
-        
+
         //for(var i = 1; i < table.rows.length){}
     }
 
     getMasterCode() {
         var category = this.JvSearchForm.controls.category.value;
         var code = this.JvSearchForm.controls.code.value;
-        
 
 
         this.submitted = true;
@@ -169,7 +165,7 @@ export class JvmasterCodeDialogComponentComponent implements OnInit {
 
                 if (baseResponse.Success === true) {
                     this.MasterCodeList = baseResponse.JournalVoucher.JvMasterCodesList;
-                    
+
                     this.cdRef.detectChanges();
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
@@ -181,7 +177,6 @@ export class JvmasterCodeDialogComponentComponent implements OnInit {
     find() {
         var category = this.JvSearchForm.controls.category.value;
         var code = this.JvSearchForm.controls.code.value;
-        
 
 
         this.submitted = true;
@@ -202,7 +197,7 @@ export class JvmasterCodeDialogComponentComponent implements OnInit {
 
                     this.MasterCodeList = baseResponse.JournalVoucher.JvMasterCodesList;
                     this.MasterCodeListDetail = [];
-                    
+
                     this.rowClicked = null;
                     this.sRowClicked = null;
                     var index = null;
@@ -223,7 +218,6 @@ export class JvmasterCodeDialogComponentComponent implements OnInit {
         //var code = this.JvSearchForm.controls.code.value;
 
 
-
         this.MasterCodeListDetail = [];
         this.spinner.show();
         this._journalVoucherService
@@ -241,8 +235,8 @@ export class JvmasterCodeDialogComponentComponent implements OnInit {
                         this.codeDetail = this.MasterCodeListDetail;
                         this.totalItems = this.MasterCodeListDetail.length;
                         this.paginate(this.pageIndex);
-                        
-                        
+
+
                         this.cdRef.detectChanges();
                     } else {
                         this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
@@ -252,7 +246,7 @@ export class JvmasterCodeDialogComponentComponent implements OnInit {
                 (error) => {
 
                     this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
-                    
+
                 });
 
         if (this.rowClicked == null || this.rowClicked != index) {

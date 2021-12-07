@@ -11,7 +11,7 @@ import {FuseAlertModule} from "../../../@fuse/components/alert";
 import {SharedModule} from "../../shared/shared.module";
 import {AuthSignInComponent} from "./sign-in/sign-in.component";
 import {RouterModule} from "@angular/router";
-import { OtpComponent } from './otp/otp.component';
+import {OtpComponent} from './otp/otp.component';
 
 const route = [
     {

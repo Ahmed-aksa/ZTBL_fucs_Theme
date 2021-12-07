@@ -1,8 +1,8 @@
 export class PassBookRec {
-  
-  LandInfoID:string;
-  TotalArea:string;
-  PassbookNO:string;
-  IsActive:string;
-  NewPassbookNO:string;
+
+    LandInfoID: string;
+    TotalArea: string;
+    PassbookNO: string;
+    IsActive: string;
+    NewPassbookNO: string;
 }

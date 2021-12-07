@@ -1,13 +1,13 @@
 <form [formGroup]="configurationForm" class="kt-form kt-form--group-seperator-dashed" style="width:500px;">
     <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
         <div class="kt-portlet__head-label flex">
-          <h3 class=" w-11/12 heading">Edit Page</h3>
-          <button type="button"   color="danger" class="w-1/12 text-right" [mat-dialog-close]="data.animal"
-          cdkFocusInitial>
-          <mat-icon class="text-red-500">cancel</mat-icon>
-          </button>
+            <h3 class=" w-11/12 heading">Edit Page</h3>
+            <button type="button" color="danger" class="w-1/12 text-right" [mat-dialog-close]="data.animal"
+                    cdkFocusInitial>
+                <mat-icon class="text-red-500">cancel</mat-icon>
+            </button>
         </div>
-      </div>
+    </div>
     <div>
         <mat-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
                    (close)="onAlertClose($event)">
@@ -75,7 +75,8 @@
                         <button type="button" class="btn btn-primary bg-green" mat-raised-button color="primary"
                                 (click)="onSubmit()"
                                 [disabled]="viewLoading || submitted">
-                            <mat-icon class="mr-2">save</mat-icon>Save
+                            <mat-icon class="mr-2">save</mat-icon>
+                            Save
                         </button>
                     </div>
                 </div>

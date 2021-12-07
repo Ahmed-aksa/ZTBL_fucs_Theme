@@ -13,27 +13,28 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 
 @Component({
-  selector: 'app-ecib-queue',
-  templateUrl: './ecib-queue.component.html',
-  styleUrls: ['./ecib-queue.component.scss']
+    selector: 'app-ecib-queue',
+    templateUrl: './ecib-queue.component.html',
+    styleUrls: ['./ecib-queue.component.scss']
 })
 
 export class EcibQueueComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     reportFilter: ReportFilters = new ReportFilters();
-    @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
 
-    displayedColumns = [ 'TransactionId', 'CREATED', 'CNIC', 'STATUS', 'NTN', 'NAME', 'PERMANENTADDRESS', 'BRANCH', 'DOB'];
+    displayedColumns = ['TransactionId', 'CREATED', 'CNIC', 'STATUS', 'NTN', 'NAME', 'PERMANENTADDRESS', 'BRANCH', 'DOB'];
 
     gridHeight: string;
     FilterForm: FormGroup;
     StartDate: Date;
     EndDate: Date;
     myDate = new Date().toLocaleDateString();
+
     constructor( //private datePipe: DatePipe,
         private store: Store<AppState>,
         public dialog: MatDialog,
@@ -41,8 +42,8 @@ export class EcibQueueComponent implements OnInit {
         private filterFB: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
         private _reportservice: ReportService
-
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.loadApiLogs();
@@ -54,7 +55,6 @@ export class EcibQueueComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 200 + 'px';
     }
-
 
 
     applyFilter(filterValue: string) {

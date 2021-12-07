@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { RecoveryService } from '../../../shared/services/recovery.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { Router } from '@angular/router';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { SignaturePad } from 'angular2-signaturepad';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {RecoveryService} from '../../../shared/services/recovery.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {Router} from '@angular/router';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {SignaturePad} from 'angular2-signaturepad';
 
 @Component({
     selector: 'app-signature-dailog-dairy',
@@ -12,7 +12,7 @@ import { SignaturePad } from 'angular2-signaturepad';
     styleUrls: ['./signature-dailog-dairy.component.scss'],
 })
 export class SignatureDailogDairyComponent implements OnInit {
-    @ViewChild(SignaturePad, { static: true }) signaturePad: SignaturePad;
+    @ViewChild(SignaturePad, {static: true}) signaturePad: SignaturePad;
     submitted = false;
     imageFile: any;
     isSignatureAdded = false;
@@ -23,6 +23,7 @@ export class SignatureDailogDairyComponent implements OnInit {
         canvasHeight: 300,
         backgroundColor: 'rgb(255,255,255)',
     };
+
     constructor(
         public dialogRef: MatDialogRef<SignatureDailogDairyComponent>,
         //@Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,9 +32,11 @@ export class SignatureDailogDairyComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private router: Router,
         public dialog: MatDialog
-    ) {}
+    ) {
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
     ngAfterViewInit() {
         // this.signaturePad is now available
@@ -50,9 +53,11 @@ export class SignatureDailogDairyComponent implements OnInit {
 
     drawStart() {
         // will be notified of szimek/signature_pad's onBegin event
-        
+
     }
-    saveSignature() {}
+
+    saveSignature() {
+    }
 
     close(bySystem: Boolean): void {
         this.dialogRef.close(bySystem);

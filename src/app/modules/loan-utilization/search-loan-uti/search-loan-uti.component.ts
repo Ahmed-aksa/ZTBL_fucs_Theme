@@ -327,11 +327,11 @@ export class SearchLoanUtilizationComponent implements OnInit {
         return this._common.workingDate();
     }
 
-    getAllValues(){
+    getAllValues() {
         debugger
         this.OffSet = 0;
         this.itemsPerPage = 10;
-        this.todate = null ;
+        this.todate = null;
         this.fromdate = null;
         this.loanutilizationSearch.controls['ToDate'].reset();
         this.loanutilizationSearch.controls['FromDate'].reset();
@@ -376,7 +376,6 @@ export class SearchLoanUtilizationComponent implements OnInit {
         //     );
         //     return;
         // }
-
 
 
         this.spinner.show()

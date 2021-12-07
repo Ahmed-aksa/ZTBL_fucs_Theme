@@ -1,21 +1,19 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, ReplaySubject } from 'rxjs';
-import { Message } from 'app/layout/common/messages/messages.types';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable, ReplaySubject} from 'rxjs';
+import {Message} from 'app/layout/common/messages/messages.types';
+import {map, switchMap, take, tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MessagesService
-{
+export class MessagesService {
     private _messages: ReplaySubject<Message[]> = new ReplaySubject<Message[]>(1);
 
     /**
      * Constructor
      */
-    constructor(private _httpClient: HttpClient)
-    {
+    constructor(private _httpClient: HttpClient) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -25,8 +23,7 @@ export class MessagesService
     /**
      * Getter for messages
      */
-    get messages$(): Observable<Message[]>
-    {
+    get messages$(): Observable<Message[]> {
         return this._messages.asObservable();
     }
 
@@ -37,8 +34,7 @@ export class MessagesService
     /**
      * Get all messages
      */
-    getAll(): Observable<Message[]>
-    {
+    getAll(): Observable<Message[]> {
         return this._httpClient.get<Message[]>('api/common/messages').pipe(
             tap((messages) => {
                 this._messages.next(messages);
@@ -51,8 +47,7 @@ export class MessagesService
      *
      * @param message
      */
-    create(message: Message): Observable<Message>
-    {
+    create(message: Message): Observable<Message> {
         return this.messages$.pipe(
             take(1),
             switchMap(messages => this._httpClient.post<Message>('api/common/messages', {message}).pipe(
@@ -74,8 +69,7 @@ export class MessagesService
      * @param id
      * @param message
      */
-    update(id: string, message: Message): Observable<Message>
-    {
+    update(id: string, message: Message): Observable<Message> {
         return this.messages$.pipe(
             take(1),
             switchMap(messages => this._httpClient.patch<Message>('api/common/messages', {
@@ -105,8 +99,7 @@ export class MessagesService
      *
      * @param id
      */
-    delete(id: string): Observable<boolean>
-    {
+    delete(id: string): Observable<boolean> {
         return this.messages$.pipe(
             take(1),
             switchMap(messages => this._httpClient.delete<boolean>('api/common/messages', {params: {id}}).pipe(
@@ -131,8 +124,7 @@ export class MessagesService
     /**
      * Mark all messages as read
      */
-    markAllAsRead(): Observable<boolean>
-    {
+    markAllAsRead(): Observable<boolean> {
         return this.messages$.pipe(
             take(1),
             switchMap(messages => this._httpClient.get<boolean>('api/common/messages/mark-all-as-read').pipe(

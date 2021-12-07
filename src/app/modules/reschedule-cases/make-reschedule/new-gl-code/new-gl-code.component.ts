@@ -6,15 +6,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable quotes */
 /* eslint-disable @typescript-eslint/quotes */
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { finalize } from 'rxjs/operators';
-import { LoanService } from '../../../../shared/services/loan.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
-import { GlConfigrationsDetail } from '../../../../shared/models/Loan.model';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {finalize} from 'rxjs/operators';
+import {LoanService} from '../../../../shared/services/loan.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {GlConfigrationsDetail} from '../../../../shared/models/Loan.model';
 
 @Component({
     selector: 'app-new-gl-code',
@@ -149,7 +149,7 @@ export class NewGlCodeComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    
+
 
                     this.table = true;
                     this.CropDetailList =
@@ -203,11 +203,6 @@ export class NewGlCodeComponent implements OnInit {
                         this.sdlfield = false;
                     }
 
-                    
-                    
-                    
-                    
-                    
 
                     this.dv = this.CropDetailList;
 
@@ -219,7 +214,7 @@ export class NewGlCodeComponent implements OnInit {
                     //this.count = length.count;
                     //for()
                     this.paginate(this.pageIndex);
-                    
+
                     //this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 } else {
                     this.layoutUtilsService.alertElementSuccess(
@@ -286,11 +281,6 @@ export class NewGlCodeComponent implements OnInit {
                     this.SchemeDetailList =
                         baseResponse.Loan.GlConfigrationsDetail.SchemeDetailList;
 
-                    
-                    
-                    
-                    
-                    
 
                     // if(this.CropDetailList.length == 0 || this.GLDetailList.length == 0 || this.GlRangeDetailList.length == 0 || this.GlSchemeCropDetailList.length == 0 || this.SchemeDetailList.length == 0){
                     //   this.table = false;
@@ -347,7 +337,7 @@ export class NewGlCodeComponent implements OnInit {
                     //this.count = length.count;
                     //for()
                     this.paginate(this.pageIndex);
-                    
+
                     //this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 } else {
                     this.spinner.hide();
@@ -362,6 +352,6 @@ export class NewGlCodeComponent implements OnInit {
     }
 
     onCloseClick(): void {
-        this.dialogRef.close({ data: {} }); // Keep only this row
+        this.dialogRef.close({data: {}}); // Keep only this row
     }
 }

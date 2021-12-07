@@ -1,29 +1,29 @@
-<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading"> Referred Back Transaction(J.V) </div>
+            <div class="heading"> Referred Back Transaction(J.V)</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1   py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                <button class="mt-1   py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        type="button"
                         color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                         aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
-                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                    <mat-icon class="mr-2" id="arrow">keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
-              </p>
+            </p>
         </div>
     </div>
 
     <!-- Header -->
 
 
-
-      <div class="collapse show" id="collapseExample">
+    <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div [formGroup]="referbackForm" >
+            <div [formGroup]="referbackForm">
 
 
                 <div class="flex mt-1" style="flex-wrap: wrap;">
@@ -44,10 +44,13 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
-                                <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off"
+                                <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong>
+                                </mat-label>
+                                <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30"
+                                       autocomplete="off"
                                        appNumberOnly/>
-                                <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No <strong>required</strong></mat-error>
+                                <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No
+                                    <strong>required</strong></mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -66,36 +69,33 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button class="mt-2 bg-gray-500"  mat-raised-button color="primary"
-                                    type="button" (click)="find()"><mat-icon class="mr-2">search</mat-icon> Search</button>
+                            <button class="mt-2 bg-gray-500" mat-raised-button color="primary"
+                                    type="button" (click)="find()">
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Search
+                            </button>
                         </div>
                     </div>
 
                 </div>
 
 
-
             </div>
         </div>
-      </div>
-
-
-
-
-
+    </div>
 
 
     <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
         <div class="example-table-container">
             <!--[style.height]="gridHeight"-->
             <mat-table
-                       #table
-                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
-                       matSort
-                       #sort1="matSort"
-                       matSortActive="id"
-                       matSortDirection="asc"
-                       matSortDisableClear>
+                #table
+                [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear>
                 <ng-container matColumnDef="Branch">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Branch</mat-header-cell>
                     <mat-cell *matCellDef="let jv">{{jv.BranchName}}</mat-cell>
@@ -152,13 +152,12 @@
                     </mat-cell>
                 </ng-container>
 
-                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;" class="table-header-background"></mat-header-row>
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
 
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
             </mat-table>
-
-
 
 
             <!-- <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>

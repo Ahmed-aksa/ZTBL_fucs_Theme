@@ -13,7 +13,7 @@
       </div>
     </div>-->
     <div class="kt-portlet__body">
-        <kt-customer-list [isDialog]="true" ></kt-customer-list>
+        <kt-customer-list [isDialog]="true"></kt-customer-list>
     </div>
     <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
         <div class="kt-form__actions kt-form__actions--solid">
@@ -23,11 +23,14 @@
 </div>
 
 <div class="row text-center">
-  <div class="col-lg-11 mt-1p mb-1p text-end bottom-0">
-      <button type="button" class=" mr-6 mat-focus-indicator btn bg-red-500 text-white rounded-md mr-24 mat-raised-button mat-button-base mat-danger" mat-raised-button cdkFocusInitial value="Cancel"
-              [mat-dialog-close]="false" (click)="onCloseClick()">
-              <mat-icon class="mr-2">cancel</mat-icon> Close
-      </button>
-  </div>
+    <div class="col-lg-11 mt-1p mb-1p text-end bottom-0">
+        <button type="button"
+                class=" mr-6 mat-focus-indicator btn bg-red-500 text-white rounded-md mr-24 mat-raised-button mat-button-base mat-danger"
+                mat-raised-button cdkFocusInitial value="Cancel"
+                [mat-dialog-close]="false" (click)="onCloseClick()">
+            <mat-icon class="mr-2">cancel</mat-icon>
+            Close
+        </button>
+    </div>
 </div>
 

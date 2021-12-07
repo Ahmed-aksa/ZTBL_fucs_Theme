@@ -66,7 +66,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
 
     public LovCall = new Lov();
 
-    checkChange(event: MatCheckboxChange){
+    checkChange(event: MatCheckboxChange) {
         this.zoneCheck = event.checked;
     }
 
@@ -143,10 +143,9 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
         this.reports.ReportsNo = "12";
         this.reports.WorkingDate = dateFormat;
         this.reports.ReportFormatType = "2";
-        if(this.zoneCheck == true){
+        if (this.zoneCheck == true) {
             this.reports.OnlyZOne = 1
-        }
-        else{
+        } else {
             this.reports.OnlyZOne = 0
         }
         this.spinner.show();
@@ -178,7 +177,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
     }
 
     ngAfterViewInit() {
-        if(this.zone == null){
+        if (this.zone == null) {
             this.zoneCheck = true;
         }
     }

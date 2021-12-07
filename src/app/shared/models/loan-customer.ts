@@ -1,6 +1,5 @@
-
 export class LoanCustomer {
-  CNIC: string;
-  AGPS: string;
-  RelationShip: string;
+    CNIC: string;
+    AGPS: string;
+    RelationShip: string;
 }

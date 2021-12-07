@@ -107,7 +107,7 @@ export class HttpExtenstionsModel {
                         }
                     });
                 } catch (ex) {
-                    
+
                 }
             }
         });

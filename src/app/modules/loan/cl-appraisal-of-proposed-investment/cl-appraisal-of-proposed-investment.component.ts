@@ -24,7 +24,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     public LoanApprovalProposed = new LoanApprovalProposed();
     public productionArray: ProductionGrid[] = [];
     public LovCall = new Lov();
-    oneTime:boolean=true;
+    oneTime: boolean = true;
     public cropProduction = new CropProduction();
     public appraisalProposed = new AppraisalProposed();
 
@@ -86,14 +86,14 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             NetIncomePresnetControl: [''],
             IncreaseFutureControl: [''],
             IncreasePresnetControl: [''],
-            UncultivatedLand: ['',[Validators.pattern(regExps.landMarla)]],
-            NocultivatedLand: ['',[Validators.pattern(regExps.landMarla)]],
-            Type: ['',[Validators.required]],
-            Crop: ['',[Validators.required]],
-            Area: ['',[Validators.required, Validators.pattern(regExps.landMarla)]],
-            Price: ['',[Validators.required]],
-            Output: ['',[Validators.required]],
-            Expenditure: ['',[Validators.required]]
+            UncultivatedLand: ['', [Validators.pattern(regExps.landMarla)]],
+            NocultivatedLand: ['', [Validators.pattern(regExps.landMarla)]],
+            Type: ['', [Validators.required]],
+            Crop: ['', [Validators.required]],
+            Area: ['', [Validators.required, Validators.pattern(regExps.landMarla)]],
+            Price: ['', [Validators.required]],
+            Output: ['', [Validators.required]],
+            Expenditure: ['', [Validators.required]]
 
         });
 
@@ -195,7 +195,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
 
     loadAppraisalOfProposedDataOnUpdate(appAppraisalOfProposedData, CropProductionList) {
-        if(this.oneTime==true){
+        if (this.oneTime == true) {
             if (appAppraisalOfProposedData.length != 0, appAppraisalOfProposedData != undefined) {
 
                 //crop
@@ -273,7 +273,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
                     this.LoanAOPIForm.controls["NocultivatedLand"].setValue(appAppraisalOfProposedData[0].LandNotCultivated);
                 }
             }
-            this.oneTime=false;
+            this.oneTime = false;
         }
 
         // //Type
@@ -401,7 +401,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    this.productionArray=[];
+                    this.productionArray = [];
                     this.productionArray = baseResponse.Loan["CropProductionList"];
                     this.clearForm()
                     // this.LoanAOPIForm.reset();
@@ -492,7 +492,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
             return;
         }
 
-        this.appraisalProposedList=[]
+        this.appraisalProposedList = []
 
         //this.loanDetail = new Loan();
         //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
@@ -662,22 +662,22 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         this.appraisalProposedList.push(increaseAppriasalProposed);
 
         this.spinner.show();
-debugger
+        debugger
         this._loanService.addAppraisalProposed(this.appraisalProposedList, this.loanDetail.TranId)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-if(baseResponse.Success==true){
-    this.clearForm();
-    this.patchData(baseResponse.Loan["AppraisalProposedList"]);
-    // this.LoanAOPIForm.reset();
-    // this.getProposedCropType();
-    // this.getCrops();
-    // this.LoanAOPIForm.markAsUntouched()
+            if (baseResponse.Success == true) {
+                this.clearForm();
+                this.patchData(baseResponse.Loan["AppraisalProposedList"]);
+                // this.LoanAOPIForm.reset();
+                // this.getProposedCropType();
+                // this.getCrops();
+                // this.LoanAOPIForm.markAsUntouched()
 
-}
+            }
             const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
 
         })
@@ -685,7 +685,7 @@ if(baseResponse.Success==true){
     }
 
 
-    patchData(data){
+    patchData(data) {
         //crop
 
         if ((data[0].PresentValue != null, data[0].PresentValue != undefined)
@@ -795,13 +795,13 @@ if(baseResponse.Success==true){
                     if (baseResponse.Success) {
 
                         this.list_ids_array.forEach((id) => {
-                            this.productionArray.forEach((single_array,index) => {
+                            this.productionArray.forEach((single_array, index) => {
                                 if (single_array.ItemDetailID == id) {
-                                    this.productionArray.splice(index,1)
+                                    this.productionArray.splice(index, 1)
                                 }
                             })
                         })
-                        this.list_ids_array=[];
+                        this.list_ids_array = [];
                         const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                     } else {
 
@@ -823,7 +823,7 @@ if(baseResponse.Success==true){
 
     }
 
-    clearForm(){
+    clearForm() {
 
         this.LoanAOPIForm.controls["Type"].setValue('');
         this.LoanAOPIForm.controls["Crop"].setValue('');
@@ -839,10 +839,10 @@ if(baseResponse.Success==true){
             this.list_ids_array.push(production.ItemDetailID);
         } else {
 
-            this.list_ids_array.forEach((id,index) => {
-                    if (id== production.ItemDetailID) {
-                        this.list_ids_array.splice(index,1)
-                    }
+            this.list_ids_array.forEach((id, index) => {
+                if (id == production.ItemDetailID) {
+                    this.list_ids_array.splice(index, 1)
+                }
             })
 
         }
@@ -876,5 +876,5 @@ export class ProductionGrid {
     TotalIncome_RS: string;
     Expense_RS: string;
     NetIncomeFromCrop: string;
-    AppraisalTypeName:string;
+    AppraisalTypeName: string;
 }

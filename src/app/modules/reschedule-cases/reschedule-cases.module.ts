@@ -7,9 +7,9 @@ import {ReferBackRescheduleCasesComponent} from './refer-back-reschedule-cases/r
 import {RequestForRlComponent} from './request-for-rl/request-for-rl.component';
 import {SearchRcComponent} from './search-rc/search-rc.component';
 import {NewGlCodeComponent} from './make-reschedule/new-gl-code/new-gl-code.component';
-import { SharedModule } from 'app/shared/shared.module';
-import { RouterModule } from '@angular/router';
-import { UploadDocumentsComponent } from './make-reschedule/upload-documents/upload-documents.component';
+import {SharedModule} from 'app/shared/shared.module';
+import {RouterModule} from '@angular/router';
+import {UploadDocumentsComponent} from './make-reschedule/upload-documents/upload-documents.component';
 
 @NgModule({
     declarations: [

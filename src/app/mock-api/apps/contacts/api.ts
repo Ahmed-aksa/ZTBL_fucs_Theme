@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
-import { from } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { assign, cloneDeep } from 'lodash-es';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
-import { contacts as contactsData, countries as countriesData, tags as tagsData } from 'app/mock-api/apps/contacts/data';
+import {Injectable} from '@angular/core';
+import {from} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {assign, cloneDeep} from 'lodash-es';
+import {FuseMockApiService, FuseMockApiUtils} from '@fuse/lib/mock-api';
+import {contacts as contactsData, countries as countriesData, tags as tagsData} from 'app/mock-api/apps/contacts/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ContactsMockApi
-{
+export class ContactsMockApi {
     private _contacts: any[] = contactsData;
     private _countries: any[] = countriesData;
     private _tags: any[] = tagsData;
@@ -17,8 +16,7 @@ export class ContactsMockApi
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _fuseMockApiService: FuseMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -30,8 +28,7 @@ export class ContactsMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Contacts - GET
         // -----------------------------------------------------------------------------------------------------
@@ -63,8 +60,7 @@ export class ContactsMockApi
                 let contacts = cloneDeep(this._contacts);
 
                 // If the query exists...
-                if ( query )
-                {
+                if (query) {
                     // Filter the contacts
                     contacts = contacts.filter(contact => contact.name && contact.name.toLowerCase().includes(query.toLowerCase()));
                 }
@@ -105,19 +101,19 @@ export class ContactsMockApi
 
                 // Generate a new contact
                 const newContact = {
-                    id          : FuseMockApiUtils.guid(),
-                    avatar      : null,
-                    name        : 'New Contact',
-                    emails      : [],
+                    id: FuseMockApiUtils.guid(),
+                    avatar: null,
+                    name: 'New Contact',
+                    emails: [],
                     phoneNumbers: [],
-                    job         : {
-                        title  : '',
+                    job: {
+                        title: '',
                         company: ''
                     },
-                    birthday    : null,
-                    address     : null,
-                    notes       : null,
-                    tags        : []
+                    birthday: null,
+                    address: null,
+                    notes: null,
+                    tags: []
                 };
 
                 // Unshift the new contact
@@ -144,8 +140,7 @@ export class ContactsMockApi
                 // Find the contact and update it
                 this._contacts.forEach((item, index, contacts) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the contact
                         contacts[index] = assign({}, contacts[index], contact);
 
@@ -171,8 +166,7 @@ export class ContactsMockApi
                 // Find the contact and delete it
                 this._contacts.forEach((item, index) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         this._contacts.splice(index, 1);
                     }
                 });
@@ -232,8 +226,7 @@ export class ContactsMockApi
                 // Find the tag and update it
                 this._tags.forEach((item, index, tags) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the tag
                         tags[index] = assign({}, tags[index], tag);
 
@@ -259,8 +252,7 @@ export class ContactsMockApi
                 // Find the tag and delete it
                 this._tags.forEach((item, index) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         this._tags.splice(index, 1);
                     }
                 });
@@ -332,8 +324,7 @@ export class ContactsMockApi
                         // Find the contact and update it
                         this._contacts.forEach((item, index, contacts) => {
 
-                            if ( item.id === id )
-                            {
+                            if (item.id === id) {
                                 // Update the avatar
                                 contacts[index].avatar = path;
 

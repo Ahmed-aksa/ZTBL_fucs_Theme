@@ -1,66 +1,72 @@
-<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
-  <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
-    <div class="kt-portlet__head-label">
-      <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
-    </div>
-  </div>
-  <div>
-    <form [formGroup]="roleForm" class="kt-form kt-form--group-seperator-dashed">
-      <div class="kt-form">
-        <div class="kt-portlet__body">
-          <div class="kt-portlet__body-progress">
-            <mat-spinner [diameter]="20"></mat-spinner>
-          </div>
-          <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
-            Please enter valid Input
-          </kt-alert>
-          <div class="form-group kt-form__group row">
-            <div class="col-lg-6 kt-margin-bottom-20-mobile">
-              <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <input matInput placeholder="Enter Role Name" formControlName="ProfileName" maxlength="30" autocomplete="off" />
-                <mat-error *ngIf="hasError('ProfileName', 'required')">Role Name <strong>required</strong></mat-error>
-                <mat-hint align="left">Please enter role name <strong>(Alphabets)</strong></mat-hint>
-              </mat-form-field>
-            </div>
-            <!-- <div class="col-lg-6 kt-margin-bottom-20-mobile">
-              <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
-                <mat-label>Access To data</mat-label>
-                <mat-select formControlName="AccessToData">
-                  <mat-option *ngFor="let access of AccessToData" [value]="access.Id">
-                    {{access.Name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div> -->
-            <div *ngIf="LOVs" class="col-lg-6 kt-margin-bottom-20-mobile">
-              <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
-                <mat-label>Group</mat-label>
-                <mat-select formControlName="ProfileID">
-                  <mat-option *ngFor="let lov of LOVs" [value]="lov.Id">
-                    {{lov.Name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-
-          <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
-            <div class="kt-form__actions kt-form__actions--solid">
-              <div class="row text-right">
-                <div class="col-lg-12">
-                  <button type="button" class="button-red pull-left" mat-raised-button [mat-dialog-close]="data.animal" cdkFocusInitial>
-                    Cancel
-                  </button>&nbsp;
-                  <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="onSubmit()" [disabled]="viewLoading || submitted">
-                    Save
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
+<div class="kt-portlet"
+     [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+    <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">{{getTitle()}}</h3>
         </div>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div>
+        <form [formGroup]="roleForm" class="kt-form kt-form--group-seperator-dashed">
+            <div class="kt-form">
+                <div class="kt-portlet__body">
+                    <div class="kt-portlet__body-progress">
+                        <mat-spinner [diameter]="20"></mat-spinner>
+                    </div>
+                    <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
+                              (close)="onAlertClose($event)">
+                        Please enter valid Input
+                    </kt-alert>
+                    <div class="form-group kt-form__group row">
+                        <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                <input matInput placeholder="Enter Role Name" formControlName="ProfileName"
+                                       maxlength="30" autocomplete="off"/>
+                                <mat-error *ngIf="hasError('ProfileName', 'required')">Role Name
+                                    <strong>required</strong></mat-error>
+                                <mat-hint align="left">Please enter role name <strong>(Alphabets)</strong></mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <!-- <div class="col-lg-6 kt-margin-bottom-20-mobile">
+                          <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
+                            <mat-label>Access To data</mat-label>
+                            <mat-select formControlName="AccessToData">
+                              <mat-option *ngFor="let access of AccessToData" [value]="access.Id">
+                                {{access.Name }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div> -->
+                        <div *ngIf="LOVs" class="col-lg-6 kt-margin-bottom-20-mobile">
+                            <mat-form-field class="mat-form-field-fluid map-fields" appearance="outline">
+                                <mat-label>Group</mat-label>
+                                <mat-select formControlName="ProfileID">
+                                    <mat-option *ngFor="let lov of LOVs" [value]="lov.Id">
+                                        {{lov.Name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
+                        <div class="kt-form__actions kt-form__actions--solid">
+                            <div class="row text-right">
+                                <div class="col-lg-12">
+                                    <button type="button" class="button-red pull-left" mat-raised-button
+                                            [mat-dialog-close]="data.animal" cdkFocusInitial>
+                                        Cancel
+                                    </button>&nbsp;
+                                    <button type="button" class="btn btn-primary" mat-raised-button color="primary"
+                                            (click)="onSubmit()" [disabled]="viewLoading || submitted">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

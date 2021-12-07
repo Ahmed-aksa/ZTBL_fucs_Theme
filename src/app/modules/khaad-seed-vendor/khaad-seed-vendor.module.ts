@@ -6,7 +6,7 @@ import {VendorListComponent} from './vendor-list/vendor-list.component';
 import {AddNewVendorComponent} from './add-new-vendor/add-new-vendor.component';
 import {VendorRadiusComponent} from './vendor-radius/vendor-radius.component';
 import {UserInfoDialogComponent} from './vendor-radius/user-info-dialog/user-info-dialog.component';
-import { AddressLocationComponent } from './add-new-vendor/address-location/address-location.component';
+import {AddressLocationComponent} from './add-new-vendor/address-location/address-location.component';
 
 const route = [
     {

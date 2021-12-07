@@ -73,7 +73,6 @@ export class RequestForRlComponent implements OnInit {
     branch: any;
 
 
-
     response: any = [];
     checkedArr: ReschedulingList[] = [];
     newAdd: ReschedulingList[] = [];
@@ -135,19 +134,19 @@ export class RequestForRlComponent implements OnInit {
         //
         this.getRequestTypes();
 
-        if(this.LoggedInUserInfo.Branch.WorkingDate){
+        if (this.LoggedInUserInfo.Branch.WorkingDate) {
             let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
             this.today = new Date(year, month - 1, day);
-        }
-        else{
+        } else {
             let dateString = '11012021';
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
-            this.today = new Date(year, month - 1, day);}
+            this.today = new Date(year, month - 1, day);
+        }
 
 
     }

@@ -1,4 +1,5 @@
-<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
+<div
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
@@ -7,10 +8,9 @@
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
                 <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
-                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2" id="arrow">keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
             </p>
@@ -22,120 +22,127 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-    <!-- Header -->
-    <div  [formGroup]="landSearch">
+            <!-- Header -->
+            <div [formGroup]="landSearch">
 
 
-        <div class="row">
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
 
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="single_zone">
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
-                            <mat-option [value]="SelectedZones?.ZoneId">
-                                {{SelectedZones?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" *ngIf="!single_zone">
-                        <mat-label class="customMatLabel">Zone</mat-label>
-                        <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
-                                    (selectionChange)="changeZone($event)">
-                            <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
-                                        [disabled]="disable_zone">
-                                {{zone?.ZoneName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
+                                            *ngIf="single_zone">
+                                <mat-label class="customMatLabel">Zone</mat-label>
+                                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone">
+                                    <mat-option [value]="SelectedZones?.ZoneId">
+                                        {{SelectedZones?.ZoneName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
+                                            *ngIf="!single_zone">
+                                <mat-label class="customMatLabel">Zone</mat-label>
+                                <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" [disabled]="disable_zone"
+                                            (selectionChange)="changeZone($event)">
+                                    <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId"
+                                                [disabled]="disable_zone">
+                                        {{zone?.ZoneName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong>
+                                </mat-label>
+                                <mat-select [(ngModel)]="selected_b" formControlName="" [disabled]="disable_branch"
+                                            (selectionChange)="changeBranch($event)"
+                                            *ngIf="!single_branch">
+                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
+                                    >
+                                        {{branch?.Name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-select [(ngModel)]="selected_b" formControlName="BranchId"
+                                            [disabled]="disable_branch"
+                                            *ngIf="single_branch">
+                                    <mat-option [value]="SelectedBranches?.BranchCode"
+                                    >
+                                        {{SelectedBranches?.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Passbook NO</mat-label>
+                                <input matInput formControlName="PassbookNO" placeholder="Enter Passbook Number"
+                                       maxlength="100"
+                                       autocomplete="off">
+                                <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Cnic</mat-label>
+                                <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100"
+                                       autocomplete="off"
+                                       [mask]="maskEnums.cnic">
+                            </mat-form-field>
+                        </div>
+                    </div>
 
                 </div>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Branch <strong class="matMandatory">*</strong></mat-label>
-                        <mat-select [(ngModel)]="selected_b" formControlName="" [disabled]="disable_branch"
-                                    (selectionChange)="changeBranch($event)"
-                                    *ngIf="!single_branch">
-                            <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode"
-                            >
-                                {{branch?.Name}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-select [(ngModel)]="selected_b" formControlName="BranchId" [disabled]="disable_branch"
-                                    *ngIf="single_branch">
-                            <mat-option [value]="SelectedBranches?.BranchCode"
-                            >
-                                {{SelectedBranches?.Name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-12" *ngIf="LandStatusLov">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Land Status</mat-label>
+                                <mat-select formControlName="Status">
+                                    <mat-option>
+                                        Select
+                                    </mat-option>
+                                    <mat-option *ngFor="let obj of LandStatusLov.LOVs" [value]="obj.Value">
+                                        {{obj.Name}}
+                                    </mat-option>
+                                </mat-select>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                            <button
+                                class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                type="button" (click)="searchLand()">
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Search
+                            </button>
+                        </div>
+                    </div>
 
                 </div>
+
+
             </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Passbook NO</mat-label>
-                        <input matInput formControlName="PassbookNO" placeholder="Enter Passbook Number" maxlength="100"
-                               autocomplete="off">
-                        <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Cnic</mat-label>
-                        <input matInput formControlName="Cnic" placeholder="Enter Cnic" maxlength="100"
-                               autocomplete="off"
-                               [mask]="maskEnums.cnic">
-                    </mat-form-field>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="row">
-            <div class="col-lg-3 col-sm-12" *ngIf="LandStatusLov">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" >
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Land Status</mat-label>
-                        <mat-select formControlName="Status">
-                            <mat-option>
-                                Select
-                            </mat-option>
-                            <mat-option *ngFor="let obj of LandStatusLov.LOVs" [value]="obj.Value">
-                                {{obj.Name}}
-                            </mat-option>
-                        </mat-select>
-
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-
-                    <button  class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                            type="button" (click)="searchLand()">
-                        <mat-icon class="mr-2">search</mat-icon>
-                        Search
-                    </button>
-                </div>
-            </div>
-
-        </div>
-
-
-    </div>
         </div>
     </div>
 
 
     <div class="flex flex-auto" style="flex-direction: column;overflow-y: scroll">
-        <div class="example-table-container border shadow-xs rounded-sm bg-gray-50  overflow-scroll" [style.height]="gridHeight">
+        <div class="example-table-container border shadow-xs rounded-sm bg-gray-50  overflow-scroll"
+             [style.height]="gridHeight">
             <!--[style.height]="gridHeight"-->
             <mat-table
                 #table
@@ -195,12 +202,12 @@
                 <ng-container matColumnDef="View">
                     <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
                     <mat-cell *matCellDef="let land">
-                        <button  mat-icon-button color="primary" *ngIf="CheckEidtStatus(land)"
+                        <button mat-icon-button color="primary" *ngIf="CheckEidtStatus(land)"
                                 (click)="editland(land)">
                             <mat-icon style="margin-left: 5px;" title="Edit land">edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button  color="primary" *ngIf="CheckViewStatus(land)"
+                        <button mat-icon-button color="primary" *ngIf="CheckViewStatus(land)"
                                 (click)="editland(land)">
                             <mat-icon style="color:#01671B !important;" title="View land">visibility</mat-icon>
                         </button>

@@ -11,29 +11,29 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MapReqDialogComponent } from './map-req-dialog/map-req-dialog.component';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {MapReqDialogComponent} from './map-req-dialog/map-req-dialog.component';
 
 @Component({
-  selector: 'mapping-request',
-  templateUrl: './mapping-request.component.html',
-  styleUrls: ['./mapping-request.component.scss'],
-  exportAs: 'mapping-request'
+    selector: 'mapping-request',
+    templateUrl: './mapping-request.component.html',
+    styleUrls: ['./mapping-request.component.scss'],
+    exportAs: 'mapping-request'
 })
 export class MappingRequestComponent implements OnInit {
 
 
-  constructor(
-   private dialog: MatDialog
-  )
-  { }
+    constructor(
+        private dialog: MatDialog
+    ) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  mappingRec(){
-    this.dialog.open(MapReqDialogComponent, { panelClass: ['w-8/12'], disableClose: true})  //disableClose: true })
-  }
+    mappingRec() {
+        this.dialog.open(MapReqDialogComponent, {panelClass: ['w-8/12'], disableClose: true})  //disableClose: true })
+    }
 
 }

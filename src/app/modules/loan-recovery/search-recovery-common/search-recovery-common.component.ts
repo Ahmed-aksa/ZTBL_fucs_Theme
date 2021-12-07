@@ -134,7 +134,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
         this.recoveryTypes.push({id: 4, name: 'SBS Inter Branch Recovery'});
         var userInfo = this.userUtilsService.getUserDetails();
         let dateString = userInfo?.Branch?.WorkingDate;
-        
+
         var day = 0;
         var month = 0;
         var year = 0;
@@ -150,10 +150,9 @@ export class SearchRecoveryCommonComponent implements OnInit {
 
         this.maxDate = new Date(year, month - 1, day);
 
-        if(userInfo.Branch.WorkingDate){
+        if (userInfo.Branch.WorkingDate) {
             this.disableWorkingDate = true
-        }
-        else{
+        } else {
             this.disableWorkingDate = false
         }
         if (this.SearchType == 1) { //advance search
@@ -180,8 +179,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
         this.CustomerStatuses = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus});
 
         this.CustomerStatuses = this.CustomerStatuses.LOVs;
-        
-        
+
 
         this.cdRef.detectChanges();
 
@@ -207,7 +205,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
         var instrumentNO = this.RecoveryForm.controls.InstrumentNO.value;
         var recoveryType = "" + this.RecoveryForm.controls.RecoveryType.value;
 
-        this.branch.WorkingDate =  this.datePipe.transform(this.RecoveryForm.controls.WorkingDate.value, 'ddMMyyyy') //this.RecoveryForm.controls.WorkingDate.value;
+        this.branch.WorkingDate = this.datePipe.transform(this.RecoveryForm.controls.WorkingDate.value, 'ddMMyyyy') //this.RecoveryForm.controls.WorkingDate.value;
         if (loanCaseNo != "" || voucherNo != "" || instrumentNO != "") {
             this.OffSet = 0;
         }
@@ -231,13 +229,12 @@ export class SearchRecoveryCommonComponent implements OnInit {
                 if (baseResponse.Success === true) {
                     this.MatTableLenght = true;
                     this.RecoveryLoanTransaction = baseResponse.Recovery.RecoveryLoanTransaction;
-                    
+
 
                     this.recoveryDetail = this.RecoveryLoanTransaction;
                     this.totalItems = baseResponse.Recovery.RecoveryLoanTransaction[0].TotalCount;
                     this.RecoveryLoanTransaction = this.recoveryDetail.slice(0, this.totalItems)
 
-                    
 
                     var recoveryType = this.RecoveryForm.get('RecoveryType').value;
                     this.searchSBS = (recoveryType == 4 || recoveryType == 3);
@@ -292,7 +289,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
                         })
                     )
                     .subscribe((baseResponse: BaseResponseModel) => {
-                        
+
                         if (baseResponse.Success === true) {
 
                             //Show Receipt
@@ -326,7 +323,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-                
+
                 if (baseResponse.Success === true) {
                     this.find();
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);

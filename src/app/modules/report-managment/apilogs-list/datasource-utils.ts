@@ -1,14 +1,20 @@
-
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import {CollectionViewer, DataSource} from '@angular/cdk/collections';
 import {combineLatest, concat, defer, Observable, of} from "rxjs";
 import {MatSort, Sort} from "@angular/material/sort";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 export class SimpleDataSource<T> extends DataSource<T> {
-    constructor(private rows$: Observable<T[]>) {super(); }
-    connect(collectionViewer: CollectionViewer): Observable<T[]> { return this.rows$; }
-    disconnect(collectionViewer: CollectionViewer): void {}
+    constructor(private rows$: Observable<T[]>) {
+        super();
+    }
+
+    connect(collectionViewer: CollectionViewer): Observable<T[]> {
+        return this.rows$;
+    }
+
+    disconnect(collectionViewer: CollectionViewer): void {
+    }
 }
 
 function defaultSort(a: any, b: any): number {
@@ -16,9 +22,15 @@ function defaultSort(a: any, b: any): number {
     a = a === undefined ? null : a;
     b = b === undefined ? null : b;
 
-    if (a === b) { return 0; }
-    if (a === null) { return -1; }
-    if (b === null) { return 1; }
+    if (a === b) {
+        return 0;
+    }
+    if (a === null) {
+        return -1;
+    }
+    if (b === null) {
+        return 1;
+    }
 
     //from this point on a & b can not be null or undefined.
 
@@ -32,6 +44,7 @@ function defaultSort(a: any, b: any): number {
 }
 
 type SortFn<U> = (a: U, b: U) => number;
+
 interface PropertySortFns<U> {
     [prop: string]: SortFn<U>;
 }
@@ -40,7 +53,9 @@ interface PropertySortFns<U> {
 function toSortFn<U>(sortFns: PropertySortFns<U> = {}, useDefault = true): (sort$: Observable<Sort>) => Observable<undefined | SortFn<U>> {
     return (sort$) => sort$.pipe(
         map(sort => {
-            if (!sort.active || sort.direction === '') { return undefined; }
+            if (!sort.active || sort.direction === '') {
+                return undefined;
+            }
 
             let sortFn = sortFns[sort.active];
             if (!sortFn) {
@@ -79,7 +94,9 @@ export function sortRows<U>(
         rows$,
         sort$.pipe(toSortFn(sortFns, useDefault)),
         (rows, sortFn) => {
-            if (!sortFn) { return rows; }
+            if (!sortFn) {
+                return rows;
+            }
 
             const copy = rows.slice();
             return copy.sort(sortFn);

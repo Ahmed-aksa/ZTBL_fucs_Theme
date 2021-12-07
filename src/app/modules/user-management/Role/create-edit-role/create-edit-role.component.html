@@ -1,21 +1,21 @@
 <div class="flex">
-  <h2 mat-dialog-title class="mb-0 w-11/12 heading mt-0">Create User Role</h2>
-  <mat-icon mat-dialog-close class="text-end w-1/12 text-danger self-center justify-content-end">cancel</mat-icon>
+    <h2 mat-dialog-title class="mb-0 w-11/12 heading mt-0">Create User Role</h2>
+    <mat-icon mat-dialog-close class="text-end w-1/12 text-danger self-center justify-content-end">cancel</mat-icon>
 </div>
 
 <mat-dialog-content class="mat-typography">
 
-    <form  [formGroup]="roleForm" (ngSubmit)="onSubmit()" novalidate>
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="flex gt-xs:flex-row mt-2">
-            <mat-form-field   class="flex-auto mr-3  w-6/12">
+            <mat-form-field class="flex-auto mr-3  w-6/12">
                 <mat-label>Profile Name</mat-label>
-                <input matInput id="ProfileName"  placeholder="Role Code" formControlName="ProfileName" >
-                  <!-- <mat-error *ngIf="errorHandling('ProfileName', 'required')">
-                    You Must Provide Role Code
-                 </mat-error> -->
-                
+                <input matInput id="ProfileName" placeholder="Role Code" formControlName="ProfileName">
+                <!-- <mat-error *ngIf="errorHandling('ProfileName', 'required')">
+                  You Must Provide Role Code
+               </mat-error> -->
+
             </mat-form-field>
-            <mat-form-field  class="flex-auto   w-6/12">
+            <mat-form-field class="flex-auto   w-6/12">
                 <mat-label>Description</mat-label>
                 <input matInput id="ProfileDesc" placeholder="Role Name" formControlName="ProfileDesc">
                 <!-- <mat-error *ngIf="errorHandling('ProfileDesc', 'required')">
@@ -24,35 +24,36 @@
             </mat-form-field>
         </div>
         <div class="flex gt-xs:flex-row mt-2">
-          <mat-form-field class="mat-form-field-fluid mr-4 w-6/12 map-fields" appearance="outline">
-            <mat-label>Group</mat-label>
-            <mat-select formControlName="ProfileID">
-              <mat-option *ngFor="let lov of LOVs" [value]="lov.Id">
-                {{lov.Name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-      </div>
+            <mat-form-field class="mat-form-field-fluid mr-4 w-6/12 map-fields" appearance="outline">
+                <mat-label>Group</mat-label>
+                <mat-select formControlName="ProfileID">
+                    <mat-option *ngFor="let lov of LOVs" [value]="lov.Id">
+                        {{lov.Name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions class="py-3 border-t" align="end">
-    
-   
-     <button
-     *ngIf="!roleForm.disabled"
-     class=" bg-green"
-     mat-flat-button
-     [color]="'primary'"
-     [disabled]="viewLoading"
-     (click)="onSubmit()">
 
-      <mat-icon class="mr-2">save</mat-icon>Save
 
-     <mat-progress-spinner
-         *ngIf="roleForm.disabled"
-         [diameter]="24"
-         [mode]="'indeterminate'"></mat-progress-spinner>
- </button>
+    <button
+        *ngIf="!roleForm.disabled"
+        class=" bg-green"
+        mat-flat-button
+        [color]="'primary'"
+        [disabled]="viewLoading"
+        (click)="onSubmit()">
+
+        <mat-icon class="mr-2">save</mat-icon>
+        Save
+
+        <mat-progress-spinner
+            *ngIf="roleForm.disabled"
+            [diameter]="24"
+            [mode]="'indeterminate'"></mat-progress-spinner>
+    </button>
 </mat-dialog-actions>
 
 

@@ -1,8 +1,8 @@
 // NGRX
-import { Action } from '@ngrx/store';
-import { Update } from '@ngrx/entity';
-import { Role } from 'app/modules/user-management/assign-pages/role.model';
-import { QueryParamsModel } from '../models/query_params.model';
+import {Action} from '@ngrx/store';
+import {Update} from '@ngrx/entity';
+import {Role} from 'app/modules/user-management/assign-pages/role.model';
+import {QueryParamsModel} from '../models/query_params.model';
 
 
 export enum RoleActionTypes {
@@ -21,35 +21,47 @@ export enum RoleActionTypes {
 
 export class RoleOnServerCreated implements Action {
     readonly type = RoleActionTypes.RoleOnServerCreated;
-    constructor(public payload: { role: Role }) { }
+
+    constructor(public payload: { role: Role }) {
+    }
 }
 
 export class RoleCreated implements Action {
     readonly type = RoleActionTypes.RoleCreated;
-    constructor(public payload: { role: Role }) { }
+
+    constructor(public payload: { role: Role }) {
+    }
 }
 
 export class RoleUpdated implements Action {
     readonly type = RoleActionTypes.RoleUpdated;
+
     constructor(public payload: {
         partialrole: Update<Role>,
         role: Role
-    }) { }
+    }) {
+    }
 }
 
 export class RoleDeleted implements Action {
     readonly type = RoleActionTypes.RoleDeleted;
-    constructor(public payload: { id: number }) {}
+
+    constructor(public payload: { id: number }) {
+    }
 }
 
 export class RolesPageRequested implements Action {
     readonly type = RoleActionTypes.RolesPageRequested;
-    constructor(public payload: { page: QueryParamsModel }) { }
+
+    constructor(public payload: { page: QueryParamsModel }) {
+    }
 }
 
 export class RolesPageLoaded implements Action {
     readonly type = RoleActionTypes.RolesPageLoaded;
-    constructor(public payload: { roles: Role[], totalCount: number, page: QueryParamsModel }) { }
+
+    constructor(public payload: { roles: Role[], totalCount: number, page: QueryParamsModel }) {
+    }
 }
 
 export class RolesPageCancelled implements Action {
@@ -62,27 +74,33 @@ export class AllRolesRequested implements Action {
 
 export class AllRolesLoaded implements Action {
     readonly type = RoleActionTypes.AllRolesLoaded;
-    constructor(public payload: { roles: Role[] }) { }
+
+    constructor(public payload: { roles: Role[] }) {
+    }
 }
 
 export class RolesPageToggleLoading implements Action {
     readonly type = RoleActionTypes.RolesPageToggleLoading;
-    constructor(public payload: { isLoading: boolean }) { }
+
+    constructor(public payload: { isLoading: boolean }) {
+    }
 }
 
 export class RolesActionToggleLoading implements Action {
     readonly type = RoleActionTypes.RolesActionToggleLoading;
-    constructor(public payload: { isLoading: boolean }) { }
+
+    constructor(public payload: { isLoading: boolean }) {
+    }
 }
 
 export type RoleActions = RoleCreated
-| RoleUpdated
-| RoleDeleted
-| RolesPageRequested
-| RolesPageLoaded
-| RolesPageCancelled
-| AllRolesLoaded
-| AllRolesRequested
-| RoleOnServerCreated
-| RolesPageToggleLoading
-| RolesActionToggleLoading;
+    | RoleUpdated
+    | RoleDeleted
+    | RolesPageRequested
+    | RolesPageLoaded
+    | RolesPageCancelled
+    | AllRolesLoaded
+    | AllRolesRequested
+    | RoleOnServerCreated
+    | RolesPageToggleLoading
+    | RolesActionToggleLoading;

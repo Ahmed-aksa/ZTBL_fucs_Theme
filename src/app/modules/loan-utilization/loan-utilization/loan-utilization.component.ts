@@ -475,7 +475,7 @@ export class LoanUtilizationComponent implements OnInit {
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
-                        if (status == 'S' || status == 'C' ||status == 'R') {
+                        if (status == 'S' || status == 'C' || status == 'R') {
                             this.router.navigate(['/loan-utilization/search-uti']);
                         }
                         this.layoutUtilsService.alertElementSuccess(

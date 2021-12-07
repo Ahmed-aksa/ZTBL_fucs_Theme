@@ -1,4 +1,4 @@
-import { BaseModel } from "app/shared/models/base-model.model";
+import {BaseModel} from "app/shared/models/base-model.model";
 
 
 export class Role extends BaseModel {
@@ -12,5 +12,5 @@ export class Role extends BaseModel {
         this.title = '';
         this.permissions = [];
         this.isCoreRole = false;
-	}
+    }
 }

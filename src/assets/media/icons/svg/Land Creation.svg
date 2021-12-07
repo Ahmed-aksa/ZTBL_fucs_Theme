@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+     y="0px"
+     viewBox="0 0 480 480" style="enable-background:new 0 0 480 480;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#FFFFFF;}
+	.st0 {
+        fill: #FFFFFF;
+    }
 </style>
-<g>
+    <g>
 	<g>
 		<path class="st0" d="M472,0C472,0,472,0,472,0H8C3.6,0,0,3.6,0,8c0,0,0,0,0,0v464c0,4.4,3.6,8,8,8c0,0,0,0,0,0h464
 			c4.4,0,8-3.6,8-8c0,0,0,0,0,0V8C480,3.6,476.4,0,472,0z M464,464H16V16h144.3c2.8,53.7,33.4,88,79.7,88h16c30.9,0,56,25.1,56,56
@@ -13,124 +16,124 @@
 			c0-31.4,14.7-68,56-68h24c39.8,0,72-32.2,72-72c0-39.8-32.2-72-72-72h-16c-43.9,0-61.5-35.8-63.7-72H464V368z"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<path class="st0" d="M72,32c-22.1,0-40,17.9-40,40s17.9,40,40,40c22.1,0,40-17.9,40-40C112,49.9,94.1,32,72,32z M72,96
 			c-13.3,0-24-10.7-24-24s10.7-24,24-24s24,10.7,24,24C96,85.2,85.2,96,72,96z"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<path class="st0" d="M271.2,172.4l-24-48c-2.4-4-7.5-5.2-11.4-2.9c-1.2,0.7-2.2,1.7-2.9,2.9l-24,48c-2,4-0.4,8.8,3.6,10.7
 			c1.1,0.6,2.3,0.8,3.6,0.8h48c4.4,0,8-3.6,8-8C272,174.8,271.7,173.5,271.2,172.4z M228.9,168l11.1-22.1l11.1,22.1H228.9z"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<path class="st0" d="M296,272C296,272,296,272,296,272h-48c-4.4,0-8,3.6-8,8c0,0,0,0,0,0v48c0,4.4,3.6,8,8,8c0,0,0,0,0,0h48
 			c4.4,0,8-3.6,8-8c0,0,0,0,0,0v-48C304,275.6,300.4,272,296,272z M288,320h-32v-32h32V320z"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
-		<polygon class="st0" points="424,232 424,208 408,208 408,232 384,232 384,248 408,248 408,272 424,272 424,248 448,248 448,232 
+		<polygon class="st0" points="424,232 424,208 408,208 408,232 384,232 384,248 408,248 408,272 424,272 424,248 448,248 448,232
 					"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<path class="st0" d="M431.2,68.4l-16-32c-1.4-2.7-4.1-4.4-7.2-4.4h-32c-3,0-5.8,1.7-7.2,4.4l-16,32c-1.1,2.3-1.1,4.9,0,7.2l16,32
 			c1.4,2.7,4.1,4.4,7.2,4.4h32c3,0,5.8-1.7,7.2-4.4l16-32C432.3,73.3,432.3,70.7,431.2,68.4z M403.1,96h-22.1l-12-24l12-24h22.1
 			l12,24L403.1,96z"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="32" y="152" class="st0" width="32" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="80" y="152" class="st0" width="32" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="128" y="152" class="st0" width="32" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="144" y="184" class="st0" width="16" height="32"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="128" y="232" class="st0" width="32" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="96" y="232" class="st0" width="16" height="32"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="96" y="280" class="st0" width="16" height="32"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="96" y="328" class="st0" width="16" height="32"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="96" y="376" class="st0" width="32" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
-		<polygon class="st0" points="194.9,397.7 183.6,386.3 166.6,403.3 149.7,386.3 138.3,397.7 155.3,414.6 138.3,431.6 149.7,442.9 
+		<polygon class="st0" points="194.9,397.7 183.6,386.3 166.6,403.3 149.7,386.3 138.3,397.7 155.3,414.6 138.3,431.6 149.7,442.9
 			166.6,425.9 183.6,442.9 194.9,431.6 177.9,414.6 		"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="432" y="408" class="st0" width="16" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="400" y="408" class="st0" width="16" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="368" y="408" class="st0" width="16" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="336" y="408" class="st0" width="16" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="304" y="408" class="st0" width="16" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="272" y="408" class="st0" width="16" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="240" y="408" class="st0" width="16" height="16"/>
 	</g>
 </g>
-<g>
+    <g>
 	<g>
 		<rect x="208" y="408" class="st0" width="16" height="16"/>
 	</g>

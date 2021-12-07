@@ -1,17 +1,15 @@
-import { NgModule } from '@angular/core';
-import { FuseTailwindService } from '@fuse/services/tailwind/tailwind.service';
+import {NgModule} from '@angular/core';
+import {FuseTailwindService} from '@fuse/services/tailwind/tailwind.service';
 
 @NgModule({
     providers: [
         FuseTailwindService
     ]
 })
-export class FuseTailwindConfigModule
-{
+export class FuseTailwindConfigModule {
     /**
      * Constructor
      */
-    constructor(private _fuseTailwindConfigService: FuseTailwindService)
-    {
+    constructor(private _fuseTailwindConfigService: FuseTailwindService) {
     }
 }

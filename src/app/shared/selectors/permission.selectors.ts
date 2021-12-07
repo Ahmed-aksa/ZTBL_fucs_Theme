@@ -1,6 +1,6 @@
 // NGRX
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { PermissionsState } from '../reducers/permission.reducers';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {PermissionsState} from '../reducers/permission.reducers';
 // State
 import * as fromPermissions from '../reducers/permission.reducers';
 
@@ -23,5 +23,5 @@ export const selectAllPermissionsIds = createSelector(
 
 export const allPermissionsLoaded = createSelector(
     selectPermissionsState,
-    ps  => ps._isAllPermissionsLoaded
+    ps => ps._isAllPermissionsLoaded
 );

@@ -1,34 +1,34 @@
 .custom-accordion {
-  border-radius: 25px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  transition: dispaly 1s ease;
+    border-radius: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    transition: dispaly 1s ease;
 
 }
 
 .custom-accordion-head {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border-bottom: 1px solid green;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid green;
 
 }
 
 .custom-padding {
-  padding: 10px;
+    padding: 10px;
 }
 
 .custom-accordion-body {
-  padding: 20px;
-  -webkit-transition: opacity 600ms, visibility 600ms;
-  transition: opacity 600ms, visibility 600ms;
+    padding: 20px;
+    -webkit-transition: opacity 600ms, visibility 600ms;
+    transition: opacity 600ms, visibility 600ms;
 }
 
-button{
-  box-shadow: none;
+button {
+    box-shadow: none;
 }
 
 .body.light .mat-raised-button:not([class*=mat-elevation-z]), body .light .mat-raised-button:not([class*=mat-elevation-z]) {
-  box-shadow: none;
+    box-shadow: none;
 }
