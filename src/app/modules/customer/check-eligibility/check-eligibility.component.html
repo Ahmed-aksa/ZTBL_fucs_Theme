@@ -151,6 +151,8 @@
                             </div>
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Date Of Birth (DDMMYY)<strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input matInput [matDatepicker]="picker" placeholder="Enter DOB"
                                            formControlName="Dob" autocomplete="off" readonly [max]="todayMax" readonly>
 
@@ -165,6 +167,8 @@
 
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">CNIC Expiry (DDMMYY)<strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input matInput [matDatepicker]="picker1" placeholder="Enter cnic expiry"
                                            formControlName="CnicExpiry" maxlength="30" autocomplete="off" readonly
                                            [min]="todayMin"/>
@@ -179,11 +183,25 @@
                             </div>
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Customer Name<strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input matInput placeholder="Enter Customer Name" formControlName="CustomerName"
                                            maxlength="100" autocomplete="off"/>
                                     <mat-error *ngIf="hasError('CustomerName', 'required')">Customer Name <strong>required</strong>
                                     </mat-error>
                                     <mat-hint align="left">Please enter Customer Name <strong></strong></mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Select Gender <strong
+                                        class="matMandatory">*</strong></mat-label>
+                                    <mat-select formControlName="Gender">
+                                        <mat-option *ngFor="let obj of GenderLov.LOVs" [value]="obj.Value">
+                                            {{obj.Name}}
+                                        </mat-option>
+                                    </mat-select>
+
                                 </mat-form-field>
                             </div>
                         </div>
@@ -192,6 +210,8 @@
 
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full " appearance="outline">
+                                    <mat-label class="customMatLabel">Father Name<strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input matInput placeholder="Enter Father Name" formControlName="FatherName"
                                            maxlength="100" autocomplete="off"/>
                                     <mat-error *ngIf="hasError('FatherName', 'required')">Father Name
@@ -202,6 +222,8 @@
 
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Current Address<strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input matInput placeholder="Current Address" formControlName="CurrentAddress"
                                            maxlength="200" autocomplete="off"/>
                                     <mat-error *ngIf="hasError('CurrentAddress', 'required')">Current Address <strong>required</strong>
@@ -222,6 +244,8 @@
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">CNIC <strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input readonly="readonly" matInput placeholder="Enter cnic" formControlName="Cnic"
                                            maxlength="30" autocomplete="off" [mask]="maskEnums.cnic"/>
                                     <mat-error *ngIf="hasError('Cnic', 'required')">cnic <strong>required</strong>
@@ -232,6 +256,8 @@
                             </div>
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Date Of Birth (DDMMYY)<strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input [disabled]="true" readonly="readonly" matInput [matDatepicker]="picker"
                                            placeholder="Enter dob" formControlName="Dob" autocomplete="off"
                                            [max]="todayMax">
@@ -247,6 +273,8 @@
 
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Customer Name <strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input readonly="readonly" matInput placeholder="Enter Customer Name"
                                            formControlName="CustomerName" maxlength="100" autocomplete="off"/>
                                     <mat-error *ngIf="hasError('CustomerName', 'required')">Customer Name <strong>required</strong>
@@ -256,6 +284,8 @@
                             </div>
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">Current Address <strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input matInput placeholder="Current Address" formControlName="CurrentAddress"
                                            maxlength="200" autocomplete="off"/>
                                     <mat-error *ngIf="hasError('CurrentAddress', 'required')">Address
@@ -270,19 +300,10 @@
 
                             <div class="col-lg-3 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <input matInput placeholder="City" formControlName="District"/>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Select Gender <strong
+                                    <mat-label class="customMatLabel">City <strong
                                         class="matMandatory">*</strong></mat-label>
-                                    <mat-select formControlName="Gender">
-                                        <mat-option *ngFor="let obj of GenderLov.LOVs" [value]="obj.Value">
-                                            {{obj.Name}}
-                                        </mat-option>
-                                    </mat-select>
-
+                                    <input matInput placeholder="City" formControlName="District"
+                                           [(ngModel)]="disrtrict_value"/>
                                 </mat-form-field>
                             </div>
                         </div>

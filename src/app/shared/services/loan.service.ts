@@ -693,7 +693,7 @@ export class LoanService {
 
         formData.append('OwnerName', userInfo.User.UserName);
 
-        formData.append('LoanCaseID', loanDoc.LcNo);
+        formData.append('LoanCaseID', loanDoc.LoanCaseID.toString());
 
         formData.append('ParentDocId', loanDoc.ParentDocId.toString());
 

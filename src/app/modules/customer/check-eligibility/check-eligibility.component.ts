@@ -92,6 +92,7 @@ export class CheckEligibilityComponent implements OnInit {
     disable_buttons: boolean = true;
     show_ndc = false;
     IS_NIVS: string;
+    private first_request_response: BaseResponseModel;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -183,6 +184,8 @@ export class CheckEligibilityComponent implements OnInit {
             )
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
+
+                    this.first_request_response=baseResponse;
                     this.loading = false;
                     this.NDCPerform = true;
                     this.NdcSubmit = true;
@@ -207,6 +210,7 @@ export class CheckEligibilityComponent implements OnInit {
                     } else {
                         this.IsNdcDefaulter = false;
                     }
+
                     this.Ftb = baseResponse.Ftb;
                     this.tran_id = baseResponse.TranId;
                     this._cdf.detectChanges();
@@ -260,7 +264,7 @@ export class CheckEligibilityComponent implements OnInit {
                             this.NDCActionPerformSuccess = false;
                             this.NdcSubmit = false;
                             this.BiMatricCasePerfom = true;
-                            this.PerformUseCases(baseResponse);
+                            this.PerformUseCases(this.first_request_response);
                             this._cdf.detectChanges();
                         } else {
                             if (baseResponse.Ftb == 1) {
@@ -281,9 +285,34 @@ export class CheckEligibilityComponent implements OnInit {
     ///By Pass screens in terms of data
     //OS Change Set
     PerformUseCases(Data) {
+        if (Data.Customer.City) {
+            this.disrtrict_value = Data.Customer.City;
+            this.disable_district_field = true;
+        } else if (Data.Customer.District) {
+            this.disrtrict_value = Data.Customer.District;
+            this.disable_district_field = true;
+        } else {
+            this.disable_district_field = false;
+            this.disrtrict_value = '';
+        }
         if (Data.Customer != '' && Data.Customer != null && Data.Customer != undefined) {
-            var check = Data.Customer.isBMVSAvailable;
-            if (check) {
+            // var check = Data.Customer.isBMVSAvailable;
+            // if (check) {
+            //     this.BiMatricCasePerfom = true;
+            //     this._customer = new CreateCustomer();
+            //     this._customer = Object.assign(this._customer, Data.Customer);
+            //     this.BiometricCredentials = false;
+            //
+            // } else {
+            //     this.BiMatricCasePerfom = false;
+            //     this.BiometricCredentials = true;
+            //     this._customer = new CreateCustomer();
+            //     this._customer = Object.assign(this._customer, Data.Customer);
+            // }
+
+
+            let check = Data.Code;
+            if (check == '2068') {
                 this.BiMatricCasePerfom = true;
                 this._customer = new CreateCustomer();
                 this._customer = Object.assign(this._customer, Data.Customer);

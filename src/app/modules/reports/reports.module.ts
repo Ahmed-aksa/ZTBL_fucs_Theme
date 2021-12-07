@@ -11,14 +11,16 @@ import {SearchLoanCasesByCnicComponent} from './search-loan-cases-by-cnic/search
 import {FaViewCircleWiseComponent} from './fa-view-circle-wise/fa-view-circle-wise.component';
 import {SharedModule} from 'app/shared/shared.module';
 import {RouterModule} from '@angular/router';
-import {DailyVoucherProofComponent} from './daily-voucher-proof/daily-voucher-proof.component';
-import {AffidavitForLegalHeirsComponent} from './affidavit-for-legal-heirs/affidavit-for-legal-heirs.component';
-import {PaymentBehaviorComponent} from './payment-behavior/payment-behavior.component';
-import {VoucherPostingDayComponent} from './voucher-posting-day/voucher-posting-day.component';
-import {DisbursementPerformanceReportComponent} from './disbursement-performance-report/disbursement-performance-report.component';
-import {DisbursementPerformancePurposeWiseComponent} from './disbursement-performance-purpose-wise/disbursement-performance-purpose-wise.component';
-import {InsuranceReportComponent} from './insurance-report/insurance-report.component';
-import {LoanAccountBalanceComponent} from './loan-account-balance/loan-account-balance.component';
+import { DailyVoucherProofComponent } from './daily-voucher-proof/daily-voucher-proof.component';
+import { AffidavitForLegalHeirsComponent } from './affidavit-for-legal-heirs/affidavit-for-legal-heirs.component';
+import { PaymentBehaviorComponent } from './payment-behavior/payment-behavior.component';
+import { VoucherPostingDayComponent } from './voucher-posting-day/voucher-posting-day.component';
+import { DisbursementPerformanceReportComponent } from './disbursement-performance-report/disbursement-performance-report.component';
+import { DisbursementPerformancePurposeWiseComponent } from './disbursement-performance-purpose-wise/disbursement-performance-purpose-wise.component';
+import { InsuranceReportComponent } from './insurance-report/insurance-report.component';
+import { LoanAccountBalanceComponent } from './loan-account-balance/loan-account-balance.component';
+import { LaFileProgressComponent } from './la-file-progress/la-file-progress.component';
+import { LoanInformationDetailComponent } from './loan-information-detail/loan-information-detail.component';
 
 const routing = [
     {
@@ -68,7 +70,9 @@ const routing = [
         DisbursementPerformanceReportComponent,
         DisbursementPerformancePurposeWiseComponent,
         InsuranceReportComponent,
-        LoanAccountBalanceComponent
+        LoanAccountBalanceComponent,
+        LaFileProgressComponent,
+        LoanInformationDetailComponent
     ],
     imports: [
         CommonModule,

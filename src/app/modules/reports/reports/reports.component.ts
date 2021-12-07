@@ -21,6 +21,7 @@ import {DisbursementPerformanceReportComponent} from "../disbursement-performanc
 import {DisbursementPerformancePurposeWiseComponent} from "../disbursement-performance-purpose-wise/disbursement-performance-purpose-wise.component";
 import {LoanAccountBalanceComponent} from "../loan-account-balance/loan-account-balance.component";
 import {InsuranceReportComponent} from "../insurance-report/insurance-report.component";
+import {LaFileProgressComponent} from "../la-file-progress/la-file-progress.component";
 
 @Component({
     selector: 'app-reports',
@@ -150,6 +151,15 @@ export class ReportsComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe((res) => {
             if (!res) {
+                return
+            }
+        })
+    }
+
+    laFileProgress(){
+        const dialogRef = this.dialog.open(LaFileProgressComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
                 return
             }
         })
