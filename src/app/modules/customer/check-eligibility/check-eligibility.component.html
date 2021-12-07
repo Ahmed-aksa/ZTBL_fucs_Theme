@@ -141,6 +141,8 @@
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <mat-label class="customMatLabel">CNIC <strong
+                                        class="matMandatory">*</strong></mat-label>
                                     <input matInput placeholder="Enter cnic" formControlName="Cnic" maxlength="30"
                                            autocomplete="off" [mask]="maskEnums.cnic" readonly/>
                                     <mat-error *ngIf="hasError('Cnic', 'required')">cnic <strong>required</strong>
@@ -151,8 +153,7 @@
                             </div>
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Date Of Birth (DDMMYY)<strong
-                                        class="matMandatory">*</strong></mat-label>
+                                    <mat-label class="customMatLabel">Date Of Birth<strong class="matMandatory">*</strong></mat-label>
                                     <input matInput [matDatepicker]="picker" placeholder="Enter DOB"
                                            formControlName="Dob" autocomplete="off" readonly [max]="todayMax" readonly>
 
@@ -161,13 +162,13 @@
 
                                     <mat-error *ngIf="hasError('Dob', 'required')">DOB <strong>required</strong>
                                     </mat-error>
-                                    <mat-hint align="left">Please enter DOB <strong></strong></mat-hint>
+                                    <mat-hint align="left">Please enter DOB(DDMMYYYY) <strong></strong></mat-hint>
                                 </mat-form-field>
                             </div>
 
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">CNIC Expiry (DDMMYY)<strong
+                                    <mat-label class="customMatLabel">CNIC Expiry <strong
                                         class="matMandatory">*</strong></mat-label>
                                     <input matInput [matDatepicker]="picker1" placeholder="Enter cnic expiry"
                                            formControlName="CnicExpiry" maxlength="30" autocomplete="off" readonly
@@ -178,7 +179,8 @@
 
                                     <mat-error *ngIf="hasError('CnicExpiry', 'required')">CnicExpiry
                                         <strong>required</strong></mat-error>
-                                    <mat-hint align="left">Please enter cnic expiry <strong></strong></mat-hint>
+                                    <mat-hint align="left">Please enter cnic expiry (DDMMYYYY)<strong></strong>
+                                    </mat-hint>
                                 </mat-form-field>
                             </div>
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
@@ -201,6 +203,7 @@
                                             {{obj.Name}}
                                         </mat-option>
                                     </mat-select>
+                                    <mat-hint align="left">Please select Gender <strong></strong></mat-hint>
 
                                 </mat-form-field>
                             </div>
@@ -250,13 +253,13 @@
                                            maxlength="30" autocomplete="off" [mask]="maskEnums.cnic"/>
                                     <mat-error *ngIf="hasError('Cnic', 'required')">cnic <strong>required</strong>
                                     </mat-error>
-                                    <mat-hint align="left">Please enter cnic <strong>(32104-1234567-8)</strong>
+                                    <mat-hint align="left">Please enter cnic <strong>(3210412345678)</strong>
                                     </mat-hint>
                                 </mat-form-field>
                             </div>
                             <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Date Of Birth (DDMMYY)<strong
+                                    <mat-label class="customMatLabel">Date Of Birth<strong
                                         class="matMandatory">*</strong></mat-label>
                                     <input [disabled]="true" readonly="readonly" matInput [matDatepicker]="picker"
                                            placeholder="Enter dob" formControlName="Dob" autocomplete="off"
@@ -267,7 +270,7 @@
 
                                     <mat-error *ngIf="hasError('Dob', 'required')">Dob <strong>required</strong>
                                     </mat-error>
-                                    <mat-hint align="left">Please enter Dob <strong></strong></mat-hint>
+                                    <mat-hint align="left">Please enter Dob (DDMMYYYY) <strong></strong></mat-hint>
                                 </mat-form-field>
                             </div>
 
@@ -290,7 +293,7 @@
                                            maxlength="200" autocomplete="off"/>
                                     <mat-error *ngIf="hasError('CurrentAddress', 'required')">Address
                                         <strong>required</strong></mat-error>
-                                    <mat-hint align="left">Please enter address <strong></strong></mat-hint>
+                                    <mat-hint align="left">Please enter Address <strong></strong></mat-hint>
                                 </mat-form-field>
                             </div>
 
@@ -304,6 +307,8 @@
                                         class="matMandatory">*</strong></mat-label>
                                     <input matInput placeholder="City" formControlName="District"
                                            [(ngModel)]="disrtrict_value"/>
+                                    <mat-hint align="left">Please enter City <strong></strong></mat-hint>
+
                                 </mat-form-field>
                             </div>
                         </div>

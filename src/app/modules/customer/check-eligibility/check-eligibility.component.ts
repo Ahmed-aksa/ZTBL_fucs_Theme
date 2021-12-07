@@ -518,7 +518,7 @@ export class CheckEligibilityComponent implements OnInit {
             CustomerName: [this._customer.CustomerName, [Validators.required]],
             FatherName: [this._customer.FatherName, [Validators.required]],
             CurrentAddress: [this._customer.CurrentAddress, [Validators.required]],
-            Gender: [this._customer.Gender, [Validators.required]],
+            Gender: [this._customer.Gender],
             District: [null, [Validators.required]]
         });
 
