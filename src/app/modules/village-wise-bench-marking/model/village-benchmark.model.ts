@@ -3,7 +3,7 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { BaseModel } from 'app/shared/models/base-model.model';
+import {BaseModel} from 'app/shared/models/base-model.model';
 
 export class VillageBenchMark extends BaseModel {
     Id: string;
@@ -22,6 +22,6 @@ export class VillageBenchMark extends BaseModel {
     MaleCount: string;
     FemaleCount: string;
     TransGenderCount: string;
-    FarmSizeUnit:string;
-    CircleId:string;
-  }
+    FarmSizeUnit: string;
+    CircleId: string;
+}

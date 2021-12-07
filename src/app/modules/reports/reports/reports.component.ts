@@ -38,82 +38,118 @@ export class ReportsComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    bufrictionOfOSBalances(){
-        const dialogRef = this.dialog.open(BufricationOfOsBalancesLcComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+    bufrictionOfOSBalances() {
+        const dialogRef = this.dialog.open(BufricationOfOsBalancesLcComponent, {
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })
     }
 
-    voucherPostingDay(){
-        const dialogRef = this.dialog.open(VoucherPostingDayComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+    voucherPostingDay() {
+        const dialogRef = this.dialog.open(VoucherPostingDayComponent, {
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })
     }
 
-    dailyVoucherProof(){
-        const dialogRef = this.dialog.open(DailyVoucherProofComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+    dailyVoucherProof() {
+        const dialogRef = this.dialog.open(DailyVoucherProofComponent, {
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })
     }
 
-    paymentBehavior(){
-        const dialogRef = this.dialog.open(PaymentBehaviorComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+    paymentBehavior() {
+        const dialogRef = this.dialog.open(PaymentBehaviorComponent, {
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })
     }
 
-    affidavitForLegalHeirs(){
-        const dialogRef = this.dialog.open(AffidavitForLegalHeirsComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+    affidavitForLegalHeirs() {
+        const dialogRef = this.dialog.open(AffidavitForLegalHeirsComponent, {
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })
     }
 
-    disbursement(){
-        const dialogRef = this.dialog.open(DisbursementPerformanceReportComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+    disbursement() {
+        const dialogRef = this.dialog.open(DisbursementPerformanceReportComponent, {
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })
     }
 
-    disbursementPurposeWise(){
-        const dialogRef = this.dialog.open(DisbursementPerformancePurposeWiseComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+    disbursementPurposeWise() {
+        const dialogRef = this.dialog.open(DisbursementPerformancePurposeWiseComponent, {
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })
     }
 
-    loanAccountBalance(){
-        const dialogRef = this.dialog.open(LoanAccountBalanceComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+    loanAccountBalance() {
+        const dialogRef = this.dialog.open(LoanAccountBalanceComponent, {
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })
     }
 
-    insuranceReport(){
-        const dialogRef = this.dialog.open(InsuranceReportComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
-        dialogRef.afterClosed().subscribe((res)=>{
-            if(!res){
+    insuranceReport() {
+        const dialogRef = this.dialog.open(InsuranceReportComponent, {
+            panelClass: ['w-8/12'],
+            height: "700px",
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe((res) => {
+            if (!res) {
                 return
             }
         })

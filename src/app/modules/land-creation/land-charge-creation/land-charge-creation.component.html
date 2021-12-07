@@ -1,7 +1,8 @@
 <div class="kt-portlet">
     <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
         <div class="kt-portlet__head-label">
-            <h3 class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2" style="background-color: #f6fcf8;">{{getTitle()}}</h3>
+            <h3 class="text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
+                style="background-color: #f6fcf8;">{{getTitle()}}</h3>
         </div>
     </div>
     <form [formGroup]="LandInformationForm" class="kt-form kt-form--group-seperator-dashed">
@@ -147,7 +148,6 @@
                     </div>
 
 
-
                 </div>
                 <span class="font-bold">Area Convertor</span>
 
@@ -174,7 +174,8 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <button class="4/12 ml-2" mat-raised-button color="primary" (click)="AreaConverter()" *ngIf="!isFormReadonly">
+                        <button class="4/12 ml-2" mat-raised-button color="primary" (click)="AreaConverter()"
+                                *ngIf="!isFormReadonly">
                             Convert
                         </button>
                     </div>
@@ -273,7 +274,9 @@
                                                readonly="readonly"/>
                                     </td>
                                     <td (click)="deleteRow(i)" style="cursor:pointer;">
-                                        <p class="text-red-500 mt-6" *ngIf="!isFormReadonly"><mat-icon class="mr-2 text-red-500">delete_forever</mat-icon></p>
+                                        <p class="text-red-500 mt-6" *ngIf="!isFormReadonly">
+                                            <mat-icon class="mr-2 text-red-500">delete_forever</mat-icon>
+                                        </p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -283,8 +286,11 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" *ngIf="!isFormReadonly" type="button" mat-raised-button
-                                                (click)="addRow()"><mat-icon class="mr-2">add</mat-icon>Add New Row
+                                        <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                                                *ngIf="!isFormReadonly" type="button" mat-raised-button
+                                                (click)="addRow()">
+                                            <mat-icon class="mr-2">add</mat-icon>
+                                            Add New Row
                                         </button>
                                     </td>
                                 </tr>
@@ -304,12 +310,18 @@
                 <div class="kt-form__actions kt-form__actions--solid">
                     <div class="row text-center">
                         <div class="col-lg-12">
-                            <button style="background-color: #01671B;" *ngIf="!isFormReadonly" mat-raised-button color="primary"
-                                    (click)="saveLandChargeCreationDetails()"><mat-icon class="mr-2">save</mat-icon> Save
+                            <button style="background-color: #01671B;" *ngIf="!isFormReadonly" mat-raised-button
+                                    color="primary"
+                                    (click)="saveLandChargeCreationDetails()">
+                                <mat-icon class="mr-2">save</mat-icon>
+                                Save
                             </button>&nbsp;&nbsp;
-                            <button  type="button" class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" mat-raised-button cdkFocusInitial
+                            <button type="button"
+                                    class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                                    mat-raised-button cdkFocusInitial
                                     (click)="onCloseClick()">
-                                    <mat-icon class="mr-2">cancel</mat-icon> Cancel
+                                <mat-icon class="mr-2">cancel</mat-icon>
+                                Cancel
                             </button>
                         </div>
                     </div>

@@ -404,11 +404,11 @@
 /*  @ Dialog
 /* ----------------------------------------------------------------------------------------------------- */
 
-.cdk-overlay-pane{
-.mat-dialog-container {
-    border-radius: 16px !important;
-    height: fit-content;
-}
+.cdk-overlay-pane {
+    .mat-dialog-container {
+        border-radius: 16px !important;
+        height: fit-content;
+    }
 }
 
 /* ----------------------------------------------------------------------------------------------------- */

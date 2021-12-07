@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
-import { assign, cloneDeep, omit } from 'lodash-es';
+import {Injectable} from '@angular/core';
+import {assign, cloneDeep, omit} from 'lodash-es';
 import * as moment from 'moment';
-import RRule, { RRuleSet, rrulestr } from 'rrule';
-import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
-import { calendars as calendarsData, events as eventsData, exceptions as exceptionsData, settings as settingsData, weekdays as weekdaysData } from 'app/mock-api/apps/calendar/data';
+import RRule, {RRuleSet, rrulestr} from 'rrule';
+import {FuseMockApiService, FuseMockApiUtils} from '@fuse/lib/mock-api';
+import {
+    calendars as calendarsData,
+    events as eventsData,
+    exceptions as exceptionsData,
+    settings as settingsData,
+    weekdays as weekdaysData
+} from 'app/mock-api/apps/calendar/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class CalendarMockApi
-{
+export class CalendarMockApi {
     private _calendars: any[] = calendarsData;
     private _events: any[] = eventsData;
     private _exceptions: any[] = exceptionsData;
@@ -19,8 +24,7 @@ export class CalendarMockApi
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _fuseMockApiService: FuseMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -32,8 +36,7 @@ export class CalendarMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ Calendars - GET
         // -----------------------------------------------------------------------------------------------------
@@ -85,8 +88,7 @@ export class CalendarMockApi
                 // Find the calendar and update it
                 this._calendars.forEach((item, index, calendars) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the calendar
                         calendars[index] = assign({}, calendars[index], calendar);
 
@@ -145,21 +147,17 @@ export class CalendarMockApi
                     const eventEnd = moment(event.end);
 
                     // If it's a normal event...
-                    if ( !event.recurrence )
-                    {
+                    if (!event.recurrence) {
                         // Only grab the event if it's within the range
-                        if ( eventStart.isSameOrAfter(viewStart, 'day') && eventEnd.isSameOrBefore(viewEnd, 'day') )
-                        {
+                        if (eventStart.isSameOrAfter(viewStart, 'day') && eventEnd.isSameOrBefore(viewEnd, 'day')) {
                             // Push the event into the results array
                             results.push(event);
                         }
                     }
                     // If it's a recurring event...
-                    else
-                    {
+                    else {
                         // Skip if the event does not recur within the view range
-                        if ( eventStart.isAfter(viewEnd, 'day') || eventEnd.isBefore(viewStart, 'day') )
-                        {
+                        if (eventStart.isAfter(viewEnd, 'day') || eventEnd.isBefore(viewStart, 'day')) {
                             return;
                         }
 
@@ -187,8 +185,7 @@ export class CalendarMockApi
                             // Skip the date if it's not in between the view start and view end
                             // to prevent generating unnecessary amount of instances and to
                             // prevent instance duplication
-                            if ( !ruleDate.isBetween(viewStart, viewEnd, 'day', '[]') )
-                            {
+                            if (!ruleDate.isBetween(viewStart, viewEnd, 'day', '[]')) {
                                 return;
                             }
 
@@ -205,14 +202,14 @@ export class CalendarMockApi
                                 isFirstInstance: event.start === ruleDate.clone().toISOString(),
 
                                 // Get the rest of the mock-api
-                                calendarId : event.calendarId,
-                                title      : event.title,
+                                calendarId: event.calendarId,
+                                title: event.title,
                                 description: event.description,
-                                start      : ruleDate.toISOString(),
-                                end        : ruleDate.add(event.duration, 'minutes').toISOString(),
-                                duration   : event.duration,
-                                allDay     : event.allDay,
-                                recurrence : event.recurrence
+                                start: ruleDate.toISOString(),
+                                end: ruleDate.add(event.duration, 'minutes').toISOString(),
+                                duration: event.duration,
+                                allDay: event.allDay,
+                                recurrence: event.recurrence
                             };
 
                             // Push the event instance to the results array
@@ -262,8 +259,7 @@ export class CalendarMockApi
                 // Find the event and update it
                 this._events.forEach((item, index, events) => {
 
-                    if ( item.id === id )
-                    {
+                    if (item.id === id) {
                         // Update the event
                         events[index] = assign({}, events[index], event);
 
@@ -310,14 +306,13 @@ export class CalendarMockApi
                 const recurringEvent = this._events.find(item => item.id === event.recurringEventId);
 
                 // Single
-                if ( mode === 'single' )
-                {
+                if (mode === 'single') {
                     // Create a new event from the event while ignoring the range and recurringEventId
                     const {
-                              range,
-                              recurringEventId,
-                              ...newEvent
-                          } = event;
+                        range,
+                        recurringEventId,
+                        ...newEvent
+                    } = event;
 
                     // Generate a unique id for the event
                     newEvent.id = FuseMockApiUtils.guid();
@@ -333,8 +328,7 @@ export class CalendarMockApi
                     this._events.push(newEvent);
 
                     // If this is the first instance of the recurring event...
-                    if ( originalEvent.start === recurringEvent.start )
-                    {
+                    if (originalEvent.start === recurringEvent.start) {
                         // Generate the rruleset
                         const rruleset = this._generateRuleset(recurringEvent, moment(recurringEvent.start), moment(recurringEvent.end).utc());
 
@@ -353,20 +347,18 @@ export class CalendarMockApi
                         recurringEvent.start = ruleDate.toISOString();
                     }
                     // Otherwise...
-                    else
-                    {
+                    else {
                         // Add a new exception for the recurring event that ignores this single event's start date
                         this._exceptions.push({
-                            id     : FuseMockApiUtils.guid(),
+                            id: FuseMockApiUtils.guid(),
                             eventId: originalEvent.recurringEventId,
-                            exdate : moment(originalEvent.start).toISOString()
+                            exdate: moment(originalEvent.start).toISOString()
                         });
                     }
                 }
 
                 // Future
-                if ( mode === 'future' )
-                {
+                if (mode === 'future') {
                     // Update the end date
                     recurringEvent.end = moment(originalEvent.start).subtract(1, 'day').endOf('day').toISOString();
 
@@ -391,9 +383,9 @@ export class CalendarMockApi
 
                     // Create a new event from the event while ignoring the recurringEventId
                     const {
-                              recurringEventId,
-                              ...newEvent
-                          } = event;
+                        recurringEventId,
+                        ...newEvent
+                    } = event;
 
                     // Generate a unique id for the event
                     newEvent.id = FuseMockApiUtils.guid();
@@ -403,8 +395,7 @@ export class CalendarMockApi
                 }
 
                 // All
-                if ( mode === 'all' )
-                {
+                if (mode === 'all') {
                     // Find the event index
                     const eventIndex = this._events.findIndex(item => item.id === event.recurringEventId);
 
@@ -431,11 +422,9 @@ export class CalendarMockApi
                 const recurringEvent = this._events.find(item => item.id === event.recurringEventId);
 
                 // Single
-                if ( mode === 'single' )
-                {
+                if (mode === 'single') {
                     // If this is the first instance of the recurring event...
-                    if ( event.start === recurringEvent.start )
-                    {
+                    if (event.start === recurringEvent.start) {
                         // Generate the rruleset
                         const rruleset = this._generateRuleset(recurringEvent, moment(recurringEvent.start), moment(recurringEvent.end).utc());
 
@@ -454,20 +443,18 @@ export class CalendarMockApi
                         recurringEvent.start = ruleDate.toISOString();
                     }
                     // Otherwise...
-                    else
-                    {
+                    else {
                         // Add a new exception for the recurring event that ignores this single event's start date
                         this._exceptions.push({
-                            id     : FuseMockApiUtils.guid(),
+                            id: FuseMockApiUtils.guid(),
                             eventId: event.recurringEventId,
-                            exdate : moment(event.start).toISOString()
+                            exdate: moment(event.start).toISOString()
                         });
                     }
                 }
 
                 // Future
-                if ( mode === 'future' )
-                {
+                if (mode === 'future') {
                     // Update the end date of the event
                     recurringEvent.end = moment(event.start).subtract(1, 'day').endOf('day').toISOString();
 
@@ -492,8 +479,7 @@ export class CalendarMockApi
                 }
 
                 // All
-                if ( mode === 'all' )
-                {
+                if (mode === 'all') {
                     // Find the event and delete it
                     const index = this._events.findIndex(item => item.id === event.recurringEventId);
                     this._events.splice(index, 1);
@@ -538,15 +524,13 @@ export class CalendarMockApi
                 const weekdays = cloneDeep(this._weekdays);
 
                 // If the startWeekOn setting is set to Sunday...
-                if ( this._settings.startWeekOn === 0 )
-                {
+                if (this._settings.startWeekOn === 0) {
                     // Move the Sunday to the beginning
                     weekdays.unshift(weekdays.pop());
                 }
 
                 // If the startWeekOn is set to Saturday...
-                if ( this._settings.startWeekOn === 6 )
-                {
+                if (this._settings.startWeekOn === 6) {
                     // Move the Sunday to the beginning
                     weekdays.unshift(weekdays.pop());
 
@@ -571,8 +555,7 @@ export class CalendarMockApi
      * @param until
      * @private
      */
-    private _generateRuleset(event: any, dtStart: any, until: any): RRuleSet | RRule
-    {
+    private _generateRuleset(event: any, dtStart: any, until: any): RRuleSet | RRule {
         // Parse the recurrence rules
         const parsedRules: any = {};
         event.recurrence.split(';').forEach((rule: string) => {
@@ -583,8 +566,7 @@ export class CalendarMockApi
             // Omit UNTIL or COUNT from the parsed rules since we only
             // need them for calculating the event's end date. We will
             // add an UNTIL later based on the above calculations.
-            if ( parsedRule[0] === 'UNTIL' || parsedRule[0] === 'COUNT' )
-            {
+            if (parsedRule[0] === 'UNTIL' || parsedRule[0] === 'COUNT') {
                 return;
             }
 
@@ -611,8 +593,7 @@ export class CalendarMockApi
         this._exceptions.forEach((item) => {
 
             // If the item is an exception to this event...
-            if ( item.eventId === event.id )
-            {
+            if (item.eventId === event.id) {
                 // Add it as an EXDATE to the rrule
                 ruleSet.push('EXDATE:' + moment(item.exdate).format('YYYYMMDD[T]HHmmss[Z]'));
             }

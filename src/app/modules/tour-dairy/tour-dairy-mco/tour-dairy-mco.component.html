@@ -1,4 +1,5 @@
-<div class="px-10 pt-0 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
+<div
+    class="px-10 pt-0 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
     <!--[ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"-->
     <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
         <div class="text-4xl font-extrabold tracking-tight">Tour Diary of MCO</div>
@@ -13,7 +14,8 @@
 
                 <mat-form-field class="mat-form-field-fluid  mr-4" appearance="outline">
                     <mat-label class="customMatLabel">MCO's Name<strong class="matMandatory">*</strong></mat-label>
-                    <input matInput placeholder="MCO's Name" formControlName="McoName" readonly="readonly" maxlength="30"
+                    <input matInput placeholder="MCO's Name" formControlName="McoName" readonly="readonly"
+                           maxlength="30"
                            autocomplete="off"/>
                 </mat-form-field>
             </div>
@@ -26,14 +28,15 @@
                 </mat-form-field>
             </div>
 
-            </div>
-            <div class="col-lg-4 kt-margin-bottom-20-mobile">
+        </div>
+        <div class="col-lg-4 kt-margin-bottom-20-mobile">
 
-                <mat-form-field class="mat-form-field-fluid  mr-4" appearance="outline">
-                    <mat-label class="customMatLabel">Month<strong class="matMandatory">*</strong></mat-label>
-                    <input matInput placeholder="Month" formControlName="Month" readonly="readonly" maxlength="30" autocomplete="off" />
-                </mat-form-field>
-            </div>
+            <mat-form-field class="mat-form-field-fluid  mr-4" appearance="outline">
+                <mat-label class="customMatLabel">Month<strong class="matMandatory">*</strong></mat-label>
+                <input matInput placeholder="Month" formControlName="Month" readonly="readonly" maxlength="30"
+                       autocomplete="off"/>
+            </mat-form-field>
+        </div>
 
     </form>
 
@@ -69,7 +72,7 @@
                 <th>No. of cases sanctioned if authorized</th>
                 <th>No. of sanction letters delivered</th>
                 <th>No. of supply orders delivered</th>
-                <th>No. of demand notices delivered </th>
+                <th>No. of demand notices delivered</th>
                 <th>No. of legal notices delivered</th>
                 <th>No. of defauters contacted</th>
                 <th>Amount recovered (Daily)</th>
@@ -145,14 +148,14 @@
                 <th>Proportionate Target upto the end of month under report</th>
                 <th>Total Disbursement upto the end of previous month</th>
                 <th>Disburse-ment during the month under report</th>
-                <th>Total Disbursement upto the end of the month under report </th>
+                <th>Total Disbursement upto the end of the month under report</th>
                 <th>Increase/Deficit</th>
                 <!-- Mutations -->
                 <th>No. of Mutations pending as on the previous month</th>
                 <th>No. of disbursed cases during the month</th>
                 <th>Total No. of mutations to be verified</th>
                 <th>Mutation verified during the month</th>
-                <th>Pending for verification </th>
+                <th>Pending for verification</th>
             </tr>
             </thead>
             <tbody>
@@ -187,10 +190,10 @@
             <tr class="table-header-background text-center">
                 <!-- UTILIZATIONS -->
                 <th rowspan="4">No. of utilizations pending as on last date of the previous month</th>
-                <th rowspan="4">No. of cases disbursed during the month </th>
+                <th rowspan="4">No. of cases disbursed during the month</th>
                 <th rowspan="4">Total No. of utilizations to be verified</th>
                 <th rowspan="4">Utilization verified during the month</th>
-                <th rowspan="4">Pending cases checking of utilization </th>
+                <th rowspan="4">Pending cases checking of utilization</th>
                 <!-- RECOVERY -->
                 <th colspan="4">Amount in default upto the month under Report (Target)</th>
                 <th colspan="4">Recovery during the month under Report.</th>

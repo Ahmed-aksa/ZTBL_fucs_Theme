@@ -9,11 +9,10 @@ const _ = require('lodash');
  *
  * @param config
  */
-const generatePalette = (config) =>
-{
+const generatePalette = (config) => {
     // Prepare an empty palette
     const palette = {
-        50 : null,
+        50: null,
         100: null,
         200: null,
         300: null,
@@ -27,17 +26,14 @@ const generatePalette = (config) =>
 
     // If a single color is provided,
     // assign it to the 500
-    if ( _.isString(config) )
-    {
+    if (_.isString(config)) {
         palette[500] = chroma.valid(config) ? config : null;
     }
 
     // If a partial palette is provided,
     // assign the values
-    if ( _.isPlainObject(config) )
-    {
-        if ( !chroma.valid(config[500]) )
-        {
+    if (_.isPlainObject(config)) {
+        if (!chroma.valid(config[500])) {
             throw new Error('You must have a 500 hue in your palette configuration! Make sure the main color of your palette is marked as 500.');
         }
 
@@ -84,7 +80,7 @@ const generatePalette = (config) =>
 
     // Build and return the final palette
     return {
-        50 : scale(0.05).hex(),
+        50: scale(0.05).hex(),
         100: scale(0.1).hex(),
         200: scale(0.2).hex(),
         300: scale(0.3).hex(),

@@ -11,27 +11,28 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ViolateDialogComponent } from './violate-dialog/violate-dialog.component';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {ViolateDialogComponent} from './violate-dialog/violate-dialog.component';
 
 @Component({
-  selector: 'violations',
-  templateUrl: './violations.component.html',
-  styleUrls: ['./violations.component.scss'],
-  exportAs: 'violations'
+    selector: 'violations',
+    templateUrl: './violations.component.html',
+    styleUrls: ['./violations.component.scss'],
+    exportAs: 'violations'
 })
 export class ViolationsComponent implements OnInit {
 
-  constructor(
-    private dialog: MatDialog
-  ) { }
+    constructor(
+        private dialog: MatDialog
+    ) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  violation(){
-    this.dialog.open(ViolateDialogComponent, { panelClass: ['w-8/12'], disableClose: true})  //disableClose: true })
-  }
+    violation() {
+        this.dialog.open(ViolateDialogComponent, {panelClass: ['w-8/12'], disableClose: true})  //disableClose: true })
+    }
 
 }

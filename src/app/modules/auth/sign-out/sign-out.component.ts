@@ -1,19 +1,18 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject, timer } from 'rxjs';
-import { finalize, takeUntil, takeWhile, tap } from 'rxjs/operators';
-import { AuthService } from 'app/core/auth/auth.service';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Router} from '@angular/router';
+import {Subject, timer} from 'rxjs';
+import {finalize, takeUntil, takeWhile, tap} from 'rxjs/operators';
+import {AuthService} from 'app/core/auth/auth.service';
 
 @Component({
-    selector     : 'auth-sign-out',
-    templateUrl  : './sign-out.component.html',
+    selector: 'auth-sign-out',
+    templateUrl: './sign-out.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class AuthSignOutComponent implements OnInit, OnDestroy
-{
+export class AuthSignOutComponent implements OnInit, OnDestroy {
     countdown: number = 1;
     countdownMapping: any = {
-        '=1'   : '# second',
+        '=1': '# second',
         'other': '# seconds'
     };
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -24,8 +23,7 @@ export class AuthSignOutComponent implements OnInit, OnDestroy
     constructor(
         private _authService: AuthService,
         private _router: Router
-    )
-    {
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -35,8 +33,7 @@ export class AuthSignOutComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Sign out
         this._authService.signOut();
 
@@ -56,8 +53,7 @@ export class AuthSignOutComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();

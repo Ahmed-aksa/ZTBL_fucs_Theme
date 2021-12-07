@@ -76,7 +76,7 @@ export class UserInfoDialogComponent implements OnInit {
                     this.vendorDetailForm.controls["Address"].setValue(this.vendorInfo.Address);
 
                     this.images.push(this.vendorInfo.FilePath);
-                    
+
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

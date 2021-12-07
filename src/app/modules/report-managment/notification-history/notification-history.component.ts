@@ -157,7 +157,7 @@ export class NotificationHistoryComponent implements OnInit {
         const dialogRef = this.dialog.open(NotificationDetailsComponent, {
             data: {Notification: Notification},
             disableClose: false,
-            panelClass: ['h-screen','max-w-full','max-h-full','w-full'],
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full', 'w-full'],
         });
         dialogRef.afterClosed().subscribe(res => {
             if (!res) {

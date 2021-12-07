@@ -29,17 +29,17 @@ export class ChangePasswordComponent implements OnInit {
 
     changePassword() {
         if (this.change_password_form.value.new_password != this.change_password_form.value.confirm_password) {
-            document.getElementById('error_to_display').innerHTML="Password Confirmation Failed";
-            document.getElementById('success_to_display').innerHTML='';
+            document.getElementById('error_to_display').innerHTML = "Password Confirmation Failed";
+            document.getElementById('success_to_display').innerHTML = '';
 
         } else {
             this.authService.changePassword(this.change_password_form.value.old_password, this.change_password_form.value.new_password).subscribe((data: any) => {
                 if (data.Success) {
-                    document.getElementById('success_to_display').innerHTML=data.Message;
-                    document.getElementById('error_to_display').innerHTML='';
+                    document.getElementById('success_to_display').innerHTML = data.Message;
+                    document.getElementById('error_to_display').innerHTML = '';
                 } else {
-                    document.getElementById('error_to_display').innerHTML=data.Message;
-            document.getElementById('success_to_display').innerHTML='';
+                    document.getElementById('error_to_display').innerHTML = data.Message;
+                    document.getElementById('success_to_display').innerHTML = '';
 
                 }
             });

@@ -52,7 +52,8 @@ export class ReportService {
             map((res: BaseResponseModel) => res)
         );
     }
-getThirdPartyRequestResponse(reportFilter: ReportFilters): Observable<BaseResponseModel> {
+
+    getThirdPartyRequestResponse(reportFilter: ReportFilters): Observable<BaseResponseModel> {
 
 
         this.request = new BaseRequestModel();

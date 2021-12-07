@@ -103,7 +103,7 @@ export class LoanService {
             ViewDocumnets: ViewDocumnets,
             Zone: zone,
             Branch: branch,
-            Circle:{
+            Circle: {
                 CircleIds: _circles
             },
             User: userInfo.User
@@ -116,7 +116,6 @@ export class LoanService {
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
-
 
 
     saveLoanApplicationPurpose(
@@ -390,7 +389,7 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    getLoanDocuments(loanAppId, zone, branch){
+    getLoanDocuments(loanAppId, zone, branch) {
         var _circles;
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         var circleIds = [];
@@ -405,14 +404,14 @@ export class LoanService {
         }
 
         var request = {
-            Loan:{
+            Loan: {
                 ApplicationHeader: {
                     LoanAppID: loanAppId
                 }
-                },
+            },
             Zone: zone,
             Branch: branch,
-            Circle:{
+            Circle: {
                 CircleIds: _circles
             },
             User: userInfo.User
@@ -622,7 +621,7 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    getORRDropDownByAppID(loanAppID: string,Lcno:string) {
+    getORRDropDownByAppID(loanAppID: string, Lcno: string) {
         this.request = new BaseRequestModel();
 
         var loanInfo = new Loan();
@@ -630,7 +629,7 @@ export class LoanService {
 
         oRR.LoanAppID = loanAppID;
         loanInfo.ORR = oRR;
-        loanInfo.LcNo=Lcno;
+        loanInfo.LcNo = Lcno;
         this.request.Loan = loanInfo;
         this.request.TranId = 0;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -675,7 +674,7 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-   documentUpload(loanDoc: LoanDocuments) {
+    documentUpload(loanDoc: LoanDocuments) {
         //tranId = 12121;
         debugger
         var formData = new FormData();
@@ -842,7 +841,8 @@ export class LoanService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
-    getLoanDetailsByLcNo(LcNo, LoanDoc,Branch, Zone) {
+
+    getLoanDetailsByLcNo(LcNo, LoanDoc, Branch, Zone) {
         var userInfo = this.userUtilsService.getUserDetails();
         var branch = {
             BranchId: Branch.BranchId,
@@ -990,8 +990,8 @@ export class LoanService {
     documentDelete(id, branch, zone) {
         debugger
         var userInfo = this.userUtilsService.getUserDetails();
-        var circles = userInfo.UserCircleMappings, circleIds=[];
-        circles.forEach(element=>{
+        var circles = userInfo.UserCircleMappings, circleIds = [];
+        circles.forEach(element => {
             circleIds.push(element.CircleId)
         });
         var _circles = circleIds.toString();
@@ -1003,7 +1003,7 @@ export class LoanService {
                 CircleIds: _circles
             },
             Loan: {
-                ApplicationHeader:{
+                ApplicationHeader: {
                     LoanAppID: id
                 }
             },
@@ -1016,11 +1016,11 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    getLoanCaseID(loan, docID,branch, zone) {
+    getLoanCaseID(loan, docID, branch, zone) {
         debugger
         var userInfo = this.userUtilsService.getUserDetails();
-        var circles = userInfo.UserCircleMappings, circleIds=[];
-        circles.forEach(element=>{
+        var circles = userInfo.UserCircleMappings, circleIds = [];
+        circles.forEach(element => {
             circleIds.push(element.CircleId)
         });
         var _circles = circleIds.toString();

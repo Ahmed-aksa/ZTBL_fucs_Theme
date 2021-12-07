@@ -60,7 +60,7 @@ export class GeoFencingListComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private userUtilsService: UserUtilsService,
         private spinner: NgxSpinnerService,
-        private paginationService:PaginatorService
+        private paginationService: PaginatorService
     ) {
     }
 

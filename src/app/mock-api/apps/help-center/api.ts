@@ -1,13 +1,18 @@
-import { Injectable } from '@angular/core';
-import { cloneDeep } from 'lodash-es';
-import { FuseMockApiService } from '@fuse/lib/mock-api';
-import { faqCategories as faqCategoriesData, faqs as faqsData, guideCategories as guideCategoriesData, guideContent as guideContentData, guides as guidesData } from 'app/mock-api/apps/help-center/data';
+import {Injectable} from '@angular/core';
+import {cloneDeep} from 'lodash-es';
+import {FuseMockApiService} from '@fuse/lib/mock-api';
+import {
+    faqCategories as faqCategoriesData,
+    faqs as faqsData,
+    guideCategories as guideCategoriesData,
+    guideContent as guideContentData,
+    guides as guidesData
+} from 'app/mock-api/apps/help-center/data';
 
 @Injectable({
     providedIn: 'root'
 })
-export class HelpCenterMockApi
-{
+export class HelpCenterMockApi {
     private _faqCategories: any[] = faqCategoriesData;
     private _faqs: any[] = faqsData;
     private _guideCategories: any[] = guideCategoriesData;
@@ -17,8 +22,7 @@ export class HelpCenterMockApi
     /**
      * Constructor
      */
-    constructor(private _fuseMockApiService: FuseMockApiService)
-    {
+    constructor(private _fuseMockApiService: FuseMockApiService) {
         // Register Mock API handlers
         this.registerHandlers();
     }
@@ -30,8 +34,7 @@ export class HelpCenterMockApi
     /**
      * Register Mock API handlers
      */
-    registerHandlers(): void
-    {
+    registerHandlers(): void {
         // -----------------------------------------------------------------------------------------------------
         // @ FAQs - GET
         // -----------------------------------------------------------------------------------------------------
@@ -52,8 +55,7 @@ export class HelpCenterMockApi
                 const categories = cloneDeep(this._faqCategories);
 
                 // If slug is not provided...
-                if ( !slug )
-                {
+                if (!slug) {
                     // Go through each category and set the results
                     categories.forEach((category) => {
 
@@ -66,8 +68,7 @@ export class HelpCenterMockApi
                     });
                 }
                 // Otherwise...
-                else
-                {
+                else {
                     // Find the category by the slug
                     const category = categories.find(item => item.slug === slug);
 
@@ -105,8 +106,7 @@ export class HelpCenterMockApi
                 const categories = cloneDeep(this._guideCategories);
 
                 // If slug is not provided...
-                if ( !slug )
-                {
+                if (!slug) {
                     // Parse the limit as an integer
                     const limitNum = parseInt(limit ?? '5', 10);
 
@@ -117,15 +117,14 @@ export class HelpCenterMockApi
                             {
                                 ...category,
                                 visibleGuides: limitNum,
-                                totalGuides  : guides.filter(guide => guide.categoryId === category.id).length,
-                                guides       : guides.filter(guide => guide.categoryId === category.id).slice(0, limitNum)
+                                totalGuides: guides.filter(guide => guide.categoryId === category.id).length,
+                                guides: guides.filter(guide => guide.categoryId === category.id).slice(0, limitNum)
                             }
                         );
                     });
                 }
                 // Otherwise...
-                else
-                {
+                else {
                     // Find the category by the slug
                     const category = categories.find(item => item.slug === slug);
 

@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import { BaseRequestModel } from '../../../../shared/models/base_request.model';
-import { Activity } from '../../../../shared/models/activity.model';
-import { HttpClient } from '@angular/common/http';
-import { HttpUtilsService } from '../../../../shared/services/http_utils.service';
-import { UserUtilsService } from '../../../../shared/services/users_utils.service';
-import { DatePipe } from '@angular/common';
-import { CommonService } from '../../../../shared/services/common.service';
-import { Customer } from '../../../../shared/models/deceased_customer.model';
-import { map } from 'rxjs/operators';
-import { BaseResponseModel } from '../../../../shared/models/base_response.model';
-import { environment } from '../../../../../environments/environment';
+import {Injectable} from '@angular/core';
+import {BaseRequestModel} from '../../../../shared/models/base_request.model';
+import {Activity} from '../../../../shared/models/activity.model';
+import {HttpClient} from '@angular/common/http';
+import {HttpUtilsService} from '../../../../shared/services/http_utils.service';
+import {UserUtilsService} from '../../../../shared/services/users_utils.service';
+import {DatePipe} from '@angular/common';
+import {CommonService} from '../../../../shared/services/common.service';
+import {Customer} from '../../../../shared/models/deceased_customer.model';
+import {map} from 'rxjs/operators';
+import {BaseResponseModel} from '../../../../shared/models/base_response.model';
+import {environment} from '../../../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -26,7 +26,8 @@ export class SetTargetService {
         private userUtilsService: UserUtilsService,
         private datePipe: DatePipe,
         private _common: CommonService
-    ) {}
+    ) {
+    }
 
     GetDeceasedCustomer(form) {
         var deceasedInfo = new Customer();
@@ -89,6 +90,7 @@ export class SetTargetService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
+
     GetTargets(value: string) {
         var deceasedInfo = new Customer();
         this.request = new BaseRequestModel();
@@ -122,7 +124,7 @@ export class SetTargetService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
-        // 
+        //
         return this.http
             .post(`${environment.apiUrl}/Target/GetTargets`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -153,7 +155,7 @@ export class SetTargetService {
         this.request.User = userInfo.User;
         // this.request.User["UserId"] = "B-44";
 
-        this.request.Target = { Targets: targets };
+        this.request.Target = {Targets: targets};
 
         this.request.Target.Duration = Duration;
         this.request.Target.AssignedTarget = AssignedTarget;
@@ -161,7 +163,7 @@ export class SetTargetService {
         // this.request.Target["AssignedTarget"]=AssignedTarget;
 
         var req = JSON.stringify(this.request);
-        
+
         return this.http
             .post<any>(
                 `${environment.apiUrl}/Target/AddUpdateTarget`,
@@ -188,10 +190,10 @@ export class SetTargetService {
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
         this.request.User = userInfo.User;
-        this.request.Target = { Targets: null };
+        this.request.Target = {Targets: null};
         this.request.Target.Duration = Duration.toString();
         var req = JSON.stringify(this.request);
-        
+
         return this.http
             .post<any>(
                 `${environment.apiUrl}/Target/SubmitTarget`,
@@ -217,7 +219,7 @@ export class SetTargetService {
             .post(
                 `${environment.apiUrl}/Customer/GetListOfRejectedDeceasedPerson`,
                 req,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
     }

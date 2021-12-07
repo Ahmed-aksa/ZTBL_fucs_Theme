@@ -125,14 +125,11 @@ export class ActivityListComponent implements OnInit {
     }
 
 
-    toggleAccordion(activity_id:string) {
-        if (!this.lists_record.includes(activity_id))
-        {
+    toggleAccordion(activity_id: string) {
+        if (!this.lists_record.includes(activity_id)) {
             this.lists_record.push(activity_id)
             document.getElementById('table_' + activity_id).style.display = 'block';
-        }
-        else
-        {
+        } else {
             this.lists_record.pop(activity_id);
             document.getElementById('table_' + activity_id).style.display = 'none';
         }
@@ -150,6 +147,7 @@ export class ActivityListComponent implements OnInit {
                 }
             });
     }
+
     expendTable() {
         this.lists_record.forEach(i => {
             document.getElementById('table_' + i).style.display = 'block';

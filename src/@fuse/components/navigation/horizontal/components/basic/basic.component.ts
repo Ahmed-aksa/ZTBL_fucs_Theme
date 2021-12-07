@@ -1,19 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { IsActiveMatchOptions } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
-import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {IsActiveMatchOptions} from '@angular/router';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {FuseHorizontalNavigationComponent} from '@fuse/components/navigation/horizontal/horizontal.component';
+import {FuseNavigationService} from '@fuse/components/navigation/navigation.service';
+import {FuseNavigationItem} from '@fuse/components/navigation/navigation.types';
+import {FuseUtilsService} from '@fuse/services/utils/utils.service';
 
 @Component({
-    selector       : 'fuse-horizontal-navigation-basic-item',
-    templateUrl    : './basic.component.html',
+    selector: 'fuse-horizontal-navigation-basic-item',
+    templateUrl: './basic.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDestroy
-{
+export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDestroy {
     @Input() item: FuseNavigationItem;
     @Input() name: string;
 
@@ -28,8 +27,7 @@ export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDes
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService,
         private _fuseUtilsService: FuseUtilsService
-    )
-    {
+    ) {
         // Set the equivalent of {exact: false} as default for active match options.
         // We are not assigning the item.isActiveMatchOptions directly to the
         // [routerLinkActiveOptions] because if it's "undefined" initially, the router
@@ -44,8 +42,7 @@ export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDes
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Set the "isActiveMatchOptions" either from item's
         // "isActiveMatchOptions" or the equivalent form of
         // item's "exactMatch" option
@@ -73,8 +70,7 @@ export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDes
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();

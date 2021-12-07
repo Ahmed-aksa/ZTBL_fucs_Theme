@@ -13,7 +13,7 @@ import {ToastrService} from "ngx-toastr";
 export class ZoneBranchCircleComponent implements OnInit {
 
     @Input('form') form;
-    @Input('should_filter') should_filter=true;
+    @Input('should_filter') should_filter = true;
     @Input('should_show_circle') should_show_circle;
     @Input('is_required_circle') is_required_circle;
 
@@ -267,7 +267,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     clearForm() {
 
         Object.keys(this.form.controls).forEach((key) => {
-            if (key != 'BranchCode'  && key != 'ZoneId')
+            if (key != 'BranchCode' && key != 'ZoneId')
                 this.form.get(key).reset();
         });
         this.emitData();

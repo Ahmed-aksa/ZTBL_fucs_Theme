@@ -1,22 +1,21 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertType } from '@fuse/components/alert';
-import { AuthService } from 'app/core/auth/auth.service';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {finalize} from 'rxjs/operators';
+import {fuseAnimations} from '@fuse/animations';
+import {FuseAlertType} from '@fuse/components/alert';
+import {AuthService} from 'app/core/auth/auth.service';
 
 @Component({
-    selector     : 'auth-forgot-password',
-    templateUrl  : './forgot-password.component.html',
+    selector: 'auth-forgot-password',
+    templateUrl: './forgot-password.component.html',
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class AuthForgotPasswordComponent implements OnInit
-{
+export class AuthForgotPasswordComponent implements OnInit {
     @ViewChild('forgotPasswordNgForm') forgotPasswordNgForm: NgForm;
 
     alert: { type: FuseAlertType; message: string } = {
-        type   : 'success',
+        type: 'success',
         message: ''
     };
     forgotPasswordForm: FormGroup;
@@ -28,8 +27,7 @@ export class AuthForgotPasswordComponent implements OnInit
     constructor(
         private _authService: AuthService,
         private _formBuilder: FormBuilder
-    )
-    {
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -39,8 +37,7 @@ export class AuthForgotPasswordComponent implements OnInit
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Create the form
         this.forgotPasswordForm = this._formBuilder.group({
             email: ['', [Validators.required, Validators.email]]
@@ -54,11 +51,9 @@ export class AuthForgotPasswordComponent implements OnInit
     /**
      * Send the reset link
      */
-    sendResetLink(): void
-    {
+    sendResetLink(): void {
         // Return if the form is invalid
-        if ( this.forgotPasswordForm.invalid )
-        {
+        if (this.forgotPasswordForm.invalid) {
             return;
         }
 
@@ -88,7 +83,7 @@ export class AuthForgotPasswordComponent implements OnInit
 
                     // Set the alert
                     this.alert = {
-                        type   : 'success',
+                        type: 'success',
                         message: 'Password reset sent! You\'ll receive an email if you are registered on our system.'
                     };
                 },
@@ -96,7 +91,7 @@ export class AuthForgotPasswordComponent implements OnInit
 
                     // Set the alert
                     this.alert = {
-                        type   : 'error',
+                        type: 'error',
                         message: 'Email does not found! Are you sure you are already a member?'
                     };
                 }

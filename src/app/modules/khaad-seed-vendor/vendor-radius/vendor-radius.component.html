@@ -9,10 +9,9 @@
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
                 <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
-                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2" id="arrow">keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
             </p>
@@ -28,12 +27,11 @@
             <div class=" py-1" [formGroup]="radiusForm">
 
 
-
                 <div class="flex" style="flex-wrap: wrap;">
                     <app-zone-branch-circle [form]="radiusForm" [should_show_circle]="true"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                                            <div class="mx-2">
-                                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Find Vendor With Radius:</mat-label>
@@ -47,7 +45,6 @@
                             </mat-form-field>
                         </div>
                     </div>
-
 
 
                     <div class="mx-2">
@@ -79,9 +76,9 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <button
-                                    mat-raised-button
-                                    class=" mt-2 bg-gray-500 mat-raised-button mat-button-base mat-primary"
-                                    type="button" (click)="onSelect()">
+                                mat-raised-button
+                                class=" mt-2 bg-gray-500 mat-raised-button mat-button-base mat-primary"
+                                type="button" (click)="onSelect()">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -89,34 +86,32 @@
                     </div>
 
 
-
+                </div>
             </div>
         </div>
+
+
     </div>
+    <agm-map #gm [zoom]="zoom" style="height: 100%;"
+             [latitude]="lat"
+             [longitude]="lng"
+             [mapTypeControlOptions]="controlOptions"
+             [mapTypeControl]="true"
+             (mapReady)="onMapReady($event)"
+             [restriction]="countryRestriction">
 
+        <agm-marker *ngFor="let r of radiusInfo; let i = index"
+                    (markerClick)="clickedMarker($event,i, infowindow)"
+                    [latitude]="r.Lat"
+                    [longitude]="r.Lng"
+                    [title]="r.Name"
+                    [iconUrl]="r.iconUrl"
+        >
 
+            <agm-info-window #infowindow>
+                <strong>{{r.Name}}</strong>
+            </agm-info-window>
 
-</div>
-<agm-map #gm [zoom]="zoom" style="height: 100%;"
-[latitude]="lat"
-[longitude]="lng"
-[mapTypeControlOptions]="controlOptions"
-[mapTypeControl]="true"
-(mapReady)="onMapReady($event)"
-[restriction]="countryRestriction">
+        </agm-marker>
 
-<agm-marker *ngFor="let r of radiusInfo; let i = index"
-       (markerClick)="clickedMarker($event,i, infowindow)"
-       [latitude]="r.Lat"
-       [longitude]="r.Lng"
-       [title]="r.Name"
-       [iconUrl]="r.iconUrl"
->
-
-<agm-info-window #infowindow>
-   <strong>{{r.Name}}</strong>
-</agm-info-window>
-
-</agm-marker>
-
-</agm-map>
+    </agm-map>

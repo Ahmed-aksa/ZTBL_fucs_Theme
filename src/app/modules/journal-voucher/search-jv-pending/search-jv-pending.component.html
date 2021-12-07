@@ -1,5 +1,5 @@
-<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-
+<div
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
 
 
     <div class="row pt-3">
@@ -11,106 +11,103 @@
                 <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
                         color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
                         aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
-                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                    <mat-icon class="mr-2" id="arrow">keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
-              </p>
+            </p>
         </div>
     </div>
 
     <!-- Header -->
 
 
-
-      <div class="collapse show" id="collapseExample">
+    <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-    <!-- Header -->
-    <div [formGroup]="pendingForm">
-        <!-- <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
+            <!-- Header -->
+            <div [formGroup]="pendingForm">
+                <!-- <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
 
-            <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                <mat-label class="customMatLabel">PP No.</mat-label>
-                <input matInput placeholder="PP No." formControlName="PPNo" maxlength="30"
-                       autocomplete="off"/>
-            </mat-form-field>
-        </div> -->
-
-
-        <div class="flex mt-1" style="flex-wrap: wrap;">
-            <app-zone-branch-circle [form]="pendingForm" [should_show_circle]="false"
-                                    (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                <div class="mx-2">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong class="matMandatory">*</strong>
-                        </mat-label>
-                        <input matInput [matDatepicker]="picker2" formControlName="TransactionDate" maxlength="8"
-                               autocomplete="off" [max]="maxDate" appNumberOnly/>
-                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                        <mat-datepicker #picker2></mat-datepicker>
-
-                        <mat-error *ngIf="hasError('TransactionDate', 'required')">Transaction Date <strong>required</strong>
-                        </mat-error>
+                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                        <mat-label class="customMatLabel">PP No.</mat-label>
+                        <input matInput placeholder="PP No." formControlName="PPNo" maxlength="30"
+                               autocomplete="off"/>
                     </mat-form-field>
-                </div>
-            </div>
-            <div class="mx-2">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Select Nature</mat-label>
-                        <mat-select formControlName="Nature">
-                            <mat-option *ngFor="let nature of Nature" [value]="nature.Id">
-                                {{nature.Name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="mx-2">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30" autocomplete="off"
-                               appNumberOnly/>
-                        <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No <strong>required</strong></mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="mx-2">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label>Select Status</mat-label>
-                        <mat-select formControlName="Status" [disabled]="true">
-                            <mat-option *ngFor="let status of JvStatuses" [value]="status.Value">
-                                {{status.Name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="mx-2">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                </div> -->
 
-                    <button class="bg-gray-500 mt-2"  mat-raised-button color="primary"
-                            type="button" (click)="find()">
-                        <mat-icon class="mr-2">search</mat-icon>
-                        Search
-                    </button>
+
+                <div class="flex mt-1" style="flex-wrap: wrap;">
+                    <app-zone-branch-circle [form]="pendingForm" [should_show_circle]="false"
+                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Transaction Date (ddMMyyyy) <strong
+                                    class="matMandatory">*</strong>
+                                </mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="TransactionDate"
+                                       maxlength="8"
+                                       autocomplete="off" [max]="maxDate" appNumberOnly/>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+
+                                <mat-error *ngIf="hasError('TransactionDate', 'required')">Transaction Date <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Select Nature</mat-label>
+                                <mat-select formControlName="Nature">
+                                    <mat-option *ngFor="let nature of Nature" [value]="nature.Id">
+                                        {{nature.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong>
+                                </mat-label>
+                                <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30"
+                                       autocomplete="off"
+                                       appNumberOnly/>
+                                <mat-error *ngIf="hasError('VoucherNo', 'required')">Voucher No
+                                    <strong>required</strong></mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Select Status</mat-label>
+                                <mat-select formControlName="Status" [disabled]="true">
+                                    <mat-option *ngFor="let status of JvStatuses" [value]="status.Value">
+                                        {{status.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                            <button class="bg-gray-500 mt-2" mat-raised-button color="primary"
+                                    type="button" (click)="find()">
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Search
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
         </div>
-
-
-
-
     </div>
-        </div>
-      </div>
-
-
-
-
 
 
     <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">

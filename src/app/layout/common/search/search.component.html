@@ -32,7 +32,8 @@
             </mat-option>
             <ng-container *ngFor="let resultSet of resultSets; trackBy: trackByFn">
                 <mat-optgroup class="flex items-center mt-2 px-2">
-                    <span class="text-sm font-semibold tracking-wider text-secondary">{{resultSet.label.toUpperCase()}}</span>
+                    <span
+                        class="text-sm font-semibold tracking-wider text-secondary">{{resultSet.label.toUpperCase()}}</span>
                 </mat-optgroup>
                 <ng-container *ngFor="let result of resultSet.results; trackBy: trackByFn">
                     <mat-option
@@ -40,7 +41,8 @@
                         [routerLink]="result.link">
                         <!-- Contacts -->
                         <ng-container *ngIf="resultSet.id === 'contacts'">
-                            <ng-container *ngTemplateOutlet="contactResult; context: {$implicit: result}"></ng-container>
+                            <ng-container
+                                *ngTemplateOutlet="contactResult; context: {$implicit: result}"></ng-container>
                         </ng-container>
                         <!-- Pages -->
                         <ng-container *ngIf="resultSet.id === 'pages'">
@@ -88,7 +90,8 @@
             </mat-option>
             <ng-container *ngFor="let resultSet of resultSets; trackBy: trackByFn">
                 <mat-optgroup class="flex items-center mt-2 px-2">
-                    <span class="text-sm font-semibold tracking-wider text-secondary">{{resultSet.label.toUpperCase()}}</span>
+                    <span
+                        class="text-sm font-semibold tracking-wider text-secondary">{{resultSet.label.toUpperCase()}}</span>
                 </mat-optgroup>
                 <ng-container *ngFor="let result of resultSet.results; trackBy: trackByFn">
                     <mat-option
@@ -96,7 +99,8 @@
                         [routerLink]="result.link">
                         <!-- Contacts -->
                         <ng-container *ngIf="resultSet.id === 'contacts'">
-                            <ng-container *ngTemplateOutlet="contactResult; context: {$implicit: result}"></ng-container>
+                            <ng-container
+                                *ngTemplateOutlet="contactResult; context: {$implicit: result}"></ng-container>
                         </ng-container>
                         <!-- Pages -->
                         <ng-container *ngIf="resultSet.id === 'pages'">
@@ -118,7 +122,8 @@
     #contactResult
     let-result>
     <div class="flex items-center">
-        <div class="flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-primary-100 dark:bg-primary-800">
+        <div
+            class="flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-primary-100 dark:bg-primary-800">
             <img
                 *ngIf="result.avatar"
                 [src]="result.avatar">

@@ -196,7 +196,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             }
         }
 
-        if(this.branch.WorkingDate == undefined){
+        if (this.branch.WorkingDate == undefined) {
             this.branch.WorkingDate = this.reports.WorkingDate;
         }
 

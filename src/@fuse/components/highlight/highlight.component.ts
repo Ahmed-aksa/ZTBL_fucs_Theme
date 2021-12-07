@@ -1,17 +1,32 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EmbeddedViewRef, Input, OnChanges, Renderer2, SecurityContext, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { FuseHighlightService } from '@fuse/components/highlight/highlight.service';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EmbeddedViewRef,
+    Input,
+    OnChanges,
+    Renderer2,
+    SecurityContext,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef,
+    ViewEncapsulation
+} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
+import {FuseHighlightService} from '@fuse/components/highlight/highlight.service';
 
 @Component({
-    selector       : 'textarea[fuse-highlight]',
-    templateUrl    : './highlight.component.html',
-    styleUrls      : ['./highlight.component.scss'],
-    encapsulation  : ViewEncapsulation.None,
+    selector: 'textarea[fuse-highlight]',
+    templateUrl: './highlight.component.html',
+    styleUrls: ['./highlight.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs       : 'fuseHighlight'
+    exportAs: 'fuseHighlight'
 })
-export class FuseHighlightComponent implements OnChanges, AfterViewInit
-{
+export class FuseHighlightComponent implements OnChanges, AfterViewInit {
     @Input() code: string;
     @Input() lang: string;
     @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
@@ -29,8 +44,7 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
         private _renderer2: Renderer2,
         private _fuseHighlightService: FuseHighlightService,
         private _viewContainerRef: ViewContainerRef
-    )
-    {
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -42,14 +56,11 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
      *
      * @param changes
      */
-    ngOnChanges(changes: SimpleChanges): void
-    {
+    ngOnChanges(changes: SimpleChanges): void {
         // Code & Lang
-        if ( 'code' in changes || 'lang' in changes )
-        {
+        if ('code' in changes || 'lang' in changes) {
             // Return if the viewContainerRef is not available
-            if ( !this._viewContainerRef.length )
-            {
+            if (!this._viewContainerRef.length) {
                 return;
             }
 
@@ -61,18 +72,15 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
     /**
      * After view init
      */
-    ngAfterViewInit(): void
-    {
+    ngAfterViewInit(): void {
         // Return if there is no language set
-        if ( !this.lang )
-        {
+        if (!this.lang) {
             return;
         }
 
         // If there is no code input, get the code from
         // the textarea
-        if ( !this.code )
-        {
+        if (!this.code) {
             // Get the code
             this.code = this._elementRef.nativeElement.value;
         }
@@ -90,23 +98,19 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
      *
      * @private
      */
-    private _highlightAndInsert(): void
-    {
+    private _highlightAndInsert(): void {
         // Return if the template reference is not available
-        if ( !this.templateRef )
-        {
+        if (!this.templateRef) {
             return;
         }
 
         // Return if the code or language is not defined
-        if ( !this.code || !this.lang )
-        {
+        if (!this.code || !this.lang) {
             return;
         }
 
         // Destroy the component if there is already one
-        if ( this._viewRef )
-        {
+        if (this._viewRef) {
             this._viewRef.destroy();
             this._viewRef = null;
         }
@@ -115,15 +119,14 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit
         this.highlightedCode = this._domSanitizer.sanitize(SecurityContext.HTML, this._fuseHighlightService.highlight(this.code, this.lang));
 
         // Return if the highlighted code is null
-        if ( this.highlightedCode === null )
-        {
+        if (this.highlightedCode === null) {
             return;
         }
 
         // Render and insert the template
         this._viewRef = this._viewContainerRef.createEmbeddedView(this.templateRef, {
             highlightedCode: this.highlightedCode,
-            lang           : this.lang
+            lang: this.lang
         });
 
         // Detect the changes

@@ -7,15 +7,15 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { BaseResponseModel } from '../../../shared/models/base_response.model';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CircleService } from '../../../shared/services/circle.service';
-import { MapsAPILoader } from '@agm/core';
-import { UserUtilsService } from '../../../shared/services/users_utils.service';
-import { finalize } from 'rxjs/operators';
-import { GeoFencingService } from '../service/geo-fencing-service.service';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {BaseResponseModel} from '../../../shared/models/base_response.model';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {CircleService} from '../../../shared/services/circle.service';
+import {MapsAPILoader} from '@agm/core';
+import {UserUtilsService} from '../../../shared/services/users_utils.service';
+import {finalize} from 'rxjs/operators';
+import {GeoFencingService} from '../service/geo-fencing-service.service';
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
 
 @Component({
     selector: 'kt-view-get-fancing-modal',
@@ -64,7 +64,8 @@ export class ViewGetFancingModalComponent implements OnInit {
         private detector: ChangeDetectorRef,
         private _circleService: CircleService,
         private map_loader: MapsAPILoader
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.map_loader.load();
@@ -146,7 +147,7 @@ export class ViewGetFancingModalComponent implements OnInit {
         this.isLoadingFence = true;
         for (let i = 0; i < this.geo_fence_points.length; i++) {
             const polygonCoordinate = [];
-            if(this.geo_fence_points[0]?.Long){
+            if (this.geo_fence_points[0]?.Long) {
                 this.geo_fence_points[i].forEach((o, i) => {
                     if (o.Long != 0 && o.Lat != 0) {
                         // for view only
@@ -156,7 +157,7 @@ export class ViewGetFancingModalComponent implements OnInit {
                         });
                     }
                 });
-            }else if(this.geo_fence_points[0]?.Longitude){
+            } else if (this.geo_fence_points[0]?.Longitude) {
                 this.geo_fence_points[i].forEach((o, i) => {
                     if (o.Long != 0 && o.Lat != 0) {
                         // for view only
@@ -231,7 +232,7 @@ export class ViewGetFancingModalComponent implements OnInit {
                     this.latlong = JSON.parse(
                         baseResponse.LocationHistory.LocationHistories[0][
                             'LocationData'
-                        ]
+                            ]
                     );
                     this.start_end_mark.push(this.latlong[0]);
                     this.start_end_mark.push(
@@ -258,6 +259,7 @@ export class ViewGetFancingModalComponent implements OnInit {
             return '../../../assets/icons/stop.png';
         }
     }
+
     getPoligonGetByIds() {
         this.spinner.show();
         var request = {
@@ -304,6 +306,7 @@ export class ViewGetFancingModalComponent implements OnInit {
         },
         strictBounds: true,
     };
+
     Heading(i) {
         if (i == 0) {
             return 'Start';
@@ -311,6 +314,7 @@ export class ViewGetFancingModalComponent implements OnInit {
             return 'End';
         }
     }
+
     onMapReady(map) {
         this.googleMap = map;
         this.getPoligonGetByIds();

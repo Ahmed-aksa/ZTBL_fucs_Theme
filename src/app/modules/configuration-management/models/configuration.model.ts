@@ -5,8 +5,8 @@ export class Configuration {
     KeyValue: string;
     KeyValueClob: string;
     Type: string;
-    IsParent:string;
-    ParentID:string;
+    IsParent: string;
+    ParentID: string;
 
     clear() {
         this.KeyName = '';

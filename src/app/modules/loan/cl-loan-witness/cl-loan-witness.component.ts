@@ -137,7 +137,7 @@ export class ClLoanWitnessComponent implements OnInit {
                         duplicate_cnic = true;
 
                     }
-                }else
+                } else
                     duplicate_cnic = true;
 
             }
@@ -163,7 +163,7 @@ export class ClLoanWitnessComponent implements OnInit {
             if (baseResponse.Loan?.PersonalSuretiesList)
                 this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
             this.personalSuretiesForm.reset();
-            this.EditableCnicSureties=null;
+            this.EditableCnicSureties = null;
             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
@@ -234,17 +234,20 @@ export class ClLoanWitnessComponent implements OnInit {
             ReferenceID: [this.loanRefrences.ReferenceID]
         });
     }
-    onClearLoanRefrencesForm(){
+
+    onClearLoanRefrencesForm() {
         this.loanRefrencesForm.reset()
-        this.EditableCnicReference=null;
+        this.EditableCnicReference = null;
     }
-    onClearLoanWitnessForm(){
+
+    onClearLoanWitnessForm() {
         this.loanWitnessForm.reset()
-        this.EditableCnicWitness=null;
+        this.EditableCnicWitness = null;
     }
-    onClearLoanSuretiesForm(){
+
+    onClearLoanSuretiesForm() {
         this.personalSuretiesForm.reset()
-        this.EditableCnicSureties=null;
+        this.EditableCnicSureties = null;
     }
 
     onSaveLoanRefrencesForm() {
@@ -261,8 +264,8 @@ export class ClLoanWitnessComponent implements OnInit {
                         duplicate_cnic = true;
 
                     }
-                }else
-                        duplicate_cnic = true;
+                } else
+                    duplicate_cnic = true;
 
             }
         })
@@ -287,7 +290,7 @@ export class ClLoanWitnessComponent implements OnInit {
             if (baseResponse.Loan.LoanRefrencesList) {
                 this.loanRefrenceArray = baseResponse.Loan.LoanRefrencesList
                 this.loanRefrencesForm.reset()
-                this.EditableCnicReference=null;
+                this.EditableCnicReference = null;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
@@ -326,7 +329,7 @@ export class ClLoanWitnessComponent implements OnInit {
                         duplicate_cnic = true;
 
                     }
-                }else
+                } else
                     duplicate_cnic = true;
 
             }
@@ -355,7 +358,7 @@ export class ClLoanWitnessComponent implements OnInit {
             if (baseResponse.Loan.LoanWitnessList) {
                 this.loanWitnessArray = baseResponse.Loan.LoanWitnessList;
                 this.loanWitnessForm.reset();
-                this.EditableCnicWitness=null;
+                this.EditableCnicWitness = null;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
             } else {
 
@@ -773,7 +776,7 @@ export class ClLoanWitnessComponent implements OnInit {
         delete WitnessesID.branchId;
         WitnessesID = this.deleteInvalid(WitnessesID);
         this.loanWitnessForm.setValue(WitnessesID);
-        this.EditableCnicWitness=WitnessesID.Cnic;
+        this.EditableCnicWitness = WitnessesID.Cnic;
     }
 
     onEditLoanPastPaidArray(data
@@ -799,7 +802,7 @@ export class ClLoanWitnessComponent implements OnInit {
     onEditPersonalSureties(PersonalSuretyID) {
         PersonalSuretyID = this.deleteInvalid(PersonalSuretyID);
         this.personalSuretiesForm.setValue(PersonalSuretyID);
-        this.EditableCnicSureties=PersonalSuretyID.Cnic;
+        this.EditableCnicSureties = PersonalSuretyID.Cnic;
     }
 
     onEditRefrence(ReferenceID) {

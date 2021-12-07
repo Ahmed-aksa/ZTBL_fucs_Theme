@@ -501,7 +501,6 @@ export class GeofencingEditComponent implements OnInit {
                     .subscribe((baseResponse: BaseResponseModel) => {
 
 
-
                         if (baseResponse.Success === true) {
                             const message = `Polygon has been updated successfully`;
                             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);

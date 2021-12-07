@@ -3,7 +3,8 @@
         <div class="kt-portlet__body">
 
             <div class="form-group kt-form__group flex " style="flex-wrap: wrap;">
-                <app-zone-branch-circle [form]="applicationHeaderForm" [should_show_circle]="false" [should_filter]="false"
+                <app-zone-branch-circle [form]="applicationHeaderForm" [should_show_circle]="false"
+                                        [should_filter]="false"
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                 <div class="col-lg-4 col-sm-12  kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -70,7 +71,7 @@
 
 
                     <button [disabled]="checkDisable()" type="button" class="mt-2 btn btn-primary w-full"
-                            mat-raised-button color="primary"  (click)="getLcNoAutoAssignedByApi()">
+                            mat-raised-button color="primary" (click)="getLcNoAutoAssignedByApi()">
                         Check LC #
                     </button>
                 </div>

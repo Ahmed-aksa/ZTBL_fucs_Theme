@@ -1,6 +1,7 @@
 // NGRX
-import { Action } from '@ngrx/store';
-import { Permission } from 'app/modules/user-management/assign-pages/permission.model';
+import {Action} from '@ngrx/store';
+import {Permission} from 'app/modules/user-management/assign-pages/permission.model';
+
 // Models
 
 
@@ -15,7 +16,9 @@ export class AllPermissionsRequested implements Action {
 
 export class AllPermissionsLoaded implements Action {
     readonly type = PermissionActionTypes.AllPermissionsLoaded;
-    constructor(public payload: { permissions: Permission[] }) { }
+
+    constructor(public payload: { permissions: Permission[] }) {
+    }
 }
 
 export type PermissionActions = AllPermissionsRequested | AllPermissionsLoaded;
