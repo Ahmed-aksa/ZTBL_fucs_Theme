@@ -504,6 +504,7 @@ button[aria-expanded=false] .down {
 }
 
 
+
 // .collapse{
 //   .card-body{
 //     background-color: #f6fcf8;
@@ -573,8 +574,17 @@ img{
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   #collapseExample{
-    height: 300px;
+    min-height: 00px;
   }
+  .collapsing {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.35s ease;
+}
+
+  .collapse:not(.show) {
+    display: none;
+}
   .mat-sort-header-content{
     color: white;
   }

@@ -23,7 +23,7 @@ export class SaveOrrComponent implements OnInit {
     ApplicationORR: any[] = [];
     CustomerORR: any[] = [];
     GlProposalORR: any[] = [];
-
+    ApplicationHeader;
     SoilIrrigation: any[] = [];
     LandOwnership: any[] = [];
     AvailabilityMarket: any[] = [];
@@ -84,6 +84,8 @@ export class SaveOrrComponent implements OnInit {
 
                 if (baseResponse.Success === true) {
                     this.Cib = baseResponse.Loan.ORR.Cib;
+
+                    this.ApplicationHeader = baseResponse.Loan.ApplicationHeader;
                     this.MarketReputation = baseResponse.Loan.ORR.MarketReputation;
                     this.ApplicationORR = baseResponse.Loan.ORR.ApplicationORR;
                     this.CustomerORR = baseResponse.Loan.ORR.CustomerORR;
@@ -175,6 +177,30 @@ export class SaveOrrComponent implements OnInit {
         for(let i=0;i<this.CustomerORR?.length;i++){
            if (!this.CustomerORR[i]?.EcibORRID) {
                 var Message = 'Please select CIB Report against CNIC '+ this.CustomerORR[i].Cnic;
+                this.layoutUtilsService.alertElement(
+                    '',
+                    Message,
+                    null
+                );
+                return;
+            }
+        }
+
+        for(let i=0;i<this.CustomerORR?.length;i++){
+           if (!this.CustomerORR[i]?.CustAgeORR) {
+                var Message = 'Please Enter default days against CNIC '+ this.CustomerORR[i].Cnic;
+                this.layoutUtilsService.alertElement(
+                    '',
+                    Message,
+                    null
+                );
+                return;
+            }
+        }
+
+        for(let i=0;i<this.CustomerORR?.length;i++){
+            if (!this.CustomerORR[i]?.Experience) {
+                var Message = 'Please Enter Experience against CNIC '+ this.CustomerORR[i].Cnic;
                 this.layoutUtilsService.alertElement(
                     '',
                     Message,
@@ -300,6 +326,8 @@ debugger
     }
 
     togglePage() {
+
+        this.Orrapplied=false;
         this.showFinalOrrTable = !this.showFinalOrrTable;
     }
 }

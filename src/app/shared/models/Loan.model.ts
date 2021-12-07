@@ -21,6 +21,7 @@ export class Loan {
     TranId: number;
     LoanAppID: string;
     LcNo: string;
+    LoanCaseID: string;
     LoanCaseNo: string;
     Status: string;
     Appdt: string;
