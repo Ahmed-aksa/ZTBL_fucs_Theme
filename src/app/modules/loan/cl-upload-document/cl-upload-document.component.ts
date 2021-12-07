@@ -82,6 +82,7 @@ export class ClUploadDocumentComponent implements OnInit {
     pattern = /[^0-9]/g;
 
     loanAppID: any;
+    showGrid = false;
 
     uploaded = "File Uploaded"
 
@@ -122,26 +123,19 @@ export class ClUploadDocumentComponent implements OnInit {
         //     this.PostDocument.value.LcNo = localStorage.getItem('loan_case_number');
         //     localStorage.removeItem('loan_case_number');
         // }
-
     }
 
     PostDocuments(PostDocument: any) {
         //
     }
 
+
     controlReset() {
-        //this.PostDocument.controls['NoOfFilesToUpload'].setValue(0);
         //Document Info
         this.PostDocument.controls['ParentDocId'].reset();
         this.PostDocument.controls['DocumentRefNo'].reset();
         this.PostDocument.controls['NoOfFilesToUpload'].reset();
         this.PostDocument.controls['Description'].reset();
-
-        this.changeFilesQuantity()
-        //Attachments
-        // this.PostDocument.controls['file'].reset();
-        //this.PostDocument.controls['PageNumber'].reset();
-        // this.PostDocument.controls['DescriptionTab'].reset();
 
     }
 
@@ -389,6 +383,7 @@ export class ClUploadDocumentComponent implements OnInit {
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                             this.docId = [];
                             this.controlReset();
+                            this.showGrid = false;
                             this.rawData.length = 0;
                         } else if (this.rawData.length != totLength && count == this.rawData.length) {
                             this.layoutUtilsService.alertElement('', 'Please add Remaining Entries');
@@ -446,6 +441,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     changeFilesQuantity() {
+        this.showGrid = true;
         if (!isNaN(parseInt(this.PostDocument.value.NoOfFilesToUpload))) {
             this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
         }
