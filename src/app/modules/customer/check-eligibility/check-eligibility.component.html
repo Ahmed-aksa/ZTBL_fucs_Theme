@@ -355,29 +355,32 @@
                                    class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary">Close/Exit</a>
                             </div>
                         </div>
+
                         <div class="py-2" *ngIf="IsEcibDefaulter && should_regenerate">
                             <div class="heading">Regenerate ECIB Request</div>
 
-                            <button mat-flat-button (click)="regenerate()"
+                            <button mat-flat-button type="button" (click)="regenerate()"
                                     class=" my-3 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary">
                                 Regenerate
                             </button>
 
                             <div class="heading">Remarks</div>
                             <mat-form-field appearance="outline" class="w-full mt-2">
-                                <input matInput placeholder="Remarks">
+                                <input matInput placeholder="Remarks" [ngModel]="remarks">
                             </mat-form-field>
 
                         </div>
                         <div class="py-2" *ngIf="IsEcibDefaulter && should_regenerate">
                             <div class="heading ">Attach An Image</div>
-                            <div class="py-3">
-                                <input type="file">
+                            <div class="py-3"  *ngFor="let item of [].constructor(number_of_files); let i = index">
+                                <input type="file"
+                                       accept="image/png, image/jpg, image/jpeg"
+                                       (change)="onFileChange($event, i)">
                             </div>
                         </div>
 
                         <div *ngIf="IsEcibDefaulter && should_regenerate">
-                            <button mat-flat-button
+                            <button mat-flat-button (click)="submitEcibDefaulterForm()"
                                     class="bg-green mat-focus-indicator  w-32  mat-flat-button mat-button-base mat-primary"
                                     type="button">Submit
                             </button>

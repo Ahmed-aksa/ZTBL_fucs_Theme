@@ -248,7 +248,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     onFileChange(event, i) {
-        debugger
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -287,10 +286,10 @@ export class ClUploadDocumentComponent implements OnInit {
 
         let ok = true;
 
-        if(!this.LoanCaseId){
+        if (!this.LoanCaseId) {
             ok = false;
             this.loanCase();
-        }else{
+        } else {
             this.loanDocument.LoanCaseID = this.LoanCaseId;
         }
 
@@ -343,7 +342,6 @@ export class ClUploadDocumentComponent implements OnInit {
         });
         if (ok)
             this.rawData.forEach((single_file, index) => {
-                debugger
                 this.loanDocument.file = single_file;
 
                 // @ts-ignore
@@ -397,7 +395,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     }
 
-     loanCase() {
+    loanCase() {
         debugger
         var LoanDoc = this.PostDocument.controls.DocLoanId.value;
 
@@ -421,7 +419,7 @@ export class ClUploadDocumentComponent implements OnInit {
                 this.PostDocument.controls['CategoryName'].setValue(response.CategoryName);
                 this.LoanCaseId = response.DocumentLoanCaseID;
 
-                this.loanDocument.LoanCaseID =  this.LoanCaseId;
+                this.loanDocument.LoanCaseID = this.LoanCaseId;
                 this.saveLoanDocuments()
 
             } else {

@@ -97,6 +97,7 @@ export class CheckEligibilityComponent implements OnInit {
 
     should_regenerate: boolean = true;
     private first_request_response: BaseResponseModel;
+    private rawData: any = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -521,7 +522,6 @@ export class CheckEligibilityComponent implements OnInit {
             Gender: [this._customer.Gender],
             District: [null, [Validators.required]]
         });
-
     }
 
 
@@ -601,6 +601,69 @@ export class CheckEligibilityComponent implements OnInit {
     }
 
     //this.refreshEcibLoading = false;
+    remarks: any;
+    number_of_files: number = 1;
+
+    submitEcibDefaulterForm() {
+        let data = {
+            ndc_file: this.Customer.NDCPDFLink,
+            ecib_file: this.Customer.ECIBPDFLink,
+            Cnic: this.Customer.Cnic,
+            FatherName: this.Customer.FatherName,
+            Remarks: this.remarks,
+            status: 'P'
+        };
+
+        this._customerService.addEligibilityRequest(data, this.tran_id).subscribe((data) => {
+            if (data.Success) {
+                this.toaster.success(data.Message);
+
+
+                this.rawData.forEach((single_file, index) => {
+                    this._customerService.addFiles(data.EligibilityRequest.Id, single_file).subscribe((data) => {
+                        if (index + 2 == this.number_of_files) {
+                            this.router.navigate(['dashboard']);
+                        }
+                    });
+                });
+            } else {
+                this.toaster.error(data.Message);
+            }
+        })
+    }
+
+    onFileChange(event, i) {
+        if (event.target.files && event.target.files[0]) {
+            const filesAmount = event.target.files.length;
+            const file = event.target.files[0];
+            const Name = file.name.split('.').pop();
+            if (Name != undefined) {
+                if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
+                    const reader = new FileReader();
+                    reader.onload = (event: any) => {
+                        if (this.rawData[i]) {
+                            this.rawData.splice(i, 1);
+                            this.rawData.splice(i, 0, file);
+                        } else {
+                            //this.rawData.push(file);
+                            this.rawData.splice(i, 0, file);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                    this.number_of_files = this.number_of_files + 1;
+
+                } else {
+                    this.layoutUtilsService.alertElement('', 'Only jpeg,jpg and png files are allowed', '99');
+                    event.target.files = null;
+                    return;
+                }
+            }
+        } else {
+            this.rawData.splice(i, 1);
+        }
+
+
+    }
 
 }
 

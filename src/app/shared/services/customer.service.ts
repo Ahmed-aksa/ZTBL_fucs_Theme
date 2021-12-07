@@ -11,6 +11,7 @@ import {BaseResponseModel} from '../models/base_response.model';
 import {CreateCustomer} from '../models/customer.model';
 import {environment} from 'environments/environment';
 import {brands} from "../../mock-api/apps/ecommerce/inventory/data";
+import {Loan} from "../models/Loan.model";
 
 @Injectable({
     providedIn: 'root',
@@ -362,6 +363,43 @@ export class CustomerService {
             .post(`${environment.apiUrl}/Customer/RegenerateECIB`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
+    addEligibilityRequest(data, tran_id) {
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        this.request.User = userInfo.User;
+        this.request.Branch = userInfo.Branch;
+        this.request.Zone = userInfo.Zone;
+        this.request.Circle = userInfo?.UserCircleMappings[0];
+        this.request.TranId = tran_id;
+        this.request.EligibilityRequest = {
+            Cnic: data.Cnic,
+            NdcFilePath: data.ndc_file,
+            EcibFilePath: data.ecib_file,
+            FatherName: data.FatherName,
+            Remarks: data.Remarks,
+            Status: data.status
+        }
+        return this.http
+            .post(`${environment.apiUrl}/Customer/AddEligibilityRequest`, this.request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
+    addFiles(id, file) {
+        var formData = new FormData();
+        var userInfo = this.userUtilsService.getUserDetails();
+
+
+        formData.append('Id', id);
+
+        formData.append('File', file);
+
+
+        return this.http
+            .post<any>(`${environment.apiUrl}/Customer/AddEligibilityRequestFiles`, formData)
             .pipe(map((res: BaseResponseModel) => res));
     }
 }
