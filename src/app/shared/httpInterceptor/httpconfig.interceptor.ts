@@ -15,6 +15,7 @@ import {result} from 'lodash';
 import {LayoutUtilsService} from '../services/layout_utils.service';
 import {AuthService} from 'app/core/auth/auth.service';
 import {NgxSpinnerService} from "ngx-spinner";
+import {AES} from "crypto-js";
 
 
 @Injectable()
@@ -36,6 +37,10 @@ export class TokenInterceptor implements HttpInterceptor {
         if (token != null && !authReq.url.includes('Account/Login')) {
             authReq = this.addTokenHeader(req, token);
         }
+
+        let key = environment.AesKey;
+        // console.log(AES.encrypt(JSON.stringify(req.body), key).toString());
+        // debugger;
         return next.handle(authReq).pipe(catchError(error => {
             if (error.status === 403) {
                 this.layoutUtilsService.AlertElementCapture(error.error.Message);
