@@ -87,6 +87,7 @@ export class LaFileProgressComponent implements OnInit {
         }
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "8";
+        this.reports.ReportFormatType = "2";
         this.spinner.show();
         this._reports.reportDynamic(this.reports, this.zone, this.branch)
             .pipe(
