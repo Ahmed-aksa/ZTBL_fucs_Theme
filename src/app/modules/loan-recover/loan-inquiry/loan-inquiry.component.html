@@ -266,7 +266,42 @@
                     </tbody>
                   </table>
                 </div>
-                  <h3 *ngIf="dynamicList?.GetPropsedInvestmentDetail?.length==0">Data not found.</h3>
+
+                  <h3>Detail</h3>
+
+                  <div class="table-responsive">
+                  <table class="table table-striped" *ngIf="dynamicList?.GetProposedCrops?.length>0">
+                    <thead>
+                      <tr class="table-header-background">
+                        <th>Type</th>
+                        <th>Crop</th>
+                        <th>Area(A-K-M)</th>
+                        <th>Total Output(md)</th>
+                        <th>Price(Rs./Md)</th>
+                        <th>Total Income(Rs)
+                            (TotalOutput * Price)</th>
+                        <th>Exp(%)</th>
+                        <th>Exp(Rs)
+                            (Total Income % Exp(%))</th>
+                        <th>Net income from crop</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of dynamicList?.GetProposedCrops;">
+                        <td>{{item.TYP}}</td>
+                        <td>{{item.CROP}}</td>
+                        <td>{{item.AREA}}</td>
+                        <td>{{item.OUTPUT}}</td>
+                        <td>{{item.PRICE}}</td>
+                        <td>{{item.TOTAL_INCOME}}</td>
+                        <td>{{item.EXPENDITURE_PER}}</td>
+                        <td>{{item.EXPENDITURE_PRICE}}</td>
+                        <td>{{item.NET_INCREASE}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                  <h3 *ngIf="dynamicList?.GetProposedCrops?.length==0">Data not found.</h3>
               </mat-tab>
 
               <mat-tab label="Loan Documents">
@@ -382,20 +417,20 @@
                   <table class="table table-striped" *ngIf="dynamicList?.GetORR.length>0">
                     <thead>
                       <tr class="table-header-background">
-                        <th>Name</th>
-                        <th>CNIC</th>
-                        <th>GL Description</th>
+                          <th>CNIC</th>
+                          <th>Name</th>
+                          <th>GL Description</th>
+                          <th>ORR</th>
                         <th>Manual ORR</th>
-                        <th>ORR</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let item of dynamicList?.GetORR;">
+                          <td>{{item.CNIC}}</td>
                         <td>{{item.CUSTOMERNAME}}</td>
-                        <td>{{item.CNIC}}</td>
                         <td>{{item.GL}}</td>
+                          <td>{{item.CALCULATED_ORR}}</td>
                         <td>{{item.MANUAL_ORR}}</td>
-                        <td>{{item.CALCULATED_ORR}}</td>
                       </tr>
                     </tbody>
                   </table>
