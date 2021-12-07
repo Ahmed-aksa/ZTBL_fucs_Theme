@@ -23,6 +23,7 @@ import {LoanAccountBalanceComponent} from "../loan-account-balance/loan-account-
 import {InsuranceReportComponent} from "../insurance-report/insurance-report.component";
 import {LaFileProgressComponent} from "../la-file-progress/la-file-progress.component";
 import {LoanInformationDetailComponent} from "../loan-information-detail/loan-information-detail.component";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 @Component({
     selector: 'app-reports',
@@ -33,11 +34,13 @@ export class ReportsComponent implements OnInit {
 
     constructor(
         private dialog: MatDialog,
+        private user: UserUtilsService,
         private router: Router
     ) {
     }
 
     ngOnInit(): void {
+        console.log(this.user.getSearchResultsDataOfZonesBranchCircle())
     }
 
     bufrictionOfOSBalances() {

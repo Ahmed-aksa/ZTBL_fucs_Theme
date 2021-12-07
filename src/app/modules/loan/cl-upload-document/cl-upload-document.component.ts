@@ -326,9 +326,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
             if (single_file == undefined || single_file == null || page_number == "" || description == "") {
                 ok = false;
-                if (single_file == undefined && single_file == null && description == "") {
-                    this.layoutUtilsService.alertElement('', 'Please add Files and Description on entries of Attachments, as per No. of Files to upload');
-                } else if (single_file == undefined || single_file == null && description != "") {
+                if (single_file == undefined || single_file == null && description != "") {
                     this.layoutUtilsService.alertElement('', 'Please add File(s) missing from row(s)');
                 } else if (description == "") {
                     this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s)');
