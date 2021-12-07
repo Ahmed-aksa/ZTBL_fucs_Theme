@@ -65,7 +65,19 @@
 
         <!-- App root -->
         <app-root></app-root>
-
     </body>
-
+    <script>
+     function toggleCollapse()
+    {
+        let div_data=document.getElementById('collapseExample');
+        if(div_data.classList.contains('show'))
+        {
+            document.getElementById('collapseExample').className='collapse';
+        }
+        else
+        {
+            document.getElementById('collapseExample').className='collapse show';
+        }
+    }
+    </script>
 </html>

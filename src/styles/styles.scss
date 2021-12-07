@@ -504,6 +504,7 @@ button[aria-expanded=false] .down {
 }
 
 
+
 // .collapse{
 //   .card-body{
 //     background-color: #f6fcf8;
@@ -573,7 +574,7 @@ img{
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   #collapseExample{
-    min-height: 200px;
+    min-height: 00px;
   }
   .collapsing {
     height: 0;
