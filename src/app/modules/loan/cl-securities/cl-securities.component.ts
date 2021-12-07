@@ -210,25 +210,27 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   getCustomerLand() {
-
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
     }
 
+    this.spinner.show();
 
     this._loanService.getCustomerLand(this.loanDetail.ApplicationHeader.LoanAppID)
       .pipe(
         finalize(() => {
+            this.spinner.hide();
         })
       ).subscribe(baseResponse => {
-        if (baseResponse.Success) {
+        if (baseResponse.Success===true) {
           this.customerLandList = baseResponse.Loan.CustomersLoanLands;
-
           this._cdf.detectChanges();
         }
-        //else
-        //  this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+        else{
+            this.customerLandList=[];
+        }
+         // this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
 
       });
   }
@@ -239,7 +241,6 @@ export class ClSecuritiesComponent implements OnInit {
 
     if (this.newARR?.length > 0) {
       this.spinner.show();
-      debugger
       this._loanService.attachCustomersLand(this.newARR, this.loanDetail.TranId)
         .pipe(
           finalize(() => {
