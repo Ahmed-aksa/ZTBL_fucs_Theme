@@ -130,12 +130,14 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     controlReset() {
+        //this.PostDocument.controls['NoOfFilesToUpload'].setValue(0);
         //Document Info
         this.PostDocument.controls['ParentDocId'].reset();
         this.PostDocument.controls['DocumentRefNo'].reset();
         this.PostDocument.controls['NoOfFilesToUpload'].reset();
         this.PostDocument.controls['Description'].reset();
 
+        this.changeFilesQuantity()
         //Attachments
         // this.PostDocument.controls['file'].reset();
         //this.PostDocument.controls['PageNumber'].reset();
@@ -234,7 +236,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     getLoanDocument() {
-
+        debugger
         this._loanService.getLoanDocuments(this.loanAppID, this.branch, this.zone)
             .pipe(
                 finalize(() => {
@@ -286,16 +288,18 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
-        debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
 
-        // if(!this.LoanCaseId){
-        //     this.getLoanCaseId()
-        // }
+        let ok = true;
 
-        this.loanDocument.LcNo = this.LoanCaseId;
+        if(!this.LoanCaseId){
+            ok = false;
+            this.loanCase();
+        }else{
+            this.loanDocument.LoanCaseID = this.LoanCaseId;
+        }
 
         if (this.PostDocument.invalid) {
             const controls = this.PostDocument.controls;
@@ -311,7 +315,7 @@ export class ClUploadDocumentComponent implements OnInit {
         }
 
         totLength = Number(totLength)
-        let ok = true;
+
         if (this.rawData.length < this.loanDocument.NoOfFilesToUpload) {
             this.layoutUtilsService.alertElement('', 'Please add all files');
             return;
@@ -370,9 +374,9 @@ export class ClUploadDocumentComponent implements OnInit {
                     ).subscribe((baseResponse) => {
                     if (baseResponse.Success) {
                         count = count + 1;
+                        debugger
 
-                        // @ts-ignore
-                        document.getElementById(`page_${index}`).value = ''
+
                         // @ts-ignore
                         document.getElementById(`description_${index}`).value = ''
                         // @ts-ignore
@@ -380,6 +384,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
                         this.docId.push(baseResponse.DocumentDetail.Id);
                         if (count == totLength) {
+
                             this.getLoanDocument();
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                             this.docId = [];
@@ -402,7 +407,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     }
 
-    loanCase() {
+     loanCase() {
         debugger
         var LoanDoc = this.PostDocument.controls.DocLoanId.value;
 
@@ -419,12 +424,15 @@ export class ClUploadDocumentComponent implements OnInit {
                 })
             ).subscribe((baseResponse) => {
             if (baseResponse.Success === true) {
+                debugger
                 this.PostDocument.controls['LoanStatus'].setValue("New Case");
                 var response = baseResponse.Loan.ApplicationHeader;
                 this.PostDocument.controls['LoanStatus'].setValue(response.AppStatusName);
                 this.PostDocument.controls['CategoryName'].setValue(response.CategoryName);
                 this.LoanCaseId = response.DocumentLoanCaseID;
 
+                this.loanDocument.LoanCaseID =  this.LoanCaseId;
+                this.saveLoanDocuments()
 
             } else {
                 if (this.first == false) {
