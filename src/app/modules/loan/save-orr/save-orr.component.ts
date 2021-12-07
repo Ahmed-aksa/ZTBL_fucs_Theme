@@ -23,7 +23,7 @@ export class SaveOrrComponent implements OnInit {
     ApplicationORR: any[] = [];
     CustomerORR: any[] = [];
     GlProposalORR: any[] = [];
-
+    ApplicationHeader;
     SoilIrrigation: any[] = [];
     LandOwnership: any[] = [];
     AvailabilityMarket: any[] = [];
@@ -84,6 +84,8 @@ export class SaveOrrComponent implements OnInit {
 
                 if (baseResponse.Success === true) {
                     this.Cib = baseResponse.Loan.ORR.Cib;
+
+                    this.ApplicationHeader = baseResponse.Loan.ApplicationHeader;
                     this.MarketReputation = baseResponse.Loan.ORR.MarketReputation;
                     this.ApplicationORR = baseResponse.Loan.ORR.ApplicationORR;
                     this.CustomerORR = baseResponse.Loan.ORR.CustomerORR;
@@ -300,6 +302,8 @@ debugger
     }
 
     togglePage() {
+
+        this.Orrapplied=false;
         this.showFinalOrrTable = !this.showFinalOrrTable;
     }
 }
