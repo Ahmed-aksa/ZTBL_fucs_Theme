@@ -19,6 +19,8 @@ import { DisbursementPerformanceReportComponent } from './disbursement-performan
 import { DisbursementPerformancePurposeWiseComponent } from './disbursement-performance-purpose-wise/disbursement-performance-purpose-wise.component';
 import { InsuranceReportComponent } from './insurance-report/insurance-report.component';
 import { LoanAccountBalanceComponent } from './loan-account-balance/loan-account-balance.component';
+import { LaFileProgressComponent } from './la-file-progress/la-file-progress.component';
+import { LoanInformationDetailComponent } from './loan-information-detail/loan-information-detail.component';
 
 const routing = [
     {
@@ -68,7 +70,9 @@ const routing = [
         DisbursementPerformanceReportComponent,
         DisbursementPerformancePurposeWiseComponent,
         InsuranceReportComponent,
-        LoanAccountBalanceComponent
+        LoanAccountBalanceComponent,
+        LaFileProgressComponent,
+        LoanInformationDetailComponent
     ],
     imports: [
         CommonModule,
