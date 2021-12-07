@@ -21,6 +21,7 @@ import { InsuranceReportComponent } from './insurance-report/insurance-report.co
 import { LoanAccountBalanceComponent } from './loan-account-balance/loan-account-balance.component';
 import { LaFileProgressComponent } from './la-file-progress/la-file-progress.component';
 import { LoanInformationDetailComponent } from './loan-information-detail/loan-information-detail.component';
+import { GetUnsuccessfulLoginComponent } from './get-unsuccessful-login/get-unsuccessful-login.component';
 
 const routing = [
     {
@@ -50,7 +51,11 @@ const routing = [
     {
         path: 'loan-amount',
         component: LoanAmountsConvertToDefaultComponent
-    }
+    },
+    {
+        path: 'get-unsuccessful-login',
+        component: GetUnsuccessfulLoginComponent
+    },
 ]
 
 
@@ -72,7 +77,8 @@ const routing = [
         InsuranceReportComponent,
         LoanAccountBalanceComponent,
         LaFileProgressComponent,
-        LoanInformationDetailComponent
+        LoanInformationDetailComponent,
+        GetUnsuccessfulLoginComponent
     ],
     imports: [
         CommonModule,
