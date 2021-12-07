@@ -187,6 +187,30 @@ export class SaveOrrComponent implements OnInit {
         }
 
         for(let i=0;i<this.CustomerORR?.length;i++){
+           if (!this.CustomerORR[i]?.CustAgeORR) {
+                var Message = 'Please Enter default days against CNIC '+ this.CustomerORR[i].Cnic;
+                this.layoutUtilsService.alertElement(
+                    '',
+                    Message,
+                    null
+                );
+                return;
+            }
+        }
+
+        for(let i=0;i<this.CustomerORR?.length;i++){
+            if (!this.CustomerORR[i]?.Experience) {
+                var Message = 'Please Enter Experience against CNIC '+ this.CustomerORR[i].Cnic;
+                this.layoutUtilsService.alertElement(
+                    '',
+                    Message,
+                    null
+                );
+                return;
+            }
+        }
+
+        for(let i=0;i<this.CustomerORR?.length;i++){
             if (!this.CustomerORR[i]?.MarketReputationORRID) {
                 var Message = 'Please select Market Reputation against CNIC'+ this.CustomerORR[i].Cnic;
                 this.layoutUtilsService.alertElement(
