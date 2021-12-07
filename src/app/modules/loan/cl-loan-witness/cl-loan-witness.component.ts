@@ -538,6 +538,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
                     if (baseResponse.Success) {
                         this.loanDocumentsCheckList = baseResponse.Loan.LoanDocumentCheckList;
+                        this.setCheckBoxFirstTime(this.loanDocumentsCheckList)
                     }
                 });
         } else {
@@ -547,11 +548,8 @@ export class ClLoanWitnessComponent implements OnInit {
     }
 
     setUnsetDocumentCheckBox(docObj) {
-        //this.loanDetail = new Loan();
-        //this.loanDetail.ApplicationHeader = new LoanApplicationHeader();
 
         this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-
         if (docObj.checked) {
             var obj = new LoanDocumentCheckList();
             obj.DocumentID = docObj.source.value;
@@ -564,6 +562,22 @@ export class ClLoanWitnessComponent implements OnInit {
         }
 
     }
+    setCheckBoxFirstTime(docObj) {
+        this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
+    for(let i=0;i<docObj?.length;i++){
+        console.log(i)
+    if (docObj[i].isAttached) {
+        console.log(i)
+        var obj = new LoanDocumentCheckList();
+        obj.DocumentID = docObj[i].DocumentID;
+        obj.is_checked = true;
+        obj.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
+        this.loanDocumentCheckListArray.push(obj)
+    }
+}
+
+
+    }
 
     CheckAttached(val) {
         return val;
@@ -574,7 +588,6 @@ export class ClLoanWitnessComponent implements OnInit {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
-
         if (this.loanDocumentCheckListArray?.length == 0) {
             var Message = 'Please attach atleast one document';
             this.layoutUtilsService.alertElement(
