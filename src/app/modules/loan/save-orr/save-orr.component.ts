@@ -280,6 +280,11 @@ export class SaveOrrComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
+                    this.router.navigate(
+                        ['../calculte-dbr',
+                            { LnTransactionID: this.LnTransactionID, Lcno: this.Lcno }],
+                        { relativeTo: this.activatedRoute }
+                    );
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
