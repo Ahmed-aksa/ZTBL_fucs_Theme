@@ -135,6 +135,11 @@ export class AuthSignInComponent implements OnInit {
                     }
                 );
 
+        }, (error) => {
+            this.alert = {
+                type: 'error',
+                message: error.message
+            };
         });
 
     }

@@ -209,5 +209,9 @@ export class UserUtilsService {
     getEligibilityLogs(request) {
         return this.http.post(`${environment.apiUrl}/Customer/GetEligibilityCheckLogs`, request)
     }
+
+    getEligibilityLogById(final_request) {
+        return this.http.post(`${environment.apiUrl}/Customer/GetEligibilityLogById`, final_request)
+    }
 }
 
