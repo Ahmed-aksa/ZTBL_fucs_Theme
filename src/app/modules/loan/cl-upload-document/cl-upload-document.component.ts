@@ -31,8 +31,11 @@ export class ClUploadDocumentComponent implements OnInit {
 
     PostDocument: FormGroup;
     loanDocument = new LoanDocuments();
-    rawData: LoanDocuments[] = [];
+    rawData = [];
+    imgData = [];
     refDepositAccount: any;
+
+    matched = false;
 
     url: string;
     loanDocumentArray: LoanDocuments[] = [];
@@ -74,6 +77,8 @@ export class ClUploadDocumentComponent implements OnInit {
     number_of_files: number = 0;
     docId = [];
     first: boolean;
+
+    checkCompare = false;
 
     page_number = [];
     description = [];
@@ -258,10 +263,11 @@ export class ClUploadDocumentComponent implements OnInit {
                     reader.onload = (event: any) => {
                         if (this.rawData[i]) {
                             this.rawData.splice(i, 1);
+                            this.imgData.splice(i, 1);
                             this.rawData.splice(i, 0, file);
                         } else {
-                            //this.rawData.push(file);
-                            this.rawData.splice(i, 0, file);
+                            this.rawData.push(file);
+                            //this.rawData.splice(i, 0, file);
                         }
                     };
                     reader.readAsDataURL(file);
@@ -279,6 +285,29 @@ export class ClUploadDocumentComponent implements OnInit {
 
     }
 
+    fileCompare(){
+        debugger
+        let i,j;
+        for(i = 0; i<this.rawData.length; i++){
+            for(j = 1; j<this.imgData.length; j++){
+                if(j != i){
+                    if((this.rawData[i].name && this.rawData[i].size) == (this.imgData[j].name && this.imgData[j].size)){
+                        this.matched = true;
+                        break;
+                    }
+                    else{
+                        this.matched = false;
+                    }
+                }
+
+            }
+            if(this.matched == true){
+                break;
+            }
+        }
+        this.checkCompare = false;
+    }
+
     saveLoanDocuments() {
         debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
@@ -287,12 +316,24 @@ export class ClUploadDocumentComponent implements OnInit {
 
         let ok = true;
 
+
         if (!this.LoanCaseId) {
             ok = false;
             this.loanCase();
         } else {
             this.loanDocument.LoanCaseID = this.LoanCaseId;
+            this.matched = false;
         }
+
+        // if(this.checkCompare== true){
+        //     this.fileCompare();
+        // }
+
+        // if(this.matched == true){
+        //     this.layoutUtilsService.alertElement("","Files should not be same.");
+        //     return;
+        // }
+
 
         if (this.PostDocument.invalid) {
             const controls = this.PostDocument.controls;
@@ -303,9 +344,9 @@ export class ClUploadDocumentComponent implements OnInit {
             return;
         }
 
-        if (this.rawData.length != 1) {
-            this.rawData = this.rawData.reverse();
-        }
+        // if (this.rawData.length != 1) {
+        //     this.rawData = this.rawData.reverse();
+        // }
 
         totLength = Number(totLength)
 
@@ -332,12 +373,14 @@ export class ClUploadDocumentComponent implements OnInit {
                     this.layoutUtilsService.alertElement('', 'Please add File(s) missing from row(s)');
                 } else if (description == "") {
                     this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s)');
+                    return false;
                 }
-                return
-            } else if (this.docId[index]) {
-                count = count + 1;
-                return
-            } else if (page_number > this.loanDocument.NoOfFilesToUpload) {
+            }
+            //else if (this.docId[index]) {
+            //     count = count + 1;
+            //     return
+            // }
+            else if (page_number > this.loanDocument.NoOfFilesToUpload) {
                 ok = false;
                 this.layoutUtilsService.alertElement('', 'Page Number should not be greater than No. of Files to upload')
                 return false;
@@ -347,10 +390,16 @@ export class ClUploadDocumentComponent implements OnInit {
             this.rawData.forEach((single_file, index) => {
                 this.loanDocument.file = single_file;
 
+
                 // @ts-ignore
                 let page_number = document.getElementById(`page_${index}`).value;
                 // @ts-ignore
                 let description = document.getElementById(`description_${index}`).value;
+
+                if (this.docId[index]) {
+                    count = count + 1;
+                    return
+                }
 
                 this.loanDocument.PageNumber = page_number;
                 this.loanDocument.Description = description;
@@ -425,6 +474,7 @@ export class ClUploadDocumentComponent implements OnInit {
                 this.LoanCaseId = response.DocumentLoanCaseID;
 
                 this.loanDocument.LoanCaseID = this.LoanCaseId;
+                this.checkCompare = true;
                 this.saveLoanDocuments()
 
             } else {
