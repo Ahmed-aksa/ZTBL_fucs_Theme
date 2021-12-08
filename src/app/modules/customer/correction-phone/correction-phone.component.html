@@ -75,7 +75,7 @@
                         <table class="table table-striped">
                             <thead>
                             <tr class="table-header-background text-center">
-                                
+
                                 <th class="text-left">Customer Name:</th>
                                 <th class="text-left">Father Name:</th>
                                 <th class="text-left">Existing Cnic:</th>
@@ -84,11 +84,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr [formGroup]="cpForm">
                                 <td>
                                     <div class="row">
                                         <div class="col-lg-12 pl-0">
-                                            <input class="border bg-white rounded p-3" placeholder="Customer Name" formControlName="CustomerName" autocomplete="off"/>
+                                            <input class="border bg-white rounded p-3" placeholder="Customer Name"
+                                                   formControlName="CustomerName" autocomplete="off"/>
                                         </div>
                                     </div>
 
@@ -96,24 +97,28 @@
                                 <td>
                                     <div class="row">
                                         <div class="col-lg-12 pl-0">
-                                            <input class="border bg-white rounded p-3" placeholder="Father Name" formControlName="FatherName" autocomplete="off"/>
+                                            <input class="border bg-white rounded p-3" placeholder="Father Name"
+                                                   formControlName="FatherName" autocomplete="off"/>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="row">
                                         <div class="col-lg-12 pl-0">
-                                            <input class="border bg-white rounded p-3" placeholder="Existing Cnic" formControlName="ExistingCnic" autocomplete="off"/>
+                                            <input class="border bg-white rounded p-3" placeholder="Existing Cnic"
+                                                   formControlName="ExistingCnic" autocomplete="off"/>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="row">
                                         <div class="col-lg-3 pl-0">
-                                            <input   autocomplete="off" value="00923" class="mr-2 border bg-white rounded p-3 w-100" readonly="readonly"/>
+                                            <input autocomplete="off" value="00923"
+                                                   class="mr-2 border bg-white rounded p-3 w-100" readonly="readonly"/>
                                         </div>
                                         <div class="col-lg-9 pl-0">
-                                            <input class="border bg-white rounded p-3 w-100" placeholder="34555555555" formControlName="PhoneCell" autocomplete="off" maxlength="10"/>
+                                            <input class="border bg-white rounded p-3 w-100" placeholder="34555555555"
+                                                   formControlName="PhoneCell" autocomplete="off" maxlength="10"/>
                                         </div>
                                     </div>
                                 </td>
@@ -125,11 +130,11 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <input type="button" mat-raised-button color="primary"
-                                class=" mat-raised-button mat-button-base mat-primary mr-4 searchLCBtn bg-green"
-                                value="Update" (click)="onUpdate()"/>
+                                       class=" mat-raised-button mat-button-base mat-primary mr-4 searchLCBtn bg-green"
+                                       value="Update" (click)="onUpdate()"/>
                                 <input type="button" mat-raised-button color="primary"
-                                class=" mat-raised-button bg-red-500 mat-button-base mat-primary searchLCBtn"
-                                value="Cancel" (click)="onCancel()"/>
+                                       class=" mat-raised-button bg-red-500 mat-button-base mat-primary searchLCBtn"
+                                       value="Cancel" (click)="onCancel()"/>
                             </div>
                         </div>
 

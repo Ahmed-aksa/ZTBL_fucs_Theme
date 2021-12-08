@@ -133,6 +133,7 @@ export class CustomerProfileComponent implements OnInit {
     ////
     //for search box
     //https://www.npmjs.com/package/ngx-mat-select-search
+    disable_save_and_submit: boolean = false;
 
     constructor(
         // public dialogRef: MatDialogRef<RoleEditComponent>,
@@ -208,6 +209,13 @@ export class CustomerProfileComponent implements OnInit {
             .subscribe(() => {
                 this.filterOccupation();
             });
+        if (this.createCustomer) {
+            if (this.createCustomer.CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
+                this.HideShowSaveButton = true;
+            } else {
+                this.HideShowSaveButton = false;
+            }
+        }
 
     }
 
@@ -322,7 +330,7 @@ export class CustomerProfileComponent implements OnInit {
             Caste: [this.createCustomer?.Caste, [Validators.required]],
             Religion: [this.createCustomer?.Religion, [Validators.required]],
             BirthPlace: [this.createCustomer?.BirthPlace],
-            RiskCategory: [this.createCustomer?.RiskCategory],
+            RiskCategory: [this.createCustomer ? this.createCustomer?.RiskCategory : 'low', Validators.required],
             PremisesFlag: [this.createCustomer?.PremisesFlag],
             BusinessProfPos: [this.createCustomer?.BusinessProfPos],
             FamilyNumber: [this.createCustomer?.FamilyNumber, [Validators.pattern(regExps.familyNumber)]],
@@ -872,6 +880,7 @@ export class CustomerProfileComponent implements OnInit {
     ReadWriteForm() {
         var customerStatus = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
         var user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
+        debugger;
         if (customerStatus.CustomerStatus.toLowerCase() == 'a' || customerStatus.CustomerStatus.toLowerCase() == 'p')
             if (customerStatus.CreatedBy != user.UserId) {
                 this.roleForm.disable();
