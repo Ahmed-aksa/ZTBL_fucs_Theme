@@ -346,9 +346,9 @@ export class ClUploadDocumentComponent implements OnInit {
             return;
         }
 
-        if (this.rawData.length != 1) {
-            this.rawData = this.rawData.reverse();
-        }
+        // if (this.rawData.length != 1) {
+        //     this.rawData = this.rawData.reverse();
+        // }
 
         totLength = Number(totLength)
 
