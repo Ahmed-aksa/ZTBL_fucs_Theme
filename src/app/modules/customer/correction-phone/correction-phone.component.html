@@ -7,12 +7,10 @@
         </div>
         <div class="col-lg-2 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1 px-2  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                        type="button"
-                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                        aria-expanded="false" aria-controls="collapseExample">
-                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
-                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary"
+                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
             </p>
@@ -26,14 +24,14 @@
         <div class="card card-body" [formGroup]="cpForm">
 
 
-            <div class="form-group kt-form__group row">
+            <div class="flex mt-1" style="flex-wrap: wrap;">
 
                 <!-- <kt-alert *ngIf="hasFormErrors" class="col-lg-12" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
                   Please enter valid Input
                 </kt-alert> -->
                 <app-zone-branch-circle [should_show_circle]="false" [form]="cpForm"
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">CNIC#</mat-label>
                         <!-- <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic" formControlName="Cnic"  maxlength="13" autocomplete="off" [readonly]="viewOnly"/> -->
@@ -41,11 +39,11 @@
                                autocomplete="off"/>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
+                <div class="flex flex-shrink-0 items-center  sm:mt-0 mx-2" style="width: 225px;">
                     <div class="form-group kt-form__group row">
                         <div class="col-lg-2 kt-margin-bottom-20-mobile">
                             <input type="button" mat-raised-button color="primary"
-                                   class=" bg-gray-500 mt-2 mat-raised-button mat-button-base mat-primary searchLCBtn"
+                                   class=" bg-gray-500 mat-raised-button mat-button-base mat-primary searchLCBtn"
                                    value="Find" (click)="find()"/>
                             <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
                         </div>
@@ -62,78 +60,84 @@
     <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between pt-4 px-6 md:px-8"
          style="flex-wrap: wrap">
     </div>
-    <div class="flex flex-auto overflow-y-scroll" style="flex-direction: column;">
+    <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
         <form class="kt-form kt-form--group-seperator-dashed">
 
 
             <div *ngIf="phoneCellTab" class="form-group kt-form__group row justify-content-center">
-                <div class="col-lg-3">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="heading">Update Customer Phone Cell</p>
+                        </div>
+                    </div>
                     <div class="table-responsive" style="overflow-x: hidden;">
                         <table class="table table-striped">
                             <thead>
                             <tr class="table-header-background text-center">
-                                <th>Update Customer Phone Cell</th>
+
+                                <th class="text-left">Customer Name:</th>
+                                <th class="text-left">Father Name:</th>
+                                <th class="text-left">Existing Cnic:</th>
+                                <th class="text-left">Phone mat-cell: (0092***********):</th>
+
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr [formGroup]="cpForm">
                                 <td>
                                     <div class="row">
-                                        <strong class="col-lg-6">Customer Name:</strong>
-                                        <div class="col-lg-6">
-                                            <input formControlName="CustomerName" autocomplete="off"/>
+                                        <div class="col-lg-12 pl-0">
+                                            <input class="border bg-white rounded p-3" placeholder="Customer Name"
+                                                   formControlName="CustomerName" autocomplete="off"/>
                                         </div>
                                     </div>
 
                                 </td>
-                            </tr>
-                            <tr>
                                 <td>
                                     <div class="row">
-                                        <strong class="col-lg-6">Father Name:</strong>
-                                        <div class="col-lg-6">
-                                            <input formControlName="FatherName" autocomplete="off"/>
+                                        <div class="col-lg-12 pl-0">
+                                            <input class="border bg-white rounded p-3" placeholder="Father Name"
+                                                   formControlName="FatherName" autocomplete="off"/>
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
                                 <td>
                                     <div class="row">
-                                        <strong class="col-lg-6">Existing Cnic:</strong>
-                                        <div class="col-lg-6">
-                                            <input formControlName="ExistingCnic" autocomplete="off"/>
+                                        <div class="col-lg-12 pl-0">
+                                            <input class="border bg-white rounded p-3" placeholder="Existing Cnic"
+                                                   formControlName="ExistingCnic" autocomplete="off"/>
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
                                 <td>
                                     <div class="row">
-                                        <strong class="col-lg-4">Phone mat-cell: (0092***********):</strong>
-                                        <div class="col-lg-2">
-                                            <input autocomplete="off" value="00923" class="mr-2" readonly="readonly"/>
+                                        <div class="col-lg-3 pl-0">
+                                            <input autocomplete="off" value="00923"
+                                                   class="mr-2 border bg-white rounded p-3 w-100" readonly="readonly"/>
                                         </div>
-                                        <div class="col-lg-4">
-                                            <input formControlName="PhoneCell" autocomplete="off" maxlength="10"/>
+                                        <div class="col-lg-9 pl-0">
+                                            <input class="border bg-white rounded p-3 w-100" placeholder="34555555555"
+                                                   appNumberOnly
+                                                   formControlName="PhoneCell" autocomplete="off" maxlength="10"/>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="row mt-2 justify-content-center">
-                                        <input type="button" mat-raised-button color="primary"
-                                               class=" mat-raised-button mat-button-base mat-primary mr-4 searchLCBtn"
-                                               value="Update" (click)="onUpdate()"/>
-                                        <input type="button" mat-raised-button color="primary"
-                                               class=" mat-raised-button mat-button-base mat-primary searchLCBtn"
-                                               value="Cancel" (click)="onCancel()"/>
-                                    </div>
-                                </td>
-                            </tr>
+
+
                             </tbody>
                         </table>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="button" mat-raised-button color="primary"
+                                       class=" mat-raised-button mat-button-base mat-primary mr-4 searchLCBtn bg-green"
+                                       value="Update" (click)="onUpdate()"/>
+                                <input type="button" mat-raised-button color="primary"
+                                       class=" mat-raised-button bg-red-500 mat-button-base mat-primary searchLCBtn"
+                                       value="Cancel" (click)="onCancel()"/>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
