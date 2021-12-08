@@ -1,6 +1,7 @@
 import {LovData} from "../classes/lov.class";
 
 export class BaseResponseModel {
+    EligibilityRequest:any;
     Code: string;
     Success: boolean; // Admin
     Message: string;

@@ -41,6 +41,7 @@ export class BaseRequestModel {
     public OTP: OTP;
     Token: any
     RefreshToken: any
+    EligibilityRequest: any;
 
 }
 

@@ -46,8 +46,7 @@ export class AlertDialogConfirmationComponent implements OnInit {
     onYesClick(): void {
         /* Server loading imitation. Remove this */
         this.viewLoading = true;
-        setTimeout(() => {
-            this.dialogRef.close({data: this.Remarks}); // Keep only this row
-        }, 2500);
+        this.dialogRef.close({data: this.Remarks}); // Keep only this row
+
     }
 }
