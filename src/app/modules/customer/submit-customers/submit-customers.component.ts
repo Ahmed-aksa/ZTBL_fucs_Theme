@@ -129,7 +129,7 @@ export class SubmitCustomersComponent implements OnInit {
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
 
-                    this.dataSource.data = baseResponse.Customers;
+                    this.dataSource.data = baseResponse?.Customers;
                     if (this.dataSource.data?.length > 0) {
                         this.dv = this.dataSource.data;
                         this.total_customers_length = baseResponse.Customers[0].TotalRecords;

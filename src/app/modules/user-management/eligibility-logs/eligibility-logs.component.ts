@@ -153,7 +153,6 @@ export class EligibilityLogsComponent implements OnInit {
     }
 
     viewDetail(EligibilityLog) {
-
         let eligibility_log_detail: any = null;
         if (!this.zone) {
             this.layoutUtilsService.alertMessage("", "Please enter Zone");
@@ -176,7 +175,7 @@ export class EligibilityLogsComponent implements OnInit {
             if (data.Success) {
                 eligibility_log_detail = data.EligibilityRequest;
                 const dialogRef = this.dialog.open(EligibilityLogDetailComponent, {
-                    data: {EligibilityLog},
+                    data: {eligibility_log_detail},
                     width: '80%',
                     height: '80%',
                     panelClass: ['h-screen', 'max-w-full', 'max-h-half', 'provide-margin-top'],

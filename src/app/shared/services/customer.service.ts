@@ -270,7 +270,7 @@ export class CustomerService {
     // Phone Cell Get Customer By CNIC
 
     getCustomerByCnic(cnic, branch?, zone?) {
-        var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         var request = {
             Customer: {
                 Cnic: cnic,

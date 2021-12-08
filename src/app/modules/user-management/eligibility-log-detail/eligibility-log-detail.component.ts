@@ -15,7 +15,7 @@ export class EligibilityLogDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.data = this.data.EligibilityLog;
+        this.data = this.data.eligibility_log_detail;
     }
 
     onNoClick() {
