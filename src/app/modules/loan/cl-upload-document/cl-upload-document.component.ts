@@ -39,6 +39,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     url: string;
     loanDocumentArray: LoanDocuments[] = [];
+    descriptionFalse= false;
 
     //Zone inventory
     LoggedInUserInfo: BaseResponseModel;
@@ -334,6 +335,8 @@ export class ClUploadDocumentComponent implements OnInit {
         //     return;
         // }
 
+        this.descriptionFalse = false;
+
 
         if (this.PostDocument.invalid) {
             const controls = this.PostDocument.controls;
@@ -350,45 +353,21 @@ export class ClUploadDocumentComponent implements OnInit {
 
         totLength = Number(totLength)
 
-        if (this.rawData.length < this.loanDocument.NoOfFilesToUpload) {
-            if(this.LoanCaseId){
-                this.layoutUtilsService.alertElement('', 'Please add all files');
-            }
-            return false;
-        }
-        this.rawData.forEach((single_file, index) => {
+        if(this.LoanCaseId){
 
-            this.loanDocument.file = single_file;
-
-
-            // @ts-ignore
-            let page_number = document.getElementById(`page_${index}`).value;
-            // @ts-ignore
-            let description = document.getElementById(`description_${index}`).value;
-
-
-            if (single_file == undefined || single_file == null || page_number == "" || description == "") {
-                ok = false;
-                if (single_file == undefined || single_file == null && description != "") {
-                    this.layoutUtilsService.alertElement('', 'Please add File(s) missing from row(s)');
-                } else if (description == "") {
-                    this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s)');
-                    return false;
+            if (this.rawData.length < this.loanDocument.NoOfFilesToUpload) {
+                if(this.LoanCaseId){
+                    this.layoutUtilsService.alertElement('', 'Please add all files');
                 }
-            }
-            //else if (this.docId[index]) {
-            //     count = count + 1;
-            //     return
-            // }
-            else if (page_number > this.loanDocument.NoOfFilesToUpload) {
-                ok = false;
-                this.layoutUtilsService.alertElement('', 'Page Number should not be greater than No. of Files to upload')
                 return false;
             }
-        });
-        if (ok){
             this.rawData.forEach((single_file, index) => {
+
                 this.loanDocument.file = single_file;
+
+                if(this.descriptionFalse == true){
+                    return false;
+                }
 
 
                 // @ts-ignore
@@ -396,54 +375,76 @@ export class ClUploadDocumentComponent implements OnInit {
                 // @ts-ignore
                 let description = document.getElementById(`description_${index}`).value;
 
-                if (this.docId[index]) {
-                    count = count + 1;
-                    return
+
+                if (description == "") {
+                    ok = false;
+                    this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s)');
+                    this.descriptionFalse = true;
+                    return false;
+                }else{
+                    this.descriptionFalse = false;
                 }
+            });
+            if (ok){
+                debugger
+                this.rawData.forEach((single_file, index) => {
+                    this.loanDocument.file = single_file;
 
-                this.loanDocument.PageNumber = page_number;
-                this.loanDocument.Description = description;
 
-                this.spinner.show();
-                this._loanService.documentUpload(this.loanDocument)
-                    .pipe(
-                        finalize(() => {
-                            this.spinner.hide();
-                        })
-                    ).subscribe((baseResponse) => {
-                    if (baseResponse.Success) {
+                    // @ts-ignore
+                    let page_number = document.getElementById(`page_${index}`).value;
+                    // @ts-ignore
+                    let description = document.getElementById(`description_${index}`).value;
+
+                    if (this.docId[index]) {
                         count = count + 1;
-                        debugger
-
-
-                        // @ts-ignore
-                        document.getElementById(`description_${index}`).value = ''
-                        // @ts-ignore
-                        document.getElementById(`file_${index}`).value = ''
-
-                        this.docId.push(baseResponse.DocumentDetail.Id);
-                        if (count == totLength) {
-
-                            this.getLoanDocument();
-                            this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
-                            this.docId = [];
-                            this.controlReset();
-                            this.showGrid = false;
-                            this.rawData.length = 0;
-                        } else if (this.rawData.length != totLength && count == this.rawData.length) {
-                            this.layoutUtilsService.alertElement('', 'Please add Remaining Entries');
-                        }
-
-
-                    } else {
-                        this.layoutUtilsService.alertMessage('', baseResponse.Message);
-                        ok = false;
-                        return false;
+                        return
                     }
 
-                });
+                    this.loanDocument.PageNumber = page_number;
+                    this.loanDocument.Description = description;
 
-            })
+                    this.spinner.show();
+                    this._loanService.documentUpload(this.loanDocument)
+                        .pipe(
+                            finalize(() => {
+                                this.spinner.hide();
+                            })
+                        ).subscribe((baseResponse) => {
+                        if (baseResponse.Success) {
+                            count = count + 1;
+                            debugger
+
+
+                            // @ts-ignore
+                            document.getElementById(`description_${index}`).value = ''
+                            // @ts-ignore
+                            document.getElementById(`file_${index}`).value = ''
+
+                            this.docId.push(baseResponse.DocumentDetail.Id);
+                            if (count == totLength) {
+
+                                this.getLoanDocument();
+                                this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                                this.docId = [];
+                                this.controlReset();
+                                this.showGrid = false;
+                                this.rawData.length = 0;
+                            } else if (this.rawData.length != totLength && count == this.rawData.length) {
+                                this.layoutUtilsService.alertElement('', 'Please add Remaining Entries');
+                            }
+
+
+                        } else {
+                            this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                            ok = false;
+                            return false;
+                        }
+
+                    });
+
+                })
+            }
         }
 
 
