@@ -135,7 +135,6 @@ export class EligibilityLogsComponent implements OnInit {
     }
 
     paginate(pageIndex: any, pageSize: any = this.items_per_page) {
-        debugger;
         if (Number.isNaN(pageIndex)) {
             this.pageIndex = this.pageIndex + 1;
         } else {
@@ -154,12 +153,39 @@ export class EligibilityLogsComponent implements OnInit {
     }
 
     viewDetail(EligibilityLog) {
-        const dialogRef = this.dialog.open(EligibilityLogDetailComponent, {
-            data: {EligibilityLog},
-            width: '80%',
-            height: '80%',
-            panelClass: ['h-screen', 'max-w-full', 'max-h-half', 'provide-margin-top'],
+        let eligibility_log_detail: any = null;
+        if (!this.zone) {
+            this.layoutUtilsService.alertMessage("", "Please enter Zone");
+            return;
+        }
+        let request = {
+            Id: EligibilityLog
+        };
+        let final_request = {
+            EligibilityRequest: request,
+            Branch: this.branch,
+            Zone: this.zone,
+            Circle: {
+                CircleCode: this.circle?.Id
+            },
+        }
+        this.spinner.show();
+        this.userUtilsService.getEligibilityLogById(final_request).subscribe((data: any) => {
+            this.spinner.hide();
+            if (data.Success) {
+                eligibility_log_detail = data.EligibilityRequest;
+                const dialogRef = this.dialog.open(EligibilityLogDetailComponent, {
+                    data: {eligibility_log_detail},
+                    width: '80%',
+                    height: '80%',
+                    panelClass: ['h-screen', 'max-w-full', 'max-h-half', 'provide-margin-top'],
+                })
+            } else {
+                this.layoutUtilsService.alertMessage("", data.Message);
+            }
         })
+
+
     }
 
     showLocation(EligibilityLog) {

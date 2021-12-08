@@ -22,6 +22,8 @@ export class CorrectionPhoneComponent implements OnInit {
     customerRec: any;
 
     phoneCellTab: boolean = false;
+    zone: any;
+    branch: any;
 
     constructor(private fb: FormBuilder,
                 private layoutUtilsService: LayoutUtilsService,
@@ -31,20 +33,16 @@ export class CorrectionPhoneComponent implements OnInit {
                 private _customerService: CustomerService,
                 private router: Router,
     ) {
-        this.loggedInUser = userUtilsService.getUserDetails();
+        this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 
     }
 
     ngOnInit() {
         this.createForm()
-        this.cpForm.controls['Zone'].setValue(this.loggedInUser.Zone.ZoneName);
-        this.cpForm.controls['Branch'].setValue(this.loggedInUser.Branch.Name);
     }
 
     createForm() {
         this.cpForm = this.fb.group({
-            Zone: [''],
-            Branch: [''],
             Cnic: [''],
             CustomerName: [''],
             FatherName: [''],
@@ -55,9 +53,10 @@ export class CorrectionPhoneComponent implements OnInit {
 
     find() {
 
-        var cnic = this.cpForm.controls.Cnic.value;
+        var cnic = this.cpForm.controls['Cnic'].value;
+        debugger;
         this.spinner.show();
-        this._customerService.getCustomerByCnic(cnic)
+        this._customerService.getCustomerByCnic(cnic, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -121,4 +120,8 @@ export class CorrectionPhoneComponent implements OnInit {
         this.cpForm.controls['PhoneCell'].reset()
     }
 
+    getAllData(event: { final_zone: any; final_branch: any; final_circle: any }) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+    }
 }
