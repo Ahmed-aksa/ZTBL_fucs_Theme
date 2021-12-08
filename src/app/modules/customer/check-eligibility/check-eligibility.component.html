@@ -292,8 +292,8 @@
                     <!--ECIB-->
                     <!-- [style.height]="gridHeight"   not able to understand  -->
                     <div *ngIf="ECIBPerformForm">
-                        <div class="form-group kt-form__group mb-4">
-                            <div class="col-lg-12 shadow-md border " style="background-color: #f6fcf8 !important;">
+                        <div class="form-group kt-form__group mb-2">
+                            <div class="col-lg-12 border " style="background-color: #f6fcf8 !important;">
                                 <div class="row p-4">
                                     <div class="col-lg-6 kt-margin-bottom-20-mobile">
                                         <h5 class="text-green">ECIB</h5>
@@ -320,34 +320,34 @@
 
                         </div>
                         <div class="form-group kt-form__group row" *ngIf="IsEcibDefaulter">
-                            <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                                <h5 class="text-blue">Summary</h5>
-                                <h5>Customer is not eligible due to following reasons</h5>
-                                <table class="col-lg-6 table-bordered">
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                                <h5 class="heading">Summary</h5>
+                                <p class="text-red-500 mb-1">Customer is not eligible due to following reasons</p>
+                                <table class="col-lg-12 table-bordered mr-2">
                                     <thead class="table-header-background">
-                                    <th>Name</th>
-                                    <th>Status</th>
+                                    <th class="p-2 w-3/12">Name</th>
+                                    <th class="p-2 w-9/12">Status</th>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="text-blue">BMVS:</td>
-                                        <td [ngClass]="{'text-red': customer_bmvs?.Message == 'Not Found'}">{{customer_bmvs?.Message}}</td>
+                                    <tr >
+                                        <td class="text-blue-500 p-2 ">BMVS:</td>
+                                        <td [ngClass]="{'text-red-500': customer_bmvs?.Message == 'Not Found'}">{{customer_bmvs?.Message}}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-blue">NIVS:</td>
-                                        <td [ngClass]="{'text-red': customer_bmvs?.Message == 'Not Found'}">{{customer_nivs?.Message}}</td>
+                                    <tr >
+                                        <td class="text-blue-500 p-2">NIVS:</td>
+                                        <td [ngClass]="{'text-red-500': customer_bmvs?.Message == 'Not Found'}">{{customer_nivs?.Message}}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-blue">NDC:</td>
-                                        <td>{{customer_ndc.Message}}</td>
+                                    <tr >
+                                        <td class="text-blue-500 p-2">NDC:</td>
+                                        <td class="p-2">{{customer_ndc.Message}}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-blue">ECIB:</td>
-                                        <td class="text-red">{{CustomerECIB?.Message}}</td>
+                                    <tr >
+                                        <td class="text-blue-500 p-2">ECIB:</td>
+                                        <td class="text-red-500 p-2">{{CustomerECIB?.Message}}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-blue">ECIB Approval Status:</td>
-                                        <td class="text-red">{{CustomerECIB?.EcibAprovalMessage}}</td>
+                                    <tr >
+                                        <td class="text-blue-500 p-2">ECIB Approval Status:</td>
+                                        <td class="text-red-500 p-2">{{CustomerECIB?.EcibAprovalMessage}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
