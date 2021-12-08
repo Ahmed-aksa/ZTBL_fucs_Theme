@@ -329,7 +329,7 @@ export class ClUploadDocumentComponent implements OnInit {
         // if(this.checkCompare== true){
         //     this.fileCompare();
         // }
-
+        //
         // if(this.matched == true){
         //     this.layoutUtilsService.alertElement("","Files should not be same.");
         //     return;
@@ -346,10 +346,6 @@ export class ClUploadDocumentComponent implements OnInit {
             this.toastr.error("Please Enter Required values");
             return;
         }
-
-        // if (this.rawData.length != 1) {
-        //     this.rawData = this.rawData.reverse();
-        // }
 
         totLength = Number(totLength)
 
@@ -498,7 +494,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     changeDocType(value) {
-
         if (this.rawData.length > 0) {
             const confirmAlert = this.layoutUtilsService.AlertElementConfirmation("Alert", "By Changing Document Type, You will lose Already selected files,Do you want to keep the files", "");
             confirmAlert.afterClosed().subscribe(res => {

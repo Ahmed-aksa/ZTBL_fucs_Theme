@@ -130,6 +130,8 @@ export class EligibilityLogsComponent implements OnInit {
                 this.TotalRecords = data.EligibilityRequest.EligibilityRequests[0]?.TotalRecords;
             } else {
                 this.layoutUtilsService.alertMessage("", data.Message);
+                this.dataSource.data = this.dataSource.data.splice(1,0)
+
             }
         })
     }
