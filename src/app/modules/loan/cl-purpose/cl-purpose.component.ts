@@ -469,7 +469,7 @@ export class ClPurposeComponent implements OnInit {
         this.purposeForm.controls['AmountRequired'].setValue('');
         this.purposeForm.controls['NecessitiesDetail'].setValue('');
         this.purposeForm.controls['BwrAgreeInsurancePrem'].setValue('');
-        this.purposeForm.controls['DevProdID'].setValue('');
+        this.purposeForm.controls['DevProdID'].setValue(null);
 
 
         this.isCheckedEquity = false;

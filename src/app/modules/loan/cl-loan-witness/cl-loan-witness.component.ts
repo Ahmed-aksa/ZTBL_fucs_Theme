@@ -565,9 +565,7 @@ export class ClLoanWitnessComponent implements OnInit {
     setCheckBoxFirstTime(docObj) {
         this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
     for(let i=0;i<docObj?.length;i++){
-        console.log(i)
     if (docObj[i].isAttached) {
-        console.log(i)
         var obj = new LoanDocumentCheckList();
         obj.DocumentID = docObj[i].DocumentID;
         obj.is_checked = true;
@@ -614,9 +612,13 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
+if(baseResponse.Success==true){
+    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+}
+else{
+    this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+}
 
-
-            this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
     }
 
@@ -843,9 +845,13 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
+if(baseResponse.Success==true){
+    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+}
+else{
+    this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+}
 
-
-            this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
         });
 
     }
