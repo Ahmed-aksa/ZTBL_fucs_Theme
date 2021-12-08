@@ -114,11 +114,6 @@ export class CheckEligibilityComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private toaster: ToastrService
     ) {
-
-        var bit = localStorage.getItem("CreateCustomerBit");
-        if (bit == '1')
-            localStorage.setItem('CreateCustomerBit', '10');
-
     }
 
     ngOnInit() {
@@ -205,6 +200,7 @@ export class CheckEligibilityComponent implements OnInit {
                     } else {
                         this.IsNdcDefaulter = false;
                     }
+
 
                     this.Ftb = baseResponse.Ftb;
                     this.tran_id = baseResponse.TranId;
@@ -406,7 +402,13 @@ export class CheckEligibilityComponent implements OnInit {
                     if (this.CustomerECIB.Code == '552' || this.CustomerECIB.Code == '550') {
                         this.should_regenerate = false;
                         this.IsEcibDefaulter = true;
+                        if (localStorage.getItem('CreateCustomerBit') == '1') {
+                            localStorage.setItem('CreateCustomerBit', '2');
+                            this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
+                        }
+
                     }
+
                     if (this.Customer.ECIBPDFLink == null || this.Customer.ECIBPDFLink == "") {
                         this.EcibLinkView = false;
                         //this.layoutUtilsService.alertMessage("", "No ECIB Record Available");

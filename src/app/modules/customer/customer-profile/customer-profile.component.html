@@ -17,10 +17,6 @@
         <form [formGroup]="roleForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="kt-portlet__body container">
-                    <!--                    <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"-->
-                    <!--                              (close)="onAlertClose($event)">-->
-                    <!--                        Please enter valid Input-->
-                    <!--                    </kt-alert>-->
                     <div class="form-group kt-form__group row mb-3">
 
 
@@ -105,7 +101,7 @@
                                 </mat-label>
                                 <input on-focusout="cnicfocusout()" matInput placeholder="Enter CNIC"
                                        formControlName="Cnic" maxlength="30" autocomplete="off" [mask]="maskEnums.cnic"
-                                       readonly="readonly"/>
+                                />
                                 <mat-error *ngIf="hasError('Cnic', 'required')"><strong>CNIC required</strong>
                                 </mat-error>
                                 <mat-error *ngIf="hasError('Cnic', 'pattern')"><strong>{{errors.cnic}}</strong>
