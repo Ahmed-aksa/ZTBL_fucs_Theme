@@ -327,14 +327,14 @@ export class ClUploadDocumentComponent implements OnInit {
             this.matched = false;
         }
 
-        if(this.checkCompare== true){
-            this.fileCompare();
-        }
+        // if(this.checkCompare== true){
+        //     this.fileCompare();
+        // }
 
-        if(this.matched == true){
-            this.layoutUtilsService.alertElement("","Files should not be same.");
-            return;
-        }
+        // if(this.matched == true){
+        //     this.layoutUtilsService.alertElement("","Files should not be same.");
+        //     return;
+        // }
 
 
         if (this.PostDocument.invalid) {
@@ -375,8 +375,8 @@ export class ClUploadDocumentComponent implements OnInit {
                     this.layoutUtilsService.alertElement('', 'Please add File(s) missing from row(s)');
                 } else if (description == "") {
                     this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s)');
+                    return false;
                 }
-                return
             }
             //else if (this.docId[index]) {
             //     count = count + 1;
