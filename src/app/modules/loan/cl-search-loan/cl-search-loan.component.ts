@@ -171,10 +171,10 @@ export class ClSearchLoanComponent implements OnInit {
                         this.totalItems = baseResponse.Loan.ApplicationHeaderList.length;
                         //this.paginate(this.pageIndex) //calling paginate function
                         //this.OffSet = this.pageIndex;
-                        this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                        this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                     } else {
                         this.layoutUtilsService.alertElement('', baseResponse.Message);
-                        this.dataSource = this.dv.splice(1, 0);
+                        this.dataSource = this.dv?.splice(1, 0);
                         this.loading = false;
                         this.matTableLenght = false;
                     }
