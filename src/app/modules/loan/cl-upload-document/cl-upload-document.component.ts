@@ -265,11 +265,9 @@ export class ClUploadDocumentComponent implements OnInit {
                             this.rawData.splice(i, 1);
                             this.imgData.splice(i, 1);
                             this.rawData.splice(i, 0, file);
-                            this.imgData.splice(i, 0, file);
                         } else {
-                            //this.rawData.push(file);
-                            this.rawData.splice(i, 0, file);
-                            this.imgData.splice(i, 0, file);
+                            this.rawData.push(file);
+                            //this.rawData.splice(i, 0, file);
                         }
                     };
                     reader.readAsDataURL(file);
