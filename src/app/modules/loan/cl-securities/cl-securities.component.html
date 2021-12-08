@@ -33,7 +33,7 @@
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Quantity/ Area Accepted <strong
                                 class="matMandatory">*</strong></mat-label>
-                            <input matInput formControlName="Quantity" appNumberOnly>
+                            <input matInput maxlength="5" formControlName="Quantity" appNumberOnly>
                             <mat-error *ngIf="hasError('Quantity', 'required')">Area <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
@@ -64,7 +64,7 @@
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Unit Price/Avg Sale Price <strong
                                 class="matMandatory">*</strong></mat-label>
-                            <input matInput formControlName="UnitPrice" appNumberOnly>
+                            <input matInput maxlength="8" formControlName="UnitPrice" appNumberOnly>
                             <mat-error *ngIf="hasError('UnitPrice', 'required')">Unit Price <strong>required</strong>
                             </mat-error>
                         </mat-form-field>

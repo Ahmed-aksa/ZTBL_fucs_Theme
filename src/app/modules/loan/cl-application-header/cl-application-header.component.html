@@ -43,7 +43,7 @@
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Development Loan Amount <strong
                             class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter Development Loan Amount" formControlName="DevAmount"
+                        <input matInput maxlength="9" placeholder="Enter Development Loan Amount" formControlName="DevAmount"
                                appNumberOnly/>
                         <mat-error *ngIf="hasError('DevAmount', 'required')">Development Loan Amount
                             <strong>required</strong></mat-error>
@@ -53,7 +53,7 @@
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Production Loan Amount <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input matInput placeholder="Enter Production Loan Amount" formControlName="ProdAmount"
+                        <input matInput maxlength="9" placeholder="Enter Production Loan Amount" formControlName="ProdAmount"
                                appNumberOnly/>
                         <mat-error *ngIf="hasError('ProdAmount', 'required')">Production Loan Amount
                             <strong>required</strong></mat-error>
