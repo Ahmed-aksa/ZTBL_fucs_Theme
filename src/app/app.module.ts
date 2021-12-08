@@ -25,7 +25,7 @@ import {UserUtilsService} from './shared/services/users_utils.service';
 import {TokenInterceptor} from './shared/httpInterceptor/httpconfig.interceptor';
 import {NdcRequestsModule} from './modules/ndc-requests/ndc-requests.module';
 import {DatePipe} from "@angular/common";
-
+import { NgApexchartsModule } from "ng-apexcharts";
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
     scrollPositionRestoration: 'enabled'
