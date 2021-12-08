@@ -154,7 +154,7 @@ export class OrrListComponent implements OnInit {
                     this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
                 } else {
                     this.dataSource.data = [];
-                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
+                    this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code)
                 }
             });
 

@@ -280,6 +280,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
+        debugger
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
@@ -309,8 +310,10 @@ export class ClUploadDocumentComponent implements OnInit {
         totLength = Number(totLength)
 
         if (this.rawData.length < this.loanDocument.NoOfFilesToUpload) {
-            this.layoutUtilsService.alertElement('', 'Please add all files');
-            return;
+            if(this.LoanCaseId){
+                this.layoutUtilsService.alertElement('', 'Please add all files');
+            }
+            return false;
         }
         this.rawData.forEach((single_file, index) => {
 
@@ -340,7 +343,7 @@ export class ClUploadDocumentComponent implements OnInit {
                 return false;
             }
         });
-        if (ok)
+        if (ok){
             this.rawData.forEach((single_file, index) => {
                 this.loanDocument.file = single_file;
 
@@ -392,6 +395,8 @@ export class ClUploadDocumentComponent implements OnInit {
                 });
 
             })
+        }
+
 
     }
 

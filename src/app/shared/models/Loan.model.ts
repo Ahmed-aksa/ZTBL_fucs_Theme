@@ -162,6 +162,7 @@ export class LoanApplicationPurpose {
     DevProdID: number;
     SchemeID: number;
     checkEquity: boolean;
+    CropName:string;
 
 
     //GLCode: string;
