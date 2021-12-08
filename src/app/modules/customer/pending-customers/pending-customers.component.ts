@@ -179,7 +179,7 @@ export class PendingCustomersComponent implements OnInit {
     }
 
     CheckEditStatus(customer: any) {
-        if ((customer.CreatedBy == this.loggedInUserDetails.User.UserId) && (customer.CustomerStatus == 'R' || customer.CustomerStatus == 'N')) {
+        if ((customer.CreatedBy == this.loggedInUserDetails.User.UserId)) {
             return true
         } else {
             return false
