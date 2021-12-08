@@ -30,7 +30,7 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 ">
                             <mat-form-field class="w-full" appearance="outline">
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search"
-                                       autocomplete="off"
+                                       autocomplete="off" formControlName="TranId"
                                        appearance="outline">
                                 <!-- <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint> -->
                             </mat-form-field>
@@ -121,7 +121,7 @@
 
 
         <mat-expansion-panel class="api-table shadow-none mb-4 p-0" *ngFor="let item of displayedRows$ |async"
-                             (click)="fetch3rdAPI($event,item)"
+                             (click)="fetch3rdAPI($event,item)" #exppanel
                              style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
             <mat-expansion-panel-header style="font-size: 12px;"
                                         class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
