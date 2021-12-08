@@ -236,6 +236,7 @@ export class ClPurposeComponent implements OnInit {
 
     onEditPurpose(data: LoanApplicationPurpose) {
         debugger
+        this.onClearSavePurpose();
         console.log(JSON.stringify(data))
         this.index;
         this.editLoanApplicationPurpose;
@@ -386,24 +387,6 @@ export class ClPurposeComponent implements OnInit {
         // }
     }
 
-    changeRadio(val) {
-        // this.
-        // this.purposeForm.controls.
-
-    }
-
-
-    onChang(e) {
-        console.log(e)
-        if (e == false) {
-            this.isCheckedEquity = true
-            // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
-        } else {
-            this.isCheckedEquity = false
-            // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
-        }
-        console.log(e)
-    }
 
     onDeletePurpose(GlSubID, index) {
         const _title = 'Confirmation';
