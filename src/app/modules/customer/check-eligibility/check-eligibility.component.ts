@@ -605,6 +605,10 @@ export class CheckEligibilityComponent implements OnInit {
     number_of_files: number = 1;
 
     submitEcibDefaulterForm() {
+        if (this.remarks == '' || this.rawData.length == 0) {
+            this.toaster.error("Please include Remarks and Add Files as Well");
+            return 0;
+        }
         let data = {
             ndc_file: this.Customer.NDCPDFLink,
             ecib_file: this.Customer.ECIBPDFLink,
