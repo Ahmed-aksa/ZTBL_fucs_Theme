@@ -7,21 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationPageComponent implements OnInit {
 
-    n1= 99;
-    n2= 99;
-    n3= 99;
-    n4= 99;
-    n5= 99;
-    n6= 99;
-    n7= 99;
-    n8= 99;
-    n9= 99;
-    n10= 99;
-    n11= 99;
+    n1;
+    n2;
+    n3;
+    n4;
+    n5;
+    n6;
+    n7;
+    n8;
+    n9;
+    n10;
+    n11;
+
+    hideNumber;
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }
