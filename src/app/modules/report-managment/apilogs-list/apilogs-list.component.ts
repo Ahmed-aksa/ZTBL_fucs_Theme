@@ -15,13 +15,22 @@ import {ReportFilters} from "../models/report-filters.model";
 import {NgxSpinnerService} from "ngx-spinner";
 import {Observable, of} from "rxjs";
 import {fromMatPaginator, fromMatSort, paginateRows, sortRows} from './datasource-utils';
+import {MatExpansionPanel} from "@angular/material/expansion";
+import {MAT_DATE_LOCALE} from "@angular/material/core";
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from "@angular/material-moment-adapter";
 
 @Component({
     selector: 'app-apilogs-list',
     templateUrl: './apilogs-list.component.html',
-    styleUrls: ['./apilogs-list.component.scss']
+    styleUrls: ['./apilogs-list.component.scss'],
+    providers: [
+        {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}, /* optional */
+        {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
+    ]
 })
 export class ApilogsListComponent implements OnInit {
+    // @ViewChild("panel") exppanel;
+    @ViewChild(MatExpansionPanel, {static: true}) exppanel: MatExpansionPanel;
 
     dataSource = new MatTableDataSource();
     reportFilter: ReportFilters = new ReportFilters();
@@ -93,7 +102,8 @@ export class ApilogsListComponent implements OnInit {
         this.StartDate = new Date();
         this.FilterForm = this.filterFB.group({
             StartDate: [new Date(), [Validators.required]],
-            EndDate: [new Date(), [Validators.required]]
+            EndDate: [new Date(), [Validators.required]],
+            TranId: []
         });
     }
 
@@ -139,6 +149,24 @@ export class ApilogsListComponent implements OnInit {
     loadApiLogs() {
 
         this.reportFilter = Object.assign(this.reportFilter, this.FilterForm.value, this.panelOpenState = false);
+        // var d = new Date(this.reportFilter.StartDate);
+        // d.setDate(d.getDate() + 1);
+        // this.reportFilter.StartDate = String(d);
+        //
+        // var d2 = new Date(this.reportFilter.EndDate);
+        // d2.setDate(d2.getDate() + 1);
+        // this.reportFilter.EndDate = String(d2);
+
+        if (isNaN(this.reportFilter.TranId)) {
+            this.reportFilter.ApiName = String(this.reportFilter.TranId);
+            this.reportFilter.TranId = null;
+
+        } else {
+            this.reportFilter.TranId = parseInt(String(this.reportFilter.TranId));
+
+        }
+
+
         this.spinner.show();
         this._reportservice.getAllAPILogs(this.reportFilter)
             .pipe(
@@ -170,6 +198,7 @@ export class ApilogsListComponent implements OnInit {
     }
 
     viewRequestResponse(event: any, reportFilter: ReportFilters, is_third = false) {
+        event.stopPropagation();
         var width = (window.innerWidth - 130) + 'px';
         //var height = (window.innerHeight - 140) + 'px';
 

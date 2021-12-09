@@ -67,6 +67,7 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
 
     createForm() {
         this.searchCnicForm = this.fb.group({
+            PPNo: [null]
         })
     }
 
