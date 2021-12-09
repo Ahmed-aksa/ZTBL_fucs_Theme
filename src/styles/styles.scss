@@ -616,6 +616,9 @@ img {
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .bg-card{
+        display: block !important;
+    }
     .col-lg-3{
         padding:0 12px;
     }
