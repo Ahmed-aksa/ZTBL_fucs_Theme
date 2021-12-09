@@ -36,6 +36,8 @@ export class ReportsService {
     updatedList(user, reportsFilter) {
         debugger
 
+
+
         var request = {
             ReportsFilterCustom: reportsFilter,
             User: this.userDetail.User,
@@ -80,7 +82,16 @@ export class ReportsService {
                     CircleId: circle.CircleCode
                 }
             }
-        } else {
+        }else if (reportsFilter.ReportsNo == '24') {
+            reportsFilter.BranchId = final_branch.BranchId;
+            request = {
+                ReportsFilterCustom: reportsFilter,
+                User: user.User,
+                Zone: final_zone,
+                Branch: final_branch,
+            }
+        }
+        else {
             request = {
                 ReportsFilterCustom: reportsFilter,
                 User: user.User,

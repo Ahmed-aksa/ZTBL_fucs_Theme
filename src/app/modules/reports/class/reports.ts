@@ -35,5 +35,6 @@ export class Bufrication {
     GLCode: string;
     OnlyZOne: number;
     ToDate: string;
-    FromDate: string
+    FromDate: string;
+    SummaryOnly: number;
 }

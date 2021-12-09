@@ -589,10 +589,9 @@ export class ClPurposeComponent implements OnInit {
 
                     this.onClearSavePurpose();
                     this.purposeForm.markAsUntouched()
-                    console.log(this.MarkupCalcMode)
-
                     this.index = null;
                 } else {
+
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,

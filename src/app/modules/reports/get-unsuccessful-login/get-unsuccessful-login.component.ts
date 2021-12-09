@@ -60,7 +60,8 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.createForm()
+        this.createForm();
+        this.searchCnicForm.controls['PPNo'].setValue(this.LoggedInUserInfo.User.UserName)
         // this.typeLov();
 
     }

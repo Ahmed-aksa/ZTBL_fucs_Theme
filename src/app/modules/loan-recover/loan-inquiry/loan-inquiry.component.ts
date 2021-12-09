@@ -47,6 +47,8 @@ export class LoanInquiryComponent implements OnInit {
             LoanCaseNo: [''],
             Zone: [''],
             Branch: [''],
+            UncultivatedLand:[],
+            NocultivatedLand:[]
         });
     }
 
