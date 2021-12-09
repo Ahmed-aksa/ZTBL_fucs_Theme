@@ -537,6 +537,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
 
                     if (baseResponse.Success) {
+
                         this.loanDocumentsCheckList = baseResponse.Loan.LoanDocumentCheckList;
                         this.setCheckBoxFirstTime(this.loanDocumentsCheckList)
                     }
@@ -563,6 +564,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
     }
     setCheckBoxFirstTime(docObj) {
+        this.loanDocumentCheckListArray=[]
         this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
     for(let i=0;i<docObj?.length;i++){
     if (docObj[i].isAttached) {

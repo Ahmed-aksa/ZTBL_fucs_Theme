@@ -187,7 +187,8 @@ export class SaveOrrComponent implements OnInit {
         }
 
         for (let i = 0; i < this.CustomerORR?.length; i++) {
-            if (!this.CustomerORR[i]?.CustAgeORR) {
+            if (!this.CustomerORR[i]?.DefaultDays) {
+                // this.CustomerORR[i]["DefaultDays"]=0;
                 var Message = 'Please Enter default days against CNIC ' + this.CustomerORR[i].Cnic;
                 this.layoutUtilsService.alertElement(
                     '',
@@ -292,6 +293,15 @@ export class SaveOrrComponent implements OnInit {
             });
     }
 
+    getValue(DefaultDays){
+        if(DefaultDays){
+            return DefaultDays;
+        }else{
+            return 0;
+        }
+
+    }
+
     Save() {
 
         this.hasFormErrors = false;
@@ -320,8 +330,9 @@ export class SaveOrrComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
                     debugger
-                    this.submitArray = baseResponse.Loan.ORR["OrrSubmitList"];
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
+                    this.submitArray = baseResponse?.Loan?.ORR["OrrSubmitList"];
+
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                 }
