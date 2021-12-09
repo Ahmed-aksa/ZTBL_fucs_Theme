@@ -508,10 +508,7 @@ export class CheckEligibilityComponent implements OnInit {
         if (bit == '1') {
             localStorage.setItem('CreateCustomerBit', '2')
             this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
-
-            // this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
         } else {
-            // this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         }
 
     }

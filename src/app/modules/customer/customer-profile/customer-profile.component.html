@@ -562,10 +562,8 @@
                                 <!--<mat-label>Select Post Code</mat-label>-->
                                 <mat-label class="customMatLabel">Select Post Code <strong
                                     class="matMandatory">*</strong></mat-label>
+
                                 <mat-select formControlName="PostCode" placeholderLabel="Search Post Code...">
-                                    <mat-option [value]="undefined">
-                                        Select
-                                    </mat-option>
                                     <mat-option *ngFor="let obj of PostCodeLov?.LOVs" [value]="obj.Id">
                                         {{obj.Name}}
                                     </mat-option>
