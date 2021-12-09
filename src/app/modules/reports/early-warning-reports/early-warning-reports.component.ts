@@ -109,18 +109,13 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
                     this.loading = true;
 
                     this.dataSource = baseResponse.ReportsFilterCustom.SamNplLoans
-                    this.dv = this.dataSource;
-                    this.matTableLenght = true
 
-                    this.totalItems = baseResponse.ReportsFilterCustom.SamNplLoans[0].TotalRecords
                 } else {
 
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    this.loading = false;
-                    this.matTableLenght = false;
+
                     this.dataSource = null;
-                    //this.offSet = 0;
-                    this.pageIndex = 1;
+
 
                 }
             })
@@ -132,13 +127,7 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
         this.circle = data.final_circle
     }
 
-    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        this.itemsPerPage = pageSize;
-        this.pageIndex = pageIndex;
-        //this.OffSet = pageIndex;
 
-        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
-    }
 
     // async typeLov() {
     //     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});

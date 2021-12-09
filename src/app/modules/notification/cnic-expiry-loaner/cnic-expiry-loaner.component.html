@@ -1,1 +1,114 @@
-<p>cnic-expiry-loaner works!</p>
+<div
+    class="
+        px-10
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-scroll
+        bg-card
+        dark:bg-transparent
+    "
+>
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Cnic Expiry of Loanee</div>
+        </div>
+    </div>
+
+
+    <div class="mt-2">
+
+
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50" >
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                class="lmat-elevation-z8 overflow-scroll"
+                [style.height]="gridHeight"
+                #table
+                [dataSource]="
+                    dataSource
+                "
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+            >
+                <ng-container matColumnDef="cnic">
+                    <mat-header-cell *matHeaderCellDef
+                    >Cnic
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.Cnic
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="cnicexp">
+                    <mat-header-cell *matHeaderCellDef
+                    >Cnic Expiry
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.CnicExpiry
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="customer">
+                    <mat-header-cell *matHeaderCellDef
+                    >Customer Name
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.CustomerName
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="dob">
+                    <mat-header-cell *matHeaderCellDef
+                    >DOB
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.Dob
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="father">
+                    <mat-header-cell *matHeaderCellDef
+                    >Father Name
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.FatherName
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="address">
+                    <mat-header-cell *matHeaderCellDef
+                    >Permanent Address
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.PermanentAddress
+                        }}</mat-cell>
+                </ng-container>
+
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    class="table-header-background"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let notification; columns: displayedColumns"
+                ></mat-row>
+            </mat-table>
+
+<!--            <div class="mat-table__message" *ngIf="loading">-->
+<!--                Please wait....-->
+<!--            </div>-->
+
+
+        </div>
+    </div>

@@ -16,7 +16,7 @@ export class NotificationComponent implements OnInit {
   }
 
     onClick(){
-      this.router.navigateByUrl('/notifications/notifications')
+      this.router.navigateByUrl('/notifications/notification-details')
     }
 
 }

@@ -77,4 +77,5 @@ export class BaseResponseModel {
     TourPlan: any;
     LocationHistory: any;
     DocumentDetail: any;
+    Notification: any;
 }

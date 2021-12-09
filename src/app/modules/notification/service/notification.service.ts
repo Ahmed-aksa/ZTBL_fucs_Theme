@@ -13,20 +13,29 @@ import {BaseResponseModel} from "../../../shared/models/base_response.model";
 })
 export class NotificationService {
     public activity = new Activity();
-    loggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+    loggedInUserInfo;
 
-    circles = this.loggedInUserInfo.UserCircleMappings;
     circleIds = [];
     circleString;
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
-        this.circles.foreach(element =>{
-            this.circleIds.push(element.CircleId)
+
+        this.loggedInUserInfo = this.userUtilsService.getUserDetails();
+
+    }
+
+    getCircleId(){
+        var circle;
+        circle = this.loggedInUserInfo.UserCircleMappings;
+        circle.forEach(element =>{
+            this.circleIds.push(element.Id)
         })
         this.circleString= this.circleIds.toString();
     }
 
+
     notificationStatus() {
+        this.getCircleId()
         var request = {
             User: this.loggedInUserInfo.User,
             Zone: this.loggedInUserInfo.Zone,
@@ -39,6 +48,36 @@ export class NotificationService {
             .pipe(
                 map((res: BaseResponseModel) => res)
             );
+    }
+
+    notificationCards(type) {
+        this.getCircleId()
+        var request = {
+            User: this.loggedInUserInfo.User,
+            Zone: this.loggedInUserInfo.Zone,
+            Branch: this.loggedInUserInfo.Branch,
+            Circle: {
+                CircleIds: this.circleString
+            }
+        }
+        if (type == 1){}
+        else if(type == 2){
+            return this.http.post<any>(`${environment.apiUrl}/Loan/GetLoaneesInstallments`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }else if(type == 5){
+            return this.http.post<any>(`${environment.apiUrl}/Loan/LoaneeMightBecomeDafaulter`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }
+        else if(type ==7){
+            return this.http.post<any>(`${environment.apiUrl}/Loan/GetCnicExpiryOfLoanee`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }
     }
 
 }

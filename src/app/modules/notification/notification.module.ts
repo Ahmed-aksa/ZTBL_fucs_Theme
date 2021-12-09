@@ -18,8 +18,20 @@ import { NotificationPageComponent } from './notification-page/notification-page
 
 const routing = [
     {
-        path: 'notifications',
+        path: 'notification-details',
         component: NotificationPageComponent
+    },
+    {
+        path: 'cnic-expiry-loaner',
+        component: CnicExpiryLoanerComponent
+    },
+    {
+        path: 'due-payments',
+        component: DuePaymentsComponent
+    },
+    {
+        path: 'loan-defaulters',
+        component: LoanDefaultersComponent
     }
 ]
 
