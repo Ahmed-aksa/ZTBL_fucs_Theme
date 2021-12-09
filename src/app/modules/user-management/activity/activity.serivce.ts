@@ -28,6 +28,11 @@ export class ActivityService {
     }
 
     createActivity(activity: Activity): Observable<BaseResponseModel> {
+        
+        if(activity.ParentActivityID == 0){
+            delete(activity.ParentActivityID);
+        }
+
         this.request = new BaseRequestModel();
         this.request.Activity = activity;
         return this.http.post(`${environment.apiUrl}/Activity/AddActivity`, this.request,

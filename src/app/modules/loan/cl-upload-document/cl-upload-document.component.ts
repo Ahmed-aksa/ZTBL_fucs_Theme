@@ -236,7 +236,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     getLoanDocument() {
-        debugger
+
         this._loanService.getLoanDocuments(this.loanAppID, this.branch, this.zone)
             .pipe(
                 finalize(() => {
@@ -287,7 +287,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     fileCompare(){
-        debugger
+
         let i,j;
         for(i = 0; i<this.rawData.length; i++){
             for(j = 1; j<this.imgData.length; j++){
@@ -310,7 +310,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
-        debugger
+
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
@@ -325,15 +325,6 @@ export class ClUploadDocumentComponent implements OnInit {
             this.loanDocument.LoanCaseID = this.LoanCaseId;
             this.matched = false;
         }
-
-        // if(this.checkCompare== true){
-        //     this.fileCompare();
-        // }
-        //
-        // if(this.matched == true){
-        //     this.layoutUtilsService.alertElement("","Files should not be same.");
-        //     return;
-        // }
 
         this.descriptionFalse = false;
 
@@ -357,7 +348,7 @@ export class ClUploadDocumentComponent implements OnInit {
                 }
                 return false;
             }
-            this.rawData.forEach((single_file, index) => {
+            this.rawData?.forEach((single_file, index) => {
 
                 this.loanDocument.file = single_file;
 
@@ -382,8 +373,8 @@ export class ClUploadDocumentComponent implements OnInit {
                 }
             });
             if (ok){
-                debugger
-                this.rawData.forEach((single_file, index) => {
+
+                this.rawData?.forEach((single_file, index) => {
                     this.loanDocument.file = single_file;
 
 
@@ -409,7 +400,7 @@ export class ClUploadDocumentComponent implements OnInit {
                         ).subscribe((baseResponse) => {
                         if (baseResponse.Success) {
                             count = count + 1;
-                            debugger
+
 
 
                             // @ts-ignore
@@ -421,7 +412,6 @@ export class ClUploadDocumentComponent implements OnInit {
                             if (count == totLength) {
 
                                 this.getLoanDocument();
-                                this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                                 this.docId = [];
                                 this.controlReset();
                                 this.showGrid = false;
@@ -447,7 +437,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     loanCase() {
-        debugger
+
         var LoanDoc = this.PostDocument.controls.DocLoanId.value;
 
         if (LoanDoc == undefined || LoanDoc == null) {
@@ -463,7 +453,7 @@ export class ClUploadDocumentComponent implements OnInit {
                 })
             ).subscribe((baseResponse) => {
             if (baseResponse.Success === true) {
-                debugger
+
                 this.PostDocument.controls['LoanStatus'].setValue("New Case");
                 var response = baseResponse.Loan.ApplicationHeader;
                 this.PostDocument.controls['LoanStatus'].setValue(response.AppStatusName);
@@ -520,7 +510,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     assignLoanCaseNo() {
-        debugger
+
         if (localStorage.getItem('loan_case_number')) {
 
             this.PostDocument.controls['LcNo'].setValue(localStorage.getItem('loan_case_number'));
