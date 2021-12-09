@@ -6,7 +6,7 @@
     </div>
     <div class="example-container">
         <form [formGroup]="options">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
                 <mat-label>Date</mat-label>
                 <input matInput [matDatepicker]="picker">
                 <input matInput placeholder="Enter Date">
@@ -14,12 +14,12 @@
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
       
-          <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+          <mat-form-field appearance="outline" [floatLabel]="floatLabelControl.value">
             <mat-label>Zone Name</mat-label>
             <input matInput placeholder="Enter Branch Name">
           </mat-form-field>
       
-          <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+          <mat-form-field appearance="outline" [floatLabel]="floatLabelControl.value">
             <mat-label>Province Name</mat-label>
             <input matInput placeholder="Enter Zone Name">
           </mat-form-field>
