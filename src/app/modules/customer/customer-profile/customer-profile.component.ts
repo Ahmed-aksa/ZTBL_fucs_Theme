@@ -44,23 +44,23 @@ export class CustomerProfileComponent implements OnInit {
     public createCustomer = new CreateCustomer();
 
     public LovCall = new Lov();
-    public EducationLov: any;
-    public CasteLov: any;
-    public ReligionLov: any;
-    public RiskCategoryLov: any;
-    public PremisesFlagLov: any;
-    public BankEmpNoLov: any;
-    public MaritalStatusLov: any;
-    public GenderLov: any;
-    public OccupationLov: any;
-    public DistrictLov: any;
+    public EducationLov: any = [];
+    public CasteLov: any = [];
+    public ReligionLov: any = [];
+    public RiskCategoryLov: any = [];
+    public PremisesFlagLov: any = [];
+    public BankEmpNoLov: any = [];
+    public MaritalStatusLov: any = [];
+    public GenderLov: any = [];
+    public OccupationLov: any = [];
+    public DistrictLov: any = [];
     public DistrictLovFull: any;
-    public CitizenshipLov: any;
-    public BorrowerStatusLov: any;
-    public PostCodeLov: any;
+    public CitizenshipLov: any = [];
+    public BorrowerStatusLov: any = [];
+    public PostCodeLov: any = [];
 
-    public BranchLov: any;
-    public ZoneLov: any;
+    public BranchLov: any = [];
+    public ZoneLov: any = [];
     public HusbandNameShow: boolean = true;
 
 
@@ -216,12 +216,12 @@ export class CustomerProfileComponent implements OnInit {
 
     private filterDistricts() {
         let search = this.searchFilterCtrl.value;
-        this.DistrictLov.LOVs = this.DistrictLovFull.LOVs;
+        this.DistrictLov.LOVs = this.DistrictLovFull?.LOVs;
         if (!search) {
             this.DistrictLov.LOVs = this.DistrictLovFull.LOVs;
         } else {
             search = search.toLowerCase();
-            this.DistrictLov.LOVs = this.DistrictLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
+            this.DistrictLov.LOVs = this.DistrictLov?.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
         }
 
     }
@@ -594,23 +594,23 @@ export class CustomerProfileComponent implements OnInit {
 
         //For Caste
         this.CasteLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Cast});
-        this.CasteLovFull.LOVs = this._lovService.SortLovs(this.CasteLovFull.LOVs);
+        this.CasteLovFull.LOVs = this._lovService.SortLovs(this.CasteLovFull?.LOVs);
 
         //For Post Code
         this.PostCodeLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.PostalCode});
-        this.PostCodeLovFull.LOVs = this._lovService.SortLovs(this.PostCodeLovFull.LOVs);
+        this.PostCodeLovFull.LOVs = this._lovService.SortLovs(this.PostCodeLovFull?.LOVs);
 
 
         //For Occupation
         this.OccupationLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Occupation});
-        this.OccupationLovFull.LOVs = this._lovService.SortLovs(this.OccupationLovFull.LOVs);
+        this.OccupationLovFull.LOVs = this._lovService.SortLovs(this.OccupationLovFull?.LOVs);
 
 
-        this.DistrictLovFull.LOVs = this._lovService.SortLovs(this.DistrictLovFull.LOVs);
-        this.DistrictLov.LOVs = this._lovService.SortLovs(this.DistrictLov.LOVs);
+        this.DistrictLovFull.LOVs = this._lovService.SortLovs(this.DistrictLovFull?.LOVs);
+        this.DistrictLov.LOVs = this._lovService.SortLovs(this.DistrictLov?.LOVs);
 
-        this.EducationLov.LOVs = this._lovService.SortLovs(this.EducationLov.LOVs);
-        this.CasteLov.LOVs = this._lovService.SortLovs(this.CasteLov.LOVs);
+        this.EducationLov.LOVs = this._lovService.SortLovs(this.EducationLov?.LOVs);
+        this.CasteLov.LOVs = this._lovService.SortLovs(this.CasteLov?.LOVs);
 
         if (this.bit == '2') {
             var currentCaste = this.CasteLov.LOVs.filter(x => x.Id == this.createCustomer.Caste?.toString())[0];
@@ -622,18 +622,18 @@ export class CustomerProfileComponent implements OnInit {
         //
 
 
-        this.ReligionLov.LOVs = this._lovService.SortLovs(this.ReligionLov.LOVs);
-        this.RiskCategoryLov.LOVs = this._lovService.SortLovs(this.RiskCategoryLov.LOVs);
-        this.PremisesFlagLov.LOVs = this._lovService.SortLovs(this.PremisesFlagLov.LOVs);
-        this.BankEmpNoLov.LOVs = this._lovService.SortLovs(this.BankEmpNoLov.LOVs);
-        this.MaritalStatusLov.LOVs = this._lovService.SortLovs(this.MaritalStatusLov.LOVs);
-        this.GenderLov.LOVs = this._lovService.SortLovs(this.GenderLov.LOVs);
-        this.OccupationLov.LOVs = this._lovService.SortLovs(this.OccupationLov.LOVs);
-        this.DistrictLov.LOVs = this._lovService.SortLovs(this.DistrictLov.LOVs);
-        this.BorrowerStatusLov.LOVs = this._lovService.SortLovs(this.BorrowerStatusLov.LOVs);
-        this.CitizenshipLov.LOVs = this._lovService.SortLovs(this.CitizenshipLov.LOVs);
+        this.ReligionLov.LOVs = this._lovService.SortLovs(this.ReligionLov?.LOVs);
+        this.RiskCategoryLov.LOVs = this._lovService.SortLovs(this.RiskCategoryLov?.LOVs);
+        this.PremisesFlagLov.LOVs = this._lovService.SortLovs(this.PremisesFlagLov?.LOVs);
+        this.BankEmpNoLov.LOVs = this._lovService.SortLovs(this.BankEmpNoLov?.LOVs);
+        this.MaritalStatusLov.LOVs = this._lovService.SortLovs(this.MaritalStatusLov?.LOVs);
+        this.GenderLov.LOVs = this._lovService.SortLovs(this.GenderLov?.LOVs);
+        this.OccupationLov.LOVs = this._lovService.SortLovs(this.OccupationLov?.LOVs);
+        this.DistrictLov.LOVs = this._lovService.SortLovs(this.DistrictLov?.LOVs);
+        this.BorrowerStatusLov.LOVs = this._lovService.SortLovs(this.BorrowerStatusLov?.LOVs);
+        this.CitizenshipLov.LOVs = this._lovService.SortLovs(this.CitizenshipLov?.LOVs);
 
-        this.PostCodeLov.LOVs = this._lovService.SortLovs(this.PostCodeLov.LOVs);
+        this.PostCodeLov.LOVs = this._lovService.SortLovs(this.PostCodeLov?.LOVs);
 
         var userInfo = this.userUtilsService.getUserDetails();
 
