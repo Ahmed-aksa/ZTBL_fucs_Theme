@@ -111,6 +111,7 @@ export class LovConfigurationKey {
     public static readonly InsReportCategory: string = 'InsReportCategory';
     public static readonly InsReportType: string = 'InsReportType';
     public static readonly InsReportCriteria: string = 'InsReportCriteria';
+    public static readonly ExpenseDropDown: string = 'ExpenseDropDown';
 
 }
 

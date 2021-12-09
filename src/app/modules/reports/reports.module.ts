@@ -22,6 +22,7 @@ import { LoanAccountBalanceComponent } from './loan-account-balance/loan-account
 import { LaFileProgressComponent } from './la-file-progress/la-file-progress.component';
 import { LoanInformationDetailComponent } from './loan-information-detail/loan-information-detail.component';
 import { GetUnsuccessfulLoginComponent } from './get-unsuccessful-login/get-unsuccessful-login.component';
+import { HoZonalExpenseComponent } from './ho-zonal-expense/ho-zonal-expense.component';
 
 const routing = [
     {
@@ -78,7 +79,8 @@ const routing = [
         LoanAccountBalanceComponent,
         LaFileProgressComponent,
         LoanInformationDetailComponent,
-        GetUnsuccessfulLoginComponent
+        GetUnsuccessfulLoginComponent,
+        HoZonalExpenseComponent
     ],
     imports: [
         CommonModule,
