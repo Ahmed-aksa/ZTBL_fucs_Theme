@@ -54,7 +54,7 @@ export class CustomerProfileComponent implements OnInit {
     public GenderLov: any = [];
     public OccupationLov: any = [];
     public DistrictLov: any = [];
-    public DistrictLovFull: any;
+    public DistrictLovFull: any = [];
     public CitizenshipLov: any = [];
     public BorrowerStatusLov: any = [];
     public PostCodeLov: any = [];
@@ -112,9 +112,9 @@ export class CustomerProfileComponent implements OnInit {
     public searchFilterCtrlPostCode: FormControl = new FormControl();
     public searchFilterCtrlOccupation: FormControl = new FormControl();
 
-    public CasteLovFull: any;
-    public PostCodeLovFull: any;
-    public OccupationLovFull: any;
+    public CasteLovFull: any = [];
+    public PostCodeLovFull: any = [];
+    public OccupationLovFull: any = [];
 
 
     //todayMax = new Date(2021, 5, 29);
@@ -204,14 +204,35 @@ export class CustomerProfileComponent implements OnInit {
             .subscribe(() => {
                 this.filterOccupation();
             });
-
-        if (this.createCustomer && !this.createCustomer.CreatedBy) {
+        if (JSON.parse(localStorage.getItem('SearchCustomerStatus'))) {
             this.HideShowSaveButton = true;
         } else if (this.createCustomer.CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
             this.HideShowSaveButton = true;
+        } else {
+            this.HideShowSaveButton = false;
         }
 
+        let should_alert = localStorage.getItem('ShouldAlert');
+        debugger;
+        if (should_alert == 'true') {
+            if (this.createCustomer.CustomerStatus == 'N') {
+                this.layoutUtilsService.alertElement('Customer is already in Pending State, Please go to Pending List');
+                this.router.navigate(['/dashboard']);
 
+            } else if (this.createCustomer.CustomerStatus == 'A') {
+                this.layoutUtilsService.alertElement('', 'Customer is already in Approved State, Please go to Approved List');
+                this.router.navigate(['/dashboard']);
+
+            } else if (this.createCustomer.CustomerStatus == 'R') {
+                this.layoutUtilsService.alertElement('', 'Customer is already in Refferred-back State, Please go to Referred back List');
+                this.router.navigate(['/dashboard']);
+
+            } else if (this.createCustomer.CustomerStatus == 'P') {
+                this.layoutUtilsService.alertElement('', 'Customer is already in Submitted State, Please go to  Submitted List');
+                this.router.navigate(['/dashboard']);
+            }
+            localStorage.removeItem('ShouldAlert');
+        }
     }
 
     private filterDistricts() {
@@ -247,17 +268,17 @@ export class CustomerProfileComponent implements OnInit {
     private filterOccupation() {
 
         // get the search keyword
-        let search = this.searchFilterCtrlOccupation.value;
-        this.OccupationLov.LOVs = this.OccupationLovFull.LOVs;
+        let search = this.searchFilterCtrlOccupation?.value;
+        this.OccupationLov.LOVs = this.OccupationLovFull?.LOVs;
 
         if (!search) {
             //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
 
-            this.OccupationLov.LOVs = this.OccupationLovFull.LOVs;
+            this.OccupationLov.LOVs = this.OccupationLovFull?.LOVs;
 
         } else {
             search = search.toLowerCase();
-            this.OccupationLov.LOVs = this.OccupationLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
+            this.OccupationLov.LOVs = this.OccupationLov?.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
         }
 
     }
@@ -289,7 +310,7 @@ export class CustomerProfileComponent implements OnInit {
             BankEmp: [this.createCustomer?.BankEmp],
             MarkOfIdentification: [this.createCustomer?.MarkOfIdentification],
             Ntn: [this.createCustomer?.Ntn, [Validators.pattern(regExps.ntn)]],
-            District: [this.createCustomer?.District],
+            District: [this.createCustomer?.District, Validators.required],
             Citizenship: [this.createCustomer?.CitizenShip, [Validators.required]],
             CellNumber: [this.ValidateMobileNumberSet(), [Validators.required, Validators.pattern(regExps.mobile)]],
             PhoneNumber: [this.createCustomer?.PhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
@@ -719,7 +740,7 @@ export class CustomerProfileComponent implements OnInit {
     LoadPreviousData() {
 
         this.ObjSearchCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
-
+        localStorage.removeItem('SearchCustomerStatus')
         if (this.ObjSearchCustomer != null && this.ObjSearchCustomer != '') {
 
 
@@ -848,7 +869,7 @@ export class CustomerProfileComponent implements OnInit {
     ReadWriteForm() {
         var customerStatus = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
         var user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
-        if (customerStatus.CustomerStatus.toLowerCase() == 'a' || customerStatus.CustomerStatus.toLowerCase() == 'p')
+        if (customerStatus?.CustomerStatus.toLowerCase() == 'a' || customerStatus?.CustomerStatus.toLowerCase() == 'p')
             if (customerStatus.CreatedBy != user.UserId) {
                 this.roleForm.disable();
                 //this.roleForm.controls["Gender"].disabled;
