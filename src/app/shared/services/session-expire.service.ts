@@ -39,4 +39,9 @@ export class SessionExpireService {
       }
     }, 1000);
   }
+  
+  timerUnSubject(){
+    this.count.unsubscribe();
+  }
+
 }

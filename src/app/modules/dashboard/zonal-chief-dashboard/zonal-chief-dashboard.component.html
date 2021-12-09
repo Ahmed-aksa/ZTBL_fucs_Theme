@@ -1,38 +1,45 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-4xl font-extrabold tracking-tight mx-10 mt-4">Zonal Chief</div>
-    <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8">
-  
-    </div>
-    <div class="example-container">
-        <form [formGroup]="options">
-            <mat-form-field appearance="fill">
+<div class="px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="heading ">Zonal Chief</div>
+    <div >
+        <form [formGroup]="options"> 
+          <div class="row pt-2">
+            <div class="col-lg-4">
+              <mat-form-field  class="w-full" appearance="outline">
                 <mat-label>Date</mat-label>
                 <input matInput [matDatepicker]="picker">
-                <input matInput placeholder="Enter Date">
+               
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+              <mat-form-field class="w-full" appearance="outline" [floatLabel]="floatLabelControl.value">
+                <mat-label>Zone Name</mat-label>
+                <input matInput placeholder="Enter Branch Name">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+              <mat-form-field class="w-full" appearance="outline" [floatLabel]="floatLabelControl.value">
+                <mat-label>Province Name</mat-label>
+                <input matInput placeholder="Enter Zone Name">
+              </mat-form-field>
+            </div>
+          </div>
+
       
-          <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
-            <mat-label>Zone Name</mat-label>
-            <input matInput placeholder="Enter Branch Name">
-          </mat-form-field>
+
       
-          <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
-            <mat-label>Province Name</mat-label>
-            <input matInput placeholder="Enter Zone Name">
-          </mat-form-field>
+
         </form>
       </div>
     <!-- Main -->
-    <div class="flex flex-auto overflow-y-scroll">
+    <div class="flex flex-auto overflow-x-hidden overflow-y-scroll">
   
       <!-- Products list -->
-      <div class="flex flex-auto overflow-y-scroll mx-10" style="flex-direction: column;">
+      <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
       <div class="row">
-          <div  class="col-4">
-            <div id="chart">
+          <div  class="col-lg-4">
+            <div id="chart" class="mt-0">
                 <apx-chart
                   [series]="chartOptions.series"
                   [chart]="chartOptions.chart"
@@ -43,8 +50,8 @@
                 ></apx-chart>
               </div>
           </div>
-          <div  class="col-4">
-            <div id="chart">
+          <div  class="col-lg-4">
+            <div id="chart" class="mt-0">
                 <apx-chart
                   [series]="chartOptions.series"
                   [chart]="chartOptions.chart"
@@ -55,8 +62,8 @@
                 ></apx-chart>
               </div>
           </div>
-          <div  class="col-4">
-            <div id="chart">
+          <div  class="col-lg-4">
+            <div id="chart" class="mt-0">
                 <apx-chart
                   [series]="chartOptions.series"
                   [chart]="chartOptions.chart"
@@ -67,12 +74,43 @@
                 ></apx-chart>
               </div>
           </div>
-          <div  class="col-4">
-            <table class="table">
-                <caption>Disbursements</caption>
+          </div>
+            <div class="row">
+              <div class="col-lg-6 table-responsive">
+                <p class="heading">Disbursements</p>
+                <table class="table table-striped">
           
+                  <thead>
+                    <tr class="table-header-background">
+                      <th scope="col">Calendar Year Target</th>
+                      <th scope="col">Achievement</th>
+                      <th scope="col">%age</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Fiscsal year Target</th>
+                      <td>Achievement</td>
+                      <td>%age</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Calendar Year Target Corresponding Period</th>
+                      <td>Achievement</td>
+                      <td>%age</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Fiscsal year Target Corresponding Period</th>
+                      <td>Achievement</td>
+                      <td>%age</td>
+                    </tr>
+                  </tbody>
+                </table> 
+              </div>
+              <div class="col-lg-6 table-responsive">
+                <p class="heading">Recovery</p>
+                      <table class="table table-striped">
                         <thead>
-                          <tr>
+                          <tr class="table-header-background">
                             <th scope="col">Calendar Year Target</th>
                             <th scope="col">Achievement</th>
                             <th scope="col">%age</th>
@@ -96,44 +134,16 @@
                           </tr>
                         </tbody>
                       </table>
-                  </div>  
-                  <div  class="col-4">
-                    <table class="table">
-                        <caption>Recovery</caption>
-                  
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Calendar Year Target</th>
-                                    <th scope="col">Achievement</th>
-                                    <th scope="col">%age</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <th scope="row">Fiscsal year Target</th>
-                                    <td>Achievement</td>
-                                    <td>%age</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Calendar Year Target Corresponding Period</th>
-                                    <td>Achievement</td>
-                                    <td>%age</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Fiscsal year Target Corresponding Period</th>
-                                    <td>Achievement</td>
-                                    <td>%age</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                          </div>  
-                          
-                </div>
-                <div  class="col-4">
-                    <table class="table">
-                        <caption>Circle Wise within Allocated Branches</caption>
+                            </div>  
+            </div>
+
+                <div class="row">
+                <div  class="col-lg-12 table-responsive">
+                  <p class="heading">Circle Wise within Allocated Branches</p>
+                    <table class="table table-striped">
+                        
                         <thead>
-                            <tr>
+                            <tr class="table-header-background" >
                             <th scope="col">Branch</th>
                             <th scope="col">Disbursement</th>
                             <th scope="col">Recovery</th>
@@ -154,6 +164,9 @@
                               <td></td>
                               <td></td>
                               <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
                             </tr>
                             <tr>
                              
@@ -163,11 +176,6 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -176,11 +184,6 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -195,18 +198,15 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
-                             
-                                <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -214,8 +214,10 @@
                                 <td></td>
                             </tr>
                             <tr>
-                             
-                                <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -223,8 +225,43 @@
                                 <td></td>
                             </tr>
                             <tr>
-                             
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -234,6 +271,7 @@
                           </tbody>
                         </table>
                     </div>
+                  </div>
                 </div>
             </div>
         </div>

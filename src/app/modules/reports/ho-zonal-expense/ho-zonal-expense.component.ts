@@ -101,7 +101,7 @@ export class HoZonalExpenseComponent implements OnInit {
     async typeLov() {
         this.instypeLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.ExpenseDropDown});
         this.instypeLov = this.instypeLov.LOVs;
-        this.bufricationForm.controls["Type"].setValue(this.instypeLov ? this.instypeLov[0].Value : "")
+        this.bufricationForm.controls["TrCode"].setValue(this.instypeLov ? this.instypeLov[0].Value : "")
 
     }
 
@@ -194,7 +194,7 @@ export class HoZonalExpenseComponent implements OnInit {
         this.bufricationForm = this.fb.group({
             FromDate: [null, Validators.required],
             ToDate: [null, Validators.required],
-            Type: [null, Validators.required],
+            TrCode: [null, Validators.required],
             DepartmentCode: [null],
             ReportFormatType: [null, Validators.required]
         })
