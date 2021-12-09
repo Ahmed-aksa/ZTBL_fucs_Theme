@@ -23,11 +23,27 @@
          <p></p>
          <div class="overlay" *ngIf="popup">
              <div class="popup">
-                 <h2>Here i am</h2>
-                 <a class="close" (click)="popup = false">&times;</a>
-                 <div class="content">
-                  Time Remaing {{time}};
+                 <h2 class="heading">Here i am</h2>
+                 <a class="close text-red-500" (click)="popup = false">&times;</a>
+                 <div class="content my-4">
+                  <p>Your Session is going to expire within {{time}}; Seconds.</p>
+                    <p>Please do an action.</p>
                  </div>
+                 <div class="row text-right">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-primary bg-green" mat-raised-button color="primary"
+                                >
+                            <mat-icon class="mr-2">refresh</mat-icon>
+                            Refresh
+                        </button>
+    
+                        &nbsp;
+                        <button type="button" class="btn btn-primary bg-red-500" mat-raised-button color="primary">
+                            <mat-icon class="mr-2">cancel</mat-icon>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
              </div>
          </div>
          

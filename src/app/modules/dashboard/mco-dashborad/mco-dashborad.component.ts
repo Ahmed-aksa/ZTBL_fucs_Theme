@@ -24,11 +24,13 @@ export type ChartOptions = {
 export class McoDashboradComponent implements OnInit {
 
   @ViewChild("chart") chart: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  public chartOptions1: Partial<ChartOptions>;
+  public chartOptions2: Partial<ChartOptions>;
+  public chartOptions3: Partial<ChartOptions>;
   
   constructor() {
     
-    this.chartOptions = {
+    this.chartOptions1 = {
       series: [25, 15, 44, 55, 41, 17],
       chart: {
         width: "100%",
@@ -49,6 +51,84 @@ export class McoDashboradComponent implements OnInit {
       },
       title: {
         text: "Performance Indicators"
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+
+
+
+    this.chartOptions2 = {
+      series: [25, 15, 44, 55, 41, 17],
+      chart: {
+        width: "100%",
+        type: "pie"
+      },
+      labels: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      theme: {
+        monochrome: {
+          enabled: true
+        }
+      },
+      title: {
+        text: "Circle Bench Mark"
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+
+
+
+     this.chartOptions3 = {
+      series: [25, 15, 44, 55, 41, 17],
+      chart: {
+        width: "100%",
+        type: "pie"
+      },
+      labels: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      theme: {
+        monochrome: {
+          enabled: false
+        }
+      },
+      title: {
+        text: "Loan Portfolio"
       },
       responsive: [
         {
