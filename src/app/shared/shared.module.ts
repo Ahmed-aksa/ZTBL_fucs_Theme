@@ -56,6 +56,7 @@ import {ZoneBranchCircleComponent} from "../zone-branch-circle/zone-branch-circl
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ViewMapsComponent} from "./component/view-map/view-map.component";
 import {CustLoanlistComponent} from "../modules/loan/customer-list/cust-list.component";
+import { CountComponent } from './count/count.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import {CustLoanlistComponent} from "../modules/loan/customer-list/cust-list.com
         NumberAndDecimalDirective,
         ZoneBranchCircleComponent,
         ViewMapsComponent,
-        CustLoanlistComponent
+        CustLoanlistComponent,
+        CountComponent
     ],
     imports: [
         CommonModule,
@@ -163,6 +165,7 @@ import {CustLoanlistComponent} from "../modules/loan/customer-list/cust-list.com
         AlphaNumSpecialDirective,
         NumberAndDecimalDirective,
         ZoneBranchCircleComponent,
+        CountComponent,
     ],
     entryComponents: [
         UpdateStatusDialogComponent,
