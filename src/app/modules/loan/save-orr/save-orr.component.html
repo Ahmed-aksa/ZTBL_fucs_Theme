@@ -157,6 +157,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+<!--                                    {{CustomerORR|json}}-->
                                     <tr *ngFor="let obj of CustomerORR; let i = index;">
                                         <td style="min-width: 150px;">{{obj.Cnic}}</td>
                                         <td>{{obj.CustomerName}}</td>
@@ -179,7 +180,7 @@
                                                 <mat-label class="customMatLabel">Default Days<strong
                                                     class="matMandatory">*</strong>
                                                 </mat-label>
-                                                <input matInput [(ngModel)]="obj.CustAgeORR" maxlength="5"
+                                                <input appNumberOnly matInput placeholder="0" [(ngModel)]="obj.DefaultDays" maxlength="5"
                                                        autocomplete="off"
                                                        [ngModelOptions]="{standalone: true}"/>
                                             </mat-form-field>
@@ -302,7 +303,8 @@
             <button class="bg-green" mat-raised-button color="primary" (click)="SaveOrSubmit()" [disabled]="submitted">
                 <mat-icon class="mr-2">save</mat-icon>
                 {{showFinalOrrTable ? "Submit" : "Save"}}</button>
-            <button *ngIf="submitArray?.length>0" mat-raised-button color="primary" class="ml-2" (click)="togglePage()"
+<!--            *ngIf="submitArray?.length>0"-->
+            <button  mat-raised-button color="primary" class="ml-2" (click)="togglePage()"
                     [disabled]="submitted">
                 <mat-icon>navigate_next</mat-icon>
                 {{showFinalOrrTable ? "Back" : "Next"}}</button>
