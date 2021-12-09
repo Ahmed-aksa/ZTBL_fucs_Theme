@@ -52,8 +52,8 @@ export class AuthorizedCustomersComponent implements OnInit {
     pending_customer_form: FormGroup;
     total_customers_length: number | any;
     itemsPerPage = 5;
-    private OffSet: number = 0;
-    private pageIndex: any = 0;
+    OffSet: number = 0;
+    pageIndex: any = 0;
 
     constructor(
         public dialog: MatDialog,

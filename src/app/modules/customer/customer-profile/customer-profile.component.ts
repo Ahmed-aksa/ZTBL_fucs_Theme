@@ -39,12 +39,7 @@ export class CustomerProfileComponent implements OnInit {
     hasFormErrors = false;
     viewLoading = false;
     loadingAfterSubmit = false;
-    _currentActivity: Activity = new Activity();
-    //  profile: Profile = new Profile();
 
-    AccessToData = [{Id: '1', Name: 'Zone'},
-        {Id: '2', Name: 'Branch'},
-        {Id: '3', Name: 'All'}];
 
     public createCustomer = new CreateCustomer();
 
@@ -134,6 +129,9 @@ export class CustomerProfileComponent implements OnInit {
     //for search box
     //https://www.npmjs.com/package/ngx-mat-select-search
     disable_save_and_submit: boolean = false;
+    zone: any;
+    branch: any;
+    editable_cnic: boolean = true;
 
     constructor(
         // public dialogRef: MatDialogRef<RoleEditComponent>,
@@ -161,22 +159,23 @@ export class CustomerProfileComponent implements OnInit {
         this.images.push(this.ProfileImageSrc);
         this.bit = localStorage.getItem('CreateCustomerBit');
 
-        if (this.bit == null || this.bit == undefined || this.bit == '' || this.bit == '10') {
+        if (this.bit == null || this.bit == undefined || this.bit == '' || this.bit == '10' || this.bit == '1') {
             localStorage.setItem('CreateCustomerBit', '1');
             this.router.navigate(['/customer/check-eligibility'], {relativeTo: this.activatedRoute});
             this.IsLoadPreviousData = false;
             return;
         } else if (this.bit == '2' || this.bit == '5') {
             this.IsLoadPreviousData = true;
-            localStorage.setItem('CreateCustomerBit', '');
+            localStorage.removeItem('CreateCustomerBit');
         } else {
             this.IsLoadPreviousData = false;
-            localStorage.setItem('CreateCustomerBit', '');
+            localStorage.removeItem('CreateCustomerBit');
         }
         this.CurrentDate = new Date();
         this.CurrentDate = this.datePipe.transform(this.CurrentDate, MaskEnum.DateFormat);
         this.LoadLovs();
         this.createCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
+
         this.createForm();
         if (this.IsLoadPreviousData) {
             this.LoadPreviousData();
@@ -197,11 +196,7 @@ export class CustomerProfileComponent implements OnInit {
             });
 
         // Caste listen for search field value changes
-        this.searchFilterCtrlPostCode.valueChanges
-            .pipe(takeUntil(this._onDestroy))
-            .subscribe(() => {
-                this.filterPostCode();
-            });
+
 
         // Caste listen for search field value changes
         this.searchFilterCtrlOccupation.valueChanges
@@ -209,13 +204,13 @@ export class CustomerProfileComponent implements OnInit {
             .subscribe(() => {
                 this.filterOccupation();
             });
-        if (this.createCustomer) {
-            if (this.createCustomer.CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
-                this.HideShowSaveButton = true;
-            } else {
-                this.HideShowSaveButton = false;
-            }
+
+        if (this.createCustomer && !this.createCustomer.CreatedBy) {
+            this.HideShowSaveButton = true;
+        } else if (this.createCustomer.CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
+            this.HideShowSaveButton = true;
         }
+
 
     }
 
@@ -249,24 +244,6 @@ export class CustomerProfileComponent implements OnInit {
 
     }
 
-    private filterPostCode() {
-
-        // get the search keyword
-        let search = this.searchFilterCtrlPostCode.value;
-        this.PostCodeLov.LOVs = this.PostCodeLovFull.LOVs;
-
-        if (!search) {
-            //this.DistrictLov.LOVs.next(this.DistrictLov.LOVs.slice());
-
-            this.PostCodeLov.LOVs = this.PostCodeLovFull.LOVs;
-
-        } else {
-            search = search.toLowerCase();
-            this.PostCodeLov.LOVs = this.PostCodeLov.LOVs.filter(x => x.Name.toLowerCase().indexOf(search) > -1);
-        }
-
-    }
-
     private filterOccupation() {
 
         // get the search keyword
@@ -292,13 +269,7 @@ export class CustomerProfileComponent implements OnInit {
     createForm() {
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        // this.BranchLov = userInfo.Branch;
-        // this.ZoneLov = userInfo.Zone;
-        // this.createCustomer.Zone = this.ZoneLov.ZoneName;
-        // this.createCustomer.Branch = this.BranchLov.Name;
         this.roleForm = this.formBuilder.group({
-            Zone: [this.createCustomer?.Zone],
-            Branch: [this.createCustomer?.Branch],
             Cnic: [this.createCustomer?.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
             Dob: [this._common.stringToDate(this.createCustomer?.Dob)],
             CnicIssueDate: [this._common.stringToDate(this.createCustomer?.CnicIssueDate), [Validators.required]],
@@ -327,10 +298,10 @@ export class CustomerProfileComponent implements OnInit {
             Email: [this.createCustomer?.Email, [Validators.pattern(regExps.email)]],
             BrowserStatus: [this.createCustomer?.BrowserStatus, [Validators.required]],
             Education: [this.createCustomer?.Education, [Validators.required]],
-            Caste: [this.createCustomer?.Caste, [Validators.required]],
+            Caste: [this.createCustomer ? this.createCustomer.Caste : null, [Validators.required]],
             Religion: [this.createCustomer?.Religion, [Validators.required]],
             BirthPlace: [this.createCustomer?.BirthPlace],
-            RiskCategory: [this.createCustomer ? this.createCustomer?.RiskCategory : 'low', Validators.required],
+            RiskCategory: [this.createCustomer ? this.createCustomer.RiskCategory : '1', Validators.required],
             PremisesFlag: [this.createCustomer?.PremisesFlag],
             BusinessProfPos: [this.createCustomer?.BusinessProfPos],
             FamilyNumber: [this.createCustomer?.FamilyNumber, [Validators.pattern(regExps.familyNumber)]],
@@ -348,6 +319,7 @@ export class CustomerProfileComponent implements OnInit {
             //BusinessProfPosition: [this.createCustomer.BusinessProfPosition],
             NDCPDFLink: [this.createCustomer?.NDCPDFLink],
             ECIBPDFLink: [this.createCustomer?.ECIBPDFLink],
+            file: [],
 
             // PhoneOff: [this.createCustomer.PhoneOff]
             //  ProfilePicture: ['', Validators.required]
@@ -388,9 +360,6 @@ export class CustomerProfileComponent implements OnInit {
         this.hasFormErrors = false;
         const controls = this.roleForm.controls;
 
-        //this.roleForm.controls['Zone'].setValue('0');// = '0';
-        //this.roleForm.controls['Branch'].setValue('0');
-
 
         if (this.roleForm.invalid) {
             Object.keys(controls).forEach(controlName =>
@@ -410,7 +379,12 @@ export class CustomerProfileComponent implements OnInit {
             }
         }
         let data: any = new Object();
+        let customer_Status = null;
+        if (this.createCustomer)
+            customer_Status = this.createCustomer.CustomerStatus;
         this.createCustomer = Object.assign(data, this.roleForm.getRawValue());
+        if (customer_Status)
+            this.createCustomer.CustomerStatus = customer_Status;
         this.createCustomer = data;
         if (this.createCustomer.Email == null) {
             this.createCustomer.Email = '';
@@ -512,16 +486,13 @@ export class CustomerProfileComponent implements OnInit {
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.BranchLov = userInfo?.Branch;
-        this.ZoneLov = userInfo?.Zone;
-
-        this.createCustomer.Zone = userInfo.Zone?.ZoneId;
-        this.createCustomer.Branch = userInfo.Branch?.BranchId;
-
+        this.createCustomer.Zone = this.zone.ZoneId;
+        this.createCustomer.Branch = this.branch.BranchId;
 
         this.createCustomer.Dob = this.datePipe.transform(this.createCustomer.Dob, 'ddMMyyyy');
         this.createCustomer.CnicExpiry = this.datePipe.transform(this.createCustomer.CnicExpiry, 'ddMMyyyy');
         this.createCustomer.CnicIssueDate = this.datePipe.transform(this.createCustomer.CnicIssueDate, 'ddMMyyyy');
-
+        debugger;
         this.spinner.show();
         this._customerService.createCustomerSave(this.createCustomer)
             .pipe(
@@ -665,8 +636,6 @@ export class CustomerProfileComponent implements OnInit {
         this.PostCodeLov.LOVs = this._lovService.SortLovs(this.PostCodeLov.LOVs);
 
         var userInfo = this.userUtilsService.getUserDetails();
-        this.BranchLov = userInfo.Branch;
-        this.ZoneLov = userInfo.Zone;
 
     }
 
@@ -750,7 +719,6 @@ export class CustomerProfileComponent implements OnInit {
     LoadPreviousData() {
 
         this.ObjSearchCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
-
 
         if (this.ObjSearchCustomer != null && this.ObjSearchCustomer != '') {
 
@@ -880,7 +848,6 @@ export class CustomerProfileComponent implements OnInit {
     ReadWriteForm() {
         var customerStatus = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
         var user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
-        debugger;
         if (customerStatus.CustomerStatus.toLowerCase() == 'a' || customerStatus.CustomerStatus.toLowerCase() == 'p')
             if (customerStatus.CreatedBy != user.UserId) {
                 this.roleForm.disable();
@@ -1171,4 +1138,8 @@ export class CustomerProfileComponent implements OnInit {
 
     }
 
+    getAllData(event: { final_zone: any; final_branch: any; final_circle: any }) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+    }
 }//end of class

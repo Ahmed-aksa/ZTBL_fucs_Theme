@@ -45,7 +45,7 @@ export class CheckEligibilityComponent implements OnInit {
     CustomerNdc: any;
     CustomerECIB: any;
     Customer: any;
-    gridHeight: string = null;
+    gridHeight: string = '0px';
     Ftb: number;
     NDCPerform: boolean;
     IsNdcDefaulter: boolean;
@@ -401,11 +401,9 @@ export class CheckEligibilityComponent implements OnInit {
 
                     if (this.CustomerECIB.Code == '552' || this.CustomerECIB.Code == '550') {
                         this.should_regenerate = false;
-                        this.IsEcibDefaulter = true;
-                        if (localStorage.getItem('CreateCustomerBit') == '1') {
-                            localStorage.setItem('CreateCustomerBit', '2');
-                            this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
-                        }
+                        this.IsEcibDefaulter = false;
+                        this.ECIBPerformSuccess = true;
+
 
                     }
 
@@ -498,16 +496,22 @@ export class CheckEligibilityComponent implements OnInit {
 
 
     NextOpenCreateCustomer() {
+        // if (localStorage.getItem('CreateCustomerBit') == '1') {
+        //     this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
+        // }
         var bit = localStorage.getItem("CreateCustomerBit");
         if (bit == '10') {
             localStorage.setItem('CreateCustomerBit', '5');
             bit = localStorage.getItem("CreateCustomerBit");
         }
         //console.log(bit)
-        if (bit == "") {
-            this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
-        } else {
+        if (bit == '1') {
+            localStorage.setItem('CreateCustomerBit', '2')
             this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
+
+            // this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
+        } else {
+            // this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         }
 
     }

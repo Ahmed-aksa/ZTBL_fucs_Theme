@@ -86,7 +86,7 @@
 
         <div class="example-table-container">
 
-            <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
+            <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: total_customers_length}" matSort #sort1="matSort"
                        matSortActive="id"
                        matSortDirection="asc" matSortDisableClear>
 
