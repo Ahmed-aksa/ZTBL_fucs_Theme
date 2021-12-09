@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import { SessionExpireService } from 'app/shared/services/session-expire.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -10,8 +11,9 @@ import {MatSort} from "@angular/material/sort";
     encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
-
-    constructor() {
+    popup: any = false;
+    time :any
+    constructor(private _sessionExpireService: SessionExpireService) {
     }
 
     dataSource = new MatTableDataSource();
@@ -20,6 +22,12 @@ export class DashboardComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     ngOnInit(): void {
+        this._sessionExpireService.count.subscribe(c => {
+            if(c<30){
+              this.popup=true;
+            }
+            this.time = c.toString();
+          });
     }
 
 }
