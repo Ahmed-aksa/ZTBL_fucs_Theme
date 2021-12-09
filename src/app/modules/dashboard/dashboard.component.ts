@@ -25,10 +25,16 @@ export class DashboardComponent implements OnInit {
       
         this._sessionExpireService.count.subscribe(c => {
             if(c<30){
-              this.popup=true;
+              //this.popup=true;
             }
             this.time = c.toString();
           });
+    }
+    RefreshToken(){
+
+    }
+    Logout(){
+      this._sessionExpireService.timerUnSubject();
     }
 
 }
