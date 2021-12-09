@@ -17,6 +17,7 @@ import {UserModule} from 'app/layout/common/user/user.module';
 import {SharedModule} from 'app/shared/shared.module';
 import {ClassicLayoutComponent} from 'app/layout/layouts/vertical/classic/classic.component';
 import {DeviceMappingModule} from 'app/modules/device-mapping/device-mapping.module';
+import {NotificationModule} from 'app/modules/notification/notification.module';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import {DeviceMappingModule} from 'app/modules/device-mapping/device-mapping.mod
         SearchModule,
         ShortcutsModule,
         UserModule,
+        NotificationModule,
         SharedModule
     ],
     exports: [

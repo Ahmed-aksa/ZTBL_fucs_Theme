@@ -24,6 +24,7 @@ import {InsuranceReportComponent} from "../insurance-report/insurance-report.com
 import {LaFileProgressComponent} from "../la-file-progress/la-file-progress.component";
 import {LoanInformationDetailComponent} from "../loan-information-detail/loan-information-detail.component";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
+import {HoZonalExpenseComponent} from "../ho-zonal-expense/ho-zonal-expense.component";
 
 @Component({
     selector: 'app-reports',
@@ -171,6 +172,15 @@ export class ReportsComponent implements OnInit {
 
     loanInfoDetails(){
         const dialogRef = this.dialog.open(LoanInformationDetailComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    hoZonalExpense(){
+        const dialogRef = this.dialog.open(HoZonalExpenseComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
         dialogRef.afterClosed().subscribe((res)=>{
             if(!res){
                 return

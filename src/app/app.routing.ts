@@ -160,6 +160,10 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/modules/reports/reports.module').then(m => m.ReportsModule)
             },
             {
+                path: 'notifications',
+                loadChildren: () => import('app/modules/notification/notification.module').then(m => m.NotificationModule)
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             }

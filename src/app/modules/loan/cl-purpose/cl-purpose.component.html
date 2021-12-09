@@ -79,7 +79,7 @@
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Quantity <strong class="matMandatory"></strong></mat-label>
-                        <input matInput placeholder="Enter Production Loan Amount" formControlName="Quantity"
+                        <input matInput maxlength="4" placeholder="Enter Production Loan Amount" formControlName="Quantity"
                                appNumberOnly/>
                     </mat-form-field>
                 </div>
@@ -201,8 +201,8 @@
                 <tr *ngFor="let loan of loanPurpose; let i = index;">
                     <td>{{loan.GlSubID}}</td>
                     <td>{{loan.SchemeID}}</td>
-                    <td>{{loan.CropName}}</td>
                     <td>{{loan.CropID}}</td>
+                    <td>{{loan.CropName}}</td>
                     <td>{{loan.CultivatedArea}}</td>
                     <td>{{loan.Quantity}}</td>
                     <td>{{loan.TotalEstimatedCost}}</td>
