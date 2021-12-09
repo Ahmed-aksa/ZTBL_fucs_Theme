@@ -499,6 +499,8 @@ export class CheckEligibilityComponent implements OnInit {
         // if (localStorage.getItem('CreateCustomerBit') == '1') {
         //     this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         // }
+
+        debugger;
         var bit = localStorage.getItem("CreateCustomerBit");
         if (bit == '10') {
             localStorage.setItem('CreateCustomerBit', '5');
@@ -507,6 +509,7 @@ export class CheckEligibilityComponent implements OnInit {
         //console.log(bit)
         if (bit == '1') {
             localStorage.setItem('CreateCustomerBit', '2')
+            localStorage.setItem('ShouldAlert', 'true');
             this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         } else {
         }

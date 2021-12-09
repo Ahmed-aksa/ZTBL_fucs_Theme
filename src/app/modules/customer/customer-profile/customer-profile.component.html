@@ -86,8 +86,8 @@
                                 <mat-label class="customMatLabel">Enter Customer Name <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <p *ngIf="UrduName!=undefined && UrduName!=''" class="text-right"> {{UrduName}}</p>
-                                <input [readonly]="Namereadoly" matInput placeholder="Enter Name" appAlphabetOnly
-                                       formControlName="CustomerName" maxlength="50" autocomplete="off"/>
+                                <input matInput placeholder="Enter Name" appAlphabetOnly
+                                       formControlName="CustomerName" maxlength="50" autocomplete="off" readonly/>
                                 <mat-error *ngIf="hasError('CustomerName', 'required')">Name <strong>required</strong>
                                 </mat-error>
                                 <mat-hint align="left">Please enter Name</mat-hint>
@@ -99,8 +99,9 @@
                                     class="matMandatory">*</strong></mat-label>
                                 <p *ngIf="UrduFatherName!=undefined && UrduFatherName!=''"
                                    class="text-right"> {{UrduFatherName}}</p>
-                                <input [readonly]="FatherNamereadoly" matInput placeholder="Enter Father Name"
-                                       formControlName="FatherName" maxlength="50" autocomplete="off" appAlphabetOnly/>
+                                <input matInput placeholder="Enter Father Name"
+                                       formControlName="FatherName" maxlength="50" autocomplete="off" appAlphabetOnly
+                                       readonly/>
                                 <mat-error *ngIf="hasError('FatherName', 'required')">Father Name
                                     <strong>required</strong></mat-error>
                                 <mat-hint align="left">Please enter Father Name</mat-hint>
@@ -138,9 +139,9 @@
                                 <!--<mat-label>Select DOB</mat-label>--> <!---->
                                 <mat-label class="customMatLabel">Select Date of Birth <strong
                                     class="matMandatory">*</strong></mat-label>
-                                <input readonly="readonly" [disabled]="Dobreadoly" matInput [matDatepicker]="picker3"
+                                <input readonly="readonly" matInput [matDatepicker]="picker3"
                                        formControlName="Dob" [max]="todayMax"
-                                       autocomplete="off">
+                                       autocomplete="off" [disabled]="true">
                                 <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                                 <mat-datepicker #picker3></mat-datepicker>
                                 <mat-error *ngIf="hasError('Dob', 'required')">DOB <strong>required</strong></mat-error>
@@ -203,7 +204,7 @@
                                 <mat-label class="customMatLabel">Enter Mother Name <strong
                                     class="matMandatory">*</strong></mat-label>
                                 <input matInput placeholder="Enter Mother Name" formControlName="MotherName"
-                                       maxlength="30" autocomplete="off" appAlphabetOnly/>
+                                       maxlength="30" autocomplete="off" appAlphabetOnly readonly/>
                                 <mat-error *ngIf="hasError('MotherName', 'required')">Mother Name
                                     <strong>required</strong></mat-error>
                                 <mat-hint align="left">Please enter Mother Name</mat-hint>
@@ -241,7 +242,7 @@
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
                             <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--<mat-label>Select District</mat-label>-->
-                                <mat-label class="customMatLabel">Select District</mat-label>
+                                <mat-label class="customMatLabel">Select District<strong>*</strong></mat-label>
                                 <mat-select formControlName="District">
                                     <mat-option>
                                         <ngx-mat-select-search placeholderLabel="Search District..."
@@ -260,7 +261,7 @@
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
                             <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <mat-label class="customMatLabel">Select Risk Category <strong
-                                    class="matMandatory"></strong></mat-label>
+                                    class="matMandatory">*</strong></mat-label>
                                 <mat-select formControlName="RiskCategory">
                                     <mat-option *ngFor="let obj of RiskCategoryLov?.LOVs" [value]="obj.Id">
                                         {{obj.Name}}
@@ -562,8 +563,8 @@
                                 <!--<mat-label>Select Post Code</mat-label>-->
                                 <mat-label class="customMatLabel">Select Post Code <strong
                                     class="matMandatory">*</strong></mat-label>
-
-                                <mat-select formControlName="PostCode" placeholderLabel="Search Post Code...">
+                                <mat-select formControlName="PostCode" name="PostCode"
+                                            placeholderLabel="Search Post Code...">
                                     <mat-option *ngFor="let obj of PostCodeLov?.LOVs" [value]="obj.Id">
                                         {{obj.Name}}
                                     </mat-option>
@@ -581,7 +582,7 @@
                                     class="matMandatory">*</strong></mat-label>
                                 <p *ngIf="UrduCurrentAddress!=undefined && UrduCurrentAddress!=''"
                                    class="text-right">{{UrduCurrentAddress}}</p>
-                                <input [readonly]="CurrentAddressreadoly" matInput placeholder="Enter Current Address"
+                                <input matInput placeholder="Enter Current Address"
                                        formControlName="CurrentAddress" maxlength="150" autocomplete="off"/>
                                 <mat-error *ngIf="hasError('CurrentAddress', 'required')">Current Address <strong>required</strong>
                                 </mat-error>
@@ -599,7 +600,7 @@
                                 <p *ngIf="UrduPermanentAddress!=undefined && UrduPermanentAddress!=''"
                                    class="text-right">{{UrduPermanentAddress}}</p>
                                 <input [readonly]="PresentAddressreadoly" matInput placeholder="Enter Permanent Address"
-                                       formControlName="PermanentAddress" maxlength="150" autocomplete="off"/>
+                                       formControlName="PermanentAddress" maxlength="150" autocomplete="off" readonly/>
                                 <mat-error *ngIf="hasError('PermanentAddress', 'required')">Permanent Address <strong>required</strong>
                                 </mat-error>
                                 <mat-hint align="left">Please enter Permanent Address

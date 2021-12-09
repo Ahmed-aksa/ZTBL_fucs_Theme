@@ -1,27 +1,29 @@
-<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="text-4xl font-extrabold tracking-tight mx-10 mt-4">EVP(Operation Division)</div>
+<div class=" px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="heading">EVP(Operation Division)</div>
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8">
-  
-    </div>
     <div class="example-container">
         <form [formGroup]="options">
-            <mat-form-field appearance="fill">
-                <mat-label>Date</mat-label>
-                <input matInput [matDatepicker]="picker">
-                <input matInput placeholder="Enter Date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
+            <div class="row pt-2">
+                <div class="col-lg-4">
+                    <mat-form-field  class="w-full" appearance="outline">
+                        <mat-label>Date</mat-label>
+                        <input matInput [matDatepicker]="picker">
+                       
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                </div>
+            </div>
+
             </form>
         </div>
-        <div class="flex flex-auto overflow-y-scroll">
+        <div class="flex flex-auto overflow-x-hidden overflow-y-scroll">
   
             <!-- Products list -->
-            <div class="flex flex-auto overflow-y-scroll mx-10" style="flex-direction: column;">
-            <div class="row">
-                <div  class="col-4">
-                  <div id="chart">
+            <div class="flex flex-inline overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
+            <div class="row pb-4">
+                <div  class="col-lg-4">
+                  <div id="chart mt-0">
                       <apx-chart
                         [series]="chartOptions.series"
                         [chart]="chartOptions.chart"
@@ -32,50 +34,60 @@
                       ></apx-chart>
                     </div>
                 </div>
-                <div  class="col-4">
-                    <table class="table">
-                <tr>
-                    <th scope="row">No. of Zones</th>
-                    <td></td>
-                    <th scope="row">No. of Branchs</th>
-                    <td></td>
-                    <th scope="row">No. of LLUs</th>
-                    <td></td>
-                    <th scope="row">No. of IC Units</th>
-                    <td></td>
-                    <th scope="row">No. of Accounts</th>
-                    <td></td>
-                    <th scope="row">No. of Lockers</th>
-                    <td></td>
-                    <th scope="row">No. of Bank owned Buildings</th>
-                    <td></td>
-                    <th scope="row">No. of Rented Officers</th>
-                    <td></td>
-                    <th scope="row">No. of Branches in Profits</th>
-                    <td></td>
-                    <th scope="row">No. of Lose</th>
-                    <td></td>
-                    <th scope="row">No. of Biometric Verified consumers (Loan + Accounts)</th>
-                    <td></td>
-                    <th scope="row">No. of MCO Circles</th>
-                    <td></td>
-                    <th scope="row">No. of MCOs available</th>
-                    <td></td>
-                    <th scope="row">No. of Burnt Files</th>
-                    <td></td>
-                    <th scope="row">ATM Machines</th>
-                    <td></td>
-                </tr>  
+               </div>
+               <div class="row">
+                <div  class="col-lg-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="table-header-background">
+                                <th scope="row">No. of Zones</th>
+                                <th scope="row">No. of Branchs</th>
+                                <th scope="row">No. of LLUs</th>
+                                <th scope="row">No. of IC Units</th>
+                                <th scope="row">No. of Accounts</th>
+                                <th scope="row">No. of Lockers</th>
+                                <th scope="row">No. of Bank owned Buildings</th>
+                                <th scope="row">No. of Rented Officers</th>
+                                <th scope="row">No. of Branches in Profits</th>
+                                <th scope="row">No. of Lose</th>
+                                <th scope="row">No. of Biometric Verified consumers (Loan + Accounts)</th>
+                                <th scope="row">No. of MCO Circles</th>
+                                <th scope="row">No. of MCOs available</th>
+                                <th scope="row">No. of Burnt Files</th>
+                                <th scope="row">ATM Machines</th>
+                            </tr>  
+                        </thead>
+                        <tbody>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+
+                        </tbody>
+
                     </table>
                 </div> 
-                <div  class="col-4">
-                    <table class="table">
+                </div>
+                <div class="row mt-3">
+                <div  class="col-lg-12 table-responsive">
+                    <table class="table table-striped">
                         <thead>
-                            <tr>
-                              <th scope="col"></th>
+                            <tr class="table-header-background">
                               <th scope="col">Utilization</th>
                               <th scope="col">Mutations</th>
                               <th scope="col">Audit Para</th>
+                              <th></th>
                             </tr>
                           </thead> 
                           <tbody>
