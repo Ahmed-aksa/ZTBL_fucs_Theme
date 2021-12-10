@@ -321,7 +321,7 @@ export class CustomerProfileComponent implements OnInit {
             Caste: [this.createCustomer ? this.createCustomer.Caste : null, [Validators.required]],
             Religion: [this.createCustomer?.Religion, [Validators.required]],
             BirthPlace: [this.createCustomer?.BirthPlace],
-            RiskCategory: [this.createCustomer ? this.createCustomer.RiskCategory : '1', Validators.required],
+            RiskCategory: [this.createCustomer.RiskCategory || this.createCustomer.RiskCategory != '-' ? this.createCustomer.RiskCategory : '1', Validators.required],
             PremisesFlag: [this.createCustomer?.PremisesFlag],
             BusinessProfPos: [this.createCustomer?.BusinessProfPos],
             FamilyNumber: [this.createCustomer?.FamilyNumber, [Validators.pattern(regExps.familyNumber)]],

@@ -19,9 +19,11 @@ export class CustomerHistoryComponent implements OnInit {
     ngOnInit(): void {
         if (localStorage.getItem('CustomerNumber')) {
             this.customer_number = localStorage.getItem('CustomerNumber');
+            localStorage.removeItem('CustomerNumber')
             this.getCustomerHistory();
         } else {
             this.router.navigate(['/dashboard']);
+            this.layoutService.alertElement("No Customer Number given");
         }
     }
 
