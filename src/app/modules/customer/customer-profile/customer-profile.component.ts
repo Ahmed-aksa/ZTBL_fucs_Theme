@@ -175,7 +175,11 @@ export class CustomerProfileComponent implements OnInit {
         this.CurrentDate = this.datePipe.transform(this.CurrentDate, MaskEnum.DateFormat);
         this.LoadLovs();
         this.createCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
-
+        this.UrduFatherName = this.createCustomer.UrduFatherName
+        this.UrduName = this.createCustomer.UrduName;
+        this.UrduBirthPlace = this.createCustomer.UrduBirthPlace;
+        this.UrduCurrentAddress = this.createCustomer.UrduCurrentAddress;
+        this.UrduPermanentAddress = this.createCustomer.UrduPermanentAddress;
         this.createForm();
         if (this.IsLoadPreviousData) {
             this.LoadPreviousData();
@@ -204,7 +208,8 @@ export class CustomerProfileComponent implements OnInit {
             .subscribe(() => {
                 this.filterOccupation();
             });
-        if (JSON.parse(localStorage.getItem('SearchCustomerStatus'))) {
+        if (JSON.parse(localStorage.getItem('SearchCustomerStatus')).CustomerStatus == 'N') {
+
             this.HideShowSaveButton = true;
         } else if (this.createCustomer.CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
             this.HideShowSaveButton = true;

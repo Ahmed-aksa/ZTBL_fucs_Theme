@@ -103,6 +103,7 @@ export class CheckEligibilityComponent implements OnInit {
     UrduName: string = '';
     UrduCity: string = '';
     UrduCurrentAddress: string = '';
+    private customer_number: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -194,6 +195,8 @@ export class CheckEligibilityComponent implements OnInit {
                     this.NDCPerform = true;
                     this.NdcSubmit = true;
                     this.Customer = baseResponse.Customer;
+                    this.customer_number = this.Customer.CustomerNumber;
+                    this.customer_number = baseResponse.Customer.CustomerNumber;
                     this.UrduName = baseResponse?.Customer?.UrduName;
                     this.UrduCity = baseResponse?.Customer?.UrduCity;
                     this.UrduCurrentAddress = baseResponse?.Customer?.UrduCurrentAddress;
@@ -382,6 +385,8 @@ export class CheckEligibilityComponent implements OnInit {
         this._customer.Gender = this.customerInfo.controls['Gender'].value;
 
         this.Customer = this._customer;
+        this.customer_number=this.Customer.CustomerNumber;
+
         this.spinner.show();
         this._customerService.addCustomerInfo(this._customer, this.tran_id)
             .pipe(
@@ -397,6 +402,7 @@ export class CheckEligibilityComponent implements OnInit {
                     this.ECIBPerformForm = true;
 
                     this.Customer = baseResponse.Customer;
+                    this.customer_number=this.Customer.CustomerNumber;
                     this.CustomerECIB = baseResponse.Ecib;
 
                     if (this.CustomerECIB.Code == "549") {
@@ -414,8 +420,8 @@ export class CheckEligibilityComponent implements OnInit {
                         this.ECIBPerformSuccess = true;
                         localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
                     }
-                    if (this.CustomerECIB.Code == '550' || this.CustomerECIB == '551') {
-                        this.ECIBPerform = true;
+                    if (this.CustomerECIB == '551') {
+                        this.ECIBPerform = false;
                     }
                     if (this.Customer.ECIBPDFLink == null || this.Customer.ECIBPDFLink == "") {
                         this.EcibLinkView = false;
@@ -472,6 +478,7 @@ export class CheckEligibilityComponent implements OnInit {
                         this.customer_bmvs = baseResponse.EligibilityRequest.CustomerBMVS;
                         this.customer_nivs = baseResponse.EligibilityRequest.CUSTOMERNIVS;
                         this.Customer = baseResponse.Customer;
+                        this.customer_number=baseResponse.Customer.CustomerNumber;
                         this.CustomerECIB = baseResponse.Ecib;
 
                         localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
@@ -517,7 +524,10 @@ export class CheckEligibilityComponent implements OnInit {
         if (bit == '1') {
             localStorage.setItem('CreateCustomerBit', '2')
             localStorage.setItem('ShouldAlert', 'true');
+            this.Customer.CustomerNumber = this.customer_number
+            debugger;
             localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
+
             this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         } else {
         }
@@ -601,7 +611,7 @@ export class CheckEligibilityComponent implements OnInit {
                 if (baseResponse.Success === true) {
                     this.BiometricCredentials = false;
                     this.Customer = baseResponse.Customer;
-
+                    this.customer_number=this.Customer.CustomerNumber;
                     this.IsEcibDefaulter = false;
                     this.toaster.success(baseResponse.Message)
                 } else {
