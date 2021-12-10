@@ -394,7 +394,6 @@ export class CheckEligibilityComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
                     this.BiometricCredentials = false;
-                    this.ECIBPerform = true;
                     this.ECIBPerformForm = true;
 
                     this.Customer = baseResponse.Customer;
@@ -402,6 +401,8 @@ export class CheckEligibilityComponent implements OnInit {
 
                     if (this.CustomerECIB.Code == "549") {
                         this.IsEcibDefaulter = true;
+                        this.ECIBPerform = true;
+
                         this.should_regenerate = true;
                     } else {
                         this.IsEcibDefaulter = false;
@@ -411,6 +412,7 @@ export class CheckEligibilityComponent implements OnInit {
                         this.should_regenerate = false;
                         this.IsEcibDefaulter = false;
                         this.ECIBPerformSuccess = true;
+                        localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
 
 
                     }
@@ -507,8 +509,6 @@ export class CheckEligibilityComponent implements OnInit {
         // if (localStorage.getItem('CreateCustomerBit') == '1') {
         //     this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         // }
-
-        debugger;
         var bit = localStorage.getItem("CreateCustomerBit");
         if (bit == '10') {
             localStorage.setItem('CreateCustomerBit', '5');

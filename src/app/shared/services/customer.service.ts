@@ -402,4 +402,21 @@ export class CustomerService {
             .post<any>(`${environment.apiUrl}/Customer/AddEligibilityRequestFiles`, formData)
             .pipe(map((res: BaseResponseModel) => res));
     }
+
+    getCustomerHistory(customer_number: string) {
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        let request = new BaseRequestModel();
+        request.User = userInfo.User;
+        request.Branch = userInfo.Branch;
+        request.Zone = userInfo.Zone;
+        request.Circle = userInfo?.UserCircleMappings[0];
+        request.Customer = {
+            CustomerNumber: customer_number,
+        }
+        return this.http
+            .post(`${environment.apiUrl}/Customer/GetCustomerHistory`, request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
 }

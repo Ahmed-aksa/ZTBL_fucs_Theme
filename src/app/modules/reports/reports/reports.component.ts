@@ -25,6 +25,9 @@ import {LaFileProgressComponent} from "../la-file-progress/la-file-progress.comp
 import {LoanInformationDetailComponent} from "../loan-information-detail/loan-information-detail.component";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {HoZonalExpenseComponent} from "../ho-zonal-expense/ho-zonal-expense.component";
+import {MarkOnCaComponent} from "../mark-on-ca/mark-on-ca.component";
+import {RecoveryScheduleComponent} from "../recovery-schedule/recovery-schedule.component";
+import {LoanMoveComponent} from "../loan-move/loan-move.component";
 
 @Component({
     selector: 'app-reports',
@@ -181,6 +184,33 @@ export class ReportsComponent implements OnInit {
 
     hoZonalExpense(){
         const dialogRef = this.dialog.open(HoZonalExpenseComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    markOnCA(){
+        const dialogRef = this.dialog.open(MarkOnCaComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    recoverySchedule(){
+        const dialogRef = this.dialog.open(RecoveryScheduleComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    loanMove(){
+        const dialogRef = this.dialog.open(LoanMoveComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
         dialogRef.afterClosed().subscribe((res)=>{
             if(!res){
                 return

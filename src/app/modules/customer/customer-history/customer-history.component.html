@@ -1,0 +1,43 @@
+<div
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
+
+
+    <div class="row pt-3 pb-0">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Customer History</div>
+        </div>
+
+    </div>
+    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-y-scroll"
+         style="flex-direction: column;">
+
+        <div class="row">
+
+            <div class="col-lg-12   table-responsive">
+                <table class="table  table-striped">
+                    <thead>
+                    <tr class="table-header-background">
+                        <th scope="col">PPNo.</th>
+                        <th scope="col">User Id</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Change Description</th>
+                        <th scope="col">Updated AT</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let customer of customer_histories">
+                        <td>{{customer?.PPNumber}}</td>
+                        <td>{{customer?.UserId}}</td>
+                        <td>{{customer?.Description}}</td>
+                        <td>{{customer?.ChangeDescription}}</td>
+                        <td>{{customer?.UpdatedDateTime | date}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

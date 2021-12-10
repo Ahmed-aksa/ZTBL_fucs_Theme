@@ -616,6 +616,9 @@ img {
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+    ::-webkit-scrollbar { display:none }
+
     .bg-card{
         display: block !important;
     }
