@@ -608,7 +608,6 @@ export class CustomerProfileComponent implements OnInit {
 
         this.PostCodeLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.PostalCode});
 
-
         ////For Search
         this.DistrictLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.District});
 

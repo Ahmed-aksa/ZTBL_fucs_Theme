@@ -99,6 +99,11 @@ export class CheckEligibilityComponent implements OnInit {
     private first_request_response: BaseResponseModel;
     private rawData: any = [];
 
+    //Urdu
+    UrduName:string='';
+    UrduCity:string='';
+    UrduCurrentAddress:string='';
+
     constructor(
         private formBuilder: FormBuilder,
         private _customerService: CustomerService,
@@ -189,6 +194,9 @@ export class CheckEligibilityComponent implements OnInit {
                     this.NDCPerform = true;
                     this.NdcSubmit = true;
                     this.Customer = baseResponse.Customer;
+                    this.UrduName = baseResponse?.Customer?.UrduName;
+                    this.UrduCity = baseResponse?.Customer?.UrduCity;
+                    this.UrduCurrentAddress = baseResponse?.Customer?.UrduCurrentAddress;
                     this.customer_ndc = baseResponse.EligibilityRequest.CustomerNDC;
                     this.customer_bmvs = baseResponse.EligibilityRequest.CustomerBMVS;
                     this.customer_nivs = baseResponse.EligibilityRequest.CUSTOMERNIVS;
