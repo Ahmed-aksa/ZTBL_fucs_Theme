@@ -517,6 +517,7 @@ export class CheckEligibilityComponent implements OnInit {
         if (bit == '1') {
             localStorage.setItem('CreateCustomerBit', '2')
             localStorage.setItem('ShouldAlert', 'true');
+            localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
             this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         } else {
         }

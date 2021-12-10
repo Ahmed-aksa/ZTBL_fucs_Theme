@@ -318,10 +318,10 @@ export class CustomerProfileComponent implements OnInit {
             Email: [this.createCustomer?.Email, [Validators.pattern(regExps.email)]],
             BrowserStatus: [this.createCustomer?.BrowserStatus, [Validators.required]],
             Education: [this.createCustomer?.Education, [Validators.required]],
-            Caste: [this.createCustomer.Caste ? this.createCustomer.Caste : null, [Validators.required]],
+            Caste: [this.createCustomer ? this.createCustomer.Caste : null, [Validators.required]],
             Religion: [this.createCustomer?.Religion, [Validators.required]],
             BirthPlace: [this.createCustomer?.BirthPlace],
-            RiskCategory: [this.createCustomer.RiskCategory || this.createCustomer.RiskCategory != '-' ? this.createCustomer.RiskCategory : '1', Validators.required],
+            RiskCategory: [this.createCustomer.RiskCategory && this.createCustomer.RiskCategory != '-' ? this.createCustomer.RiskCategory : '1', Validators.required],
             PremisesFlag: [this.createCustomer?.PremisesFlag],
             BusinessProfPos: [this.createCustomer?.BusinessProfPos],
             FamilyNumber: [this.createCustomer?.FamilyNumber, [Validators.pattern(regExps.familyNumber)]],
@@ -402,6 +402,7 @@ export class CustomerProfileComponent implements OnInit {
         let customer_Status = null;
         let customer_number = null;
         let caste_code = null;
+        debugger;
         if (this.createCustomer) {
             customer_Status = this.createCustomer.CustomerStatus;
             customer_number = this.createCustomer.CustomerNumber;
