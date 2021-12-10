@@ -414,7 +414,9 @@ export class CheckEligibilityComponent implements OnInit {
                         this.ECIBPerformSuccess = true;
                         localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
                     }
-
+                    if (this.CustomerECIB.Code == '550' || this.CustomerECIB == '551') {
+                        this.ECIBPerform = true;
+                    }
                     if (this.Customer.ECIBPDFLink == null || this.Customer.ECIBPDFLink == "") {
                         this.EcibLinkView = false;
                         //this.layoutUtilsService.alertMessage("", "No ECIB Record Available");
@@ -426,9 +428,6 @@ export class CheckEligibilityComponent implements OnInit {
                         this.ECIBPerformSuccess = true;
                         localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
                     }
-                    // if (this.CustomerECIB.Code == '551') {
-                    //     this.ECIBPerform = true;
-                    // }
 
 
                 } else {
