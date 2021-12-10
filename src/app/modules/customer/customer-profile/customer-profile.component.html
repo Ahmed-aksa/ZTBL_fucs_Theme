@@ -246,12 +246,8 @@
                             <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--<mat-label>Select District</mat-label>-->
                                 <mat-label class="customMatLabel">Select District<strong>*</strong></mat-label>
-                                <mat-select formControlName="District">
-                                    <mat-option>
-                                        <ngx-mat-select-search placeholderLabel="Search District..."
-                                                               [formControl]="searchFilterCtrl">
-                                        </ngx-mat-select-search>
-                                    </mat-option>
+                                <mat-select formControlName="District" placeholderLabel="Search District..."
+                                >
                                     <mat-option *ngFor="let obj of DistrictLov?.LOVs" [value]="obj.Value">
                                         {{obj.Name}}
                                     </mat-option>
@@ -399,12 +395,7 @@
                                 <!--  <mat-label>Select Caste</mat-label>-->
                                 <mat-label class="customMatLabel">Select Caste <strong class="matMandatory">*</strong>
                                 </mat-label>
-                                <mat-select formControlName="Caste">
-                                    <mat-option>
-                                        <ngx-mat-select-search placeholderLabel="Search Caste..."
-                                                               [formControl]="searchFilterCtrlCaste">
-                                        </ngx-mat-select-search>
-                                    </mat-option>
+                                <mat-select formControlName="Caste" placeholderLabel="Search Caste...">
                                     <mat-option *ngFor="let obj of CasteLov?.LOVs" [value]="obj.Value">
                                         {{obj.Name}}
                                     </mat-option>
@@ -518,17 +509,14 @@
                                 <mat-hint align="left">Please enter Family No</mat-hint>
                             </mat-form-field>
                         </div>
+                        {{OccupationLov | json}}
                         <div class="col-lg-3 kt-margin-bottom-20-mobile">
                             <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                 <!--  <mat-label>Occupation</mat-label>-->
                                 <mat-label class="customMatLabel">Select Occupation <strong
                                     class="matMandatory">*</strong></mat-label>
-                                <mat-select formControlName="Occupation" (selectionChange)="OccupationChange($event)">
-                                    <mat-option>
-                                        <ngx-mat-select-search placeholderLabel="Search Occupation..."
-                                                               [formControl]="searchFilterCtrlOccupation">
-                                        </ngx-mat-select-search>
-                                    </mat-option>
+                                <mat-select formControlName="Occupation" (selectionChange)="OccupationChange($event)"
+                                            placeholderLabel="Search Occupation...">
                                     <mat-option *ngFor="let obj of OccupationLov?.LOVs" [value]="obj.Id">
                                         {{obj.Name}}
                                     </mat-option>

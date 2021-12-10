@@ -295,55 +295,55 @@ export class CustomerProfileComponent implements OnInit {
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.roleForm = this.formBuilder.group({
-            Cnic: [this.createCustomer?.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
-            Dob: [this._common.stringToDate(this.createCustomer?.Dob)],
-            CnicIssueDate: [this._common.stringToDate(this.createCustomer?.CnicIssueDate), [Validators.required]],
-            CnicExpiry: [this._common.stringToDate(this.createCustomer?.CnicExpiry)],
+            Cnic: [this.createCustomer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
+            Dob: [this._common.stringToDate(this.createCustomer.Dob)],
+            CnicIssueDate: [this._common.stringToDate(this.createCustomer.CnicIssueDate), [Validators.required]],
+            CnicExpiry: [this._common.stringToDate(this.createCustomer.CnicExpiry)],
             //Dob: [this.createCustomer.Dob],
             //CnicIssueDate: [this.createCustomer.CnicIssueDate, [Validators.required]],
             //CnicExpiry: [this.createCustomer.CnicExpiry],
-            Gender: [this.createCustomer?.Gender, [Validators.required]],
-            MaritalStatus: [this.createCustomer?.MaritalStatus],
-            CustomerName: [this.createCustomer?.CustomerName, [Validators.required]],
-            FatherName: [this.createCustomer?.FatherName, [Validators.required]],
-            HusbandName: [this.createCustomer?.HusbandName],
-            FatherOrHusbandCnic: [this.createCustomer?.FatherOrHusbandCnic],
+            Gender: [this.createCustomer.Gender, [Validators.required]],
+            MaritalStatus: [this.createCustomer.MaritalStatus],
+            CustomerName: [this.createCustomer.CustomerName, [Validators.required]],
+            FatherName: [this.createCustomer.FatherName, [Validators.required]],
+            HusbandName: [this.createCustomer.HusbandName],
+            FatherOrHusbandCnic: [this.createCustomer.FatherOrHusbandCnic],
 
-            MotherName: [this.createCustomer?.MotherName, [Validators.required]],
-            Occupation: [this.createCustomer?.Occupation, [Validators.required]],
-            BankEmp: [this.createCustomer?.BankEmp],
-            MarkOfIdentification: [this.createCustomer?.MarkOfIdentification],
-            Ntn: [this.createCustomer?.Ntn, [Validators.pattern(regExps.ntn)]],
-            District: [this.createCustomer?.District, Validators.required],
-            Citizenship: [this.createCustomer?.CitizenShip, [Validators.required]],
+            MotherName: [this.createCustomer.MotherName, [Validators.required]],
+            Occupation: [this.createCustomer.Occupation ? this.createCustomer.Occupation : null, [Validators.required]],
+            BankEmp: [this.createCustomer.BankEmp],
+            MarkOfIdentification: [this.createCustomer.MarkOfIdentification],
+            Ntn: [this.createCustomer.Ntn, [Validators.pattern(regExps.ntn)]],
+            District: [this.createCustomer.District, Validators.required],
+            Citizenship: [this.createCustomer.CitizenShip, [Validators.required]],
             CellNumber: [this.ValidateMobileNumberSet(), [Validators.required, Validators.pattern(regExps.mobile)]],
-            PhoneNumber: [this.createCustomer?.PhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
-            OfficePhoneNumber: [this.createCustomer?.OfficePhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
-            FaxNumber: [this.createCustomer?.FaxNumber, [Validators.pattern(regExps.seventothirteen)]],
-            Email: [this.createCustomer?.Email, [Validators.pattern(regExps.email)]],
-            BrowserStatus: [this.createCustomer?.BrowserStatus, [Validators.required]],
-            Education: [this.createCustomer?.Education, [Validators.required]],
-            Caste: [this.createCustomer ? this.createCustomer.Caste : null, [Validators.required]],
-            Religion: [this.createCustomer?.Religion, [Validators.required]],
-            BirthPlace: [this.createCustomer?.BirthPlace],
+            PhoneNumber: [this.createCustomer.PhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
+            OfficePhoneNumber: [this.createCustomer.OfficePhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
+            FaxNumber: [this.createCustomer.FaxNumber, [Validators.pattern(regExps.seventothirteen)]],
+            Email: [this.createCustomer.Email, [Validators.pattern(regExps.email)]],
+            BrowserStatus: [this.createCustomer.BrowserStatus, [Validators.required]],
+            Education: [this.createCustomer.Education, Validators.required],
+            Caste: [this.createCustomer.Caste ? this.createCustomer.Caste : null, [Validators.required]],
+            Religion: [this.createCustomer.Religion, [Validators.required]],
+            BirthPlace: [this.createCustomer.BirthPlace],
             RiskCategory: [this.createCustomer.RiskCategory && this.createCustomer.RiskCategory != '-' ? this.createCustomer.RiskCategory : '1', Validators.required],
-            PremisesFlag: [this.createCustomer?.PremisesFlag],
-            BusinessProfPos: [this.createCustomer?.BusinessProfPos],
-            FamilyNumber: [this.createCustomer?.FamilyNumber, [Validators.pattern(regExps.familyNumber)]],
+            PremisesFlag: [this.createCustomer.PremisesFlag],
+            BusinessProfPos: [this.createCustomer.BusinessProfPos],
+            FamilyNumber: [this.createCustomer.FamilyNumber, [Validators.pattern(regExps.familyNumber)]],
             // BankEmpPPNo: [this.createCustomer.BankEmp, [Validators.required]],
-            PostCode: [this.createCustomer?.PostCode, [Validators.required]],
-            CurrentAddress: [this.createCustomer?.CurrentAddress, [Validators.required]],
-            PassportNumber: [this.createCustomer?.PassportNumber],
-            PermanentAddress: [this.createCustomer?.PermanentAddress, [Validators.required]],
-            Remarks: [this.createCustomer?.Remarks],
-            OldCnic: [this.createCustomer?.OldCnic],
+            PostCode: [this.createCustomer.PostCode, [Validators.required]],
+            CurrentAddress: [this.createCustomer.CurrentAddress, [Validators.required]],
+            PassportNumber: [this.createCustomer.PassportNumber],
+            PermanentAddress: [this.createCustomer.PermanentAddress, [Validators.required]],
+            Remarks: [this.createCustomer.Remarks],
+            OldCnic: [this.createCustomer.OldCnic],
             //FamilyNo: [this.createCustomer.FamilyNo],
             // PlaceOfBirth: [this.createCustomer.PlaceOfBirth],
-            EmployeeNo: [this.createCustomer?.EmployeeNo],
+            EmployeeNo: [this.createCustomer.EmployeeNo],
             //FatherSpouseCnic: [this.createCustomer.FatherSpouseCnic],
             //BusinessProfPosition: [this.createCustomer.BusinessProfPosition],
-            NDCPDFLink: [this.createCustomer?.NDCPDFLink],
-            ECIBPDFLink: [this.createCustomer?.ECIBPDFLink],
+            NDCPDFLink: [this.createCustomer.NDCPDFLink],
+            ECIBPDFLink: [this.createCustomer.ECIBPDFLink],
             file: [],
 
             // PhoneOff: [this.createCustomer.PhoneOff]
@@ -367,7 +367,7 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     hasError(controlName: string, errorName: string): boolean {
-        return this.roleForm?.controls[controlName].hasError(errorName);
+        return this.roleForm.controls[controlName].hasError(errorName);
     }
 
     get f(): any {
@@ -522,7 +522,7 @@ export class CustomerProfileComponent implements OnInit {
 
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.BranchLov = userInfo?.Branch;
+        this.BranchLov = userInfo.Branch;
         this.createCustomer.Zone = this.zone.ZoneId;
         this.createCustomer.Branch = this.branch.BranchId;
 
