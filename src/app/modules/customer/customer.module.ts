@@ -45,11 +45,12 @@ import {EligibilityRequestComponent} from './eligibility-request/eligibility-req
 import {ConsentFormComponent} from './consent-form/consent-form.component';
 import {NgImageSliderModule} from "ng-image-slider";
 import {ImagePopupComponent} from './image-popup/image-popup.component';
+import {CustomerHistoryComponent} from './customer-history/customer-history.component';
 
 //import {NgImageSliderModule} from "ng-image-slider";
 
 @NgModule({
-    declarations: [CheckEligibilityComponent, CustomerProfileComponent, CustomerListComponent, AuthorizedCustomersComponent, PendingCustomersComponent, SubmitCustomersComponent, ReferbackCustomersComponent, CorrectionPassbookComponent, CorrectionPhoneComponent, CustomerComponent, AuthorizedCustomerComponent, EligibilityRequestComponent, ConsentFormComponent, ImagePopupComponent],
+    declarations: [CheckEligibilityComponent, CustomerProfileComponent, CustomerListComponent, AuthorizedCustomersComponent, PendingCustomersComponent, SubmitCustomersComponent, ReferbackCustomersComponent, CorrectionPassbookComponent, CorrectionPhoneComponent, CustomerComponent, AuthorizedCustomerComponent, EligibilityRequestComponent, ConsentFormComponent, ImagePopupComponent, CustomerHistoryComponent],
     exports: [CustomerListComponent],
     imports: [
         CommonModule,
@@ -107,6 +108,9 @@ import {ImagePopupComponent} from './image-popup/image-popup.component';
             {
                 path: 'eligibility-request',
                 component: EligibilityRequestComponent
+            }, {
+                path: 'customer-history',
+                component: CustomerHistoryComponent
             }
         ]),
         FormsModule,
