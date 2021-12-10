@@ -143,6 +143,7 @@ export class LoanInformationDetailComponent implements OnInit {
 
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
+            this.bufricationForm.markAllAsTouched();
             return;
         }
 

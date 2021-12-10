@@ -92,6 +92,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
 
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required values");
+            this.searchCnicForm.markAllAsTouched()
             return;
         }
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);

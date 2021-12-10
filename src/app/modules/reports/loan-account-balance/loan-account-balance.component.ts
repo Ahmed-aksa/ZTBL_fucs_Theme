@@ -140,6 +140,7 @@ export class LoanAccountBalanceComponent implements OnInit {
         debugger
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
+            this.bufricationForm.markAllAsTouched();
             return;
         }
 

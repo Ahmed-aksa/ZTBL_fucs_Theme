@@ -91,6 +91,7 @@ export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
 
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter required fields");
+            this.searchCnicForm.markAllAsTouched()
             return;
         }
 
