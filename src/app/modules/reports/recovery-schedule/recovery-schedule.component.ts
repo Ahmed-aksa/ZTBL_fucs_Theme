@@ -170,6 +170,7 @@ export class RecoveryScheduleComponent implements OnInit {
 
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
+            this.bufricationForm.markAllAsTouched();
             return;
         }
         this.reports = Object.assign(this.reports, this.bufricationForm.value);

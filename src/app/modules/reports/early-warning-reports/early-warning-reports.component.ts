@@ -88,6 +88,7 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
 
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
+            this.searchCnicForm.markAllAsTouched()
             return;
         }
 

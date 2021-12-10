@@ -83,6 +83,7 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewIn
 
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please enter requried fields");
+            this.searchCnicForm.markAllAsTouched()
             return;
         }
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);

@@ -77,6 +77,7 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
 
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
+            this.searchCnicForm.markAllAsTouched()
             return;
         }
 
@@ -129,12 +130,6 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
     }
 
-    // async typeLov() {
-    //     this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
-    //     this.statusLov = this.statusLov.LOVs;
-    //     this.searchCnicForm.controls["AccountStatus"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-    //
-    // }
 
     ngAfterViewInit() {
 
