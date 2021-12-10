@@ -95,18 +95,22 @@ export class RecoveryScheduleComponent implements OnInit {
         //this.typeLov();
 
         //this.bufricationForm.controls["WorkingDate"].setValue(this.LoggedInUserInfo.Branch.WorkingDate);
-        if (this.LoggedInUserInfo.Branch.WorkingDate) {
-            let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
+        if (this.branch) {
+            let dateString = this.branch.WorkingDate;
             var day = parseInt(dateString.substring(0, 2));
             var month = parseInt(dateString.substring(2, 4));
             var year = parseInt(dateString.substring(4, 8));
 
-            this.today = new Date(year, month - 1, day);
-            //const branchWorkingDate = new Date(year, month - 1, day);
-            this.bufricationForm.controls.WorkingDate.setValue(this.today);
-            this.dateDisable = true
+            const branchWorkingDate = new Date(year, month - 1, day);
+            this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
         } else {
-            this.bufricationForm.controls.WorkingDate.setValue(null);
+            let dateString = "11012021";
+            var day = parseInt(dateString.substring(0, 2));
+            var month = parseInt(dateString.substring(2, 4));
+            var year = parseInt(dateString.substring(4, 8));
+
+            const branchWorkingDate = new Date(year, month - 1, day);
+            this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
         }
     }
 
