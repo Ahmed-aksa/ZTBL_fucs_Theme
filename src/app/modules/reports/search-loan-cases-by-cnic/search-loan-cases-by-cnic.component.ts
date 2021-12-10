@@ -23,6 +23,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {SearchLoanCaseByCnic} from '../class/reports';
 import {ReportsService} from '../service/reports.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'search-loan-cases-by-cnic',
@@ -61,6 +62,7 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private _lovService: LovService,
         private layoutUtilsService: LayoutUtilsService,
+        private toastr: ToastrService
     ) {
     }
 
@@ -80,6 +82,12 @@ export class SearchLoanCasesByCnicComponent implements OnInit {
 
 
     find() {
+
+        if (this.searchCnicForm.invalid) {
+            this.toastr.error("Please Enter Required values");
+            this.searchCnicForm.markAllAsTouched()
+            return;
+        }
 
         if ((this.searchCnicForm.controls.Cnic.value == null || this.searchCnicForm.controls.Cnic.value == '') && (this.searchCnicForm.controls.Name.value == null || this.searchCnicForm.controls.Name.value == '') && (this.searchCnicForm.controls.FatherName.value == null || this.searchCnicForm.controls.FatherName.value == '')) {
             this.layoutUtilsService.alertElement('', 'Atleast add any one field among Cnic, Father Name or Customer Name')
