@@ -213,24 +213,23 @@ export class CustomerProfileComponent implements OnInit {
         }
 
         let should_alert = localStorage.getItem('ShouldAlert');
-        debugger;
         if (should_alert == 'true') {
-            if (this.createCustomer.CustomerStatus == 'N') {
-                this.layoutUtilsService.alertElement('Customer is already in Pending State, Please go to Pending List');
-                this.router.navigate(['/dashboard']);
-
-            } else if (this.createCustomer.CustomerStatus == 'A') {
-                this.layoutUtilsService.alertElement('', 'Customer is already in Approved State, Please go to Approved List');
-                this.router.navigate(['/dashboard']);
-
-            } else if (this.createCustomer.CustomerStatus == 'R') {
-                this.layoutUtilsService.alertElement('', 'Customer is already in Refferred-back State, Please go to Referred back List');
-                this.router.navigate(['/dashboard']);
-
-            } else if (this.createCustomer.CustomerStatus == 'P') {
-                this.layoutUtilsService.alertElement('', 'Customer is already in Submitted State, Please go to  Submitted List');
-                this.router.navigate(['/dashboard']);
-            }
+            // if (this.createCustomer.CustomerStatus == 'N') {
+            //     this.layoutUtilsService.alertElement('Customer is already in Pending State, Please go to Pending List');
+            //     this.router.navigate(['/dashboard']);
+            //
+            // } else if (this.createCustomer.CustomerStatus == 'A') {
+            //     this.layoutUtilsService.alertElement('', 'Customer is already in Approved State, Please go to Approved List');
+            //     this.router.navigate(['/dashboard']);
+            //
+            // } else if (this.createCustomer.CustomerStatus == 'R') {
+            //     this.layoutUtilsService.alertElement('', 'Customer is already in Refferred-back State, Please go to Referred back List');
+            //     this.router.navigate(['/dashboard']);
+            //
+            // } else if (this.createCustomer.CustomerStatus == 'P') {
+            //     this.layoutUtilsService.alertElement('', 'Customer is already in Submitted State, Please go to  Submitted List');
+            //     this.router.navigate(['/dashboard']);
+            // }
             localStorage.removeItem('ShouldAlert');
         }
     }
