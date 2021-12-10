@@ -211,7 +211,7 @@ export class CustomerService {
     }
 
     //Find PassBook
-    findPassbookCorrection(cnic) {
+    findPassbookCorrection(cnic, zone, branch) {
         var userInfo = this.userUtilsService.getUserDetails();
 
         var circle = userInfo.UserCircleMappings;
@@ -220,7 +220,7 @@ export class CustomerService {
         circle.forEach((element) => {
             circleIds.push(element.CircleId);
         });
-        var _circles = JSON.stringify(circleIds);
+        var _circles = circleIds.toString();
 
         var request = {
             Circle: {
@@ -230,9 +230,9 @@ export class CustomerService {
                 Cnic: cnic,
             },
             TranId: 0,
-            Branch: userInfo.Branch,
+            Branch: branch,
             User: userInfo.User,
-            Zone: userInfo.Zone,
+            Zone: zone,
         };
 
         return this.http

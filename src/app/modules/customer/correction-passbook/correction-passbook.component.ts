@@ -28,6 +28,10 @@ export class CorrectionPassbookComponent implements OnInit {
     newPassBook: any = [];
     // PassBookRec;
 
+    zone: any;
+    branch: any;
+    circle: any;
+
 
     PassBookRec: PassBookRec[] = [];
 
@@ -47,8 +51,6 @@ export class CorrectionPassbookComponent implements OnInit {
 
     ngOnInit() {
         this.createForm()
-        this.cpForm.controls['Zone'].setValue(this.loggedInUser.Zone.ZoneName);
-        this.cpForm.controls['Branch'].setValue(this.loggedInUser.Branch.Name);
 
         //   Object.keys(this.cpForm.controls).forEach((control: string) => {
         //     const typedControl: AbstractControl = this.cpForm.controls['NewPassBookNo'];
@@ -63,8 +65,6 @@ export class CorrectionPassbookComponent implements OnInit {
 
     createForm() {
         this.cpForm = this.fb.group({
-            Zone: [''],
-            Branch: [''],
             Cnic: ['']
             //NewPassBookNo:['']
         })
@@ -74,7 +74,7 @@ export class CorrectionPassbookComponent implements OnInit {
 
         var cnic = this.cpForm.controls.Cnic.value;
         this.spinner.show();
-        this._customerService.findPassbookCorrection(cnic)
+        this._customerService.findPassbookCorrection(cnic, this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -162,6 +162,12 @@ export class CorrectionPassbookComponent implements OnInit {
                 }
             })
 
+    }
+
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = null;
     }
 
 }
