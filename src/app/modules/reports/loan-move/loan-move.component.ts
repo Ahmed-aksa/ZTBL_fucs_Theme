@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
@@ -16,9 +16,9 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 
 @Component({
-    selector: 'app-voucher-posting-day',
-    templateUrl: './voucher-posting-day.component.html',
-    styleUrls: ['./voucher-posting-day.component.scss'],
+    selector: 'app-loan-move',
+    templateUrl: './loan-move.component.html',
+    styleUrls: ['./loan-move.component.scss'],
     providers: [
         DatePipe,
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -26,7 +26,8 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
 
     ],
 })
-export class VoucherPostingDayComponent implements OnInit {
+
+export class LoanMoveComponent implements OnInit {
 
     bufricationForm: FormGroup;
     selected_b;
@@ -72,7 +73,7 @@ export class VoucherPostingDayComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<VoucherPostingDayComponent>,
+        private dialogRef: MatDialogRef<LoanMoveComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -86,11 +87,6 @@ export class VoucherPostingDayComponent implements OnInit {
 
     public LovCall = new Lov();
 
-    select: Selection[] = [
-        {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '3', description: 'MS Excel (Formatted)'},
-        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
-    ];
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -110,8 +106,6 @@ export class VoucherPostingDayComponent implements OnInit {
             this.bufricationForm.controls.WorkingDate.setValue(null);
         }
     }
-
-
 
     isEnableWorkingDate() {
         var workingDate = this.bufricationForm.controls.WorkingDate.value;
@@ -158,7 +152,7 @@ export class VoucherPostingDayComponent implements OnInit {
     createForm() {
         this.bufricationForm = this.fb.group({
             WorkingDate: [null, Validators.required],
-            VoucherNo: [null],
+            LcNO: [null],
         })
     }
 
@@ -170,7 +164,7 @@ export class VoucherPostingDayComponent implements OnInit {
             return;
         }
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
-        this.reports.ReportsNo = "2";
+        this.reports.ReportsNo = "7";
         this.reports.ReportFormatType = "2";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         if (myWorkingDate._isAMomentObject == undefined) {
@@ -240,9 +234,4 @@ export class VoucherPostingDayComponent implements OnInit {
     }
 
 
-}
-
-export interface Selection {
-    Value: string;
-    description: string;
 }
