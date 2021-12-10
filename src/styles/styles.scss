@@ -619,12 +619,15 @@ img {
     .bg-card{
         display: block !important;
     }
-    .col-lg-3{
-        padding:0 12px;
+    .row{
+        .col-lg-3{
+            padding:0 12px;
+        }
+        .col-lg-4{
+            padding:0 12px;
+        }
     }
-    .col-lg-4{
-        padding:0 12px;
-    }
+
     // #collapseExample {
     //     min-height: 00px;
     // }
