@@ -24,27 +24,12 @@
 
             <div class="form-group kt-form__group row">
 
-                <!-- <kt-alert *ngIf="hasFormErrors" class="col-lg-12" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
-                  Please enter valid Input
-                </kt-alert> -->
 
-                <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                <app-zone-branch-circle [form]="cpForm" [should_show_circle]="false"
+                                        [is_required_circle]="false"
+                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter Tran Date" formControlName="Zone" maxlength="13"
-                               autocomplete="off" readonly="readonly"/>
-                    </mat-form-field>
-                </div>
 
-                <div class="col-lg-3 kt-margin-bottom-20-mobile">
-
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter Tran Date" formControlName="Branch" maxlength="13"
-                               autocomplete="off" readonly="readonly"/>
-                    </mat-form-field>
-                </div>
                 <div class="col-lg-3 kt-margin-bottom-20-mobile">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">CNIC#</mat-label>

@@ -318,7 +318,7 @@ export class CustomerProfileComponent implements OnInit {
             Email: [this.createCustomer?.Email, [Validators.pattern(regExps.email)]],
             BrowserStatus: [this.createCustomer?.BrowserStatus, [Validators.required]],
             Education: [this.createCustomer?.Education, [Validators.required]],
-            Caste: [this.createCustomer ? this.createCustomer.Caste : null, [Validators.required]],
+            Caste: [this.createCustomer.Caste ? this.createCustomer.Caste : null, [Validators.required]],
             Religion: [this.createCustomer?.Religion, [Validators.required]],
             BirthPlace: [this.createCustomer?.BirthPlace],
             RiskCategory: [this.createCustomer.RiskCategory || this.createCustomer.RiskCategory != '-' ? this.createCustomer.RiskCategory : '1', Validators.required],
@@ -400,11 +400,22 @@ export class CustomerProfileComponent implements OnInit {
         }
         let data: any = new Object();
         let customer_Status = null;
-        if (this.createCustomer)
+        let customer_number = null;
+        let caste_code = null;
+        if (this.createCustomer) {
             customer_Status = this.createCustomer.CustomerStatus;
+            customer_number = this.createCustomer.CustomerNumber;
+            caste_code = this.createCustomer.Caste;
+        }
         this.createCustomer = Object.assign(data, this.roleForm.getRawValue());
-        if (customer_Status)
+        if (customer_Status) {
             this.createCustomer.CustomerStatus = customer_Status;
+            this.createCustomer.CustomerNumber = customer_number;
+            if (this.createCustomer.Caste) {
+                this.createCustomer.Caste = caste_code;
+            }
+
+        }
         this.createCustomer = data;
         if (this.createCustomer.Email == null) {
             this.createCustomer.Email = '';
