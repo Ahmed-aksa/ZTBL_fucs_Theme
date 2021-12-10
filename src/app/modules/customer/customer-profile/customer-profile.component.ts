@@ -608,7 +608,6 @@ export class CustomerProfileComponent implements OnInit {
 
         this.PostCodeLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.PostalCode});
 
-
         ////For Search
         this.DistrictLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.District});
 
@@ -739,7 +738,6 @@ export class CustomerProfileComponent implements OnInit {
     LoadPreviousData() {
 
         this.ObjSearchCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
-        localStorage.removeItem('SearchCustomerStatus')
         if (this.ObjSearchCustomer != null && this.ObjSearchCustomer != '') {
 
 
@@ -1161,5 +1159,10 @@ export class CustomerProfileComponent implements OnInit {
     getAllData(event: { final_zone: any; final_branch: any; final_circle: any }) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
+    }
+
+    viewHistory() {
+        localStorage.setItem('CustomerNumber', this.createCustomer.CustomerNumber);
+        this.router.navigate(['/customer/customer-history'])
     }
 }//end of class
