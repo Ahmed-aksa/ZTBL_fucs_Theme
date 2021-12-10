@@ -326,10 +326,13 @@ button:focus {
         .col-lg-4 {
             mat-card {
                 background-color: white;
-                height: 150px;
+                height: 170px;
                 color: #01671B;
                 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
                 border: 1px solid #22c55e !important;
+                p{
+                    font-size: 12px;
+                }
             }
         }
     }

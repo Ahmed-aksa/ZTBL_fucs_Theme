@@ -100,9 +100,9 @@ export class CheckEligibilityComponent implements OnInit {
     private rawData: any = [];
 
     //Urdu
-    UrduName:string='';
-    UrduCity:string='';
-    UrduCurrentAddress:string='';
+    UrduName: string = '';
+    UrduCity: string = '';
+    UrduCurrentAddress: string = '';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -413,8 +413,6 @@ export class CheckEligibilityComponent implements OnInit {
                         this.IsEcibDefaulter = false;
                         this.ECIBPerformSuccess = true;
                         localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
-
-
                     }
 
                     if (this.Customer.ECIBPDFLink == null || this.Customer.ECIBPDFLink == "") {
@@ -425,9 +423,11 @@ export class CheckEligibilityComponent implements OnInit {
                     }
 
                     if (this.CustomerECIB.Message == "Eligible") {
-                        this.ECIBPerform = false;
                         this.ECIBPerformSuccess = true;
                         localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
+                    }
+                    if (this.CustomerECIB.Code == '551') {
+                        this.ECIBPerform = true;
                     }
 
 
