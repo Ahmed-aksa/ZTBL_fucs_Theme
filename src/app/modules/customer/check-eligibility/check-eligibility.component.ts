@@ -426,9 +426,9 @@ export class CheckEligibilityComponent implements OnInit {
                         this.ECIBPerformSuccess = true;
                         localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
                     }
-                    if (this.CustomerECIB.Code == '551') {
-                        this.ECIBPerform = true;
-                    }
+                    // if (this.CustomerECIB.Code == '551') {
+                    //     this.ECIBPerform = true;
+                    // }
 
 
                 } else {
