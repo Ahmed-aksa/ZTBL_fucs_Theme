@@ -23,6 +23,9 @@ import { LaFileProgressComponent } from './la-file-progress/la-file-progress.com
 import { LoanInformationDetailComponent } from './loan-information-detail/loan-information-detail.component';
 import { GetUnsuccessfulLoginComponent } from './get-unsuccessful-login/get-unsuccessful-login.component';
 import { HoZonalExpenseComponent } from './ho-zonal-expense/ho-zonal-expense.component';
+import { MarkOnCaComponent } from './mark-on-ca/mark-on-ca.component';
+import { RecoveryScheduleComponent } from './recovery-schedule/recovery-schedule.component';
+import { LoanMoveComponent } from './loan-move/loan-move.component';
 
 const routing = [
     {
@@ -80,7 +83,10 @@ const routing = [
         LaFileProgressComponent,
         LoanInformationDetailComponent,
         GetUnsuccessfulLoginComponent,
-        HoZonalExpenseComponent
+        HoZonalExpenseComponent,
+        MarkOnCaComponent,
+        RecoveryScheduleComponent,
+        LoanMoveComponent
     ],
     imports: [
         CommonModule,
