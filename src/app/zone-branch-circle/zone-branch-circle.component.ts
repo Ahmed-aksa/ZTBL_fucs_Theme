@@ -229,7 +229,7 @@ export class ZoneBranchCircleComponent implements OnInit {
 
     private addFormControls(should_show_circle) {
         this.form.addControl('ZoneId', new FormControl(null, Validators.required))
-        this.form.addControl('BranchCode', new FormControl(null))
+        this.form.addControl('BranchCode', new FormControl(null, Validators.required))
         if (should_show_circle)
             this.form.addControl('CircleId', new FormControl(null))
     }
