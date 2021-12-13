@@ -51,3 +51,12 @@
       width: 70%;
     }
   }
+
+  .md-tab.md-disabled {
+    display: none;
+  }
+
+  .mat-tab-body-wrapper{
+    height: 100% !important;
+    margin-right: 5%;
+  }
