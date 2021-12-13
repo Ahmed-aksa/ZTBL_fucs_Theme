@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
@@ -9,6 +9,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'kt-correction-passbook',
@@ -44,6 +45,7 @@ export class CorrectionPassbookComponent implements OnInit {
                 private userUtilsService: UserUtilsService,
                 public dialog: MatDialog,
                 private _customerService: CustomerService,
+                private toaster: ToastrService,
                 private router: Router,
     ) {
         this.loggedInUser = userUtilsService.getUserDetails();
@@ -65,14 +67,17 @@ export class CorrectionPassbookComponent implements OnInit {
 
     createForm() {
         this.cpForm = this.fb.group({
-            Cnic: ['']
-            //NewPassBookNo:['']
+            Cnic: [null, Validators.required]
         })
     }
 
     find() {
 
-        var cnic = this.cpForm.controls.Cnic.value;
+        var cnic = this.cpForm.controls['Cnic'].value;
+        if (this.cpForm.invalid) {
+            this.toaster.error("Please enter CNIC");
+            return;
+        }
         this.spinner.show();
         this._customerService.findPassbookCorrection(cnic, this.zone, this.branch)
             .pipe(
