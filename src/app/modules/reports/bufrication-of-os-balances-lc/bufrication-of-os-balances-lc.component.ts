@@ -156,10 +156,10 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
             return;
         }
 
-        Object.keys(this.bufricationForm.controls).forEach((key) => {
-            if (!(key != 'BranchCode' && key != 'CircleId' && key != 'ZoneId'))
-                this.bufricationForm.get(key).reset();
-        });
+        // Object.keys(this.bufricationForm.controls).forEach((key) => {
+        //     if (!(key != 'BranchCode' && key != 'CircleId' && key != 'ZoneId'))
+        //         this.bufricationForm.get(key).reset();
+        // });
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "18";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
