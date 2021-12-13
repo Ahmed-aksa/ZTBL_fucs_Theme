@@ -26,6 +26,8 @@ import { HoZonalExpenseComponent } from './ho-zonal-expense/ho-zonal-expense.com
 import { MarkOnCaComponent } from './mark-on-ca/mark-on-ca.component';
 import { RecoveryScheduleComponent } from './recovery-schedule/recovery-schedule.component';
 import { LoanMoveComponent } from './loan-move/loan-move.component';
+import { GlMoveComponent } from './gl-move/gl-move.component';
+import { StatementOfAffairsComponent } from './statement-of-affairs/statement-of-affairs.component';
 
 const routing = [
     {
@@ -86,7 +88,9 @@ const routing = [
         HoZonalExpenseComponent,
         MarkOnCaComponent,
         RecoveryScheduleComponent,
-        LoanMoveComponent
+        LoanMoveComponent,
+        GlMoveComponent,
+        StatementOfAffairsComponent
     ],
     imports: [
         CommonModule,

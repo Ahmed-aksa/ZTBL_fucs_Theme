@@ -26,7 +26,7 @@ export class GeoFencingListComponent implements OnInit {
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
-
+    gridHeight: string;
     products: any;
     displayedColumns = [
         'CircleCodes',
@@ -83,6 +83,7 @@ export class GeoFencingListComponent implements OnInit {
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.gridHeight = window.innerHeight - 400 + 'px';
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {

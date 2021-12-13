@@ -1,5 +1,5 @@
 <div
-    class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto overflow-x-hidden min-w-0 sm:overflow-y-auto bg-card dark:bg-transparent">
     <div class="text-3xl mt-3 font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
          style="background-color: #f6fcf8;">Loan Case Inquiry
     </div>
@@ -65,8 +65,8 @@
     <div class="flex flex-auto overflow-y-scroll">
 
         <!-- Products list -->
-        <div class="flex flex-auto overflow-y-scroll" style="flex-direction: column;">
-            <div class="flex flex-col flex-auto sm:mb-4 overflow-scroll sm:overflow-y-auto">
+        <div class="flex flex-auto  overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
+            <div class="flex flex-col flex-auto sm:mb-4  overflow-x-hidden sm:overflow-y-auto">
                 <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound && dataFound">
 
                     <div class="col-lg-12">
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 my-3">
                         <mat-tab-group mat-align-tabs="start">
                             <mat-tab label="Applicants">
                                 <div class="table-responsive">
@@ -137,7 +137,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList.dtGetPurposeLoanApplication.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList.dtGetPurposeLoanApplication.length==0">Data not found.</p>
                             </mat-tab>
                             <mat-tab label="Purpose">
                                 <div class="table-responsive">
@@ -169,7 +169,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList.dtGetPurposeLoanApplication.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList.dtGetPurposeLoanApplication.length==0">Data not found.</p>
                             </mat-tab>
                             <mat-tab label="Land Information">
                                 <div class="table-responsive">
@@ -199,7 +199,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList.GetLandInformationByloanappId.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList.GetLandInformationByloanappId.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="Loan Securities">
@@ -228,7 +228,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList.GetSecurityLoanApplication.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList.GetSecurityLoanApplication.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="Customer Legal Heirs">
@@ -257,7 +257,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList.GetLegalheirsLoanApplication.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList.GetLegalheirsLoanApplication.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="Appraisal of Proposed Investment">
@@ -338,7 +338,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetProposedCrops?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetProposedCrops?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="Loan Documents">
@@ -366,7 +366,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetDocumentLoanApplication?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetDocumentLoanApplication?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="References">
@@ -397,7 +397,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetLoanReferanceDetail?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetLoanReferanceDetail?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="Witnesses">
@@ -419,7 +419,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetWitnessDetail?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetWitnessDetail?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="CWR">
@@ -450,7 +450,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetCWR?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetCWR?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="ORR">
@@ -476,7 +476,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetORR?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetORR?.length==0">Data not found.</p>
                             </mat-tab>
 
 
@@ -515,7 +515,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetSanctionList?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetSanctionList?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="SAC Checklist">
@@ -548,7 +548,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetSAC?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetSAC?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="DAC Checklist">
@@ -579,7 +579,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetDAC?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetDAC?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="Declarations">
@@ -601,7 +601,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetDeclarations?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetDeclarations?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="Work Flow">
@@ -625,7 +625,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetWorkFlow?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetWorkFlow?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="Rollover Activity">
@@ -664,7 +664,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetRolloverActivity?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetRolloverActivity?.length==0">Data not found.</p>
                             </mat-tab>
 
                             <mat-tab label="Reschedule Activity">
@@ -703,7 +703,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="dynamicList?.GetRescheduleActivity?.length==0">Data not found.</h3>
+                                <p *ngIf="dynamicList?.GetRescheduleActivity?.length==0">Data not found.</p>
                             </mat-tab>
                         </mat-tab-group>
                     </div>
@@ -712,7 +712,7 @@
                 <div class="form-group kt-form__group row" *ngIf="dataFetched==true && dataFound">
 
                     <div class="col-lg-12">
-                        <h3>Disbursements / Recoveries</h3>
+                        <h3 class="heading">Disbursements / Recoveries</h3>
                         <div class="table-responsive">
                             <table class="table table-striped"
                                    *ngIf="dynamicList?.GetDisbursementsRecoveries?.length>0">
@@ -778,10 +778,10 @@
                                 </tbody>
                             </table>
                         </div>
-                        <h3 *ngIf="dynamicList?.GetDisbursementsRecoveries?.length==0">Data not found.</h3>
+                        <p *ngIf="dynamicList?.GetDisbursementsRecoveries?.length==0">Data not found.</p>
                     </div>
 
-                    <div class="col-lg-12" *ngIf="recoveryDataFetched">
+                    <div class="col-lg-12 my-3" *ngIf="recoveryDataFetched">
                         <mat-tab-group mat-align-tabs="start">
                             <mat-tab label="Installments Detail">
                                 <div class="table-responsive">
@@ -821,7 +821,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <h3 *ngIf="recoveryList?.GetLoanInstallments?.length==0">Data not found.</h3>
+                                <p *ngIf="recoveryList?.GetLoanInstallments?.length==0">Data not found.</p>
                             </mat-tab>
                             <mat-tab label="Transactions Recoveries/Disbursment">
                                 <table class="table table-striped table-bordered"
@@ -853,7 +853,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <h3 *ngIf="recoveryList?.GetAllDisbursementRecoveries?.length==0">Data not found.</h3>
+                                <p *ngIf="recoveryList?.GetAllDisbursementRecoveries?.length==0">Data not found.</p>
                             </mat-tab>
                             <mat-tab label="J.V Transactions">
                                 <table class="table table-striped table-bordered"
@@ -884,7 +884,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <h3 *ngIf="recoveryList.GetLoanJVTransaction.length==0">Data not found.</h3>
+                                <p *ngIf="recoveryList.GetLoanJVTransaction.length==0">Data not found.</p>
                             </mat-tab>
                             <mat-tab label="Balances (PD/CD/ND)">
                                 <table class="table table-striped table-bordered"
@@ -927,7 +927,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <h3 *ngIf="recoveryList?.GetBalancesPDCDND?.length==0">Data not found.</h3>
+                                <p *ngIf="recoveryList?.GetBalancesPDCDND?.length==0">Data not found.</p>
                             </mat-tab>
                             <mat-tab label="Recovery (During the Year)">
                                 <table class="table table-striped table-bordered"
@@ -972,7 +972,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <h3 *ngIf="recoveryList?.GetRecoveryDuringYear?.length==0">Data not found.</h3>
+                                <p *ngIf="recoveryList?.GetRecoveryDuringYear?.length==0">Data not found.</p>
                             </mat-tab>
                         </mat-tab-group>
                     </div>
