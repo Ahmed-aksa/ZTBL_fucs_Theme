@@ -22,7 +22,7 @@
         <div class="card card-body">
 
 
-            <div class="form-group kt-form__group row" [formGroup]="cpForm">
+            <div class="flex" style="flex-wrap: wrap;">
 
 
                 <app-zone-branch-circle [form]="cpForm" [should_show_circle]="false"
@@ -30,7 +30,7 @@
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
 
-                <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">CNIC#</mat-label>
                         <!-- <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic" formControlName="Cnic"  maxlength="13" autocomplete="off" [readonly]="viewOnly"/> -->
@@ -38,9 +38,9 @@
                                autocomplete="off"/>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                <div class="flex flex-shrink-0 items-center  sm:mt-0 mx-2" style="width: 225px;">
                     <input type="button" mat-raised-button color="primary"
-                           class=" bg-gray-500 mt-2 mat-raised-button mat-button-base mat-primary searchLCBtn"
+                           class=" bg-gray-500 mat-raised-button mat-button-base mat-primary searchLCBtn"
                            value="Find" (click)="find()"/>
                     <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
                 </div>
