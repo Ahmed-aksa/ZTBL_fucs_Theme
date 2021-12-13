@@ -171,6 +171,12 @@ export class CustomerProfileComponent implements OnInit {
             this.IsLoadPreviousData = false;
             localStorage.removeItem('CreateCustomerBit');
         }
+        let is_edit_mode = localStorage.getItem('is_view');
+        if (is_edit_mode) {
+            this.HideShowSaveButton = false;
+            localStorage.removeItem('is_view');
+        }
+
         this.CurrentDate = new Date();
         this.CurrentDate = this.datePipe.transform(this.CurrentDate, MaskEnum.DateFormat);
         this.LoadLovs();
@@ -208,14 +214,6 @@ export class CustomerProfileComponent implements OnInit {
             .subscribe(() => {
                 this.filterOccupation();
             });
-        if (JSON.parse(localStorage.getItem('SearchCustomerStatus')).CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
-
-            this.HideShowSaveButton = true;
-        } else if (this.createCustomer.CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
-            this.HideShowSaveButton = true;
-        } else {
-            this.HideShowSaveButton = false;
-        }
 
         let should_alert = localStorage.getItem('ShouldAlert');
         if (should_alert == 'true') {
@@ -888,7 +886,6 @@ export class CustomerProfileComponent implements OnInit {
                 this.roleForm.disable();
                 //this.roleForm.controls["Gender"].disabled;
                 this.isGenderDisabled = true;
-                this.HideShowSaveButton = false;
                 this.CurrentAddressreadoly = true;
             } else {
                 this.CurrentAddressreadoly = false;
