@@ -230,7 +230,13 @@ export class UploadDocumentsComponent implements OnInit {
                 );
                 return;
             }
-            this.loanDocument.LcNo = this.LoanCaseId;
+            if(!this.LoanCaseId){
+                this.loanCase();
+                return false;
+            }else{
+                this.loanDocument.LcNo = this.LoanCaseId;
+            }
+
 
             this.spinner.show();
             this._loanService.documentUpload(this.loanDocument)
@@ -254,10 +260,12 @@ export class UploadDocumentsComponent implements OnInit {
     }
 
     loanCase() {
+        debugger
         var LoanDoc = this.PostDocument.controls.DocLoanId.value;
 
-        if (LoanDoc) {
-            //
+        if (LoanDoc == undefined && LoanDoc == null) {
+            this.layoutUtilsService.alertElement('', 'Please select Loan Type');
+            return
         }
 
         this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, LoanDoc, this.branch, this.zone)
@@ -271,7 +279,7 @@ export class UploadDocumentsComponent implements OnInit {
                 this.PostDocument.controls['LoanStatus'].setValue(response.AppStatusName);
                 this.PostDocument.controls['CategoryName'].setValue(response.CategoryName);
                 this.LoanCaseId = response.DocumentLoanCaseID;
-
+                this.saveLoanDocuments();
 
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
