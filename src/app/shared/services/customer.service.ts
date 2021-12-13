@@ -409,7 +409,8 @@ export class CustomerService {
         request.User = userInfo.User;
         request.Branch = userInfo.Branch;
         request.Zone = userInfo.Zone;
-        request.Circle = userInfo?.UserCircleMappings[0];
+        if (userInfo.UserCircleMappings?.length > 0)
+            request.Circle = userInfo?.UserCircleMappings[0];
         request.Customer = {
             CustomerNumber: customer_number,
         }

@@ -208,7 +208,7 @@ export class CustomerProfileComponent implements OnInit {
             .subscribe(() => {
                 this.filterOccupation();
             });
-        if (JSON.parse(localStorage.getItem('SearchCustomerStatus')).CustomerStatus == 'N') {
+        if (JSON.parse(localStorage.getItem('SearchCustomerStatus')).CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
 
             this.HideShowSaveButton = true;
         } else if (this.createCustomer.CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
@@ -1180,6 +1180,8 @@ export class CustomerProfileComponent implements OnInit {
 
     viewHistory() {
         localStorage.setItem('CustomerNumber', this.createCustomer.CustomerNumber);
-        this.router.navigate(['/customer/customer-history'])
+        // this.router.navigate(['/customer/customer-history'])
+        const url = this.router.serializeUrl(this.router.createUrlTree(['/customer/customer-history'], {queryParams: {}}));
+        window.open(url, '_blank');
     }
 }//end of class
