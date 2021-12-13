@@ -19,6 +19,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatIconModule} from "@angular/material/icon";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SetTargetService} from "./set-target/Services/set-target.service";
+import {SharedModule} from "../../shared/shared.module";
 
 const routing = [
     {
@@ -52,7 +53,7 @@ const routing = [
     imports: [
         CommonModule,
         RouterModule.forChild(routing),
-
+        SharedModule,
         ReactiveFormsModule,
         MatFormFieldModule,
         MatOptionModule,
