@@ -148,7 +148,7 @@ export class CustomerService {
 
     searchCustomer(
         customer: CreateCustomer, branch = null, zone = null,
-        userDetail = null, offset = null, itemperpage = null
+        userDetail = null, offset = 0, itemperpage = 10
     ): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
 
@@ -316,11 +316,11 @@ export class CustomerService {
     UploadImagesSetData(Image: any) {
     }
 
-    public UploadImagesCallAPI(Image, CustomerNumber) {
+    public UploadImagesCallAPI(Image, CustomerCnic) {
         const formData = new FormData();
         formData.append('file', Image);
         formData.append('Description', 'Profile Picture customer#create');
-        formData.append('CustomerNumber', CustomerNumber);
+        formData.append('CustomerCnic', CustomerCnic);
         formData.append('PageNumber', '1');
 
         return this.http

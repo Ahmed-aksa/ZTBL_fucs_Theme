@@ -260,7 +260,8 @@
                                     <p *ngIf="UrduName!=undefined && UrduName!=''" class="text-right"> {{UrduName}}</p>
                                     <input matInput placeholder="Enter Name" appAlphabetOnly
                                            formControlName="CustomerName" maxlength="50" autocomplete="off" readonly/>
-                                    <mat-error *ngIf="hasError('CustomerName', 'required')">Name <strong>required</strong>
+                                    <mat-error *ngIf="hasError('CustomerName', 'required')">Name
+                                        <strong>required</strong>
                                     </mat-error>
                                     <mat-hint align="left">Please enter Name</mat-hint>
                                 </mat-form-field>

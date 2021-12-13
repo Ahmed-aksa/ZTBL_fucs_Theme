@@ -1,3 +1,5 @@
+<div class="block">
+    
 <div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
 
     <div class="row pt-3">
@@ -69,15 +71,15 @@
 
     <!-- Header -->
     <div
-        [formGroup]="utilizationSearch">
+        [formGroup]="utilizationSearch" class="flex flex-auto overflow-auto">
 
 
         <!-- Main -->
 
         <!-- Products list -->
-        <div class="flex flex-auto overflow-auto shadow-xs rounded-sm bg-gray-50" style="flex-direction: column;"
+        <div class="flex flex-auto shadow-xs rounded-sm bg-gray-50" style="flex-direction: column;"
              [style.height]="gridHeight">
-            <div class="flex flex-col flex-auto overflow-auto sm:mb-6"
+            <div class="flex flex-col flex-auto "
             >
                 <mat-table class="lmat-elevation-z8" #table
                            [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
@@ -162,7 +164,9 @@
 
         </div>
 
-        <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
+
+    </div>
+            <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
             Items per page:
             <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
                         style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
@@ -178,5 +182,6 @@
             <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
         </div>
-    </div>
+</div>
+
 </div>

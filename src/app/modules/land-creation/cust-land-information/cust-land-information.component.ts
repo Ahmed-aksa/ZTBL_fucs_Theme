@@ -596,9 +596,10 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     AreaConvertor() {
-
+debugger
         const dialogRef = this.dialog.open(AreaConverterComponent, {data: {}, disableClose: true});
         dialogRef.afterClosed().subscribe(res => {
+            console.log(res)
             if (res.data.TotalArea != undefined)
                 this.LandInformationForm.controls['TotalArea'].setValue(res.data.TotalArea);
             if (!res) {
