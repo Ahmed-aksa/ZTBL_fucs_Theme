@@ -19,7 +19,7 @@
     </div>
 
     <div class="collapse show" id="collapseExample">
-        <div class="card card-body">
+        <div class="card card-body" [formGroup]="cpForm">
 
 
             <div class="flex" style="flex-wrap: wrap;">
@@ -56,7 +56,6 @@
          style="flex-wrap: wrap">
     </div>
     <div class="flex flex-auto overflow-y-scroll" style="flex-direction: column;">
-        <form [formGroup]="cpForm" class="kt-form kt-form--group-seperator-dashed">
 
             <div *ngIf="afterFind" class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                 <div class="kt-portlet__head-label">
@@ -173,7 +172,6 @@
 
             </div>
 
-        </form>
         <!-- <pre>
           {{PassBookRec|json}}
         </pre> -->
