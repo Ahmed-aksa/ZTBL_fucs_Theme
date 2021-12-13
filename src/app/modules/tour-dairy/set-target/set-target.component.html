@@ -66,11 +66,15 @@
                                 </div>
                             </div>
                             <div *ngIf="key!='Name'">
-                                <div class="mat-form-field-fluid" appearance="outline">
-                                    <input matInput (keypress)="numberOnly($event)"
-                                           [attr.value]="row[key]"
-                                           (input)="onInputChanged($event.target.value, rowIndex, key)"
-                                    />
+                                <div class="mat-form-field-fluid" appearance="outline"
+                                >
+                                    <mat-form-field [style.Border]="row[key]=='0'?'2px solid red':''">
+                                        <input matInput (keypress)="numberOnly($event)"
+                                               [attr.value]="row[key]"
+                                               (input)="onInputChanged($event.target.value, rowIndex, key)"
+
+                                        />
+                                    </mat-form-field>
                                 </div>
                             </div>
                         </td>
