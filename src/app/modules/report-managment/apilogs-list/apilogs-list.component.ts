@@ -18,6 +18,8 @@ import {fromMatPaginator, fromMatSort, paginateRows, sortRows} from './datasourc
 import {MatExpansionPanel} from "@angular/material/expansion";
 import {MAT_DATE_LOCALE} from "@angular/material/core";
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from "@angular/material-moment-adapter";
+import {DatePipe} from "@angular/common";
+import {CommonService} from "../../../shared/services/common.service";
 
 @Component({
     selector: 'app-apilogs-list',
@@ -61,7 +63,9 @@ export class ApilogsListComponent implements OnInit {
         private filterFB: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
         private _reportservice: ReportService,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
+        private _common: CommonService,
+        private datePipe: DatePipe,
     ) {
 
     }
@@ -114,6 +118,7 @@ export class ApilogsListComponent implements OnInit {
 
 
     comparisonEnddateValidator(): any {
+        debugger
         let ldStartDate = this.FilterForm.value['StartDate'];
         let ldEndDate = this.FilterForm.value['EndDate'];
 
@@ -130,6 +135,7 @@ export class ApilogsListComponent implements OnInit {
     }
 
     comparisonStartdateValidator(): any {
+        debugger
         let ldStartDate = this.FilterForm.value['StartDate'];
         let ldEndDate = this.FilterForm.value['EndDate'];
 
@@ -147,7 +153,7 @@ export class ApilogsListComponent implements OnInit {
 
 
     loadApiLogs() {
-
+        debugger
         this.reportFilter = Object.assign(this.reportFilter, this.FilterForm.value, this.panelOpenState = false);
         // var d = new Date(this.reportFilter.StartDate);
         // d.setDate(d.getDate() + 1);
@@ -155,7 +161,10 @@ export class ApilogsListComponent implements OnInit {
         //
         // var d2 = new Date(this.reportFilter.EndDate);
         // d2.setDate(d2.getDate() + 1);
+
         // this.reportFilter.EndDate = String(d2);
+        this.reportFilter.StartDate = this.datePipe.transform(this.FilterForm.value.StartDate, 'dd-MM-YYYY');
+        this.reportFilter.EndDate = this.datePipe.transform(this.FilterForm.value.EndDate, 'dd-MM-YYYY');
 
         if (isNaN(this.reportFilter.TranId)) {
             this.reportFilter.ApiName = String(this.reportFilter.TranId);
