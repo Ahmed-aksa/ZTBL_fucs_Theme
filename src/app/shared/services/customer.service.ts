@@ -148,7 +148,7 @@ export class CustomerService {
 
     searchCustomer(
         customer: CreateCustomer, branch = null, zone = null,
-        userDetail = null, offset = null, itemperpage = null
+        userDetail = null, offset = 0, itemperpage = 10
     ): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
 
