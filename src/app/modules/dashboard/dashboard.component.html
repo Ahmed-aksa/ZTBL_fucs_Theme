@@ -24,9 +24,9 @@
          <div class="overlay" *ngIf="popup">
              <div class="popup">
                  <h2 class="heading">Session Expire ! </h2>
-                 <a class="close text-red-500" (click)="popup = false">&times;</a>
+                 <!-- <a class="close text-red-500" (click)="popup = false">&times;</a> -->
                  <div class="content my-4">
-                  <p>Your Session is going to expire within {{time}}; Seconds.</p>
+                  <p>Your Session is going to expire within <b> {{time}}</b> Second(s).</p>
                     <p>Please do an action.</p>
                  </div>
                  <div class="row text-right">
@@ -39,9 +39,8 @@
     
                         &nbsp;
                         <button type="button" (click)="Logout()" class="btn btn-primary bg-red-500" mat-raised-button color="primary">
-                            <mat-icon class="mr-2">cancel</mat-icon>
-
-                            Cancel
+                            <mat-icon class="mr-2">login</mat-icon>
+                            Logout
                         </button>
                     </div>
                 </div>
