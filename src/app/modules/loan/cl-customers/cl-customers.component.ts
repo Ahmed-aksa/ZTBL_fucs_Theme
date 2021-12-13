@@ -260,6 +260,7 @@ export class ClCustomersComponent implements OnInit {
                                 const dialogRef = this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                                 this.loan_data.splice(index, 1);
                                 localStorage.setItem('customer_loan_list', JSON.stringify(this.loan_data));
+                                localStorage.setItem('delete_security', 'true');
                             } else {
                                 this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                             }
