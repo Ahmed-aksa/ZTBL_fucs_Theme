@@ -565,7 +565,7 @@ export class CustomerProfileComponent implements OnInit {
 
     UploadProfilePicture() {
 
-        this._customerService.UploadImagesCallAPI(this.ProfileImageData, this.createCustomer.CustomerNumber)
+        this._customerService.UploadImagesCallAPI(this.ProfileImageData, this.createCustomer.Cnic)
             .pipe(
                 finalize(() => {
 
