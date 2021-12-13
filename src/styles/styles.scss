@@ -17,6 +17,8 @@ body {
     font-family: 'Poppins', sans-serif !important;
 }
 
+
+
 .trend-dialog {
     overflow-y: hidden;
 
@@ -623,7 +625,13 @@ img {
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
 
     ::-webkit-scrollbar { display:none }
-
+    pagination-controls{
+    pagination-template{
+        .ngx-pagination{
+            margin: 0px;
+        }
+    }
+    }
     .bg-card{
         display: block !important;
     }
