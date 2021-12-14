@@ -57,13 +57,14 @@
                     <ng-container *ngFor="let key of rowKeys; trackBy: tracker">
                         <td *ngIf="key!='Id'">
                             <div *ngIf="key=='Name'">
-                                <div class="mat-form-field-fluid" appearance="outline">
-                                    <input matInput readonly disabled
-                                           type="text"
-                                           [attr.value]="row[key]"
-                                           (input)="onInputChanged($event.target.value, rowIndex, key)"
-                                    />
-                                </div>
+<!--                                <div class="mat-form-field-fluid" appearance="outline">-->
+<!--                                    <input matInput readonly disabled-->
+<!--                                           type="text"-->
+<!--                                           [attr.value]="row[key]"-->
+<!--                                           (input)="onInputChanged($event.target.value, rowIndex, key)"-->
+<!--                                    />-->
+<!--                                </div>-->
+                                <div><strong>{{row[key]}}</strong></div>
                             </div>
                             <div *ngIf="key!='Name'">
                                 <div class="mat-form-field-fluid" appearance="outline"
