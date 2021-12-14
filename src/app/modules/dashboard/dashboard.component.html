@@ -1,4 +1,8 @@
-<mat-tab-group animationDuration="200ms" style="background-color: white;margin-top:1%">
+<div
+    class=" px-10   sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
+
+<mat-tab-group class="pt-4 flex flex-auto  shadow-xs rounded-sm"
+style="flex-direction: column; overflow-y: scroll" animationDuration="200ms" style="background-color: white;">
 
     <mat-tab ng-disable="visibleFlag" label="MCO">
         <app-mco-dashborad></app-mco-dashborad>
@@ -58,4 +62,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
