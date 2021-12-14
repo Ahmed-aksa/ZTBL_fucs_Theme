@@ -5,26 +5,31 @@ import {
     HttpEvent,
     HttpInterceptor,
     HttpErrorResponse,
-    HttpClient
+    HttpClient, HttpResponse
 } from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
-import {catchError, filter, switchMap, take} from 'rxjs/operators';
+import {catchError, filter, map, switchMap, take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {result} from 'lodash';
 import {LayoutUtilsService} from '../services/layout_utils.service';
 import {AuthService} from 'app/core/auth/auth.service';
 import {NgxSpinnerService} from "ngx-spinner";
-import {AES} from "crypto-js";
+// import {AES} from "crypto-js";
+// const NodeRSA = require('node-rsa');
+import * as NodeRSA from 'node-rsa';
 
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+    private RSA: any;
+
     constructor(private layoutUtilsService: LayoutUtilsService,
                 private _authService: AuthService,
                 private injector: Injector, private router: Router,
                 private http: HttpClient,
-                private spinner: NgxSpinnerService
+                private spinner: NgxSpinnerService,
+                private rsa: NodeRSA
     ) {
     }
 
@@ -41,7 +46,12 @@ export class TokenInterceptor implements HttpInterceptor {
         // let key = environment.AesKey;
         // console.log(AES.encrypt(JSON.stringify(req.body), key).toString());
         // debugger;
-        return next.handle(authReq).pipe(catchError(error => {
+        return next.handle(authReq).pipe(map((event: HttpEvent<any>) => {
+            if (event instanceof HttpResponse) {
+                // this.modifyBody(event.body);
+            }
+            return event;
+        })).pipe(catchError(error => {
             if (error.status === 403) {
                 this.layoutUtilsService.AlertElementCapture(error.error.Message);
                 return throwError(error);
