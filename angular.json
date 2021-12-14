@@ -165,5 +165,5 @@
     "cli": {
         "analytics": "556221e5-0977-4d14-be24-376a2eec51ed",
         "defaultCollection": "@angular-eslint/schematics"
-    }
+    },
 }
