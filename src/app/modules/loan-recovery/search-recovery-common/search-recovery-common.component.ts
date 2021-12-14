@@ -169,7 +169,9 @@ export class SearchRecoveryCommonComponent implements OnInit {
             this.RecoveryForm.controls.Status.setValue("P");
         }
     }
-
+    ngAfterViewInit() {
+        this.gridHeight = window.innerHeight - 220 + 'px';
+    }
     getKeys(obj: any) {
         return Object.keys(obj);
     }
