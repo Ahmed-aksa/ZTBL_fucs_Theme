@@ -6,6 +6,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LoanService} from 'app/shared/services/loan.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 
 @Component({
@@ -17,38 +18,83 @@ export class CalculateDbrComponent implements OnInit {
     dataSource = new LoanDbr();
     public LnTransactionID: string;
     public Lcno: string;
+    DBRForm: FormGroup;
 
+    totalDBRIncome:number=0;
+    totalDBRLiabilities:number=0;
+    DBR:number=0;
     constructor(private route: ActivatedRoute,
                 private _loanService: LoanService,
                 private cdRef: ChangeDetectorRef,
                 private layoutUtilsService: LayoutUtilsService,
-                private spinner: NgxSpinnerService) {
+                private spinner: NgxSpinnerService,
+                private fb: FormBuilder,) {
     }
 
     ngOnInit() {
+       this.createForm()
     }
-
+    createForm(){
+        this.DBRForm = this.fb.group({
+            Liabilites: [this.totalDBRLiabilities],
+            Income: [this.totalDBRIncome],
+            DBR: [this.DBR],
+        });
+    }
     ngAfterViewInit() {
 
         this.LnTransactionID = this.route.snapshot.params['LnTransactionID'];
         this.Lcno = this.route.snapshot.params['Lcno'];
         if ((this.LnTransactionID != undefined && this.LnTransactionID != null) && (this.Lcno != undefined && this.Lcno != null)) {
             this.searchLoanDbr();
-
         }
-
-
     }
 
     onIncomeChange(e) {
         let index = this.dataSource.DBRIncomeList.findIndex(inc => inc.ID === e.srcElement.id);
         this.dataSource.DBRIncomeList[index].Value = e.srcElement.value;
-    }
 
+        this.DototalIncome()
+    }
     onLiabChange(e) {
         let index = this.dataSource.DBRLiabilitiesList.findIndex(inc => inc.ID === e.srcElement.id);
         this.dataSource.DBRLiabilitiesList[index].Value = e.srcElement.value;
+
+
+        this.DototalLiabilities();
+
     }
+    DototalLiabilities(){
+        this.totalDBRLiabilities=0;
+        for(let i=0;i<this.dataSource.DBRLiabilitiesList.length;i++){
+            if(this.dataSource.DBRLiabilitiesList[i].Value){
+                this.totalDBRLiabilities = this.totalDBRLiabilities + Number(this.dataSource.DBRLiabilitiesList[i].Value);
+            }
+
+        }
+        this.DBRForm.controls["Liabilites"].setValue(this.totalDBRLiabilities)
+        this.DototalDBR()
+    }
+    DototalIncome(){
+        this.totalDBRIncome=0;
+        for(let i=0;i<this.dataSource.DBRIncomeList.length;i++){
+            if(this.dataSource.DBRIncomeList[i].Value){
+                this.totalDBRIncome = this.totalDBRIncome + Number(this.dataSource.DBRIncomeList[i].Value);
+            }
+        }
+        if(this.totalDBRIncome){
+
+        }
+        this.DBRForm.controls["Income"].setValue(this.totalDBRIncome)
+        this.DototalDBR()
+    }
+
+   DototalDBR(){
+        this.DBR=0;
+     this.DBR =  Math.round((this.totalDBRLiabilities / this.totalDBRIncome)*100)
+       this.DBRForm.controls["DBR"].setValue(this.DBR)
+    }
+
 
     //checkAdult(id) {
     //  return  >= 18;
@@ -103,6 +149,9 @@ export class CalculateDbrComponent implements OnInit {
                         this.dataSource = baseResponse.Loan.DBR;
                         this.dataSource.LoanAppID = Number(this.LnTransactionID);
                         this.cdRef.detectChanges();
+                        this.DototalIncome();
+                        this.DototalLiabilities();
+
                     } else {
 
                         this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
