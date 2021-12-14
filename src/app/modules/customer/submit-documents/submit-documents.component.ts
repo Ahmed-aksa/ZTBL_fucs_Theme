@@ -71,6 +71,7 @@ export class SubmitDocumentsComponent implements OnInit {
             return 0;
         }
         let has_error = false;
+        this.spinner.show();
         this.rawData?.forEach((single_file, index) => {
             if (!has_error) {
                 // @ts-ignore
@@ -92,9 +93,15 @@ export class SubmitDocumentsComponent implements OnInit {
 
                 });
             } else {
+                this.spinner.hide();
                 this.layoutUtilsService.alertMessage("", "Something bad happened, Please try again");
                 this.matDialogRef.close();
             }
         });
+        this.spinner.hide();
+        this.matDialogRef.close();
+        this.layoutUtilsService.alertElementSuccess("", "Documents Submitted Successfully");
+
+
     }
 }
