@@ -70,13 +70,11 @@
                         <td class="col-lg-3">
                             <form class="kt-form kt-form--group-seperator-dashed">
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                    <!--<div class="col-lg-9 kt-margin-bottom-20-mobile">-->
                                     <mat-label class="customMatLabel"> {{item.ItemName}} <strong
                                         class="matMandatory">* </strong></mat-label>
                                     <input type="text" matInput placeholder="Enter '+ {{item.ItemName}} + '"
                                            id="{{item.ID}}" value="{{item.Value}}" (keydown)="onIncomeChange($event)" (keyup)="onIncomeChange($event)"
                                            autocomplete="off"/>
-                                    <!--</div>-->
                                 </mat-form-field>
                             </form>
                         </td>
@@ -101,28 +99,16 @@
                         <td class="col-lg-9">{{liab.ItemName}}</td>
                         <td class="col-lg-3">
                             <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                <!--<div class="col-lg-9 kt-margin-bottom-20-mobile">-->
                                 <mat-label class="customMatLabel"> {{liab.ItemName}} <strong
                                     class="matMandatory">* </strong></mat-label>
                                 <input type="text" matInput placeholder="Enter '+ {{liab.ItemName}} + '"
                                        id="{{liab.ID}}" value="{{liab.Value}}"  (keydown)="onLiabChange($event)" (keyup)="onLiabChange($event)"
                                        autocomplete="off"/>
-                                <!--</div>-->
                             </mat-form-field>
                         </td>
                     </tr>
-<!--                    <tr>-->
-<!--                        <th class="col-lg-9">Total Income</th>-->
-<!--                        <th class="col-lg-9">Total Liabilities</th>-->
-<!--                    </tr>-->
-                    <!--</form>-->
                     </tbody>
                 </table>
-<!--                {{totalDBRIncome|json}}-->
-
-<!--                {{totalDBRLiabilities|json}}-->
-<!--                {{DBR|json}}-->
-<!--                <input [value]="t">-->
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -171,9 +157,3 @@
         </div>
 
     </div>
-
-
-
-
-
-
