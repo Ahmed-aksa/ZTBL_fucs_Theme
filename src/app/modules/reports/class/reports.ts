@@ -37,4 +37,5 @@ export class Bufrication {
     ToDate: string;
     FromDate: string;
     SummaryOnly: number;
+    BatchID: string;
 }

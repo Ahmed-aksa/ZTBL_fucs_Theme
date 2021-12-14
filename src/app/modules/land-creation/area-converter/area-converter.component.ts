@@ -1,5 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormGroup} from "@angular/forms";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {KtDialogService} from "../../../shared/services/kt-dialog.service";
+import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-area-converter',
@@ -19,6 +23,11 @@ export class AreaConverterComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    constructor(
+        public dialogRef: MatDialogRef<AreaConverterComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any,
+       ) { }
+
     AreaConverter() {
 
         if (this.Area != undefined) {
@@ -37,6 +46,6 @@ export class AreaConverterComponent implements OnInit {
     }
 
     onCloseClick() {
-
+        this.dialogRef.close({ data: { TotalArea: this.Result.toString() } }); // Keep only this row
     }
 }
