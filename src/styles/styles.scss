@@ -629,6 +629,20 @@ img {
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .text-white{
+        color: white !important;
+    }
+    .bg-red-500 {
+        background-color: #ef4444 !important;
+    }
+    .calculator-img{
+        padding: 7px;
+    }
+
+    .fuse-alert-message{
+        color: #ef4444;
+        width: 337px;
+    }
 
     ::-webkit-scrollbar { display:none }
     pagination-controls{
