@@ -4,7 +4,7 @@
     <div class="example-container">
         <form [formGroup]="options">
             <div class="row pt-2">
-                <div class="col-lg-4">
+                <div class="col-lg-4 pl-0">
                     <mat-form-field  class="w-full" appearance="outline">
                         <mat-label>Date</mat-label>
                         <input matInput [matDatepicker]="picker">
@@ -23,8 +23,8 @@
             <div class="flex flex-inline overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
             <div class="row pb-4">
                 <div  class="col-lg-4">
-                  <div id="chart mt-0">
-                      <apx-chart
+                    <div id="chart" class=" mt-0 py-3 shadow-sm border">
+                        <apx-chart
                         [series]="chartOptions.series"
                         [chart]="chartOptions.chart"
                         [labels]="chartOptions.labels"
