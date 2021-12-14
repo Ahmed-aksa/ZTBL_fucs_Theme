@@ -1,0 +1,25 @@
+<div>
+    <div class="heading">Submit Documents
+        <button mat-icon-button color="warn" style="float:right;" (click)="matDialogRef.close()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+    <div class="container">
+        <p>Please Submit Documents(if any)</p>
+    </div>
+    <mat-form-field appearance="outline">
+        <mat-label>Number of Files</mat-label>
+        <input matInput type="number" [value]="number_of_files" (change)="changeNumberOfFiles($event.target.value)"
+               class="mat-input-element"/>
+    </mat-form-field>
+    <div *ngFor="let j of [].constructor(number_of_files);let i=index">
+        <input type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
+               (change)="onFileChange($event, i)"/>
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput type="text" id="description_{{i}}"/>
+        </mat-form-field>
+    </div>
+
+    <button mat-flat-button class="bg-green" (click)="submitDocuments()">Submit</button>
+</div>

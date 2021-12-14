@@ -626,6 +626,10 @@
                     <!--<button type="button" class="button-red pull-left" mat-raised-button cdkFocusInitial>
                       Cancel
                     </button>-->
+                    <button type="button" class="btn btn-primary" mat-raised-button color="warn"
+                            (click)="submitDocuments()">
+                        Submit Documents
+                    </button>
                     <button type="button" class="btn btn-primary bg-green" mat-raised-button color="primary"
                             (click)="onSubmit(false)" [disabled]="viewLoading || submitted">
                         <mat-icon class="mr-2">save</mat-icon>
