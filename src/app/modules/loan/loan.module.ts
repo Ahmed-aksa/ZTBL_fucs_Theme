@@ -45,6 +45,7 @@ import {CalculateDbrComponent} from './calculate-dbr/calculate-dbr.component';
 import {SearchDbrComponent} from './search-dbr/search-dbr.component';
 import {ReferbackLoanUtilizationComponent} from './referback-loan-utilization/referback-loan-uti.component';
 import {ClPendingLoanComponent} from "./cl-pending-loan/cl-pending-loan.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 const routing = [
     {
@@ -118,7 +119,7 @@ const routing = [
         FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
-
+        MatFormFieldModule,
         MatMenuModule,
         MatSelectModule,
         MatInputModule,

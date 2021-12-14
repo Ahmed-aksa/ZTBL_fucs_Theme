@@ -1,4 +1,4 @@
-<div
+<div [formGroup]="DBRForm"
     class=" pt-3 px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
     <div class="heading">Calculate DBR</div>
     <!-- Header -->
@@ -7,13 +7,13 @@
     </div>
 
     <!-- Main -->
-    <div class="flex flex-auto overflow-y-scroll">
+    <div class="flex flex-auto overflow-y-scroll" >
 
         <!-- Products list -->
         <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
             <div class="flex flex-col flex-auto sm:mb-6 overflow-x-hidden sm:overflow-y-auto">
                 <div class="kt-portlet__head-label">
-                    <h5 class="heading">Income</h5>
+                    <h5 class="heading">Salary/Income from Different Sources:</h5>
                 </div>
                 <table class="table table-striped">
                     <thead>
@@ -32,7 +32,7 @@
                                     <mat-label class="customMatLabel"> {{item.ItemName}} <strong
                                         class="matMandatory">* </strong></mat-label>
                                     <input type="text" matInput placeholder="Enter '+ {{item.ItemName}} + '"
-                                           id="{{item.ID}}" value="{{item.Value}}" (change)="onIncomeChange($event)"
+                                           id="{{item.ID}}" value="{{item.Value}}" (keydown)="onIncomeChange($event)" (keyup)="onIncomeChange($event)"
                                            autocomplete="off"/>
                                     <!--</div>-->
                                 </mat-form-field>
@@ -43,7 +43,7 @@
                 </table>
 
                 <div class="kt-portlet__head-label">
-                    <h5 class="heading">Liabilities</h5>
+                    <h5 class="heading">Loan/Liabilities:</h5>
                 </div>
 
                 <table class="table table-striped">
@@ -63,15 +63,52 @@
                                 <mat-label class="customMatLabel"> {{liab.ItemName}} <strong
                                     class="matMandatory">* </strong></mat-label>
                                 <input type="text" matInput placeholder="Enter '+ {{liab.ItemName}} + '"
-                                       id="{{liab.ID}}" value="{{liab.Value}}" (change)="onLiabChange($event)"
+                                       id="{{liab.ID}}" value="{{liab.Value}}"  (keydown)="onLiabChange($event)" (keyup)="onLiabChange($event)"
                                        autocomplete="off"/>
                                 <!--</div>-->
                             </mat-form-field>
                         </td>
                     </tr>
+<!--                    <tr>-->
+<!--                        <th class="col-lg-9">Total Income</th>-->
+<!--                        <th class="col-lg-9">Total Liabilities</th>-->
+<!--                    </tr>-->
                     <!--</form>-->
                     </tbody>
                 </table>
+<!--                {{totalDBRIncome|json}}-->
+
+<!--                {{totalDBRLiabilities|json}}-->
+<!--                {{DBR|json}}-->
+<!--                <input [value]="t">-->
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Total Debts/Liabilities</mat-label>
+                            <input matInput readonly appNumberOnly formControlName="Liabilites"
+                                   maxlength="13" autocomplete="off"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">Total Income</mat-label>
+                            <input matInput readonly appNumberOnly formControlName="Income"
+                                   maxlength="13" autocomplete="off"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="mx-2">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-label class="customMatLabel">DBR</mat-label>
+                            <input matInput readonly appNumberOnly formControlName="DBR"
+                                   maxlength="13" autocomplete="off"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-12 mt-1p ml-1p mb-1p">
                         <button type="button" (click)="saveLoanDbr()" class="btn btn-primary bg-green" mat-raised-button
