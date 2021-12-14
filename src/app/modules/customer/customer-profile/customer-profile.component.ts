@@ -20,6 +20,8 @@ import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {CommonService} from 'app/shared/services/common.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from "ngx-toastr";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {SubmitDocumentsComponent} from "../submit-documents/submit-documents.component";
 
 @Component({
     selector: 'kt-customer-profile',
@@ -146,7 +148,8 @@ export class CustomerProfileComponent implements OnInit {
         private datePipe: DatePipe,
         private _common: CommonService,
         private spinner: NgxSpinnerService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private dialogRef: MatDialog
     ) {
 
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -405,7 +408,6 @@ export class CustomerProfileComponent implements OnInit {
         let customer_Status = null;
         let customer_number = null;
         let caste_code = null;
-        debugger;
         if (this.createCustomer) {
             customer_Status = this.createCustomer.CustomerStatus;
             customer_number = this.createCustomer.CustomerNumber;
@@ -518,7 +520,6 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.CellNumber = this.ValidateMobileNumberGet();
         this.createCustomer.doSubmit = flag;
 
-
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.BranchLov = userInfo.Branch;
         this.createCustomer.Zone = this.zone.ZoneId;
@@ -527,7 +528,6 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.Dob = this.datePipe.transform(this.createCustomer.Dob, 'ddMMyyyy');
         this.createCustomer.CnicExpiry = this.datePipe.transform(this.createCustomer.CnicExpiry, 'ddMMyyyy');
         this.createCustomer.CnicIssueDate = this.datePipe.transform(this.createCustomer.CnicIssueDate, 'ddMMyyyy');
-        debugger;
         this.spinner.show();
         this._customerService.createCustomerSave(this.createCustomer)
             .pipe(
@@ -547,9 +547,6 @@ export class CustomerProfileComponent implements OnInit {
                         dialogRef.afterClosed().subscribe(res => {
                             if (flag == true)
                                 this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
-                            //if (res) {
-                            //  this.router.navigate(['/dashboard'], { relativeTo: this.activatedRoute });
-                            //}
                         });
 
 
@@ -559,8 +556,6 @@ export class CustomerProfileComponent implements OnInit {
                     this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
                 }
             });
-
-
     }
 
     UploadProfilePicture() {
@@ -1180,5 +1175,14 @@ export class CustomerProfileComponent implements OnInit {
         // this.router.navigate(['/customer/customer-history'])
         const url = this.router.serializeUrl(this.router.createUrlTree(['/customer/customer-history'], {queryParams: {}}));
         window.open(url, '_blank');
+    }
+
+    submitDocuments() {
+        this.dialogRef.open(SubmitDocumentsComponent,
+            {
+                data: this.createCustomer.Cnic,
+                panelClass: ['w-6/12']
+            }
+        );
     }
 }//end of class

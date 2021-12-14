@@ -105,16 +105,11 @@ export class CustomerService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    submitDocument(formData: any): Observable<BaseResponseModel> {
-        this.request = new BaseRequestModel();
-
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-
+    submitDocument(request): Observable<BaseResponseModel> {
         return this.http
             .post(
                 `${environment.apiUrl}/Document/SubmitDocument`,
-                this.request,
+                request,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
