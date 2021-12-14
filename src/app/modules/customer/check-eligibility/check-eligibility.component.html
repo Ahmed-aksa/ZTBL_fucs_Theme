@@ -443,7 +443,7 @@
         <div class="kt-form__actions kt-form__actions--solid">
             <div class="row">
                 <div class="col-lg-12 text-right">
-                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit"
+                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit && show_ndc"
                             class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
