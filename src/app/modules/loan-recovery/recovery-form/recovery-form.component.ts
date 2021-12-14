@@ -30,6 +30,7 @@ import {
     RecoveryTypes,
     SubProposalGLModel
 } from 'app/shared/models/recovery.model';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'kt-recovery-form',
@@ -159,6 +160,7 @@ export class RecoveryFormComponent implements OnInit {
     public ZoneLov: any;
     public selectedCustomerID: any;
     public errorMessage: any;
+    public recoveryThrough = false;
 
     public searchFilterCtrlCoordinator: FormControl = new FormControl();
     newDynamic: any = {};
@@ -173,6 +175,7 @@ export class RecoveryFormComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private userUtilsService: UserUtilsService,
         private cdRef: ChangeDetectorRef,
+        private toastr: ToastrService,
         private datePipe: DatePipe,
         private _common: CommonService,
         private _recoveryService: RecoveryService,
@@ -414,6 +417,7 @@ export class RecoveryFormComponent implements OnInit {
             value = true;
         }
         if (this.RecoveryForm.controls.TrCode.value === "15") {
+            this.recoveryThrough = true;
             this.RecoveryForm.controls.BookNo.setValidators([Validators.required]);
             this.RecoveryForm.controls.BookNo.updateValueAndValidity();
 
@@ -436,17 +440,22 @@ export class RecoveryFormComponent implements OnInit {
                 this.RecoveryForm.controls.ReceiptNo.updateValueAndValidity();
             }
         } else {
+            this.recoveryThrough = false;
             this.RecoveryForm.controls.BookNo.setValidators([]);
             this.RecoveryForm.controls.BookNo.updateValueAndValidity();
+            this.RecoveryForm.controls.BookNo.setValue("");
 
             this.RecoveryForm.controls.ReceiptNo.setValidators([]);
             this.RecoveryForm.controls.ReceiptNo.updateValueAndValidity();
+            this.RecoveryForm.controls.ReceiptNo.setValue("");
 
             this.RecoveryForm.controls.RecoveryThroughType.setValidators([]);
             this.RecoveryForm.controls.RecoveryThroughType.updateValueAndValidity();
+            this.RecoveryForm.controls.RecoveryThroughType.setValue("");
 
             this.RecoveryForm.controls.CoordinatorID.setValidators([]);
             this.RecoveryForm.controls.CoordinatorID.updateValueAndValidity();
+            this.RecoveryForm.controls.CoordinatorID.setValue("");
         }
 
     }
@@ -733,6 +742,8 @@ export class RecoveryFormComponent implements OnInit {
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
+
+            this.toastr.error("Please Enter Required values");
 
             this.hasFormErrors = true;
             return;

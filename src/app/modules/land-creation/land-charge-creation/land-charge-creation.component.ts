@@ -225,7 +225,6 @@ export class LandChargeCreationComponent implements OnInit {
         this.searchFilterCtrlProvince.valueChanges
             .pipe(takeUntil(this._onDestroy))
             .subscribe(() => {
-
                 this.filterProvince();
             });
 
@@ -239,7 +238,6 @@ export class LandChargeCreationComponent implements OnInit {
         this.searchFilterCtrlTehsil.valueChanges
             .pipe(takeUntil(this._onDestroy))
             .subscribe(() => {
-
                 this.filterTehsil();
             });
 
@@ -392,6 +390,7 @@ export class LandChargeCreationComponent implements OnInit {
     }
 
     async GetDistricts(Id) {
+
 
         this.DistrictLov = await this._lovService.CallChildLovAPI(this.ChildLovCall = {
             TagName: LovConfigurationKey.DistrictProvince,
