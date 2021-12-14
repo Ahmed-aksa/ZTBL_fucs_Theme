@@ -64,6 +64,7 @@ export class SetTargetComponent implements OnInit {
     totals: any = [];
     AssignedTarget: any = [];
     AssignedTargetToSave: any = [];
+    assignedTarget;
     value: any;
     visible: any = true;
     viewerOpen = false;
@@ -164,6 +165,7 @@ export class SetTargetComponent implements OnInit {
                     this.headings = baseResponse.Target.Heading;
                     this.targets = baseResponse.Target.Targets;
                     this.previous = Object.assign(this.targets);
+                    this.assignedTarget = baseResponse.Target.AssignedTarget;
                     this.Heading();
                     this.ishidden = true;
                 } else {
@@ -331,15 +333,12 @@ export class SetTargetComponent implements OnInit {
     }
 
     save() {
-
-
-        if (this.Check()) {
             this.spinner.show();
             this._setTarget
                 .saveTargets(
                     this.targets,
                     this.targetForm.controls.Duration.value,
-                    this.AssignedTargetToSave
+                    this.AssignedTargetToSave,this.assignedTarget
                 )
                 .pipe(
                     finalize(() => {
@@ -361,11 +360,10 @@ export class SetTargetComponent implements OnInit {
                         );
                     }
                 });
-        }
+
     }
 
     submit() {
-        if (this.Check()) {
             this.spinner.show();
             this._setTarget
                 .submitTargets(this.targetForm.controls.Duration.value)
@@ -389,7 +387,6 @@ export class SetTargetComponent implements OnInit {
                         );
                     }
                 });
-        }
     }
 
     find() {

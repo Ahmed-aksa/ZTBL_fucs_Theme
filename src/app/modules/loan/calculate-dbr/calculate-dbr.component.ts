@@ -19,6 +19,7 @@ export class CalculateDbrComponent implements OnInit {
     public LnTransactionID: string;
     public Lcno: string;
     DBRForm: FormGroup;
+    ApplicationHeader;
 
     totalDBRIncome:number=0;
     totalDBRLiabilities:number=0;
@@ -46,7 +47,9 @@ export class CalculateDbrComponent implements OnInit {
         this.LnTransactionID = this.route.snapshot.params['LnTransactionID'];
         this.Lcno = this.route.snapshot.params['Lcno'];
         if ((this.LnTransactionID != undefined && this.LnTransactionID != null) && (this.Lcno != undefined && this.Lcno != null)) {
+            this.getORRDropDownByAppID();
             this.searchLoanDbr();
+
         }
     }
 
@@ -126,6 +129,26 @@ export class CalculateDbrComponent implements OnInit {
                     this.layoutUtilsService.alertElementSuccess("", "Error Occured While Processing Request", "500");
 
                 })
+    }
+    getORRDropDownByAppID() {
+        this.spinner.show();
+
+        this._loanService
+            .getORRDropDownByAppID(this.LnTransactionID, this.Lcno)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse: BaseResponseModel) => {
+
+                if (baseResponse.Success === true) {
+                    this.ApplicationHeader = baseResponse.Loan.ApplicationHeader;
+                } else {
+                    this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+                }
+
+            });
     }
 
     searchLoanDbr() {

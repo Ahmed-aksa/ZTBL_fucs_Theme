@@ -12,6 +12,48 @@
         <!-- Products list -->
         <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
             <div class="flex flex-col flex-auto sm:mb-6 overflow-x-hidden sm:overflow-y-auto">
+                <div class="form-group kt-form__group row" *ngIf="ApplicationHeader">
+                    <div class="col-lg-12">
+                        <!--            <h3 class="heading">sam</h3>-->
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr class="table-header-background">
+                                    <th>Branch</th>
+                                    <th>Circle</th>
+                                    <th>LC #</th>
+                                    <th>LC Auto#</th>
+                                    <th>LA File/Booklet#</th>
+                                    <th>Application Date</th>
+                                    <th>Status</th>
+                                    <th>Status (Post Sanction)</th>
+                                    <th>Dev Amount</th>
+                                    <th>Prod Amount</th>
+                                    <th>DEPOSIT ACC#</th>
+                                    <th>Sanction Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>{{ApplicationHeader?.BranchName}}</td>
+                                    <td>{{ApplicationHeader?.CircleCode}}</td>
+                                    <td>{{ApplicationHeader?.LoanCaseNo}}</td>
+                                    <td>{{ApplicationHeader?.LoanAutoNo}}</td>
+                                    <td>{{ApplicationHeader?.AppNumberManual}}</td>
+                                    <td>{{ApplicationHeader?.AppDate}}</td>
+                                    <td>{{ApplicationHeader?.StatusName}}</td>
+                                    <td>{{ApplicationHeader?.StatusNamePS}}</td>
+                                    <td>{{ApplicationHeader?.DevAmount}}</td>
+                                    <td>{{ApplicationHeader?.ProdAmount}}</td>
+                                    <td>{{ApplicationHeader?.AccountNo}}</td>
+                                    <td>{{ApplicationHeader?.SanctionDate}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
                 <div class="kt-portlet__head-label">
                     <h5 class="heading">Salary/Income from Different Sources:</h5>
                 </div>
