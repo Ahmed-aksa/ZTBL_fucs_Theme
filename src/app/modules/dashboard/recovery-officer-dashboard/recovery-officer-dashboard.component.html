@@ -8,9 +8,9 @@
       <!-- Products list -->
       <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
       <div class="row">
-          <div  class="col-lg-6">
-            <div id="chart">
-                <apx-chart
+          <div  class="col-lg-6 py-3">
+            <div id="chart" class=" m-0 pt-2 shadow-sm border">
+              <apx-chart
                   [series]="chartOptions.series"
                   [chart]="chartOptions.chart"
                   [labels]="chartOptions.labels"
@@ -20,9 +20,9 @@
                 ></apx-chart>
               </div>
           </div>
-          <div  class="col-lg-6">
-            <div id="chart">
-                <apx-chart
+          <div  class="col-lg-6 py-3">
+            <div id="chart" class=" m-0 pt-2  shadow-sm border">
+              <apx-chart
                   [series]="chartOptions.series"
                   [chart]="chartOptions.chart"
                   [labels]="chartOptions.labels"
@@ -36,7 +36,7 @@
           <div  class="row  justify-content-md-center">
            
               <div class="col-lg-6 table-responsive">
-                <p class="heading">Recovery</p>
+                <p class="heading mb-2 text-lg">Recovery</p>
             <table class="table  table-striped">
               
                 <thead>
@@ -66,7 +66,7 @@
               </table>
           </div>     
           <div class="col-lg-6 table-responsive">
-            <p class="heading">Circle Wise within Allocated Branches</p>
+            <p class="heading mb-2 text-lg">Circle Wise within Allocated Branches</p>
             <table class="table  table-striped">
             
               <thead>
