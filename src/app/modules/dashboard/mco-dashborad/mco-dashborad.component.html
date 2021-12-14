@@ -1,18 +1,13 @@
 <div class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading">MCO Dashboard</div>
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between">
-  
-    </div>
-  
     <!-- Main -->
-    <div class="flex flex-auto overflow-x-hidden overflow-y-scroll">
   
       <!-- Products list -->
       <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
       <div class="row">
           <div  class="col-lg-4">
-            <p class="text-green px-2 py-2 font-bold mb-0 mt-4">Performance Indicators</p>
+            <p class="text-green px-2 py-2 font-bold mb-0 mt-2">Performance Indicators</p>
             <div id="chart" class="mt-0">
                 <apx-chart
                   [series]="chartOptions1.series"
@@ -24,7 +19,7 @@
               </div>
           </div>
           <div  class="col-lg-4">
-            <p class="text-green px-2 py-2 font-bold mb-0 mt-4">Circle Bench Mark</p>
+            <p class="text-green px-2 py-2 font-bold mb-0 mt-2">Circle Bench Mark</p>
             <div id="chart" class="mt-0">
                 <apx-chart
                   [series]="chartOptions2.series"
@@ -36,7 +31,7 @@
               </div>
           </div>
           <div  class="col-lg-4">
-            <p class="text-green px-2 py-2 font-bold mb-0 mt-4">Loan Portfolio</p>
+            <p class="text-green px-2 py-2 font-bold mb-0 mt-2">Loan Portfolio</p>
             <div id="chart"  class="mt-0">
                 <apx-chart
                   [series]="chartOptions3.series"
@@ -51,7 +46,7 @@
         </div>
         <div class="row ">
           <div  class="col-lg-4 table-responsive">
-            <p class="heading">Disbursement</p>
+            <p class="heading mb-2 text-lg">Disbursement</p>
             <table class="table  table-striped">
                 <thead>
                   <tr class="table-header-background">
@@ -80,7 +75,7 @@
               </table>
           </div>
           <div  class="col-lg-4  table-responsive">
-            <p class="heading">Recovery</p>
+            <p class="heading mb-2 text-lg">Recovery</p>
             <table class="table  table-striped">
                 <thead>
                   <tr class="table-header-background">
@@ -109,7 +104,7 @@
               </table>
           </div>
           <div  class="col-lg-4   table-responsive">
-            <p class="heading">Utilization/Mutations</p>
+            <p class="heading mb-2 text-lg">Utilization/Mutations</p>
             <table class="table  table-striped">
                 <thead>
                   <tr class="table-header-background">
@@ -140,7 +135,7 @@
           </div>
       </div>
    
-    </div>
+
   
   </div>
   

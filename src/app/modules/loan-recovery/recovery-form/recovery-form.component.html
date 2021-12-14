@@ -208,9 +208,9 @@
                                 </mat-form-field>
                             </div>
 
-                            <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                            <div class="mx-2 d-grid flex-shrink-0 items-center mt-6 sm:mt-0"
                                  style="width: 225px;">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-form-field class="mat-form-field-fluid w-full " appearance="outline">
                                     <mat-label class="customMatLabel">Total Amount <strong
                                         class="matMandatory">*</strong></mat-label>
                                     <input matInput placeholder="Total Amount" formControlName="Amount"
@@ -221,7 +221,7 @@
                                     <mat-error *ngIf="hasError('Amount', 'required')">Total Amount
                                         <strong>required</strong></mat-error>
                                 </mat-form-field>
-                                <mat-error *ngIf="amountError">{{totalAmountMsg}}</mat-error>
+                                <mat-error class="pt-0 text-sm" *ngIf="amountError">{{totalAmountMsg}}</mat-error>
                             </div>
                             <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;"
                                  *ngIf="showInstrument">
@@ -383,8 +383,9 @@
 
 
                             </div> -->
-                            <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                            <div class="mx-2 d-grid flex-shrink-0 items-center mt-6 sm:mt-0"
                                  style="width: 225px;">
+
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label class="customMatLabel">Remarks: <strong
                                         class="matMandatory">*</strong></mat-label>
@@ -393,7 +394,7 @@
                                            autocomplete="off"
                                            [readonly]="viewOnly"/>
                                 </mat-form-field>
-                                <mat-error *ngIf="remarksError">Remarks <strong>required</strong></mat-error>
+                                <mat-error class=" p-0 text-md" *ngIf="remarksError">Remarks <strong>required</strong></mat-error>
                             </div>
 
 
