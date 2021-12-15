@@ -45,14 +45,14 @@
         <div class="table-responsive">
             <table class="table table-striped">
 
-                <thead  *ngIf="assignedtargetheading">
+                <thead  *ngIf="assignedtargetheading?.length>0">
                 <tr class="table-header-background">
                     <th></th>
                     <th *ngFor="let len of totalLength">Assigned Target</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngIf="assignedtargetheading">
+                <tr *ngIf="assignedtargetheading?.length>0">
                     <ng-container>
                         <td></td>
                         <td></td>
