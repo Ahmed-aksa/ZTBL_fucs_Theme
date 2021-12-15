@@ -36,3 +36,9 @@ table > tbody > tr > td > span {
 .mr-1p {
     margin-right: 1% !important;
 }
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+  }

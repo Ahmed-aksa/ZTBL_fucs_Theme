@@ -1,3 +1,9 @@
-#apprialsal11Table .form-control {
-    border: 1px solid #98d4ac !important;
-}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+  }
+  input {
+    background-color: white;
+    border-radius: 5px;
+  }

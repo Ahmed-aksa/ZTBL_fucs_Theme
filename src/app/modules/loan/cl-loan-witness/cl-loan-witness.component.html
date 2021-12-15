@@ -88,7 +88,7 @@
                                             <input matInput appNumberOnly formControlName="NetValue" maxlength="8"/>
                                         </mat-form-field>
                                     </td>
-                                    <td><span (click)="onSavePersonalSuretiesForm()">Save</span> | <span
+                                    <td><span (click)="onSavePersonalSuretiesForm()" class="text-green">Save</span> | <span class="text-red-500"
                                         (click)="onClearLoanSuretiesForm()">Cancel</span>
                                     </td>
                                 </tr>
@@ -130,7 +130,7 @@
 
 
                                                 <td><span
-                                                    (click)="onEditPersonalSureties(loan)">Edit</span>
+                                                    (click)="onEditPersonalSureties(loan)" class="text-blue-500">Edit</span>
                                                 </td>
                                             </tr>
                                             </tbody>
