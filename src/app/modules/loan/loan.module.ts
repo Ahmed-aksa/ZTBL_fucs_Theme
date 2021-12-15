@@ -50,6 +50,7 @@ import {ChargeCreationLoanComponent} from "./search-charge-creation-loan/search-
 import {ClViewLoanComponent} from "./cl-view-loan/cl-view-loan.component";
 import {ReferbackLoanFromCADComponent} from "./referback-loan-from-CAD/referback-loan-from-CAD.component";
 import {RejectedLoanComponent} from "./rejected-loan/rejected-loan.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const routing = [
     {
@@ -143,7 +144,6 @@ const routing = [
         FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
-        MatFormFieldModule,
         MatMenuModule,
         MatSelectModule,
         MatInputModule,
@@ -168,7 +168,7 @@ const routing = [
         MatListModule,
         MatChipsModule,
         IconPickerModule,
-        MatPaginatorModule
+        MatPaginatorModule,
     ],
 })
 export class LoanModule {
