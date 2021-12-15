@@ -373,7 +373,6 @@ export class ClUploadDocumentComponent implements OnInit {
                 }
             });
             if (ok){
-                debugger
                 this.rawData?.forEach((single_file, index) => {
                     this.loanDocument.file = single_file;
 

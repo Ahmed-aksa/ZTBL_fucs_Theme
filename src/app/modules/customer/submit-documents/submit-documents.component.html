@@ -7,18 +7,58 @@
     <div class="container">
         <p>Please Submit Documents(if any)</p>
     </div>
-    <mat-form-field appearance="outline">
-        <mat-label>Number of Files</mat-label>
-        <input matInput type="number" [value]="number_of_files" (change)="changeNumberOfFiles($event.target.value)"
-               class="mat-input-element"/>
-    </mat-form-field>
+    <div class="row">
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Number of Files</mat-label>
+                <input matInput type="number" [value]="number_of_files"
+                       (change)="changeNumberOfFiles($event.target.value)"
+                       class="mat-input-element"/>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input matInput type="text" id="general_description"
+                       class="mat-input-element"/>
+            </mat-form-field>
+        </div>
+    </div>
+
+
     <div *ngFor="let j of [].constructor(number_of_files);let i=index">
-        <input type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
-               (change)="onFileChange($event, i)"/>
-        <mat-form-field appearance="outline">
-            <mat-label>Description</mat-label>
-            <input matInput type="text" id="description_{{i}}"/>
-        </mat-form-field>
+        <div class="row">
+            <div class="col-lg-3">
+                <input type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
+                       (change)="onFileChange($event, i)"/>
+            </div>
+            <div class="col-lg-3">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <input matInput type="text" id="description_{{i}}"/>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Reference No.</mat-label>
+                    <input matInput type="text" id="reference_{{i}}"/>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3">
+                <mat-form-field appearance="outline">
+                    <mat-label class="customMatLabel">Select Document Type
+                    </mat-label>
+                    <mat-select id="document_type_{{i}}" [(value)]="documents[i]">
+                        <mat-option *ngFor="let obj of document_types?.LOVs" [value]="obj.Value">
+                            {{obj.Name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+
     </div>
 
     <button mat-flat-button class="bg-green" (click)="submitDocuments()">Submit</button>
