@@ -381,6 +381,7 @@ export class GeofencingEditComponent implements OnInit {
 
                     polygon2.push({lat: o[0], lng: o[1]})
                 });
+
                 this.drawPolygonOnMap(polygon2, "#FF0000")
             }
 
@@ -412,6 +413,7 @@ export class GeofencingEditComponent implements OnInit {
 
         existingPolygon.setMap(this.googleMap);
         this.allPolygons.push(existingPolygon)
+
     }
 
     onSubmit() {
@@ -684,13 +686,36 @@ export class GeofencingEditComponent implements OnInit {
             );
         }
         var bounds = new google.maps.LatLngBounds();
+        let distance = 0;
         this.pointList.forEach((o, i) => {
             bounds.extend(new google.maps.LatLng(o.lat, o.lng));
+            if (i != 0) {
+                let first_point = this.pointList[i - 1];
+                let second_point = this.pointList[i];
+                var d1 = Number(first_point?.lat) * (Math.PI / 180.0);
+                var num1 = Number(first_point.lng) * (Math.PI / 180.0);
+                var d2 = Number(second_point.lat) * (Math.PI / 180.0);
+                var num2 = Number(second_point.lng) * (Math.PI / 180.0) - num1;
+                var d3 = Math.pow(Math.sin((d2 - d1) / 2.0), 2.0) +
+                    Math.cos(d1) * Math.cos(d2) * Math.pow(Math.sin(num2 / 2.0), 2.0);
+                distance += 6378137 * (2.0 * Math.atan2(Math.sqrt(d3), Math.sqrt(1.0 - d3)));
+            }
         });
+        let size = this.pointList.length;
+        let first_point = this.pointList[size - 1];
+        let second_point = this.pointList[0];
+        var d1 = Number(first_point?.lat) * (Math.PI / 180.0);
+        var num1 = Number(first_point.lng) * (Math.PI / 180.0);
+        var d2 = Number(second_point.lat) * (Math.PI / 180.0);
+        var num2 = Number(second_point.lng) * (Math.PI / 180.0) - num1;
+        var d3 = Math.pow(Math.sin((d2 - d1) / 2.0), 2.0) +
+            Math.cos(d1) * Math.cos(d2) * Math.pow(Math.sin(num2 / 2.0), 2.0);
+        distance += 6378137 * (2.0 * Math.atan2(Math.sqrt(d3), Math.sqrt(1.0 - d3)));
 
         this.fenceCenter = bounds.getCenter()
 
         // Need to get all the surrounding cricles of created/edit fence.
+
         this.GetAllCircleWithPolygonPoints(this.fenceCenter.lat().toString(), this.fenceCenter.lng().toString())
 
         this.selectedArea = google.maps.geometry.spherical.computeArea(
