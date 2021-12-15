@@ -1,7 +1,7 @@
 import {LovData} from "../classes/lov.class";
 
 export class BaseResponseModel {
-    EligibilityRequest:any;
+    EligibilityRequest: any;
     Code: string;
     Success: boolean; // Admin
     Message: string;
@@ -76,6 +76,7 @@ export class BaseResponseModel {
     TourPlanAndDiaryDto: any;
     TourPlan: any;
     LocationHistory: any;
+    DocumentDetails: any;
     DocumentDetail: any;
     Notification: any;
 }

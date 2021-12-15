@@ -9,6 +9,7 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {LovService} from "../../../shared/services/lov.service";
 import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
+import {SubmitDocument} from "../model/submit-document.model";
 
 @Component({
     selector: 'app-submit-documents',
@@ -25,6 +26,10 @@ export class SubmitDocumentsComponent implements OnInit {
     tranId: number;
     doc_urls: any = []
 
+    submit_documents: SubmitDocument[] = []
+    private current_document_id: any;
+    private document_details: any;
+
     constructor(
         private layoutUtilsService: LayoutUtilsService,
         public matDialogRef: MatDialogRef<SubmitDocumentsComponent>,
@@ -40,6 +45,10 @@ export class SubmitDocumentsComponent implements OnInit {
     ngOnInit(): void {
         this.customer = this.data.customer;
         this.tranId = this.data.tranId;
+        this.document_details = this.data.document_details;
+
+        this.patchValues();
+
         this.getDocumentTypes();
     }
 
@@ -55,8 +64,18 @@ export class SubmitDocumentsComponent implements OnInit {
                         if (this.rawData[i]) {
                             this.rawData.splice(i, 1);
                             this.rawData.splice(i, 0, file);
+
+                            this.doc_urls.splice(i, 1);
+                            this.doc_urls.splice(i, 0, file);
                         } else {
                             this.doc_urls.push(event.target.result);
+                            let has_file = false;
+                            this.submit_documents.forEach((single_document,index) => {
+                                single_document.CustomerDocuments.forEach((single_type_document) => {
+                                    single_type_document.FilePath=event.target.result;
+                                })
+                            })
+
                             this.rawData.push(file);
                         }
                     };
@@ -180,5 +199,40 @@ export class SubmitDocumentsComponent implements OnInit {
             height: '70%',
             data: {url: url}
         });
+    }
+
+    private patchValues() {
+        // this.document_details.foreach((single_detail) => {
+        //
+        // })
+    }
+
+    changeDocumentType(value: any) {
+        this.submit_documents.push({
+            CustomerDocuments: [{Description: "", FilePath: null, PageNumber: ""}],
+            cnic: this.customer.Cnic,
+            description: "",
+            reference: "",
+            document_type_id: value,
+            number_of_files: this.number_of_files,
+        })
+        this.current_document_id = value;
+    }
+
+    changeTypeData(value: any, type: string) {
+        if (type == 'description') {
+            this.submit_documents.forEach((single_document) => {
+                if (single_document.document_type_id == this.current_document_id) {
+                    single_document.description = value;
+                }
+            })
+        } else if (type == 'reference') {
+            this.submit_documents.forEach((single_document) => {
+
+                if (single_document.document_type_id == this.current_document_id) {
+                    single_document.reference = value;
+                }
+            })
+        }
     }
 }
