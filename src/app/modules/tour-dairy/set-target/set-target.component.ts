@@ -139,7 +139,7 @@ export class SetTargetComponent implements OnInit {
                 }
             });
     }
-
+    assignedTargetHeadingsData
     GetTargets(value: any) {
         if (!value) {
             var Message = 'Please select Target';
@@ -166,7 +166,10 @@ export class SetTargetComponent implements OnInit {
                     this.targets = baseResponse.Target.Targets;
                     this.previous = Object.assign(this.targets);
                     this.assignedTarget = baseResponse.Target.AssignedTarget;
+                    this.assignedTargetHeadingsData = baseResponse?.Target?.AssignedTarget;
                     this.Heading();
+
+                    this.showAssignedTarget();
                     this.ishidden = true;
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -177,6 +180,10 @@ export class SetTargetComponent implements OnInit {
                 }
             });
     }
+    assignedtargetheading
+   showAssignedTarget(){
+       this.assignedtargetheading = Object.values(this.assignedTargetHeadingsData);
+}
 
     createForm() {
         this.targetForm = this.fb.group({
@@ -205,6 +212,17 @@ export class SetTargetComponent implements OnInit {
         }
 
         return this.array;
+    }
+
+
+    get totalHeading(): string[] {
+        debugger
+        if (!this.assignedTargetHeadingsData) {
+            return [];
+        }
+        if (this.heading) {
+        }
+        return Object.keys(this.assignedTargetHeadingsData);
     }
 
     Heading() {

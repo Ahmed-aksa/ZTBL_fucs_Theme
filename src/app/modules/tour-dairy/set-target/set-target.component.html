@@ -44,7 +44,27 @@
 
         <div class="table-responsive">
             <table class="table table-striped">
+
                 <thead>
+                <tr class="table-header-background">
+                    <th></th>
+                    <th *ngFor="let len of totalLength">Assigned Target</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngIf="assignedtargetheading">
+                    <ng-container>
+                        <td></td>
+                        <td></td>
+                        <td *ngFor="let head of assignedtargetheading" class="p-4">
+                            {{head}}
+                        </td>
+
+                    </ng-container>
+                </tr>
+                </tbody>
+                <thead>
+
                 <tr hidden class="table-header-background">
                     <th *ngFor="let k of rowKeys">{{ k }}</th>
                 </tr>
@@ -69,7 +89,9 @@
                             <div *ngIf="key!='Name'">
                                 <div class="mat-form-field-fluid" appearance="outline"
                                 >
-                                    <mat-form-field [style.Border]="row[key]=='0'?'2px solid red':''">
+<!--                                    style-->
+<!--                                    [style.Border]="row[key]=='0'?'2px solid red':''"-->
+                                    <mat-form-field >
                                         <input matInput (keypress)="numberOnly($event)"
                                                [attr.value]="row[key]"
                                                (input)="onInputChanged($event.target.value, rowIndex, key)"

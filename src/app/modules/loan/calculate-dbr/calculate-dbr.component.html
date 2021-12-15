@@ -72,7 +72,7 @@
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                     <mat-label class="customMatLabel"> {{item.ItemName}} <strong
                                         class="matMandatory">* </strong></mat-label>
-                                    <input type="text" matInput placeholder="Enter '+ {{item.ItemName}} + '"
+                                    <input appNumberOnly maxlength="8" type="text" matInput placeholder="Enter '+ {{item.ItemName}} + '"
                                            id="{{item.ID}}" value="{{item.Value}}" (keydown)="onIncomeChange($event)" (keyup)="onIncomeChange($event)"
                                            autocomplete="off"/>
                                 </mat-form-field>
@@ -101,7 +101,7 @@
                             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                 <mat-label class="customMatLabel"> {{liab.ItemName}} <strong
                                     class="matMandatory">* </strong></mat-label>
-                                <input type="text" matInput placeholder="Enter '+ {{liab.ItemName}} + '"
+                                <input appNumberOnly maxlength="8" type="text" matInput placeholder="Enter '+ {{liab.ItemName}} + '"
                                        id="{{liab.ID}}" value="{{liab.Value}}"  (keydown)="onLiabChange($event)" (keyup)="onLiabChange($event)"
                                        autocomplete="off"/>
                             </mat-form-field>
