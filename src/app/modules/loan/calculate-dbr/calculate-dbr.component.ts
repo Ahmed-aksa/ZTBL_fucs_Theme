@@ -94,8 +94,10 @@ export class CalculateDbrComponent implements OnInit {
 
    DototalDBR(){
         this.DBR=0;
-     this.DBR =  Math.round((this.totalDBRLiabilities / this.totalDBRIncome)*100)
-       this.DBRForm.controls["DBR"].setValue(this.DBR)
+     // if after decimal values are not required
+     // this.DBR =  Math.round((this.totalDBRLiabilities / this.totalDBRIncome)*100)
+     this.DBR = (this.totalDBRLiabilities / this.totalDBRIncome)*100
+       this.DBRForm.controls["DBR"].setValue(this.DBR.toFixed(2))
     }
 
 
