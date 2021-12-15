@@ -47,6 +47,7 @@ export class LovConfigurationKey {
     public static readonly PremisesFlag: string = 'PremisesFlag';
     public static readonly Employee: string = 'Employee';
     public static readonly DocumentType: string = 'DocumentNo';
+    public static readonly SubmitDocumentType: string = 'DocumentType';
 
 
     public static readonly ActiveLoanType: string = 'ActiveLoanType';

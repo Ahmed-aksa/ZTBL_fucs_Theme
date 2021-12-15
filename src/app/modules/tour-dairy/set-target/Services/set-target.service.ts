@@ -98,6 +98,7 @@ if(userInfo?.UserCircleMappings){
     }
 
     saveTargets(targets, Duration, AssignedTarget,assignedTarget) {
+        debugger
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {
@@ -123,8 +124,11 @@ if(userInfo?.UserCircleMappings){
         this.request.Target = {Targets: targets};
 
         this.request.Target.Duration = Duration;
-        this.request.Target.AssignedTarget = AssignedTarget;
-        this.request.Target["AssignedTarget"] = assignedTarget;
+        // this.request.Target.AssignedTarget = AssignedTarget;
+        if(Object.keys(assignedTarget).length){
+            this.request.Target["AssignedTarget"] = assignedTarget;
+        }
+
 
         // this.request.Target["AssignedTarget"]=AssignedTarget;
 

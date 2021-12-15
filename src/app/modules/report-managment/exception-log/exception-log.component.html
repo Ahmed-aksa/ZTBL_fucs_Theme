@@ -32,6 +32,7 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field appearance="outline" class=" w-full">
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search"
+                                       formControlName="TranId"
                                        autocomplete="off"
                                        appearance="outline">
                                 <!-- <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint> -->
