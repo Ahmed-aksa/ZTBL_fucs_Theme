@@ -125,7 +125,6 @@ export class SearchRecoveryCommonComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger
         this.createForm();
         this.loadLOV();
 
