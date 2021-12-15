@@ -1,7 +1,7 @@
 <form [formGroup]='PostDocument' (ngSubmit)="PostDocuments(PostDocument)">
 
     <div
-        class=" px-10  sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+        class="  sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-auto overflow-x-hidden bg-card dark:bg-transparent">
 
 
         <!-- Header -->
@@ -13,29 +13,15 @@
 
         </div>
 
-        <div class="row pt-3">
-            <div class="col-lg-6 col-sm-12">
+        <div class="flex mt-2 " style="flex-wrap: wrap;">
                 <app-zone-branch-circle [form]="PostDocument" [should_show_circle]="false"
                                         (branchZoneCircleData)="getAllData($event)" [should_filter]="false"></app-zone-branch-circle>
-            </div>
-
-            <div class="col-lg-4 col-sm-12">
-                <mat-form-field class=" mat-form-field-fluid" appearance="outline">
-                    <mat-label class="customMatLabel">Loancase NO: <strong class="matMandatory">*</strong>
-                    </mat-label>
-                    <input matInput formControlName="LcNo" readonly>
-                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">LcNo
-                        <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
-
-                <input style="width: 50px;" type="button" mat-raised-button color="primary"
-                       class="ml-2 w-1/12 mat-raised-button mat-button-base mat-primary searchLCBtn"
-                       (click)="loanCase()" value="..."/>
-            </div>
 
 
-            <div class="col-lg-3 col-sm-12">
+
+
+
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Status: <strong class="matMandatory">*</strong>
                     </mat-label>
@@ -44,18 +30,7 @@
                         <strong>required</strong></mat-error>
                 </mat-form-field>
             </div>
-
-            <!--            <div class="col-lg-3 col-sm-12">-->
-            <!--                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-            <!--                    <mat-label class="customMatLabel">Loan Type: <strong class="matMandatory">*</strong>-->
-            <!--                    </mat-label>-->
-            <!--                    <input matInput formControlName="CategoryName" readonly>-->
-            <!--                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Loan Type-->
-            <!--                        <strong>required</strong></mat-error>-->
-            <!--                </mat-form-field>-->
-            <!--            </div>-->
-
-            <div class="col-lg-3 col-sm-12">
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Loan Type:<strong
                         class="matMandatory">*</strong>
@@ -70,6 +45,37 @@
                         <strong>required</strong></mat-error>
                 </mat-form-field>
             </div>
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">Loancase NO: <strong class="matMandatory">*</strong>
+                    </mat-label>
+                    <input matInput formControlName="LcNo" readonly>
+                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">LcNo
+                        <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+
+            </div>
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+
+                <input style="width: 50px;" type="button" mat-raised-button color="primary"
+                       class=" mat-raised-button mat-button-base mat-primary searchLCBtn"
+                       (click)="loanCase()" value="..."/>
+                </div>
+
+
+            <!--            <div class="col-lg-3 col-sm-12">-->
+            <!--                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+            <!--                    <mat-label class="customMatLabel">Loan Type: <strong class="matMandatory">*</strong>-->
+            <!--                    </mat-label>-->
+            <!--                    <input matInput formControlName="CategoryName" readonly>-->
+            <!--                    <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Loan Type-->
+            <!--                        <strong>required</strong></mat-error>-->
+            <!--                </mat-form-field>-->
+            <!--            </div>-->
+
+
 
         </div>
 
@@ -195,7 +201,7 @@
 
     </div>
 
-    <div class="row ml-2">
+    <div class="row">
         <div class="col-lg-12">
             <button style="background-color: #01671B;" type="button"
                     class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
