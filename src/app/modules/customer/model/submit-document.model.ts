@@ -5,9 +5,11 @@ export class SubmitDocument {
     cnic: string;
     number_of_files: number;
     CustomerDocuments: [{
+        "id": number;
         "Description": string;
         "PageNumber": string;
         "FilePath": File;
+        "url": string;
     }]
 
 }

@@ -29,6 +29,8 @@ export class SubmitDocumentsComponent implements OnInit {
     submit_documents: SubmitDocument[] = []
     private current_document_id: any;
     private document_details: any;
+    general_description: any = "";
+    reference: any = "";
 
     constructor(
         private layoutUtilsService: LayoutUtilsService,
@@ -70,10 +72,15 @@ export class SubmitDocumentsComponent implements OnInit {
                         } else {
                             this.doc_urls.push(event.target.result);
                             let has_file = false;
-                            this.submit_documents.forEach((single_document,index) => {
-                                single_document.CustomerDocuments.forEach((single_type_document) => {
-                                    single_type_document.FilePath=event.target.result;
-                                })
+                            this.submit_documents.forEach((single_document, index) => {
+                                if (single_document.document_type_id == this.current_document_id.value)
+                                    single_document.CustomerDocuments.push({
+                                        id: i,
+                                        Description: "",
+                                        PageNumber: "1",
+                                        FilePath: event.target.result,
+                                        url: event.target.result
+                                    });
                             })
 
                             this.rawData.push(file);
@@ -97,6 +104,13 @@ export class SubmitDocumentsComponent implements OnInit {
 
     changeNumberOfFiles(value: number) {
         this.number_of_files = Number(value);
+        this.submit_documents.forEach((single_document) => {
+
+            if (single_document.document_type_id == this.current_document_id.value) {
+                single_document.number_of_files = value;
+            }
+
+        })
     }
 
     submitDocuments() {
@@ -208,30 +222,56 @@ export class SubmitDocumentsComponent implements OnInit {
     }
 
     changeDocumentType(value: any) {
-        this.submit_documents.push({
-            CustomerDocuments: [{Description: "", FilePath: null, PageNumber: ""}],
-            cnic: this.customer.Cnic,
-            description: "",
-            reference: "",
-            document_type_id: value,
-            number_of_files: this.number_of_files,
-        })
+
+        let file_index = this.submit_documents.findIndex(single_document => single_document.document_type_id == value.value);
+        debugger;
+        if (file_index == -1) {
+            this.submit_documents.push({
+                CustomerDocuments: [{Description: "", FilePath: null, id: 1, url: '', PageNumber: '1'}],
+                cnic: this.customer.Cnic,
+                description: "",
+                reference: "",
+                document_type_id: value.value,
+                number_of_files: this.number_of_files,
+            })
+            this.number_of_files = 1;
+            this.general_description = "";
+            this.reference = "";
+        } else {
+            this.number_of_files = this.submit_documents[file_index].number_of_files;
+            this.general_description = this.submit_documents[file_index].description;
+            this.reference = this.submit_documents[file_index].reference;
+
+        }
         this.current_document_id = value;
     }
 
-    changeTypeData(value: any, type: string) {
+    changeTypeData(value: any, type: string, i = 0) {
+
         if (type == 'description') {
             this.submit_documents.forEach((single_document) => {
-                if (single_document.document_type_id == this.current_document_id) {
+                if (single_document.document_type_id == this.current_document_id.value) {
                     single_document.description = value;
                 }
+
             })
         } else if (type == 'reference') {
             this.submit_documents.forEach((single_document) => {
 
-                if (single_document.document_type_id == this.current_document_id) {
+                if (single_document.document_type_id == this.current_document_id.value) {
                     single_document.reference = value;
                 }
+
+            })
+        } else if (type == 'file_description') {
+            this.submit_documents.forEach((single_document, index) => {
+                if (single_document.document_type_id == this.current_document_id.value)
+                    single_document.CustomerDocuments.forEach((single_type_document) => {
+                        if (single_type_document.id == i) {
+                            single_type_document.Description = value;
+                        }
+                    })
+
             })
         }
     }

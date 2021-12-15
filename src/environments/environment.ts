@@ -8,14 +8,14 @@ export const environment = {
     ZTBLUser: 'ZTBLUser',
     isMockEnabled: true, // You have to switch this, when your real back-end is done
     authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
+    Profile_id: '57',
     // apiUrl: 'http://172.16.1.228:8070/ZTBL.Api', //admins
     //apiUrl: 'http://10.250.10.139/ZTBL.Apis', //mustansar_bhai_pc
-    apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl
+    // apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl
     // apiUrl: 'http://10.1.32.105/ZTBL.Apis', //ZtblPCMustanser
     // apiUrl: 'https://localhost:44346/ZTBL.Api', //admins
     // apiUrl: 'http://10.1.32.105/ZTBL.Apis', //ztbl2
-     //apiUrl: 'http://203.215.160.154:8070/ZTBL.Api',//without
-     //apiUrl: 'http://10.1.32.18:8070/ZTBL.Api',//without
+     apiUrl: 'http://203.215.160.154:8070/ZTBL.Api',//without
     AesKey: 'abcdefghijklmnopqrstuvxwyz'
 };
 
