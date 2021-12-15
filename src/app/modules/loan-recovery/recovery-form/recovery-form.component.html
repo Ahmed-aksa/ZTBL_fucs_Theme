@@ -271,9 +271,9 @@
                                 </mat-form-field>
                             </div>
                             <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0"
-                                 style="width: 225px;">
+                                 style="width: 225px;" *ngIf="mcReceipt">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
-                                                *ngIf="mcReceipt">
+                                                >
                                     <mat-label class="customMatLabel">MCO Book</mat-label>
                                     <input matInput placeholder="MCO Book" formControlName="BookNo"
                                            maxlength="10"
@@ -285,9 +285,9 @@
                                 </mat-form-field>
                             </div>
                             <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0"
-                                 style="width: 225px;">
+                                 style="width: 225px;" *ngIf="mcReceipt">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
-                                                *ngIf="mcReceipt">
+                                                >
                                     <mat-label class="customMatLabel">Receipt No</mat-label>
                                     <input matInput placeholder="Receipt No" formControlName="ReceiptNo"
                                            maxlength="10"

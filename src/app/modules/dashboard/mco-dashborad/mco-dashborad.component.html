@@ -6,41 +6,51 @@
       <!-- Products list -->
       <div class="flex flex-auto" style="flex-direction: column;">
       <div class="row">
-          <div  class="col-lg-4">
-            <p class="text-green px-2 py-2 font-bold mb-0 mt-2">Performance Indicators</p>
-            <div id="chart" class=" mt-0 py-3 shadow-sm border">
-                <apx-chart
-                  [series]="chartOptions1.series"
-                  [chart]="chartOptions1.chart"
-                  [labels]="chartOptions1.labels"
-                  [theme]="chartOptions1.theme"
-                  [responsive]="chartOptions1.responsive"
-                ></apx-chart>
-              </div>
+          <div  class="col-lg-6 col-sm-12 my-2  ">
+            <div class="shadow-sm border">
+              <div id="chart" class=" mt-0 py-3  ">
+                <p class="text-green px-2 font-bold mb-0">Performance Indicators</p>
+                  <apx-chart
+                    [series]="chartOptions1.series"
+                    [chart]="chartOptions1.chart"
+                    [labels]="chartOptions1.labels"
+                    [theme]="chartOptions1.theme"
+                    [responsive]="chartOptions1.responsive"
+                  ></apx-chart>
+                </div>
+            </div>
+
           </div>
-          <div  class="col-lg-4">
-            <p class="text-green px-2 py-2 font-bold mb-0 mt-2">Circle Bench Mark</p>
-            <div id="chart" class=" mt-0 py-3 shadow-sm border">
-                <apx-chart
-                  [series]="chartOptions2.series"
-                  [chart]="chartOptions2.chart"
-                  [labels]="chartOptions2.labels"
-                  [theme]="chartOptions2.theme"
-                  [responsive]="chartOptions2.responsive"
-                ></apx-chart>
-              </div>
+          <div  class="col-lg-6 col-sm-12 my-2">
+            <div class="shadow-sm border">
+              <div id="chart" class=" mt-0 py-3">
+                <p class="text-green px-2 font-bold mb-0">Circle Bench Mark</p>
+                  <apx-chart
+                    [series]="chartOptions2.series"
+                    [chart]="chartOptions2.chart"
+                    [labels]="chartOptions2.labels"
+                    [theme]="chartOptions2.theme"
+                    [responsive]="chartOptions2.responsive"
+                  ></apx-chart>
+                </div>
+            </div>
+
+
           </div>
-          <div  class="col-lg-4">
-            <p class="text-green px-2 py-2 font-bold mb-0 mt-2">Loan Portfolio</p>
-            <div id="chart"  class="mt-0 py-3 shadow-sm border">
-                <apx-chart
-                  [series]="chartOptions3.series"
-                  [chart]="chartOptions3.chart"
-                  [labels]="chartOptions3.labels"
-                  [theme]="chartOptions3.theme"
-                  [responsive]="chartOptions3.responsive"
-                ></apx-chart>
-              </div>
+          <div  class="col-lg-6 col-sm-12 my-2">
+            <div class="shadow-sm border">
+              <div id="chart"  class="mt-0 py-3">
+                <p class="text-green px-2 font-bold mb-0">Loan Portfolio</p>
+                  <apx-chart
+                    [series]="chartOptions3.series"
+                    [chart]="chartOptions3.chart"
+                    [labels]="chartOptions3.labels"
+                    [theme]="chartOptions3.theme"
+                    [responsive]="chartOptions3.responsive"
+                  ></apx-chart>
+                </div>
+          </div>
+
           </div>
 
         </div>

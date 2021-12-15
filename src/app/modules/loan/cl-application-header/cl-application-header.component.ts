@@ -380,7 +380,7 @@ export class ClApplicationHeaderComponent implements OnInit {
 
 
         this.isSaveApplicationHeaderInProgress = true;
-
+        this.loanApplicationHeader.AppStatus=1;
         this.spinner.show();
         this._loanService.saveApplicationHeader(this.loanApplicationHeader)
             .pipe(
@@ -394,6 +394,7 @@ export class ClApplicationHeaderComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.loanApplicationHeader.LoanAppID = baseResponse.Loan.ApplicationHeader.LoanAppID;
                     this.LoanDetail.ApplicationHeader = this.loanApplicationHeader;
+                    // this.LoanDetail.ApplicationHeader.AppStatus = 1;
                     this.LoanDetail.TranId = baseResponse.TranId;
                     this.applicationCall.emit(this.LoanDetail);
                     this.isSaveApplicationHeaderInProgress = false;

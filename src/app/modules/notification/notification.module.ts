@@ -43,7 +43,7 @@ const routing = [
         component: IntimateLoanerTextComponent
     },
     {
-        path: 'get-fence-Violation',
+        path: 'get-fence-violation',
         component: GetFenceViolationComponent
     },
 ]
