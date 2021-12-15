@@ -134,6 +134,7 @@ export class CustomerProfileComponent implements OnInit {
     zone: any;
     branch: any;
     editable_cnic: boolean = true;
+    private tran_id: number;
 
     constructor(
         // public dialogRef: MatDialogRef<RoleEditComponent>,
@@ -762,7 +763,7 @@ export class CustomerProfileComponent implements OnInit {
 
                     if (baseResponse.Success) {
                         var customerobj = baseResponse.Customer;
-
+                        this.tran_id = baseResponse.TranId;
                         this.createCustomer = customerobj;
                         if (this.createCustomer.FatherOrHusbandCnic != undefined && this.createCustomer.FatherOrHusbandCnic != null) {
                             this.createCustomer.FatherOrHusbandCnic = parseInt(this.createCustomer.FatherOrHusbandCnic).toString();
@@ -1180,8 +1181,10 @@ export class CustomerProfileComponent implements OnInit {
     submitDocuments() {
         this.dialogRef.open(SubmitDocumentsComponent,
             {
-                data: this.createCustomer.Cnic,
-                panelClass: ['w-6/12']
+                data: {
+                    customer: this.createCustomer, tranId: this.tran_id
+                },
+                panelClass: ['w-9/12']
             }
         );
     }

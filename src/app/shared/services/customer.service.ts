@@ -115,6 +115,16 @@ export class CustomerService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
+    submitDocumentDetails(request): Observable<BaseResponseModel> {
+        return this.http
+            .post(
+                `${environment.apiUrl}/Document/SubmitDocumentDetails`,
+                request,
+                {headers: this.httpUtils.getHTTPHeaders()}
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
     searchCustomer_bkp(
         customer: CreateCustomer
     ): Observable<BaseResponseModel> {
