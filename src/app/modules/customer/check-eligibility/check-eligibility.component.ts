@@ -98,6 +98,7 @@ export class CheckEligibilityComponent implements OnInit {
     should_regenerate: boolean = true;
     private first_request_response: BaseResponseModel;
     private rawData: any = [];
+     redirected: boolean;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -133,6 +134,11 @@ export class CheckEligibilityComponent implements OnInit {
         this.checkEligibiltyCnic = false;
         this.LoadLovs();
         this.createForm();
+        if (localStorage.getItem('CreateCustomerBit')=='1') {
+            this.redirected = true;
+        } else {
+            this.redirected = false;
+        }
 
 
         this.todayMax.setFullYear(this.todayMax.getFullYear() - 18);
@@ -500,7 +506,7 @@ export class CheckEligibilityComponent implements OnInit {
         //     this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});
         // }
 
-        debugger;
+
         var bit = localStorage.getItem("CreateCustomerBit");
         if (bit == '10') {
             localStorage.setItem('CreateCustomerBit', '5');

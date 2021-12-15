@@ -213,7 +213,6 @@ export class CustomerProfileComponent implements OnInit {
         }
 
         let should_alert = localStorage.getItem('ShouldAlert');
-        debugger;
         if (should_alert == 'true') {
             if (this.createCustomer.CustomerStatus == 'N') {
                 this.layoutUtilsService.alertElement('Customer is already in Pending State, Please go to Pending List');
@@ -322,7 +321,7 @@ export class CustomerProfileComponent implements OnInit {
             Caste: [this.createCustomer ? this.createCustomer.Caste : null, [Validators.required]],
             Religion: [this.createCustomer?.Religion, [Validators.required]],
             BirthPlace: [this.createCustomer?.BirthPlace],
-            RiskCategory: [this.createCustomer ? this.createCustomer.RiskCategory : '1', Validators.required],
+            RiskCategory: [this.createCustomer.RiskCategory && this.createCustomer.RiskCategory != '-' ? this.createCustomer.RiskCategory : '1', Validators.required],
             PremisesFlag: [this.createCustomer?.PremisesFlag],
             BusinessProfPos: [this.createCustomer?.BusinessProfPos],
             FamilyNumber: [this.createCustomer?.FamilyNumber, [Validators.pattern(regExps.familyNumber)]],
@@ -513,7 +512,6 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.Dob = this.datePipe.transform(this.createCustomer.Dob, 'ddMMyyyy');
         this.createCustomer.CnicExpiry = this.datePipe.transform(this.createCustomer.CnicExpiry, 'ddMMyyyy');
         this.createCustomer.CnicIssueDate = this.datePipe.transform(this.createCustomer.CnicIssueDate, 'ddMMyyyy');
-        debugger;
         this.spinner.show();
         this._customerService.createCustomerSave(this.createCustomer)
             .pipe(
