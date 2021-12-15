@@ -138,7 +138,7 @@
         <div class="col-lg-4 col-sm-12">
             <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
-                <count [count]="nUv" *ngIf="nBl  != undefined"></count>
+                <count [count]="nUv" *ngIf="nUv  != undefined"></count>
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/ic_upcoming_visits.PNG" class="img-responsive center-block w-12 mx-auto mb-3">
 
@@ -150,11 +150,23 @@
         <div class="col-lg-4 col-sm-12">
             <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
-                <count [count]="nLDef" *ngIf="nBl  != undefined"></count>
+                <count [count]="nLDef" *ngIf="nLDef  != undefined"></count>
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/ic_loan_defaulters.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
 
                     <p class=" text-black">Loan Defaulters</p>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText" (click)="click(12)">
+                <count [count]="nFvc" *ngIf="nFvc  != undefined"></count>
+                <div class="d-grid" style="justify-items: center;">
+                    <img src="../../../../assets/images/ic_loan_defaulters.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
+
+                    <p class=" text-black">Fence Violations</p>
                 </div>
             </mat-card>
         </div>

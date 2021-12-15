@@ -90,6 +90,12 @@ export class NotificationService {
                     map((res: BaseResponseModel) => res)
                 );
         }
+        else if(type ==12){
+            return this.http.post<any>(`${environment.apiUrl}/Notification/GetFenceVoilations`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }
     }
 
 }

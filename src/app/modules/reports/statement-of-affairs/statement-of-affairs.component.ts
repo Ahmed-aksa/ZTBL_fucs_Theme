@@ -158,7 +158,7 @@ export class StatementOfAffairsComponent implements OnInit {
     createForm() {
         this.bufricationForm = this.fb.group({
             WorkingDate: [null, Validators.required],
-            GLCode: [null, Validators.required],
+            GLCode: [null],
             BatchID: [null, Validators.required],
             ReportFormatType: [null, Validators.required]
         })
