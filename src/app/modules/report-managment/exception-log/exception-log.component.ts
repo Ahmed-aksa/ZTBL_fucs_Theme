@@ -12,6 +12,7 @@ import {AppState} from "../../../shared/reducers";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {ExceptionDetailComponent} from "../exception-detail/exception-detail.component";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-exception-log',
@@ -47,7 +48,8 @@ export class ExceptionlogListComponent implements OnInit {
         public snackBar: MatSnackBar,
         private filterFB: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
-        private _reportservice: ReportService) {
+        private _reportservice: ReportService,
+        private datePipe: DatePipe) {
     }
 
     ngOnInit() {
@@ -78,6 +80,7 @@ export class ExceptionlogListComponent implements OnInit {
     createForm() {
         this.StartDate = new Date();
         this.FilterForm = this.filterFB.group({
+            TranId: [],
             StartDate: [new Date(), [Validators.required]],
             EndDate: [new Date(), [Validators.required]]
         });
@@ -93,8 +96,18 @@ export class ExceptionlogListComponent implements OnInit {
         //this.reportFilter.clear();
         //this.reportFilter.StartDate = "2021-01-01T14:22:17.960Z";
         //this.reportFilter.EndDate = "2021-01-27T14:22:17.960Z";
-        this.reportFilter = Object.assign(this.reportFilter, this.FilterForm.value);
 
+        this.reportFilter = Object.assign(this.reportFilter, this.FilterForm.value);
+        this.reportFilter.StartDate = this.datePipe.transform(this.FilterForm.value.StartDate, 'dd-MM-YYYY');
+        this.reportFilter.EndDate = this.datePipe.transform(this.FilterForm.value.EndDate, 'dd-MM-YYYY');
+        if (isNaN(this.reportFilter.TranId)) {
+            this.reportFilter.ApiName = String(this.reportFilter.TranId);
+            this.reportFilter.TranId = null;
+
+        } else {
+            this.reportFilter.TranId = parseInt(String(this.reportFilter.TranId));
+
+        }
         this._reportservice.getAllErrorLogs(this.reportFilter)
             .pipe(
                 finalize(() => {
