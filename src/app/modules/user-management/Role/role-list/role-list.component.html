@@ -27,11 +27,10 @@
 
 
     <!-- Main -->
-    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50  overflow-y-scroll">
 
         <!-- Products list -->
-        <div class="flex flex-auto overflow-hidden" style="flex-direction: column;">
-            <div class="flex flex-col flex-auto sm:mb-4 overflow-hidden sm:overflow-y-auto">
+        <div class="flex flex-auto overflow-x-hidden sm:overflow-y-auto border shadow-xs rounded-sm bg-gray-50" style="flex-direction: column;">
+            <div class="flex flex-col flex-auto sm:mb-4 ">
                 <mat-table class="lmat-elevation-z8"
                            #table
                            [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
@@ -80,11 +79,11 @@
                 </mat-table>
 
             </div>
-            <mat-paginator [length]="50" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 25]">
-            </mat-paginator>
+
         </div>
 
-    </div>
+        <mat-paginator [length]="50" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 25]">
+        </mat-paginator>
 
 </div>
 
