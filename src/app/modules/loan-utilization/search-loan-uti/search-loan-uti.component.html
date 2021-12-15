@@ -1,5 +1,4 @@
-<div
-    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
     <!-- Header -->
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
@@ -103,12 +102,12 @@
 
 
     <!-- Main -->
-    <div class="flex flex-auto overflow-scroll">
+    <div class="flex flex-auto overflow-auto">
 
         <!-- Products list -->
-        <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-scroll"
+        <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-auto"
              style="flex-direction: column;">
-            <div class="flex flex-col flex-auto  overflow-scroll" [style.height]="gridHeight">
+            <div class="flex flex-col flex-auto  overflow-auto" [style.height]="gridHeight">
                 <mat-table class="lmat-elevation-z8"
                            #table
                            [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"

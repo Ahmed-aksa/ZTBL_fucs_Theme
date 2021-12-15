@@ -125,8 +125,8 @@ export class SearchRecoveryCommonComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.createForm();
+        this.loadLOV();
 
         this.recoveryTypes.push({id: 1, name: 'Recovery'});
         this.recoveryTypes.push({id: 2, name: 'Inter Branch Recovery'});
@@ -156,20 +156,24 @@ export class SearchRecoveryCommonComponent implements OnInit {
             this.disableWorkingDate = false
         }
         if (this.SearchType == 1) { //advance search
-            this.loadLOV();
             this.RecoveryForm.controls.RecoveryType.setValue(0);
         } else if (this.SearchType == 2) {  // search pending
             this.RecoveryForm.controls.RecoveryType.setValue(1);
             this.RecoveryForm.controls.Status.setValue("P");
+            this.RecoveryForm.controls.Status.disable();
         } else if (this.SearchType == 3) { //search reffered back
             this.RecoveryForm.controls.RecoveryType.setValue(1);
             this.RecoveryForm.controls.Status.setValue("R");
+            this.RecoveryForm.controls.Status.disable();
         } else if (this.SearchType == 4) { //search sbs
             this.RecoveryForm.controls.RecoveryType.setValue(3);
             this.RecoveryForm.controls.Status.setValue("P");
+            this.RecoveryForm.controls.Status.disable();
         }
     }
-
+    ngAfterViewInit() {
+        this.gridHeight = window.innerHeight - 220 + 'px';
+    }
     getKeys(obj: any) {
         return Object.keys(obj);
     }
@@ -179,6 +183,8 @@ export class SearchRecoveryCommonComponent implements OnInit {
         this.CustomerStatuses = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus});
 
         this.CustomerStatuses = this.CustomerStatuses.LOVs;
+
+        console.log(this.CustomerStatuses)
 
 
         this.cdRef.detectChanges();

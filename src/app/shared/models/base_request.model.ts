@@ -42,6 +42,7 @@ export class BaseRequestModel {
     Token: any
     RefreshToken: any
     EligibilityRequest: any;
+    DocumentDetail: any;
 
 }
 

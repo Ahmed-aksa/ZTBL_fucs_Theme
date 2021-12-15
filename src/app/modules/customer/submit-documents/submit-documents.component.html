@@ -1,0 +1,72 @@
+<div>
+    <div class="heading">Submit Documents
+        <button mat-icon-button color="warn" style="float:right;" (click)="matDialogRef.close()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+    <div class="container">
+        <p>Please Submit Documents(if any)</p>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Number of Files</mat-label>
+                <input matInput type="number" [value]="number_of_files"
+                       (change)="changeNumberOfFiles($event.target.value)"
+                       class="mat-input-element"/>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input matInput type="text"
+                       class="mat-input-element"/>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Reference No.</mat-label>
+                <input matInput type="text" (change)="changeTypeData($event.target.value,'reference')">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline">
+                <mat-label class="customMatLabel">Select Document Type
+                </mat-label>
+                <mat-select id="document_type" (change)="changeDocumentType($event.target.value)">
+                    <mat-option *ngFor="let obj of document_types?.LOVs" [value]="obj.Value">
+                        {{obj.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+
+    <div *ngFor="let j of [].constructor(number_of_files);let i=index">
+        <div class="row p-2 border rounded my-2">
+            <div class="col-lg-3 align-self-center">
+                <input type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
+                       (change)="onFileChange($event, i)"/>
+                <div class="shadow-sm mt-2" style="width: 240px; position: relative;">
+                    <img [src]="doc_urls[i]" (click)="previewImg(doc_urls[i])">
+                </div>
+
+            </div>
+            <div class="col-lg-3  align-self-center">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <input matInput type="text" id="description_{{i}}"/>
+                </mat-form-field>
+            </div>
+        </div>
+
+
+    </div>
+
+    <button mat-flat-button class="bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+            (click)="submitDocuments()">Submit
+    </button>
+</div>

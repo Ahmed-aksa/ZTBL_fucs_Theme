@@ -1,10 +1,10 @@
-<div class=" px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading">EVP(Operation Division)</div>
     <!-- Header -->
     <div class="example-container">
         <form [formGroup]="options">
             <div class="row pt-2">
-                <div class="col-lg-4">
+                <div class="col-lg-4 pl-0">
                     <mat-form-field  class="w-full" appearance="outline">
                         <mat-label>Date</mat-label>
                         <input matInput [matDatepicker]="picker">
@@ -22,17 +22,20 @@
             <!-- Products list -->
             <div class="flex flex-inline overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
             <div class="row pb-4">
-                <div  class="col-lg-4">
-                  <div id="chart mt-0">
-                      <apx-chart
-                        [series]="chartOptions.series"
-                        [chart]="chartOptions.chart"
-                        [labels]="chartOptions.labels"
-                        [title]="chartOptions.title"
-                        [theme]="chartOptions.theme"
-                        [responsive]="chartOptions.responsive"
-                      ></apx-chart>
-                    </div>
+                <div  class="col-lg-6">
+            <div class="shadow-sm border">
+                <div id="chart" class=" mt-0 py-3 shadow-sm border">
+                    <apx-chart
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [labels]="chartOptions.labels"
+                    [title]="chartOptions.title"
+                    [theme]="chartOptions.theme"
+                    [responsive]="chartOptions.responsive"
+                  ></apx-chart>
+                </div>
+                </div>
+
                 </div>
                </div>
                <div class="row">

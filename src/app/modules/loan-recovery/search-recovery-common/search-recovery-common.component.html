@@ -35,63 +35,34 @@
                     <div class="kt-form">
                         <div class="kt-portlet__body">
                             <div class="kt-portlet__body-progress"></div>
-                            <kt-alert
-                                *ngIf="hasFormErrors"
-                                type="warn"
-                                [duration]="30000"
-                                [showCloseButton]="true"
-                                (close)="onAlertClose($event)"
-                            >
-                                Please enter valid Input
-                            </kt-alert>
-
 
                             <div class="collapse show" id="collapseExample">
 
                                 <div class="flex" style="flex-wrap: wrap;">
-                                    <app-zone-branch-circle
-                                        [form]="RecoveryForm"
-                                        [should_show_circle]="false"
-                                        (branchZoneCircleData)="getAllData($event)"
-                                    ></app-zone-branch-circle>
-                                    <div class="mx-2">
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong
-                                                    class="matMandatory">*</strong>
-                                                </mat-label>
-                                                <input matInput [matDatepicker]="picker2" formControlName="WorkingDate"
-                                                       maxlength="30"
-                                                       autocomplete="off" (dateChange)="isEnableWorkingDate()"
-                                                       appNumberOnly [disabled]="disableWorkingDate"/>
-                                                <mat-datepicker-toggle matSuffix
-                                                                       [for]="picker2"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker2></mat-datepicker>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    <div class="mx-2">
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+<!--                                    <div class="row px-2" *ngIf="SearchType == 1">-->
+                                            <div class="flex" style="flex-wrap: wrap;">
+                                                <app-zone-branch-circle
+                                                    [form]="RecoveryForm"
+                                                    [should_show_circle]="false"
+                                                    (branchZoneCircleData)="getAllData($event)" ></app-zone-branch-circle>
 
-                                            <button
-                                                class=" mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500"
-                                                mat-raised-button
-                                                type="button"
-                                                (click)="find()">
-                                                <mat-icon class="mr-2">search</mat-icon>
-                                                Search
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="row" *ngIf="SearchType == 1">
-                                        <div class="col-lg-12">
-                                            <div class="form-group kt-form__group row">
-                                                <div
-                                                    class="
-                                            col-lg-3
-                                            kt-margin-bottom-20-mobile
-                                        "
-                                                >
+                                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2 " style="width: 225px;">
+                                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                        <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong
+                                                            class="matMandatory">*</strong>
+                                                        </mat-label>
+                                                        <input matInput [matDatepicker]="picker" formControlName="WorkingDate"
+                                                               maxlength="30"
+                                                               autocomplete="off" (dateChange)="isEnableWorkingDate()"
+                                                               appNumberOnly [disabled]="disableWorkingDate"/>
+                                                        <mat-datepicker-toggle matSuffix
+                                                                               [for]="picker"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+
+                                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2 " style="width: 225px;">
+
                                                     <mat-form-field
                                                         class="mat-form-field-fluid w-full"
                                                         appearance="outline"
@@ -133,12 +104,8 @@
                                                         >
                                                     </mat-form-field>
                                                 </div>
-                                                <div
-                                                    class="
-                                            col-lg-3
-                                            kt-margin-bottom-20-mobile
-                                        "
-                                                >
+                                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2 " style="width: 225px;">
+
                                                     <mat-form-field
                                                         class="mat-form-field-fluid w-full"
                                                         appearance="outline"
@@ -172,12 +139,8 @@
                                                     </mat-form-field>
                                                 </div>
 
-                                                <div
-                                                    class="
-                                            col-lg-3
-                                            kt-margin-bottom-20-mobile
-                                        "
-                                                >
+                                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2 " style="width: 225px;">
+
                                                     <mat-form-field
                                                         class="mat-form-field-fluid w-full"
                                                         appearance="outline"
@@ -210,12 +173,8 @@
                                                         >
                                                     </mat-form-field>
                                                 </div>
-                                                <div
-                                                    class="
-                                            col-lg-3
-                                            kt-margin-bottom-20-mobile
-                                        "
-                                                >
+                                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2 " style="width: 225px;">
+
                                                     <mat-form-field
                                                         class="mat-form-field-fluid w-full"
                                                         appearance="outline"
@@ -247,12 +206,8 @@
                                                     </mat-form-field>
                                                 </div>
 
-                                                <div
-                                                    class="
-                                            col-lg-3
-                                            kt-margin-bottom-20-mobile
-                                        "
-                                                >
+                                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2 " style="width: 225px;">
+
                                                     <mat-form-field
                                                         class="mat-form-field-fluid w-full"
                                                         appearance="outline"
@@ -273,7 +228,8 @@
                                                         </mat-select>
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-lg-2 mt-2">
+                                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2 " style="width: 225px;">
+
                                                     <button
                                                         class="
                                                 mat-focus-indicator
@@ -294,8 +250,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+
 
                                 </div>
                             </div>
@@ -320,238 +275,228 @@
                             </div> -->
                         </div>
                     </div>
-                    <div
-                        class="form-group kt-form__group row"
-                        *ngIf="
-                            dataFetched && RecoveryLoanTransaction.length > 0
-                        "
-                    >
-                        <div class="col-lg-12">
-                            <div
-                                class="table-responsive overflow-scroll"
-                                [style.height]="gridHeight"
-                            >
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr class="table-header-background">
-                                        <th>Branch</th>
-                                        <th>Voucher #</th>
-                                        <th>Transaction Date</th>
-                                        <th>LC #</th>
-                                        <th>Tran Master</th>
-                                        <th>Debit</th>
-                                        <th>Credit</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr
-                                        *ngFor="
-                                                let transaction of RecoveryLoanTransaction
-                                                    | paginate
-                                                        : {
-                                                              itemsPerPage:
-                                                                  itemsPerPage,
-                                                              currentPage:
-                                                                  pageIndex,
-                                                              totalItems:
-                                                                  totalItems
-                                                          };
-                                                let i = index
-                                            "
-                                    >
-                                        <td>
-                                            {{ transaction.UserBranchName }}
-                                        </td>
-                                        <td>{{ transaction.VoucherNo }}</td>
-                                        <td>
-                                            {{ transaction.EffectiveDate }}
-                                        </td>
-                                        <td>
-                                            {{ transaction.LoanCaseNo }}
-                                        </td>
-                                        <td>{{ transaction.Remarks }}</td>
-                                        <td>{{ transaction.DrAmount }}</td>
-                                        <td>{{ transaction.CrAmount }}</td>
-                                        <td>
-                                            {{ transaction.StatusName }}
-                                        </td>
-                                        <td>
-                                            <button
-                                                *ngIf="
-                                                        isShowEditIcon(
-                                                            transaction.TransactionStatus,
-                                                            transaction.CircleID
-                                                        ) && SearchType != 1
-                                                    "
-                                                (click)="
-                                                        editLoadTransaction(
-                                                            transaction.TransactionID,
-                                                            transaction.LoanCaseNo,
-                                                            false
-                                                        )
-                                                    "
-                                                mat-icon-button
-                                                color="primary"
-                                            >
-                                                <mat-icon title="Edit"
-                                                >create
-                                                </mat-icon
-                                                >
-                                            </button>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button
-                                                *ngIf="!searchSBS"
-                                                (click)="
-                                                        editLoadTransaction(
-                                                            transaction.TransactionID,
-                                                            transaction.LoanCaseNo,
-                                                            true
-                                                        )
-                                                    "
-                                                mat-icon-button
-                                                color="primary"
-                                            >
-                                                <mat-icon
-                                                    style="margin-left: 2px"
-                                                    title="View Recovery"
-                                                >visibility
-                                                </mat-icon>
-                                            </button>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button
-                                                *ngIf="searchSBS"
-                                                (click)="
-                                                        submit(
-                                                            transaction.TransactionID,
-                                                            transaction.DisbursementID,
-                                                            transaction.BranchWorkingDate,
-                                                            transaction.EffectiveDate
-                                                        )
-                                                    "
-                                                mat-icon-button
-                                                color="primary"
-                                            >
-                                                <mat-icon
-                                                    style="margin-left: 2px"
-                                                    title="Submit"
-                                                >save_alt
-                                                </mat-icon
-                                                >
-                                            </button
-                                            >&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button
-                                                *ngIf="searchSBS"
-                                                (click)="
-                                                        delete(
-                                                            transaction.TransactionID
-                                                        )
-                                                    "
-                                                mat-icon-button
-                                                color="primary"
-                                            >
-                                                <mat-icon
-                                                    style="margin-left: 2px"
-                                                    title="Cancel"
-                                                >cancel_presentation
-                                                </mat-icon>
-                                            </button
-                                            >&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button
-                                                *ngIf="
-                                                        showReceiptIcon(
-                                                            transaction
-                                                        )
-                                                    "
-                                                (click)="
-                                                        showReceipt(transaction)
-                                                    "
-                                                mat-icon-button
-                                                color="primary"
-                                            >
-                                                <mat-icon
-                                                    style="margin-left: 2px"
-                                                    title="View Receipt"
-                                                >receipt
-                                                </mat-icon>
-                                            </button
-                                            >&nbsp;
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div
-                                    *ngIf="MatTableLenght"
-                                    class="mat-select"
-                                    style="padding: 5px"
-                                >
-                                    Items per page:
-                                    <mat-select
-                                        display="inline"
-                                        [(value)]="itemsPerPage"
-                                        (valueChange)="paginateAs(1, $event)"
-                                        style="
-                                            width: 50px;
-                                            margin-left: 15px;
-                                            display: inline-block;
-                                            margin-right: 10px;
-                                        "
-                                    >
-                                        <mat-option [value]="10">10</mat-option>
-                                        <mat-option [value]="20">20</mat-option>
-                                        <mat-option [value]="40">40</mat-option>
-                                        <mat-option [value]="60">60</mat-option>
-                                        <mat-option [value]="80">80</mat-option>
-                                    </mat-select>
-                                    <button (click)="paginateAs(1)">
-                                        First
-                                    </button>
-                                    <pagination-controls
-                                        display="inline"
-                                        (pageChange)="paginateAs($event)"
-                                        style="display: inline-block"
-                                    ></pagination-controls>
-                                    <button
-                                        (click)="
-                                            paginateAs(
-                                                Math.ceil(
-                                                    totalItems / itemsPerPage
-                                                )
-                                            )
-                                        "
-                                    >
-                                        Last
-                                    </button>
-                                    <p style="float: right">
-                                        Total <b>{{ totalItems }}</b> items
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div
-                        class="form-group kt-form__group row"
-                        *ngIf="
-                            dataFetched &&
-                            RecoveryLoanTransaction.length == 0 &&
-                            !submitted
-                        "
-                    >
-                        <div
-                            class="
-                                col-lg-12
-                                kt-margin-bottom-20-mobile
-                                mat-table
-                            "
-                        >
-                            <h4>No Record found.</h4>
-                        </div>
-                    </div>
 
                 </form>
             </div>
         </div>
     </div>
+    <div
+    class="form-group kt-form__group row"
+    *ngIf="
+        dataFetched && RecoveryLoanTransaction.length > 0
+    "
+>
+    <div class="col-lg-12">
+        <div
+            class="table-responsive overflow-scroll"
+            [style.height]="gridHeight"
+        >
+            <table class="table table-striped">
+                <thead>
+                <tr class="table-header-background">
+                    <th>Branch</th>
+                    <th>Voucher #</th>
+                    <th>Transaction Date</th>
+                    <th>LC #</th>
+                    <th>Tran Master</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                    *ngFor="
+                            let transaction of RecoveryLoanTransaction
+                                | paginate
+                                    : {
+                                          itemsPerPage:
+                                              itemsPerPage,
+                                          currentPage:
+                                              pageIndex,
+                                          totalItems:
+                                              totalItems
+                                      };
+                            let i = index
+                        "
+                >
+                    <td>
+                        {{ transaction.UserBranchName }}
+                    </td>
+                    <td>{{ transaction.VoucherNo }}</td>
+                    <td>
+                        {{ transaction.EffectiveDate }}
+                    </td>
+                    <td>
+                        {{ transaction.LoanCaseNo }}
+                    </td>
+                    <td>{{ transaction.Remarks }}</td>
+                    <td>{{ transaction.DrAmount }}</td>
+                    <td>{{ transaction.CrAmount }}</td>
+                    <td>
+                        {{ transaction.StatusName }}
+                    </td>
+                    <td class="pl-0">
+                        <div class="flex" style="flex-wrap: wrap; width: max-content;">
+                        <button
+                            *ngIf="
+                                    isShowEditIcon(
+                                        transaction.TransactionStatus,
+                                        transaction.CircleID
+                                    ) && SearchType != 1
+                                "
+                            (click)="
+                                    editLoadTransaction(
+                                        transaction.TransactionID,
+                                        transaction.LoanCaseNo,
+                                        false
+                                    )
+                                "
+                            mat-icon-button
+                            color="primary"
+                        >
+                            <mat-icon title="Edit"
+                            >create
+                            </mat-icon
+                            >
+                        </button>
+                        <button
+                            *ngIf="!searchSBS"
+                            (click)="
+                                    editLoadTransaction(
+                                        transaction.TransactionID,
+                                        transaction.LoanCaseNo,
+                                        true
+                                    )
+                                "
+                            mat-icon-button
+                            color="primary"
+                        >
+                            <mat-icon
+                                style="margin-left: 2px"
+                                title="View Recovery"
+                            >visibility
+                            </mat-icon>
+                        </button>
+                        <button
+                            *ngIf="searchSBS"
+                            (click)="
+                                    submit(
+                                        transaction.TransactionID,
+                                        transaction.DisbursementID,
+                                        transaction.BranchWorkingDate,
+                                        transaction.EffectiveDate
+                                    )
+                                "
+                            mat-icon-button
+                            color="primary"
+                        >
+                            <mat-icon
+                                style="margin-left: 2px"
+                                title="Submit"
+                            >save_alt
+                            </mat-icon
+                            >
+                        </button
+                        >
+                        <button
+                            *ngIf="searchSBS"
+                            (click)="delete( transaction.TransactionID)"
+                            mat-icon-button
+                            color="primary" >
+                            <mat-icon
+                                style="margin-left: 2px"
+                                title="Cancel"
+                            >cancel_presentation
+                            </mat-icon>
+                        </button
+                        >
+                        <button
+                            *ngIf=" showReceiptIcon(transaction) "
+                            (click)=" showReceipt(transaction) "
+                            mat-icon-button
+                            color="primary"  >
+                            <mat-icon
+                                style="margin-left: 2px"
+                                title="View Receipt"
+                            >receipt
+                            </mat-icon>
+                        </button
+                        >
+                    </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div
+        *ngIf="MatTableLenght"
+        class="mat-select"
+        style="padding: 5px"
+    >
+        Items per page:
+        <mat-select
+            display="inline"
+            [(value)]="itemsPerPage"
+            (valueChange)="paginateAs(1, $event)"
+            style="
+                width: 50px;
+                margin-left: 15px;
+                display: inline-block;
+                margin-right: 10px;
+            "
+        >
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="20">20</mat-option>
+            <mat-option [value]="40">40</mat-option>
+            <mat-option [value]="60">60</mat-option>
+            <mat-option [value]="80">80</mat-option>
+        </mat-select>
+        <button (click)="paginateAs(1)">
+            First
+        </button>
+        <pagination-controls
+            display="inline"
+            (pageChange)="paginateAs($event)"
+            style="display: inline-block"
+        ></pagination-controls>
+        <button
+            (click)="
+                paginateAs(
+                    Math.ceil(
+                        totalItems / itemsPerPage
+                    )
+                )
+            "
+        >
+            Last
+        </button>
+        <p style="float: right">
+            Total <b>{{ totalItems }}</b> items
+        </p>
+    </div>
+    </div>
+</div>
+
+<div
+    class="form-group kt-form__group row"
+    *ngIf="
+        dataFetched &&
+        RecoveryLoanTransaction.length == 0 &&
+        !submitted
+    "
+>
+    <div
+        class="
+            col-lg-12
+            kt-margin-bottom-20-mobile
+            mat-table
+        "
+    >
+        <p class="text-green text-center p-5 font-bold">No Record found.</p>
+    </div>
+</div>
 </div>

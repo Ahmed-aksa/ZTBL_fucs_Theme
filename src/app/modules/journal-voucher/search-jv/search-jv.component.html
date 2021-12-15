@@ -38,7 +38,7 @@
                                 </mat-label>
                                 <input matInput [matDatepicker]="picker2" formControlName="TransactionDate"
                                        maxlength="8"
-                                       autocomplete="off" [max]="maxDate" appNumberOnly/>
+                                       autocomplete="off" [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
 
@@ -63,7 +63,7 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">Voucher # <strong class="matMandatory">*</strong>
+                                <mat-label class="customMatLabel">Voucher #
                                 </mat-label>
                                 <input matInput placeholder="Voucher No" formControlName="VoucherNo" maxlength="30"
                                        autocomplete="off"

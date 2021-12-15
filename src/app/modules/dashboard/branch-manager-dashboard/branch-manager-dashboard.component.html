@@ -1,4 +1,4 @@
-<div class="px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading">Branch Manager</div>
     <!-- Header -->
     <form [formGroup]="options">
@@ -34,46 +34,55 @@
       <!-- Products list -->
       <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
       <div class="row">
-          <div  class="col-lg-4">
-            <div id="chart">
+          <div  class="col-lg-6">
+            <div class="shadow-sm border">
+              <div id="chart" class=" mt-0 py-3">
                 <apx-chart
-                  [series]="chartOptions.series"
-                  [chart]="chartOptions.chart"
-                  [labels]="chartOptions.labels"
-                  [title]="chartOptions.title"
-                  [theme]="chartOptions.theme"
-                  [responsive]="chartOptions.responsive"
-                ></apx-chart>
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [labels]="chartOptions.labels"
+                    [title]="chartOptions.title"
+                    [theme]="chartOptions.theme"
+                    [responsive]="chartOptions.responsive"
+                  ></apx-chart>
+                </div>
               </div>
+
           </div>
-          <div  class="col-lg-4">
-            <div id="chart">
+          <div  class="col-lg-6">
+            <div class="shadow-sm border">
+              <div id="chart" class=" mt-0 py-3">
                 <apx-chart
-                  [series]="chartOptions.series"
-                  [chart]="chartOptions.chart"
-                  [labels]="chartOptions.labels"
-                  [title]="chartOptions.title"
-                  [theme]="chartOptions.theme"
-                  [responsive]="chartOptions.responsive"
-                ></apx-chart>
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [labels]="chartOptions.labels"
+                    [title]="chartOptions.title"
+                    [theme]="chartOptions.theme"
+                    [responsive]="chartOptions.responsive"
+                  ></apx-chart>
+                </div>
               </div>
+
           </div>
-          <div  class="col-lg-4">
-            <div id="chart">
+          <div  class="col-lg-6 mt-3">
+            <div class="shadow-sm border">
+              <div id="chart" class=" mt-0 py-3">
                 <apx-chart
-                  [series]="chartOptions.series"
-                  [chart]="chartOptions.chart"
-                  [labels]="chartOptions.labels"
-                  [title]="chartOptions.title"
-                  [theme]="chartOptions.theme"
-                  [responsive]="chartOptions.responsive"
-                ></apx-chart>
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [labels]="chartOptions.labels"
+                    [title]="chartOptions.title"
+                    [theme]="chartOptions.theme"
+                    [responsive]="chartOptions.responsive"
+                  ></apx-chart>
+                </div>
               </div>
+
           </div>
           </div>
-          <div class="row">          
+          <div class="row mb-2">          
             <div  class="col-lg-12 table-responsive">
-              <p class="heading">
+              <p class="heading mb-2 text-lg">
                 Disbursements
               </p>
             <table class="table  table-striped">

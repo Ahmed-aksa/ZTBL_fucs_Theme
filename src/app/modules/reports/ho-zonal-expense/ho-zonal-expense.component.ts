@@ -205,6 +205,8 @@ export class HoZonalExpenseComponent implements OnInit {
         debugger
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
+            this.bufricationForm.markAllAsTouched();
+            //this.searchCnicForm.markAllAsTouched()
             return;
         }
 

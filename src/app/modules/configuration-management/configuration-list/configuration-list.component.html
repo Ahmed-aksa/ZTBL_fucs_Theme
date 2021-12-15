@@ -76,8 +76,8 @@
                             <tbody>
                             <tr *ngFor="let child of parent_configuration.ChildConfigurations;let i=index;">
                                 <td>{{i + 1}}</td>
-                                <td class="break-all w-5/12">{{child.KeyName}}</td>
-                                <td class="break-all w-5/12">{{child.KeyValue}}</td>
+                                <td class="break-all" style="width: 300px;">{{child.KeyName}}</td>
+                                <td class="break-all" style="width: 400px;">{{child.KeyValue}}</td>
                                 <td>
                                     <div class="flex">
                                         <button mat-icon-button color="primary">

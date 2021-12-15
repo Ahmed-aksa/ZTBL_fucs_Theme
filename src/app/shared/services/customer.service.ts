@@ -105,16 +105,21 @@ export class CustomerService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    submitDocument(formData: any): Observable<BaseResponseModel> {
-        this.request = new BaseRequestModel();
-
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-
+    submitDocument(request): Observable<BaseResponseModel> {
         return this.http
             .post(
                 `${environment.apiUrl}/Document/SubmitDocument`,
-                this.request,
+                request,
+                {headers: this.httpUtils.getHTTPHeaders()}
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
+    submitDocumentDetails(request): Observable<BaseResponseModel> {
+        return this.http
+            .post(
+                `${environment.apiUrl}/Document/SubmitDocumentDetails`,
+                request,
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: BaseResponseModel) => res));
@@ -148,7 +153,7 @@ export class CustomerService {
 
     searchCustomer(
         customer: CreateCustomer, branch = null, zone = null,
-        userDetail = null, offset = null, itemperpage = null
+        userDetail = null, offset = 0, itemperpage = 10
     ): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
 
@@ -211,7 +216,7 @@ export class CustomerService {
     }
 
     //Find PassBook
-    findPassbookCorrection(cnic) {
+    findPassbookCorrection(cnic, zone, branch) {
         var userInfo = this.userUtilsService.getUserDetails();
 
         var circle = userInfo.UserCircleMappings;
@@ -220,7 +225,7 @@ export class CustomerService {
         circle.forEach((element) => {
             circleIds.push(element.CircleId);
         });
-        var _circles = JSON.stringify(circleIds);
+        var _circles = circleIds.toString();
 
         var request = {
             Circle: {
@@ -230,9 +235,9 @@ export class CustomerService {
                 Cnic: cnic,
             },
             TranId: 0,
-            Branch: userInfo.Branch,
+            Branch: branch,
             User: userInfo.User,
-            Zone: userInfo.Zone,
+            Zone: zone,
         };
 
         return this.http
@@ -316,11 +321,11 @@ export class CustomerService {
     UploadImagesSetData(Image: any) {
     }
 
-    public UploadImagesCallAPI(Image, CustomerNumber) {
+    public UploadImagesCallAPI(Image, CustomerCnic) {
         const formData = new FormData();
         formData.append('file', Image);
         formData.append('Description', 'Profile Picture customer#create');
-        formData.append('CustomerNumber', CustomerNumber);
+        formData.append('CustomerCnic', CustomerCnic);
         formData.append('PageNumber', '1');
 
         return this.http
@@ -400,6 +405,24 @@ export class CustomerService {
 
         return this.http
             .post<any>(`${environment.apiUrl}/Customer/AddEligibilityRequestFiles`, formData)
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
+    getCustomerHistory(customer_number: string) {
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        let request = new BaseRequestModel();
+        request.User = userInfo.User;
+        request.Branch = userInfo.Branch;
+        request.Zone = userInfo.Zone;
+        if (userInfo.UserCircleMappings?.length > 0)
+            request.Circle = userInfo?.UserCircleMappings[0];
+        request.Customer = {
+            CustomerNumber: customer_number,
+        }
+        return this.http
+            .post(`${environment.apiUrl}/Customer/GetCustomerHistory`, request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
             .pipe(map((res: BaseResponseModel) => res));
     }
 }

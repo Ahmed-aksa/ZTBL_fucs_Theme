@@ -96,14 +96,13 @@
         <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
             <div class="kt-form__actions kt-form__actions--solid" style="padding: 0px !important;">
                 <div class="row">
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-10 mt-3 mb-3">
+                    <div class="col-lg-12 text-right">
 
                         <!--<button mat-raised-button color="primary" class="col-md-3 pull-left" (click)="downloadReceipt()">Download</button>-->
-                        <button mat-raised-button color="primary" class="col-md-3 pull-left" [useExistingCss]="true"
+                        <button mat-raised-button color="primary" class="bg-green" [useExistingCss]="true"
                                 printSectionId="print-section" ngxPrint>Download
                         </button>
-                        <button mat-raised-button color="primary" class="col-md-8 pull-right"
+                        <button mat-raised-button color="primary" class="ml-2 bg-red-500"
                                 (click)="close()">{{receipt.buttonText}}</button>
 
                     </div>

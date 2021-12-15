@@ -19,33 +19,18 @@
     </div>
 
     <div class="collapse show" id="collapseExample">
-        <div class="card card-body">
+        <div class="card card-body" [formGroup]="cpForm">
 
 
-            <div class="form-group kt-form__group row">
+            <div class="flex" style="flex-wrap: wrap;">
 
-                <!-- <kt-alert *ngIf="hasFormErrors" class="col-lg-12" type="warn" [duration]="30000" [showCloseButton]="true" (close)="onAlertClose($event)">
-                  Please enter valid Input
-                </kt-alert> -->
 
-                <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                <app-zone-branch-circle [form]="cpForm" [should_show_circle]="false"
+                                        [is_required_circle]="false"
+                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Zone<strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter Tran Date" formControlName="Zone" maxlength="13"
-                               autocomplete="off" readonly="readonly"/>
-                    </mat-form-field>
-                </div>
 
-                <div class="col-lg-3 kt-margin-bottom-20-mobile">
-
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Branch<strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter Tran Date" formControlName="Branch" maxlength="13"
-                               autocomplete="off" readonly="readonly"/>
-                    </mat-form-field>
-                </div>
-                <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">CNIC#</mat-label>
                         <!-- <input appNumberOnly matInput (keyup)="changed($event)" placeholder="Enter Cnic" formControlName="Cnic"  maxlength="13" autocomplete="off" [readonly]="viewOnly"/> -->
@@ -53,9 +38,9 @@
                                autocomplete="off"/>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-2 kt-margin-bottom-20-mobile">
+                <div class="flex flex-shrink-0 items-center  sm:mt-0 mx-2" style="width: 225px;">
                     <input type="button" mat-raised-button color="primary"
-                           class=" bg-gray-500 mt-2 mat-raised-button mat-button-base mat-primary searchLCBtn"
+                           class=" bg-gray-500 mat-raised-button mat-button-base mat-primary searchLCBtn"
                            value="Find" (click)="find()"/>
                     <!-- <button mat-raised-button color="primary" (click)="find()">Find</button> -->
                 </div>
@@ -71,7 +56,6 @@
          style="flex-wrap: wrap">
     </div>
     <div class="flex flex-auto overflow-y-scroll" style="flex-direction: column;">
-        <form [formGroup]="cpForm" class="kt-form kt-form--group-seperator-dashed">
 
             <div *ngIf="afterFind" class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                 <div class="kt-portlet__head-label">
@@ -188,16 +172,20 @@
 
             </div>
 
-        </form>
         <!-- <pre>
           {{PassBookRec|json}}
         </pre> -->
 
         <div *ngIf="searchData" class="form-group kt-form__group row mt-2 justify-content-center">
-            <button mat-raised-button color="primary" (click)="submit()">
-                <mat-icon class="mr-2">check_circle</mat-icon>
-                Submit
-            </button>
+            <div class="row">
+                <div class="col-lg-12 text-right">
+                    <button mat-raised-button color="primary" (click)="submit()">
+                        <mat-icon class="mr-2">check_circle</mat-icon>
+                        Submit
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 

@@ -108,6 +108,27 @@ export class SearchJvComponent implements OnInit {
 
         this.createForm();
         this.loadLOV();
+        let userInfo = this.userUtilsService.getUserDetails();
+
+        if(userInfo.Branch){
+            let dateString = userInfo?.Branch?.WorkingDate;
+            var day = parseInt(dateString?.substring(0, 2));
+            var month = parseInt(dateString?.substring(2, 4));
+            var year = parseInt(dateString?.substring(4, 8));
+
+            const branchWorkingDate = new Date(year, month - 1, day);
+            this.JvSearchForm.controls.TransactionDate.setValue(branchWorkingDate);
+            this.maxDate = new Date(year, month - 1, day);
+        }else{
+            let dateString = '11012021';
+            var day = parseInt(dateString?.substring(0, 2));
+            var month = parseInt(dateString?.substring(2, 4));
+            var year = parseInt(dateString?.substring(4, 8));
+
+            const branchWorkingDate = new Date(year, month - 1, day);
+            this.JvSearchForm.controls.TransactionDate.setValue(branchWorkingDate);
+            this.maxDate = new Date(year, month - 1, day);
+        }
     }
 
     getKeys(obj: any) {
@@ -124,6 +145,47 @@ export class SearchJvComponent implements OnInit {
         this.Nature = this.Nature.LOVs;
         this.cdRef.detectChanges();
 
+    }
+
+    isEnableReceipt(isTrCodeChange: boolean) {
+
+        var effectiveDate = this.JvSearchForm.controls.TransactionDate.value;
+        if (effectiveDate._isAMomentObject == undefined) {
+            try {
+                var day = this.JvSearchForm.controls.TransactionDate.value.getDate();
+                var month = this.JvSearchForm.controls.TransactionDate.value.getMonth() + 1;
+                var year = this.JvSearchForm.controls.TransactionDate.value.getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                const branchWorkingDate = new Date(year, month - 1, day);
+                this.JvSearchForm.controls.TransactionDate.setValue(branchWorkingDate);
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                var day = this.JvSearchForm.controls.TransactionDate.value.toDate().getDate();
+                var month = this.JvSearchForm.controls.TransactionDate.value.toDate().getMonth() + 1;
+                var year = this.JvSearchForm.controls.TransactionDate.value.toDate().getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                effectiveDate = day + "" + month + "" + year;
+
+
+                const branchWorkingDate = new Date(year, month - 1, day);
+                this.JvSearchForm.controls.TransactionDate.setValue(branchWorkingDate);
+            } catch (e) {
+
+            }
+        }
     }
 
     getAllData(event) {

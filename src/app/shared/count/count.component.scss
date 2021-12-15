@@ -1,7 +1,13 @@
 :host {
-    background-color: red;
-    color: #fff;
-    font-size: 8px;
-    padding: 2px 4px;
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    padding: 8px 2px;
     border-radius: 50%;
+    background-color: red;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border: 0.5px solid #fff;
+    font: 12px Arial, sans-serif;
 }

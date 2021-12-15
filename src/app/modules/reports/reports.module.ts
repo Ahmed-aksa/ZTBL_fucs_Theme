@@ -23,6 +23,13 @@ import { LaFileProgressComponent } from './la-file-progress/la-file-progress.com
 import { LoanInformationDetailComponent } from './loan-information-detail/loan-information-detail.component';
 import { GetUnsuccessfulLoginComponent } from './get-unsuccessful-login/get-unsuccessful-login.component';
 import { HoZonalExpenseComponent } from './ho-zonal-expense/ho-zonal-expense.component';
+import { MarkOnCaComponent } from './mark-on-ca/mark-on-ca.component';
+import { RecoveryScheduleComponent } from './recovery-schedule/recovery-schedule.component';
+import { LoanMoveComponent } from './loan-move/loan-move.component';
+import { GlMoveComponent } from './gl-move/gl-move.component';
+import { StatementOfAffairsComponent } from './statement-of-affairs/statement-of-affairs.component';
+import { ReschedulementOfLoanComponent } from './reschedulement-of-loan/reschedulement-of-loan.component';
+import { GetCustomerLegalHeirsComponent } from './get-customer-legal-heirs/get-customer-legal-heirs.component';
 
 const routing = [
     {
@@ -41,10 +48,10 @@ const routing = [
         path: 'early-warning-reports',
         component: EarlyWarningReportsComponent
     },
-    // {
-    //     path: 'bifurction-of-os',
-    //     component: BufricationOfOsBalancesLcComponent
-    // },
+    {
+        path: 'bifurction-of-os',
+        component: BufricationOfOsBalancesLcComponent
+    },
     {
         path: 'updated-list',
         component: UpdatedListOfDefaultersComponent
@@ -56,6 +63,10 @@ const routing = [
     {
         path: 'get-unsuccessful-login',
         component: GetUnsuccessfulLoginComponent
+    },
+    {
+        path: 'get-customer-legal-heirs',
+        component: GetCustomerLegalHeirsComponent
     },
 ]
 
@@ -80,7 +91,14 @@ const routing = [
         LaFileProgressComponent,
         LoanInformationDetailComponent,
         GetUnsuccessfulLoginComponent,
-        HoZonalExpenseComponent
+        HoZonalExpenseComponent,
+        MarkOnCaComponent,
+        RecoveryScheduleComponent,
+        LoanMoveComponent,
+        GlMoveComponent,
+        StatementOfAffairsComponent,
+        ReschedulementOfLoanComponent,
+        GetCustomerLegalHeirsComponent
     ],
     imports: [
         CommonModule,

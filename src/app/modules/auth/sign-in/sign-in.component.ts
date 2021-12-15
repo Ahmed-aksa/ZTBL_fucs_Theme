@@ -55,51 +55,36 @@ export class AuthSignInComponent implements OnInit {
 
         var loginMode = this.signInForm.value;
         loginMode['App'] = 1;
-        this.http.get("http://api.ipify.org/?format=json").subscribe((res: any) => {
+        this._authService.signIn(loginMode)
+            .subscribe((result) => {
+                    if (result.Success) {
+                        this.toaster.success(result.Message);
 
-            this.ip = res.ip;
-            loginMode['UserIp'] = this.ip;
-            this._authService.signIn(loginMode)
-                .subscribe((result) => {
-                        if (result.Success) {
-                            this.toaster.success(result.Message);
+                        if (!result.isWebOTPEnabled) {
+                            if (result.LoanUtilization) {
+                                localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
+                                localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
+                                localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
+                            }
+                            const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                            this._router.navigateByUrl(redirectURL);
+                            window.location.reload();
+                        } else if (result.isWebOTPEnabled) {
 
-                            if (!result.isWebOTPEnabled) {
-                                if (result.LoanUtilization) {
-                                    localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
-                                    localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
-                                    localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
-                                }
-                                const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-                                this._router.navigateByUrl(redirectURL);
-                                window.location.reload();
-                            } else if (result.isWebOTPEnabled) {
-
-                                const dialogRef = this.dialog.open(OtpComponent, {
-                                    data: {result},
-                                    disableClose: true,
-                                    panelClass: ['max-w-full', 'max-h-full', 'sm:w-3/12', 'w-full'],
-                                });
-                                dialogRef.afterClosed().subscribe(res => {
-                                    if (res.data.data.Success) {
-                                        if (res.data.data.Token && res.data.data.RefreshToken) {
-                                            localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));
-                                            localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
-                                            localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
-                                            const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-                                            window.location.reload();
-                                            this._router.navigateByUrl(redirectURL);
-                                        } else {
-                                            this.signInNgForm.resetForm();
-                                            this.signInForm.enable();
-                                            // this.alert = {
-                                            //     type: 'error',
-                                            //     message: 'invalid OTP',
-                                            // };
-                                            this._router.navigateByUrl("/auth/sign-in");
-                                            // this.showAlert = true;
-
-                                        }
+                            const dialogRef = this.dialog.open(OtpComponent, {
+                                data: {result},
+                                disableClose: true,
+                                panelClass: ['max-w-full', 'max-h-full', 'sm:w-3/12', 'w-full'],
+                            });
+                            dialogRef.afterClosed().subscribe(res => {
+                                if (res.data.data.Success) {
+                                    if (res.data.data.Token && res.data.data.RefreshToken) {
+                                        localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));
+                                        localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
+                                        localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
+                                        const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                                        window.location.reload();
+                                        this._router.navigateByUrl(redirectURL);
                                     } else {
                                         this.signInNgForm.resetForm();
                                         this.signInForm.enable();
@@ -109,38 +94,42 @@ export class AuthSignInComponent implements OnInit {
                                         // };
                                         this._router.navigateByUrl("/auth/sign-in");
                                         // this.showAlert = true;
+
                                     }
-                                });
-                            }
-                        } else {
-                            this.signInNgForm.resetForm();
-                            this.signInForm.enable();
-                            this.alert = {
-                                type: 'error',
-                                message: result.Message,
-                            };
-                            this.showAlert = true;
-
+                                } else {
+                                    this.signInNgForm.resetForm();
+                                    this.signInForm.enable();
+                                    // this.alert = {
+                                    //     type: 'error',
+                                    //     message: 'invalid OTP',
+                                    // };
+                                    this._router.navigateByUrl("/auth/sign-in");
+                                    // this.showAlert = true;
+                                }
+                            });
                         }
-
-                    },
-                    (response) => {
+                    } else {
                         this.signInNgForm.resetForm();
                         this.signInForm.enable();
                         this.alert = {
                             type: 'error',
-                            message: response
+                            message: result.Message,
                         };
                         this.showAlert = true;
-                    }
-                );
 
-        }, (error) => {
-            this.alert = {
-                type: 'error',
-                message: error.message
-            };
-        });
+                    }
+
+                },
+                (response) => {
+                    this.signInNgForm.resetForm();
+                    this.signInForm.enable();
+                    this.alert = {
+                        type: 'error',
+                        message: response
+                    };
+                    this.showAlert = true;
+                }
+            );
 
     }
 }

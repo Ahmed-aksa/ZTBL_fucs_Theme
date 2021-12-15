@@ -6,15 +6,25 @@
 @import '~material-icons-font/sass/mixins';
 
 $MaterialIcons_FontPath: "~material-icons-font/fonts";
+@import '~material-design-icons/iconfont/material-icons.css';
+
 @import '~material-icons-font/sass/main';
 @import '~material-icons-font/sass/Regular';
 @import "~bootstrap/scss/bootstrap";
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 body {
     font-family: 'Poppins', sans-serif !important;
 }
+.mat-tab-group .mat-tab-header .mat-tab-label-container .mat-tab-list .mat-tab-labels .mat-tab-label.mat-tab-label-active {
+    --tw-bg-opacity: 1 !important;
+    background-color: #01671B !important;
+    color: white !important;
+}
 
+body.light .mat-tab-label, body.light .mat-tab-link, body .light .mat-tab-label, body .light .mat-tab-link {
+    color: #01671B !important;
+}
 .trend-dialog {
     overflow-y: hidden;
 
@@ -250,6 +260,17 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
     border-bottom-width: 1px !important;
 }
 
+.sub-heading {
+    background-color: #f6fcf8;
+    letter-spacing: -0.025em !important;
+    font-weight: 800 !important;
+    font-size: 1.5rem !important;
+    padding: 0.5rem !important;
+    --tw-border-opacity: 1 !important;
+    border-color: rgba(34, 197, 94) !important;
+    border-bottom-width: 1px !important;
+}
+
 button {
     box-shadow: none;
 }
@@ -326,10 +347,13 @@ button:focus {
         .col-lg-4 {
             mat-card {
                 background-color: white;
-                height: 150px;
+                height: 170px;
                 color: #01671B;
                 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
                 border: 1px solid #22c55e !important;
+                p{
+                    font-size: 12px;
+                }
             }
         }
     }
@@ -616,15 +640,51 @@ img {
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    div#collapseExample{
+        height: calc(100vh - 500px);
+        overflow: auto;
+    }
+    .text-white{
+        color: white !important;
+    }
+    .bg-red-500 {
+        background-color: #ef4444 !important;
+    }
+    .calculator-img{
+        padding: 7px;
+    }
+
+    .fuse-alert-message{
+        color: #ef4444;
+        width: 337px;
+    }
+
+    ::-webkit-scrollbar { display:none }
+    pagination-controls{
+    pagination-template{
+        .ngx-pagination{
+            margin: 0px;
+        }
+    }
+    }
     .bg-card{
         display: block !important;
     }
-    .col-lg-3{
-        padding:0 12px;
+    .row{
+        .col-lg-3{
+            padding:0 12px;
+        }
+        .col-lg-4{
+            padding:0 12px;
+        }
+        .col-lg-6{
+            padding:0 12px;
+        }
+        .col-lg-2{
+            padding:0 12px;
+        }
     }
-    .col-lg-4{
-        padding:0 12px;
-    }
+
     // #collapseExample {
     //     min-height: 00px;
     // }
@@ -694,4 +754,8 @@ img {
 .mat-sort-header-arrow:hover {
     color: #fff !important;
     opacity: 1 !important;
+}
+
+.text-lg {
+    font-size: 1rem !important;
 }

@@ -1,51 +1,66 @@
-<div class="flex flex-col flex-auto min-w-0 bg-white w-full leo">
+<div
+    class=" px-10   sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
 
-    <!-- Main -->
-    <div class="flex-auto p-6 sm:p-10">
+<mat-tab-group class="pt-4 flex flex-auto  shadow-xs rounded-sm"
+style="flex-direction: column; overflow-y: scroll" animationDuration="200ms" style="background-color: white;">
 
-        <!-- CONTENT GOES HERE -->
-        <div class=" border-2 border-dashed border-gray-300 rounded-2xl">
-            <div class="row">
-                <div class="container">
-                    <img src="./assets/media/bg/Group 1.png" class="img-responsive" alt="Alternate Text"/>
-                </div>
-                <div class="container">
-                    <img src="./assets/media/bg/Group 2.png" class="img-responsive" alt="Alternate Text"/>
-                </div>
+    <mat-tab ng-disable="visibleFlag" label="MCO">
+        <app-mco-dashborad></app-mco-dashborad>
+    </mat-tab>
+
+    <mat-tab label="Recovery Officer">
+        <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
+    </mat-tab>
+
+    <mat-tab label="Branch Manager">
+        <app-branch-manager-dashboard></app-branch-manager-dashboard>
+    </mat-tab>
+
+    <mat-tab label="Zonal Chiet">
+        <app-zonal-chief-dashboard></app-zonal-chief-dashboard>
+    </mat-tab>
+
+    <mat-tab label="EVP (Operations Division)">
+        <app-evp-od-dashboard></app-evp-od-dashboard>
+    </mat-tab>
+
+    <mat-tab label="EVP (Credit Division)">Content 3</mat-tab>
+
+    <mat-tab label="EVP (Recovery & SAM Division)">
+        <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
+    </mat-tab>
+
+    <mat-tab label="Resourccs Aveilable">Content 3</mat-tab>
+    <mat-tab label="President ZTBL">Content 3</mat-tab>
+    <mat-tab label="Regional Chief">Content 3</mat-tab>
+</mat-tab-group>
+
+
+
+<div class="overlay" *ngIf="popup">
+    <div class="popup">
+        <h2 class="heading">Session Expire ! </h2>
+        <!-- <a class="close text-red-500" (click)="popup = false">&times;</a> -->
+        <div class="content my-4">
+            <p>Your Session is going to expire within <b> {{time}}</b> Second(s).</p>
+            <p>Please do an action.</p>
+        </div>
+        <div class="row text-right">
+            <div class="col-lg-12">
+                <button type="button" (click)="RefreshToken()" class="btn btn-primary bg-green" mat-raised-button
+                    color="primary">
+                    <mat-icon class="mr-2">refresh</mat-icon>
+                    Refresh
+                </button>
+
+                &nbsp;
+                <button type="button" (click)="Logout()" class="btn btn-primary bg-red-500" mat-raised-button
+                    color="primary">
+                    <mat-icon class="mr-2">login</mat-icon>
+                    Logout
+                </button>
             </div>
         </div>
-
     </div>
-
-    <button type="button"(click)="popup = true">
-        Open
-         </button>
-         <p></p>
-         <div class="overlay" *ngIf="popup">
-             <div class="popup">
-                 <h2 class="heading">Session Expire ! </h2>
-                 <a class="close text-red-500" (click)="popup = false">&times;</a>
-                 <div class="content my-4">
-                  <p>Your Session is going to expire within {{time}}; Seconds.</p>
-                    <p>Please do an action.</p>
-                 </div>
-                 <div class="row text-right">
-                    <div class="col-lg-12">
-                        <button type="button" (click)="RefreshToken()" class="btn btn-primary bg-green" mat-raised-button color="primary"
-                                >
-                            <mat-icon class="mr-2">refresh</mat-icon>
-                            Refresh
-                        </button>
-    
-                        &nbsp;
-                        <button type="button" (click)="Logout()" class="btn btn-primary bg-red-500" mat-raised-button color="primary">
-                            <mat-icon class="mr-2">cancel</mat-icon>
-
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-             </div>
-         </div>
-         
+</div>
 </div>

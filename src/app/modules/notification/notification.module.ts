@@ -15,12 +15,37 @@ import { NotificationComponent } from './notification/notification.component';
 import {RouterModule} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
 import { NotificationPageComponent } from './notification-page/notification-page.component';
+import { GetFenceViolationComponent } from './get-fence-violation/get-fence-violation.component';
 
 const routing = [
     {
-        path: 'notifications',
+        path: 'notification-details',
         component: NotificationPageComponent
-    }
+    },
+    {
+        path: 'cnic-expiry-loaner',
+        component: CnicExpiryLoanerComponent
+    },
+    {
+        path: 'due-payments',
+        component: DuePaymentsComponent
+    },
+    {
+        path: 'loan-defaulters',
+        component: LoanDefaultersComponent
+    },
+    {
+        path: 'possible-customer-leads',
+        component: PossibleCustomerLeadsComponent
+    },
+    {
+        path: 'intimate-loaners-text',
+        component: IntimateLoanerTextComponent
+    },
+    {
+        path: 'get-fence-violation',
+        component: GetFenceViolationComponent
+    },
 ]
 
 @NgModule({
@@ -37,7 +62,8 @@ const routing = [
     UpcomingVisitsComponent,
     LoanDefaultersComponent,
     NotificationComponent,
-    NotificationPageComponent
+    NotificationPageComponent,
+    GetFenceViolationComponent
   ],
   imports: [
       CommonModule,
@@ -56,7 +82,8 @@ const routing = [
         BusinessLeadsComponent,
         UpcomingVisitsComponent,
         LoanDefaultersComponent,
-        NotificationComponent
+        NotificationComponent,
+        GetFenceViolationComponent
     ]
 })
 export class NotificationModule { }

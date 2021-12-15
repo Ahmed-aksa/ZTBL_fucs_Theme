@@ -5,17 +5,14 @@ import {
     HttpEvent,
     HttpInterceptor,
     HttpErrorResponse,
-    HttpClient
+    HttpClient, HttpResponse
 } from '@angular/common/http';
-import {environment} from '../../../environments/environment';
 import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
-import {catchError, filter, switchMap, take} from 'rxjs/operators';
+import {catchError, filter, map, switchMap, take} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {result} from 'lodash';
 import {LayoutUtilsService} from '../services/layout_utils.service';
 import {AuthService} from 'app/core/auth/auth.service';
 import {NgxSpinnerService} from "ngx-spinner";
-import {AES} from "crypto-js";
 
 
 @Injectable()
@@ -24,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 private _authService: AuthService,
                 private injector: Injector, private router: Router,
                 private http: HttpClient,
-                private spinner: NgxSpinnerService
+                private spinner: NgxSpinnerService,
     ) {
     }
 
@@ -41,18 +38,19 @@ export class TokenInterceptor implements HttpInterceptor {
         // let key = environment.AesKey;
         // console.log(AES.encrypt(JSON.stringify(req.body), key).toString());
         // debugger;
-        return next.handle(authReq).pipe(catchError(error => {
-            if (error.status === 403) {
-                this.layoutUtilsService.AlertElementCapture(error.error.Message);
+        return next.handle(authReq)
+            .pipe(catchError(error => {
+                if (error.status === 403) {
+                    this.layoutUtilsService.AlertElementCapture(error.error.Message);
+                    return throwError(error);
+                }
+                if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
+
+                    return this.handle401Error(authReq, next);
+                }
+
                 return throwError(error);
-            }
-            if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
-
-                return this.handle401Error(authReq, next);
-            }
-
-            return throwError(error);
-        }));
+            }));
     }
 
 
@@ -60,29 +58,6 @@ export class TokenInterceptor implements HttpInterceptor {
         this.spinner.hide();
         this.router.navigateByUrl('sign-out');
         localStorage.clear();
-        // if (!this.isRefreshing) {
-        //   this.isRefreshing = true;
-        //   this.refreshTokenSubject.next(null);
-        //
-        //   const token = localStorage.getItem('ZTBLUserRefreshToke');
-        //   if (token)
-        //     return this._authService.refreshToken(token).pipe(
-        //       switchMap((token: any) => {
-        //         this.isRefreshing = false;
-        //         localStorage.setItem('accessToken', token['Token']);
-        //         localStorage.setItem('ZTBLUserRefreshToke', token['RefreshToken']);
-        //         this.refreshTokenSubject.next(token['Token']);
-        //         return next.handle(this.addTokenHeader(request, token['Token']));
-        //       }),
-        //       catchError((err) => {
-        //
-        //         this.isRefreshing = false;
-        //         this.router.navigateByUrl('sign-out');
-        //         return throwError(err);
-        //       })
-        //     );
-        // }
-
         return this.refreshTokenSubject.pipe(
             filter(token => token !== null),
             take(1),

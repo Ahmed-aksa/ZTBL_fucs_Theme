@@ -176,6 +176,7 @@ export class DailyVoucherProofComponent implements OnInit {
 
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
+            this.bufricationForm.markAllAsTouched();
             return;
         }
         this.user.Branch = this.branch;

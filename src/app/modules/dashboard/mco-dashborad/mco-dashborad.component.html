@@ -1,56 +1,62 @@
-<div class="px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
     <div class="heading">MCO Dashboard</div>
     <!-- Header -->
-    <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between px-6 md:px-8">
-  
-    </div>
-  
     <!-- Main -->
-    <div class="flex flex-auto overflow-x-hidden overflow-y-scroll">
   
       <!-- Products list -->
-      <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
+      <div class="flex flex-auto" style="flex-direction: column;">
       <div class="row">
-          <div  class="col-lg-4">
-            <p class="text-green px-2 py-2 font-bold mb-0 mt-4">Performance Indicators</p>
-            <div id="chart" class="mt-0">
-                <apx-chart
-                  [series]="chartOptions1.series"
-                  [chart]="chartOptions1.chart"
-                  [labels]="chartOptions1.labels"
-                  [theme]="chartOptions1.theme"
-                  [responsive]="chartOptions1.responsive"
-                ></apx-chart>
-              </div>
+          <div  class="col-lg-6 col-sm-12 my-2  ">
+            <div class="shadow-sm border">
+              <div id="chart" class=" mt-0 py-3  ">
+                <p class="text-green px-2 font-bold mb-0">Performance Indicators</p>
+                  <apx-chart
+                    [series]="chartOptions1.series"
+                    [chart]="chartOptions1.chart"
+                    [labels]="chartOptions1.labels"
+                    [theme]="chartOptions1.theme"
+                    [responsive]="chartOptions1.responsive"
+                  ></apx-chart>
+                </div>
+            </div>
+
           </div>
-          <div  class="col-lg-4">
-            <p class="text-green px-2 py-2 font-bold mb-0 mt-4">Circle Bench Mark</p>
-            <div id="chart" class="mt-0">
-                <apx-chart
-                  [series]="chartOptions2.series"
-                  [chart]="chartOptions2.chart"
-                  [labels]="chartOptions2.labels"
-                  [theme]="chartOptions2.theme"
-                  [responsive]="chartOptions2.responsive"
-                ></apx-chart>
-              </div>
+          <div  class="col-lg-6 col-sm-12 my-2">
+            <div class="shadow-sm border">
+              <div id="chart" class=" mt-0 py-3">
+                <p class="text-green px-2 font-bold mb-0">Circle Bench Mark</p>
+                  <apx-chart
+                    [series]="chartOptions2.series"
+                    [chart]="chartOptions2.chart"
+                    [labels]="chartOptions2.labels"
+                    [theme]="chartOptions2.theme"
+                    [responsive]="chartOptions2.responsive"
+                  ></apx-chart>
+                </div>
+            </div>
+
+
           </div>
-          <div  class="col-lg-4">
-            <p class="text-green px-2 py-2 font-bold mb-0 mt-4">Loan Portfolio</p>
-            <div id="chart"  class="mt-0">
-                <apx-chart
-                  [series]="chartOptions3.series"
-                  [chart]="chartOptions3.chart"
-                  [labels]="chartOptions3.labels"
-                  [theme]="chartOptions3.theme"
-                  [responsive]="chartOptions3.responsive"
-                ></apx-chart>
-              </div>
+          <div  class="col-lg-6 col-sm-12 my-2">
+            <div class="shadow-sm border">
+              <div id="chart"  class="mt-0 py-3">
+                <p class="text-green px-2 font-bold mb-0">Loan Portfolio</p>
+                  <apx-chart
+                    [series]="chartOptions3.series"
+                    [chart]="chartOptions3.chart"
+                    [labels]="chartOptions3.labels"
+                    [theme]="chartOptions3.theme"
+                    [responsive]="chartOptions3.responsive"
+                  ></apx-chart>
+                </div>
           </div>
+
+          </div>
+
         </div>
         <div class="row ">
           <div  class="col-lg-4 table-responsive">
-            <p class="heading">Disbursement</p>
+            <p class="heading mb-2 text-lg">Disbursement</p>
             <table class="table  table-striped">
                 <thead>
                   <tr class="table-header-background">
@@ -79,7 +85,7 @@
               </table>
           </div>
           <div  class="col-lg-4  table-responsive">
-            <p class="heading">Recovery</p>
+            <p class="heading mb-2 text-lg">Recovery</p>
             <table class="table  table-striped">
                 <thead>
                   <tr class="table-header-background">
@@ -108,7 +114,7 @@
               </table>
           </div>
           <div  class="col-lg-4   table-responsive">
-            <p class="heading">Utilization/Mutations</p>
+            <p class="heading mb-2 text-lg">Utilization/Mutations</p>
             <table class="table  table-striped">
                 <thead>
                   <tr class="table-header-background">
@@ -139,7 +145,7 @@
           </div>
       </div>
    
-    </div>
+
   
   </div>
   

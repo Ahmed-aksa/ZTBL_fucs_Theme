@@ -10,17 +10,21 @@ export class SessionExpireService {
   counter = 1;
   count: BehaviorSubject<number>;
   constructor() {
-    this.count = new BehaviorSubject(this.counter * 60);
-    this.timer(this.counter);
-   }
-   nextCount() {
-    this.count.next(++this.counter);
-}
-  timer(minute:number) {
+   
+    //this.timer(this.counter);
+  }
+  
+  
+//    nextCount() {
+//     this.count.next(++this.counter);
+// }
+  
+  timer(minute: number) {
     // let minute = 1;
+    this.count = new BehaviorSubject(minute * 60);
     let seconds: number = minute * 60;
     let textSec: any = "0";
-    let statSec: number = 60;
+    let statSec: number = seconds;
     const prefix = minute < 10 ? "0" : "";
     const timer = setInterval(() => {
       seconds--;

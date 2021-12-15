@@ -196,6 +196,8 @@ export class PendingCustomersComponent implements OnInit {
     }
 
     viewCustomer(Customer: any) {
+        localStorage.setItem('is_view', '1');
+
         localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
         localStorage.setItem('CreateCustomerBit', '2');
         this.router.navigate(['/customer/customerProfile'], {relativeTo: this.activatedRoute});

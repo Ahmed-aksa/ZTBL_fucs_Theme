@@ -95,10 +95,7 @@ export class VoucherPostingDayComponent implements OnInit {
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
-        //this.typeLov();
-        this.bufricationForm.controls["ReportFormatType"].setValue(this.select ? this.select[0].Value : "");
 
-        //this.bufricationForm.controls["WorkingDate"].setValue(this.LoggedInUserInfo.Branch.WorkingDate);
         if (this.LoggedInUserInfo.Branch.WorkingDate) {
             let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
             var day = parseInt(dateString.substring(0, 2));
@@ -114,11 +111,7 @@ export class VoucherPostingDayComponent implements OnInit {
         }
     }
 
-    async typeLov() {
-        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
-        this.statusLov = this.statusLov.LOVs;
-        this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-    }
+
 
     isEnableWorkingDate() {
         var workingDate = this.bufricationForm.controls.WorkingDate.value;
@@ -166,8 +159,6 @@ export class VoucherPostingDayComponent implements OnInit {
         this.bufricationForm = this.fb.group({
             WorkingDate: [null, Validators.required],
             VoucherNo: [null],
-            //Status: [null, Validators.required],
-            ReportFormatType: [null, Validators.required]
         })
     }
 
@@ -176,10 +167,12 @@ export class VoucherPostingDayComponent implements OnInit {
 
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
+            this.bufricationForm.markAllAsTouched();
             return;
         }
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "2";
+        this.reports.ReportFormatType = "2";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         if (myWorkingDate._isAMomentObject == undefined) {
 

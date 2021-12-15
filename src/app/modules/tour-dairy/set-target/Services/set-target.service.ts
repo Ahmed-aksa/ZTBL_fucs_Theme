@@ -29,60 +29,30 @@ export class SetTargetService {
     ) {
     }
 
-    GetDeceasedCustomer(form) {
-        var deceasedInfo = new Customer();
-        deceasedInfo = form;
-        this.request = new BaseRequestModel();
-        this.request.Customer = deceasedInfo;
-        this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
-        this.activity.ActivityID = 1;
-        this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
-        return this.http
-            .post(`${environment.apiUrl}/Customer/GetDeceasedCustomer`, req, {
-                headers: this.httpUtils.getHTTPHeaders(),
-            })
-            .pipe(map((res: BaseResponseModel) => res));
-    }
 
-    GetTragetDuration() {
+    GetTragetDuration(zone,branch,circle) {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
+        this.request.Zone =zone;
+        this.request.Branch =branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-
-        var deceasedInfo = new Customer();
         this.request = new BaseRequestModel();
-        // this.request.Customer = deceasedInfo
         this.request.TranId = 2830;
-
-        var circle = userInfo.UserCircleMappings;
-        var circleIds = [];
-
-        circle.forEach((element) => {
-            circleIds.push(element.CircleId);
-        });
+if(userInfo?.UserCircleMappings){
+    var circle = userInfo.UserCircleMappings;
+}else{
+    var circleIds = [];
+    circle?.forEach((element) => {
+        circleIds.push(element.CircleId);
+    });
+}
         var _circles = JSON.stringify(circleIds);
-
-        (this.request.DEVICELOCATION = {
-            BTSID: '0',
-            BTSLOC: '',
-            LAT: '0.000000',
-            LONG: '0.000000',
-            SRC: 'GPS',
-        }),
             (this.request.Circle = {
                 CircleIds: _circles,
             }),
             (this.request.doPerformOTP = false);
 
-        var req = JSON.stringify(this.request);
 
         return this.http
             .post(`${environment.apiUrl}/Target/GetTragetDuration`, this.request, {
@@ -91,8 +61,8 @@ export class SetTargetService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    GetTargets(value: string) {
-        var deceasedInfo = new Customer();
+    GetTargets(value: string,zone,branch,circle) {
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request = new BaseRequestModel();
 
         this.request.Target = {
@@ -101,30 +71,25 @@ export class SetTargetService {
         };
         this.request.Target['Targets'] = null;
         this.request.TranId = 2830;
+        if(userInfo?.UserCircleMappings){
+            var circle = userInfo.UserCircleMappings;
+        }else{
+            var circleIds = [];
+            circle?.forEach((element) => {
+                circleIds.push(element.CircleId);
+            });
+        }
+        var _circles = JSON.stringify(circleIds);
 
-        (this.request.DEVICELOCATION = {
-            BTSID: '0',
-            BTSLOC: '',
-            LAT: '0.00000',
-            LONG: '0.000000',
-            SRC: 'GPS',
-        }),
-            (this.request.Circle = {
-                CircleIds: '53444,53443,53442,53441',
-            }),
-            (this.request.doPerformOTP = false);
-
-        var userInfo = this.userUtilsService.getUserDetails();
+            this.request.doPerformOTP = false;
+        this.request.Circle = {
+            CircleIds: _circles,
+        }
         this.request.User = userInfo.User;
-        // this.request.User = {
-        //   UserId : "B-44"
-        //       }
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
+        this.request.Zone = zone;
+        this.request.Branch = branch;
         this.activity.ActivityID = 1;
-        this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
-        //
+        this.request.Activity = this.activity
         return this.http
             .post(`${environment.apiUrl}/Target/GetTargets`, this.request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -132,7 +97,8 @@ export class SetTargetService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    saveTargets(targets, Duration, AssignedTarget) {
+    saveTargets(targets, Duration, AssignedTarget,assignedTarget) {
+        debugger
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {
@@ -158,7 +124,11 @@ export class SetTargetService {
         this.request.Target = {Targets: targets};
 
         this.request.Target.Duration = Duration;
-        this.request.Target.AssignedTarget = AssignedTarget;
+        // this.request.Target.AssignedTarget = AssignedTarget;
+        if(Object.keys(assignedTarget).length){
+            this.request.Target["AssignedTarget"] = assignedTarget;
+        }
+
 
         // this.request.Target["AssignedTarget"]=AssignedTarget;
 
@@ -202,43 +172,6 @@ export class SetTargetService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    GetListOfRejectedDeceasedPerson() {
-        var deceasedInfo = new Customer();
-        this.request = new BaseRequestModel();
-        deceasedInfo.Cnic = '';
-        this.request.Customer = deceasedInfo;
-        this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
-        this.activity.ActivityID = 1;
-        this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
-        return this.http
-            .post(
-                `${environment.apiUrl}/Customer/GetListOfRejectedDeceasedPerson`,
-                req,
-                {headers: this.httpUtils.getHTTPHeaders()}
-            )
-            .pipe(map((res: BaseResponseModel) => res));
-    }
 
-    SubmitCustomerNADRA() {
-        this.request = new BaseRequestModel();
-        this.request.TranId = 0;
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
-        this.activity.ActivityID = 1;
-        this.request.Activity = this.activity;
-        var req = JSON.stringify(this.request);
 
-        return this.http
-            .post(`${environment.apiUrl}/Customer/SubmitCustomerNADRA`, this.request, {
-                headers: this.httpUtils.getHTTPHeaders(),
-            })
-            .pipe(map((res: BaseResponseModel) => res));
-    }
 }

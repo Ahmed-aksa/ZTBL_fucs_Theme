@@ -6,6 +6,7 @@ import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
 import {FuseNavigationService, FuseVerticalNavigationComponent} from '@fuse/components/navigation';
 import {Navigation} from 'app/core/navigation/navigation.types';
 import {NavigationService} from 'app/core/navigation/navigation.service';
+import {UserUtilsService} from "../../../../shared/services/users_utils.service";
 
 @Component({
     selector: 'classic-layout',
@@ -15,6 +16,7 @@ import {NavigationService} from 'app/core/navigation/navigation.service';
 export class ClassicLayoutComponent implements OnInit, OnDestroy {
     user: any;
     isScreenSmall: boolean;
+    userInfo;
     navigation: Navigation;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -25,6 +27,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         private _activatedRoute: ActivatedRoute,
         private _router: Router,
         private _navigationService: NavigationService,
+        private userUtils: UserUtilsService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService
     ) {
@@ -36,6 +39,9 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
+
+        this.userInfo = this.userUtils.getUserDetails().User.userGroup;
+        console.log(this.userInfo)
 
         this._navigationService.navigation$
             .pipe(takeUntil(this._unsubscribeAll))

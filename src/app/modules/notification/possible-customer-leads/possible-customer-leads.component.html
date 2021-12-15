@@ -1,1 +1,113 @@
-<p>possible-customer-leads works!</p>
+<div
+    class="
+        px-10
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-scroll
+        bg-card
+        dark:bg-transparent
+    "
+>
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Possible Customer Leads</div>
+        </div>
+    </div>
+
+
+    <div class="mt-2">
+
+
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                class="lmat-elevation-z8 overflow-scroll"
+                [style.height]="gridHeight"
+                #table
+                [dataSource]="
+                    dataSource
+                "
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+            >
+                <ng-container matColumnDef="Requistion">
+                    <mat-header-cell *matHeaderCellDef
+                    >Requistion No
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.RequistionNo
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Applicant">
+                    <mat-header-cell *matHeaderCellDef
+                    >Applicant Name
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.ApplicantName
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell style="min-width: 120px;" *matHeaderCellDef>CNIC</mat-header-cell>
+                    <mat-cell style="min-width: 120px;" *matCellDef="let notification">{{
+                        notification.Cnic
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Mobile">
+                    <mat-header-cell *matHeaderCellDef
+                    >Mobile No
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.MobileNo
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Amount">
+                    <mat-header-cell *matHeaderCellDef>Total Amount</mat-header-cell>
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.TotalAmount
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Date">
+                    <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.CreatedDate
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Remarks">
+                    <mat-header-cell *matHeaderCellDef
+                    >Remarks
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.Remarks
+                        }}</mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    class="table-header-background"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+            </mat-table>
+
+
+
+
+        </div>
+
+    </div>

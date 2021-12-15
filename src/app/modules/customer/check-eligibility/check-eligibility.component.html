@@ -251,39 +251,48 @@
                                 </mat-form-field>
                             </div>
 
-                            <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Customer Name <strong
+
+                            <div class="col-lg-3 kt-margin-bottom-20-mobile">
+
+                                <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-label class="customMatLabel">Enter Customer Name <strong
                                         class="matMandatory">*</strong></mat-label>
-                                    <input readonly="readonly" appAlphabetOnly matInput
-                                           placeholder="Enter Customer Name"
-                                           formControlName="CustomerName" maxlength="100" autocomplete="off"/>
-                                    <mat-hint align="left">Please enter Customer Name <strong></strong></mat-hint>
+                                    <p *ngIf="UrduName!=undefined && UrduName!=''" class="text-right"> {{UrduName}}</p>
+                                    <input matInput placeholder="Enter Name" appAlphabetOnly
+                                           formControlName="CustomerName" maxlength="50" autocomplete="off" readonly/>
+                                    <mat-error *ngIf="hasError('CustomerName', 'required')">Name
+                                        <strong>required</strong>
+                                    </mat-error>
+                                    <mat-hint align="left">Please enter Name</mat-hint>
                                 </mat-form-field>
                             </div>
 
                             <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                     <mat-label class="customMatLabel">City <strong
                                         class="matMandatory">*</strong></mat-label>
+                                    <p *ngIf="UrduCity!=undefined && UrduCity!=''"
+                                       class="text-right">{{UrduCity}}</p>
                                     <input matInput placeholder="City" formControlName="District"
                                            [(ngModel)]="disrtrict_value"/>
                                     <mat-hint align="left">Please enter City <strong></strong></mat-hint>
-
                                 </mat-form-field>
                             </div>
                         </div>
 
-                        <div class="form-group kt-form__group row mt-2">
-
-
-                            <div class="col-lg-6 col-sm-12 kt-margin-bottom-20-mobile">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                    <mat-label class="customMatLabel">Current Address <strong
+                        <div class="form-group kt-form__group row mb-3">
+                            <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                                <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
+                                    <mat-label class="customMatLabel">Enter Current Address <strong
                                         class="matMandatory">*</strong></mat-label>
-                                    <input matInput placeholder="Current Address" formControlName="CurrentAddress"
-                                           maxlength="200" autocomplete="off"/>
-                                    <mat-hint align="left">Please enter Address <strong></strong></mat-hint>
+                                    <p *ngIf="UrduCurrentAddress!=undefined && UrduCurrentAddress!=''"
+                                       class="text-right">{{UrduCurrentAddress}}</p>
+                                    <input matInput placeholder="Enter Current Address"
+                                           formControlName="CurrentAddress" maxlength="150" autocomplete="off"/>
+                                    <mat-error *ngIf="hasError('CurrentAddress', 'required')">Current Address <strong>required</strong>
+                                    </mat-error>
+                                    <mat-hint align="left">Please enter Current Address
+                                    </mat-hint>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -434,7 +443,7 @@
         <div class="kt-form__actions kt-form__actions--solid">
             <div class="row">
                 <div class="col-lg-12 text-right">
-                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit"
+                    <button (click)="SubmitNdc()" *ngIf="NdcSubmit && show_ndc"
                             class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >

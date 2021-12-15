@@ -213,4 +213,12 @@ export class ClSearchLoanComponent implements OnInit {
         }
     }
 
+    ViewOrr(updateLoan) {
+        this.router.navigate(
+            ['../../loan-recovery/loan-inquiry',
+                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo}],
+            {relativeTo: this.activatedRoute}
+        );
+    }
+
 }

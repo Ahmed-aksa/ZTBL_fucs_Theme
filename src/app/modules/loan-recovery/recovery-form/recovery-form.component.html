@@ -24,11 +24,7 @@
                 <div class="kt-portlet__body">
                     <div class="row">
                         <div class="flex pl-2 pt-1" style="flex-wrap: wrap;">
-                            <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000"
-                                      [showCloseButton]="true"
-                                      (close)="onAlertClose($event)">
-                                Please enter valid Input
-                            </kt-alert>
+
                             <app-zone-branch-circle [form]="RecoveryForm" [should_show_circle]="false"
                                                     (branchZoneCircleData)="getAllData($event)"
                                                     [should_filter]="false"></app-zone-branch-circle>
@@ -212,9 +208,9 @@
                                 </mat-form-field>
                             </div>
 
-                            <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                            <div class="mx-2 d-grid flex-shrink-0 items-center mt-6 sm:mt-0"
                                  style="width: 225px;">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-form-field class="mat-form-field-fluid w-full " appearance="outline">
                                     <mat-label class="customMatLabel">Total Amount <strong
                                         class="matMandatory">*</strong></mat-label>
                                     <input matInput placeholder="Total Amount" formControlName="Amount"
@@ -225,7 +221,7 @@
                                     <mat-error *ngIf="hasError('Amount', 'required')">Total Amount
                                         <strong>required</strong></mat-error>
                                 </mat-form-field>
-                                <mat-error *ngIf="amountError">{{totalAmountMsg}}</mat-error>
+                                <mat-error class="pt-0 text-sm" *ngIf="amountError">{{totalAmountMsg}}</mat-error>
                             </div>
                             <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;"
                                  *ngIf="showInstrument">
@@ -275,28 +271,29 @@
                                 </mat-form-field>
                             </div>
                             <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0"
-                                 style="width: 225px;">
+                                 style="width: 225px;" *ngIf="mcReceipt">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
-                                                *ngIf="mcReceipt">
+                                                >
                                     <mat-label class="customMatLabel">MCO Book</mat-label>
                                     <input matInput placeholder="MCO Book" formControlName="BookNo"
                                            maxlength="10"
                                            autocomplete="off"
-                                           appNumberOnly [readonly]="recoverySaved || viewOnly"
+                                           appNumberOnly [readonly]="recoverySaved || viewOnly || !recoveryThrough"
                                            attr.required=false/>
                                     <mat-error *ngIf="hasError('BookNo', 'required')">Book No
                                         <strong>required</strong></mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0"
-                                 style="width: 225px;">
+                                 style="width: 225px;" *ngIf="mcReceipt">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
-                                                *ngIf="mcReceipt">
+                                                >
                                     <mat-label class="customMatLabel">Receipt No</mat-label>
                                     <input matInput placeholder="Receipt No" formControlName="ReceiptNo"
                                            maxlength="10"
                                            autocomplete="off" appNumberOnly
-                                           [readonly]="recoverySaved || viewOnly"/>
+                                           [readonly]="recoverySaved || viewOnly || !recoveryThrough"
+                                    />
                                     <mat-error *ngIf="hasError('ReceiptNo', 'required')">Receipt No
                                         <strong>required</strong>
                                     </mat-error>
@@ -386,8 +383,9 @@
 
 
                             </div> -->
-                            <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                            <div class="mx-2 d-grid flex-shrink-0 items-center mt-6 sm:mt-0"
                                  style="width: 225px;">
+
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                     <mat-label class="customMatLabel">Remarks: <strong
                                         class="matMandatory">*</strong></mat-label>
@@ -396,7 +394,7 @@
                                            autocomplete="off"
                                            [readonly]="viewOnly"/>
                                 </mat-form-field>
-                                <mat-error *ngIf="remarksError">Remarks <strong>required</strong></mat-error>
+                                <mat-error class=" p-0 text-md" *ngIf="remarksError">Remarks <strong>required</strong></mat-error>
                             </div>
 
 
@@ -509,7 +507,8 @@
                 <button style="background-color: #01671B;" *ngIf="isSimpleRecovery" mat-raised-button
                         color="primary"
                         (click)="save()"
-                        [disabled]="submitted || viewOnly || ibDisSave">
+                        [disabled]="submitted || viewOnly || dataSaved">
+                    <!--                        [disabled]="submitted || transactionEdit || viewOnly || dataSaved"-->
                     <mat-icon class="mr-2">save</mat-icon>
                     Save
                 </button>

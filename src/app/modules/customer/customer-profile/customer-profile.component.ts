@@ -20,6 +20,8 @@ import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {CommonService} from 'app/shared/services/common.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from "ngx-toastr";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {SubmitDocumentsComponent} from "../submit-documents/submit-documents.component";
 
 @Component({
     selector: 'kt-customer-profile',
@@ -132,6 +134,8 @@ export class CustomerProfileComponent implements OnInit {
     zone: any;
     branch: any;
     editable_cnic: boolean = true;
+    private tran_id: number;
+    private document_details: any;
 
     constructor(
         // public dialogRef: MatDialogRef<RoleEditComponent>,
@@ -146,7 +150,8 @@ export class CustomerProfileComponent implements OnInit {
         private datePipe: DatePipe,
         private _common: CommonService,
         private spinner: NgxSpinnerService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private dialogRef: MatDialog
     ) {
 
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -171,11 +176,21 @@ export class CustomerProfileComponent implements OnInit {
             this.IsLoadPreviousData = false;
             localStorage.removeItem('CreateCustomerBit');
         }
+        let is_edit_mode = localStorage.getItem('is_view');
+        if (is_edit_mode) {
+            this.HideShowSaveButton = false;
+            localStorage.removeItem('is_view');
+        }
+
         this.CurrentDate = new Date();
         this.CurrentDate = this.datePipe.transform(this.CurrentDate, MaskEnum.DateFormat);
         this.LoadLovs();
         this.createCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
-
+        this.UrduFatherName = this.createCustomer.UrduFatherName
+        this.UrduName = this.createCustomer.UrduName;
+        this.UrduBirthPlace = this.createCustomer.UrduBirthPlace;
+        this.UrduCurrentAddress = this.createCustomer.UrduCurrentAddress;
+        this.UrduPermanentAddress = this.createCustomer.UrduPermanentAddress;
         this.createForm();
         if (this.IsLoadPreviousData) {
             this.LoadPreviousData();
@@ -204,32 +219,25 @@ export class CustomerProfileComponent implements OnInit {
             .subscribe(() => {
                 this.filterOccupation();
             });
-        if (JSON.parse(localStorage.getItem('SearchCustomerStatus'))) {
-            this.HideShowSaveButton = true;
-        } else if (this.createCustomer.CustomerStatus == 'N' && this.createCustomer.CreatedBy == this.userUtilsService.getSearchResultsDataOfZonesBranchCircle().User.UserId) {
-            this.HideShowSaveButton = true;
-        } else {
-            this.HideShowSaveButton = false;
-        }
 
         let should_alert = localStorage.getItem('ShouldAlert');
         if (should_alert == 'true') {
-            if (this.createCustomer.CustomerStatus == 'N') {
-                this.layoutUtilsService.alertElement('Customer is already in Pending State, Please go to Pending List');
-                this.router.navigate(['/dashboard']);
-
-            } else if (this.createCustomer.CustomerStatus == 'A') {
-                this.layoutUtilsService.alertElement('', 'Customer is already in Approved State, Please go to Approved List');
-                this.router.navigate(['/dashboard']);
-
-            } else if (this.createCustomer.CustomerStatus == 'R') {
-                this.layoutUtilsService.alertElement('', 'Customer is already in Refferred-back State, Please go to Referred back List');
-                this.router.navigate(['/dashboard']);
-
-            } else if (this.createCustomer.CustomerStatus == 'P') {
-                this.layoutUtilsService.alertElement('', 'Customer is already in Submitted State, Please go to  Submitted List');
-                this.router.navigate(['/dashboard']);
-            }
+            // if (this.createCustomer.CustomerStatus == 'N') {
+            //     this.layoutUtilsService.alertElement('Customer is already in Pending State, Please go to Pending List');
+            //     this.router.navigate(['/dashboard']);
+            //
+            // } else if (this.createCustomer.CustomerStatus == 'A') {
+            //     this.layoutUtilsService.alertElement('', 'Customer is already in Approved State, Please go to Approved List');
+            //     this.router.navigate(['/dashboard']);
+            //
+            // } else if (this.createCustomer.CustomerStatus == 'R') {
+            //     this.layoutUtilsService.alertElement('', 'Customer is already in Refferred-back State, Please go to Referred back List');
+            //     this.router.navigate(['/dashboard']);
+            //
+            // } else if (this.createCustomer.CustomerStatus == 'P') {
+            //     this.layoutUtilsService.alertElement('', 'Customer is already in Submitted State, Please go to  Submitted List');
+            //     this.router.navigate(['/dashboard']);
+            // }
             localStorage.removeItem('ShouldAlert');
         }
     }
@@ -290,55 +298,55 @@ export class CustomerProfileComponent implements OnInit {
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.roleForm = this.formBuilder.group({
-            Cnic: [this.createCustomer?.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
-            Dob: [this._common.stringToDate(this.createCustomer?.Dob)],
-            CnicIssueDate: [this._common.stringToDate(this.createCustomer?.CnicIssueDate), [Validators.required]],
-            CnicExpiry: [this._common.stringToDate(this.createCustomer?.CnicExpiry)],
+            Cnic: [this.createCustomer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
+            Dob: [this._common.stringToDate(this.createCustomer.Dob)],
+            CnicIssueDate: [this._common.stringToDate(this.createCustomer.CnicIssueDate), [Validators.required]],
+            CnicExpiry: [this._common.stringToDate(this.createCustomer.CnicExpiry)],
             //Dob: [this.createCustomer.Dob],
             //CnicIssueDate: [this.createCustomer.CnicIssueDate, [Validators.required]],
             //CnicExpiry: [this.createCustomer.CnicExpiry],
-            Gender: [this.createCustomer?.Gender, [Validators.required]],
-            MaritalStatus: [this.createCustomer?.MaritalStatus],
-            CustomerName: [this.createCustomer?.CustomerName, [Validators.required]],
-            FatherName: [this.createCustomer?.FatherName, [Validators.required]],
-            HusbandName: [this.createCustomer?.HusbandName],
-            FatherOrHusbandCnic: [this.createCustomer?.FatherOrHusbandCnic],
+            Gender: [this.createCustomer.Gender, [Validators.required]],
+            MaritalStatus: [this.createCustomer.MaritalStatus],
+            CustomerName: [this.createCustomer.CustomerName, [Validators.required]],
+            FatherName: [this.createCustomer.FatherName, [Validators.required]],
+            HusbandName: [this.createCustomer.HusbandName],
+            FatherOrHusbandCnic: [this.createCustomer.FatherOrHusbandCnic],
 
-            MotherName: [this.createCustomer?.MotherName, [Validators.required]],
-            Occupation: [this.createCustomer?.Occupation, [Validators.required]],
-            BankEmp: [this.createCustomer?.BankEmp],
-            MarkOfIdentification: [this.createCustomer?.MarkOfIdentification],
-            Ntn: [this.createCustomer?.Ntn, [Validators.pattern(regExps.ntn)]],
-            District: [this.createCustomer?.District, Validators.required],
-            Citizenship: [this.createCustomer?.CitizenShip, [Validators.required]],
+            MotherName: [this.createCustomer.MotherName, [Validators.required]],
+            Occupation: [this.createCustomer.Occupation ? this.createCustomer.Occupation : null, [Validators.required]],
+            BankEmp: [this.createCustomer.BankEmp],
+            MarkOfIdentification: [this.createCustomer.MarkOfIdentification],
+            Ntn: [this.createCustomer.Ntn, [Validators.pattern(regExps.ntn)]],
+            District: [this.createCustomer.District, Validators.required],
+            Citizenship: [this.createCustomer.CitizenShip, [Validators.required]],
             CellNumber: [this.ValidateMobileNumberSet(), [Validators.required, Validators.pattern(regExps.mobile)]],
-            PhoneNumber: [this.createCustomer?.PhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
-            OfficePhoneNumber: [this.createCustomer?.OfficePhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
-            FaxNumber: [this.createCustomer?.FaxNumber, [Validators.pattern(regExps.seventothirteen)]],
-            Email: [this.createCustomer?.Email, [Validators.pattern(regExps.email)]],
-            BrowserStatus: [this.createCustomer?.BrowserStatus, [Validators.required]],
-            Education: [this.createCustomer?.Education, [Validators.required]],
-            Caste: [this.createCustomer ? this.createCustomer.Caste : null, [Validators.required]],
-            Religion: [this.createCustomer?.Religion, [Validators.required]],
-            BirthPlace: [this.createCustomer?.BirthPlace],
+            PhoneNumber: [this.createCustomer.PhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
+            OfficePhoneNumber: [this.createCustomer.OfficePhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
+            FaxNumber: [this.createCustomer.FaxNumber, [Validators.pattern(regExps.seventothirteen)]],
+            Email: [this.createCustomer.Email, [Validators.pattern(regExps.email)]],
+            BrowserStatus: [this.createCustomer.BrowserStatus, [Validators.required]],
+            Education: [this.createCustomer.Education, Validators.required],
+            Caste: [this.createCustomer.Caste ? this.createCustomer.Caste : null, [Validators.required]],
+            Religion: [this.createCustomer.Religion, [Validators.required]],
+            BirthPlace: [this.createCustomer.BirthPlace],
             RiskCategory: [this.createCustomer.RiskCategory && this.createCustomer.RiskCategory != '-' ? this.createCustomer.RiskCategory : '1', Validators.required],
-            PremisesFlag: [this.createCustomer?.PremisesFlag],
-            BusinessProfPos: [this.createCustomer?.BusinessProfPos],
-            FamilyNumber: [this.createCustomer?.FamilyNumber, [Validators.pattern(regExps.familyNumber)]],
+            PremisesFlag: [this.createCustomer.PremisesFlag],
+            BusinessProfPos: [this.createCustomer.BusinessProfPos],
+            FamilyNumber: [this.createCustomer.FamilyNumber, [Validators.pattern(regExps.familyNumber)]],
             // BankEmpPPNo: [this.createCustomer.BankEmp, [Validators.required]],
-            PostCode: [this.createCustomer?.PostCode, [Validators.required]],
-            CurrentAddress: [this.createCustomer?.CurrentAddress, [Validators.required]],
-            PassportNumber: [this.createCustomer?.PassportNumber],
-            PermanentAddress: [this.createCustomer?.PermanentAddress, [Validators.required]],
-            Remarks: [this.createCustomer?.Remarks],
-            OldCnic: [this.createCustomer?.OldCnic],
+            PostCode: [this.createCustomer.PostCode, [Validators.required]],
+            CurrentAddress: [this.createCustomer.CurrentAddress, [Validators.required]],
+            PassportNumber: [this.createCustomer.PassportNumber],
+            PermanentAddress: [this.createCustomer.PermanentAddress, [Validators.required]],
+            Remarks: [this.createCustomer.Remarks],
+            OldCnic: [this.createCustomer.OldCnic],
             //FamilyNo: [this.createCustomer.FamilyNo],
             // PlaceOfBirth: [this.createCustomer.PlaceOfBirth],
-            EmployeeNo: [this.createCustomer?.EmployeeNo],
+            EmployeeNo: [this.createCustomer.EmployeeNo],
             //FatherSpouseCnic: [this.createCustomer.FatherSpouseCnic],
             //BusinessProfPosition: [this.createCustomer.BusinessProfPosition],
-            NDCPDFLink: [this.createCustomer?.NDCPDFLink],
-            ECIBPDFLink: [this.createCustomer?.ECIBPDFLink],
+            NDCPDFLink: [this.createCustomer.NDCPDFLink],
+            ECIBPDFLink: [this.createCustomer.ECIBPDFLink],
             file: [],
 
             // PhoneOff: [this.createCustomer.PhoneOff]
@@ -362,7 +370,7 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     hasError(controlName: string, errorName: string): boolean {
-        return this.roleForm?.controls[controlName].hasError(errorName);
+        return this.roleForm.controls[controlName].hasError(errorName);
     }
 
     get f(): any {
@@ -400,11 +408,22 @@ export class CustomerProfileComponent implements OnInit {
         }
         let data: any = new Object();
         let customer_Status = null;
-        if (this.createCustomer)
+        let customer_number = null;
+        let caste_code = null;
+        if (this.createCustomer) {
             customer_Status = this.createCustomer.CustomerStatus;
+            customer_number = this.createCustomer.CustomerNumber;
+            caste_code = this.createCustomer.Caste;
+        }
         this.createCustomer = Object.assign(data, this.roleForm.getRawValue());
-        if (customer_Status)
+        if (customer_Status) {
             this.createCustomer.CustomerStatus = customer_Status;
+            this.createCustomer.CustomerNumber = customer_number;
+            if (this.createCustomer.Caste) {
+                this.createCustomer.Caste = caste_code;
+            }
+
+        }
         this.createCustomer = data;
         if (this.createCustomer.Email == null) {
             this.createCustomer.Email = '';
@@ -503,9 +522,8 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.CellNumber = this.ValidateMobileNumberGet();
         this.createCustomer.doSubmit = flag;
 
-
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.BranchLov = userInfo?.Branch;
+        this.BranchLov = userInfo.Branch;
         this.createCustomer.Zone = this.zone.ZoneId;
         this.createCustomer.Branch = this.branch.BranchId;
 
@@ -531,9 +549,6 @@ export class CustomerProfileComponent implements OnInit {
                         dialogRef.afterClosed().subscribe(res => {
                             if (flag == true)
                                 this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
-                            //if (res) {
-                            //  this.router.navigate(['/dashboard'], { relativeTo: this.activatedRoute });
-                            //}
                         });
 
 
@@ -543,13 +558,11 @@ export class CustomerProfileComponent implements OnInit {
                     this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
                 }
             });
-
-
     }
 
     UploadProfilePicture() {
 
-        this._customerService.UploadImagesCallAPI(this.ProfileImageData, this.createCustomer.CustomerNumber)
+        this._customerService.UploadImagesCallAPI(this.ProfileImageData, this.createCustomer.Cnic)
             .pipe(
                 finalize(() => {
 
@@ -606,7 +619,6 @@ export class CustomerProfileComponent implements OnInit {
         this.CitizenshipLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Nationality});
 
         this.PostCodeLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.PostalCode});
-
 
         ////For Search
         this.DistrictLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.District});
@@ -738,7 +750,6 @@ export class CustomerProfileComponent implements OnInit {
     LoadPreviousData() {
 
         this.ObjSearchCustomer = JSON.parse(localStorage.getItem('SearchCustomerStatus'));
-        localStorage.removeItem('SearchCustomerStatus')
         if (this.ObjSearchCustomer != null && this.ObjSearchCustomer != '') {
 
 
@@ -753,7 +764,8 @@ export class CustomerProfileComponent implements OnInit {
 
                     if (baseResponse.Success) {
                         var customerobj = baseResponse.Customer;
-
+                        this.tran_id = baseResponse.TranId;
+                        this.document_details = baseResponse.DocumentDetails;
                         this.createCustomer = customerobj;
                         if (this.createCustomer.FatherOrHusbandCnic != undefined && this.createCustomer.FatherOrHusbandCnic != null) {
                             this.createCustomer.FatherOrHusbandCnic = parseInt(this.createCustomer.FatherOrHusbandCnic).toString();
@@ -872,7 +884,6 @@ export class CustomerProfileComponent implements OnInit {
                 this.roleForm.disable();
                 //this.roleForm.controls["Gender"].disabled;
                 this.isGenderDisabled = true;
-                this.HideShowSaveButton = false;
                 this.CurrentAddressreadoly = true;
             } else {
                 this.CurrentAddressreadoly = false;
@@ -1160,5 +1171,23 @@ export class CustomerProfileComponent implements OnInit {
     getAllData(event: { final_zone: any; final_branch: any; final_circle: any }) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
+    }
+
+    viewHistory() {
+        localStorage.setItem('CustomerNumber', this.createCustomer.CustomerNumber);
+        // this.router.navigate(['/customer/customer-history'])
+        const url = this.router.serializeUrl(this.router.createUrlTree(['/customer/customer-history'], {queryParams: {}}));
+        window.open(url, '_blank');
+    }
+
+    submitDocuments() {
+        this.dialogRef.open(SubmitDocumentsComponent,
+            {
+                data: {
+                    customer: this.createCustomer, tranId: this.tran_id, document_details: this.document_details
+                },
+                panelClass: ['w-9/12']
+            }
+        );
     }
 }//end of class

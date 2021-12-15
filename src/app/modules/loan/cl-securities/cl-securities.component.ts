@@ -215,6 +215,14 @@ export class ClSecuritiesComponent implements OnInit {
       return;
     }
 
+       let deleted = localStorage.getItem('delete_security');
+      localStorage.removeItem('delete_security');
+
+    if(deleted == 'true'){
+        this.loanSecuritiesArray.length = 0;
+        deleted = null;
+    }
+
     this.spinner.show();
 
     this._loanService.getCustomerLand(this.loanDetail.ApplicationHeader.LoanAppID)
