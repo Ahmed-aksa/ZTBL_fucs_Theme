@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
@@ -7,9 +7,9 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 
 import {ActivatedRoute, Router} from '@angular/router';
-import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {SearchLoan} from 'app/shared/models/Loan.model';
+import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
+import {Loan, SearchLoan} from 'app/shared/models/Loan.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LoanService} from 'app/shared/services/loan.service';
@@ -19,9 +19,9 @@ import {LovService} from 'app/shared/services/lov.service';
 
 
 @Component({
-    selector: 'kt-cl-search-loan',
-    templateUrl: './cl-search-loan.component.html',
-    styleUrls: ['./cl-search-loan.component.scss'],
+    selector: 'kt-rejected-loan',
+    templateUrl: './rejected-loan.component.html',
+    styles: [],
     providers: [
         DatePipe,
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -29,8 +29,9 @@ import {LovService} from 'app/shared/services/lov.service';
 
     ]
 })
-export class ClSearchLoanComponent implements OnInit {
+export class RejectedLoanComponent implements OnInit {
 
+    @Input() loanDetail: Loan;
     loanSearch: FormGroup;
     loanFilter = new SearchLoan();
     LoggedInUserInfo: BaseResponseModel;
@@ -45,25 +46,14 @@ export class ClSearchLoanComponent implements OnInit {
 
     circle: any = [];
 
-    zone: any;
-    branch: any;
-
     loggedInUserIsAdmin: boolean = false;
 
     displayedColumns = ['BranchName', 'AppDate', 'AppNumberManual', 'LoanCaseNo', 'ApplicationTitle', 'DevAmount', 'ProdAmount', 'StatusName', 'Action'];
 
     gridHeight: string;
 
-    matTableLenght = false;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    Math: any;
-    loading = false;
-
-    //pagination
-    itemsPerPage = 10; //you could use your specified
-    totalItems: number | any;
-    pageIndex = 1;
-    dv: number | any; //use later
+    zone: any;
+    branch: any;
 
 
     constructor(
@@ -77,25 +67,42 @@ export class ClSearchLoanComponent implements OnInit {
         private router: Router,
         private datePipe: DatePipe
     ) {
-        this.Math = Math;
     }
 
     ngOnInit() {
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+
         if (this.LoggedInUserInfo.Branch?.BranchCode == 'All') {
             this.loggedInUserIsAdmin = true;
         }
+
         this.createForm();
         this.getLoanStatus();
     }
 
+    editLoan(updateLoan) {
+        console.log(this.activatedRoute)
+        this.router.navigate(['../create', {
+            LnTransactionID: updateLoan.LoanAppID,
+            Lcno: updateLoan.LoanCaseNo
+        }], {relativeTo: this.activatedRoute});
+    }
+
+    CheckEditStatus(loan) {
+        debugger;
+        if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     createForm() {
         this.loanSearch = this.filterFB.group({
             LcNo: [this.loanFilter.LcNo],
             AppNo: [this.loanFilter.AppNo],
             Appdt: [this.loanFilter.Appdt],
-            Status: [this.loanFilter.Status]
+            Status: ["12"]
         });
     }
 
@@ -123,14 +130,17 @@ export class ClSearchLoanComponent implements OnInit {
 
 
     ngAfterViewInit() {
-        this.gridHeight = window.innerHeight - 200 + 'px';
+        this.gridHeight = window.innerHeight - 400 + 'px';
+        if (this.zone) {
+            this.searchLoan();
+        }
+
     }
 
     getAllData(data) {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
     }
-
 
     searchLoan() {
         const controls = this.loanSearch.controls;
@@ -140,18 +150,13 @@ export class ClSearchLoanComponent implements OnInit {
             );
             return;
         }
-
         Object.keys(controls).forEach(controlName =>
             controls[controlName].value == undefined || controls[controlName].value == null ? controls[controlName].setValue('') : controls[controlName].value
         );
-
         this.loanFilter = Object.assign(this.loanFilter, this.loanSearch.getRawValue());
-
         this.loanFilter.ZoneId = this.zone.ZoneId;
         this.loanFilter.BranchId = this.branch.BranchId;
         this.loanFilter.Appdt = this.datePipe.transform(this.loanFilter.Appdt, 'ddMMyyyy');
-
-        this.pageIndex = 1;
 
         this.spinner.show();
         this._loanService.searchLoanApplication(this.loanFilter, this.zone, this.branch)
@@ -161,56 +166,22 @@ export class ClSearchLoanComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse) => {
-                    if (baseResponse.Success) {
-                        this.loading = false;
-                        this.matTableLenght = true;
-                        this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
-
-                        this.dv = this.dataSource.data;
-
-                        this.totalItems = baseResponse.Loan.ApplicationHeaderList.length;
-                        //this.paginate(this.pageIndex) //calling paginate function
-                        //this.OffSet = this.pageIndex;
-                        this.dataSource = this.dv?.slice(0, this.itemsPerPage);
-                    } else {
-                        this.layoutUtilsService.alertElement('', baseResponse.Message);
-                        this.dataSource = this.dv?.splice(1, 0);
-                        this.loading = false;
-                        this.matTableLenght = false;
-                    }
-                },
-                (error) => {
-                    this.loading = false;
-                    this.matTableLenght = false;
-                    this.layoutUtilsService.alertElement('', 'Error Occured While Processing Request', '500');
+                if (baseResponse.Success) {
+                    this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
+                } else {
+                    this.dataSource.data = [];
+                    this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code)
                 }
-            );
+            });
 
     }
 
-    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        this.itemsPerPage = pageSize;
-        this.pageIndex = pageIndex;
-        //this.OffSet = pageIndex;
-
-        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
-    }
-
-    editLoan(updateLoan) {
-        console.log(this.activatedRoute)
-        this.router.navigate(['../create', {
-            LnTransactionID: updateLoan.LoanAppID,
-            Lcno: updateLoan.LoanCaseNo
-        }], {relativeTo: this.activatedRoute});
-    }
-
-    CheckEditStatus(loan) {
-        debugger;
-        if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
-            return true
-        } else {
-            return false
-        }
+    ApplyOrr(updateLoan) {
+        this.router.navigate(
+            ['../save-orr',
+                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo}],
+            {relativeTo: this.activatedRoute}
+        );
     }
 
     ViewOrr(updateLoan) {
@@ -220,5 +191,4 @@ export class ClSearchLoanComponent implements OnInit {
             {relativeTo: this.activatedRoute}
         );
     }
-
 }

@@ -43,9 +43,14 @@ import {OrrListComponent} from './orr-list/orr-list.component';
 import {ClSearchLoanComponent} from './cl-search-loan/cl-search-loan.component';
 import {CalculateDbrComponent} from './calculate-dbr/calculate-dbr.component';
 import {SearchDbrComponent} from './search-dbr/search-dbr.component';
-import {ReferbackLoanUtilizationComponent} from './referback-loan-utilization/referback-loan-uti.component';
+import {ReferbackLoanUtilizationComponent} from './referback-loan-from-orr/referback-loan-uti.component';
 import {ClPendingLoanComponent} from "./cl-pending-loan/cl-pending-loan.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {ChargeCreationLoanComponent} from "./search-charge-creation-loan/search-charge-creation-loan.component";
+import {ClViewLoanComponent} from "./cl-view-loan/cl-view-loan.component";
+import {ReferbackLoanFromCADComponent} from "./referback-loan-from-CAD/referback-loan-from-CAD.component";
+import {RejectedLoanComponent} from "./rejected-loan/rejected-loan.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const routing = [
     {
@@ -68,6 +73,10 @@ const routing = [
         path: 'search',
         component: ClSearchLoanComponent
     },
+    {
+        path: 'view-loan',
+        component: ClViewLoanComponent
+    },
 
     {
         path: 'pending-loan',
@@ -84,6 +93,18 @@ const routing = [
     {
         path: 'referback-loan-uti',
         component: ReferbackLoanUtilizationComponent
+    },
+    {
+        path: 'referback-loan-CAD',
+        component: ReferbackLoanFromCADComponent
+    },
+    {
+        path: 'rejected-loan',
+        component: RejectedLoanComponent
+    },
+    {
+        path: 'search-charge-creation',
+        component: ChargeCreationLoanComponent
     },
     {
         path: 'upload-documents',
@@ -111,6 +132,10 @@ const routing = [
         CalculateDbrComponent,
         SearchDbrComponent,
         ReferbackLoanUtilizationComponent,
+        ChargeCreationLoanComponent,
+        ClViewLoanComponent,
+        ReferbackLoanFromCADComponent,
+        RejectedLoanComponent
     ],
     imports: [
         CommonModule,
@@ -119,7 +144,6 @@ const routing = [
         FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
-        MatFormFieldModule,
         MatMenuModule,
         MatSelectModule,
         MatInputModule,
@@ -144,7 +168,7 @@ const routing = [
         MatListModule,
         MatChipsModule,
         IconPickerModule,
-        MatPaginatorModule
+        MatPaginatorModule,
     ],
 })
 export class LoanModule {
