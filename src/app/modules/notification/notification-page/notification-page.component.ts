@@ -25,6 +25,7 @@ export class NotificationPageComponent implements OnInit {
     nBl;
     nUv;
     nLDef;
+    nFvc;
 
     response;
 
@@ -57,6 +58,7 @@ export class NotificationPageComponent implements OnInit {
                   this.nLd = this.response.LoaneeMightBecomeDafaulter;
                   this.nPcl = this.response.CustomerLeadsCount;
                   this.nIlt = this.response.SamNplLoansCount;
+                  this.nFvc = this.response.FenceVoilationCount;
               } else {
                   this.layoutUtilsService.alertElement("", baseResponse.Message);
 
@@ -79,6 +81,9 @@ export class NotificationPageComponent implements OnInit {
       }
       else if(number == 7){
           this.router.navigateByUrl('/notifications/cnic-expiry-loaner');
+      }
+      else if(number == 12){
+          this.router.navigateByUrl('/notifications/get-fence-violation');
       }
    }
 
