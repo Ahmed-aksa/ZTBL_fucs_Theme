@@ -66,7 +66,19 @@ export class NotificationService {
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }else if(type == 5){
+        }else if(type == 3){
+            return this.http.post<any>(`${environment.apiUrl}/Notification/PossibleCustomerLeads`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }
+        else if(type == 4){
+            return this.http.post<any>(`${environment.apiUrl}/Notification/GetSamNplLoansForNotification`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }
+        else if(type == 5){
             return this.http.post<any>(`${environment.apiUrl}/Notification/LoaneeMightBecomeDafaulter`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)

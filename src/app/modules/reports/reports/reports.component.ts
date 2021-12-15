@@ -29,6 +29,7 @@ import {MarkOnCaComponent} from "../mark-on-ca/mark-on-ca.component";
 import {RecoveryScheduleComponent} from "../recovery-schedule/recovery-schedule.component";
 import {LoanMoveComponent} from "../loan-move/loan-move.component";
 import {StatementOfAffairsComponent} from "../statement-of-affairs/statement-of-affairs.component";
+import {ReschedulementOfLoanComponent} from "../reschedulement-of-loan/reschedulement-of-loan.component";
 
 @Component({
     selector: 'app-reports',
@@ -221,6 +222,15 @@ export class ReportsComponent implements OnInit {
 
     statementOfAffairs(){
         const dialogRef = this.dialog.open(StatementOfAffairsComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
+        dialogRef.afterClosed().subscribe((res)=>{
+            if(!res){
+                return
+            }
+        })
+    }
+
+    reschedulementOfLoan(){
+        const dialogRef = this.dialog.open(ReschedulementOfLoanComponent, {panelClass: ['w-8/12'], height: "700px", disableClose: true });
         dialogRef.afterClosed().subscribe((res)=>{
             if(!res){
                 return

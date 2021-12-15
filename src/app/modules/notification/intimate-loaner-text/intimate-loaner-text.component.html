@@ -1,1 +1,164 @@
-<p>intimate-loaner-text works!</p>
+<div
+    class="
+        px-10
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-scroll
+        bg-card
+        dark:bg-transparent
+    "
+>
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Get SAM Npl Loans For Notification</div>
+        </div>
+    </div>
+
+
+    <div class="mt-2">
+
+
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                class="lmat-elevation-z8 overflow-scroll"
+                [style.height]="gridHeight"
+                #table
+                [dataSource]="
+                    dataSource
+                "
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+            >
+                <ng-container matColumnDef="Zone">
+                    <mat-header-cell *matHeaderCellDef
+                    >Zone Name
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.ZoneName
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Branch">
+                    <mat-header-cell *matHeaderCellDef
+                    >Branch Name
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.BranchName
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell style="min-width: 150px;" *matHeaderCellDef>CNIC</mat-header-cell>
+                    <mat-cell style="min-width: 150px;" *matCellDef="let notification">{{
+                        notification.Cnic
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Name">
+                    <mat-header-cell *matHeaderCellDef
+                    >Name
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.CustomerName
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="FatherName">
+                    <mat-header-cell *matHeaderCellDef>Father Name</mat-header-cell>
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.FatherName
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Address">
+                    <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.PermanentAddress
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="MajorBorrower">
+                    <mat-header-cell *matHeaderCellDef
+                    >Major Borrower
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.MajorBorrower
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Sl">
+                    <mat-header-cell *matHeaderCellDef
+                    >Major Borrower
+                    </mat-header-cell
+                    >
+                    <mat-cell class="text-center" *matCellDef="let notification">{{
+                        notification.SanctionLimit
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Ndd">
+                    <mat-header-cell *matHeaderCellDef
+                    >Next Due Date
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.NextDueDate
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Lcno">
+                    <mat-header-cell *matHeaderCellDef
+                    >LC #
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.LoanCaseNumber
+                        }}</mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Tsa">
+                    <mat-header-cell *matHeaderCellDef
+                    >Total Sanction Amount
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.TotalSanctionAmount
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Los">
+                    <mat-header-cell *matHeaderCellDef
+                    >loan Outstanding
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.LoanOutstanding
+                        }}</mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    class="table-header-background"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+            </mat-table>
+
+
+
+
+        </div>
+
+    </div>

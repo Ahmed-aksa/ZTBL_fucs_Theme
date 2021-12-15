@@ -32,7 +32,15 @@ const routing = [
     {
         path: 'loan-defaulters',
         component: LoanDefaultersComponent
-    }
+    },
+    {
+        path: 'possible-customer-leads',
+        component: PossibleCustomerLeadsComponent
+    },
+    {
+        path: 'intimate-loaners-text',
+        component: IntimateLoanerTextComponent
+    },
 ]
 
 @NgModule({
