@@ -20,8 +20,8 @@ import {LovService} from 'app/shared/services/lov.service';
 
 @Component({
     selector: 'kt-cl-search-loan',
-    templateUrl: './cl-search-loan.component.html',
-    styleUrls: ['./cl-search-loan.component.scss'],
+    templateUrl: './cl-view-loan.component.html',
+    styleUrls: ['./cl-view-loan.component.scss'],
     providers: [
         DatePipe,
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -29,7 +29,7 @@ import {LovService} from 'app/shared/services/lov.service';
 
     ]
 })
-export class ClSearchLoanComponent implements OnInit {
+export class ClViewLoanComponent implements OnInit {
 
     loanSearch: FormGroup;
     loanFilter = new SearchLoan();
