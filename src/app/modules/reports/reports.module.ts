@@ -28,6 +28,8 @@ import { RecoveryScheduleComponent } from './recovery-schedule/recovery-schedule
 import { LoanMoveComponent } from './loan-move/loan-move.component';
 import { GlMoveComponent } from './gl-move/gl-move.component';
 import { StatementOfAffairsComponent } from './statement-of-affairs/statement-of-affairs.component';
+import { ReschedulementOfLoanComponent } from './reschedulement-of-loan/reschedulement-of-loan.component';
+import { GetCustomerLegalHeirsComponent } from './get-customer-legal-heirs/get-customer-legal-heirs.component';
 
 const routing = [
     {
@@ -46,10 +48,10 @@ const routing = [
         path: 'early-warning-reports',
         component: EarlyWarningReportsComponent
     },
-    // {
-    //     path: 'bifurction-of-os',
-    //     component: BufricationOfOsBalancesLcComponent
-    // },
+    {
+        path: 'bifurction-of-os',
+        component: BufricationOfOsBalancesLcComponent
+    },
     {
         path: 'updated-list',
         component: UpdatedListOfDefaultersComponent
@@ -61,6 +63,10 @@ const routing = [
     {
         path: 'get-unsuccessful-login',
         component: GetUnsuccessfulLoginComponent
+    },
+    {
+        path: 'get-customer-legal-heirs',
+        component: GetCustomerLegalHeirsComponent
     },
 ]
 
@@ -90,7 +96,9 @@ const routing = [
         RecoveryScheduleComponent,
         LoanMoveComponent,
         GlMoveComponent,
-        StatementOfAffairsComponent
+        StatementOfAffairsComponent,
+        ReschedulementOfLoanComponent,
+        GetCustomerLegalHeirsComponent
     ],
     imports: [
         CommonModule,

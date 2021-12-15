@@ -507,7 +507,8 @@
                 <button style="background-color: #01671B;" *ngIf="isSimpleRecovery" mat-raised-button
                         color="primary"
                         (click)="save()"
-                        [disabled]="submitted || transactionEdit || viewOnly || dataSaved">
+                        [disabled]="submitted || viewOnly || dataSaved">
+                    <!--                        [disabled]="submitted || transactionEdit || viewOnly || dataSaved"-->
                     <mat-icon class="mr-2">save</mat-icon>
                     Save
                 </button>

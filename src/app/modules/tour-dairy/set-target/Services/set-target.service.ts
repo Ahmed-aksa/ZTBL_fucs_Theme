@@ -97,7 +97,7 @@ if(userInfo?.UserCircleMappings){
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    saveTargets(targets, Duration, AssignedTarget) {
+    saveTargets(targets, Duration, AssignedTarget,assignedTarget) {
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {
@@ -124,6 +124,7 @@ if(userInfo?.UserCircleMappings){
 
         this.request.Target.Duration = Duration;
         this.request.Target.AssignedTarget = AssignedTarget;
+        this.request.Target["AssignedTarget"] = assignedTarget;
 
         // this.request.Target["AssignedTarget"]=AssignedTarget;
 

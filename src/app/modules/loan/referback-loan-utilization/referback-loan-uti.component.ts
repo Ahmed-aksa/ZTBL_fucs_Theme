@@ -1,124 +1,194 @@
-import {Component, OnInit, ChangeDetectorRef} from "@angular/core";
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NgxSpinnerService} from "ngx-spinner";
-import {finalize} from "rxjs/operators";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MatTableDataSource} from "@angular/material/table";
-import {UserUtilsService} from "app/shared/services/users_utils.service";
-import {LayoutUtilsService} from "app/shared/services/layout_utils.service";
-import {DeceasedCustomerService} from "app/shared/services/deceased-customer.service";
-import {DatePipe} from "@angular/common";
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DatePipe} from '@angular/common';
+import {NgxSpinnerService} from 'ngx-spinner';
+
+import {finalize} from 'rxjs/operators';
+
+import {ActivatedRoute, Router} from '@angular/router';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
+import {Loan, SearchLoan} from 'app/shared/models/Loan.model';
+import {MatTableDataSource} from '@angular/material/table';
+import {BaseResponseModel} from 'app/shared/models/base_response.model';
+import {LoanService} from 'app/shared/services/loan.service';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {UserUtilsService} from 'app/shared/services/users_utils.service';
+import {LovService} from 'app/shared/services/lov.service';
+
 
 @Component({
     selector: 'kt-referback-loan-uti',
     templateUrl: './referback-loan-uti.component.html',
-    styleUrls: ['./referback-loan-uti.component.scss'],
-    providers: [DeceasedCustomerService, DatePipe]
+    styles: [],
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ]
 })
 export class ReferbackLoanUtilizationComponent implements OnInit {
 
+    @Input() loanDetail: Loan;
+    loanSearch: FormGroup;
+    loanFilter = new SearchLoan();
+    LoggedInUserInfo: BaseResponseModel;
+    dataSource = new MatTableDataSource();
 
-    displayedColumns = ['customer_name', 'father_name', 'death_date', 'Cnic', 'address', 'per_address', 'status', 'branch_code', 'certificate_verified', 'legal_heir', 'View'];
+    public LovCall = new Lov();
 
-    dataSource: MatTableDataSource<DeceasedCustomer>
+    //Loan Status inventory
+    LoanStatus: any = [];
+    loanStatus: any = [];
+    SelectedLoanStatus: any = [];
 
-    referBackForm: FormGroup;
+    circle: any = [];
 
-    select: Selection[] = [
-        {value: '1', viewValue: 'NO'},
-        {value: '2', viewValue: 'Yes'}
-    ];
-    DeceasedCustomerInf;
+    loggedInUserIsAdmin: boolean = false;
 
-    constructor(private fb: FormBuilder,
-                private userUtilsService: UserUtilsService,
-                private cdRef: ChangeDetectorRef,
-                private layoutUtilsService: LayoutUtilsService,
-                private spinner: NgxSpinnerService,
-                private _deceasedCustomer: DeceasedCustomerService,
-                private router: Router,
-                private activatedRoute: ActivatedRoute
+    displayedColumns = ['BranchName', 'AppDate', 'AppNumberManual', 'LoanCaseNo', 'ApplicationTitle', 'DevAmount', 'ProdAmount', 'StatusName', 'Action'];
+
+    gridHeight: string;
+
+    zone: any;
+    branch: any;
+
+
+    constructor(
+        private spinner: NgxSpinnerService,
+        private filterFB: FormBuilder,
+        private _loanService: LoanService,
+        private layoutUtilsService: LayoutUtilsService,
+        private userUtilsService: UserUtilsService,
+        private _lovService: LovService,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private datePipe: DatePipe
     ) {
     }
 
     ngOnInit() {
-        this.createForm()
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.referBackForm.controls.Zone.setValue(userInfo.Zone?.ZoneName);
-        this.referBackForm.controls.Branch.setValue(userInfo.Branch?.Name);
+        this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
-        this.spinner.show();
-        this._deceasedCustomer
-            .GetListOfRejectedDeceasedPerson()
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    this.dataSource = baseResponse.DeceasedCustomer.DeceasedCustomerInfoList;
-                } else {
-                    this.layoutUtilsService.alertElement(
-                        "",
-                        baseResponse.Message,
-                        baseResponse.Code
-                    );
-                }
-            });
+        if (this.LoggedInUserInfo.Branch?.BranchCode == 'All') {
+            this.loggedInUserIsAdmin = true;
+        }
 
+        this.createForm();
+        this.getLoanStatus();
+    }
 
+    editLoan(updateLoan) {
+        console.log(this.activatedRoute)
+        this.router.navigate(['../create', {
+            LnTransactionID: updateLoan.LoanAppID,
+            Lcno: updateLoan.LoanCaseNo
+        }], {relativeTo: this.activatedRoute});
+    }
+
+    CheckEditStatus(loan) {
+        debugger;
+        if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
+            return true
+        } else {
+            return false
+        }
     }
 
     createForm() {
-        this.referBackForm = this.fb.group({
-            Zone: ["", Validators.required],
-            Branch: ["", Validators.required],
-            Cnic: [""],
-            DateofDeath: [''],
-            NadraNo: [''],
-            DetailSourceIncome: [''],
-            CustomerName: [''],
-            Cn: [''],
-            FatherName: [''],
-            Remarks: [''],
-            verified: [''],
-            select: [''],
-        })
+        this.loanSearch = this.filterFB.group({
+            LcNo: [this.loanFilter.LcNo],
+            AppNo: [this.loanFilter.AppNo],
+            Appdt: [this.loanFilter.Appdt],
+            Status: ["7"]
+        });
     }
 
-    find() {
+    //-------------------------------Loan Status Functions-------------------------------//
+    async getLoanStatus() {
+        this.LoanStatus = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.LoanStatus});
+        this.SelectedLoanStatus = this.LoanStatus.LOVs;
 
     }
 
-    viewDeceased(Jv: any) {
+    searchLoanStatus(loanStatusId) {
+        loanStatusId = loanStatusId.toLowerCase();
+        if (loanStatusId != null && loanStatusId != undefined && loanStatusId != '') {
+            this.SelectedLoanStatus = this.LoanStatus.LOVs.filter(x => x.Name.toLowerCase().indexOf(loanStatusId) > -1);
+        } else {
+            this.SelectedLoanStatus = this.LoanStatus.LOVs;
+        }
+    }
+
+    validateLoanStatusOnFocusOut() {
+        if (this.SelectedLoanStatus.length == 0) {
+            this.SelectedLoanStatus = this.LoanStatus;
+        }
+    }
+
+
+    ngAfterViewInit() {
+        this.gridHeight = window.innerHeight - 400 + 'px';
+        if (this.zone) {
+            this.searchLoan();
+        }
+
+    }
+
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+    }
+
+    searchLoan() {
+        const controls = this.loanSearch.controls;
+        if (this.loanSearch.invalid) {
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+            return;
+        }
+        Object.keys(controls).forEach(controlName =>
+            controls[controlName].value == undefined || controls[controlName].value == null ? controls[controlName].setValue('') : controls[controlName].value
+        );
+        this.loanFilter = Object.assign(this.loanFilter, this.loanSearch.getRawValue());
+        this.loanFilter.ZoneId = this.zone.ZoneId;
+        this.loanFilter.BranchId = this.branch.BranchId;
+        this.loanFilter.Appdt = this.datePipe.transform(this.loanFilter.Appdt, 'ddMMyyyy');
+
+        this.spinner.show();
+        this._loanService.searchLoanApplication(this.loanFilter, this.zone, this.branch)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse) => {
+                if (baseResponse.Success) {
+                    this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
+                } else {
+                    this.dataSource.data = [];
+                    this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code)
+                }
+            });
+
+    }
+
+    ApplyOrr(updateLoan) {
         this.router.navigate(
-            [
-                "../customers",
-                {
-                    LnTransactionID: Jv.Cnic,
-                    CustomerName: Jv.CustomerName
-                },
-            ],
+            ['../save-orr',
+                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo}],
             {relativeTo: this.activatedRoute}
         );
     }
 
-
-}
-
-export interface Selection {
-    value: string;
-    viewValue: string;
-}
-
-export interface DeceasedCustomer {
-    CustomerName: string;
-    FatherName: string;
-    DeathDate: string;
-    Cnic: string;
-    Address: string;
-    PermanentAddress: string;
-    Status: string;
-    BranchCode: string;
-    IsCertificateVerified: string;
-    LegalHeairHasIncome: string
+    ViewOrr(updateLoan) {
+        this.router.navigate(
+            ['../../loan-recovery/loan-inquiry',
+                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo}],
+            {relativeTo: this.activatedRoute}
+        );
+    }
 }

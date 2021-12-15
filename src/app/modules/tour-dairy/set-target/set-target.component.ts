@@ -64,6 +64,7 @@ export class SetTargetComponent implements OnInit {
     totals: any = [];
     AssignedTarget: any = [];
     AssignedTargetToSave: any = [];
+    assignedTarget;
     value: any;
     visible: any = true;
     viewerOpen = false;
@@ -138,7 +139,7 @@ export class SetTargetComponent implements OnInit {
                 }
             });
     }
-
+    assignedTargetHeadingsData
     GetTargets(value: any) {
         if (!value) {
             var Message = 'Please select Target';
@@ -164,7 +165,11 @@ export class SetTargetComponent implements OnInit {
                     this.headings = baseResponse.Target.Heading;
                     this.targets = baseResponse.Target.Targets;
                     this.previous = Object.assign(this.targets);
+                    this.assignedTarget = baseResponse.Target.AssignedTarget;
+                    this.assignedTargetHeadingsData = baseResponse?.Target?.AssignedTarget;
                     this.Heading();
+
+                    this.showAssignedTarget();
                     this.ishidden = true;
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -175,6 +180,10 @@ export class SetTargetComponent implements OnInit {
                 }
             });
     }
+    assignedtargetheading
+   showAssignedTarget(){
+       this.assignedtargetheading = Object.values(this.assignedTargetHeadingsData);
+}
 
     createForm() {
         this.targetForm = this.fb.group({
@@ -203,6 +212,17 @@ export class SetTargetComponent implements OnInit {
         }
 
         return this.array;
+    }
+
+
+    get totalHeading(): string[] {
+        debugger
+        if (!this.assignedTargetHeadingsData) {
+            return [];
+        }
+        if (this.heading) {
+        }
+        return Object.keys(this.assignedTargetHeadingsData);
     }
 
     Heading() {
@@ -331,15 +351,12 @@ export class SetTargetComponent implements OnInit {
     }
 
     save() {
-
-
-        if (this.Check()) {
             this.spinner.show();
             this._setTarget
                 .saveTargets(
                     this.targets,
                     this.targetForm.controls.Duration.value,
-                    this.AssignedTargetToSave
+                    this.AssignedTargetToSave,this.assignedTarget
                 )
                 .pipe(
                     finalize(() => {
@@ -361,11 +378,10 @@ export class SetTargetComponent implements OnInit {
                         );
                     }
                 });
-        }
+
     }
 
     submit() {
-        if (this.Check()) {
             this.spinner.show();
             this._setTarget
                 .submitTargets(this.targetForm.controls.Duration.value)
@@ -389,7 +405,6 @@ export class SetTargetComponent implements OnInit {
                         );
                     }
                 });
-        }
     }
 
     find() {
