@@ -629,6 +629,10 @@ img {
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    div#collapseExample{
+        height: calc(100vh - 150px);
+        overflow: auto;
+    }
     .text-white{
         color: white !important;
     }
