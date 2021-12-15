@@ -82,11 +82,8 @@ export class ReschedulementOfLoanComponent implements OnInit {
             return;
         }
 
-        var dateFormat = this.datepipe.transform(this.bufricationForm.controls.WorkingDate.value, 'ddMMyyyy');
-
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "11";
-        this.reports.WorkingDate = dateFormat;
         this.reports.ReportFormatType = "2";
         this.spinner.show();
         this._reports.reportDynamic(this.reports, this.zone, this.branch)

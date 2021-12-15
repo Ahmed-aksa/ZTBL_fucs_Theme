@@ -54,8 +54,9 @@ export class NotificationPageComponent implements OnInit {
                   this.response = baseResponse.Notification.NotificationSummary;
                   this.nCel = this.response.CnicExpiryOfLoanee;
                   this.nDpi = this.response.LoaneePaymentInstallment;
-                  this.nLd = this.response.LoaneeMightBecomeDafaulter
-
+                  this.nLd = this.response.LoaneeMightBecomeDafaulter;
+                  this.nPcl = this.response.CustomerLeadsCount;
+                  this.nIlt = this.response.SamNplLoansCount;
               } else {
                   this.layoutUtilsService.alertElement("", baseResponse.Message);
 
@@ -67,6 +68,11 @@ export class NotificationPageComponent implements OnInit {
       if(number == 1){}
       else if(number == 2){
           this.router.navigateByUrl('/notifications/due-payments');
+      }
+      else if(number == 3){
+          this.router.navigateByUrl('/notifications/possible-customer-leads');
+      }else if(number == 4){
+          this.router.navigateByUrl('/notifications/intimate-loaners-text');
       }
       else if(number == 5){
           this.router.navigateByUrl('/notifications/loan-defaulters');

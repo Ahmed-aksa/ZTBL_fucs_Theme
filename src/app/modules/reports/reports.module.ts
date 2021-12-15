@@ -64,6 +64,10 @@ const routing = [
         path: 'get-unsuccessful-login',
         component: GetUnsuccessfulLoginComponent
     },
+    {
+        path: 'get-customer-legal-heirs',
+        component: GetCustomerLegalHeirsComponent
+    },
 ]
 
 
