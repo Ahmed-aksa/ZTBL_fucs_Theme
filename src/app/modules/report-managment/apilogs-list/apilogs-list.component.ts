@@ -135,7 +135,6 @@ export class ApilogsListComponent implements OnInit {
     }
 
     comparisonStartdateValidator(): any {
-        debugger
         let ldStartDate = this.FilterForm.value['StartDate'];
         let ldEndDate = this.FilterForm.value['EndDate'];
 
@@ -153,7 +152,6 @@ export class ApilogsListComponent implements OnInit {
 
 
     loadApiLogs() {
-        debugger
         this.reportFilter = Object.assign(this.reportFilter, this.FilterForm.value, this.panelOpenState = false);
         // var d = new Date(this.reportFilter.StartDate);
         // d.setDate(d.getDate() + 1);

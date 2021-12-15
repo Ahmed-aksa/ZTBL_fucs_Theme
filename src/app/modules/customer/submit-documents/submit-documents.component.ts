@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {finalize} from "rxjs/operators";
 import {NgxSpinnerService} from "ngx-spinner";
 import {CustomerService} from "../../../shared/services/customer.service";
@@ -8,6 +8,7 @@ import {BaseRequestModel} from "../../../shared/models/base_request.model";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {LovService} from "../../../shared/services/lov.service";
+import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
 
 @Component({
     selector: 'app-submit-documents',
@@ -22,6 +23,7 @@ export class SubmitDocumentsComponent implements OnInit {
     documents: any = [];
     customer: any;
     tranId: number;
+    doc_urls: any = []
 
     constructor(
         private layoutUtilsService: LayoutUtilsService,
@@ -30,6 +32,7 @@ export class SubmitDocumentsComponent implements OnInit {
         private customerService: CustomerService,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
+        private matDialog: MatDialog,
         @Inject(MAT_DIALOG_DATA)
         private data) {
     }
@@ -53,6 +56,7 @@ export class SubmitDocumentsComponent implements OnInit {
                             this.rawData.splice(i, 1);
                             this.rawData.splice(i, 0, file);
                         } else {
+                            this.doc_urls.push(event.target.result);
                             this.rawData.push(file);
                         }
                     };
@@ -167,6 +171,14 @@ export class SubmitDocumentsComponent implements OnInit {
     }
 
     async getDocumentTypes() {
-        this.document_types = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DocumentType});
+        this.document_types = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.SubmitDocumentType});
+    }
+
+    previewImg(url: any) {
+        const dialogRef = this.matDialog.open(ViewFileComponent, {
+            width: '70%',
+            height: '70%',
+            data: {url: url}
+        });
     }
 }
