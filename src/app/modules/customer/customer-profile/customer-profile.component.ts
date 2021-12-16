@@ -22,6 +22,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from "ngx-toastr";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {SubmitDocumentsComponent} from "../submit-documents/submit-documents.component";
+import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
 
 @Component({
     selector: 'kt-customer-profile',
@@ -152,7 +153,7 @@ export class CustomerProfileComponent implements OnInit {
         private _common: CommonService,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
-        private dialogRef: MatDialog
+        private dialogRef: MatDialog,
     ) {
 
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -586,6 +587,14 @@ export class CustomerProfileComponent implements OnInit {
 
     onAlertClose($event) {
         // this.hasFormErrors = false;
+    }
+
+    previewImg(url: any) {
+        const dialogRef = this.dialogRef.open(ViewFileComponent, {
+            width: '70%',
+            height: '70%',
+            data: {url: url}
+        });
     }
 
     async LoadLovs() {
