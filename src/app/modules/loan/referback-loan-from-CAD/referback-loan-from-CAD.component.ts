@@ -55,6 +55,12 @@ export class ReferbackLoanFromCADComponent implements OnInit {
     zone: any;
     branch: any;
 
+    matTableLenght = false;
+    //pagination
+    itemsPerPage = 10; //you could use your specified
+    totalItems: number | any;
+    pageIndex = 1;
+    dv: number | any; //use later
 
     constructor(
         private spinner: NgxSpinnerService,
@@ -177,13 +183,26 @@ export class ReferbackLoanFromCADComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
+                    this.matTableLenght = true;
                     this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
+                    this.dv = this.dataSource.data;
+                    this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                 } else {
                     this.dataSource.data = [];
                     this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code)
+                    this.dataSource = this.dv?.splice(1, 0);
+                    this.matTableLenght = false;
                 }
             });
 
+    }
+
+    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
+        this.itemsPerPage = pageSize;
+        this.pageIndex = pageIndex;
+        //this.OffSet = pageIndex;
+
+        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
     }
 
     ApplyOrr(updateLoan) {
