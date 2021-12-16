@@ -16,6 +16,12 @@ $MaterialIcons_FontPath: "~material-icons-font/fonts";
 body {
     font-family: 'Poppins', sans-serif !important;
 }
+
+.dis-table{
+    th{
+        min-width: 120px;
+    }
+}
 .space-between{
     justify-content: space-between;
 }

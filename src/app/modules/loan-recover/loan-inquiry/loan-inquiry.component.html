@@ -719,7 +719,7 @@
                             <table class="table table-striped"
                                    *ngIf="dynamicList?.GetDisbursementsRecoveries?.length>0">
                                 <thead>
-                                <tr class="table-header-background">
+                                <tr class="table-header-background dis-table">
                                     <th>GL</th>
                                     <th>SCM</th>
                                     <th>CRP</th>
@@ -775,7 +775,7 @@
                                     <td>{{item.IS_ACTIVE}}</td>
                                     <td>{{item.MARKUP_STOP_FLAG}}</td>
                                     <td>{{item.VALID_UNTIL | date: 'dd-MM-yyyy'}}</td>
-                                    <td id="llcInquiryText" (click)="getDisbursments(item.LOAN_DISB_ID)">Details</td>
+                                    <td ><a id="llcInquiryText" (click)="getDisbursments(item.LOAN_DISB_ID)" class="cursor-pointer">Details</a></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -790,7 +790,7 @@
                                     <table class="table table-striped"
                                            *ngIf="recoveryList?.GetLoanInstallments?.length>0">
                                         <thead>
-                                        <tr class="table-header-background">
+                                        <tr class="table-header-background  dis-table">
                                             <th>Seq#</th>
                                             <th>I-Rate</th>
                                             <th>Due Date</th>
