@@ -54,11 +54,11 @@ export class ClViewLoanComponent implements OnInit {
 
     gridHeight: string;
 
-    matTableLenght = false;
+
     // eslint-disable-next-line @typescript-eslint/naming-convention
     Math: any;
     loading = false;
-
+    matTableLenght = false;
     //pagination
     itemsPerPage = 10; //you could use your specified
     totalItems: number | any;
@@ -205,7 +205,7 @@ export class ClViewLoanComponent implements OnInit {
     }
 
     CheckEditStatus(loan) {
-        
+
         if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
             return true
         } else {
