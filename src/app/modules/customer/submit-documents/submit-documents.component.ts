@@ -185,8 +185,8 @@ export class SubmitDocumentsComponent implements OnInit {
 
     previewImg(url: any) {
         const dialogRef = this.matDialog.open(ViewFileComponent, {
-            width: '70%',
-            height: '70%',
+            width: '100vh',
+            height: '100vh',
             data: {url: url}
         });
     }
