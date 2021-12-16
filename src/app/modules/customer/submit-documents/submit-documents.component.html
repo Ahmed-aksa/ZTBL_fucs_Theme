@@ -13,7 +13,7 @@
                 <mat-label>Number of Files</mat-label>
                 <input matInput type="number"
                        (change)="changeNumberOfFiles($event.target.value)"
-                       [ngModel]="general_description"
+                       [(ngModel)]="number_of_files"
                        class="mat-input-element"/>
             </mat-form-field>
         </div>
@@ -21,7 +21,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Description</mat-label>
                 <input matInput type="text" (change)="changeTypeData($event.target.value,'description')"
-                       [ngModel]="general_description"
+                       [(ngModel)]="general_description"
                        class="mat-input-element"/>
             </mat-form-field>
         </div>
@@ -29,7 +29,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Reference No.</mat-label>
                 <input matInput type="text" (change)="changeTypeData($event.target.value,'reference')"
-                       [ngModel]="general_description"
+                       [(ngModel)]="reference"
                 >
             </mat-form-field>
         </div>
@@ -61,7 +61,8 @@
             <div class="col-lg-6  align-self-center">
                 <mat-form-field appearance="outline">
                     <mat-label>Description</mat-label>
-                    <input matInput type="text" (change)="changeTypeData($event.target.value,'file_description',i)"/>
+                    <input matInput type="text" (change)="changeTypeData($event.target.value,'file_description',i)"
+                           [(ngModel)]="description[i]"/>
                 </mat-form-field>
             </div>
         </div>
