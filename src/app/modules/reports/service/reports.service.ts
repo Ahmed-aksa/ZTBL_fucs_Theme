@@ -34,7 +34,7 @@ export class ReportsService {
 
 
     updatedList(user, reportsFilter) {
-        
+
 
 
 
@@ -54,7 +54,7 @@ export class ReportsService {
     }
 
     reportDynamic(reportsFilter, zone = null, branch = null, circle = null) {
-        
+        debugger
         let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         let final_zone = null;
         let final_branch = null;
@@ -66,10 +66,15 @@ export class ReportsService {
             if (final_branch == undefined) {
                 final_branch = null
             }
-        } else {
+        }else if(final_zone == null || final_branch == null){
+            final_zone.ZoneId = reportsFilter.ZoneId;
+            final_branch.BranchCode = reportsFilter.BranchCode
+        }
+        else {
             final_zone = zone;
             final_branch = branch;
         }
+
         let request = null;
         if (reportsFilter.ReportsNo == '20' || reportsFilter.ReportsNo == '19' || reportsFilter.ReportsNo == '17' || reportsFilter.ReportsNo == '16') {
             request = {

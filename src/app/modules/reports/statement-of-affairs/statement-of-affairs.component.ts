@@ -176,6 +176,8 @@ export class StatementOfAffairsComponent implements OnInit {
         this.user.Zone = this.zone;
         this.user.Circle = this.circle;
 
+        debugger
+
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "27";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
