@@ -27,6 +27,7 @@ import {NdcRequestsModule} from './modules/ndc-requests/ndc-requests.module';
 import {DatePipe} from "@angular/common";
 
 const routerConfig: ExtraOptions = {
+    useHash:true,
     preloadingStrategy: PreloadAllModules,
     scrollPositionRestoration: 'enabled'
 };
