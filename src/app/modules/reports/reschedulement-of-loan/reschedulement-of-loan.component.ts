@@ -75,7 +75,7 @@ export class ReschedulementOfLoanComponent implements OnInit {
     }
 
     find() {
-        debugger
+        
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();

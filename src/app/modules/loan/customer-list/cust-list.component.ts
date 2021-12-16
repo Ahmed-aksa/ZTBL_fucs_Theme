@@ -136,7 +136,7 @@ export class CustLoanlistComponent implements OnInit {
 
 
     searchCustomer(is_first = false) {
-        debugger;
+        
         if (is_first == true)
             this.OffSet = 0;
         this._customer.clear();

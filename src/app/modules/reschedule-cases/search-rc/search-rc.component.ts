@@ -189,7 +189,7 @@ export class SearchRcComponent implements OnInit {
     }
 
     find() {
-        debugger
+        
         this.spinner.show();
         this.search = Object.assign(this.rcSearch.getRawValue());
 

@@ -54,7 +54,7 @@ export class CorrectionPhoneComponent implements OnInit {
     find() {
 
         var cnic = this.cpForm.controls['Cnic'].value;
-        debugger;
+        
         this.spinner.show();
         this._customerService.getCustomerByCnic(cnic, this.branch, this.zone)
             .pipe(

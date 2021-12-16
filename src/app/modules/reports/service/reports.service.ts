@@ -34,7 +34,7 @@ export class ReportsService {
 
 
     updatedList(user, reportsFilter) {
-        debugger
+        
 
 
 
@@ -54,7 +54,7 @@ export class ReportsService {
     }
 
     reportDynamic(reportsFilter, zone = null, branch = null, circle = null) {
-        debugger
+        
         let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         let final_zone = null;
         let final_branch = null;

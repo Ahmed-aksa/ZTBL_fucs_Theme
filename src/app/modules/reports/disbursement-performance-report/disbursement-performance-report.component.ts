@@ -131,7 +131,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
     }
 
     find() {
-        debugger
+        
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();

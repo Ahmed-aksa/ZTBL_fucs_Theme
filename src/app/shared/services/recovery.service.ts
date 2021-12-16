@@ -421,7 +421,7 @@ export class RecoveryService {
         zone,
         branch
     ): Observable<BaseResponseModel> {
-        debugger
+        
         documentId = documentId.toString();
         var ViewDocumnets = {ID: documentId, Type: documentType};
         var _circles;

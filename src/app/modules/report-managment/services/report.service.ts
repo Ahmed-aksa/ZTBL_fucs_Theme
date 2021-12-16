@@ -20,7 +20,7 @@ export class ReportService {
 
 
     getAllAPILogs(reportFilter: ReportFilters): Observable<BaseResponseModel> {
-debugger
+
 
         this.request = new BaseRequestModel();
         this.request.ReportFilters = reportFilter;
