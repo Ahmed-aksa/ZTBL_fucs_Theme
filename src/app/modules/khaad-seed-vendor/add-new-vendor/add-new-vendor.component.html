@@ -86,13 +86,17 @@
                     <div *ngFor="let url of images">
                         <div *ngIf="url.FilePath!=null || url.FilePath!=''">
                             <img
-                                style="width:150px;height: 150px; margin-left: auto;margin-right: auto;"
-                                class="img-thumbnail text-right" mat-card-md-image [src]="url" (click)="preview()">
+                                style="height: 225px; width: 225px; margin-left: auto;margin-right: auto;"
+                                class="img-thumbnail text-right" mat-card-md-image [src]="url" (click)="preview()" alt="image preview">
                         </div>
                     </div>
+                    </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                    <div style="align-items: center;">
-                        <input *ngIf="!viewOnly" style="margin-left: 10px;margin-right: auto; margin-top: 20px;"
+                    <div class="mt-3"  style="align-self: center; align-items: center;">
+                        <input *ngIf="!viewOnly" style="width: 220px;"
                                id="uploadprofile" type="file" name="myfile" (change)="onFileChange($event)"
                                accept="image/jpg,image/jpeg"/>
                     </div>

@@ -1,19 +1,16 @@
 <div id="Kt-portlet-margin-top">
     <div class="kt-portlet"
          [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
-        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header"
-             style="display: flex;flex-direction: row;justify-content: space-between">
-            <div class="kt-portlet__head-label">
-                <h3 class="kt-portlet__head-title">Add Vendor's Location</h3>
+        <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
+            <div class="flex ">
+                <h3 class="heading w-11/12">Add Vendor's Location</h3>
+            <mat-icon class="text-red-500 cursor-pointer text-right w-1/12 align-self-center" style="justify-content: right;" (click)="close(0)">cancel</mat-icon>
+
             </div>
             <!-- <span (click)="close(0)"><mat-icon>close</mat-icon></span> -->
 
-            <button mat-raised-button color="warn" class="btn center" style="width: 5px; height: 30px;"
-                    (click)="close(0)">
-                <mat-icon>close</mat-icon>
-            </button>
         </div>
-        <input type="text" class="form-control my-4" (keydown.enter)="$event.preventDefault()"
+        <input type="text" class="form-control my-2" (keydown.enter)="$event.preventDefault()"
                placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
                #search>
     </div>
@@ -24,10 +21,10 @@
             <!-- <label>Search</label> -->
             <button mat-raised-button color="primary" class="org-button my-2 text-right" (click)="onSelect()">
                 <mat-icon class="mr-2"> location_on</mat-icon>
-                Select
+                Select Location
             </button>
 
-            <agm-map class="w-full h-screen" #gm [zoom]="zoom"
+            <agm-map id="map_canvas" class="w-full" #gm [zoom]="zoom"
                      [latitude]="lat"
                      [longitude]="lng"
                      [mapTypeControlOptions]="controlOptions"

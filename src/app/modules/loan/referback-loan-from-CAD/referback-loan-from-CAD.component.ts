@@ -95,7 +95,6 @@ export class ReferbackLoanFromCADComponent implements OnInit {
     }
 
     CheckEditStatus(loan) {
-
         if (loan.CreatedBy == this.LoggedInUserInfo.User.UserId) {
             return true
         } else {
