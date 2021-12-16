@@ -152,7 +152,7 @@
                             <mat-cell *matCellDef="let loan">
 
                                 <a class="self-center cursor-pointer text-green" (click)="ApplyOrr(loan)"> Apply ORR</a>
-                                <button mat-icon-button color="primary" (click)="ViewOrr(loan)">
+                                <button mat-icon-button color="primary"   *ngIf="CheckEditStatus(loan)" (click)="ViewOrr(loan)">
                                     <mat-icon style="margin-left: 5px;" title="View Loan">visibility</mat-icon>
                                 </button>
                             </mat-cell>
