@@ -64,6 +64,7 @@ export class LovConfigurationKey {
     public static readonly JvInstrument: string = 'JvInstrument';
 
     public static readonly RecoveryThrouth: string = 'RecoveryThrouth';
+    public static readonly RecoveryStatus: string = 'RecoveryStatus';
     public static readonly Coordinators: string = 'Coordinators';
     public static readonly SamRecoveryType: string = 'SamRecoveryType';
     public static readonly MakeCapacity: string = 'MakeCapacity';

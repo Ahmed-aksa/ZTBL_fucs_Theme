@@ -97,7 +97,7 @@
                 <div class="flex flex-col flex-auto sm:mb-18 overflow-scroll sm:overflow-y-auto">
                     <mat-table class="lmat-elevation-z8"
                                #table
-                               [dataSource]="dataSource"
+                               [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
                                matSort
                                #sort1="matSort"
                                matSortActive="id"

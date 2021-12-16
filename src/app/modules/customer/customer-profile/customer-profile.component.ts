@@ -41,7 +41,9 @@ export class CustomerProfileComponent implements OnInit {
     hasFormErrors = false;
     viewLoading = false;
     loadingAfterSubmit = false;
+    images = [];
 
+    document_images = [];
 
     public createCustomer = new CreateCustomer();
 
@@ -72,7 +74,6 @@ export class CustomerProfileComponent implements OnInit {
 
     private _onDestroy = new Subject<void>();
 
-    images = [];
     public ObjSearchCustomer: any;
 
     public HideShowSaveButton = true;
@@ -222,22 +223,6 @@ export class CustomerProfileComponent implements OnInit {
 
         let should_alert = localStorage.getItem('ShouldAlert');
         if (should_alert == 'true') {
-            // if (this.createCustomer.CustomerStatus == 'N') {
-            //     this.layoutUtilsService.alertElement('Customer is already in Pending State, Please go to Pending List');
-            //     this.router.navigate(['/dashboard']);
-            //
-            // } else if (this.createCustomer.CustomerStatus == 'A') {
-            //     this.layoutUtilsService.alertElement('', 'Customer is already in Approved State, Please go to Approved List');
-            //     this.router.navigate(['/dashboard']);
-            //
-            // } else if (this.createCustomer.CustomerStatus == 'R') {
-            //     this.layoutUtilsService.alertElement('', 'Customer is already in Refferred-back State, Please go to Referred back List');
-            //     this.router.navigate(['/dashboard']);
-            //
-            // } else if (this.createCustomer.CustomerStatus == 'P') {
-            //     this.layoutUtilsService.alertElement('', 'Customer is already in Submitted State, Please go to  Submitted List');
-            //     this.router.navigate(['/dashboard']);
-            // }
             localStorage.removeItem('ShouldAlert');
         }
     }
@@ -311,7 +296,6 @@ export class CustomerProfileComponent implements OnInit {
             FatherName: [this.createCustomer.FatherName, [Validators.required]],
             HusbandName: [this.createCustomer.HusbandName],
             FatherOrHusbandCnic: [this.createCustomer.FatherOrHusbandCnic],
-
             MotherName: [this.createCustomer.MotherName, [Validators.required]],
             Occupation: [this.createCustomer.Occupation ? this.createCustomer.Occupation : null, [Validators.required]],
             BankEmp: [this.createCustomer.BankEmp],
@@ -386,7 +370,6 @@ export class CustomerProfileComponent implements OnInit {
 
         this.hasFormErrors = false;
         const controls = this.roleForm.controls;
-
 
         if (this.roleForm.invalid) {
             Object.keys(controls).forEach(controlName =>
@@ -521,6 +504,8 @@ export class CustomerProfileComponent implements OnInit {
 
         this.createCustomer.CellNumber = this.ValidateMobileNumberGet();
         this.createCustomer.doSubmit = flag;
+        // @ts-ignore
+        let phone_number = document.getElementById('tel_code').value + this.roleForm.value.PhoneNumber;
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.BranchLov = userInfo.Branch;
@@ -530,6 +515,8 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.Dob = this.datePipe.transform(this.createCustomer.Dob, 'ddMMyyyy');
         this.createCustomer.CnicExpiry = this.datePipe.transform(this.createCustomer.CnicExpiry, 'ddMMyyyy');
         this.createCustomer.CnicIssueDate = this.datePipe.transform(this.createCustomer.CnicIssueDate, 'ddMMyyyy');
+
+        this.createCustomer.PhoneNumber = phone_number;
         this.spinner.show();
         this._customerService.createCustomerSave(this.createCustomer)
             .pipe(
@@ -766,6 +753,19 @@ export class CustomerProfileComponent implements OnInit {
                         var customerobj = baseResponse.Customer;
                         this.tran_id = baseResponse.TranId;
                         this.document_details = baseResponse.DocumentDetails;
+                        this.document_details?.forEach((single_document_detail) => {
+                            single_document_detail?.CustomerDocuments?.forEach((customer_document) => {
+                                this.document_images.push(
+                                    {
+                                        url: customer_document.FilePath,
+                                        type_description: single_document_detail.Description,
+                                        type_name: single_document_detail.DocumentTypeName,
+                                        reference: single_document_detail.RefrenceNumber,
+                                        file_description: customer_document.Description
+                                    })
+                            })
+                        })
+
                         this.createCustomer = customerobj;
                         if (this.createCustomer.FatherOrHusbandCnic != undefined && this.createCustomer.FatherOrHusbandCnic != null) {
                             this.createCustomer.FatherOrHusbandCnic = parseInt(this.createCustomer.FatherOrHusbandCnic).toString();

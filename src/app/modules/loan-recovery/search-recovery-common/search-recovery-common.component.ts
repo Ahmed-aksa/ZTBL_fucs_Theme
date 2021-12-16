@@ -180,7 +180,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
 
     async loadLOV() {
 
-        this.CustomerStatuses = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.CustomerStatus});
+        this.CustomerStatuses = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.RecoveryStatus});
 
         this.CustomerStatuses = this.CustomerStatuses.LOVs;
 

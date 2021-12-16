@@ -73,7 +73,7 @@ export class SubmitDocumentsComponent implements OnInit {
                                     id: i,
                                     Description: "",
                                     PageNumber: "1",
-                                    FilePath: event.target.result,
+                                    FilePath: file,
                                     url: event.target.result
                                 });
                         })
@@ -101,28 +101,15 @@ export class SubmitDocumentsComponent implements OnInit {
     }
 
     submitDocuments() {
-        if (this.rawData.length < this.number_of_files) {
-            this.layoutUtilsService.alertElement("", "Please Submit All Documents");
-            return 0;
-        }
         let has_error = false;
         this.spinner.show();
-        this.rawData?.forEach((single_file, index) => {
+        this.submit_documents?.forEach((single_file, index) => {
             if (!has_error) {
-                // @ts-ignore
-                let description = document.getElementById(`description_${index}`).value;
-                // @ts-ignore
-                // let document_type = document.getElementById(`document_type_${index}`).value;
-                let document_type = this.documents[index];
-                // @ts-ignore
-                let reference = document.getElementById(`reference_${index}`).value;
-                // @ts-ignore
-                let general_description = document.getElementById('general_description').value;
                 let request = new BaseRequestModel();
                 request.DocumentDetail = {
-                    DocumentTypeId: document_type,
-                    Description: general_description,
-                    ReferenceNumber: reference,
+                    DocumentTypeId: single_file.document_type_id,
+                    Description: single_file.description,
+                    ReferenceNumber: single_file.reference,
                 }
                 request.Customer = this.customer;
                 let all_Data = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -145,36 +132,38 @@ export class SubmitDocumentsComponent implements OnInit {
                     CircleIds: circles_string
                 };
                 request.TranId = Number(this.tranId);
-
                 this.customerService.submitDocumentDetails(request).subscribe((data) => {
+
                     if (data.Success) {
+                        single_file.CustomerDocuments.forEach((single_file_document) => {
 
 
-                        var formData = new FormData();
+                            var formData = new FormData();
 
 
-                        formData.append('file', single_file);
-                        formData.append('CustomerCnic', this.customer.Cnic);
-                        formData.append('Description', description);
-                        formData.append('PageNumber', '1');
-                        formData.append('DocumentId', data.DocumentDetail.Id);
-                        this.customerService.submitDocument(formData)
-                            .pipe(
-                                finalize(() => {
-                                })
-                            ).subscribe((baseResponse) => {
-                            if (baseResponse.Success) {
-                            } else {
-                                this.layoutUtilsService.alertMessage('', baseResponse.Message);
-                                return;
-                            }
+                            formData.append('file', single_file_document.FilePath);
+                            formData.append('CustomerCnic', this.customer.Cnic);
+                            formData.append('Description', single_file_document.Description);
+                            formData.append('PageNumber', '1');
+                            formData.append('DocumentId', data.DocumentDetail.Id);
+                            this.customerService.submitDocument(formData)
+                                .pipe(
+                                    finalize(() => {
+                                    })
+                                ).subscribe((baseResponse) => {
+                                if (baseResponse.Success) {
+                                } else {
+                                    this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                                    return;
+                                }
 
-                        });
+                            });
+                        })
+
                     } else {
                         this.layoutUtilsService.alertMessage('', data.Message);
                         return 0;
                     }
-
                 })
 
 
