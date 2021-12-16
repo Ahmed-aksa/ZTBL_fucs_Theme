@@ -81,7 +81,7 @@ export class SetTargetComponent implements OnInit {
     Duration: any;
     ishidden = false;
     isfind = false;
-
+    gridHeight: string;
     branch: any;
     zone: any;
     circle: any;
@@ -245,7 +245,11 @@ export class SetTargetComponent implements OnInit {
             }
         }
     }
+    ngAfterViewInit() {
 
+
+        this.gridHeight = window.innerHeight - 320 + 'px';
+    }
     DoCalculations(val: string, num: number) {
         var dis = this.targets.reduce(function (sum, current) {
             return sum + Number(current[val]);
