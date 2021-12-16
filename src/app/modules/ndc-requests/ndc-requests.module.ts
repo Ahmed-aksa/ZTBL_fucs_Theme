@@ -4,7 +4,6 @@ import {MatTableModule} from "@angular/material/table";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {SharedModule} from "../../shared/shared.module";
-import {LoanInquiryComponent} from "../loan-recover/loan-inquiry/loan-inquiry.component";
 import {RouterModule} from "@angular/router";
 import {SearchNdcListComponent} from "./search-ndc-list/search-ndc-list.component";
 

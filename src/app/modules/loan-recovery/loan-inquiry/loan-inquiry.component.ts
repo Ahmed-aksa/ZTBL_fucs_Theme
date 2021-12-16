@@ -3,11 +3,12 @@ import {finalize} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {RecoveryService} from 'app/shared/services/recovery.service';
 import {MatDialog} from '@angular/material/dialog';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
+import {KtDialogService} from 'app/shared/services/kt-dialog.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
+import {RecoveryService} from 'app/shared/services/recovery.service';
 
 @Component({
     selector: 'kt-loan-inquiry',
@@ -24,8 +25,9 @@ export class LoanInquiryComponent implements OnInit {
     RecoveryForm: FormGroup;
     hasFormErrors = false;
     dataFound = false;
+
     zone;
-    branch
+    branch;
 
     constructor(
         private _recoveryService: RecoveryService,
@@ -40,12 +42,13 @@ export class LoanInquiryComponent implements OnInit {
     }
 
     createForm() {
-
         this.RecoveryForm = this.formBuilder.group({
             TransactionId: [''],
             LoanCaseNo: [''],
             Zone: [''],
             Branch: [''],
+            UncultivatedLand:[],
+            NocultivatedLand:[]
         });
     }
 
@@ -53,12 +56,10 @@ export class LoanInquiryComponent implements OnInit {
         this.createForm();
         var LnTransactionID = this.route.snapshot.params['LnTransactionID'];
         var lcno = this.route.snapshot.params['Lcno'];
-
         var userInfo = this.userUtilsService.getUserDetails();
 
-
-        this.RecoveryForm.controls.Zone.setValue(userInfo.Zone.ZoneName);
-        this.RecoveryForm.controls.Branch.setValue(userInfo.Branch.Name);
+        this.RecoveryForm.controls.Zone.setValue(userInfo?.Zone?.ZoneName);
+        this.RecoveryForm.controls.Branch.setValue(userInfo?.Branch?.Name);
         this.RecoveryForm.controls.LoanCaseNo.setValue(lcno == "undefined" ? "" : lcno);
         this.RecoveryForm.controls.TransactionId.setValue(LnTransactionID == "undefined" ? "" : LnTransactionID);
 
@@ -69,14 +70,28 @@ export class LoanInquiryComponent implements OnInit {
         //this.getLoanApplicationsInquiry();
     }
 
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+    }
+
     find() {
+
         var transactionId = this.RecoveryForm.controls.TransactionId.value;
         var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
+        // this.hasFormErrors = false;
+        // if ((transactionId == undefined || transactionId == "") && (loanCaseNo == undefined || loanCaseNo == "")) {
+        //   this.hasFormErrors = true;
+        //   return;
+        // }
 
-        this.hasFormErrors = false;
-        if ((transactionId == undefined || transactionId == "") && (loanCaseNo == undefined || loanCaseNo == "")) {
-
-            this.hasFormErrors = true;
+        if (!loanCaseNo) {
+            var Message = 'Please Enter loan Case No.';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
             return;
         }
 
@@ -95,7 +110,9 @@ export class LoanInquiryComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
 
                 if (baseResponse.Success === true) {
+
                     this.dynamicList = JSON.parse(baseResponse.Recovery.DynamicDataList);
+                    console.log(this.dynamicList)
                     this.dataFound = true;
                     this.cdRef.detectChanges();
                 } else {
@@ -106,6 +123,7 @@ export class LoanInquiryComponent implements OnInit {
     }
 
     getDocument(documentType: string, documentId: string) {
+
         this.spinner.show();
         this.submitted = true;
         this._recoveryService
@@ -147,6 +165,10 @@ export class LoanInquiryComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
                     this.recoveryList = JSON.parse(baseResponse.Recovery.DynamicDataList);
+
+                    // let recoverylist = JSON.parse(baseResponse.Recovery.DynamicDataList);
+                    // recoverylist[]
+                    // this.recoveryList
                     this.cdRef.detectChanges();
                 } else {
                     this.layoutUtilsService.alertMessage("", baseResponse.Message);

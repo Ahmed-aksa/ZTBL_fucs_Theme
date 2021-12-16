@@ -107,10 +107,10 @@ export const appRoutes: Route[] = [
                 path: 'journal-voucher',
                 loadChildren: () => import('app/modules/journal-voucher/journal-voucher.module').then(m => m.JournalVoucherModule)
             },
-            {
-                path: 'loan-recovery',
-                loadChildren: () => import('app/modules/loan-recover/loan-recover.module').then(m => m.LoanRecoverModule)
-            },
+            // {
+            //     path: 'loan-recovery',
+            //     loadChildren: () => import('app/modules/loan-recover/loan-recover.module').then(m => m.LoanRecoverModule)
+            // },
             {
                 path: 'loan',
                 loadChildren: () => import('app/modules/loan/loan.module').then(m => m.LoanModule)
