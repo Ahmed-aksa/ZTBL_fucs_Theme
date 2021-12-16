@@ -89,7 +89,7 @@ export class ChargeCreationLoanComponent implements OnInit {
     }
 
     CheckEditStatus(loan) {
-        debugger;
+        
         if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
             return true
         } else {

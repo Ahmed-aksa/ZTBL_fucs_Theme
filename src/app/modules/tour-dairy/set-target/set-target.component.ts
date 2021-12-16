@@ -216,7 +216,7 @@ export class SetTargetComponent implements OnInit {
 
 
     get totalHeading(): string[] {
-        debugger
+        
         if (!this.assignedTargetHeadingsData) {
             return [];
         }
@@ -277,7 +277,7 @@ export class SetTargetComponent implements OnInit {
 
 
         this.targets = Object.assign(this.newValue);
-        debugger
+        
         // this.onDataChanged(this.newValue);
         this.Heading();
     }
@@ -310,7 +310,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     Check() {
-        debugger
+        
         var target;
         var heading;
 

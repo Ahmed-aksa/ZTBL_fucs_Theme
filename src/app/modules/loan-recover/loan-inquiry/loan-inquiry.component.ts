@@ -110,7 +110,7 @@ export class LoanInquiryComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
 
                 if (baseResponse.Success === true) {
-                    debugger
+                    
                     this.dynamicList = JSON.parse(baseResponse.Recovery.DynamicDataList);
                     console.log(this.dynamicList)
                     this.dataFound = true;
@@ -123,7 +123,7 @@ export class LoanInquiryComponent implements OnInit {
     }
 
     getDocument(documentType: string, documentId: string) {
-        debugger
+        
         this.spinner.show();
         this.submitted = true;
         this._recoveryService

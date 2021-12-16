@@ -98,7 +98,7 @@ if(userInfo?.UserCircleMappings){
     }
 
     saveTargets(targets, Duration, AssignedTarget,assignedTarget) {
-        debugger
+        
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {

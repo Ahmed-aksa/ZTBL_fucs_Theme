@@ -260,7 +260,7 @@ export class UploadDocumentsComponent implements OnInit {
     }
 
     loanCase() {
-        debugger
+        
         var LoanDoc = this.PostDocument.controls.DocLoanId.value;
 
         if (LoanDoc == undefined && LoanDoc == null) {

@@ -328,7 +328,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     getAllValues() {
-        debugger
+        
         this.OffSet = 0;
         this.itemsPerPage = 10;
         this.todate = null;
@@ -343,7 +343,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     searchloanutilization(is_first = false) {
-        debugger
+        
         if (is_first) {
             this.OffSet = 0;
         }

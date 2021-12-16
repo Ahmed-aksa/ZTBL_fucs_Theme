@@ -188,7 +188,7 @@ export class MakeRcComponent implements OnInit {
 
 
     GetReshTransaction() {
-        debugger
+        
         this.spinner.show();
         this.loanReschID = this.route.snapshot.params["loanReschID"];
         this.rescheduling.LoanReschID = parseInt(this.loanReschID)

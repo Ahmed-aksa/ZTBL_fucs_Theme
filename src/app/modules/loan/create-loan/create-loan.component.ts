@@ -115,7 +115,7 @@ export class CreateLoanComponent implements OnInit {
             this.child.callfromPartnet()
         }
         if ($event.index == 6) {
-            debugger;
+            
             this.uploadDocumentComponent.assignLoanCaseNo();
         }
     }

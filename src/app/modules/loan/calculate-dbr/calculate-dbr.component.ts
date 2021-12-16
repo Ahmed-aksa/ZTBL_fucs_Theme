@@ -161,7 +161,7 @@ export class CalculateDbrComponent implements OnInit {
     }
 
     searchLoanDbr() {
-        debugger
+        
         this.spinner.show();
         let loanFilter = new SearchLoanDbr();
         loanFilter.LoanAppID = Number(this.LnTransactionID)//20201642051;

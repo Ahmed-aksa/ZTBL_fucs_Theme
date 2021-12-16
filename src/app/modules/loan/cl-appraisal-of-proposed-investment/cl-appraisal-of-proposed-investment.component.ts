@@ -662,7 +662,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         this.appraisalProposedList.push(increaseAppriasalProposed);
 
         this.spinner.show();
-        debugger
+        
         this._loanService.addAppraisalProposed(this.appraisalProposedList, this.loanDetail.TranId)
             .pipe(
                 finalize(() => {
@@ -790,7 +790,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
                     })
                 )
                 .subscribe(baseResponse => {
-                    debugger
+                    
 
                     if (baseResponse.Success) {
 
@@ -834,7 +834,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     }
 
     changeChecked(event: any, production: any) {
-        debugger
+        
         if (!this.list_ids_array.includes(production.ItemDetailID)) {
             this.list_ids_array.push(production.ItemDetailID);
         } else {
