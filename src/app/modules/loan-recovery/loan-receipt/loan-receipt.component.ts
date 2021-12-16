@@ -11,7 +11,7 @@ import {BaseResponseModel} from 'app/shared/models/base_response.model';
 @Component({
     selector: 'kt-loan-receipt',
     templateUrl: './loan-receipt.component.html',
-    styles: []
+    styleUrls: ['./loan-receipt.component.scss'],
 })
 export class LoanReceiptComponent implements OnInit {
 
