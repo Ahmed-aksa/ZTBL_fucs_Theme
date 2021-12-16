@@ -125,7 +125,7 @@ export class DeviceTrackingComponent implements OnInit {
     }
 
     getTitle(): string {
-        return 'View Circle Fense';
+        return 'View Circle Fence';
     }
 
     onMapReady(map) {
@@ -164,10 +164,10 @@ export class DeviceTrackingComponent implements OnInit {
     find() {
         // this.loadCirclesSinglePoints();
 
-        this.SearchGeoFensePoint();
+        this.SearchGeoFencePoint();
     }
 
-    SearchGeoFensePoint() {
+    SearchGeoFencePoint() {
         var request = {
             LocationHistory: {
                 PPNo: this.viewForm.controls.PPNo.value,

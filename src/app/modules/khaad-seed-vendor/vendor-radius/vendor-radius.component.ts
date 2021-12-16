@@ -174,7 +174,7 @@ export class VendorRadiusComponent implements OnInit {
     }
 
     getTitle(): string {
-        return 'View Circle Fense';
+        return 'View Circle Fence';
     }
 
 

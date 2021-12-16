@@ -121,7 +121,7 @@ export class CircleViewMapComponent implements OnInit {
 
 
     getTitle(): string {
-        return 'View Circle Fense';
+        return 'View Circle Fence';
     }
 
 
@@ -137,7 +137,7 @@ export class CircleViewMapComponent implements OnInit {
 
     clickedMarker(index: number, infowindow) {
 
-        this.viewCircleFense(index);
+        this.viewCircleFence(index);
         if (this.previousInfoWindow != null) {
             this.previousInfoWindow.close();
         }
@@ -164,7 +164,7 @@ export class CircleViewMapComponent implements OnInit {
 
     }
 
-    viewCircleFense = (index: number) => {
+    viewCircleFence = (index: number) => {
         if (this.isLoadingFence) {
             return
         }
@@ -215,7 +215,7 @@ export class CircleViewMapComponent implements OnInit {
                         }
 
                     } else {
-                        this.layoutUtilsService.alertElement("", "No fense created against this circle", baseResponse.Code);
+                        this.layoutUtilsService.alertElement("", "No fence created against this circle", baseResponse.Code);
                     }
                     this.isLoadingFence = false
                 } else {

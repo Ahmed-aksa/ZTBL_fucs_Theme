@@ -204,7 +204,7 @@ export class NotificationDetailsComponent implements OnInit {
 
 
     getTitle(): string {
-        return 'View Circle Fense';
+        return 'View Circle Fence';
     }
 
     ///////////////////Os Change Set Map

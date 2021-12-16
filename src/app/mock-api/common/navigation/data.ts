@@ -35,7 +35,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         children: [
             {
                 id: '25',
-                title: 'Create Fense',
+                title: 'Create Fence',
                 type: 'basic',
                 link: './user-management/circles'
             },

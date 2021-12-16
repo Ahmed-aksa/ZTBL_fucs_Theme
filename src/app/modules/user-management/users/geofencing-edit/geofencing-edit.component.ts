@@ -20,6 +20,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {CircleService} from 'app/shared/services/circle.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare const google: any;
 
@@ -91,7 +92,8 @@ export class GeofencingEditComponent implements OnInit {
                 private ngZone: NgZone,
                 private _snackBar: MatSnackBar,
                 private layoutUtilsService: LayoutUtilsService,
-                private _circleService: CircleService,
+        private _circleService: CircleService,
+                private Spinner: NgxSpinnerService
     ) {
     }
 
@@ -121,7 +123,7 @@ export class GeofencingEditComponent implements OnInit {
                     }
                 });
             } else {
-                this.createCircleFense()
+                this.createCircleFence()
             }
         }
         this.isClearBtnShown = false;
@@ -176,7 +178,7 @@ export class GeofencingEditComponent implements OnInit {
         });
 
         var u = new UserUtilsService();
-        this._currentActivity = u.getActivity('Create Fense');
+        this._currentActivity = u.getActivity('Create Fence');
 
     }
 
@@ -225,7 +227,7 @@ export class GeofencingEditComponent implements OnInit {
                         }
                     });
                     if (this.OldFancPoints.length > 0) {
-                        this.viewCircleFense()
+                        this.viewCircleFence()
                         this.lat = this.polygonPoints[2].lat;
                         this.lng = this.polygonPoints[2].lng;
                         this.zoom = 12;
@@ -236,7 +238,7 @@ export class GeofencingEditComponent implements OnInit {
                         this.isDeleteBtnShown = true;
                     } else {
                         this.setCurrentLocation();
-                        this.createCircleFense()
+                        this.createCircleFence()
                         this.isClearBtnShown = false;
                         this.isSaveBtnShown = false;
                         this.isDeleteBtnShown = false;
@@ -282,12 +284,30 @@ export class GeofencingEditComponent implements OnInit {
         if (lat != -1) {
             this.circle.CenterLatitude = lat
             this.circle.CenterLongitude = lng
+
+            //---------------------------------- Start --------------------------------
+            // send all points of new created/ edited polygon to get the surrounding / overlapping Polygon of other circles
+            this.NewFancPoints = ''
+            this.pointList.forEach((o, i) => {
+
+                if (o.lat != 0 && o.lng != 0) {
+                    this.NewFancPoints = this.NewFancPoints + '' + (o.lat.toString() + ',' + o.lng + '|');
+                    var lat: number = +o.lat
+                    var lng: number = +o.lng
+                }
+            });    
+            this.NewFancPoints = this.NewFancPoints + '' + (this.pointList[0].lat.toString() + ',' + this.pointList[0].lng);
+            this.circle.GeoFancPoints = this.NewFancPoints;
+
+            //---------------------------------- End --------------------------------
         }
 
+        this.Spinner.show()
         this._circleService.GetCirclesPolygon(this.circle)
             .pipe(
                 finalize(() => {
                     this.loading = false;
+                    this.Spinner.hide()
                 })
             )
             .subscribe(baseResponse => {
@@ -315,7 +335,7 @@ export class GeofencingEditComponent implements OnInit {
                             circleInfo = {
                                 circleID: o.Id,
                                 circleCode: o.CircleCode,
-                                circleFense: polygonArray
+                                circleFence: polygonArray
                             }
 
                             this.drawPolygonOnMap(existingPolygonPoints, "#FF0000")
@@ -358,7 +378,7 @@ export class GeofencingEditComponent implements OnInit {
 
         for (var i = 0; i < this.multiPolygonArray.length; i++) {
             var poly2 = polygon([
-                this.multiPolygonArray[i].circleFense
+                this.multiPolygonArray[i].circleFence
             ])
             const geom1 = getGeom(newPolygon);
             const geom2 = getGeom(poly2);
@@ -377,7 +397,7 @@ export class GeofencingEditComponent implements OnInit {
         if (intersection) {
             if (intersection.length > 0) {
                 var polygon2 = []
-                this.multiPolygonArray[index].circleFense.forEach((o, i) => {
+                this.multiPolygonArray[index].circleFence.forEach((o, i) => {
 
                     polygon2.push({lat: o[0], lng: o[1]})
                 });
@@ -471,14 +491,15 @@ export class GeofencingEditComponent implements OnInit {
             this.request.Zone = this.data.zone;
             this.request.Branch = this.data.branch;
             this.submitted = true;
-            // this.ktDialogService.show();
+            
+            this.Spinner.show()
 
             if (this.OldFancPoints.length > 0) {
                 this._circleService.CirclePoligonUpdate(this.request)
                     .pipe(
                         finalize(() => {
                             this.submitted = false;
-                            // this.ktDialogService.hide();
+                            this.Spinner.hide()
                         })
                     )
                     .subscribe((baseResponse: BaseResponseModel) => {
@@ -515,7 +536,7 @@ export class GeofencingEditComponent implements OnInit {
                     });
             }
         } else {
-            this.layoutUtilsService.alertElement("", "Fence of this Circle can not be created because it is overlaping with the fense of another Circle", "Fence Ovelapped");
+            this.layoutUtilsService.alertElement("", "Fence of this Circle can not be created because it is overlaping with the fence of another Circle", "Fence Ovelapped");
         }
 
     }
@@ -535,7 +556,7 @@ export class GeofencingEditComponent implements OnInit {
     }
 
 
-    viewCircleFense = () => {
+    viewCircleFence = () => {
 
         this.selectedShape = new google.maps.Polygon({
             paths: this.polygonPoints,
@@ -548,7 +569,7 @@ export class GeofencingEditComponent implements OnInit {
         this.selectedShape.setMap(this.googleMap);
     }
 
-    editCircleFense = () => {
+    editCircleFence = () => {
 
         this.isClearBtnShown = false;
         this.isSaveBtnShown = true;
@@ -597,7 +618,7 @@ export class GeofencingEditComponent implements OnInit {
         );
     }
 
-    createCircleFense = () => {
+    createCircleFence = () => {
         const self = this;
         const options = {
             drawingControl: false,

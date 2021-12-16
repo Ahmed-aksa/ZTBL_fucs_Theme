@@ -139,7 +139,7 @@ export class ViewMapsComponent implements OnInit {
 
 
     getTitle(): string {
-        return 'View Circle Fense';
+        return 'View Circle Fence';
     }
 
 

@@ -74,7 +74,7 @@ export class CircleListComponent implements OnInit {
         this.BMUser = false;
         this.fieldsHide = false;
         var u = new UserUtilsService();
-        this._currentActivity = u.getActivity('Create Fense');
+        this._currentActivity = u.getActivity('Create Fence');
     }
 
     ngAfterViewInit() {

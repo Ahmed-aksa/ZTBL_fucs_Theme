@@ -77,7 +77,7 @@ export class GeoFencingListComponent implements OnInit {
     }
 
     find() {
-        this.SearchGeoFensePoint(true);
+        this.SearchGeoFencePoint(true);
     }
 
     ngAfterViewInit() {
@@ -95,12 +95,12 @@ export class GeoFencingListComponent implements OnInit {
         }
         this.itemsPerPage = pageSize;
         this.offSet = (this.pageIndex - 1) * this.itemsPerPage;
-        this.SearchGeoFensePoint();
+        this.SearchGeoFencePoint();
 
 
     }
 
-    SearchGeoFensePoint(is_first = false) {
+    SearchGeoFencePoint(is_first = false) {
         if (is_first) {
             this.offSet = 0;
         }
@@ -118,7 +118,7 @@ export class GeoFencingListComponent implements OnInit {
         };
         this.spinner.show();
         this._geoFencingService
-            .SearchGeoFensePoint(request)
+            .SearchGeoFencePoint(request)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

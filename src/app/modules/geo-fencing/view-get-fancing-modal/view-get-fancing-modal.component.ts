@@ -117,7 +117,7 @@ export class ViewGetFancingModalComponent implements OnInit {
     selectedArea = 0;
 
     clickedMarker(index: number, infowindow) {
-        // this.viewCircleFense(index);
+        // this.viewCircleFence(index);
         // if (this.previousInfoWindow != null) {
         //     this.previousInfoWindow.close();
         // }
@@ -143,7 +143,7 @@ export class ViewGetFancingModalComponent implements OnInit {
     //
     // }
 
-    viewCircleFense() {
+    viewCircleFence() {
         this.isLoadingFence = true;
         for (let i = 0; i < this.geo_fence_points.length; i++) {
             const polygonCoordinate = [];
@@ -279,7 +279,7 @@ export class ViewGetFancingModalComponent implements OnInit {
                     this.geo_fence_points =
                         baseResponse.GeoFancPoint.GeoFancPoints;
 
-                    this.viewCircleFense();
+                    this.viewCircleFence();
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -319,7 +319,7 @@ export class ViewGetFancingModalComponent implements OnInit {
         this.googleMap = map;
         this.getPoligonGetByIds();
         this.GetGeoFancPoint();
-        // this.viewCircleFense()
+        // this.viewCircleFence()
     }
 
     close(result: any): void {
