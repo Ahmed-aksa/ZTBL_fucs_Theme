@@ -25,7 +25,7 @@ export class SubmitDocumentsComponent implements OnInit {
     customer: any;
     tranId: number;
     doc_urls: any = []
-
+    description: any = [];
     submit_documents: SubmitDocument[] = []
     private current_document_id: any = null;
     private document_details: any;
@@ -63,28 +63,20 @@ export class SubmitDocumentsComponent implements OnInit {
                 if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
                     const reader = new FileReader();
                     reader.onload = (event: any) => {
-                        if (this.rawData[i]) {
-                            this.rawData.splice(i, 1);
-                            this.rawData.splice(i, 0, file);
 
-                            this.doc_urls.splice(i, 1);
-                            this.doc_urls.splice(i, 0, file);
-                        } else {
-                            this.doc_urls.push(event.target.result);
-                            let has_file = false;
-                            this.submit_documents.forEach((single_document, index) => {
-                                if (single_document.document_type_id == this.current_document_id.value)
-                                    single_document.CustomerDocuments.push({
-                                        id: i,
-                                        Description: "",
-                                        PageNumber: "1",
-                                        FilePath: event.target.result,
-                                        url: event.target.result
-                                    });
-                            })
+                        this.doc_urls.push(event.target.result);
+                        let has_file = false;
+                        this.submit_documents.forEach((single_document, index) => {
+                            if (single_document.document_type_id == this.current_document_id.value)
 
-                            this.rawData.push(file);
-                        }
+                                single_document.CustomerDocuments.push({
+                                    id: i,
+                                    Description: "",
+                                    PageNumber: "1",
+                                    FilePath: event.target.result,
+                                    url: event.target.result
+                                });
+                        })
                     };
                     reader.readAsDataURL(file);
 
@@ -103,11 +95,9 @@ export class SubmitDocumentsComponent implements OnInit {
 
 
     changeNumberOfFiles(value: number) {
-        this.number_of_files = Number(value);
-
-        this.submit_documents[
-            this.submit_documents.findIndex(single_document => single_document.document_type_id == this.current_document_id.value)
-            ].number_of_files = value;
+        this.number_of_files = value;
+        let file_index = this.submit_documents.findIndex(single_document => single_document.document_type_id == this.current_document_id.value);
+        this.submit_documents[file_index].number_of_files = value;
     }
 
     submitDocuments() {
@@ -219,31 +209,37 @@ export class SubmitDocumentsComponent implements OnInit {
     }
 
     changeDocumentType(value: any) {
+        this.doc_urls = [];
+        this.description = [];
         if (this.current_document_id) {
             let file_index = this.submit_documents.findIndex(single_document => single_document.document_type_id == value.value);
             if (file_index == -1) {
                 this.submit_documents.push({
-                    CustomerDocuments: [{Description: "", FilePath: null, id: 1, url: '', PageNumber: '1'}],
+                    CustomerDocuments: [],
                     cnic: this.customer.Cnic,
                     description: "",
                     reference: "",
                     document_type_id: value.value,
-                    number_of_files: this.number_of_files,
+                    number_of_files: 1
                 })
                 this.number_of_files = 1;
                 this.general_description = "";
                 this.reference = "";
             } else {
-                let previous_submitted_document = this.submit_documents[file_index];
 
+                let previous_submitted_document = this.submit_documents[file_index];
                 this.number_of_files = this.submit_documents[file_index].number_of_files;
                 this.general_description = this.submit_documents[file_index].description;
                 this.reference = this.submit_documents[file_index].reference;
+                this.submit_documents[file_index].CustomerDocuments.forEach((single_document) => {
+                    this.doc_urls.push(single_document.url);
+                    this.description.push(single_document.Description);
+                })
 
             }
         } else {
             this.submit_documents.push({
-                CustomerDocuments: null,
+                CustomerDocuments: [],
                 cnic: this.customer.Cnic,
                 description: this.general_description,
                 reference: this.reference,
@@ -256,7 +252,7 @@ export class SubmitDocumentsComponent implements OnInit {
     }
 
     changeTypeData(value: any, type: string, i = 0) {
-        let file_index = this.submit_documents.findIndex(single_document => single_document.document_type_id == value.value);
+        let file_index = this.submit_documents.findIndex(single_document => single_document.document_type_id == this.current_document_id.value);
         if (file_index != -1) {
             if (type == 'description') {
                 this.submit_documents[file_index].description = value;
@@ -264,7 +260,6 @@ export class SubmitDocumentsComponent implements OnInit {
                 this.submit_documents[file_index].reference = value;
 
             } else if (type == 'file_description') {
-                this.submit_documents[file_index].description = value;
                 let second_index = this.submit_documents[file_index].CustomerDocuments.findIndex(single_type_document => single_type_document.id == i);
                 this.submit_documents[file_index].CustomerDocuments[second_index].Description = value;
             }
