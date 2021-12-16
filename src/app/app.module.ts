@@ -17,17 +17,14 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {metaReducers, reducers} from './shared/reducers';
 import {HttpUtilsService} from './shared/services/http_utils.service';
-import {TypesUtilsService} from './shared/services/types-utils.service';
 import {LayoutUtilsService} from './shared/services/layout-utils.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {ConfigurationManagementComponent} from './modules/configuration-management/configuration-management.component';
 import {UserUtilsService} from './shared/services/users_utils.service';
 import {TokenInterceptor} from './shared/httpInterceptor/httpconfig.interceptor';
 import {NdcRequestsModule} from './modules/ndc-requests/ndc-requests.module';
 import {DatePipe} from "@angular/common";
 
 const routerConfig: ExtraOptions = {
-    useHash:true,
     preloadingStrategy: PreloadAllModules,
     scrollPositionRestoration: 'enabled'
 };
