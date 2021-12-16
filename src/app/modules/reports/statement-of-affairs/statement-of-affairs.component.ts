@@ -176,15 +176,13 @@ export class StatementOfAffairsComponent implements OnInit {
         this.user.Zone = this.zone;
         this.user.Circle = this.circle;
 
-        debugger
-
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "27";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
 
         this.spinner.show();
-        this._reports.reportDynamic(this.reports)
+        this._reports.reportDynamic(this.reports, this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -202,6 +200,7 @@ export class StatementOfAffairsComponent implements OnInit {
     }
 
     getAllData(data) {
+        debugger
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = null;
