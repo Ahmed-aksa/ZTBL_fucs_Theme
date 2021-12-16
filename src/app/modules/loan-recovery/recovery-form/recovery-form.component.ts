@@ -310,7 +310,7 @@ export class RecoveryFormComponent implements OnInit {
     async loadLOV() {
         this.TransactionTypes = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.TransactionType});
         this.TransactionTypes = this.TransactionTypes.LOVs;
-        this.RecoveryForm.controls.TransactionType.setValue(this.TransactionTypes[1].Value);
+        this.RecoveryForm.controls.TransactionType.setValue("C");
         this.TrCodesRecovery = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.TrCodeRecovery});
         this.TrCodesRecovery = this.TrCodesRecovery.LOVs;
 

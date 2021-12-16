@@ -1,1 +1,72 @@
-<p>get-fence-violation works!</p>
+<div
+    class="
+        px-10
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-scroll
+        bg-card
+        dark:bg-transparent
+    "
+>
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Get Fence Violation</div>
+        </div>
+    </div>
+
+
+    <div class="mt-2">
+
+
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                class="lmat-elevation-z8 overflow-scroll"
+                [style.height]="gridHeight"
+                #table
+                [dataSource]="
+                    dataSource
+                "
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+            >
+                <ng-container matColumnDef="Description">
+                    <mat-header-cell *matHeaderCellDef
+                    >Notification Description
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.NotificationText
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Requested">
+                    <mat-header-cell *matHeaderCellDef
+                    >Requested At
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.RequestedTimeInString
+                        }}</mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    class="table-header-background"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+            </mat-table>
+
+
+
+
+        </div>
+
+    </div>
