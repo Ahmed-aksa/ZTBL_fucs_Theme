@@ -108,7 +108,7 @@
                                 </th>
                                 <th>Detail Source Of Income</th>
                                 <th>Remarks</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -125,7 +125,7 @@
                                            placeholder="" maxlength="30" autocomplete="off" readonly/>
                                 </td>
                                 <td>
-                                    <input  style="width:170;  word-break: break-all;" matInput
+                                    <input  style="width:200px;  word-break: break-all;" matInput
                                            formControlName="FatherName"
                                            placeholder="" maxlength="30" autocomplete="off" readonly/>
                                 </td>
@@ -328,7 +328,7 @@
                                 <th>CNIC#</th>
                                 <th>File Name</th>
                                 <th>File Size (KB)</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -338,8 +338,9 @@
                                 <td>{{img.ImageLength}}</td>
 
 
-                                <td style="cursor: pointer; color: #ecbd00;"><span
-                                    (click)="viewDocument(img.ID)">View</span>
+                                <td style="cursor: pointer;">
+                                    <mat-icon class="text-green" (click)="viewDocument(img.ID)">remove_red_eye</mat-icon>
+
                                 </td>
 
                             </tr>
