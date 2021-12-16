@@ -171,7 +171,7 @@ export class SaveOrrComponent implements OnInit {
     }
 
     SaveOrSubmit() {
-        debugger
+        
         this.GlProposalORR;
         console.log(this.CustomerORR);
         for (let i = 0; i < this.CustomerORR?.length; i++) {
@@ -329,7 +329,7 @@ export class SaveOrrComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    debugger
+                    
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                     this.submitArray = baseResponse?.Loan?.ORR["OrrSubmitList"];
 

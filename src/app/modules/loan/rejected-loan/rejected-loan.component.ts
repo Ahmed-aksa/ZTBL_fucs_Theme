@@ -88,7 +88,7 @@ export class RejectedLoanComponent implements OnInit {
     }
 
     CheckEditStatus(loan) {
-        debugger;
+        
         if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
             return true
         } else {

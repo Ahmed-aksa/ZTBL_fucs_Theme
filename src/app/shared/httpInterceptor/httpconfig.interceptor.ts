@@ -37,7 +37,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
         // let key = environment.AesKey;
         // console.log(AES.encrypt(JSON.stringify(req.body), key).toString());
-        // debugger;
+        // 
         return next.handle(authReq)
             .pipe(catchError(error => {
                 if (error.status === 403) {

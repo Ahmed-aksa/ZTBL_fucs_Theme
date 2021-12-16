@@ -270,6 +270,13 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
     border-color: rgba(34, 197, 94) !important;
     border-bottom-width: 1px !important;
 }
+.target-input{
+
+    .mat-form-field-wrapper {
+   margin-bottom: 0px !important;
+   padding-bottom: 0;
+}
+}
 
 button {
     box-shadow: none;

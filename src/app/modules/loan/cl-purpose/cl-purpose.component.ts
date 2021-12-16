@@ -235,7 +235,7 @@ export class ClPurposeComponent implements OnInit {
     }
 
     onEditPurpose(data: LoanApplicationPurpose) {
-        debugger
+        
         this.onClearSavePurpose();
         console.log(JSON.stringify(data))
         this.index;

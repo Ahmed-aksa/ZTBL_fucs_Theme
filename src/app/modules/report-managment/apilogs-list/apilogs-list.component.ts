@@ -118,7 +118,7 @@ export class ApilogsListComponent implements OnInit {
 
 
     comparisonEnddateValidator(): any {
-        debugger
+        
         let ldStartDate = this.FilterForm.value['StartDate'];
         let ldEndDate = this.FilterForm.value['EndDate'];
 

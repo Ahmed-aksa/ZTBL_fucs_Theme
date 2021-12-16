@@ -106,7 +106,7 @@ export class ClSecuritiesComponent implements OnInit {
     }
     newARR=[];
     onChang(custLand,i){
-        debugger
+        
         if(custLand.IsAttached==true){
             return
         }
@@ -272,7 +272,7 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   onSaveLoanSecurities() {
-        debugger
+        
 
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
@@ -306,7 +306,7 @@ export class ClSecuritiesComponent implements OnInit {
     if(this.LoanSecuritiesForm.controls["AppSecurityID"].value>0){
         this.loanSecurities.AppSecurityID=this.LoanSecuritiesForm.controls["AppSecurityID"].value;
     }
-    debugger
+    
     this.loanSecurities.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
     //this.loanSecurities.LoanAppID = 0;
     this.loanSecurities.BasisofMutation = "PIU";
@@ -317,7 +317,7 @@ export class ClSecuritiesComponent implements OnInit {
 
     this.spinner.show();
     this.isSecuritiesFormInProgress = true;
-debugger
+
     this._loanService.saveLoanSecurities(this.loanSecurities, this.loanDetail.TranId)
       .pipe(
         finalize(() => {
@@ -379,7 +379,7 @@ debugger
   }
 
   showUpdateSecuritiesForm(loan) {
-        debugger
+        
         this.LoanSecuritiesForm.controls["Quantity"].setValue(loan.Quantity);
         this.LoanSecuritiesForm.controls["UnitPrice"].setValue(loan.UnitPrice);
         this.loanSecurities.MaxCreditLimit = loan?.MaxCreditLimit;

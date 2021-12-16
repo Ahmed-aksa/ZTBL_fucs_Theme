@@ -82,7 +82,7 @@ export class LoanService {
         zone,
         branch
     ): Observable<BaseResponseModel> {
-        debugger
+        
         documentId = documentId.toString();
         documentType = documentType.toString();
         var ViewDocumnets = {ID: documentId, Type: documentType};
@@ -986,7 +986,7 @@ export class LoanService {
     }
 
     documentDelete(id, branch, zone) {
-        debugger
+        
         var userInfo = this.userUtilsService.getUserDetails();
         var circles = userInfo.UserCircleMappings, circleIds = [];
         circles.forEach(element => {
@@ -1015,7 +1015,7 @@ export class LoanService {
     }
 
     getLoanCaseID(loan, docID, branch, zone) {
-        debugger
+        
         var userInfo = this.userUtilsService.getUserDetails();
         var circles = userInfo.UserCircleMappings, circleIds = [];
         circles.forEach(element => {
