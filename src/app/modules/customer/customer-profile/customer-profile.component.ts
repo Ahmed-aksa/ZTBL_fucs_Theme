@@ -384,7 +384,6 @@ export class CustomerProfileComponent implements OnInit {
 
     onSubmit(flag): void {
 
-
         this.hasFormErrors = false;
         const controls = this.roleForm.controls;
 
@@ -416,12 +415,13 @@ export class CustomerProfileComponent implements OnInit {
             caste_code = this.createCustomer.Caste;
         }
         this.createCustomer = Object.assign(data, this.roleForm.getRawValue());
+        console.log(this.createCustomer)
         if (customer_Status) {
             this.createCustomer.CustomerStatus = customer_Status;
             this.createCustomer.CustomerNumber = customer_number;
-            if (this.createCustomer.Caste) {
-                this.createCustomer.Caste = caste_code;
-            }
+            // if (this.createCustomer.Caste) {
+            //     this.createCustomer.Caste = caste_code;
+            // } Caste code should not be id
 
         }
         this.createCustomer = data;
@@ -617,7 +617,7 @@ export class CustomerProfileComponent implements OnInit {
         this.DistrictLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.District});
         this.BorrowerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BorrowerStatus});
         this.CitizenshipLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Nationality});
-
+        console.log(this.CasteLov)
         this.PostCodeLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.PostalCode});
 
         ////For Search

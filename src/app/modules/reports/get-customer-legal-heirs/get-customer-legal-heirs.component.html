@@ -85,6 +85,16 @@
                 matSortDirection="asc"
                 matSortDisableClear
             >
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell *matHeaderCellDef
+                    >Cnic
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Cnic
+                        }}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="Credit">
                     <mat-header-cell *matHeaderCellDef
                     >Credit Limit

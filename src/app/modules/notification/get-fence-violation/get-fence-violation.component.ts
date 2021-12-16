@@ -14,7 +14,7 @@ import {finalize} from "rxjs/operators";
   styleUrls: ['./get-fence-violation.component.scss']
 })
 export class GetFenceViolationComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Cnic', 'Name', 'FatherName', 'Lcno', 'Los', 'MajorBorrower', 'Ndd','Address', 'Sl', 'Tsa'];
+    displayedColumns = ['Description', 'Requested'];
     loaded = true;
     matTableLenght = false;
     loading = false;
@@ -57,7 +57,7 @@ export class GetFenceViolationComponent implements OnInit, AfterViewInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    this.dataSource = baseResponse.Loan.SamNpLList
+                    this.dataSource = baseResponse.Notifications
                     this.dv = this.dataSource;
                     this.matTableLenght = true
 

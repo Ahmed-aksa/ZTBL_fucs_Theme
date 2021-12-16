@@ -1,5 +1,5 @@
 <div
-    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
     <form [formGroup]="customerForm" class="kt-form kt-form--group-seperator-dashed">
 
 
@@ -49,7 +49,7 @@
         </div>
 
 
-        <div class="form-group kt-form__group row mt-4 ">
+        <div class="form-group kt-form__group row ">
 
 
             <!--            <div class="col-lg-3 kt-margin-bottom-20-mobile">-->
@@ -76,12 +76,12 @@
             <div *ngIf="isEmpty">
                 <div class="kt-portlet__head kt-portlet__head__custom">
                     <div class="kt-portlet__head-label">
-                        <h6 class=" text-xl font-extrabold tracking-tight py-4 ">Customer Information</h6>
+                        <h6 class="sub-heading mt-3">Customer Information</h6>
                     </div>
                 </div>
 
                 <div class="form-group kt-form__group row">
-                    <div class="col-lg-6 kt-margin-bottom-20-mobile mt-2 py-2" *ngIf="!viewOnly">
+                    <div class="col-lg-12 kt-margin-bottom-20-mobile mb-3 py-2" *ngIf="!viewOnly">
                         <span class="customMatLabel">Attach Scaned Death Certificate:</span>
                         <input formControlName="file" type="file" accept="image/jpg, image/jpeg"
                                (change)="onFileChange($event)"/>
@@ -108,24 +108,24 @@
                                 </th>
                                 <th>Detail Source Of Income</th>
                                 <th>Remarks</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <!-- <tr *ngFor="let cus of DeceasedCustomerInf"> -->
                             <tr>
                                 <td>
-                                    <input class="mt-4" style=" width: 170px" matInput formControlName="Cn"
+                                    <input  style=" width: 170px; word-break: break-all;" matInput formControlName="Cn"
                                            placeholder=""
                                            maxlength="13" autocomplete="off" readonly/>
                                 </td>
                                 <td>
-                                    <input class="mt-4" style="width: fit-content;" matInput
+                                    <input  style="width: 170px; word-break: break-all;" matInput
                                            formControlName="CustomerName"
                                            placeholder="" maxlength="30" autocomplete="off" readonly/>
                                 </td>
                                 <td>
-                                    <input class="mt-4" style="width: fit-content;" matInput
+                                    <input  style="width:200px;  word-break: break-all;" matInput
                                            formControlName="FatherName"
                                            placeholder="" maxlength="30" autocomplete="off" readonly/>
                                 </td>
@@ -157,7 +157,7 @@
                                             <strong>required</strong></mat-error>
                                     </mat-form-field>
                                 </td>
-                                <td style="padding-top: 28px;">
+                                <td>
                                     <!-- certificate verified -->
                                     <mat-checkbox formControlName="IsNadraCertificateVerified" [checked]="myModel"
                                                   (click)="onChang(myModel)" [disabled]="viewOnly"></mat-checkbox>
@@ -198,9 +198,9 @@
                                         </mat-error>
                                     </mat-form-field>
                                 </td>
-                                <td style="padding-top: 28px;">
+                                <td>
                                     <input type="button" mat-raised-button color="primary"
-                                           class=" mat-raised-button mat-button-base mat-primary searchLCBtn"
+                                           class="bg-green mat-raised-button mat-button-base mat-primary searchLCBtn"
                                            value="Mark as Deceased" (click)="MarkAsDeceasedCustomer()"
                                            [disabled]="viewOnly"/>
                                     <!-- <a class=".text-danger" (click)="MarkAsDeceasedCustomer()">Mark as Deceased</a> -->
@@ -215,13 +215,13 @@
 
                 <div class="kt-portlet__head kt-portlet__head__custom">
                     <div class="kt-portlet__head-label">
-                        <h6 class="text-xl font-extrabold tracking-tight py-4">Disbursements/Recoveries</h6>
+                        <h6 class="sub-heading mt-3">Disbursements/Recoveries</h6>
                     </div>
                 </div>
 
-                <div class="mat-table__wrapper mat-elevation-z8">
+                <div class="mat-table__wrapper">
                     <!--[style.height]="gridHeight"-->
-                    <mat-table class="lmat-elevation-z8"
+                    <mat-table
                                #table
                                [dataSource]="dataSource"
                                matSort
@@ -303,12 +303,12 @@
 
                 <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                     <div class="kt-portlet__head-label">
-                        <h6 class="text-xl font-extrabold tracking-tight py-4">Attached File</h6>
+                        <h6 class="sub-heading mt-3">Attached File</h6>
                     </div>
                 </div>
 
-                <div class="form-group kt-form__group row">
-                    <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                <div class="form-group kt-form__group row pb-2">
+                    <div class="col-lg-12 kt-margin-bottom-20-mobile">
                         <mat-form-field *ngIf="visible && !DeceasedCustomerAttachedFile" class="mat-form-field-fluid"
                                         appearance="outline">
                             <mat-label class="customMatLabel"><em>No Response is made so far.</em></mat-label>
@@ -328,7 +328,7 @@
                                 <th>CNIC#</th>
                                 <th>File Name</th>
                                 <th>File Size (KB)</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -338,8 +338,9 @@
                                 <td>{{img.ImageLength}}</td>
 
 
-                                <td style="cursor: pointer; color: #ecbd00;"><span
-                                    (click)="viewDocument(img.ID)">View</span>
+                                <td style="cursor: pointer;">
+                                    <mat-icon class="text-green" (click)="viewDocument(img.ID)">remove_red_eye</mat-icon>
+
                                 </td>
 
                             </tr>
