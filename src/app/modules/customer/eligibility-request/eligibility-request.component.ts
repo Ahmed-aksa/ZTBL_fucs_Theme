@@ -139,7 +139,7 @@ export class EligibilityRequestComponent implements OnInit {
         if (user_groups) {
             let length_of_usergroups = user_groups.length;
             for (let i = 0; i < length_of_usergroups; i++) {
-                if (user_groups[i].ProfileID == '57') {
+                if (user_groups[i].ProfileID == environment.Profile_id) {
                     this.should_show_approve_and_reject = true;
                 }
             }
