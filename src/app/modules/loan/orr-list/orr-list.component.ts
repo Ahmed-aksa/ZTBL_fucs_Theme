@@ -170,6 +170,14 @@ export class OrrListComponent implements OnInit {
             });
 
     }
+    CheckEditStatus(loan) {
+debugger
+        if (loan.CreatedBy == this.LoggedInUserInfo.User.UserId) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
         this.itemsPerPage = pageSize;
