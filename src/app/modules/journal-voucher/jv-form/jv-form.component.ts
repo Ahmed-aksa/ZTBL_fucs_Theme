@@ -23,8 +23,12 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
 import {LovService} from 'app/shared/services/lov.service';
 import {RecoveryService} from 'app/shared/services/recovery.service';
 import {JournalVoucherService} from "../services/journal_voucher.service";
-import {JvmasterCodeDialogComponentComponent} from "../jvmaster-code-dialog-component/jvmaster-code-dialog-component.component";
-import {JvOrganizationalStructureComponentComponent} from "../jv-organizational-structure-component/jv-organizational-structure-component.component";
+import {
+    JvmasterCodeDialogComponentComponent
+} from "../jvmaster-code-dialog-component/jvmaster-code-dialog-component.component";
+import {
+    JvOrganizationalStructureComponentComponent
+} from "../jv-organizational-structure-component/jv-organizational-structure-component.component";
 
 @Component({
     selector: 'app-jv-form',
@@ -541,12 +545,14 @@ export class JvFormComponent implements OnInit, OnDestroy {
         var Lcno = this.JvForm.controls.LoanCaseID.value;
         var LnTransactionID = this.JvForm.controls.LoanDisbID.value;
 
-        const url = this.router.serializeUrl(
+        let url = this.router.serializeUrl(
             this.router.createUrlTree(['../../loan-recovery/loan-inquiry', {
                 LnTransactionID: LnTransactionID,
                 Lcno: Lcno
             }], {relativeTo: this.activatedRoute})
         );
+        url = '#' + url;
+
         window.open(url, '_blank');
 
         //this.router.navigate(['../loan-inquiry', { LnTransactionID: LnTransactionID, Lcno: Lcno }], { relativeTo: this.activatedRoute });
@@ -556,12 +562,14 @@ export class JvFormComponent implements OnInit, OnDestroy {
         var Lcno = this.JvForm.controls.LoanCaseNo.value;
         var LnTransactionID = this.JvForm.controls.TransactionID.value;
 
-        const url = this.router.serializeUrl(
+        let url = this.router.serializeUrl(
             this.router.createUrlTree(['../loan-inquiry', {
                 LnTransactionID: LnTransactionID,
                 Lcno: Lcno
             }], {relativeTo: this.activatedRoute})
         );
+        url = '#' + url;
+
         window.open(url, '_blank');
     }
 

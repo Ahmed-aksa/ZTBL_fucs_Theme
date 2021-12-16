@@ -719,12 +719,13 @@ export class RecoveryFormComponent implements OnInit {
     viewLLCInquiry() {
         var Lcno = this.RecoveryForm.controls.LoanCaseNo.value;
         var LnTransactionID = this.RecoveryForm.controls.TransactionID.value;
-        const url = this.router.serializeUrl(
+        let url = this.router.serializeUrl(
             this.router.createUrlTree(['../loan-inquiry', {
                 LnTransactionID: LnTransactionID,
                 Lcno: Lcno
             }], {relativeTo: this.activatedRoute})
         );
+        url = '#' + url;
         window.open(url, '_blank');
 
         //this.router.navigate(['../loan-inquiry', { LnTransactionID: LnTransactionID, Lcno: Lcno }], { relativeTo: this.activatedRoute });

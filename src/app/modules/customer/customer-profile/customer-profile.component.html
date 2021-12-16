@@ -19,13 +19,13 @@
                     <div class="kt-form">
                         <div class="kt-portlet__body container overflow-auto" id="map_canvas">
                             <div class="form-group kt-form__group row mb-3">
-                                <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                                <div class="col-lg-12 kt-margin-bottom-20-mobile mt-2">
 
                                     <div *ngIf="images">
                                         <div *ngFor="let url of images">
                                             <img
                                                 style="width:200px;height: 200px;display: block;margin-left: auto;margin-right: auto;"
-                                                class="rounded-circle text-right" mat-card-md-image [src]="url">
+                                                class="rounded-circle text-right border border-green-900" mat-card-md-image [src]="url">
                                         </div>
                                     </div>
                                     <!--<button style="display: block;margin-left: auto;margin-right: auto;" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
@@ -683,7 +683,7 @@
                 <!--                <td>Reference Number</td>-->
                 <td>Type Description</td>
                 <td>File Description</td>
-                <td>Actions</td>
+                <td class="text-center">Actions</td>
             </tr>
             </thead>
             <tbody>
