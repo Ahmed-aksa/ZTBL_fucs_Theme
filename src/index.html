@@ -46,6 +46,8 @@
     <link
         href="assets/styles/splash-screen.css"
         rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/image-zoom.css">
+
 
 </head>
 
@@ -65,6 +67,8 @@
 
 <!-- App root -->
 <app-root></app-root>
+<script src="assets/scripts/image-zoom.js" type="text/javascript"></script>
+
 </body>
 <script>
 
@@ -85,7 +89,24 @@
             document.getElementById('collapseExample').className = 'collapse show';
             document.getElementById('arrow').innerHTML = 'keyboard_arrow_down'
         }
-
     }
+
+    $(document).ready(function () {
+
+        // Image zoom plugin code
+        var zoomImage = $('#imageZoom');
+        var zoomImageExtra = $('#imageZoomExtra');
+        var zoomImagePlus = $('#imageZoomExtraPlus');
+        var zoomImages = $('.zoom-images');
+
+        zoomImage.imageZoom();
+        zoomImageExtra.imageZoom({zoom: 200});
+        zoomImagePlus.imageZoom({zoom: 300});
+
+        zoomImages.each(function () {
+            $(this).imageZoom();
+        });
+
+    });
 </script>
 </html>
