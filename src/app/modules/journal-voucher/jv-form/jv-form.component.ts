@@ -695,7 +695,6 @@ export class JvFormComponent implements OnInit, OnDestroy {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
-
                 this.lcno = this.JvForm.controls.LoanCaseID.value;
                 this.accNo = this.JvForm.controls.DepositAccID.value;
                 this.advNo = this.JvForm.controls.AdviceNo.value;
@@ -732,7 +731,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                     this.JvForm.controls["TransactionMasterID"].setValue('');
                     //this.JvForm.controls["GlHead"].setValue('');
                     //this.JvForm.controls["TrCode"].setValue('');
-                    this.JvForm.controls["GlSub"].setValue('');
+                    this.glSub = null;
                     this.JvForm.controls["RoCode"].setValue('');
                     this.JvForm.controls["AdviceNo"].setValue('');
                     this.JvForm.controls["ContraBranchCode"].setValue('');
@@ -894,6 +893,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
+
 
                 if (baseResponse.Success === true) {
 
@@ -1075,7 +1075,6 @@ export class JvFormComponent implements OnInit, OnDestroy {
         this.JvForm.controls["Amount"].reset();
         this.JvForm.controls["TransactionMasterID"].reset();
         this.JvForm.controls["GlHead"].reset();
-        this.JvForm.controls['GlSub'].reset();
         this.JvForm.controls["TrCode"].reset();
         this.JvForm.controls["RoCode"].reset();
         this.JvForm.controls["AdviceNo"].reset();
