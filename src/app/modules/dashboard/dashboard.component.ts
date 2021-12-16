@@ -69,8 +69,9 @@ export class DashboardComponent implements OnInit {
 
     @HostListener('window:keydown')
     @HostListener('window:mousedown')
+    @HostListener('mousemove')
     checkUserActivity() {
-        
+        this.setSessionTime();
     }
 
 }
