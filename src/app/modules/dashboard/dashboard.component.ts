@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     ngOnInit(): void {
-        this.setSessionTime();
         this.checkUserActivity();
         this._sessionExpireService.count.subscribe(c => {
             if (c == 0) {
