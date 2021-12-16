@@ -36,7 +36,7 @@ export class RejectedLoanComponent implements OnInit {
     loanFilter = new SearchLoan();
     LoggedInUserInfo: BaseResponseModel;
     dataSource = new MatTableDataSource();
-
+    isMCO:boolean=false;
     public LovCall = new Lov();
 
     //Loan Status inventory
@@ -69,13 +69,12 @@ export class RejectedLoanComponent implements OnInit {
     ) {
     }
 
+
     ngOnInit() {
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
-
         if (this.LoggedInUserInfo.Branch?.BranchCode == 'All') {
             this.loggedInUserIsAdmin = true;
         }
-
         this.createForm();
         this.getLoanStatus();
     }
