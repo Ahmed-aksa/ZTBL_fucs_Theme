@@ -182,7 +182,7 @@ export class StatementOfAffairsComponent implements OnInit {
         this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
 
         this.spinner.show();
-        this._reports.reportDynamic(this.reports)
+        this._reports.reportDynamic(this.reports, this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
@@ -200,6 +200,7 @@ export class StatementOfAffairsComponent implements OnInit {
     }
 
     getAllData(data) {
+        debugger
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = null;
