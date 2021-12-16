@@ -92,7 +92,7 @@
 <!--                                    style-->
 <!--                                    [style.Border]="row[key]=='0'?'2px solid red':''"-->
                                     <mat-form-field >
-                                        <input matInput (keypress)="numberOnly($event)"
+                                        <input matInput maxlength="20" (keypress)="numberOnly($event)"
                                                [attr.value]="row[key]"
                                                (input)="onInputChanged($event.target.value, rowIndex, key)"
 
