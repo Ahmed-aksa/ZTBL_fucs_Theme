@@ -16,6 +16,9 @@
         <div id="print-section">
             <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                 <div class="kt-portlet__head-label">
+                  <p class="text-right mb-0">
+                    <mat-icon (click)="close()" class="text-red-500 cursor-pointer">cancel </mat-icon>
+                  </p>
 
                 </div>
             </div>
@@ -29,20 +32,27 @@
 
                             <div class="customReceiptTitle" *ngIf="item.Type=='1'">
 
-                                <h4>{{item.LabelL}}</h4>
+                                <h4 class="sub-heading  border-t border-yellow-200 text-blue-900">{{item.LabelL}}</h4>
                             </div>
 
                             <div *ngIf="item.Type=='2'">
                                 <div class="row">
-                                    <div class="{{item.LabelR?'col-lg-6 mt-3':'col-lg-12 mt-3'}}">
-                                        <b id="receiptHeadingColor">{{item.LabelL}}</b>
-                                        : &nbsp;
-                                        <span [innerHTML]="item.ValueL"></span>
+                                    <div class="{{item.LabelR?'col-lg-6 my-2':'col-lg-12 pr-5 my-2'}}">
+                                        <div class="flex text-md" style="justify-content: space-between;">
+                                          <b class="text-blue-900" id="receiptHeadingColor">{{item.LabelL}}:</b>
+
+                                          <span [innerHTML]="item.ValueL"></span>
+                                        </div>
+
+                                        
                                     </div>
-                                    <div class="col-lg-6 mt-3" *ngIf="item.LabelR">
-                                        <b id="receiptHeadingColor">{{item.LabelR}}</b>
-                                        : &nbsp;
-                                        {{item.ValueR}}
+                                    <div class="col-lg-6 my-2" *ngIf="item.LabelR">
+                                      <div class="flex text-md" style="justify-content: space-between;">
+                                        <b class="text-blue-900" id="receiptHeadingColor">{{item.LabelR}}:</b>
+
+                                        <div>{{item.ValueR}}</div>
+                                      </div>
+
                                     </div>
                                 </div>
                             </div>

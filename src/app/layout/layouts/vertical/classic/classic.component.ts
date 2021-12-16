@@ -7,6 +7,7 @@ import {FuseNavigationService, FuseVerticalNavigationComponent} from '@fuse/comp
 import {Navigation} from 'app/core/navigation/navigation.types';
 import {NavigationService} from 'app/core/navigation/navigation.service';
 import {UserUtilsService} from "../../../../shared/services/users_utils.service";
+import { SessionExpireService } from 'app/shared/services/session-expire.service';
 
 @Component({
     selector: 'classic-layout',
@@ -17,6 +18,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     user: any;
     isScreenSmall: boolean;
     userInfo;
+    time:any;
     navigation: Navigation;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -29,8 +31,15 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         private _navigationService: NavigationService,
         private userUtils: UserUtilsService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private _fuseNavigationService: FuseNavigationService
+        private _fuseNavigationService: FuseNavigationService,
+        private _sessionExpireService: SessionExpireService,
+        
     ) {
+        setTimeout(() => {
+            this._sessionExpireService.count.subscribe(c => {
+                this.time = c.toString();
+            });
+        }, 5000);
     }
 
     get currentYear(): number {
