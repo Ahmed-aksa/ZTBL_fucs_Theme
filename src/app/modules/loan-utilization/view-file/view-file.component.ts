@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {style} from "@angular/animations";
 
 @Component({
     selector: 'kt-view-file',
@@ -22,4 +23,9 @@ export class ViewFileComponent implements OnInit {
 
     }
 
+    rotate() {
+
+
+        document.getElementById('image').style.transform += 'rotate(90deg)';
+    }
 }
