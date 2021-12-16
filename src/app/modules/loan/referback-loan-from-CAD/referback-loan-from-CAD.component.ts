@@ -36,7 +36,7 @@ export class ReferbackLoanFromCADComponent implements OnInit {
     loanFilter = new SearchLoan();
     LoggedInUserInfo: BaseResponseModel;
     dataSource = new MatTableDataSource();
-
+    loggedInUserDetails: any;
     public LovCall = new Lov();
 
     //Loan Status inventory
@@ -89,8 +89,8 @@ export class ReferbackLoanFromCADComponent implements OnInit {
     }
 
     CheckEditStatus(loan) {
-        
-        if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
+
+        if (loan.CreatedBy == this.LoggedInUserInfo.User.UserId) {
             return true
         } else {
             return false
@@ -106,6 +106,16 @@ export class ReferbackLoanFromCADComponent implements OnInit {
         });
     }
 
+    CheckViewStatus(loan: any) {
+
+
+                if (loan.CreatedBy == this.LoggedInUserInfo.User.UserId) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+    }
     //-------------------------------Loan Status Functions-------------------------------//
     async getLoanStatus() {
         this.LoanStatus = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.LoanStatus});
