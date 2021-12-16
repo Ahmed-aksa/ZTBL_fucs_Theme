@@ -118,6 +118,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
     contBr: any;
     contDept: any;
     jvObject: any;
+    glSub: any;
 
     expandDisbursement: boolean = false;
 
@@ -311,7 +312,6 @@ export class JvFormComponent implements OnInit, OnDestroy {
             EffectiveDate: ['', [Validators.required]],
             GlHead: ['', [Validators.required]],
             GlSubID: ['', [Validators.required]],
-            GlSub: [''],
             Amount: ['', [Validators.required]],
             TrCode: ['00', [Validators.required]],
             RoCode: [' '],
@@ -913,7 +913,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
 
                             this.JvForm.controls['GlSubID'].setValue(rowValue[a].MasterDesc);
                             this.JvForm.controls['GlSubID'].setValue(rowValue[a].GlSubCode);
-                            this.JvForm.controls['GlSub'].setValue(rowValue[a].GlSubName);
+                            this.glSub = rowValue[a].GlSubName;
                             this.JvForm.controls['LoanCaseID'].setValue(rowValue[a].LoanCaseNo);
                             this.JvForm.controls['RoCode'].setValue(rowValue[a].RoCode);
                             this.JvForm.controls['ContraBranchCode'].setValue(rowValue[a].ContraBranchCode);
@@ -1088,6 +1088,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
         this.JvForm.controls["Glsam"].reset();
         this.JvForm.controls["Note"].reset();
         this.JvForm.controls["Remarks"].reset();
+        this.glSub = null;
 
         this.DisbursementGLList = [];
         this.jvMaster = [];
