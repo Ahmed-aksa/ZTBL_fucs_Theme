@@ -9,6 +9,7 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {LovService} from "../../../shared/services/lov.service";
 import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
+import {SubmitDocument} from "../model/submit-document.model";
 
 @Component({
     selector: 'app-submit-documents',
@@ -25,6 +26,12 @@ export class SubmitDocumentsComponent implements OnInit {
     tranId: number;
     doc_urls: any = []
 
+    submit_documents: SubmitDocument[] = []
+    private current_document_id: any;
+    private document_details: any;
+    general_description: any = "";
+    reference: any = "";
+
     constructor(
         private layoutUtilsService: LayoutUtilsService,
         public matDialogRef: MatDialogRef<SubmitDocumentsComponent>,
@@ -40,6 +47,10 @@ export class SubmitDocumentsComponent implements OnInit {
     ngOnInit(): void {
         this.customer = this.data.customer;
         this.tranId = this.data.tranId;
+        this.document_details = this.data.document_details;
+
+        this.patchValues();
+
         this.getDocumentTypes();
     }
 
@@ -55,8 +66,23 @@ export class SubmitDocumentsComponent implements OnInit {
                         if (this.rawData[i]) {
                             this.rawData.splice(i, 1);
                             this.rawData.splice(i, 0, file);
+
+                            this.doc_urls.splice(i, 1);
+                            this.doc_urls.splice(i, 0, file);
                         } else {
                             this.doc_urls.push(event.target.result);
+                            let has_file = false;
+                            this.submit_documents.forEach((single_document, index) => {
+                                if (single_document.document_type_id == this.current_document_id.value)
+                                    single_document.CustomerDocuments.push({
+                                        id: i,
+                                        Description: "",
+                                        PageNumber: "1",
+                                        FilePath: event.target.result,
+                                        url: event.target.result
+                                    });
+                            })
+
                             this.rawData.push(file);
                         }
                     };
@@ -78,6 +104,13 @@ export class SubmitDocumentsComponent implements OnInit {
 
     changeNumberOfFiles(value: number) {
         this.number_of_files = Number(value);
+        this.submit_documents.forEach((single_document) => {
+
+            if (single_document.document_type_id == this.current_document_id.value) {
+                single_document.number_of_files = value;
+            }
+
+        })
     }
 
     submitDocuments() {
@@ -180,5 +213,66 @@ export class SubmitDocumentsComponent implements OnInit {
             height: '70%',
             data: {url: url}
         });
+    }
+
+    private patchValues() {
+        // this.document_details.foreach((single_detail) => {
+        //
+        // })
+    }
+
+    changeDocumentType(value: any) {
+
+        let file_index = this.submit_documents.findIndex(single_document => single_document.document_type_id == value.value);
+        debugger;
+        if (file_index == -1) {
+            this.submit_documents.push({
+                CustomerDocuments: [{Description: "", FilePath: null, id: 1, url: '', PageNumber: '1'}],
+                cnic: this.customer.Cnic,
+                description: "",
+                reference: "",
+                document_type_id: value.value,
+                number_of_files: this.number_of_files,
+            })
+            this.number_of_files = 1;
+            this.general_description = "";
+            this.reference = "";
+        } else {
+            this.number_of_files = this.submit_documents[file_index].number_of_files;
+            this.general_description = this.submit_documents[file_index].description;
+            this.reference = this.submit_documents[file_index].reference;
+
+        }
+        this.current_document_id = value;
+    }
+
+    changeTypeData(value: any, type: string, i = 0) {
+
+        if (type == 'description') {
+            this.submit_documents.forEach((single_document) => {
+                if (single_document.document_type_id == this.current_document_id.value) {
+                    single_document.description = value;
+                }
+
+            })
+        } else if (type == 'reference') {
+            this.submit_documents.forEach((single_document) => {
+
+                if (single_document.document_type_id == this.current_document_id.value) {
+                    single_document.reference = value;
+                }
+
+            })
+        } else if (type == 'file_description') {
+            this.submit_documents.forEach((single_document, index) => {
+                if (single_document.document_type_id == this.current_document_id.value)
+                    single_document.CustomerDocuments.forEach((single_type_document) => {
+                        if (single_type_document.id == i) {
+                            single_type_document.Description = value;
+                        }
+                    })
+
+            })
+        }
     }
 }

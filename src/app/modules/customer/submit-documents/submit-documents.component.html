@@ -11,53 +11,57 @@
         <div class="col-lg-3">
             <mat-form-field appearance="outline">
                 <mat-label>Number of Files</mat-label>
-                <input matInput type="number" [value]="number_of_files"
+                <input matInput type="number"
                        (change)="changeNumberOfFiles($event.target.value)"
+                       [ngModel]="general_description"
                        class="mat-input-element"/>
             </mat-form-field>
         </div>
         <div class="col-lg-3">
             <mat-form-field appearance="outline">
                 <mat-label>Description</mat-label>
-                <input matInput type="text" id="general_description"
+                <input matInput type="text" (change)="changeTypeData($event.target.value,'description')"
+                       [ngModel]="general_description"
                        class="mat-input-element"/>
             </mat-form-field>
         </div>
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Reference No.</mat-label>
+                <input matInput type="text" (change)="changeTypeData($event.target.value,'reference')"
+                       [ngModel]="general_description"
+                >
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+            <mat-form-field appearance="outline">
+                <mat-label class="customMatLabel">Select Document Type
+                </mat-label>
+                <mat-select (selectionChange)="changeDocumentType($event)">
+                    <mat-option *ngFor="let obj of document_types?.LOVs" [value]="obj.Value">
+                        {{obj.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
     </div>
 
 
     <div *ngFor="let j of [].constructor(number_of_files);let i=index">
         <div class="row p-2 border rounded my-2">
-            <div class="col-lg-3 align-self-center">
+            <div class="col-lg-6 align-self-center">
                 <input type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
                        (change)="onFileChange($event, i)"/>
-                <div class="shadow-sm mt-2"  style="width: 240px; position: relative;">
+                <div class="shadow-sm mt-2" style="width: 240px; position: relative;">
                     <img [src]="doc_urls[i]" (click)="previewImg(doc_urls[i])">
                 </div>
 
             </div>
-            <div class="col-lg-3  align-self-center">
-
+            <div class="col-lg-6  align-self-center">
                 <mat-form-field appearance="outline">
                     <mat-label>Description</mat-label>
-                    <input matInput type="text" id="description_{{i}}"/>
-                </mat-form-field>
-            </div>
-            <div class="col-lg-3 align-self-center">
-                <mat-form-field appearance="outline">
-                    <mat-label>Reference No.</mat-label>
-                    <input matInput type="text" id="reference_{{i}}"/>
-                </mat-form-field>
-            </div>
-            <div class="col-lg-3 align-self-center">
-                <mat-form-field appearance="outline">
-                    <mat-label class="customMatLabel">Select Document Type
-                    </mat-label>
-                    <mat-select id="document_type_{{i}}" [(value)]="documents[i]">
-                        <mat-option *ngFor="let obj of document_types?.LOVs" [value]="obj.Value">
-                            {{obj.Name}}
-                        </mat-option>
-                    </mat-select>
+                    <input matInput type="text" (change)="changeTypeData($event.target.value,'file_description',i)"/>
                 </mat-form-field>
             </div>
         </div>
@@ -65,5 +69,7 @@
 
     </div>
 
-    <button mat-flat-button class="bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary" (click)="submitDocuments()">Submit</button>
+    <button mat-flat-button class="bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+            (click)="submitDocuments()">Submit
+    </button>
 </div>

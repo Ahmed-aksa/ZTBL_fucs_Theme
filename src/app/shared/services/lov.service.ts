@@ -45,7 +45,7 @@ export class LovService {
     }
 
     public SortLovs(Data: any) {
-        return Data.sort((a, b) => {
+        return Data?.sort((a, b) => {
             if (a.Name < b.Name) {
                 return -1;
             }
