@@ -46,6 +46,10 @@
                  class=" text-sm ml-1 font-medium text-green">{{user?.UserName}}</span></span>
             <span *ngIf="user?.BranchName" class=" text-md font-bold ml-4">Branch Name :<span
                 class=" text-sm ml-1 font-medium text-green">{{user?.BranchName}}</span></span>
+                
+            <span *ngIf="time" class=" text-md font-bold ml-4">Session time :<span
+                class=" text-sm ml-1 font-medium text-green">{{time}}</span></span>
+                
         </span>
 
         <!-- Components -->

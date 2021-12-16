@@ -394,7 +394,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
     }
 
     showReceipt(transaction) {
-
+    debugger;
         var transactionID = transaction.TransactionID, DisbursementID = transaction.DisbursementID,
             BranchWorkingDate = transaction.BranchWorkingDate, receiptId = transaction.ReceiptId;
 
@@ -407,9 +407,11 @@ export class SearchRecoveryCommonComponent implements OnInit {
             buttonText: "Close"
         };
 
-        const dialogRef = this.dialog.open(LoanReceiptComponent, {width: "500px", disableClose: true, data: receipt});
+        const dialogRef = this.dialog.open(LoanReceiptComponent, {
+            panelClass: ['w-5/12'], 
+            disableClose: true, data: receipt});
         dialogRef.afterClosed().subscribe(res => {
-
+           
         });
     }
 
