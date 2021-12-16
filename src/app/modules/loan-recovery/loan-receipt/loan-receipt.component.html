@@ -36,18 +36,17 @@
                             </div>
 
                             <div *ngIf="item.Type=='2'">
-                                <div class="row">
-                                    <div class="{{item.LabelR?'col-lg-6 my-2':'col-lg-12 pr-5 my-2'}}">
-                                        <div class="flex text-md" style="justify-content: space-between;">
-                                          <b class="text-blue-900" id="receiptHeadingColor">{{item.LabelL}}:</b>
+                                <div class="row text-md">
+                                    <div class="{{item.LabelR?'col-lg-6 flex my-2 text-md space-between':'col-lg-11 flex pr-5 my-2'}}">
+
+                                          <b class="text-blue-900 mr-8 w-4/12" id="receiptHeadingColor">{{item.LabelL}}:</b>
 
                                           <span [innerHTML]="item.ValueL"></span>
-                                        </div>
 
                                         
                                     </div>
                                     <div class="col-lg-6 my-2" *ngIf="item.LabelR">
-                                      <div class="flex text-md" style="justify-content: space-between;">
+                                      <div class="flex text-md space-between">
                                         <b class="text-blue-900" id="receiptHeadingColor">{{item.LabelR}}:</b>
 
                                         <div>{{item.ValueR}}</div>
@@ -58,7 +57,7 @@
                             </div>
 
                             <div class="customReceiptTitle" *ngIf="item.Type=='3'">
-                                <h4>{{item.LabelL}}</h4>
+                                <h4 class="sub-heading  border-t border-yellow-200 text-blue-900">{{item.LabelL}}</h4>
                             </div>
 
                             <div class="row" *ngIf="item.Type=='3'">
@@ -69,7 +68,7 @@
                             </div>
 
                             <div class="customReceiptTitle" *ngIf="item.Type=='4'">
-                                <h4>{{item.LabelL}}</h4>
+                                <h4 class="sub-heading  border-t border-yellow-200 text-blue-900"   >{{item.LabelL}}</h4>
                             </div>
 
                             <div class="row" *ngIf="item.Type=='4'">
