@@ -1,5 +1,5 @@
 <div
-    class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+    class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-x-hidden overflow-y-auto bg-card dark:bg-transparent">
     <div class="row pt-3">
         <div class="col-lg-12 col-sm-12">
             <div class="heading">Add Update Benchmarking</div>
@@ -199,59 +199,61 @@
                 Clear
             </button>
         </div>
+        <div class="row" *ngIf="!updatingCase">
+            <div  class="col-lg-12">
 
-        <div *ngIf="!updatingCase" class="col-lg-12">
-
-            <table class="table table-striped" *ngIf="tableLength">
-                <thead>
-                <tr class="table-header-background text-center">
-                    <th>Circle Code</th>
-                    <th>Village Name</th>
-                    <th>No Of Formaer</th>
-                    <th>Farm Size</th>
-                    <th>Male Count</th>
-                    <th>Female Count</th>
-                    <th>TransGenderCount</th>
-                    <th>Average Loan Size</th>
-                    <th>Agri Business Potential</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="text-center" *ngFor="let array of village; let i = index">
-                    <td style="width: 100px; text-align:center;">{{array?.CircleCode}}</td>
-                    <td>{{array?.VillageName}}</td>
-                    <td>{{array?.NoOfFarmer}}</td>
-                    <td>{{array?.FarmSize}}</td>
-                    <td>{{array?.MaleCount}}</td>
-                    <td>{{array?.FemaleCount}}</td>
-                    <td>{{array?.TransGenderCount}}</td>
-                    <td>{{array?.AverageLoanSize}}</td>
-                    <td style="width: 100px; text-align:center;">
-                        <div class="w-96">
-                            <div class="w-full break-words text-center">
-                                {{array?.AgriBusinessPotential}}
+                <table class="table table-striped" *ngIf="tableLength">
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <th>Circle Code</th>
+                        <th>Village Name</th>
+                        <th>No Of Formaer</th>
+                        <th>Farm Size</th>
+                        <th>Male Count</th>
+                        <th>Female Count</th>
+                        <th>TransGenderCount</th>
+                        <th>Average Loan Size</th>
+                        <th>Agri Business Potential</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" *ngFor="let array of village; let i = index">
+                        <td style="width: 100px; text-align:center;">{{array?.CircleCode}}</td>
+                        <td>{{array?.VillageName}}</td>
+                        <td>{{array?.NoOfFarmer}}</td>
+                        <td>{{array?.FarmSize}}</td>
+                        <td>{{array?.MaleCount}}</td>
+                        <td>{{array?.FemaleCount}}</td>
+                        <td>{{array?.TransGenderCount}}</td>
+                        <td>{{array?.AverageLoanSize}}</td>
+                        <td style="width: 100px; text-align:center;">
+                            <div style="width: 100px;">
+                                <div class="w-full break-words text-center">
+                                    {{array?.AgriBusinessPotential}}
+                                </div>
                             </div>
-                        </div>
-
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-center">
-                            <button mat-icon-button color="primary" (click)="editRow(array, i)">
-                                <mat-icon title="Edit Customer">edit</mat-icon>
-                            </button>
-                            <button mat-icon-button color="primary" style="margin-left: 5px"
-                                    (click)="deleteRow(i,array)">
-                                <mat-icon title="Edit Customer">delete</mat-icon>
-                            </button>
-                        </div>
-                        <!--                  *ngIf="hideDelete(array)"-->
-                    </td>
-
-                </tr>
-                </tbody>
-            </table>
+    
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <button mat-icon-button color="primary" (click)="editRow(array, i)">
+                                    <mat-icon title="Edit Customer">edit</mat-icon>
+                                </button>
+                                <button mat-icon-button color="primary" style="margin-left: 5px"
+                                        (click)="deleteRow(i,array)">
+                                    <mat-icon title="Edit Customer">delete</mat-icon>
+                                </button>
+                            </div>
+                            <!--                  *ngIf="hideDelete(array)"-->
+                        </td>
+    
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
 
 
         <div class="row mt-2 justify-content-center" *ngIf="tableLength && !updatingCase">
