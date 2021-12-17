@@ -20,20 +20,24 @@
                  'transform-origin': left + 'px ' + top + 'px'
                  }"
             />
-            <button mat-icon-button (click)="rotate()" color="primary">
-                <mat-icon>rotate_right</mat-icon>
-                Rotate
-            </button>
-
-            <div class="toolbar">
-                <label>Zoom:</label>
-                <input type="range" min="100" max="1000" [(ngModel)]="scale">
-                <!--        <p>Zoom X: {{ left }}</p>-->
-                <!--        <p>Zoom Y: {{ top }}</p>-->
-            </div>
 
         </div>
     </div>
+
+    <div class="col-lg-12">
+        <button mat-icon-button (click)="rotate()" color="primary">
+            <mat-icon>rotate_right</mat-icon>
+            Rotate
+        </button>
+
+        <div class="toolbar">
+            <label>Zoom:</label>
+            <input type="range" min="100" max="1000" [(ngModel)]="scale">
+            <!--        <p>Zoom X: {{ left }}</p>-->
+            <!--        <p>Zoom Y: {{ top }}</p>-->
+        </div>
+    </div>
+
 
 
 </div>
