@@ -33,10 +33,10 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService,
         private _sessionExpireService: SessionExpireService,
-        
+
     ) {
         setTimeout(() => {
-            this._sessionExpireService.count.subscribe(c => {
+            this._sessionExpireService?.count?.subscribe(c => {
                 this.time = c.toString();
             });
         }, 5000);

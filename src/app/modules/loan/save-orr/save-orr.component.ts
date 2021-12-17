@@ -171,7 +171,7 @@ export class SaveOrrComponent implements OnInit {
     }
 
     SaveOrSubmit() {
-        
+
         this.GlProposalORR;
         console.log(this.CustomerORR);
         for (let i = 0; i < this.CustomerORR?.length; i++) {
@@ -282,7 +282,7 @@ export class SaveOrrComponent implements OnInit {
                 if (baseResponse.Success === true) {
                     this.router.navigate(
                         ['../calculte-dbr',
-                            { LnTransactionID: this.LnTransactionID, Lcno: this.Lcno }],
+                            { LnTransactionID: this.LnTransactionID, Lcno: this.Lcno,Flag:"1" }],
                         { relativeTo: this.activatedRoute }
                     );
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
@@ -329,7 +329,7 @@ export class SaveOrrComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    
+
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                     this.submitArray = baseResponse?.Loan?.ORR["OrrSubmitList"];
 
