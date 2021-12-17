@@ -289,7 +289,7 @@
                                  style="width: 225px;" *ngIf="mcReceipt">
                                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline"
                                                 >
-                                    <mat-label class="customMatLabel">Receipt No</mat-label>
+                                    <mat-label class="customMatLabel">Receipt NO</mat-label>
                                     <input matInput placeholder="Receipt No" formControlName="ReceiptNo"
                                            maxlength="10"
                                            autocomplete="off" appNumberOnly
@@ -411,20 +411,20 @@
                                         <mat-icon class="mr-2">save</mat-icon>
                                         Save
                                     </button>
-                    
+
                                     <button mat-raised-button color="primary" class="ml-2" (click)="makeAndSubmit()"
                                             [disabled]="submitted || viewOnly || ibDisSave">
                                         <mat-icon class="mr-2">check_circle</mat-icon>
                                         {{submitButtonText}}</button>
-                    
-                    
+
+
                                     <button mat-raised-button color="primary" class="ml-2" (click)="deleteRecovery()"
                                             [disabled]="submitted || viewOnly || ibDisSave" *ngIf="isEditMode || dataSaved">
                                         <mat-icon class="mr-2">delete_forever</mat-icon>
                                         Delete
                                     </button>
-                    
-                    
+
+
                                     <button mat-raised-button
                                             class="ml-2 mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
                                             (click)="clearForm()"
@@ -432,17 +432,17 @@
                                         <mat-icon class="mr-2"> clear_all</mat-icon>
                                         Clear
                                     </button>
-                    
-                    
+
+
                                     <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
                                 </div>
-                    
+
                             </div>
                         </div>
 
                     </div>
                         <div class="col-lg-4 pt-2 pr-20" *ngIf="accountDetailFetched">
-                            <table class="table table-striped table-bordered" >
+                            <table class="table table-striped table-bordered"  style="width: 370px">
                                 <thead>
                                 <tr class="table-header-background">
                                     <th colspan="2">Acount Detail</th>

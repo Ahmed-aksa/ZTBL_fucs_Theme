@@ -25,7 +25,8 @@
                                         <div *ngFor="let url of images">
                                             <img
                                                 style="width:200px;height: 200px;display: block;margin-left: auto;margin-right: auto;"
-                                                class="rounded-circle text-right border border-green-900" mat-card-md-image [src]="url">
+                                                class="rounded-circle text-right border border-green-900"
+                                                mat-card-md-image [src]="url">
                                         </div>
                                     </div>
                                     <!--<button style="display: block;margin-left: auto;margin-right: auto;" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
@@ -701,7 +702,8 @@
                     <button mat-icon-button (click)="previewImg(single_images.url)" color="primary">
                         <mat-icon>visibility</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn">
+                    <button mat-icon-button color="warn" (click)="deleteImage(single_images.customer_document)"
+                            *ngIf="HideShowSaveButton">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>
