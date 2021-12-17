@@ -413,7 +413,7 @@
                                     </button>
 
                                     <button mat-raised-button color="primary" class="ml-2" (click)="makeAndSubmit()"
-                                            [disabled]="submitted || viewOnly || ibDisSave" *ngIf="isEditMode || dataSaved">
+                                            [disabled]="submitted || viewOnly || ibDisSave">
                                         <mat-icon class="mr-2">check_circle</mat-icon>
                                         {{submitButtonText}}</button>
 
@@ -442,7 +442,7 @@
 
                     </div>
                         <div class="col-lg-4 pt-2 pr-20" *ngIf="accountDetailFetched">
-                            <table class="table table-striped table-bordered" >
+                            <table class="table table-striped table-bordered"  style="width: 370px">
                                 <thead>
                                 <tr class="table-header-background">
                                     <th colspan="2">Acount Detail</th>
