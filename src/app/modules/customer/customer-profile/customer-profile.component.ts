@@ -770,7 +770,8 @@ export class CustomerProfileComponent implements OnInit {
                                         type_description: single_document_detail.Description,
                                         type_name: single_document_detail.DocumentTypeName,
                                         reference: single_document_detail.RefrenceNumber,
-                                        file_description: customer_document.Description
+                                        file_description: customer_document.Description,
+                                        customer_document: customer_document
                                     })
                             })
                         })
@@ -1198,5 +1199,15 @@ export class CustomerProfileComponent implements OnInit {
                 panelClass: ['w-9/12']
             }
         );
+    }
+
+    deleteImage(customer_document: any) {
+        this._customerService.deleteDocument(customer_document).subscribe((data) => {
+            if (data.Success) {
+                this.toastr.success("Document Deleted Successfully");
+            } else {
+                this.toastr.error(data.Message);
+            }
+        })
     }
 }//end of class

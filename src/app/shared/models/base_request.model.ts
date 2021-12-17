@@ -2,6 +2,7 @@ import {Loan} from './Loan.model';
 import {DeceasedCustomer, MarkDeceasedCustomer} from "./deceased_customer.model";
 
 export class BaseRequestModel {
+    public CustomerDocument: object;
     public Activities: object;
     public Activity: object;
     public Profile: object;
