@@ -413,7 +413,7 @@
                                     </button>
 
                                     <button mat-raised-button color="primary" class="ml-2" (click)="makeAndSubmit()"
-                                            [disabled]="submitted || viewOnly || ibDisSave">
+                                            [disabled]="submitted || viewOnly || ibDisSave" *ngIf="isEditMode || dataSaved">
                                         <mat-icon class="mr-2">check_circle</mat-icon>
                                         {{submitButtonText}}</button>
 
