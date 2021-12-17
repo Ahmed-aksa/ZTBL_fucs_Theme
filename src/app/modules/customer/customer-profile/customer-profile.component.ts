@@ -305,7 +305,7 @@ export class CustomerProfileComponent implements OnInit {
             District: [this.createCustomer.District, Validators.required],
             Citizenship: [this.createCustomer.CitizenShip, [Validators.required]],
             CellNumber: [this.ValidateMobileNumberSet(), [Validators.required, Validators.pattern(regExps.mobile)]],
-            PhoneNumber: [this.createCustomer.PhoneNumber.substring(4), [Validators.pattern(regExps.seventothirteen)]],
+            PhoneNumber: [Number(String(this.createCustomer.PhoneNumber).substring(1)), [Validators.pattern(regExps.seventothirteen)]],
             OfficePhoneNumber: [this.createCustomer.OfficePhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
             FaxNumber: [this.createCustomer.FaxNumber, [Validators.pattern(regExps.seventothirteen)]],
             Email: [this.createCustomer.Email, [Validators.pattern(regExps.email)]],
