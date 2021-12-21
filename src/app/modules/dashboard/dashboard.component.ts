@@ -57,11 +57,10 @@ export class DashboardComponent implements OnInit {
 
             this.time = c.toString();
         });
-
         this._dashboardService.getDashboardData().pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {
-            this.mcoDashboardComponent.assignRoleData(result.DashboardReport);
+            this.mcoDashboardComponent?.assignRoleData(result.DashboardReport);
             this.recoveryOfficerDashboardComponent.assignRoleData(result.DashboardReport);
         });
 

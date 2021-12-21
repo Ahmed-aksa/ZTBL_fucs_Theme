@@ -870,7 +870,6 @@ export class RecoveryFormComponent implements OnInit {
     }
 
     submitRecovery() {
-        debugger
         var remarks = this.RecoveryForm.controls.Remarks.value;
         var transactionID = this.RecoveryForm.controls.TransactionID.value;
         var disbursementID = this.RecoveryForm.controls.DisbursementID.value;
@@ -879,25 +878,32 @@ export class RecoveryFormComponent implements OnInit {
             this.layoutUtilsService.alertElement('', 'Please Save Recovery before Submission.')
             return
         }
+        let dialog = this.layoutUtilsService.AlertElementConfirmation(`You entered ${this.RecoveryForm.controls.Amount.value}, Do you really want to continue`);
+        dialog.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            } else {
+                this.spinner.show();
+                this._recoveryService
+                    .submitRecovery(transactionID, remarks, disbursementID, this.RecoveryType.toString(), this.recoveryDataModel.EffectiveDate)
+                    .pipe(
+                        finalize(() => {
+                            this.submitted = false;
+                            this.spinner.hide();
+                        })
+                    )
+                    .subscribe((baseResponse: BaseResponseModel) => {
+                        if (baseResponse.Success === true) {
+                            this.receipt.ReceiptId = baseResponse.Recovery.RecoveryData.ReceiptNo;
+                            this.getSignatures();
+                        } else {
+                            this.layoutUtilsService.alertMessage("", baseResponse.Message);
+                        }
 
-        this.spinner.show();
-        this._recoveryService
-            .submitRecovery(transactionID, remarks, disbursementID, this.RecoveryType.toString(), this.recoveryDataModel.EffectiveDate)
-            .pipe(
-                finalize(() => {
-                    this.submitted = false;
-                    this.spinner.hide();
-                })
-            )
-            .subscribe((baseResponse: BaseResponseModel) => {
-                if (baseResponse.Success === true) {
-                    this.receipt.ReceiptId = baseResponse.Recovery.RecoveryData.ReceiptNo;
-                    this.getSignatures();
-                } else {
-                    this.layoutUtilsService.alertMessage("", baseResponse.Message);
-                }
+                    });
+            }
+        })
 
-            });
     }
 
     saveSignature() {
@@ -968,6 +974,7 @@ export class RecoveryFormComponent implements OnInit {
             this.ibDisSave = true;
             //this.submitRecovery()
         } else {
+
             this.submitRecovery();
         }
 

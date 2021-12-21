@@ -468,7 +468,7 @@ ng
                 return;
             }
 
-            if (this.loanUtilizationModel.Remarks == '') {
+            if (this.loanUtilizationModel.Remarks == '' || this.loanUtilizationModel.Remarks == null) {
                 var msg = 'Please Enter Remarks before submitting';
                 this.layoutUtilsService.alertElement(
                     '',

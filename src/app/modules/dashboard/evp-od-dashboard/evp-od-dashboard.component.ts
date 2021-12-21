@@ -80,15 +80,7 @@ export class EvpOdDashboardComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.spinner.show();
-        this._dashboardService.getDashboardData().pipe(finalize(() => {
-            this.spinner.hide()
-        })).subscribe(result => {
-            // this.DisbursmentAchievement = Object.entries(result.DashboardReport.DisbursmentAchievement);
-
-
-            this.PerformanceIndicators(result?.DashboardReport?.PerformanceIndicator);
-        });
+    
     }
 
     PerformanceIndicators(PerformanceIndicator: any) {

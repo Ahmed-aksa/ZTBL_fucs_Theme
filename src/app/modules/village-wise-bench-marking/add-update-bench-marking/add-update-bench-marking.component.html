@@ -185,15 +185,15 @@
             </button>
             <button mat-raised-button color="primary" *ngIf="isUpdate || updatingCase" class="mr-4" (click)="update()">
                 <mat-icon class="mr-2">add_circle</mat-icon>
-                update
+                Update
             </button>
-            <button mat-raised-button color="primary" *ngIf="updatingCase" (click)="SubmitSingle()">
+            <button mat-raised-button  class="mr-4 bg-green mat-primary"  *ngIf="updatingCase" (click)="SubmitSingle()">
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Submit
             </button>
 
             <button mat-raised-button
-                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger"
                     (click)="clear()">
                 <mat-icon class="mr-2"> clear_all</mat-icon>
                 Clear
@@ -207,11 +207,11 @@
                     <tr class="table-header-background text-center">
                         <th>Circle Code</th>
                         <th>Village Name</th>
-                        <th>No Of Formaer</th>
+                        <th>No of Farmer</th>
                         <th>Farm Size</th>
                         <th>Male Count</th>
                         <th>Female Count</th>
-                        <th>TransGenderCount</th>
+                        <th>Transgender Count</th>
                         <th>Average Loan Size</th>
                         <th>Agri Business Potential</th>
                         <th>Action</th>
