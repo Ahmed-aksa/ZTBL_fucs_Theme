@@ -219,11 +219,13 @@ export class VendorListComponent implements OnInit {
     editVendor(vendor: any) {
         localStorage.setItem('SearchVendorData', JSON.stringify(vendor));
         localStorage.setItem('EditVendorData', '1');
+        localStorage.setItem('selected_single_zone', JSON.stringify(vendor.ZoneId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(vendor.BranchCode));
+        localStorage.setItem('selected_single_circle', JSON.stringify(vendor.CircleId));
         this.router.navigate(['../add-vendor', {upFlag: "1"}], {relativeTo: this.activatedRoute});
     }
 
     viewVendor(vendor: any) {
-        ;
 
         if (vendor.CreatedBy != this.LoggedInUserInfo.User.UserId) {
             vendor.obj = "o"
@@ -234,8 +236,6 @@ export class VendorListComponent implements OnInit {
 
         localStorage.setItem('SearchVendorData', JSON.stringify(vendor));
         localStorage.setItem('EditVendorData', '1');
-
-
         localStorage.setItem('selected_single_zone', JSON.stringify(vendor.ZoneId));
         localStorage.setItem('selected_single_branch', JSON.stringify(vendor.BranchCode));
         localStorage.setItem('selected_single_circle', JSON.stringify(vendor.CircleId));
