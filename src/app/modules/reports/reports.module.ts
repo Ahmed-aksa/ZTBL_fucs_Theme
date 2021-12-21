@@ -69,6 +69,10 @@ const routing = [
         path: 'get-customer-legal-heirs',
         component: GetCustomerLegalHeirsComponent
     },
+    {
+        path: 'customer-cwr',
+        component: CustomerCwrComponent
+    }
 ]
 
 
