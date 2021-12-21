@@ -869,9 +869,16 @@ export class RecoveryFormComponent implements OnInit {
     }
 
     submitRecovery() {
+        debugger
         var remarks = this.RecoveryForm.controls.Remarks.value;
         var transactionID = this.RecoveryForm.controls.TransactionID.value;
         var disbursementID = this.RecoveryForm.controls.DisbursementID.value;
+
+        if(transactionID == undefined || transactionID == null){
+            this.layoutUtilsService.alertElement('','Please Save Recovery before Submission.')
+            return
+        }
+
         this.spinner.show();
         this._recoveryService
             .submitRecovery(transactionID, remarks, disbursementID, this.RecoveryType.toString(), this.recoveryDataModel.EffectiveDate)

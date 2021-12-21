@@ -20,10 +20,11 @@ export class CalculateDbrComponent implements OnInit {
     public Lcno: string;
     DBRForm: FormGroup;
     ApplicationHeader;
-
+    isReadOnly:boolean=true;
     totalDBRIncome:number=0;
     totalDBRLiabilities:number=0;
     DBR:number=0;
+    Flag;
     constructor(private route: ActivatedRoute,
                 private _loanService: LoanService,
                 private cdRef: ChangeDetectorRef,
@@ -34,6 +35,10 @@ export class CalculateDbrComponent implements OnInit {
 
     ngOnInit() {
        this.createForm()
+        this.Flag = this.route.snapshot.params['Flag'];
+       if(this.Flag==1){
+           this.isReadOnly=false;
+       }
     }
     createForm(){
         this.DBRForm = this.fb.group({
@@ -161,7 +166,7 @@ export class CalculateDbrComponent implements OnInit {
     }
 
     searchLoanDbr() {
-        
+
         this.spinner.show();
         let loanFilter = new SearchLoanDbr();
         loanFilter.LoanAppID = Number(this.LnTransactionID)//20201642051;
