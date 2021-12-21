@@ -134,7 +134,6 @@ export class ZoneBranchCircleComponent implements OnInit {
                 this.userUtilsService.getZone().subscribe((data: any) => {
                     this.SelectedZones = data.Zones;
                     this.single_zone = false;
-                    debugger;
                     this.selected_z = this.selected_single_zone;
                     if (this.selected_single_branch) {
                         this.changeZone(this.selected_single_zone, false, true);

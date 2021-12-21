@@ -141,19 +141,19 @@ export class LoanUtilizationComponent implements OnInit {
         private dialog: MatDialog,
         private route: ActivatedRoute,
     ) {
-
-        this.loggedInUser = userUtilsService.getUserDetails();
-        if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
-            this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
-        } else {
-
-        }
-
-        this.mediaGetter = Object.assign(this.loanUtilizationModel);
-        router.events.subscribe((val: any) => {
-            if (val.url == '/deceased-customer/customers') {
-            }
-        });
+// debugger
+        // this.loggedInUser = userUtilsService.getUserDetails();
+        // if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
+        //     this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
+        // } else {
+        //
+        // }
+        //
+        // this.mediaGetter = Object.assign(this.loanUtilizationModel);
+        // router.events.subscribe((val: any) => {
+        //     if (val.url == '/deceased-customer/customers') {
+        //     }
+        // });
     }
 
 
@@ -178,9 +178,11 @@ export class LoanUtilizationComponent implements OnInit {
     VideoTimeLimit: number;
 
     ngOnInit() {
+        // localStorage.setItem('utilization', JSON.stringify(utilization));
+        this.loanUtilizationModel=JSON.parse(localStorage.getItem('utilization'))
+        this.mediaGetter=JSON.parse(localStorage.getItem('utilization'))
 
-        this.setMediaLimits();
-        if (this.loanUtilizationModel.LoanCaseNo) {
+        if (this.loanUtilizationModel?.LoanCaseNo) {
             if (this.loanUtilizationModel['view'] == '1') {
                 this.viewonly = true;
                 this.remarksFeild = true;
@@ -194,17 +196,23 @@ export class LoanUtilizationComponent implements OnInit {
         } else {
             this.router.navigate(['/loan-utilization/search-uti']);
         }
+        this.setMediaLimits();
         this.createForm();
         this.checkUser();
         this.setOptions();
 
     }
-
+ng
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
+    ngOnDestroy(){
+        console.log("called")
+    localStorage.removeItem('utilization')
+    }
+
 
 
     checkUser() {

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from 'app/shared/services/dashboard.service';
 import {
     ApexNonAxisChartSeries,
@@ -40,19 +40,7 @@ export class McoDashboradComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.spinner.show();
-        this._dashboardService.getDashboardData().pipe(finalize(() => {
-            this.spinner.hide()
-        })).subscribe(result => {
-            this.DisbursmentAchievement = Object.entries(result.DashboardReport.DisbursmentAchievement);
-            this.RecoveryAchievement = Object.entries(result.DashboardReport.RecoveryAchievement);
-            this.UtilizationMutation = Object.entries(result.DashboardReport.UtilizationMutation);
 
-
-            this.PerformanceIndicators(result?.DashboardReport?.PerformanceIndicator);
-            this.LoanPorfolio(result?.DashboardReport?.LoanPorfolio)
-            this.LoanPorfolio2(result?.DashboardReport?.LoanPorfolio2)
-        });
     }
 
     PerformanceIndicators(PerformanceIndicator: any) {
@@ -166,4 +154,14 @@ export class McoDashboradComponent implements OnInit {
         };
     }
 
+    assignRoleData(DashboardReport: any) {
+        this.DisbursmentAchievement = Object.entries(DashboardReport.DisbursmentAchievement);
+        this.RecoveryAchievement = Object.entries(DashboardReport.RecoveryAchievement);
+        this.UtilizationMutation = Object.entries(DashboardReport.UtilizationMutation);
+
+
+        this.PerformanceIndicators(DashboardReport.PerformanceIndicator);
+        this.LoanPorfolio(DashboardReport.LoanPorfolio)
+        this.LoanPorfolio2(DashboardReport.LoanPorfolio2)
+    }
 }

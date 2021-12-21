@@ -69,4 +69,7 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+    assignRoleData(DashboardReport: any) {
+        
+    }
 }
