@@ -571,8 +571,7 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     MarkAsDeceasedCustomer() {
-
-
+        debugger
         this.errorShow = false;
         this.hasFormErrors = false;
 
