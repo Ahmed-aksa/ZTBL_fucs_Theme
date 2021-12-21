@@ -103,6 +103,7 @@ export class CircleViewMapComponent implements OnInit {
                             lng: o.Long,
                             CircleId: o.CircleId,
                             BranchId: o.BranchId,
+                            CircleCode: o.CircleCode,
                         });
                     }
                 });
