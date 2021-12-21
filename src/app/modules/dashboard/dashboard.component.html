@@ -2,14 +2,14 @@
     class=" px-10   sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
 
     <mat-tab-group class="pt-4 flex flex-auto  shadow-xs rounded-sm" style="flex-direction: column; overflow-y: scroll"
-        animationDuration="200ms" style="background-color: white;">
+                   animationDuration="200ms" style="background-color: white;">
         <ng-container *ngFor="let item of userGroup">
 
             <mat-tab *ngIf="item.ProfileID=='56'" ng-disable="visibleFlag" label="MCO">
                 <app-mco-dashborad></app-mco-dashborad>
             </mat-tab>
 
-            <mat-tab  *ngIf="item.ProfileID=='69'" label="Recovery Officer">
+            <mat-tab *ngIf="item.ProfileID=='206'" label="Recovery Officer">
                 <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
             </mat-tab>
 
@@ -57,14 +57,14 @@
             <div class="row text-right">
                 <div class="col-lg-12">
                     <button type="button" (click)="RefreshToken()" class="btn btn-primary bg-green" mat-raised-button
-                        color="primary">
+                            color="primary">
                         <mat-icon class="mr-2">refresh</mat-icon>
                         Refresh
                     </button>
 
                     &nbsp;
                     <button type="button" (click)="Logout()" class="btn btn-primary bg-red-500" mat-raised-button
-                        color="primary">
+                            color="primary">
                         <mat-icon class="mr-2">login</mat-icon>
                         Logout
                     </button>
