@@ -127,7 +127,7 @@ export class RequestForRlComponent implements OnInit {
     }
 
     ngOnInit() {
-        
+
         //
         this.create();
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -277,17 +277,17 @@ export class RequestForRlComponent implements OnInit {
     }
 
     onSelectionChange(e) {
-
-        if (this.RfrlForm.controls.RequestCategory.value && e.value != '3') {
-            this.graceMonthsSelect = false;
-            this.RfrlForm.controls['GraceMonths'].setValue('');
-            this.RfrlForm.get('GraceMonths').clearValidators();
-            this.RfrlForm.get('GraceMonths').updateValueAndValidity();
-        } else {
+        debugger
+        if (this.RfrlForm.controls.RequestCategory.value == '2' && e.value == '2') {
             this.graceMonthsSelect = true;
             this.RfrlForm.get('GraceMonths').setValidators([
                 Validators.required,
             ]);
+            this.RfrlForm.get('GraceMonths').updateValueAndValidity();
+        } else {
+            this.graceMonthsSelect = false;
+            this.RfrlForm.controls['GraceMonths'].setValue('');
+            this.RfrlForm.get('GraceMonths').clearValidators();
             this.RfrlForm.get('GraceMonths').updateValueAndValidity();
         }
     }
