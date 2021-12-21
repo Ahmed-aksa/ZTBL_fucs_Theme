@@ -7,6 +7,7 @@ import {BaseRequestModel} from '../models/base_request.model';
 import {BaseResponseModel} from '../models/base_response.model';
 import {HttpUtilsService} from './http_utils.service';
 import {UserUtilsService} from './users_utils.service';
+import {ChartOptions} from "../../modules/dashboard/evp-credit-dashboard/evp-credit-dashboard.component";
 
 @Injectable({providedIn: 'root'})
 export class DashboardService {
@@ -33,6 +34,43 @@ export class DashboardService {
                 {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: any) => res));
+    }
+
+    assignKeys(data: any, title): Partial<ChartOptions> {
+        var obj = [];
+        (Object.values(data)).forEach(x => {
+            obj.push(Number(x));
+
+        })
+        return {
+            series: obj,
+            chart: {
+                width: "100%",
+                type: "pie"
+            },
+            labels: Object.keys(data),
+            theme: {
+                monochrome: {
+                    enabled: false
+                }
+            },
+            title: {
+                text: title
+            },
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            ]
+        };
     }
 
 }

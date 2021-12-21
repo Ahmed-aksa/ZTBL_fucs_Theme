@@ -7,6 +7,7 @@ import {
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
+import {DashboardService} from "../../../shared/services/dashboard.service";
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -29,85 +30,18 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
     creditCeiling: any;
     circlePositions: any;
 
-    constructor() {
-        this.chartOptions = {
-            series: [25, 15, 44, 55, 41, 17],
-            chart: {
-                width: "100%",
-                type: "pie"
-            },
-            labels: [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday"
-            ],
-            theme: {
-                monochrome: {
-                    enabled: false
-                }
-            },
-            title: {
-                text: "Performance Indicators"
-            },
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: "bottom"
-                        }
-                    }
-                }
-            ]
-        };
+    constructor(private dashboardService: DashboardService) {
     }
 
     ngOnInit(): void {
     }
 
     assignRoleData(DashboardReport: any) {
-      if(!DashboardReport?.RecoveryAchievement){return}
+        if (!DashboardReport?.RecoveryAchievement) {
+            return
+        }
         this.recoveryAchievment = Object.entries(DashboardReport?.RecoveryAchievement);
         this.circlePositions = DashboardReport.CirclePositions;
-        var obj = [];
-        (Object.values(DashboardReport?.LoanPorfolio)).forEach(x => {
-            obj.push(Number(x));
-
-        })
-        this.chartOptions = {
-            series: obj, //Object.values(PerformanceIndicator),
-            chart: {
-                width: "100%",
-                type: "pie"
-            },
-            labels: Object.keys(DashboardReport?.LoanPorfolio),
-            theme: {
-                monochrome: {
-                    enabled: false
-                }
-            },
-            title: {
-                text: "Loan Portfolio"
-            },
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: "bottom"
-                        }
-                    }
-                }
-            ]
-        };
+        this.chartOptions = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio');
     }
 }
