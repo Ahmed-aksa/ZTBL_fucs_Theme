@@ -20,5 +20,15 @@ export const environment = {
         'hcumSNFSeyMBPaGDsee9eqd9BUp9rLg4pcRUQt4srhfl8jrh11JOIjL+PGcCMX0V\n' +
         'r71dUEHKTapOQJiD9fwWYXb2uKNqjbMo7BTjonOYSkXCGdtHkK7A4lOufX0ozj8P\n' +
         '9QIDAQAB\n' +
-        '-----END PUBLIC KEY-----'
+        '-----END PUBLIC KEY-----',
+    MCO_Group_ID: '56',//131694
+    RECOVERY_OFFICER: '206',//120203
+    BM: '57',//80834
+    ZC: '75',//54964
+    EVP_CD: '200',//112664
+    EVP_OD: '202',//116035
+    EVP_RS: '201',//111537
+    PZ: '204',//704000
+    Regional_CHIEF: '203',//111573
+    PROVINCIAL_CHEIF: '205',//77345
 };
