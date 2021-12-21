@@ -147,7 +147,7 @@ export class ActivityFormDialogComponent implements OnInit {
                         this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
                         this.close(this.activity);
                     } else {
-                        // this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
+                        this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
                     }
 
                 });

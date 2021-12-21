@@ -1,4 +1,10 @@
 /* Structure */
+thead {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+
+}
 .example-container {
     position: relative;
 }
@@ -10,6 +16,7 @@
 
 table {
     width: 100%;
+
 }
 
 .example-loading-shade {

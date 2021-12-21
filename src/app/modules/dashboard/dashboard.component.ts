@@ -1,10 +1,10 @@
-import {Component, HostListener, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
-import {SessionExpireService} from 'app/shared/services/session-expire.service';
-import {Router} from '@angular/router';
-import {ThrowStmt} from '@angular/compiler';
+import { Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { SessionExpireService } from 'app/shared/services/session-expire.service';
+import { Router } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
     selector: 'app-dashboard',
@@ -16,17 +16,19 @@ export class DashboardComponent implements OnInit {
     popup: any = false;
     time: any
     sessionTime: any;
+    userGroup:any=[];
 
     constructor(private _sessionExpireService: SessionExpireService, private _router: Router) {
     }
 
     dataSource = new MatTableDataSource();
     displayedColumns = ['EmployeeNo', 'EmployeeName', 'PhoneNumber', 'Email', 'ZoneName', 'BranchName', 'UserCircles', 'actions'];
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
 
     ngOnInit(): void {
-        this.checkUserActivity();
+        this.setSessionTime();
+        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
         this._sessionExpireService.count.subscribe(c => {
             if (c == 0) {
                 this.Logout();
@@ -68,8 +70,9 @@ export class DashboardComponent implements OnInit {
 
     @HostListener('window:keydown')
     @HostListener('window:mousedown')
-    @HostListener('mousemove')
+   // @HostListener('mousemove')
     checkUserActivity() {
+        debugger;
         this.setSessionTime();
     }
 
