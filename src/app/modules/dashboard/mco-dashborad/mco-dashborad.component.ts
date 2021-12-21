@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DashboardService } from 'app/shared/services/dashboard.service';
 import {
   ApexNonAxisChartSeries,
   ApexResponsive,
@@ -28,7 +29,7 @@ export class McoDashboradComponent implements OnInit {
   public chartOptions2: Partial<ChartOptions>;
   public chartOptions3: Partial<ChartOptions>;
   
-  constructor() {
+  constructor( private _dashboardService :DashboardService) {
     
     this.chartOptions1 = {
       series: [25, 15, 44, 55, 41, 17],
@@ -147,6 +148,9 @@ export class McoDashboradComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._dashboardService.getMcoDashboardDate().subscribe(result=>{
+      debugger;
+    });
   }
 
 }

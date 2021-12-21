@@ -32,8 +32,9 @@
         <div>
             <div class="form-group row px-3 shadow-none" style="
             min-width: max-content;
-            max-height: 70vh;
-            overflow-y:scroll;">
+            overflow-y:scroll;"
+            id="pagelist"
+            >
                 <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile border shadow-xs rounded-sm bg-gray-50"
                      id="custom-table-activity-list">
                     <div class="custom-accordion  rounded-lg my-2 bg-white shadow-sm border"
@@ -41,7 +42,7 @@
                         <div class="custom-accordion-head border-0" (click)="toggleAccordion(activity.ActivityID)"
                              style="cursor: pointer">
                             <div class="self-center ml-8">
-                                <span class="font-bold text-green">
+                                <span class="text-base text-green">
                                     {{activity.ActivityName}}
                                 </span>
                             </div>
@@ -70,7 +71,7 @@
                              style="display: none">
                             <table class="table table-responsive" style="display: inline-table !important;">
                                 <thead class="thead-light">
-                                <tr>
+                                <tr class="table-header-background">
                                     <th>Activity Name</th>
                                     <th>Activity URL</th>
                                     <th>Actions</th>

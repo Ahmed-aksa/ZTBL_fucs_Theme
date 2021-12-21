@@ -474,7 +474,7 @@ export class SearchTourPlanComponent implements OnInit {
 
         this.tourPlanStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes})
         //
-        this.tourPlanStatusLov.LOVs.forEach(function (value) {
+        this.tourPlanStatusLov?.LOVs.forEach(function (value) {
             if (!value.Value)
                 value.Value = "All";
         });

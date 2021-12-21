@@ -109,7 +109,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
 
         var CheckEdit = localStorage.getItem("EditJvData");
         if (CheckEdit == '0') {
-            localStorage.setItem("SearchJvData", "");
+            localStorage.setItem("SearchVendorData", "");
         }
     }
 
@@ -182,12 +182,18 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
     }
 
     getVendorInfo() {
-        this.spinner.show();
-        this.user.ZoneId = this.zone?.ZoneId;
-        this.user.BranchCode = this.branch?.BranchCode;
-        this.user.CircleId = this.circle?.Id;
-        this.vendor.Id = this.vendorEditView.Id;
 
+        this.spinner.show();
+        if(this.zone != undefined && this.branch != undefined){
+            this.user.ZoneId = this.zone?.ZoneId;
+            this.user.BranchCode = this.branch?.BranchCode;
+        }
+        else{
+            this.user.ZoneId = this.vendorEditView.ZoneId;
+            this.user.BranchCode = this.vendorEditView.BranchCode;
+        }
+        this.user.CircleId = this.vendorEditView.CircleId;
+        this.vendor.Id = this.vendorEditView.Id;
         var limit = 1, offset = 0;
 
         this._khaadSeedVendor.searchVendors(limit, offset, this.vendor, this.user, this.zone, this.branch, this.circle)

@@ -16,7 +16,13 @@ $MaterialIcons_FontPath: "~material-icons-font/fonts";
 body {
     font-family: 'Poppins', sans-serif !important;
 }
-
+.mat-tab-group {
+    .mat-tab-header {
+         .mat-tab-label-container {
+             padding: 0px;
+        }
+    }
+}
 .dis-table{
     th{
         min-width: 120px;
@@ -257,6 +263,13 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
 .mat-hint {
     padding-top: 7px;
 }
+thead {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 11;
+
+}
 
 .heading {
     background-color: #f6fcf8;
@@ -289,6 +302,10 @@ body.light .mat-select-disabled .mat-select-value, body .light .mat-select-disab
 
 #map_canvas {
     height: calc(100vh - 220px);
+    overflow: auto;
+}
+#pagelist {
+    height: calc(100vh - 200px);
     overflow: auto;
 }
 button {
