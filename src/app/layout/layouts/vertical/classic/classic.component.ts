@@ -35,18 +35,15 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         private _sessionExpireService: SessionExpireService,
 
     ) {
-        setTimeout(() => {
-            this._sessionExpireService?.count?.subscribe(c => {
-                this.time = c.toString();
-            });
-        }, 5000);
+        
     }
 
     get currentYear(): number {
         return new Date().getFullYear();
     }
-
     ngOnInit(): void {
+
+
         this.user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
 
         this.userInfo = this.userUtils.getUserDetails().User.userGroup;
@@ -64,12 +61,15 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
                 this.isScreenSmall = !matchingAliases.includes('md');
             });
     }
-
     ngOnDestroy(): void {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
-
+    ngAfterViewInit(){
+        this._sessionExpireService?.count?.subscribe(c => {
+            this.time = c.toString();
+        });
+    }
     toggleNavigation(name: string): void {
         const navigation = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(name);
         if (navigation) {
