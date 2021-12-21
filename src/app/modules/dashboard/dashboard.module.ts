@@ -13,6 +13,7 @@ import {EvpCreditDashboardComponent} from './evp-credit-dashboard/evp-credit-das
 import {RecoveryAvailableComponent} from './recovery-available/recovery-available.component';
 import { PresidentZtblComponent } from './president-ztbl/president-ztbl.component';
 import { RegionalCheifComponent } from './regional-cheif/regional-cheif.component';
+import { CustomerModule } from '../customer/customer.module';
 
 const route = [
     {
@@ -59,7 +60,8 @@ const route = [
         CommonModule,
         RouterModule.forChild(route),
         SharedModule,
-        NgApexchartsModule
+        NgApexchartsModule,
+        CustomerModule
     ]
 })
 export class DashboardModule {

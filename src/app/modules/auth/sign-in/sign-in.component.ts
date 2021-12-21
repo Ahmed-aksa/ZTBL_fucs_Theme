@@ -66,8 +66,8 @@ export class AuthSignInComponent implements OnInit {
                                 localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
                                 localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
                             }
-                            const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-                            this._router.navigateByUrl(redirectURL);
+                            //const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                            //this._router.navigateByUrl(redirectURL);
                             window.location.reload();
                         } else if (result.isWebOTPEnabled) {
 
