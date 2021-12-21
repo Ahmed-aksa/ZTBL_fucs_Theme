@@ -7,7 +7,10 @@ import {
   ApexTheme,
   ApexTitleSubtitle,
   ChartComponent
+  
 } from "ng-apexcharts";
+import { NgxSpinnerService } from 'ngx-spinner';
+import { finalize } from 'rxjs/operators';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -16,7 +19,7 @@ export type ChartOptions = {
   labels: any;
   theme: ApexTheme;
   title: ApexTitleSubtitle;
-};  
+};
 @Component({
   selector: 'app-mco-dashborad',
   templateUrl: './mco-dashborad.component.html',
@@ -28,23 +31,40 @@ export class McoDashboradComponent implements OnInit {
   public chartOptions1: Partial<ChartOptions>;
   public chartOptions2: Partial<ChartOptions>;
   public chartOptions3: Partial<ChartOptions>;
-  
-  constructor( private _dashboardService :DashboardService) {
-    
+  DisbursmentAchievement:any=[];
+  RecoveryAchievement:any=[];
+  UtilizationMutation:any=[];
+  constructor(private _dashboardService: DashboardService, private spinner:NgxSpinnerService) {
+  }
+
+  ngOnInit(): void {
+    this.spinner.show();
+    this._dashboardService.getMcoDashboardDate().pipe(finalize(()=>{this.spinner.hide()})).subscribe(result => {
+      debugger;
+
+     this.DisbursmentAchievement=Object.entries(result.DashboardReport.DisbursmentAchievement);
+     this.RecoveryAchievement=Object.entries(result.DashboardReport.RecoveryAchievement);
+     this.UtilizationMutation=Object.entries(result.DashboardReport.UtilizationMutation);
+
+
+      this.PerformanceIndicators(result?.DashboardReport?.PerformanceIndicator);
+      this.LoanPorfolio(result?.DashboardReport?.LoanPorfolio)
+      this.LoanPorfolio2(result?.DashboardReport?.LoanPorfolio2)
+    });
+  }
+  PerformanceIndicators(PerformanceIndicator: any) {
+    var obj = [];
+    (Object.values(PerformanceIndicator)).forEach(x => {
+      obj.push(Number(x));
+
+    })
     this.chartOptions1 = {
-      series: [25, 15, 44, 55, 41, 17],
+      series: obj, //Object.values(PerformanceIndicator),
       chart: {
         width: "100%",
         type: "pie"
       },
-      labels: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
+      labels: Object.keys(PerformanceIndicator),
       theme: {
         monochrome: {
           enabled: false
@@ -67,23 +87,20 @@ export class McoDashboradComponent implements OnInit {
         }
       ]
     };
+  }
+  LoanPorfolio(LoanPorfolio: any) {
+    var obj = [];
+    (Object.values(LoanPorfolio)).forEach(x => {
+      obj.push(Number(x));
 
-
-
+    })
     this.chartOptions2 = {
-      series: [25, 15, 44, 55, 41, 17],
+      series: obj,
       chart: {
         width: "100%",
         type: "pie"
       },
-      labels: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
+      labels: Object.keys(LoanPorfolio),
       theme: {
         monochrome: {
           enabled: true
@@ -106,23 +123,20 @@ export class McoDashboradComponent implements OnInit {
         }
       ]
     };
+  }
+  LoanPorfolio2(LoanPorfolio2:any){
+    var obj = [];
+    (Object.values(LoanPorfolio2)).forEach(x => {
+      obj.push(Number(x));
 
-
-
-     this.chartOptions3 = {
-      series: [25, 15, 44, 55, 41, 17],
+    })
+    this.chartOptions3 = {
+      series: obj,
       chart: {
         width: "100%",
         type: "pie"
       },
-      labels: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
+      labels: Object.keys(LoanPorfolio2),
       theme: {
         monochrome: {
           enabled: false
@@ -145,12 +159,6 @@ export class McoDashboradComponent implements OnInit {
         }
       ]
     };
-  }
-
-  ngOnInit(): void {
-    this._dashboardService.getMcoDashboardDate().subscribe(result=>{
-      debugger;
-    });
   }
 
 }

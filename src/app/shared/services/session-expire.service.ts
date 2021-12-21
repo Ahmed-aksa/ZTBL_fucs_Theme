@@ -47,7 +47,7 @@ export class SessionExpireService {
         console.log("finished");
         clearInterval(this.timer1);
       }
-    }, seconds);
+    }, 1000);
   }
   
   timerUnSubject(){
