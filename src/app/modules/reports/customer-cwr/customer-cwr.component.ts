@@ -114,12 +114,7 @@ export class CustomerCwrComponent implements OnInit, AfterViewInit {
                 }
             })
     }
-
-    getAllData(data) {
-        this.zone = data.final_zone;
-        this.branch = data.final_branch;
-        this.circle = data.final_circle
-    }
+    
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
         this.itemsPerPage = pageSize;

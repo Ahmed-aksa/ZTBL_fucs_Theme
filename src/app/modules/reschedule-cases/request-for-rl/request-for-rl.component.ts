@@ -338,7 +338,8 @@ export class RequestForRlComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    window.location.reload();
+                    // window.location.reload();
+                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',

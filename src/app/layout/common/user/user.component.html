@@ -25,10 +25,10 @@
     [xPosition]="'before'"
     #userActions="matMenu" 
     class="shadow">
-    <button mat-menu-item>
-        <span class="flex flex-col leading-none py-2 ">
-            <span class=" text-md font-bold text-green">{{user?.DisplayName}}</span>
-             <span class=" mt-1.5 text-sm">PPNo. :{{user?.UserName}}</span>
+    <button mat-menu-item class="p-0 bg-green">
+        <span class="flex flex-col leading-none p-2 px-4">
+            <span class=" text-md font-bold text-white">{{user?.DisplayName}}</span>
+             <span class=" mt-1.5 text-sm text-white">PPNo. :{{user?.UserName}}</span>
             <!--            <span class="mt-1.5 text-md font-medium">Branch Name :{{user?.BranchName}}</span>-->
         </span>
     </button>
@@ -54,8 +54,8 @@
         <span class=" text-base">Change Password</span>
 
     </button>
-    <button
-        mat-menu-item
+    <button class="border-t"
+        mat-menu-item 
         (click)="signOut()">
         <mat-icon  class="text-green text-lg">logout</mat-icon>
         <span  class=" text-base">Sign out</span>
