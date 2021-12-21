@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BaseRequestModel } from '../models/base_request.model';
-import { BaseResponseModel } from '../models/base_response.model';
-import { HttpUtilsService } from './http_utils.service';
-import { UserUtilsService } from './users_utils.service';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from 'environments/environment';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {BaseRequestModel} from '../models/base_request.model';
+import {BaseResponseModel} from '../models/base_response.model';
+import {HttpUtilsService} from './http_utils.service';
+import {UserUtilsService} from './users_utils.service';
 
 @Injectable({providedIn: 'root'})
 export class DashboardService {
@@ -18,17 +18,18 @@ export class DashboardService {
         private userUtilsService: UserUtilsService
     ) {
     }
-getMcoDashboardDate() : Observable<any> {
-    this.request = new BaseRequestModel();
-    var userInfo = this.userUtilsService.getUserDetails();
-    this.request.User = userInfo.User;
-    return this.http
-    .post(
-        `${environment.apiUrl}/Dashboard/GetDashboardReport`,
-        this.request,
-        {headers: this.httpUtils.getHTTPHeaders()}
-    )
-    .pipe(map((res: any) => res));
-}
-    
+
+    getDashboardData(): Observable<any> {
+        this.request = new BaseRequestModel();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        this.request.User = userInfo.User;
+        return this.http
+            .post(
+                `${environment.apiUrl}/Dashboard/GetDashboardReport`,
+                this.request,
+                {headers: this.httpUtils.getHTTPHeaders()}
+            )
+            .pipe(map((res: any) => res));
+    }
+
 }
