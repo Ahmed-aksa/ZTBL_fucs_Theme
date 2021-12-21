@@ -1,45 +1,48 @@
 <div
     class=" px-10   sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
 
-    <mat-tab-group class="pt-4 flex flex-auto  shadow-xs rounded-sm"
-                   style="flex-direction: column; overflow-y: scroll" animationDuration="200ms"
-                   style="background-color: white;">
+    <mat-tab-group class="pt-4 flex flex-auto  shadow-xs rounded-sm" style="flex-direction: column; overflow-y: scroll"
+        animationDuration="200ms" style="background-color: white;">
+        <ng-container *ngFor="let item of userGroup">
 
-        <mat-tab ng-disable="visibleFlag" label="MCO">
-            <app-mco-dashborad></app-mco-dashborad>
-        </mat-tab>
+            <mat-tab *ngIf="item.ProfileID=='56'" ng-disable="visibleFlag" label="MCO">
+                <app-mco-dashborad></app-mco-dashborad>
+            </mat-tab>
 
-        <mat-tab label="Recovery Officer">
-            <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
-        </mat-tab>
+            <mat-tab  *ngIf="item.ProfileID=='69'" label="Recovery Officer">
+                <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
+            </mat-tab>
 
-        <mat-tab label="Branch Manager">
-            <app-branch-manager-dashboard></app-branch-manager-dashboard>
-        </mat-tab>
+            <mat-tab label="Branch Manager">
+                <app-branch-manager-dashboard></app-branch-manager-dashboard>
+            </mat-tab>
 
-        <mat-tab label="Zonal Chiet">
-            <app-zonal-chief-dashboard></app-zonal-chief-dashboard>
-        </mat-tab>
+            <mat-tab label="Zonal Chiet">
+                <app-zonal-chief-dashboard></app-zonal-chief-dashboard>
+            </mat-tab>
 
-        <mat-tab label="EVP (Operations Division)">
-            <app-evp-od-dashboard></app-evp-od-dashboard>
-        </mat-tab>
+            <mat-tab label="EVP (Operations Division)">
+                <app-evp-od-dashboard></app-evp-od-dashboard>
+            </mat-tab>
 
-        <mat-tab label="EVP (Credit Division)">
-            <app-evp-credit-dashboard></app-evp-credit-dashboard>
-        </mat-tab>
+            <mat-tab label="EVP (Credit Division)">
+                <app-evp-credit-dashboard></app-evp-credit-dashboard>
+            </mat-tab>
 
-        <mat-tab label="EVP (Recovery & SAM Division)">
-            <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
-        </mat-tab>
+            <mat-tab label="EVP (Recovery & SAM Division)">
+                <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
+            </mat-tab>
 
-        <mat-tab label="Resourccs Aveilable">
-            <app-recovery-available></app-recovery-available>
-        </mat-tab>
-        <mat-tab label="President ZTBL">
-            <app-president-ztbl></app-president-ztbl>
-        </mat-tab>
-        <mat-tab label="Regional Chief"> <app-regional-cheif></app-regional-cheif></mat-tab>
+            <mat-tab label="Resourccs Aveilable">
+                <app-recovery-available></app-recovery-available>
+            </mat-tab>
+            <mat-tab label="President ZTBL">
+                <app-president-ztbl></app-president-ztbl>
+            </mat-tab>
+            <mat-tab label="Regional Chief">
+                <app-regional-cheif></app-regional-cheif>
+            </mat-tab>
+        </ng-container>
     </mat-tab-group>
 
 
@@ -54,14 +57,14 @@
             <div class="row text-right">
                 <div class="col-lg-12">
                     <button type="button" (click)="RefreshToken()" class="btn btn-primary bg-green" mat-raised-button
-                            color="primary">
+                        color="primary">
                         <mat-icon class="mr-2">refresh</mat-icon>
                         Refresh
                     </button>
 
                     &nbsp;
                     <button type="button" (click)="Logout()" class="btn btn-primary bg-red-500" mat-raised-button
-                            color="primary">
+                        color="primary">
                         <mat-icon class="mr-2">login</mat-icon>
                         Logout
                     </button>

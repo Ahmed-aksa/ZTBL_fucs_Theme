@@ -1,1 +1,182 @@
-<p>customer-cwr works!</p>
+<div
+    class="
+        px-10
+        sm:absolute sm:inset-0
+        flex flex-col flex-auto
+        min-w-0
+        sm:overflow-scroll
+        bg-card
+        dark:bg-transparent
+    "
+>
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Customer CWR</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="mt-1 py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <mat-icon class="mr-2 up">keyboard_arrow_up</mat-icon>
+                    <mat-icon class="mr-2 down">keyboard_arrow_down</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Header -->
+
+    <div class="collapse show" id="collapseExample">
+        <div class="card card-body">
+            <div class="py-1" [formGroup]="searchCnicForm">
+                <div class="flex" style="flex-wrap: wrap;">
+
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">CNIC</mat-label>
+                                <input matInput placeholder="Enter CNIC" formControlName="Cnic"
+                                       appNumberOnly  autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">LA File/Booklet #</mat-label>
+                                <input matInput placeholder="Enter LA File/ Booklet Number" formControlName="LAFile"
+                                       appNumberOnly  autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">LC #</mat-label>
+                                <input matInput placeholder="Enter Loan Case Number" formControlName="LcNO"
+                                       appNumberOnly  autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <button class="mt-2 bg-gray-500 "
+                                    mat-raised-button color="primary" (click)="find()">
+                                <mat-icon class="mr-2">search</mat-icon>
+                                Find
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <!-- Header -->
+    <div>
+        <!-- <div
+            class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
+        </div> -->
+
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " >
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                class="lmat-elevation-z8 overflow-scroll"
+                [style.height]="gridHeight"
+                #table
+                [dataSource]="
+                    dataSource
+                "
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+            >
+                <ng-container matColumnDef="Cnic">
+                    <mat-header-cell *matHeaderCellDef
+                    >Cnic
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Cnic
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Credit">
+                    <mat-header-cell *matHeaderCellDef
+                    >Credit Limit
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.CreditLimit
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Mortage">
+                    <mat-header-cell *matHeaderCellDef
+                    >Mortage Property
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.MortageProperty
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Mutation">
+                    <mat-header-cell *matHeaderCellDef
+                    >Mutation Number
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.MutationNo
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Date">
+                    <mat-header-cell *matHeaderCellDef
+                    >Sanction Date
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.ScanctionDate
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Occupation">
+                    <mat-header-cell *matHeaderCellDef
+                    >Occupation
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Occuptaion
+                        }}</mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    class="table-header-background"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+            </mat-table>
+
+            <div class="mat-table__message" *ngIf="loading">
+                Please wait....
+            </div>
+
+
+        </div>
+    </div>
