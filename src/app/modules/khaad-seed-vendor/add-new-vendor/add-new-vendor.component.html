@@ -81,7 +81,7 @@
 
 
             <div class="mx-2">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                <div *ngIf="showPreview" class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                     <div *ngFor="let url of images">
                         <div *ngIf="url.FilePath!=null || url.FilePath!=''">

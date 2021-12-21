@@ -116,7 +116,6 @@ export class ZoneBranchCircleComponent implements OnInit {
 
 
         }
-
         if (localStorage.getItem('selected_single_zone')) {
             this.spinner.show();
 
@@ -131,11 +130,11 @@ export class ZoneBranchCircleComponent implements OnInit {
                 localStorage.removeItem('selected_single_circle');
                 this.spinner.hide();
             }
-            if (!this.selected_single_zone) {
+            if (this.selected_single_zone) {
                 this.userUtilsService.getZone().subscribe((data: any) => {
                     this.SelectedZones = data.Zones;
                     this.single_zone = false;
-
+                    debugger;
                     this.selected_z = this.selected_single_zone;
                     if (this.selected_single_branch) {
                         this.changeZone(this.selected_single_zone, false, true);
@@ -205,11 +204,14 @@ export class ZoneBranchCircleComponent implements OnInit {
         } else {
             changedZone = {Zone: {ZoneId: changedValue}}
         }
+        debugger;
 
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.SelectedBranches = data.Branches;
             this.single_branch = false;
             if (has_single_branch) {
+                debugger;
+
                 this.selected_b = this.selected_single_branch;
                 if (this.selected_single_circle) {
                     this.changeBranch(this.selected_b, false, true)
