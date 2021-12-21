@@ -32,6 +32,7 @@ import {KhaadSeedVendor} from '../class/khaad-seed-vendor';
 import {VendorDetail} from '../class/vendor-detail';
 import {KhaadSeedVendorService} from '../service/khaad-seed-vendor.service';
 import {AddressLocationComponent} from './address-location/address-location.component';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-add-new-vendor',
@@ -96,6 +97,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
         private spinner: NgxSpinnerService,
         private userUtilsService: UserUtilsService,
         private router: Router,
+        private toastr: ToastrService,
         private activatedRoute: ActivatedRoute,
         private cdRef: ChangeDetectorRef,
     ) {
@@ -337,6 +339,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
+            this.toastr.error("Please Enter Required/Valid values");
             this.hasFormErrors = true;
             return;
         }
