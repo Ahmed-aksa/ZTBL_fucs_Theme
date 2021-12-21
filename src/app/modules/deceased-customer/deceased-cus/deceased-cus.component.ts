@@ -29,6 +29,7 @@ import {CommonService} from '../../../shared/services/common.service';
 import {finalize} from 'rxjs/operators';
 import {ViewFileComponent} from "../view-file/view-file.component";
 import {CircleService} from "../../../shared/services/circle.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-deceased-cus',
@@ -143,6 +144,7 @@ export class DeceasedCusComponent implements OnInit {
         private _deceasedCustomer: DeceasedCustomerService,
         private dialog: MatDialog,
         private route: ActivatedRoute,
+        private toastr: ToastrService,
         private _common: CommonService,
         private datePipe: DatePipe,
     ) {
@@ -394,12 +396,12 @@ export class DeceasedCusComponent implements OnInit {
     // }
 
     onChang(e) {
-
+        debugger
         if (e == false) {
-            this.myModel = true
+            this.myModel = false
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
         } else {
-            this.myModel = false
+            this.myModel = true
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
         }
 
@@ -580,15 +582,15 @@ export class DeceasedCusComponent implements OnInit {
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
-
+            this.toastr.error("Please Enter Required/Valid values");
             this.hasFormErrors = true;
             return;
         }
 
-        if (this.customerForm.controls["IsNadraCertificateVerified"].value == "true") {
-            this.customerForm.controls["IsNadraCertificateVerified"].setValue("N");
-        } else {
+        if (this.myModel == true) {
             this.customerForm.controls["IsNadraCertificateVerified"].setValue("Y");
+        } else {
+            this.customerForm.controls["IsNadraCertificateVerified"].setValue("N");
         }
 
         if (this.DeceasedCustomerInf.Status == "4") {
