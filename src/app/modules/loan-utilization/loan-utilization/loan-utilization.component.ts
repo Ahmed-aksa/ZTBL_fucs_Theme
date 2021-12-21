@@ -422,16 +422,9 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     changeStatus(status: string) {
+        debugger
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks.value;
-        if (this.loanUtilizationModel.Remarks == '') {
-            var msg = 'Please Enter Remarks before submitting';
-            this.layoutUtilsService.alertElement(
-                '',
-                msg,
-                ''
-            );
-            return;
-        }
+
 
         if (status == 'S' && (this.loanUtilizationModel.ID == undefined || this.loanUtilizationModel.ID == null)) {
             var msg = 'Please save before submitting';
@@ -443,23 +436,37 @@ export class LoanUtilizationComponent implements OnInit {
             return;
         }
 
-        if (status && !(this.imageUrl.length > 0)) {
-            var msg = 'Please Attach image';
-            this.layoutUtilsService.alertElement(
-                '',
-                msg,
-                ''
-            );
-            return;
-        }
-        if (status && !(this.videoUrl.length > 0)) {
-            var msg = 'Please Attach video';
-            this.layoutUtilsService.alertElement(
-                '',
-                msg,
-                ''
-            );
-            return;
+        if(status!='C'){
+
+
+            if (status && !(this.imageUrl.length > 0)) {
+                var msg = 'Please Attach image';
+                this.layoutUtilsService.alertElement(
+                    '',
+                    msg,
+                    ''
+                );
+                return;
+            }
+            if (status && !(this.videoUrl.length > 0)) {
+                var msg = 'Please Attach video';
+                this.layoutUtilsService.alertElement(
+                    '',
+                    msg,
+                    ''
+                );
+                return;
+            }
+
+            if (this.loanUtilizationModel.Remarks == '') {
+                var msg = 'Please Enter Remarks before submitting';
+                this.layoutUtilsService.alertElement(
+                    '',
+                    msg,
+                    ''
+                );
+                return;
+            }
         }
 
 
