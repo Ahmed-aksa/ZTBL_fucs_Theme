@@ -328,7 +328,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     getAllValues() {
-        
+
         this.OffSet = 0;
         this.itemsPerPage = 10;
         this.todate = null;
@@ -343,7 +343,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
 
 
     searchloanutilization(is_first = false) {
-        
+
         if (is_first) {
             this.OffSet = 0;
         }
@@ -489,9 +489,12 @@ export class SearchLoanUtilizationComponent implements OnInit {
         localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
         localStorage.setItem('selected_single_branch', JSON.stringify(utilization.BranchCode));
         localStorage.setItem('selected_single_circle', JSON.stringify(utilization.CircleId));
+
         utilization.Status = "Add";
+        localStorage.removeItem('utilization')
+        localStorage.setItem('utilization', JSON.stringify(utilization));
         this.router.navigate(['../loan-uti'], {
-            state: {example: utilization},
+            // state: {example: utilization},
             relativeTo: this.activatedRoute
         });
     }
