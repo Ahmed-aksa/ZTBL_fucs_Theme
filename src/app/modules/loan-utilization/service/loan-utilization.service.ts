@@ -151,13 +151,13 @@ export class LoanUtilizationService {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
-        this.request.DEVICELOCATION = {
-            BTSID: "0",
-            BTSLOC: "",
-            LAT: "33.65898",
-            LONG: "73.057665",
-            SRC: "GPS"
-        },
+        // this.request.DEVICELOCATION = {
+        //     BTSID: "0",
+        //     BTSLOC: "",
+        //     LAT: "33.65898",
+        //     LONG: "73.057665",
+        //     SRC: "GPS"
+        // },
             this.request.LoanUtilization = {"UtilizationDetail": value}
         this.request.TranId = 2830;
         this.request.doPerformOTP = false;
