@@ -19,10 +19,13 @@ export class DashboardService {
     ) {
     }
 
-    getDashboardData(): Observable<any> {
+    getDashboardData(profile_id): Observable<any> {
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
+        this.request.Profile={
+            ProfileId:profile_id
+        }
         return this.http
             .post(
                 `${environment.apiUrl}/Dashboard/GetDashboardReport`,

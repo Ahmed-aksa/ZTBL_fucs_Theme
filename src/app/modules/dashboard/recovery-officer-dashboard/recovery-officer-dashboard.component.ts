@@ -72,15 +72,10 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
     }
 
     assignRoleData(DashboardReport: any) {
-        // this.recoveryAchievment = DashboardReport?.RecoveryAchievement;
-        // this.creditCeiling = DashboardReport?.CreditCeiling;
-        // this.circlePositions = DashboardReport?.CirclePositions;
-        this.recoveryAchievment = Object.entries(DashboardReport.RecoveryAchievement);
-        this.circlePositions = Object.entries(DashboardReport.CirclePositions);
-
-
+      if(!DashboardReport?.RecoveryAchievement){return}
+        this.recoveryAchievment = Object.entries(DashboardReport?.RecoveryAchievement);
+        this.circlePositions = DashboardReport.CirclePositions;
         var obj = [];
-        debugger;
         (Object.values(DashboardReport?.LoanPorfolio)).forEach(x => {
             obj.push(Number(x));
 

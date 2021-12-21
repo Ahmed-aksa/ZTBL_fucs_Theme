@@ -155,11 +155,11 @@ export class McoDashboradComponent implements OnInit {
     }
 
     assignRoleData(DashboardReport: any) {
-        this.DisbursmentAchievement = Object.entries(DashboardReport.DisbursmentAchievement);
-        this.RecoveryAchievement = Object.entries(DashboardReport.RecoveryAchievement);
-        this.UtilizationMutation = Object.entries(DashboardReport.UtilizationMutation);
+        // this.DisbursmentAchievement = Object.entries(DashboardReport.DisbursmentAchievement);
+        // this.RecoveryAchievement = Object.entries(DashboardReport.RecoveryAchievement);
+        // this.UtilizationMutation = Object.entries(DashboardReport.UtilizationMutation);
 
-
+        
         this.PerformanceIndicators(DashboardReport.PerformanceIndicator);
         this.LoanPorfolio(DashboardReport.LoanPorfolio)
         this.LoanPorfolio2(DashboardReport.LoanPorfolio2)

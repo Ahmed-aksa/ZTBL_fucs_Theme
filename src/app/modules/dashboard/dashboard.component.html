@@ -8,16 +8,15 @@
             <mat-tab *ngIf="item.ProfileID=='56'" ng-disable="visibleFlag" label="MCO">
                 <app-mco-dashborad></app-mco-dashborad>
             </mat-tab>
-
             <mat-tab *ngIf="item.ProfileID=='206'" label="Recovery Officer">
                 <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
             </mat-tab>
 
-            <mat-tab label="Branch Manager">
+            <mat-tab *ngIf="item.ProfileID =='57'"  label="Branch Manager">
                 <app-branch-manager-dashboard></app-branch-manager-dashboard>
             </mat-tab>
 
-            <mat-tab label="Zonal Chiet">
+            <mat-tab *ngIf="item.ProfileID =='75'"  label="Zonal Chief">
                 <app-zonal-chief-dashboard></app-zonal-chief-dashboard>
             </mat-tab>
 

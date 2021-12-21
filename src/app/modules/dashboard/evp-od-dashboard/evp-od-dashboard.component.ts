@@ -87,8 +87,7 @@ export class EvpOdDashboardComponent implements OnInit {
         var obj = [];
         (Object.values(PerformanceIndicator)).forEach(x => {
             obj.push(Number(x));
-
-        })
+        });
         this.chartOptions = {
             series: obj, //Object.values(PerformanceIndicator),
             chart: {

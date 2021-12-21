@@ -16,6 +16,9 @@ import {ClPurposeComponent} from "../loan/cl-purpose/cl-purpose.component";
 import {ClLoanWitnessComponent} from "../loan/cl-loan-witness/cl-loan-witness.component";
 import {McoDashboradComponent} from "./mco-dashborad/mco-dashborad.component";
 import {RecoveryOfficerDashboardComponent} from "./recovery-officer-dashboard/recovery-officer-dashboard.component";
+import { BranchManagerDashboardComponent } from './branch-manager-dashboard/branch-manager-dashboard.component';
+import { ZonalChiefDashboardComponent } from './zonal-chief-dashboard/zonal-chief-dashboard.component';
+import { EvpCreditDashboardComponent } from './evp-credit-dashboard/evp-credit-dashboard.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -27,6 +30,9 @@ export class DashboardComponent implements OnInit {
 
     @ViewChild(McoDashboradComponent, {static: false}) mcoDashboardComponent: McoDashboradComponent;
     @ViewChild(RecoveryOfficerDashboardComponent, {static: false}) recoveryOfficerDashboardComponent: RecoveryOfficerDashboardComponent;
+    @ViewChild(BranchManagerDashboardComponent, {static: false}) branchManagerDashboardComponent: BranchManagerDashboardComponent;
+    @ViewChild(ZonalChiefDashboardComponent, {static: false}) zonalChiefDashboardComponent: ZonalChiefDashboardComponent;
+    @ViewChild(EvpCreditDashboardComponent, {static: false}) evpCreditDashboardComponent: EvpCreditDashboardComponent;
     popup: any = false;
     time: any
     sessionTime: any;
@@ -48,7 +54,7 @@ export class DashboardComponent implements OnInit {
         this._sessionExpireService.count.subscribe(c => {
             if (c == 0) {
                 this.Logout();
-                return;
+                return;3
             }
             if (c < 60) {
                 this.popup = true;
@@ -57,12 +63,24 @@ export class DashboardComponent implements OnInit {
 
             this.time = c.toString();
         });
-        this._dashboardService.getDashboardData().pipe(finalize(() => {
-            this.spinner.hide()
-        })).subscribe(result => {
-            this.mcoDashboardComponent?.assignRoleData(result.DashboardReport);
-            this.recoveryOfficerDashboardComponent.assignRoleData(result.DashboardReport);
-        });
+
+        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
+        this.userGroup.forEach((single_group)=>{
+
+            this._dashboardService.getDashboardData(single_group.ProfileID).pipe(finalize(() => {
+                this.spinner.hide()
+            })).subscribe(result => {
+
+                if(result.Code!="-1"){
+                this.mcoDashboardComponent?.assignRoleData(result.DashboardReport);
+                this.recoveryOfficerDashboardComponent?.assignRoleData(result.DashboardReport);
+                this.branchManagerDashboardComponent?.assignRoleData(result.DashboardReport);
+                this.zonalChiefDashboardComponent?.assignRoleData(result.DashboardReport);
+                this.evpCreditDashboardComponent?.assignRoleData(result.DashboardReport);
+                }
+            });
+        })
+
 
     }
 
