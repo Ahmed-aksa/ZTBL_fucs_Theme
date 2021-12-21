@@ -23,8 +23,8 @@
             <div class="kt-form">
                 <div class="kt-portlet__body">
                     <div class="row">
-                        <div  [class]="!accountDetailFetched?'col-lg-12':'col-lg-8'">
-                        <div class="flex pl-2 pt-1" style="flex-wrap: wrap;">
+                        <div  [class]="!accountDetailFetched?'col-lg-12 p-0':'col-lg-8 p-0'">
+                        <div class="flex pl-2 pt-1" style="flex-wrap: wrap;" id="pagelist">
 
                             <app-zone-branch-circle [form]="RecoveryForm" [should_show_circle]="false"
                                                     (branchZoneCircleData)="getAllData($event)"

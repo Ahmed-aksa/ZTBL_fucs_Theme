@@ -5,6 +5,7 @@ import { MatSort } from "@angular/material/sort";
 import { SessionExpireService } from 'app/shared/services/session-expire.service';
 import { Router } from '@angular/router';
 import { ThrowStmt } from '@angular/compiler';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-dashboard',
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit {
     sessionTime: any;
     userGroup:any=[];
 
-    constructor(private _sessionExpireService: SessionExpireService, private _router: Router) {
+    constructor(private _sessionExpireService: SessionExpireService, private _router: Router, private spinner:NgxSpinnerService) {
+    this.spinner.show();
     }
 
     dataSource = new MatTableDataSource();
@@ -50,7 +52,9 @@ export class DashboardComponent implements OnInit {
     }
 
     RefreshToken() {
-        this.hidePopup();
+        this.setSessionTime();
+        this.popup = false;
+        //this.hidePopup();
     }
 
     Logout() {
@@ -72,7 +76,6 @@ export class DashboardComponent implements OnInit {
     @HostListener('window:mousedown')
    // @HostListener('mousemove')
     checkUserActivity() {
-        debugger;
         this.setSessionTime();
     }
 
