@@ -377,9 +377,10 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
 
 
     editloanutilization(utilization: any) {
-
+        localStorage.removeItem('utilization')
+        localStorage.setItem('utilization', JSON.stringify(utilization));
         this.router.navigate(['/loan-utilization/loan-uti'], {
-            state: {example: utilization},
+            // state: {example: utilization},
             relativeTo: this.activatedRoute
         });
     }
@@ -387,8 +388,11 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
 
     viewloanutilization(utilization: any) {
         utilization.view = '1';
+        localStorage.removeItem('utilization')
+        localStorage.setItem('utilization', JSON.stringify(utilization));
+
         this.router.navigate(['/loan-utilization/loan-uti'], {
-            state: {example: utilization},
+            // state: {example: utilization},
             relativeTo: this.activatedRoute
         });
     }
