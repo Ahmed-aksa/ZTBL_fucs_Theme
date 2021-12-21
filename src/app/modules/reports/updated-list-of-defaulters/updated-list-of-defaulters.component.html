@@ -61,12 +61,12 @@
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
         </div> -->
 
-        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " >
             <!--[style.height]="gridHeight"-->
             <mat-table
                 class="lmat-elevation-z8 overflow-scroll"
                 #table
-                [style.height]="gridHeight"
+
                 [dataSource]="
                     dataSource
                 "
@@ -75,6 +75,7 @@
                 matSortActive="id"
                 matSortDirection="asc"
                 matSortDisableClear
+                id="map_canvas"
             >
                 <ng-container matColumnDef="Zone">
                     <mat-header-cell *matHeaderCellDef
