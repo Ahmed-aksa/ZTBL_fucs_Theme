@@ -23,15 +23,16 @@
 
 <mat-menu
     [xPosition]="'before'"
-    #userActions="matMenu">
+    #userActions="matMenu" 
+    class="shadow">
     <button mat-menu-item>
         <span class="flex flex-col leading-none ">
-            <span class="mt-1.5 text-md font-medium">Name :{{user?.DisplayName}}</span>
-             <span class="mt-1.5 text-md font-medium">PPNo. :{{user?.UserName}}</span>
+            <span class="mt-1.5 text-md font-bold text-green">{{user?.DisplayName}}</span>
+             <span class="mt-1.5 text-sm">PPNo. :{{user?.UserName}}</span>
             <!--            <span class="mt-1.5 text-md font-medium">Branch Name :{{user?.BranchName}}</span>-->
         </span>
     </button>
-    <mat-divider class="my-2"></mat-divider>
+    <mat-divider class="mt-2 mb-0"></mat-divider>
     <!--    <button mat-menu-item>-->
     <!--        <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>-->
     <!--        <span>Profile</span>-->
@@ -49,15 +50,15 @@
     <!--    <mat-divider class="my-2"></mat-divider>-->
     <button
         mat-menu-item (click)="changePassword()">
-        <mat-icon>vpn_key</mat-icon>
-        <span>Change Password</span>
+        <mat-icon class="text-green text-lg">vpn_key</mat-icon>
+        <span class=" text-base">Change Password</span>
 
     </button>
     <button
         mat-menu-item
         (click)="signOut()">
-        <mat-icon>logout</mat-icon>
-        <span>Sign out</span>
+        <mat-icon  class="text-green text-lg">logout</mat-icon>
+        <span  class=" text-base">Sign out</span>
     </button>
 
 </mat-menu>

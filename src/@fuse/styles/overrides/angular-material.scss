@@ -1145,8 +1145,15 @@
 /* ----------------------------------------------------------------------------------------------------- */
 .mat-menu-panel {
     min-width: 144px !important;
+    .mat-menu-content:not(:empty) {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
 
     .mat-menu-content {
+
+        border: 1px solid #e2e8f0;;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; 
 
         .mat-menu-item {
             display: flex;
@@ -1157,7 +1164,7 @@
             }
 
             .mat-icon {
-                margin-right: 12px;
+                margin-right: 6px;
             }
         }
 
