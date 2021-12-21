@@ -66,6 +66,7 @@ export class GeofencingEditComponent implements OnInit {
     selectedArea = 0;
     fenceMarkers = [];
     multiPolygonArray = [];
+    intersectedCircleCode = null
     allPolygons = [];
     googleMap: any;
     createColor = "#0f298f";
@@ -295,7 +296,7 @@ export class GeofencingEditComponent implements OnInit {
                     var lat: number = +o.lat
                     var lng: number = +o.lng
                 }
-            });    
+            });
             this.NewFancPoints = this.NewFancPoints + '' + (this.pointList[0].lat.toString() + ',' + this.pointList[0].lng);
             this.circle.GeoFancPoints = this.NewFancPoints;
 
@@ -369,6 +370,7 @@ export class GeofencingEditComponent implements OnInit {
 
     checkForOverlapping(createdPolygon): Boolean {
 
+        this.intersectedCircleCode = ""
         var newPolygon = polygon([
             createdPolygon
         ])
@@ -403,6 +405,7 @@ export class GeofencingEditComponent implements OnInit {
                 });
 
                 this.drawPolygonOnMap(polygon2, "#FF0000")
+                this.intersectedCircleCode = this.multiPolygonArray[i].circleCode
             }
 
             return intersection.length > 0
@@ -491,7 +494,7 @@ export class GeofencingEditComponent implements OnInit {
             this.request.Zone = this.data.zone;
             this.request.Branch = this.data.branch;
             this.submitted = true;
-            
+
             this.Spinner.show()
 
             if (this.OldFancPoints.length > 0) {
@@ -536,7 +539,7 @@ export class GeofencingEditComponent implements OnInit {
                     });
             }
         } else {
-            this.layoutUtilsService.alertElement("", "Fence of this Circle can not be created because it is overlaping with the fence of another Circle", "Fence Ovelapped");
+            this.layoutUtilsService.alertElement("", "Fence of this Circle can not be created because it is overlapping with the fence of " + this.intersectedCircleCode+ " Circle", "Fence Overlapped");
         }
 
     }
