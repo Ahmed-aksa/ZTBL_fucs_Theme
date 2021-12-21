@@ -1,14 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {
+    ApexChart,
     ApexNonAxisChartSeries,
     ApexResponsive,
-    ApexChart,
     ApexTheme,
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
-
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -20,23 +18,17 @@ export type ChartOptions = {
 };
 
 @Component({
-    selector: 'app-zonal-chief-dashboard',
-    templateUrl: './zonal-chief-dashboard.component.html',
-    styleUrls: ['./zonal-chief-dashboard.component.scss']
+    selector: 'app-recovery-available',
+    templateUrl: './recovery-available.component.html',
+    styleUrls: ['./recovery-available.component.scss']
 })
-export class ZonalChiefDashboardComponent implements OnInit {
+export class RecoveryAvailableComponent implements OnInit {
 
-    @ViewChild("chart-zonal") chart: ChartComponent;
+    @ViewChild("chart") chart: ChartComponent;
     public chartOptions: Partial<ChartOptions>;
-    options: FormGroup;
-    hideRequiredControl = new FormControl(false);
-    floatLabelControl = new FormControl('auto');
 
-    constructor(fb: FormBuilder) {
-        this.options = fb.group({
-            hideRequired: this.hideRequiredControl,
-            floatLabel: this.floatLabelControl,
-        });
+
+    constructor() {
         this.chartOptions = {
             series: [25, 15, 44, 55, 41, 17],
             chart: {

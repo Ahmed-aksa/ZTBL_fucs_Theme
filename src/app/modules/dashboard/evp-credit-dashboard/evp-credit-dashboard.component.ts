@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {
+    ApexChart,
     ApexNonAxisChartSeries,
     ApexResponsive,
-    ApexChart,
     ApexTheme,
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
-
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -20,13 +19,15 @@ export type ChartOptions = {
 };
 
 @Component({
-    selector: 'app-zonal-chief-dashboard',
-    templateUrl: './zonal-chief-dashboard.component.html',
-    styleUrls: ['./zonal-chief-dashboard.component.scss']
+    selector: 'app-evp-credit-dashboard',
+    templateUrl: './evp-credit-dashboard.component.html',
+    styleUrls: ['./evp-credit-dashboard.component.scss']
 })
-export class ZonalChiefDashboardComponent implements OnInit {
 
-    @ViewChild("chart-zonal") chart: ChartComponent;
+
+export class EvpCreditDashboardComponent implements OnInit {
+
+    @ViewChild("chart") chart: ChartComponent;
     public chartOptions: Partial<ChartOptions>;
     options: FormGroup;
     hideRequiredControl = new FormControl(false);
@@ -77,5 +78,4 @@ export class ZonalChiefDashboardComponent implements OnInit {
 
     ngOnInit(): void {
     }
-
 }
