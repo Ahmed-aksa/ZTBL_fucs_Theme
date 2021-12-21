@@ -382,6 +382,7 @@ export class LoanUtilizationComponent implements OnInit {
             this.images.splice(val, 1);
             this.imageUrl.splice(val, 1);
         }
+        this.ifResetRequired()
     }
 
     removeVideo(url, val: number) {
@@ -392,6 +393,7 @@ export class LoanUtilizationComponent implements OnInit {
             this.videos.splice(val, 1);
             this.videoUrl.splice(val, 1);
         }
+        this.ifResetRequiredV()
     }
 
     getDuration(e, i) {
@@ -764,6 +766,7 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     viewMap(i, is_video) {
+        debugger
         let data = null;
         if (is_video) {
             data = {
@@ -776,6 +779,7 @@ export class LoanUtilizationComponent implements OnInit {
                 Lng: this.Lng[i]
             };
         }
+
         const dialogRef = this.dialog.open(ViewMapsComponent, {
             panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',

@@ -1186,7 +1186,8 @@ export class CustomerProfileComponent implements OnInit {
     viewHistory() {
         localStorage.setItem('CustomerNumber', this.createCustomer.CustomerNumber);
         // this.router.navigate(['/customer/customer-history'])
-        const url = this.router.serializeUrl(this.router.createUrlTree(['/customer/customer-history'], {queryParams: {}}));
+        let url = this.router.serializeUrl(this.router.createUrlTree(['/customer/customer-history'], {queryParams: {}}));
+        url = '#' + url;
         window.open(url, '_blank');
     }
 
