@@ -1,17 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {
+    ApexChart,
     ApexNonAxisChartSeries,
     ApexResponsive,
-    ApexChart,
     ApexTheme,
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
-import {finalize} from "rxjs/operators";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
 import {DashboardService} from "../../../shared/services/dashboard.service";
-
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -23,14 +21,15 @@ export type ChartOptions = {
 };
 
 @Component({
-    selector: 'app-evp-od-dashboard',
-    templateUrl: './evp-od-dashboard.component.html',
-    styleUrls: ['./evp-od-dashboard.component.scss']
+    selector: 'app-recovery-sam-division',
+    templateUrl: './recovery-sam-division.component.html',
+    styleUrls: ['./recovery-sam-division.component.scss']
 })
-export class EvpOdDashboardComponent implements OnInit {
+export class RecoverySamDivisionComponent implements OnInit {
 
     @ViewChild("chart") chart: ChartComponent;
     public chartOptions: Partial<ChartOptions>;
+    public chartOptions2: Partial<ChartOptions>;
     options: FormGroup;
     hideRequiredControl = new FormControl(false);
     floatLabelControl = new FormControl('auto');
@@ -51,6 +50,7 @@ export class EvpOdDashboardComponent implements OnInit {
         if (!DashboardReport) {
             return
         }
+        this.chartOptions = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
         this.chartOptions = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
     }
 }

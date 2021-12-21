@@ -1,6 +1,6 @@
 <div
     class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div class="heading">EVP(Operation Division)</div>
+    <div class="heading">EVP(Recovery & SAM Division)</div>
     <!-- Header -->
     <div class="example-container">
         <form [formGroup]="options">
@@ -33,6 +33,21 @@
                                 [title]="chartOptions?.title"
                                 [theme]="chartOptions?.theme"
                                 [responsive]="chartOptions?.responsive"
+                            ></apx-chart>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="shadow-sm border">
+                        <div id="chart" class=" mt-0 py-3 shadow-sm border">
+                            <apx-chart
+                                [series]="chartOptions2?.series"
+                                [chart]="chartOptions2?.chart"
+                                [labels]="chartOptions2?.labels"
+                                [title]="chartOptions2?.title"
+                                [theme]="chartOptions2?.theme"
+                                [responsive]="chartOptions2?.responsive"
                             ></apx-chart>
                         </div>
                     </div>

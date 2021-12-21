@@ -14,6 +14,7 @@ import {RecoveryAvailableComponent} from './recovery-available/recovery-availabl
 import { PresidentZtblComponent } from './president-ztbl/president-ztbl.component';
 import { RegionalCheifComponent } from './regional-cheif/regional-cheif.component';
 import { CustomerModule } from '../customer/customer.module';
+import { RecoverySamDivisionComponent } from './recovery-sam-division/recovery-sam-division.component';
 
 const route = [
     {
@@ -54,7 +55,8 @@ const route = [
         EvpCreditDashboardComponent,
         RecoveryAvailableComponent,
         PresidentZtblComponent,
-        RegionalCheifComponent
+        RegionalCheifComponent,
+        RecoverySamDivisionComponent
     ],
     imports: [
         CommonModule,

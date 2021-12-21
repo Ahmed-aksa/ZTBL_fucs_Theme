@@ -19,6 +19,7 @@ import {RecoveryOfficerDashboardComponent} from "./recovery-officer-dashboard/re
 import { BranchManagerDashboardComponent } from './branch-manager-dashboard/branch-manager-dashboard.component';
 import { ZonalChiefDashboardComponent } from './zonal-chief-dashboard/zonal-chief-dashboard.component';
 import { EvpCreditDashboardComponent } from './evp-credit-dashboard/evp-credit-dashboard.component';
+import {EvpOdDashboardComponent} from "./evp-od-dashboard/evp-od-dashboard.component";
 
 @Component({
     selector: 'app-dashboard',
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit {
     @ViewChild(BranchManagerDashboardComponent, {static: false}) branchManagerDashboardComponent: BranchManagerDashboardComponent;
     @ViewChild(ZonalChiefDashboardComponent, {static: false}) zonalChiefDashboardComponent: ZonalChiefDashboardComponent;
     @ViewChild(EvpCreditDashboardComponent, {static: false}) evpCreditDashboardComponent: EvpCreditDashboardComponent;
+    @ViewChild(EvpOdDashboardComponent, {static: false}) evpOdDashboardComponent: EvpOdDashboardComponent;
     popup: any = false;
     time: any
     sessionTime: any;
@@ -77,6 +79,7 @@ export class DashboardComponent implements OnInit {
                 this.branchManagerDashboardComponent?.assignRoleData(result.DashboardReport);
                 this.zonalChiefDashboardComponent?.assignRoleData(result.DashboardReport);
                 this.evpCreditDashboardComponent?.assignRoleData(result.DashboardReport);
+                this.evpOdDashboardComponent?.assignRoleData(result.DashboardReport);
                 }
             });
         })
