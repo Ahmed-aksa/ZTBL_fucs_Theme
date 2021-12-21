@@ -57,7 +57,6 @@ export class DashboardComponent implements OnInit {
 
             this.time = c.toString();
         });
-
         this._dashboardService.getDashboardData().pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {

@@ -25,7 +25,6 @@ export type ChartOptions = {
 export class RecoveryOfficerDashboardComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
-  
 
   constructor() { 
     this.chartOptions = {
@@ -70,6 +69,7 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
   }
 
     assignRoleData(DashboardReport: any) {
+      
         
     }
 }
