@@ -14,7 +14,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <img class="images zoom-images" style="width: 500px; height:480px; " [src]="url" id="image"
+            <img class="images zoom-images mx-auto" style="width: 500px; height:480px; " [src]="url" id="image"
                  [ngStyle]="{
                  transform: 'scale(' + scale / 100 + ')',
                  'transform-origin': left + 'px ' + top + 'px'
@@ -25,14 +25,14 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12 flex text-center " style="height: 60px;     place-items: self-end;" >
+        <div class="col-lg-12 flex text-center border-t " style="height: 60px;     place-items: self-end;" >
             <button class="mr-18" mat-icon-button (click)="rotate()" color="primary">
                 <mat-icon>rotate_right</mat-icon>
                 Rotate
             </button>
     
             <div class="toolbar ml-5 " style="margin-bottom: 10px;     z-index: 0;">
-                <label>Zoom:</label>
+                <label class="mr-3">Zoom:</label>
                 <input type="range" min="100" max="1000" [(ngModel)]="scale">
                 <!--        <p>Zoom X: {{ left }}</p>-->
                 <!--        <p>Zoom Y: {{ top }}</p>-->
