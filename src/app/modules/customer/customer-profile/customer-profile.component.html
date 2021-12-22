@@ -87,27 +87,28 @@
                                     </mat-form-field>
                                 </div>
 
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2  mb-2" style="width: 225px;">
 
                                     <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                         <mat-label class="customMatLabel">Enter Customer Name <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <p *ngIf="UrduName!=undefined && UrduName!=''"
-                                           class="text-right"> {{UrduName}}</p>
+
                                         <input matInput placeholder="Enter Name" appAlphabetOnly
                                                formControlName="CustomerName" maxlength="50" autocomplete="off"
                                                readonly/>
                                         <mat-error *ngIf="hasError('CustomerName', 'required')">Name
                                             <strong>required</strong>
                                         </mat-error>
+                                        <mat-hint align="end" *ngIf="UrduName!=undefined && UrduName!=''"
+                                        class="text-md text-black"> {{UrduName}}</mat-hint>
                                     </mat-form-field>
                                 </div>
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2 mb-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                         <mat-label class="customMatLabel">Enter Father Name <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <p *ngIf="UrduFatherName!=undefined && UrduFatherName!=''"
-                                           class="text-right"> {{UrduFatherName}}</p>
+                                        <mat-hint align="end" *ngIf="UrduFatherName!=undefined && UrduFatherName!=''"
+                                           class="text-md text-black py-2"> {{UrduFatherName}}</mat-hint>
                                         <input matInput placeholder="Enter Father Name"
                                                formControlName="FatherName" maxlength="50" autocomplete="off"
                                                appAlphabetOnly
@@ -428,16 +429,16 @@
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
-                                <div class="col-lg-3 kt-margin-bottom-20-mobile">
+                                <div class="col-lg-3 kt-margin-bottom-20-mobile mb-2">
                                     <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                         <mat-label class="customMatLabel">Enter Birth Place</mat-label>
-                                        <p *ngIf="UrduBirthPlace!=undefined && UrduBirthPlace!=''"
-                                           class="text-right">{{UrduBirthPlace}}</p>
+                                        <mat-hint align="end"  *ngIf="UrduBirthPlace!=undefined && UrduBirthPlace!=''"
+                                           class="text-md text-black">{{UrduBirthPlace}}</mat-hint>
                                         <input matInput placeholder="Enter Birth Place" formControlName="BirthPlace"
                                                maxlength="30" autocomplete="off" readonly/>
                                         <mat-error *ngIf="hasError('BirthPlace', 'required')">Birth Place
                                             <strong>required</strong></mat-error>
-                                        <mat-hint align="left">Please Enter Birth Place</mat-hint>
+                                        <!-- <mat-hint align="left">Please Enter Birth Place</mat-hint> -->
                                     </mat-form-field>
                                 </div>
 
@@ -591,8 +592,8 @@
                                     <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                         <mat-label class="customMatLabel">Enter Current Address <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <p *ngIf="UrduCurrentAddress!=undefined && UrduCurrentAddress!=''"
-                                           class="text-right">{{UrduCurrentAddress}}</p>
+                                        <mat-hint align="end" *ngIf="UrduCurrentAddress!=undefined && UrduCurrentAddress!=''"
+                                           class="text-md text-black">{{UrduCurrentAddress}}</mat-hint >
                                         <input matInput placeholder="Enter Current Address"
                                                formControlName="CurrentAddress" maxlength="150" autocomplete="off"/>
                                         <mat-error *ngIf="hasError('CurrentAddress', 'required')">Current Address
@@ -609,8 +610,8 @@
                                     <mat-form-field class="mat-form-field-fluid w-100" appearance="outline">
                                         <mat-label class="customMatLabel">Enter Permanent Address <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <p *ngIf="UrduPermanentAddress!=undefined && UrduPermanentAddress!=''"
-                                           class="text-right">{{UrduPermanentAddress}}</p>
+                                        <mat-hint align="end" *ngIf="UrduPermanentAddress!=undefined && UrduPermanentAddress!=''"
+                                           class="text-md text-black">{{UrduPermanentAddress}}</mat-hint>
                                         <input [readonly]="PresentAddressreadoly" matInput
                                                placeholder="Enter Permanent Address"
                                                formControlName="PermanentAddress" maxlength="150" autocomplete="off"
