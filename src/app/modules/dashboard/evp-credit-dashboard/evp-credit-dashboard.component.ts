@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
     ApexChart,
     ApexNonAxisChartSeries,
@@ -7,8 +7,8 @@ import {
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {DashboardService} from "../../../shared/services/dashboard.service";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { DashboardService } from "../../../shared/services/dashboard.service";
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -36,6 +36,9 @@ export class EvpCreditDashboardComponent implements OnInit {
     options: FormGroup;
     hideRequiredControl = new FormControl(false);
     floatLabelControl = new FormControl('auto');
+    DisbursmentAchievement: [string, unknown][];
+    RecoveryAchievement: [string, unknown][];
+    CountryTop5: any;
 
     constructor(fb: FormBuilder, private dashboardService: DashboardService) {
         this.options = fb.group({
@@ -52,9 +55,14 @@ export class EvpCreditDashboardComponent implements OnInit {
         if (!DashboardReport) {
             return
         }
-        this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'Bank Book');
+        this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank Book');
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicator');
-        this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'Purpose Wise Disbursement');
+        this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.PurposeWiseDisbursment, 'Purpose Wise Disbursement');
         this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No Of Borrower');
+        this.DisbursmentAchievement = Object.entries(DashboardReport?.DisbursmentAchievement);
+        this.RecoveryAchievement = Object.entries(DashboardReport?.RecoveryAchievement);
+        this.CountryTop5 = DashboardReport?.CountryTop5;
+
+
     }
 }

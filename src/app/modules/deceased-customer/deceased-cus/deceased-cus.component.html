@@ -135,7 +135,7 @@
                                     <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                         <mat-label class="customMatLabel">Date of Death <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy"
+                                        <input readonly matInput [matDatepicker]="picker" placeholder="ddMMyyyy"
                                                formControlName="DateofDeath" autocomplete="off" [max]="getToday()"
                                                [disabled]="viewOnly">
 
@@ -150,7 +150,7 @@
                                         <mat-label class="customMatLabel">Nadra No <strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input [readonly]="viewOnly" matInput formControlName="NadraNo" placeholder=""
+                                        <input appNumberOnly [readonly]="viewOnly" matInput formControlName="NadraNo" placeholder=""
                                                maxlength="13"
                                                autocomplete="off"/>
                                         <mat-error *ngIf="hasError('NadraNo', 'required')">Nadra Number

@@ -166,7 +166,7 @@
                                 <tr class="table-header-background">
                                     <th>Company Name</th>
                                     <th>Memorandum Date</th>
-                                    <th>Reference No.</th>
+                                    <th>Reference NO.</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -187,7 +187,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="50" formControlName="RefrenceNo"/>
+                                            <input appNumberOnly matInput maxlength="50" formControlName="RefrenceNo"/>
                                         </mat-form-field>
                                     </td>
                                     <td><span (click)="onSaveCorporateSuretiesForm()">Save</span> | <span
@@ -294,7 +294,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="13" formControlName="Ntn"/>
+                                            <input appNumberOnly matInput maxlength="13" formControlName="Ntn"/>
                                         </mat-form-field>
                                     </td>
                                     <td><span (click)="onSaveLoanRefrencesForm()">Save</span> | <span
@@ -582,7 +582,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput formControlName="AmountToPaid"/>
+                                            <input appNumberOnly matInput formControlName="AmountToPaid"/>
                                         </mat-form-field>
                                     </td>
                                     <td>

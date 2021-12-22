@@ -28,11 +28,15 @@ export type ChartOptions = {
 export class RecoverySamDivisionComponent implements OnInit {
 
     @ViewChild("chart") chart: ChartComponent;
-    public chartOptions: Partial<ChartOptions>;
+    public chartOptions1: Partial<ChartOptions>;
     public chartOptions2: Partial<ChartOptions>;
     options: FormGroup;
     hideRequiredControl = new FormControl(false);
     floatLabelControl = new FormControl('auto');
+    DisbursmentAchievement: [string, unknown][];
+    RecoveryAchievement: [string, unknown][];
+    Top10NplZones: any;
+    Top10SamZones: any;
 
     constructor(fb: FormBuilder, private spinner: NgxSpinnerService, private _dashboardService: DashboardService) {
         this.options = fb.group({
@@ -47,10 +51,15 @@ export class RecoverySamDivisionComponent implements OnInit {
     }
 
     assignRoleData(DashboardReport: any) {
+        debugger;
         if (!DashboardReport) {
             return
         }
-        this.chartOptions = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
-        this.chartOptions = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
+        this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank Book');
+        this.chartOptions2 = this._dashboardService.assignKeys(DashboardReport.CreditCeiling, 'Credit Ceiling');
+        this.DisbursmentAchievement=Object.entries(DashboardReport.DisbursmentAchievement);
+        this.RecoveryAchievement=Object.entries(DashboardReport.RecoveryAchievement);
+        this.Top10NplZones=DashboardReport.Top10NplZones;
+        this.Top10SamZones=DashboardReport.Top10SamZones;
     }
 }
