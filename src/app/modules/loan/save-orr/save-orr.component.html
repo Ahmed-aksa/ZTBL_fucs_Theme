@@ -213,7 +213,7 @@
 
                         </div>
                     </div>
-
+{{GlProposalORR|json}}
                     <div class="form-group kt-form__group row"
                          *ngIf="dataFetched && GlProposalORR && GlProposalORR.length>0">
                         <div class="col-lg-12">
@@ -240,7 +240,7 @@
                                                 <mat-label class="customMatLabel">Amount Recommended<strong
                                                     class="matMandatory">*</strong>
                                                 </mat-label>
-                                                <input appNumberOnly matInput [(ngModel)]="obj.AmountRecommended" maxlength="8"
+                                                <input appNumberOnly matInput [(ngModel)]="obj.RecommendedAmount" maxlength="8"
                                                        autocomplete="off" [ngModelOptions]="{standalone: true}"/>
                                             </mat-form-field>
                                         </td>
