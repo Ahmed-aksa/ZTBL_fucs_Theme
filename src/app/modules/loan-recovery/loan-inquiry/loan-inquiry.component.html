@@ -16,7 +16,7 @@
 
                             <mat-form-field class="mat-form-field-fluid w-full " appearance="outline">
                                 <mat-label class="customMatLabel">LA File/Booklet #</mat-label>
-                                <input matInput placeholder="Enter Transaction Id" formControlName="TransactionId"
+                                <input appNumberOnly matInput placeholder="Enter Transaction Id" formControlName="TransactionId"
                                        maxlength="30" autocomplete="off"/>
                                 <mat-error *ngIf="hasError('TransactionId', 'required')">LA File/Booklet # <strong>required</strong>
                                 </mat-error>
@@ -29,7 +29,7 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Loan Case #</mat-label>
-                                <input matInput placeholder="Enter Loan Case #" formControlName="LoanCaseNo"
+                                <input appNumberOnly matInput placeholder="Enter Loan Case #" formControlName="LoanCaseNo"
                                        maxlength="30" autocomplete="off"/>
                                 <mat-error *ngIf="hasError('LoanCaseNo', 'required')">Loan Case #
                                     <strong>required</strong></mat-error>

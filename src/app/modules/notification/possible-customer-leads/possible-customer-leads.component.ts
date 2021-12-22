@@ -57,7 +57,7 @@ export class PossibleCustomerLeadsComponent implements OnInit, AfterViewInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    this.dataSource = baseResponse.Loan.LoanesDueInstallment
+                    this.dataSource = baseResponse.Loan.RequistionRequests
                     this.dv = this.dataSource;
                     this.matTableLenght = true
 
