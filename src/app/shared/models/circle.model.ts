@@ -1,5 +1,6 @@
 export class Circle {
     Id: number;
+    Radius: string;
     Name: string;
     BranchId: number;
     Code: string;
