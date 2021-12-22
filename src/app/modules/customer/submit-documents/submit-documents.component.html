@@ -51,11 +51,12 @@
     <div *ngFor="let j of [].constructor(number_of_files);let i=index">
         <div class="row p-2 border rounded my-2">
             <div class="col-lg-3 align-self-center">
-                <input type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
-                       (change)="onFileChange($event, i)"/>
                 <div class="shadow-sm mt-2" style="width: 240px; position: relative;">
                     <img [src]="doc_urls[i]" (click)="previewImg(doc_urls[i])">
                 </div>
+
+                <input type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
+                       (change)="onFileChange($event, i)"/>
 
             </div>
             <div class="col-lg-9">
