@@ -183,13 +183,14 @@ export class LandService {
     landDocumentsUpload(Image, Video, uploadDocuments: UploadDocuments): Observable<BaseResponseModel> {
 
 
+        var userInfo = this.userUtilsService.getUserDetails();
         const formData = new FormData();
         formData.append('file', Image);
         formData.append('videofile', Video);
         formData.append('LandInfoId', uploadDocuments.LandInfoId.toString());
         formData.append('LandLatitude', uploadDocuments.LandLatitude);
         formData.append('LandLongitude', uploadDocuments.LandLongitude);
-        formData.append('CreatedBy', "Test-test");
+        formData.append('CreatedBy', userInfo.User.UserId);
 
 
         return this.http.post<any>(`${environment.apiUrl}/Land/LandDataUpload`, formData,

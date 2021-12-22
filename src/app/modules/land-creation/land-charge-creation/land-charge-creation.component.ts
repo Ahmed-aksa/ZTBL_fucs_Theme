@@ -129,16 +129,21 @@ export class LandChargeCreationComponent implements OnInit {
             this.landChargeCreation = this.data.landChargCreation;
         }
 
-
         if (this.LandInfo.Status != undefined && this.LandInfo.Status != '') {
 
-            if (this.loggedInUserInfo.User.UserId == this.LandInfo.EnteredBy) {
+            if ((this.LandInfo.Status == '1' || this.LandInfo.Status == '4') &&  this.data.createdByUserId == this.loggedInUserInfo.User.UserId) {
+                this.isFormReadonly = false;
+            } else {
+                this.isFormReadonly = true;
+            }
+
+            /*if (this.loggedInUserInfo.User.UserId == this.LandInfo.EnteredBy) {
                 if (this.LandInfo.Status == '3' || this.LandInfo.Status == '2') {
                     this.isFormReadonly = true;
                 }
             } else {
                 this.isFormReadonly = true;
-            }
+            }*/
 
 
         }
