@@ -54,7 +54,7 @@ export class GeofencingEditComponent implements OnInit {
     address: string;
     gridHeight: string;
     //implements OnInit
-    radius=null;
+    radius = null;
 
     ///////////////////
     lat = 30.375321;
@@ -735,7 +735,7 @@ export class GeofencingEditComponent implements OnInit {
         var d3 = Math.pow(Math.sin((d2 - d1) / 2.0), 2.0) +
             Math.cos(d1) * Math.cos(d2) * Math.pow(Math.sin(num2 / 2.0), 2.0);
         radius += 6378137 * (2.0 * Math.atan2(Math.sqrt(d3), Math.sqrt(1.0 - d3)));
-        this.radius = radius;
+        this.radius = Number(radius / 1000).toFixed(2);
         this.fenceCenter = bounds.getCenter()
 
         // Need to get all the surrounding cricles of created/edit fence.
