@@ -774,7 +774,6 @@ ng
     }
 
     viewMap(i, is_video) {
-        debugger
         let data = null;
         if (is_video) {
             data = {
