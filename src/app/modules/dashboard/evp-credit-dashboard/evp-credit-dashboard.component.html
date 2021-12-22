@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="shadow-sm border">
-                        <div id="chart" class=" mt-0 py-3">
+                        <div id="chart" *ngIf="chartOptions1" class=" mt-0 py-3">
                             <apx-chart
                                 [series]="chartOptions1?.series"
                                 [chart]="chartOptions1?.chart"
@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="shadow-sm border">
-                        <div id="chart" class=" mt-0 py-3">
+                        <div id="chart" *ngIf="chartOptions2" class=" mt-0 py-3">
                             <apx-chart
                                 [series]="chartOptions2?.series"
                                 [chart]="chartOptions2?.chart"
@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-lg-6 mt-3">
                     <div class="shadow-sm border">
-                        <div id="chart" class=" mt-0 py-3">
+                        <div id="chart"  *ngIf="chartOptions3" class=" mt-0 py-3">
                             <apx-chart
                                 [series]="chartOptions3?.series"
                                 [chart]="chartOptions3?.chart"
@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-lg-6 mt-3">
                     <div class="shadow-sm border">
-                        <div id="chart" class=" mt-0 py-3">
+                        <div id="chart"  *ngIf="chartOptions4" class=" mt-0 py-3">
                             <apx-chart
                                 [series]="chartOptions4?.series"
                                 [chart]="chartOptions4?.chart"
@@ -101,28 +101,18 @@
                     <p class="heading mb-2 text-lg">Disbursements</p>
                     <table class="table table-striped">
 
-                        <thead>
+                        <!-- <thead>
                         <tr class="table-header-background">
                             <th scope="col">Calendar Year Target</th>
                             <th scope="col">Achievement</th>
                             <th scope="col">%age</th>
                         </tr>
-                        </thead>
+                        </thead> -->
                         <tbody>
-                        <tr>
-                            <th scope="row">Fiscsal year Target</th>
-                            <td>Achievement</td>
-                            <td>%age</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Calendar Year Target Corresponding Period</th>
-                            <td>Achievement</td>
-                            <td>%age</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Fiscsal year Target Corresponding Period</th>
-                            <td>Achievement</td>
-                            <td>%age</td>
+                        <tr *ngFor="let item of DisbursmentAchievement">
+                            
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -130,28 +120,17 @@
                 <div class="col-lg-6 table-responsive">
                     <p class="heading mb-2 text-lg">Recovery</p>
                     <table class="table table-striped">
-                        <thead>
+                        <!-- <thead>
                         <tr class="table-header-background">
                             <th scope="col">Calendar Year Target</th>
                             <th scope="col">Achievement</th>
                             <th scope="col">%age</th>
                         </tr>
-                        </thead>
+                        </thead> -->
                         <tbody>
-                        <tr>
-                            <th scope="row">Fiscsal year Target</th>
-                            <td>Achievement</td>
-                            <td>%age</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Calendar Year Target Corresponding Period</th>
-                            <td>Achievement</td>
-                            <td>%age</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Fiscsal year Target Corresponding Period</th>
-                            <td>Achievement</td>
-                            <td>%age</td>
+                        <tr  *ngFor="let item of RecoveryAchievement">
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -177,108 +156,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr *ngFor="let item of CountryTop5">
 
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
                             <td></td>
                             <td></td>
                             <td></td>

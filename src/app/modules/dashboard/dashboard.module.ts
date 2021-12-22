@@ -15,6 +15,8 @@ import { PresidentZtblComponent } from './president-ztbl/president-ztbl.componen
 import { RegionalCheifComponent } from './regional-cheif/regional-cheif.component';
 import { CustomerModule } from '../customer/customer.module';
 import { RecoverySamDivisionComponent } from './recovery-sam-division/recovery-sam-division.component';
+import { ProvincialChiefComponent } from './provincial-chief/provincial-chief.component';
+import { PyramidChartComponent } from './pyramid-chart/pyramid-chart.component';
 
 const route = [
     {
@@ -56,7 +58,9 @@ const route = [
         RecoveryAvailableComponent,
         PresidentZtblComponent,
         RegionalCheifComponent,
-        RecoverySamDivisionComponent
+        RecoverySamDivisionComponent,
+        ProvincialChiefComponent,
+        PyramidChartComponent
     ],
     imports: [
         CommonModule,

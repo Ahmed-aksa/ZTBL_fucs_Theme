@@ -1,4 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DashboardService } from 'app/shared/services/dashboard.service';
 import {
     ApexChart,
     ApexNonAxisChartSeries,
@@ -7,6 +9,7 @@ import {
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -28,49 +31,30 @@ export class RegionalCheifComponent implements OnInit {
 
     @ViewChild("chart") chart: ChartComponent;
     public chartOptions: Partial<ChartOptions>;
+    RecoveryAchievement: [string, unknown][];
+    CirclePositions: any;
+    p: any;
 
-
-    constructor() {
-        this.chartOptions = {
-            series: [25, 15, 44, 55, 41, 17],
-            chart: {
-                width: "100%",
-                type: "pie"
-            },
-            labels: [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday"
-            ],
-            theme: {
-                monochrome: {
-                    enabled: false
-                }
-            },
-            title: {
-                text: "Performance Indicators"
-            },
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: "bottom"
-                        }
-                    }
-                }
-            ]
-        };
+    constructor( private route: ActivatedRoute,
+         private spinner: NgxSpinnerService, 
+         private _dashboardService: DashboardService,
+         private router: Router) {
     }
 
     ngOnInit(): void {
     }
+    assignRoleData(DashboardReport: any) {
+        debugger;
+        this.spinner.show();
+        if (!DashboardReport) {
+            return
+        }
 
+        this.chartOptions = this._dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio(Branch Wise)');
+         this.RecoveryAchievement = Object.entries(DashboardReport?.RecoveryAchievement);
+         this.CirclePositions = DashboardReport?.CirclePositions;
+        this.spinner.hide()
+
+    }
 }
 

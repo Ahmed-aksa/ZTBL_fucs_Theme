@@ -1,4 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DashboardService } from 'app/shared/services/dashboard.service';
 import {
     ApexChart,
     ApexNonAxisChartSeries,
@@ -7,6 +8,7 @@ import {
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -25,49 +27,38 @@ export type ChartOptions = {
 export class PresidentZtblComponent implements OnInit {
 
     @ViewChild("chart") chart: ChartComponent;
-    public chartOptions: Partial<ChartOptions>;
+    public chartOptions1: Partial<ChartOptions>;
+    public chartOptions2: Partial<ChartOptions>;
+    public chartOptions3: Partial<ChartOptions>;
+    public chartOptions4: Partial<ChartOptions>;
+    ResourcesCount: [string, unknown][];
+    CountryWorst5: any;
+    CountryTop5: any;
 
 
-    constructor() {
-        this.chartOptions = {
-            series: [25, 15, 44, 55, 41, 17],
-            chart: {
-                width: "100%",
-                type: "pie"
-            },
-            labels: [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday"
-            ],
-            theme: {
-                monochrome: {
-                    enabled: false
-                }
-            },
-            title: {
-                text: "Performance Indicators"
-            },
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: "bottom"
-                        }
-                    }
-                }
-            ]
-        };
+    constructor(private spinner: NgxSpinnerService, private _dashboardService: DashboardService) {
+       
     }
 
     ngOnInit(): void {
+    }
+    assignRoleData(DashboardReport: any) {
+        debugger;
+        this.spinner.show();
+        if (!DashboardReport) {
+            return
+        }
+
+        this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
+        this.chartOptions2 = this._dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank  Book');
+        this.chartOptions3 = this._dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No. Of Borrowers');
+        this.chartOptions4 = this._dashboardService.assignKeys(DashboardReport.NoOfAccountHolder, 'No. Of Accounts');
+        this.ResourcesCount = Object.entries(DashboardReport?.ResourcesCount);
+        this.CountryWorst5 = DashboardReport?.CountryWorst5;
+        this.CountryTop5 = DashboardReport?.CountryTop5;
+        //this.UtilizationMutation = Object.entries(DashboardReport?.UtilizationMutation);
+        this.spinner.hide()
+
     }
 
 }
