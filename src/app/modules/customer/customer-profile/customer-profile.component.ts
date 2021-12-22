@@ -506,7 +506,9 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.CellNumber = this.ValidateMobileNumberGet();
         this.createCustomer.doSubmit = flag;
         // @ts-ignore
-        let phone_number = document.getElementById('tel_code').value + this.roleForm.value.CellNumber;
+        let cell_number = document.getElementById('tel_code').value + this.roleForm.value.CellNumber;
+        // @ts-ignore
+        let phone_number = document.getElementById('tel_code').value + this.roleForm.value.PhoneNumber;
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.BranchLov = userInfo.Branch;
@@ -517,7 +519,8 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.CnicExpiry = this.datePipe.transform(this.createCustomer.CnicExpiry, 'ddMMyyyy');
         this.createCustomer.CnicIssueDate = this.datePipe.transform(this.createCustomer.CnicIssueDate, 'ddMMyyyy');
 
-        this.createCustomer.CellNumber = phone_number;
+        this.createCustomer.CellNumber = cell_number;
+        this.createCustomer.PhoneNumber = phone_number;
         this.spinner.show();
         this._customerService.createCustomerSave(this.createCustomer)
             .pipe(
