@@ -7,6 +7,7 @@ import {SearchUtilizationComponent} from './search-utilization/search-utilizatio
 import {LoanUtilizationComponent} from './loan-utilization/loan-utilization.component';
 import {ViewFileComponent} from './view-file/view-file.component';
 import {MatInputModule} from "@angular/material/input";
+import {AngularImageViewerModule} from "@clarivate/angular-image-viewer";
 
 const routing = [
 
@@ -32,6 +33,7 @@ const routing = [
         SharedModule,
         MatInputModule,
         RouterModule.forChild(routing),
+        AngularImageViewerModule,
     ],
     entryComponents: [
         ViewFileComponent

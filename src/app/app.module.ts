@@ -25,9 +25,11 @@ import {UserUtilsService} from './shared/services/users_utils.service';
 import {TokenInterceptor} from './shared/httpInterceptor/httpconfig.interceptor';
 import {NdcRequestsModule} from './modules/ndc-requests/ndc-requests.module';
 import {DatePipe} from "@angular/common";
+import {AngularImageViewerModule} from "@clarivate/angular-image-viewer";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const routerConfig: ExtraOptions = {
-    useHash:true,
+    useHash: true,
     preloadingStrategy: PreloadAllModules,
     scrollPositionRestoration: 'enabled'
 };
@@ -48,9 +50,10 @@ const routerConfig: ExtraOptions = {
         MarkdownModule.forRoot({}),
         SharedModule,
         NdcRequestsModule,
-
+        AngularImageViewerModule,
         StoreModule.forRoot(reducers, {metaReducers}),
         EffectsModule.forRoot([]),
+        FontAwesomeModule,
     ],
     providers: [
         HttpUtilsService,

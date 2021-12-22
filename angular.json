@@ -70,7 +70,8 @@
                             "src/styles/tailwind.scss",
                             "node_modules/ngx-toastr/toastr.css",
                             "node_modules/bootstrap/scss/bootstrap.scss",
-                            "./node_modules/material-icons-font/material-icons-font.css"
+                            "./node_modules/material-icons-font/material-icons-font.css",
+                            "node_modules/font-awesome/css/font-awesome.css"
                         ],
                         "scripts": [
                             "node_modules/bootstrap/dist/js/bootstrap.js",
@@ -165,5 +166,5 @@
     "cli": {
         "analytics": "556221e5-0977-4d14-be24-376a2eec51ed",
         "defaultCollection": "@angular-eslint/schematics"
-    },
+    }
 }
