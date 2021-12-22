@@ -441,8 +441,7 @@
                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                             <input type="text" [(ngModel)]="UnAreaOwned" readonly="readonly"
                                    [ngModelOptions]="{standalone: true}" placeholder="{{landDetailMarlaPlaceholder}}"
-                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"
-                                   [readonly]="isFormReadonly"/>
+                                   (keyup)="onKeyInputCalculateValue($event)" matInput appNumberOnly min="0"/>
                         </mat-form-field>
                     </td>
                     <td class="px-2 border-r border-gray-200">
@@ -629,7 +628,7 @@
                 Land Charge Creation
             </button>
             <button  mat-raised-button color="primary" (click)="landUploadFiles()" type="button"
-                    *ngIf="AllowDocumentUpload && !hasHistoryLandInfoId" class="ml-2 bg-green">
+                    *ngIf="AllowDocumentUpload && !hasHistoryLandInfoId && !isFormReadonly" class="ml-2 bg-green">
                 <mat-icon class="mr-2">cloud_upload</mat-icon>
                 Upload Documents
             </button>

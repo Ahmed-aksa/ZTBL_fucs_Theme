@@ -93,13 +93,8 @@ export class GeofencingEditComponent implements OnInit {
                 private ngZone: NgZone,
                 private _snackBar: MatSnackBar,
                 private layoutUtilsService: LayoutUtilsService,
-<<<<<<< HEAD
-        private _circleService: CircleService,
-                private spinner: NgxSpinnerService
-=======
                 private _circleService: CircleService,
-                private Spinner: NgxSpinnerService
->>>>>>> aa8775cb345baa7f9b94ed19635e91b5c44c05c1
+                private spinner: NgxSpinnerService
     ) {
     }
 
@@ -502,11 +497,6 @@ export class GeofencingEditComponent implements OnInit {
             this.request.Zone = this.data.zone;
             this.request.Branch = this.data.branch;
             this.submitted = true;
-<<<<<<< HEAD
-=======
-
-            this.Spinner.show()
->>>>>>> aa8775cb345baa7f9b94ed19635e91b5c44c05c1
 
             if (this.OldFancPoints.length > 0) {
                 this._circleService.CirclePoligonUpdate(this.request)
@@ -550,12 +540,8 @@ export class GeofencingEditComponent implements OnInit {
                     });
             }
         } else {
-<<<<<<< HEAD
             this.spinner.hide()
             this.layoutUtilsService.alertElement("", "Fence of this Circle can not be created because it is overlaping with the fence of another Circle", "Fence Ovelapped");
-=======
-            this.layoutUtilsService.alertElement("", "Fence of this Circle can not be created because it is overlapping with the fence of " + this.intersectedCircleCode + " Circle", "Fence Overlapped");
->>>>>>> aa8775cb345baa7f9b94ed19635e91b5c44c05c1
         }
 
     }

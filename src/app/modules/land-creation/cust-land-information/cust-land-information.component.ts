@@ -148,6 +148,7 @@ export class CustLandInformationComponent implements OnInit {
     isEditMode: any;
     LandInfoSearchData: any;
     isFormReadonly: boolean;
+    createdByUserId: any;
     zoneLovAll: any;
     branchLovAll: any;
     clearSaveCustomerButtonHide: boolean;
@@ -470,17 +471,25 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     createForm() {
-
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.LoggedInUserInfo = userInfo;
         this.LoginUserInfo = userInfo;
         if (this.LandInfoSearchData !== undefined && this.LandInfoSearchData !== null && this.LandInfoSearchData !== '') {
             this.LandInfo.Id = this.LandInfoSearchData.LandInfoID;
             this.LandInfo.BranchId = this.LandInfoSearchData.BranchId;
-            if ((this.LandInfoSearchData.Status == '3' || this.LandInfoSearchData.Status == '2') && this.isEditMode == "1") {
-                this.isFormReadonly = true;
+            this.createdByUserId = this.LandInfoSearchData.EnteredBy
+
+            if ((this.LandInfoSearchData.Status == '1' || this.LandInfoSearchData.Status == '4') &&  this.createdByUserId == this.LoginUserInfo.User.UserId) {
+                this.isFormReadonly = false;
                 localStorage.setItem("SearchLandData", '');
+            } else {
+                this.isFormReadonly = true;
             }
+
+            // if ((this.LandInfoSearchData.Status == '3' || this.LandInfoSearchData.Status == '2') && this.isEditMode == "1") {
+            //     this.isFormReadonly = true;
+            //     localStorage.setItem("SearchLandData", '');
+            // }
 
         }
 
@@ -554,6 +563,7 @@ export class CustLandInformationComponent implements OnInit {
         this.LandInfo.UserId = this.CustomerLov[0].CustomerNumber;
         const dialogRef = this.dialog.open(LandChargeCreationComponent, {
             data: {
+                createdByUserId: this.createdByUserId,
                 landInfo: this.LandInfo,
                 landChargCreation: this.ChargeCreation,
                 landChargeCreationDetails: this.ChargeCreationDetailList,
@@ -757,6 +767,7 @@ export class CustLandInformationComponent implements OnInit {
             )
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
+                    
                     if (this.LoginUserInfo.User.UserId != baseResponse.LandInfo.EnteredBy && this.LoginUserInfo.Branch.BranchCode != "All")
                         this.isFormReadonly = true;
 
@@ -846,8 +857,8 @@ export class CustLandInformationComponent implements OnInit {
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
 
-                    if (this.LoginUserInfo.User.UserId != baseResponse.LandInfo.EnteredBy && this.LoginUserInfo.Branch.BranchCode != "All")
-                        this.isFormReadonly = true;
+                    //if (this.LoginUserInfo.User.UserId != baseResponse.LandInfo.EnteredBy && this.LoginUserInfo.Branch.BranchCode != "All")
+                     //   this.isFormReadonly = true;
 
                     this.SaveCustomer = true;
                     this.NumberOfCustomerDisable = true;
