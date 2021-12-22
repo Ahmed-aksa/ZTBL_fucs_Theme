@@ -20,6 +20,10 @@ import { BranchManagerDashboardComponent } from './branch-manager-dashboard/bran
 import { ZonalChiefDashboardComponent } from './zonal-chief-dashboard/zonal-chief-dashboard.component';
 import { EvpCreditDashboardComponent } from './evp-credit-dashboard/evp-credit-dashboard.component';
 import {EvpOdDashboardComponent} from "./evp-od-dashboard/evp-od-dashboard.component";
+import { PresidentZtblComponent } from './president-ztbl/president-ztbl.component';
+import { RegionalCheifComponent } from './regional-cheif/regional-cheif.component';
+import { ProvincialChiefComponent } from './provincial-chief/provincial-chief.component';
+import { RecoverySamDivisionComponent } from './recovery-sam-division/recovery-sam-division.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -35,6 +39,10 @@ export class DashboardComponent implements OnInit {
     @ViewChild(ZonalChiefDashboardComponent, {static: false}) zonalChiefDashboardComponent: ZonalChiefDashboardComponent;
     @ViewChild(EvpCreditDashboardComponent, {static: false}) evpCreditDashboardComponent: EvpCreditDashboardComponent;
     @ViewChild(EvpOdDashboardComponent, {static: false}) evpOdDashboardComponent: EvpOdDashboardComponent;
+    @ViewChild(PresidentZtblComponent, {static: false}) presidentZtblComponent: PresidentZtblComponent;
+    @ViewChild(RegionalCheifComponent, {static: false}) regionalCheifComponent: RegionalCheifComponent;
+    @ViewChild(ProvincialChiefComponent, {static: false}) provincialChiefComponent: ProvincialChiefComponent;
+    @ViewChild(RecoverySamDivisionComponent, {static: false}) recoverySamDivisionComponent: RecoverySamDivisionComponent;
     popup: any = false;
     time: any
     sessionTime: any;
@@ -68,11 +76,9 @@ export class DashboardComponent implements OnInit {
 
         this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
         this.userGroup.forEach((single_group)=>{
-
             this._dashboardService.getDashboardData(single_group.ProfileID).pipe(finalize(() => {
                 this.spinner.hide()
             })).subscribe(result => {
-
                 if(result.Code!="-1"){
                 this.mcoDashboardComponent?.assignRoleData(result.DashboardReport);
                 this.recoveryOfficerDashboardComponent?.assignRoleData(result.DashboardReport);
@@ -80,6 +86,10 @@ export class DashboardComponent implements OnInit {
                 this.zonalChiefDashboardComponent?.assignRoleData(result.DashboardReport);
                 this.evpCreditDashboardComponent?.assignRoleData(result.DashboardReport);
                 this.evpOdDashboardComponent?.assignRoleData(result.DashboardReport);
+                this.presidentZtblComponent?.assignRoleData(result.DashboardReport);
+                this.regionalCheifComponent?.assignRoleData(result.DashboardReport);
+                this.provincialChiefComponent?.assignRoleData(result.DashboardReport);
+                this.recoverySamDivisionComponent?.assignRoleData(result.DashboardReport);
                 }
             });
         })
