@@ -1211,12 +1211,11 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     private getCustomerDocuments(customerobj: any) {
-        this.document_images = null;
-        this.document_details = null;
-        this.spinner.show();
+        this.document_images = [];
+        this.document_details = [];
+        this.spinner.show()
         this._customerService.getCustomerDocuments(customerobj).subscribe((baseResponse) => {
-            this.spinner.show();
-
+            this.spinner.hide()
             this.document_details = baseResponse.DocumentDetails;
             this.document_details?.forEach((single_document_detail) => {
                 single_document_detail?.CustomerDocuments?.forEach((customer_document) => {
