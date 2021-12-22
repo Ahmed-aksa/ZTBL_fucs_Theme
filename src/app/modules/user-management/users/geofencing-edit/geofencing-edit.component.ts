@@ -93,7 +93,7 @@ export class GeofencingEditComponent implements OnInit {
                 private _snackBar: MatSnackBar,
                 private layoutUtilsService: LayoutUtilsService,
         private _circleService: CircleService,
-                private Spinner: NgxSpinnerService
+                private spinner: NgxSpinnerService
     ) {
     }
 
@@ -302,12 +302,11 @@ export class GeofencingEditComponent implements OnInit {
             //---------------------------------- End --------------------------------
         }
 
-        this.Spinner.show()
+        this.spinner.show()
         this._circleService.GetCirclesPolygon(this.circle)
             .pipe(
                 finalize(() => {
                     this.loading = false;
-                    this.Spinner.hide()
                 })
             )
             .subscribe(baseResponse => {
@@ -351,8 +350,11 @@ export class GeofencingEditComponent implements OnInit {
                         }
                     });
 
-                } else
+                    this.spinner.hide()
+                } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+                    this.spinner.hide()
+                }
 
             });
     }
@@ -476,6 +478,7 @@ export class GeofencingEditComponent implements OnInit {
         /* --------------- End ---------------------*/
 
 
+        this.spinner.show()
         if (!this.checkForOverlapping(polygonArrayForOverlapingCheck)) {
 
 
@@ -491,15 +494,13 @@ export class GeofencingEditComponent implements OnInit {
             this.request.Zone = this.data.zone;
             this.request.Branch = this.data.branch;
             this.submitted = true;
-            
-            this.Spinner.show()
 
             if (this.OldFancPoints.length > 0) {
                 this._circleService.CirclePoligonUpdate(this.request)
                     .pipe(
                         finalize(() => {
                             this.submitted = false;
-                            this.Spinner.hide()
+                            this.spinner.hide()
                         })
                     )
                     .subscribe((baseResponse: BaseResponseModel) => {
@@ -536,6 +537,7 @@ export class GeofencingEditComponent implements OnInit {
                     });
             }
         } else {
+            this.spinner.hide()
             this.layoutUtilsService.alertElement("", "Fence of this Circle can not be created because it is overlaping with the fence of another Circle", "Fence Ovelapped");
         }
 
