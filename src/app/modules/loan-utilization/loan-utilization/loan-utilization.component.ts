@@ -141,19 +141,19 @@ export class LoanUtilizationComponent implements OnInit {
         private dialog: MatDialog,
         private route: ActivatedRoute,
     ) {
-
-        this.loggedInUser = userUtilsService.getUserDetails();
-        if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
-            this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
-        } else {
-
-        }
-
-        this.mediaGetter = Object.assign(this.loanUtilizationModel);
-        router.events.subscribe((val: any) => {
-            if (val.url == '/deceased-customer/customers') {
-            }
-        });
+// 
+        // this.loggedInUser = userUtilsService.getUserDetails();
+        // if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
+        //     this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
+        // } else {
+        //
+        // }
+        //
+        // this.mediaGetter = Object.assign(this.loanUtilizationModel);
+        // router.events.subscribe((val: any) => {
+        //     if (val.url == '/deceased-customer/customers') {
+        //     }
+        // });
     }
 
 
@@ -178,9 +178,11 @@ export class LoanUtilizationComponent implements OnInit {
     VideoTimeLimit: number;
 
     ngOnInit() {
+        // localStorage.setItem('utilization', JSON.stringify(utilization));
+        this.loanUtilizationModel=JSON.parse(localStorage.getItem('utilization'))
+        this.mediaGetter=JSON.parse(localStorage.getItem('utilization'))
 
-        this.setMediaLimits();
-        if (this.loanUtilizationModel.LoanCaseNo) {
+        if (this.loanUtilizationModel?.LoanCaseNo) {
             if (this.loanUtilizationModel['view'] == '1') {
                 this.viewonly = true;
                 this.remarksFeild = true;
@@ -194,17 +196,23 @@ export class LoanUtilizationComponent implements OnInit {
         } else {
             this.router.navigate(['/loan-utilization/search-uti']);
         }
+        this.setMediaLimits();
         this.createForm();
         this.checkUser();
         this.setOptions();
 
     }
-
+ng
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
+    ngOnDestroy(){
+        console.log("called")
+    localStorage.removeItem('utilization')
+    }
+
 
 
     checkUser() {
@@ -382,6 +390,7 @@ export class LoanUtilizationComponent implements OnInit {
             this.images.splice(val, 1);
             this.imageUrl.splice(val, 1);
         }
+        this.ifResetRequired()
     }
 
     removeVideo(url, val: number) {
@@ -392,6 +401,7 @@ export class LoanUtilizationComponent implements OnInit {
             this.videos.splice(val, 1);
             this.videoUrl.splice(val, 1);
         }
+        this.ifResetRequiredV()
     }
 
     getDuration(e, i) {
@@ -422,16 +432,9 @@ export class LoanUtilizationComponent implements OnInit {
     }
 
     changeStatus(status: string) {
+        
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks.value;
-        if (this.loanUtilizationModel.Remarks == '') {
-            var msg = 'Please Enter Remarks before submitting';
-            this.layoutUtilsService.alertElement(
-                '',
-                msg,
-                ''
-            );
-            return;
-        }
+
 
         if (status == 'S' && (this.loanUtilizationModel.ID == undefined || this.loanUtilizationModel.ID == null)) {
             var msg = 'Please save before submitting';
@@ -443,23 +446,37 @@ export class LoanUtilizationComponent implements OnInit {
             return;
         }
 
-        if (status && !(this.imageUrl.length > 0)) {
-            var msg = 'Please Attach image';
-            this.layoutUtilsService.alertElement(
-                '',
-                msg,
-                ''
-            );
-            return;
-        }
-        if (status && !(this.videoUrl.length > 0)) {
-            var msg = 'Please Attach video';
-            this.layoutUtilsService.alertElement(
-                '',
-                msg,
-                ''
-            );
-            return;
+        if(status!='C'){
+
+
+            if (status && !(this.imageUrl.length > 0)) {
+                var msg = 'Please Attach image';
+                this.layoutUtilsService.alertElement(
+                    '',
+                    msg,
+                    ''
+                );
+                return;
+            }
+            if (status && !(this.videoUrl.length > 0)) {
+                var msg = 'Please Attach video';
+                this.layoutUtilsService.alertElement(
+                    '',
+                    msg,
+                    ''
+                );
+                return;
+            }
+
+            if (this.loanUtilizationModel.Remarks == '' || this.loanUtilizationModel.Remarks == null) {
+                var msg = 'Please Enter Remarks before submitting';
+                this.layoutUtilsService.alertElement(
+                    '',
+                    msg,
+                    ''
+                );
+                return;
+            }
         }
 
 
@@ -769,6 +786,7 @@ export class LoanUtilizationComponent implements OnInit {
                 Lng: this.Lng[i]
             };
         }
+
         const dialogRef = this.dialog.open(ViewMapsComponent, {
             panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',

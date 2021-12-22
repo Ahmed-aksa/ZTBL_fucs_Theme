@@ -312,7 +312,8 @@ export class RecoveryFormComponent implements OnInit {
         this.TransactionTypes = this.TransactionTypes.LOVs;
         this.RecoveryForm.controls.TransactionType.setValue("C");
         this.TrCodesRecovery = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.TrCodeRecovery});
-        this.TrCodesRecovery = this.TrCodesRecovery.LOVs;
+        // this.TrCodesRecovery = this.TrCodesRecovery.LOVs;
+        this.TrCodesRecovery = this.TrCodesRecovery.LOVs.sort((a, b) => a.Name.toLowerCase() > b.Name.toLowerCase() ? 1 : -1);
 
         if (!this.transactionEdit && !this.viewOnly) {
             this.RecoveryForm.controls.TrCode.setValue(this.TrCodesRecovery[0].Value);
@@ -872,24 +873,37 @@ export class RecoveryFormComponent implements OnInit {
         var remarks = this.RecoveryForm.controls.Remarks.value;
         var transactionID = this.RecoveryForm.controls.TransactionID.value;
         var disbursementID = this.RecoveryForm.controls.DisbursementID.value;
-        this.spinner.show();
-        this._recoveryService
-            .submitRecovery(transactionID, remarks, disbursementID, this.RecoveryType.toString(), this.recoveryDataModel.EffectiveDate)
-            .pipe(
-                finalize(() => {
-                    this.submitted = false;
-                    this.spinner.hide();
-                })
-            )
-            .subscribe((baseResponse: BaseResponseModel) => {
-                if (baseResponse.Success === true) {
-                    this.receipt.ReceiptId = baseResponse.Recovery.RecoveryData.ReceiptNo;
-                    this.getSignatures();
-                } else {
-                    this.layoutUtilsService.alertMessage("", baseResponse.Message);
-                }
 
-            });
+        if (transactionID == undefined || transactionID == null) {
+            this.layoutUtilsService.alertElement('', 'Please Save Recovery before Submission.')
+            return
+        }
+        let dialog = this.layoutUtilsService.AlertElementConfirmation(`You entered ${this.RecoveryForm.controls.Amount.value}, Do you really want to continue`);
+        dialog.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            } else {
+                this.spinner.show();
+                this._recoveryService
+                    .submitRecovery(transactionID, remarks, disbursementID, this.RecoveryType.toString(), this.recoveryDataModel.EffectiveDate)
+                    .pipe(
+                        finalize(() => {
+                            this.submitted = false;
+                            this.spinner.hide();
+                        })
+                    )
+                    .subscribe((baseResponse: BaseResponseModel) => {
+                        if (baseResponse.Success === true) {
+                            this.receipt.ReceiptId = baseResponse.Recovery.RecoveryData.ReceiptNo;
+                            this.getSignatures();
+                        } else {
+                            this.layoutUtilsService.alertMessage("", baseResponse.Message);
+                        }
+
+                    });
+            }
+        })
+
     }
 
     saveSignature() {
@@ -960,6 +974,7 @@ export class RecoveryFormComponent implements OnInit {
             this.ibDisSave = true;
             //this.submitRecovery()
         } else {
+
             this.submitRecovery();
         }
 

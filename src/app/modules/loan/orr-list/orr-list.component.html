@@ -1,5 +1,5 @@
 <div
-    class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    class="px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
 
     <!-- Header -->
 
@@ -41,7 +41,7 @@
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                             <mat-label>LA File/Booklet#</mat-label>
-                            <input matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">
+                            <input appNumberOnly matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">
                         </mat-form-field>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                         <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
                             <mat-label>Loan Case#</mat-label>
-                            <input matInput placeholder="Enter Loan Case Number" formControlName="LcNo">
+                            <input appNumberOnly matInput placeholder="Enter Loan Case Number" formControlName="LcNo">
                         </mat-form-field>
 
                     </div>

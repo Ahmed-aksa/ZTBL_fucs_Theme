@@ -39,7 +39,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     url: string;
     loanDocumentArray: LoanDocuments[] = [];
-    descriptionFalse= false;
+    descriptionFalse = false;
 
     //Zone inventory
     LoggedInUserInfo: BaseResponseModel;
@@ -76,7 +76,7 @@ export class ClUploadDocumentComponent implements OnInit {
     circle: any;
     disable_lc = false;
     number_of_files: number = 0;
-    docId = [];
+    docId;
     first: boolean;
 
     checkCompare = false;
@@ -254,6 +254,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     onFileChange(event, i) {
+        
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -286,23 +287,22 @@ export class ClUploadDocumentComponent implements OnInit {
 
     }
 
-    fileCompare(){
+    fileCompare() {
 
-        let i,j;
-        for(i = 0; i<this.rawData.length; i++){
-            for(j = 1; j<this.imgData.length; j++){
-                if(j != i){
-                    if((this.rawData[i].name && this.rawData[i].size) == (this.imgData[j].name && this.imgData[j].size)){
+        let i, j;
+        for (i = 0; i < this.rawData.length; i++) {
+            for (j = 1; j < this.imgData.length; j++) {
+                if (j != i) {
+                    if ((this.rawData[i].name && this.rawData[i].size) == (this.imgData[j].name && this.imgData[j].size)) {
                         this.matched = true;
                         break;
-                    }
-                    else{
+                    } else {
                         this.matched = false;
                     }
                 }
 
             }
-            if(this.matched == true){
+            if (this.matched == true) {
                 break;
             }
         }
@@ -340,10 +340,10 @@ export class ClUploadDocumentComponent implements OnInit {
 
         totLength = Number(totLength)
 
-        if(this.LoanCaseId){
-            
+        if (this.LoanCaseId) {
+
             if (this.rawData.length < this.loanDocument.NoOfFilesToUpload) {
-                if(this.LoanCaseId){
+                if (this.LoanCaseId) {
                     this.layoutUtilsService.alertElement('', 'Please add all files');
                 }
                 return false;
@@ -352,7 +352,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
                 this.loanDocument.file = single_file;
 
-                if(this.descriptionFalse == true){
+                if (this.descriptionFalse == true) {
                     return false;
                 }
 
@@ -368,11 +368,11 @@ export class ClUploadDocumentComponent implements OnInit {
                     this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s)');
                     this.descriptionFalse = true;
                     return false;
-                }else{
+                } else {
                     this.descriptionFalse = false;
                 }
             });
-            if (ok){
+            if (ok) {
                 this.rawData?.forEach((single_file, index) => {
                     this.loanDocument.file = single_file;
 
@@ -399,7 +399,6 @@ export class ClUploadDocumentComponent implements OnInit {
                         ).subscribe((baseResponse) => {
                         if (baseResponse.Success) {
                             count = count + 1;
-
 
 
                             // @ts-ignore
@@ -436,7 +435,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     loanCase() {
-        
+
         var LoanDoc = this.PostDocument.controls.DocLoanId.value;
 
         if (LoanDoc == undefined || LoanDoc == null) {

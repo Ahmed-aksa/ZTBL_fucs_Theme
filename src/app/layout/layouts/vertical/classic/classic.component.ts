@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -20,6 +20,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     userInfo;
     time:any;
     navigation: Navigation;
+    sessionTime: any;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -33,20 +34,17 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService,
         private _sessionExpireService: SessionExpireService,
-        
+
     ) {
-        setTimeout(() => {
-            this._sessionExpireService.count.subscribe(c => {
-                this.time = c.toString();
-            });
-        }, 5000);
+        
     }
 
     get currentYear(): number {
         return new Date().getFullYear();
     }
-
     ngOnInit(): void {
+
+
         this.user = JSON.parse(localStorage.getItem('ZTBLUser')).User;
 
         this.userInfo = this.userUtils.getUserDetails().User.userGroup;
@@ -64,16 +62,30 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
                 this.isScreenSmall = !matchingAliases.includes('md');
             });
     }
-
     ngOnDestroy(): void {
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
-
+    ngAfterViewInit(){
+        this._sessionExpireService?.count?.subscribe(c => {
+            this.time = c.toString();
+        });
+    }
     toggleNavigation(name: string): void {
         const navigation = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(name);
         if (navigation) {
             navigation.toggle();
         }
+    }
+    @HostListener('window:keydown')
+    @HostListener('window:mousedown')
+    // @HostListener('mousemove')
+    checkUserActivity() {
+        this.setSessionTime();
+    }
+    setSessionTime() {
+        this.sessionTime = JSON.parse(localStorage.getItem("ZTBLUser"))?.SessionExpiryTime;
+        this._sessionExpireService.timer(Number(this.sessionTime));
+        //this._sessionExpireService.timer(1);
     }
 }

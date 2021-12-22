@@ -9,33 +9,33 @@
     </div>
     <div class="row">
         <div class="col-lg-3">
-            <mat-form-field appearance="outline">
-                <mat-label>Number of Files</mat-label>
-                <input matInput type="number"
-                       (change)="changeNumberOfFiles($event.target.value)"
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Number of Files <strong>*</strong></mat-label>
+                <input matInput type="text" appNumberOnly
+                       (keyup)="changeNumberOfFiles($event.target.value)"
                        [(ngModel)]="number_of_files"
                        class="mat-input-element"/>
             </mat-form-field>
         </div>
         <div class="col-lg-3">
-            <mat-form-field appearance="outline">
-                <mat-label>Description</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Description<strong>*</strong></mat-label>
                 <input matInput type="text" (change)="changeTypeData($event.target.value,'description')"
                        [(ngModel)]="general_description"
                        class="mat-input-element"/>
             </mat-form-field>
         </div>
         <div class="col-lg-3">
-            <mat-form-field appearance="outline">
-                <mat-label>Reference No.</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Reference No.<strong>*</strong></mat-label>
                 <input matInput type="text" (change)="changeTypeData($event.target.value,'reference')"
                        [(ngModel)]="reference"
                 >
             </mat-form-field>
         </div>
         <div class="col-lg-3">
-            <mat-form-field appearance="outline">
-                <mat-label class="customMatLabel">Select Document Type
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label class="customMatLabel">Select Document Type <strong>*</strong>
                 </mat-label>
                 <mat-select (selectionChange)="changeDocumentType($event)">
                     <mat-option *ngFor="let obj of document_types?.LOVs" [value]="obj.Value">
@@ -49,24 +49,30 @@
 
 
     <div *ngFor="let j of [].constructor(number_of_files);let i=index">
+
         <div class="row p-2 border rounded my-2">
-            <div class="col-lg-6 align-self-center">
-                <input type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
-                       (change)="onFileChange($event, i)"/>
-                <div class="shadow-sm mt-2" style="width: 240px; position: relative;">
-                    <img [src]="doc_urls[i]" (click)="previewImg(doc_urls[i])">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <mat-form-field class="w-full" appearance="outline">
+                            <mat-label>Description<strong>*</strong></mat-label>
+                            <input matInput type="text"
+                                   (change)="changeTypeData($event.target.value,'file_description',i)"
+                                   [(ngModel)]="description[i]"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 align-self-center flex">
+                        <input width="150" style="align-self: center;" type="file"
+                               accept="image/png, image/jpg, image/jpeg" appearance="outline"
+                               (change)="onFileChange($event, i)"/><strong>*</strong>
+
+                    </div>
                 </div>
 
             </div>
-            <div class="col-lg-6  align-self-center">
-                <mat-form-field appearance="outline">
-                    <mat-label>Description</mat-label>
-                    <input matInput type="text" (change)="changeTypeData($event.target.value,'file_description',i)"
-                           [(ngModel)]="description[i]"/>
-                </mat-form-field>
-            </div>
         </div>
-
 
     </div>
 

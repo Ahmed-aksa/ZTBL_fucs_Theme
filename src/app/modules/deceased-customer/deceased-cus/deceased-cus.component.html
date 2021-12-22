@@ -23,7 +23,7 @@
         <div class="collapse show" id="collapseExample">
             <div class="card card-body">
                 <div class="flex mt-1" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="customerForm" [should_show_circle]="false"
+                    <app-zone-branch-circle [form]="customerForm" [should_show_circle]="false" [should_filter]="false"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
@@ -135,7 +135,7 @@
                                     <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                         <mat-label class="customMatLabel">Date of Death <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy"
+                                        <input readonly matInput [matDatepicker]="picker" placeholder="ddMMyyyy"
                                                formControlName="DateofDeath" autocomplete="off" [max]="getToday()"
                                                [disabled]="viewOnly">
 
@@ -150,7 +150,7 @@
                                         <mat-label class="customMatLabel">Nadra No <strong
                                             class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input [readonly]="viewOnly" matInput formControlName="NadraNo" placeholder=""
+                                        <input appNumberOnly [readonly]="viewOnly" matInput formControlName="NadraNo" placeholder=""
                                                maxlength="13"
                                                autocomplete="off"/>
                                         <mat-error *ngIf="hasError('NadraNo', 'required')">Nadra Number
@@ -159,7 +159,7 @@
                                 </td>
                                 <td>
                                     <!-- certificate verified -->
-                                    <mat-checkbox formControlName="IsNadraCertificateVerified" [checked]="myModel"
+                                    <mat-checkbox [checked]="myModel"
                                                   (click)="onChang(myModel)" [disabled]="viewOnly"></mat-checkbox>
                                 </td>
                                 <td>
@@ -185,6 +185,8 @@
                                     <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                         <input matInput [disabled]='visible' formControlName="DetailSourceIncome"
                                                placeholder="" maxlength="200" autocomplete="off"/>
+                                        <mat-error *ngIf="hasError('DetailSourceIncome', 'required')">Please Add Details
+                                        </mat-error>
                                     </mat-form-field>
                                 </td>
                                 <td>

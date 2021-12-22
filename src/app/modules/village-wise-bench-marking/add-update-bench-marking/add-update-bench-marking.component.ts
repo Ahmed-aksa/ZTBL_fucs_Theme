@@ -208,9 +208,9 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
             FemaleCount: [null, Validators.required],
             TransGenderCount: [null, Validators.required],
             AverageLoanSize: [null, Validators.required],
-            SubsistenceFarmer: [null],
-            EconomicFarmer: [null],
-            BigFarmers: [null],
+            SubsistenceFarmer: [null, Validators.required],
+            EconomicFarmer: [null, Validators.required],
+            BigFarmers: [null, Validators.required],
             AgriBusinessPotential: [null, Validators.maxLength(200)],
             Status: [],
         })

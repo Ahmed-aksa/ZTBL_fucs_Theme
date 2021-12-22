@@ -189,7 +189,7 @@ export class SearchRcComponent implements OnInit {
     }
 
     find() {
-        
+
         this.spinner.show();
         this.search = Object.assign(this.rcSearch.getRawValue());
 
@@ -234,7 +234,7 @@ export class SearchRcComponent implements OnInit {
 
                     this.totalItems = this.dataSource.filteredData.length;
                     this.OffSet = this.pageIndex;
-                    this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                     //
                     //
                 } else {
@@ -242,7 +242,7 @@ export class SearchRcComponent implements OnInit {
                         '',
                         baseResponse.Message
                     );
-                    this.dataSource = this.dv.slice(1, 0)
+                    this.dataSource = this.dv?.slice(1, 0)
                 }
                 this.loading = false;
             });
@@ -254,7 +254,7 @@ export class SearchRcComponent implements OnInit {
         this.OffSet = pageIndex;
         //this.SearchJvData();
         //this.dv.slice(event * this.itemsPerPage - this.itemsPerPage, event * this.itemsPerPage);
-        this.dataSource = this.dv.slice(
+        this.dataSource = this.dv?.slice(
             pageIndex * this.itemsPerPage - this.itemsPerPage,
             pageIndex * this.itemsPerPage
         ); //slice is used to get limited amount of data from APi

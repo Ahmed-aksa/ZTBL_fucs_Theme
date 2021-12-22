@@ -229,7 +229,7 @@ export class ClLoanWitnessComponent implements OnInit {
             Address: [this.loanRefrences.Address],
             Phone: [this.loanRefrences.Phone],
             Fax: [this.loanRefrences.Fax],
-            Email: [this.loanRefrences.Email],
+            Email: [this.loanRefrences.Email,Validators.email],
             Ntn: [this.loanRefrences.Ntn],
             ReferenceID: [this.loanRefrences.ReferenceID]
         });

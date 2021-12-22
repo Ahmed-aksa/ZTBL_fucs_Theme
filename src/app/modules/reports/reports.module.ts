@@ -30,6 +30,7 @@ import { GlMoveComponent } from './gl-move/gl-move.component';
 import { StatementOfAffairsComponent } from './statement-of-affairs/statement-of-affairs.component';
 import { ReschedulementOfLoanComponent } from './reschedulement-of-loan/reschedulement-of-loan.component';
 import { GetCustomerLegalHeirsComponent } from './get-customer-legal-heirs/get-customer-legal-heirs.component';
+import { CustomerCwrComponent } from './customer-cwr/customer-cwr.component';
 
 const routing = [
     {
@@ -68,6 +69,10 @@ const routing = [
         path: 'get-customer-legal-heirs',
         component: GetCustomerLegalHeirsComponent
     },
+    {
+        path: 'customer-cwr',
+        component: CustomerCwrComponent
+    }
 ]
 
 
@@ -98,7 +103,8 @@ const routing = [
         GlMoveComponent,
         StatementOfAffairsComponent,
         ReschedulementOfLoanComponent,
-        GetCustomerLegalHeirsComponent
+        GetCustomerLegalHeirsComponent,
+        CustomerCwrComponent
     ],
     imports: [
         CommonModule,

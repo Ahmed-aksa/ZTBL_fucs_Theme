@@ -39,6 +39,9 @@ export class UploadDocumentsComponent implements OnInit {
     LoanTypes: any = [];
     loanType: any = [];
     SelectedLoanType: any = [];
+    imgData = [];
+    bit;
+    fallout=false;
 
     //Document Loan Type inventory
     documentLoanTypes: any = [];
@@ -46,6 +49,7 @@ export class UploadDocumentsComponent implements OnInit {
     documentSelectedLoanType: any = [];
 
     loanCaseNo: string;
+    docId = [];
 
     //Document inventory
     document: any = [];
@@ -55,6 +59,7 @@ export class UploadDocumentsComponent implements OnInit {
     public lovDoc = new Lov();
     isZoneReadOnly: boolean;
     isBranchReadOnly: boolean;
+    maxLength;
 
     isUserAdmin: boolean = false;
 
@@ -62,7 +67,7 @@ export class UploadDocumentsComponent implements OnInit {
     branch: any;
     circle: any;
     disable_lc = false;
-    number_of_files: number;
+    number_of_files: number = 0;
 
 
     page_number = [];
@@ -94,11 +99,8 @@ export class UploadDocumentsComponent implements OnInit {
             DocLoanId: [this.loanDocument.DocLoanId, Validators.required],//Document Type Lov
             CategoryName: [this.loanDocument.CategoryName, Validators.required],
             Description: [this.loanDocument.Description, Validators.required],
-            PageNumber: [this.loanDocument.PageNumber, Validators.required],
-            DescriptionTab: ['', Validators.required],
             DocumentRefNo: ['', Validators.required],
             NoOfFilesToUpload: ['', Validators.required],
-            file: ['', Validators.required],
         });
     }
 
@@ -186,8 +188,7 @@ export class UploadDocumentsComponent implements OnInit {
         this.PostDocument.value.ParentDocId = '25';
     }
 
-    onFileChange(event) {
-
+    onFileChange(event, i) {
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -196,8 +197,14 @@ export class UploadDocumentsComponent implements OnInit {
                 if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
                     const reader = new FileReader();
                     reader.onload = (event: any) => {
-                        this.rawData.push(file);
-
+                        if (this.rawData[i]) {
+                            this.rawData.splice(i, 1);
+                            this.imgData.splice(i, 1);
+                            this.rawData.splice(i, 0, file);
+                        } else {
+                            this.rawData.push(file);
+                            //this.rawData.splice(i, 0, file);
+                        }
                     };
                     reader.readAsDataURL(file);
 
@@ -207,60 +214,115 @@ export class UploadDocumentsComponent implements OnInit {
                     return;
                 }
             }
+        } else {
+            this.rawData.splice(i, 1);
         }
 
 
     }
 
-    saveLoanDocuments() {
+index=0;
 
-        this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
-        this.rawData.forEach((single_file, index) => {
-            this.loanDocument.file = single_file;
+    saveLoanDocuments() {
+        for(let i=0;i<this.rawData.length;i++){
             // @ts-ignore
-            let page_number = document.getElementById(`page_${index}`)?.value;
+            let page_number = document.getElementById(`page_${i}`)?.value;
             // @ts-ignore
-            let description = document.getElementById(`description_${index}`)?.value;
-            this.loanDocument.PageNumber = page_number;
-            this.loanDocument.Description = description;
-            if (this.PostDocument.invalid) {
-                const controls = this.PostDocument.controls;
-                Object.keys(controls).forEach(controlName =>
-                    controls[controlName].markAsTouched()
-                );
+            let description = document.getElementById(`description_${i}`)?.value;
+
+            if (description == "" || description == undefined) {
+                this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s)');
                 return;
             }
-            if(!this.LoanCaseId){
-                this.loanCase();
-                return false;
-            }else{
-                this.loanDocument.LcNo = this.LoanCaseId;
-            }
 
-
-            this.spinner.show();
-            this._loanService.documentUpload(this.loanDocument)
-                .pipe(
-                    finalize(() => {
-                        this.spinner.hide();
-                    })
-                ).subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
-                    this.dialogRef.close();
-                } else {
-                    this.layoutUtilsService.alertMessage('', baseResponse.Message);
-                    return
-
-                }
-
-            });
-        })
+        }
+if(this.index<this.rawData.length) {
+    if (this.docId[this.index]) {
+        this.index = this.index + 1;
 
     }
 
+    this.fallout = false;
+    console.log(this.rawData);
+
+    var count = 0;
+    this.maxLength = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
+    this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
+
+    if (!this.LoanCaseId) {
+        this.bit = '1';
+        this.loanCase();
+        return false;
+    } else {
+        this.loanDocument.LoanCaseID = this.LoanCaseId;
+        this.bit = null;
+    }
+
+    
+    if (this.index < this.rawData.length) {
+        this.loanDocument.file = this.rawData[this.index];
+        // @ts-ignore
+        let page_number = document.getElementById(`page_${this.index}`)?.value;
+        // @ts-ignore
+        let description = document.getElementById(`description_${this.index}`)?.value;
+
+
+
+        this.loanDocument.PageNumber = page_number;
+        this.loanDocument.Description = description;
+        if (this.PostDocument.invalid) {
+            const controls = this.PostDocument.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+            return;
+        }
+
+        if (this.rawData.length < this.maxLength) {
+            if (this.LoanCaseId) {
+                this.layoutUtilsService.alertElement('', 'Please add all files');
+                this.fallout = true;
+            }
+            return false;
+        }
+
+        this.spinner.show();
+        this._loanService.documentUpload(this.loanDocument)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe((baseResponse) => {
+            if (baseResponse.Success) {
+                
+                // this.index = this.index + 1;
+                this.docId.push(baseResponse.DocumentDetail.Id);
+
+                if (this.index == this.maxLength) {
+                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                    this.rawData.length = 0;
+                    this.docId = [];
+                    this.dialogRef.close();
+
+                } else {
+                    this.saveLoanDocuments();
+                    this.index++;
+                }
+            } else {
+                this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                this.fallout = true;
+                return;
+            }
+
+
+        });
+    }
+
+        }
+    }
+
     loanCase() {
-        
+
         var LoanDoc = this.PostDocument.controls.DocLoanId.value;
 
         if (LoanDoc == undefined && LoanDoc == null) {
@@ -279,7 +341,9 @@ export class UploadDocumentsComponent implements OnInit {
                 this.PostDocument.controls['LoanStatus'].setValue(response.AppStatusName);
                 this.PostDocument.controls['CategoryName'].setValue(response.CategoryName);
                 this.LoanCaseId = response.DocumentLoanCaseID;
-                this.saveLoanDocuments();
+                if (this.bit) {
+                    this.saveLoanDocuments();
+                }
 
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
@@ -288,8 +352,9 @@ export class UploadDocumentsComponent implements OnInit {
     }
 
     changeFilesQuantity() {
-
-        this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
+        if (!isNaN(parseInt(this.PostDocument.value.NoOfFilesToUpload))) {
+            this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
+        }
     }
 }
 

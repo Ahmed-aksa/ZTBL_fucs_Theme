@@ -310,11 +310,12 @@ export class LandChargeCreationComponent implements OnInit {
     }
 
     validateDistOnFocusOut() {
-        if (this.DistrictLovDataSelected.length == 0)
+        if (this.DistrictLovDataSelected?.length == 0)
             this.DistrictLovDataSelected = this.DistrictLovData;
     }
 
     searchTehsil(circleId) {
+        debugger
         circleId = circleId.toLowerCase();
         if (circleId != null && circleId != undefined && circleId != "")
             this.TehsilLovDataSelected = this.TehsilLovData.filter(x => x.Name.toLowerCase().indexOf(circleId) > -1);
@@ -323,7 +324,7 @@ export class LandChargeCreationComponent implements OnInit {
     }
 
     validateTehsilOnFocusOut() {
-        if (this.TehsilLovDataSelected.length == 0)
+        if (this.TehsilLovDataSelected?.length == 0)
             this.TehsilLovDataSelected = this.TehsilLovData;
     }
 
@@ -378,7 +379,13 @@ export class LandChargeCreationComponent implements OnInit {
 
     }
 
-
+    numberOnly(event): boolean {
+        const charCode = event.which ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
     getTitle(): string {
 
         return "Land Charge Creation Information"

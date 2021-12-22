@@ -20,7 +20,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {CircleService} from 'app/shared/services/circle.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 declare const google: any;
 
@@ -54,7 +54,7 @@ export class GeofencingEditComponent implements OnInit {
     address: string;
     gridHeight: string;
     //implements OnInit
-
+    radius = null;
 
     ///////////////////
     lat = 30.375321;
@@ -66,6 +66,7 @@ export class GeofencingEditComponent implements OnInit {
     selectedArea = 0;
     fenceMarkers = [];
     multiPolygonArray = [];
+    intersectedCircleCode = null
     allPolygons = [];
     googleMap: any;
     createColor = "#0f298f";
@@ -92,8 +93,13 @@ export class GeofencingEditComponent implements OnInit {
                 private ngZone: NgZone,
                 private _snackBar: MatSnackBar,
                 private layoutUtilsService: LayoutUtilsService,
+<<<<<<< HEAD
         private _circleService: CircleService,
                 private spinner: NgxSpinnerService
+=======
+                private _circleService: CircleService,
+                private Spinner: NgxSpinnerService
+>>>>>>> aa8775cb345baa7f9b94ed19635e91b5c44c05c1
     ) {
     }
 
@@ -295,7 +301,7 @@ export class GeofencingEditComponent implements OnInit {
                     var lat: number = +o.lat
                     var lng: number = +o.lng
                 }
-            });    
+            });
             this.NewFancPoints = this.NewFancPoints + '' + (this.pointList[0].lat.toString() + ',' + this.pointList[0].lng);
             this.circle.GeoFancPoints = this.NewFancPoints;
 
@@ -371,6 +377,7 @@ export class GeofencingEditComponent implements OnInit {
 
     checkForOverlapping(createdPolygon): Boolean {
 
+        this.intersectedCircleCode = ""
         var newPolygon = polygon([
             createdPolygon
         ])
@@ -405,6 +412,7 @@ export class GeofencingEditComponent implements OnInit {
                 });
 
                 this.drawPolygonOnMap(polygon2, "#FF0000")
+                this.intersectedCircleCode = this.multiPolygonArray[i].circleCode
             }
 
             return intersection.length > 0
@@ -475,6 +483,7 @@ export class GeofencingEditComponent implements OnInit {
         var lng: number = +this.pointList[0].lng
         polygonArrayForOverlapingCheck.push([lat, lng])
 
+
         /* --------------- End ---------------------*/
 
 
@@ -483,10 +492,9 @@ export class GeofencingEditComponent implements OnInit {
 
 
             this.request = new BaseRequestModel();
-
-
             this.circle.GeoFancPoints = this.NewFancPoints;
             this.circle.Id = this.circle.Id;
+            this.circle.Radius = this.radius;
             this.circle.CenterLatitude = this.fenceCenter.lat().toString();
             this.circle.CenterLongitude = this.fenceCenter.lng().toString();
 
@@ -494,6 +502,11 @@ export class GeofencingEditComponent implements OnInit {
             this.request.Zone = this.data.zone;
             this.request.Branch = this.data.branch;
             this.submitted = true;
+<<<<<<< HEAD
+=======
+
+            this.Spinner.show()
+>>>>>>> aa8775cb345baa7f9b94ed19635e91b5c44c05c1
 
             if (this.OldFancPoints.length > 0) {
                 this._circleService.CirclePoligonUpdate(this.request)
@@ -537,8 +550,12 @@ export class GeofencingEditComponent implements OnInit {
                     });
             }
         } else {
+<<<<<<< HEAD
             this.spinner.hide()
             this.layoutUtilsService.alertElement("", "Fence of this Circle can not be created because it is overlaping with the fence of another Circle", "Fence Ovelapped");
+=======
+            this.layoutUtilsService.alertElement("", "Fence of this Circle can not be created because it is overlapping with the fence of " + this.intersectedCircleCode + " Circle", "Fence Overlapped");
+>>>>>>> aa8775cb345baa7f9b94ed19635e91b5c44c05c1
         }
 
     }
@@ -709,7 +726,7 @@ export class GeofencingEditComponent implements OnInit {
             );
         }
         var bounds = new google.maps.LatLngBounds();
-        let distance = 0;
+        let radius = 0;
         this.pointList.forEach((o, i) => {
             bounds.extend(new google.maps.LatLng(o.lat, o.lng));
             if (i != 0) {
@@ -721,7 +738,7 @@ export class GeofencingEditComponent implements OnInit {
                 var num2 = Number(second_point.lng) * (Math.PI / 180.0) - num1;
                 var d3 = Math.pow(Math.sin((d2 - d1) / 2.0), 2.0) +
                     Math.cos(d1) * Math.cos(d2) * Math.pow(Math.sin(num2 / 2.0), 2.0);
-                distance += 6378137 * (2.0 * Math.atan2(Math.sqrt(d3), Math.sqrt(1.0 - d3)));
+                radius += 6378137 * (2.0 * Math.atan2(Math.sqrt(d3), Math.sqrt(1.0 - d3)));
             }
         });
         let size = this.pointList.length;
@@ -733,8 +750,8 @@ export class GeofencingEditComponent implements OnInit {
         var num2 = Number(second_point.lng) * (Math.PI / 180.0) - num1;
         var d3 = Math.pow(Math.sin((d2 - d1) / 2.0), 2.0) +
             Math.cos(d1) * Math.cos(d2) * Math.pow(Math.sin(num2 / 2.0), 2.0);
-        distance += 6378137 * (2.0 * Math.atan2(Math.sqrt(d3), Math.sqrt(1.0 - d3)));
-
+        radius += 6378137 * (2.0 * Math.atan2(Math.sqrt(d3), Math.sqrt(1.0 - d3)));
+        this.radius = Number(radius / 1000).toFixed(2);
         this.fenceCenter = bounds.getCenter()
 
         // Need to get all the surrounding cricles of created/edit fence.

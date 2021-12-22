@@ -1,66 +1,78 @@
 <div
     class=" px-10   sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
 
-<mat-tab-group class="pt-4 flex flex-auto  shadow-xs rounded-sm"
-style="flex-direction: column; overflow-y: scroll" animationDuration="200ms" style="background-color: white;">
+    <mat-tab-group class="pt-4 flex flex-auto  shadow-xs rounded-sm" style="flex-direction: column; overflow-y: scroll"
+                   animationDuration="200ms" style="background-color: white;">
+        <ng-container *ngFor="let item of userGroup">
 
-    <mat-tab ng-disable="visibleFlag" label="MCO">
-        <app-mco-dashborad></app-mco-dashborad>
-    </mat-tab>
+            <mat-tab *ngIf="item.ProfileID=='56'" ng-disable="visibleFlag" label="MCO">
+                <app-mco-dashborad></app-mco-dashborad>
+            </mat-tab>
+            <mat-tab *ngIf="item.ProfileID=='206'" label="Recovery Officer">
+                <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
+            </mat-tab>
 
-    <mat-tab label="Recovery Officer">
-        <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
-    </mat-tab>
+            <mat-tab *ngIf="item.ProfileID =='57'" label="Branch Manager">
+                <app-branch-manager-dashboard></app-branch-manager-dashboard>
+            </mat-tab>
 
-    <mat-tab label="Branch Manager">
-        <app-branch-manager-dashboard></app-branch-manager-dashboard>
-    </mat-tab>
+            <mat-tab *ngIf="item.ProfileID =='75'" label="Zonal Chief">
+                <app-zonal-chief-dashboard></app-zonal-chief-dashboard>
+            </mat-tab>
 
-    <mat-tab label="Zonal Chiet">
-        <app-zonal-chief-dashboard></app-zonal-chief-dashboard>
-    </mat-tab>
+            <mat-tab label="EVP (Operations Division)" *ngIf="item.ProfileID =='202'">
+                <app-evp-od-dashboard></app-evp-od-dashboard>
+            </mat-tab>
 
-    <mat-tab label="EVP (Operations Division)">
-        <app-evp-od-dashboard></app-evp-od-dashboard>
-    </mat-tab>
+            <mat-tab label="EVP (Credit Division)" *ngIf="item.ProfileID =='200'">
+                <app-evp-credit-dashboard></app-evp-credit-dashboard>
+            </mat-tab>
 
-    <mat-tab label="EVP (Credit Division)">Content 3</mat-tab>
+            <mat-tab label="EVP (Recovery & SAM Division)" *ngIf="item.ProfileID =='201'">
+                <app-recovery-sam-division></app-recovery-sam-division>
+            </mat-tab>
 
-    <mat-tab label="EVP (Recovery & SAM Division)">
-        <app-recovery-officer-dashboard></app-recovery-officer-dashboard>
-    </mat-tab>
+            <mat-tab label="Resourccs Aveilable" *ngIf="item.ProfileID =='75'">
+                <app-recovery-available></app-recovery-available>
+            </mat-tab>
 
-    <mat-tab label="Resourccs Aveilable">Content 3</mat-tab>
-    <mat-tab label="President ZTBL">Content 3</mat-tab>
-    <mat-tab label="Regional Chief">Content 3</mat-tab>
-</mat-tab-group>
+            <mat-tab label="President ZTBL" *ngIf="item.ProfileID =='204'">
+                <app-president-ztbl></app-president-ztbl>
+            </mat-tab>
+            <mat-tab label="Regional Chief" *ngIf="item.ProfileID =='203'">
+                <app-regional-cheif></app-regional-cheif>
+            </mat-tab>
+            <mat-tab label="Provincial Chief " *ngIf="item.ProfileID =='205'">
+                <app-provincial-chief></app-provincial-chief>
+            </mat-tab>
+        </ng-container>
+    </mat-tab-group>
 
 
+    <div class="overlay" style="z-index: 1;" *ngIf="popup">
+        <div class="popup">
+            <h2 class="heading">Session Expire ! </h2>
+            <!-- <a class="close text-red-500" (click)="popup = false">&times;</a> -->
+            <div class="content my-4">
+                <p>Your Session is going to expire within <b> {{time}}</b> Second(s).</p>
+                <p>Please do an action.</p>
+            </div>
+            <div class="row text-right">
+                <div class="col-lg-12">
+                    <button type="button" (click)="RefreshToken()" class="btn btn-primary bg-green" mat-raised-button
+                            color="primary">
+                        <mat-icon class="mr-2">refresh</mat-icon>
+                        Refresh
+                    </button>
 
-<div class="overlay" *ngIf="popup">
-    <div class="popup">
-        <h2 class="heading">Session Expire ! </h2>
-        <!-- <a class="close text-red-500" (click)="popup = false">&times;</a> -->
-        <div class="content my-4">
-            <p>Your Session is going to expire within <b> {{time}}</b> Second(s).</p>
-            <p>Please do an action.</p>
-        </div>
-        <div class="row text-right">
-            <div class="col-lg-12">
-                <button type="button" (click)="RefreshToken()" class="btn btn-primary bg-green" mat-raised-button
-                    color="primary">
-                    <mat-icon class="mr-2">refresh</mat-icon>
-                    Refresh
-                </button>
-
-                &nbsp;
-                <button type="button" (click)="Logout()" class="btn btn-primary bg-red-500" mat-raised-button
-                    color="primary">
-                    <mat-icon class="mr-2">login</mat-icon>
-                    Logout
-                </button>
+                    &nbsp;
+                    <button type="button" (click)="Logout()" class="btn btn-primary bg-red-500" mat-raised-button
+                            color="primary">
+                        <mat-icon class="mr-2">login</mat-icon>
+                        Logout
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>

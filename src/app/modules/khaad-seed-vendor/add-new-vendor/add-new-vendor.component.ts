@@ -32,6 +32,7 @@ import {KhaadSeedVendor} from '../class/khaad-seed-vendor';
 import {VendorDetail} from '../class/vendor-detail';
 import {KhaadSeedVendorService} from '../service/khaad-seed-vendor.service';
 import {AddressLocationComponent} from './address-location/address-location.component';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-add-new-vendor',
@@ -58,6 +59,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
     vendorObj: any;
     viewOther = false;
     LoggedInUserInfo: BaseResponseModel;
+    showPreview = false;
 
     navigationSubscription: any;
 
@@ -95,6 +97,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
         private spinner: NgxSpinnerService,
         private userUtilsService: UserUtilsService,
         private router: Router,
+        private toastr: ToastrService,
         private activatedRoute: ActivatedRoute,
         private cdRef: ChangeDetectorRef,
     ) {
@@ -109,7 +112,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
 
         var CheckEdit = localStorage.getItem("EditJvData");
         if (CheckEdit == '0') {
-            localStorage.setItem("SearchJvData", "");
+            localStorage.setItem("SearchVendorData", "");
         }
     }
 
@@ -182,12 +185,12 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
     }
 
     getVendorInfo() {
+
         this.spinner.show();
         this.user.ZoneId = this.zone?.ZoneId;
         this.user.BranchCode = this.branch?.BranchCode;
-        this.user.CircleId = this.circle?.Id;
+        this.user.CircleId = this.circle?.CircleId;
         this.vendor.Id = this.vendorEditView.Id;
-
         var limit = 1, offset = 0;
 
         this._khaadSeedVendor.searchVendors(limit, offset, this.vendor, this.user, this.zone, this.branch, this.circle)
@@ -202,13 +205,13 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
 
                     this.fileExist = true;
                     this.vendorInfo = baseResponse.SeedKhadVendor.VendorDetail;
-
-                    this.vendorForm.controls["BranchCode"].setValue(this.vendorInfo.BranchCode);
-                    this.vendorForm.controls["ZoneId"].setValue(this.vendorInfo.ZoneId);
+                    this.showPreview = true;
+                    //this.vendorForm.controls["BranchCode"].setValue(this.vendorInfo.BranchCode);
+                    //this.vendorForm.controls["ZoneId"].setValue(this.vendorInfo.ZoneId);
                     this.vendorForm.controls["Name"].setValue(this.vendorInfo.Name);
                     this.vendorForm.controls["Type"].setValue(this.vendorInfo.Type);
                     this.vendorForm.controls["Description"].setValue(this.vendorInfo.Description);
-                    this.vendorForm.controls["CircleCode"].setValue(this.vendorInfo.CircleCode);
+                    //this.vendorForm.controls["CircleCode"].setValue(this.vendorInfo.CircleCode);
                     this.khaadSeedVendor.CircleId = this.vendorInfo?.CircleId;
 
                     this.vendorForm.controls["Location"].setValue(this.vendorInfo.Lat + " , " + this.vendorInfo.Lng);
@@ -300,6 +303,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
                             ;
                             this.images = [];
                             this.fileExist = true;
+                            this.showPreview = true;
                             this.images.push(event.target.result);
 
                             this.file = file;
@@ -335,6 +339,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
+            this.toastr.error("Please Enter Required/Valid values");
             this.hasFormErrors = true;
             return;
         }

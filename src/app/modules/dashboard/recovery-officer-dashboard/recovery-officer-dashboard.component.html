@@ -1,155 +1,99 @@
-<div class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div
+    class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading">Recovery Officer</div>
     <!-- Header -->
-  
+
     <!-- Main -->
     <div class="flex flex-auto overflow-x-hidden overflow-y-scroll">
-  
-      <!-- Products list -->
-      <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
-      <div class="row">
-          <div  class="col-lg-6 py-3">
-            <div class="shadow-sm border">
-              <div id="chart" class=" m-0 pt-2">
-                <apx-chart
-                    [series]="chartOptions.series"
-                    [chart]="chartOptions.chart"
-                    [labels]="chartOptions.labels"
-                    [title]="chartOptions.title"
-                    [theme]="chartOptions.theme"
-                    [responsive]="chartOptions.responsive"
-                  ></apx-chart>
-                </div>
-              </div>
+
+        <!-- Products list -->
+        <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
+            <div class="row">
+                <div class="col-lg-6 py-3">
+                    <div class="shadow-sm border">
+                        <div id="chart" class=" m-0 pt-2">
+                            <apx-chart
+                                [series]="chartOptions?.series"
+                                [chart]="chartOptions?.chart"
+                                [labels]="chartOptions?.labels"
+                                [title]="chartOptions?.title"
+                                [theme]="chartOptions?.theme"
+                                [responsive]="chartOptions?.responsive"
+                            ></apx-chart>
+                        </div>
+                    </div>
 
 
-          </div>
-          <div  class="col-lg-6 py-3">
-            <div class="shadow-sm border">
-              <div id="chart" class=" m-0 pt-2">
-                <apx-chart
-                    [series]="chartOptions.series"
-                    [chart]="chartOptions.chart"
-                    [labels]="chartOptions.labels"
-                    [title]="chartOptions.title"
-                    [theme]="chartOptions.theme"
-                    [responsive]="chartOptions.responsive"
-                  ></apx-chart>
                 </div>
-              </div>
-          </div>
-          </div>
-          <div  class="row  justify-content-md-center">
-           
-              <div class="col-lg-6 table-responsive">
-                <p class="heading mb-2 text-lg">Recovery</p>
-            <table class="table  table-striped">
-              
-                <thead>
-                  <tr class="table-header-background">
-                    <th scope="col">Calendar Year Target</th>
-                    <th scope="col">Achievement</th>
-                    <th scope="col">%age</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Fiscsal year Target</th>
-                    <td>Achievement</td>
-                    <td>%age</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Calendar Year Target Corresponding Period</th>
-                    <td>Achievement</td>
-                    <td>%age</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Fiscsal year Target Corresponding Period</th>
-                    <td>Achievement</td>
-                    <td>%age</td>
-                  </tr>
-                </tbody>
-              </table>
-          </div>     
-          <div class="col-lg-6 table-responsive">
-            <p class="heading mb-2 text-lg">Circle Wise within Allocated Branches</p>
-            <table class="table  table-striped">
-            
-              <thead>
-                  <tr class="table-header-background">
-                  <th scope="col">Branch</th>
-                  <th scope="col">Disbursement</th>
-                  <th scope="col">Recovery</th>
-                  <th scope="col">NPL</th>
-                  <th scope="col">SAM</th>
-                  <th scope="col">Outstanding</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                 
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                   
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-                </tbody>
-              </table>
+                <div class="col-lg-6 py-3">
+                    <div class="shadow-sm border pt-5" >
+
+                            <!-- <apx-chart
+                                [series]="chartOptions?.series"
+                                [chart]="chartOptions?.chart"
+                                [labels]="chartOptions?.labels"
+                                [title]="chartOptions?.title"
+                                [theme]="chartOptions?.theme"
+                                [responsive]="chartOptions?.responsive"
+                            ></apx-chart> -->
+                            <app-pyramid-chart>
+
+                            </app-pyramid-chart>
+
+                    </div>
+                </div>
             </div>
-        </div>   
+            <div class="row  justify-content-md-center">
+
+                <div class="col-lg-6 table-responsive">
+                    <p class="heading mb-2 text-lg">Recovery</p>
+                    <table class="table  table-striped">
+
+                        <!--                        <thead>-->
+                        <!--                        <tr class="table-header-background">-->
+                        <!--                            <th scope="col">Calendar Year Target</th>-->
+                        <!--                            <th scope="col">Achievement</th>-->
+                        <!--                            <th scope="col">%age</th>-->
+                        <!--                        </tr>-->
+                        <!--                        </thead>-->
+                        <tbody>
+                        <tr *ngFor="let item of recoveryAchievment">
+                            <th>{{item[0]}}</th>
+                            <td>{{item[1]}}</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6 table-responsive">
+                    <p class="heading mb-2 text-lg">Circle Wise within Allocated Branches</p>
+                    <table class="table  table-striped">
+
+                        <thead>
+                        <tr class="table-header-background">
+                            <th scope="col">Branch</th>
+                            <th scope="col">Disbursement</th>
+                            <th scope="col">Recovery</th>
+                            <th scope="col">NPL</th>
+                            <th scope="col">SAM</th>
+                            <th scope="col">Outstanding</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of circlePositions">
+                            <th>{{item?.Name}}</th>
+                            <td>{{item?.TotalDisbursment}}</td>
+                            <td>{{item?.TotalRecovery}}</td>
+                            <td>{{item?.NplOS}}</td>
+                            <td>{{item?.SamOS}}</td>
+                            <td>{{item?.TotalOS}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
 
     </div>
-
-    </div>
-  </div>
+</div>

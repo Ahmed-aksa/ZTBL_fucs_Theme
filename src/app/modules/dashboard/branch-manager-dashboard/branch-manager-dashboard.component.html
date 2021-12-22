@@ -1,123 +1,155 @@
-<div class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+<div
+    class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading">Branch Manager</div>
     <!-- Header -->
     <form [formGroup]="options">
-    <div class="row py-2">
+        <div class="row py-2">
 
-          <div class="col-lg-4">
-            <mat-form-field  class="w-full" appearance="outline">
-              <mat-label>Date</mat-label>
-              <input matInput [matDatepicker]="picker">
-             
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-lg-4">
-            <mat-form-field class="w-full" appearance="outline" [floatLabel]="floatLabelControl.value">
-              <mat-label>Branch Name</mat-label>
-              <input matInput placeholder="Enter Branch Name">
-            </mat-form-field>
-          </div>
-          <div class="col-lg-4">
-            <mat-form-field  class="w-full" appearance="outline" [floatLabel]="floatLabelControl.value">
-              <mat-label>Zone Name</mat-label>
-              <input matInput placeholder="Enter Zone Name">
-            </mat-form-field>
-          </div>
+            <div class="col-lg-4">
+                <mat-form-field class="w-full" appearance="outline">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="picker">
 
-      </div>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+                <mat-form-field class="w-full" appearance="outline" [floatLabel]="floatLabelControl?.value">
+                    <mat-label>Branch Name</mat-label>
+                    <input matInput placeholder="Enter Branch Name">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+                <mat-form-field class="w-full" appearance="outline" [floatLabel]="floatLabelControl?.value">
+                    <mat-label>Zone Name</mat-label>
+                    <input matInput placeholder="Enter Zone Name">
+                </mat-form-field>
+            </div>
+
+        </div>
     </form>
     <!-- Main -->
     <div class="flex flex-auto overflow-y-scroll">
-  
-      <!-- Products list -->
-      <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
-      <div class="row">
-          <div  class="col-lg-6">
-            <div class="shadow-sm border">
-              <div id="chart" class=" mt-0 py-3">
-                <apx-chart
-                    [series]="chartOptions.series"
-                    [chart]="chartOptions.chart"
-                    [labels]="chartOptions.labels"
-                    [title]="chartOptions.title"
-                    [theme]="chartOptions.theme"
-                    [responsive]="chartOptions.responsive"
-                  ></apx-chart>
+
+        <!-- Products list -->
+        <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="shadow-sm border">
+                        <div id="chart" *ngIf="chartPerformanceIndicators" class=" mt-0 py-3">
+                            <apx-chart [series]="chartPerformanceIndicators?.series"
+                                       [chart]="chartPerformanceIndicators?.chart"
+                                       [labels]="chartPerformanceIndicators?.labels"
+                                       [title]="chartPerformanceIndicators?.title"
+                                       [theme]="chartPerformanceIndicators?.theme"
+                                       [responsive]="chartPerformanceIndicators?.responsive">
+                            </apx-chart>
+                        </div>
+                    </div>
+
                 </div>
-              </div>
+                <div class="col-lg-6">
+                    <div class="shadow-sm border">
+                        <div id="chart" *ngIf="chartLoanPortfolio" class=" mt-0 py-3">
+                            <apx-chart [series]="chartLoanPortfolio?.series" [chart]="chartLoanPortfolio?.chart"
+                                       [labels]="chartLoanPortfolio?.labels" [title]="chartLoanPortfolio?.title"
+                                       [theme]="chartLoanPortfolio?.theme"
+                                       [responsive]="chartLoanPortfolio?.responsive"></apx-chart>
+                        </div>
+                    </div>
 
-          </div>
-          <div  class="col-lg-6">
-            <div class="shadow-sm border">
-              <div id="chart" class=" mt-0 py-3">
-                <apx-chart
-                    [series]="chartOptions.series"
-                    [chart]="chartOptions.chart"
-                    [labels]="chartOptions.labels"
-                    [title]="chartOptions.title"
-                    [theme]="chartOptions.theme"
-                    [responsive]="chartOptions.responsive"
-                  ></apx-chart>
                 </div>
-              </div>
+                <div class="col-lg-6 mt-3">
+                    <div class="shadow-sm border">
+                        <div id="chart" *ngIf="chartnoOfBorrowers" class=" mt-0 py-3">
+                            <apx-chart [series]="chartnoOfBorrowers?.series" [chart]="chartnoOfBorrowers?.chart"
+                                       [labels]="chartnoOfBorrowers?.labels" [title]="chartnoOfBorrowers?.title"
+                                       [theme]="chartnoOfBorrowers?.theme"
+                                       [responsive]="chartnoOfBorrowers?.responsive"></apx-chart>
+                        </div>
+                    </div>
 
-          </div>
-          <div  class="col-lg-6 mt-3">
-            <div class="shadow-sm border">
-              <div id="chart" class=" mt-0 py-3">
-                <apx-chart
-                    [series]="chartOptions.series"
-                    [chart]="chartOptions.chart"
-                    [labels]="chartOptions.labels"
-                    [title]="chartOptions.title"
-                    [theme]="chartOptions.theme"
-                    [responsive]="chartOptions.responsive"
-                  ></apx-chart>
                 </div>
-              </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-6 table-responsive">
+                    <p class="heading mb-2 text-lg">
+                        Disbursements
+                    </p>
+                    <table class="table  table-striped">
+                        <!-- <thead>
+                          <tr class="table-header-background text-white">
+                            <th>Calendar Year Target</th>
+                            <th>Achievement</th>
+                            <th>%age</th>
+                          </tr>
+                        </thead> -->
 
-          </div>
-          </div>
-          <div class="row mb-2">          
-            <div  class="col-lg-12 table-responsive">
-              <p class="heading mb-2 text-lg">
-                Disbursements
-              </p>
-            <table class="table  table-striped">
-              <thead>
-                <tr class="table-header-background text-white">
-                  <th >Calendar Year Target</th>
-                  <th>Achievement</th>
-                  <th>%age</th>
-                </tr>
-              </thead>
-          
-                <tbody>
+                        <tbody>
+                        <tr *ngFor="let item of DisbursmentAchievement">
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
 
-                     
-                      
-                          <tr>
-                            <th scope="row">Fiscsal year Target</th>
-                            <td>Achievement</td>
-                            <td>%age</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Calendar Year Target Corresponding Period</th>
-                            <td>Achievement</td>
-                            <td>%age</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Fiscsal year Target Corresponding Period</th>
-                            <td>Achievement</td>
-                            <td>%age</td>
-                          </tr>
+                        </tr>
                         </tbody>
-                      </table>
-                  </div>  
+                    </table>
                 </div>
-      </div>
+
+                <div class="col-lg-6 table-responsive">
+                    <p class="heading mb-2 text-lg">
+                        Recovery
+                    </p>
+                    <table class="table  table-striped">
+                        <!-- <thead>
+                          <tr class="table-header-background text-white">
+                            <th>Calendar Year Target</th>
+                            <th>Achievement</th>
+                            <th>%age</th>
+                          </tr>
+                        </thead> -->
+
+                        <tbody>
+                        <tr *ngFor="let item of RecoveryAchievement">
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-12 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr class="table-header-background">
+                            <th>MCO Circles</th>
+                            <th>Disbursement</th>
+                            <th>Recovery</th>
+                            <th>NPL</th>
+                            <th>SAM</th>
+                            <th>Outstanding</th>
+                            <th>Audit Paras</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of CirclePositions">
+                            <td>{{item?.Name}}</td>
+                            <td>{{item?.TotalDisbursment}}</td>
+                            <td>{{item?.TotalRecovery}}</td>
+                            <td>{{item?.NplOS}}</td>
+                            <td>{{item?.SamOS}}</td>
+                            <td>{{item?.TotalOS}}</td>
+                            <td>{{item?.AuditParas}}</td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
- </div>
-  
+</div>

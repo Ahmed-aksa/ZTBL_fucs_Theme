@@ -387,6 +387,18 @@ export class SearchLoan {
     Status: string;
 }
 
+export class SearchDBR {
+    ZoneId: string;
+    BranchId: string;
+    LcNo: string;
+
+}
+
+export class Pagination{
+    Limit:string;
+
+}
+
 export class LoanDbr {
     DBRIncomeList: any;
     DBRLiabilitiesList: any;

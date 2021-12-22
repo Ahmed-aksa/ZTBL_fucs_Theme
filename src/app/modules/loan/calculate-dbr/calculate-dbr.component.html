@@ -72,7 +72,7 @@
                                 <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                     <mat-label class="customMatLabel"> {{item.ItemName}} <strong
                                         class="matMandatory">* </strong></mat-label>
-                                    <input matInput (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{item.ItemName}} + '"
+                                    <input [readonly]="isReadOnly" matInput (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{item.ItemName}} + '"
                                            id="{{item.ID}}" value="{{item.Value}}" (keydown)="onIncomeChange($event)" (keyup)="onIncomeChange($event)"
                                            autocomplete="off"/>
                                 </mat-form-field>
@@ -101,7 +101,7 @@
                             <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                 <mat-label class="customMatLabel"> {{liab.ItemName}} <strong
                                     class="matMandatory">* </strong></mat-label>
-                                <input matInput  (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{liab.ItemName}} + '"
+                                <input matInput [readonly]="isReadOnly" (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{liab.ItemName}} + '"
                                        id="{{liab.ID}}" value="{{liab.Value}}"  (keydown)="onLiabChange($event)" (keyup)="onLiabChange($event)"
                                        autocomplete="off"/>
                             </mat-form-field>
@@ -139,12 +139,12 @@
 
                 <div class="row">
                     <div class="col-lg-12 mt-1p ml-1p mb-1p">
-                        <button type="button" (click)="saveLoanDbr()" class="btn btn-primary bg-green" mat-raised-button
+                        <button type="button" *ngIf="!isReadOnly" (click)="saveLoanDbr()" class="btn btn-primary bg-green" mat-raised-button
                                 color="primary">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
                         </button>
-                        <button type="button"
+                        <button *ngIf="!isReadOnly" type="button"
                                 class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
                                 mat-raised-button color="danger">
                             <mat-icon class="mr-2">cancel</mat-icon>

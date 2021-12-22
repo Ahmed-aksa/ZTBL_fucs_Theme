@@ -282,6 +282,7 @@ export class CustomerProfileComponent implements OnInit {
 
     createForm() {
 
+
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.roleForm = this.formBuilder.group({
             Cnic: [this.createCustomer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
@@ -399,7 +400,6 @@ export class CustomerProfileComponent implements OnInit {
             caste_code = this.createCustomer.Caste;
         }
         this.createCustomer = Object.assign(data, this.roleForm.getRawValue());
-        console.log(this.createCustomer)
         if (customer_Status) {
             this.createCustomer.CustomerStatus = customer_Status;
             this.createCustomer.CustomerNumber = customer_number;
@@ -506,7 +506,8 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.CellNumber = this.ValidateMobileNumberGet();
         this.createCustomer.doSubmit = flag;
         // @ts-ignore
-        let phone_number = document.getElementById('tel_code').value + this.roleForm.value.PhoneNumber;
+        let cell_number = document.getElementById('tel_code').value + this.roleForm.value.CellNumber;
+
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.BranchLov = userInfo.Branch;
@@ -517,7 +518,7 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.CnicExpiry = this.datePipe.transform(this.createCustomer.CnicExpiry, 'ddMMyyyy');
         this.createCustomer.CnicIssueDate = this.datePipe.transform(this.createCustomer.CnicIssueDate, 'ddMMyyyy');
 
-        this.createCustomer.PhoneNumber = phone_number;
+        this.createCustomer.CellNumber = cell_number;
         this.spinner.show();
         this._customerService.createCustomerSave(this.createCustomer)
             .pipe(
@@ -761,19 +762,9 @@ export class CustomerProfileComponent implements OnInit {
                     if (baseResponse.Success) {
                         var customerobj = baseResponse.Customer;
                         this.tran_id = baseResponse.TranId;
-                        this.document_details = baseResponse.DocumentDetails;
-                        this.document_details?.forEach((single_document_detail) => {
-                            single_document_detail?.CustomerDocuments?.forEach((customer_document) => {
-                                this.document_images.push(
-                                    {
-                                        url: customer_document.FilePath,
-                                        type_description: single_document_detail.Description,
-                                        type_name: single_document_detail.DocumentTypeName,
-                                        reference: single_document_detail.RefrenceNumber,
-                                        file_description: customer_document.Description
-                                    })
-                            })
-                        })
+
+                        this.getCustomerDocuments(customerobj);
+
 
                         this.createCustomer = customerobj;
                         if (this.createCustomer.FatherOrHusbandCnic != undefined && this.createCustomer.FatherOrHusbandCnic != null) {
@@ -1185,12 +1176,13 @@ export class CustomerProfileComponent implements OnInit {
     viewHistory() {
         localStorage.setItem('CustomerNumber', this.createCustomer.CustomerNumber);
         // this.router.navigate(['/customer/customer-history'])
-        const url = this.router.serializeUrl(this.router.createUrlTree(['/customer/customer-history'], {queryParams: {}}));
+        let url = this.router.serializeUrl(this.router.createUrlTree(['/customer/customer-history'], {queryParams: {}}));
+        url = '#' + url;
         window.open(url, '_blank');
     }
 
     submitDocuments() {
-        this.dialogRef.open(SubmitDocumentsComponent,
+        let dialog_ref = this.dialogRef.open(SubmitDocumentsComponent,
             {
                 data: {
                     customer: this.createCustomer, tranId: this.tran_id, document_details: this.document_details
@@ -1198,5 +1190,52 @@ export class CustomerProfileComponent implements OnInit {
                 panelClass: ['w-9/12']
             }
         );
+
+        dialog_ref.afterClosed().subscribe(() => {
+            this.getCustomerDocuments(this.createCustomer);
+        })
+
+    }
+
+    deleteImage(customer_document: any) {
+        let dialogRef = this.layoutUtilsService.AlertElementConfirmation("Do you really want to delete this Document?");
+        dialogRef.afterClosed().subscribe((data) => {
+            if (data) {
+                this._customerService.deleteDocument(customer_document).subscribe((data) => {
+                    if (data.Success) {
+                        this.getCustomerDocuments(this.createCustomer);
+                        this.toastr.success("Document Deleted Successfully");
+                    } else {
+                        this.toastr.error(data.Message);
+                    }
+                })
+            } else {
+                return
+            }
+        })
+
+    }
+
+    private getCustomerDocuments(customerobj: any) {
+        this.document_images = [];
+        this.document_details = [];
+        this.spinner.show()
+        this._customerService.getCustomerDocuments(customerobj).subscribe((baseResponse) => {
+            this.spinner.hide()
+            this.document_details = baseResponse.DocumentDetails;
+            this.document_details?.forEach((single_document_detail) => {
+                single_document_detail?.CustomerDocuments?.forEach((customer_document) => {
+                    this.document_images.push(
+                        {
+                            url: customer_document.FilePath,
+                            type_description: single_document_detail.Description,
+                            type_name: single_document_detail.DocumentTypeName,
+                            reference: single_document_detail.RefrenceNumber,
+                            file_description: customer_document.Description,
+                            customer_document: customer_document
+                        })
+                })
+            })
+        });
     }
 }//end of class

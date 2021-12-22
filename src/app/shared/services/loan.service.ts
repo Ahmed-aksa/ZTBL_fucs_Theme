@@ -29,7 +29,7 @@ import {
     LoanSecurities,
     LoanWitness,
     ORR,
-    PersonalSureties,
+    PersonalSureties, SearchDBR,
     SearchLoan,
     SearchLoanDbr,
 } from '../models/Loan.model';
@@ -82,7 +82,7 @@ export class LoanService {
         zone,
         branch
     ): Observable<BaseResponseModel> {
-        
+
         documentId = documentId.toString();
         documentType = documentType.toString();
         var ViewDocumnets = {ID: documentId, Type: documentType};
@@ -758,6 +758,61 @@ export class LoanService {
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
+    searchDBR(loanFilter: SearchDBR, zone, branch,Limit, Offset) {
+        var userInfo = this.userUtilsService.getUserDetails();
+        var selectedCircleId = '';
+
+        if (userInfo.UserCircleMappings.length > 0) {
+            userInfo.UserCircleMappings.forEach(function (value, key) {
+                if (userInfo.UserCircleMappings.length == key + 1) {
+                    selectedCircleId += value.CircleId;
+                } else {
+                    selectedCircleId += value.CircleId + ',';
+                }
+            });
+        }
+
+        this.activity.ActivityID = 1;
+        var selectedZone = {
+            Id: 0,
+            ZoneId: loanFilter.ZoneId,
+            ZoneName: '',
+        };
+
+        var selectedBranch = {
+            BranchId: loanFilter.BranchId,
+            Id: 0,
+            Name: '',
+            WorkingDate: '',
+        };
+        var selectedCircle = {
+            CircleIds: selectedCircleId,
+        };
+        var Pagination = {
+            Limit : Limit,
+            Offset: Offset
+        };
+        var request = {
+            Loan: loanFilter,
+            TranId: 0,
+            User: userInfo.User,
+            Zone: zone,
+            Activity: this.activity,
+            Branch: branch,
+            Circle: selectedCircle,
+            Pagination:Pagination,
+        };
+
+        var req = JSON.stringify(request);
+
+        return this.http
+            .post(
+                `${environment.apiUrl}/Loan/SearchDBR`,
+                request,
+                {headers: this.httpUtils.getHTTPHeaders()}
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
 
     getORRDropDowns() {
         this.request = new BaseRequestModel();
@@ -776,6 +831,7 @@ export class LoanService {
     }
 
     saveOrr(orrRequest: any) {
+        
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         //var oRR = new ORR();
@@ -986,7 +1042,7 @@ export class LoanService {
     }
 
     documentDelete(id, branch, zone) {
-        
+
         var userInfo = this.userUtilsService.getUserDetails();
         var circles = userInfo.UserCircleMappings, circleIds = [];
         circles.forEach(element => {
@@ -1015,7 +1071,7 @@ export class LoanService {
     }
 
     getLoanCaseID(loan, docID, branch, zone) {
-        
+
         var userInfo = this.userUtilsService.getUserDetails();
         var circles = userInfo.UserCircleMappings, circleIds = [];
         circles.forEach(element => {

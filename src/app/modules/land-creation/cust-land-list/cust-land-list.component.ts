@@ -178,7 +178,7 @@ export class CustLandListComponent implements OnInit {
 
             if (baseResponse.Success) {
 
-                baseResponse.Zones.forEach(function (value) {
+                baseResponse.Zones?.forEach(function (value) {
                     value.ZoneName = value.ZoneName.split("-")[1];
                 })
                 this.Zones = baseResponse.Zones;

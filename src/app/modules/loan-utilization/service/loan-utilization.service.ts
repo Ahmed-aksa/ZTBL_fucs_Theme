@@ -151,13 +151,13 @@ export class LoanUtilizationService {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
-        this.request.DEVICELOCATION = {
-            BTSID: "0",
-            BTSLOC: "",
-            LAT: "33.65898",
-            LONG: "73.057665",
-            SRC: "GPS"
-        },
+        // this.request.DEVICELOCATION = {
+        //     BTSID: "0",
+        //     BTSLOC: "",
+        //     LAT: "33.65898",
+        //     LONG: "73.057665",
+        //     SRC: "GPS"
+        // },
             this.request.LoanUtilization = {"UtilizationDetail": value}
         this.request.TranId = 2830;
         this.request.doPerformOTP = false;
@@ -227,8 +227,14 @@ export class LoanUtilizationService {
         var req = JSON.stringify(this.request);
 
         formData.append('UtilizationID', loanutilization.ID);
-        formData.append('Lat', loanutilization.Lat);
-        formData.append('Lng', loanutilization.Lng);
+        if(loanutilization?.Lat != undefined){
+            formData.append('Lat', loanutilization.Lat);
+            formData.append('Lng', loanutilization.Lng);
+        }else{
+            formData.append('Lat', '0.00');
+            formData.append('Lng','0.00');
+        }
+
         formData.append('UserID', userInfo.User.UserId);
         formData.append('IsVideo', val);
         formData.append('File', file);

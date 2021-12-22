@@ -128,7 +128,7 @@
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Document Ref No. <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input matInput formControlName="DocumentRefNo">
+                                        <input matInput formControlName="DocumentRefNo" appNumberOnly>
                                         <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Document Ref No
                                             <strong>required</strong>
                                         </mat-error>
@@ -142,7 +142,7 @@
                                     <mat-label class="customMatLabel">No of Files to Upload<strong class="matMandatory">*</strong>
                                     </mat-label>
                                     <input matInput formControlName="NoOfFilesToUpload"
-                                           (change)="changeFilesQuantity()">
+                                           (keyup)="changeFilesQuantity()" appNumberOnly min="1">
                                     <mat-error *ngIf="hasError('NoOfFilesToUpload', 'required')">No Of Files To Upload
                                         <strong>required</strong></mat-error>
                                 </mat-form-field>
@@ -182,7 +182,7 @@
                                     <td>
                                         <div class="col-lg-12 kt-margin-bottom-20-mobile">
                                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                                <input formControlName="file" type="file" id="file_{{i}}"
+                                                <input type="file" id="file_{{i}}"
                                                        accept="image/png, image/jpg, image/jpeg"
                                                        (change)="onFileChange($event)">
                                             </div>
@@ -194,7 +194,7 @@
                                                 <mat-form-field class=" mat-form-field-fluid w-full"
                                                                 appearance="outline">
                                                     <mat-label class="customMatLabel">Page No</mat-label>
-                                                    <input matInput formControlName="PageNumber" id="page_{{i}}">
+                                                    <input matInput [value]="i+1" id="page_{{i}}" [disabled]="true">
                                                 </mat-form-field>
                                             </div>
                                         </div>
@@ -206,7 +206,7 @@
                                                 <mat-form-field class=" mat-form-field-fluid w-full"
                                                                 appearance="outline">
                                                     <mat-label class="customMatLabel">Description</mat-label>
-                                                    <input matInput formControlName="DescriptionTab"
+                                                    <input matInput
                                                            id="description_{{i}}">
                                                 </mat-form-field>
                                             </div>

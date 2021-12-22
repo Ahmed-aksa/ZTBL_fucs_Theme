@@ -136,23 +136,24 @@
             <ng-container matColumnDef="Delete">
                 <mat-header-cell class="place-content-center text" *matHeaderCellDef>Action</mat-header-cell>
                 <mat-cell *matCellDef="let VillageBenchMark">
-                    <div style="flex-wrap: wrap; width: max-content; display: contents;">
+                    <div style="flex-wrap: wrap; width:100; display: flex;">
+                        <button  mat-icon-button *ngIf="checkViewStatus(VillageBenchMark)"
+                        color="primary" (click)="viewVillageBenchMark(VillageBenchMark)">
+                             <mat-icon title="view benchmarking">visibility</mat-icon>
+                         </button>
                         <button  mat-icon-button *ngIf="checkEditStatus(VillageBenchMark)"
                         color="primary" (click)="editVillageBenchMark(VillageBenchMark)">
                              <mat-icon title="edit benchmarking">edit</mat-icon>
                         </button>
-                        <button  mat-icon-button *ngIf="checkViewStatus(VillageBenchMark)"
-                                color="primary" (click)="viewVillageBenchMark(VillageBenchMark)">
-                            <mat-icon title="edit benchmarking">visibility</mat-icon>
-                        </button>
+
                         <button  mat-icon-button *ngIf="checkDeleteStatus(VillageBenchMark)"
-                                color="primary" (click)="deleteVillageBenchMark(VillageBenchMark)">
-                            <mat-icon title="Delete benchmarking">delete</mat-icon>
+                                 (click)="deleteVillageBenchMark(VillageBenchMark)">
+                            <mat-icon class=" text-red-500" title="delete benchmarking">delete</mat-icon>
                         </button>
 
                         <button  mat-icon-button *ngIf="checkMap(VillageBenchMark)" color="primary"
                                 (click)="viewMap(VillageBenchMark)">
-                            <mat-icon title="view benchmarking">location_on</mat-icon>
+                            <mat-icon title="view location of benchmarking">location_on</mat-icon>
                         </button>
                     </div>
 

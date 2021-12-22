@@ -425,4 +425,36 @@ export class CustomerService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
+
+    deleteDocument(customer_document: any) {
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        let request = new BaseRequestModel();
+        request.User = userInfo.User;
+        request.Branch = userInfo.Branch;
+        request.Zone = userInfo.Zone;
+        if (userInfo.UserCircleMappings?.length > 0)
+            request.Circle = userInfo?.UserCircleMappings[0];
+        request.CustomerDocument = customer_document;
+        return this.http
+            .post(`${environment.apiUrl}/Document/DeleteDocument`, request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
+    getCustomerDocuments(customerobj: any) {
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        let request = new BaseRequestModel();
+        request.User = userInfo.User;
+        request.Branch = userInfo.Branch;
+        request.Zone = userInfo.Zone;
+        if (userInfo.UserCircleMappings?.length > 0)
+            request.Circle = userInfo?.UserCircleMappings[0];
+        request.Customer = customerobj;
+        return this.http
+            .post(`${environment.apiUrl}/Document/GetCustomerDocuments`, request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
 }

@@ -100,7 +100,7 @@
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">LA File/booklet No <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input matInput maxlength="12" placeholder="Enter Booklet No" formControlName="AppNumberManual"
+                        <input appNumberOnly matInput maxlength="12" placeholder="Enter Booklet No" formControlName="AppNumberManual"
                                autocomplete="off"/>
                         <mat-error *ngIf="hasError('AppNumberManual', 'required')">LA File/booklet No
                             <strong>required</strong></mat-error>
@@ -149,7 +149,7 @@
                 <div class="col-lg-4  col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Reference Number(PITB)</mat-label>
-                        <input matInput maxlength="20" placeholder="Enter Reference Number(PITB)" formControlName="ApplicantionTitle"/>
+                        <input appNumberOnly matInput maxlength="20" placeholder="Enter Reference Number(PITB)" formControlName="ApplicantionTitle"/>
                         <!--  <mat-error *ngIf="hasError('Zone', 'required')">Zone <strong>required</strong></mat-error>-->
                     </mat-form-field>
                 </div>

@@ -1,0 +1,137 @@
+<div
+    class=" pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="heading">President Dashboard</div>
+    <!-- Header -->
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-x-hidden overflow-y-scroll">
+
+        <!-- Products list -->
+        <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
+            <div class="row">
+                <div class="col-lg-6 py-3">
+                    <div class="shadow-sm border">
+                        <div id="chart" *ngIf="chartOptions1" class=" m-0 pt-2">
+                            <apx-chart
+                                [series]="chartOptions1.series"
+                                [chart]="chartOptions1.chart"
+                                [labels]="chartOptions1.labels"
+                                [title]="chartOptions1.title"
+                                [theme]="chartOptions1.theme"
+                                [responsive]="chartOptions1.responsive"
+                            ></apx-chart>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-6 py-3">
+                    <div class="shadow-sm border">
+                        <div id="chart" *ngIf="chartOptions2" class=" m-0 pt-2">
+                            <apx-chart
+                                [series]="chartOptions2.series"
+                                [chart]="chartOptions2.chart"
+                                [labels]="chartOptions2.labels"
+                                [title]="chartOptions2.title"
+                                [theme]="chartOptions2.theme"
+                                [responsive]="chartOptions2.responsive"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 py-3">
+                    <div class="shadow-sm border">
+                        <div id="chart" *ngIf="chartOptions3" class=" m-0 pt-2">
+                            <apx-chart
+                                [series]="chartOptions3.series"
+                                [chart]="chartOptions3.chart"
+                                [labels]="chartOptions3.labels"
+                                [title]="chartOptions3.title"
+                                [theme]="chartOptions3.theme"
+                                [responsive]="chartOptions3.responsive"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 py-3">
+                    <div class="shadow-sm border">
+                        <div id="chart" *ngIf="chartOptions4" class=" m-0 pt-2">
+                            <apx-chart
+                                [series]="chartOptions4.series"
+                                [chart]="chartOptions4.chart"
+                                [labels]="chartOptions4.labels"
+                                [title]="chartOptions4.title"
+                                [theme]="chartOptions4.theme"
+                                [responsive]="chartOptions4.responsive"
+                            ></apx-chart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row  justify-content-md-center">
+
+                <div class="col-lg-6 table-responsive">
+                    <p class="heading mb-2 text-lg">Recovery</p>
+                    <table class="table  table-striped">
+
+                        <!-- <thead>
+                        <tr class="table-header-background">
+                            <th scope="col">Calendar Year Target</th>
+                            <th scope="col">Achievement</th>
+                            <th scope="col">%age</th>
+                        </tr>
+                        </thead> -->
+                        <tbody>
+                        <tr *ngFor="let item of ResourcesCount">
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6 table-responsive">
+                    <p class="heading mb-2 text-lg">Country Top 5 Zone</p>
+                    <table class="table  table-striped">
+                        <thead>
+                        <tr class="table-header-background">
+                            <th scope="col">SrNO</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of CountryTop5">
+                            <td>{{item.SrNO}}</td>
+                            <td>{{item.Name}}</td>
+                            <td>{{item.Amount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6 table-responsive">
+                    <p class="heading mb-2 text-lg">Country Top 5 Worst Zones</p>
+                    <table class="table  table-striped">
+                        <thead>
+                        <tr class="table-header-background">
+                            <th scope="col">SrNO</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of CountryWorst5">
+                            <td>{{item.SrNO}}</td>
+                            <td>{{item.Name}}</td>
+                            <td>{{item.Amount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

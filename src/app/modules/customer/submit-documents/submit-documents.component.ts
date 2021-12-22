@@ -10,6 +10,7 @@ import {Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {LovService} from "../../../shared/services/lov.service";
 import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
 import {SubmitDocument} from "../model/submit-document.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-submit-documents',
@@ -40,6 +41,7 @@ export class SubmitDocumentsComponent implements OnInit {
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
         private matDialog: MatDialog,
+        private toaster: ToastrService,
         @Inject(MAT_DIALOG_DATA)
         private data) {
     }
@@ -60,15 +62,23 @@ export class SubmitDocumentsComponent implements OnInit {
             const file = event.target.files[0];
             const Name = file.name.split('.').pop();
             if (Name != undefined) {
-                if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
-                    const reader = new FileReader();
-                    reader.onload = (event: any) => {
+            }
+            if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
 
+
+                    if (this.doc_urls[i]) {
+                        this.doc_urls[i] = event.target.result;
+                    } else {
                         this.doc_urls.push(event.target.result);
-                        let has_file = false;
-                        this.submit_documents.forEach((single_document, index) => {
-                            if (single_document.document_type_id == this.current_document_id.value)
 
+                    }
+                    let has_file = false;
+                    this.submit_documents.forEach((single_document, index) => {
+                        if (single_document.document_type_id == this.current_document_id.value) {
+                            debugger;
+                            if (!single_document.CustomerDocuments.filter((single_doc: any) => single_doc?.id == i))
                                 single_document.CustomerDocuments.push({
                                     id: i,
                                     Description: "",
@@ -76,15 +86,22 @@ export class SubmitDocumentsComponent implements OnInit {
                                     FilePath: file,
                                     url: event.target.result
                                 });
-                        })
-                    };
-                    reader.readAsDataURL(file);
+                            else {
+                                let second_index = single_document.CustomerDocuments.findIndex((single_doc: any) => single_doc?.id == i);
+                                this.submit_documents[index].CustomerDocuments[second_index].FilePath = file;
+                                this.submit_documents[index].CustomerDocuments[second_index].url = event.target.result;
+                            }
 
-                } else {
-                    this.layoutUtilsService.alertElement('', 'Only jpeg,jpg and png files are allowed', '99');
-                    event.target.files = null;
-                    return;
-                }
+                        }
+                    })
+                };
+                reader.readAsDataURL(file);
+
+            } else {
+                event.target.value = "";
+                this.layoutUtilsService.alertElement('', 'Only jpeg,jpg and png files are allowed', '99');
+                event.target.files = null;
+                return;
             }
         } else {
             this.rawData.splice(i, 1);
@@ -94,8 +111,8 @@ export class SubmitDocumentsComponent implements OnInit {
     }
 
 
-    changeNumberOfFiles(value: number) {
-        this.number_of_files = value;
+    changeNumberOfFiles(value) {
+        this.number_of_files = value ? Number(value) : 0;
         let file_index = this.submit_documents.findIndex(single_document => single_document.document_type_id == this.current_document_id.value);
         this.submit_documents[file_index].number_of_files = value;
     }
@@ -103,6 +120,30 @@ export class SubmitDocumentsComponent implements OnInit {
     submitDocuments() {
         let has_error = false;
         this.spinner.show();
+        debugger;
+        if (this.submit_documents.length == 0) {
+            this.toaster.error("Please fill all required data");
+            this.spinner.hide();
+            return;
+        }
+        this.submit_documents.forEach((single_document) => {
+            if (single_document.CustomerDocuments.length == 0) {
+                has_error = true;
+            } else {
+                single_document.CustomerDocuments.forEach((customer_document) => {
+                    debugger;
+                    if (customer_document.FilePath == null || customer_document.Description == null || !single_document.document_type_id) {
+                        has_error = true;
+                    }
+                })
+            }
+        })
+
+        if (has_error) {
+            this.toaster.error("Please fill all required data");
+            this.spinner.hide();
+            return;
+        }
         this.submit_documents?.forEach((single_file, index) => {
             if (!has_error) {
                 let request = new BaseRequestModel();
@@ -135,7 +176,7 @@ export class SubmitDocumentsComponent implements OnInit {
                 this.customerService.submitDocumentDetails(request).subscribe((data) => {
 
                     if (data.Success) {
-                        single_file.CustomerDocuments.forEach((single_file_document) => {
+                        single_file.CustomerDocuments.forEach((single_file_document, index) => {
 
 
                             var formData = new FormData();
@@ -151,6 +192,12 @@ export class SubmitDocumentsComponent implements OnInit {
                                     finalize(() => {
                                     })
                                 ).subscribe((baseResponse) => {
+                                if (index + 1 == single_file.CustomerDocuments.length) {
+                                    this.spinner.hide();
+                                    this.matDialogRef.close();
+                                    this.layoutUtilsService.alertElementSuccess("", "Documents Submitted Successfully");
+
+                                }
                                 if (baseResponse.Success) {
                                 } else {
                                     this.layoutUtilsService.alertMessage('', baseResponse.Message);
@@ -161,6 +208,8 @@ export class SubmitDocumentsComponent implements OnInit {
                         })
 
                     } else {
+                        this.spinner.hide();
+                        this.matDialogRef.close();
                         this.layoutUtilsService.alertMessage('', data.Message);
                         return 0;
                     }
@@ -173,9 +222,7 @@ export class SubmitDocumentsComponent implements OnInit {
                 this.matDialogRef.close();
             }
         });
-        this.spinner.hide();
-        this.matDialogRef.close();
-        this.layoutUtilsService.alertElementSuccess("", "Documents Submitted Successfully");
+
 
     }
 
@@ -250,7 +297,17 @@ export class SubmitDocumentsComponent implements OnInit {
 
             } else if (type == 'file_description') {
                 let second_index = this.submit_documents[file_index].CustomerDocuments.findIndex(single_type_document => single_type_document.id == i);
-                this.submit_documents[file_index].CustomerDocuments[second_index].Description = value;
+                if (second_index != -1) {
+                    this.submit_documents[file_index].CustomerDocuments[second_index].Description = value;
+                } else {
+                    this.submit_documents[file_index].CustomerDocuments.push({
+                        id: i,
+                        Description: value,
+                        PageNumber: "1",
+                        FilePath: null,
+                        url: null
+                    });
+                }
             }
         }
     }
