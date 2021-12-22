@@ -118,6 +118,30 @@ export class SubmitDocumentsComponent implements OnInit {
     submitDocuments() {
         let has_error = false;
         this.spinner.show();
+        debugger;
+        if (this.submit_documents.length == 0) {
+            this.layoutUtilsService.alertElement("", "Please fill all required data");
+            this.spinner.hide();
+            return;
+        }
+        this.submit_documents.forEach((single_document) => {
+            if (single_document.CustomerDocuments.length == 0) {
+                has_error = true;
+            } else {
+                single_document.CustomerDocuments.forEach((customer_document) => {
+
+                    if (customer_document.file == null || customer_document.description == null || single_document.document_type_id) {
+                        has_error = true;
+                    }
+                })
+            }
+        })
+
+        if (has_error) {
+            this.layoutUtilsService.alertElement("", "Please fill all required data");
+            this.spinner.hide();
+            return;
+        }
         this.submit_documents?.forEach((single_file, index) => {
             if (!has_error) {
                 let request = new BaseRequestModel();
