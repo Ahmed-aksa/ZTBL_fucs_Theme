@@ -35,11 +35,15 @@
             <mat-tab label="Resourccs Aveilable" *ngIf="item.ProfileID =='75'">
                 <app-recovery-available></app-recovery-available>
             </mat-tab>
+
             <mat-tab label="President ZTBL" *ngIf="item.ProfileID =='204'">
                 <app-president-ztbl></app-president-ztbl>
             </mat-tab>
             <mat-tab label="Regional Chief" *ngIf="item.ProfileID =='203'">
                 <app-regional-cheif></app-regional-cheif>
+            </mat-tab>
+            <mat-tab label="Provincial Chief " *ngIf="item.ProfileID =='205'">
+                <app-provincial-chief></app-provincial-chief>
             </mat-tab>
         </ng-container>
     </mat-tab-group>
