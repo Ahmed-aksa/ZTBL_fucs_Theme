@@ -63,8 +63,8 @@
                 </div>
            <div class="row">
             <div class="col-lg-6 align-self-center flex">
-                <div *ngIf="doc_urls[i]" class=" mt-2 mr-4" style="width: 140px; height: 140px; position: relative;">
-                    <img [src]="doc_urls[i]" (click)="previewImg(doc_urls[i])">
+                <div *ngIf="doc_urls[i]" class=" mt-2 mr-4 shadow-sm border" style="width: 140px; height: 140px; position: relative;">
+                    <img class="cursor-pointer" [src]="doc_urls[i]" (click)="previewImg(doc_urls[i])">
                 </div>
 
                 <input width="150" style="    align-self: center;" type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
