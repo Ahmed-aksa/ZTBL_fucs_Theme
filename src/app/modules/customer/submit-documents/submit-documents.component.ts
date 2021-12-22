@@ -94,8 +94,8 @@ export class SubmitDocumentsComponent implements OnInit {
     }
 
 
-    changeNumberOfFiles(value: number) {
-        this.number_of_files = value;
+    changeNumberOfFiles(value) {
+        this.number_of_files = value? Number(value): 0;
         let file_index = this.submit_documents.findIndex(single_document => single_document.document_type_id == this.current_document_id.value);
         this.submit_documents[file_index].number_of_files = value;
     }
