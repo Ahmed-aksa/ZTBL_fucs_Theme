@@ -13,13 +13,13 @@
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4">
-                    <mat-form-field class="w-full" appearance="outline" [floatLabel]="floatLabelControl.value">
+                    <mat-form-field class="w-full" appearance="outline" [floatLabel]="floatLabelControl?.value">
                         <mat-label>Zone Name</mat-label>
                         <input matInput placeholder="Enter Branch Name">
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4">
-                    <mat-form-field class="w-full" appearance="outline" [floatLabel]="floatLabelControl.value">
+                    <mat-form-field class="w-full" appearance="outline" [floatLabel]="floatLabelControl?.value">
                         <mat-label>Province Name</mat-label>
                         <input matInput placeholder="Enter Zone Name">
                     </mat-form-field>
@@ -39,12 +39,12 @@
                     <div class="shadow-sm border">
                         <div id="chart" class=" mt-0 py-3">
                             <apx-chart
-                                [series]="chartOptions.series"
-                                [chart]="chartOptions.chart"
-                                [labels]="chartOptions.labels"
-                                [title]="chartOptions.title"
-                                [theme]="chartOptions.theme"
-                                [responsive]="chartOptions.responsive"
+                                [series]="chartOptions1?.series"
+                                [chart]="chartOptions1?.chart"
+                                [labels]="chartOptions1?.labels"
+                                [title]="chartOptions1?.title"
+                                [theme]="chartOptions1?.theme"
+                                [responsive]="chartOptions1?.responsive"
                             ></apx-chart>
                         </div>
                     </div>
@@ -54,12 +54,12 @@
                     <div class="shadow-sm border">
                         <div id="chart" class=" mt-0 py-3">
                             <apx-chart
-                                [series]="chartOptions.series"
-                                [chart]="chartOptions.chart"
-                                [labels]="chartOptions.labels"
-                                [title]="chartOptions.title"
-                                [theme]="chartOptions.theme"
-                                [responsive]="chartOptions.responsive"
+                                [series]="chartOptions2?.series"
+                                [chart]="chartOptions2?.chart"
+                                [labels]="chartOptions2?.labels"
+                                [title]="chartOptions2?.title"
+                                [theme]="chartOptions2?.theme"
+                                [responsive]="chartOptions2?.responsive"
                             ></apx-chart>
                         </div>
                     </div>
@@ -69,12 +69,27 @@
                     <div class="shadow-sm border">
                         <div id="chart" class=" mt-0 py-3">
                             <apx-chart
-                                [series]="chartOptions.series"
-                                [chart]="chartOptions.chart"
-                                [labels]="chartOptions.labels"
-                                [title]="chartOptions.title"
-                                [theme]="chartOptions.theme"
-                                [responsive]="chartOptions.responsive"
+                                [series]="chartOptions3?.series"
+                                [chart]="chartOptions3?.chart"
+                                [labels]="chartOptions3?.labels"
+                                [title]="chartOptions3?.title"
+                                [theme]="chartOptions3?.theme"
+                                [responsive]="chartOptions3?.responsive"
+                            ></apx-chart>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <div class="shadow-sm border">
+                        <div id="chart" class=" mt-0 py-3">
+                            <apx-chart
+                                [series]="chartOptions4?.series"
+                                [chart]="chartOptions4?.chart"
+                                [labels]="chartOptions4?.labels"
+                                [title]="chartOptions4?.title"
+                                [theme]="chartOptions4?.theme"
+                                [responsive]="chartOptions4?.responsive"
                             ></apx-chart>
                         </div>
                     </div>

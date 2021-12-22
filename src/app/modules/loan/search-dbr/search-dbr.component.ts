@@ -166,7 +166,7 @@ export class SearchDbrComponent implements OnInit {
                     this.dv = this.dataSource.data;
                     this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                 } else {
-                    this.dataSource.data = [];
+
                     this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code)
                     this.dataSource = this.dv?.splice(1, 0);
                     this.matTableLenght = false;

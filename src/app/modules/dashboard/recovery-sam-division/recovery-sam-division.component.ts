@@ -8,6 +8,7 @@ import {
     ChartComponent
 } from "ng-apexcharts";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {NgxSpinnerService} from "ngx-spinner";
 import {DashboardService} from "../../../shared/services/dashboard.service";
 
 export type ChartOptions = {
@@ -20,41 +21,36 @@ export type ChartOptions = {
 };
 
 @Component({
-    selector: 'app-evp-credit-dashboard',
-    templateUrl: './evp-credit-dashboard.component.html',
-    styleUrls: ['./evp-credit-dashboard.component.scss']
+    selector: 'app-recovery-sam-division',
+    templateUrl: './recovery-sam-division.component.html',
+    styleUrls: ['./recovery-sam-division.component.scss']
 })
-
-
-export class EvpCreditDashboardComponent implements OnInit {
+export class RecoverySamDivisionComponent implements OnInit {
 
     @ViewChild("chart") chart: ChartComponent;
-    public chartOptions1: Partial<ChartOptions>;
+    public chartOptions: Partial<ChartOptions>;
     public chartOptions2: Partial<ChartOptions>;
-    public chartOptions3: Partial<ChartOptions>;
-    public chartOptions4: Partial<ChartOptions>;
     options: FormGroup;
     hideRequiredControl = new FormControl(false);
     floatLabelControl = new FormControl('auto');
 
-    constructor(fb: FormBuilder, private dashboardService: DashboardService) {
+    constructor(fb: FormBuilder, private spinner: NgxSpinnerService, private _dashboardService: DashboardService) {
         this.options = fb.group({
             hideRequired: this.hideRequiredControl,
             floatLabel: this.floatLabelControl,
         });
     }
 
-    ngOnInit(): void {
-    }
 
+    ngOnInit(): void {
+
+    }
 
     assignRoleData(DashboardReport: any) {
         if (!DashboardReport) {
             return
         }
-        this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'Bank Book');
-        this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicator');
-        this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'Purpose Wise Disbursement');
-        this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No Of Borrower');
+        this.chartOptions = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
+        this.chartOptions = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
     }
 }

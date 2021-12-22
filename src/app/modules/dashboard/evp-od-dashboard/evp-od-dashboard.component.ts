@@ -40,83 +40,17 @@ export class EvpOdDashboardComponent implements OnInit {
             hideRequired: this.hideRequiredControl,
             floatLabel: this.floatLabelControl,
         });
-        this.chartOptions = {
-            series: [25, 15, 44, 55, 41, 17],
-            chart: {
-                width: "100%",
-                type: "pie"
-            },
-            labels: [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday"
-            ],
-            theme: {
-                monochrome: {
-                    enabled: false
-                }
-            },
-            title: {
-                text: "Performance Indicators"
-            },
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: "bottom"
-                        }
-                    }
-                }
-            ]
-        };
     }
 
 
     ngOnInit(): void {
-    
+
     }
 
-    PerformanceIndicators(PerformanceIndicator: any) {
-        var obj = [];
-        (Object.values(PerformanceIndicator)).forEach(x => {
-            obj.push(Number(x));
-
-        })
-        this.chartOptions = {
-            series: obj, //Object.values(PerformanceIndicator),
-            chart: {
-                width: "100%",
-                type: "pie"
-            },
-            labels: Object.keys(PerformanceIndicator),
-            theme: {
-                monochrome: {
-                    enabled: false
-                }
-            },
-            title: {
-                text: "Performance Indicators"
-            },
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: "bottom"
-                        }
-                    }
-                }
-            ]
-        };
+    assignRoleData(DashboardReport: any) {
+        if (!DashboardReport) {
+            return
+        }
+        this.chartOptions = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
     }
 }
