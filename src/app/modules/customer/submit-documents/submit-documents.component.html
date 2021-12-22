@@ -11,7 +11,7 @@
         <div class="col-lg-3">
             <mat-form-field appearance="outline">
                 <mat-label>Number of Files</mat-label>
-                <input matInput type="number"
+                <input matInput type="text" appNumberOnly
                        (change)="changeNumberOfFiles($event.target.value)"
                        [(ngModel)]="number_of_files"
                        class="mat-input-element"/>
@@ -50,7 +50,7 @@
 
     <div *ngFor="let j of [].constructor(number_of_files);let i=index">
         <div class="row p-2 border rounded my-2">
-            <div class="col-lg-6 align-self-center">
+            <div class="col-lg-3 align-self-center">
                 <input type="file" accept="image/png, image/jpg, image/jpeg" appearance="outline"
                        (change)="onFileChange($event, i)"/>
                 <div class="shadow-sm mt-2" style="width: 240px; position: relative;">
@@ -58,10 +58,10 @@
                 </div>
 
             </div>
-            <div class="col-lg-6  align-self-center">
-                <mat-form-field appearance="outline">
+            <div class="col-lg-9">
+                <mat-form-field class="w-full" appearance="outline">
                     <mat-label>Description</mat-label>
-                    <input matInput type="text" (change)="changeTypeData($event.target.value,'file_description',i)"
+                    <input matInput type="text" class=" h-32" (change)="changeTypeData($event.target.value,'file_description',i)"
                            [(ngModel)]="description[i]"/>
                 </mat-form-field>
             </div>
