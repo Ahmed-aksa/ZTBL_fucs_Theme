@@ -306,7 +306,7 @@ export class CustomerProfileComponent implements OnInit {
             District: [this.createCustomer.District, Validators.required],
             Citizenship: [this.createCustomer.CitizenShip, [Validators.required]],
             CellNumber: [this.ValidateMobileNumberSet(), [Validators.required, Validators.pattern(regExps.mobile)]],
-            PhoneNumber: [Number(String(this.createCustomer.PhoneNumber).substring(1)), [Validators.pattern(regExps.seventothirteen)]],
+            PhoneNumber: [this.createCustomer.PhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
             OfficePhoneNumber: [this.createCustomer.OfficePhoneNumber, [Validators.pattern(regExps.seventothirteen)]],
             FaxNumber: [this.createCustomer.FaxNumber, [Validators.pattern(regExps.seventothirteen)]],
             Email: [this.createCustomer.Email, [Validators.pattern(regExps.email)]],
@@ -507,8 +507,7 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.doSubmit = flag;
         // @ts-ignore
         let cell_number = document.getElementById('tel_code').value + this.roleForm.value.CellNumber;
-        // @ts-ignore
-        let phone_number = document.getElementById('tel_code').value + this.roleForm.value.PhoneNumber;
+
 
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.BranchLov = userInfo.Branch;
@@ -520,7 +519,6 @@ export class CustomerProfileComponent implements OnInit {
         this.createCustomer.CnicIssueDate = this.datePipe.transform(this.createCustomer.CnicIssueDate, 'ddMMyyyy');
 
         this.createCustomer.CellNumber = cell_number;
-        this.createCustomer.PhoneNumber = phone_number;
         this.spinner.show();
         this._customerService.createCustomerSave(this.createCustomer)
             .pipe(

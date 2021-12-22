@@ -75,7 +75,7 @@ export class SubmitDocumentsComponent implements OnInit {
                     let has_file = false;
                     this.submit_documents.forEach((single_document, index) => {
                         if (single_document.document_type_id == this.current_document_id.value) {
-
+                            debugger;
                             if (!single_document.CustomerDocuments.filter((single_doc: any) => single_doc?.id == i))
                                 single_document.CustomerDocuments.push({
                                     id: i,
@@ -85,8 +85,9 @@ export class SubmitDocumentsComponent implements OnInit {
                                     url: event.target.result
                                 });
                             else {
-                                single_document.CustomerDocuments.filter((single_doc: any) => single_doc?.id == i).FilePath = file;
-                                single_document.CustomerDocuments.filter((single_doc: any) => single_doc?.id == i).url = event.target.result;
+                                let second_index = single_document.CustomerDocuments.findIndex((single_doc: any) => single_doc?.id == i);
+                                this.submit_documents[index].CustomerDocuments[second_index].FilePath = file;
+                                this.submit_documents[index].CustomerDocuments[second_index].url = event.target.result;
                             }
 
                         }
@@ -95,7 +96,7 @@ export class SubmitDocumentsComponent implements OnInit {
                 reader.readAsDataURL(file);
 
             } else {
-                event.target.value="";
+                event.target.value = "";
                 this.layoutUtilsService.alertElement('', 'Only jpeg,jpg and png files are allowed', '99');
                 event.target.files = null;
                 return;
@@ -264,7 +265,17 @@ export class SubmitDocumentsComponent implements OnInit {
 
             } else if (type == 'file_description') {
                 let second_index = this.submit_documents[file_index].CustomerDocuments.findIndex(single_type_document => single_type_document.id == i);
-                this.submit_documents[file_index].CustomerDocuments[second_index].Description = value;
+                if (second_index != -1) {
+                    this.submit_documents[file_index].CustomerDocuments[second_index].Description = value;
+                } else {
+                    this.submit_documents[file_index].CustomerDocuments.push({
+                        id: i,
+                        Description: value,
+                        PageNumber: "1",
+                        FilePath: null,
+                        url: null
+                    });
+                }
             }
         }
     }
