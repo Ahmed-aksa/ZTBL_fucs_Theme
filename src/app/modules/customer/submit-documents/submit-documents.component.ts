@@ -10,6 +10,7 @@ import {Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {LovService} from "../../../shared/services/lov.service";
 import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
 import {SubmitDocument} from "../model/submit-document.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-submit-documents',
@@ -40,6 +41,7 @@ export class SubmitDocumentsComponent implements OnInit {
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
         private matDialog: MatDialog,
+        private toaster: ToastrService,
         @Inject(MAT_DIALOG_DATA)
         private data) {
     }
@@ -120,7 +122,7 @@ export class SubmitDocumentsComponent implements OnInit {
         this.spinner.show();
         debugger;
         if (this.submit_documents.length == 0) {
-            this.layoutUtilsService.alertElement("", "Please fill all required data");
+            this.toaster.error("Please fill all required data");
             this.spinner.hide();
             return;
         }
@@ -129,8 +131,8 @@ export class SubmitDocumentsComponent implements OnInit {
                 has_error = true;
             } else {
                 single_document.CustomerDocuments.forEach((customer_document) => {
-
-                    if (customer_document.FilePath == null || customer_document.Description == null || single_document.document_type_id) {
+                    debugger;
+                    if (customer_document.FilePath == null || customer_document.Description == null || !single_document.document_type_id) {
                         has_error = true;
                     }
                 })
@@ -138,7 +140,7 @@ export class SubmitDocumentsComponent implements OnInit {
         })
 
         if (has_error) {
-            this.layoutUtilsService.alertElement("", "Please fill all required data");
+            this.toaster.error("Please fill all required data");
             this.spinner.hide();
             return;
         }
@@ -174,7 +176,7 @@ export class SubmitDocumentsComponent implements OnInit {
                 this.customerService.submitDocumentDetails(request).subscribe((data) => {
 
                     if (data.Success) {
-                        single_file.CustomerDocuments.forEach((single_file_document) => {
+                        single_file.CustomerDocuments.forEach((single_file_document, index) => {
 
 
                             var formData = new FormData();
@@ -190,6 +192,12 @@ export class SubmitDocumentsComponent implements OnInit {
                                     finalize(() => {
                                     })
                                 ).subscribe((baseResponse) => {
+                                if (index + 1 == single_file.CustomerDocuments.length) {
+                                    this.spinner.hide();
+                                    this.matDialogRef.close();
+                                    this.layoutUtilsService.alertElementSuccess("", "Documents Submitted Successfully");
+
+                                }
                                 if (baseResponse.Success) {
                                 } else {
                                     this.layoutUtilsService.alertMessage('', baseResponse.Message);
@@ -200,6 +208,8 @@ export class SubmitDocumentsComponent implements OnInit {
                         })
 
                     } else {
+                        this.spinner.hide();
+                        this.matDialogRef.close();
                         this.layoutUtilsService.alertMessage('', data.Message);
                         return 0;
                     }
@@ -212,9 +222,7 @@ export class SubmitDocumentsComponent implements OnInit {
                 this.matDialogRef.close();
             }
         });
-        this.spinner.hide();
-        this.matDialogRef.close();
-        this.layoutUtilsService.alertElementSuccess("", "Documents Submitted Successfully");
+
 
     }
 
