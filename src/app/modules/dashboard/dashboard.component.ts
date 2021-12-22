@@ -124,11 +124,11 @@ export class DashboardComponent implements OnInit {
         this.popup = false;
     }
 
-    @HostListener('window:keydown')
-    @HostListener('window:mousedown')
-    // @HostListener('mousemove')
-    checkUserActivity() {
-        this.setSessionTime();
-    }
+    // @HostListener('window:keydown')
+    // @HostListener('window:mousedown')
+    // // @HostListener('mousemove')
+    // checkUserActivity() {
+    //     this.setSessionTime();
+    // }
 
 }
