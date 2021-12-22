@@ -282,7 +282,7 @@ export class CustomerProfileComponent implements OnInit {
 
     createForm() {
 
-        
+
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.roleForm = this.formBuilder.group({
             Cnic: [this.createCustomer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
@@ -764,20 +764,9 @@ export class CustomerProfileComponent implements OnInit {
                     if (baseResponse.Success) {
                         var customerobj = baseResponse.Customer;
                         this.tran_id = baseResponse.TranId;
-                        this.document_details = baseResponse.DocumentDetails;
-                        this.document_details?.forEach((single_document_detail) => {
-                            single_document_detail?.CustomerDocuments?.forEach((customer_document) => {
-                                this.document_images.push(
-                                    {
-                                        url: customer_document.FilePath,
-                                        type_description: single_document_detail.Description,
-                                        type_name: single_document_detail.DocumentTypeName,
-                                        reference: single_document_detail.RefrenceNumber,
-                                        file_description: customer_document.Description,
-                                        customer_document: customer_document
-                                    })
-                            })
-                        })
+
+                        this.getCustomerDocuments(customerobj);
+
 
                         this.createCustomer = customerobj;
                         if (this.createCustomer.FatherOrHusbandCnic != undefined && this.createCustomer.FatherOrHusbandCnic != null) {
@@ -1195,7 +1184,7 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     submitDocuments() {
-        this.dialogRef.open(SubmitDocumentsComponent,
+        let dialog_ref = this.dialogRef.open(SubmitDocumentsComponent,
             {
                 data: {
                     customer: this.createCustomer, tranId: this.tran_id, document_details: this.document_details
@@ -1203,15 +1192,40 @@ export class CustomerProfileComponent implements OnInit {
                 panelClass: ['w-9/12']
             }
         );
+
+        dialog_ref.afterClosed().subscribe(() => {
+            this.getCustomerDocuments(this.createCustomer);
+        })
+
     }
 
     deleteImage(customer_document: any) {
         this._customerService.deleteDocument(customer_document).subscribe((data) => {
             if (data.Success) {
+                this.getCustomerDocuments(this.createCustomer);
                 this.toastr.success("Document Deleted Successfully");
             } else {
                 this.toastr.error(data.Message);
             }
         })
+    }
+
+    private getCustomerDocuments(customerobj: any) {
+        this._customerService.getCustomerDocuments(customerobj).subscribe((baseResponse) => {
+            this.document_details = baseResponse.DocumentDetails;
+            this.document_details?.forEach((single_document_detail) => {
+                single_document_detail?.CustomerDocuments?.forEach((customer_document) => {
+                    this.document_images.push(
+                        {
+                            url: customer_document.FilePath,
+                            type_description: single_document_detail.Description,
+                            type_name: single_document_detail.DocumentTypeName,
+                            reference: single_document_detail.RefrenceNumber,
+                            file_description: customer_document.Description,
+                            customer_document: customer_document
+                        })
+                })
+            })
+        });
     }
 }//end of class
