@@ -635,7 +635,7 @@ export class CustLandInformationComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                baseResponse.Zones.forEach(function (value) {
+                baseResponse.Zones?.forEach(function (value) {
                     value.ZoneName = value.ZoneName.split("-")[1];
                 })
                 this.zoneLovAll = baseResponse.Zones;
@@ -667,6 +667,16 @@ export class CustLandInformationComponent implements OnInit {
 
     saveCustomerLandInfo() {
 
+        this.hasFormErrors = false;
+        if (this.LandInformationForm.invalid) {
+            const controls = this.LandInformationForm.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+
+            this.hasFormErrors = true;
+            return;
+        }
         this.errorMessageLand = "";
         this.errorShow = false;
         this.hasFormErrors = false;
@@ -1212,7 +1222,8 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     deleteRow(index) {
-        if (this.dynamicArray.length > 1) {
+        debugger
+        if (this.dynamicArray.length !=0) {
             if (this.dynamicArray[index].LandCustID != null && this.dynamicArray[index].LandCustID != "") {
                 this.spinner.show();
                 var tempCustLandInfo = this.customerLandRelation.filter(x => x.Cnic == this.dynamicArray[index].cnic);
