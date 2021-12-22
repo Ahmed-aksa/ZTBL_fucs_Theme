@@ -138,7 +138,7 @@
 
 
                         <button mat-icon-button color="primary"
-                                *ngIf="!customer.Latitude.startsWith('0.0') && !customer.Longitude.startsWith('0.0')"
+                                *ngIf="!customer.Latitude?.startsWith('0.0') && !customer.Longitude?.startsWith('0.0')"
                                 (click)="viewMap(customer)">
                             <mat-icon style="margin-left: 2px;" title="View Map">location_on</mat-icon>
                         </button>
