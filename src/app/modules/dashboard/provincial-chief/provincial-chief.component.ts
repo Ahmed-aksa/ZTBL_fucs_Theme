@@ -27,7 +27,7 @@ export class ProvincialChiefComponent implements OnInit {
   ngOnInit(): void {
   }
   assignRoleData(DashboardReport: any) {
-      debugger;
+      
       this.spinner.show();
       if (!DashboardReport) {
           return

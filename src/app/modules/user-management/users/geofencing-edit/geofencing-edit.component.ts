@@ -20,7 +20,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {CircleService} from 'app/shared/services/circle.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 declare const google: any;
 
@@ -54,7 +54,7 @@ export class GeofencingEditComponent implements OnInit {
     address: string;
     gridHeight: string;
     //implements OnInit
-    radius;
+    radius=null;
 
     ///////////////////
     lat = 30.375321;

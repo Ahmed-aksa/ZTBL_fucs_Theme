@@ -258,7 +258,7 @@ if(this.index<this.rawData.length) {
         this.bit = null;
     }
 
-    debugger
+    
     if (this.index < this.rawData.length) {
         this.loanDocument.file = this.rawData[this.index];
         // @ts-ignore
@@ -294,7 +294,7 @@ if(this.index<this.rawData.length) {
                 })
             ).subscribe((baseResponse) => {
             if (baseResponse.Success) {
-                debugger
+                
                 // this.index = this.index + 1;
                 this.docId.push(baseResponse.DocumentDetail.Id);
 

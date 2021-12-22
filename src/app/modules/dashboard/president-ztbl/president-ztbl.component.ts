@@ -43,7 +43,7 @@ export class PresidentZtblComponent implements OnInit {
     ngOnInit(): void {
     }
     assignRoleData(DashboardReport: any) {
-        debugger;
+        
         this.spinner.show();
         if (!DashboardReport) {
             return

@@ -141,7 +141,7 @@ export class LoanUtilizationComponent implements OnInit {
         private dialog: MatDialog,
         private route: ActivatedRoute,
     ) {
-// debugger
+// 
         // this.loggedInUser = userUtilsService.getUserDetails();
         // if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
         //     this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
@@ -432,7 +432,7 @@ ng
     }
 
     changeStatus(status: string) {
-        debugger
+        
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks.value;
 
 

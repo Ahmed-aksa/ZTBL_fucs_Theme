@@ -203,13 +203,13 @@ export class ZoneBranchCircleComponent implements OnInit {
         } else {
             changedZone = {Zone: {ZoneId: changedValue}}
         }
-        debugger;
+        
 
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.SelectedBranches = data.Branches;
             this.single_branch = false;
             if (has_single_branch) {
-                debugger;
+                
 
                 this.selected_b = this.selected_single_branch;
                 if (this.selected_single_circle) {
