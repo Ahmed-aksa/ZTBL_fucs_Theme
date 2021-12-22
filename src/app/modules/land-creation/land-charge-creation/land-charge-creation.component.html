@@ -19,7 +19,7 @@
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Reference No <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <input [readonly]="isFormReadonly" matInput placeholder="Enter Reference No"
+                            <input appNumberOnly [readonly]="isFormReadonly" matInput placeholder="Enter Reference No"
                                    formControlName="LegalDocNo" maxlength="30" autocomplete="off"/>
                             <mat-error *ngIf="hasError('LegalDocNo', 'required')">Reference No <strong>required</strong>
                             </mat-error>
@@ -29,7 +29,7 @@
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Passbook No <strong class="matMandatory"></strong>
                             </mat-label>
-                            <input matInput placeholder="Enter Passbook No" formControlName="PassbookNO"
+                            <input appNumberOnly matInput placeholder="Enter Passbook No" formControlName="PassbookNO"
                                    readonly="readonly" maxlength="30" autocomplete="off" appAlphaNumSpecial/>
                             <mat-error *ngIf="hasError('PassbookNO', 'required')">Passbook No <strong>required</strong>
                             </mat-error>
@@ -208,27 +208,27 @@
                                 <tr *ngFor="let dynamic of dynamicArray; let i = index;">
                                     <td>
                                         <strong class="matMandatory">*</strong>
-                                        <input [(ngModel)]="dynamicArray[i].khata" (keyup)="keyUpValidate($event)"
+                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].khata" (keyup)="keyUpValidate($event)"
                                                [ngModelOptions]="{standalone: true}" class="form-control" type="text"
                                                [readonly]="isFormReadonly" appAlphaNumSpecial/>
 
                                     </td>
                                     <td>
                                         <strong class="matMandatory">*</strong>
-                                        <input [(ngModel)]="dynamicArray[i].Khatooni" (keyup)="keyUpValidate($event)"
+                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].Khatooni" (keyup)="keyUpValidate($event)"
                                                [ngModelOptions]="{standalone: true}" class="form-control" type="text"
                                                [readonly]="isFormReadonly" appAlphaNumSpecial/>
 
                                     </td>
                                     <td>
                                         <strong>&nbsp;</strong>
-                                        <input [(ngModel)]="dynamicArray[i].Khasra"
+                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].Khasra"
                                                [ngModelOptions]="{standalone: true}" class="form-control" type="text"
                                                [readonly]="isFormReadonly" appAlphaNumSpecial/>
                                     </td>
                                     <td>
                                         <strong class="matMandatory">*</strong>
-                                        <input [(ngModel)]="dynamicArray[i].TotalAreaOfKhewat" placeholder="0"
+                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].TotalAreaOfKhewat" placeholder="0"
                                                (keyup)="onKeyInputCalculateValue($event,i)"
                                                [ngModelOptions]="{standalone: true}" class="form-control" type="text"
                                                appNumberOnly [readonly]="isFormReadonly"/>
@@ -239,21 +239,21 @@
                                         <table>
                                             <tr>
                                                 <td class="nested-table">
-                                                    <input [(ngModel)]="dynamicArray[i].Share1" placeholder="0"
+                                                    <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].Share1" placeholder="0"
                                                            (keyup)="onKeyInputCalculateValue($event,i)"
                                                            [ngModelOptions]="{standalone: true}" class="form-control"
                                                            type="text" appNumberOnly [readonly]="isFormReadonly"/>
                                                 </td>
                                                 <td class="nested-table nested-table-content">/</td>
                                                 <td class="nested-table">
-                                                    <input [(ngModel)]="dynamicArray[i].Share2" placeholder="0"
+                                                    <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].Share2" placeholder="0"
                                                            (keyup)="onKeyInputCalculateValue($event,i)"
                                                            [ngModelOptions]="{standalone: true}" class="form-control"
                                                            type="text" appNumberOnly [readonly]="isFormReadonly"/>
                                                 </td>
                                                 <td class="nested-table nested-table-content">=</td>
                                                 <td class="nested-table">
-                                                    <input [(ngModel)]="dynamicArray[i].LegalShare" placeholder="0"
+                                                    <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].LegalShare" placeholder="0"
                                                            [ngModelOptions]="{standalone: true}" class="form-control"
                                                            type="number" readonly="readonly"/>
                                                 </td>
@@ -263,13 +263,13 @@
                                     </td>
                                     <td>
                                         <strong class="matMandatory">*</strong>
-                                        <input [(ngModel)]="dynamicArray[i].AreaAccordingToShare" placeholder="0"
+                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].AreaAccordingToShare" placeholder="0"
                                                [ngModelOptions]="{standalone: true}" class="form-control" type="number"
                                                readonly="readonly"/>
 
                                     </td>
                                     <td hidden>
-                                        <input [(ngModel)]="dynamicArray[i].CCDetailsID"
+                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].CCDetailsID"
                                                [ngModelOptions]="{standalone: true}" class="form-control" type="number"
                                                readonly="readonly"/>
                                     </td>
