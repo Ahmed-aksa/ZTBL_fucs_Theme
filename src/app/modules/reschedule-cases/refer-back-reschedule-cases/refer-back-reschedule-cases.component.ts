@@ -64,6 +64,7 @@ export class ReferBackRescheduleCasesComponent implements OnInit, AfterViewInit 
     LoanTypes: any = [];
     allowSubmit: boolean = false;
     maxDate = new Date();
+    Math;
 
     branch = null;
     zone = null;
@@ -91,6 +92,7 @@ export class ReferBackRescheduleCasesComponent implements OnInit, AfterViewInit 
         private activatedRoute: ActivatedRoute
     ) {
         // this.getLoanStatus();
+        this.Math = Math;
     }
 
     ngOnInit() {
@@ -149,7 +151,7 @@ export class ReferBackRescheduleCasesComponent implements OnInit, AfterViewInit 
             (this.LovCall = {TagName: LovConfigurationKey.RescheduleStatus})
         );
         this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
-        this.referbackForm.controls["Status"].setValue(this.SelectedLoanStatus ? this.SelectedLoanStatus[3].Id : "");
+        this.referbackForm.controls["Status"].setValue('4');
 
 
     }
