@@ -1,4 +1,4 @@
-<div
+\<div
     class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
 
     <div class="row py-3">
@@ -92,7 +92,7 @@
                     <mat-form-field class="mat-form-field-fluid w-6/12" appearance="outline">
                         <mat-label class="customMatLabel">New Gl Code<strong class="matMandatory">*</strong></mat-label>
                         <input matInput placeholder="Enter New Gl Code" formControlName="GlSubIDNew" maxlength="13"
-                               autocomplete="off"/>
+                               autocomplete="off" appNumberOnly/>
                     </mat-form-field>
                     <input type="button" mat-raised-button color="primary"
                            class="w-full ml-1 w-5/12 mat-raised-button mat-button-base mat-primary searchLCBtn"
@@ -107,7 +107,7 @@
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">New Scheme Code</mat-label>
                         <input matInput placeholder="Enter New Scheme Code" formControlName="SchemeCode" maxlength="10"
-                               autocomplete="off"/>
+                               autocomplete="off" appNumberOnly/>
                     </mat-form-field>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">New Crop Code</mat-label>
                         <input matInput placeholder="Enter New Corp Code" formControlName="CropCode" maxlength="10"
-                               autocomplete="off"/>
+                               autocomplete="off" appNumberOnly/>
                     </mat-form-field>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                         <mat-label class="customMatLabel">Down Payment (%) <strong class="matMandatory">*</strong>
                         </mat-label>
                         <input matInput placeholder="Enter Down Payment" formControlName="AmountPayableForReschPer"
-                               maxlength="5" autocomplete="off"/>
+                               maxlength="5" autocomplete="off" appNumberOnly/>
                     </mat-form-field>
                 </div>
             </div>

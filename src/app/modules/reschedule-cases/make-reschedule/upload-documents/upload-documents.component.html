@@ -128,7 +128,7 @@
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Document Ref No. <strong
                                             class="matMandatory">*</strong></mat-label>
-                                        <input matInput formControlName="DocumentRefNo">
+                                        <input matInput formControlName="DocumentRefNo" appNumberOnly>
                                         <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Document Ref No
                                             <strong>required</strong>
                                         </mat-error>

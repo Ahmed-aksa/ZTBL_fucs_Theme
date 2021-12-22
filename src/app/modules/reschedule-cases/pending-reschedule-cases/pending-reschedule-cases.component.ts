@@ -68,6 +68,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
     zone = null;
 
     matTableLenght: boolean;
+    Math;
 
     LoanStatus: any = [];
     loanStatus: any = [];
@@ -90,6 +91,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
         private _lovService: LovService,
         private activatedRoute: ActivatedRoute
     ) {
+        this.Math = Math;
     }
 
     ngOnInit() {
@@ -186,8 +188,8 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
             (this.LovCall = {TagName: LovConfigurationKey.RescheduleStatus})
         );
         this.SelectedLoanStatus = this.LoanStatus.LOVs.reverse();
-        this.pendingForm.controls['Status'].setValue(this.SelectedLoanStatus ? this.SelectedLoanStatus[0].Id : '');
-
+        console.log(this.SelectedLoanStatus)
+        this.pendingForm.controls['Status'].setValue('1');
 
     }
 
