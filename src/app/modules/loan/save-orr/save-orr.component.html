@@ -240,7 +240,7 @@
                                                 <mat-label class="customMatLabel">Amount Recommended<strong
                                                     class="matMandatory">*</strong>
                                                 </mat-label>
-                                                <input matInput [(ngModel)]="obj.AmountRecommended" maxlength="8"
+                                                <input appNumberOnly matInput [(ngModel)]="obj.AmountRecommended" maxlength="8"
                                                        autocomplete="off" [ngModelOptions]="{standalone: true}"/>
                                             </mat-form-field>
                                         </td>
