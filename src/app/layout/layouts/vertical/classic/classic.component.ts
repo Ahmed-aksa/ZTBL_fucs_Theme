@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -20,6 +20,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     userInfo;
     time:any;
     navigation: Navigation;
+    sessionTime: any;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -75,5 +76,16 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         if (navigation) {
             navigation.toggle();
         }
+    }
+    @HostListener('window:keydown')
+    @HostListener('window:mousedown')
+    // @HostListener('mousemove')
+    checkUserActivity() {
+        this.setSessionTime();
+    }
+    setSessionTime() {
+        this.sessionTime = JSON.parse(localStorage.getItem("ZTBLUser"))?.SessionExpiryTime;
+        this._sessionExpireService.timer(Number(this.sessionTime));
+        //this._sessionExpireService.timer(1);
     }
 }
