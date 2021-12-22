@@ -1198,7 +1198,7 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     deleteImage(customer_document: any) {
-        let dialogRef = this.layoutUtilsService.AlertElementConfirmation("Do you really want to delete this file?");
+        let dialogRef = this.layoutUtilsService.AlertElementConfirmation("Do you really want to delete this Document?");
         dialogRef.afterClosed().subscribe((data) => {
             if (data) {
                 this._customerService.deleteDocument(customer_document).subscribe((data) => {
