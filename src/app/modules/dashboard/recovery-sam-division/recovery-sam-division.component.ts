@@ -51,7 +51,7 @@ export class RecoverySamDivisionComponent implements OnInit {
     }
 
     assignRoleData(DashboardReport: any) {
-        debugger;
+        
         if (!DashboardReport) {
             return
         }

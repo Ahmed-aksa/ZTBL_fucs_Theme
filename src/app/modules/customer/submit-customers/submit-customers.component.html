@@ -86,7 +86,9 @@
 
         <div class="example-table-container">
 
-            <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: total_customers_length}" matSort #sort1="matSort"
+            <mat-table class="lmat-elevation-z8" #table
+                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: total_customers_length}"
+                       matSort #sort1="matSort"
                        matSortActive="id"
                        matSortDirection="asc" matSortDisableClear>
 
@@ -131,6 +133,11 @@
                         <button mat-icon-button color="primary" *ngIf="!CheckEditStatus(customer)"
                                 (click)="viewCustomer(customer)">
                             <mat-icon style="margin-left: 2px;" title="View Customer">visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary"
+                                *ngIf="!customer.Latitude.startsWith('0.0') && !customer.Longitude.startsWith('0.0')"
+                                (click)="viewMap(customer)">
+                            <mat-icon style="margin-left: 2px;" title="View Map">location</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>

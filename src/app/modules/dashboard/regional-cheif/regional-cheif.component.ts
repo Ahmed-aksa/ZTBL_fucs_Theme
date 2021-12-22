@@ -44,7 +44,7 @@ export class RegionalCheifComponent implements OnInit {
     ngOnInit(): void {
     }
     assignRoleData(DashboardReport: any) {
-        debugger;
+        
         this.spinner.show();
         if (!DashboardReport) {
             return

@@ -396,7 +396,7 @@ export class DeceasedCusComponent implements OnInit {
     // }
 
     onChang(e) {
-        debugger
+        
         if (e == false) {
             this.myModel = false
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
@@ -573,7 +573,7 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     MarkAsDeceasedCustomer() {
-        debugger
+        
         this.errorShow = false;
         this.hasFormErrors = false;
 

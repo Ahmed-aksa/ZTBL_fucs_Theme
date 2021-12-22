@@ -14,6 +14,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {finalize} from 'rxjs/operators';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 
 @Component({
@@ -238,4 +239,25 @@ export class AuthorizedCustomersComponent implements OnInit {
         }
         this.searchCustomer();
     }
+
+    viewMap(customer) {
+        let data = {
+            Lat: customer.Latitude,
+            Lng: customer.Longitude
+        };
+
+
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+        });
+    }
+
 }

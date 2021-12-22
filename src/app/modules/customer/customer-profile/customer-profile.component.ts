@@ -282,7 +282,7 @@ export class CustomerProfileComponent implements OnInit {
 
     createForm() {
 
-        debugger;
+        
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.roleForm = this.formBuilder.group({
             Cnic: [this.createCustomer.Cnic, [Validators.required, Validators.pattern(regExps.cnic)]],
