@@ -130,7 +130,7 @@ export class SubmitDocumentsComponent implements OnInit {
             } else {
                 single_document.CustomerDocuments.forEach((customer_document) => {
 
-                    if (customer_document.file == null || customer_document.description == null || single_document.document_type_id) {
+                    if (customer_document.FilePath == null || customer_document.Description == null || single_document.document_type_id) {
                         has_error = true;
                     }
                 })
