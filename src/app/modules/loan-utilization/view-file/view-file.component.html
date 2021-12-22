@@ -1,4 +1,4 @@
-<div *ngIf="url">
+<div *ngIf="url" style="height: 80vh;">
     <div class="row">
         <div class="col-lg-12 sticky-top text-right relative">
             <div class="bg-white float-right">
@@ -14,7 +14,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <img class="images zoom-images" style="width: 100%; height: 89vh;" [src]="url" id="image"
+            <img class="images zoom-images" style="width: 500px; height:450px; " [src]="url" id="image"
                  [ngStyle]="{
                  transform: 'scale(' + scale / 100 + ')',
                  'transform-origin': left + 'px ' + top + 'px'
@@ -24,19 +24,22 @@
         </div>
     </div>
 
-    <div class="col-lg-12">
-        <button mat-icon-button (click)="rotate()" color="primary">
-            <mat-icon>rotate_right</mat-icon>
-            Rotate
-        </button>
-
-        <div class="toolbar">
-            <label>Zoom:</label>
-            <input type="range" min="100" max="1000" [(ngModel)]="scale">
-            <!--        <p>Zoom X: {{ left }}</p>-->
-            <!--        <p>Zoom Y: {{ top }}</p>-->
+    <div class="row">
+        <div class="col-lg-12 flex text-center " style="height: 100px;     place-items: self-end;" >
+            <button class="mr-18" mat-icon-button (click)="rotate()" color="primary">
+                <mat-icon>rotate_right</mat-icon>
+                Rotate
+            </button>
+    
+            <div class="toolbar ml-5 " style="margin-bottom: 10px;     z-index: 0;">
+                <label>Zoom:</label>
+                <input type="range" min="100" max="1000" [(ngModel)]="scale">
+                <!--        <p>Zoom X: {{ left }}</p>-->
+                <!--        <p>Zoom Y: {{ top }}</p>-->
+            </div>
         </div>
     </div>
+
 
 
 
