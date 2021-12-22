@@ -1198,14 +1198,22 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     deleteImage(customer_document: any) {
-        this._customerService.deleteDocument(customer_document).subscribe((data) => {
-            if (data.Success) {
-                this.getCustomerDocuments(this.createCustomer);
-                this.toastr.success("Document Deleted Successfully");
+        let dialogRef = this.layoutUtilsService.AlertElementConfirmation("Do you really want to delete this file?");
+        dialogRef.afterClosed().subscribe((data) => {
+            if (data) {
+                this._customerService.deleteDocument(customer_document).subscribe((data) => {
+                    if (data.Success) {
+                        this.getCustomerDocuments(this.createCustomer);
+                        this.toastr.success("Document Deleted Successfully");
+                    } else {
+                        this.toastr.error(data.Message);
+                    }
+                })
             } else {
-                this.toastr.error(data.Message);
+                return
             }
         })
+
     }
 
     private getCustomerDocuments(customerobj: any) {
