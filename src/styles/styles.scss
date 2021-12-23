@@ -797,3 +797,17 @@ img {
 .text-lg {
     font-size: 1rem !important;
 }
+.apexcharts-legend.position-bottom.apexcharts-align-left, .apexcharts-legend.position-top.apexcharts-align-left, .apexcharts-legend.position-right, .apexcharts-legend.position-left {
+    width: 180px;
+    .apexcharts-legend-series{
+        display: flex;
+        .apexcharts-legend-marker{
+            height: 12px;
+            width: 12px;
+        }
+        .apexcharts-legend-text{
+            width: 130px;
+            overflow-wrap: break-word;
+        }
+    }
+}
