@@ -611,14 +611,14 @@ export class CustomerProfileComponent implements OnInit {
         this.MaritalStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.MaritalStatus});
         this.GenderLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Gender});
         this.OccupationLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Occupation});
-        this.DistrictLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DistrictProvince});
+        this.DistrictLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.District});
         this.BorrowerStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BorrowerStatus});
         this.CitizenshipLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Nationality});
         console.log(this.CasteLov)
         this.PostCodeLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.PostalCode});
 
         ////For Search
-        this.DistrictLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DistrictProvince});
+        this.DistrictLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.District});
 
         //For Caste
         this.CasteLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.Cast});
