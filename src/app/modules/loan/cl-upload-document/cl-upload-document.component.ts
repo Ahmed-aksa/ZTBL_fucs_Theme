@@ -403,6 +403,8 @@ export class ClUploadDocumentComponent implements OnInit {
                             this.index++;
                         }
                     } else {
+                        this.spinner.hide();
+                        this.index = 0;
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
                         this.fallout = true;
                         return;
