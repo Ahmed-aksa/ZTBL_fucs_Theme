@@ -26,17 +26,10 @@
 
                 </div>
                 <div class="col-lg-6 py-3">
-                    <div class="shadow-sm border">
-                        <!-- <div id="chart" class=" m-0 pt-2">
-                            <apx-chart
-                                [series]="chartOptions.series"
-                                [chart]="chartOptions.chart"
-                                [labels]="chartOptions.labels"
-                                [title]="chartOptions.title"
-                                [theme]="chartOptions.theme"
-                                [responsive]="chartOptions.responsive"
-                            ></apx-chart>
-                        </div> -->
+                    <div class="shadow-sm border pt-2" *ngIf="CreditCeiling" >
+                            <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
+                            <app-pyramid-chart [item]="CreditCeiling">
+                            </app-pyramid-chart>
                     </div>
                 </div>
             </div>

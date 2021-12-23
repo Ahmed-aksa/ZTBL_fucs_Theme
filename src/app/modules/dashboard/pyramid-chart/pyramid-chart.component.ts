@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pyramid-chart',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pyramid-chart.component.scss']
 })
 export class PyramidChartComponent implements OnInit {
-
+  @Input() item :any;
   constructor() { }
 
   ngOnInit(): void {

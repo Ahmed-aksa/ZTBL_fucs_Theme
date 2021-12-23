@@ -39,6 +39,7 @@ export class EvpCreditDashboardComponent implements OnInit {
     DisbursmentAchievement: [string, unknown][];
     RecoveryAchievement: [string, unknown][];
     CountryTop5: any;
+    CreditCeiling: any;
 
     constructor(fb: FormBuilder, private dashboardService: DashboardService) {
         this.options = fb.group({
@@ -62,6 +63,7 @@ export class EvpCreditDashboardComponent implements OnInit {
         this.DisbursmentAchievement = Object.entries(DashboardReport?.DisbursmentAchievement);
         this.RecoveryAchievement = Object.entries(DashboardReport?.RecoveryAchievement);
         this.CountryTop5 = DashboardReport?.CountryTop5;
+        this.CreditCeiling = DashboardReport.CreditCeiling;
 
 
     }

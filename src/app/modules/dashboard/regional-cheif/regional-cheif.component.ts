@@ -34,6 +34,7 @@ export class RegionalCheifComponent implements OnInit {
     RecoveryAchievement: [string, unknown][];
     CirclePositions: any;
     p: any;
+    CreditCeiling: any;
 
     constructor( private route: ActivatedRoute,
          private spinner: NgxSpinnerService, 
@@ -53,6 +54,7 @@ export class RegionalCheifComponent implements OnInit {
         this.chartOptions = this._dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio(Branch Wise)');
          this.RecoveryAchievement = Object.entries(DashboardReport?.RecoveryAchievement);
          this.CirclePositions = DashboardReport?.CirclePositions;
+         this.CreditCeiling = DashboardReport.CreditCeiling;
         this.spinner.hide()
 
     }

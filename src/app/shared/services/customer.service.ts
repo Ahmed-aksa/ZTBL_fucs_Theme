@@ -381,7 +381,7 @@ export class CustomerService {
         this.request.EligibilityRequest = {
             Cnic: data.Cnic,
             NdcFilePath: data.ndc_file,
-            EcibFilePath: data.ecib_file,
+            ECIBPDFLink: data.ecib_file,
             FatherName: data.FatherName,
             Remarks: data.Remarks,
             Status: data.status

@@ -60,6 +60,8 @@ export class EligibilityRequestComponent implements OnInit {
         "Cnic",
         "FatherName",
         "Status",
+        "ViewNDC",
+        "ECIBPDFLink",
         "Actions"
     ];
 
