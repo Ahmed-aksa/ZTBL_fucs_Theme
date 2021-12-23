@@ -76,7 +76,7 @@ export class ClUploadDocumentComponent implements OnInit {
     circle: any;
     disable_lc = false;
     number_of_files: number = 0;
-    docId;
+    docId=[];
     first: boolean;
 
     checkCompare = false;
@@ -254,7 +254,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     onFileChange(event, i) {
-        
+
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -310,7 +310,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
-        
+
         this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
         var count = 0;
         var totLength = this.PostDocument.controls.NoOfFilesToUpload.value;
