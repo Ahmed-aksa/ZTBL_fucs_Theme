@@ -457,11 +457,30 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
 
     AddAppraisalProposed() {
 
-
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
         }
+
+        let existing
+        let proposed
+        for(let i=0;i<this.productionArray?.length;i++){
+            if(this.productionArray[i].AppraisalType=='E')
+            {
+         existing=true;
+            }
+            if(this.productionArray[i].AppraisalType=='I')
+            {
+         proposed=true
+            }
+        }
+
+        if(existing!=true||proposed!=true){
+            this.layoutUtilsService.alertMessage("", "Both existing and proposed");
+            return;
+        }
+
+
 
         // if (!this.LoanAOPIForm.controls.UncultivatedLand.value) {
         //     var Message = 'Please Enter Uncultivated Land';
@@ -662,7 +681,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         this.appraisalProposedList.push(increaseAppriasalProposed);
 
         this.spinner.show();
-        
+
         this._loanService.addAppraisalProposed(this.appraisalProposedList, this.loanDetail.TranId)
             .pipe(
                 finalize(() => {
@@ -790,7 +809,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
                     })
                 )
                 .subscribe(baseResponse => {
-                    
+
 
                     if (baseResponse.Success) {
 
@@ -834,7 +853,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     }
 
     changeChecked(event: any, production: any) {
-        
+
         if (!this.list_ids_array.includes(production.ItemDetailID)) {
             this.list_ids_array.push(production.ItemDetailID);
         } else {

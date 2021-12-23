@@ -160,11 +160,7 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onSaveLegalHeirsForm() {
-        this.legalHeirs
-        //if (this.loanDetail == null || this.loanDetail == undefined) {
-        //  this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
-        //  return;
-        //}
+        debugger
 
         if (this.legalHeirsForm.invalid) {
             const controls = this.legalHeirsForm.controls;
@@ -187,7 +183,7 @@ export class ClLegalHeirsComponent implements OnInit {
         //this.legalHeirs.LoanAppID = 0;
         this.legalHeirs.DobTxt = this.datePipe.transform(this.legalHeirs.Dob, "dd-MM-yyyy");
         this.legalHeirs.Dob = this.datePipe.transform(this.legalHeirs.Dob, "ddMMyyyy");
-        this.legalHeirsForm.controls["Dob"].setValue(this.datePipe.transform(this.legalHeirsForm.value.Dob, "ddMMyyyy"))
+        // this.legalHeirsForm.controls["Dob"].setValue(this.datePipe.transform(this.legalHeirsForm.value.Dob, "ddMMyyyy"))
 
 
         this.legalHeirs = Object.assign(this.legalHeirsForm.value, this.legalHeirsForm.getRawValue());
