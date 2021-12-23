@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-consent-form',
@@ -24,7 +25,8 @@ export class ConsentFormComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<ConsentFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private toaster: ToastrService
+        private toaster: ToastrService,
+        private spinner: NgxSpinnerService
     ) {
     }
 
@@ -53,8 +55,10 @@ export class ConsentFormComponent implements OnInit {
     onYesClick(): void {
         /* Server loading imitation. Remove this */
         if (this.agreed) {
+            this.spinner.show();
             this.viewLoading = true;
             setTimeout(() => {
+                this.spinner.hide();
                 this.dialogRef.close({data: this.Remarks}); // Keep only this row
             }, 2500);
         } else {

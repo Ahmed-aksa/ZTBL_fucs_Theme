@@ -38,6 +38,7 @@ export class ZonalChiefDashboardComponent implements OnInit {
     public chartPerformanceIndicators: Partial<ChartOptions>;
     public chartLoanPortfolio: Partial<ChartOptions>;
     public chartnoOfBorrowers: Partial<ChartOptions>;
+    CreditCeiling: any;
 
     constructor(fb: FormBuilder, private dashboardService: DashboardService) {
         this.options = fb.group({
@@ -56,7 +57,7 @@ export class ZonalChiefDashboardComponent implements OnInit {
         this.DisbursmentAchievement = Object.entries(DashboardReport.DisbursmentAchievement);
         this.RecoveryAchievement = Object.entries(DashboardReport.RecoveryAchievement);
         this.CirclePositions = DashboardReport.CirclePositions;
-
+        this.CreditCeiling = DashboardReport.CreditCeiling;
         this.chartPerformanceIndicators = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
         this.chartLoanPortfolio = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio');
         this.chartnoOfBorrowers = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No of Borrowers');

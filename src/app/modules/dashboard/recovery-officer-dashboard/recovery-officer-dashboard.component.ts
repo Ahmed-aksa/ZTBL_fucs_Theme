@@ -29,6 +29,7 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
     recoveryAchievment: any;
     creditCeiling: any;
     circlePositions: any;
+    CreditCeiling: any;
 
     constructor(private dashboardService: DashboardService) {
     }
@@ -37,12 +38,13 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
     }
 
     assignRoleData(DashboardReport: any) {
-        
         if (!DashboardReport?.RecoveryAchievement) {
             return
         }
         this.recoveryAchievment = Object.entries(DashboardReport?.RecoveryAchievement);
         this.circlePositions = DashboardReport.CirclePositions;
+        this.CreditCeiling = DashboardReport.CreditCeiling;
         this.chartOptions = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio');
+
     }
 }

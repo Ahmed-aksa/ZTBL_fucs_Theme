@@ -37,6 +37,7 @@ export class RecoverySamDivisionComponent implements OnInit {
     RecoveryAchievement: [string, unknown][];
     Top10NplZones: any;
     Top10SamZones: any;
+    CreditCeiling: any;
 
     constructor(fb: FormBuilder, private spinner: NgxSpinnerService, private _dashboardService: DashboardService) {
         this.options = fb.group({
@@ -61,5 +62,6 @@ export class RecoverySamDivisionComponent implements OnInit {
         this.RecoveryAchievement=Object.entries(DashboardReport.RecoveryAchievement);
         this.Top10NplZones=DashboardReport.Top10NplZones;
         this.Top10SamZones=DashboardReport.Top10SamZones;
+        this.CreditCeiling = DashboardReport.CreditCeiling;
     }
 }

@@ -36,6 +36,7 @@ export class BranchManagerDashboardComponent implements OnInit {
     DisbursmentAchievement: any = [];
     RecoveryAchievement: any = [];
     CirclePositions: any = [];
+    CreditCeiling: any;
 
     constructor(fb: FormBuilder, private dashboardService: DashboardService) {
         this.options = fb.group({
@@ -54,7 +55,7 @@ export class BranchManagerDashboardComponent implements OnInit {
         this.DisbursmentAchievement = Object.entries(DashboardReport.DisbursmentAchievement);
         this.RecoveryAchievement = Object.entries(DashboardReport.RecoveryAchievement);
         this.CirclePositions = DashboardReport.CirclePositions;
-
+        this.CreditCeiling = DashboardReport.CreditCeiling;
 
         this.chartPerformanceIndicators = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
         this.chartLoanPortfolio = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio');
