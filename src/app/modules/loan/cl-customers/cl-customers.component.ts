@@ -101,7 +101,6 @@ export class ClCustomersComponent implements OnInit {
     }
 
     attachCustomer() {
-
         if (this.loan_data && this.loan_data.length == 0) {
             if (this.loanCustomerForm.controls.AGPS.value != "A") {
                 this.layoutUtilsService.alertElement("", "First time AGPS must be Applicant");
@@ -128,11 +127,17 @@ export class ClCustomersComponent implements OnInit {
             this.layoutUtilsService.alertElement("", "Customer CNIC Already Added", "Duplicate Cutomer");
             return;
         }
+        this.customerLoanApp.LoanAppID = this.loanDetail?.ApplicationHeader?.LoanAppID;
+        if(!this.customerLoanApp.LoanAppID){
+            this.layoutUtilsService.alertMessage("", "Add Application Header First");
+            return;
+        }
+
         this.createCustomer.CustomerStatus = 'A';
 
         this.customerLoanApp.Cnic = this.loanCustomerForm.controls['CNIC'].value;
         this.customerLoanApp.RelationID = parseInt(this.loanCustomerForm.controls['Relationship'].value);
-        this.customerLoanApp.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
+
         // this.customerLoanApp.LoanCaseNumber = this.loanDetail.ApplicationHeader.LoanCaseNo;
         this.customerLoanApp.Agps = this.loanCustomerForm.controls['AGPS'].value;
 
@@ -238,7 +243,7 @@ export class ClCustomersComponent implements OnInit {
                 return;
             }
 
-            if (this.loan_data.length == 0) {
+            if (this.loan_data?.length == 0) {
                 return false;
             } else {
                 if (customerObj.CustLoanAppID == null || customerObj.CustLoanAppID == undefined || customerObj.CustLoanAppID == "") {
@@ -278,6 +283,7 @@ export class ClCustomersComponent implements OnInit {
     }
 
     onSaveCustomer() {
+        debugger
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;
@@ -288,7 +294,7 @@ export class ClCustomersComponent implements OnInit {
         //     return;
         // }
 
-        if (this.loan_data.length > 0) {
+        if (this.loan_data?.length > 0) {
             this.spinner.show();
             var isCustomerAdded = false;
             var resMessage = "";

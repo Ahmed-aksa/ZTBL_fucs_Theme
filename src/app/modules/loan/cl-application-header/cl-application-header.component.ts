@@ -19,6 +19,7 @@ import {Zone} from '../../../modules/user-management/users/utils/zone.model'
 import {CommonService} from 'app/shared/services/common.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {ClUploadDocumentComponent} from "../cl-upload-document/cl-upload-document.component";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'kt-cl-application-header',
@@ -76,6 +77,7 @@ export class ClApplicationHeaderComponent implements OnInit {
     @Output() applicationCall: EventEmitter<any> = new EventEmitter();
 
     constructor(
+        private route: ActivatedRoute,
         private formBuilder: FormBuilder,
         private _circleService: CircleService,
         private _cdf: ChangeDetectorRef,
@@ -265,11 +267,17 @@ export class ClApplicationHeaderComponent implements OnInit {
     }
 
     checkDisable() {
-        if (this.isCheckLcInProgress == true || this.applicationHeaderForm.controls["LoanCaseNo"]?.value) {
-            return true
-        } else {
-            return false
+        if(this.route.snapshot.params['Lcno']){
+            if (this.isCheckLcInProgress == true || this.applicationHeaderForm.controls["LoanCaseNo"]?.value) {
+                return true
+            } else {
+                return false
+            }
+        }else{
+           return false
         }
+
+
     }
 
 
