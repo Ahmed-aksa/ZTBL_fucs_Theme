@@ -70,11 +70,13 @@
                             "src/styles/tailwind.scss",
                             "node_modules/ngx-toastr/toastr.css",
                             "node_modules/bootstrap/scss/bootstrap.scss",
-                            "./node_modules/material-icons-font/material-icons-font.css"
+                            "./node_modules/material-icons-font/material-icons-font.css",
+                            "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
                         ],
                         "scripts": [
                             "node_modules/bootstrap/dist/js/bootstrap.js",
-                            "node_modules/apexcharts/dist/apexcharts.min.js"
+                            "node_modules/apexcharts/dist/apexcharts.min.js",
+                            "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
                         ]
                     },
                     "configurations": {
@@ -142,7 +144,8 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles/styles.scss"
+                            "src/styles/styles.scss",
+                            
                         ],
                         "scripts": [
                             "node_modules/apexcharts/dist/apexcharts.min.js"

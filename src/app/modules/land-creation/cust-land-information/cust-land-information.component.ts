@@ -1,37 +1,37 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {CreateCustomer} from 'app/shared/models/customer.model';
-import {DateFormats, Lov, LovConfigurationKey, MaskEnum} from 'app/shared/classes/lov.class';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {LovService} from "../../../shared/services/lov.service";
-import {CustomerService} from "../../../shared/services/customer.service";
-import {NgxSpinnerService} from "ngx-spinner";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {Store} from "@ngrx/store";
-import {CommonService} from "../../../shared/services/common.service";
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
-import {LandChargeCreationComponent} from "../land-charge-creation/land-charge-creation.component";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {CustomerListDialogComponent} from "../customer-list-dialog/customer-list-dialog.component";
-import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {AppState} from "../../../shared/reducers";
-import {finalize, takeUntil} from "rxjs/operators";
-import {MomentDateAdapter} from "@angular/material-moment-adapter";
-import {BaseRequestModel} from "../../../shared/models/base_request.model";
-import {Subject} from "rxjs";
-import {DatePipe} from "@angular/common";
-import {CircleService} from "../../../shared/services/circle.service";
-import {LandHistoryComponent} from "../land-history/land-history.component";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {LandInfo} from 'app/shared/models/land-info.model';
-import {LandInfoDetails} from "../models/land-info-details.model";
-import {CustomerLandRelation} from 'app/shared/models/customer_land_relation.model';
-import {Zone} from 'app/shared/models/zone.model';
-import {LandService} from "../services/land.service";
-import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
-import {LargeFilesUploadComponent} from "../large-files-upload/large-files-upload.component";
-import {AreaConverterComponent} from "../area-converter/area-converter.component";
-import {KtDialogService} from "../../../shared/services/kt-dialog.service";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CreateCustomer } from 'app/shared/models/customer.model';
+import { DateFormats, Lov, LovConfigurationKey, MaskEnum } from 'app/shared/classes/lov.class';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LovService } from "../../../shared/services/lov.service";
+import { CustomerService } from "../../../shared/services/customer.service";
+import { NgxSpinnerService } from "ngx-spinner";
+import { BaseResponseModel } from "../../../shared/models/base_response.model";
+import { Store } from "@ngrx/store";
+import { CommonService } from "../../../shared/services/common.service";
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from "@angular/material/core";
+import { LandChargeCreationComponent } from "../land-charge-creation/land-charge-creation.component";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { CustomerListDialogComponent } from "../customer-list-dialog/customer-list-dialog.component";
+import { UserUtilsService } from "../../../shared/services/users_utils.service";
+import { AppState } from "../../../shared/reducers";
+import { finalize, takeUntil } from "rxjs/operators";
+import { MomentDateAdapter } from "@angular/material-moment-adapter";
+import { BaseRequestModel } from "../../../shared/models/base_request.model";
+import { Subject } from "rxjs";
+import { DatePipe } from "@angular/common";
+import { CircleService } from "../../../shared/services/circle.service";
+import { LandHistoryComponent } from "../land-history/land-history.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { LandInfo } from 'app/shared/models/land-info.model';
+import { LandInfoDetails } from "../models/land-info-details.model";
+import { CustomerLandRelation } from 'app/shared/models/customer_land_relation.model';
+import { Zone } from 'app/shared/models/zone.model';
+import { LandService } from "../services/land.service";
+import { LayoutUtilsService } from "../../../shared/services/layout_utils.service";
+import { LargeFilesUploadComponent } from "../large-files-upload/large-files-upload.component";
+import { AreaConverterComponent } from "../area-converter/area-converter.component";
+import { KtDialogService } from "../../../shared/services/kt-dialog.service";
 
 @Component({
     selector: 'app-cust-land-information',
@@ -39,8 +39,8 @@ import {KtDialogService} from "../../../shared/services/kt-dialog.service";
     styleUrls: ['./cust-land-information.component.scss'],
     providers: [
         DatePipe,
-        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: DateFormats }
     ],
 })
 export class CustLandInformationComponent implements OnInit {
@@ -443,7 +443,7 @@ export class CustLandInformationComponent implements OnInit {
     changeZone(changedValue) {
         this.LandInfo.Zone = this.SelectedZones.filter((zone) => zone.ZoneId == changedValue.value).ZoneName;
         this.ZoneLov = this.SelectedZones.filter((zone) => zone.ZoneId == changedValue.value).ZoneName;
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
+        let changedZone = { Zone: { ZoneId: changedValue.value } }
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.Branches = data.Branches;
             this.SelectedBranches = this.Branches;
@@ -479,7 +479,7 @@ export class CustLandInformationComponent implements OnInit {
             this.LandInfo.BranchId = this.LandInfoSearchData.BranchId;
             this.createdByUserId = this.LandInfoSearchData.EnteredBy
 
-            if ((this.LandInfoSearchData.Status == '1' || this.LandInfoSearchData.Status == '4') &&  this.createdByUserId == this.LoginUserInfo.User.UserId) {
+            if ((this.LandInfoSearchData.Status == '1' || this.LandInfoSearchData.Status == '4') && this.createdByUserId == this.LoginUserInfo.User.UserId) {
                 this.isFormReadonly = false;
                 localStorage.setItem("SearchLandData", '');
             } else {
@@ -542,12 +542,12 @@ export class CustLandInformationComponent implements OnInit {
 
     async LoadLovs() {
         //this.ngxService.start();
-        this.PostCodeLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.PostalCode})
-        this.PostCodeLovFull = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.PostalCode})
+        this.PostCodeLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.PostalCode })
+        this.PostCodeLovFull = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.PostalCode })
         this.PostCodeLovFull.LOVs = this._lovService.SortLovs(this.PostCodeLovFull.LOVs);
 
         this.PostCodeLov.LOVs = this._lovService.SortLovs(this.PostCodeLov.LOVs);
-        this.LandingProcedureLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.LandingProcedure})
+        this.LandingProcedureLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.LandingProcedure })
         this.LandingProcedureLov.LOVs = this._lovService.SortLovs(this.LandingProcedureLov.LOVs);
         // var userInfo = this.userUtilsService.getUserDetails();
         // this.BranchLov = userInfo.Branch;
@@ -607,7 +607,7 @@ export class CustLandInformationComponent implements OnInit {
 
     AreaConvertor() {
 
-        const dialogRef = this.dialog.open(AreaConverterComponent, {data: {}, disableClose: true});
+        const dialogRef = this.dialog.open(AreaConverterComponent, { data: {}, disableClose: true });
         dialogRef.afterClosed().subscribe(res => {
             console.log(res)
             if (res.data.TotalArea != undefined)
@@ -619,6 +619,7 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     clearSaveCustomerLandInfo() {
+        this.spinner.show();
         if (this.LandInfo.Id) {
             return;
         }
@@ -642,16 +643,17 @@ export class CustLandInformationComponent implements OnInit {
             .pipe(
                 finalize(() => {
                     this.loading = false;
+                    this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            if (baseResponse.Success) {
-                baseResponse.Zones?.forEach(function (value) {
-                    value.ZoneName = value.ZoneName.split("-")[1];
-                })
-                this.zoneLovAll = baseResponse.Zones;
-            } else
-                this.layoutUtilsService.alertElement("", baseResponse.Message);
-        });
+                if (baseResponse.Success) {
+                    baseResponse.Zones?.forEach(function (value) {
+                        value.ZoneName = value.ZoneName.split("-")[1];
+                    })
+                    this.zoneLovAll = baseResponse.Zones;
+                } else
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
+            });
     }
 
     GetBranches(ZoneId, branchId) {
@@ -664,19 +666,19 @@ export class CustLandInformationComponent implements OnInit {
                     this.loading = false;
                 })
             ).subscribe(baseResponse => {
-            if (baseResponse.Success) {
-                this.loading = false;
-                var branchNameTemp = baseResponse.Branches.filter(x => x.BranchId == branchId)[0]
-                this.LandInformationForm.controls['Branch'].setValue(branchNameTemp.BranchCode)
-                this.branchLovAll = baseResponse.Branches;
-            } else
-                this.layoutUtilsService.alertElement("", baseResponse.Message);
-        });
+                if (baseResponse.Success) {
+                    this.loading = false;
+                    var branchNameTemp = baseResponse.Branches.filter(x => x.BranchId == branchId)[0]
+                    this.LandInformationForm.controls['Branch'].setValue(branchNameTemp.BranchCode)
+                    this.branchLovAll = baseResponse.Branches;
+                } else
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
+            });
 
     }
 
     saveCustomerLandInfo() {
-
+       
         this.hasFormErrors = false;
         if (this.LandInformationForm.invalid) {
             const controls = this.LandInformationForm.controls;
@@ -727,7 +729,7 @@ export class CustLandInformationComponent implements OnInit {
             .pipe(
                 finalize(() => {
                     this.submitted = false;
-                    this.spinner.hide();
+                  this.spinner.hide();
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
@@ -767,7 +769,7 @@ export class CustLandInformationComponent implements OnInit {
             )
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
-                    
+
                     if (this.LoginUserInfo.User.UserId != baseResponse.LandInfo.EnteredBy && this.LoginUserInfo.Branch.BranchCode != "All")
                         this.isFormReadonly = true;
 
@@ -858,7 +860,7 @@ export class CustLandInformationComponent implements OnInit {
                 if (baseResponse.Success) {
 
                     //if (this.LoginUserInfo.User.UserId != baseResponse.LandInfo.EnteredBy && this.LoginUserInfo.Branch.BranchCode != "All")
-                     //   this.isFormReadonly = true;
+                    //   this.isFormReadonly = true;
 
                     this.SaveCustomer = true;
                     this.NumberOfCustomerDisable = true;
@@ -926,9 +928,7 @@ export class CustLandInformationComponent implements OnInit {
                         this.LandInformationForm.controls['LandAutoCode'].setValue(this.LandInfo.LandAutoCode);
                         this.LandInformationForm.controls['NumberOfCustomer'].setValue(this.customerLandRelation.length);
                         this.LandInformationForm.controls['Remarks'].setValue(this.LandInfo.Remarks);
-
                         this.cdRef.detectChanges();
-
                         if (showSuccessDialog) {
                             this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                         }
@@ -1025,7 +1025,7 @@ export class CustLandInformationComponent implements OnInit {
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
-                    this.router.navigate(['/dashboard'], {relativeTo: this.activatedRoute});
+                    this.router.navigate(['/dashboard'], { relativeTo: this.activatedRoute });
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }
@@ -1234,7 +1234,7 @@ export class CustLandInformationComponent implements OnInit {
 
     deleteRow(index) {
         debugger
-        if (this.dynamicArray.length !=0) {
+        if (this.dynamicArray.length != 0) {
             if (this.dynamicArray[index].LandCustID != null && this.dynamicArray[index].LandCustID != "") {
                 this.spinner.show();
                 var tempCustLandInfo = this.customerLandRelation.filter(x => x.Cnic == this.dynamicArray[index].cnic);
@@ -1254,62 +1254,62 @@ export class CustLandInformationComponent implements OnInit {
                             this.spinner.hide();
                         })
                     ).subscribe((baseResponse: BaseResponseModel) => {
-                    if (baseResponse.Success === true) {
-                        this.SearchDataCustomerBackup.splice(indexCustLandInfo, 1)
-                        this.CustomerLov.splice(indexCustLov, 1);
-                        this.alphas.splice(indexAlphas, 1);
-                        if (this.dynamicArray[index].LandCustID == this.selectedCustomerID) {
-                            // B
-                            this.BArea = ""
-                            this.BAreaOwned = "";
-                            this.BLeasedIn = "";
-                            this.BLeasedOut = "";
-                            this.BFimalyOperated = "";
-                            this.BUnderCustomhiring = "";
-                            this.BTotal = 0;
-                            this.IArea = "";
-                            this.IAreaOwned = "";
-                            this.ILeasedIn = "";
-                            this.ILeasedOut = "";
-                            this.IFimalyOperated = "";
-                            this.IUnderCustomhiring = "";
-                            this.ITotal = 0;
-                            this.UnArea = "";
-                            this.UnAreaOwned = "";
-                            this.UnLeasedIn = "";
-                            this.UnLeasedOut = "";
-                            this.UnFimalyOperated = "";
-                            this.UnUnderCustomhiring = "";
-                            this.UnTotal = 0;
-                            this.UnAArea = "";
-                            this.UnAAreaOwned = "";
-                            this.UnALeasedIn = "";
-                            this.UnALeasedOut = "";
-                            this.UnAFimalyOperated = "";
-                            this.UnAUnderCustomhiring = "";
-                            this.UnATotal = 0;
-                            this.AreaTotal = "";
-                            this.AreaOwnedTotal = "";
-                            this.LeasedInTotal = "";
-                            this.LeasedOutTotal = "";
-                            this.FamilyOperatedTotal = "";
-                            this.UnderCustomHiringTotal = "";
-                            this.TotalOfTotal = 0;
-                        }
+                        if (baseResponse.Success === true) {
+                            this.SearchDataCustomerBackup.splice(indexCustLandInfo, 1)
+                            this.CustomerLov.splice(indexCustLov, 1);
+                            this.alphas.splice(indexAlphas, 1);
+                            if (this.dynamicArray[index].LandCustID == this.selectedCustomerID) {
+                                // B
+                                this.BArea = ""
+                                this.BAreaOwned = "";
+                                this.BLeasedIn = "";
+                                this.BLeasedOut = "";
+                                this.BFimalyOperated = "";
+                                this.BUnderCustomhiring = "";
+                                this.BTotal = 0;
+                                this.IArea = "";
+                                this.IAreaOwned = "";
+                                this.ILeasedIn = "";
+                                this.ILeasedOut = "";
+                                this.IFimalyOperated = "";
+                                this.IUnderCustomhiring = "";
+                                this.ITotal = 0;
+                                this.UnArea = "";
+                                this.UnAreaOwned = "";
+                                this.UnLeasedIn = "";
+                                this.UnLeasedOut = "";
+                                this.UnFimalyOperated = "";
+                                this.UnUnderCustomhiring = "";
+                                this.UnTotal = 0;
+                                this.UnAArea = "";
+                                this.UnAAreaOwned = "";
+                                this.UnALeasedIn = "";
+                                this.UnALeasedOut = "";
+                                this.UnAFimalyOperated = "";
+                                this.UnAUnderCustomhiring = "";
+                                this.UnATotal = 0;
+                                this.AreaTotal = "";
+                                this.AreaOwnedTotal = "";
+                                this.LeasedInTotal = "";
+                                this.LeasedOutTotal = "";
+                                this.FamilyOperatedTotal = "";
+                                this.UnderCustomHiringTotal = "";
+                                this.TotalOfTotal = 0;
+                            }
 
-                        this.dynamicArray[index].cnic = "";
-                        this.dynamicArray[index].owner = "";
-                        this.dynamicArray[index].customerName = "";
-                        this.dynamicArray[index].fatherName = "";
-                        this.dynamicArray[index].area = "";
-                        this.dynamicArray[index].LandCustID = "";
-                        this.dynamicArray[index].LandInfoID = "";
-                        this.dynamicArray[index].isReadOnly = false;
-                        this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
-                    } else {
-                        this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    }
-                });
+                            this.dynamicArray[index].cnic = "";
+                            this.dynamicArray[index].owner = "";
+                            this.dynamicArray[index].customerName = "";
+                            this.dynamicArray[index].fatherName = "";
+                            this.dynamicArray[index].area = "";
+                            this.dynamicArray[index].LandCustID = "";
+                            this.dynamicArray[index].LandInfoID = "";
+                            this.dynamicArray[index].isReadOnly = false;
+                            this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
+                        } else {
+                            this.layoutUtilsService.alertElement("", baseResponse.Message);
+                        }
+                    });
             } else {
                 var tempCust = this.SearchDataCustomerBackup.filter(x => x.Cnic == this.dynamicArray[index].cnic);
                 if (tempCust != null && tempCust.length > 0) {
@@ -1355,7 +1355,7 @@ export class CustLandInformationComponent implements OnInit {
         });
     }
 
-    popupCenter = ({url, title, w, h}) => {
+    popupCenter = ({ url, title, w, h }) => {
         const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
         const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
         const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;

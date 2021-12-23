@@ -1,4 +1,4 @@
-<div *ngIf="url" style="height: 85vh;">
+<div *ngIf="url" style="height: 90vh;">
     <div class="row">
         <div class="col-lg-12 sticky-top text-right relative">
             <div class="w-full">
@@ -10,10 +10,12 @@
             </div>
         </div>
     </div>
+<div class="py-2" style="height: 80vh;">
+    <angular-image-viewer [src]="url" 
+    ></angular-image-viewer>
+</div>
 
 
-    <angular-image-viewer [src]="url" [config]="config"
-                          style="width: 500px;height: 500px;"></angular-image-viewer>
 
     <!--            <img class="images zoom-images mx-auto" style="width: 500px; height:480px; " [src]="url" id="image"-->
     <!--                 [ngStyle]="{-->
