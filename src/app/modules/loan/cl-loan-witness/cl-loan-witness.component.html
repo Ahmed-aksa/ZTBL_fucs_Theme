@@ -34,59 +34,81 @@
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="13" appNumberOnly formControlName="Cnic"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('Cnic', 'required') && isSubmittedPersonalSuretiesForm" >Cnic
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="50" appAlphabetOnly formControlName="FullName"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('FullName', 'required') && isSubmittedPersonalSuretiesForm" >Full Name
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="2" appNumberOnly formControlName="Percentage"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('Percentage', 'required') && isSubmittedPersonalSuretiesForm" >Percentage
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="150" formControlName="Address"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('Address', 'required') && isSubmittedPersonalSuretiesForm" >Address
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="11" appNumberOnly formControlName="Phone"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('Phone', 'required') && isSubmittedPersonalSuretiesForm" >Phone
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput appNumberOnly maxlength="14" formControlName="AccountNo"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('AccountNo', 'required') && isSubmittedPersonalSuretiesForm" >Account No.
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="13" appAlphaNumericField
                                                    formControlName="SourceofIncome"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('SourceofIncome', 'required') && isSubmittedPersonalSuretiesForm" >Source of Income
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="8" appNumberOnly
                                                    formControlName="AnnualIncome"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('AnnualIncome', 'required') && isSubmittedPersonalSuretiesForm" >Annual Income
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="8" appNumberOnly formControlName="AssetValue"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('AssetValue', 'required') && isSubmittedPersonalSuretiesForm" >Asset Value
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="8" appNumberOnly formControlName="PresentDues"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('PresentDues', 'required') && isSubmittedPersonalSuretiesForm" >Present Dues
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid"
                                                         appearance="outline">
                                             <input matInput appNumberOnly formControlName="NetValue" maxlength="8"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasError('NetValue', 'required') && isSubmittedPersonalSuretiesForm" >Net Value
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td><span (click)="onSavePersonalSuretiesForm()" class="text-green">Save</span> | <span class="text-red-500"
                                         (click)="onClearLoanSuretiesForm()">Cancel</span>
@@ -176,6 +198,8 @@
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="50" formControlName="CompanyName"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCorporateSuretiesForm('CompanyName', 'required') && isSubmittedCorporateSuretiesForm" >CompanyName
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -184,15 +208,20 @@
                                             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                                             <mat-datepicker #picker3></mat-datepicker>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCorporateSuretiesForm('MemorandumDate', 'required') && isSubmittedCorporateSuretiesForm" >MemorandumDate
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input appNumberOnly matInput maxlength="50" formControlName="RefrenceNo"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCorporateSuretiesForm('RefrenceNo', 'required') && isSubmittedCorporateSuretiesForm" >Refrence No.
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td><span (click)="onSaveCorporateSuretiesForm()">Save</span> | <span
-                                        (click)="corporateSuretiesForm.reset()">Cancel</span>
+                                        (click)="onClearCorporateSuretiesForm()">Cancel</span>
                                     </td>
+
                                 </tr>
                                 </tbody>
                             </table>
@@ -266,21 +295,28 @@
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="13" appNumberOnly formControlName="Cnic"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Cnic', 'required') && isSubmittedLoanRefrencesForm" >Cnic
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="50" appAlphabetOnly formControlName="Name"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Name', 'required') && isSubmittedLoanRefrencesForm" >Name
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="150" formControlName="Address"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Address', 'required') && isSubmittedLoanRefrencesForm" >Address
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="11" appNumberOnly formControlName="Phone"/>
                                         </mat-form-field>
+
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -291,11 +327,15 @@
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="50" formControlName="Email"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Email', 'email') && isSubmittedLoanRefrencesForm" >Email Format Incorrect
+                                            </mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input appNumberOnly matInput maxlength="13" formControlName="Ntn"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Ntn', 'required') && isSubmittedLoanRefrencesForm" >Ntn
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td><span (click)="onSaveLoanRefrencesForm()">Save</span> | <span
                                         (click)="onClearLoanRefrencesForm()">Cancel</span></td>
@@ -376,16 +416,22 @@
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="13" appNumberOnly formControlName="Cnic"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanWitnessForm('Cnic', 'required') && isSubmittedLoanWitnessForm" >Cnic
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="50" formControlName="WitnessName"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanWitnessForm('WitnessName', 'required') && isSubmittedLoanWitnessForm" >Witness Name
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput maxlength="150" formControlName="WitnessAddress"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanWitnessForm('WitnessAddress', 'required') && isSubmittedLoanWitnessForm" >Witness Address
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td><span (click)="onSaveLoanWitnessForm()">Save</span> | <span
                                         (click)="onClearLoanWitnessForm()">Cancel</span></td>
@@ -458,6 +504,8 @@
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput max="50" formControlName="BankName"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanPastPaidForm('BankName', 'required') && isSubmittedLoanPastPaidForm" >Bank Name
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -471,6 +519,8 @@
                                             <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                                             <mat-datepicker #picker4></mat-datepicker>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanPastPaidForm('DueDate', 'required') && isSubmittedLoanPastPaidForm" >Due Date
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -479,9 +529,11 @@
                                             <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
                                             <mat-datepicker #picker5></mat-datepicker>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorLoanPastPaidForm('LastPaidDate', 'required') && isSubmittedLoanPastPaidForm" >Last Paid Date
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td><span (click)="onSaveLoanPastPaidForm()">Save</span> | <span
-                                        (click)="loanPastPaidForm.reset()">Cancel</span></td>
+                                        (click)="onClearLoanPastPaidForm()">Cancel</span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -556,21 +608,29 @@
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput formControlName="PurposeDetail"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('DueDate', 'required') && isSubmittedCurrentLoansForm" >Due Date
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput max="50" formControlName="BankName"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('BankName', 'required') && isSubmittedCurrentLoansForm" >Bank Name
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input maxlength="8" matInput appNumberOnly formControlName="TotalDebit"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('TotalDebit', 'required') && isSubmittedCurrentLoansForm" >Total Debit
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input matInput formControlName="GurenteeDetail"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('GurenteeDetail', 'required') && isSubmittedCurrentLoansForm" >Gurentee Detail
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -579,11 +639,15 @@
                                             <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
                                             <mat-datepicker #picker6></mat-datepicker>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('DateDebitAcheive', 'required') && isSubmittedCurrentLoansForm" >Date Debit Acheive
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                                             <input appNumberOnly matInput formControlName="AmountToPaid"/>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('AmountToPaid', 'required') && isSubmittedCurrentLoansForm" >Amount To Paid
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -592,6 +656,8 @@
                                             <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
                                             <mat-datepicker #picker7></mat-datepicker>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('DueDate', 'required') && isSubmittedCurrentLoansForm" >Due Date
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -601,6 +667,8 @@
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('Status', 'required') && isSubmittedCurrentLoansForm" >Status
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
@@ -610,9 +678,11 @@
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
+                                        <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('FundNonfundFlag', 'required') && isSubmittedCurrentLoansForm" >Fund Non-fund Flag
+                                            <strong>required</strong></mat-hint>
                                     </td>
                                     <td><span (click)="onSaveCurrentLoansForm()">Save</span> | <span
-                                        (click)="currentLoansForm.reset()">Cancel</span></td>
+                                        (click)="onClearCurrentLoansForm()">Cancel</span></td>
                                 </tr>
                                 </tbody>
                             </table>
