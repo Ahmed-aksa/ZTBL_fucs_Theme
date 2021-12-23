@@ -42,13 +42,13 @@
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                             <mat-label class="customMatLabel">Quantity</mat-label>
                             <mat-select formControlName="QuantityUnit">
-                                <mat-option>
-                                    <ngx-mat-select-search placeholderLabel="Search Quantity..."
-                                                           (focusout)="validateAreaQuantitOnFocusOut()"
-                                                           (keyup)="validateAreaQuantitOnFocusOut()"
-                                                           noEntriesFoundLabel="No Quantity Found">
-                                    </ngx-mat-select-search>
-                                </mat-option>
+<!--                                <mat-option>-->
+<!--                                    <ngx-mat-select-search placeholderLabel="Search Quantity..."-->
+<!--                                                           (focusout)="validateAreaQuantitOnFocusOut()"-->
+<!--                                                           (keyup)="validateAreaQuantitOnFocusOut()"-->
+<!--                                                           noEntriesFoundLabel="No Quantity Found">-->
+<!--                                    </ngx-mat-select-search>-->
+<!--                                </mat-option>-->
                                 <mat-option *ngFor="let areaQuantity of SelectedAreaQuantities"
                                             [value]="areaQuantity.Id">
                                     {{areaQuantity.Name}}
