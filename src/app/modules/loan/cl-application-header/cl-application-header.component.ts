@@ -265,6 +265,7 @@ export class ClApplicationHeaderComponent implements OnInit {
     }
 
     checkDisable() {
+        // if()
         if (this.isCheckLcInProgress == true || this.applicationHeaderForm.controls["LoanCaseNo"]?.value) {
             return true
         } else {
