@@ -72,14 +72,14 @@ export class ClUploadDocumentComponent implements OnInit {
     isBranchReadOnly: boolean;
 
     isUserAdmin: boolean = false;
-    index=0;
+    index = 0;
 
     zone: any;
     branch: any;
     circle: any;
     disable_lc = false;
     number_of_files: number = 0;
-    docId=[];
+    docId = [];
     first: boolean;
     fallout: boolean = false;
 
@@ -314,19 +314,18 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
-        for(let i=0;i<this.rawData.length;i++){
+        for (let i = 0; i < this.number_of_files; i++) {
             // @ts-ignore
             let page_number = document.getElementById(`page_${i}`)?.value;
             // @ts-ignore
             let description = document.getElementById(`description_${i}`)?.value;
-
             if (description == "" || description == undefined) {
                 this.layoutUtilsService.alertElement('', 'Please add Description missing from row(s)');
                 return;
             }
 
         }
-        if(this.index<this.rawData.length) {
+        if (this.index < this.rawData.length) {
             if (this.docId[this.index]) {
                 this.index = this.index + 1;
 
@@ -357,7 +356,6 @@ export class ClUploadDocumentComponent implements OnInit {
                 let description = document.getElementById(`description_${this.index}`)?.value;
 
 
-
                 this.loanDocument.PageNumber = page_number;
                 this.loanDocument.Description = description;
                 if (this.PostDocument.invalid) {
@@ -380,7 +378,7 @@ export class ClUploadDocumentComponent implements OnInit {
                 this._loanService.documentUpload(this.loanDocument)
                     .pipe(
                         finalize(() => {
-                            if(this.index == this.maxLength){
+                            if (this.index + 1 == this.maxLength) {
                                 this.spinner.hide();
                             }
                         })
@@ -390,7 +388,8 @@ export class ClUploadDocumentComponent implements OnInit {
                         // this.index = this.index + 1;
                         this.docId.push(baseResponse.DocumentDetail.Id);
 
-                        if (this.index == this.maxLength) {
+                        if (this.index + 1 == this.maxLength) {
+                            this.spinner.hide();
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                             this.getLoanDocument();
                             this.docId = [];
@@ -443,7 +442,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
                 this.loanDocument.LoanCaseID = this.LoanCaseId;
                 this.checkCompare = true;
-                if(this.bit){
+                if (this.bit) {
                     this.saveLoanDocuments()
                 }
 
