@@ -222,7 +222,7 @@ debugger
 
 
         this.legalHeirs = Object.assign(this.legalHeirsForm.value, this.legalHeirsForm.getRawValue());
-        this.legalHeirs.Dob = this.datePipe.transform(this.legalHeirs.Dob)
+        this.legalHeirs.Dob = this.datePipe.transform(this.legalHeirs.Dob,'ddMMyyyy')
         var arr = this.loanDetail.ApplicationHeader.LoanAppID;
         this.legalHeirs.CustomerID = this.custID;
         this.spinner.show();
