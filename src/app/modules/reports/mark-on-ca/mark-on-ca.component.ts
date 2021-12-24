@@ -47,7 +47,6 @@ export class MarkOnCaComponent implements OnInit {
 
     //getWorkingDate = WorkingDate()
     constructor(
-        private dialogRef: MatDialogRef<MarkOnCaComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -177,7 +176,7 @@ export class MarkOnCaComponent implements OnInit {
 
 
     find() {
-        
+
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();
@@ -219,8 +218,5 @@ export class MarkOnCaComponent implements OnInit {
         this.circle = data.final_circle;
     }
 
-    close(res) {
-        this.dialogRef.close(res)
-    }
 
 }

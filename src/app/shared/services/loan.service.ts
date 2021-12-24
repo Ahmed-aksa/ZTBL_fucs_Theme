@@ -170,6 +170,20 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
+    getGetLegalHeirs(loanAppId) {
+        debugger
+        this.request = new BaseRequestModel();
+        this.request.Loan = new Loan();
+        this.request.Loan.LoanApplicationLegalHeirs = new LoanApplicationLegalHeirs();
+
+        this.request.Loan.LoanApplicationLegalHeirs.LoanAppID = loanAppId;
+        return this.http
+            .post(`${environment.apiUrl}/Loan/GetLegalHeirs`, this.request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
     saveLoanSecurities(securitiesReq: LoanSecurities, tranId: number) {
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
@@ -831,7 +845,7 @@ export class LoanService {
     }
 
     saveOrr(orrRequest: any) {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         //var oRR = new ORR();

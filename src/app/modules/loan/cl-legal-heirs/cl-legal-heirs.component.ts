@@ -86,7 +86,7 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     loadCustomers() {
-
+    this.getLegalHeirs();
         this.loanDetail.CustomersLoanList = JSON.parse(localStorage.getItem('customer_loan_list'));
         if (this.loanDetail != null) {
             if (this.loanDetail.CustomersLoanList.length > 0) {
@@ -98,6 +98,36 @@ export class ClLegalHeirsComponent implements OnInit {
                 }
             }
         }
+
+
+    }
+
+    getLegalHeirs(){
+debugger
+            if (this.loanDetail == null || this.loanDetail == undefined) {
+                this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
+                return;
+            }
+
+            this.spinner.show();
+
+            this._loanService.getGetLegalHeirs(this.loanDetail.ApplicationHeader.LoanAppID)
+                .pipe(
+                    finalize(() => {
+                        this.spinner.hide();
+                    })
+                ).subscribe(baseResponse => {
+                if (baseResponse.Success===true) {
+                    debugger
+                    this.legalHeirsArray = baseResponse.Loan.LoanApplicationLegalHeirsList;
+                    this._cdf.detectChanges();
+                }
+                else{
+                    this.legalHeirsArray=[];
+                }
+                // this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+
+            });
     }
 
     async LoadLovs() {

@@ -46,7 +46,6 @@ export class ReschedulementOfLoanComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<ReschedulementOfLoanComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -75,7 +74,7 @@ export class ReschedulementOfLoanComponent implements OnInit {
     }
 
     find() {
-        
+
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();
@@ -107,10 +106,6 @@ export class ReschedulementOfLoanComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = null;
-    }
-
-    close(res) {
-        this.dialogRef.close(res)
     }
 
 

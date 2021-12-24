@@ -72,7 +72,6 @@ export class VoucherPostingDayComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<VoucherPostingDayComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -236,9 +235,6 @@ export class VoucherPostingDayComponent implements OnInit {
         this.circle = null;
     }
 
-    close(res) {
-        this.dialogRef.close(res)
-    }
 
 
 }

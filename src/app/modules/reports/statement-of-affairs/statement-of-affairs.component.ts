@@ -65,7 +65,6 @@ export class StatementOfAffairsComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<StatementOfAffairsComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -200,16 +199,11 @@ export class StatementOfAffairsComponent implements OnInit {
     }
 
     getAllData(data) {
-        
+
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = null;
     }
-
-    close(res) {
-        this.dialogRef.close(res)
-    }
-
 
 }
 
