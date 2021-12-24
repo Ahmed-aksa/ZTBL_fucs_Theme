@@ -59,7 +59,7 @@ export class ReportsService {
         let final_zone = null;
         let final_branch = null;
         let final_circle = null;
-        let reqReportNumber = reportsFilter.ReportsNo;
+        //let reqReportNumber = reportsFilter.ReportsNo;
 
         if (zone == null) {
             final_zone = user.Zone;
@@ -104,18 +104,18 @@ export class ReportsService {
                 }
         }
 
+        return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
+            .pipe(
+                map((res: BaseResponseModel) => res)
+            );
 
-        if(reqReportNumber == '15'){
-            return this.http.post<any>(`${environment.apiUrl}/Reports/DownloadCWR`, request)
-                .pipe(
-                    map((res: BaseResponseModel) => res)
-                );
-        }else{
-            return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
-                .pipe(
-                    map((res: BaseResponseModel) => res)
-                );
-        }
+        // if(reqReportNumber == '15'){
+        //     return this.http.post<any>(`${environment.apiUrl}/Reports/DownloadCWR`, request)
+        //         .pipe(
+        //             map((res: BaseResponseModel) => res)
+        //         );
+        // }else{
+        // }
     }
 
     voucher(reportsFilter, zone = null, branch = null) {
