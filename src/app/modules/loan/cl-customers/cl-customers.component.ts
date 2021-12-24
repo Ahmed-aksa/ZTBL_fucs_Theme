@@ -41,7 +41,7 @@ export class ClCustomersComponent implements OnInit {
     public customerLoanApp = new CustomersLoanApp();
 
 
-    loan_data: any;
+    loan_data=[];
 
 
     @Input() loanDetail: Loan;
@@ -101,7 +101,8 @@ export class ClCustomersComponent implements OnInit {
     }
 
     attachCustomer() {
-        if (this.loan_data && this.loan_data.length == 0) {
+        debugger
+        if (this.loan_data?.length == 0 || this.loan_data ==undefined) {
             if (this.loanCustomerForm.controls.AGPS.value != "A") {
                 this.layoutUtilsService.alertElement("", "First time AGPS must be Applicant");
                 return

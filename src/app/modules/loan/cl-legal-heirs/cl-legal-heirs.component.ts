@@ -23,8 +23,8 @@ import {finalize} from 'rxjs/operators';
     styleUrls: ['./cl-legal-heirs.component.scss'],
     providers: [
         DatePipe,
-        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+        // {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        // {provide: MAT_DATE_FORMATS, useValue: DateFormats}
 
     ]
 })
@@ -90,11 +90,11 @@ export class ClLegalHeirsComponent implements OnInit {
         this.loanDetail.CustomersLoanList = JSON.parse(localStorage.getItem('customer_loan_list'));
         if (this.loanDetail != null) {
             if (this.loanDetail.CustomersLoanList.length > 0) {
-                this.SelectedCustomersList=[];
-                for(let i=0;i<this.loanDetail?.CustomersLoanList?.length;i++){
-            if(this.loanDetail.CustomersLoanList[i].Agps=='A' ||this.loanDetail.CustomersLoanList[i].Agps=='C'){
-                this.SelectedCustomersList.push(this.loanDetail.CustomersLoanList[i])
-            }
+                this.SelectedCustomersList = [];
+                for (let i = 0; i < this.loanDetail?.CustomersLoanList?.length; i++) {
+                    if (this.loanDetail.CustomersLoanList[i].Agps == 'A' || this.loanDetail.CustomersLoanList[i].Agps == 'C') {
+                        this.SelectedCustomersList.push(this.loanDetail.CustomersLoanList[i])
+                    }
                 }
             }
         }
@@ -186,12 +186,13 @@ export class ClLegalHeirsComponent implements OnInit {
         //this.legalHeirs = Object.assign(this.legalHeirs, this.legalHeirsForm.getRawValue());
         this.legalHeirs.UserID = "0";
         //this.legalHeirs.LoanAppID = 0;
-        this.legalHeirs.DobTxt = this.datePipe.transform(this.legalHeirs.Dob, "dd-MM-yyyy");
-        this.legalHeirs.Dob = this.datePipe.transform(this.legalHeirs.Dob, "ddMMyyyy");
-        // this.legalHeirsForm.controls["Dob"].setValue(this.datePipe.transform(this.legalHeirsForm.value.Dob, "ddMMyyyy"))
+        // this.legalHeirs.DobTxt = this.datePipe.transform(this.legalHeirs.Dob, "dd-MM-yyyy");
+        // this.legalHeirs.Dob = this.datePipe.transform(this.legalHeirs.Dob, "ddMMyyyy");
+        // this.legalHeirsForm.controls["Dob"].setValue(this.datePipe.transform(this.legalHeirsForm.value.Dob,"ddMMyyyy"))
 
 
         this.legalHeirs = Object.assign(this.legalHeirsForm.value, this.legalHeirsForm.getRawValue());
+        this.legalHeirs.Dob = this.datePipe.transform(this.legalHeirs.Dob)
         var arr = this.loanDetail.ApplicationHeader.LoanAppID;
         this.legalHeirs.CustomerID = this.custID;
         this.spinner.show();
