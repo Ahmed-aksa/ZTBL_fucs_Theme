@@ -102,6 +102,17 @@ export class ClCustomersComponent implements OnInit {
 
     attachCustomer() {
         debugger
+        this.hasFormErrors = false;
+        if (this.loanCustomerForm.invalid) {
+            const controls = this.loanCustomerForm.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+
+            this.hasFormErrors = true;
+            return;
+        }
+
         if (this.loan_data?.length == 0 || this.loan_data ==undefined) {
             if (this.loanCustomerForm.controls.AGPS.value != "A") {
                 this.layoutUtilsService.alertElement("", "First time AGPS must be Applicant");
@@ -113,16 +124,7 @@ export class ClCustomersComponent implements OnInit {
                 return
             }
         }
-        this.hasFormErrors = false;
-        if (this.loanCustomerForm.invalid) {
-            const controls = this.loanCustomerForm.controls;
-            Object.keys(controls).forEach(controlName =>
-                controls[controlName].markAsTouched()
-            );
 
-            this.hasFormErrors = true;
-            return;
-        }
         var duplicateCustomer = this.loan_data?.filter(x => x.Cnic == this.loanCustomerForm.controls['CNIC'].value)[0];
         if (duplicateCustomer != undefined && duplicateCustomer != null) {
             this.layoutUtilsService.alertElement("", "Customer CNIC Already Added", "Duplicate Cutomer");
