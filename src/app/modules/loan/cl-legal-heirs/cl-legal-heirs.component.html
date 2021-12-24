@@ -18,7 +18,7 @@
                                 <mat-option [value]="undefined">
                                     {{'--Select Customer-- '}}
                                 </mat-option>
-                                <mat-option (click)="onChange(obj)" *ngFor="let obj of SelectedCustomersList"
+                                <mat-option  (click)="onChange(obj)" *ngFor="let obj of SelectedCustomersList"
                                             [value]="obj.CustLoanAppID">
                                     {{obj.CustomerName}}
                                 </mat-option>

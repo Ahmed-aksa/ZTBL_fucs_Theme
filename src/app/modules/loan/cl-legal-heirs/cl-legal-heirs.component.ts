@@ -90,7 +90,12 @@ export class ClLegalHeirsComponent implements OnInit {
         this.loanDetail.CustomersLoanList = JSON.parse(localStorage.getItem('customer_loan_list'));
         if (this.loanDetail != null) {
             if (this.loanDetail.CustomersLoanList.length > 0) {
-                this.SelectedCustomersList = this.loanDetail.CustomersLoanList;
+                this.SelectedCustomersList=[];
+                for(let i=0;i<this.loanDetail?.CustomersLoanList?.length;i++){
+            if(this.loanDetail.CustomersLoanList[i].Agps=='A' ||this.loanDetail.CustomersLoanList[i].Agps=='C'){
+                this.SelectedCustomersList.push(this.loanDetail.CustomersLoanList[i])
+            }
+                }
             }
         }
     }

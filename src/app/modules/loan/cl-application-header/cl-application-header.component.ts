@@ -257,6 +257,8 @@ export class ClApplicationHeaderComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
+                    debugger
+                    this.applicationHeaderForm.controls["LoanCaseNo"].setValue("");
                     this.applicationHeaderForm.controls["LoanCaseNo"].setValue(baseResponse.Loan.ApplicationHeader.LoanAutoNo);
                 } else {
 
