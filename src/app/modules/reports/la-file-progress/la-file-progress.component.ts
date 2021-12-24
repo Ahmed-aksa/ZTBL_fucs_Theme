@@ -50,7 +50,6 @@ export class LaFileProgressComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<AffidavitForLegalHeirsComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -111,10 +110,6 @@ export class LaFileProgressComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = null;
-    }
-
-    close(res) {
-        this.dialogRef.close(res)
     }
 
 

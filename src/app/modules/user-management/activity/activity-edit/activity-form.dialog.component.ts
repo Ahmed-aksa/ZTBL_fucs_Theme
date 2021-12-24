@@ -60,7 +60,7 @@ export class ActivityFormDialogComponent implements OnInit {
 
 
         this.activityForm = this.formBuilder.group({
-            ActivityName: [this.activity.ActivityName, [Validators.required, Validators.maxLength(30)]],
+            ActivityName: [this.activity.ActivityName, [Validators.required, Validators.maxLength(200)]],
             ActivityUrl: [this.activity.ActivityUrl],
             ParentActivityID: [this.activity.ParentActivityID],
             TagName: [this.activity.TagName],

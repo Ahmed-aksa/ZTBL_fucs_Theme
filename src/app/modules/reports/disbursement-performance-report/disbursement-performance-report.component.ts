@@ -51,7 +51,6 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<DisbursementPerformanceReportComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -131,7 +130,7 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
     }
 
     find() {
-        
+
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();
@@ -171,10 +170,6 @@ export class DisbursementPerformanceReportComponent implements OnInit, AfterView
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = null;
-    }
-
-    close(res) {
-        this.dialogRef.close(res)
     }
 
     ngAfterViewInit() {

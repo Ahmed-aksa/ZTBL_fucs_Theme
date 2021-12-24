@@ -42,16 +42,16 @@ const routing = [
         component: SearchLoanCasesByCnicComponent
     },
     {
+        path: 'bifurcation-of-os-balances-lc',
+        component: BufricationOfOsBalancesLcComponent
+    },
+    {
         path: 'fa-view-wise',
         component: FaViewCircleWiseComponent
     },
     {
         path: 'early-warning-reports',
         component: EarlyWarningReportsComponent
-    },
-    {
-        path: 'bifurction-of-os',
-        component: BufricationOfOsBalancesLcComponent
     },
     {
         path: 'updated-list',
@@ -62,11 +62,75 @@ const routing = [
         component: LoanAmountsConvertToDefaultComponent
     },
     {
+        path: 'voucher-posting-day-book',
+        component: VoucherPostingDayComponent
+    },
+    {
+        path: 'daily-voucher-proof-listing',
+        component: DailyVoucherProofComponent
+    },
+    {
+        path: 'affidavit-for-legal-heirs',
+        component: AffidavitForLegalHeirsComponent
+    },
+    {
+        path: 'payment-behavior',
+        component: PaymentBehaviorComponent
+    },
+    {
+        path: 'disbursement-performance-report',
+        component: DisbursementPerformanceReportComponent
+    },
+    {
+        path: 'disbursement-performance-report-purpose-wise',
+        component: DisbursementPerformancePurposeWiseComponent
+    },
+    {
+        path: 'loan-account-balance',
+        component: LoanAccountBalanceComponent
+    },
+    {
+        path: 'insurance-report',
+        component: InsuranceReportComponent
+    },
+    {
+        path: 'la-file-progress-summary',
+        component: LaFileProgressComponent
+    },
+    {
+        path: 'loan-information-details',
+        component: LoanInformationDetailComponent
+    },
+    {
         path: 'get-unsuccessful-login',
         component: GetUnsuccessfulLoginComponent
     },
     {
-        path: 'get-customer-legal-heirs',
+        path: 'ho-zonal-expense-report',
+        component: HoZonalExpenseComponent
+    },
+    {
+        path: 'mark-on-ca-report',
+        component: MarkOnCaComponent
+    },
+    {
+        path: 'recovery-schedule',
+        component: RecoveryScheduleComponent
+    },
+    {
+        path: 'loan-move',
+        component: LoanMoveComponent
+    },
+    {
+        path: 'statement-of-affairs-report',
+        component: StatementOfAffairsComponent
+    },
+    {
+        path: 'reschedulement-of-loan',
+        component: ReschedulementOfLoanComponent
+    },
+    {
+        path: 'get-customer-legal-heir',
         component: GetCustomerLegalHeirsComponent
     },
     {

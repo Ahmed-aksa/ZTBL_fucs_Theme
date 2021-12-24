@@ -74,7 +74,6 @@ export class RecoveryScheduleComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<RecoveryScheduleComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -241,10 +240,6 @@ export class RecoveryScheduleComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = null;
-    }
-
-    close(res) {
-        this.dialogRef.close(res)
     }
 
 

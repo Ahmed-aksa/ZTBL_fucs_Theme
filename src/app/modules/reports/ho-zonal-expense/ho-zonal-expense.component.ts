@@ -50,7 +50,6 @@ export class HoZonalExpenseComponent implements OnInit {
 
     //getWorkingDate = WorkingDate()
     constructor(
-        private dialogRef: MatDialogRef<HoZonalExpenseComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -202,7 +201,7 @@ export class HoZonalExpenseComponent implements OnInit {
 
 
     find() {
-        
+
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();
@@ -247,10 +246,6 @@ export class HoZonalExpenseComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
-    }
-
-    close(res) {
-        this.dialogRef.close(res)
     }
 
 }

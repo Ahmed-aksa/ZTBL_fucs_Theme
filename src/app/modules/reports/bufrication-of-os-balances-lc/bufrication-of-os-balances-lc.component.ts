@@ -52,7 +52,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<BufricationOfOsBalancesLcComponent>,
+        //private dialogRef: MatDialogRef<BufricationOfOsBalancesLcComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -225,9 +225,9 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         this.circle = data.final_circle;
     }
 
-    close(res) {
-        this.dialogRef.close(res)
-    }
+    // close(res) {
+    //     this.dialogRef.close(res)
+    // }
 
 
 }

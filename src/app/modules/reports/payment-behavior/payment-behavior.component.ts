@@ -37,7 +37,6 @@ export class PaymentBehaviorComponent implements OnInit {
 
 
     constructor(
-        private dialogRef: MatDialogRef<PaymentBehaviorComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -96,12 +95,6 @@ export class PaymentBehaviorComponent implements OnInit {
                 }
             })
     }
-
-
-    close(res) {
-        this.dialogRef.close(res)
-    }
-
 
 }
 
