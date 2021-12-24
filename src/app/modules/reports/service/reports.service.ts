@@ -105,14 +105,17 @@ export class ReportsService {
         }
 
 
-        // if(reqReportNumber){
-        //
-        // }else{
+        if(reqReportNumber == '15'){
+            return this.http.post<any>(`${environment.apiUrl}/Reports/DownloadCWR`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }else{
             return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        //}
+        }
     }
 
     voucher(reportsFilter, zone = null, branch = null) {

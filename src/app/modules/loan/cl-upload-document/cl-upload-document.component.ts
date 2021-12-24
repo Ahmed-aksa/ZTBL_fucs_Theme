@@ -271,8 +271,10 @@ export class ClUploadDocumentComponent implements OnInit {
                             this.rawData.splice(i, 1);
                             this.imgData.splice(i, 1);
                             this.rawData.splice(i, 0, file);
+                            console.log(this.rawData)
                         } else {
                             this.rawData.push(file);
+                            console.log(this.rawData)
                             //this.rawData.splice(i, 0, file);
                         }
                     };
@@ -314,6 +316,7 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
+        this.maxLength = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
         for (let i = 0; i < this.number_of_files; i++) {
             // @ts-ignore
             let page_number = document.getElementById(`page_${i}`)?.value;
@@ -328,14 +331,14 @@ export class ClUploadDocumentComponent implements OnInit {
         if (this.index < this.rawData.length) {
             if (this.docId[this.index]) {
                 this.index = this.index + 1;
-
+                this.saveLoanDocuments();
+                return
             }
 
             this.fallout = false;
             console.log(this.rawData);
 
             var count = 0;
-            this.maxLength = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
             this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
 
             if (!this.LoanCaseId) {
@@ -378,17 +381,17 @@ export class ClUploadDocumentComponent implements OnInit {
                 this._loanService.documentUpload(this.loanDocument)
                     .pipe(
                         finalize(() => {
-                            if (this.index + 1 == this.maxLength) {
+                            if (this.index == this.maxLength) {
                                 this.spinner.hide();
                             }
                         })
                     ).subscribe((baseResponse) => {
                     if (baseResponse.Success) {
 
-                        // this.index = this.index + 1;
+                        this.index = this.index + 1;
                         this.docId.push(baseResponse.DocumentDetail.Id);
 
-                        if (this.index + 1 == this.maxLength) {
+                        if (this.index == this.maxLength) {
                             this.spinner.hide();
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                             this.getLoanDocument();
@@ -399,7 +402,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
                         } else {
                             this.saveLoanDocuments();
-                            this.index++;
+                            //this.index++;
                         }
                     } else {
                         this.spinner.hide();
@@ -479,10 +482,11 @@ export class ClUploadDocumentComponent implements OnInit {
                 this.PostDocument.controls['DocumentRefNo'].reset();
                 this.PostDocument.controls['NoOfFilesToUpload'].reset();
                 this.PostDocument.controls['Description'].reset();
-                this.rawData.forEach((single_file, index) => {
-                    // @ts-ignore
-                    document.getElementById('file_' + index).value = null;
-                });
+                this.rawData.length = 0;
+                // this.rawData.forEach((single_file, index) => {
+                //     // @ts-ignore
+                //     document.getElementById('file_' + index).value = null;
+                // });
 
             });
         } else {

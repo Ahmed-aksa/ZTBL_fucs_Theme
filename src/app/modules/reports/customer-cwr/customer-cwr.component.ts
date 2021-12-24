@@ -65,24 +65,28 @@ export class CustomerCwrComponent implements OnInit, AfterViewInit {
 
     createForm() {
         this.searchCnicForm = this.fb.group({
-            Cnic: [null, Validators.required],
-            LAFile: [null, Validators.required],
-            LcNO: [null, Validators.required]
+            Cnic: [null],
+            BookletNo: [null],
+            LcNO: [null]
         })
     }
 
 
     find() {
-
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.searchCnicForm.markAllAsTouched()
             return;
         }
 
+        if(this.searchCnicForm.controls.Cnic.value == null || this.searchCnicForm.controls.BookletNo.value == null || this.searchCnicForm.controls.LcNO.value == null){
+            this.layoutUtilsService.alertElement('', 'Please add Cnic, LA/Booklet or Loan Case Number');
+            return
+        }
+
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
-        this.reports.ReportsNo = "28";
+        this.reports.ReportsNo = "15";
         this.spinner.show();
         this._reports.reportDynamic(this.reports, this.zone, this.branch)
             .pipe(
@@ -114,7 +118,7 @@ export class CustomerCwrComponent implements OnInit, AfterViewInit {
                 }
             })
     }
-    
+
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
         this.itemsPerPage = pageSize;
