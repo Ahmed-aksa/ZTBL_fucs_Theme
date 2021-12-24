@@ -224,7 +224,7 @@ export class SaveOrrComponent implements OnInit {
         }
 
         for (let i = 0; i < this.GlProposalORR?.length; i++) {
-            if (this.GlProposalORR[i]?.AmountRecommended == 0) {
+            if (this.GlProposalORR[i]?.RecommendedAmount == 0 || this.GlProposalORR[i]?.RecommendedAmount == "") {
                 var Message = 'Please Enter recommended amount';
                 this.layoutUtilsService.alertElement(
                     '',
