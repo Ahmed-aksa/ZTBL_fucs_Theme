@@ -41,7 +41,7 @@ export class ClCustomersComponent implements OnInit {
     public customerLoanApp = new CustomersLoanApp();
 
 
-    loan_data: any;
+    loan_data=[];
 
 
     @Input() loanDetail: Loan;
@@ -101,17 +101,7 @@ export class ClCustomersComponent implements OnInit {
     }
 
     attachCustomer() {
-        if (this.loan_data && this.loan_data.length == 0) {
-            if (this.loanCustomerForm.controls.AGPS.value != "A") {
-                this.layoutUtilsService.alertElement("", "First time AGPS must be Applicant");
-                return
-            }
-
-            if (this.loanCustomerForm.controls.Relationship.value != "8") {
-                this.layoutUtilsService.alertElement("", "First time Relationship must be selected self");
-                return
-            }
-        }
+        debugger
         this.hasFormErrors = false;
         if (this.loanCustomerForm.invalid) {
             const controls = this.loanCustomerForm.controls;
@@ -122,6 +112,19 @@ export class ClCustomersComponent implements OnInit {
             this.hasFormErrors = true;
             return;
         }
+
+        if (this.loan_data?.length == 0 || this.loan_data ==undefined) {
+            if (this.loanCustomerForm.controls.AGPS.value != "A") {
+                this.layoutUtilsService.alertElement("", "First time AGPS must be Applicant");
+                return
+            }
+
+            if (this.loanCustomerForm.controls.Relationship.value != "8") {
+                this.layoutUtilsService.alertElement("", "First time Relationship must be selected self");
+                return
+            }
+        }
+
         var duplicateCustomer = this.loan_data?.filter(x => x.Cnic == this.loanCustomerForm.controls['CNIC'].value)[0];
         if (duplicateCustomer != undefined && duplicateCustomer != null) {
             this.layoutUtilsService.alertElement("", "Customer CNIC Already Added", "Duplicate Cutomer");

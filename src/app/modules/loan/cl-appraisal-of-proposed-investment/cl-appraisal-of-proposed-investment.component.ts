@@ -476,7 +476,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
         }
 
         if(existing!=true||proposed!=true){
-            this.layoutUtilsService.alertMessage("", "Both existing and proposed");
+            this.layoutUtilsService.alertMessage("", "Both existing and proposed must be entered");
             return;
         }
 
