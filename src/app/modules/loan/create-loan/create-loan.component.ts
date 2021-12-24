@@ -171,7 +171,7 @@ export class CreateLoanComponent implements OnInit {
 
                     this.securityComponent.loadAppSecuritiesDataOnUpdate(loanRes.LoanSecuritiesList);
 
-                    this.legalHeirsComponent.loadAppLegalHeirsDataOnUpdate(loanRes.LoanApplicationLegalHeirsList, loanRes.CustomersLoanAppList);
+                    // this.legalHeirsComponent.loadAppLegalHeirsDataOnUpdate(loanRes.LoanApplicationLegalHeirsList, loanRes.CustomersLoanAppList);
 
                     this.appraisalOfProposedComponent.loadAppraisalOfProposedDataOnUpdate(loanRes.AppraisalProposedList, loanRes.CropProductionList);
 
