@@ -49,7 +49,6 @@ export class InsuranceReportComponent implements OnInit {
 
     //getWorkingDate = WorkingDate()
     constructor(
-        private dialogRef: MatDialogRef<InsuranceReportComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -206,7 +205,7 @@ export class InsuranceReportComponent implements OnInit {
 
 
     find() {
-        
+
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();
@@ -254,10 +253,6 @@ export class InsuranceReportComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
-    }
-
-    close(res) {
-        this.dialogRef.close(res)
     }
 
     setDate() {

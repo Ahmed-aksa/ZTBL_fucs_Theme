@@ -47,7 +47,6 @@ export class LoanAccountBalanceComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<LoanAccountBalanceComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -137,7 +136,7 @@ export class LoanAccountBalanceComponent implements OnInit {
     }
 
     find() {
-        
+
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();
@@ -174,9 +173,6 @@ export class LoanAccountBalanceComponent implements OnInit {
         this.circle = null;
     }
 
-    close(res) {
-        this.dialogRef.close(res)
-    }
 
 
 }
