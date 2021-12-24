@@ -39,12 +39,13 @@ import {ToastrService} from "ngx-toastr";
 export class SearchJvComponent implements OnInit {
     Math: any;
 
-    displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit', 'Status', 'View'];
+    displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit','Status', 'View'];
 
 
     branch: any;
     zone: any;
     circle: any;
+    statusAS = false;
 
     @ViewChild(MatSort, {static: true}) sort: MatSort;
     loading: boolean;
@@ -102,6 +103,20 @@ export class SearchJvComponent implements OnInit {
         private toaster: ToastrService
     ) {
         this.Math = Math;
+    }
+
+    onselectionChange(event){
+        debugger
+        if(event.value == 'S' || event.value == 'A'){
+            this.statusAS = true;
+            this.displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Amount','Status', 'View'];
+
+        }
+        else{
+            this.statusAS = false;
+            this.displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit','Status', 'View'];
+
+        }
     }
 
     ngOnInit() {
@@ -281,6 +296,9 @@ export class SearchJvComponent implements OnInit {
     }
 
 
+    getAmountVisibilityStatus(status: any): boolean {
+        return (status != undefined && (status == 'A' || status == 'S'))
+    }
     CheckEidtStatus(jv: any) {
 
 

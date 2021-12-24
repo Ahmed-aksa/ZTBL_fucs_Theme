@@ -73,7 +73,6 @@ export class DailyVoucherProofComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<DailyVoucherProofComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -247,11 +246,6 @@ export class DailyVoucherProofComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = null;
     }
-
-    close(res) {
-        this.dialogRef.close(res)
-    }
-
 
 }
 

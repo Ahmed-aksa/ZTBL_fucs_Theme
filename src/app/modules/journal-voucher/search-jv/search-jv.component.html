@@ -77,7 +77,7 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label>Select Status</mat-label>
-                                <mat-select formControlName="Status">
+                                <mat-select (selectionChange)="onselectionChange($event)" formControlName="Status">
                                     <mat-option *ngFor="let status of JvStatuses" [value]="status.Value">
                                         {{status.Name}}
                                     </mat-option>
@@ -118,50 +118,55 @@
                 matSortDisableClear>
                 <ng-container matColumnDef="Branch">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Branch</mat-header-cell>
-                    <mat-cell *matCellDef="let jv">{{jv.BranchName}}</mat-cell>
+                    <mat-cell *matCellDef="let jvocher">{{jvocher.BranchName}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="VoucherNO">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Voucher#</mat-header-cell>
-                    <mat-cell *matCellDef="let jv">{{jv.ManualVoucherNo}}</mat-cell>
+                    <mat-cell *matCellDef="let jvocher">{{jvocher.ManualVoucherNo}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="TransactionDate">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Date</mat-header-cell>
-                    <mat-cell *matCellDef="let jv">{{jv.WorkingDateTransDate}}</mat-cell>
+                    <mat-cell *matCellDef="let jvocher">{{jvocher.WorkingDateTransDate}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Category">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
-                    <mat-cell *matCellDef="let jv">{{jv.NatureDesc}}</mat-cell>
+                    <mat-cell *matCellDef="let jvocher">{{jvocher.NatureDesc}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="TransactionMaster">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Master</mat-header-cell>
-                    <mat-cell *matCellDef="let jv">{{jv.TrDesc}}</mat-cell>
+                    <mat-cell *matCellDef="let jvocher">{{jvocher.TrDesc}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Debit">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Debit</mat-header-cell>
-                    <mat-cell *matCellDef="let jv">{{jv.DrAmount}}</mat-cell>
+                    <mat-cell *matCellDef="let jvocher">{{jvocher.DrAmount}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Credit">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Credit</mat-header-cell>
-                    <mat-cell *matCellDef="let jv">{{jv.CrAmount}}</mat-cell>
+                    <mat-cell *matCellDef="let jvocher">{{jvocher.CrAmount}}</mat-cell>
+                </ng-container>
+
+                <ng-container *ngIf="statusAS" matColumnDef="Amount">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header>Amount</mat-header-cell>
+                    <mat-cell *matCellDef="let jvocher">{{jvocher.Amount}}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Status">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-                    <mat-cell *matCellDef="let jv">{{jv.StatusName}}</mat-cell>
+                    <mat-cell *matCellDef="let jvocher">{{jvocher.StatusName}}</mat-cell>
                 </ng-container>
 
 
                 <ng-container matColumnDef="View">
                     <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-                    <mat-cell *matCellDef="let jv">
+                    <mat-cell *matCellDef="let jvocher">
                         <button mat-icon-button color="primary" *ngIf="CheckEidtStatus(jv)"
-                                (click)="editJv(jv)">
+                                (click)="editJv(jvocher)">
                             <mat-icon style="margin-left: 2px;" title="Edit Jv">edit</mat-icon>
                         </button>
 
                         <button mat-icon-button color="primary" *ngIf="CheckViewStatus(jv)"
-                                (click)="editJv(jv)">
+                                (click)="editJv(jvocher)">
                             <mat-icon style="margin-left: 2px;" title="View jv">visibility</mat-icon>
                         </button>
                     </mat-cell>
