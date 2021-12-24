@@ -108,14 +108,14 @@ export class CreateLoanComponent implements OnInit {
         if ($event.index == 4) {
             this.legal_child.loadCustomers()
         }
-        if ($event.index == 7) {
+       if ($event.index == 7) {
             this.loanWitnessComponent.getCheckList();
         }
         if ($event.index == 1) {
             this.child.callfromPartnet()
         }
         if ($event.index == 6) {
-            
+
             this.uploadDocumentComponent.assignLoanCaseNo();
         }
     }

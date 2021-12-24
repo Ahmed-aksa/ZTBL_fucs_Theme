@@ -98,6 +98,8 @@ export class ClLegalHeirsComponent implements OnInit {
                 }
             }
         }
+
+
     }
 
     async LoadLovs() {
