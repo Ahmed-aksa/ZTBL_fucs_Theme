@@ -142,6 +142,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     controlReset() {
         //Document Info
+        this.index = 0;
         this.PostDocument.controls['ParentDocId'].reset();
         this.PostDocument.controls['DocumentRefNo'].reset();
         this.PostDocument.controls['NoOfFilesToUpload'].reset();
@@ -314,6 +315,8 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     saveLoanDocuments() {
+        debugger
+        this.maxLength = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
         for(let i=0;i<this.rawData.length;i++){
             // @ts-ignore
             let page_number = document.getElementById(`page_${i}`)?.value;
@@ -329,14 +332,12 @@ export class ClUploadDocumentComponent implements OnInit {
         if(this.index<this.rawData.length) {
             if (this.docId[this.index]) {
                 this.index = this.index + 1;
-
+                this.saveLoanDocuments();
+                return
             }
 
             this.fallout = false;
             console.log(this.rawData);
-
-            var count = 0;
-            this.maxLength = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
             this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
 
             if (!this.LoanCaseId) {
@@ -388,9 +389,11 @@ export class ClUploadDocumentComponent implements OnInit {
                     if (baseResponse.Success) {
 
                         // this.index = this.index + 1;
+                        this.index++;
                         this.docId.push(baseResponse.DocumentDetail.Id);
 
                         if (this.index == this.maxLength) {
+                            this.spinner.hide();
                             this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
                             this.getLoanDocument();
                             this.docId = [];
@@ -400,9 +403,10 @@ export class ClUploadDocumentComponent implements OnInit {
 
                         } else {
                             this.saveLoanDocuments();
-                            this.index++;
                         }
                     } else {
+                        this.spinner.hide();
+                        this.index = 0;
                         this.layoutUtilsService.alertMessage('', baseResponse.Message);
                         this.fallout = true;
                         return;
@@ -478,10 +482,12 @@ export class ClUploadDocumentComponent implements OnInit {
                 this.PostDocument.controls['DocumentRefNo'].reset();
                 this.PostDocument.controls['NoOfFilesToUpload'].reset();
                 this.PostDocument.controls['Description'].reset();
-                this.rawData.forEach((single_file, index) => {
-                    // @ts-ignore
-                    document.getElementById('file_' + index).value = null;
-                });
+                this.showGrid = false;
+                this.rawData.length = 0;
+                // this.rawData.forEach((single_file, index) => {
+                //     // @ts-ignore
+                //     document.getElementById('file_' + index).value = null;
+                // });
 
             });
         } else {
