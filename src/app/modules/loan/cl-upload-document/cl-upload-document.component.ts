@@ -144,6 +144,8 @@ export class ClUploadDocumentComponent implements OnInit {
     controlReset() {
         //Document Info
         this.index = 0;
+        this.numArray.length =0;
+        this.imgData.length = 0;
         this.PostDocument.controls['ParentDocId'].reset();
         this.PostDocument.controls['DocumentRefNo'].reset();
         this.PostDocument.controls['NoOfFilesToUpload'].reset();
@@ -277,8 +279,11 @@ export class ClUploadDocumentComponent implements OnInit {
                             this.rawData.splice(i, 0, file);
                             console.log(this.rawData)
                         } else {
+                            this.numArray.push(i)
                             this.imgData.push(file);
-                            //if(this.imgData.length == this.tot)
+                            if(this.imgData.length == totNumber){
+                                this.getFile()
+                            }
                         }
                     };
                     reader.readAsDataURL(file);
@@ -423,7 +428,19 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     getFile(){
-
+        debugger
+        for(let i = 0; i<this.imgData.length; i++){
+            for(let j = 0; j<this.numArray.length; j++){
+                if(i == this.numArray[j]){
+                    this.rawData.push(this.imgData[j]);
+                    if(this.rawData.length == this.imgData.length){
+                    this.numArray.length =0;
+                    this.imgData.length = 0;
+                    console.log(this.rawData);
+                    }
+                }
+            }
+        }
     }
 
     loanCase() {
@@ -473,6 +490,8 @@ export class ClUploadDocumentComponent implements OnInit {
             this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
             if(this.number_of_files == 0){
                 this.rawData.length = 0;
+                this.numArray.length =0;
+                this.imgData.length = 0;
                 this.showGrid = false;
             }
         }
@@ -495,6 +514,8 @@ export class ClUploadDocumentComponent implements OnInit {
                 this.PostDocument.controls['Description'].reset();
                 this.index = 0;
                 this.rawData.length = 0;
+                this.numArray.length =0;
+                this.imgData.length = 0;
                 this.showGrid = false;
                 // this.rawData.forEach((single_file, index) => {
                 //     // @ts-ignore
