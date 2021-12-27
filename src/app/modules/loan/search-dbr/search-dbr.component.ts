@@ -219,9 +219,9 @@ export class SearchDbrComponent implements OnInit {
 
     ViewDBR(updateLoan) {
         this.router.navigate(
-            ['../../loan-recovery/loan-inquiry',
-                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo}],
-            {relativeTo: this.activatedRoute}
+            ['../calculte-dbr',
+                { LnTransactionID: updateLoan.LoanAppID,Lcno: updateLoan.LoanCaseNo}],
+            { relativeTo: this.activatedRoute }
         );
     }
 }
