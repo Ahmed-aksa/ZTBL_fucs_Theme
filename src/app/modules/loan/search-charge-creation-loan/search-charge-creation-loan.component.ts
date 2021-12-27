@@ -9,7 +9,7 @@ import {finalize} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
-import {Loan, SearchLoan} from 'app/shared/models/Loan.model';
+import {Loan, SearchChargeCreation, SearchLoan} from 'app/shared/models/Loan.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LoanService} from 'app/shared/services/loan.service';
@@ -33,7 +33,7 @@ export class ChargeCreationLoanComponent implements OnInit {
 
     @Input() loanDetail: Loan;
     loanSearch: FormGroup;
-    loanFilter = new SearchLoan();
+    loanFilter = new SearchChargeCreation();
     LoggedInUserInfo: BaseResponseModel;
     dataSource = new MatTableDataSource();
 
@@ -42,13 +42,26 @@ export class ChargeCreationLoanComponent implements OnInit {
     //Loan Status inventory
     LoanStatus: any = [];
     loanStatus: any = [];
-    SelectedLoanStatus: any = [];
+    ChargeCreationType: any = [];
 
     circle: any = [];
 
     loggedInUserIsAdmin: boolean = false;
 
-    displayedColumns = ['BranchName', 'AppDate', 'AppNumberManual', 'LoanCaseNo', 'ApplicationTitle', 'DevAmount', 'ProdAmount', 'StatusName', 'Action'];
+    displayedColumns = ['LoanCaseNo',
+        'CustomerName',
+        'FatherHusbandName',
+        'Cnic',
+        'PassBookNo',
+        'AppDate',
+        'DevAmount',
+        'ProdAmount',
+        'MaxCreditLimit',
+        'SanctionAmount',
+        'SanctionDate',
+        'CCAmount',
+        'ReceivingDate',
+        'MutationNo',];
 
     gridHeight: string;
 
@@ -89,7 +102,7 @@ export class ChargeCreationLoanComponent implements OnInit {
     }
 
     CheckEditStatus(loan) {
-        
+
         if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
             return true
         } else {
@@ -100,31 +113,31 @@ export class ChargeCreationLoanComponent implements OnInit {
     createForm() {
         this.loanSearch = this.filterFB.group({
             LcNo: [this.loanFilter.LcNo],
-            AppNo: [this.loanFilter.AppNo],
-            Appdt: [this.loanFilter.Appdt],
-            Status: ["32"]
+            Type:[],
         });
     }
 
     //-------------------------------Loan Status Functions-------------------------------//
     async getLoanStatus() {
-        this.LoanStatus = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.LoanStatus});
-        this.SelectedLoanStatus = this.LoanStatus.LOVs;
+
+        this.ChargeCreationType = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.SearchChargeCreationType});
+        // this.ChargeCreationType = this.LoanStatus.LOVs;
+        debugger
 
     }
 
     searchLoanStatus(loanStatusId) {
         loanStatusId = loanStatusId.toLowerCase();
         if (loanStatusId != null && loanStatusId != undefined && loanStatusId != '') {
-            this.SelectedLoanStatus = this.LoanStatus.LOVs.filter(x => x.Name.toLowerCase().indexOf(loanStatusId) > -1);
+            this.ChargeCreationType = this.LoanStatus.LOVs.filter(x => x.Name.toLowerCase().indexOf(loanStatusId) > -1);
         } else {
-            this.SelectedLoanStatus = this.LoanStatus.LOVs;
+            this.ChargeCreationType = this.LoanStatus.LOVs;
         }
     }
 
     validateLoanStatusOnFocusOut() {
-        if (this.SelectedLoanStatus.length == 0) {
-            this.SelectedLoanStatus = this.LoanStatus;
+        if (this.ChargeCreationType.length == 0) {
+            this.ChargeCreationType = this.LoanStatus;
         }
     }
 
@@ -132,7 +145,7 @@ export class ChargeCreationLoanComponent implements OnInit {
     ngAfterViewInit() {
         this.gridHeight = window.innerHeight - 400 + 'px';
         if (this.zone) {
-            this.searchLoan();
+            // this.searchLoan();
         }
 
     }
@@ -143,6 +156,47 @@ export class ChargeCreationLoanComponent implements OnInit {
     }
 
     searchLoan() {
+
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (!this.branch) {
+            var Message = 'Please select Branch';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (this.loanSearch.controls.Type.value==undefined||this.loanSearch.controls.Type.value=='') {
+            var Message = 'Please Select Type.';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (this.loanSearch.controls.LcNo.value==undefined||this.loanSearch.controls.LcNo.value=='') {
+            var Message = 'Please Enter LcNo.';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
         const controls = this.loanSearch.controls;
         if (this.loanSearch.invalid) {
             Object.keys(controls).forEach(controlName =>
@@ -156,10 +210,10 @@ export class ChargeCreationLoanComponent implements OnInit {
         this.loanFilter = Object.assign(this.loanFilter, this.loanSearch.getRawValue());
         this.loanFilter.ZoneId = this.zone.ZoneId;
         this.loanFilter.BranchId = this.branch.BranchId;
-        this.loanFilter.Appdt = this.datePipe.transform(this.loanFilter.Appdt, 'ddMMyyyy');
+        // this.loanFilter.Appdt = this.datePipe.transform(this.loanFilter.Appdt, 'ddMMyyyy');
 
         this.spinner.show();
-        this._loanService.searchLoanApplication(this.loanFilter, this.zone, this.branch)
+        this._loanService.searchChargeCreation(this.loanFilter, this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -167,7 +221,7 @@ export class ChargeCreationLoanComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
+                    this.dataSource.data = baseResponse.Loan["ChargeCreationsList"];
                 } else {
                     this.dataSource.data = [];
                     this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code)
