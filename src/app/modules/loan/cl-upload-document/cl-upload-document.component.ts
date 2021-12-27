@@ -80,6 +80,7 @@ export class ClUploadDocumentComponent implements OnInit {
     disable_lc = false;
     number_of_files: number = 0;
     docId = [];
+    numArray = [];
     first: boolean;
     fallout: boolean = false;
 
@@ -260,6 +261,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     onFileChange(event, i) {
         debugger
+        let totNumber = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
             const file = event.target.files[0];
@@ -271,14 +273,12 @@ export class ClUploadDocumentComponent implements OnInit {
                         debugger
                         if (this.rawData[i]) {
                             this.rawData.splice(i, 1);
-                            this.imgData.splice(i, 1);
+                            //this.imgData.splice(i, 1);
                             this.rawData.splice(i, 0, file);
                             console.log(this.rawData)
                         } else {
-                            //this.rawData.push(file);
-                            this.rawData.splice(i, 0, file);
-                            console.log(this.rawData)
-                            //this.rawData.splice(i, 0, file);
+                            this.imgData.push(file);
+                            //if(this.imgData.length == this.tot)
                         }
                     };
                     reader.readAsDataURL(file);
@@ -420,6 +420,10 @@ export class ClUploadDocumentComponent implements OnInit {
             }
 
         }
+    }
+
+    getFile(){
+
     }
 
     loanCase() {
