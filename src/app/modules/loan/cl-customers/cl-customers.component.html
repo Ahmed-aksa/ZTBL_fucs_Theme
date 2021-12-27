@@ -95,7 +95,9 @@
                                     {{returnKeyValuePair(customer.RelationID, 'relation')}}
                                 </td>
                                 <td style="cursor:pointer;" (click)="deleteRow(customer,i)">
-                                    <p style="color:orange;">Delete</p>
+                                    <mat-icon class="text-red-500">
+                                        delete
+                                    </mat-icon>
                                 </td>
                             </tr>
                             </tbody>

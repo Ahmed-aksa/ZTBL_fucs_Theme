@@ -45,6 +45,7 @@ export class SearchDbrComponent implements OnInit {
     SelectedLoanStatus: any = [];
 
     circle: any = [];
+    Math: any;
 
     loggedInUserIsAdmin: boolean = false;
 
@@ -74,6 +75,7 @@ export class SearchDbrComponent implements OnInit {
         private router: Router,
         private datePipe: DatePipe
     ) {
+        this.Math = Math;
     }
 
     ngOnInit() {
@@ -164,6 +166,7 @@ export class SearchDbrComponent implements OnInit {
                     this.matTableLenght = true;
                     this.dataSource.data = baseResponse.Loan.DBR["DBRList"];
                     this.dv = this.dataSource.data;
+                    this.totalItems = baseResponse.Loan.DBR.DBRList[0].TotalRecords;
                     this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                 } else {
 

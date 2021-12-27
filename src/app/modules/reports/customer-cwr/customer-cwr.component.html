@@ -103,9 +103,39 @@
                 matSortDirection="asc"
                 matSortDisableClear
             >
+                <ng-container matColumnDef="Booklet">
+                    <mat-header-cell *matHeaderCellDef
+                    >LA File/Booklet#
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.BookletNo
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Lcno">
+                    <mat-header-cell *matHeaderCellDef
+                    >LC#
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.LcNO
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Date">
+                    <mat-header-cell *matHeaderCellDef
+                    >Date
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Date
+                        }}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="Cnic">
                     <mat-header-cell *matHeaderCellDef
-                    >Cnic
+                    >CNIC
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -113,54 +143,54 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Credit">
+                <ng-container matColumnDef="Name">
                     <mat-header-cell *matHeaderCellDef
-                    >Credit Limit
+                    >Name
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.CreditLimit
+                        report.Name
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Mortage">
+                <ng-container matColumnDef="f_name">
                     <mat-header-cell *matHeaderCellDef
-                    >Mortage Property
+                    >File Name
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.MortageProperty
+                        report.FileName
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Mutation">
+                <ng-container matColumnDef="f_size">
                     <mat-header-cell *matHeaderCellDef
-                    >Mutation Number
+                    >File Size
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.MutationNo
+                        report.FileSize
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Date">
+                <ng-container matColumnDef="f_no">
                     <mat-header-cell *matHeaderCellDef
-                    >Sanction Date
+                    >File Number
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.ScanctionDate
+                        report.FileNo
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Occupation">
+                <ng-container matColumnDef="Action">
                     <mat-header-cell *matHeaderCellDef
-                    >Occupation
+                    >Action
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
                         report.Occuptaion
-                        }}</mat-cell>
+                                    }}</mat-cell>
                 </ng-container>
 
                 <mat-header-row

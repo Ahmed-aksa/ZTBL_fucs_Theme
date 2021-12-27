@@ -110,9 +110,12 @@
                                     <td>{{loan.PludgedValue}}</td>
                                     <td>{{loan.MaxCreditLimit}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-xs btn-primary"
-                                                (click)="showUpdateSecuritiesForm(loan)">Edit
-                                        </button>
+
+
+                                        <mat-icon (click)="showUpdateSecuritiesForm(loan)" class="text-green cursor-pointer">
+                                                edit
+                                        </mat-icon>
+
                                     </td>
                                 </tr>
                                 </tbody>

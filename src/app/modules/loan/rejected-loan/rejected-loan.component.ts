@@ -54,6 +54,7 @@ export class RejectedLoanComponent implements OnInit {
 
     zone: any;
     branch: any;
+    Math: any;
 
     matTableLenght = false;
     //pagination
@@ -73,6 +74,7 @@ export class RejectedLoanComponent implements OnInit {
         private router: Router,
         private datePipe: DatePipe
     ) {
+        this.Math = Math;
     }
 
 
@@ -175,6 +177,7 @@ export class RejectedLoanComponent implements OnInit {
                     this.matTableLenght = true;
                     this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
                     this.dv = this.dataSource.data;
+                    this.totalItems = this.dv.length;
                     this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                 } else {
                     this.dataSource.data = [];

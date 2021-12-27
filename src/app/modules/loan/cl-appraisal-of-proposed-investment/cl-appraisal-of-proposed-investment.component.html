@@ -269,10 +269,14 @@
                                     </td>
                                 </tr>
                                 </tbody>
-                                <button mat-flat-button color="warn" type="button" (click)="deleteAppraisalItemDetail()"
+                                <!-- <button class="btn btn-primary bg-red-500 "  mat-raised-button type="button" (click)="deleteAppraisalItemDetail()"
                                         style="float:right">
+                                        <mat-icon class="mr-2">
+                                            delete
+                                        </mat-icon>
                                     Delete
-                                </button>
+                                </button> -->
+
                             </table>
                         </div>
 
@@ -281,8 +285,13 @@
 
 
                 <div class="form-group kt-form__group row">
-                    <div class="col-lg-3 kt-margin-bottom-20-mobile">
-                        <button style="background-color: #01671B;" type="button" class="btn btn-primary"
+                    <div class="col-lg-12 kt-margin-bottom-20-mobile">
+                        <button  type="button" class="btn btn-primary bg-red-500"
+                            mat-raised-button color="primary" (click)="deleteAppraisalItemDetail()">
+                            <mat-icon class="mr-2">delete</mat-icon>
+                            Delete
+                        </button>
+                        <button type="button" class="btn btn-primary bg-green ml-3"
                                 mat-raised-button color="primary" (click)="AddAppraisalProposed()">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save

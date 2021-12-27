@@ -5,7 +5,7 @@
             <div class="form-group">
 
                 <div class="col-lg-12 text-center mt-1">
-                    <img src="./assets/media/icons/confirmation.jpg" class="img-responsive center-block w-32 mx-auto"
+                    <img src="./assets/media/icons/confirmation.jpg" class="img-responsive center-block w-24 mx-auto"
                          alt="icon"/>
                 </div>
 
@@ -21,12 +21,12 @@
         <div class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit text-center">
             <div class="kt-form__actions kt-form__actions--sm  mt-4" style="gap: 10%;">
                 <!--<button mat-button (click)="onNoClick()">Cancel</button>&nbsp;-->
-                <button mat-button (click)="onYesClick()" class="btn btn-success  bg-green " style="width: 35%;"
-                        color="primary" cdkFocusInitial [disabled]="viewLoading">Yes
+                <button mat-flat-button (click)="onYesClick()" class="btn btn-success  bg-green " style="width: 35%;"
+                         cdkFocusInitial [disabled]="viewLoading"> <mat-icon class="text-white text-xl mr-3">check</mat-icon> Yes
                 </button>
-                <button mat-button class="button-red bg-red-500 text-white" (click)="onNoClick()"
-                        style="width: 20%;margin-left: 3%;">
-                    No
+                <button mat-flat-button class="button-red bg-red-500 text-white" (click)="onNoClick()"
+                        style="width: 22%;margin-left: 3%;">
+                        <mat-icon class="text-white text-xl mr-3">clear</mat-icon>No
                 </button>&nbsp;
             </div>
         </div>
