@@ -187,7 +187,7 @@
         <pagination-controls display="inline" (pageChange)="paginate($event)"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(MathCeil(total_customers_length/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b>{{total_customers_length}}</b> items</p>
+        <p style="float:right;">Total <b  class="text-green">{{total_customers_length}}</b> items</p>
 
     </div>
 

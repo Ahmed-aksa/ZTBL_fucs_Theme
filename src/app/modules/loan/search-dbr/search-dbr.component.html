@@ -161,7 +161,7 @@
                                 *ngIf="CheckEditStatus(loan)">
                             <mat-icon style="margin-left: 5px;" title="Edit DBR">edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="primary" (click)="ViewDBR(loan)">
+                        <button mat-icon-button color="primary"  *ngIf="CheckViewStatus(loan)" (click)="ViewDBR(loan)">
                             <mat-icon style="margin-left: 5px;" title="View DBR">visibility</mat-icon>
                         </button>
                             </mat-cell>

@@ -131,9 +131,9 @@
                             <mat-icon style="margin-left: 2px;" title="Edit Customer">edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button color="primary" *ngIf="!CheckEditStatus(customer)"
+                        <button mat-icon-button  *ngIf="!CheckEditStatus(customer)"
                                 (click)="viewCustomer(customer)">
-                            <mat-icon style="margin-left: 2px;" title="View Customer">visibility</mat-icon>
+                            <mat-icon class="text-green" style="margin-left: 2px;" title="View Customer">visibility</mat-icon>
                         </button>
 
 

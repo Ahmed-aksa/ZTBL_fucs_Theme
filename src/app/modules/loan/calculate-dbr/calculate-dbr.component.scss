@@ -13,3 +13,23 @@
 .mb-1p {
     margin-bottom: 1% !important;
 }
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+  }
+
+  .table-header-background{
+      height: 45px;
+      th{
+      font-size: 12px;
+
+      }
+  }
+  table{
+      tr {
+          td{
+              font-size: 12px;
+          }
+      }
+  }

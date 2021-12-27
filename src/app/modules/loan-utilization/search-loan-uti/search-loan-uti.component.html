@@ -259,7 +259,7 @@
         <pagination-controls display="inline" (pageChange)="paginate($event)"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
 
     </div>
 </div>
