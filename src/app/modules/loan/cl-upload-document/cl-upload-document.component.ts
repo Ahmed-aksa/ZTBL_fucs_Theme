@@ -483,6 +483,7 @@ export class ClUploadDocumentComponent implements OnInit {
                 this.PostDocument.controls['DocumentRefNo'].reset();
                 this.PostDocument.controls['NoOfFilesToUpload'].reset();
                 this.PostDocument.controls['Description'].reset();
+                this.index = 0;
                 this.rawData.length = 0;
                 // this.rawData.forEach((single_file, index) => {
                 //     // @ts-ignore
