@@ -134,6 +134,10 @@ export class CustomerCwrComponent implements OnInit, AfterViewInit {
         this.gridHeight = window.innerHeight - 335 + 'px';
     }
 
+    downloadCusCwr(report){
+        console.log(report)
+    }
+
 
 }
 
