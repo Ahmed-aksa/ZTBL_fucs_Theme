@@ -262,7 +262,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     onFileChange(event, i) {
-        debugger
         let totNumber = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
@@ -272,7 +271,6 @@ export class ClUploadDocumentComponent implements OnInit {
                 if (Name.toLowerCase() == 'jpg' || Name.toLowerCase() == 'jpeg' || Name.toLowerCase() == 'png') {
                     const reader = new FileReader();
                     reader.onload = (event: any) => {
-                        debugger
                         if (this.rawData[i]) {
                             this.rawData.splice(i, 1);
                             //this.imgData.splice(i, 1);
@@ -428,7 +426,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     getFile(){
-        debugger
         for(let i = 0; i<this.imgData.length; i++){
             for(let j = 0; j<this.numArray.length; j++){
                 if(i == this.numArray[j]){
