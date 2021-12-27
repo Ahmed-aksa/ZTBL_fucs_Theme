@@ -386,6 +386,12 @@ export class SearchLoan {
     Appdt: string;
     Status: string;
 }
+export class SearchChargeCreation {
+    ZoneId: string;
+    BranchId: string;
+    LcNo: string;
+    Type: string;
+}
 
 export class SearchDBR {
     ZoneId: string;

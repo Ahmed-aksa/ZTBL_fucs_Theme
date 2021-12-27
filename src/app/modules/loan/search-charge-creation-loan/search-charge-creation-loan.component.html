@@ -26,43 +26,45 @@
             <div class="flex" style="flex-wrap: wrap;">
                 <app-zone-branch-circle [form]="loanSearch" [should_show_circle]="false"
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+<!--                <div class="mx-2">-->
+<!--                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">-->
+<!--                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+<!--                            <mat-label>Application Date(ddMMyyyy)</mat-label>-->
+<!--                            <input readonly="readonly" matInput [matDatepicker]="picker3" placeholder="ddMMyyyy"-->
+<!--                                   autocomplete="off" formControlName="Appdt">-->
+<!--                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
+<!--                            <mat-datepicker #picker3></mat-datepicker>-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            LA File/Booklet#    -->
+<!--                <div class="mx-2">-->
+<!--                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">-->
+<!--                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">-->
+<!--                            <mat-label>LA File/Booklet#</mat-label>-->
+<!--                            <input appNumberOnly matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">-->
+<!--                        </mat-form-field>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="mx-2">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+
+                    <div *ngIf="ChargeCreationType" class="col-md-12 kt-margin-bottom-10-mobile"
+                         style="width: 225px;">
                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label>Application Date(ddMMyyyy)</mat-label>
-                            <input readonly="readonly" matInput [matDatepicker]="picker3" placeholder="ddMMyyyy"
-                                   autocomplete="off" formControlName="Appdt">
-                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                            <mat-datepicker #picker3></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="mx-2">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
-                            <mat-label>LA File/Booklet#</mat-label>
-                            <input appNumberOnly matInput placeholder="Enter >LA File/Booklet" formControlName="AppNo">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="mx-2">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
-                            <mat-label>Status</mat-label>
-                            <mat-select disabled formControlName="Status">
-                                <mat-option>
-                                    <ngx-mat-select-search placeholderLabel="Search Loan Status..."
-                                                           (focusout)="validateLoanStatusOnFocusOut()"
-                                                           noEntriesFoundLabel="No Loan Status Found"
-                                                           (keyup)="searchLoanStatus($event.target.value)">
-                                    </ngx-mat-select-search>
+                            <mat-label>Select Type</mat-label>
+                            <mat-select formControlName="Type">
+                                <mat-option value="">
+                                    Select
                                 </mat-option>
-                                <mat-option *ngFor="let loanStatus of SelectedLoanStatus" [value]="loanStatus.Id">
-                                    {{loanStatus.Name }}
+                                <mat-option *ngFor="let obj of ChargeCreationType?.LOVs" [value]="obj.Value">
+                                    {{obj.Name}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
+
+
                 </div>
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
@@ -104,68 +106,98 @@
                                matSortDirection="asc"
                                matSortDisableClear>
 
-                        <ng-container matColumnDef="BranchName">
-                            <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Branch</mat-header-cell>
-                            <mat-cell *matCellDef="let loan">{{loan.BranchName}}</mat-cell>
-                        </ng-container>
-
-
-                        <ng-container matColumnDef="AppDate">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Application Date</mat-header-cell>
-                            <mat-cell *matCellDef="let loan">{{loan.AppDate}}</mat-cell>
-                        </ng-container>
-
-                        <ng-container matColumnDef="AppNumberManual">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>LA File/Booklet#</mat-header-cell>
-                            <mat-cell *matCellDef="let loan">{{loan.AppNumberManual}}</mat-cell>
-                        </ng-container>
-
                         <ng-container matColumnDef="LoanCaseNo">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>LCNO</mat-header-cell>
+                            <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Loan Case#</mat-header-cell>
                             <mat-cell *matCellDef="let loan">{{loan.LoanCaseNo}}</mat-cell>
                         </ng-container>
 
-                        <ng-container matColumnDef="ApplicationTitle">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
-                            <mat-cell *matCellDef="let loan">{{loan.ApplicationTitle}}</mat-cell>
+
+                        <ng-container matColumnDef="CustomerName">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.CustomerName}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="FatherHusbandName">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Father/Husband Name</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.FatherHusbandName}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Cnic">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Cnic</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.Cnic}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="PassBookNo">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Pass Book No.</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.PassBookNo}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="AppDate">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>App Date</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.AppDate}}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="DevAmount">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>DEV AMOUNT</mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Dev. Amt</mat-header-cell>
                             <mat-cell *matCellDef="let loan">{{loan.DevAmount}}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="ProdAmount">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>PROD AMOUNT</mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Prod. Amt</mat-header-cell>
                             <mat-cell *matCellDef="let loan">{{loan.ProdAmount}}</mat-cell>
                         </ng-container>
 
-                        <ng-container matColumnDef="StatusName">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</mat-header-cell>
-                            <mat-cell *matCellDef="let loan">{{loan.StatusName}}</mat-cell>
+                        <ng-container matColumnDef="MaxCreditLimit">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>MCL</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.MaxCreditLimit}}</mat-cell>
                         </ng-container>
 
-                        <ng-container matColumnDef="Action">
-                            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-                            <mat-cell *matCellDef="let loan">
-                                <button mat-icon-button color="primary" (click)="editLoan(loan)"
-                                        *ngIf="CheckEditStatus(loan)">
-                                    <mat-icon class="text-green" style="margin-left: 5px;" title="View Loan">visibility</mat-icon>
-                                </button>
-                                <button mat-icon-button color="primary" (click)="editLoan(loan)"
-                                        *ngIf="!CheckEditStatus(loan)">
-                                    <mat-icon style="margin-left: 5px;" title="View Loan">edit</mat-icon>
-                                </button>
-                            </mat-cell>
+                        <ng-container matColumnDef="SanctionAmount">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Sanction Amount</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.SanctionAmount }}</mat-cell>
                         </ng-container>
+
+                        <ng-container matColumnDef="SanctionDate">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Sanction Date</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.SanctionDate}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="CCAmount">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>CC Amt</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.CCAmount}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="ReceivingDate">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>CC Date</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.ReceivingDate}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="MutationNo">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Mutation No</mat-header-cell>
+                            <mat-cell *matCellDef="let loan">{{loan.MutationNo}}</mat-cell>
+                        </ng-container>
+
+<!--                        <ng-container matColumnDef="Action">-->
+<!--                            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>-->
+<!--                            <mat-cell *matCellDef="let loan">-->
+<!--                                <button mat-icon-button color="primary" (click)="editLoan(loan)"-->
+<!--                                        *ngIf="CheckEditStatus(loan)">-->
+<!--                                    <mat-icon class="text-green" style="margin-left: 5px;" title="View Loan">visibility</mat-icon>-->
+<!--                                </button>-->
+<!--                                <button mat-icon-button color="primary" (click)="editLoan(loan)"-->
+<!--                                        *ngIf="!CheckEditStatus(loan)">-->
+<!--                                    <mat-icon style="margin-left: 5px;" title="View Loan">edit</mat-icon>-->
+<!--                                </button>-->
+<!--                            </mat-cell>-->
+<!--                        </ng-container>-->
 
                         <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
                                         class="table-header-background"></mat-header-row>
 
                         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
                     </mat-table>
-                    <div class="mat-table__message" *ngIf="dataSource.data.length==0">No records found</div>
+<!--                    <div class="mat-table__message" *ngIf="dataSource.data.length==0">No records found</div>-->
                 </div>
 
             </div>

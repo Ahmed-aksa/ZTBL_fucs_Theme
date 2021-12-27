@@ -87,6 +87,7 @@ export class LovConfigurationKey {
     public static readonly ProposedCropType: string = 'ProposedCropType';
     public static readonly Crops: string = 'Crops';
     public static readonly LoanStatus: string = 'LoanStatus';
+    public static readonly SearchChargeCreationType: string = 'SearchChargeCreationType';
     public static readonly JVCategory: string = 'JVCategory';
     public static readonly Glhead: string = 'Glhead';
     public static readonly JvRo: string = 'JvRo';

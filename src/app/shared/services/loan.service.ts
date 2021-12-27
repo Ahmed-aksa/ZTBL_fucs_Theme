@@ -29,7 +29,7 @@ import {
     LoanSecurities,
     LoanWitness,
     ORR,
-    PersonalSureties, SearchDBR,
+    PersonalSureties, SearchChargeCreation, SearchDBR,
     SearchLoan,
     SearchLoanDbr,
 } from '../models/Loan.model';
@@ -772,6 +772,58 @@ export class LoanService {
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
+
+    searchChargeCreation(loanFilter: SearchChargeCreation, zone, branch) {
+        var userInfo = this.userUtilsService.getUserDetails();
+        var selectedCircleId = '';
+
+        if (userInfo.UserCircleMappings.length > 0) {
+            userInfo.UserCircleMappings.forEach(function (value, key) {
+                if (userInfo.UserCircleMappings.length == key + 1) {
+                    selectedCircleId += value.CircleId;
+                } else {
+                    selectedCircleId += value.CircleId + ',';
+                }
+            });
+        }
+
+        this.activity.ActivityID = 1;
+        var selectedZone = {
+            Id: 0,
+            ZoneId: loanFilter.ZoneId,
+            ZoneName: '',
+        };
+
+        var selectedBranch = {
+            BranchId: loanFilter.BranchId,
+            Id: 0,
+            Name: '',
+            WorkingDate: '',
+        };
+        var selectedCircle = {
+            CircleIds: selectedCircleId,
+        };
+        var request = {
+            Loan:loanFilter,
+            TranId: 0,
+            User: userInfo.User,
+            Zone: zone,
+            Activity: this.activity,
+            Branch: branch,
+            Circle: selectedCircle,
+        };
+
+        var req = JSON.stringify(request);
+
+        return this.http
+            .post(
+                `${environment.apiUrl}/Loan/SearchChargeCreation`,
+                request,
+                {headers: this.httpUtils.getHTTPHeaders()}
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
     searchDBR(loanFilter: SearchDBR, zone, branch,Limit, Offset) {
         var userInfo = this.userUtilsService.getUserDetails();
         var selectedCircleId = '';
