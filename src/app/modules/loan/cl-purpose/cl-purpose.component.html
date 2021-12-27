@@ -194,7 +194,7 @@
                     <th>Market Price</th>
                     <th>Equity(Rs.)</th>
                     <th>Loan Applied(Rs.)</th>
-                    <th></th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody class="">
@@ -209,11 +209,19 @@
                     <td>{{loan.AmountInHand}}</td>
                     <td>{{loan.AmountRequired}}</td>
                     <td>
-              <span (click)="onEditPurpose(loan)"
+
+
+                        <mat-icon class="cursor-pointer text-green" (click)="onEditPurpose(loan)">edit</mat-icon>
+                      <mat-icon class="cursor-pointer text-red-500 ml-3" (click)="onDeletePurpose(loan,i)">delete</mat-icon>
+
+              <!-- <span (click)="onEditPurpose(loan)"
                     style="cursor: pointer;
-                      color: #ecbd00;font-size: 16px;">Edit</span> |
-                        <span style="cursor: pointer; color: #ecbd00;font-size: 16px;"
-                              (click)="onDeletePurpose(loan,i)">Delete</span>
+                      color: #ecbd00;font-size: 16px;">Edit</span> | -->
+
+                      <!-- <span style="cursor: pointer; color: #ecbd00;font-size: 16px;"
+                      (click)="onDeletePurpose(loan,i)">Delete</span> -->
+
+
                     </td>
 
 

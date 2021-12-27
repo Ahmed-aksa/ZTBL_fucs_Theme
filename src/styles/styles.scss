@@ -16,6 +16,24 @@ $MaterialIcons_FontPath: "~material-icons-font/fonts";
 body {
     font-family: 'Poppins', sans-serif !important;
 }
+
+.text-white{
+    color: white !important;
+}
+
+.apexcharts-legend.position-bottom.apexcharts-align-left .apexcharts-legend-series .apexcharts-legend-text, .apexcharts-legend.position-top.apexcharts-align-left .apexcharts-legend-series .apexcharts-legend-text, .apexcharts-legend.position-right .apexcharts-legend-series .apexcharts-legend-text, .apexcharts-legend.position-left .apexcharts-legend-series .apexcharts-legend-text {
+    width: 130px;
+    overflow-wrap: break-word;
+}
+#chart {
+    width: 100% !important;
+    padding: 0 12px;
+  }
+
+  .apexcharts-legend-text{
+      width: 6rem;
+  }
+
 .mat-tab-group {
     .mat-tab-header {
          .mat-tab-label-container {
