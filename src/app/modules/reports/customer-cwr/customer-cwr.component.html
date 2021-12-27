@@ -163,6 +163,16 @@
                         }}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef
+                    >Action
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Occuptaion
+                                    }}</mat-cell>
+                </ng-container>
+
                 <mat-header-row
                     *matHeaderRowDef="displayedColumns; sticky: true"
                     class="table-header-background"
