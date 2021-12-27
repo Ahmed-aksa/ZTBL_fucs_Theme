@@ -61,6 +61,7 @@ export class ReportsService {
         let final_circle = null;
         //let reqReportNumber = reportsFilter.ReportsNo;
 
+
         if (zone == null) {
             final_zone = user.Zone;
             final_branch = user.Branch;
@@ -85,7 +86,9 @@ export class ReportsService {
                     CircleId: circle.CircleCode
                 }
             }
-        }else if (reportsFilter.ReportsNo == '24') {
+        }
+
+        else if (reportsFilter.ReportsNo == '24') {
             reportsFilter.BranchId = final_branch.BranchId;
             request = {
                 ReportsFilterCustom: reportsFilter,
