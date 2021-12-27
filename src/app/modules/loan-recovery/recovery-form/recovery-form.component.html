@@ -401,9 +401,23 @@
 
 
                             </div>
-                            <div class="row mx-2">
+                            <div class="row ml-1">
                                 <div class="col-lg-12">
                                     <div class="form-group kt-form__group">
+                                        <button mat-raised-button color="primary" class="ml-2"
+                                        (click)="deleteRecovery()"
+                                        [disabled]="submitted || viewOnly || ibDisSave"
+                                        *ngIf="isEditMode || dataSaved">
+                                            <mat-icon class="mr-2">delete_forever</mat-icon>
+                                            Delete
+                                        </button>
+                                        <button mat-raised-button
+                                            class=" mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                                            (click)="clearForm()"
+                                            [disabled]="submitted || transactionEdit || viewOnly || dataSaved">
+                                            <mat-icon class="mr-2"> clear_all</mat-icon>
+                                            Clear
+                                        </button>
                                         <button style="background-color: #01671B;" *ngIf="isSimpleRecovery"
                                                 mat-raised-button
                                                 color="primary"
@@ -418,25 +432,6 @@
                                                 [disabled]="submitted || viewOnly || ibDisSave">
                                             <mat-icon class="mr-2">check_circle</mat-icon>
                                             {{submitButtonText}}</button>
-
-
-                                        <button mat-raised-button color="primary" class="ml-2"
-                                                (click)="deleteRecovery()"
-                                                [disabled]="submitted || viewOnly || ibDisSave"
-                                                *ngIf="isEditMode || dataSaved">
-                                            <mat-icon class="mr-2">delete_forever</mat-icon>
-                                            Delete
-                                        </button>
-
-
-                                        <button mat-raised-button
-                                                class="ml-2 mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                                (click)="clearForm()"
-                                                [disabled]="submitted || transactionEdit || viewOnly || dataSaved">
-                                            <mat-icon class="mr-2"> clear_all</mat-icon>
-                                            Clear
-                                        </button>
-
 
                                         <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
                                     </div>

@@ -136,7 +136,7 @@
                       style="font-size: 12px;">{{item?.TotalTimeTaken}}</span>
                 <span class="mat-cell py-6 self-center">
                     <button mat-icon-button color="primary" (click)="viewRequestResponse($event,item)">
-                                            <mat-icon title="View">visibility</mat-icon>
+                                            <mat-icon  class="text-green" title="View">visibility</mat-icon>
                                         </button>
                 </span>
             </mat-expansion-panel-header>
@@ -163,7 +163,7 @@
                             <td>
                                 <button mat-icon-button color="primary"
                                         (click)="viewRequestResponse($event,tp_item,true)">
-                                    <mat-icon style="color: black;" title="View">visibility</mat-icon>
+                                    <mat-icon  class="text-green" title="View">visibility</mat-icon>
                                 </button>
                             </td>
                         </tr>

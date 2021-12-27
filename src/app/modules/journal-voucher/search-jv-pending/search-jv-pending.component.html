@@ -163,7 +163,7 @@
                     <mat-cell *matCellDef="let jv">
                         <button mat-icon-button color="primary" *ngIf="CheckViewStatus(jv)"
                                 (click)="viewJv(jv)">
-                            <mat-icon style="margin-left: 2px;" title="View jv">visibility</mat-icon>
+                            <mat-icon class="text-green" style="margin-left: 2px;" title="View jv">visibility</mat-icon>
                         </button>
                     </mat-cell>
                 </ng-container>
@@ -204,7 +204,7 @@
         <pagination-controls display="inline" (pageChange)="paginate($event)"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
 
     </div>
 </div>

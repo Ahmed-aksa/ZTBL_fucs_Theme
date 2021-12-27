@@ -143,7 +143,7 @@
 
                             <button mat-icon-button color="primary" *ngIf="CheckViewStatus(loanutilization)"
                                     (click)="viewloanutilization(loanutilization)">
-                                <mat-icon title="View land">visibility</mat-icon>
+                                <mat-icon  class="text-green" title="View land">visibility</mat-icon>
                             </button>
                         </mat-cell>
                     </ng-container>
@@ -179,7 +179,7 @@
             <pagination-controls display="inline" (pageChange)="paginate($event)"
                                  style="display: inline-block;"></pagination-controls>
             <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-            <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+            <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
 
         </div>
 </div>

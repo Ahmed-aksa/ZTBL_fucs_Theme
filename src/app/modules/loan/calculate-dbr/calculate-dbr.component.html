@@ -54,12 +54,12 @@
 
                     </div>
                 </div>
-                <div class="kt-portlet__head-label">
-                    <h5 class="heading">Salary/Income from Different Sources:</h5>
+                <div class="kt-portlet__head-label pt-3">
+                    <h5 class="sub-heading">Salary/Income from Different Sources:</h5>
                 </div>
-                <table class="table table-striped">
+                <table class="table table-striped  border shadow-xs rounded-sm bg-gray-50">
                     <thead>
-                    <tr>
+                    <tr class="table-header-background">
                         <th class="col-lg-9">Item Name</th>
                         <th class="col-lg-3">Amount</th>
                     </tr>
@@ -82,13 +82,13 @@
                     </tbody>
                 </table>
 
-                <div class="kt-portlet__head-label">
-                    <h5 class="heading">Loan/Liabilities:</h5>
+                <div class="kt-portlet__head-label pt-3">
+                    <h5 class="sub-heading">Loan/Liabilities:</h5>
                 </div>
 
-                <table class="table table-striped">
+                <table class="table table-striped  border shadow-xs rounded-sm bg-gray-50">
                     <thead>
-                    <tr>
+                    <tr class="table-header-background">
                         <th class="col-lg-9">Item Name</th>
                         <th class="col-lg-3">Amount</th>
                     </tr>
@@ -109,33 +109,36 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="mx-2">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">Total Debts/Liabilities</mat-label>
-                            <input matInput readonly appNumberOnly formControlName="Liabilites"
-                                   maxlength="13" autocomplete="off"/>
-                        </mat-form-field>
+                <div class="flex">
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Total Debts/Liabilities</mat-label>
+                                <input matInput readonly appNumberOnly formControlName="Liabilites"
+                                       maxlength="13" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">Total Income</mat-label>
+                                <input matInput readonly appNumberOnly formControlName="Income"
+                                       maxlength="13" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">DBR</mat-label>
+                                <input matInput readonly appNumberOnly formControlName="DBR"
+                                       maxlength="13" autocomplete="off"/>
+                            </mat-form-field>
+                        </div>
                     </div>
                 </div>
-                <div class="mx-2">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">Total Income</mat-label>
-                            <input matInput readonly appNumberOnly formControlName="Income"
-                                   maxlength="13" autocomplete="off"/>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="mx-2">
-                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                            <mat-label class="customMatLabel">DBR</mat-label>
-                            <input matInput readonly appNumberOnly formControlName="DBR"
-                                   maxlength="13" autocomplete="off"/>
-                        </mat-form-field>
-                    </div>
-                </div>
+
 
                 <div class="row">
                     <div class="col-lg-12 mt-1p ml-1p mb-1p">

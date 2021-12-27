@@ -151,7 +151,7 @@
                             <mat-cell *matCellDef="let loan">
                                 <button mat-icon-button color="primary" (click)="editLoan(loan)"
                                         *ngIf="CheckEditStatus(loan)">
-                                    <mat-icon style="margin-left: 5px;" title="View Loan">visibility</mat-icon>
+                                    <mat-icon class="text-green" style="margin-left: 5px;" title="View Loan">visibility</mat-icon>
                                 </button>
                                 <button mat-icon-button color="primary" (click)="editLoan(loan)"
                                         *ngIf="!CheckEditStatus(loan)">

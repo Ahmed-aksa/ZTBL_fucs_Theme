@@ -87,7 +87,7 @@
                     <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let EligibilityLog">
                         <button mat-icon-button (click)="viewDetail(EligibilityLog.Id)">
-                            <mat-icon>visibility</mat-icon>
+                            <mat-icon  class="text-green">visibility</mat-icon>
                         </button>
                         <button mat-icon-button (click)="showLocation(EligibilityLog)">
                             <mat-icon>location_on</mat-icon>
@@ -118,7 +118,7 @@
         <pagination-controls display="inline" (pageChange)="paginate($event)"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(MathCeil(TotalRecords/items_per_page))">Last</button>
-        <p style="float:right;">Total <b>{{TotalRecords}}</b> items</p>
+        <p style="float:right;">Total <b  class="text-green">{{TotalRecords}}</b> items</p>
 
     </div>
 </div>

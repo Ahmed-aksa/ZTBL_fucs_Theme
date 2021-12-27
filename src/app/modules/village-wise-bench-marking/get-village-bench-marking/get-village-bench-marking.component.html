@@ -139,7 +139,7 @@
                     <div style="flex-wrap: wrap; width:100; display: flex;">
                         <button  mat-icon-button *ngIf="checkViewStatus(VillageBenchMark)"
                         color="primary" (click)="viewVillageBenchMark(VillageBenchMark)">
-                             <mat-icon title="view benchmarking">visibility</mat-icon>
+                             <mat-icon class="text-green" title="view benchmarking">visibility</mat-icon>
                          </button>
                         <button  mat-icon-button *ngIf="checkEditStatus(VillageBenchMark)"
                         color="primary" (click)="editVillageBenchMark(VillageBenchMark)">
@@ -189,7 +189,7 @@
         <pagination-controls display="inline" (pageChange)="paginate($event)"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
+        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
 
     </div>
 </div>

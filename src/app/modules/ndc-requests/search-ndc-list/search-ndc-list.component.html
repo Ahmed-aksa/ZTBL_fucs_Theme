@@ -182,7 +182,7 @@
                     <pagination-controls id="ndcReq" display="inline" (pageChange)="paginateRequest($event)"
                                          style="display: inline-block;"></pagination-controls>
                     <button (click)="paginateRequest(Math.ceil(ndcLength/pageSize))">Last</button>
-                    <p style="float:right;">Total <b>{{ndcLength}}</b> items</p>
+                    <p style="float:right;">Total <b  class="text-green">{{ndcLength}}</b> items</p>
                 </div>
             </div>
         </div>
@@ -241,7 +241,7 @@
             <pagination-controls id="pendingReq" display="inline" (pageChange)="paginatePending($event)"
                                  style="display: inline-block;"></pagination-controls>
             <button (click)="paginatePending(Math.ceil(pendingLength/pageSize))">Last</button>
-            <p style="float:right;">Total <b>{{pendingLength}}</b> items</p>
+            <p style="float:right;">Total <b  class="text-green">{{pendingLength}}</b> items</p>
 
         </div>
 
