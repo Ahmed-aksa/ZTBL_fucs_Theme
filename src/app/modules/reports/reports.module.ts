@@ -54,7 +54,7 @@ const routing = [
         component: EarlyWarningReportsComponent
     },
     {
-        path: 'updated-list',
+        path: 'updated-list-of-defaulter',
         component: UpdatedListOfDefaultersComponent
     },
     {

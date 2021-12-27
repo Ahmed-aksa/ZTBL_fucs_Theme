@@ -95,6 +95,56 @@
                         }}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="Crop">
+                    <mat-header-cell *matHeaderCellDef
+                    >Crop Production
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.CropProduction
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="LiveStock">
+                    <mat-header-cell *matHeaderCellDef
+                    >Live Stock
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.LiveStock
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="TubeWell">
+                    <mat-header-cell *matHeaderCellDef
+                    >Tube Well
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.TubeWell
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Tractor">
+                    <mat-header-cell *matHeaderCellDef
+                    >Tractor
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.Tractor
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="OtherPurpose">
+                    <mat-header-cell *matHeaderCellDef
+                    >Other Purpose
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.OtherPurpose
+                        }}</mat-cell>
+                </ng-container>
+
                 <mat-header-row
                     *matHeaderRowDef="displayedColumns; sticky: true"
                     class="table-header-background"

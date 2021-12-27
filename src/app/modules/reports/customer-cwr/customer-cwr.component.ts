@@ -73,17 +73,17 @@ export class CustomerCwrComponent implements OnInit, AfterViewInit {
 
 
     find() {
+        debugger
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.searchCnicForm.markAllAsTouched()
             return;
         }
 
-        if(this.searchCnicForm.controls.Cnic.value == null || this.searchCnicForm.controls.BookletNo.value == null || this.searchCnicForm.controls.LcNO.value == null){
+        if ((this.searchCnicForm.controls.Cnic.value == null || this.searchCnicForm.controls.Cnic.value == '') && (this.searchCnicForm.controls.BookletNo.value == null || this.searchCnicForm.controls.BookletNo.value == '') && (this.searchCnicForm.controls.LcNO.value == null || this.searchCnicForm.controls.LcNO.value == '')) {
             this.layoutUtilsService.alertElement('', 'Please add Cnic, LA/Booklet or Loan Case Number');
             return
         }
-
 
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
         this.reports.ReportsNo = "15";

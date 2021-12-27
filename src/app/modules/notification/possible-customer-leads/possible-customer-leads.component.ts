@@ -14,7 +14,7 @@ import {finalize} from "rxjs/operators";
   styleUrls: ['./possible-customer-leads.component.scss']
 })
 export class PossibleCustomerLeadsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Requistion', 'Applicant',  'Mobile', 'Amount', 'Cnic', 'Date', 'Remarks'];
+    displayedColumns = ['Requistion', 'Applicant',  'Mobile', 'Amount', 'Cnic', 'Date', 'Remarks', 'Crop', 'LiveStock', 'TubeWell', 'Tractor', 'OtherPurpose'];
     loaded = true;
     matTableLenght = false;
     loading = false;
