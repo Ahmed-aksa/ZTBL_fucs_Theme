@@ -142,6 +142,7 @@ export class ClUploadDocumentComponent implements OnInit {
 
     controlReset() {
         //Document Info
+        this.index = 0;
         this.PostDocument.controls['ParentDocId'].reset();
         this.PostDocument.controls['DocumentRefNo'].reset();
         this.PostDocument.controls['NoOfFilesToUpload'].reset();
