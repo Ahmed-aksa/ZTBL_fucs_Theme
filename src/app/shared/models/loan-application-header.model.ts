@@ -202,7 +202,7 @@ export class LoanApplicationLegalHeirs {
     DobTxt: string;
     Gender: string;
     RelationID: number;
-    Relation: string;
+    RelationName: string;
     LoanAppID: number;
     CustomerID: string;
     CustomerName: string;

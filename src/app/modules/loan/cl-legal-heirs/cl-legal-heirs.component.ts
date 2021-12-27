@@ -156,7 +156,7 @@ debugger
             grid.Dob = appLegalHeirsData[i].Dob;
             var devProdFlag = this.RelationshipLov?.filter(x => x.Id == appLegalHeirsData[i].RelationID)
             if (devProdFlag?.length > 0) {
-                grid.Relation = devProdFlag[0].Description;
+                grid.RelationName    = devProdFlag[0].Description;
             }
 
             tempCustomerArray.push(grid);
@@ -248,7 +248,7 @@ debugger
                 legalHeirsGrid.PhoneCell = this.legalHeirs.PhoneCell;
                 legalHeirsGrid.PhoneOff = this.legalHeirs.PhoneOff;
                 legalHeirsGrid.Gender = this.legalHeirs.Gender;
-                legalHeirsGrid.Relation = this.currentSelectedRelationship;
+                legalHeirsGrid.RelationName = this.currentSelectedRelationship;
                 legalHeirsGrid.UserID = baseResponse.Loan.LoanApplicationLegalHeirs.ID;
 
                 this.legalHeirsArray.push(legalHeirsGrid);
@@ -325,7 +325,7 @@ export class LegalHiersGrid {
     DobTxt: string;
     Gender: string;
     RelationID: number;
-    Relation: string;
+    RelationName: string;
     LoanAppID: number;
     CustomerID: string;
     CustomerName: string;
