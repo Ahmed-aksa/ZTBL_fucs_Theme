@@ -162,7 +162,7 @@ export class SearchDbrComponent implements OnInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     this.matTableLenght = true;
-                    this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
+                    this.dataSource.data = baseResponse.Loan.DBR["DBRList"];
                     this.dv = this.dataSource.data;
                     this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                 } else {
