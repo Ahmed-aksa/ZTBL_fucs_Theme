@@ -161,8 +161,8 @@
                                 *ngIf="CheckEditStatus(loan)">
                             <mat-icon style="margin-left: 5px;" title="Edit DBR">edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="primary"  *ngIf="CheckViewStatus(loan)" (click)="ViewDBR(loan)">
-                            <mat-icon  class="text-green" style="margin-left: 5px;" title="View DBR">visibility</mat-icon>
+                        <button mat-icon-button color="primary" (click)="ViewDBR(loan)">
+                            <mat-icon style="margin-left: 5px;" title="View DBR">visibility</mat-icon>
                         </button>
                             </mat-cell>
                         </ng-container>
@@ -188,7 +188,7 @@
                     <pagination-controls display="inline" (pageChange)="paginate($event)"
                                          style="display: inline-block;"></pagination-controls>
                     <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-                    <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
+                    <p style="float:right;">Total <b>{{totalItems}}</b> items</p>
 
                 </div>
 

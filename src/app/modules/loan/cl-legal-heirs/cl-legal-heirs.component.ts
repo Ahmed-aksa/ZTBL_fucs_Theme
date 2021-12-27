@@ -103,7 +103,6 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     getLegalHeirs(){
-debugger
             if (this.loanDetail == null || this.loanDetail == undefined) {
                 this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
                 return;
@@ -211,8 +210,6 @@ debugger
             this.layoutUtilsService.alertElement("", "Customer CNIC Already Added", "Duplicate Cutomer");
             return;
         }
-
-
         //this.legalHeirs = Object.assign(this.legalHeirs, this.legalHeirsForm.getRawValue());
         this.legalHeirs.UserID = "0";
         //this.legalHeirs.LoanAppID = 0;
@@ -234,24 +231,25 @@ debugger
             ).subscribe(baseResponse => {
 
             if (baseResponse.Success) {
-
+                debugger
                 this.legalHeirs = this.legalHeirsForm.value;
-                var legalHeirsGrid = new LoanApplicationLegalHeirs();
-
-                legalHeirsGrid.CustomerID = this.legalHeirs.CustomerID;
-                legalHeirsGrid.CustomerName = this.legalHeirs.CustomerName;
-                legalHeirsGrid.LegalHeirsName = this.legalHeirs.LegalHeirsName;
-                legalHeirsGrid.Cnic = this.legalHeirs.Cnic;
-                legalHeirsGrid.RelationID = this.legalHeirs.RelationID;
-                legalHeirsGrid.Dob = this.legalHeirs.Dob;
-                legalHeirsGrid.DobTxt = this.legalHeirs.DobTxt;
-                legalHeirsGrid.PhoneCell = this.legalHeirs.PhoneCell;
-                legalHeirsGrid.PhoneOff = this.legalHeirs.PhoneOff;
-                legalHeirsGrid.Gender = this.legalHeirs.Gender;
-                legalHeirsGrid.RelationName = this.currentSelectedRelationship;
-                legalHeirsGrid.UserID = baseResponse.Loan.LoanApplicationLegalHeirs.ID;
-
-                this.legalHeirsArray.push(legalHeirsGrid);
+                // var legalHeirsGrid = new LoanApplicationLegalHeirs();
+                //
+                // legalHeirsGrid.CustomerID = this.legalHeirs.CustomerID;
+                // legalHeirsGrid.CustomerName = this.legalHeirs.CustomerName;
+                // legalHeirsGrid.LegalHeirsName = this.legalHeirs.LegalHeirsName;
+                // legalHeirsGrid.Cnic = this.legalHeirs.Cnic;
+                // legalHeirsGrid.RelationID = this.legalHeirs.RelationID;
+                // legalHeirsGrid.Dob = this.legalHeirs.Dob;
+                // legalHeirsGrid.DobTxt = this.legalHeirs.DobTxt;
+                // legalHeirsGrid.PhoneCell = this.legalHeirs.PhoneCell;
+                // legalHeirsGrid.PhoneOff = this.legalHeirs.PhoneOff;
+                // legalHeirsGrid.Gender = this.legalHeirs.Gender;
+                // legalHeirsGrid.RelationName = this.currentSelectedRelationship;
+                // legalHeirsGrid.UserID = baseResponse.Loan.LoanApplicationLegalHeirs.ID;
+                //
+                // this.legalHeirsArray.push(legalHeirsGrid);
+                this.getLegalHeirs()
                 this.legalHeirsForm.reset();
                 this.legalHeirsForm.markAsPristine();
                 this.legalHeirsForm.markAsUntouched();
