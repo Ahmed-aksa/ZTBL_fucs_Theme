@@ -45,8 +45,6 @@ export class LoanInquiryComponent implements OnInit {
         this.RecoveryForm = this.formBuilder.group({
             TransactionId: [''],
             LoanCaseNo: [''],
-            Zone: [''],
-            Branch: [''],
             UncultivatedLand:[],
             NocultivatedLand:[]
         });
@@ -58,25 +56,32 @@ export class LoanInquiryComponent implements OnInit {
         var lcno = this.route.snapshot.params['Lcno'];
         var userInfo = this.userUtilsService.getUserDetails();
 
-        this.RecoveryForm.controls.Zone.setValue(userInfo?.Zone?.ZoneName);
-        this.RecoveryForm.controls.Branch.setValue(userInfo?.Branch?.Name);
+        // this.RecoveryForm.controls.Zone.setValue(userInfo?.Zone?.ZoneName);
+        // this.RecoveryForm.controls.Branch.setValue(userInfo?.Branch?.Name);
         this.RecoveryForm.controls.LoanCaseNo.setValue(lcno == "undefined" ? "" : lcno);
         this.RecoveryForm.controls.TransactionId.setValue(LnTransactionID == "undefined" ? "" : LnTransactionID);
 
         if (this.RecoveryForm.controls.LoanCaseNo.value != undefined && this.RecoveryForm.controls.TransactionId.value != undefined) {
-            this.find();
+
+
+            setTimeout(() => {
+                if (this.zone) {
+                    this.find();
+                }
+            }, 1000);
         }
 
         //this.getLoanApplicationsInquiry();
     }
 
     getAllData(data) {
+        debugger
         this.zone = data.final_zone;
         this.branch = data.final_branch;
     }
 
     find() {
-
+debugger
         var transactionId = this.RecoveryForm.controls.TransactionId.value;
         var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
         // this.hasFormErrors = false;

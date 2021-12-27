@@ -386,6 +386,7 @@ export class RecoveryService {
         zone,
         branch
     ): Observable<BaseResponseModel> {
+        debugger
         var userInfo = this.userUtilsService.getUserDetails();
         //var branch = {BranchId: userInfo.Branch.BranchId};
         var recovery = {Lcno: lcNo, LnTransactionID: LnTransactionID};
@@ -421,7 +422,7 @@ export class RecoveryService {
         zone,
         branch
     ): Observable<BaseResponseModel> {
-        
+
         documentId = documentId.toString();
         var ViewDocumnets = {ID: documentId, Type: documentType};
         var _circles;
