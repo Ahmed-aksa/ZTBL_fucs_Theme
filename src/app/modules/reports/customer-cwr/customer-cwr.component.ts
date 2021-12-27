@@ -18,7 +18,7 @@ import {finalize} from "rxjs/operators";
   styleUrls: ['./customer-cwr.component.scss']
 })
 export class CustomerCwrComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Cnic','Credit', 'Mortage', 'Mutation', 'Occupation', 'Date'];
+    displayedColumns = ['Cnic','Credit', 'Mortage', 'Mutation', 'Occupation', 'Date', 'Action'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
