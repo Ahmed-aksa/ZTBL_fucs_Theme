@@ -183,6 +183,19 @@ export class LoanService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
+    getLoanSecurities(loanAppId) {
+        debugger
+        this.request = new BaseRequestModel();
+        this.request.Loan = new Loan();
+        this.request.Loan.LoanSecurities = new LoanSecurities();
+
+        this.request.Loan.LoanSecurities.LoanAppID = loanAppId;
+        return this.http
+            .post(`${environment.apiUrl}/Loan/getLoanSecurities`, this.request, {
+                headers: this.httpUtils.getHTTPHeaders(),
+            })
+            .pipe(map((res: BaseResponseModel) => res));
+    }
 
     saveLoanSecurities(securitiesReq: LoanSecurities, tranId: number) {
         this.request = new BaseRequestModel();

@@ -157,6 +157,10 @@
                                 <button mat-icon-button color="primary" (click)="ViewOrr(loan)">
                                     <mat-icon class="text-green" style="margin-left: 5px;" title="View Loan">visibility</mat-icon>
                                 </button>
+                                <button  mat-icon-button *ngIf="checkMap(loan)" color="primary"
+                                         (click)="viewMap(loan)">
+                                    <mat-icon title="view location of loan">location_on</mat-icon>
+                                </button>
                             </mat-cell>
                         </ng-container>
 

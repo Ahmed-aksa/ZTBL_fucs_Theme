@@ -107,6 +107,8 @@ export class CreateLoanComponent implements OnInit {
 
     onTabChangeClick($event) {
         if ($event.index == 3) {
+
+            this.securityComponent.getLoanSecurities();
             this.securityComponent.getCustomerLand();
         }
         if ($event.index == 4) {

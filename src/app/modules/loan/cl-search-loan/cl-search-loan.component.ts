@@ -16,6 +16,8 @@ import {LoanService} from 'app/shared/services/loan.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -75,7 +77,8 @@ export class ClSearchLoanComponent implements OnInit {
         private _lovService: LovService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private dialog: MatDialog
     ) {
         this.Math = Math;
     }
@@ -205,7 +208,7 @@ export class ClSearchLoanComponent implements OnInit {
     }
 
     CheckEditStatus(loan) {
-        
+
         if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
             return true
         } else {
@@ -219,6 +222,28 @@ export class ClSearchLoanComponent implements OnInit {
                 {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo}],
             {relativeTo: this.activatedRoute}
         );
+    }
+
+    checkMap(data) {
+        if (data?.Lat?.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    viewMap(data) {
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+        });
     }
 
 }

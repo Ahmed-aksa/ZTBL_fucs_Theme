@@ -1,4 +1,5 @@
 export class Loan {
+    Securities:LoanSecurities
     ApplicationHeader: LoanApplicationHeader
     LoanApplicationpurpose: LoanApplicationPurpose
     CustomersLoanLands: CustomersLoanLand[] = [];

@@ -117,7 +117,6 @@ export class ClLegalHeirsComponent implements OnInit {
                     })
                 ).subscribe(baseResponse => {
                 if (baseResponse.Success===true) {
-                    debugger
                     this.legalHeirsArray = baseResponse.Loan.LoanApplicationLegalHeirsList;
                     this._cdf.detectChanges();
                 }

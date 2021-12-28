@@ -106,7 +106,7 @@ export class ClSecuritiesComponent implements OnInit {
     }
     newARR=[];
     onChang(custLand,i){
-        
+
         if(custLand.IsAttached==true){
             return
         }
@@ -174,42 +174,69 @@ export class ClSecuritiesComponent implements OnInit {
 
   loadAppSecuritiesDataOnUpdate(appSecuritiesData) {
 
-
-    this.editLoanSecuritiesArray = appSecuritiesData
-
-
-
-    var tempCustomerArray: SecuritiesGrid[] = [];
-    if (appSecuritiesData.length != 0) {
-    appSecuritiesData.forEach(function (item, key) {
-
-      var grid = new SecuritiesGrid();
-
-      grid.EnteredBy = item.EnteredBy
-      grid.CollTypeID = item.CollTypeID;
-      grid.QuantityUnit = item.QuantityUnit;
-      grid.Remarks = item.Remarks;
-      grid.BasisofMutation = item.BasisofMutation;
-      grid.AppSecurityID = item.AppSecurityID;
-      grid.LoanAppID = item.LoanAppID;
-      grid.UnitPrice = item.UnitPrice;
-      grid.PludgedValue = item.PludgedValue;
-      grid.MaxCreditLimit = item.MaxCreditLimit;
-      grid.Quantity = item.Quantity;
-      grid.EnteredDate = item.EnteredDate;
-      grid.SecurityType = item.SecurityType;
-      grid.SecurityTypeName = item.SecurityTypeName;
-      grid.OrgUnitID = item.OrgUnitID;
-      tempCustomerArray.push(grid);
-
-
-    });
-    }
-
-    this.loanSecuritiesArray = tempCustomerArray;
+this.getLoanSecurities();
+    // this.editLoanSecuritiesArray = appSecuritiesData
+    //
+    //
+    //
+    // var tempCustomerArray: SecuritiesGrid[] = [];
+    // if (appSecuritiesData.length != 0) {
+    // appSecuritiesData.forEach(function (item, key) {
+    //
+    //   var grid = new SecuritiesGrid();
+    //
+    //   grid.EnteredBy = item.EnteredBy
+    //   grid.CollTypeID = item.CollTypeID;
+    //   grid.QuantityUnit = item.QuantityUnit;
+    //   grid.Remarks = item.Remarks;
+    //   grid.BasisofMutation = item.BasisofMutation;
+    //   grid.AppSecurityID = item.AppSecurityID;
+    //   grid.LoanAppID = item.LoanAppID;
+    //   grid.UnitPrice = item.UnitPrice;
+    //   grid.PludgedValue = item.PludgedValue;
+    //   grid.MaxCreditLimit = item.MaxCreditLimit;
+    //   grid.Quantity = item.Quantity;
+    //   grid.EnteredDate = item.EnteredDate;
+    //   grid.SecurityType = item.SecurityType;
+    //   grid.SecurityTypeName = item.SecurityTypeName;
+    //   grid.OrgUnitID = item.OrgUnitID;
+    //   tempCustomerArray.push(grid);
+    //
+    //
+    // });
+    // }
+    //
+    // this.loanSecuritiesArray = tempCustomerArray;
   }
 
-  getCustomerLand() {
+    getLoanSecurities(){
+        if (this.loanDetail == null || this.loanDetail == undefined) {
+            // this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
+            return;
+        }
+
+        this.spinner.show();
+
+        this._loanService.getLoanSecurities(this.loanDetail.ApplicationHeader.LoanAppID)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success===true) {
+                debugger
+                this.loanSecuritiesArray = baseResponse.Loan.LoanSecuritiesList;
+                this._cdf.detectChanges();
+            }
+            else{
+                this.loanSecuritiesArray=[];
+            }
+            // this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+
+        });
+    }
+
+    getCustomerLand() {
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
       return;
@@ -272,7 +299,7 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   onSaveLoanSecurities() {
-        
+
 
     if (this.loanDetail == null || this.loanDetail == undefined) {
       this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
@@ -306,7 +333,7 @@ export class ClSecuritiesComponent implements OnInit {
     if(this.LoanSecuritiesForm.controls["AppSecurityID"].value>0){
         this.loanSecurities.AppSecurityID=this.LoanSecuritiesForm.controls["AppSecurityID"].value;
     }
-    
+
     this.loanSecurities.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
     //this.loanSecurities.LoanAppID = 0;
     this.loanSecurities.BasisofMutation = "PIU";
@@ -379,7 +406,7 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   showUpdateSecuritiesForm(loan) {
-        
+
         this.LoanSecuritiesForm.controls["Quantity"].setValue(loan.Quantity);
         this.LoanSecuritiesForm.controls["UnitPrice"].setValue(loan.UnitPrice);
         this.loanSecurities.MaxCreditLimit = loan?.MaxCreditLimit;
