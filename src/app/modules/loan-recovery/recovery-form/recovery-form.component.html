@@ -18,13 +18,13 @@
         </div> -->
     </div>
     <!-- Header -->
-    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden " style="flex-direction: column;">
+    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden " style="flex-direction: column; ">
         <form [formGroup]="RecoveryForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="kt-portlet__body">
                     <div class="row">
                         <div [class]="!accountDetailFetched?'col-lg-12 p-0':'col-lg-8 p-0'">
-                            <div class="flex pl-2 pt-1" style="flex-wrap: wrap;" id="pagelist">
+                            <div class="flex pl-2 pt-1" style="flex-wrap: wrap; place-content: flex-start;">
 
                                 <app-zone-branch-circle [form]="RecoveryForm" [should_show_circle]="false"
                                                         (branchZoneCircleData)="getAllData($event)"
