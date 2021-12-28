@@ -41,7 +41,7 @@
                                 <mat-label class="customMatLabel">Days</mat-label>
                                 <mat-select formControlName="days">
                                     <mat-option *ngFor="let lov of daysLov" [value]="lov.Value">
-                                        {{lov.description}}
+                                        {{lov.Name}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
