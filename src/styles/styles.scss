@@ -843,3 +843,11 @@ table{
         }
     }
 }
+body.light .mat-cell, body.light .mat-footer-cell, body .light .mat-cell, body .light .mat-footer-cell {
+    font-size: 12px;
+}
+.mat-sort-header-container{
+    .mat-sort-header-content{
+        text-align: left;
+    }
+}
