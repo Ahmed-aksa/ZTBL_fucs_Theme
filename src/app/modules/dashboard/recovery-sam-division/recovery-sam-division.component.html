@@ -18,13 +18,13 @@
 
         </form>
     </div>
-    <div class="flex flex-auto overflow-x-hidden overflow-y-scroll">
+    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
 
         <!-- Products list -->
-        <div class="flex flex-inline overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
+
             <div class="row pb-4">
                 <div class="col-lg-6">
-                    <div class="shadow-sm border">
+                    <div class=" border">
                         <div id="chart" *ngIf="chartOptions1" class=" mt-0 py-3 shadow-sm border">
                             <apx-chart [series]="chartOptions1?.series" [chart]="chartOptions1?.chart"
                                 [labels]="chartOptions1?.labels" [title]="chartOptions1?.title"
@@ -34,7 +34,7 @@
 
                 </div>
                 <div class="col-lg-6">
-                    <div class="shadow-sm border">
+                    <div class=" border">
                         <div id="chart" *ngIf="chartOptions2" class=" mt-0 py-3 shadow-sm border">
                             <apx-chart [series]="chartOptions2?.series" [chart]="chartOptions2?.chart"
                                 [labels]="chartOptions2?.labels" [title]="chartOptions2?.title"
@@ -43,15 +43,18 @@
                     </div>
 
                 </div>
-                <div class="col-lg-6 py-3">
-                    <div class="shadow-sm border pt-2" *ngIf="CreditCeiling" >
-                            <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
-                            <app-pyramid-chart [item]="CreditCeiling">
+          </div>
+          <div class="row">
+            <div class="col-lg-6 py-3">
+                <div class="shadow-sm border pt-2" *ngIf="CreditCeiling" >
+                        <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
+                        <app-pyramid-chart [item]="CreditCeiling">
 
-                            </app-pyramid-chart>
+                        </app-pyramid-chart>
 
-                    </div>
-                </div>            </div>
+                </div>
+            </div>  
+          </div>
             <div class="row">
                 <div class="col-lg-6 table-responsive">
                     <table class="table table-striped">
@@ -116,6 +119,6 @@
                     </table>
                 </div>
             </div>
-        </div>
+
     </div>
 </div>

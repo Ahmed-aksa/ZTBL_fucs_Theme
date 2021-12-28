@@ -30,7 +30,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./fa-view-circle-wise.component.scss']
 })
 export class FaViewCircleWiseComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle', 'Dob', 'Ndd', 'MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'descr', 'OtherCharges'];
+    displayedColumns = ['GL','Zone', 'Branch', 'Circle', 'Ndd', 'PD','CD','Lcno', 'Cnic', 'Caste','Name', 'FatherName', 'Address', 'Bcl', 'Los', 'descr', 'OtherCharges'];
     searchCnicForm: FormGroup;
     loaded = true;
 

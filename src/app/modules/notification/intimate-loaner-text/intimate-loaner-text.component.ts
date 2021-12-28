@@ -14,7 +14,7 @@ import {finalize} from "rxjs/operators";
   styleUrls: ['./intimate-loaner-text.component.scss']
 })
 export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Cnic', 'Name', 'FatherName', 'Lcno', 'Los', 'MajorBorrower', 'Ndd','Address', 'Sl', 'Tsa'];
+    displayedColumns = ['GL','Cnic', 'Name', 'FatherName', 'Lcno', 'Los', 'Ndd','Address', 'Sl', 'Tsa', 'Tda'];
     loaded = true;
     matTableLenght = false;
     loading = false;

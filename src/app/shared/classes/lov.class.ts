@@ -116,6 +116,7 @@ export class LovConfigurationKey {
     public static readonly InsReportCriteria: string = 'InsReportCriteria';
     public static readonly ExpenseDropDown: string = 'ExpenseDropDown';
     public static readonly StatementOfAffairRpt: string = 'StatementOfAffairRpt';
+    public static readonly EarlyWarningDays: string = 'EarlyWarningDays';
 
 
 }
