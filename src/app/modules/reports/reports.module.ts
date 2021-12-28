@@ -130,13 +130,17 @@ const routing = [
         component: ReschedulementOfLoanComponent
     },
     {
-        path: 'get-customer-legal-heir',
+        path: 'get-customer-legal-heirs',
         component: GetCustomerLegalHeirsComponent
     },
     {
         path: 'customer-cwr',
         component: CustomerCwrComponent
-    }
+    },
+    {
+        path: 'gl-move',
+        component: GlMoveComponent
+    },
 ]
 
 
