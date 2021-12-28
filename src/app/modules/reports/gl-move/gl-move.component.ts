@@ -240,8 +240,36 @@ export class GlMoveComponent implements OnInit {
         })
     }
 
+    controlReset(){
+        this.bufricationForm.controls['GLCode'].setValue(null)
+        this.bufricationForm.controls['ToDate'].setValue(null)
+        this.bufricationForm.controls['FromDate'].setValue(null)
 
-    find() {
+        this.reports.ToDate = null
+        this.reports.FromDate = null
+        this.reports.GLCode = null
+    }
+
+
+
+
+    find(toFrom:boolean) {
+
+        if(toFrom == true){
+            this.bufricationForm.controls['GLCode'].setValidators(Validators.required)
+            this.bufricationForm.controls['GLCode'].updateValueAndValidity()
+            this.bufricationForm.controls['ToDate'].setValidators(Validators.required)
+            this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+            this.bufricationForm.controls['FromDate'].setValidators(Validators.required)
+            this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+        }else{
+            this.bufricationForm.controls['GLCode'].clearValidators()
+            this.bufricationForm.controls['GLCode'].updateValueAndValidity()
+            this.bufricationForm.controls['ToDate'].clearValidators()
+            this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+            this.bufricationForm.controls['FromDate'].clearValidators()
+            this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+        }
 
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
@@ -254,10 +282,15 @@ export class GlMoveComponent implements OnInit {
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "9";
-        var myWorkingDate = this.bufricationForm.controls.WorkingDate.value, toDate= this.bufricationForm.controls.ToDate.value, fromDate= this.bufricationForm.controls.FromDate.value;
+        var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
-        this.reports.FromDate = this.datePipe.transform(fromDate, 'ddMMyyyy')
-        this.reports.ToDate = this.datePipe.transform(toDate, 'ddMMyyyy')
+
+        if(toFrom == true){
+            var toDate= this.bufricationForm.controls.ToDate.value, fromDate= this.bufricationForm.controls.FromDate.value;
+            this.reports.FromDate = this.datePipe.transform(fromDate, 'ddMMyyyy')
+            this.reports.ToDate = this.datePipe.transform(toDate, 'ddMMyyyy')
+        }
+
         this.spinner.show();
         this._reports.reportDynamic(this.reports)
             .pipe(
@@ -269,6 +302,7 @@ export class GlMoveComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
+                    this.controlReset();
                     window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);

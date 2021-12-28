@@ -32,7 +32,7 @@
                                 <div class="flex" style="flex-wrap: wrap;">
                                     <app-zone-branch-circle [form]="bufricationForm" [should_show_circle]="false"
                                                             [is_required_circle]="false"
-                                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                                                            (branchZoneCircleData)="getAllData($event)" [should_filter]="false"></app-zone-branch-circle>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -66,6 +66,14 @@
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
+                                    </div>
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <button class="bg-gray-500" mat-raised-button color="primary" (click)="find(false)"
+                                                type="button">
+                                            <mat-icon class="mr-2">search</mat-icon>
+                                            Find
+                                        </button>
                                     </div>
 
                                 </div>
@@ -105,7 +113,7 @@
                                 </div>
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <button class="bg-gray-500" mat-raised-button color="primary" (click)="find()"
+                                    <button class="bg-gray-500" mat-raised-button color="primary" (click)="find(true)"
                                             type="button">
                                         <mat-icon class="mr-2">search</mat-icon>
                                         Find
