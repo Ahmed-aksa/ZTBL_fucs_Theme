@@ -817,6 +817,7 @@ img {
 }
 .apexcharts-legend.position-bottom.apexcharts-align-left, .apexcharts-legend.position-top.apexcharts-align-left, .apexcharts-legend.position-right, .apexcharts-legend.position-left {
     width: 180px;
+    overflow: scroll;
     .apexcharts-legend-series{
         display: flex;
         .apexcharts-legend-marker{
@@ -851,3 +852,35 @@ body.light .mat-cell, body.light .mat-footer-cell, body .light .mat-cell, body .
         text-align: left;
     }
 }
+.sidenav-section{
+.fuse-vertical-navigation-item-wrapper{
+    .fuse-vertical-navigation-item{
+        .mat-icon{
+            color: #ECBD00;
+        }
+    }
+}
+}
+.sidenav-section{
+    .fuse-vertical-navigation-item-wrapper{
+        .fuse-vertical-navigation-item-active{
+            .mat-icon{
+                color: white;
+            }
+        }
+    }
+    }
+
+    .sidenav-section{
+        .fuse-vertical-navigation-item-wrapper{
+            .fuse-vertical-navigation-item{
+                .icon-size-4{
+                    color: white;
+                }
+            }
+        }
+        }
+        fuse-vertical-navigation-aside-item .fuse-vertical-navigation-item-wrapper .fuse-vertical-navigation-item .fuse-vertical-navigation-item-icon, fuse-vertical-navigation-basic-item .fuse-vertical-navigation-item-wrapper .fuse-vertical-navigation-item .fuse-vertical-navigation-item-icon, fuse-vertical-navigation-collapsable-item .fuse-vertical-navigation-item-wrapper .fuse-vertical-navigation-item .fuse-vertical-navigation-item-icon, fuse-vertical-navigation-group-item .fuse-vertical-navigation-item-wrapper .fuse-vertical-navigation-item .fuse-vertical-navigation-item-icon {
+
+            opacity: 1 !important;
+        }
