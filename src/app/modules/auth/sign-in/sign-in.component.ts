@@ -48,13 +48,11 @@ export class AuthSignInComponent implements OnInit {
         if (this.signInForm.invalid) {
             return;
         }
-
         this.signInForm.disable();
         this.showAlert = false;
-
-
         var loginMode = this.signInForm.value;
         loginMode['App'] = 1;
+
         this._authService.signIn(loginMode)
             .subscribe((result) => {
                     if (result.Success) {
@@ -70,15 +68,16 @@ export class AuthSignInComponent implements OnInit {
                             //this._router.navigateByUrl(redirectURL);
                             window.location.reload();
                         } else if (result.isWebOTPEnabled) {
-
                             const dialogRef = this.dialog.open(OtpComponent, {
                                 data: {result},
                                 disableClose: true,
                                 panelClass: ['max-w-full', 'max-h-full', 'sm:w-3/12', 'w-full'],
                             });
+
                             dialogRef.afterClosed().subscribe(res => {
+                                debugger;
                                 if (res.data.data.Success) {
-                                    if (res.data.data.Token && res.data.data.RefreshToken) {
+                                    if (res.data.data.Token) {
                                         localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));
                                         localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
                                         localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
