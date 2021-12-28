@@ -87,7 +87,7 @@
             >
                 <ng-container matColumnDef="Cnic">
                     <mat-header-cell *matHeaderCellDef
-                    >CNIC
+                    >Legal Heirs CNIC
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -95,23 +95,23 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Credit">
+                <ng-container matColumnDef="Name">
                     <mat-header-cell *matHeaderCellDef
-                    >Credit Limit
+                    >Customer Name
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.CreditLimit
+                        report.CustomerName
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Mortage">
+                <ng-container matColumnDef="Passbook">
                     <mat-header-cell *matHeaderCellDef
-                    >Mortage Property
+                    >Passbook #
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.MortageProperty
+                        report.PassbookNo
                         }}</mat-cell>
                 </ng-container>
 

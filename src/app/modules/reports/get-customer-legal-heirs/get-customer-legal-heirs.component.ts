@@ -18,7 +18,7 @@ import {finalize} from "rxjs/operators";
   styleUrls: ['./get-customer-legal-heirs.component.scss']
 })
 export class GetCustomerLegalHeirsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Cnic','Credit', 'Mortage', 'Mutation', 'Occupation', 'Date'];
+    displayedColumns = ['Cnic','Name', 'Passbook', 'Mutation', 'Occupation', 'Date'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
