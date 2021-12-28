@@ -11,7 +11,7 @@
 >
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">Get SAM Npl Loans For Notification</div>
+            <div class="heading">Defaulters For Recovery Re-Payment (SAM & NPL)</div>
         </div>
     </div>
 
@@ -34,6 +34,16 @@
                 matSortDirection="asc"
                 matSortDisableClear
             >
+                <ng-container matColumnDef="GL">
+                    <mat-header-cell *matHeaderCellDef
+                    >GL Code
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.GlCode
+                        }}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="Zone">
                     <mat-header-cell *matHeaderCellDef
                     >Zone Name
@@ -85,19 +95,9 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="MajorBorrower">
-                    <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let notification">{{
-                        notification.MajorBorrower
-                        }}</mat-cell>
-                </ng-container>
-
                 <ng-container matColumnDef="Sl">
                     <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
+                    >Sanction Limit
                     </mat-header-cell
                     >
                     <mat-cell class="text-center" *matCellDef="let notification">{{
@@ -107,7 +107,7 @@
 
                 <ng-container matColumnDef="Ndd">
                     <mat-header-cell *matHeaderCellDef
-                    >Next Due Date
+                    >Due Date
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{
@@ -143,6 +143,16 @@
                     >
                     <mat-cell *matCellDef="let notification">{{
                         notification.LoanOutstanding
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Tda">
+                    <mat-header-cell *matHeaderCellDef
+                    >Total Due Amount
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.TotalDueAmount
                         }}</mat-cell>
                 </ng-container>
 
