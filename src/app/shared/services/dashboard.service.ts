@@ -85,7 +85,14 @@ export class DashboardService {
                         }
                     }
                 }
-            ]
+            ],
+            noData: {
+                text: "There's no data",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0
+              }
         };
     }
 

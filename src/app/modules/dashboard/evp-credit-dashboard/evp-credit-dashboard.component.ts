@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
     ApexChart,
+    ApexNoData,
     ApexNonAxisChartSeries,
     ApexResponsive,
     ApexTheme,
@@ -17,6 +18,7 @@ export type ChartOptions = {
     labels: any;
     theme: ApexTheme;
     title: ApexTitleSubtitle;
+    noData: ApexNoData;
 };
 
 @Component({
