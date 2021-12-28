@@ -9,15 +9,24 @@ import {ReportsService} from "../service/reports.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
-import {Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
+import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
 
 @Component({
-  selector: 'app-gl-move',
-  templateUrl: './gl-move.component.html',
-  styleUrls: ['./gl-move.component.scss']
+    selector: 'app-gl-move',
+    templateUrl: './gl-move.component.html',
+    styleUrls: ['./gl-move.component.scss'],
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ],
 })
+
 export class GlMoveComponent implements OnInit {
 
     bufricationForm: FormGroup;
@@ -56,7 +65,6 @@ export class GlMoveComponent implements OnInit {
     user: any = {}
 
     constructor(
-        private dialogRef: MatDialogRef<GlMoveComponent>,
         private fb: FormBuilder,
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
@@ -80,7 +88,6 @@ export class GlMoveComponent implements OnInit {
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
-        this.typeLov();
         this.bufricationForm.controls["ReportFormatType"].setValue(this.select ? this.select[0].Value : "");
 
         //this.bufricationForm.controls["WorkingDate"].setValue(this.LoggedInUserInfo.Branch.WorkingDate);
@@ -99,11 +106,6 @@ export class GlMoveComponent implements OnInit {
         }
     }
 
-    async typeLov() {
-        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.DailyVoucherStatus});
-        this.statusLov = this.statusLov.LOVs;
-        this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-    }
 
     isEnableWorkingDate() {
         var workingDate = this.bufricationForm.controls.WorkingDate.value;
@@ -145,6 +147,88 @@ export class GlMoveComponent implements OnInit {
         }
     }
 
+    isEnableToDate() {
+        var toDate = this.bufricationForm.controls.ToDate.value;
+        if (toDate._isAMomentObject == undefined) {
+            try {
+                var day = this.bufricationForm.controls.ToDate.value.getDate();
+                var month = this.bufricationForm.controls.ToDate.value.getMonth() + 1;
+                var year = this.bufricationForm.controls.ToDate.value.getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                const branchToDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.ToDate.setValue(branchToDate);
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                var day = this.bufricationForm.controls.ToDate.value.toDate().getDate();
+                var month = this.bufricationForm.controls.ToDate.value.toDate().getMonth() + 1;
+                var year = this.bufricationForm.controls.ToDate.value.toDate().getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                toDate = day + "" + month + "" + year;
+
+
+                const branchToDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.ToDate.setValue(branchToDate);
+            } catch (e) {
+
+            }
+        }
+    }
+
+    isEnableFromDate() {
+        var toDate = this.bufricationForm.controls.FromDate.value;
+        if (toDate._isAMomentObject == undefined) {
+            try {
+                var day = this.bufricationForm.controls.FromDate.value.getDate();
+                var month = this.bufricationForm.controls.FromDate.value.getMonth() + 1;
+                var year = this.bufricationForm.controls.FromDate.value.getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                const branchToDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.FromDate.setValue(branchToDate);
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                var day = this.bufricationForm.controls.FromDate.value.toDate().getDate();
+                var month = this.bufricationForm.controls.FromDate.value.toDate().getMonth() + 1;
+                var year = this.bufricationForm.controls.FromDate.value.toDate().getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                toDate = day + "" + month + "" + year;
+
+
+                const branchToDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.FromDate.setValue(branchToDate);
+            } catch (e) {
+
+            }
+        }
+    }
+
+
+
 
     createForm() {
         this.bufricationForm = this.fb.group({
@@ -156,8 +240,36 @@ export class GlMoveComponent implements OnInit {
         })
     }
 
+    controlReset(){
+        this.bufricationForm.controls['GLCode'].setValue(null)
+        this.bufricationForm.controls['ToDate'].setValue(null)
+        this.bufricationForm.controls['FromDate'].setValue(null)
 
-    find() {
+        this.reports.ToDate = null
+        this.reports.FromDate = null
+        this.reports.GLCode = null
+    }
+
+
+
+
+    find(toFrom:boolean) {
+
+        if(toFrom == true){
+            this.bufricationForm.controls['GLCode'].setValidators(Validators.required)
+            this.bufricationForm.controls['GLCode'].updateValueAndValidity()
+            this.bufricationForm.controls['ToDate'].setValidators(Validators.required)
+            this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+            this.bufricationForm.controls['FromDate'].setValidators(Validators.required)
+            this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+        }else{
+            this.bufricationForm.controls['GLCode'].clearValidators()
+            this.bufricationForm.controls['GLCode'].updateValueAndValidity()
+            this.bufricationForm.controls['ToDate'].clearValidators()
+            this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+            this.bufricationForm.controls['FromDate'].clearValidators()
+            this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+        }
 
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
@@ -169,9 +281,15 @@ export class GlMoveComponent implements OnInit {
         this.user.Circle = this.circle;
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
-        this.reports.ReportsNo = "5";
+        this.reports.ReportsNo = "9";
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
+
+        if(toFrom == true){
+            var toDate= this.bufricationForm.controls.ToDate.value, fromDate= this.bufricationForm.controls.FromDate.value;
+            this.reports.FromDate = this.datePipe.transform(fromDate, 'ddMMyyyy')
+            this.reports.ToDate = this.datePipe.transform(toDate, 'ddMMyyyy')
+        }
 
         this.spinner.show();
         this._reports.reportDynamic(this.reports)
@@ -184,6 +302,7 @@ export class GlMoveComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
+                    this.controlReset();
                     window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
@@ -195,10 +314,6 @@ export class GlMoveComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = null;
-    }
-
-    close(res) {
-        this.dialogRef.close(res)
     }
 
 

@@ -85,19 +85,19 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="MajorBorrower">
+                <ng-container matColumnDef="Kks">
                     <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
+                    >KKS Markup
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{
-                        notification.MajorBorrower
+                        notification.KksMarkup
                         }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Sl">
                     <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
+                    >Sanction Limit
                     </mat-header-cell
                     >
                     <mat-cell class="text-center" *matCellDef="let notification">{{
@@ -107,7 +107,7 @@
 
                 <ng-container matColumnDef="Ndd">
                     <mat-header-cell *matHeaderCellDef
-                    >Next Due Date
+                    >Due Date
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{

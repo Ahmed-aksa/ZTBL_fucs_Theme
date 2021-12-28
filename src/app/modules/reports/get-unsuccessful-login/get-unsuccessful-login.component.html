@@ -11,7 +11,7 @@
 >
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">Get Unsuccessful Login</div>
+            <div class="heading">Unsuccessful Login</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
@@ -87,11 +87,21 @@
             >
                 <ng-container matColumnDef="PPNO">
                     <mat-header-cell *matHeaderCellDef
-                    >Zone Name
+                    >PPNO
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
                         report.PPNo
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Zone">
+                    <mat-header-cell *matHeaderCellDef
+                    >Zone Name
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.ZoneName
                         }}</mat-cell>
                 </ng-container>
 
@@ -135,13 +145,23 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="PrevLogin">
+                <ng-container matColumnDef="IP">
                     <mat-header-cell *matHeaderCellDef
-                    >Prev Login Attempts
+                    >IP Address
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.PrevLoginAttempts
+                        report.IpAddress
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Date">
+                    <mat-header-cell *matHeaderCellDef
+                    >Date/Time
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.DateTime
                         }}</mat-cell>
                 </ng-container>
 

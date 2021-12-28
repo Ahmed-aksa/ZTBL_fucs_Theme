@@ -31,13 +31,15 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./early-warning-reports.component.scss']
 })
 export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch', 'Circle', 'Dob', 'Ndd', 'MajorBorrower', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los', 'descr', 'OtherCharges'];
+    displayedColumns = ['GL','Zone', 'Branch', 'Circle','Ndd', 'DueAmount', 'Lcno', 'Cnic', 'PD','CD', 'Caste','Name', 'FatherName', 'Address', 'Los', 'descr', 'OtherCharges'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
 
     matTableLenght = false;
     loading = false;
+
+    daysLov;
 
     itemsPerPage = 10;
     pageIndex = 1;
@@ -69,11 +71,12 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
     ) {
     }
 
+
     ngOnInit(): void {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm()
-        // this.typeLov();
+        this.dayLov();
 
     }
 
@@ -83,6 +86,11 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
         })
     }
 
+    async dayLov(){
+        this.daysLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.EarlyWarningDays});
+        this.daysLov = this.daysLov.LOVs;
+        console.log(this.daysLov)
+    }
 
     find() {
 
@@ -147,4 +155,9 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
 
 interface searchLoanCasesByCnic {
     LcNo: string;
+}
+
+export interface Selection {
+    Value: string;
+    description: string;
 }

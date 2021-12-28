@@ -39,8 +39,11 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">Days</mat-label>
-                                <input matInput placeholder="Enter No of Days" formControlName="days"
-                                       appNumberOnly maxlength="5" autocomplete="off"/>
+                                <mat-select formControlName="days">
+                                    <mat-option *ngFor="let lov of daysLov" [value]="lov.Value">
+                                        {{lov.Name}}
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
@@ -84,6 +87,16 @@
                 matSortDirection="asc"
                 matSortDisableClear
             >
+                <ng-container matColumnDef="GL">
+                    <mat-header-cell *matHeaderCellDef
+                    >GL Code
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.GlCode
+                        }}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="Zone">
                     <mat-header-cell *matHeaderCellDef
                     >Zone Name
@@ -114,19 +127,9 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Dob">
-                    <mat-header-cell *matHeaderCellDef
-                    >Date of Birth
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.DOB
-                        }}</mat-cell>
-                </ng-container>
-
                 <ng-container matColumnDef="Ndd">
                     <mat-header-cell *matHeaderCellDef
-                    >Next Due Date
+                    >Due Date
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -134,13 +137,43 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="MajorBorrower">
+                <ng-container matColumnDef="DueAmount">
                     <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
+                    >Due Amount
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.MajorBorrower
+                        report.DueAmount
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="PD">
+                    <mat-header-cell *matHeaderCellDef
+                    >Past Due
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.PastDueAmount
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="CD">
+                    <mat-header-cell *matHeaderCellDef
+                    >Current Due
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.CurrentDueAmount
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Caste">
+                    <mat-header-cell *matHeaderCellDef
+                    >Caste
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Cast
                         }}</mat-cell>
                 </ng-container>
 
@@ -192,16 +225,6 @@
                     >
                     <mat-cell class="text-center" *matCellDef="let report">{{
                         report.MajorBorrower
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="Bcl">
-                    <mat-header-cell *matHeaderCellDef
-                    >Borrower Credit Limit
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.SanctionLimit
                         }}</mat-cell>
                 </ng-container>
 

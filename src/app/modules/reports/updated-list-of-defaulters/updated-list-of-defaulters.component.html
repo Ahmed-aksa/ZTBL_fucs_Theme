@@ -77,6 +77,16 @@
                 matSortDisableClear
                 id="map_canvas"
             >
+                <ng-container matColumnDef="GL">
+                    <mat-header-cell *matHeaderCellDef
+                    >GL Code
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.GlCode
+                        }}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="Zone">
                     <mat-header-cell *matHeaderCellDef
                     >Zone Name
@@ -107,19 +117,19 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Dob">
-                    <mat-header-cell *matHeaderCellDef
-                    >Date of Birth
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.DOB
-                        }}</mat-cell>
-                </ng-container>
+<!--                <ng-container matColumnDef="Dob">-->
+<!--                    <mat-header-cell *matHeaderCellDef-->
+<!--                    >Date of Birth-->
+<!--                    </mat-header-cell-->
+<!--                    >-->
+<!--                    <mat-cell *matCellDef="let report">{{-->
+<!--                        report.DOB-->
+<!--                        }}</mat-cell>-->
+<!--                </ng-container>-->
 
                 <ng-container matColumnDef="Ndd">
                     <mat-header-cell *matHeaderCellDef
-                    >Next Due Date
+                    >Due Date
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -127,15 +137,46 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="MajorBorrower">
+                <ng-container matColumnDef="DueAmount">
                     <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
+                    >Due Amount
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.MajorBorrower
+                        report.DueAmount
                         }}</mat-cell>
                 </ng-container>
+
+                <ng-container matColumnDef="PD">
+                    <mat-header-cell *matHeaderCellDef
+                    >Past Due
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.PastDueAmount
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="CD">
+                    <mat-header-cell *matHeaderCellDef
+                    >Current Due
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.CurrentDueAmount
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="KKS">
+                    <mat-header-cell *matHeaderCellDef
+                    >KKS Markup
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.KksMarkup
+                        }}</mat-cell>
+                </ng-container>
+
 
 
                 <ng-container matColumnDef="Lcno">
@@ -152,6 +193,16 @@
                     <mat-header-cell style="min-width: 120px;" *matHeaderCellDef>CNIC</mat-header-cell>
                     <mat-cell style="min-width: 120px;" *matCellDef="let report">{{
                         report.Cnic
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Caste">
+                    <mat-header-cell *matHeaderCellDef
+                    >Caste
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Cast
                         }}</mat-cell>
                 </ng-container>
 

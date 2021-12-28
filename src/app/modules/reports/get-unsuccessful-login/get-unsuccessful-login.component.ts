@@ -19,7 +19,7 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./get-unsuccessful-login.component.scss']
 })
 export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['PPNO', 'Branch', 'Employee', 'EmployeeGroup', 'EmployeeLocation', 'PrevLogin'];
+    displayedColumns = ['PPNO', 'Zone','Branch', 'Employee', 'EmployeeGroup', 'EmployeeLocation', 'IP', 'Date'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
