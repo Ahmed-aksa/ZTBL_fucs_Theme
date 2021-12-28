@@ -40,7 +40,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="50" appAlphabetOnly formControlName="FullName"/>
+                                            <input matInput maxlength="25" appAlphabetOnly formControlName="FullName"/>
                                             <mat-hint class="text-red-500" *ngIf="hasError('FullName', 'required') && isSubmittedPersonalSuretiesForm" >Full Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
@@ -98,7 +98,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="8" appNumberOnly formControlName="AssetValue"/>
+                                            <input matInput maxlength="9" appNumberOnly formControlName="AssetValue"/>
                                             <mat-hint class="text-red-500" *ngIf="hasError('AssetValue', 'required') && isSubmittedPersonalSuretiesForm" >Asset Value
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
@@ -106,7 +106,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="8" appNumberOnly formControlName="PresentDues"/>
+                                            <input matInput maxlength="9" appNumberOnly formControlName="PresentDues"/>
                                             <mat-hint class="text-red-500" *ngIf="hasError('PresentDues', 'required') && isSubmittedPersonalSuretiesForm" >Present Dues
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
@@ -115,7 +115,7 @@
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid"
                                                         appearance="outline">
-                                            <input matInput appNumberOnly formControlName="NetValue" maxlength="8"/>
+                                            <input matInput appNumberOnly formControlName="NetValue" maxlength="9"/>
                                             <mat-hint class="text-red-500" *ngIf="hasError('NetValue', 'required') && isSubmittedPersonalSuretiesForm" >Net Value
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
@@ -141,7 +141,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        </div>    
+                        </div>
                             <div class="form-group kt-form__group row mt-3 pr-0">
                                 <div class="col-lg-12  pr-0">
                                     <div class="table-responsive">
@@ -250,9 +250,9 @@
 
                                     </td>
                                     <td>
-                                        
-                                        
-                                        
+
+
+
                                         <div class="flex">
                                             <button  type="button" class=" mr-3 flex  font-bold  items-center"
                                                  color="primary" (click)="onSaveCorporateSuretiesForm()">
@@ -352,7 +352,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="50" appAlphabetOnly formControlName="Name"/>
+                                            <input matInput maxlength="25" appAlphabetOnly formControlName="Name"/>
                                             <mat-hint class="text-red-500" *ngIf="hasErrorLoanRefrencesForm('Name', 'required') && isSubmittedLoanRefrencesForm" >Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
@@ -394,7 +394,7 @@
 
                                     </td>
                                     <td>
-                                        
+
                                         <div class="flex">
                                             <button  type="button" class=" mr-3 flex  font-bold  items-center"
                                                  color="primary" (click)="onSaveLoanRefrencesForm()">
@@ -450,8 +450,8 @@
                                                         <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
                                                         Edit
                                                      </button>
-                                                    
-                                                
+
+
                                                    </td>
                                             </tr>
                                             </tbody>
@@ -501,7 +501,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput maxlength="50" formControlName="WitnessName"/>
+                                            <input matInput maxlength="25" formControlName="WitnessName"/>
                                             <mat-hint class="text-red-500" *ngIf="hasErrorLoanWitnessForm('WitnessName', 'required') && isSubmittedLoanWitnessForm" >Witness Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
@@ -516,7 +516,7 @@
 
                                     </td>
                                     <td>
-                                        
+
                                         <div class="flex">
                                             <button  type="button" class=" mr-3 flex  font-bold  items-center"
                                                  color="primary" (click)="onSaveLoanWitnessForm()">
@@ -557,7 +557,7 @@
 
 
                                                 <td>
-                                                    
+
                                                     <button  type="button" class="flex  font-bold  items-center"
                                                     color="primary" (click)="onEditLoanWitnessArray(loan)">
                                                     <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
@@ -605,7 +605,7 @@
                                 <tr>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput max="50" formControlName="BankName"/>
+                                            <input matInput maxlength="50" formControlName="BankName"/>
                                             <mat-hint class="text-red-500" *ngIf="hasErrorLoanPastPaidForm('BankName', 'required') && isSubmittedLoanPastPaidForm" >Bank Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
@@ -613,7 +613,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput max="7" appNumberOnly formControlName="AmountToPaid"/>
+                                            <input matInput maxlength="7" appNumberOnly formControlName="AmountToPaid"/>
                                         </mat-form-field>
                                     </td>
                                     <td>
@@ -685,7 +685,7 @@
 
 
                                                 <td>
-                                                    
+
                                                     <button  type="button" class="flex  font-bold  items-center"
                                                     color="primary"  (click)="onEditLoanPastPaidArray(loan)">
                                                     <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
@@ -746,7 +746,7 @@
                                     </td>
                                     <td>
                                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
-                                            <input matInput max="50" formControlName="BankName"/>
+                                            <input matInput maxlength="50" formControlName="BankName"/>
                                             <mat-hint class="text-red-500" *ngIf="hasErrorCurrentLoansForm('BankName', 'required') && isSubmittedCurrentLoansForm" >Bank Name
                                                 <strong>required</strong></mat-hint>
                                         </mat-form-field>
@@ -882,8 +882,8 @@
                                                     Edit
                                                  </button>
 
-                                                
-                                                
+
+
                                                 </td>
                                             </tr>
                                             </tbody>
