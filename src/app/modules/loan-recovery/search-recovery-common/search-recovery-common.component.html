@@ -426,6 +426,10 @@
                             </mat-icon>
                         </button
                         >
+                            <button  mat-icon-button *ngIf="checkMap(transaction)" color="primary"
+                                     (click)="viewMap(transaction)">
+                                <mat-icon title="view location of loan">location_on</mat-icon>
+                            </button>
                     </div>
                     </td>
                 </tr>

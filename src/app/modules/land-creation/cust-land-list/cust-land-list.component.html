@@ -211,6 +211,10 @@
                                 (click)="editland(land)">
                             <mat-icon style="color:#01671B !important;" title="View land">visibility</mat-icon>
                         </button>
+                        <button  mat-icon-button *ngIf="checkMap(land)" color="primary"
+                                 (click)="viewMap(land)">
+                            <mat-icon title="view location of loan">location_on</mat-icon>
+                        </button>
                     </mat-cell>
                 </ng-container>
 

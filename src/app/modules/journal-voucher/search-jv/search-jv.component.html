@@ -169,6 +169,10 @@
                                 (click)="editJv(jvocher)">
                             <mat-icon class="text-green" style="margin-left: 2px;" title="View jv">visibility</mat-icon>
                         </button>
+                        <button  mat-icon-button *ngIf="checkMap(jvocher)" color="primary"
+                                 (click)="viewMap(jvocher)">
+                            <mat-icon title="view location of loan">location_on</mat-icon>
+                        </button>
                     </mat-cell>
                 </ng-container>
 

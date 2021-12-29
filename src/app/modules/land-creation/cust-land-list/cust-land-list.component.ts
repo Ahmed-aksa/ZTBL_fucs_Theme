@@ -21,6 +21,7 @@ import {CustomerLandRelation} from 'app/shared/models/customer-land-relation.mod
 import {Branch} from 'app/shared/models/branch.model';
 import {Zone} from 'app/shared/models/zone.model';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 @Component({
     selector: 'app-cust-land-list',
@@ -489,6 +490,32 @@ export class CustLandListComponent implements OnInit {
 
         // this.ngxService.stop();
 
+    }
+
+    checkMap(data) {
+        if (data?.Lat?.length > 0) {
+            if(data.Lat=="0.0"){
+                return false;
+            }else{
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    viewMap(data) {
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+        });
     }
 
 }

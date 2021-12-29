@@ -31,6 +31,7 @@ import {
     SubProposalGLModel
 } from 'app/shared/models/recovery.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 @Component({
     selector: 'kt-search-recovery-common',
@@ -377,6 +378,31 @@ export class SearchRecoveryCommonComponent implements OnInit {
         else if (this.SearchType == 4)
             return "Search SBS Pending Transaction";
     }
+    checkMap(data) {
+        if (data?.Lat?.length > 0) {
+            if(data.Lat=="0.0"){
+                return false;
+            }else{
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    viewMap(data) {
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+        });
+    }
 
     hasError(controlName: string, errorName: string): boolean {
         return this.RecoveryForm.controls[controlName].hasError(errorName);
@@ -394,7 +420,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
     }
 
     showReceipt(transaction) {
-    
+
         var transactionID = transaction.TransactionID, DisbursementID = transaction.DisbursementID,
             BranchWorkingDate = transaction.BranchWorkingDate, receiptId = transaction.ReceiptId;
 
@@ -408,10 +434,10 @@ export class SearchRecoveryCommonComponent implements OnInit {
         };
 
         const dialogRef = this.dialog.open(LoanReceiptComponent, {
-            panelClass: ['w-5/12'], 
+            panelClass: ['w-5/12'],
             disableClose: true, data: receipt});
         dialogRef.afterClosed().subscribe(res => {
-           
+
         });
     }
 
