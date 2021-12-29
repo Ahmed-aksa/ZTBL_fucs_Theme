@@ -65,6 +65,21 @@
   }
 }
 
+.dash-ttab{
+  .mat-tab-label-active{
+    height: 31px !important;
+      width: 100%;
+  }
+  .mat-tab-label{
+    height: 31px !important;
+    width: 100%;
+    border:1px solid #01671B;
+  }
+  .mat-tab-label-container{
+    margin-bottom: 0.5rem !important;
+  }
+}
+
 .dash-tab{
 
 .mat-tab-labels{
@@ -73,16 +88,4 @@
 }
 }
 
-}
-.mat-tab-label-active{
-  height: 31px !important;
-    width: 100%;
-}
-.mat-tab-label{
-  height: 31px !important;
-  width: 100%;
-  border:1px solid #01671B;
-}
-.mat-tab-label-container{
-  margin-bottom: 0.5rem !important;
 }
