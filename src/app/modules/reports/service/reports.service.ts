@@ -75,7 +75,7 @@ export class ReportsService {
         }
 
         let request = null;
-        if (reportsFilter.ReportsNo == '20' || reportsFilter.ReportsNo == '19' || reportsFilter.ReportsNo == '17' || reportsFilter.ReportsNo == '16') {
+        if (reportsFilter.ReportsNo == '20' || reportsFilter.ReportsNo == '19' || reportsFilter.ReportsNo == '17' || reportsFilter.ReportsNo == '18') {
             request = {
                 ReportsFilterCustom: reportsFilter,
                 User: user.User,

@@ -31,8 +31,8 @@
         <div class="card card-body">
             <div class="py-1" [formGroup]="searchCnicForm">
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="true"
-                                            [is_required_circle]="true"
+                    <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="false"
+                                            [is_required_circle]="false"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
 
@@ -77,7 +77,7 @@
             <!--[style.height]="gridHeight"-->
             <mat-table
                 class="lmat-elevation-z8 overflow-scroll"
-                [style.height]="gridHeight"
+
                 #table
                 [dataSource]="
                     dataSource
@@ -87,6 +87,7 @@
                 matSortActive="id"
                 matSortDirection="asc"
                 matSortDisableClear
+                id="map_canvas"
             >
                 <ng-container matColumnDef="GL">
                     <mat-header-cell *matHeaderCellDef
@@ -203,9 +204,13 @@
 
                 <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-                    <mat-cell *matCellDef="let report">{{
+                    <mat-cell *matCellDef="let report">
+                        <div style="width:200px; word-wrap: break-word;text-overflow: ellipsis; white-space: pre-wrap;">
+                        {{
                         report.PermanetAddress
-                        }}</mat-cell>
+                        }}
+                    </div>
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Agps">

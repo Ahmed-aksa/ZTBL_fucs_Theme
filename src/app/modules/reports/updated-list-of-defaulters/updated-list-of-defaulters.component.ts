@@ -145,7 +145,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
 
     ngAfterViewInit() {
 
-        this.gridHeight = window.innerHeight - 300 + 'px';
+        this.gridHeight = window.innerHeight - 100 + 'px';
 
         //var userInfo = this.userUtilsService.getUserDetails();
         //this.loanutilizationSearch.controls['Zone'].setValue(userInfo.Zone.ZoneName);

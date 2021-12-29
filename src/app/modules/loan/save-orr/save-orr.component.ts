@@ -7,6 +7,8 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LoanService} from 'app/shared/services/loan.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {CalculateDbrComponent} from "../calculate-dbr/calculate-dbr.component";
 
 @Component({
     selector: 'kt-save-orr',
@@ -243,6 +245,25 @@ export class SaveOrrComponent implements OnInit {
         }
     }
 
+    calculateDBR() {
+let data={
+    LnTransactionID:  this.LnTransactionID,
+    Lcno: this.Lcno
+};
+        const dialogRef = this.dialog.open(CalculateDbrComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+        });
+    }
+
+
     Submit() {
 
         if (this.Orrapplied === false) {
@@ -279,11 +300,11 @@ export class SaveOrrComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    this.router.navigate(
-                        ['../calculte-dbr',
-                            { LnTransactionID: this.LnTransactionID, Lcno: this.Lcno,Flag:"1" }],
-                        { relativeTo: this.activatedRoute }
-                    );
+                    // this.router.navigate(
+                    //     ['../calculte-dbr',
+                    //         { LnTransactionID: this.LnTransactionID, Lcno: this.Lcno,Flag:"1" }],
+                    //     { relativeTo: this.activatedRoute }
+                    // );
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);

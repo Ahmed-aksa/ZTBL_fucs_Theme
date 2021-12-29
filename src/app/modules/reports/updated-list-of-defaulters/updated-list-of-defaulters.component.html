@@ -64,7 +64,7 @@
         <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " >
             <!--[style.height]="gridHeight"-->
             <mat-table
-                class="lmat-elevation-z8 overflow-scroll"
+                class="lmat-elevation-z8 overflow-scroll dis-table"
                 #table
 
                 [dataSource]="
@@ -224,9 +224,13 @@
 
                 <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-                    <mat-cell *matCellDef="let report">{{
+                    <mat-cell *matCellDef="let report">
+                        
+                        <div style="width:200px; word-wrap: break-word;     text-overflow: ellipsis;
+                        white-space: pre-wrap;">{{
                         report.PermanetAddress
-                        }}</mat-cell>
+                        }}
+                    </div></mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Agps">
