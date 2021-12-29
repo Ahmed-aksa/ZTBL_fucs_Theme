@@ -20,6 +20,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SetTargetService} from "./set-target/Services/set-target.service";
 import {SharedModule} from "../../shared/shared.module";
+import { ViewTargetComponent } from './view-target/view-target.component';
 
 const routing = [
     {
@@ -38,6 +39,10 @@ const routing = [
         path: "create-tour-diary-zc",
         component: TourDairyZcComponent,
     },
+    {
+        path: "view-target",
+        component: ViewTargetComponent,
+    }
 ];
 
 
@@ -49,6 +54,7 @@ const routing = [
         TourDairyZcComponent,
         TourDairyZmComponent,
         ViewFileComponent,
+        ViewTargetComponent,
     ],
     imports: [
         CommonModule,

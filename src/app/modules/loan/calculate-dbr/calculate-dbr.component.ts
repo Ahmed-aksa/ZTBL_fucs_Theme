@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LoanDbr, SearchLoanDbr} from 'app/shared/models/Loan.model';
@@ -15,6 +15,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
     styleUrls: ['./calculate-dbr.component.scss']
 })
 export class CalculateDbrComponent implements OnInit {
+    @Input() public checkk: string;
     dataSource = new LoanDbr();
     public LnTransactionID: string;
     public Lcno: string;
@@ -34,8 +35,13 @@ export class CalculateDbrComponent implements OnInit {
     }
 
     ngOnInit() {
+        debugger
+
        this.createForm()
         this.Flag = this.route.snapshot.params['Flag'];
+        if(this.checkk=="1"){
+            this.Flag=1;
+        }
        if(this.Flag==1){
            this.isReadOnly=false;
        }
