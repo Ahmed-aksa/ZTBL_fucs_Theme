@@ -31,8 +31,8 @@
         <div class="card card-body">
             <div class="py-1" [formGroup]="searchCnicForm">
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="true"
-                                            [is_required_circle]="true"
+                    <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="false"
+                                            [is_required_circle]="false"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
 

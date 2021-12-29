@@ -79,7 +79,7 @@
                                 <mat-icon title="View">map</mat-icon>
                             </button>
                             <button mat-icon-button color="primary" (click)="editGeofencing(circle)"
-                                    *ngIf="!circle.HasFence && _currentActivity.C">
+                                    *ngIf="!circle.HasFence && _currentActivity?.C">
                                 <mat-icon title="Add">add</mat-icon>
                             </button>
                         </mat-cell>

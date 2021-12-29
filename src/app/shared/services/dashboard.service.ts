@@ -53,11 +53,17 @@ export class DashboardService {
     }
 
     assignKeys(data: any, title): Partial<ChartOptions> {
+        debugger;
         var obj = [];
         (Object.values(data)).forEach(x => {
             obj.push(Number(x));
 
-        })
+        });
+    //    let key =[];
+    //     (Object.keys(data)).forEach(x => {
+    //         debugger;
+    //         key.push(x);
+    //     });
         return {
             series: obj,
             chart: {
