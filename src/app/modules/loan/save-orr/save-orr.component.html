@@ -289,8 +289,167 @@
                             <div   class="row" >
                                 <div class="col-lg-12">
 
-                                    <kt-calculate-dbr [checkk]="'1'"></kt-calculate-dbr>
-                                </div>
+<!--                                    <kt-calculate-dbr [checkk]="'1'"></kt-calculate-dbr>-->
+                                    <div [formGroup]="DBRForm"
+                                         class=" flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+                                        <div class="heading">Calculate DBR</div>
+                                        <!-- Header -->
+
+                                        <!-- Main -->
+                                        <div class="flex flex-auto overflow-y-scroll" >
+
+                                            <!-- Products list -->
+                                            <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
+                                                <div class="flex flex-col flex-auto sm:mb-6 overflow-x-hidden sm:overflow-y-auto">
+<!--                                                    <div class="form-group kt-form__group row" *ngIf="ApplicationHeader">-->
+<!--                                                        <div class="col-lg-12">-->
+<!--                                                            &lt;!&ndash;            <h3 class="heading">sam</h3>&ndash;&gt;-->
+<!--                                                            <div class="table-responsive">-->
+<!--                                                                <table class="table table-striped">-->
+<!--                                                                    <thead>-->
+<!--                                                                    <tr class="table-header-background">-->
+<!--                                                                        <th>Branch</th>-->
+<!--                                                                        <th>Circle</th>-->
+<!--                                                                        <th>LC #</th>-->
+<!--                                                                        <th>LC Auto#</th>-->
+<!--                                                                        <th>LA File/Booklet#</th>-->
+<!--                                                                        <th>Application Date</th>-->
+<!--                                                                        <th>Status</th>-->
+<!--                                                                        <th>Status (Post Sanction)</th>-->
+<!--                                                                        <th>Dev Amount</th>-->
+<!--                                                                        <th>Prod Amount</th>-->
+<!--                                                                        <th>DEPOSIT ACC#</th>-->
+<!--                                                                        <th>Sanction Date</th>-->
+<!--                                                                    </tr>-->
+<!--                                                                    </thead>-->
+<!--                                                                    <tbody>-->
+<!--                                                                    <tr>-->
+<!--                                                                        <td>{{ApplicationHeader?.BranchName}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.CircleCode}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.LoanCaseNo}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.LoanAutoNo}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.AppNumberManual}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.AppDate}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.StatusName}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.StatusNamePS}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.DevAmount}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.ProdAmount}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.AccountNo}}</td>-->
+<!--                                                                        <td>{{ApplicationHeader?.SanctionDate}}</td>-->
+<!--                                                                    </tr>-->
+<!--                                                                    </tbody>-->
+<!--                                                                </table>-->
+<!--                                                            </div>-->
+
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+                                                    <div class="kt-portlet__head-label pt-3">
+                                                        <h5 class="sub-heading">Salary/Income from Different Sources:</h5>
+                                                    </div>
+                                                    <table class="table table-striped  border shadow-xs rounded-sm bg-gray-50">
+                                                        <thead>
+                                                        <tr class="table-header-background">
+                                                            <th class="col-lg-9">Item Name</th>
+                                                            <th class="col-lg-3">Amount</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr *ngFor="let item of dataSourcee.DBRIncomeList">
+                                                            <td class="col-lg-9">{{item.ItemName}}</td>
+                                                            <td class="col-lg-3">
+                                                                <form class="kt-form kt-form--group-seperator-dashed">
+                                                                    <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                                                        <mat-label class="customMatLabel"> {{item.ItemName}} <strong
+                                                                            class="matMandatory">* </strong></mat-label>
+                                                                        <input [readonly]="isReadOnly" matInput (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{item.ItemName}} + '"
+                                                                               id="{{item.ID}}" value="{{item.Value}}" (keydown)="onIncomeChange($event)" (keyup)="onIncomeChange($event)"
+                                                                               autocomplete="off"/>
+                                                                    </mat-form-field>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <div class="kt-portlet__head-label pt-3">
+                                                        <h5 class="sub-heading">Loan/Liabilities:</h5>
+                                                    </div>
+
+                                                    <table class="table table-striped  border shadow-xs rounded-sm bg-gray-50">
+                                                        <thead>
+                                                        <tr class="table-header-background">
+                                                            <th class="col-lg-9">Item Name</th>
+                                                            <th class="col-lg-3">Amount</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <!--<form class="kt-form kt-form--group-seperator-dashed">-->
+                                                        <tr *ngFor="let liab of dataSourcee.DBRLiabilitiesList">
+                                                            <td class="col-lg-9">{{liab.ItemName}}</td>
+                                                            <td class="col-lg-3">
+                                                                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                                                    <mat-label class="customMatLabel"> {{liab.ItemName}} <strong
+                                                                        class="matMandatory">* </strong></mat-label>
+                                                                    <input matInput [readonly]="isReadOnly" (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{liab.ItemName}} + '"
+                                                                           id="{{liab.ID}}" value="{{liab.Value}}"  (keydown)="onLiabChange($event)" (keyup)="onLiabChange($event)"
+                                                                           autocomplete="off"/>
+                                                                </mat-form-field>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="flex">
+                                                        <div class="mx-2">
+                                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                                    <mat-label class="customMatLabel">Total Debts/Liabilities</mat-label>
+                                                                    <input matInput readonly appNumberOnly formControlName="Liabilites"
+                                                                           maxlength="13" autocomplete="off"/>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mx-2">
+                                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                                    <mat-label class="customMatLabel">Total Income</mat-label>
+                                                                    <input matInput readonly appNumberOnly formControlName="Income"
+                                                                           maxlength="13" autocomplete="off"/>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mx-2">
+                                                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                                    <mat-label class="customMatLabel">DBR</mat-label>
+                                                                    <input matInput readonly appNumberOnly formControlName="DBR"
+                                                                           maxlength="13" autocomplete="off"/>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+<!--                                                    <div class="row">-->
+<!--                                                        <div class="col-lg-12 mt-1p ml-1p mb-1p">-->
+<!--                                                            <button type="button" *ngIf="!isReadOnly" (click)="saveLoanDbr()" class="btn btn-primary bg-green" mat-raised-button-->
+<!--                                                                    color="primary">-->
+<!--                                                                <mat-icon class="mr-2">save</mat-icon>-->
+<!--                                                                Save & Submit DBR-->
+<!--                                                            </button>-->
+<!--                                                            <button *ngIf="!isReadOnly" type="button"-->
+<!--                                                                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"-->
+<!--                                                                    mat-raised-button color="danger">-->
+<!--                                                                <mat-icon class="mr-2">cancel</mat-icon>-->
+<!--                                                                Close-->
+<!--                                                            </button>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                         <div>
@@ -311,26 +470,32 @@
 
     </div>
     <div *ngIf="showFinalOrrTable" class="secondPage row">
-        <div class="col-lg-12 col-sm-12">
-        </div>
+
     </div>
-    <div class="form-group kt-form__group mb-2 row">
-        <div class="col-lg-12 kt-margin-bottom-20-mobile">
-            <button class="bg-green" mat-raised-button color="primary" (click)="SaveOrSubmit()" [disabled]="submitted">
-                <mat-icon class="mr-2">save</mat-icon>
-                {{showFinalOrrTable ? "Apply ORR & Next" : "Save"}}</button>
-<!--            *ngIf="submitArray?.length>0"-->
-            <button  mat-raised-button color="primary" class="ml-2" (click)="togglePage()"
-                    [disabled]="submitted">
-                <mat-icon>navigate_next</mat-icon>
-                {{showFinalOrrTable ? "Back" : "Next"}}</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span id="llcInquiryText" class="cursor-pointer" (click)="goToPendingList()"><b>Pending List</b></span>
-            <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
-        </div>
-    </div>
+
 </div>
 
 
 
 
 
+    <div class="form-group kt-form__group mb-2 row">
+        <div class="col-lg-12 kt-margin-bottom-20-mobile">
+            <button type="button" *ngIf="showFinalOrrTable" (click)="saveLoanDbr()" class="mr-2 btn btn-primary bg-green" mat-raised-button
+                    color="primary">
+                <mat-icon class="mr-2">save</mat-icon>
+                Save & Submit DBR
+            </button>
+            <button class="bg-green" mat-raised-button color="primary" (click)="SaveOrSubmit()" [disabled]="submitted">
+                <mat-icon class="mr-2">save</mat-icon>
+                {{showFinalOrrTable ? "Submit" : "Save"}}</button>
+            <!--            *ngIf="submitArray?.length>0"-->
+
+            <button  mat-raised-button color="primary" class="ml-2" (click)="togglePage()"
+                     [disabled]="submitted">
+                <mat-icon>navigate_next</mat-icon>
+                {{showFinalOrrTable ? "Back" : "Next"}}</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span id="llcInquiryText" class="cursor-pointer" (click)="goToPendingList()"><b>Pending List</b></span>
+            <!--<button mat-raised-button color="primary" class="ml-2">Delete</button>-->
+        </div>
+    </div>
