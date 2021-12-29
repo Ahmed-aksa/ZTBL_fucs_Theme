@@ -226,7 +226,11 @@ export class ClSearchLoanComponent implements OnInit {
 
     checkMap(data) {
         if (data?.Lat?.length > 0) {
-            return true;
+            if(data.Lat=="0.0"){
+                return false;
+            }else{
+                return true;
+            }
         } else {
             return false;
         }

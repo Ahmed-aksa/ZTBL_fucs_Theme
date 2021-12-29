@@ -24,6 +24,7 @@ import {CommonService} from "../../../shared/services/common.service";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {ToastrService} from "ngx-toastr";
+import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 
 @Component({
     selector: 'app-search-jv',
@@ -368,6 +369,32 @@ export class SearchJvComponent implements OnInit {
     clearForm() {
 
         this.JvSearchForm.reset();
+    }
+
+    checkMap(data) {
+        if (data?.Lat?.length > 0) {
+            if(data.Lat=="0.0"){
+                return false;
+            }else{
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    viewMap(data) {
+        const dialogRef = this.dialog.open(ViewMapsComponent, {
+            panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
+            width: '100%',
+            data: data,
+            disableClose: true
+        });
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+        });
     }
 }
 
