@@ -817,7 +817,7 @@ img {
 }
 .apexcharts-legend.position-bottom.apexcharts-align-left, .apexcharts-legend.position-top.apexcharts-align-left, .apexcharts-legend.position-right, .apexcharts-legend.position-left {
     width: 180px;
-    overflow: scroll;
+    overflow: hidden;
     .apexcharts-legend-series{
         display: flex;
         .apexcharts-legend-marker{
