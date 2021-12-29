@@ -129,6 +129,7 @@ export class ClUploadDocumentComponent implements OnInit {
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
+        this.getLoanDocument()
 
         // if (localStorage.getItem('loan_case_number')) {
         //     this.PostDocument.value.LcNo = localStorage.getItem('loan_case_number');
