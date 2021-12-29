@@ -202,7 +202,7 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         }
 
         this.spinner.show();
-        this._reports.reportDynamic(this.reports, this.zone, this.branch)
+        this._reports.reportDynamic(this.reports, this.zone, this.branch, this.circle)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
