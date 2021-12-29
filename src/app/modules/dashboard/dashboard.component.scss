@@ -89,3 +89,24 @@
 }
 
 }
+
+
+// .apexcharts-legend{
+//   overflow: hidden;
+// }
+
+.apexcharts-legend,
+.apexcharts-canvas:hover,
+.apexcharts-canvas:focus {
+overflow-x: hidden;
+overflow-y: scroll;
+}
+
+.apexcharts-align-center{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.apexcharts-align-center:hover{
+  overflow: scroll;
+}
