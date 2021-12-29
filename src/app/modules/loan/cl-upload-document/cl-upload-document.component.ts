@@ -129,8 +129,6 @@ export class ClUploadDocumentComponent implements OnInit {
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
-        this.getLoanDocument()
-
         // if (localStorage.getItem('loan_case_number')) {
         //     this.PostDocument.value.LcNo = localStorage.getItem('loan_case_number');
         //     localStorage.removeItem('loan_case_number');
@@ -534,6 +532,9 @@ export class ClUploadDocumentComponent implements OnInit {
             this.PostDocument.controls['LcNo'].setValue(localStorage.getItem('loan_case_number'));
             this.loanAppID = localStorage.getItem('loan_app_id');
             this.refDepositAccount = localStorage.getItem('loan_ref_deposit');
+
+            this.getLoanDocument()
+
 
             localStorage.removeItem('loan_case_number');
             localStorage.removeItem('loan_app_id');
