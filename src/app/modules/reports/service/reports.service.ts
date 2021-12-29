@@ -54,11 +54,20 @@ export class ReportsService {
     }
 
     reportDynamic(reportsFilter, zone = null, branch = null, circle = null) {
-
         let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         let final_zone = null;
         let final_branch = null;
         let final_circle = null;
+        var circles, circleIds=[];
+
+        if(user.UserCircleMappings){
+            user.UserCircleMappings.forEach(element=>{
+                circleIds.push(element.CircleId)
+            })
+            circles = circleIds.toString();
+        }else{
+            circles ='';
+        }
         //let reqReportNumber = reportsFilter.ReportsNo;
 
 
@@ -75,7 +84,7 @@ export class ReportsService {
         }
 
         let request = null;
-        if (reportsFilter.ReportsNo == '20' || reportsFilter.ReportsNo == '19' || reportsFilter.ReportsNo == '17' || reportsFilter.ReportsNo == '18') {
+        if (reportsFilter.ReportsNo == '20' || reportsFilter.ReportsNo == '19' || reportsFilter.ReportsNo == '17') {
             request = {
                 ReportsFilterCustom: reportsFilter,
                 User: user.User,
@@ -83,9 +92,34 @@ export class ReportsService {
                 Branch: final_branch,
                 Circle: {
                     CircleCode: circle.CircleId,
-                    CircleId: circle.CircleCode
+                    CircleId: circle.CircleCode,
+                    CircleIds: circles
                 }
             }
+        }
+
+        else if (reportsFilter.ReportsNo == '18') {
+            if(circle != null){
+                request = {
+                    ReportsFilterCustom: reportsFilter,
+                    User: user.User,
+                    Zone: final_zone,
+                    Branch: final_branch,
+                    Circle: {
+                        CircleCode: circle.CircleId,
+                        CircleId: circle.CircleCode,
+                        CircleIds: circles
+                    }
+                }
+            }else{
+                request = {
+                    ReportsFilterCustom: reportsFilter,
+                    User: user.User,
+                    Zone: final_zone,
+                    Branch: final_branch
+                }
+            }
+
         }
 
         else if (reportsFilter.ReportsNo == '24') {

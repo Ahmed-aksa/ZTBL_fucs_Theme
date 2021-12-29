@@ -76,6 +76,16 @@
                 matSortDirection="asc"
                 matSortDisableClear
             >
+                <ng-container matColumnDef="GL">
+                    <mat-header-cell *matHeaderCellDef
+                    >GL Code
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.GlCode
+                        }}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="Zone">
                     <mat-header-cell *matHeaderCellDef
                     >Zone Name
@@ -106,13 +116,23 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Dob">
+                <ng-container matColumnDef="PD">
                     <mat-header-cell *matHeaderCellDef
-                    >Date of Birth
+                    >Past Due
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.DOB
+                        report.PastDueAmount
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="CD">
+                    <mat-header-cell *matHeaderCellDef
+                    >Current Due
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.CurrentDueAmount
                         }}</mat-cell>
                 </ng-container>
 
@@ -123,16 +143,6 @@
                     >
                     <mat-cell *matCellDef="let report">{{
                         report.NextDueDate
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="MajorBorrower">
-                    <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.MajorBorrower
                         }}</mat-cell>
                 </ng-container>
 
