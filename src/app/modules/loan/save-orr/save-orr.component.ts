@@ -90,6 +90,16 @@ export class SaveOrrComponent implements OnInit {
     }
 
     saveLoanDbr() {
+        if (this.Orrapplied === false) {
+            var Message = 'Please check ORR Applied before submitting';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
         this.spinner.show();
         let loanDBR;
         let tranId = 0;
