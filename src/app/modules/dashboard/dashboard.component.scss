@@ -65,6 +65,21 @@
   }
 }
 
+.dash-ttab{
+  .mat-tab-label-active{
+    height: 31px !important;
+      width: 100%;
+  }
+  .mat-tab-label{
+    height: 31px !important;
+    width: 100%;
+    border:1px solid #01671B;
+  }
+  .mat-tab-label-container{
+    margin-bottom: 0.5rem !important;
+  }
+}
+
 .dash-tab{
 
 .mat-tab-labels{
@@ -74,15 +89,24 @@
 }
 
 }
-.mat-tab-label-active{
-  height: 31px !important;
-    width: 100%;
+
+
+// .apexcharts-legend{
+//   overflow: hidden;
+// }
+
+.apexcharts-legend,
+.apexcharts-canvas:hover,
+.apexcharts-canvas:focus {
+overflow-x: hidden;
+overflow-y: scroll;
 }
-.mat-tab-label{
-  height: 31px !important;
-  width: 100%;
-  border:1px solid #01671B;
+
+.apexcharts-align-center{
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
-.mat-tab-label-container{
-  margin-bottom: 0.5rem !important;
+
+.apexcharts-align-center:hover{
+  overflow: scroll;
 }
