@@ -189,7 +189,7 @@ export class OrrListComponent implements OnInit {
     ApplyOrr(updateLoan) {
         this.router.navigate(
             ['../save-orr',
-                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo}],
+                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo,Flag:"1"}],
             {relativeTo: this.activatedRoute}
         );
     }
