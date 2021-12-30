@@ -107,16 +107,6 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Circle">
-                    <mat-header-cell *matHeaderCellDef
-                    >Circle Code
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.CircleId
-                        }}</mat-cell>
-                </ng-container>
-
 <!--                <ng-container matColumnDef="Dob">-->
 <!--                    <mat-header-cell *matHeaderCellDef-->
 <!--                    >Date of Birth-->
@@ -137,19 +127,9 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="DueAmount">
-                    <mat-header-cell *matHeaderCellDef
-                    >Due Amount
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.DueAmount
-                        }}</mat-cell>
-                </ng-container>
-
                 <ng-container matColumnDef="PD">
                     <mat-header-cell *matHeaderCellDef
-                    >Past Due
+                    >Past Dues
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -159,7 +139,7 @@
 
                 <ng-container matColumnDef="CD">
                     <mat-header-cell *matHeaderCellDef
-                    >Current Due
+                    >Current Dues
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -169,7 +149,7 @@
 
                 <ng-container matColumnDef="KKS">
                     <mat-header-cell *matHeaderCellDef
-                    >KKS Markup
+                    >Markup
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -225,7 +205,7 @@
                 <ng-container matColumnDef="Address">
                     <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
                     <mat-cell *matCellDef="let report">
-                        
+
                         <div style="width:200px; word-wrap: break-word;     text-overflow: ellipsis;
                         white-space: pre-wrap;">{{
                         report.PermanetAddress
@@ -233,54 +213,13 @@
                     </div></mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Agps">
-                    <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
-                    </mat-header-cell
-                    >
-                    <mat-cell class="text-center" *matCellDef="let report">{{
-                        report.MajorBorrower
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="Bcl">
-                    <mat-header-cell *matHeaderCellDef
-                    >Borrower Credit Limit
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.SanctionLimit
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="descr">
-                    <mat-header-cell *matHeaderCellDef
-                    >DESCR
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.DESCR
-                        }}</mat-cell>
-                </ng-container>
-
-
                 <ng-container matColumnDef="Los">
                     <mat-header-cell *matHeaderCellDef
-                    >loan Outstanding
+                    >Outstanding Loan
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
                         report.LoanOutStanding
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="OtherCharges">
-                    <mat-header-cell *matHeaderCellDef
-                    >Other Charges
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report?.OtherCharges
                         }}</mat-cell>
                 </ng-container>
 
@@ -299,7 +238,8 @@
             </div>
 
             <!-- <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">
-                Items per page:
+                        <span class="font-bold text-green">Items per page:</span>
+
                 <mat-select
                     display="inline"
                     [(value)]="itemsPerPage"

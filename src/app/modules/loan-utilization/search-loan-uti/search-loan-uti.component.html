@@ -108,7 +108,7 @@
         <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 overflow-auto"
              style="flex-direction: column;">
             <div class="flex flex-col flex-auto  overflow-auto" [style.height]="gridHeight">
-                <mat-table class="lmat-elevation-z8"
+                <mat-table
                            #table
                            [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
                            matSort
@@ -245,9 +245,10 @@
         </div>
 
     </div>
-    <div class="mat-select" style="padding:5px;">
-        Items per page:
-        <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+    <div class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
+                <span class="font-bold text-green">Items per page:</span>
+
+        <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>

@@ -259,8 +259,8 @@ export class ClLegalHeirsComponent implements OnInit {
         });
     }
 
-    onDeleteLegalHeirs(legalHeir, index) {
-
+    onDeleteLegalHeirs(ID, index) {
+debugger
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';
@@ -277,12 +277,8 @@ export class ClLegalHeirsComponent implements OnInit {
             if (this.legalHeirsArray.length == 0) {
                 return false;
             } else {
-                if (legalHeir == null || legalHeir == undefined || legalHeir == "") {
-                    this.legalHeirsArray.splice(index, 1);
-                    return true;
-                } else {
                     this.spinner.show();
-                    this._loanService.deleteLegalHeirs(legalHeir, this.legalHeirs.LoanAppID)
+                    this._loanService.deleteLegalHeirs(ID, this.legalHeirs.LoanAppID)
                         .pipe(
                             finalize(() => {
                                 this.spinner.hide();
@@ -290,18 +286,14 @@ export class ClLegalHeirsComponent implements OnInit {
                         )
                         .subscribe(baseResponse => {
                             if (baseResponse.Success === true) {
-
-                                this.legalHeirsArray.splice(index, 1);
-
+                             this.getLegalHeirs();
                                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-
+                            }
+                            else{
+                                this.layoutUtilsService.alertMessage("", baseResponse.Message)
                             }
 
                         })
-
-                }
-
-
             }
 
 
