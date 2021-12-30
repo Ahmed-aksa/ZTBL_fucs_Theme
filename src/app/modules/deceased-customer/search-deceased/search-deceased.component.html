@@ -138,7 +138,7 @@
                   <div  class="col-lg-3 col-md-3"></div>
                   <div class="col-lg-9 col-md-9">
                     <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-                              <div class="font-bold text-green">Items per page:</div>
+                              <span class="font-bold text-green">Items per page:</span>
 
                       <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)" style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
                         <mat-option [value]="5">5</mat-option>
