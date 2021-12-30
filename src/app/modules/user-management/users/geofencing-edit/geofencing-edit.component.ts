@@ -492,8 +492,8 @@ export class GeofencingEditComponent implements OnInit {
             this.circle.Radius = this.radius;
             this.circle.CenterLatitude = this.fenceCenter.lat().toString();
             this.circle.CenterLongitude = this.fenceCenter.lng().toString();
-            this.request.User = this.userUtilsService.getUserDetails();
-
+            var userinfo= this.userUtilsService.getUserDetails();
+            this.request.User = userinfo.User;
             this.request.Circle = this.circle;
             this.request.Zone = this.data.zone;
             this.request.Branch = this.data.branch;
