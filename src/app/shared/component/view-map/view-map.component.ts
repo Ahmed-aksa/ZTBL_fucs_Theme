@@ -145,8 +145,16 @@ export class ViewMapsComponent implements OnInit {
 
     ///////////////////Os Change Set Map
     onMapReady(map) {
-        this.loc_arr.push(this.data);
+        if(this.data?.Lat){
+            this.loc_arr.push(this.data);
+
+        }else if(this.data?.Latitude){
+            this.data["Lat"]= this.data.Latitude;
+            this.data["Lng"]= this.data.Longitude;
+            this.loc_arr.push(this.data);
+        }
         this.googleMap = map;
+
         //this.setCurrentLocation()
     }
 

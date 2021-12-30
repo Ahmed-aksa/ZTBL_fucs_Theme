@@ -208,7 +208,7 @@ export class ClSearchLoanComponent implements OnInit {
     }
 
     CheckEditStatus(loan) {
-        debugger
+
 if(loan.AppStatus=="4"){
     return false;
 }
@@ -228,7 +228,8 @@ if(loan.AppStatus=="4"){
     }
 
     checkMap(data) {
-        if (data?.Lat?.length > 0) {
+
+        if (data?.Latitude?.length > 0) {
             if(data.Lat=="0.0"){
                 return false;
             }else{
@@ -240,6 +241,7 @@ if(loan.AppStatus=="4"){
     }
 
     viewMap(data) {
+
         const dialogRef = this.dialog.open(ViewMapsComponent, {
             panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',
