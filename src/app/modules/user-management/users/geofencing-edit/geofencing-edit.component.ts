@@ -94,7 +94,8 @@ export class GeofencingEditComponent implements OnInit {
                 private _snackBar: MatSnackBar,
                 private layoutUtilsService: LayoutUtilsService,
                 private _circleService: CircleService,
-                private spinner: NgxSpinnerService
+                private spinner: NgxSpinnerService,
+                private userUtilsService:UserUtilsService,
     ) {
     }
 
@@ -485,13 +486,13 @@ export class GeofencingEditComponent implements OnInit {
         this.spinner.show()
         if (!this.checkForOverlapping(polygonArrayForOverlapingCheck)) {
 
-
             this.request = new BaseRequestModel();
             this.circle.GeoFancPoints = this.NewFancPoints;
             this.circle.Id = this.circle.Id;
             this.circle.Radius = this.radius;
             this.circle.CenterLatitude = this.fenceCenter.lat().toString();
             this.circle.CenterLongitude = this.fenceCenter.lng().toString();
+            this.request.User = this.userUtilsService.getUserDetails();
 
             this.request.Circle = this.circle;
             this.request.Zone = this.data.zone;
