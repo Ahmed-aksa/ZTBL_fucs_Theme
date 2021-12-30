@@ -31,7 +31,7 @@
         <div class="card card-body">
             <div class="py-1" [formGroup]="searchCnicForm">
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="false"
+                    <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="true"
                                             [is_required_circle]="false"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
@@ -119,16 +119,6 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Circle">
-                    <mat-header-cell *matHeaderCellDef
-                    >Circle Code
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.CircleId
-                        }}</mat-cell>
-                </ng-container>
-
                 <ng-container matColumnDef="Ndd">
                     <mat-header-cell *matHeaderCellDef
                     >Due Date
@@ -141,7 +131,7 @@
 
                 <ng-container matColumnDef="PD">
                     <mat-header-cell *matHeaderCellDef
-                    >Past Date
+                    >Past Dues
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -151,7 +141,7 @@
 
                 <ng-container matColumnDef="CD">
                     <mat-header-cell *matHeaderCellDef
-                    >Current Due
+                    >Current Dues
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -213,19 +203,9 @@
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Agps">
-                    <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
-                    </mat-header-cell
-                    >
-                    <mat-cell class="text-center" *matCellDef="let report">{{
-                        report.MajorBorrower
-                        }}</mat-cell>
-                </ng-container>
-
                 <ng-container matColumnDef="Bcl">
                     <mat-header-cell *matHeaderCellDef
-                    >Borrower Credit Limit
+                    >Sanction Limit
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -233,20 +213,9 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="descr">
-                    <mat-header-cell *matHeaderCellDef
-                    >DESCR
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.DESCR
-                        }}</mat-cell>
-                </ng-container>
-
-
                 <ng-container matColumnDef="Los">
                     <mat-header-cell *matHeaderCellDef
-                    >loan Outstanding
+                    >Outstanding Loan
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
@@ -279,7 +248,7 @@
             </div>
 
             <!-- <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">
-                        <div class="font-bold text-green">Items per page:</div>
+                        <span class="font-bold text-green">Items per page:</span>
 
                 <mat-select
                     display="inline"

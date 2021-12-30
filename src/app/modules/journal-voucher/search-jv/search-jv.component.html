@@ -137,6 +137,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Master</mat-header-cell>
                     <mat-cell *matCellDef="let jvocher">{{jvocher.TrDesc}}</mat-cell>
                 </ng-container>
+
 <!--                <ng-container matColumnDef="Debit">-->
 <!--                    <mat-header-cell *matHeaderCellDef mat-sort-header>Debit</mat-header-cell>-->
 <!--                    <mat-cell *matCellDef="let jvocher">{{jvocher.DrAmount}}</mat-cell>-->
@@ -148,7 +149,10 @@
 
                 <ng-container matColumnDef="Amount">
                     <mat-header-cell *matHeaderCellDef  mat-sort-header>Controlled Amount</mat-header-cell>
-                    <mat-cell *matCellDef="let jvocher">{{jvocher.ControlledAmount}}</mat-cell>
+                    <mat-cell *matCellDef="let jvocher">
+                        <span *ngIf="jvocher.CrAmount >= jvocher.DrAmount">{{jvocher.CrAmount}}</span>
+                        <span *ngIf="jvocher.DrAmount > jvocher.CrAmount">{{jvocher.DrAmount}}</span>
+                    </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Status">
@@ -192,7 +196,7 @@
     </div>
     <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
         <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-                <div class="font-bold text-green">Items per page:</div>
+                <span class="font-bold text-green">Items per page:</span>
 
         <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">

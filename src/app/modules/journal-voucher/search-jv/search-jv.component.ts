@@ -76,6 +76,7 @@ export class SearchJvComponent implements OnInit {
     JvStatuses: any;
     Nature: any;
     JVCategories: any;
+    controlledAmount;
     public LovCall = new Lov();
     public JournalVoucher = new JournalVocherData();
 
@@ -109,7 +110,7 @@ export class SearchJvComponent implements OnInit {
 
     // onselectionChange(event){
     //     debugger
-    //     if(event.value == 'S' || event.value == 'A'){
+    //     if(event.value == 'P' || event.value == 'A'){
     //         this.statusAS = true;
     //         this.displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Amount','Status', 'View'];
     //
