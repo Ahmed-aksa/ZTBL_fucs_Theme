@@ -54,7 +54,7 @@
         "cropperjs": "^1.5.12",
         "crypto": "^1.0.1",
         "crypto-browserify": "^3.12.0",
-        "crypto-js": "3.3.0",
+        "crypto-js": "^3.3.0",
         "file-saver": "^2.0.5",
         "highlight.js": "11.2.0",
         "lodash-es": "4.17.21",
