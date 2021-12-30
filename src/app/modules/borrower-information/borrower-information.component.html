@@ -127,23 +127,24 @@
             <div class="mat-table__message" *ngIf="loading">Please wait....</div> -->
 
         </div>
-        <div *ngIf="matTableLenght" class="mat-select" style="padding:5px;">
-            Items per page:
-            <mat-select display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
-                        style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-                <mat-option [value]="5">5</mat-option>
-                <mat-option [value]="10">10</mat-option>
-                <mat-option [value]="25">25</mat-option>
-                <mat-option [value]="50">50</mat-option>
-                <mat-option [value]="100">100</mat-option>
-            </mat-select>
-            <button (click)="paginate(1)">First</button>
-            <pagination-controls display="inline" (pageChange)="paginate($event)"
-                                 style="display: inline-block;"></pagination-controls>
-            <button (click)="paginate(MathCeil(totalItems/itemsPerPage))">Last</button>
-            <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
 
-        </div>
+
+    </div>
+    <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
+        <span class="font-bold text-green"> Items per page:</span>
+        <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                    style=" width: 50px; margin-left: 10px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+            <mat-option [value]="100">100</mat-option>
+        </mat-select>
+        <button (click)="paginate(1)">First</button>
+        <pagination-controls display="inline" (pageChange)="paginate($event)"
+                             style="display: inline-block;"></pagination-controls>
+        <button (click)="paginate(MathCeil(totalItems/itemsPerPage))">Last</button>
+        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
 
     </div>
 </div>
