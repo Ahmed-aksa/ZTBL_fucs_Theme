@@ -196,7 +196,7 @@ export class ClSearchLoanComponent implements OnInit {
         this.pageIndex = pageIndex;
         //this.OffSet = pageIndex;
 
-        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
+        this.dataSource = this.dv?.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage); //slice is used to get limited amount of data from APi
     }
 
     editLoan(updateLoan) {

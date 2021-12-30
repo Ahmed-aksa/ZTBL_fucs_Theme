@@ -224,7 +224,6 @@ this.getLoanSecurities();
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success===true) {
-                debugger
                 this.loanSecuritiesArray = baseResponse.Loan.LoanSecuritiesList;
                 this._cdf.detectChanges();
             }
