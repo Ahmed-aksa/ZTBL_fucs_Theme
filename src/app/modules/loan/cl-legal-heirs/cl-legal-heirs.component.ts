@@ -286,9 +286,11 @@ debugger
                         )
                         .subscribe(baseResponse => {
                             if (baseResponse.Success === true) {
-                        this.getLegalHeirs();
+                             this.getLegalHeirs();
                                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-
+                            }
+                            else{
+                                this.layoutUtilsService.alertMessage("", baseResponse.Message)
                             }
 
                         })
