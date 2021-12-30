@@ -40,7 +40,8 @@ import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.com
 export class SearchJvComponent implements OnInit {
     Math: any;
 
-    displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit','Status', 'View'];
+    //displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit','Status', 'View'];
+    displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Amount','Status', 'View'];
 
 
     branch: any;
@@ -106,19 +107,19 @@ export class SearchJvComponent implements OnInit {
         this.Math = Math;
     }
 
-    onselectionChange(event){
-        debugger
-        if(event.value == 'S' || event.value == 'A'){
-            this.statusAS = true;
-            this.displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Amount','Status', 'View'];
-
-        }
-        else{
-            this.statusAS = false;
-            this.displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit','Status', 'View'];
-
-        }
-    }
+    // onselectionChange(event){
+    //     debugger
+    //     if(event.value == 'S' || event.value == 'A'){
+    //         this.statusAS = true;
+    //         this.displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Amount','Status', 'View'];
+    //
+    //     }
+    //     else{
+    //         this.statusAS = false;
+    //         this.displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit','Status', 'View'];
+    //
+    //     }
+    // }
 
     ngOnInit() {
 
