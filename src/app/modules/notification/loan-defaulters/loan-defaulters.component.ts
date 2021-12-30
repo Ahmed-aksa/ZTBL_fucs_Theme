@@ -14,7 +14,7 @@ import {finalize} from "rxjs/operators";
   styleUrls: ['./loan-defaulters.component.scss']
 })
 export class LoanDefaultersComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['GL','Zone', 'Branch',  'Cnic', 'Name', 'FatherName', 'Address', 'kks', 'Sl', 'Ndd', 'Lcno',  'Tsa', 'Los'];
+    displayedColumns = ['GL','Zone', 'Branch',  'Cnic', 'Name', 'FatherName', 'Caste','Address', 'kks', 'Sl', 'Ndd', 'Lcno',  'Tsa', 'Los'];
     loaded = true;
     matTableLenght = false;
     loading = false;
