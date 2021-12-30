@@ -127,7 +127,7 @@
 
                 <ng-container matColumnDef="Los">
                     <mat-header-cell *matHeaderCellDef
-                    >loan Outstanding
+                    >Outstanding Loan
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{
@@ -135,15 +135,6 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Tda">
-                    <mat-header-cell *matHeaderCellDef
-                    >Total Due Amount
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let notification">{{
-                        notification.TotalDueAmount
-                        }}</mat-cell>
-                </ng-container>
 
                 <mat-header-row
                     *matHeaderRowDef="displayedColumns; sticky: true"

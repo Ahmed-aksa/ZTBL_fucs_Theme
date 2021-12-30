@@ -15,7 +15,7 @@ import {NotificationService} from "../service/notification.service";
 })
 
 export class CnicExpiryLoanerComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['gl','cnic', 'customer' ,'father', 'address', 'dob','cnicexp','pd', 'cd'];
+    displayedColumns = ['cnic', 'customer' ,'father', 'address', 'dob','cnicexp'];
     loaded = true;
     matTableLenght = false;
     loading = false;

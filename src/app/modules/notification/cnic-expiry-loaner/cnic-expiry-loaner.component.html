@@ -34,16 +34,6 @@
                 matSortDirection="asc"
                 matSortDisableClear
             >
-                <ng-container matColumnDef="gl">
-                    <mat-header-cell *matHeaderCellDef
-                    >GL Code
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let notification">{{
-                        notification.GlCode
-                        }}</mat-cell>
-                </ng-container>
-
                 <ng-container matColumnDef="cnic">
                     <mat-header-cell *matHeaderCellDef
                     >Cnic
@@ -91,26 +81,6 @@
                     >
                     <mat-cell *matCellDef="let notification">{{
                         notification.FatherName
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="pd">
-                    <mat-header-cell *matHeaderCellDef
-                    >Past Dues
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let notification">{{
-                        notification.PastDueAmount
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="cd">
-                    <mat-header-cell *matHeaderCellDef
-                    >Current Dues
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let notification">{{
-                        notification.CurrentDueAmount
                         }}</mat-cell>
                 </ng-container>
 
