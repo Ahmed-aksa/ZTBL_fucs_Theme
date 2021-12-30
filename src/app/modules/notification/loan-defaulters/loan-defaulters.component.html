@@ -34,6 +34,16 @@
                 matSortDirection="asc"
                 matSortDisableClear
             >
+                <ng-container matColumnDef="GL">
+                    <mat-header-cell *matHeaderCellDef
+                    >GL Code
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let notification">{{
+                        notification.GlCode
+                        }}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="Zone">
                     <mat-header-cell *matHeaderCellDef
                     >Zone Name
@@ -87,7 +97,7 @@
 
                 <ng-container matColumnDef="kks">
                     <mat-header-cell *matHeaderCellDef
-                    >KKS Markup
+                    >Markup
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{

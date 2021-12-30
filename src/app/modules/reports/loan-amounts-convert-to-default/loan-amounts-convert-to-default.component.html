@@ -76,15 +76,15 @@
                 matSortDirection="asc"
                 matSortDisableClear
             >
-<!--                <ng-container matColumnDef="GL">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >GL Code-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.GlCode-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+                <ng-container matColumnDef="GL">
+                    <mat-header-cell *matHeaderCellDef
+                    >GL Code
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.GlCode
+                        }}</mat-cell>
+                </ng-container>
 
                 <ng-container matColumnDef="Zone">
                     <mat-header-cell *matHeaderCellDef
@@ -106,35 +106,26 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Circle">
+
+                <ng-container matColumnDef="PD">
                     <mat-header-cell *matHeaderCellDef
-                    >Circle Code
+                    >Past Dues
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.CircleId
+                        report.PastDueAmount
                         }}</mat-cell>
                 </ng-container>
 
-<!--                <ng-container matColumnDef="PD">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Past Due-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.PastDueAmount-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
-
-<!--                <ng-container matColumnDef="CD">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Current Due-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.CurrentDueAmount-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+                <ng-container matColumnDef="CD">
+                    <mat-header-cell *matHeaderCellDef
+                    >Current Dues
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.CurrentDueAmount
+                        }}</mat-cell>
+                </ng-container>
 
                 <ng-container matColumnDef="Ndd">
                     <mat-header-cell *matHeaderCellDef
@@ -187,54 +178,13 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Agps">
-                    <mat-header-cell *matHeaderCellDef
-                    >Major Borrower
-                    </mat-header-cell
-                    >
-                    <mat-cell class="text-center" *matCellDef="let report">{{
-                        report.MajorBorrower
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="Bcl">
-                    <mat-header-cell *matHeaderCellDef
-                    >Borrower Credit Limit
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report.SanctionLimit
-                        }}</mat-cell>
-                </ng-container>
-
-<!--                <ng-container matColumnDef="descr">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >DESCR-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.DESCR-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
-
-
                 <ng-container matColumnDef="Los">
                     <mat-header-cell *matHeaderCellDef
-                    >loan Outstanding
+                    >Outstanding Loan
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
                         report.LoanOutStanding
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="OtherCharges">
-                    <mat-header-cell *matHeaderCellDef
-                    >Other Charges
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let report">{{
-                        report?.OtherCharges
                         }}</mat-cell>
                 </ng-container>
 
