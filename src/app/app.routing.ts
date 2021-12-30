@@ -4,15 +4,9 @@ import {NoAuthGuard} from 'app/core/auth/guards/noAuth.guard';
 import {LayoutComponent} from 'app/layout/layout.component';
 import {InitialDataResolver} from 'app/app.resolvers';
 
-// @formatter:off
-// tslint:disable:max-line-length
 export const appRoutes: Route[] = [
-
-    // Redirect empty path to '/example'
     {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
     {path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'dashboard'},
-
-    // Auth routes for guests
     {
         path: '',
         canActivate: [NoAuthGuard],

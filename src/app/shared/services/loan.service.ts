@@ -1178,7 +1178,6 @@ export class LoanService {
     }
 
     deleteLegalHeirs(legalId, loan) {
-
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         loanInfo.LoanApplicationLegalHeirs = new LoanApplicationLegalHeirs();

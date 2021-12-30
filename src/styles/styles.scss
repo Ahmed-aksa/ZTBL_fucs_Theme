@@ -46,6 +46,12 @@ body {
         min-width: 120px;
     }
 }
+
+.dis-table{
+    mat-header-cell{
+        min-width: 120px;
+    }
+}
 .space-between{
     justify-content: space-between;
 }
