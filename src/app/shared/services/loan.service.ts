@@ -171,7 +171,7 @@ export class LoanService {
     }
 
     getGetLegalHeirs(loanAppId) {
-        debugger
+
         this.request = new BaseRequestModel();
         this.request.Loan = new Loan();
         this.request.Loan.LoanApplicationLegalHeirs = new LoanApplicationLegalHeirs();
@@ -184,7 +184,7 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
     getLoanSecurities(loanAppId) {
-        debugger
+
         this.request = new BaseRequestModel();
         this.request.Loan = new Loan();
         this.request.Loan.LoanSecurities = new LoanSecurities();

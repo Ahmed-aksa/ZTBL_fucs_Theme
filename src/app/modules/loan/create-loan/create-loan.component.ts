@@ -90,18 +90,14 @@ export class CreateLoanComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        debugger
         this.LnTransactionID = this.route.snapshot.params['LnTransactionID'];
         this.Lcno = this.route.snapshot.params['Lcno'];
         if ((this.LnTransactionID != undefined && this.LnTransactionID != null) && (this.Lcno != undefined && this.Lcno != null)) {
             this.getLoanDetail();
-
         }
         if(!this.Lcno){
             localStorage.removeItem('customer_loan_list')
         }
-
-
     }
 
 
