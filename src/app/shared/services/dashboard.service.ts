@@ -53,24 +53,19 @@ export class DashboardService {
     }
 
     assignKeys(data: any, title): Partial<ChartOptions> {
-        debugger;
         var obj = [];
         (Object.values(data)).forEach(x => {
             obj.push(Number(x));
 
         });
-    //    let key =[];
-    //     (Object.keys(data)).forEach(x => {
-    //         debugger;
-    //         key.push(x);
-    //     });
+       
         return {
             series: obj,
             chart: {
                 width: "100%",
                 type: "pie"
             },
-            labels: Object.keys(data),
+            labels:  Object.keys(data).map(key => key=key.replace(/([a-z0-9])([A-Z])/g, '$1 $2')),
             theme: {
                 monochrome: {
                     enabled: false
