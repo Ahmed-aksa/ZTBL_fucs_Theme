@@ -208,7 +208,10 @@ export class ClSearchLoanComponent implements OnInit {
     }
 
     CheckEditStatus(loan) {
-
+        debugger
+if(loan.AppStatus=="4"){
+    return false;
+}
         if ((loan.CreatedBy == this.LoggedInUserInfo.User.UserId)) {
             return true
         } else {
