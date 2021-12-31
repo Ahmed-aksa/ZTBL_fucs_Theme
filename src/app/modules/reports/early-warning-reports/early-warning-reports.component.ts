@@ -31,7 +31,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./early-warning-reports.component.scss']
 })
 export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['GL','Zone', 'Branch', 'Name', 'FatherName', 'Cnic', 'Caste','Address','Lcno','Ndd',   'PD','CD', 'Los', 'OtherCharges'];
+    displayedColumns = ['Zone', 'Branch', 'Name', 'FatherName', 'Cnic', 'Caste','Address','Lcno','GL','Ndd','PD','CD', 'Los', 'OtherCharges'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();

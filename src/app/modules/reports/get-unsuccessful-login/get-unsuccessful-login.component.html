@@ -11,7 +11,7 @@
 >
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">Unsuccessful Login</div>
+            <div class="heading">Unsuccessful Login Attempts</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
@@ -151,7 +151,7 @@
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.IpAddress
+                        report.IPs
                         }}</mat-cell>
                 </ng-container>
 
@@ -161,7 +161,7 @@
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.DateTime
+                        report.DateTimeOfFailedLoginAttempts
                         }}</mat-cell>
                 </ng-container>
 
