@@ -81,7 +81,17 @@
                         <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3">
                             <mat-checkbox style="margin-top: 15px;" formControlName="IsActive"
                                           [checked]="this.data.activity.isActive"
-                            ><span>Is Active?</span>
+                            ><span>Should Show?</span>
+                            </mat-checkbox>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3">
+                            <mat-checkbox style="margin-top: 15px;" formControlName="IsVisible"
+                                          [checked]="this.data.activity.IsVisible"
+                            ><span>Should Show after EOD?</span>
                             </mat-checkbox>
                         </div>
 

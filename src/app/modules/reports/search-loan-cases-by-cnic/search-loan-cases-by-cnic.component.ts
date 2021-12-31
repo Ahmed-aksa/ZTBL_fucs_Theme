@@ -31,7 +31,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./search-loan-cases-by-cnic.component.scss']
 })
 export class SearchLoanCasesByCnicComponent implements OnInit {
-    displayedColumns = ['Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Agps', 'Bcl', 'Los'];
+    displayedColumns = ['Cnic', 'Name', 'FatherName', 'Address','Lcno', 'Agps', 'Bcl', 'Los'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();

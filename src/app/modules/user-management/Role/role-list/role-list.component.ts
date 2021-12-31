@@ -189,6 +189,7 @@ export class RoleListComponent implements OnInit, OnDestroy {
             }
             this.activity = new Activity();
             this.activity.ActivityID = _item.ProfileID;
+            // this.activity.ActivityID = _item.ProfileID;
 
             this._activityService.deleteActivity(this.activity).pipe(
                 finalize(() => {

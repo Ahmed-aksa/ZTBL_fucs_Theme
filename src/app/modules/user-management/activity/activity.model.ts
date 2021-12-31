@@ -8,6 +8,7 @@ export class Activity {
     ParentActivityID?: number;
     isActivityChecked: boolean;
     IsActive: boolean;
+    IsVisible: boolean;
     IsParent: any;
     Status: boolean;
     IsReadOnly: boolean;
