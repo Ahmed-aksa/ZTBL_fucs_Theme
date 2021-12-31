@@ -19,7 +19,7 @@ export const environment = {
     //  apiUrl: 'http://203.215.160.154:8070/ZTBL.Api',//without
     AesKey: 'abcdefghijklmnopqrstuvxwyz',
 
-    ublicRSAKey: '-----BEGIN PUBLIC KEY-----\n' +
+    publicRSAKey: '-----BEGIN PUBLIC KEY-----\n' +
         'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3yl4HMI9P5i6cFmUCwg5\n' +
         'j/VwIHSLL1i13PkTLfzXhmcxMCJ9m9BqtQQ0HFAMAMvqbtbGVWjwV8uvPv2juRFj\n' +
         '59Y9hTgquyYOFjCKSuIweaccQoUmLX4vLHp9UrmjNOpjpyWJrOHP1pLu59gRmGVb\n' +
