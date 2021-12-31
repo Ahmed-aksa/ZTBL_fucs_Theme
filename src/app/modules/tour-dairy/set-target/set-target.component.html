@@ -44,27 +44,27 @@
 
             <div class="table-responsive overflow-auto" id="map_canvas" >
                 <table class="table table-striped" >
-    
-                    <thead  *ngIf="assignedtargetheading?.length>0">
+
+                    <thead  *ngIf="assignedtargetheading?.length>0 && TH">
                     <tr class="table-header-background">
                         <th></th>
-                        <th *ngFor="let len of totalLength">Assigned Target</th>
+                        <th *ngFor="let len of totalLength">{{TH}}</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngIf="assignedtargetheading?.length>0">
+                    <tr *ngIf="assignedtargetheading?.length>0 && TH">
                         <ng-container>
                             <td></td>
                             <td></td>
                             <td *ngFor="let head of assignedtargetheading" class="p-2">
                                 {{head}}
                             </td>
-    
+
                         </ng-container>
                     </tr>
                     </tbody>
                     <thead>
-    
+
                     <tr hidden class="table-header-background">
                         <th *ngFor="let k of rowKeys">{{ k }}</th>
                     </tr>
@@ -96,13 +96,13 @@
                                             <input matInput maxlength="20" (keypress)="numberOnly($event)"
                                                     [attr.value]="row[key]"
                                                     (input)="onInputChanged($event.target.value, rowIndex, key)"
-    
+
                                             />
                                         </mat-form-field>
                                     </div>
                                 </div>
                                 </div>
-    
+
                             </td>
                         </ng-container>
                     </tr>
@@ -120,7 +120,7 @@
                             <td *ngFor="let a of totals" class="p-2">
                                 {{a}}
                             </td>
-    
+
                         </ng-container>
                     </tr>
                     </tbody>
@@ -128,7 +128,7 @@
                 <!-- <button class="ml-2" mat-raised-button color="primary" (click)="reset()">Reset</button> -->
 
 
-    
+
             </div>
         </div>
     </div>
@@ -142,7 +142,7 @@
     <!--        </div>-->
     <!--        </form>-->
 
-<!-- 
+<!--
     <ngx-spinner bdColor="rgba(51,51,51,0.8)"
                  size="medium"
                  color="#ecbd00"
