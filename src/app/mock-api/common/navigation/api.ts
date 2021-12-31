@@ -36,11 +36,11 @@ export class NavigationMockApi {
     registerHandlers(): void {
         let menus = JSON.parse(localStorage.getItem('ZTBLUser'))?.MenuBar;
         if (menus) {
-            menus.forEach((single_menu, index_parent) => {
-                if (single_menu.IsActive) {
-                    single_menu.forEach((single_child_menu, index) => {
-                        if (!single_child_menu.IsActive) {
-                            single_child_menu.splice(index, 1);
+            menus?.forEach((single_menu, index_parent) => {
+                if (single_menu.isActive) {
+                    single_menu?.children?.forEach((single_child_menu, index) => {
+                        if (!single_child_menu.isActive) {
+                            menus[index_parent].children.splice(index, 1);
                         }
                     });
                 } else {
@@ -48,7 +48,7 @@ export class NavigationMockApi {
                 }
             });
         }
-
+        debugger;
         this._fuseMockApiService
             .onGet('api/common/navigation')
             .reply(() => {
