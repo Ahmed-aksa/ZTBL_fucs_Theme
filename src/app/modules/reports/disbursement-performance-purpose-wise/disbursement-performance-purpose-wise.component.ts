@@ -65,13 +65,23 @@ export class DisbursementPerformancePurposeWiseComponent implements OnInit {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
 
-        let dateString = this.datepipe.transform(this.workingDate, 'ddMMyyyy');
-        var day = parseInt(dateString.substring(0, 2));
-        var month = parseInt(dateString.substring(2, 4));
-        var year = parseInt(dateString.substring(4, 8));
+        if(this.LoggedInUserInfo.Branch){
+            let dateString = this.LoggedInUserInfo.Branch.WorkingDate
+            var day = parseInt(dateString.substring(0, 2));
+            var month = parseInt(dateString.substring(2, 4));
+            var year = parseInt(dateString.substring(4, 8));
 
-        const branchWorkingDate = new Date(year, month - 1, day);
-        this.bufricationForm.controls['WorkingDate'].setValue(branchWorkingDate);
+            const branchWorkingDate = new Date(year, month - 1, day);
+            this.bufricationForm.controls['WorkingDate'].setValue(branchWorkingDate);
+        }else{
+            let dateString = this.datepipe.transform(this.workingDate, 'ddMMyyyy');
+            var day = parseInt(dateString.substring(0, 2));
+            var month = parseInt(dateString.substring(2, 4));
+            var year = parseInt(dateString.substring(4, 8));
+
+            const branchWorkingDate = new Date(year, month - 1, day);
+            this.bufricationForm.controls['WorkingDate'].setValue(branchWorkingDate);
+        }
     }
 
 
