@@ -16,31 +16,32 @@ export class AppComponent implements OnInit {
         this.router.events.subscribe((event: any) => {
             var event1 = event;
             if (event instanceof NavigationStart) {
-                // // if (event1?.url) {
-                // //     if (!event1?.url.includes('auth') &&!event1?.url.includes('sign-out')) {
-                // //         var user = localStorage.getItem("ZTBLUser")
-                // //         if (user) {
-                // //             var userdate = JSON.parse(user);
-                // //             var ismatch = false
-                // //             userdate.MenuBar.forEach(x => {
-                // //                 var childURl = x?.children?.find(y => y.link?.includes(event1?.url))
-                // //                 if (childURl) {
-                // //                     ismatch = true;
-                // //                 }
-                // //                 else {
-                // //
-                // //                 }
-                // //
-                // //             });
-                // //             if (!ismatch) {
-                // //                 if(!event1?.url.includes('dashboard')){
-                // //                     this.router.navigate(["/dashboard"])
-                // //                 }
-                // //             }
-                // //
-                // //         }
-                // //     }
-                // }
+                debugger
+                if (event1?.url) {
+                    if (!event1?.url.includes('auth') &&!event1?.url.includes('sign-out')) {
+                        var user = localStorage.getItem("ZTBLUser")
+                        if (user) {
+                            var userdate = JSON.parse(user);
+                            var ismatch = false
+                            userdate.MenuBar.forEach(x => {
+                                var childURl = x?.children?.find(y => y.link?.includes(event1?.url))
+                                if (childURl) {
+                                    ismatch = true;
+                                }
+                                else {
+
+                                }
+
+                            });
+                            if (!ismatch) {
+                                if(!event1?.url.includes('dashboard')){
+                                    this.router.navigate(["/dashboard"])
+                                }
+                            }
+
+                        }
+                    }
+                }
             }
 
             // if (event instanceof NavigationEnd) {
