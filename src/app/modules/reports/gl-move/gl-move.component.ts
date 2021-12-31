@@ -337,7 +337,7 @@ export class GlMoveComponent implements OnInit {
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "9";
         this.reports.Nature = "0";
-        this.reports.VoucherNo = this.reports.GLCode;
+        // this.reports.VoucherNo = this.reports.GLCode;
 
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
