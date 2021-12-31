@@ -113,6 +113,7 @@
                         <th *ngFor="let len of totalLength">Total</th>
                     </tr>
                     </thead>
+                    {{totals|json}}
                     <tbody>
                     <tr *ngIf="totals">
                         <ng-container>

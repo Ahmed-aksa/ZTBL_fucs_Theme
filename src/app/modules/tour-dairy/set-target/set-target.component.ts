@@ -170,14 +170,14 @@ export class SetTargetComponent implements OnInit {
                     this.previous = Object.assign(this.targets);
                     this.assignedTarget = baseResponse.Target.AssignedTarget;
                     this.assignedTargetHeadingsData = baseResponse?.Target?.AssignedTarget;
-                    this.assignedBankHeadingsData = baseResponse?.Target?.AssignedTarget;
+                    this.assignedBankHeadingsData = baseResponse?.Target?.BankTarget;
                     this.Heading();
 
                     if(baseResponse?.Target?.AssignedTarget){
                         this.showAssignedTarget();
                         this.TH = "Assigned Target"
                     }
-                    if(baseResponse?.Target?.AssignedTarget){
+                    if(baseResponse?.Target?.BankTarget){
                         this.showBankTarget();
                         this.TH = "Assigned Bank Target"
                     }
@@ -199,7 +199,7 @@ export class SetTargetComponent implements OnInit {
        this.assignedtargetheading = Object.values(this.assignedTargetHeadingsData);
     }
     showBankTarget(){
-           this.assignedtargetheading = Object.values(this.assignedTargetHeadingsData);
+           this.assignedtargetheading = Object.values(this.assignedBankHeadingsData);
     }
 
     createForm() {
@@ -330,6 +330,10 @@ export class SetTargetComponent implements OnInit {
         this.targets = Object.assign(this.previous);
     }
 
+    checkTotal(){
+
+    }
+
     Check() {
 
         var target;
@@ -372,7 +376,26 @@ export class SetTargetComponent implements OnInit {
     }
 
     save() {
-            this.spinner.show();
+            // Check Total
+        debugger
+        if(this.assignedtargetheading){
+            for(let i=0;i<this.totals?.length;i++)
+            {
+                if(this.totals[i]!=this.assignedtargetheading[i]){
+                    var Message;
+                    var Code;
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        (Message = 'Total value must be equal to Assigned value'),
+                        (Code = '')
+                    );
+                    return
+                }
+            }
+        }
+
+
+        this.spinner.show();
             this._setTarget
                 .saveTargets(
                     this.targets,
