@@ -32,7 +32,7 @@
         <div class="card card-body">
             <div class="py-1" [formGroup]="searchCnicForm">
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="false" [is_required_circle]="false"
+                    <app-zone-branch-circle [form]="searchCnicForm" [should_show_circle]="false" [is_required_circle]="false" [should_filter]="false"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
                     <div class="mx-2">
@@ -40,7 +40,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">PPNO:</mat-label>
                                 <input matInput placeholder="Enter PPNO" formControlName="PPNo"
-                                       appNumberOnly  autocomplete="off"/>
+                                       appNumberOnly readonly autocomplete="off"/>
                             </mat-form-field>
                         </div>
                     </div>
