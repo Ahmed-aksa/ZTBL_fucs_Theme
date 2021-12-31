@@ -38,4 +38,5 @@ export class Bufrication {
     FromDate: string;
     SummaryOnly: number;
     BatchID: string;
+    Nature: string;
 }

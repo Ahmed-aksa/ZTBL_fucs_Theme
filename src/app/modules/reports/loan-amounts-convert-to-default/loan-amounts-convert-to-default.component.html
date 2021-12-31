@@ -106,6 +106,16 @@
                         }}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="Circle">
+                    <mat-header-cell *matHeaderCellDef
+                    >Circle Code
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.CircleId
+                        }}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="Markup">
                     <mat-header-cell *matHeaderCellDef
                     >Markup
@@ -189,6 +199,26 @@
                     >
                     <mat-cell *matCellDef="let report">{{
                         report.Cast
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="sl">
+                    <mat-header-cell *matHeaderCellDef
+                    >Sanction Limit
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.SanctionLimit
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="tsa">
+                    <mat-header-cell *matHeaderCellDef
+                    >Total Sanction Amount
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.TotalSanctionAmount
                         }}</mat-cell>
                 </ng-container>
 

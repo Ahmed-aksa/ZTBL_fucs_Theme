@@ -248,28 +248,82 @@ export class GlMoveComponent implements OnInit {
         this.reports.ToDate = null
         this.reports.FromDate = null
         this.reports.GLCode = null
+        this.reports.Nature = null;
     }
 
 
 
 
-    find(toFrom:boolean) {
+    // find(toFrom:boolean) {
+    //
+    //     if(toFrom == true){
+    //         this.bufricationForm.controls['GLCode'].setValidators(Validators.required)
+    //         this.bufricationForm.controls['GLCode'].updateValueAndValidity()
+    //         this.bufricationForm.controls['ToDate'].setValidators(Validators.required)
+    //         this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+    //         this.bufricationForm.controls['FromDate'].setValidators(Validators.required)
+    //         this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+    //         this.reports.Nature = "null";
+    //     }else{
+    //         this.bufricationForm.controls['GLCode'].clearValidators()
+    //         this.bufricationForm.controls['GLCode'].updateValueAndValidity()
+    //         this.bufricationForm.controls['ToDate'].clearValidators()
+    //         this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+    //         this.bufricationForm.controls['FromDate'].clearValidators()
+    //         this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+    //
+    //         this.reports.Nature = "0";
+    //     }
+    //
+    //     if (this.bufricationForm.invalid) {
+    //         this.toastr.error("Please Enter Required values");
+    //         this.bufricationForm.markAllAsTouched();
+    //         return;
+    //     }
+    //     this.user.Branch = this.branch;
+    //     this.user.Zone = this.zone;
+    //     this.user.Circle = this.circle;
+    //
+    //     this.reports = Object.assign(this.reports, this.bufricationForm.value);
+    //     this.reports.ReportsNo = "9";
+    //
+    //     var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
+    //     this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
+    //
+    //     if(toFrom == true){
+    //         var toDate= this.bufricationForm.controls.ToDate.value, fromDate= this.bufricationForm.controls.FromDate.value;
+    //         this.reports.FromDate = this.datePipe.transform(fromDate, 'ddMMyyyy')
+    //         this.reports.ToDate = this.datePipe.transform(toDate, 'ddMMyyyy')
+    //     }
+    //
+    //     this.spinner.show();
+    //     this._reports.reportDynamic(this.reports)
+    //         .pipe(
+    //             finalize(() => {
+    //                 this.loaded = true;
+    //                 this.loading = false;
+    //                 this.spinner.hide();
+    //             })
+    //         )
+    //         .subscribe((baseResponse: any) => {
+    //             if (baseResponse.Success === true) {
+    //                 this.controlReset();
+    //                 window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+    //             } else {
+    //                 this.layoutUtilsService.alertElement("", baseResponse.Message);
+    //             }
+    //         })
+    // }
 
-        if(toFrom == true){
-            this.bufricationForm.controls['GLCode'].setValidators(Validators.required)
-            this.bufricationForm.controls['GLCode'].updateValueAndValidity()
-            this.bufricationForm.controls['ToDate'].setValidators(Validators.required)
-            this.bufricationForm.controls['ToDate'].updateValueAndValidity()
-            this.bufricationForm.controls['FromDate'].setValidators(Validators.required)
-            this.bufricationForm.controls['FromDate'].updateValueAndValidity()
-        }else{
-            this.bufricationForm.controls['GLCode'].clearValidators()
-            this.bufricationForm.controls['GLCode'].updateValueAndValidity()
-            this.bufricationForm.controls['ToDate'].clearValidators()
-            this.bufricationForm.controls['ToDate'].updateValueAndValidity()
-            this.bufricationForm.controls['FromDate'].clearValidators()
-            this.bufricationForm.controls['FromDate'].updateValueAndValidity()
-        }
+    findWithOut() {
+
+        this.bufricationForm.controls['GLCode'].clearValidators()
+        this.bufricationForm.controls['GLCode'].updateValueAndValidity()
+        this.bufricationForm.controls['ToDate'].clearValidators()
+        this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+        this.bufricationForm.controls['FromDate'].clearValidators()
+        this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+
 
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
@@ -282,14 +336,11 @@ export class GlMoveComponent implements OnInit {
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "9";
+        this.reports.Nature = "0";
+        this.reports.VoucherNo = this.reports.GLCode;
+
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
-
-        if(toFrom == true){
-            var toDate= this.bufricationForm.controls.ToDate.value, fromDate= this.bufricationForm.controls.FromDate.value;
-            this.reports.FromDate = this.datePipe.transform(fromDate, 'ddMMyyyy')
-            this.reports.ToDate = this.datePipe.transform(toDate, 'ddMMyyyy')
-        }
 
         this.spinner.show();
         this._reports.reportDynamic(this.reports)
@@ -309,6 +360,55 @@ export class GlMoveComponent implements OnInit {
                 }
             })
     }
+
+    findWith() {
+
+            this.bufricationForm.controls['GLCode'].setValidators(Validators.required)
+            this.bufricationForm.controls['GLCode'].updateValueAndValidity()
+            this.bufricationForm.controls['ToDate'].setValidators(Validators.required)
+            this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+            this.bufricationForm.controls['FromDate'].setValidators(Validators.required)
+            this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+
+        if (this.bufricationForm.invalid) {
+            this.toastr.error("Please Enter Required values");
+            this.bufricationForm.markAllAsTouched();
+            return;
+        }
+        this.user.Branch = this.branch;
+        this.user.Zone = this.zone;
+        this.user.Circle = this.circle;
+
+        this.reports = Object.assign(this.reports, this.bufricationForm.value);
+        this.reports.ReportsNo = "9";
+
+        var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
+        this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
+
+            var toDate= this.bufricationForm.controls.ToDate.value, fromDate= this.bufricationForm.controls.FromDate.value;
+            this.reports.FromDate = this.datePipe.transform(fromDate, 'ddMMyyyy')
+            this.reports.ToDate = this.datePipe.transform(toDate, 'ddMMyyyy')
+
+        this.spinner.show();
+        this._reports.reportDynamic(this.reports)
+            .pipe(
+                finalize(() => {
+                    this.loaded = true;
+                    this.loading = false;
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse: any) => {
+                if (baseResponse.Success === true) {
+                    this.controlReset();
+                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                } else {
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
+                }
+            })
+    }
+
+
 
     getAllData(data) {
         this.zone = data.final_zone;
