@@ -31,7 +31,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./early-warning-reports.component.scss']
 })
 export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch', 'Name', 'FatherName', 'Cnic', 'Caste','Address','Lcno','GL','Ndd','PD','CD', 'Los', 'OtherCharges'];
+    displayedColumns = ['Zone', 'Branch', 'Circle','Name', 'FatherName', 'Cnic', 'Caste','Address','Lcno','GL','markup','Ndd','PD','CD', 'sl','tsa','Los', 'OtherCharges'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
@@ -88,7 +88,7 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
 
     async dayLov(){
         this.daysLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.EarlyWarningDays});
-        this.daysLov = this.daysLov.LOVs;
+        this.daysLov = this.daysLov.LOVs.reverse();
         console.log(this.daysLov)
     }
 
