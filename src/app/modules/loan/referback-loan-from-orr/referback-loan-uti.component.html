@@ -1,5 +1,5 @@
 <div
-    class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    class="px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
 
     <!-- Header -->
 
@@ -90,19 +90,19 @@
     <div>
 
         <!-- Main -->
-        <div class="flex flex-auto shadow-xs rounded-sm bg-gray-50 overflow-y-scroll">
 
             <!-- Products list -->
-            <div class="flex flex-auto overflow-scroll" style="flex-direction: column;">
-                <div class="flex flex-col flex-auto sm:mb-18 overflow-scroll sm:overflow-y-auto">
-                    <mat-table class="lmat-elevation-z8"
+                <div class="flex flex-col flex-auto overflow-y-auto border shadow-xs rounded-sm bg-gray-50 ">
+                    <mat-table 
                                #table
                                [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
                                matSort
                                #sort1="matSort"
                                matSortActive="id"
                                matSortDirection="asc"
-                               matSortDisableClear>
+                               matSortDisableClear
+                               id="map_canvas"
+                               >
 
                         <ng-container matColumnDef="BranchName">
                             <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
@@ -170,28 +170,28 @@
                     </mat-table>
 <!--                    <div class="mat-table__message" *ngIf="dataSource.data.length==0">No records found</div>-->
                 </div>
-                <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-                    <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-                            <span class="font-bold text-green">Items per page:</span>
 
-                    <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
-                                style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-                        <mat-option [value]="5">5</mat-option>
-                        <mat-option [value]="10">10</mat-option>
-                        <mat-option [value]="25">25</mat-option>
-                        <mat-option [value]="50">50</mat-option>
-                    </mat-select>
-                    <button (click)="paginate(1)">First</button>
-                    <pagination-controls display="inline" (pageChange)="paginate($event)"
-                                         style="display: inline-block;"></pagination-controls>
-                    <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-                    <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
 
-                </div>
+
+
+            <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
+                <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
+                        <span class="font-bold text-green">Items per page:</span>
+
+                <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+                            style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="25">25</mat-option>
+                    <mat-option [value]="50">50</mat-option>
+                </mat-select>
+                <button (click)="paginate(1)">First</button>
+                <pagination-controls display="inline" (pageChange)="paginate($event)"
+                                     style="display: inline-block;"></pagination-controls>
+                <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+                <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
 
             </div>
-
-        </div>
 
     </div>
 

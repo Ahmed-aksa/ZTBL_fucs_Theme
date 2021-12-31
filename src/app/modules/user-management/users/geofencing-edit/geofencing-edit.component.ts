@@ -321,6 +321,8 @@ export class GeofencingEditComponent implements OnInit {
 
                     circles.forEach((o, i) => {
 
+                        debugger
+                        this.multiPolygonArray = []
                         var polygonArray = []
                         var existingPolygonPoints = []
                         var circleInfo
@@ -333,12 +335,17 @@ export class GeofencingEditComponent implements OnInit {
                                 polygonArray.push([lat, lng])
                                 existingPolygonPoints.push({lat: lat, lng: lng})
                             });
+
+                            if((polygonArray.length>0) && (polygonArray[0].lng!=polygonArray[polygonArray.length-1].lng || polygonArray[0].lat!=polygonArray[polygonArray.length-1].lat)){
+                                polygonArray[polygonArray.length-1].lng =polygonArray[0].lng;
+                                 polygonArray[polygonArray.length-1].lat=polygonArray[0].lat;
+                            }
+
                             circleInfo = {
                                 circleID: o.Id,
                                 circleCode: o.CircleCode,
                                 circleFence: polygonArray
                             }
-
                             this.drawPolygonOnMap(existingPolygonPoints, "#FF0000")
 
                             /*
@@ -348,6 +355,7 @@ export class GeofencingEditComponent implements OnInit {
                              * because most of the work will be done as soon as the data is loaded.
                              *
                              */
+
                             this.multiPolygonArray.push(circleInfo)
                         }
                     });
@@ -455,7 +463,6 @@ export class GeofencingEditComponent implements OnInit {
             }
         }
         this.NewFancPoints = '';
-
         var polygonArrayForOverlapingCheck = []
         this.pointList.forEach((o, i) => {
 
