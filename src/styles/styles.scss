@@ -899,3 +899,7 @@ body.light .mat-cell, body.light .mat-footer-cell, body .light .mat-cell, body .
         .mat-checkbox-checked.mat-accent .mat-checkbox-background {
           background-color: #01671B !important;
         }
+
+        .mat-row:nth-child(odd){
+            background: rgba(0,0,0,0.025);
+          }
