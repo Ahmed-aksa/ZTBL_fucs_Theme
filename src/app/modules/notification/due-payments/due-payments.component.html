@@ -85,6 +85,16 @@
                         }}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="Markup">
+                    <mat-header-cell *matHeaderCellDef
+                    >Markup
+                    </mat-header-cell
+                    >
+                    <mat-cell class="text-center" *matCellDef="let notification">{{
+                        notification.Markup
+                        }}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="Sl">
                     <mat-header-cell *matHeaderCellDef
                     >Sanction Limit

@@ -140,6 +140,8 @@ export class SetTargetComponent implements OnInit {
             });
     }
     assignedTargetHeadingsData
+    assignedBankHeadingsData
+    TH
     GetTargets(value: any) {
         if (!value) {
             var Message = 'Please select Target';
@@ -162,14 +164,25 @@ export class SetTargetComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
+                    debugger
                     this.headings = baseResponse.Target.Heading;
                     this.targets = baseResponse.Target.Targets;
                     this.previous = Object.assign(this.targets);
                     this.assignedTarget = baseResponse.Target.AssignedTarget;
                     this.assignedTargetHeadingsData = baseResponse?.Target?.AssignedTarget;
+                    this.assignedBankHeadingsData = baseResponse?.Target?.BankTarget;
                     this.Heading();
 
-                    this.showAssignedTarget();
+                    if(baseResponse?.Target?.AssignedTarget){
+                        this.showAssignedTarget();
+                        this.TH = "Assigned Target"
+                    }
+                    if(baseResponse?.Target?.BankTarget){
+                        this.showBankTarget();
+                        this.TH = "Assigned Bank Target"
+                    }
+
+
                     this.ishidden = true;
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -181,9 +194,13 @@ export class SetTargetComponent implements OnInit {
             });
     }
     assignedtargetheading
+
    showAssignedTarget(){
        this.assignedtargetheading = Object.values(this.assignedTargetHeadingsData);
-}
+    }
+    showBankTarget(){
+           this.assignedtargetheading = Object.values(this.assignedBankHeadingsData);
+    }
 
     createForm() {
         this.targetForm = this.fb.group({
@@ -216,7 +233,7 @@ export class SetTargetComponent implements OnInit {
 
 
     get totalHeading(): string[] {
-        
+
         if (!this.assignedTargetHeadingsData) {
             return [];
         }
@@ -281,7 +298,7 @@ export class SetTargetComponent implements OnInit {
 
 
         this.targets = Object.assign(this.newValue);
-        
+
         // this.onDataChanged(this.newValue);
         this.Heading();
     }
@@ -313,8 +330,12 @@ export class SetTargetComponent implements OnInit {
         this.targets = Object.assign(this.previous);
     }
 
+    checkTotal(){
+
+    }
+
     Check() {
-        
+
         var target;
         var heading;
 
@@ -355,7 +376,26 @@ export class SetTargetComponent implements OnInit {
     }
 
     save() {
-            this.spinner.show();
+            // Check Total
+        debugger
+        if(this.assignedtargetheading){
+            for(let i=0;i<this.totals?.length;i++)
+            {
+                if(this.totals[i]!=this.assignedtargetheading[i]){
+                    var Message;
+                    var Code;
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        (Message = 'Total value must be equal to Assigned value'),
+                        (Code = '')
+                    );
+                    return
+                }
+            }
+        }
+
+
+        this.spinner.show();
             this._setTarget
                 .saveTargets(
                     this.targets,

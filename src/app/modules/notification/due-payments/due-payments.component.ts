@@ -15,7 +15,7 @@ import {finalize} from "rxjs/operators";
 })
 
 export class DuePaymentsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch',  'Cnic', 'Name', 'FatherName', 'Address','Sl', 'Ndd', 'Lcno',  'Tsa', 'Los'];
+    displayedColumns = ['Zone', 'Branch',  'Cnic', 'Name', 'FatherName', 'Address','Lcno', 'Markup','Sl', 'Ndd', 'Tsa', 'Los'];
     loaded = true;
     matTableLenght = false;
     loading = false;
