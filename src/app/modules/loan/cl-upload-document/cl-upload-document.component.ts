@@ -23,7 +23,7 @@ import {ToastrService} from "ngx-toastr";
     templateUrl: './cl-upload-document.component.html',
     styleUrls: ['./cl-upload-document.component.scss'],
 })
-export class ClUploadDocumentComponent implements OnInit {
+export class ClUploadDocumentComponent implements OnInit{
 
     @Input() loanDetail: Loan;
 
@@ -38,6 +38,7 @@ export class ClUploadDocumentComponent implements OnInit {
     matched = false;
     bit;
     maxLength: number;
+    docPage = false;
 
     url: string;
     loanDocumentArray: LoanDocuments[] = [];
@@ -125,19 +126,26 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        debugger
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
-        // if (localStorage.getItem('loan_case_number')) {
-        //     this.PostDocument.value.LcNo = localStorage.getItem('loan_case_number');
-        //     localStorage.removeItem('loan_case_number');
-        // }
+        this.checkReadOnly();
     }
 
     PostDocuments(PostDocument: any) {
         //
     }
+
+    checkReadOnly(){
+        debugger
+        if(!this.loanAppID){
+            this.docPage = true;
+        }else{
+            this.docPage = false;
+        }
+    }
+
 
 
     controlReset() {
@@ -161,7 +169,9 @@ export class ClUploadDocumentComponent implements OnInit {
         //     this.PostDocument.controls['LcNo'].disable();
         // }
         //this.loanCase(true);
+
         this.getLoanDocument();
+        this.checkReadOnly();
 
 
     }
@@ -526,7 +536,6 @@ export class ClUploadDocumentComponent implements OnInit {
     }
 
     assignLoanCaseNo() {
-
         if (localStorage.getItem('loan_case_number')) {
 
             this.PostDocument.controls['LcNo'].setValue(localStorage.getItem('loan_case_number'));
@@ -534,7 +543,7 @@ export class ClUploadDocumentComponent implements OnInit {
             this.refDepositAccount = localStorage.getItem('loan_ref_deposit');
 
             this.getLoanDocument()
-
+            this.checkReadOnly();
 
             localStorage.removeItem('loan_case_number');
             localStorage.removeItem('loan_app_id');
