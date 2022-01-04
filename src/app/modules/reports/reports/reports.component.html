@@ -18,8 +18,8 @@
         </div>
     </div>
 
-    <div class="col-lg-12 row ml-1  mt-2 justify-content-center text-center bg-gray-50  py-4">
-        <div class="col-lg-4 col-sm-12">
+    <div class="col-lg-12 row ml-1  mt-2 justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 2">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/search-loan-case-by-cnic')">
             <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText" routerLink="search-loan-case-by-cnic">
                 <div class="d-grid" style="justify-items: center;">
@@ -30,7 +30,7 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/bifurcation-of-os-balances-lc')">
 
             <mat-card routerLink="bifurcation-of-os-balances-lc"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
@@ -44,7 +44,7 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/updated-list-of-defaulter')">
             <mat-card routerLink="updated-list-of-defaulter"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
@@ -56,9 +56,9 @@
         </div>
     </div>
 
-    <div class="col-lg-12 mt-2 row ml-1 justify-content-center text-center bg-gray-50  py-4">
+    <div class="col-lg-12 mt-2 row ml-1 justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 5">
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/fa-view-wise')">
             <mat-card routerLink="fa-view-wise"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
@@ -70,7 +70,7 @@
             </div></mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/early-warning-reports')">
 
             <mat-card routerLink="early-warning-reports"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
@@ -84,7 +84,7 @@
         </div>
 
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/loan-amount')">
             <mat-card routerLink="loan-amount" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
 
                 <div class="d-grid" style="justify-items: center;">
@@ -100,9 +100,9 @@
 
     </div>
 
-    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4">
+    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 8">
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/voucher-posting-day-book')">
             <mat-card routerLink="voucher-posting-day-book" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
 
                 <div class="d-grid" style="justify-items: center;">
@@ -114,7 +114,7 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/daily-voucher-proof-listing')">
             <mat-card routerLink="daily-voucher-proof-listing"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
@@ -127,7 +127,7 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/affidavit-for-legal-heirs')">
             <mat-card routerLink="affidavit-for-legal-heirs"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
@@ -142,9 +142,9 @@
 
     </div>
 
-    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4">
+    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 11">
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/payment-behavior')">
             <mat-card routerLink="payment-behavior"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
@@ -157,7 +157,7 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/disbursement-performance-report')">
             <mat-card routerLink="disbursement-performance-report"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
@@ -170,7 +170,7 @@
         </div></mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/disbursement-performance-report-purpose-wise')">
             <mat-card routerLink="disbursement-performance-report-purpose-wise"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText"
@@ -186,8 +186,8 @@
 
     </div>
 
-    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4">
-        <div class="col-lg-4 col-sm-12">
+    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 14">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/loan-account-balance')">
             <mat-card routerLink="loan-account-balance"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
@@ -200,7 +200,7 @@
         </div></mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/insurance-report')">
             <mat-card routerLink="insurance-report"
                       class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText">
@@ -213,7 +213,7 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/la-file-progress-summary')">
             <mat-card routerLink="la-file-progress-summary" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
@@ -225,9 +225,9 @@
 
     </div>
 
-    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4">
+    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 17">
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/loan-information-details')">
             <mat-card routerLink="loan-information-details" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
@@ -238,7 +238,7 @@
                 </div></mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/get-unsuccessful-login')">
             <mat-card routerLink="get-unsuccessful-login" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
 
                 <div class="d-grid" style="justify-items: center;">
@@ -252,7 +252,7 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/ho-zonal-expense-report')">
             <mat-card routerLink="ho-zonal-expense-report" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
@@ -265,9 +265,9 @@
 
     </div>
 
-    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4">
+    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 20">
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/mark-on-ca-report')">
             <mat-card routerLink="mark-on-ca-report" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
@@ -278,7 +278,7 @@
                 </div></mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/recovery-schedule')">
             <mat-card routerLink="recovery-schedule" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
@@ -289,7 +289,7 @@
                 </div></mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/loan-move')">
             <mat-card routerLink="loan-move" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
@@ -302,9 +302,9 @@
 
     </div>
 
-    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4">
+    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 23">
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/statement-of-affairs-report')">
             <mat-card routerLink="statement-of-affairs-report" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
@@ -315,7 +315,7 @@
                 </div></mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/reschedulement-of-loan')">
             <mat-card routerLink="reschedulement-of-loan" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
@@ -326,7 +326,7 @@
                 </div></mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/get-customer-legal-heirs')">
             <mat-card routerLink="get-customer-legal-heirs" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
 
                 <div class="d-grid" style="justify-items: center;">
@@ -342,9 +342,9 @@
 
     </div>
 
-    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4">
+    <div class="col-lg-12 mt-2 ml-1 mr-3 row justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 26">
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/customer-cwr')">
             <mat-card routerLink="customer-cwr" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
 
                 <div class="d-grid" style="justify-items: center;">
@@ -358,7 +358,7 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/gl-move')">
             <mat-card routerLink="gl-move" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
 
                 <div class="d-grid" style="justify-items: center;">

@@ -316,9 +316,6 @@ export class GlMoveComponent implements OnInit {
     // }
 
     findWithOut() {
-
-        this.bufricationForm.controls['GLCode'].clearValidators()
-        this.bufricationForm.controls['GLCode'].updateValueAndValidity()
         this.bufricationForm.controls['ToDate'].clearValidators()
         this.bufricationForm.controls['ToDate'].updateValueAndValidity()
         this.bufricationForm.controls['FromDate'].clearValidators()

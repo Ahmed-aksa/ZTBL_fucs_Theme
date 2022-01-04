@@ -17,6 +17,7 @@ export interface FuseNavigationItem {
     tooltip?: string;
     link?: string;
     externalLink?: boolean;
+    isActive?: boolean;
     target?:
         | '_blank'
         | '_self'
