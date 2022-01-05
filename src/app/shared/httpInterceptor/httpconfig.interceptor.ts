@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Object>> {
         let authReq = req;
         const token: string = localStorage.getItem('accessToken');
-        if (token != null && !authReq.url.includes('Account/Login')) {
+        if (token != null && !authReq.url.includes('Account/Login') && !authReq.url.includes('Account/HealthCheck')) {
             authReq = this.addTokenHeader(req, token);
         }
 

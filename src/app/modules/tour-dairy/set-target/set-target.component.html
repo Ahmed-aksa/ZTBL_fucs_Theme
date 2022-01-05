@@ -41,92 +41,124 @@
         <div  *ngIf="ishidden">
     <div class="row">
         <div  class="col-lg-12">
-
+<!--{{AssignTargetHeading|json}}-->
+<!--            {{assignedTarget|json}}-->
             <div class="table-responsive overflow-auto" id="map_canvas" >
                 <table class="table table-striped" >
 
-                    <thead  *ngIf="assignedtargetheading?.length>0 && TH">
+<!--                    <thead  *ngIf="AssignTargetHeading?.length>0">-->
+<!--                    <tr class="table-header-background">-->
+<!--                        <th></th>-->
+<!--                        <th *ngFor="let v of AssignHeadingKeys">{{ v }}</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+                    <thead>
                     <tr class="table-header-background">
                         <th></th>
-                        <th *ngFor="let len of totalLength">{{TH}}</th>
+                        <ng-container *ngFor="let v of rowth;let i = index">
+                            <th *ngIf="i !=0">
+                                {{ v }}
+                            </th>
+                        </ng-container>
+
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr *ngIf="assignedtargetheading?.length>0 && TH">
+<!--                    {{ShowassignedTarget|json}}-->
+<!--                    {{assignedTarget|json}}-->
+<!--                    For Assigned Target     -->
+                    <tbody *ngIf="!bankTargets">
+                   <tr>
                         <ng-container>
-                            <td></td>
-                            <td></td>
-                            <td *ngFor="let head of assignedtargetheading" class="p-2">
+                            <td><div><strong class="text-md">Assigned Targets: </strong></div></td>
+                            <td *ngFor="let head of ShowassignedTarget" class="p-2">
                                 {{head}}
                             </td>
 
                         </ng-container>
                     </tr>
                     </tbody>
-                    <thead>
-
-                    <tr hidden class="table-header-background">
-                        <th *ngFor="let k of rowKeys">{{ k }}</th>
-                    </tr>
-                    <tr class="table-header-background">
-                        <th *ngFor="let v of rowth">{{ v }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let row of targets; let rowIndex = index; trackBy: tracker">
-                        <ng-container *ngFor="let key of rowKeys; trackBy: tracker">
-                            <td *ngIf="key!='Id'">
+ <!--                    For Bank Assigned Target     -->
+<!--                   Bank assigned target-->
+<!--                    {{bankTargets|json}}-->
+                    <tbody *ngIf="bankTargets?.length>0">
+                    <tr></tr>
+                    <tr *ngFor="let roww of bankTargets; let rowIndexx = index; trackBy: trackerr">
+                        <td><div><strong class="text-md">Bank Assigned Targets: </strong></div></td>
+                        <ng-container *ngFor="let keyy of rowBankKeys; trackBy: trackerr">
+                            <td>
                                 <div class="target-input" style="width: 200px;">
-                                    <div *ngIf="key=='Name'">
-    <!--                                <div class="mat-form-field-fluid" appearance="outline">-->
-    <!--                                    <input matInput readonly disabled-->
-    <!--                                           type="text"-->
-    <!--                                           [attr.value]="row[key]"-->
-    <!--                                           (input)="onInputChanged($event.target.value, rowIndex, key)"-->
-    <!--                                    />-->
-    <!--                                </div>-->
-                                    <div><strong class="text-md">{{row[key]}}</strong></div>
-                                </div>
-                                <div *ngIf="key!='Name'">
-                                    <div class="mat-form-field-fluid w-full" appearance="outline"
-                                    >
-    <!--                                    style-->
-    <!--                                    [style.Border]="row[key]=='0'?'2px solid red':''"-->
-                                        <mat-form-field  class="w-full">
-                                            <input matInput maxlength="20" (keypress)="numberOnly($event)"
-                                                    [attr.value]="row[key]"
-                                                    (input)="onInputChanged($event.target.value, rowIndex, key)"
 
-                                            />
-                                        </mat-form-field>
+                                        <div class="mat-form-field-fluid w-full" appearance="outline"
+                                        >
+                                            <mat-form-field  class="w-full">
+                                                <input matInput maxlength="20" (keypress)="numberOnly($event)"
+                                                       [attr.value]="roww[keyy]"
+                                                       (input)="onBankInputChanged($event.target.value, rowIndexx, keyy)"
+                                                />
+                                            </mat-form-field>
+                                        </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                    </tr>
+                    </tbody>
+
+<!--                    Main Targets -->
+                        <thead>
+
+                        <tr hidden class="table-header-background">
+                            <th *ngFor="let k of rowKeys">{{ k }}</th>
+                        </tr>
+                        <tr class="table-header-background">
+                            <th *ngFor="let v of rowth">{{ v }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let row of targets; let rowIndex = index; trackBy: tracker">
+                            <ng-container *ngFor="let key of rowKeys; trackBy: tracker">
+                                <td *ngIf="key!='Id'">
+                                    <div class="target-input" style="width: 200px;">
+                                        <div *ngIf="key=='Name'">
+
+                                        <div><strong class="text-md">{{row[key]}}</strong></div>
                                     </div>
-                                </div>
-                                </div>
+                                    <div *ngIf="key!='Name'">
+                                        <div class="mat-form-field-fluid w-full" appearance="outline"
+                                        >
+                                            <mat-form-field  class="w-full">
+                                                <input matInput maxlength="20" (keypress)="numberOnly($event)"
+                                                        [attr.value]="row[key]"
+                                                        (input)="onInputChanged($event.target.value, rowIndex, key)"
 
-                            </td>
-                        </ng-container>
-                    </tr>
-                    </tbody>
-                    <thead>
-                    <tr class="table-header-background">
-                        <th></th>
-                        <th *ngFor="let len of totalLength">Total</th>
-                    </tr>
-                    </thead>
-                    {{totals|json}}
-                    <tbody>
-                    <tr *ngIf="totals">
-                        <ng-container>
-                            <td></td>
-                            <td *ngFor="let a of totals" class="p-2">
-                                {{a}}
-                            </td>
+                                                />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    </div>
 
-                        </ng-container>
-                    </tr>
-                    </tbody>
+                                </td>
+                            </ng-container>
+                        </tr>
+                        </tbody>
+                        <thead>
+                        <tr class="table-header-background">
+                            <th></th>
+                            <th *ngFor="let len of totalLength">Total</th>
+                        </tr>
+                        </thead>
+<!--                        {{totals|json}}-->
+                        <tbody>
+                        <tr *ngIf="totals">
+                            <ng-container>
+                                <td><div><strong class="text-md">Totals: </strong></div></td>
+                                <td *ngFor="let a of totals" class="p-4">
+                                    {{a}}
+                                </td>
+
+                            </ng-container>
+                        </tr>
+                        </tbody>
                 </table>
-                <!-- <button class="ml-2" mat-raised-button color="primary" (click)="reset()">Reset</button> -->
 
 
 
@@ -140,16 +172,5 @@
         </div>
     </div>
 </div>
-    <!--        </div>-->
-    <!--        </form>-->
-
-<!--
-    <ngx-spinner bdColor="rgba(51,51,51,0.8)"
-                 size="medium"
-                 color="#ecbd00"
-                 type="ball-scale-multiple">
-        <p style="font-size: 20px; color: white">Loading...</p>
-    </ngx-spinner> -->
-
 
 </div>
