@@ -33,8 +33,6 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
     dv: number | any; //use later
     gridHeight: string;
 
-    dataSource: MatTableDataSource<searchLoanCasesByCnic>;
-
     LoggedInUserInfo: BaseResponseModel;
 
     user: any = {}
