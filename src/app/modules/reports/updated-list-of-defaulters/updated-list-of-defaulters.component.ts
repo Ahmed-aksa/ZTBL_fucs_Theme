@@ -96,6 +96,7 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
             return;
         }
         this.reports = Object.assign(this.reports, this.searchCnicForm.value);
+        //this.reports.ReportFormatType = "2";
         this.reports.ReportsNo = "20";
         this.spinner.show();
         this._reports.reportDynamic(this.reports, this.zone, this.branch, this.circle)
@@ -108,23 +109,9 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-
-                    this.loading = true;
-
-                    this.dataSource = baseResponse.ReportsFilterCustom.SamNplLoans
-                    this.dv = this.dataSource;
-                    this.matTableLenght = true
-
-                    this.totalItems = baseResponse.ReportsFilterCustom.SamNplLoans[0].TotalRecords
+                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
-
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    this.loading = false;
-                    // this.matTableLenght = false;
-                    this.dataSource = null;
-                    //this.offSet = 0;
-                    this.pageIndex = 1;
-
                 }
             })
     }
