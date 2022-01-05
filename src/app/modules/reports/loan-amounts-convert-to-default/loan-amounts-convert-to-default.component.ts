@@ -24,7 +24,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./loan-amounts-convert-to-default.component.scss']
 })
 export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['GL','Zone', 'Branch', 'Name', 'FatherName', 'Address', 'Cnic','Lcno','Ndd','PD','CD','Los'];
+    displayedColumns = ['Zone', 'Branch', 'Name', 'Circle','FatherName', 'Caste','Address', 'Cnic','Lcno','GL','Markup','sl','tsa','Ndd','PD','CD','Los'];
     // displayedColumns = ['Zone', 'Branch', 'Circle','Ndd', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los'];
     searchCnicForm: FormGroup;
 

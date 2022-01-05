@@ -68,6 +68,7 @@ export class ActivityFormDialogComponent implements OnInit {
             IsParent: [this.activity.IsParent],
             ActivityID: [this.activity.ActivityID],
             IsActive: [this.activity.IsActive],
+            IsVisible: [this.activity.IsVisible],
             PageSequence: [this.activity.PageSequence],
             checkAll: [false],
         });
@@ -192,6 +193,7 @@ export class ActivityFormDialogComponent implements OnInit {
         _activity.ActivityID = this.activity.ActivityID;
         _activity.ActivityName = this.activity.ActivityName;
         _activity.ActivityUrl = this.activity.ActivityUrl;
+        _activity.IsVisible = this.activity.IsVisible;
         _activity.PageIcon = this.activity.PageIcon ? this.activity.PageIcon : '';
         _activity.TagName = this.activity.TagName;
 

@@ -34,7 +34,20 @@ export class NavigationMockApi {
      * Register Mock API handlers
      */
     registerHandlers(): void {
-
+        let menus = JSON.parse(localStorage.getItem('ZTBLUser'))?.MenuBar;
+        // if (menus) {
+        //     menus?.forEach((single_menu, index_parent) => {
+        //         if (single_menu.isActive) {
+        //             single_menu?.submenu?.forEach((single_child_menu, index) => {
+        //                 if (!single_child_menu.isActive) {
+        //                     menus[index_parent].submenu.splice(index, 1);
+        //                 }
+        //             });
+        //         } else {
+        //             menus.splice(index_parent, 1)
+        //         }
+        //     });
+        // }
         this._fuseMockApiService
             .onGet('api/common/navigation')
             .reply(() => {
@@ -47,33 +60,11 @@ export class NavigationMockApi {
                         }
                     });
                 });
-
-                // Fill futuristic navigation children using the default navigation
-                // this._futuristicNavigation.forEach((futuristicNavItem) => {
-                //     this._defaultNavigation.forEach((defaultNavItem) => {
-                //         if ( defaultNavItem.id === futuristicNavItem.id )
-                //         {
-                //             futuristicNavItem.children = cloneDeep(defaultNavItem.children);
-                //         }
-                //     });
-                // });
-
-                // Fill horizontal navigation children using the default navigation
-                // this._horizontalNavigation.forEach((horizontalNavItem) => {
-                //     this._defaultNavigation.forEach((defaultNavItem) => {
-                //         if ( defaultNavItem.id === horizontalNavItem.id )
-                //         {
-                //             horizontalNavItem.children = cloneDeep(defaultNavItem.children);
-                //         }
-                //     });
-                // });
-
-                // Return the response
                 return [
                     200,
                     {
                         // compact   : cloneDeep(this._compactNavigation),
-                        default: cloneDeep(JSON.parse(localStorage.getItem('ZTBLUser')).MenuBar),
+                        default: cloneDeep(menus),
                         //futuristic: cloneDeep(this._futuristicNavigation),
                         //horizontal: cloneDeep(this._horizontalNavigation)
                     }

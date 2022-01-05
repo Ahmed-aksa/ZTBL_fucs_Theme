@@ -61,7 +61,7 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
-        //this.searchCnicForm.controls['PPNo'].setValue(this.LoggedInUserInfo.User.UserName)
+        this.searchCnicForm.controls['PPNo'].setValue(this.LoggedInUserInfo.User.UserName)
         // this.typeLov();
 
     }

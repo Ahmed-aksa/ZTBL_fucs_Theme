@@ -28,62 +28,63 @@
 
     <!-- Main -->
 
-        <!-- Products list -->
-        <div class="flex flex-auto overflow-x-hidden sm:overflow-y-auto border shadow-xs rounded-sm bg-gray-50" style="flex-direction: column;">
-            <div class="flex flex-col flex-auto sm:mb-4 ">
-                <mat-table class="lmat-elevation-z8"
-                           #table
-                           [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
-                           matSort
-                           #sort1="matSort"
-                           matSortActive="id"
-                           matSortDirection="asc"
-                           matSortDisableClear>
+    <!-- Products list -->
+    <div class="flex flex-auto overflow-x-hidden sm:overflow-y-auto border shadow-xs rounded-sm bg-gray-50"
+         style="flex-direction: column;">
+        <div class="flex flex-col flex-auto sm:mb-4 ">
+            <mat-table class="lmat-elevation-z8"
+                       #table
+                       [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
+                       matSort
+                       #sort1="matSort"
+                       matSortActive="id"
+                       matSortDirection="asc"
+                       matSortDisableClear>
 
-                    <ng-container matColumnDef="name">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
-                        <mat-cell *matCellDef="let profile">{{profile.ProfileName}}</mat-cell>
-                    </ng-container>
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+                    <mat-cell *matCellDef="let profile">{{profile.ProfileName}}</mat-cell>
+                </ng-container>
 
-                    <ng-container matColumnDef="GroupName">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Group Name</mat-header-cell>
-                        <mat-cell *matCellDef="let profile"> {{profile.GroupName}}</mat-cell>
-                    </ng-container>
+                <ng-container matColumnDef="GroupName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Group Name</mat-header-cell>
+                    <mat-cell *matCellDef="let profile"> {{profile.GroupName}}</mat-cell>
+                </ng-container>
 
-                    <ng-container matColumnDef="Description">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Description</mat-header-cell>
-                        <mat-cell *matCellDef="let profile"> {{profile.ProfileDesc}}</mat-cell>
-                    </ng-container>
+                <ng-container matColumnDef="Description">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Description</mat-header-cell>
+                    <mat-cell *matCellDef="let profile"> {{profile.ProfileDesc}}</mat-cell>
+                </ng-container>
 
-                    <ng-container matColumnDef="actions">
-                        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-                        <mat-cell *matCellDef="let activity">
-                            <button mat-icon-button color="primary"
-                                    (click)="createOrEditItem(activity)">
-                                <mat-icon  class="text-green">
-                                    {{ activity.isCoreactivity ? 'visibility' : 'create' }}
-                                </mat-icon>
-                            </button>&nbsp;
-                            <!-- <button mat-icon-button color="primary"
-                            (click)="deleteActivity(activity)">
-                        <mat-icon>
-                            {{ activity.isCoreactivity ? 'visibility' : 'delete' }}
-                        </mat-icon>
-                    </button>&nbsp; -->
-                        </mat-cell>
-                    </ng-container>
-                    <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
-                                    class="table-header-background"></mat-header-row>
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let activity">
+                        <button mat-icon-button color="primary"
+                                (click)="createOrEditItem(activity)">
+                            <mat-icon class="text-green">
+                                {{ activity.isCoreactivity ? 'visibility' : 'create' }}
+                            </mat-icon>
+                        </button>&nbsp;
+                        <button mat-icon-button color="primary"
+                                (click)="deleteActivity(activity)">
+                            <mat-icon>
+                                {{ activity.isCoreactivity ? 'visibility' : 'delete' }}
+                            </mat-icon>
+                        </button>&nbsp;
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns;sticky:true;"
+                                class="table-header-background"></mat-header-row>
 
-                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-                </mat-table>
-
-            </div>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
 
         </div>
 
-        <mat-paginator [length]="50" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 25]">
-        </mat-paginator>
+    </div>
+
+    <mat-paginator [length]="50" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 25]">
+    </mat-paginator>
 
 </div>
 

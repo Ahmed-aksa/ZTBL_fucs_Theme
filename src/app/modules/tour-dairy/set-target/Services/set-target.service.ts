@@ -97,8 +97,8 @@ if(userInfo?.UserCircleMappings){
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    saveTargets(targets, Duration, AssignedTarget,assignedTarget) {
-        
+    saveTargets(bankAssignedTargets,targets, Duration, AssignedTarget,assignedTarget) {
+
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {
@@ -125,12 +125,26 @@ if(userInfo?.UserCircleMappings){
 
         this.request.Target.Duration = Duration;
         // this.request.Target.AssignedTarget = AssignedTarget;
-        if(Object.keys(assignedTarget).length){
-            this.request.Target["AssignedTarget"] = assignedTarget;
+        if(assignedTarget){
+            if (Object.keys(assignedTarget)?.length) {
+                this.request.Target["AssignedTarget"] = assignedTarget;
+            }
+        }
+        // if(AssignedTarget){
+        //     if((Object.keys(AssignedTarget)?.length)){
+        //         this.request.Target["AssignedTarget"]=AssignedTarget;
+        //     }
+        // }
+
+        if(bankAssignedTargets){
+            if(Object.keys(bankAssignedTargets)?.length){
+                this.request.Target["AssignedTarget"] = bankAssignedTargets[0];
+            }
         }
 
 
-        // this.request.Target["AssignedTarget"]=AssignedTarget;
+
+
 
         var req = JSON.stringify(this.request);
 

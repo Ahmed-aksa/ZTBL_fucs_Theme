@@ -64,7 +64,7 @@
         <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
 
             <!-- Basic -->
-            <ng-container *ngIf="item.type === 'basic'">
+            <ng-container *ngIf="item.type === 'basic' && item.isActive">
                 <fuse-vertical-navigation-basic-item
                     [item]="item"
                     [name]="name"></fuse-vertical-navigation-basic-item>

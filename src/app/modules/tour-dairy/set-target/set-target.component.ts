@@ -19,10 +19,10 @@ import {LayoutUtilsService} from '../../../shared/services/layout_utils.service'
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '../../../shared/services/common.service';
-import {Target} from '@angular/compiler';
 import {finalize} from 'rxjs/operators';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {SetTargetService} from './Services/set-target.service';
+import {BankTarget, Target} from "./Models/set-target.model";
 
 class SetTarget {
     Id: number;
@@ -65,16 +65,19 @@ export class SetTargetComponent implements OnInit {
     AssignedTarget: any = [];
     AssignedTargetToSave: any = [];
     assignedTarget;
+    ShowassignedTarget;
     value: any;
     visible: any = true;
     viewerOpen = false;
     heading;
     totalLength = [];
     public newValue;
+    public newBankValue;
     public setTarget = new SetTarget();
     public target: Target[] = [];
     public TargetDuration: TargetDuration[] = [];
     targets: Target[] = [];
+    bankTargets:BankTarget[] = [];
     headings = [];
     public previous = new SetTarget();
     LoggedInUserInfo: BaseResponseModel;
@@ -85,6 +88,7 @@ export class SetTargetComponent implements OnInit {
     branch: any;
     zone: any;
     circle: any;
+    isBankTarget:boolean=false;
 
     constructor(
         private fb: FormBuilder,
@@ -162,15 +166,27 @@ export class SetTargetComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
+                    debugger
                     this.headings = baseResponse.Target.Heading;
                     this.targets = baseResponse.Target.Targets;
                     this.previous = Object.assign(this.targets);
-                    this.assignedTarget = baseResponse.Target.AssignedTarget;
+                    this.assignedTarget = baseResponse?.Target?.AssignedTarget;
+                    if(baseResponse?.Target?.AssignedTarget){
+                        this.ShowassignedTarget = Object.values(baseResponse.Target.AssignedTarget);
+                        this.isBankTarget=false;
+                    }else{
+                        this.isBankTarget=true;
+                    }
                     this.assignedTargetHeadingsData = baseResponse?.Target?.AssignedTarget;
+                    this.bankTargets = baseResponse?.Target?.BankTargets;
+
+                    debugger
                     this.Heading();
 
-                    this.showAssignedTarget();
+
+
                     this.ishidden = true;
+
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -180,10 +196,7 @@ export class SetTargetComponent implements OnInit {
                 }
             });
     }
-    assignedtargetheading
-   showAssignedTarget(){
-       this.assignedtargetheading = Object.values(this.assignedTargetHeadingsData);
-}
+
 
     createForm() {
         this.targetForm = this.fb.group({
@@ -193,6 +206,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     tracker = (i) => i;
+    trackerr = (i) => i;
     arr: Object;
 
     get rowKeys(): string[] {
@@ -202,6 +216,15 @@ export class SetTargetComponent implements OnInit {
         if (this.heading) {
         }
         return Object.keys(this.targets[0]);
+    }
+
+    get rowBankKeys(): string[] {
+        if (!this.bankTargets || !this.bankTargets.length) {
+            return [];
+        }
+        if (this.heading) {
+        }
+        return Object.keys(this.bankTargets[0]);
     }
 
     get rowth(): string[] {
@@ -214,9 +237,19 @@ export class SetTargetComponent implements OnInit {
         return this.array;
     }
 
+    get AssignedHeading(): string[] {
+        if (!this.targets || !this.targets.length) {
+            return [];
+        }
+        if (this.heading) {
+        }
+
+        return Object.keys(this.array);
+    }
+
 
     get totalHeading(): string[] {
-        
+
         if (!this.assignedTargetHeadingsData) {
             return [];
         }
@@ -270,6 +303,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     onInputChanged(value, rowIndex: number, propertyKey: string): void {
+        debugger
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex
                 ? row
@@ -281,9 +315,27 @@ export class SetTargetComponent implements OnInit {
 
 
         this.targets = Object.assign(this.newValue);
-        
+
         // this.onDataChanged(this.newValue);
         this.Heading();
+    }
+
+    onBankInputChanged(value, rowIndex: number, propertyKey: string): void {
+        debugger
+        this.newBankValue = this.bankTargets.map((row, index) => {
+            return index !== rowIndex
+                ? row
+                : {
+                    ...row,
+                    [propertyKey]: value == '' ? '0' : value,
+                };
+        });
+
+
+        this.bankTargets = Object.assign(this.newBankValue);
+
+        // this.onDataChanged(this.newValue);
+        // this.Heading();
     }
 
     onDataChanged(event: any[]): void {
@@ -314,7 +366,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     Check() {
-        
+
         var target;
         var heading;
 
@@ -355,9 +407,49 @@ export class SetTargetComponent implements OnInit {
     }
 
     save() {
+
+        // Check Total
+        debugger
+        if(this.bankTargets?.length>0){
+            let BankTargetTotals =Object.keys(this.bankTargets[0])
+            for(let i=0;i<this.totals?.length;i++)
+            {
+                if(this.totals[i]!=this.bankTargets[0][BankTargetTotals[i]]){
+                    var Message;
+                    var Code;
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        (Message = 'Total value must be equal to Bank Assigned value'),
+                        (Code = '')
+                    );
+                    return
+                }
+            }
+        }
+
+
+        if(this.isBankTarget==false){
+
+            if(Object.keys(this.assignedTarget)?.length>0){
+                let assigned = Object.keys(this.assignedTarget)
+                for (let i = 0; i < this.totals?.length; i++) {
+                    if (this.totals[i] != this.assignedTarget[assigned[i]]) {
+                        var Message;
+                        var Code;
+                        this.layoutUtilsService.alertElement(
+                            '',
+                            (Message = 'Total value must be equal to Assigned value'),
+                            (Code = '')
+                        );
+                        return
+                    }
+                }
+            }
+        }
+
             this.spinner.show();
             this._setTarget
-                .saveTargets(
+                .saveTargets(this.bankTargets,
                     this.targets,
                     this.targetForm.controls.Duration.value,
                     this.AssignedTargetToSave,this.assignedTarget
@@ -386,7 +478,48 @@ export class SetTargetComponent implements OnInit {
     }
 
     submit() {
-            this.spinner.show();
+
+        if(this.bankTargets?.length>0){
+            this.totals
+            let BankTargetTotals =Object.keys(this.bankTargets[0])
+            for(let i=0;i<this.totals?.length;i++)
+            {
+                console.log(this.bankTargets[0][BankTargetTotals[i]])
+                if(this.totals[i]!=this.bankTargets[0][BankTargetTotals[i]]){
+                    var Message;
+                    var Code;
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        (Message = 'Total value must be equal to Bank Assigned value'),
+                        (Code = '')
+                    );
+                    return
+                }
+            }
+        }
+
+
+        if(this.assignedTarget){
+
+            if(Object.keys(this.assignedTarget)?.length>0){
+                let assigned = Object.keys(this.assignedTarget)
+                for (let i = 0; i < this.totals?.length; i++) {
+                    if (this.totals[i] != this.assignedTarget[assigned[i]]) {
+                        var Message;
+                        var Code;
+                        this.layoutUtilsService.alertElement(
+                            '',
+                            (Message = 'Total value must be equal to Assigned value'),
+                            (Code = '')
+                        );
+                        return
+                    }
+                }
+            }
+        }
+
+
+        this.spinner.show();
             this._setTarget
                 .submitTargets(this.targetForm.controls.Duration.value)
                 .pipe(

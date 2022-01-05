@@ -11,7 +11,7 @@
 >
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">Early Warning Reports</div>
+            <div class="heading">Early Warning Report For MCO</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
@@ -117,6 +117,15 @@
                         }}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="Circle">
+                    <mat-header-cell *matHeaderCellDef
+                    >Circle Code
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.CircleId
+                        }}</mat-cell>
+                </ng-container>
 
                 <ng-container matColumnDef="Ndd">
                     <mat-header-cell *matHeaderCellDef
@@ -199,14 +208,41 @@
                         }}</mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="markup">
+                    <mat-header-cell *matHeaderCellDef>Markup</mat-header-cell>
+                    <mat-cell *matCellDef="let report">{{
+                        report.Markup
+                        }}</mat-cell>
+                </ng-container>
+
 
                 <ng-container matColumnDef="Los">
                     <mat-header-cell *matHeaderCellDef
-                    >Outstanding Loan
+                    >Loan Outstanding
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
                         report.LoanOutStanding
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="sl">
+                    <mat-header-cell *matHeaderCellDef
+                    >Sanction Limit
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.SanctionLimit
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="tsa">
+                    <mat-header-cell *matHeaderCellDef
+                    >Total Sanction Amount
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.TotalSanctionAmount
                         }}</mat-cell>
                 </ng-container>
 
