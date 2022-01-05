@@ -23,6 +23,7 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
+    dataSource: MatTableDataSource<searchLoanCasesByCnic>
 
     matTableLenght = false;
     loading = false;
