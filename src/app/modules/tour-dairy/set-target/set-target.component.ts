@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
     DateAdapter,
@@ -59,6 +59,9 @@ class TargetDuration {
     ],
 })
 export class SetTargetComponent implements OnInit {
+
+    @Input() UserID:any;
+
     targetForm: FormGroup;
     private array = [];
     totals: any = [];
@@ -116,6 +119,8 @@ export class SetTargetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        debugger
+        console.log(this.UserID)
         this.GetTragetDuration();
         this.createForm();
     }
@@ -158,7 +163,7 @@ export class SetTargetComponent implements OnInit {
 
         this.spinner.show();
         this._setTarget
-            .GetTargets(value, this.zone, this.branch, this.circle)
+            .GetTargets(value, this.zone, this.branch, this.circle,this.UserID)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -452,7 +457,7 @@ export class SetTargetComponent implements OnInit {
                 .saveTargets(this.bankTargets,
                     this.targets,
                     this.targetForm.controls.Duration.value,
-                    this.AssignedTargetToSave,this.assignedTarget
+                    this.AssignedTargetToSave,this.assignedTarget,this.UserID
                 )
                 .pipe(
                     finalize(() => {
@@ -521,7 +526,7 @@ export class SetTargetComponent implements OnInit {
 
         this.spinner.show();
             this._setTarget
-                .submitTargets(this.targetForm.controls.Duration.value)
+                .submitTargets(this.targetForm.controls.Duration.value,this.UserID)
                 .pipe(
                     finalize(() => {
                         this.spinner.hide();
