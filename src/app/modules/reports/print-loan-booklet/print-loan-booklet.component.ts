@@ -98,7 +98,28 @@ export class PrintLoanBookletComponent implements OnInit,AfterViewInit {
             })
     }
 
-    print(){}
+    print(report){
+        this.reports.ReportsNo = "30";
+        this.reports.ReportFormatType = "2";
+        this.reports.OrgHeadInfoId = report.OrgHeadInfo;
+        this.reports.ReportsName = report.ReportName;
+        this.spinner.show();
+        this._reports.reportDynamic(this.reports, this.zone, this.branch)
+            .pipe(
+                finalize(() => {
+                    this.loaded = true;
+                    this.loading = false;
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse: any) => {
+                if (baseResponse.Success === true) {
+                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                } else {
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
+                }
+            })
+    }
 
     getAllData(data) {
         this.zone = data.final_zone;

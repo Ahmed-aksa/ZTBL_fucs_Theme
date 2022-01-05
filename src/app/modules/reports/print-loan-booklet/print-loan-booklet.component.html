@@ -126,7 +126,7 @@
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.PPNo
+                        report.Sequence
                         }}</mat-cell>
                 </ng-container>
 
@@ -136,7 +136,7 @@
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.ZoneName
+                        report.Description
                         }}</mat-cell>
                 </ng-container>
 
@@ -146,17 +146,17 @@
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">{{
-                        report.BranchName
+                        report.BookletType
                         }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Print">
                     <mat-header-cell *matHeaderCellDef
-                    >Print
+                    >
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let report">
-
+                        <span style="color: #01671B;" class="cursor-pointer" id="llcInqiryText" (click)="print(report)"><b>Print</b></span>
                     </mat-cell>
                 </ng-container>
 
