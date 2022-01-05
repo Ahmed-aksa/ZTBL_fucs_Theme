@@ -59,35 +59,36 @@ export class DashboardService {
                 (Object.values(data))?.forEach(x => {
                     obj.push(Number(x));
 
-                });
-            return {
-                series: obj,
-                chart: {
-                    width: "100%",
-                    type: "pie"
-                },
-                labels: Object.keys(data)?.map(key => key = key.replace(/([a-z0-9])([A-Z])/g, '$1 $2')),
-                theme: {
-                    monochrome: {
-                        enabled: false
-                    }
-                },
-                title: {
-                    text: title
-                },
-                responsive: [
-                    {
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: 200
-                            },
-                            legend: {
-                                position: "bottom"
-                            }
+        });
+       
+        return {
+            series: [],//obj,
+            chart: {
+                width: "100%",
+                type: "pie"
+            },
+            labels:  [],//Object.keys(data).map(key => key=key.replace(/([a-z0-9])([A-Z])/g, '$1 $2')),
+            theme: {
+                monochrome: {
+                    enabled: false
+                }
+            },
+            title: {
+                text: title
+            },
+            responsive: [
+                {
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: "bottom"
                         }
                     }
-                ],
+                }
+            ],
                 noData: {
                     text: "There's no data",
                     align: 'center',

@@ -6,7 +6,8 @@ import {
     ApexChart,
     ApexTheme,
     ApexTitleSubtitle,
-    ChartComponent
+    ChartComponent,
+    ApexNoData
 } from "ng-apexcharts";
 import { finalize } from "rxjs/operators";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -20,6 +21,7 @@ export type ChartOptions = {
     labels: any;
     theme: ApexTheme;
     title: ApexTitleSubtitle;
+    noData: ApexNoData;
 };
 
 @Component({

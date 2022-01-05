@@ -47,7 +47,6 @@ export class ReportsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.user.getSearchResultsDataOfZonesBranchCircle());
     }
 
     reportLength(){
@@ -57,10 +56,8 @@ export class ReportsComponent implements OnInit {
         report.MenuBar.forEach(x => {
             if(x.parentId == '165'){
                 this.rowLength = x.children.length;
-                console.log(this.rowLength)
             }
         });
-        console.log(report)
     }
 
     IsReportCardVisable(url) {

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardService } from 'app/shared/services/dashboard.service';
 import {
     ApexChart,
+    ApexNoData,
     ApexNonAxisChartSeries,
     ApexResponsive,
     ApexTheme,
@@ -18,6 +19,8 @@ export type ChartOptions = {
     labels: any;
     theme: ApexTheme;
     title: ApexTitleSubtitle;
+    noData: ApexNoData;
+    
 };
 
 @Component({

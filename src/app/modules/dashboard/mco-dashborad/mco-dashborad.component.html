@@ -1,6 +1,33 @@
 <div class=" sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
     <div class="heading">MCO Dashboard</div>
     <!-- Header -->
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-row row pt-2"> 
+            <div class="form-group col-lg-3">
+                <mat-form-field class="mat-form-field-fluid w-full mb-0" appearance="outline">
+                    <mat-label class="customMatLabel">Year</mat-label>
+                    <mat-select [(ngModel)]="year" name="year"  #Year="ngModel" 
+                    [ngClass]="{ 'is-invalid': f.submitted && Year.invalid }"
+                    required>
+                        <!-- <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId">
+                            {{zone?.ZoneName}}
+                        </mat-option> -->
+                    </mat-select>
+                </mat-form-field>
+                <div *ngIf="f.submitted && Year.invalid" class="invalid-feedback">
+                    <div *ngIf="Year.errors.required">Title is required</div>
+                </div>
+            </div>
+            <div class="form-group col-lg-3">
+                <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button><mat-icon class="mr-2">search</mat-icon>Search</button>
+
+            </div>
+        </div>
+        <div class="text-center">
+            
+        </div>
+    </form>
+    
     <!-- Main -->
 
     <!-- Products list -->

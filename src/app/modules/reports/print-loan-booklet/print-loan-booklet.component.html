@@ -1,0 +1,183 @@
+<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+
+
+    <div class="row pt-3">
+        <div class="col-lg-9 col-sm-12">
+            <div class="heading">Loan Booklet Printing</div>
+        </div>
+        <div class="col-lg-3 col-sm-12 self-center">
+
+            <p class="text-right">
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary"
+                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+
+        </div>
+    </div>
+
+
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="card card-body">
+                <form [formGroup]="bufricationForm" class="kt-form kt-form--group-seperator-dashed">
+
+                    <div class="kt-form">
+
+                        <div class="kt-portlet__body">
+
+                            <div class="col-lg-12">
+                                <div class="flex" style="flex-wrap: wrap;">
+
+                                    <app-zone-branch-circle [form]="bufricationForm" [should_show_circle]="false"
+                                                            [is_required_circle]="false"
+                                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+
+
+                                    <!--                        <div class="col-lg-6 kt-margin-bottom-20-mobile">-->
+                                    <!--                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+                                    <!--                                <mat-label class="customMatLabel">Working Date (ddMMyyyy) <strong class="matMandatory">*</strong>-->
+                                    <!--                                </mat-label>-->
+                                    <!--                                <input matInput [matDatepicker]="picker2" formControlName="WorkingDate" maxlength="30"-->
+                                    <!--                                       autocomplete="off" (dateChange)="isEnableWorkingDate()" appNumberOnly/>-->
+                                    <!--                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+                                    <!--                                <mat-datepicker #picker2></mat-datepicker>-->
+                                    <!--                            </mat-form-field>-->
+                                    <!--                        </div>-->
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">LC#</mat-label>
+                                            <input matInput placeholder="Enter LC NO" formControlName="LcNO" maxlength="30"
+                                                   autocomplete="off" appNumberOnly/>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+
+                                        <button class="bg-gray-500" mat-raised-button color="primary" (click)="find()">
+                                            <mat-icon class="mr-2">search</mat-icon>
+                                            Find
+                                        </button>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-lg-12">
+
+        <table class="table table-striped " *ngIf="table">
+            <thead>
+            <tr class="table-header-background">
+                <th>Customer Name</th>
+                <th>Husband/Father</th>
+                <th>Cell No</th>
+                <th>Address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{bookletDetail.CustomerName}}</td>
+                <td>{{bookletDetail.FatherName}}</td>
+                <td>{{bookletDetail.CellNo}}</td>
+                <td>{{bookletDetail.Address}}</td>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="table">
+        <!-- <div
+            class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
+        </div> -->
+
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " >
+            <!--[style.height]="gridHeight"-->
+            <mat-table
+                class="lmat-elevation-z8 overflow-scroll"
+                [style.height]="gridHeight"
+                #table
+                [dataSource]="
+                    dataSource
+                "
+                matSort
+                #sort1="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+            >
+                <ng-container matColumnDef="Sr">
+                    <mat-header-cell *matHeaderCellDef
+                    >Sr#
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Sequence
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Description">
+                    <mat-header-cell *matHeaderCellDef
+                    >Description
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.Description
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="DocumentType">
+                    <mat-header-cell *matHeaderCellDef
+                    >Document Type
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">{{
+                        report.BookletType
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Print">
+                    <mat-header-cell *matHeaderCellDef
+                    >
+                    </mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let report">
+                        <span style="color: #01671B;" class="cursor-pointer" id="llcInqiryText" (click)="print(report)"><b>Print</b></span>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                    class="table-header-background"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+            </mat-table>
+
+            <div class="mat-table__message" *ngIf="loading">
+                Please wait....
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+

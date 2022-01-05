@@ -23,6 +23,10 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     sessionTime: any;
     popup: any = false;
 
+    showMapViolate = false;
+    showMapReq = false;
+    showNotification = false;
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -63,14 +67,26 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
             .subscribe(({ matchingAliases }) => {
                 this.isScreenSmall = !matchingAliases.includes('md');
             });
-           
-    
-
-
-
-
-
     }
+
+    IsIconVisable(url) {
+        var ismatch = false
+        var user = localStorage.getItem("ZTBLUser")
+        if (user) {
+            var userdate = JSON.parse(user);
+            userdate.MenuBar.forEach(x => {
+                var childURl = x?.children?.find(y => y.link?.includes(url))
+                if (childURl) {
+                    ismatch = true;
+                }
+                else {
+
+                }
+
+            });
+            return ismatch;
+        }}
+
     ngOnDestroy(): void {
         this._sessionExpireService.timerUnSubject();
         this._unsubscribeAll.next();
@@ -90,7 +106,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
                 if(c>60){
                     this.popup = false;
                 }
-    
+
                 this.time =this.secondsToHms(c); //c.toString();
             });
     }
@@ -129,7 +145,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
     }
 
     hidePopup() {
-        
+
         this.popup = false;
     }
      secondsToHms(d) {
@@ -137,11 +153,11 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         var h = Math.floor(d / 3600);
         var m = Math.floor(d % 3600 / 60);
         var s = Math.floor(d % 3600 % 60);
-    
+
         var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
         var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
         var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-        return hDisplay + mDisplay + sDisplay; 
+        return hDisplay + mDisplay + sDisplay;
     }
-    
+
 }
