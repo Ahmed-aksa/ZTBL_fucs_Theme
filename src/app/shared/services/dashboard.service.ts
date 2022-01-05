@@ -60,12 +60,12 @@ export class DashboardService {
         });
        
         return {
-            series: obj,
+            series: [],//obj,
             chart: {
                 width: "100%",
                 type: "pie"
             },
-            labels:  Object.keys(data).map(key => key=key.replace(/([a-z0-9])([A-Z])/g, '$1 $2')),
+            labels:  [],//Object.keys(data).map(key => key=key.replace(/([a-z0-9])([A-Z])/g, '$1 $2')),
             theme: {
                 monochrome: {
                     enabled: false

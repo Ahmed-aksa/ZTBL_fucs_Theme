@@ -26,6 +26,7 @@ import {TokenInterceptor} from './shared/httpInterceptor/httpconfig.interceptor'
 import {NdcRequestsModule} from './modules/ndc-requests/ndc-requests.module';
 import {DatePipe} from "@angular/common";
 import {AngularImageViewerModule} from "@clarivate/angular-image-viewer";
+import { EncryptDecryptInterceptor } from './shared/httpInterceptor/encrypt_decrypt.interceptor';
 
 const routerConfig: ExtraOptions = {
     useHash: true,
@@ -63,7 +64,9 @@ const routerConfig: ExtraOptions = {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
             multi: true
-        }
+        },
+        { provide: HTTP_INTERCEPTORS, useClass: EncryptDecryptInterceptor, multi: true }
+
     ],
     bootstrap: [
         AppComponent

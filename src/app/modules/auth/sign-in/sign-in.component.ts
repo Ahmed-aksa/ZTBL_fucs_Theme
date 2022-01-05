@@ -57,15 +57,14 @@ export class AuthSignInComponent implements OnInit {
             .subscribe((result) => {
                     if (result.Success) {
                         this.toaster.success(result.Message);
-
                         if (!result.isWebOTPEnabled) {
                             if (result.LoanUtilization) {
                                 localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
                                 localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
                                 localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
                             }
-                            //const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-                            //this._router.navigateByUrl(redirectURL);
+                            const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                            this._router.navigateByUrl(redirectURL);
                             window.location.reload();
                         } else if (result.isWebOTPEnabled) {
                             const dialogRef = this.dialog.open(OtpComponent, {
@@ -75,7 +74,6 @@ export class AuthSignInComponent implements OnInit {
                             });
 
                             dialogRef.afterClosed().subscribe(res => {
-                                debugger;
                                 if (res.data.data.Success) {
                                     if (res.data.data.Token) {
                                         localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));

@@ -5,7 +5,8 @@ import {
     ApexChart,
     ApexTheme,
     ApexTitleSubtitle,
-    ChartComponent
+    ChartComponent,
+    ApexNoData
 } from "ng-apexcharts";
 import {DashboardService} from "../../../shared/services/dashboard.service";
 
@@ -16,6 +17,7 @@ export type ChartOptions = {
     labels: any;
     theme: ApexTheme;
     title: ApexTitleSubtitle;
+    noData: ApexNoData;
 };
 
 @Component({

@@ -6,7 +6,8 @@ import {
     ApexChart,
     ApexTheme,
     ApexTitleSubtitle,
-    ChartComponent
+    ChartComponent,
+    ApexNoData
 
 } from "ng-apexcharts";
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -19,6 +20,7 @@ export type ChartOptions = {
     labels: any;
     theme: ApexTheme;
     title: ApexTitleSubtitle;
+    noData: ApexNoData;
 };
 
 @Component({
@@ -35,6 +37,7 @@ export class McoDashboradComponent implements OnInit {
     DisbursmentAchievement: any = [];
     RecoveryAchievement: any = [];
     UtilizationMutation: any = [];
+    year:any;
 
     constructor(private _dashboardService: DashboardService, private spinner: NgxSpinnerService) {
     }
@@ -44,9 +47,12 @@ export class McoDashboradComponent implements OnInit {
     }
 
     assignRoleData(DashboardReport: any) {
-      
+        debugger;
         this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
         this.chartOptions2 = this._dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio');
         this.chartOptions3 = this._dashboardService.assignKeys(DashboardReport.LoanPorfolio2, 'Loan Portfolio');
+    }
+    onSubmit(){
+        
     }
 }
