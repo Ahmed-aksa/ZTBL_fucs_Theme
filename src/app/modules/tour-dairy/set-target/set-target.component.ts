@@ -80,7 +80,7 @@ export class SetTargetComponent implements OnInit {
     AssignedTarget: any = [];
     AssignedTargetToSave: any = [];
     assignedTarget;
-    ShowassignedTarget;
+    ShowassignedTarget:Array<any>=[];
     value: any;
     visible: any = true;
     viewerOpen = false;
@@ -107,6 +107,7 @@ export class SetTargetComponent implements OnInit {
     isBankTarget: boolean = false;
     TagName;
     Multiple;
+    AssignedTargetHeading;
 
     constructor(
         private fb: FormBuilder,
@@ -158,6 +159,7 @@ export class SetTargetComponent implements OnInit {
                 this.TagName=this.TargetData?.TagName
             }
             this.assignedTargetHeadingsData = this.TargetData?.AssignedTarget;
+
             this.bankTargets = this.TargetData?.BankTargets;
             debugger
             this.Heading();
@@ -225,7 +227,7 @@ export class SetTargetComponent implements OnInit {
                     // this.previous = Object.assign(this.targets);
                     this.assignedTarget = baseResponse?.Targets[0]?.AssignedTarget;
                     if (baseResponse?.Targets[0]?.AssignedTarget) {
-                        this.ShowassignedTarget = Object.values(baseResponse.Targets[0]?.AssignedTarget);
+                        //this.ShowassignedTarget = Object.values(baseResponse.Targets[0]?.AssignedTarget);
                         this.isBankTarget = false;
                     } else {
                         this.isBankTarget = true;
@@ -233,7 +235,22 @@ export class SetTargetComponent implements OnInit {
                     if (baseResponse?.Targets[0]?.TagName) {
                         this.TagName=baseResponse?.Targets[0]?.TagName
                     }
+                    this.ShowassignedTarget=[];
+                    if(baseResponse?.Targets[0]?.AssignedTargetHeading){
 
+                        this.AssignedTargetHeading = Object.values(baseResponse?.Targets[0]?.AssignedTargetHeading);
+                        Object.keys(baseResponse?.Targets[0]?.AssignedTargetHeading).forEach(x=>{
+                            debugger;
+                            if(baseResponse?.Targets[0]?.AssignedTarget[x]){
+                                this.ShowassignedTarget.push(baseResponse?.Targets[0]?.AssignedTarget[x])
+                                //console.log(baseResponse?.Targets[0]?.AssignedTarget[x])
+                            }else{
+                                 this.ShowassignedTarget.push('-')
+                                //console.log("-");
+                            }
+                        });
+
+                    }
                     this.assignedTargetHeadingsData = baseResponse?.Targets[0]?.AssignedTarget;
                     this.bankTargets = baseResponse?.Targets[0]?.BankTargets;
                     debugger
@@ -294,14 +311,14 @@ export class SetTargetComponent implements OnInit {
         return this.array;
     }
 
-    get ZCrowth(): string[] {
-        if (!this.targets || !this.targets.length) {
+    get AssignedTargetHeadings(): string[] {
+        if (!this.AssignedTargetHeading || !this.AssignedTargetHeading?.length) {
             return [];
         }
         if (this.heading) {
         }
 
-        return this.array;
+        return this.AssignedTargetHeading;
     }
 
     get AssignedHeading(): string[] {
@@ -495,25 +512,25 @@ export class SetTargetComponent implements OnInit {
             }
         }
 
-
-        if (this.isBankTarget == false) {
-
-            if (Object.keys(this.assignedTarget)?.length > 0) {
-                let assigned = Object.keys(this.assignedTarget)
-                for (let i = 0; i < this.totals?.length; i++) {
-                    if (this.totals[i] != this.assignedTarget[assigned[i]]) {
-                        var Message;
-                        var Code;
-                        this.layoutUtilsService.alertElement(
-                            '',
-                            (Message = 'Total value must be equal to Assigned value'),
-                            (Code = '')
-                        );
-                        return
-                    }
-                }
-            }
-        }
+//*************** No check for Assigned Target****************
+        // if (this.isBankTarget == false) {
+        //
+        //     if (Object.keys(this.assignedTarget)?.length > 0) {
+        //         let assigned = Object.keys(this.assignedTarget)
+        //         for (let i = 0; i < this.totals?.length; i++) {
+        //             if (this.totals[i] != this.assignedTarget[assigned[i]]) {
+        //                 var Message;
+        //                 var Code;
+        //                 this.layoutUtilsService.alertElement(
+        //                     '',
+        //                     (Message = 'Total value must be equal to Assigned value'),
+        //                     (Code = '')
+        //                 );
+        //                 return
+        //             }
+        //         }
+        //     }
+        // }
 
         this.spinner.show();
         this._setTarget
@@ -565,25 +582,25 @@ export class SetTargetComponent implements OnInit {
             }
         }
 
-
-        if (this.assignedTarget) {
-
-            if (Object.keys(this.assignedTarget)?.length > 0) {
-                let assigned = Object.keys(this.assignedTarget)
-                for (let i = 0; i < this.totals?.length; i++) {
-                    if (this.totals[i] != this.assignedTarget[assigned[i]]) {
-                        var Message;
-                        var Code;
-                        this.layoutUtilsService.alertElement(
-                            '',
-                            (Message = 'Total value must be equal to Assigned value'),
-                            (Code = '')
-                        );
-                        return
-                    }
-                }
-            }
-        }
+//*************** No check for Assigned Target****************
+        // if (this.assignedTarget) {
+        //
+        //     if (Object.keys(this.assignedTarget)?.length > 0) {
+        //         let assigned = Object.keys(this.assignedTarget)
+        //         for (let i = 0; i < this.totals?.length; i++) {
+        //             if (this.totals[i] != this.assignedTarget[assigned[i]]) {
+        //                 var Message;
+        //                 var Code;
+        //                 this.layoutUtilsService.alertElement(
+        //                     '',
+        //                     (Message = 'Total value must be equal to Assigned value'),
+        //                     (Code = '')
+        //                 );
+        //                 return
+        //             }
+        //         }
+        //     }
+        // }
 
 
         this.spinner.show();
