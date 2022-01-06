@@ -105,7 +105,7 @@
             <mat-progress-bar [mode]="'indeterminate'" *ngIf="!loaded"></mat-progress-bar>
         </div> -->
 
-        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 " >
+        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50" >
             <!--[style.height]="gridHeight"-->
             <mat-table
                 class="lmat-elevation-z8 overflow-scroll"
@@ -141,22 +141,22 @@
                 </ng-container>
 
                 <ng-container matColumnDef="DocumentType">
-                    <mat-header-cell *matHeaderCellDef
+                    <mat-header-cell *matHeaderCellDef style="margin-left: 50px; margin-right: 30px;"
                     >Document Type
                     </mat-header-cell
                     >
-                    <mat-cell *matCellDef="let report">{{
+                    <mat-cell *matCellDef="let report" style="margin-left: 50px; margin-right: 30px;">{{
                         report.BookletType
                         }}</mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="Print">
-                    <mat-header-cell *matHeaderCellDef
-                    >
+                    <mat-header-cell *matHeaderCellDef style="align-items: center"
+                    >Action
                     </mat-header-cell
                     >
-                    <mat-cell *matCellDef="let report">
-                        <span style="color: #01671B;" class="cursor-pointer" id="llcInqiryText" (click)="print(report)"><b>Print</b></span>
+                    <mat-cell *matCellDef="let report" style="align-items: center">
+                        <span style="color: #01671B; text-decoration: underline;" class="cursor-pointer" id="llcInqiryText" (click)="print(report)"><b>Print</b></span>
                     </mat-cell>
                 </ng-container>
 
