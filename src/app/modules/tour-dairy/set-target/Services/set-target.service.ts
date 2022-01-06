@@ -10,6 +10,7 @@ import {Customer} from '../../../../shared/models/deceased_customer.model';
 import {map} from 'rxjs/operators';
 import {BaseResponseModel} from '../../../../shared/models/base_response.model';
 import {environment} from '../../../../../environments/environment';
+import {Profile} from "../../../user-management/activity/activity.model";
 
 @Injectable({
     providedIn: 'root',
@@ -60,10 +61,11 @@ if(userInfo?.UserCircleMappings){
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
-
-    GetTargets(value: string,zone,branch,circle) {
+    Profile= new Profile();
+    GetTargets(value: string,zone,branch,circle,UserID) {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request = new BaseRequestModel();
+
 
         this.request.Target = {
             Duration: value,
@@ -85,7 +87,10 @@ if(userInfo?.UserCircleMappings){
         this.request.Circle = {
             CircleIds: _circles,
         }
+        debugger
         this.request.User = userInfo.User;
+        this.Profile.ProfileID=UserID;
+        this.request.Profile = this.Profile;
         this.request.Zone = zone;
         this.request.Branch = branch;
         this.activity.ActivityID = 1;
@@ -97,7 +102,7 @@ if(userInfo?.UserCircleMappings){
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    saveTargets(bankAssignedTargets,targets, Duration, AssignedTarget,assignedTarget) {
+    saveTargets(bankAssignedTargets,targets, Duration, AssignedTarget,assignedTarget,UserID) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -121,6 +126,8 @@ if(userInfo?.UserCircleMappings){
         this.request.User = userInfo.User;
         // this.request.User["UserId"] = "B-44";
 
+        this.Profile.ProfileID=UserID;
+        this.request.Profile = this.Profile;
         this.request.Target = {Targets: targets};
 
         this.request.Target.Duration = Duration;
@@ -156,7 +163,7 @@ if(userInfo?.UserCircleMappings){
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    submitTargets(Duration) {
+    submitTargets(Duration,UserID) {
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {
@@ -174,6 +181,9 @@ if(userInfo?.UserCircleMappings){
         this.request.Zone = userInfo.Zone;
         this.request.Branch = userInfo.Branch;
         this.request.User = userInfo.User;
+
+        this.Profile.ProfileID=UserID;
+        this.request.Profile = this.Profile;
         this.request.Target = {Targets: null};
         this.request.Target.Duration = Duration.toString();
         var req = JSON.stringify(this.request);
