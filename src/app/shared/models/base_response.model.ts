@@ -69,6 +69,8 @@ export class BaseResponseModel {
     DeceasedCustomer: any;
     ViewDocumnetsList: any;
     Target: any;
+    Target1: any;
+    Targets:any;
     Heading: any;
     LoanUtilization: any;
     BorrowerInfo: any;

@@ -11,6 +11,7 @@ import {map} from 'rxjs/operators';
 import {BaseResponseModel} from '../../../../shared/models/base_response.model';
 import {environment} from '../../../../../environments/environment';
 import {Profile} from "../../../user-management/activity/activity.model";
+import {Target} from "../Models/set-target.model";
 
 @Injectable({
     providedIn: 'root',
@@ -31,27 +32,27 @@ export class SetTargetService {
     }
 
 
-    GetTragetDuration(zone,branch,circle) {
+    GetTragetDuration(zone, branch, circle) {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
-        this.request.Zone =zone;
-        this.request.Branch =branch;
+        this.request.Zone = zone;
+        this.request.Branch = branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         this.request = new BaseRequestModel();
         this.request.TranId = 2830;
-if(userInfo?.UserCircleMappings){
-    var circle = userInfo.UserCircleMappings;
-}else{
-    var circleIds = [];
-    circle?.forEach((element) => {
-        circleIds.push(element.CircleId);
-    });
-}
+        if (userInfo?.UserCircleMappings) {
+            var circle = userInfo.UserCircleMappings;
+        } else {
+            var circleIds = [];
+            circle?.forEach((element) => {
+                circleIds.push(element.CircleId);
+            });
+        }
         var _circles = JSON.stringify(circleIds);
-            (this.request.Circle = {
-                CircleIds: _circles,
-            }),
+        (this.request.Circle = {
+            CircleIds: _circles,
+        }),
             (this.request.doPerformOTP = false);
 
 
@@ -61,8 +62,10 @@ if(userInfo?.UserCircleMappings){
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
-    Profile= new Profile();
-    GetTargets(value: string,zone,branch,circle,UserID) {
+
+    Profile = new Profile();
+
+    GetTargets(value: string, zone, branch, circle, UserID) {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request = new BaseRequestModel();
 
@@ -73,9 +76,9 @@ if(userInfo?.UserCircleMappings){
         };
         this.request.Target['Targets'] = null;
         this.request.TranId = 2830;
-        if(userInfo?.UserCircleMappings){
+        if (userInfo?.UserCircleMappings) {
             var circle = userInfo.UserCircleMappings;
-        }else{
+        } else {
             var circleIds = [];
             circle?.forEach((element) => {
                 circleIds.push(element.CircleId);
@@ -83,13 +86,13 @@ if(userInfo?.UserCircleMappings){
         }
         var _circles = JSON.stringify(circleIds);
 
-            this.request.doPerformOTP = false;
+        this.request.doPerformOTP = false;
         this.request.Circle = {
             CircleIds: _circles,
         }
         debugger
         this.request.User = userInfo.User;
-        this.Profile.ProfileID=UserID;
+        this.Profile.ProfileID = UserID;
         this.request.Profile = this.Profile;
         this.request.Zone = zone;
         this.request.Branch = branch;
@@ -102,7 +105,7 @@ if(userInfo?.UserCircleMappings){
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    saveTargets(bankAssignedTargets,targets, Duration, AssignedTarget,assignedTarget,UserID) {
+    saveTargets(bankAssignedTargets, targets, Duration, AssignedTarget, assignedTarget, UserID, TagName) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -126,13 +129,13 @@ if(userInfo?.UserCircleMappings){
         this.request.User = userInfo.User;
         // this.request.User["UserId"] = "B-44";
 
-        this.Profile.ProfileID=UserID;
+        this.Profile.ProfileID = UserID;
         this.request.Profile = this.Profile;
         this.request.Target = {Targets: targets};
 
         this.request.Target.Duration = Duration;
         // this.request.Target.AssignedTarget = AssignedTarget;
-        if(assignedTarget){
+        if (assignedTarget) {
             if (Object.keys(assignedTarget)?.length) {
                 this.request.Target["AssignedTarget"] = assignedTarget;
             }
@@ -143,14 +146,11 @@ if(userInfo?.UserCircleMappings){
         //     }
         // }
 
-        if(bankAssignedTargets){
-            if(Object.keys(bankAssignedTargets)?.length){
+        if (bankAssignedTargets) {
+            if (Object.keys(bankAssignedTargets)?.length) {
                 this.request.Target["AssignedTarget"] = bankAssignedTargets[0];
             }
         }
-
-
-
 
 
         var req = JSON.stringify(this.request);
@@ -163,7 +163,8 @@ if(userInfo?.UserCircleMappings){
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    submitTargets(Duration,UserID) {
+    submitTargets(Duration, UserID, TagName) {
+        debugger
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {
@@ -182,9 +183,19 @@ if(userInfo?.UserCircleMappings){
         this.request.Branch = userInfo.Branch;
         this.request.User = userInfo.User;
 
-        this.Profile.ProfileID=UserID;
+        this.Profile.ProfileID = UserID;
         this.request.Profile = this.Profile;
-        this.request.Target = {Targets: null};
+        if (TagName != undefined || TagName != "") {
+
+            this.request.Target = {
+                TagName: TagName
+            };
+
+        } else {
+            this.request.Target = {Targets: null};
+        }
+
+
         this.request.Target.Duration = Duration.toString();
         var req = JSON.stringify(this.request);
 
@@ -197,5 +208,8 @@ if(userInfo?.UserCircleMappings){
     }
 
 
+}
 
+export class Targets {
+    TagName: string;
 }

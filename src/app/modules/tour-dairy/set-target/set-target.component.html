@@ -1,8 +1,8 @@
 <div
-    class="  sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
-    <div class="heading">Set Target
+    class="sm:inset-0 flex flex-col flex-auto min-w-0 overflow-x-hidden overflow-y-auto bg-card dark:bg-transparent">
+    <div [hidden]="isChild" class="heading">Set Target
     </div>
-    <div class="pt-3" [formGroup]="targetForm">
+    <div [hidden]="isChild" class="pt-3" [formGroup]="targetForm">
         <div class="row">
 
             <div class="col-lg-3 col-sm-12">
@@ -91,7 +91,7 @@
                                         <div class="mat-form-field-fluid w-full" appearance="outline"
                                         >
                                             <mat-form-field  class="w-full">
-                                                <input matInput maxlength="20" (keypress)="numberOnly($event)"
+                                                <input matInput maxlength="20" appNumberOnly (keypress)="numberOnly($event)"
                                                        [attr.value]="roww[keyy]"
                                                        (input)="onBankInputChanged($event.target.value, rowIndexx, keyy)"
                                                 />
@@ -174,3 +174,13 @@
 </div>
 
 </div>
+
+<!--            For ZC Only (Exceptional Case)-->
+<ng-container  *ngIf="Multiple?.length>0">
+    <ng-container *ngFor="let m of Multiple;let i = index">
+        <ng-container  *ngIf="i>0">
+            <app-set-target [dateDuration]="dateDuration" [multiple]="true" [UserID]="UserID" [TargetData]="m" ></app-set-target>
+        </ng-container>
+    </ng-container>
+
+</ng-container>

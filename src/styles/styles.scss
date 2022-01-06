@@ -91,7 +91,7 @@ body.light .mat-flat-button.mat-primary, body.light .mat-raised-button.mat-prima
 
 
 .table-header-background {
-    background-color: #01671B;
+    background-color: #01671B !important;
     color: white;
     font-size: 12px;
 }
@@ -896,10 +896,10 @@ body.light .mat-cell, body.light .mat-footer-cell, body .light .mat-cell, body .
             opacity: 1 !important;
         }
         fuse-vertical-navigation-aside-item .fuse-vertical-navigation-item-wrapper .fuse-vertical-navigation-item .fuse-vertical-navigation-item-title-wrapper .fuse-vertical-navigation-item-title, fuse-vertical-navigation-basic-item .fuse-vertical-navigation-item-wrapper .fuse-vertical-navigation-item .fuse-vertical-navigation-item-title-wrapper .fuse-vertical-navigation-item-title, fuse-vertical-navigation-collapsable-item .fuse-vertical-navigation-item-wrapper .fuse-vertical-navigation-item .fuse-vertical-navigation-item-title-wrapper .fuse-vertical-navigation-item-title, fuse-vertical-navigation-group-item .fuse-vertical-navigation-item-wrapper .fuse-vertical-navigation-item .fuse-vertical-navigation-item-title-wrapper .fuse-vertical-navigation-item-title {
-         
+
             opacity: 1 !important;
         }
-        
+
         .mat-checkbox-ripple .mat-ripple-element,
         .mat-checkbox-checked.mat-accent .mat-checkbox-background {
           background-color: #01671B !important;
