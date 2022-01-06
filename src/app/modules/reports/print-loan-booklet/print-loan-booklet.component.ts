@@ -28,6 +28,7 @@ export class PrintLoanBookletComponent implements OnInit,AfterViewInit {
     statusLov: any;
     loading = false;
     bookletDetail:any;
+    bookletList: any;
 
     public reports = new Bufrication();
 
@@ -90,6 +91,7 @@ export class PrintLoanBookletComponent implements OnInit,AfterViewInit {
                 if (baseResponse.Success === true) {
                     this.bookletDetail = baseResponse.ReportsFilterCustom.BookletCustomerInfo;
                     this.dataSource = baseResponse.ReportsFilterCustom.LoanBookletList;
+                    this.bookletList = baseResponse.ReportsFilterCustom.LoanBookletList;
                     this.table = true;
                     //window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
