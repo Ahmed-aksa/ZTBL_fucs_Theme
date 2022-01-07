@@ -39,7 +39,7 @@
         <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
             <div class="row">
                 <div class="col-lg-6 py-3">
-                    <div class="shadow-sm border">
+                    <div class="shadow-sm border"   style="height: calc(100vh - 340px);">
                         <div id="chart" *ngIf="chartOptions" class=" m-0 pt-2">
                             <apx-chart
                                 [series]="chartOptions.series"
@@ -57,7 +57,7 @@
 
                 </div>
                 <div class="col-lg-6 py-3">
-                    <div class="shadow-sm border pt-2" *ngIf="CreditCeiling">
+                    <div class="shadow-sm border pt-2" *ngIf="CreditCeiling"   style="height: calc(100vh - 340px);">
                         <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
                         <app-pyramid-chart [item]="CreditCeiling">
                         </app-pyramid-chart>
