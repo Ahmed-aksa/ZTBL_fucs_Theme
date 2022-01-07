@@ -1,0 +1,62 @@
+<div
+    class="  sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
+
+
+<div
+    class="sm:inset-0 flex flex-col flex-auto min-w-0 overflow-x-hidden overflow-y-auto bg-card dark:bg-transparent">
+    <div [hidden]="isChild" class="heading">Set Target
+    </div>
+    <div [hidden]="isChild" class="pt-3" [formGroup]="targetForm">
+        <div class="row">
+
+            <div class="col-lg-3 col-sm-12">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label>Select Duration</mat-label>
+                    <mat-select #sel (selectionChange)="OnChange(sel.value)" formControlName="Duration">
+                        <mat-option>
+                            Select
+                        </mat-option>
+                        <mat-option *ngFor="let obj of TargetDuration" [value]="obj.Id">
+                            {{obj.Name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+
+                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mb-2">
+                        <button class="mt-2 bg-gray-500" (click)="find()" mat-flat-button [color]="'primary'">
+                            <mat-icon class="mr-2">search</mat-icon>
+                            Search
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="sub-heading">Targets
+    </div>
+
+    <!--            For ZC Only (Exceptional Case)-->
+    <mat-tab-group class="mt-5 flex  flex-auto dash-ttab  shadow-xs rounded-sm pb-3" style="flex-direction: column; overflow-y: scroll"
+                   animationDuration="200ms" style="background-color: white;">
+        <ng-container  *ngIf="Multiple?.length>0">
+            <ng-container *ngFor="let m of Multiple;let i = index">
+        <mat-tab [label]="Label[i]">
+                    <ng-container>
+                        <app-set-target [dateDuration]="dateDuration" [multiple]="true" [UserID]="UserID" [TargetData]="m" ></app-set-target>
+                    </ng-container>
+        </mat-tab>
+            </ng-container>
+        </ng-container>
+    </mat-tab-group>
+
+</div>
+</div>
+
+

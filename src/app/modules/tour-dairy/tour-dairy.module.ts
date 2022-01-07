@@ -22,6 +22,8 @@ import {SetTargetService} from "./set-target/Services/set-target.service";
 import {SharedModule} from 'app/shared/shared.module';
 import { ViewTargetComponent } from './view-target/view-target.component';
 import {TargetsComponent} from "./Targets.component";
+import {NumberDirective} from "../../shared/directives/numbers-only.directive";
+import {SetTargetTabsComponent} from "./set-target-tabs/set-target-tabs.component";
 
 const routing = [
     {
@@ -57,6 +59,8 @@ const routing = [
         ViewFileComponent,
         ViewTargetComponent,
         TargetsComponent,
+        SetTargetTabsComponent,
+
     ],
     imports: [
         CommonModule,

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {
     DateAdapter,
     MAT_DATE_FORMATS,
@@ -21,8 +21,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '../../../shared/services/common.service';
 import {finalize} from 'rxjs/operators';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
-import {SetTargetService} from './Services/set-target.service';
-import {BankTarget, Target} from "./Models/set-target.model";
+import {BankTarget, Target} from "../set-target/Models/set-target.model";
+import {SetTargetService} from "../set-target/Services/set-target.service";
 
 class SetTarget {
     Id: number;
@@ -46,9 +46,9 @@ class TargetDuration {
 }
 
 @Component({
-    selector: 'app-set-target',
-    templateUrl: './set-target.component.html',
-    styleUrls: ['./set-target.component.scss'],
+    selector: 'app-set-target-tabs',
+    templateUrl: './set-target-tabs.component.html',
+    styleUrls: ['./set-target-tabs.component.scss'],
     providers: [
         DatePipe,
         {
@@ -67,13 +67,13 @@ class TargetDuration {
         },
     ],
 })
-export class SetTargetComponent implements OnInit {
+export class SetTargetTabsComponent implements OnInit {
 
     @Input() UserID: any;
     @Input() multiple;
     @Input() dateDuration;
     @Input() TargetData=new TargetData;
-    Label="";
+    Label=[];
     targetForm: FormGroup;
     private array = [];
     totals: any = [];
@@ -259,8 +259,13 @@ export class SetTargetComponent implements OnInit {
 
                     this.ishidden = true;
                     this.TargetData.UserID=this.UserID;
-                    this.Label = baseResponse?.Targets[0]?.Heading["Name"];
+                    // this.Label = baseResponse?.Targets[0]?.Heading["Name"];
+                    if(baseResponse?.Targets){
+                        for(let i=0;i<baseResponse?.Targets?.length;i++){
+                            this.Label.push(baseResponse?.Targets[i]?.Heading["Name"])
+                        }
 
+                    }
                 } else {
                     this.Multiple=[]
                     this.layoutUtilsService.alertElement(
