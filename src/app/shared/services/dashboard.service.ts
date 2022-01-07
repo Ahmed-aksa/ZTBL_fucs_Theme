@@ -20,13 +20,16 @@ export class DashboardService {
     ) {
     }
 
-    getDashboardData(profile_id): Observable<any> {
+    getDashboardData(profile_id, year = '2021'): Observable<any> {
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request.User = userInfo.User;
         this.request.Profile = {
             ProfileId: profile_id
-        }
+        };
+        this.request.ReportFilters = {
+            Year: year
+        };
         if (profile_id == 56) {
             var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
             var circleIds = [];
@@ -57,47 +60,61 @@ export class DashboardService {
             var obj = [];
             if (data)
                 (Object.values(data))?.forEach(x => {
-                    obj.push(Number(x));
+                    if (Number(x) != 0)
+                        obj.push(Number(x));
 
-        });
-       
-        return {
-            series: [],//obj,
-            chart: {
-                width: "100%",
-                type: "pie"
-            },
-            labels:  [],//Object.keys(data).map(key => key=key.replace(/([a-z0-9])([A-Z])/g, '$1 $2')),
-            theme: {
-                monochrome: {
-                    enabled: false
-                }
-            },
-            title: {
-                text: title
-            },
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: "bottom"
+                });
+
+            return {
+                series: obj,
+                chart: {
+                    width: "100%",
+                    type: "pie"
+                },
+                labels: Object.keys(data).map(key => key = key.replace(/([a-z0-9])([A-Z])/g, '$1 $2')),
+                theme: {
+                    monochrome: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: title
+                },
+                responsive: [
+                    {
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: "bottom"
+                            }
                         }
                     }
-                }
-            ],
+                ],
                 noData: {
-                    text: "There's no data",
+                    text: "No Data",
                     align: 'center',
                     verticalAlign: 'middle',
                     offsetX: 0,
-                    offsetY: 0
+                    offsetY: 0,
+                    style: {
+                        color: undefined,
+                        fontSize: '14px',
+                        fontFamily: undefined
+                    }
                 }
             };
         }
     }
 
+    getYears() {
+        return this.http.post(
+            `${environment.apiUrl}/Dashboard/GetYearsForDashboard`,
+            this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}
+        )
+            .pipe(map((res: any) => res));
+    }
 }
