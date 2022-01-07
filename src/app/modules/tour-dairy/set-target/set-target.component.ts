@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {
     DateAdapter,
@@ -30,6 +30,15 @@ class SetTarget {
     DisbursmentAmount: string;
 }
 
+class TargetData{
+    UserID;
+    AssignedTarget;
+    Heading;
+    TagName;
+    Targets;
+    BankTargets?:[];
+}
+
 class TargetDuration {
     LovId: number;
     Id: string;
@@ -59,6 +68,12 @@ class TargetDuration {
     ],
 })
 export class SetTargetComponent implements OnInit {
+
+    @Input() UserID: any;
+    @Input() multiple;
+    @Input() dateDuration;
+    @Input() TargetData=new TargetData;
+
     targetForm: FormGroup;
     private array = [];
     totals: any = [];
@@ -77,18 +92,21 @@ export class SetTargetComponent implements OnInit {
     public target: Target[] = [];
     public TargetDuration: TargetDuration[] = [];
     targets: Target[] = [];
-    bankTargets:BankTarget[] = [];
+    bankTargets: BankTarget[] = [];
     headings = [];
     public previous = new SetTarget();
     LoggedInUserInfo: BaseResponseModel;
     Duration: any;
     ishidden = false;
+    isChild = false;
     isfind = false;
     gridHeight: string;
     branch: any;
     zone: any;
     circle: any;
-    isBankTarget:boolean=false;
+    isBankTarget: boolean = false;
+    TagName;
+    Multiple;
 
     constructor(
         private fb: FormBuilder,
@@ -116,8 +134,39 @@ export class SetTargetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        debugger
+
         this.GetTragetDuration();
         this.createForm();
+        this.UserID;
+        this.TargetData;
+        if(this.multiple==true){
+            this.isChild = true;
+
+            // this.Multiple=this.TargetData.Targets;
+            this.targetForm.controls.Duration.setValue(this.dateDuration)
+            this.headings = this.TargetData.Heading;
+            this.targets = this.TargetData.Targets;
+            this.assignedTarget = this.TargetData?.AssignedTarget;
+            if (this.TargetData?.AssignedTarget) {
+                this.ShowassignedTarget = Object.values(this.TargetData.AssignedTarget);
+                this.isBankTarget = false;
+            } else {
+                this.isBankTarget = true;
+            }
+            if (this.TargetData?.TagName) {
+                this.TagName=this.TargetData?.TagName
+            }
+            this.assignedTargetHeadingsData = this.TargetData?.AssignedTarget;
+            this.bankTargets = this.TargetData?.BankTargets;
+            debugger
+            this.Heading();
+
+            this.ishidden = true;
+        }
+
+
+
     }
 
     getAllData(event) {
@@ -143,7 +192,9 @@ export class SetTargetComponent implements OnInit {
                 }
             });
     }
+
     assignedTargetHeadingsData
+
     GetTargets(value: any) {
         if (!value) {
             var Message = 'Please select Target';
@@ -158,7 +209,7 @@ export class SetTargetComponent implements OnInit {
 
         this.spinner.show();
         this._setTarget
-            .GetTargets(value, this.zone, this.branch, this.circle)
+            .GetTargets(value, this.zone, this.branch, this.circle, this.UserID)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -167,27 +218,33 @@ export class SetTargetComponent implements OnInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     debugger
-                    this.headings = baseResponse.Target.Heading;
-                    this.targets = baseResponse.Target.Targets;
-                    this.previous = Object.assign(this.targets);
-                    this.assignedTarget = baseResponse?.Target?.AssignedTarget;
-                    if(baseResponse?.Target?.AssignedTarget){
-                        this.ShowassignedTarget = Object.values(baseResponse.Target.AssignedTarget);
-                        this.isBankTarget=false;
-                    }else{
-                        this.isBankTarget=true;
+                    this.dateDuration=this.targetForm.controls.Duration.value;
+                    this.Multiple=baseResponse?.Targets;
+                    this.headings = baseResponse?.Targets[0]?.Heading;
+                    this.targets = baseResponse?.Targets[0]?.Targets;
+                    // this.previous = Object.assign(this.targets);
+                    this.assignedTarget = baseResponse?.Targets[0]?.AssignedTarget;
+                    if (baseResponse?.Targets[0]?.AssignedTarget) {
+                        this.ShowassignedTarget = Object.values(baseResponse.Targets[0]?.AssignedTarget);
+                        this.isBankTarget = false;
+                    } else {
+                        this.isBankTarget = true;
                     }
-                    this.assignedTargetHeadingsData = baseResponse?.Target?.AssignedTarget;
-                    this.bankTargets = baseResponse?.Target?.BankTargets;
+                    if (baseResponse?.Targets[0]?.TagName) {
+                        this.TagName=baseResponse?.Targets[0]?.TagName
+                    }
 
+                    this.assignedTargetHeadingsData = baseResponse?.Targets[0]?.AssignedTarget;
+                    this.bankTargets = baseResponse?.Targets[0]?.BankTargets;
                     debugger
                     this.Heading();
 
-
-
                     this.ishidden = true;
+                    this.TargetData.UserID=this.UserID;
+
 
                 } else {
+                    this.Multiple=[]
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,
@@ -228,6 +285,16 @@ export class SetTargetComponent implements OnInit {
     }
 
     get rowth(): string[] {
+        if (!this.targets || !this.targets.length) {
+            return [];
+        }
+        if (this.heading) {
+        }
+
+        return this.array;
+    }
+
+    get ZCrowth(): string[] {
         if (!this.targets || !this.targets.length) {
             return [];
         }
@@ -278,11 +345,13 @@ export class SetTargetComponent implements OnInit {
             }
         }
     }
+
     ngAfterViewInit() {
 
 
         this.gridHeight = window.innerHeight - 320 + 'px';
     }
+
     DoCalculations(val: string, num: number) {
         var dis = this.targets.reduce(function (sum, current) {
             return sum + Number(current[val]);
@@ -410,11 +479,10 @@ export class SetTargetComponent implements OnInit {
 
         // Check Total
         debugger
-        if(this.bankTargets?.length>0){
-            let BankTargetTotals =Object.keys(this.bankTargets[0])
-            for(let i=0;i<this.totals?.length;i++)
-            {
-                if(this.totals[i]!=this.bankTargets[0][BankTargetTotals[i]]){
+        if (this.bankTargets?.length > 0) {
+            let BankTargetTotals = Object.keys(this.bankTargets[0])
+            for (let i = 0; i < this.totals?.length; i++) {
+                if (this.totals[i] != this.bankTargets[0][BankTargetTotals[i]]) {
                     var Message;
                     var Code;
                     this.layoutUtilsService.alertElement(
@@ -428,9 +496,9 @@ export class SetTargetComponent implements OnInit {
         }
 
 
-        if(this.isBankTarget==false){
+        if (this.isBankTarget == false) {
 
-            if(Object.keys(this.assignedTarget)?.length>0){
+            if (Object.keys(this.assignedTarget)?.length > 0) {
                 let assigned = Object.keys(this.assignedTarget)
                 for (let i = 0; i < this.totals?.length; i++) {
                     if (this.totals[i] != this.assignedTarget[assigned[i]]) {
@@ -447,45 +515,44 @@ export class SetTargetComponent implements OnInit {
             }
         }
 
-            this.spinner.show();
-            this._setTarget
-                .saveTargets(this.bankTargets,
-                    this.targets,
-                    this.targetForm.controls.Duration.value,
-                    this.AssignedTargetToSave,this.assignedTarget
-                )
-                .pipe(
-                    finalize(() => {
-                        this.spinner.hide();
-                    })
-                )
-                .subscribe((baseResponse) => {
-                    if (baseResponse.Success) {
-                        this.layoutUtilsService.alertElementSuccess(
-                            '',
-                            baseResponse.Message,
-                            (baseResponse.Code = null)
-                        );
-                    } else {
-                        this.layoutUtilsService.alertElement(
-                            '',
-                            baseResponse.Message,
-                            baseResponse.Code
-                        );
-                    }
-                });
+        this.spinner.show();
+        this._setTarget
+            .saveTargets(this.bankTargets,
+                this.targets,
+                this.targetForm.controls.Duration.value,
+                this.AssignedTargetToSave, this.assignedTarget, this.UserID,this.TagName
+            )
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse) => {
+                if (baseResponse.Success) {
+                    this.layoutUtilsService.alertElementSuccess(
+                        '',
+                        baseResponse.Message,
+                        (baseResponse.Code = null)
+                    );
+                } else {
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        baseResponse.Message,
+                        baseResponse.Code
+                    );
+                }
+            });
 
     }
 
     submit() {
 
-        if(this.bankTargets?.length>0){
+        if (this.bankTargets?.length > 0) {
             this.totals
-            let BankTargetTotals =Object.keys(this.bankTargets[0])
-            for(let i=0;i<this.totals?.length;i++)
-            {
+            let BankTargetTotals = Object.keys(this.bankTargets[0])
+            for (let i = 0; i < this.totals?.length; i++) {
                 console.log(this.bankTargets[0][BankTargetTotals[i]])
-                if(this.totals[i]!=this.bankTargets[0][BankTargetTotals[i]]){
+                if (this.totals[i] != this.bankTargets[0][BankTargetTotals[i]]) {
                     var Message;
                     var Code;
                     this.layoutUtilsService.alertElement(
@@ -499,9 +566,9 @@ export class SetTargetComponent implements OnInit {
         }
 
 
-        if(this.assignedTarget){
+        if (this.assignedTarget) {
 
-            if(Object.keys(this.assignedTarget)?.length>0){
+            if (Object.keys(this.assignedTarget)?.length > 0) {
                 let assigned = Object.keys(this.assignedTarget)
                 for (let i = 0; i < this.totals?.length; i++) {
                     if (this.totals[i] != this.assignedTarget[assigned[i]]) {
@@ -520,28 +587,28 @@ export class SetTargetComponent implements OnInit {
 
 
         this.spinner.show();
-            this._setTarget
-                .submitTargets(this.targetForm.controls.Duration.value)
-                .pipe(
-                    finalize(() => {
-                        this.spinner.hide();
-                    })
-                )
-                .subscribe((baseResponse) => {
-                    if (baseResponse.Success) {
-                        this.layoutUtilsService.alertElementSuccess(
-                            '',
-                            baseResponse.Message,
-                            (baseResponse.Code = null)
-                        );
-                    } else {
-                        this.layoutUtilsService.alertElement(
-                            '',
-                            baseResponse.Message,
-                            baseResponse.Code
-                        );
-                    }
-                });
+        this._setTarget
+            .submitTargets(this.targetForm.controls.Duration.value, this.UserID,this.TagName)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse) => {
+                if (baseResponse.Success) {
+                    this.layoutUtilsService.alertElementSuccess(
+                        '',
+                        baseResponse.Message,
+                        (baseResponse.Code = null)
+                    );
+                } else {
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        baseResponse.Message,
+                        baseResponse.Code
+                    );
+                }
+            });
     }
 
     find() {

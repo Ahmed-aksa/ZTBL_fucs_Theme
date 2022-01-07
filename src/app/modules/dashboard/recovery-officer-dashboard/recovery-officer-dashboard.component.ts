@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {
     ApexNonAxisChartSeries,
     ApexResponsive,
@@ -9,6 +9,8 @@ import {
     ApexNoData
 } from "ng-apexcharts";
 import {DashboardService} from "../../../shared/services/dashboard.service";
+import {finalize} from "rxjs/operators";
+import {NgxSpinnerService} from "ngx-spinner";
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -28,15 +30,21 @@ export type ChartOptions = {
 export class RecoveryOfficerDashboardComponent implements OnInit {
     @ViewChild("chart") chart: ChartComponent;
     public chartOptions: Partial<ChartOptions>;
+    @Input('ProfileID') profile_id: any;
+    year: any;
+    years: any;
+
     recoveryAchievment: any;
     creditCeiling: any;
     circlePositions: any;
     CreditCeiling: any;
 
-    constructor(private dashboardService: DashboardService) {
+    constructor(private dashboardService: DashboardService, private spinner: NgxSpinnerService) {
     }
 
     ngOnInit(): void {
+        this.getYears();
+        this.getData();
     }
 
     assignRoleData(DashboardReport: any) {
@@ -47,6 +55,21 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
         this.circlePositions = DashboardReport.CirclePositions;
         this.CreditCeiling = DashboardReport.CreditCeiling;
         this.chartOptions = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio');
+    }
 
+    getData() {
+        this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
+            this.spinner.hide()
+        })).subscribe(result => {
+            if (result.Code != "-1") {
+                this.assignRoleData(result.DashboardReport);
+            }
+        });
+    }
+
+    getYears() {
+        this.dashboardService.getYears().subscribe((data) => {
+            this.years = data.DashboardReport.YearsForHistoricalData;
+        })
     }
 }

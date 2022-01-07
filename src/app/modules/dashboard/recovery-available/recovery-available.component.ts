@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {
     ApexChart,
     ApexNoData,
@@ -8,6 +8,9 @@ import {
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
+import {finalize} from "rxjs/operators";
+import {DashboardService} from "../../../shared/services/dashboard.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -27,49 +30,41 @@ export type ChartOptions = {
 export class RecoveryAvailableComponent implements OnInit {
 
     @ViewChild("chart") chart: ChartComponent;
+
+    @Input('ProfileID') profile_id: any;
+    year: any;
+    years: any;
     public chartOptions: Partial<ChartOptions>;
 
 
-    constructor() {
-        this.chartOptions = {
-            series: [25, 15, 44, 55, 41, 17],
-            chart: {
-                width: "100%",
-                type: "pie"
-            },
-            labels: [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday"
-            ],
-            theme: {
-                monochrome: {
-                    enabled: false
-                }
-            },
-            title: {
-                text: "Performance Indicators"
-            },
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: "bottom"
-                        }
-                    }
-                }
-            ]
-        };
+    constructor(
+        private dashboardService: DashboardService,
+        private spinner: NgxSpinnerService
+    ) {
     }
 
     ngOnInit(): void {
+        this.getYears();
+        this.getData();
     }
 
+    getData() {
+        this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
+            this.spinner.hide()
+        })).subscribe(result => {
+            if (result.Code != "-1") {
+                this.assignRoleData(result.DashboardReport);
+            }
+        });
+    }
+
+    getYears() {
+        this.dashboardService.getYears().subscribe((data) => {
+            this.years = data.DashboardReport.YearsForHistoricalData;
+        })
+    }
+
+    private assignRoleData(DashboardReport: any) {
+
+    }
 }

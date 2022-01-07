@@ -114,18 +114,9 @@ export class EarlyWarningReportsComponent implements OnInit, AfterViewInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-
-                    this.loading = true;
-
-                    this.dataSource = baseResponse.ReportsFilterCustom.SamNplLoans
-
+                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
-
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-
-                    this.dataSource = null;
-
-
                 }
             })
     }

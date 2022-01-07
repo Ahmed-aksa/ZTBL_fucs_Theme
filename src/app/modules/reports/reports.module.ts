@@ -31,6 +31,7 @@ import { StatementOfAffairsComponent } from './statement-of-affairs/statement-of
 import { ReschedulementOfLoanComponent } from './reschedulement-of-loan/reschedulement-of-loan.component';
 import { GetCustomerLegalHeirsComponent } from './get-customer-legal-heirs/get-customer-legal-heirs.component';
 import { CustomerCwrComponent } from './customer-cwr/customer-cwr.component';
+import { PrintLoanBookletComponent } from './print-loan-booklet/print-loan-booklet.component';
 
 const routing = [
     {
@@ -141,6 +142,10 @@ const routing = [
         path: 'gl-move',
         component: GlMoveComponent
     },
+    {
+        path: 'print-loan-booklet',
+        component: PrintLoanBookletComponent
+    },
 ]
 
 
@@ -172,7 +177,8 @@ const routing = [
         StatementOfAffairsComponent,
         ReschedulementOfLoanComponent,
         GetCustomerLegalHeirsComponent,
-        CustomerCwrComponent
+        CustomerCwrComponent,
+        PrintLoanBookletComponent,
     ],
     imports: [
         CommonModule,
@@ -184,5 +190,4 @@ const routing = [
     ]
 
 })
-export class ReportsModule {
-}
+export class ReportsModule {}

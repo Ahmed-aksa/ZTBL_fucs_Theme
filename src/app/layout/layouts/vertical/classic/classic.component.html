@@ -46,10 +46,10 @@
                  class=" text-sm ml-1 font-medium text-green">{{user?.UserName}}</span></span>
             <span *ngIf="user?.BranchName" class=" text-md font-bold ml-4">Branch Name :<span
                 class=" text-sm ml-1 font-medium text-green">{{user?.BranchName}}</span></span>
-                
+
             <span *ngIf="time" class=" text-md font-bold ml-4">Session time :<span
                 class=" text-sm ml-1 font-medium text-green"><b>{{time}}</b></span></span>
-                
+
         </span>
 
         <!-- Components -->
@@ -60,11 +60,11 @@
             <!--            <shortcuts></shortcuts>-->
             <!--            <messages></messages>-->
 
-            <violations></violations>
+            <violations *ngIf="IsIconVisable('/mapping-violation')"></violations>
 
-            <mapping-request></mapping-request>
+            <mapping-request *ngIf="IsIconVisable('/mapping-request')"></mapping-request>
 
-            <notification *ngIf="userInfo[0].GroupName == 'MAKER'"></notification>
+            <notification *ngIf="IsIconVisable('/notifications/notification-details')"></notification>
 
             <!-- <notifications></notifications> -->
 

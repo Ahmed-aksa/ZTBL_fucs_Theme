@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {
     ApexChart,
     ApexNoData,
@@ -8,8 +8,10 @@ import {
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { DashboardService } from "../../../shared/services/dashboard.service";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {DashboardService} from "../../../shared/services/dashboard.service";
+import {finalize} from "rxjs/operators";
+import {NgxSpinnerService} from "ngx-spinner";
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -31,6 +33,9 @@ export type ChartOptions = {
 export class EvpCreditDashboardComponent implements OnInit {
 
     @ViewChild("chart") chart: ChartComponent;
+    @Input('ProfileID') profile_id: any;
+    year: any;
+    years: any;
     public chartOptions1: Partial<ChartOptions>;
     public chartOptions2: Partial<ChartOptions>;
     public chartOptions3: Partial<ChartOptions>;
@@ -43,7 +48,7 @@ export class EvpCreditDashboardComponent implements OnInit {
     CountryTop5: any;
     CreditCeiling: any;
 
-    constructor(fb: FormBuilder, private dashboardService: DashboardService) {
+    constructor(fb: FormBuilder, private dashboardService: DashboardService, private spinner: NgxSpinnerService) {
         this.options = fb.group({
             hideRequired: this.hideRequiredControl,
             floatLabel: this.floatLabelControl,
@@ -51,6 +56,8 @@ export class EvpCreditDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getYears();
+        this.getData();
     }
 
 
@@ -66,7 +73,21 @@ export class EvpCreditDashboardComponent implements OnInit {
         this.RecoveryAchievement = Object.entries(DashboardReport?.RecoveryAchievement);
         this.CountryTop5 = DashboardReport?.CountryTop5;
         this.CreditCeiling = DashboardReport.CreditCeiling;
+    }
 
+    getData() {
+        this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
+            this.spinner.hide()
+        })).subscribe(result => {
+            if (result.Code != "-1") {
+                this.assignRoleData(result.DashboardReport);
+            }
+        });
+    }
 
+    getYears() {
+        this.dashboardService.getYears().subscribe((data) => {
+            this.years = data.DashboardReport.YearsForHistoricalData;
+        })
     }
 }
