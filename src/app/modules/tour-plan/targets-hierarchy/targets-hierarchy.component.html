@@ -21,7 +21,7 @@
                         <td>{{single_target.Name}}</td>
                         <td>{{single_target.GroupName}}</td>
                         <td>
-                            <input type="checkbox" [checked]="single_target.IsActive" (change)="updateTarget(single_target,single_target.IsActive)"/>
+                            <input type="checkbox" [checked]="single_target.IsActive=='1'?true:false" (change)="updateTarget(single_target,single_target.IsActive)"/>
                         </td>
                     </tr>
                     </tbody>

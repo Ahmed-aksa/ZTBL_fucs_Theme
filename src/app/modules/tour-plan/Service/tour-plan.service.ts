@@ -189,4 +189,18 @@ export class TourPlanService {
             map((res: BaseResponseModel) => res)
         );
     }
+
+    getTargetsTracks(id: number, next_number: number, duration) {
+        let request = new BaseRequestModel();
+        request.Target = {
+            Id: String(id),
+            NextNumber: String(next_number),
+            Duration: duration,
+        }
+        request.User = this.userInfo.User;
+        return this.http.post(`${environment.apiUrl}/Target/GetTargetTracking`, request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
 }

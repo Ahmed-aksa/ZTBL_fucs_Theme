@@ -4,89 +4,61 @@
     <!-- Header -->
     <!-- Main -->
 
+
     <!-- Products list -->
     <div class="flex flex-auto" style="flex-direction: column;">
+        <form [formGroup]="targetTrackingForm">
+            <mat-form-field>
+                <input matInput [matDatepicker]="dp" placeholder="Year" [value]="year">
+                <input type="hidden" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp
+                                startView="multi-year"
+                                (yearSelected)="chosenYearHandler($event,dp)"
+                                panelClass="example-month-picker">
+                </mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Search" formControlName="search">
+            </mat-form-field>
+            <button class="bg-green btn" type="button" (click)="getTargetTracks()">Submit</button>
+        </form>
         <div class="container  px-0 pt-2">
             <div class="table-responsive  border shadow-xs rounded-sm bg-gray-50" id="map_canvas">
-                <table class="table accordion table-striped">
+                <table class="table accordion table-striped" *ngIf="target_0">
                     <thead>
                     <tr class="table-header-background">
                         <th scope="col"></th>
-                        <th scope="col">Heading 1</th>
-                        <th scope="col">Heading 2</th>
-                        <th scope="col">Heading 3</th>
-                        <th scope="col">Heading 4</th>
+                        <th scope="col">{{target_0?.Heading?.Name}}</th>
+                        <th scope="col">{{target_0?.Heading?.DepositAmount}}</th>
+                        <th scope="col">{{target_0?.Heading?.DisbursmentAmount}}</th>
+                        <th scope="col">{{target_0?.Heading?.NormalRecoveryAmount}}</th>
+                        <th scope="col">{{target_0?.Heading?.NplRecoveryAmount}}</th>
+                        <th scope="col">{{target_0?.Heading?.SamRecoveryAmount}}</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr data-bs-toggle="collapse" data-bs-target="#r1">
+                    <tr data-bs-toggle="collapse"
+                        *ngFor="let single_provincial_target of target_0?.Targets;let i=index" [data-bs-target]="'#'+i">
                         <th scope="row">
                             <mat-icon class="text-green">expand_more</mat-icon>
                         </th>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                        <td>Cell</td>
+                        <td>{{single_provincial_target.Name ? single_provincial_target.Name : 'Not Assigned'}}</td>
+                        <td>{{single_provincial_target.DepositAmount ? single_provincial_target.DepositAmount : 'Not Assigned'}}</td>
+                        <td>{{single_provincial_target.DisbursmentAmount ? single_provincial_target.DisbursmentAmount : 'Not Assigned'}}</td>
+                        <td>{{single_provincial_target.NormalRecoveryAmount ? single_provincial_target.NormalRecoveryAmount : 'Not Assigned'}}</td>
+                        <td>{{single_provincial_target.NplRecoveryAmount ? single_provincial_target.NplRecoveryAmount : 'Not Assigned'}}</td>
+                        <td>{{single_provincial_target.SamRecoveryAmount ? single_provincial_target.SamRecoveryAmount : ''}}</td>
                     </tr>
-                    <tr class="collapse accordion-collapse" id="r1" data-bs-parent=".table">
+                    <tr class="collapse accordion-collapse"
+                        *ngFor="let single_provincial_target of target_0.Targets;let i=index" [id]="i"
+                        data-bs-parent=".table">
                         <td colspan="5"> Item 1 detail .. This is the first item's accordion body. It is shown by
                             default, until the collapse plugin adds the appropriate classes that we use to style each
                             element. These classes control the overall appearance, as well as the showing and hiding via
                             CSS transitions. You can modify any of this with custom CSS or overriding our default
                             variables. It's also worth noting that just about any HTML can go within the
                             .accordion-body, though the transition does limit overflow.
-                        </td>
-                    </tr>
-                    <tr data-bs-toggle="collapse" data-bs-target="#r2">
-                        <th scope="row">
-                            <mat-icon class="text-green">expand_more</mat-icon>
-                        </th>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                    </tr>
-                    <tr class="collapse accordion-collapse" id="r2" data-bs-parent=".table">
-                        <td colspan="5"> Item 2 detail .. This is the first item's accordion body. It is shown by
-                            default, until the collapse plugin adds the appropriate classes that we use to style each
-                            element. These classes control the overall appearance, as well as the showing and hiding via
-                            CSS transitions. You can modify any of this with custom CSS or overriding our default
-                            variables. It's also worth noting that just about any HTML can go within the
-                            .accordion-body, though the transition does limit overflow.
-                        </td>
-                    </tr>
-                    <tr data-bs-toggle="collapse" data-bs-target="#r3">
-                        <th scope="row">
-                            <mat-icon class="text-green">expand_more</mat-icon>
-                        </th>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                        <td>Cell</td>
-                    </tr>
-                    <tr class="collapse accordion-collapse" id="r3" data-bs-parent=".table">
-                        <td colspan="5">
-                            <div class="table-responsive" style="overflow-x: hidden;">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr class="table-header-background">
-                                        <th>CNIC</th>
-                                        <th>Name</th>
-                                        <th>Father Name</th>
-                                        <th>DOB</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>{{customerRec.Cnic</td>
-                                        <td>{{customerRec.CustomerNam</td>
-                                        <td>{{customerRec.FatherName</td>
-                                        <td>{{customerRec.Dob</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
                         </td>
                     </tr>
                     </tbody>
