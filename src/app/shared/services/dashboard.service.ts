@@ -100,9 +100,8 @@ export class DashboardService {
                     offsetX: 0,
                     offsetY: 0,
                     style: {
-                        color: undefined,
+                        color: 'red',
                         fontSize: '14px',
-                        fontFamily: undefined
                     }
                 }
             };

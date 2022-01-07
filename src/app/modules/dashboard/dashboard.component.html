@@ -43,10 +43,10 @@
                 <app-president-ztbl [ProfileID]="item.ProfileID"></app-president-ztbl>
             </mat-tab>
             <mat-tab label="Regional Chief" *ngIf="item.ProfileID =='203'">
-                <app-regional-cheif></app-regional-cheif>
+                <app-regional-cheif [ProfileID]="item.ProfileID"></app-regional-cheif>
             </mat-tab>
             <mat-tab label="Provincial Chief " *ngIf="item.ProfileID =='205'">
-                <app-provincial-chief></app-provincial-chief>
+                <app-provincial-chief [ProfileID]="item.ProfileID"></app-provincial-chief>
             </mat-tab>
         </ng-container>
     </mat-tab-group>
