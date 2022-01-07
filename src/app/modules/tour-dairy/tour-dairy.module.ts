@@ -20,8 +20,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SetTargetService} from "./set-target/Services/set-target.service";
 import {SharedModule} from 'app/shared/shared.module';
-import { ViewTargetComponent } from './view-target/view-target.component';
+import {ViewTargetComponent} from './view-target/view-target.component';
 import {TargetsComponent} from "./Targets.component";
+import {TargetsHierarchyComponent} from './targets-hierarchy/targets-hierarchy.component';
 
 const routing = [
     {
@@ -43,6 +44,10 @@ const routing = [
     {
         path: "view-target",
         component: ViewTargetComponent,
+    },
+    {
+        path: 'targets-hierarchy',
+        component: TargetsHierarchyComponent
     }
 ];
 
@@ -57,6 +62,7 @@ const routing = [
         ViewFileComponent,
         ViewTargetComponent,
         TargetsComponent,
+        TargetsHierarchyComponent,
     ],
     imports: [
         CommonModule,
