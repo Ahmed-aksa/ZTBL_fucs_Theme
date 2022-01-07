@@ -5,7 +5,7 @@ import {RouterModule} from '@angular/router';
 import {TourPlanComponent} from "./tour-plan/tour-plan.component";
 import {SearchTourPlanComponent} from "./search-tour-plan/search-tour-plan.component";
 import {CreateTourLlanComponent} from './create-tour-plan/create-tour-plan.component';
-import {TargetsHierarchyComponent} from "../tour-dairy/targets-hierarchy/targets-hierarchy.component";
+import {TargetsHierarchyComponent} from "./targets-hierarchy/targets-hierarchy.component";
 
 const routing = [
 
@@ -31,7 +31,8 @@ const routing = [
     declarations: [
         TourPlanComponent,
         SearchTourPlanComponent,
-        CreateTourLlanComponent
+        CreateTourLlanComponent,
+        TargetsHierarchyComponent
         // TourPlanForApprovalComponent
     ],
     imports: [

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TourPlanService} from "../../tour-plan/Service/tour-plan.service";
+import {TourPlanService} from "../Service/tour-plan.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 
