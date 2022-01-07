@@ -327,7 +327,7 @@ thead {
 }
 
 #map_canvas {
-    height: calc(100vh - 220px);
+     height: calc(100vh - 220px);
     overflow: auto;
 }
 #pagelist {
@@ -910,3 +910,16 @@ body.light .mat-cell, body.light .mat-footer-cell, body .light .mat-cell, body .
         .mat-row:nth-child(odd){
             background: rgba(0,0,0,0.025);
           }
+
+
+        //     .apexcharts-graphical{
+        //     .apexcharts-text{
+        //         font-weight: bolder;
+        //         background-color: #ef4444;
+        //         border-radius: 6px;
+        //         padding: 5px;
+        //         color: #ef4444;
+        //         font-size: 22px;
+        //       }
+        //   }
+

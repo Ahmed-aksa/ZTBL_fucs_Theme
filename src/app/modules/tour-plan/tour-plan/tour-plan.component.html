@@ -35,7 +35,6 @@
             </div>
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">P.P.NO</mat-label>
                         <input matInput placeholder="Enter Vendor Address" formControlName="PPNO" autocomplete="off"
@@ -70,7 +69,6 @@
                             class="matMandatory">*</strong></mat-label>
                         <input disabled matInput [matDatepicker]="picker" formControlName="VisitedDate"
                                autocomplete="off" (dateChange)="setVisitedDate()" [min]="minDate"/>
-
                         <mat-datepicker-toggle [disabled]='isView' matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker [disabled]='isView' #picker></mat-datepicker>
                     </mat-form-field>

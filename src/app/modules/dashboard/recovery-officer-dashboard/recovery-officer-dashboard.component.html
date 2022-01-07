@@ -2,15 +2,44 @@
     class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading">Recovery Officer</div>
     <!-- Header -->
+    <form name="form" #f="ngForm" novalidate>
+        <div class="form-row row pt-2">
+            <div class="form-group col-lg-3">
+                <mat-form-field class="mat-form-field-fluid w-full mb-0" appearance="outline">
+                    <mat-label class="customMatLabel">Year</mat-label>
+                    <mat-select [(ngModel)]="year" name="year" #Year="ngModel"
+                                required>
+
+                        <mat-option *ngFor="let single_year of years;let i=index"
+                                    [value]="single_year">{{single_year}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div *ngIf="f.submitted && Year.invalid" class="invalid-feedback">
+                    <div *ngIf="Year.errors.required">Title is required</div>
+                </div>
+            </div>
+            <div class="form-group col-lg-3">
+                <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button
+                        (click)="getData()">
+                    <mat-icon class="mr-2">search</mat-icon>
+                    Search
+                </button>
+
+            </div>
+        </div>
+        <div class="text-center">
+
+        </div>
+    </form>
 
     <!-- Main -->
     <div class="flex flex-auto overflow-x-hidden overflow-y-scroll">
 
-        <!-- Products list -->
+
         <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
             <div class="row">
                 <div class="col-lg-6 py-3">
-                    <div class="shadow-sm border">
+                    <div class="shadow-sm border"   style="height: calc(100vh - 340px);">
                         <div id="chart" class=" m-0 pt-2">
                             <apx-chart
                                 [series]="chartOptions?.series"
@@ -19,18 +48,20 @@
                                 [title]="chartOptions?.title"
                                 [theme]="chartOptions?.theme"
                                 [responsive]="chartOptions?.responsive"
+                                [noData]="chartOptions.noData"
+
                             ></apx-chart>
                         </div>
                     </div>
 
 
                 </div>
-                <div class="col-lg-6 py-3">
-                    <div class="shadow-sm border pt-2" *ngIf="CreditCeiling" >
-                            <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
-                            <app-pyramid-chart [item]="CreditCeiling">
+                <div class="col-lg-6 py-3 pb-1">
+                    <div class="shadow-sm border pt-2 mb-5"    style="height: calc(100vh - 340px);" *ngIf="CreditCeiling">
+                        <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
+                        <app-pyramid-chart [item]="CreditCeiling">
 
-                            </app-pyramid-chart>
+                        </app-pyramid-chart>
 
                     </div>
                 </div>

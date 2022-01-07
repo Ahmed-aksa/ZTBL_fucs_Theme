@@ -4,6 +4,7 @@ import {SharedModule} from 'app/shared/shared.module';
 import {RouterModule} from '@angular/router';
 import {TourPlanComponent} from "./tour-plan/tour-plan.component";
 import {SearchTourPlanComponent} from "./search-tour-plan/search-tour-plan.component";
+import { CreateTourLlanComponent } from './create-tour-plan/create-tour-plan.component';
 
 const routing = [
 
@@ -25,6 +26,7 @@ const routing = [
     declarations: [
         TourPlanComponent,
         SearchTourPlanComponent,
+        CreateTourLlanComponent
         // TourPlanForApprovalComponent
     ],
     imports: [

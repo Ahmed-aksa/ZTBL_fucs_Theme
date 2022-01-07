@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {
     ApexNonAxisChartSeries,
@@ -9,6 +9,8 @@ import {
     ChartComponent
 } from "ng-apexcharts";
 import {DashboardService} from "../../../shared/services/dashboard.service";
+import {finalize} from "rxjs/operators";
+import {NgxSpinnerService} from "ngx-spinner";
 
 
 export type ChartOptions = {
@@ -28,6 +30,9 @@ export type ChartOptions = {
 export class ZonalChiefDashboardComponent implements OnInit {
 
     @ViewChild("chart-zonal") chart: ChartComponent;
+    @Input('ProfileID') profile_id: any;
+    year: any;
+    years: any;
     public chartOptions: Partial<ChartOptions>;
     options: FormGroup;
     hideRequiredControl = new FormControl(false);
@@ -40,7 +45,7 @@ export class ZonalChiefDashboardComponent implements OnInit {
     public chartnoOfBorrowers: Partial<ChartOptions>;
     CreditCeiling: any;
 
-    constructor(fb: FormBuilder, private dashboardService: DashboardService) {
+    constructor(fb: FormBuilder, private dashboardService: DashboardService, private spinner: NgxSpinnerService) {
         this.options = fb.group({
             hideRequired: this.hideRequiredControl,
             floatLabel: this.floatLabelControl,
@@ -48,6 +53,8 @@ export class ZonalChiefDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getYears();
+        this.getData();
     }
 
     assignRoleData(DashboardReport: any) {
@@ -61,5 +68,21 @@ export class ZonalChiefDashboardComponent implements OnInit {
         this.chartPerformanceIndicators = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
         this.chartLoanPortfolio = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio');
         this.chartnoOfBorrowers = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No of Borrowers');
+    }
+
+    getData() {
+        this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
+            this.spinner.hide()
+        })).subscribe(result => {
+            if (result.Code != "-1") {
+                this.assignRoleData(result.DashboardReport);
+            }
+        });
+    }
+
+    getYears() {
+        this.dashboardService.getYears().subscribe((data) => {
+            this.years = data.DashboardReport.YearsForHistoricalData;
+        })
     }
 }

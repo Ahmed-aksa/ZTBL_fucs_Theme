@@ -1,5 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { environment } from "environments/environment";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { EncryptDecryptService } from "../services/encrypt_decrypt.service";
@@ -32,13 +33,14 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
         // }
 
         return next.handle(request).pipe(
-            map((event: HttpResponse<any>) => {
-                // if (!authReq.url.includes('Account/HealthCheck')) {
-                //     debugger;
-                //     if (event instanceof HttpResponse) {
-                //         event = event.clone({ body: JSON.parse(this.encryptDecryptService.AESdecrypt(null, event.body.Resp)) })
-                //     }
-                // }
+            map((event: HttpEvent<any>) => {
+                if (!authReq.url.includes('Account/HealthCheck')) {
+                    if (event instanceof HttpResponse) {
+                        if (event.url.includes(environment.apiUrl)) {
+                            //event = event.clone({ body: JSON.parse(this.encryptDecryptService.AESdecrypt(null, event.body.Resp)) })
+                        }
+                    }
+                }
                 return event;
             }));
     }
