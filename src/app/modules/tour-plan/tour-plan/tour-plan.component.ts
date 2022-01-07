@@ -82,10 +82,10 @@ export class TourPlanComponent implements OnInit {
     selected_c;
 
     //final
+
     final_branch: any;
     final_zone: any;
     final_cricle: any;
-
     //End ZBC
 
     constructor(
