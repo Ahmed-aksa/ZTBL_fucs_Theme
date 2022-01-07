@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
     rolesData: any;
 
     constructor(private _sessionExpireService: SessionExpireService, private _router: Router, private spinner: NgxSpinnerService, private _dashboardService: DashboardService) {
-        this.spinner.show();
+
     }
 
     dataSource = new MatTableDataSource();
