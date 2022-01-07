@@ -23,6 +23,7 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
+    dataSource: MatTableDataSource<searchLoanCasesByCnic>
 
     matTableLenght = false;
     loading = false;
@@ -32,8 +33,6 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
     totalItems: number | any;
     dv: number | any; //use later
     gridHeight: string;
-
-    dataSource: MatTableDataSource<searchLoanCasesByCnic>;
 
     LoggedInUserInfo: BaseResponseModel;
 
@@ -95,23 +94,9 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-
-                    this.loading = true;
-
-                    this.dataSource = baseResponse.ReportsFilterCustom.ReportData
-                    this.dv = this.dataSource;
-                    this.matTableLenght = true
-
-                    this.totalItems = baseResponse.ReportsFilterCustom.SamNplLoans[0].TotalRecords
+                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
-
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    this.loading = false;
-                    this.matTableLenght = false;
-                    this.dataSource = null;
-                    //this.offSet = 0;
-                    this.pageIndex = 1;
-
                 }
             })
     }

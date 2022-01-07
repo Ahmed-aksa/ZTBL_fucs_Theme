@@ -14,18 +14,19 @@ import {MatSelectModule} from "@angular/material/select";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {DatePipe} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
-import {SignaturePad, SignaturePadModule} from "angular2-signaturepad";
+import {SignaturePadModule} from "angular2-signaturepad";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatIconModule} from "@angular/material/icon";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SetTargetService} from "./set-target/Services/set-target.service";
-import {SharedModule} from "../../shared/shared.module";
+import {SharedModule} from 'app/shared/shared.module';
 import { ViewTargetComponent } from './view-target/view-target.component';
+import {TargetsComponent} from "./Targets.component";
 
 const routing = [
     {
         path: "set-target",
-        component: SetTargetComponent,
+        component: TargetsComponent,
     },
     {
         path: "create-tour-diary",
@@ -55,6 +56,7 @@ const routing = [
         TourDairyZmComponent,
         ViewFileComponent,
         ViewTargetComponent,
+        TargetsComponent,
     ],
     imports: [
         CommonModule,

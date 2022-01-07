@@ -39,4 +39,6 @@ export class Bufrication {
     SummaryOnly: number;
     BatchID: string;
     Nature: string;
+    ReportsName: string;
+    OrgHeadInfoId: string
 }
