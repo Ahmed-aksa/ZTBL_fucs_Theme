@@ -66,7 +66,7 @@ export class DashboardService {
                 });
 
             return {
-                series: obj,
+                series: obj.length>1?obj:[],
                 chart: {
                     width: "100%",
                     type: "pie"

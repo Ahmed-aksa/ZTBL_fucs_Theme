@@ -46,7 +46,10 @@
                                        [labels]="chartPerformanceIndicators?.labels"
                                        [title]="chartPerformanceIndicators?.title"
                                        [theme]="chartPerformanceIndicators?.theme"
-                                       [responsive]="chartPerformanceIndicators?.responsive">
+                                       [responsive]="chartPerformanceIndicators?.responsive"
+                                       [noData]="chartPerformanceIndicators?.noData"
+                            >
+
                             </apx-chart>
                         </div>
                     </div>
@@ -58,7 +61,10 @@
                             <apx-chart [series]="chartLoanPortfolio?.series" [chart]="chartLoanPortfolio?.chart"
                                        [labels]="chartLoanPortfolio?.labels" [title]="chartLoanPortfolio?.title"
                                        [theme]="chartLoanPortfolio?.theme"
-                                       [responsive]="chartLoanPortfolio?.responsive"></apx-chart>
+                                       [responsive]="chartLoanPortfolio?.responsive"
+                                       [noData]="chartLoanPortfolio.noData"
+
+                            ></apx-chart>
                         </div>
                     </div>
 
@@ -73,7 +79,10 @@
                             <apx-chart [series]="chartnoOfBorrowers?.series" [chart]="chartnoOfBorrowers?.chart"
                                        [labels]="chartnoOfBorrowers?.labels" [title]="chartnoOfBorrowers?.title"
                                        [theme]="chartnoOfBorrowers?.theme"
-                                       [responsive]="chartnoOfBorrowers?.responsive"></apx-chart>
+                                       [responsive]="chartnoOfBorrowers?.responsive"
+                                       [noData]="chartnoOfBorrowers.noData"
+
+                            ></apx-chart>
                         </div>
                     </div>
 
