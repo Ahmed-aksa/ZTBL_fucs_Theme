@@ -25,10 +25,26 @@ import {SlashDateFormats} from "../../../shared/models/slash-format.class";
     styleUrls: ['./create-tour-plan.component.scss'],
 })
 export class CreateTourLlanComponent implements OnInit {
+    tourPlanForm: FormGroup;
 
-    
-   constructor(){}
+    branch: any;
+    zone: any;
+    circle: any;
 
-   ngOnInit(): void {
-   }
+    constructor(private fb: FormBuilder) {
+    }
+
+    ngOnInit(): void {
+        this.createForm();
+    }
+
+    private createForm() {
+        this.tourPlanForm = this.fb.group({});
+    }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
 }

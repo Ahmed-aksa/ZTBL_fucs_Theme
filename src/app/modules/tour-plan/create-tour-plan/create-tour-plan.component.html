@@ -1,7 +1,14 @@
 <div
     class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
-    <div  class="heading mt-3">Create Tour Plan</div>
+    <div class="heading mt-3">Create Tour Plan</div>
     <!-- Header -->
- 
-   
+    <div>
+        <app-zone-branch-circle
+            [form]="tourPlanForm"
+            [should_filter]="true"
+            [should_show_circle]="true"
+            [is_required_circle]="true"
+            (branchZoneCircleData)="getAllData($event)"
+        ></app-zone-branch-circle>
+    </div>
 </div>
