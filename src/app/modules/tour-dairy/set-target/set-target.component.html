@@ -1,4 +1,6 @@
 <div
+    class="  sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
+    <div
     class="sm:inset-0 flex flex-col flex-auto min-w-0 overflow-x-hidden overflow-y-auto bg-card dark:bg-transparent">
     <div [hidden]="isChild" class="heading">Set Target
     </div>
@@ -42,7 +44,7 @@
     <div class="row">
         <div  class="col-lg-12">
 <!--{{AssignTargetHeading|json}}-->
-<!--            {{assignedTarget|json}}-->
+<!--            {{AssignedTargetHeading|json}}-->
             <div class="table-responsive overflow-y-auto overflow-x-hidden" id="map_canvas" >
                 <table class="table table-striped" >
 
@@ -52,11 +54,22 @@
 <!--                        <th *ngFor="let v of AssignHeadingKeys">{{ v }}</th>-->
 <!--                    </tr>-->
 <!--                    </thead>-->
-                    <thead>
+                    <thead *ngIf="!AssignedTargetHeading">
                     <tr class="table-header-background">
                         <th></th>
                         <ng-container *ngFor="let v of rowth;let i = index">
                             <th *ngIf="i !=0">
+                                {{ v }}
+                            </th>
+                        </ng-container>
+
+                    </tr>
+                    </thead>
+                    <thead *ngIf="AssignedTargetHeading">
+                    <tr class="table-header-background">
+                        <th></th>
+                        <ng-container *ngFor="let v of AssignedTargetHeadings;let i = index">
+                            <th>
                                 {{ v }}
                             </th>
                         </ng-container>
@@ -174,13 +187,14 @@
 </div>
 
 </div>
+</div>
 
 <!--            For ZC Only (Exceptional Case)-->
-<ng-container  *ngIf="Multiple?.length>0">
-    <ng-container *ngFor="let m of Multiple;let i = index">
-        <ng-container  *ngIf="i>0">
-            <app-set-target [dateDuration]="dateDuration" [multiple]="true" [UserID]="UserID" [TargetData]="m" ></app-set-target>
-        </ng-container>
-    </ng-container>
+<!--<ng-container  *ngIf="Multiple?.length>0">-->
+<!--    <ng-container *ngFor="let m of Multiple;let i = index">-->
+<!--        <ng-container  *ngIf="i>0">-->
+<!--            <app-set-target [dateDuration]="dateDuration" [multiple]="true" [UserID]="UserID" [TargetData]="m" ></app-set-target>-->
+<!--        </ng-container>-->
+<!--    </ng-container>-->
 
-</ng-container>
+<!--</ng-container>-->

@@ -38,8 +38,8 @@
 
         <div class="row pb-4">
             <div class="col-lg-6">
-                <div class=" border">
-                    <div id="chart2" *ngIf="chartOptions1" class=" mt-0 py-3 shadow-sm border">
+                <div class=" shadow-sm border"     style="height: calc(100vh - 340px);" >
+                    <div id="chart2" *ngIf="chartOptions1" class=" mt-0 py-3">
                         <apx-chart [series]="chartOptions1?.series" [chart]="chartOptions1?.chart"
                                    [labels]="chartOptions1?.labels" [title]="chartOptions1?.title"
                                    [theme]="chartOptions1?.theme" [responsive]="chartOptions1?.responsive"
@@ -50,8 +50,8 @@
 
             </div>
             <div class="col-lg-6">
-                <div class=" border">
-                    <div id="chart3" *ngIf="chartOptions2" class=" mt-0 py-3 shadow-sm border">
+                <div class=" shadow-sm border"     style="height: calc(100vh - 340px);" >
+                    <div id="chart3" *ngIf="chartOptions2" class=" mt-0 py-3">
                         <apx-chart [series]="chartOptions2?.series" [chart]="chartOptions2?.chart"
                                    [labels]="chartOptions2?.labels" [title]="chartOptions2?.title"
                                    [theme]="chartOptions2?.theme" [responsive]="chartOptions2?.responsive"
@@ -64,7 +64,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6 py-3">
-                <div class="shadow-sm border pt-2" *ngIf="CreditCeiling">
+                <div class="shadow-sm border pt-2" *ngIf="CreditCeiling"     style="height: calc(100vh - 340px);" >
                     <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
                     <app-pyramid-chart [item]="CreditCeiling">
 

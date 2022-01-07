@@ -20,9 +20,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SetTargetService} from "./set-target/Services/set-target.service";
 import {SharedModule} from 'app/shared/shared.module';
-import {ViewTargetComponent} from './view-target/view-target.component';
+import { ViewTargetComponent } from './view-target/view-target.component';
 import {TargetsComponent} from "./Targets.component";
-import {TargetsHierarchyComponent} from './targets-hierarchy/targets-hierarchy.component';
+import {NumberDirective} from "../../shared/directives/numbers-only.directive";
+import {SetTargetTabsComponent} from "./set-target-tabs/set-target-tabs.component";
 
 const routing = [
     {
@@ -44,10 +45,6 @@ const routing = [
     {
         path: "view-target",
         component: ViewTargetComponent,
-    },
-    {
-        path: 'targets-hierarchy',
-        component: TargetsHierarchyComponent
     }
 ];
 
@@ -62,7 +59,8 @@ const routing = [
         ViewFileComponent,
         ViewTargetComponent,
         TargetsComponent,
-        TargetsHierarchyComponent,
+        SetTargetTabsComponent,
+
     ],
     imports: [
         CommonModule,
