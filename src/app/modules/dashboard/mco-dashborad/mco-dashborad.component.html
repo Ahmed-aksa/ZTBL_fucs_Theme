@@ -1,40 +1,40 @@
 <div class=" sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 bg-card dark:bg-transparent">
     <div class="heading">MCO Dashboard</div>
     <!-- Header -->
-    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-        <div class="form-row row pt-2"> 
+    <form name="form" novalidate>
+        <div class="form-row row pt-2">
             <div class="form-group col-lg-3">
                 <mat-form-field class="mat-form-field-fluid w-full mb-0" appearance="outline">
                     <mat-label class="customMatLabel">Year</mat-label>
-                    <mat-select [(ngModel)]="year" name="year"  #Year="ngModel" 
-                    [ngClass]="{ 'is-invalid': f.submitted && Year.invalid }"
-                    required>
-                        <!-- <mat-option *ngFor="let zone of SelectedZones" [value]="zone?.ZoneId">
-                            {{zone?.ZoneName}}
-                        </mat-option> -->
+                    <mat-select [(ngModel)]="year" name="year" #Year="ngModel"
+                                required>
+
+                        <mat-option *ngFor="let single_year of years;let i=index"
+                                    [value]="single_year">{{single_year}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <div *ngIf="f.submitted && Year.invalid" class="invalid-feedback">
-                    <div *ngIf="Year.errors.required">Title is required</div>
-                </div>
             </div>
             <div class="form-group col-lg-3">
-                <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button><mat-icon class="mr-2">search</mat-icon>Search</button>
+                <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button
+                        (click)="getData()">
+                    <mat-icon class="mr-2">search</mat-icon>
+                    Search
+                </button>
 
             </div>
         </div>
         <div class="text-center">
-            
+
         </div>
     </form>
-    
+
     <!-- Main -->
 
     <!-- Products list -->
     <div class="flex flex-auto" style="flex-direction: column;">
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2  ">
-                <div class="shadow-sm border">
+                <div class="shadow-sm border"   style="height: calc(100vh - 340px);">
                     <div id="chart" class=" mt-0 py-3  " *ngIf="chartOptions1">
                         <p class="text-green px-2 font-bold mb-0">Performance Indicators</p>
                         <apx-chart
@@ -43,13 +43,14 @@
                             [labels]="chartOptions1?.labels"
                             [theme]="chartOptions1?.theme"
                             [responsive]="chartOptions1?.responsive"
+                            [noData]="chartOptions1.noData"
                         ></apx-chart>
                     </div>
                 </div>
 
             </div>
             <div class="col-lg-6 col-sm-12 my-2">
-                <div class="shadow-sm border">
+                <div class="shadow-sm border"   style="height: calc(100vh - 340px);">
                     <div id="chart" class=" mt-0 py-3" *ngIf="chartOptions2">
                         <p class="text-green px-2 font-bold mb-0">Circle Bench Mark</p>
                         <apx-chart
@@ -58,6 +59,8 @@
                             [labels]="chartOptions2?.labels"
                             [theme]="chartOptions2?.theme"
                             [responsive]="chartOptions2?.responsive"
+                            [noData]="chartOptions2.noData"
+
                         ></apx-chart>
                     </div>
                 </div>
@@ -67,7 +70,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2">
-                <div class="shadow-sm border">
+                <div class="shadow-sm border"   style="height: calc(100vh - 340px);">
                     <div id="chart" class="mt-0 py-3" *ngIf="chartOptions2">
                         <p class="text-green px-2 font-bold mb-0">Loan Portfolio</p>
                         <apx-chart
@@ -76,6 +79,8 @@
                             [labels]="chartOptions3?.labels"
                             [theme]="chartOptions3?.theme"
                             [responsive]="chartOptions3?.responsive"
+                            [noData]="chartOptions3.noData"
+
                         ></apx-chart>
                     </div>
                 </div>

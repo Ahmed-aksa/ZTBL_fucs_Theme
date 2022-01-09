@@ -31,28 +31,45 @@ export type ChartOptions = {
 export class McoDashboradComponent implements OnInit {
 
     @ViewChild("chart") chart: ChartComponent;
+    @ViewChild(McoDashboradComponent, {static: false}) mcoDashboardComponent: McoDashboradComponent;
+    @Input('ProfileID') profile_id: any;
+
     public chartOptions1: Partial<ChartOptions>;
     public chartOptions2: Partial<ChartOptions>;
     public chartOptions3: Partial<ChartOptions>;
     DisbursmentAchievement: any = [];
     RecoveryAchievement: any = [];
     UtilizationMutation: any = [];
-    year:any;
+    year: any;
+    years: any;
 
     constructor(private _dashboardService: DashboardService, private spinner: NgxSpinnerService) {
     }
 
     ngOnInit(): void {
-
+        this.getYears();
+        this.getData();
     }
 
     assignRoleData(DashboardReport: any) {
-        debugger;
-        this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
-        this.chartOptions2 = this._dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio');
-        this.chartOptions3 = this._dashboardService.assignKeys(DashboardReport.LoanPorfolio2, 'Loan Portfolio');
+        this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport?.PerformanceIndicator, 'Performance Indicators');
+        this.chartOptions2 = this._dashboardService.assignKeys(DashboardReport?.LoanPorfolio, 'Loan Portfolio');
+        this.chartOptions3 = this._dashboardService.assignKeys(DashboardReport?.LoanPorfolio2, 'Loan Portfolio');
     }
-    onSubmit(){
-        
+
+    getYears() {
+        this._dashboardService.getYears().subscribe((data) => {
+            this.years = data.DashboardReport.YearsForHistoricalData;
+        })
+    }
+
+    getData() {
+        this._dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
+            this.spinner.hide()
+        })).subscribe(result => {
+            if (result.Code != "-1") {
+                this.assignRoleData(result.DashboardReport);
+            }
+        });
     }
 }

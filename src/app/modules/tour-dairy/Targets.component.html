@@ -6,39 +6,39 @@
         <ng-container *ngFor="let item of userGroup">
 
             <mat-tab  *ngIf=" item.ProfileID=='69'" ng-disable="visibleFlag" label="ZM RECOVERY">
-                <app-set-target [UserID]="item.ProfileID"></app-set-target>
+                <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
             <mat-tab *ngIf="item.ProfileID=='205'" label="Provincial Chief">
-                <app-set-target [UserID]="item.ProfileID"></app-set-target>
+                <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
             <mat-tab *ngIf="item.ProfileID =='68'" label="SVP COD">
-                <app-set-target [UserID]="item.ProfileID"></app-set-target>
+                <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
             <mat-tab *ngIf="item.ProfileID =='199'" label="SVP RECOVERY">
-                <app-set-target [UserID]="item.ProfileID"></app-set-target>
+                <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
             <mat-tab label="EVP LMD" *ngIf="item.ProfileID =='207'">
-                <app-set-target [UserID]="item.ProfileID"></app-set-target>
+                <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
             <mat-tab label="ZONAL CHIEF" *ngIf="item.ProfileID =='75'">
-                <app-set-target  [UserID]="item.ProfileID"></app-set-target>
+                <app-set-target-tabs  [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
             <mat-tab label="AUTHOR" *ngIf="item.ProfileID =='57'">
-                <app-set-target [UserID]="item.ProfileID"></app-set-target>
+                <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
             <mat-tab label="MAKER" *ngIf="item.ProfileID =='56'">
-                <app-set-target [UserID]="item.ProfileID"></app-set-target>
+                <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
             <mat-tab label="REGIONAL CHIEF" *ngIf="item.ProfileID =='203'">
-                <app-set-target [UserID]="item.ProfileID"></app-set-target>
+                <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
         </ng-container>
     </mat-tab-group>

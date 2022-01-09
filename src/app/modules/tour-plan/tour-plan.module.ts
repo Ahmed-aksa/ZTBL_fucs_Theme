@@ -4,6 +4,9 @@ import {SharedModule} from 'app/shared/shared.module';
 import {RouterModule} from '@angular/router';
 import {TourPlanComponent} from "./tour-plan/tour-plan.component";
 import {SearchTourPlanComponent} from "./search-tour-plan/search-tour-plan.component";
+import {CreateTourLlanComponent} from './create-tour-plan/create-tour-plan.component';
+import {TargetsHierarchyComponent} from "./targets-hierarchy/targets-hierarchy.component";
+import {TargetsTrackingComponent} from './targets-tracking/targets-tracking.component';
 
 const routing = [
 
@@ -15,6 +18,14 @@ const routing = [
         path: "search-tour-plan",
         component: SearchTourPlanComponent,
     },
+    {
+        path: "target-hierarchy",
+        component: TargetsHierarchyComponent,
+    },
+    {
+        path: "target-tracking",
+        component: TargetsTrackingComponent,
+    },
     // {
     //     path: "tour-plan-for-approval",
     //     component: TourPlanForApprovalComponent,
@@ -25,6 +36,9 @@ const routing = [
     declarations: [
         TourPlanComponent,
         SearchTourPlanComponent,
+        CreateTourLlanComponent,
+        TargetsHierarchyComponent,
+        TargetsTrackingComponent
         // TourPlanForApprovalComponent
     ],
     imports: [

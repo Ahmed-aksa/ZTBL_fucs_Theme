@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
     rolesData: any;
 
     constructor(private _sessionExpireService: SessionExpireService, private _router: Router, private spinner: NgxSpinnerService, private _dashboardService: DashboardService) {
-        this.spinner.show();
+
     }
 
     dataSource = new MatTableDataSource();
@@ -59,31 +59,23 @@ export class DashboardComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     ngOnInit(): void {
-  
+
         this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
-        this.userGroup.forEach((single_group)=>{
-            this._dashboardService.getDashboardData(single_group.ProfileID).pipe(finalize(() => {
-                this.spinner.hide()
-            })).subscribe(result => {
-                if(result.Code!="-1"){
-                this.mcoDashboardComponent?.assignRoleData(result.DashboardReport);
-                this.recoveryOfficerDashboardComponent?.assignRoleData(result.DashboardReport);
-                this.branchManagerDashboardComponent?.assignRoleData(result.DashboardReport);
-                this.zonalChiefDashboardComponent?.assignRoleData(result.DashboardReport);
-                this.evpCreditDashboardComponent?.assignRoleData(result.DashboardReport);
-                this.evpOdDashboardComponent?.assignRoleData(result.DashboardReport);
-                this.presidentZtblComponent?.assignRoleData(result.DashboardReport);
-                this.regionalCheifComponent?.assignRoleData(result.DashboardReport);
-                this.provincialChiefComponent?.assignRoleData(result.DashboardReport);
-                this.recoverySamDivisionComponent?.assignRoleData(result.DashboardReport);
-                }
-            });
-        })
+            //     this.mcoDashboardComponent?.assignRoleData(result.DashboardReport);
+            //     this.recoveryOfficerDashboardComponent?.assignRoleData(result.DashboardReport);
+            //     this.branchManagerDashboardComponent?.assignRoleData(result.DashboardReport);
+            //     this.zonalChiefDashboardComponent?.assignRoleData(result.DashboardReport);
+            //     this.evpCreditDashboardComponent?.assignRoleData(result.DashboardReport);
+            //     this.evpOdDashboardComponent?.assignRoleData(result.DashboardReport);
+            //     this.presidentZtblComponent?.assignRoleData(result.DashboardReport);
+            //     this.regionalCheifComponent?.assignRoleData(result.DashboardReport);
+            //     this.provincialChiefComponent?.assignRoleData(result.DashboardReport);
+            //     this.recoverySamDivisionComponent?.assignRoleData(result.DashboardReport);
 
 
     }
 
-   
+
 
     // @HostListener('window:keydown')
     // @HostListener('window:mousedown')

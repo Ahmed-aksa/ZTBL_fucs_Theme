@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DashboardService } from 'app/shared/services/dashboard.service';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {DashboardService} from 'app/shared/services/dashboard.service';
 import {
     ApexChart,
     ApexNoData,
@@ -9,7 +9,8 @@ import {
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {finalize} from "rxjs/operators";
 
 export type ChartOptions = {
     series: ApexNonAxisChartSeries;
@@ -29,6 +30,9 @@ export type ChartOptions = {
 export class PresidentZtblComponent implements OnInit {
 
     @ViewChild("chart") chart: ChartComponent;
+    @Input('ProfileID') profile_id: any;
+    year: any;
+    years: any;
     public chartOptions1: Partial<ChartOptions>;
     public chartOptions2: Partial<ChartOptions>;
     public chartOptions3: Partial<ChartOptions>;
@@ -38,29 +42,47 @@ export class PresidentZtblComponent implements OnInit {
     CountryTop5: any;
 
 
-    constructor(private spinner: NgxSpinnerService, private _dashboardService: DashboardService) {
-       
+    constructor(private spinner: NgxSpinnerService, private dashboardService: DashboardService) {
+
     }
 
     ngOnInit(): void {
+        this.getYears();
+        this.getData();
     }
+
     assignRoleData(DashboardReport: any) {
-        
+
         this.spinner.show();
         if (!DashboardReport) {
             return
         }
 
-        this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
-        this.chartOptions2 = this._dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank  Book');
-        this.chartOptions3 = this._dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No. Of Borrowers');
-        this.chartOptions4 = this._dashboardService.assignKeys(DashboardReport.NoOfAccountHolder, 'No. Of Accounts');
+        this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
+        this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank  Book');
+        this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No. Of Borrowers');
+        this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfAccountHolder, 'No. Of Accounts');
         this.ResourcesCount = Object.entries(DashboardReport?.ResourcesCount);
         this.CountryWorst5 = DashboardReport?.CountryWorst5;
         this.CountryTop5 = DashboardReport?.CountryTop5;
         //this.UtilizationMutation = Object.entries(DashboardReport?.UtilizationMutation);
         this.spinner.hide()
+    }
 
+    getData() {
+        this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
+            this.spinner.hide()
+        })).subscribe(result => {
+            if (result.Code != "-1") {
+                this.assignRoleData(result.DashboardReport);
+            }
+        });
+    }
+
+    getYears() {
+        this.dashboardService.getYears().subscribe((data) => {
+            this.years = data.DashboardReport.YearsForHistoricalData;
+        })
     }
 
 }

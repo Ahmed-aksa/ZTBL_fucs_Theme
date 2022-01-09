@@ -26,6 +26,8 @@ import { TourDiaryRoComponent } from './tour-diary-ro/tour-diary-ro.component';
 import { TourDiaryBmComponent } from './tour-diary-bm/tour-diary-bm.component';
 import { TourDiaryPcComponent } from './tour-diary-pc/tour-diary-pc.component';
 import { TourDiaryRcComponent } from './tour-diary-rc/tour-diary-rc.component';
+import {NumberDirective} from "../../shared/directives/numbers-only.directive";
+import {SetTargetTabsComponent} from "./set-target-tabs/set-target-tabs.component";
 
 const routing = [
     {
@@ -45,22 +47,6 @@ const routing = [
         component: TourDairyZcComponent,
     },
     {
-        path: "create-tour-diary-bm",
-        component: TourDiaryBmComponent,
-    },
-    {
-        path: "create-tour-diary-pc",
-        component: TourDiaryPcComponent,
-    },
-    {
-        path: "create-tour-diary-ro",
-        component: TourDiaryRoComponent,
-    },
-    {
-        path: "create-tour-diary-rc",
-        component: TourDiaryRcComponent,
-    },
-    {
         path: "view-target",
         component: ViewTargetComponent,
     }
@@ -77,10 +63,6 @@ const routing = [
         ViewFileComponent,
         ViewTargetComponent,
         TargetsComponent,
-        TourDiaryRoComponent,
-        TourDiaryBmComponent,
-        TourDiaryPcComponent,
-        TourDiaryRcComponent,
     ],
     imports: [
         CommonModule,
