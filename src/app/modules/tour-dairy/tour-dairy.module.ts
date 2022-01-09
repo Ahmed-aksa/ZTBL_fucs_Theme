@@ -47,6 +47,22 @@ const routing = [
         component: TourDairyZcComponent,
     },
     {
+        path: "create-tour-diary-bm",
+        component: TourDiaryBmComponent,
+    },
+    {
+        path: "create-tour-diary-pc",
+        component: TourDiaryPcComponent,
+    },
+    {
+        path: "create-tour-diary-ro",
+        component: TourDiaryRoComponent,
+    },
+    {
+        path: "create-tour-diary-rc",
+        component: TourDiaryRcComponent,
+    },
+    {
         path: "view-target",
         component: ViewTargetComponent,
     }
@@ -63,6 +79,11 @@ const routing = [
         ViewFileComponent,
         ViewTargetComponent,
         TargetsComponent,
+        TourDiaryRcComponent,
+        TourDiaryPcComponent,
+        TourDiaryBmComponent,
+        TourDiaryRoComponent,
+        SetTargetTabsComponent
     ],
     imports: [
         CommonModule,
@@ -77,8 +98,7 @@ const routing = [
         SignaturePadModule,
         MatDatepickerModule,
         MatIconModule,
-        MatDialogModule,
-
+        MatDialogModule
     ],
     providers: [
         DatePipe,
