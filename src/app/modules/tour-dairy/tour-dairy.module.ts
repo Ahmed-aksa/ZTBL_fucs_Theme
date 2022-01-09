@@ -22,6 +22,10 @@ import {SetTargetService} from "./set-target/Services/set-target.service";
 import {SharedModule} from 'app/shared/shared.module';
 import { ViewTargetComponent } from './view-target/view-target.component';
 import {TargetsComponent} from "./Targets.component";
+import { TourDiaryRoComponent } from './tour-diary-ro/tour-diary-ro.component';
+import { TourDiaryBmComponent } from './tour-diary-bm/tour-diary-bm.component';
+import { TourDiaryPcComponent } from './tour-diary-pc/tour-diary-pc.component';
+import { TourDiaryRcComponent } from './tour-diary-rc/tour-diary-rc.component';
 
 const routing = [
     {
@@ -41,6 +45,22 @@ const routing = [
         component: TourDairyZcComponent,
     },
     {
+        path: "create-tour-diary-bm",
+        component: TourDiaryBmComponent,
+    },
+    {
+        path: "create-tour-diary-pc",
+        component: TourDiaryPcComponent,
+    },
+    {
+        path: "create-tour-diary-ro",
+        component: TourDiaryRoComponent,
+    },
+    {
+        path: "create-tour-diary-rc",
+        component: TourDiaryRcComponent,
+    },
+    {
         path: "view-target",
         component: ViewTargetComponent,
     }
@@ -57,6 +77,10 @@ const routing = [
         ViewFileComponent,
         ViewTargetComponent,
         TargetsComponent,
+        TourDiaryRoComponent,
+        TourDiaryBmComponent,
+        TourDiaryPcComponent,
+        TourDiaryRcComponent,
     ],
     imports: [
         CommonModule,
