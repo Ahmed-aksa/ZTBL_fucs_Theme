@@ -5,12 +5,17 @@ import {RouterModule} from '@angular/router';
 import {TourPlanComponent} from "./tour-plan/tour-plan.component";
 import {SearchTourPlanComponent} from "./search-tour-plan/search-tour-plan.component";
 import { CreateTourLlanComponent } from './create-tour-plan/create-tour-plan.component';
+import { CreateTourPlanPopupComponent } from './create-tour-plan/create-tour-plan-popup/create-tour-plan-popup.component';
 
 const routing = [
 
+    // {
+    //     path: "tour-plan",
+    //     component: TourPlanComponent,
+    // },
     {
         path: "tour-plan",
-        component: TourPlanComponent,
+        component: CreateTourLlanComponent,
     },
     {
         path: "search-tour-plan",
@@ -26,7 +31,8 @@ const routing = [
     declarations: [
         TourPlanComponent,
         SearchTourPlanComponent,
-        CreateTourLlanComponent
+        CreateTourLlanComponent,
+        CreateTourPlanPopupComponent
         // TourPlanForApprovalComponent
     ],
     imports: [

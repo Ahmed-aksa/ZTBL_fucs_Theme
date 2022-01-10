@@ -117,6 +117,7 @@ export class LovConfigurationKey {
     public static readonly ExpenseDropDown: string = 'ExpenseDropDown';
     public static readonly StatementOfAffairRpt: string = 'StatementOfAffairRpt';
     public static readonly EarlyWarningDays: string = 'EarlyWarningDays';
+    public static readonly TourPlanPurpose: string = 'TourPlanPurpose';
 
 
 }
