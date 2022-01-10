@@ -191,6 +191,7 @@ export class TourPlanService {
     }
 
     getTargetsTracks(id: number, next_number: number, duration) {
+        debugger;
         let request = new BaseRequestModel();
         request.Target = {
             Id: String(id),

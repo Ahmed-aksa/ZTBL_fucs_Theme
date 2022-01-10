@@ -5,6 +5,8 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/mater
 import {MatDatepicker} from "@angular/material/datepicker";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TourPlanService} from "../Service/tour-plan.service";
+import {MatExpansionPanel} from "@angular/material/expansion";
+import {NgxSpinnerService} from "ngx-spinner";
 
 export const MY_FORMATS = {
     parse: {
@@ -36,8 +38,12 @@ export class TargetsTrackingComponent implements OnInit {
     targetTrackingForm: FormGroup;
     year = moment().format('DD-MMMM-YYYY');
     target_0: any;
+    target_1: any;
+    target_2: any;
+    target_3: any;
+    target_4: any;
 
-    constructor(private formBuilder: FormBuilder, private trackingService: TourPlanService) {
+    constructor(private formBuilder: FormBuilder, private trackingService: TourPlanService, private spinner: NgxSpinnerService) {
     }
 
     ngOnInit(): void {
@@ -57,10 +63,25 @@ export class TargetsTrackingComponent implements OnInit {
         })
     }
 
-    getTargetTracks() {
-        this.trackingService.getTargetsTracks(0, 0, this.year).subscribe((data) => {
+    getTargetTracks(id = 0, next = 0, index = 0, incoming_data = null) {
+        this.spinner.show();
+        this.trackingService.getTargetsTracks(id, next, this.year).subscribe((data) => {
+            this.spinner.hide();
             if (data.Success) {
-                this.target_0 = data.Target;
+                if (next == 1) {
+                    this.target_1 = data.Target.Heading;
+                } else if (next == 2) {
+                    this.target_2 = data.Target.Heading;
+                } else if (next == 3) {
+                    this.target_3 = data.Target.Heading;
+                } else if (next == 4) {
+                    this.target_4 = data.Target.Heading
+                }
+                if (id == 0)
+                    this.target_0 = data.Target;
+                else {
+                    incoming_data[index].Target = data.Target.Targets;
+                }
             }
         });
     }
