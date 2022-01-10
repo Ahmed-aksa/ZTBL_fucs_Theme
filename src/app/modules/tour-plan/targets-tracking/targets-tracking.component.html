@@ -7,17 +7,28 @@
 
     <!-- Products list -->
     <div class="flex flex-auto" style="flex-direction: column;">
-        <form [formGroup]="targetTrackingForm">
-            <mat-form-field>
-                <input matInput [matDatepicker]="dp" placeholder="Year" [value]="year">
-                <input type="hidden" formControlName="date">
-                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                <mat-datepicker #dp
-                                startView="multi-year"
-                                (yearSelected)="chosenYearHandler($event,dp)"
-                                panelClass="example-month-picker">
-                </mat-datepicker>
-            </mat-form-field>
+        <form>
+<!--            <mat-form-field>-->
+<!--                <input matInput [matDatepicker]="dp" placeholder="Year" formControlName="date">-->
+<!--                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>-->
+<!--                <mat-datepicker #dp-->
+<!--                                startView="multi-year"-->
+<!--                                (yearSelected)="chosenYearHandler($event,dp)"-->
+<!--                                panelClass="example-month-picker">-->
+<!--                </mat-datepicker>-->
+<!--            </mat-form-field>-->
+            <div class="col-lg-3 col-sm-12">
+                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Month and Year</mat-label>
+                        <input matInput [matDatepicker]="dp" placeholder="Month" [formControl]="date">
+                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    </mat-form-field>
+                    <mat-datepicker #dp startView="multi-year" (yearSelected)="_yearSelectedHandler($event,dp)"
+                                    panelClass="example-month-picker">
+                    </mat-datepicker>
+                </div>
+            </div>
             <mat-form-field>
                 <input matInput placeholder="Search" formControlName="search">
             </mat-form-field>
