@@ -2,13 +2,91 @@
     class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading mt-3">Create Tour Plan</div>
     <!-- Header -->
-    <div>
-        <app-zone-branch-circle
-            [form]="tourPlanForm"
-            [should_filter]="true"
-            [should_show_circle]="true"
-            [is_required_circle]="true"
-            (branchZoneCircleData)="getAllData($event)"
-        ></app-zone-branch-circle>
+    <div class="flex pt-2" style="flex-wrap:wrap;" [formGroup]="tourPlanForm">
+        <app-zone-branch-circle [form]="tourPlanForm" [should_filter]="true" [should_show_circle]="true"
+            [is_required_circle]="true" (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong>
+                    </mat-label>
+                    <input disabled matInput [matDatepicker]="picker" formControlName="VisitedDate"
+                        (dateChange)="setVisitedDate()" autocomplete="off" [min]="minDate" />
+                    <mat-datepicker-toggle [disabled]='false' matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker [disabled]='false' #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-label class="customMatLabel">Purpose<strong class="matMandatory">*</strong></mat-label>
+                <mat-select formControlName="Purpose">
+                    <mat-option *ngFor="let loanType of purposeofVisitLov" [value]="loanType.Value">
+                        {{loanType.Name}}
+                    </mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="hasError('DevProdFlag', 'required')">LoanType <strong>required</strong>
+                </mat-error> -->
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-sm-12">
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <mat-form-field appearance="fill">
+                    <mat-label>Month and Year</mat-label>
+                    <input matInput [matDatepicker]="dp" placeholder="Month" [formControl]="date">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                </mat-form-field>
+                <mat-datepicker #dp startView="multi-year" (yearSelected)="_yearSelectedHandler($event,dp)"
+                    panelClass="example-month-picker">
+                </mat-datepicker>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12">
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">Remarks</mat-label>
+                    <input matInput appAlphaNumericField placeholder="Enter Remarks" formControlName="Remarks"
+                        autocomplete="off" />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <button class="ml-2 bg-gray-500" mat-raised-button color="primary" (click)="AddCal()">
+                    <mat-icon class="mr-2">add_circle_outline</mat-icon>Add
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container  px-0 pt-2">
+        <div class="table-responsive  border shadow-xs rounded-sm bg-gray-50" id="map_canvas">
+            <table class="table accordion table-striped">
+                <thead>
+                    <tr class="table-header-background">
+                        <th scope="col">SR. No</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Visited Date</th>
+                        <th scope="col">Purpose </th>
+                        <th scope="col">Remarks </th>
+                        <th scope="col">Status </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of tragetList; let row=index">
+                        <td>{{row+1}}</td>
+                        <td>{{item.UserId}}</td>
+                        <td>{{item.VisitedDate}}</td>
+                        <td>{{item.Purpose}}</td>
+                        <td>{{item.Remarks}}</td>
+                        <td>{{item.Status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+
+  
