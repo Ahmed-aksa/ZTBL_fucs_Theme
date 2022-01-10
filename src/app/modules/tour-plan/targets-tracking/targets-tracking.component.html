@@ -10,16 +10,14 @@
         <form [formGroup]="targetTrackingForm">
             <div class="row pt-2">
                   <div class="col-lg-3">
-                        <mat-form-field class="w-full">
-                              <input matInput [matDatepicker]="dp" placeholder="Year" [value]="year">
-                              <input type="hidden" formControlName="date">
+                        <mat-form-field class="w-full" appearance="fill">
+                              <mat-label>Month and Year</mat-label>
+                              <input matInput [matDatepicker]="dp" placeholder="Month" [formControl]="date">
                               <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                              <mat-datepicker #dp
-                                              startView="multi-year"
-                                              (yearSelected)="chosenYearHandler($event,dp)"
-                                              panelClass="example-month-picker">
-                              </mat-datepicker>
                           </mat-form-field>
+                          <mat-datepicker #dp startView="multi-year" (yearSelected)="_yearSelectedHandler($event,dp)"
+                                          panelClass="example-month-picker">
+                          </mat-datepicker>
                   </div>
                   <div class="col-lg-3">
                         <mat-form-field class="w-full">
