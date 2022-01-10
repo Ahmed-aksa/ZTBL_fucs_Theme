@@ -5,7 +5,6 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/mater
 import {MatDatepicker} from "@angular/material/datepicker";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TourPlanService} from "../Service/tour-plan.service";
-import {MatExpansionPanel} from "@angular/material/expansion";
 import {NgxSpinnerService} from "ngx-spinner";
 
 export const MY_FORMATS = {
@@ -36,36 +35,32 @@ export const MY_FORMATS = {
 })
 export class TargetsTrackingComponent implements OnInit {
     targetTrackingForm: FormGroup;
-    year = moment().format('DD-MMMM-YYYY');
     target_0: any;
     target_1: any;
     target_2: any;
     target_3: any;
     target_4: any;
 
+    date = new FormControl(moment());
+
     constructor(private formBuilder: FormBuilder, private trackingService: TourPlanService, private spinner: NgxSpinnerService) {
     }
 
     ngOnInit(): void {
-        this.createForm();
+        // this.createForm();
     }
 
     chosenYearHandler(normalizedYear: Moment, datepicker: MatDatepicker<Moment>) {
         this.targetTrackingForm.value.date = normalizedYear.format('DD-MMMM-YYYY');
-        this.year = normalizedYear.format('DD-MMMM-YYYY');
         datepicker.close();
     }
 
-    private createForm() {
-        this.targetTrackingForm = this.formBuilder.group({
-            date: moment().format('DD-MMMM-YYYY'),
-            search: ''
-        })
-    }
 
     getTargetTracks(id = 0, next = 0, index = 0, incoming_data = null) {
+        let date: Moment = this.date.value;
+        let year_date = date.format('DD-MMMM-YYYY');
         this.spinner.show();
-        this.trackingService.getTargetsTracks(id, next, this.year).subscribe((data) => {
+        this.trackingService.getTargetsTracks(id, next, year_date).subscribe((data) => {
             this.spinner.hide();
             if (data.Success) {
                 if (next == 1) {
@@ -84,5 +79,12 @@ export class TargetsTrackingComponent implements OnInit {
                 }
             }
         });
+    }
+
+    _yearSelectedHandler(chosenDate: Moment, datepicker: MatDatepicker<Moment>) {
+        datepicker.close();
+
+        chosenDate.set({date: 1});
+        this.date.setValue(chosenDate, {emitEvent: false});
     }
 }
