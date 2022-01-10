@@ -6,33 +6,33 @@
 
 
     <!-- Products list -->
-    <div class="flex flex-auto" style="flex-direction: column;">
-        <form>
-<!--            <mat-form-field>-->
-<!--                <input matInput [matDatepicker]="dp" placeholder="Year" formControlName="date">-->
-<!--                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>-->
-<!--                <mat-datepicker #dp-->
-<!--                                startView="multi-year"-->
-<!--                                (yearSelected)="chosenYearHandler($event,dp)"-->
-<!--                                panelClass="example-month-picker">-->
-<!--                </mat-datepicker>-->
-<!--            </mat-form-field>-->
-            <div class="col-lg-3 col-sm-12">
-                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Month and Year</mat-label>
-                        <input matInput [matDatepicker]="dp" placeholder="Month" [formControl]="date">
-                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                    </mat-form-field>
-                    <mat-datepicker #dp startView="multi-year" (yearSelected)="_yearSelectedHandler($event,dp)"
-                                    panelClass="example-month-picker">
-                    </mat-datepicker>
-                </div>
-            </div>
-            <mat-form-field>
-                <input matInput placeholder="Search" formControlName="search">
-            </mat-form-field>
-            <button class="bg-green btn" type="button" (click)="getTargetTracks()">Submit</button>
+    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
+        <form [formGroup]="targetTrackingForm">
+            <div class="row pt-2">
+                  <div class="col-lg-3">
+                        <mat-form-field class="w-full">
+                              <input matInput [matDatepicker]="dp" placeholder="Year" [value]="year">
+                              <input type="hidden" formControlName="date">
+                              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                              <mat-datepicker #dp
+                                              startView="multi-year"
+                                              (yearSelected)="chosenYearHandler($event,dp)"
+                                              panelClass="example-month-picker">
+                              </mat-datepicker>
+                          </mat-form-field>
+                  </div>
+                  <div class="col-lg-3">
+                        <mat-form-field class="w-full">
+                              <input matInput placeholder="Search" formControlName="search">
+                          </mat-form-field>
+                  </div>
+                  <div class="col-lg-3 pt-2">
+                        <button class="mat-focus-indicator mat-flat-button mat-button-base rounded  bg-green" (click)="getTargetTracks()"><mat-icon class="mr-2">check_circle</mat-icon>Submit</button>
+                  </div>
+            </div>  
+
+
+
         </form>
         <section matSort class="mat-elevation-z2 mat-header-row bg-green api-table">
             <span class="mat-header-cell text-white" mat-sort-header="Name"
@@ -62,7 +62,7 @@
                       style="width: 10px; font-size: 12px;">{{single_provincial_target?.Name ? single_provincial_target.Name : 'Not Assigned'}}</span>
                     <span class="mat-cell py-6 self-center font-bold"
                           style="font-size: 12px;">{{single_provincial_target?.DepositAmount ? single_provincial_target?.DepositAmount : 'Not Assigned'}}</span>
-                    <p class="mat-cell py-6 self-center  font-bold mt-3"
+                    <p class="mat-cell py-6 self-center  font-bold"
                        style="font-size: 12px;">{{single_provincial_target?.DisbursmentAmount ? single_provincial_target?.DisbursmentAmount : 'Not Assigned'}}</p>
                     <span class="mat-cell py-6 self-center px-2 font-bold"
                           style="font-size: 12px;">{{single_provincial_target?.NormalRecoveryAmount ? single_provincial_target?.NormalRecoveryAmount : 'Not Assigned'}}</span>
@@ -74,7 +74,7 @@
                 <div>
                     <div class="custom-accordion-body bg-gray-50 border-t rounded">
                         <!--            LEVEL 1             -->
-                        <section matSort class="mat-elevation-z2 mat-header-row bg-green api-table">
+                        <section matSort class=" bg-green-400mat-elevation-z2 mat-header-row bg-green api-table">
             <span class="mat-header-cell text-white" mat-sort-header="Name"
                   style="width: 10px;">{{target_1?.Name}}</span>
                             <span class="mat-header-cell text-white"
@@ -104,7 +104,7 @@
                                           style="width: 10px; font-size: 12px;">{{target_1?.Name ? target_1?.Name : 'Not Assigned'}}</span>
                                     <span class="mat-cell py-6 self-center font-bold"
                                           style="font-size: 12px;">{{target_1?.DepositAmount ? target_1?.DepositAmount : 'Not Assigned'}}</span>
-                                    <p class="mat-cell py-6 self-center  font-bold mt-3"
+                                    <p class="mat-cell py-6 self-center  font-bold"
                                        style="font-size: 12px;">{{target_1?.DisbursmentAmount ? target_1?.DisbursmentAmount : 'Not Assigned'}}</p>
                                     <span class="mat-cell py-6 self-center px-2 font-bold"
                                           style="font-size: 12px;">{{target_1?.NormalRecoveryAmount ? target_1?.NormalRecoveryAmount : 'Not Assigned'}}</span>
@@ -146,7 +146,7 @@
                                                           style="width: 10px; font-size: 12px;">{{target_2?.Name ? target_2?.Name : 'Not Assigned'}}</span>
                                                     <span class="mat-cell py-6 self-center font-bold"
                                                           style="font-size: 12px;">{{target_2?.DepositAmount ? target_2?.DepositAmount : 'Not Assigned'}}</span>
-                                                    <p class="mat-cell py-6 self-center  font-bold mt-3"
+                                                    <p class="mat-cell py-6 self-center  font-bold"
                                                        style="font-size: 12px;">{{target_2?.DisbursmentAmount ? target_2?.DisbursmentAmount : 'Not Assigned'}}</p>
                                                     <span class="mat-cell py-6 self-center px-2 font-bold"
                                                           style="font-size: 12px;">{{target_2?.NormalRecoveryAmount ? target_2?.NormalRecoveryAmount : 'Not Assigned'}}</span>
@@ -189,7 +189,7 @@
                       style="width: 10px; font-size: 12px;">{{single_provincial_target?.Name}}</span>
                                                                     <span class="mat-cell py-6 self-center font-bold"
                                                                           style="font-size: 12px;">{{target_3?.DepositAmount ? target_3?.DepositAmount : 'Not Assigned'}}</span>
-                                                                    <p class="mat-cell py-6 self-center  font-bold mt-3"
+                                                                    <p class="mat-cell py-6 self-center  font-bold"
                                                                        style="font-size: 12px;">{{target_3?.DisbursmentAmount ? target_3?.DisbursmentAmount : 'Not Assigned'}}</p>
                                                                     <span
                                                                         class="mat-cell py-6 self-center px-2 font-bold"
@@ -239,7 +239,7 @@
                                                                                     <span
                                                                                         class="mat-cell py-6 self-center font-bold"
                                                                                         style="font-size: 12px;">{{target_4?.DepositAmount ? target_4?.DepositAmount : 'Not Assigned'}}</span>
-                                                                                    <p class="mat-cell py-6 self-center  font-bold mt-3"
+                                                                                    <p class="mat-cell py-6 self-center  font-bold"
                                                                                        style="font-size: 12px;">{{target_4?.DisbursmentAmount ? target_4?.DisbursmentAmount : 'Not Assigned'}}</p>
                                                                                     <span
                                                                                         class="mat-cell py-6 self-center px-2 font-bold"
