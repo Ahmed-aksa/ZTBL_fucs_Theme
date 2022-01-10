@@ -171,4 +171,36 @@ export class TourPlanService {
         );
     }
 
+    getTargetsHeirarchy() {
+        let request = new BaseRequestModel();
+        request.User = this.userInfo.User;
+        return this.http.post(`${environment.apiUrl}/Target/GetTargetHierarchy`, request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
+
+    updateTargetsHierarchy(single_target: any) {
+        let request = new BaseRequestModel();
+        request.User = this.userInfo.User;
+        request.Target = single_target;
+        return this.http.post(`${environment.apiUrl}/Target/UpdateTargetHierarchy`, request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
+
+    getTargetsTracks(id: number, next_number: number, duration) {
+        let request = new BaseRequestModel();
+        request.Target = {
+            Id: String(id),
+            NextNumber: String(next_number),
+            Duration: duration,
+        }
+        request.User = this.userInfo.User;
+        return this.http.post(`${environment.apiUrl}/Target/GetTargetTracking`, request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
 }

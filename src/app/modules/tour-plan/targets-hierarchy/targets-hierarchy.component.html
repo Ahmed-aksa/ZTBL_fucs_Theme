@@ -1,0 +1,36 @@
+<div
+    class=" px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="heading">Targets Hierarchy</div>
+    <!-- Header -->
+    <!-- Main -->
+
+    <!-- Products list -->
+    <div class="flex flex-auto" style="flex-direction: column;">
+        <div class="container  px-0 pt-2">
+            <div class="table-responsive  border shadow-xs rounded-sm bg-gray-50" id="map_canvas">
+                <table class="table accordion table-striped">
+                    <thead>
+                    <tr class="table-header-background">
+                        <th scope="col">Name</th>
+                        <th scope="col">Group Name</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let single_target of targets">
+                        <td>{{single_target.Name}}</td>
+                        <td>{{single_target.GroupName}}</td>
+                        <td>
+                            <input type="checkbox" [checked]="single_target.IsActive=='1'?true:false" (change)="updateTarget(single_target,single_target.IsActive)"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>

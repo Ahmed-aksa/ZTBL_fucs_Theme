@@ -37,13 +37,16 @@
         <!-- Products list -->
         <div class=" overflow-x-hidden overflow-y-scroll">
             <div class="row pb-4">
-                <div class="col-lg-12">
-                    <div class="shadow-sm border">
-                        <div id="chart" *ngIf="chartOptions" class=" mt-0 py-3 shadow-sm border">
+                <div class="col-lg-6 mb-3">
+                    <div class="shadow-sm border"     style="height: calc(100vh - 340px);" >
+                        <div id="chart" *ngIf="chartOptions" class=" mt-0 py-3">
                             <apx-chart [series]="chartOptions?.series" [chart]="chartOptions?.chart"
                                        [labels]="chartOptions?.labels" [title]="chartOptions?.title"
                                        [theme]="chartOptions?.theme"
-                                       [responsive]="chartOptions?.responsive"></apx-chart>
+                                       [responsive]="chartOptions?.responsive"
+                                       [noData]="chartOptions.noData"
+
+                            ></apx-chart>
                         </div>
                     </div>
 

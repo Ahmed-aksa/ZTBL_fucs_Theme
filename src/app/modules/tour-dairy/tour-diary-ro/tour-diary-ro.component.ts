@@ -1,20 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {SignatureDailogDairyComponent} from "../signature-dailog-dairy/signature-dailog-dairy.component";
+import { Component, OnInit } from '@angular/core';
+import {DatePipe} from "@angular/common";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {DateFormats} from "../../../shared/classes/lov.class";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
-import {DatePipe} from "@angular/common";
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
-import {MomentDateAdapter} from "@angular/material-moment-adapter";
-import {DateFormats} from "../../../shared/classes/lov.class";
+import {SignatureDailogDairyComponent} from "../signature-dailog-dairy/signature-dailog-dairy.component";
 
 @Component({
-    selector: 'app-tour-dairy-zc',
-    templateUrl: './tour-dairy-zc.component.html',
-    styleUrls: ['./tour-dairy-zc.component.scss'],
+    selector: 'app-tour-diary-ro',
+    templateUrl: './tour-diary-ro.component.html',
+    styleUrls: ['./tour-diary-ro.component.scss'],
     providers: [
         DatePipe,
         {
@@ -25,7 +25,8 @@ import {DateFormats} from "../../../shared/classes/lov.class";
         {provide: MAT_DATE_FORMATS, useValue: DateFormats},
     ],
 })
-export class TourDairyZcComponent implements OnInit {
+
+export class TourDiaryRoComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
     maxDate: Date;
@@ -93,6 +94,7 @@ export class TourDairyZcComponent implements OnInit {
             PPNO: [''],
             Month: [''],
             Zone: [''],
+            Branch: [''],
             Name: [''],
             Designation: [''],
             Date: [''],
@@ -106,4 +108,3 @@ export class TourDairyZcComponent implements OnInit {
         );
     }
 }
-

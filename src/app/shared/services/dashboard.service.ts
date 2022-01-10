@@ -66,7 +66,7 @@ export class DashboardService {
                 });
 
             return {
-                series: obj,
+                series: obj.length>1?obj:[],
                 chart: {
                     width: "100%",
                     type: "pie"
@@ -94,14 +94,16 @@ export class DashboardService {
                     }
                 ],
                 noData: {
-                    text: "No Data",
+                    text: "No Data Available",
                     align: 'center',
                     verticalAlign: 'middle',
                     offsetX: 0,
-                    offsetY: 0,
+                    offsetY: -50,
                     style: {
-                        color: 'red',
-                        fontSize: '14px',
+                        
+                        color: '#01671B',
+                        fontSize: '18px',
+                        
                     }
                 }
             };
