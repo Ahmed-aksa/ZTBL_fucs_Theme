@@ -11,7 +11,7 @@
             <div class="row pt-2">
                   <div class="col-lg-3">
                         <mat-form-field class="w-full" appearance="fill">
-                              <mat-label>Month and Year</mat-label>
+                              <!-- <mat-label>Month and Year</mat-label> -->
                               <input matInput [matDatepicker]="dp" placeholder="Month" [formControl]="date">
                               <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                           </mat-form-field>
@@ -46,7 +46,7 @@
             <span class="mat-header-cell text-white"
                   mat-sort-header="SamRecoveryAmount">{{target_0?.Heading?.SamRecoveryAmount}}</span>
         </section>
-        <mat-accordion displayMode="flat" multi class="mat-table  border shadow-xs rounded-sm bg-gray-50 px-1"
+        <mat-accordion displayMode="flat" multi class="mat-table  border shadow-xs rounded-sm bg-white px-1"
                        style="overflow-y:scroll;">
 
 
@@ -70,9 +70,9 @@
                           style="font-size: 12px;">{{single_provincial_target?.SamRecoveryAmount ? single_provincial_target?.SamRecoveryAmount : 'Not Assigned'}}</span>
                 </mat-expansion-panel-header>
                 <div>
-                    <div class="custom-accordion-body bg-gray-50 border-t rounded">
+                    <div class="custom-accordion-body border-t rounded">
                         <!--            LEVEL 1             -->
-                        <section matSort class=" bg-green-400mat-elevation-z2 mat-header-row bg-green api-table">
+                        <section matSort class=" bg-gray-800 mat-elevation-z2 mat-header-row bg-green api-table">
             <span class="mat-header-cell text-white" mat-sort-header="Name"
                   style="width: 10px;">{{target_1?.Name}}</span>
                             <span class="mat-header-cell text-white"
@@ -87,11 +87,11 @@
                                   mat-sort-header="SamRecoveryAmount">{{target_1?.SamRecoveryAmount}}</span>
                         </section>
                         <mat-accordion displayMode="flat" multi
-                                       class="mat-table  border shadow-xs rounded-sm bg-gray-50 px-1"
+                                       class="mat-table  border shadow-xs rounded-sm bg-white mt-2 px-1  px-3"
                                        style="overflow-y:scroll;">
 
 
-                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0"
+                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0 mt-2"
                                                  *ngFor="let target_1 of single_provincial_target?.Target ;let i1=index"
                                                  (click)="$event.stopPropagation();getTargetTracks(target_1.Id,2,i1,single_provincial_target?.Target)"
                                                  #exppanel1
@@ -112,10 +112,10 @@
                                           style="font-size: 12px;">{{target_1?.SamRecoveryAmount ? target_1?.SamRecoveryAmount : 'Not Assigned'}}</span>
                                 </mat-expansion-panel-header>
                                 <div>
-                                    <div class="custom-accordion-body bg-gray-50 border-t rounded">
+                                    <div class="custom-accordion-body  border-t rounded">
 
                                         <!--                     LEVEL 2                   -->
-                                        <section matSort class="mat-elevation-z2 mat-header-row bg-green api-table">
+                                        <section matSort class=" bg-gray-700 mat-elevation-z2 mat-header-row bg-green api-table">
                                             <span class="mat-header-cell text-white" mat-sort-header="Name"
                                                   style="width: 10px;">{{target_2?.Name}}</span>
                                             <span class="mat-header-cell text-white"
@@ -130,10 +130,10 @@
                                                   mat-sort-header="SamRecoveryAmount">{{target_2?.SamRecoveryAmount}}</span>
                                         </section>
                                         <mat-accordion displayMode="flat" multi
-                                                       class="mat-table  border shadow-xs rounded-sm bg-gray-50 px-1"
+                                                       class="mat-table  border shadow-xs rounded-sm bg-white mt-2  px-1  px-3"
                                                        style="overflow-y:scroll;">
 
-                                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0"
+                                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0 mt-2"
                                                                  *ngFor="let target_2 of target_1?.Target ;let i2=index"
                                                                  (click)="$event.stopPropagation();getTargetTracks(target_2.Id,3,i2,target_1?.Target)"
                                                                  #exppanel2
@@ -154,10 +154,10 @@
                                                           style="font-size: 12px;">{{target_2?.SamRecoveryAmount ? target_2?.SamRecoveryAmount : 'Not Assigned'}}</span>
                                                 </mat-expansion-panel-header>
                                                 <div>
-                                                    <div class="custom-accordion-body bg-gray-50 border-t rounded">
+                                                    <div class="custom-accordion-body  border-t rounded">
                                                         <!--                                                        <!  LEVEL 3 -->
                                                         <section matSort
-                                                                 class="mat-elevation-z2 mat-header-row bg-green api-table">
+                                                                 class="mat-elevation-z2 bg-gray-500 mat-header-row bg-green api-table">
             <span class="mat-header-cell text-white" mat-sort-header="Name"
                   style="width: 10px;">{{target_3?.Name}}</span>
                                                             <span class="mat-header-cell text-white"
@@ -172,11 +172,11 @@
                                                                   mat-sort-header="SamRecoveryAmount">{{target_3?.SamRecoveryAmount}}</span>
                                                         </section>
                                                         <mat-accordion displayMode="flat" multi
-                                                                       class="mat-table  border shadow-xs rounded-sm bg-gray-50 px-1"
+                                                                       class="mat-table  border shadow-xs bg-white mt-2 rounded-sm px-3 px-1"
                                                                        style="overflow-y:scroll;">
 
 
-                                                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0"
+                                                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0 mt-2"
                                                                                  *ngFor="let target_3 of target_2?.Target ;let i3=index"
                                                                                  (click)="$event.stopPropagation();getTargetTracks(target_3.Id,1,i3,target_2?.Target)"
                                                                                  #exppanel
@@ -204,7 +204,7 @@
                                                                         class="custom-accordion-body bg-gray-50 border-t rounded">
                                                                         <!--                                                                      <! Level 4 -->
                                                                         <section matSort
-                                                                                 class="mat-elevation-z2 mat-header-row bg-green api-table">
+                                                                                 class="mat-elevation-z2 bg-gray-400 mat-header-row bg-green api-table">
             <span class="mat-header-cell text-white" mat-sort-header="Name"
                   style="width: 10px;">{{target_4?.Name}}</span>
                                                                             <span class="mat-header-cell text-white"
@@ -219,12 +219,12 @@
                                                                                   mat-sort-header="SamRecoveryAmount">{{target_4?.SamRecoveryAmount}}</span>
                                                                         </section>
                                                                         <mat-accordion displayMode="flat" multi
-                                                                                       class="mat-table  border shadow-xs rounded-sm bg-gray-50 px-1"
+                                                                                       class="mat-table  border  px-3 shadow-xs rounded-sm bg-white mt-2 px-1"
                                                                                        style="overflow-y:scroll;">
 
 
                                                                             <mat-expansion-panel
-                                                                                class="api-table shadow-none mb-4 p-0"
+                                                                                class="api-table shadow-none mb-4 mt-2 p-0"
                                                                                 *ngFor="let target_4 of target_3?.Targets ;let i4=index"
                                                                                 (click)="$event.stopPropagation();getTargetTracks(target_4.Id,1,i4,target_3?.Target)"
                                                                                 #exppanel
