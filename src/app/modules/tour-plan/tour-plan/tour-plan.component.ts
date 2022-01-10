@@ -255,7 +255,6 @@ export class TourPlanComponent implements OnInit {
 
     createForm() {
         this.TourForm = this.fb.group({
-
             ZoneName: [],
             BranchName: [],
             McoName: [],

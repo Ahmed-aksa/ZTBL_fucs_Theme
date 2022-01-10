@@ -1,0 +1,53 @@
+<!--begin::Body-->
+<div class="kt-login__body">
+    <!--begin::Signin-->
+
+
+    <div class="kt-login__form">
+        <div class="row">
+            <div class="col-lg-12 text-end">
+                <button type="button" id="kt_login_signup_cancel" (click)="onCloseClick(0)">
+                    <mat-icon class="text-danger">cancel</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-12">
+                <div class="kt-login__title">
+                    <!--<h3>{{ 'AUTH.FORGOT.TITLE' | translate }}</h3>-->
+                    <span class="font-bold">Create Traget</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="kt-form" [formGroup]="TragetForm" autocomplete="off">
+                    <div class="form-group my-2 mb-0">
+                    </div>
+                    <!--begin::Action-->
+                    <div class="kt-login__actions float-right">
+                        <div class="row">
+                            <div class="col-lg-6 text-end">
+
+                            </div>
+                            <div class="col-lg-12">
+
+                                <button (click)="submit()" id="kt_login_signin_submit"
+                                        class="w-100 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
+                                        [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
+                                    <mat-icon class="mr-2">check_circle</mat-icon>
+                                    {{'Submit'}}</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!--end::Action-->
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
