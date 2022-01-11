@@ -45,6 +45,7 @@ import {GeofencingEditComponent} from './users/geofencing-edit/geofencing-edit.c
 import {CircleViewMapComponent} from './users/circle-view-map/circle-view-map.component';
 import {EligibilityLogsComponent} from './eligibility-logs/eligibility-logs.component';
 import {EligibilityLogDetailComponent} from './eligibility-log-detail/eligibility-log-detail.component';
+import { ApkDeploymentComponent } from './apk-deployment/apk-deployment.component';
 
 
 const route = [
@@ -76,6 +77,10 @@ const route = [
         path: 'eligibility-logs',
         component: EligibilityLogsComponent
     },
+    {
+        path: 'add-apk',
+        component: ApkDeploymentComponent
+    }
 ];
 
 @NgModule({
@@ -91,7 +96,8 @@ const route = [
         GeofencingEditComponent,
         CircleViewMapComponent,
         EligibilityLogsComponent,
-        EligibilityLogDetailComponent
+        EligibilityLogDetailComponent,
+        ApkDeploymentComponent,
     ],
     imports: [
         CommonModule,
