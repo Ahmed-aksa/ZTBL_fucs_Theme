@@ -105,7 +105,7 @@ export class SetTargetService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    saveTargets(bankAssignedTargets, targets, Duration, AssignedTarget, assignedTarget, UserID, TagName) {
+    saveTargets(bankAssignedTargets, targets, Duration, AssignedTarget, assignedTarget, UserID, TagName,Label) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -151,8 +151,8 @@ export class SetTargetService {
                 this.request.Target["AssignedTarget"] = bankAssignedTargets[0];
             }
         }
-
-
+this.request.Target.AssignedTarget["Name"]=Label;
+console.log("Name"+this.request.Target.AssignedTarget["Name"])
         var req = JSON.stringify(this.request);
 
         return this.http
