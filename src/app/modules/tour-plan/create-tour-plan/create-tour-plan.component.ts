@@ -29,14 +29,14 @@ const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
     parse: {
-        dateInput: 'YYYY',
-    },
-    display: {
-        dateInput: 'YYYY',
+        dateInput: 'MM/YYYY',
+      },
+      display: {
+        dateInput: 'MM/YYYY',
         monthYearLabel: 'MMM YYYY',
         dateA11yLabel: 'LL',
         monthYearA11yLabel: 'MMMM YYYY',
-    },
+      },
 };
 
 
@@ -75,11 +75,13 @@ export class CreateTourLlanComponent implements OnInit {
     purposeofVisitLov: any;
     TourPlan = new TourPlan;
     tragetList: Array<TragetLits>;
+    tragetLitsPartnentDto: Array<TragetLitsPartnentDto>;
     disAbleDate: any = []
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
         private layoutUtilsService: LayoutUtilsService,
         private tourPlanService: TourPlanService,
         private spinner: NgxSpinnerService,
+        public datepipe: DatePipe
     ) {
     }
 
@@ -225,14 +227,14 @@ export class CreateTourLlanComponent implements OnInit {
     // Function to call when the date changes.
     onChange = (year: Date) => {
         debugger;
-        console.log(year.getFullYear());
-        var date = new Date(), y = year.getFullYear(), m = year.getMonth();
-        var firstDay = new Date(y, m, 2).toISOString().slice(0, 10);
-        var lastDay = new Date(y, m + 1, 0).toISOString().slice(0, 10);
+        var  y = year.getFullYear(), m = year.getMonth();
+        var firstDay = new Date(y, m, 1);
+        var lastDay = new Date(y, m + 1, 0);
+        var startDate=this.datepipe.transform(firstDay, 'yyyy-MM-dd')
+        var endDate=this.datepipe.transform(lastDay, 'yyyy-MM-dd')
 
-        var daylist = this.getDaysArray(new Date(firstDay), new Date(lastDay));
-        this.tourPlanService.GetHolidays(this.dateFormte(firstDay), this.dateFormte(lastDay)).pipe(finalize(() => { })).subscribe(result => {
-            debugger;
+        var daylist = this.getDaysArray(new Date(startDate), new Date(endDate));
+        this.tourPlanService.GetHolidays(this.dateFormte(startDate), this.dateFormte(endDate)).pipe(finalize(() => { })).subscribe(result => {
             this.disAbleDate = result;
 
         });
@@ -243,7 +245,7 @@ export class CreateTourLlanComponent implements OnInit {
             disableClose: true,
         });
         dialogRef.afterClosed().subscribe(result => {
-            this.tragetList = result.data.data
+            this.tragetLitsPartnentDto = result.data.data
         });
 
     };
@@ -257,7 +259,13 @@ export class CreateTourLlanComponent implements OnInit {
 
     // Function to call when the input is touched (when a star is clicked).
     onTouched = () => { };
-    display(id) {
+    display(id, display) {
+
+        if (!display) { 
+            return;
+        }
+        
+        debugger;
         let current_display = document.getElementById('table_' + id).style.display;
         if (current_display == 'none') {
             document.getElementById('table_' + id).style.display = 'block';
@@ -265,6 +273,13 @@ export class CreateTourLlanComponent implements OnInit {
         else {
             document.getElementById('table_' + id).style.display = 'none';
         }
+    }
+    addTragetLitsChileDto(index) {
+        debugger
+        if (!this.tragetLitsPartnentDto[index].tragetLitsChileDto) { 
+            this.tragetLitsPartnentDto[index].tragetLitsChileDto = [];
+        }
+        this.tragetLitsPartnentDto[index].tragetLitsChileDto.push(new TragetLitsChileDto())
     }
 
 }
@@ -281,4 +296,16 @@ export class TragetLits {
     VisitedDate: any
     ZoneId: any
 }
+
+export class TragetLitsPartnentDto {
+    date: any
+    tragetLitsChileDto: Array<TragetLitsChileDto> = new Array<TragetLitsChileDto>();
+    
+}
+export class TragetLitsChileDto {
+    Purpose: any
+    Remarks: any
+}
+
+
 
