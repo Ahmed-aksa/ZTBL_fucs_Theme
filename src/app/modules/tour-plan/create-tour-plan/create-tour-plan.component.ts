@@ -23,20 +23,20 @@ import { LovService } from 'app/shared/services/lov.service';
 import { Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
 
 import * as _moment from 'moment';
-import {default as _rollupMoment, Moment} from 'moment';
+import { default as _rollupMoment, Moment } from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker/datepicker';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
     parse: {
         dateInput: 'YYYY',
-      },
-      display: {
+    },
+    display: {
         dateInput: 'YYYY',
         monthYearLabel: 'MMM YYYY',
         dateA11yLabel: 'LL',
         monthYearA11yLabel: 'MMMM YYYY',
-      },
+    },
 };
 
 
@@ -47,17 +47,17 @@ export const MY_FORMATS = {
     providers: [
         { provide: MAT_DATE_LOCALE, useValue: 'pt' },
         {
-          provide: DateAdapter,
-          useClass: MomentDateAdapter,
-          deps: [MAT_DATE_LOCALE],
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE],
         },
         { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
         {
-          provide: NG_VALUE_ACCESSOR,
-          useExisting: forwardRef(() => CreateTourLlanComponent),
-          multi: true,
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => CreateTourLlanComponent),
+            multi: true,
         },
-      ],
+    ],
 })
 export class CreateTourLlanComponent implements OnInit {
     tourPlanForm: FormGroup;
@@ -66,8 +66,7 @@ export class CreateTourLlanComponent implements OnInit {
     zone: any;
     circle: any;
     timeStatus: any;
-    //date = new Date();
-    date = new FormControl(moment());
+    date = new FormControl();
     minDate = new Date();
     Purpose: any;
     Remarks: any;
@@ -76,6 +75,7 @@ export class CreateTourLlanComponent implements OnInit {
     purposeofVisitLov: any;
     TourPlan = new TourPlan;
     tragetList: Array<TragetLits>;
+    disAbleDate: any = []
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
         private layoutUtilsService: LayoutUtilsService,
         private tourPlanService: TourPlanService,
@@ -85,7 +85,8 @@ export class CreateTourLlanComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
-        this.getPurposeofVisitLov()
+        this.getPurposeofVisitLov();
+        this.disAbleDate = [];
     }
     async getPurposeofVisitLov() {
         var lovData = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.TourPlanPurpose });
@@ -184,75 +185,88 @@ export class CreateTourLlanComponent implements OnInit {
                         );
                     }
                 });
-
     }
 
-    // debugger
-    // var date1 =  this.date;
-    // console.log(this.daysBetween(this.date, date1));
-    // const dialogRef = this.dialog.open(CreateTourPlanPopupComponent, {
-    //     height: '40%',
-    //     width: '60%',
-    //     data: {},
-    //     disableClose: true,
+    dateFormte(date) {
+        if (date) {
+            try {
+                var myArray = date.split("-");
+                var VisitedDate = myArray[2] + "" + myArray[1] + "" + myArray[0];
+                return VisitedDate;
 
-    // });
-    // daysBetween(startDate, endDate) {
-    //     var millisecondsPerDay = 24 * 60 * 60 * 1000;
-    //     endDate = this.treatAsUTC(endDate);
-    //     startDate = this.treatAsUTC(startDate);
-    //     var days = (endDate - startDate) / millisecondsPerDay;
-    //     return days
-    // }
-
-    // treatAsUTC(date: any) {
-    //     var result = new Date(date);
-    //     result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
-    //     return result;
-    // }
-
- 
-
-    // chosenYearHandler(normalizedYear: Moment) {
-    //   const ctrlValue = this.date.value;
-    //   ctrlValue.year(normalizedYear.year());
-    //   this.date.setValue(ctrlValue);
-    // }
-  
-    // chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    //   const ctrlValue = this.date.value;
-    //   ctrlValue.month(normalizedMonth.month());
-    //   this.date.setValue(ctrlValue);
-    //   datepicker.close();
-    // }
+            } catch (e) {
+            }
+        }
+    }
 
     _openDatepickerOnClick(datepicker: MatDatepicker<Moment>) {
         if (!datepicker.opened) {
-          datepicker.open();
+            datepicker.open();
         }
-      }
-      _takeFocusAway = (datepicker: MatDatepicker<Moment>) => { };
-      
-  _yearSelectedHandler(chosenDate: Moment, datepicker: MatDatepicker<Moment>) {
-    datepicker.close();
+    }
+    _takeFocusAway = (datepicker: MatDatepicker<Moment>) => { };
 
-    chosenDate.set({ date: 1 });
+    // _yearSelectedHandler(chosenDate: Moment, datepicker: MatDatepicker<Moment>) {
 
-    this.date.setValue(chosenDate, { emitEvent: false });
-    this.onChange(chosenDate.toDate());
-    this.onTouched();
-  }
-   // Function to call when the date changes.
-   onChange = (year: Date) => { 
-    console.log(year.getFullYear());
-    debugger;
+    //     chosenDate.set({ date: 1 });
 
-   };
+    //     this.date.setValue(chosenDate, { emitEvent: false });
+    //     this.onChange(chosenDate.toDate());
+    //     this.onTouched();
+    // }
+    _selectMonthHandler(chosenDate: Moment, datepicker: MatDatepicker<Moment>) {
+        datepicker.close();
+        chosenDate.set({ date: 1 });
 
-   // Function to call when the input is touched (when a star is clicked).
-   onTouched = () => { };
-   countries=couret;
-   term:any
+        this.date.setValue(chosenDate, { emitEvent: false });
+        this.onChange(chosenDate.toDate());
+        this.onTouched();
+    }
+    // Function to call when the date changes.
+    onChange = (year: Date) => {
+        debugger;
+        console.log(year.getFullYear());
+        var date = new Date(), y = year.getFullYear(), m = year.getMonth();
+        var firstDay = new Date(y, m, 2).toISOString().slice(0, 10);
+        var lastDay = new Date(y, m + 1, 0).toISOString().slice(0, 10);
+
+        var daylist = this.getDaysArray(new Date(firstDay), new Date(lastDay));
+        this.tourPlanService.GetHolidays(this.dateFormte(firstDay), this.dateFormte(lastDay)).pipe(finalize(() => { })).subscribe(result => {
+            debugger;
+            this.disAbleDate = result;
+
+        });
+
+        const dialogRef = this.dialog.open(CreateTourPlanPopupComponent, {
+            width: '60%',
+            data: { daylist },
+            disableClose: true,
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.tragetList = result.data.data
+        });
+
+    };
+
+    getDaysArray(start, end) {
+        for (var arr = [], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+            arr.push({ date: new Date(dt).toISOString().slice(0, 10), isCheck: false }) //();
+        }
+        return arr;
+    };
+
+    // Function to call when the input is touched (when a star is clicked).
+    onTouched = () => { };
+    display(id) {
+        let current_display = document.getElementById('table_' + id).style.display;
+        if (current_display == 'none') {
+            document.getElementById('table_' + id).style.display = 'block';
+        }
+        else {
+            document.getElementById('table_' + id).style.display = 'none';
+        }
+    }
+
 }
 
 export class TragetLits {
@@ -268,53 +282,3 @@ export class TragetLits {
     ZoneId: any
 }
 
-const couret=[
-    {
-      "name": "Russia",
-      "flag": "f/f3/Flag_of_Russia.svg",
-      "area": 17075200,
-      "population": 146989754
-    },
-    {
-      "name": "France",
-      "flag": "c/c3/Flag_of_France.svg",
-      "area": 640679,
-      "population": 64979548
-    },
-    {
-      "name": "Germany",
-      "flag": "b/ba/Flag_of_Germany.svg",
-      "area": 357114,
-      "population": 82114224
-    },
-    {
-      "name": "Canada",
-      "flag": "c/cf/Flag_of_Canada.svg",
-      "area": 9976140,
-      "population": 36624199
-    },
-    {
-      "name": "Vietnam",
-      "flag": "2/21/Flag_of_Vietnam.svg",
-      "area": 331212,
-      "population": 95540800
-    },
-    {
-      "name": "Mexico",
-      "flag": "f/fc/Flag_of_Mexico.svg",
-      "area": 1964375,
-      "population": 129163276
-    },
-    {
-      "name": "United States",
-      "flag": "a/a4/Flag_of_the_United_States.svg",
-      "area": 9629091,
-      "population": 324459463
-    },
-    {
-      "name": "India",
-      "flag": "4/41/Flag_of_India.svg",
-      "area": 3287263,
-      "population": 1324171354
-    }
-]

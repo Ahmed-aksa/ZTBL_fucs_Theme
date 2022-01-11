@@ -10,6 +10,7 @@ import {HttpUtilsService} from "../../../shared/services/http_utils.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {TourPlan} from "../Model/tour-plan.model";
 import {DEVICELOCATION} from "../../../shared/models/default.model";
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -201,6 +202,19 @@ export class TourPlanService {
         return this.http.post(`${environment.apiUrl}/Target/GetTargetTracking`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
+        );
+    }
+    GetHolidays(StartDate, EndDate) :Observable<any> {
+        debugger;
+     var resData={
+        "TourPlan" : {
+            "StartDate": StartDate,
+            "EndDate": EndDate 
+        }
+     }
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetHolidays`, resData,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: any) => res)
         );
     }
 }
