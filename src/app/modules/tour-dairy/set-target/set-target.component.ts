@@ -538,7 +538,7 @@ export class SetTargetComponent implements OnInit {
             .saveTargets(this.bankTargets,
                 this.targets,
                 this.targetForm.controls.Duration.value,
-                this.AssignedTargetToSave, this.assignedTarget, this.UserID,this.TagName
+                this.AssignedTargetToSave, this.assignedTarget, this.UserID,this.TagName,this.Label
             )
             .pipe(
                 finalize(() => {
@@ -547,12 +547,32 @@ export class SetTargetComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
+                    debugger
+
+                    // if(this.bankTargets[0]["Name"]){
+                    //     delete this.bankTargets[0]["Name"];
+                    // }
+                    // if(this.assignedTarget["Name"]){
+                    //     delete this.assignedTarget["Name"];
+                    // }
                     this.layoutUtilsService.alertElementSuccess(
                         '',
                         baseResponse.Message,
                         (baseResponse.Code = null)
                     );
                 } else {
+                    debugger
+                  //   if(this.bankTargets?.length>0){
+                  //       if(this.bankTargets[0]["Name"]){
+                  //           delete this.bankTargets[0]["Name"];
+                  //       }
+                  //   }
+                  // if(this.assignedTarget){
+                  //     if(this.assignedTarget["Name"]){
+                  //         delete this.assignedTarget["Name"];
+                  //     }
+                  // }
+
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,
@@ -606,7 +626,7 @@ export class SetTargetComponent implements OnInit {
 
         this.spinner.show();
         this._setTarget
-            .submitTargets(this.targetForm.controls.Duration.value, this.UserID,this.TagName)
+            .submitTargets(this.bankTargets,this.targetForm.controls.Duration.value, this.UserID,this.TagName,this.assignedTarget,this.Label)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

@@ -28,7 +28,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
         private auth: AuthService,
         public dialogRef: MatDialogRef<CreateTourPlanPopupComponent>,
         private spinner: NgxSpinnerService,
-        @Inject(MAT_DIALOG_DATA) public data: any,
+        @Inject(MAT_DIALOG_DATA) public data: any=[],
     ) {
         this.unsubscribe = new Subject();
     }
@@ -36,6 +36,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
   
     ngOnInit() {
         this.initRegistrationForm();
+        console.warn(this.data)
     }
 
    
@@ -55,9 +56,9 @@ export class CreateTourPlanPopupComponent implements OnInit {
     }
 
     submit() {
-        this.loading = true;
-        this.spinner.show()
-
+        debugger;
+        var returnDate= this.data.daylist.filter(x=>x.isCheck==true);
+        this.onCloseClick(returnDate);
         // this.auth.SendOTPResuest(this.otpForm.controls['otp'].value).pipe(finalize(() => {
         //     this.loading = true, this.spinner.hide()
         // })).subscribe(result => {
@@ -85,7 +86,9 @@ export class CreateTourPlanPopupComponent implements OnInit {
     }
 
     onCloseClick(data: any): void {
+        debugger;
         this.dialogRef.close({data: {data}}); // Keep only this row
     }
+    
 
 }

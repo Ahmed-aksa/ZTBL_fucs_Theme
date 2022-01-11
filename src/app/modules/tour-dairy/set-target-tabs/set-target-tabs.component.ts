@@ -543,7 +543,7 @@ export class SetTargetTabsComponent implements OnInit {
             .saveTargets(this.bankTargets,
                 this.targets,
                 this.targetForm.controls.Duration.value,
-                this.AssignedTargetToSave, this.assignedTarget, this.UserID,this.TagName
+                this.AssignedTargetToSave, this.assignedTarget, this.UserID,this.TagName,this.Label
             )
             .pipe(
                 finalize(() => {
@@ -611,7 +611,7 @@ export class SetTargetTabsComponent implements OnInit {
 
         this.spinner.show();
         this._setTarget
-            .submitTargets(this.targetForm.controls.Duration.value, this.UserID,this.TagName)
+            .submitTargets(this.bankTargets,this.targetForm.controls.Duration.value, this.UserID,this.TagName,this.assignedTarget,this.Label)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
