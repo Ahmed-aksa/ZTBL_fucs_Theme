@@ -61,22 +61,26 @@
                 </mat-form-field>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12 kt-margin-bottom-20-mobile"
+                 style="margin-top: 2%">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label>Select Purpose</mat-label>
+                    <textarea matInput formControlName="Description"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
 
 
         <div>
             <div class="kt-form__actions kt-form__actions--solid  pt-4 border-t">
                 <div class="row text-right">
                     <div class="col-lg-12">
-                        <!-- <button type="button" class="shadow-md btn bg-red-500 text-white rounded-md mx-2" mat-raised-button color="danger"
-                                [mat-dialog-close]="data.animal"
-                                cdkFocusInitial>
-                                <mat-icon class="mr-2">cancel</mat-icon>Cancel
-                        </button>&nbsp; -->
                         <button type="button" class="btn btn-primary bg-green" mat-raised-button color="primary"
                                 (click)="onSubmit()"
                                 [disabled]="viewLoading || submitted">
                             <mat-icon class="mr-2">save</mat-icon>
-                            Save
+                            {{is_edit ? 'Update' : 'Save'}}
                         </button>
                     </div>
                 </div>

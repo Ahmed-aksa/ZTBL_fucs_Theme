@@ -18,6 +18,7 @@ import {Profile} from '../../activity/activity.model';
 import {ActivityService} from '../../activity/activity.serivce';
 import {ProfileService} from '../../activity/profile.service';
 import {CreateEditRoleComponent} from '../create-edit-role/create-edit-role.component';
+import {UserUtilsService} from "../../../../shared/services/users_utils.service";
 
 @Component({
     selector: 'app-role-list',
@@ -54,12 +55,14 @@ export class RoleListComponent implements OnInit, OnDestroy {
 
     isLoading: boolean = true;
     products$: Observable<any[]>;
+    currentActivity: Activity;
 
     constructor(
         private _profileService: ProfileService,
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
         private layoutUtilsService: LayoutUtilsService,
+        private userUtilsService: UserUtilsService,
         private _cdf: ChangeDetectorRef,
         private _activityService: ActivityService,
         private spinner: NgxSpinnerService) {
@@ -67,7 +70,7 @@ export class RoleListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        //this.loadActivityList();
+        this.currentActivity = this.userUtilsService.getActivity('Roles');
         this.GetAllProfiles();
 
     }

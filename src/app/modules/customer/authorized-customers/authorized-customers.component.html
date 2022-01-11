@@ -125,15 +125,16 @@
                 <ng-container matColumnDef="View">
                     <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                     <mat-cell *matCellDef="let customer">
-                        <button mat-icon-button color="primary" *ngIf="CheckEditStatus(customer)"
+                        <button mat-icon-button color="primary" *ngIf="CheckEditStatus(customer) && currentActivity.U"
                                 (click)="editCustomer(customer)">
                             <!-- <mat-icon style="margin-left: 5px;" title="View Customer">accessibility_new</mat-icon> -->
                             <mat-icon style="margin-left: 2px;" title="Edit Customer">edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button  *ngIf="!CheckEditStatus(customer)"
+                        <button mat-icon-button *ngIf="!CheckEditStatus(customer)"
                                 (click)="viewCustomer(customer)">
-                            <mat-icon class="text-green" style="margin-left: 2px;" title="View Customer">visibility</mat-icon>
+                            <mat-icon class="text-green" style="margin-left: 2px;" title="View Customer">visibility
+                            </mat-icon>
                         </button>
 
 
@@ -168,9 +169,10 @@
 
     </div>
     <div class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-                <span class="font-bold text-green">Items per page:</span>
+        <span class="font-bold text-green">Items per page:</span>
 
-        <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+        <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage"
+                    (valueChange)="paginate(1,$event)"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>

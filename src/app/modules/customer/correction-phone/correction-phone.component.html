@@ -132,7 +132,7 @@
                             <div class="col-lg-12">
                                 <input type="button" mat-raised-button color="primary"
                                        class=" mat-raised-button mat-button-base mat-primary mr-4 searchLCBtn bg-green"
-                                       value="Update" (click)="onUpdate()"/>
+                                       value="Update" (click)="onUpdate()" *ngIf="currentActivity.U"/>
                                 <input type="button" mat-raised-button color="primary"
                                        class=" mat-raised-button bg-red-500 mat-button-base mat-primary searchLCBtn"
                                        value="Cancel" (click)="onCancel()"/>

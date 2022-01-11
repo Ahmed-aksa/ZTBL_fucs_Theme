@@ -16,6 +16,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 //src/app/core/_base/crud/utils/user-utils.service
 
@@ -41,7 +42,7 @@ export class SubmitCustomersComponent implements OnInit {
     gridHeight: string;
     customerSearch: FormGroup;
     myDate = new Date().toLocaleDateString();
-
+    currentActivity: Activity;
 
     zone: any;
     branch: any;
@@ -71,7 +72,7 @@ export class SubmitCustomersComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('Search Customer');
         this.LoadLovs();
 
         this.createForm();

@@ -13,6 +13,8 @@ import {finalize} from 'rxjs/operators';
 import {Profile} from '../../activity/activity.model';
 import {Permission} from '../../assign-pages/permission.model';
 import {Role} from '../../assign-pages/role.model';
+import {UserUtilsService} from "../../../../shared/services/users_utils.service";
+import {Activity} from "../../../../shared/models/activity.model";
 
 
 @Component({
@@ -25,7 +27,7 @@ export class CreateEditRoleComponent implements OnInit, OnDestroy {
 
     roleForm: FormGroup;
     role: Role;
-    LOVs;
+    LOVs: any;
     caseUpdate = false;
     role$: Observable<Role>;
     public profile = new Profile;
@@ -34,6 +36,7 @@ export class CreateEditRoleComponent implements OnInit, OnDestroy {
     loadingAfterSubmit = false;
     allPermissions$: Observable<Permission[]>;
     rolePermissions: Permission[] = [];
+    currentActivity: Activity;
     private componentSubscriptions: Subscription;
 
     constructor(public dialogRef: MatDialogRef<CreateEditRoleComponent>,
@@ -41,17 +44,18 @@ export class CreateEditRoleComponent implements OnInit, OnDestroy {
                 private fb: FormBuilder,
                 private _profileService: ProfileService,
                 private layoutUtilsService: LayoutUtilsService,
+                private userUtilsService: UserUtilsService,
                 private spinner: NgxSpinnerService) {
 
 
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Roles');
         this.spinner.show();
         setTimeout(() => {
             this.spinner.hide();
         }, 1000);
-
         this.setup();
         this.getRoles();
         this.createForm();

@@ -15,6 +15,7 @@ import {LovService} from 'app/shared/services/lov.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Activity} from 'app/shared/models/activity.model';
 
 //src/app/core/_base/crud/utils/user-utils.service
 
@@ -55,6 +56,7 @@ export class PendingCustomersComponent implements OnInit {
     itemsPerPage = 5;
     OffSet: number = 0;
     pageIndex: any = 0;
+    currentActivity: Activity;
 
     constructor(
         public dialog: MatDialog,
@@ -70,7 +72,7 @@ export class PendingCustomersComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('Create Customer');
         this.LoadLovs();
 
         this.createForm();

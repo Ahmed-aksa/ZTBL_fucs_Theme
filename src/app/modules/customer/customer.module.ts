@@ -40,7 +40,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import {SharedModule} from 'app/shared/shared.module';
 import {CustomerComponent} from './customer.component';
-import {AuthorizedCustomerComponent} from './authorized-customer/authorized-customer.component';
 import {EligibilityRequestComponent} from './eligibility-request/eligibility-request.component';
 import {ConsentFormComponent} from './consent-form/consent-form.component';
 import {NgImageSliderModule} from "ng-image-slider";
@@ -51,7 +50,7 @@ import {SubmitDocumentsComponent} from './submit-documents/submit-documents.comp
 //import {NgImageSliderModule} from "ng-image-slider";
 
 @NgModule({
-    declarations: [CheckEligibilityComponent, CustomerProfileComponent, CustomerListComponent, AuthorizedCustomersComponent, PendingCustomersComponent, SubmitCustomersComponent, ReferbackCustomersComponent, CorrectionPassbookComponent, CorrectionPhoneComponent, CustomerComponent, AuthorizedCustomerComponent, EligibilityRequestComponent, ConsentFormComponent, ImagePopupComponent, CustomerHistoryComponent, SubmitDocumentsComponent],
+    declarations: [CheckEligibilityComponent, CustomerProfileComponent, CustomerListComponent, AuthorizedCustomersComponent, PendingCustomersComponent, SubmitCustomersComponent, ReferbackCustomersComponent, CorrectionPassbookComponent, CorrectionPhoneComponent, CustomerComponent, EligibilityRequestComponent, ConsentFormComponent, ImagePopupComponent, CustomerHistoryComponent, SubmitDocumentsComponent],
     exports: [CustomerListComponent],
     imports: [
         CommonModule,

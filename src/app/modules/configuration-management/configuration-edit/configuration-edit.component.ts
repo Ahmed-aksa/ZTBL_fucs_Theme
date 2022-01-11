@@ -66,7 +66,8 @@ export class ConfigurationEditComponent implements OnInit {
             KeyValue: [this.configuration.KeyValue, [Validators.required]],
             KeyValueClob: [this.configuration.KeyValueClob],
             IsParent: [this.configuration.IsParent],
-            ParentID: [this.configuration.ParentID]
+            ParentID: [this.configuration.ParentID],
+            Description: [this.configuration.Description, Validators.required]
         });
         this.configurationForm.controls['KeyName'].setValue(this.configuration.KeyName);
         if (this.configuration.KeyName != '') {
@@ -104,47 +105,22 @@ export class ConfigurationEditComponent implements OnInit {
         this.configuration = Object.assign(this.configuration, this.configurationForm.value);
 
         this.submitted = true;
-        // if(this.configuration.IsParent==null)
-        // {
-        //     delete this.configuration.IsParent;
-        // }
-        //if (this.data.configuration && this.data.configuration.KeyID > 0) {
-
-        if (this.is_edit) {
-            this._configurationService.UpdateConfiguration(this.configuration)
-                .pipe(
-                    finalize(() => {
-                        this.submitted = false;
-                        this.dialogRef.close()
-                    })
-                )
-                .subscribe((baseResponse: BaseResponseModel) => {
-                    console.log(baseResponse);
-                    if (baseResponse.Success === true) {
-                        this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
-                        this.close(this.configuration);
-                    } else {
-                        this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
-                    }
-                });
-        } else {
-            this._configurationService.AddConfiguration(this.configuration)
-                .pipe(
-                    finalize(() => {
-                        this.submitted = false;
-                        this.dialogRef.close()
-                    })
-                )
-                .subscribe((baseResponse: BaseResponseModel) => {
-                    console.log(baseResponse);
-                    if (baseResponse.Success === true) {
-                        this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
-                        this.close(this.configuration);
-                    } else {
-                        this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
-                    }
-                });
-        }
+        this._configurationService.AddUpdateConfiguration(this.configuration)
+            .pipe(
+                finalize(() => {
+                    this.submitted = false;
+                    this.dialogRef.close()
+                })
+            )
+            .subscribe((baseResponse: BaseResponseModel) => {
+                console.log(baseResponse);
+                if (baseResponse.Success === true) {
+                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message, baseResponse.Code);
+                    this.close(this.configuration);
+                } else {
+                    this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
+                }
+            });
     }
 
     onChange(params) {
