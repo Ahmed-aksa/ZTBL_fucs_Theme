@@ -137,7 +137,9 @@ export class SetTargetService {
         // this.request.Target.AssignedTarget = AssignedTarget;
         if (assignedTarget) {
             if (Object.keys(assignedTarget)?.length) {
-                this.request.Target["AssignedTarget"] = assignedTarget;
+                var obj = Object.assign({},assignedTarget)
+                obj.Name= Label;
+                this.request.Target["AssignedTarget"] =obj;
             }
         }
         // if(AssignedTarget){
@@ -148,13 +150,13 @@ export class SetTargetService {
 
         if (bankAssignedTargets) {
             if (Object.keys(bankAssignedTargets)?.length) {
-                this.request.Target["AssignedTarget"] = bankAssignedTargets[0];
+                var obj = Object.assign({},bankAssignedTargets[0])
+                obj.Name= Label;
+                this.request.Target["AssignedTarget"] =obj;
             }
         }
-        if(Label){
-            this.request.Target.AssignedTarget["Name"]=Label;
-        }
-console.log("Name"+this.request.Target.AssignedTarget["Name"])
+
+
         var req = JSON.stringify(this.request);
 
         return this.http
