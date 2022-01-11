@@ -47,7 +47,7 @@
             <span *ngIf="user?.BranchName" class=" text-md font-bold ml-4">Branch Name :<span
                 class=" text-sm ml-1 font-medium text-green">{{user?.BranchName}}</span></span>
 
-            <span *ngIf="time" class=" text-md font-bold ml-4">Session time :<span
+            <span *ngIf="time" class=" text-md font-bold ml-4">Session Expires In :<span
                 class=" text-sm ml-1 font-medium text-green"><b>{{time}}</b></span></span>
 
         </span>
@@ -59,12 +59,12 @@
             <!--            <search [appearance]="'bar'"></search>-->
             <!--            <shortcuts></shortcuts>-->
             <!--            <messages></messages>-->
+            <notification *ngIf="IsIconVisable('/notifications/notification-details')"></notification>
 
             <violations *ngIf="IsIconVisable('/mapping-violation')"></violations>
 
             <mapping-request *ngIf="IsIconVisable('/mapping-request')"></mapping-request>
 
-            <notification *ngIf="IsIconVisable('/notifications/notification-details')"></notification>
 
             <!-- <notifications></notifications> -->
 

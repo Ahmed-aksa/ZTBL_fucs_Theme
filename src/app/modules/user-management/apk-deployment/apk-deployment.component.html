@@ -1,1 +1,106 @@
-<p>apk-deployment works!</p>
+<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+
+
+    <div class="row pt-3">
+        <div class="col-lg-10 p-0 col-sm-12">
+            <div class="heading">Add New APK</div>
+        </div>
+        <div class="col-lg-2 col-sm-12 self-center">
+            <p class="text-right">
+                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
+                        color="primary"
+                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
+                    Advance Filter
+                </button>
+            </p>
+        </div>
+    </div>
+
+
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+
+            <div class="card card-body mt-2">
+                <div class="col-lg-12 pt-2">
+                    <div class="flex" style="flex-wrap: wrap;">
+
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mr-4" style="width: 225px;">
+                            <div class="d-grid">
+                                <mat-label class="customMatLabel mb-2">Upload File:</mat-label>
+                                <input type="file" (change)="onFileChange($event)" accept="image/png, image/jpg, image/jpeg, video/mp4, video/webm, video/mkv, application/pdf, .apk">
+                            </div>
+
+                        </div>
+
+<!--                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mr-4" style="width: 225px;">-->
+<!--                            <div class="d-grid">-->
+<!--                                <mat-label class="customMatLabel mb-2">Upload Image:</mat-label>-->
+<!--                                <input type="file" (change)="onFileChange($event, 'image')" accept="image/png, image/jpg, image/jpeg">-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+
+<!--                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-4" style="width: 225px;">-->
+<!--                            <div class="d-grid">-->
+<!--                                <mat-label class="customMatLabel mb-2">Upload Video:</mat-label>-->
+<!--                                <input type="file" (change)="onFileChange($event, 'video')" accept="video/mp4, video/webm, video/mkv">-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-4" style="width: 225px;">-->
+<!--                            <div class="d-grid">-->
+<!--                                <mat-label class="customMatLabel mb-2">Upload PDF:</mat-label>-->
+<!--                                <input type="file" (change)="onFileChange($event, 'pdf')" accept="application/pdf">-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-4" style="width: 225px;">-->
+<!--                            <div class="d-grid">-->
+<!--                                <mat-label class="customMatLabel mb-2">Upload APK:</mat-label>-->
+<!--                                <input type="file" (change)="onFileChange($event, 'apk')" accept=".apk">-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                    </div>
+
+                    <div class="flex flex-shrink-0 items-center pt-3 sm:mt-0">
+                        <button mat-raised-button color="primary" (click)="Upload()">
+                            <mat-icon class="mr-2">add_circle</mat-icon>
+                            Add
+                        </button>
+                        <!--                            file_download-->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="row mt-2">
+        <div class="col-lg-12 p-0">
+            <table class="table mb-0 ">
+                <thead>
+                <tr class="table-header-background text-center">
+                    <th class="border-r">Image</th>
+                    <th class="border-r">Video</th>
+                    <th class="border-r">PDF</th>
+                    <th class="border-r">APK</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="border-r"></td>
+                    <td class="border-r"></td>
+                    <td class="border-r"></td>
+                    <td class="border-r"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
