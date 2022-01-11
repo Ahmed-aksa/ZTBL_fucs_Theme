@@ -151,7 +151,9 @@ export class SetTargetService {
                 this.request.Target["AssignedTarget"] = bankAssignedTargets[0];
             }
         }
-this.request.Target.AssignedTarget["Name"]=Label;
+        if(Label){
+            this.request.Target.AssignedTarget["Name"]=Label;
+        }
 console.log("Name"+this.request.Target.AssignedTarget["Name"])
         var req = JSON.stringify(this.request);
 
