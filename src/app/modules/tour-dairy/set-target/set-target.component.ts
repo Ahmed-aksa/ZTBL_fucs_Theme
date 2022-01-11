@@ -37,6 +37,7 @@ class TargetData{
     TagName;
     Targets;
     BankTargets?:[];
+    AssignedTargetHeading;
 }
 
 class TargetDuration {
@@ -159,6 +160,7 @@ export class SetTargetComponent implements OnInit {
             if (this.TargetData?.TagName) {
                 this.TagName=this.TargetData?.TagName
             }
+            this.AssignedTargetHeading = Object.values(this.TargetData?.AssignedTargetHeading);
             this.assignedTargetHeadingsData = this.TargetData?.AssignedTarget;
 
             this.bankTargets = this.TargetData?.BankTargets;
