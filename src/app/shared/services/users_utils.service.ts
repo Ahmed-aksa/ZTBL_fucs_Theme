@@ -151,7 +151,6 @@ export class UserUtilsService {
     }
 
     public getActivity(activityName: string): Activity {
-        //this.getUserDetails();
         var activities = this.getUserActivities();
         if (activities?.length) {
             var act = activities.filter(x => x.ActivityName == activityName)[0];

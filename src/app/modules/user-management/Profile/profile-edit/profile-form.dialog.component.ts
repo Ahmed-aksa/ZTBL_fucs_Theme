@@ -76,7 +76,7 @@ export class ProfileFormDialogComponent implements OnInit {
         private _cdf: ChangeDetectorRef,
         public dialog: MatDialog,
         private _snackBar: MatSnackBar,
-        private spinner: NgxSpinnerService
+        private spinner: NgxSpinnerService,
     ) {
     }
 
@@ -93,7 +93,6 @@ export class ProfileFormDialogComponent implements OnInit {
         this.ShowButton = true;
         this.ActivityShow = true;
         this.SaveButtonShow = true;
-
         this.isActivityStringValid = true;
         this.profileForm = this.formBuilder.group({
             ProfileID: [this.profile.ProfileID, [Validators.required, Validators.maxLength(60)],],
@@ -105,7 +104,7 @@ export class ProfileFormDialogComponent implements OnInit {
         this.GetAllProfiles();
 
         var u = new UserUtilsService();
-        this._currentActivity = u.getActivity('Roles');
+        this._currentActivity = u.getActivity('Pages');
 
     }
 

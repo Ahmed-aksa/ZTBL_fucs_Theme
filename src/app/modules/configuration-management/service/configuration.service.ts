@@ -18,20 +18,20 @@ export class ConfigurationService {
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private utilService: UserUtilsService) {
     }
 
+    //
+    // AddConfiguration(configuration: Configuration): Observable<BaseResponseModel> {
+    //     this.request = new BaseRequestModel();
+    //     this.request.Configuration = configuration;
+    //
+    //     return this.http.post(`${environment.apiUrl}/Configuration/AddConfiguration`, this.request).pipe(
+    //         map((res: BaseResponseModel) => res)
+    //     );
+    // }
 
-    AddConfiguration(configuration: Configuration): Observable<BaseResponseModel> {
+    AddUpdateConfiguration(configuration: Configuration): Observable<BaseResponseModel> {
         this.request = new BaseRequestModel();
         this.request.Configuration = configuration;
-
-        return this.http.post(`${environment.apiUrl}/Configuration/AddConfiguration`, this.request).pipe(
-            map((res: BaseResponseModel) => res)
-        );
-    }
-
-    UpdateConfiguration(configuration: Configuration): Observable<BaseResponseModel> {
-        this.request = new BaseRequestModel();
-        this.request.Configuration = configuration;
-        return this.http.post(`${environment.apiUrl}/Configuration/UpdateConfiguration`, this.request,
+        return this.http.post(`${environment.apiUrl}/Configuration/AddUpdateConfiguration`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );

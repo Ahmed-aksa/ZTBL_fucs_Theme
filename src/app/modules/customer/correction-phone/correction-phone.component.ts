@@ -8,6 +8,7 @@ import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {MatDialog} from '@angular/material/dialog';
 import {CustomerService} from 'app/shared/services/customer.service';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
+import {Activity} from "../../../shared/models/activity.model";
 
 
 @Component({
@@ -24,6 +25,7 @@ export class CorrectionPhoneComponent implements OnInit {
     phoneCellTab: boolean = false;
     zone: any;
     branch: any;
+    currentActivity: Activity;
 
     constructor(private fb: FormBuilder,
                 private layoutUtilsService: LayoutUtilsService,
@@ -38,6 +40,7 @@ export class CorrectionPhoneComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Correction of Phone Cell');
         this.createForm()
     }
 
@@ -54,7 +57,7 @@ export class CorrectionPhoneComponent implements OnInit {
     find() {
 
         var cnic = this.cpForm.controls['Cnic'].value;
-        
+
         this.spinner.show();
         this._customerService.getCustomerByCnic(cnic, this.branch, this.zone)
             .pipe(

@@ -27,8 +27,8 @@
             <mat-form-field class="mat-form-field-fluid mr-4 w-6/12 map-fields" appearance="outline">
                 <mat-label>Group</mat-label>
                 <mat-select formControlName="ProfileID">
-                    <mat-option *ngFor="let lov of LOVs" [value]="lov.Id">
-                        {{lov.Name }}
+                    <mat-option *ngFor="let lov of LOVs" [value]="lov?.Id">
+                        {{lov?.Name }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -39,20 +39,15 @@
 
 
     <button
-        *ngIf="!roleForm.disabled"
         class=" bg-green"
         mat-flat-button
+        *ngIf="currentActivity.U"
         [color]="'primary'"
         [disabled]="viewLoading"
         (click)="onSubmit()">
 
         <mat-icon class="mr-2">save</mat-icon>
         Save
-
-        <mat-progress-spinner
-            *ngIf="roleForm.disabled"
-            [diameter]="24"
-            [mode]="'indeterminate'"></mat-progress-spinner>
     </button>
 </mat-dialog-actions>
 

@@ -17,6 +17,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ActivatedRoute, Router} from '@angular/router';
 import {errorMessages, Lov, LovConfigurationKey, MaskEnum, regExps} from 'app/shared/classes/lov.class';
+import { Activity } from 'app/shared/models/activity.model';
 import {Branch} from 'app/shared/models/branch.model';
 import {CreateCustomer} from 'app/shared/models/customer.model';
 import {CircleService} from 'app/shared/services/circle.service';
@@ -73,6 +74,7 @@ export class CustLoanlistComponent implements OnInit {
     itemsPerPage = 5;
     private OffSet: number = 0;
     private pageIndex: any = 0;
+    currentActivity: Activity;
 
     constructor(
         public dialog: MatDialog,
@@ -96,6 +98,7 @@ export class CustLoanlistComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Search Customer');
         if (this.isDialog || this.data.flag == 1) {
 
             this.displayedColumns = ['CustomerName', 'FatherName', 'Cnic', 'CustomerType', 'CurrentAddress', 'CustomerStatus']
@@ -136,7 +139,7 @@ export class CustLoanlistComponent implements OnInit {
 
 
     searchCustomer(is_first = false) {
-        
+
         if (is_first == true)
             this.OffSet = 0;
         this._customer.clear();

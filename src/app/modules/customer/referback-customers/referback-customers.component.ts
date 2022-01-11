@@ -15,6 +15,7 @@ import {LovService} from 'app/shared/services/lov.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Activity} from "../../../shared/models/activity.model";
 
 //src/app/core/_base/crud/utils/user-utils.service
 
@@ -44,7 +45,7 @@ export class ReferbackCustomersComponent implements OnInit {
 
     zone: any;
     branch: any;
-
+    currentActivity: Activity;
     public maskEnums = MaskEnum;
     errors = errorMessages;
     public LovCall = new Lov();
@@ -70,7 +71,7 @@ export class ReferbackCustomersComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('Search Customer');
         this.LoadLovs();
 
         this.createForm();
@@ -197,7 +198,7 @@ export class ReferbackCustomersComponent implements OnInit {
     }
 
     viewCustomer(Customer: any) {
-        localStorage.setItem('is_view','1');
+        localStorage.setItem('is_view', '1');
 
         localStorage.setItem('SearchCustomerStatus', JSON.stringify(Customer));
         localStorage.setItem('CreateCustomerBit', '2');

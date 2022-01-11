@@ -60,6 +60,7 @@ export class CircleListComponent implements OnInit {
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
         private layoutUtilsService: LayoutUtilsService,
+        private user_utils_service: UserUtilsService,
         private _circleService: CircleService,
         private _cdf: ChangeDetectorRef,
         private formBuilder: FormBuilder,
@@ -70,11 +71,9 @@ export class CircleListComponent implements OnInit {
 
     ngOnInit() {
         this.create_circ_form = this.formBuilder.group({});
-
         this.BMUser = false;
         this.fieldsHide = false;
-        var u = new UserUtilsService();
-        this._currentActivity = u.getActivity('Create Fence');
+        this._currentActivity = this.user_utils_service.getActivity('Create Fence');
     }
 
     ngAfterViewInit() {

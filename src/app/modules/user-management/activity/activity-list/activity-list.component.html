@@ -14,7 +14,7 @@
                     class="ml-4"
                     mat-flat-button
                     [color]="'primary'"
-                    (click)="addActivity()">
+                    (click)="addActivity()" *ngIf="currentActivity.C">
                     <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                     <span class="ml-2 mr-1">Add New </span>
                 </button>
@@ -33,7 +33,7 @@
             <div class="form-group row px-3 shadow-none" style="
             min-width: max-content;
             overflow-y:scroll;"
-            id="pagelist"
+                 id="pagelist"
             >
                 <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile border shadow-xs rounded-sm bg-gray-50"
                      id="custom-table-activity-list">
@@ -48,12 +48,13 @@
                             </div>
 
                             <div class="mr-8">
-                                <button mat-icon-button (click)="deleteActivity(activity)">
+                                <button mat-icon-button (click)="deleteActivity(activity)" *ngIf="currentActivity.D">
                                     <mat-icon class="text-red-500">
                                         delete_forever
                                     </mat-icon>
                                 </button>
-                                <button class="ml-2" mat-icon-button color="primary" (click)="editActivity(activity)">
+                                <button class="ml-2" mat-icon-button color="primary" (click)="editActivity(activity)"
+                                        *ngIf="currentActivity.U">
                                     <mat-icon>
                                         edit
                                     </mat-icon>
@@ -82,12 +83,14 @@
                                     <td>{{child.ActivityName}}</td>
                                     <td>{{child.ActivityUrl}}</td>
                                     <td>
-                                        <button mat-icon-button color="primary" (click)="editActivity(child)">
-                                            <mat-icon  class="text-green">
+                                        <button mat-icon-button color="primary" *ngIf="currentActivity.U"
+                                                (click)="editActivity(child)">
+                                            <mat-icon class="text-green">
                                                 {{ activity.isCoreactivity ? 'visibility' : 'create' }}
                                             </mat-icon>
                                         </button>&nbsp;
-                                        <button mat-icon-button color="warn" (click)="deleteActivity(child)">
+                                        <button mat-icon-button color="warn" *ngIf="currentActivity.D"
+                                                (click)="deleteActivity(child)">
                                             <mat-icon>
                                                 delete
                                             </mat-icon>

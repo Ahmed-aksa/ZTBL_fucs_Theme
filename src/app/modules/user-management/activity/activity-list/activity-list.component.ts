@@ -18,6 +18,7 @@ import {Activity, Profile} from '../activity.model';
 import {finalize} from 'rxjs/operators';
 import {ActivityFormDialogComponent} from '../activity-edit/activity-form.dialog.component';
 import {ProfileService} from '../profile.service';
+import {UserUtilsService} from "../../../../shared/services/users_utils.service";
 
 ;
 
@@ -39,7 +40,7 @@ export class ActivityListComponent implements OnInit {
     activities: Activity[] = [];
     gridHeight: string;
     userActivities: any;
-
+    currentActivity: Activity;
     public activity = new Activity();
 
     lists_record: any = [];
@@ -51,11 +52,13 @@ export class ActivityListComponent implements OnInit {
         private _cdf: ChangeDetectorRef,
         private _profileService: ProfileService,
         private _activityService: ActivityService,
-        private cdRef: ChangeDetectorRef) {
+        private cdRef: ChangeDetectorRef,
+        private userUtilsService: UserUtilsService) {
 
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Pages');
         this.getUserActivities();
 
     }

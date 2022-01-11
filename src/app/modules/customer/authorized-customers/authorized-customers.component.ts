@@ -15,6 +15,7 @@ import {finalize} from 'rxjs/operators';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 
 @Component({
@@ -55,6 +56,7 @@ export class AuthorizedCustomersComponent implements OnInit {
     itemsPerPage = 5;
     OffSet: number = 0;
     pageIndex: any = 0;
+    currentActivity: Activity;
 
     constructor(
         public dialog: MatDialog,
@@ -70,7 +72,7 @@ export class AuthorizedCustomersComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('Search Customer');
         this.LoadLovs();
 
         this.createForm();

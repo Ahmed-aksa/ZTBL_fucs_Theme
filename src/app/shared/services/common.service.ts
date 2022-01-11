@@ -58,7 +58,10 @@ export class CommonService {
             return '';
 
     }
-
+    simpleClone(obj: any) {
+        //used for assigning value without reference
+        return Object.assign({}, obj);
+    }
 
     stringToDate(date) {
         if (date != undefined && date != null && date != '') {

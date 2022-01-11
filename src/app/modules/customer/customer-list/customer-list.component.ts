@@ -68,6 +68,7 @@ export class CustomerListComponent implements OnInit {
     itemsPerPage = 5;
     OffSet: number = 0;
     pageIndex: any = 0;
+    currentActivity: any;
 
     constructor(
         public dialog: MatDialog,
@@ -83,6 +84,7 @@ export class CustomerListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Create Customer');
         if (this.isDialog)
             this.displayedColumns = [
                 'CustomerName',

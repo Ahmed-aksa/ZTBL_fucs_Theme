@@ -106,7 +106,7 @@ export class SetTargetService {
     }
 
     saveTargets(bankAssignedTargets, targets, Duration, AssignedTarget, assignedTarget, UserID, TagName,Label) {
-
+debugger
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {
@@ -137,7 +137,13 @@ export class SetTargetService {
         // this.request.Target.AssignedTarget = AssignedTarget;
         if (assignedTarget) {
             if (Object.keys(assignedTarget)?.length) {
-                this.request.Target["AssignedTarget"] = assignedTarget;
+                // this.request.Target["AssignedTarget"] = assignedTarget;
+                // var obj = Object.assign({},assignedTarget)
+                // obj.Name= Label;
+                // this.request.Target["AssignedTarget"] =obj;
+
+                this.request.Target["AssignedTarget"] = this._common.simpleClone(assignedTarget)
+                this.request.Target.AssignedTarget["Name"]=Label
             }
         }
         // if(AssignedTarget){
@@ -148,13 +154,16 @@ export class SetTargetService {
 
         if (bankAssignedTargets) {
             if (Object.keys(bankAssignedTargets)?.length) {
-                this.request.Target["AssignedTarget"] = bankAssignedTargets[0];
+                // var obj = Object.assign({},bankAssignedTargets[0])
+                // obj.Name= Label;
+                // this.request.Target["AssignedTarget"] =obj;
+
+                this.request.Target["AssignedTarget"] = this._common.simpleClone(bankAssignedTargets[0])
+                this.request.Target.AssignedTarget["Name"]=Label
             }
         }
-        if(Label){
-            this.request.Target.AssignedTarget["Name"]=Label;
-        }
-console.log("Name"+this.request.Target.AssignedTarget["Name"])
+
+
         var req = JSON.stringify(this.request);
 
         return this.http
@@ -165,7 +174,7 @@ console.log("Name"+this.request.Target.AssignedTarget["Name"])
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    submitTargets(Duration, UserID, TagName) {
+    submitTargets(bankAssignedTargets,Duration, UserID, TagName,assignedTarget,Label) {
         debugger
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -199,6 +208,30 @@ console.log("Name"+this.request.Target.AssignedTarget["Name"])
 
 
         this.request.Target.Duration = Duration.toString();
+
+        if (assignedTarget) {
+            if (Object.keys(assignedTarget)?.length) {
+                // this.request.Target["AssignedTarget"] = assignedTarget;
+                // var obj = Object.assign({},assignedTarget)
+                // obj.Name= Label;
+                // this.request.Target["AssignedTarget"] =obj;
+
+                this.request.Target["AssignedTarget"] = this._common.simpleClone(assignedTarget)
+                this.request.Target.AssignedTarget["Name"]=Label
+            }
+        }
+
+        if (bankAssignedTargets) {
+            if (Object.keys(bankAssignedTargets)?.length) {
+                // var obj = Object.assign({},bankAssignedTargets[0])
+                // obj.Name= Label;
+                // this.request.Target["AssignedTarget"] =obj;
+
+                this.request.Target["AssignedTarget"] = this._common.simpleClone(bankAssignedTargets[0])
+                this.request.Target.AssignedTarget["Name"]=Label
+            }
+        }
+
         var req = JSON.stringify(this.request);
 
         return this.http
