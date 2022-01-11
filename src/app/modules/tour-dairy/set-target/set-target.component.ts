@@ -538,7 +538,7 @@ export class SetTargetComponent implements OnInit {
             .saveTargets(this.bankTargets,
                 this.targets,
                 this.targetForm.controls.Duration.value,
-                this.AssignedTargetToSave, this.assignedTarget, this.UserID,this.TagName
+                this.AssignedTargetToSave, this.assignedTarget, this.UserID,this.TagName,this.Label
             )
             .pipe(
                 finalize(() => {
