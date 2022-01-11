@@ -3,18 +3,18 @@
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
+            <div class="heading">TOUR DIARY & PROGRESS REPORT OF PROVINCIAL CHIEF</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
-<!--            <p class="text-right">-->
-<!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->
-<!--                        color="primary"-->
-<!--                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">-->
-<!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
-<!--                    Advance Filter-->
-<!--                </button>-->
-<!--            </p>-->
+            <!--            <p class="text-right">-->
+            <!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->
+            <!--                        color="primary"-->
+            <!--                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">-->
+            <!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
+            <!--                    Advance Filter-->
+            <!--                </button>-->
+            <!--            </p>-->
 
         </div>
     </div>
@@ -51,6 +51,12 @@
                                     </div>
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Branch</mat-label>
+                                            <input matInput formControlName="Branch" autocomplete="off" readonly="readonly"/>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Zone</mat-label>
                                             <input matInput formControlName="Zone" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
@@ -62,32 +68,29 @@
                             </div>
 
                             <div class="col-lg-12 mt-2 p-0 overflow-scroll">
-                                <table class="table ">
+                                <table class="table">
                                     <thead>
                                     <tr class="table-header-background text-center">
-                                        <th class="border-r">Date</th>
-                                        <th colspan="2" class="border-r">Departure from</th>
-                                        <th colspan="2" class="border-r">Arrival at</th>
-                                        <th colspan="6" class="border-r">Portfolio of the branch visited</th>
-                                        <th colspan="3" class="border-r">Recovery</th>
-                                        <th rowspan="4" class="border-r">No. of loan cases in which recovery suits have been filed in Banking Court by the
-                                            branch
+                                        <th rowspan="3" class="border-r">Date</th>
+                                        <th colspan="2" rowspan="2" class="border-r">Departure from</th>
+                                        <th colspan="2" rowspan="2" class="border-r">Arrival at</th>
+                                        <th colspan="6" class="border-r">Portfolio of the Province/Zone/Branch/Circle</th>
+                                        <th rowspan="3" class="border-r">No. of defaulters contacted </th>
+                                        <th rowspan="3" class="border-r">Results of contacts so made
                                         </th>
                                     </tr>
+
                                     <tr class="table-header-background text-center">
-                                        <th rowspan="2" class="border-r"></th>
-                                        <th rowspan="2" class="border-r">Place</th>
-                                        <th rowspan="2" class="border-r">Time</th>
-                                        <th rowspan="2" class="border-r">Place</th>
-                                        <th rowspan="2" class="border-r">Time</th>
                                         <th colspan="2" class="border-r">General</th>
-                                        <th colspan="2" class="border-r">NPL's</th>
-                                        <th colspan="2" class="border-r">Sam</th>
-                                        <th rowspan="2" class="border-r">No. of Demand Notices issued by the branch</th>
-                                        <th rowspan="2" class="border-r">No. of Legal Notices issued by the branch</th>
-                                        <th rowspan="2" class="border-r">No. of Notices issued by the branch to SPA/Guarantors</th>
+                                        <th colspan="2" class="border-r">NPLs</th>
+                                        <th colspan="2" class="border-r">SAM</th>
                                     </tr>
+
                                     <tr class="table-header-background text-center">
+                                        <th class="border-r">Place</th>
+                                        <th class="border-r">Time</th>
+                                        <th class="border-r">Place</th>
+                                        <th class="border-r">Time</th>
                                         <th class="border-r">No.</th>
                                         <th class="border-r">Amt.</th>
                                         <th class="border-r">No.</th>
@@ -134,87 +137,25 @@
                                         <td class="border-r"></td>
                                         <td class="border-r"></td>
                                         <td class="border-r"></td>
-                                        <td rowspan="2" class="border-r"></td>
-                                        <td rowspan="2" class="border-r"></td>
-                                        <td rowspan="2" class="border-r"></td>
-                                        <td rowspan="2" class="border-r"></td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
 
                             <div class="col-lg-12 mt-2 p-0 overflow-scroll">
-                                <table class="table ">
-                                    <thead>
-                                    <tr class="table-header-background text-center">
-                                        <th rowspan="2" class="border-r">No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not
-                                            been issued to borrowers
-                                        </th>
-                                        <th rowspan="2" class="border-r">Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour
-                                            Plan
-                                        </th>
-                                        <th rowspan="2" class="border-r">Any short comings in Tour Diaries of MCOs/Branch Manager</th>
-                                        <th rowspan="2" class="border-r">No. of zero recovery cases of the branch</th>
-                                        <th colspan="2" class="border-r">No. of loan cases where Reschedulement/Restructuring/write-off remission of mark-up
-                                            done by the branch
-                                        </th>
-                                        <th rowspan="2" class="border-r">No. of Defaulters contacted by the Z.M (Rec. & SAM)</th>
-                                        <th rowspan="2" class="border-r">Remarks</th>
-                                    </tr>
-                                    <tr class="table-header-background text-center">
-                                        <th class="border-r">Activity</th>
-                                        <th class="border-r">No.</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r">
-                                            <ul>
-                                                <li>Reschedulement</li>
-                                                <li>Restructring of Installments</li>
-                                                <li>RightOff/remission</li>
-                                            </ul>
-                                        </td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="col-lg-12 mt-2 p-0 overflow-scroll">
-                                <table class="table ">
+                                <table class="table">
                                     <thead>
                                     <tr class="table-header-background text-center">
                                         <th colspan="15" class="border-r">RECOVERY</th>
@@ -223,12 +164,13 @@
                                     <thead>
                                     <tr class="table-header-background text-center">
                                         <!-- UTILIZATIONS -->
-                                        <th colspan="3" class="border-r">Amount in default up to the month under report (TARGET)</th>
+                                        <th colspan="3" class="border-r">Annual Target/Recoverable of Province/Zone/Branch/Circle</th>
                                         <th colspan="3" class="border-r">Recovery during the month under report</th>
                                         <th colspan="3" class="border-r">Balance Recoverable</th>
                                         <th colspan="3" class="border-r">Recovery during corresponding period</th>
                                         <th rowspan="2" class="border-r">Increase/Deficit</th>
-                                        <th colspan="2" class="border-r">Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
+                                        <th rowspan="2" class="border-r">Measures/Efforts for boosting up recovery</th>
+                                        <th rowspan="2" class="border-r">Remarks</th>
                                     </tr>
                                     <tr class="table-header-background text-center">
                                         <th class="border-r">P.D.</th>
@@ -243,8 +185,6 @@
                                         <th class="border-r">P.D.</th>
                                         <th class="border-r">C.D.</th>
                                         <th class="border-r">Total</th>
-                                        <th class="border-r">Activity</th>
-                                        <th class="border-r">No.</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -263,13 +203,17 @@
                                         <td class="border-r"></td>
                                         <td class="border-r"></td>
                                         <td class="border-r">
-                                            <ul>
-                                                <li>Reschedulement</li>
-                                                <li>Restructring of Installments</li>
-                                                <li>RightOff/remission</li>
-                                            </ul>
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
                                         </td>
-                                        <td class="border-r"></td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

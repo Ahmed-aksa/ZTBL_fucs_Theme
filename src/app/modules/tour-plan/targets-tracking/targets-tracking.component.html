@@ -1,0 +1,296 @@
+<div
+    class=" px-10 pt-3 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    <div class="heading">Target Tracking</div>
+    <!-- Header -->
+    <!-- Main -->
+
+
+    <!-- Products list -->
+    <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
+        <form [formGroup]="targetTrackingForm">
+            <div class="row pt-2">
+                  <div class="col-lg-3">
+                        <mat-form-field class="w-full" appearance="fill">
+                              <!-- <mat-label>Month and Year</mat-label> -->
+                              <input matInput [matDatepicker]="dp" placeholder="Month" [formControl]="date">
+                              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                          </mat-form-field>
+                          <mat-datepicker #dp startView="multi-year" (yearSelected)="_yearSelectedHandler($event,dp)"
+                                          panelClass="example-month-picker">
+                          </mat-datepicker>
+                  </div>
+                  <div class="col-lg-3">
+                        <mat-form-field class="w-full">
+                              <input matInput placeholder="Search" formControlName="search">
+                          </mat-form-field>
+                  </div>
+                  <div class="col-lg-3 pt-2">
+                        <button class="mat-focus-indicator mat-flat-button mat-button-base rounded  bg-green" (click)="getTargetTracks()"><mat-icon class="mr-2">check_circle</mat-icon>Submit</button>
+                  </div>
+            </div>  
+
+
+
+        </form>
+        <section matSort class="mat-elevation-z2 mat-header-row bg-green api-table">
+            <span class="mat-header-cell text-white" mat-sort-header="Name"
+                  style="width: 10px;">{{target_0?.Heading?.Name}}</span>
+            <span class="mat-header-cell text-white"
+                  mat-sort-header="DepositAmount">{{target_0?.Heading?.DepositAmount}}</span>
+            <span class="mat-header-cell text-white"
+                  mat-sort-header="DisbursmentAmount">{{target_0?.Heading?.DisbursmentAmount}}</span>
+            <span class="mat-header-cell text-white"
+                  mat-sort-header="NormalRecoveryAmount">{{target_0?.Heading?.NormalRecoveryAmount}}</span>
+            <span class="mat-header-cell text-white"
+                  mat-sort-header="NplRecoveryAmount">{{target_0?.Heading?.NplRecoveryAmount}}</span>
+            <span class="mat-header-cell text-white"
+                  mat-sort-header="SamRecoveryAmount">{{target_0?.Heading?.SamRecoveryAmount}}</span>
+        </section>
+        <mat-accordion displayMode="flat" multi class="mat-table  border shadow-xs rounded-sm bg-white px-1"
+                       style="overflow-y:scroll;">
+
+
+            <mat-expansion-panel class="api-table shadow-none mb-4 p-0"
+                                 *ngFor="let single_provincial_target of target_0?.Targets ;let i=index"
+                                 (click)="getTargetTracks(single_provincial_target.Id,1,i,target_0?.Targets)" #exppanel
+                                 style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
+                <mat-expansion-panel-header style="font-size: 12px;"
+                                            class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                <span class="mat-cell py-6 self-center font-bold"
+                      style="width: 10px; font-size: 12px;">{{single_provincial_target?.Name ? single_provincial_target.Name : 'Not Assigned'}}</span>
+                    <span class="mat-cell py-6 self-center font-bold"
+                          style="font-size: 12px;">{{single_provincial_target?.DepositAmount ? single_provincial_target?.DepositAmount : 'Not Assigned'}}</span>
+                    <p class="mat-cell py-6 self-center  font-bold"
+                       style="font-size: 12px;">{{single_provincial_target?.DisbursmentAmount ? single_provincial_target?.DisbursmentAmount : 'Not Assigned'}}</p>
+                    <span class="mat-cell py-6 self-center px-2 font-bold"
+                          style="font-size: 12px;">{{single_provincial_target?.NormalRecoveryAmount ? single_provincial_target?.NormalRecoveryAmount : 'Not Assigned'}}</span>
+                    <span class="mat-cell py-6 self-center px-2 font-bold "
+                          style="font-size: 12px;">{{single_provincial_target?.NplRecoveryAmount ? single_provincial_target?.NplRecoveryAmount : 'Not Assigned'}}</span>
+                    <span class="mat-cell py-6 self-center px-2 font-bold "
+                          style="font-size: 12px;">{{single_provincial_target?.SamRecoveryAmount ? single_provincial_target?.SamRecoveryAmount : 'Not Assigned'}}</span>
+                </mat-expansion-panel-header>
+                <div>
+                    <div class="custom-accordion-body border-t rounded">
+                        <!--            LEVEL 1             -->
+                        <section matSort class=" bg-gray-800 mat-elevation-z2 mat-header-row bg-green api-table">
+            <span class="mat-header-cell text-white" mat-sort-header="Name"
+                  style="width: 10px;">{{target_1?.Name}}</span>
+                            <span class="mat-header-cell text-white"
+                                  mat-sort-header="DepositAmount">{{target_1?.DepositAmount}}</span>
+                            <span class="mat-header-cell text-white"
+                                  mat-sort-header="DisbursmentAmount">{{target_1?.DisbursmentAmount}}</span>
+                            <span class="mat-header-cell text-white"
+                                  mat-sort-header="NormalRecoveryAmount">{{target_1?.NormalRecoveryAmount}}</span>
+                            <span class="mat-header-cell text-white"
+                                  mat-sort-header="NplRecoveryAmount">{{target_1?.NplRecoveryAmount}}</span>
+                            <span class="mat-header-cell text-white"
+                                  mat-sort-header="SamRecoveryAmount">{{target_1?.SamRecoveryAmount}}</span>
+                        </section>
+                        <mat-accordion displayMode="flat" multi
+                                       class="mat-table  border shadow-xs rounded-sm bg-white mt-2 px-1  px-3"
+                                       style="overflow-y:scroll;">
+
+
+                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0 mt-2"
+                                                 *ngFor="let target_1 of single_provincial_target?.Target ;let i1=index"
+                                                 (click)="$event.stopPropagation();getTargetTracks(target_1.Id,2,i1,single_provincial_target?.Target)"
+                                                 #exppanel1
+                                                 style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
+                                <mat-expansion-panel-header style="font-size: 12px;"
+                                                            class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                                    <span class="mat-cell py-6 self-center font-bold"
+                                          style="width: 10px; font-size: 12px;">{{target_1?.Name ? target_1?.Name : 'Not Assigned'}}</span>
+                                    <span class="mat-cell py-6 self-center font-bold"
+                                          style="font-size: 12px;">{{target_1?.DepositAmount ? target_1?.DepositAmount : 'Not Assigned'}}</span>
+                                    <p class="mat-cell py-6 self-center  font-bold"
+                                       style="font-size: 12px;">{{target_1?.DisbursmentAmount ? target_1?.DisbursmentAmount : 'Not Assigned'}}</p>
+                                    <span class="mat-cell py-6 self-center px-2 font-bold"
+                                          style="font-size: 12px;">{{target_1?.NormalRecoveryAmount ? target_1?.NormalRecoveryAmount : 'Not Assigned'}}</span>
+                                    <span class="mat-cell py-6 self-center px-2 font-bold "
+                                          style="font-size: 12px;">{{target_1?.NplRecoveryAmount ? target_1?.NplRecoveryAmount : 'Not Assigned'}}</span>
+                                    <span class="mat-cell py-6 self-center px-2 font-bold "
+                                          style="font-size: 12px;">{{target_1?.SamRecoveryAmount ? target_1?.SamRecoveryAmount : 'Not Assigned'}}</span>
+                                </mat-expansion-panel-header>
+                                <div>
+                                    <div class="custom-accordion-body  border-t rounded">
+
+                                        <!--                     LEVEL 2                   -->
+                                        <section matSort class=" bg-gray-700 mat-elevation-z2 mat-header-row bg-green api-table">
+                                            <span class="mat-header-cell text-white" mat-sort-header="Name"
+                                                  style="width: 10px;">{{target_2?.Name}}</span>
+                                            <span class="mat-header-cell text-white"
+                                                  mat-sort-header="DepositAmount">{{target_2?.DepositAmount}}</span>
+                                            <span class="mat-header-cell text-white"
+                                                  mat-sort-header="DisbursmentAmount">{{target_2?.DisbursmentAmount}}</span>
+                                            <span class="mat-header-cell text-white"
+                                                  mat-sort-header="NormalRecoveryAmount">{{target_2?.NormalRecoveryAmount}}</span>
+                                            <span class="mat-header-cell text-white"
+                                                  mat-sort-header="NplRecoveryAmount">{{target_2?.NplRecoveryAmount}}</span>
+                                            <span class="mat-header-cell text-white"
+                                                  mat-sort-header="SamRecoveryAmount">{{target_2?.SamRecoveryAmount}}</span>
+                                        </section>
+                                        <mat-accordion displayMode="flat" multi
+                                                       class="mat-table  border shadow-xs rounded-sm bg-white mt-2  px-1  px-3"
+                                                       style="overflow-y:scroll;">
+
+                                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0 mt-2"
+                                                                 *ngFor="let target_2 of target_1?.Target ;let i2=index"
+                                                                 (click)="$event.stopPropagation();getTargetTracks(target_2.Id,3,i2,target_1?.Target)"
+                                                                 #exppanel2
+                                                                 style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
+                                                <mat-expansion-panel-header style="font-size: 12px;"
+                                                                            class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                                                    <span class="mat-cell py-6 self-center font-bold"
+                                                          style="width: 10px; font-size: 12px;">{{target_2?.Name ? target_2?.Name : 'Not Assigned'}}</span>
+                                                    <span class="mat-cell py-6 self-center font-bold"
+                                                          style="font-size: 12px;">{{target_2?.DepositAmount ? target_2?.DepositAmount : 'Not Assigned'}}</span>
+                                                    <p class="mat-cell py-6 self-center  font-bold"
+                                                       style="font-size: 12px;">{{target_2?.DisbursmentAmount ? target_2?.DisbursmentAmount : 'Not Assigned'}}</p>
+                                                    <span class="mat-cell py-6 self-center px-2 font-bold"
+                                                          style="font-size: 12px;">{{target_2?.NormalRecoveryAmount ? target_2?.NormalRecoveryAmount : 'Not Assigned'}}</span>
+                                                    <span class="mat-cell py-6 self-center px-2 font-bold "
+                                                          style="font-size: 12px;">{{target_2?.NplRecoveryAmount ? target_2?.NplRecoveryAmount : 'Not Assigned'}}</span>
+                                                    <span class="mat-cell py-6 self-center px-2 font-bold "
+                                                          style="font-size: 12px;">{{target_2?.SamRecoveryAmount ? target_2?.SamRecoveryAmount : 'Not Assigned'}}</span>
+                                                </mat-expansion-panel-header>
+                                                <div>
+                                                    <div class="custom-accordion-body  border-t rounded">
+                                                        <!--                                                        <!  LEVEL 3 -->
+                                                        <section matSort
+                                                                 class="mat-elevation-z2 bg-gray-500 mat-header-row bg-green api-table">
+            <span class="mat-header-cell text-white" mat-sort-header="Name"
+                  style="width: 10px;">{{target_3?.Name}}</span>
+                                                            <span class="mat-header-cell text-white"
+                                                                  mat-sort-header="DepositAmount">{{target_3?.DepositAmount}}</span>
+                                                            <span class="mat-header-cell text-white"
+                                                                  mat-sort-header="DisbursmentAmount">{{target_3?.DisbursmentAmount}}</span>
+                                                            <span class="mat-header-cell text-white"
+                                                                  mat-sort-header="NormalRecoveryAmount">{{target_3?.NormalRecoveryAmount}}</span>
+                                                            <span class="mat-header-cell text-white"
+                                                                  mat-sort-header="NplRecoveryAmount">{{target_3?.NplRecoveryAmount}}</span>
+                                                            <span class="mat-header-cell text-white"
+                                                                  mat-sort-header="SamRecoveryAmount">{{target_3?.SamRecoveryAmount}}</span>
+                                                        </section>
+                                                        <mat-accordion displayMode="flat" multi
+                                                                       class="mat-table  border shadow-xs bg-white mt-2 rounded-sm px-3 px-1"
+                                                                       style="overflow-y:scroll;">
+
+
+                                                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0 mt-2"
+                                                                                 *ngFor="let target_3 of target_2?.Target ;let i3=index"
+                                                                                 (click)="$event.stopPropagation();getTargetTracks(target_3.Id,1,i3,target_2?.Target)"
+                                                                                 #exppanel
+                                                                                 style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
+                                                                <mat-expansion-panel-header style="font-size: 12px;"
+                                                                                            class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                <span class="mat-cell py-6 self-center font-bold"
+                      style="width: 10px; font-size: 12px;">{{single_provincial_target?.Name}}</span>
+                                                                    <span class="mat-cell py-6 self-center font-bold"
+                                                                          style="font-size: 12px;">{{target_3?.DepositAmount ? target_3?.DepositAmount : 'Not Assigned'}}</span>
+                                                                    <p class="mat-cell py-6 self-center  font-bold"
+                                                                       style="font-size: 12px;">{{target_3?.DisbursmentAmount ? target_3?.DisbursmentAmount : 'Not Assigned'}}</p>
+                                                                    <span
+                                                                        class="mat-cell py-6 self-center px-2 font-bold"
+                                                                        style="font-size: 12px;">{{target_3?.NormalRecoveryAmount ? target_3?.NormalRecoveryAmount : 'Not Assigned'}}</span>
+                                                                    <span
+                                                                        class="mat-cell py-6 self-center px-2 font-bold "
+                                                                        style="font-size: 12px;">{{target_3?.NplRecoveryAmount ? target_3?.NplRecoveryAmount : 'Not Assigned'}}</span>
+                                                                    <span
+                                                                        class="mat-cell py-6 self-center px-2 font-bold "
+                                                                        style="font-size: 12px;">{{target_3?.SamRecoveryAmount ? target_3?.SamRecoveryAmount : 'Not Assigned'}}</span>
+                                                                </mat-expansion-panel-header>
+                                                                <div>
+                                                                    <div
+                                                                        class="custom-accordion-body bg-gray-50 border-t rounded">
+                                                                        <!--                                                                      <! Level 4 -->
+                                                                        <section matSort
+                                                                                 class="mat-elevation-z2 bg-gray-400 mat-header-row bg-green api-table">
+            <span class="mat-header-cell text-white" mat-sort-header="Name"
+                  style="width: 10px;">{{target_4?.Name}}</span>
+                                                                            <span class="mat-header-cell text-white"
+                                                                                  mat-sort-header="DepositAmount">{{target_4?.DepositAmount}}</span>
+                                                                            <span class="mat-header-cell text-white"
+                                                                                  mat-sort-header="DisbursmentAmount">{{target_4?.DisbursmentAmount}}</span>
+                                                                            <span class="mat-header-cell text-white"
+                                                                                  mat-sort-header="NormalRecoveryAmount">{{target_4?.NormalRecoveryAmount}}</span>
+                                                                            <span class="mat-header-cell text-white"
+                                                                                  mat-sort-header="NplRecoveryAmount">{{target_4?.NplRecoveryAmount}}</span>
+                                                                            <span class="mat-header-cell text-white"
+                                                                                  mat-sort-header="SamRecoveryAmount">{{target_4?.SamRecoveryAmount}}</span>
+                                                                        </section>
+                                                                        <mat-accordion displayMode="flat" multi
+                                                                                       class="mat-table  border  px-3 shadow-xs rounded-sm bg-white mt-2 px-1"
+                                                                                       style="overflow-y:scroll;">
+
+
+                                                                            <mat-expansion-panel
+                                                                                class="api-table shadow-none mb-4 mt-2 p-0"
+                                                                                *ngFor="let target_4 of target_3?.Targets ;let i4=index"
+                                                                                (click)="$event.stopPropagation();getTargetTracks(target_4.Id,1,i4,target_3?.Target)"
+                                                                                #exppanel
+                                                                                style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
+                                                                                <mat-expansion-panel-header
+                                                                                    style="font-size: 12px;"
+                                                                                    class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                <span class="mat-cell py-6 self-center font-bold"
+                      style="width: 10px; font-size: 12px;">{{single_provincial_target?.Name}}</span>
+                                                                                    <span
+                                                                                        class="mat-cell py-6 self-center font-bold"
+                                                                                        style="font-size: 12px;">{{target_4?.DepositAmount ? target_4?.DepositAmount : 'Not Assigned'}}</span>
+                                                                                    <p class="mat-cell py-6 self-center  font-bold"
+                                                                                       style="font-size: 12px;">{{target_4?.DisbursmentAmount ? target_4?.DisbursmentAmount : 'Not Assigned'}}</p>
+                                                                                    <span
+                                                                                        class="mat-cell py-6 self-center px-2 font-bold"
+                                                                                        style="font-size: 12px;">{{target_4?.NormalRecoveryAmount ? target_4?.NormalRecoveryAmount : 'Not Assigned'}}</span>
+                                                                                    <span
+                                                                                        class="mat-cell py-6 self-center px-2 font-bold "
+                                                                                        style="font-size: 12px;">{{target_4?.NplRecoveryAmount ? target_4?.NplRecoveryAmount : 'Not Assigned'}}</span>
+                                                                                    <span
+                                                                                        class="mat-cell py-6 self-center px-2 font-bold "
+                                                                                        style="font-size: 12px;">{{target_4?.SamRecoveryAmount ? target_4?.SamRecoveryAmount : 'Not Assigned'}}</span>
+                                                                                </mat-expansion-panel-header>
+                                                                                <div>
+                                                                                    <div
+                                                                                        class="custom-accordion-body bg-gray-50 border-t rounded">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </mat-expansion-panel>
+
+                                                                        </mat-accordion>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </mat-expansion-panel>
+
+                                                        </mat-accordion>
+                                                    </div>
+                                                </div>
+                                            </mat-expansion-panel>
+
+                                        </mat-accordion>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+
+                        </mat-accordion>
+
+
+                    </div>
+                </div>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+
+        <mat-paginator #paginator
+                       [length]="target_0?.Targets?.length"
+                       [pageIndex]="0"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+        ></mat-paginator>
+
+
+    </div>
+
+
+</div>

@@ -30,7 +30,13 @@ export class TargetsHierarchyComponent implements OnInit {
         })
     }
 
-    updateTarget(single_target: any) {
+    updateTarget(single_target: any, is_active) {
+        if (is_active == '1') {
+            single_target.IsActive = '0';
+        } else {
+            single_target.IsActive = '1';
+        }
+        single_target.Id = single_target.GroupId;
         this.spinner.show();
         this.targetsService.updateTargetsHierarchy(single_target).subscribe((data) => {
             this.spinner.hide();

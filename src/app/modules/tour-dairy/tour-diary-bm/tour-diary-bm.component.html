@@ -3,18 +3,18 @@
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
+            <div class="heading">TOUR DIARY & PROGRESS REPORT OF BRANCH MANAGER</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
-<!--            <p class="text-right">-->
-<!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->
-<!--                        color="primary"-->
-<!--                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">-->
-<!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
-<!--                    Advance Filter-->
-<!--                </button>-->
-<!--            </p>-->
+            <!--            <p class="text-right">-->
+            <!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->
+            <!--                        color="primary"-->
+            <!--                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">-->
+            <!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
+            <!--                    Advance Filter-->
+            <!--                </button>-->
+            <!--            </p>-->
 
         </div>
     </div>
@@ -62,38 +62,24 @@
                             </div>
 
                             <div class="col-lg-12 mt-2 p-0 overflow-scroll">
-                                <table class="table ">
+                                <table class="table">
                                     <thead>
                                     <tr class="table-header-background text-center">
-                                        <th class="border-r">Date</th>
+                                        <th rowspan="2" class="border-r">Date</th>
                                         <th colspan="2" class="border-r">Departure from</th>
                                         <th colspan="2" class="border-r">Arrival at</th>
-                                        <th colspan="6" class="border-r">Portfolio of the branch visited</th>
-                                        <th colspan="3" class="border-r">Recovery</th>
-                                        <th rowspan="4" class="border-r">No. of loan cases in which recovery suits have been filed in Banking Court by the
-                                            branch
-                                        </th>
+                                        <th colspan="2" class="border-r">Disbursements</th>
+                                        <th colspan="2" class="border-r">Recovery</th>
                                     </tr>
                                     <tr class="table-header-background text-center">
-                                        <th rowspan="2" class="border-r"></th>
-                                        <th rowspan="2" class="border-r">Place</th>
-                                        <th rowspan="2" class="border-r">Time</th>
-                                        <th rowspan="2" class="border-r">Place</th>
-                                        <th rowspan="2" class="border-r">Time</th>
-                                        <th colspan="2" class="border-r">General</th>
-                                        <th colspan="2" class="border-r">NPL's</th>
-                                        <th colspan="2" class="border-r">Sam</th>
-                                        <th rowspan="2" class="border-r">No. of Demand Notices issued by the branch</th>
-                                        <th rowspan="2" class="border-r">No. of Legal Notices issued by the branch</th>
-                                        <th rowspan="2" class="border-r">No. of Notices issued by the branch to SPA/Guarantors</th>
-                                    </tr>
-                                    <tr class="table-header-background text-center">
-                                        <th class="border-r">No.</th>
-                                        <th class="border-r">Amt.</th>
-                                        <th class="border-r">No.</th>
-                                        <th class="border-r">Amt.</th>
-                                        <th class="border-r">No.</th>
-                                        <th class="border-r">Amt.</th>
+                                        <th class="border-r">Place</th>
+                                        <th class="border-r">Time</th>
+                                        <th class="border-r">Place</th>
+                                        <th class="border-r">Time</th>
+                                        <th class="border-r">No. of new borrowers contacted </th>
+                                        <th class="border-r">No. of borrowers of Roll-over cases contacted</th>
+                                        <th class="border-r">No. of Defaulters contacted</th>
+                                        <th class="border-r">Amount recovered with L.C. No.</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -128,17 +114,87 @@
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td rowspan="2" class="border-r"></td>
-                                        <td rowspan="2" class="border-r"></td>
-                                        <td rowspan="2" class="border-r"></td>
-                                        <td rowspan="2" class="border-r"></td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
                                     </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="col-lg-12 mt-2 p-0 overflow-scroll">
+                                <table class="table ">
+                                    <thead>
+                                    <tr class="table-header-background text-center">
+                                        <th rowspan="2" class="border-r">No. of utilizations checked as per quota</th>
+                                        <th colspan="2" class="border-r">
+                                            Transfer of Technology
+                                        </th>
+                                        <th rowspan="2" class="border-r">Any other work done</th>
+                                        <th rowspan="2" class="border-r">Remarks</th>
+                                    </tr>
+                                    <tr class="table-header-background text-center">
+                                        <th class="border-r">Progressive Farmers contacted</th>
+                                        <th class="border-r">No. of farms visited</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -147,66 +203,27 @@
                                 <table class="table ">
                                     <thead>
                                     <tr class="table-header-background text-center">
-                                        <th rowspan="2" class="border-r">No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not
-                                            been issued to borrowers
+                                        <th colspan="6" class="border-r">
+                                            Disbursement
                                         </th>
-                                        <th rowspan="2" class="border-r">Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour
-                                            Plan
-                                        </th>
-                                        <th rowspan="2" class="border-r">Any short comings in Tour Diaries of MCOs/Branch Manager</th>
-                                        <th rowspan="2" class="border-r">No. of zero recovery cases of the branch</th>
-                                        <th colspan="2" class="border-r">No. of loan cases where Reschedulement/Restructuring/write-off remission of mark-up
-                                            done by the branch
-                                        </th>
-                                        <th rowspan="2" class="border-r">No. of Defaulters contacted by the Z.M (Rec. & SAM)</th>
-                                        <th rowspan="2" class="border-r">Remarks</th>
                                     </tr>
                                     <tr class="table-header-background text-center">
-                                        <th class="border-r">Activity</th>
-                                        <th class="border-r">No.</th>
+                                        <th class="border-r">Annual Target</th>
+                                        <th class="border-r">Proportionate Target up to the end of month under report</th>
+                                        <th class="border-r">Total disbursement up to the end of previous month </th>
+                                        <th class="border-r">Disbursement during the month under report</th>
+                                        <th class="border-r">Total disbursement up to the end of month under report</th>
+                                        <th class="border-r">Increase/Deficit</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
                                         <td class="border-r"></td>
-                                        <td class="border-r">
-                                            <ul>
-                                                <li>Reschedulement</li>
-                                                <li>Restructring of Installments</li>
-                                                <li>RightOff/remission</li>
-                                            </ul>
-                                        </td>
                                         <td class="border-r"></td>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
+                                        <td class="border-r"></td>
+                                        <td class="border-r"></td>
+                                        <td class="border-r"></td>
+                                        <td class="border-r"></td>
                                     </tr>
 
                                     </tbody>
@@ -271,6 +288,35 @@
                                         </td>
                                         <td class="border-r"></td>
                                     </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-lg-12 mt-2 p-0 overflow-scroll">
+                                <table class="table ">
+                                    <thead>
+                                    <tr class="table-header-background text-center">
+                                        <th colspan="5">
+                                            Deposits
+                                        </th>
+                                    </tr>
+                                    <tr class="table-header-background text-center">
+                                        <th class="border-r">Annual Target</th>
+                                        <th class="border-r">Proportionate Target</th>
+                                        <th class="border-r">Achievement Percentage</th>
+                                        <th class="border-r">Deposit Balance during corresponding period</th>
+                                        <th class="border-r">Increase/Deficit</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="border-r"></td>
+                                        <td class="border-r"></td>
+                                        <td class="border-r"></td>
+                                        <td class="border-r"></td>
+                                        <td class="border-r"></td>
+                                    </tr>
+
                                     </tbody>
                                 </table>
                             </div>
