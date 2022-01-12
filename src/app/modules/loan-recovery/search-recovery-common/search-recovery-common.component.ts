@@ -32,6 +32,7 @@ import {
 } from 'app/shared/models/recovery.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-search-recovery-common',
@@ -51,7 +52,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
     circle: any;
     branch: any;
     zone: any;
-
+    currentActivity: Activity;
     @ViewChild('searchInput', {static: true}) searchInput: ElementRef;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -126,6 +127,14 @@ export class SearchRecoveryCommonComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.router.url == '/loan-recovery/search-recovery-transaction')
+            this.currentActivity = this.userUtilsService.getActivity('Advance Search Recovery');
+        if (this.router.url == '/loan-recovery/search-pending-transaction')
+            this.currentActivity = this.userUtilsService.getActivity('Search Pending Transaction');
+        if (this.router.url == '/loan-recovery/search-refferedback-transaction')
+            this.currentActivity = this.userUtilsService.getActivity('Search Refferback Transaction');
+        if (this.router.url == '/loan-recovery/search-sbs-pending-transaction')
+            this.currentActivity = this.userUtilsService.getActivity('Search SBS Pending Transaction');
         this.createForm();
         this.loadLOV();
 
@@ -172,9 +181,11 @@ export class SearchRecoveryCommonComponent implements OnInit {
             this.RecoveryForm.controls.Status.disable();
         }
     }
+
     ngAfterViewInit() {
         this.gridHeight = window.innerHeight - 220 + 'px';
     }
+
     getKeys(obj: any) {
         return Object.keys(obj);
     }
@@ -378,11 +389,12 @@ export class SearchRecoveryCommonComponent implements OnInit {
         else if (this.SearchType == 4)
             return "Search SBS Pending Transaction";
     }
+
     checkMap(data) {
         if (data?.Lat?.length > 0) {
-            if(data.Lat=="0.0"){
+            if (data.Lat == "0.0") {
                 return false;
-            }else{
+            } else {
                 return true;
             }
         } else {
@@ -435,7 +447,8 @@ export class SearchRecoveryCommonComponent implements OnInit {
 
         const dialogRef = this.dialog.open(LoanReceiptComponent, {
             panelClass: ['w-5/12'],
-            disableClose: true, data: receipt});
+            disableClose: true, data: receipt
+        });
         dialogRef.afterClosed().subscribe(res => {
 
         });

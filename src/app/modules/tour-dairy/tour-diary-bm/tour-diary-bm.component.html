@@ -49,90 +49,94 @@
                                             <input matInput formControlName="Month" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Zone</mat-label>
-                                            <input matInput formControlName="Zone" autocomplete="off" readonly="readonly"/>
-                                        </mat-form-field>
-                                    </div>
+
+<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
+<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+<!--                                            <mat-label class="customMatLabel">Zone</mat-label>-->
+<!--                                            <input matInput formControlName="Zone" autocomplete="off" readonly="readonly"/>-->
+<!--                                        </mat-form-field>-->
+<!--                                    </div>-->
+                                    <app-zone-branch-circle [form]="gridForm" [should_show_circle]="false"
+                                                            [is_required_circle]="false"
+                                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
                                 </div>
 
 
                             </div>
 
-                            <div class="col-lg-12 mt-2 p-0 overflow-scroll">
+                            <div class="col-lg-12 p-0 ist-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
                                 <table class="table">
                                     <thead>
                                     <tr class="table-header-background text-center">
-                                        <th rowspan="2" class="border-r">Date</th>
-                                        <th colspan="2" class="border-r">Departure from</th>
-                                        <th colspan="2" class="border-r">Arrival at</th>
-                                        <th colspan="2" class="border-r">Disbursements</th>
-                                        <th colspan="2" class="border-r">Recovery</th>
+                                        <th rowspan="2" class="border-r border-gray-400">Date</th>
+                                        <th colspan="2" class="border-r border-gray-400">Departure from</th>
+                                        <th colspan="2" class="border-r border-gray-400">Arrival at</th>
+                                        <th colspan="2" class="border-r border-gray-400">Disbursements</th>
+                                        <th colspan="2" class="border-r border-gray-400">Recovery</th>
                                     </tr>
                                     <tr class="table-header-background text-center">
-                                        <th class="border-r">Place</th>
-                                        <th class="border-r">Time</th>
-                                        <th class="border-r">Place</th>
-                                        <th class="border-r">Time</th>
-                                        <th class="border-r">No. of new borrowers contacted </th>
-                                        <th class="border-r">No. of borrowers of Roll-over cases contacted</th>
-                                        <th class="border-r">No. of Defaulters contacted</th>
-                                        <th class="border-r">Amount recovered with L.C. No.</th>
+                                        <th class="border-r border-gray-400">Place</th>
+                                        <th class="border-r border-gray-400">Time</th>
+                                        <th class="border-r border-gray-400">Place</th>
+                                        <th class="border-r border-gray-400">Time</th>
+                                        <th class="border-r border-gray-400">No. of new borrowers contacted </th>
+                                        <th class="border-r border-gray-400">No. of borrowers of Roll-over cases contacted</th>
+                                        <th class="border-r border-gray-400">No. of Defaulters contacted</th>
+                                        <th class="border-r border-gray-400">Amount recovered with L.C. No.</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
@@ -145,49 +149,49 @@
 
                             </div>
 
-                            <div class="col-lg-12 mt-2 p-0 overflow-scroll">
+                            <div class="col-lg-12 p-0 sec-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
                                 <table class="table ">
                                     <thead>
                                     <tr class="table-header-background text-center">
-                                        <th rowspan="2" class="border-r">No. of utilizations checked as per quota</th>
-                                        <th colspan="2" class="border-r">
+                                        <th rowspan="2" class="border-r border-gray-400">No. of utilizations checked as per quota</th>
+                                        <th colspan="2" class="border-r border-gray-400">
                                             Transfer of Technology
                                         </th>
-                                        <th rowspan="2" class="border-r">Any other work done</th>
-                                        <th rowspan="2" class="border-r">Remarks</th>
+                                        <th rowspan="2" class="border-r border-gray-400">Any other work done</th>
+                                        <th rowspan="2" class="border-r border-gray-400">Remarks</th>
                                     </tr>
                                     <tr class="table-header-background text-center">
-                                        <th class="border-r">Progressive Farmers contacted</th>
-                                        <th class="border-r">No. of farms visited</th>
+                                        <th class="border-r border-gray-400">Progressive Farmers contacted</th>
+                                        <th class="border-r border-gray-400">No. of farms visited</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
                                             </mat-form-field>
                                         </td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
                                                 <input matInput>
@@ -199,100 +203,100 @@
                                 </table>
                             </div>
 
-                            <div class="col-lg-12 mt-2 p-0 overflow-scroll">
+                            <div class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
                                 <table class="table ">
                                     <thead>
                                     <tr class="table-header-background text-center">
-                                        <th colspan="6" class="border-r">
+                                        <th colspan="6" class="border-r border-gray-400">
                                             Disbursement
                                         </th>
                                     </tr>
                                     <tr class="table-header-background text-center">
-                                        <th class="border-r">Annual Target</th>
-                                        <th class="border-r">Proportionate Target up to the end of month under report</th>
-                                        <th class="border-r">Total disbursement up to the end of previous month </th>
-                                        <th class="border-r">Disbursement during the month under report</th>
-                                        <th class="border-r">Total disbursement up to the end of month under report</th>
-                                        <th class="border-r">Increase/Deficit</th>
+                                        <th class="border-r border-gray-400">Annual Target</th>
+                                        <th class="border-r border-gray-400">Proportionate Target up to the end of month under report</th>
+                                        <th class="border-r border-gray-400">Total disbursement up to the end of previous month </th>
+                                        <th class="border-r border-gray-400">Disbursement during the month under report</th>
+                                        <th class="border-r border-gray-400">Total disbursement up to the end of month under report</th>
+                                        <th class="border-r border-gray-400">Increase/Deficit</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
                                     </tr>
 
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="col-lg-12 mt-2 p-0 overflow-scroll">
+                            <div class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
                                 <table class="table ">
                                     <thead>
                                     <tr class="table-header-background text-center">
-                                        <th colspan="15" class="border-r">RECOVERY</th>
+                                        <th colspan="15" class="border-r border-gray-400">RECOVERY</th>
                                     </tr>
                                     </thead>
                                     <thead>
                                     <tr class="table-header-background text-center">
                                         <!-- UTILIZATIONS -->
-                                        <th colspan="3" class="border-r">Amount in default up to the month under report (TARGET)</th>
-                                        <th colspan="3" class="border-r">Recovery during the month under report</th>
-                                        <th colspan="3" class="border-r">Balance Recoverable</th>
-                                        <th colspan="3" class="border-r">Recovery during corresponding period</th>
-                                        <th rowspan="2" class="border-r">Increase/Deficit</th>
-                                        <th colspan="2" class="border-r">Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
+                                        <th colspan="3" class="border-r border-gray-400">Amount in default up to the month under report (TARGET)</th>
+                                        <th colspan="3" class="border-r border-gray-400">Recovery during the month under report</th>
+                                        <th colspan="3" class="border-r border-gray-400">Balance Recoverable</th>
+                                        <th colspan="3" class="border-r border-gray-400">Recovery during corresponding period</th>
+                                        <th rowspan="2" class="border-r border-gray-400">Increase/Deficit</th>
+                                        <th colspan="2" class="border-r border-gray-400">Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
                                     </tr>
                                     <tr class="table-header-background text-center">
-                                        <th class="border-r">Past Dues</th>
-                                        <th class="border-r">Current Dues</th>
-                                        <th class="border-r">Total</th>
-                                        <th class="border-r">Past Dues</th>
-                                        <th class="border-r">Current Dues</th>
-                                        <th class="border-r">Total</th>
-                                        <th class="border-r">Past Dues</th>
-                                        <th class="border-r">Current Dues</th>
-                                        <th class="border-r">Total</th>
-                                        <th class="border-r">Past Dues</th>
-                                        <th class="border-r">Current Dues</th>
-                                        <th class="border-r">Total</th>
-                                        <th class="border-r">Activity</th>
-                                        <th class="border-r">No.</th>
+                                        <th class="border-r border-gray-400">Past Dues</th>
+                                        <th class="border-r border-gray-400">Current Dues</th>
+                                        <th class="border-r border-gray-400">Total</th>
+                                        <th class="border-r border-gray-400">Past Dues</th>
+                                        <th class="border-r border-gray-400">Current Dues</th>
+                                        <th class="border-r border-gray-400">Total</th>
+                                        <th class="border-r border-gray-400">Past Dues</th>
+                                        <th class="border-r border-gray-400">Current Dues</th>
+                                        <th class="border-r border-gray-400">Total</th>
+                                        <th class="border-r border-gray-400">Past Dues</th>
+                                        <th class="border-r border-gray-400">Current Dues</th>
+                                        <th class="border-r border-gray-400">Total</th>
+                                        <th class="border-r border-gray-400">Activity</th>
+                                        <th class="border-r border-gray-400">No.</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r">
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400">
                                             <ul>
                                                 <li>Reschedulement</li>
                                                 <li>Restructring of Installments</li>
                                                 <li>RightOff/remission</li>
                                             </ul>
                                         </td>
-                                        <td class="border-r"></td>
+                                        <td class="border-r border-gray-400"></td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="col-lg-12 mt-2 p-0 overflow-scroll">
+                            <div class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
                                 <table class="table ">
                                     <thead>
                                     <tr class="table-header-background text-center">
@@ -301,20 +305,20 @@
                                         </th>
                                     </tr>
                                     <tr class="table-header-background text-center">
-                                        <th class="border-r">Annual Target</th>
-                                        <th class="border-r">Proportionate Target</th>
-                                        <th class="border-r">Achievement Percentage</th>
-                                        <th class="border-r">Deposit Balance during corresponding period</th>
-                                        <th class="border-r">Increase/Deficit</th>
+                                        <th class="border-r border-gray-400">Annual Target</th>
+                                        <th class="border-r border-gray-400">Proportionate Target</th>
+                                        <th class="border-r border-gray-400">Achievement Percentage</th>
+                                        <th class="border-r border-gray-400">Deposit Balance during corresponding period</th>
+                                        <th class="border-r border-gray-400">Increase/Deficit</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
-                                        <td class="border-r"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400"></td>
                                     </tr>
 
                                     </tbody>
