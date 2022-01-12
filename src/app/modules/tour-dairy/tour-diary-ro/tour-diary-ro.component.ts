@@ -30,7 +30,9 @@ export class TourDiaryRoComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
     maxDate: Date;
-
+    zone: any;
+    branch: any;
+    circle: any;
     sign;
 
     constructor(
@@ -106,5 +108,12 @@ export class TourDiaryRoComponent implements OnInit {
             SignatureDailogDairyComponent,
             {width: '500px', disableClose: true}
         );
+    }
+
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = data.final_circle;
+
     }
 }
