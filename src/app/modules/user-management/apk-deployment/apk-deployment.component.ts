@@ -179,4 +179,6 @@ export class ApkDeploymentComponent implements OnInit {
 
     Upload(){}
 
+    downloadFile(){}
+
 }

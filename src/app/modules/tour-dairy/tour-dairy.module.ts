@@ -28,6 +28,10 @@ import { TourDiaryPcComponent } from './tour-diary-pc/tour-diary-pc.component';
 import { TourDiaryRcComponent } from './tour-diary-rc/tour-diary-rc.component';
 import {NumberDirective} from "../../shared/directives/numbers-only.directive";
 import {SetTargetTabsComponent} from "./set-target-tabs/set-target-tabs.component";
+import {IConfig, NgxMaskModule} from "ngx-mask";
+export const options: Partial<IConfig> = {
+    thousandSeparator: ","
+};
 
 const routing = [
     {
@@ -98,7 +102,8 @@ const routing = [
         SignaturePadModule,
         MatDatepickerModule,
         MatIconModule,
-        MatDialogModule
+        MatDialogModule,
+        NgxMaskModule.forRoot(options)
     ],
     providers: [
         DatePipe,

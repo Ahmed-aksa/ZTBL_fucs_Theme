@@ -37,6 +37,7 @@ class TargetData{
     TagName;
     Targets;
     BankTargets?:[];
+    AssignedTargetHeading;
 }
 
 class TargetDuration {
@@ -108,7 +109,6 @@ export class SetTargetComponent implements OnInit {
     TagName;
     Multiple;
     AssignedTargetHeading;
-
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -135,7 +135,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger
+
 
         this.GetTragetDuration();
         this.createForm();
@@ -159,10 +159,14 @@ export class SetTargetComponent implements OnInit {
             if (this.TargetData?.TagName) {
                 this.TagName=this.TargetData?.TagName
             }
+            if(this.TargetData?.AssignedTargetHeading){
+                this.AssignedTargetHeading = Object.values(this.TargetData?.AssignedTargetHeading);
+            }
+
             this.assignedTargetHeadingsData = this.TargetData?.AssignedTarget;
 
             this.bankTargets = this.TargetData?.BankTargets;
-            debugger
+
             this.Heading();
 
             this.ishidden = true;
@@ -220,7 +224,7 @@ export class SetTargetComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+
                     this.dateDuration=this.targetForm.controls.Duration.value;
                     this.Multiple=baseResponse?.Targets;
                     this.headings = baseResponse?.Targets[0]?.Heading;
@@ -241,7 +245,7 @@ export class SetTargetComponent implements OnInit {
 
                         this.AssignedTargetHeading = Object.values(baseResponse?.Targets[0]?.AssignedTargetHeading);
                         Object.keys(baseResponse?.Targets[0]?.AssignedTargetHeading).forEach(x=>{
-                            debugger;
+
                             if(baseResponse?.Targets[0]?.AssignedTarget[x]){
                                 this.ShowassignedTarget.push(baseResponse?.Targets[0]?.AssignedTarget[x])
                                 //console.log(baseResponse?.Targets[0]?.AssignedTarget[x])
@@ -254,7 +258,7 @@ export class SetTargetComponent implements OnInit {
                     }
                     this.assignedTargetHeadingsData = baseResponse?.Targets[0]?.AssignedTarget;
                     this.bankTargets = baseResponse?.Targets[0]?.BankTargets;
-                    debugger
+
                     this.Heading();
 
                     this.ishidden = true;
@@ -371,6 +375,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     DoCalculations(val: string, num: number) {
+
         var dis = this.targets.reduce(function (sum, current) {
             return sum + Number(current[val]);
         }, 0);
@@ -388,9 +393,17 @@ export class SetTargetComponent implements OnInit {
         const len = this.array.length;
         return this.array;
     }
+    removeCommaFromString(val){
+        return val.replace(/,/g, '');
+    }
+
+     numberWithCommas(x) {
+        return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     onInputChanged(value, rowIndex: number, propertyKey: string): void {
-        debugger
+
+        value = this.removeCommaFromString(value);
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex
                 ? row
@@ -408,7 +421,8 @@ export class SetTargetComponent implements OnInit {
     }
 
     onBankInputChanged(value, rowIndex: number, propertyKey: string): void {
-        debugger
+
+        value = this.removeCommaFromString(value);
         this.newBankValue = this.bankTargets.map((row, index) => {
             return index !== rowIndex
                 ? row
@@ -496,7 +510,7 @@ export class SetTargetComponent implements OnInit {
     save() {
 
         // Check Total
-        debugger
+
         if (this.bankTargets?.length > 0) {
             let BankTargetTotals = Object.keys(this.bankTargets[0])
             for (let i = 0; i < this.totals?.length; i++) {
@@ -547,7 +561,7 @@ export class SetTargetComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+
 
                     // if(this.bankTargets[0]["Name"]){
                     //     delete this.bankTargets[0]["Name"];
@@ -561,7 +575,7 @@ export class SetTargetComponent implements OnInit {
                         (baseResponse.Code = null)
                     );
                 } else {
-                    debugger
+
                   //   if(this.bankTargets?.length>0){
                   //       if(this.bankTargets[0]["Name"]){
                   //           delete this.bankTargets[0]["Name"];
