@@ -1,37 +1,15 @@
-.example-month-picker .mat-calendar-period-button {
-    pointer-events: none;
-  }
-  
-  .example-month-picker .mat-calendar-arrow {
-    display: none;
-  }
-  
-  .custom-accordion {
-    border-radius: 25px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    transition: dispaly 1s ease;
-
+.mat-calendar-previous-button::after, .mat-calendar-next-button::after {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    content: none;
+    margin: 15.5px;
+    border: 0 solid currentColor;
+    border-top-width: 2px;
 }
 
-.custom-accordion-head {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-bottom: 1px solid green;
-
-}
-
-.custom-padding {
-    padding: 10px;
-
-    display: flex;
-    margin-right: 10%;
-}
-
-.custom-accordion-body {
-    padding: 20px;
-    -webkit-transition: opacity 600ms, visibility 600ms;
-    transition: opacity 600ms, visibility 600ms;
+.mat-calendar-next-button:hover{
+    color: black;
 }
