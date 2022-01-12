@@ -110,6 +110,7 @@ export class SetTargetTabsComponent implements OnInit {
     Multiple;
     AssignedTargetHeading;
     userGroup: any = [];
+    isMCO:boolean=false;
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -257,7 +258,9 @@ export class SetTargetTabsComponent implements OnInit {
                     this.bankTargets = baseResponse?.Targets[0]?.BankTargets;
                     debugger
                     this.Heading();
-
+                    if(baseResponse?.Targets[0]?.DisbaleControls){
+                        this.isMCO = baseResponse?.Targets[0]?.DisbaleControls;
+                    }
                     this.ishidden = true;
                     this.TargetData.UserID=this.UserID;
                     // this.Label = baseResponse?.Targets[0]?.Heading["Name"];

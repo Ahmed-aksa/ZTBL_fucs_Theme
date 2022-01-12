@@ -39,6 +39,10 @@ const routing = [
         component: TargetsComponent,
     },
     {
+        path: "view-targets",
+        component: TargetsComponent,
+    },
+    {
         path: "create-tour-diary",
         component: TourDairyMcoComponent,
     },
