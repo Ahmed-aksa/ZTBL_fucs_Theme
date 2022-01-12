@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, ChangeDetectionStrategy, Injector } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -25,20 +25,22 @@ import { Lov, LovConfigurationKey } from 'app/shared/classes/lov.class';
 import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker/datepicker';
+import { MatCalendarHeader } from '@angular/material/datepicker';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
     parse: {
         dateInput: 'MM/YYYY',
-      },
-      display: {
+    },
+    display: {
         dateInput: 'MM/YYYY',
         monthYearLabel: 'MMM YYYY',
         dateA11yLabel: 'LL',
         monthYearA11yLabel: 'MMMM YYYY',
-      },
+    },
 };
 
+export let AppInjector: Injector;
 
 @Component({
     selector: 'create-tour-plan',
@@ -99,11 +101,12 @@ export class CreateTourLlanComponent implements OnInit {
         this.tourPlanForm = this.fb.group({
             TourPlanId: [],
             CircleName: [],
-            VisitedDate: ["", Validators.required],
+            VisitedDate: [moment(), Validators.required],
             Purpose: ["", Validators.required],
             Remarks: ["", Validators.required],
             Status: [""],
         });
+        this.GetHolidays(new Date());
 
     }
 
@@ -128,6 +131,7 @@ export class CreateTourLlanComponent implements OnInit {
                 }
                 VisitedDate = day + "" + month + "" + year;
                 const branchWorkingDate = new Date(year, month - 1, day);
+                this.GetHolidays(branchWorkingDate);
                 this.VisitedDate = VisitedDate;
                 this.tourPlanForm.controls.VisitedDate.setValue(branchWorkingDate)
             } catch (e) {
@@ -145,6 +149,7 @@ export class CreateTourLlanComponent implements OnInit {
                 }
                 VisitedDate = day + "" + month + "" + year;
                 const branchWorkingDate = new Date(year, month - 1, day);
+                this.GetHolidays(branchWorkingDate);
                 this.VisitedDate = VisitedDate;
                 this.tourPlanForm.controls.VisitedDate.setValue(branchWorkingDate);
             } catch (e) {
@@ -152,6 +157,15 @@ export class CreateTourLlanComponent implements OnInit {
         }
 
     }
+    dateFilter = (d: Date) => {
+        if (!d) {
+            return;
+        }
+        var date = new Date(d);
+         var isTrue= this.disAbleDate.indexOf(+date.getDate()) == -1;
+         console.log(isTrue);
+         return isTrue;
+    };
     AddCal() {
         if (this.tourPlanForm.invalid) {
             const controls = this.tourPlanForm.controls;
@@ -167,12 +181,12 @@ export class CreateTourLlanComponent implements OnInit {
         this.tourPlanService
             .createTourPlan(this.TourPlan)
             .pipe(finalize(() => {
-                this.tragetList = [];
                 this.spinner.hide();
             }))
             .subscribe(
                 (baseResponse) => {
                     if (baseResponse.Success) {
+                        this.tragetList = [];
                         this.tragetList = baseResponse.TourPlan.TourPlans;
                         this.layoutUtilsService.alertElementSuccess(
                             "",
@@ -208,14 +222,6 @@ export class CreateTourLlanComponent implements OnInit {
     }
     _takeFocusAway = (datepicker: MatDatepicker<Moment>) => { };
 
-    // _yearSelectedHandler(chosenDate: Moment, datepicker: MatDatepicker<Moment>) {
-
-    //     chosenDate.set({ date: 1 });
-
-    //     this.date.setValue(chosenDate, { emitEvent: false });
-    //     this.onChange(chosenDate.toDate());
-    //     this.onTouched();
-    // }
     _selectMonthHandler(chosenDate: Moment, datepicker: MatDatepicker<Moment>) {
         datepicker.close();
         chosenDate.set({ date: 1 });
@@ -227,17 +233,13 @@ export class CreateTourLlanComponent implements OnInit {
     // Function to call when the date changes.
     onChange = (year: Date) => {
         debugger;
-        var  y = year.getFullYear(), m = year.getMonth();
+        var y = year.getFullYear(), m = year.getMonth();
         var firstDay = new Date(y, m, 1);
         var lastDay = new Date(y, m + 1, 0);
-        var startDate=this.datepipe.transform(firstDay, 'yyyy-MM-dd')
-        var endDate=this.datepipe.transform(lastDay, 'yyyy-MM-dd')
-
+        var startDate = this.datepipe.transform(firstDay, 'yyyy-MM-dd')
+        var endDate = this.datepipe.transform(lastDay, 'yyyy-MM-dd')
         var daylist = this.getDaysArray(new Date(startDate), new Date(endDate));
-        this.tourPlanService.GetHolidays(this.dateFormte(startDate), this.dateFormte(endDate)).pipe(finalize(() => { })).subscribe(result => {
-            this.disAbleDate = result;
 
-        });
 
         const dialogRef = this.dialog.open(CreateTourPlanPopupComponent, {
             width: '60%',
@@ -249,6 +251,24 @@ export class CreateTourLlanComponent implements OnInit {
         });
 
     };
+    GetHolidays(year: Date) {
+        var y = year.getFullYear(), m = year.getMonth();
+        var firstDay = new Date(y, m, 1);
+        var lastDay = new Date(y, m + 1, 0);
+        var startDate = this.datepipe.transform(firstDay, 'yyyy-MM-dd')
+        var endDate = this.datepipe.transform(lastDay, 'yyyy-MM-dd')
+        //var daylist = this.getDaysArray(new Date(startDate), new Date(endDate));
+        this.disAbleDate = [];
+        this.tourPlanService.GetHolidays(this.dateFormte(startDate), this.dateFormte(endDate)).pipe(finalize(() => { })).subscribe(result => {
+            result.TourPlan.HolidaysByDate.forEach(element => {
+                this.disAbleDate.push(Number(element.HolidayDate.substr(0, 2)))
+            });
+            debugger;
+
+
+        });
+    }
+
 
     getDaysArray(start, end) {
         for (var arr = [], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
@@ -261,10 +281,10 @@ export class CreateTourLlanComponent implements OnInit {
     onTouched = () => { };
     display(id, display) {
 
-        if (!display) { 
+        if (!display) {
             return;
         }
-        
+
         debugger;
         let current_display = document.getElementById('table_' + id).style.display;
         if (current_display == 'none') {
@@ -276,7 +296,7 @@ export class CreateTourLlanComponent implements OnInit {
     }
     addTragetLitsChileDto(index) {
         debugger
-        if (!this.tragetLitsPartnentDto[index].tragetLitsChileDto) { 
+        if (!this.tragetLitsPartnentDto[index].tragetLitsChileDto) {
             this.tragetLitsPartnentDto[index].tragetLitsChileDto = [];
         }
         this.tragetLitsPartnentDto[index].tragetLitsChileDto.push(new TragetLitsChileDto())
@@ -300,7 +320,7 @@ export class TragetLits {
 export class TragetLitsPartnentDto {
     date: any
     tragetLitsChileDto: Array<TragetLitsChileDto> = new Array<TragetLitsChileDto>();
-    
+
 }
 export class TragetLitsChileDto {
     Purpose: any
@@ -309,3 +329,53 @@ export class TragetLitsChileDto {
 
 
 
+
+
+/** Custom header component for datepicker. */
+@Component({
+    selector: 'example-header',
+    template: `
+  <div class="mat-calendar-header">
+    <div class="mat-calendar-controls">
+      <button mat-button type="button" class="mat-calendar-period-button"
+              (click)="currentPeriodClicked()" [attr.aria-label]="periodButtonLabel"
+              cdkAriaLive="polite">
+        {{periodButtonText}}
+        <div class="mat-calendar-arrow"
+             [class.mat-calendar-invert]="calendar.currentView != 'month'"></div>
+      </button>
+  
+      <div class="mat-calendar-spacer"></div>
+  
+      <ng-content></ng-content>
+  
+      <button mat-icon-button type="button" class="mat-calendar-previous-button"
+              [disabled]="!previousEnabled()" (click)="customPrev()"
+              [attr.aria-label]="prevButtonLabel">
+      </button>
+  
+      <button mat-icon-button type="button" class="mat-calendar-next-button"
+              [disabled]="!nextEnabled()" (click)="customNext()"
+              [attr.aria-label]="nextButtonLabel">
+      </button>
+    </div>
+  </div>  `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ExampleHeader extends MatCalendarHeader<any> {
+    currentPeriodClicked(): void {
+        this.calendar.currentView = this.calendar.currentView == 'month' ? 'multi-year' : 'month';
+    }
+    // CreateTourLlanComponent =
+    customPrev(): void {
+        console.log(this.calendar.activeDate)
+        // this.parent.parentFunction()
+        this.previousClicked()
+    }
+
+    customNext(): void {
+        console.log(this.calendar.activeDate)
+        this.nextClicked()
+    }
+
+}
