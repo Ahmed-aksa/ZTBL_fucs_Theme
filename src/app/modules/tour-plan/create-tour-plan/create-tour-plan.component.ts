@@ -91,6 +91,7 @@ export class CreateTourLlanComponent implements OnInit {
         this.createForm();
         this.getPurposeofVisitLov();
         this.disAbleDate = [];
+
     }
     async getPurposeofVisitLov() {
         var lovData = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.TourPlanPurpose });
@@ -259,6 +260,7 @@ export class CreateTourLlanComponent implements OnInit {
         var endDate = this.datepipe.transform(lastDay, 'yyyy-MM-dd')
         //var daylist = this.getDaysArray(new Date(startDate), new Date(endDate));
         this.disAbleDate = [];
+
         this.tourPlanService.GetHolidays(this.dateFormte(startDate), this.dateFormte(endDate)).pipe(finalize(() => { })).subscribe(result => {
             result.TourPlan.HolidaysByDate.forEach(element => {
                 this.disAbleDate.push(Number(element.HolidayDate.substr(0, 2)))
@@ -370,6 +372,7 @@ export class ExampleHeader extends MatCalendarHeader<any> {
     customPrev(): void {
         console.log(this.calendar.activeDate)
         // this.parent.parentFunction()
+        
         this.previousClicked()
     }
 

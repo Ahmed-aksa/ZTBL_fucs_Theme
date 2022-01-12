@@ -319,10 +319,10 @@ export class GeofencingEditComponent implements OnInit {
                     // delete all polygon that are already drawn on google map.
                     this.deleteAllPolygons()
 
+                    this.multiPolygonArray = []
+                    
                     circles.forEach((o, i) => {
 
-                        debugger
-                        this.multiPolygonArray = []
                         var polygonArray = []
                         var existingPolygonPoints = []
                         var circleInfo
@@ -388,7 +388,7 @@ export class GeofencingEditComponent implements OnInit {
 
         var index = -1
         var intersection: any;
-
+        debugger
         for (var i = 0; i < this.multiPolygonArray.length; i++) {
             var poly2 = polygon([
                 this.multiPolygonArray[i].circleFence
@@ -488,7 +488,6 @@ export class GeofencingEditComponent implements OnInit {
 
         /* --------------- End ---------------------*/
 
-
         this.spinner.show()
         if (!this.checkForOverlapping(polygonArrayForOverlapingCheck)) {
 
@@ -505,6 +504,8 @@ export class GeofencingEditComponent implements OnInit {
             this.request.Branch = this.data.branch;
             this.submitted = true;
 
+            this.spinner.hide()
+            return
             if (this.OldFancPoints.length > 0) {
                 this._circleService.CirclePoligonUpdate(this.request)
                     .pipe(
