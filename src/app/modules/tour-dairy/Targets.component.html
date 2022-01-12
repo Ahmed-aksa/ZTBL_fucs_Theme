@@ -5,7 +5,7 @@
                    animationDuration="200ms" style="background-color: white;">
         <ng-container *ngFor="let item of userGroup">
 
-            <mat-tab  *ngIf=" item.ProfileID=='69'" ng-disable="visibleFlag" label="ZM RECOVERY">
+            <mat-tab  *ngIf=" item.ProfileID=='69'" label="ZM RECOVERY">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 

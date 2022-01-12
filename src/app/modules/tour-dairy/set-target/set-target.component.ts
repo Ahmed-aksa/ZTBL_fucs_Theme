@@ -38,6 +38,7 @@ class TargetData{
     Targets;
     BankTargets?:[];
     AssignedTargetHeading;
+    DisbaleControls;
 }
 
 class TargetDuration {
@@ -108,6 +109,7 @@ export class SetTargetComponent implements OnInit {
     isBankTarget: boolean = false;
     TagName;
     Multiple;
+    isMCO:boolean=false;
     AssignedTargetHeading;
     constructor(
         private fb: FormBuilder,
@@ -133,9 +135,26 @@ export class SetTargetComponent implements OnInit {
         }
         return true;
     }
+    sortOn (arr, prop) {
+        arr.sort (
+            function (a, b) {
+                if (a[prop] < b[prop]){
+                    return -1;
+                } else if (a[prop] > b[prop]){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        );
+    }
 
     ngOnInit(): void {
-
+        // const userInfo = this.userUtilsService.getUserDetails();
+        //
+        // if(userInfo?.User?.userGroup[0]?.ProfileID=="56"){
+        //     this.isMCO=true;
+        // }
 
         this.GetTragetDuration();
         this.createForm();
@@ -143,12 +162,16 @@ export class SetTargetComponent implements OnInit {
         this.TargetData;
         if(this.multiple==true){
             this.isChild = true;
-
+            debugger
             // this.Multiple=this.TargetData.Targets;
             this.Label = this.TargetData?.Heading["Name"];
             this.targetForm.controls.Duration.setValue(this.dateDuration)
             this.headings = this.TargetData?.Heading;
+            if(this.TargetData?.DisbaleControls){
+                this.isMCO = this.TargetData?.DisbaleControls;
+            }
             this.targets = this.TargetData?.Targets;
+            this.sortOn(this.targets, "Name")
             this.assignedTarget = this.TargetData?.AssignedTarget;
             if (this.TargetData?.AssignedTarget) {
                 this.ShowassignedTarget = Object.values(this.TargetData.AssignedTarget);
@@ -177,6 +200,9 @@ export class SetTargetComponent implements OnInit {
                     }
                 });
             }
+            // if(response.Target.DisbaleControls){
+            //     this.isMCO = DisbaleControls
+            // }
             this.bankTargets = this.TargetData?.BankTargets;
 
             this.Heading();

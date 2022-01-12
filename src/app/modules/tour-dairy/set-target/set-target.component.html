@@ -139,7 +139,7 @@
                                         <div class="mat-form-field-fluid w-full" appearance="outline"
                                         >
                                             <mat-form-field  class="w-full">
-                                                <input matInput maxlength="20" name="id-{{rowIndex}}" [(ngModel)]="row[key]" mask="separator.2" thousandSeparator=","
+                                                <input matInput maxlength="20" [readonly]="isMCO" name="id-{{rowIndex}}" [(ngModel)]="row[key]" mask="separator.2" thousandSeparator=","
                                                         [attr.value]="row[key]"
                                                         (input)="onInputChanged($event.target.value, rowIndex, key)"
 
@@ -178,7 +178,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-2 mr-1">
+    <div *ngIf="!isMCO" class="row mt-2 mr-1">
         <div class="col-lg-12 text-right">
             <button class="ml-2 bg-green" mat-raised-button color="primary" (click)="save()"><mat-icon class="mr-2">save</mat-icon>Save</button>
             <button class="ml-2" mat-raised-button color="primary" (click)="submit()"><mat-icon class="mr-2">check_circle</mat-icon>Submit</button>

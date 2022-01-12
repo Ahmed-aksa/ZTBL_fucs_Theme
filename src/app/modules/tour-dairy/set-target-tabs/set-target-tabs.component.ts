@@ -73,7 +73,8 @@ export class SetTargetTabsComponent implements OnInit {
     @Input() multiple;
     @Input() dateDuration;
     @Input() TargetData=new TargetData;
-    Label=[];
+    Label="";
+    Labels=[];
     targetForm: FormGroup;
     private array = [];
     totals: any = [];
@@ -145,7 +146,7 @@ export class SetTargetTabsComponent implements OnInit {
             this.isChild = true;
 
             // this.Multiple=this.TargetData.Targets;
-            this.Label = this.TargetData?.Heading["Name"];
+            // this.Label = this.TargetData?.Heading["Name"];
             this.targetForm.controls.Duration.setValue(this.dateDuration)
             this.headings = this.TargetData?.Heading;
             this.targets = this.TargetData?.Targets;
@@ -261,10 +262,11 @@ export class SetTargetTabsComponent implements OnInit {
                     this.TargetData.UserID=this.UserID;
                     // this.Label = baseResponse?.Targets[0]?.Heading["Name"];
                     if(baseResponse?.Targets){
+                        this.Labels=[];
                         for(let i=0;i<baseResponse?.Targets?.length;i++){
-                            this.Label.push(baseResponse?.Targets[i]?.Heading["Name"])
+                            this.Labels.push(baseResponse?.Targets[i]?.Heading["Name"])
                         }
-
+                        debugger
                     }
                 } else {
                     this.Multiple=[]
@@ -275,6 +277,7 @@ export class SetTargetTabsComponent implements OnInit {
                     );
                 }
             });
+        console.log(this.Labels)
     }
 
 
