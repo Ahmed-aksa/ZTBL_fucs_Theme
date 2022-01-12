@@ -31,6 +31,7 @@ import {
     SubProposalGLModel
 } from 'app/shared/models/recovery.model';
 import {ToastrService} from "ngx-toastr";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-recovery-form',
@@ -54,6 +55,8 @@ export class RecoveryFormComponent implements OnInit {
     zone: any;
     branch: any;
     circle: any;
+    currentActivity: Activity;
+
     //RecoveryForm: FormGroup;
     RecoveryForm: FormGroup = this.formBuilder.group({
         RecoveryType: ['', [Validators.required]],
@@ -186,6 +189,16 @@ export class RecoveryFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.router.url == '/loan-recovery/sbs-fa-branch')
+            this.currentActivity = this.userUtilsService.getActivity('SBS Recovery');
+        if (this.router.url == '/loan-recovery/fa-branch')
+            this.currentActivity = this.userUtilsService.getActivity('Recovery');
+        if (this.router.url == '/loan-recovery/inter-branch')
+            this.currentActivity = this.userUtilsService.getActivity('Inter Branch Recovery');
+        if (this.router.url == '/loan-recovery/sbs-inter-branch')
+            this.currentActivity = this.userUtilsService.getActivity('SBS Inter Branch');
+        if (this.router.url == '/loan-recovery/search-recovery-transaction')
+            this.currentActivity = this.userUtilsService.getActivity('Advance Search Recovery');
         this.spinner.show();
         this.searchFilterCtrlCoordinator.valueChanges
             .pipe(takeUntil(this._onDestroy))

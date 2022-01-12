@@ -133,7 +133,8 @@
                 <div
                     class="cursor-pointer border bg-green h-10 mx-auto w-full place-content-center px-3 rounded-md flex"
                     (click)="AreaConvertor()">
-                    <img class="cursor-pointer calculator-img  w-6" src="../../../../../assets/media/icons/svg/Shopping/Calculator.svg"
+                    <img class="cursor-pointer calculator-img  w-6"
+                         src="../../../../../assets/media/icons/svg/Shopping/Calculator.svg"
                          alt="Calculator"/>
                     <p class="ml-2 mb-0 self-center">Area Convertor</p>
 
@@ -267,7 +268,7 @@
                         <p class="btn btn-primary" style="background-color: #01671B; border:none;">Attach</p>
                     </td>
                     <td (click)="deleteRow(i)" style="cursor:pointer;"
-                        *ngIf="!isFormReadonly|| !NumberOfCustomerDisable">
+                        *ngIf="(!isFormReadonly|| !NumberOfCustomerDisable) && currentActivity?.D">
                         <p class="btn btn-warning">Remove</p>
                     </td>
                 </tr>
@@ -302,14 +303,14 @@
                     <th colspan="6" class="text-center">Development Area (Marla)</th>
                 </tr>
                 <tr class="table-header-background">
-                    <th  class="px-2 border-r">Land Type</th>
-                    <th  class="px-4 border-r">Area</th>
-                    <th  class="px-4 border-r">1-Area Owned</th>
-                    <th  class="px-4 border-r">2-Leased In</th>
-                    <th  class="px-4 border-r">3-Leased Out</th>
-                    <th  class="px-4 border-r">4-Family Operated</th>
-                    <th  class="px-4 border-r">5-Under Custom Hiring</th>
-                    <th  class="px-4 border-r">Total (1+2+4+5-3)</th>
+                    <th class="px-2 border-r">Land Type</th>
+                    <th class="px-4 border-r">Area</th>
+                    <th class="px-4 border-r">1-Area Owned</th>
+                    <th class="px-4 border-r">2-Leased In</th>
+                    <th class="px-4 border-r">3-Leased Out</th>
+                    <th class="px-4 border-r">4-Family Operated</th>
+                    <th class="px-4 border-r">5-Under Custom Hiring</th>
+                    <th class="px-4 border-r">Total (1+2+4+5-3)</th>
                 </tr>
                 <tr class=" border-0 values-row">
                     <td class=" border-r border-gray-200">Barani</td>
@@ -429,7 +430,7 @@
 
                 <tr class=" border-0">
                     <td class="px-2 border-r border-gray-200">Un-Cultivated</td>
-                    <td  class="px-2 border-r border-gray-200">
+                    <td class="px-2 border-r border-gray-200">
                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                             <input type="text" [(ngModel)]="UnArea" [ngModelOptions]="{standalone: true}"
                                    placeholder="{{landDetailMarlaPlaceholder}}"
@@ -486,7 +487,7 @@
                 </tr>
 
                 <tr class=" border-0">
-                    <td  class="px-2 border-r border-gray-200">Un-cultivable</td>
+                    <td class="px-2 border-r border-gray-200">Un-cultivable</td>
                     <td class="px-2 border-r border-gray-200">
                         <mat-form-field class="mat-form-field-fluid" appearance="outline">
                             <input type="text" [(ngModel)]="UnAArea" (keyup)="onKeyInputCalculateValue($event)"
@@ -627,7 +628,7 @@
                 <mat-icon class="mr-2">create</mat-icon>
                 Land Charge Creation
             </button>
-            <button  mat-raised-button color="primary" (click)="landUploadFiles()" type="button"
+            <button mat-raised-button color="primary" (click)="landUploadFiles()" type="button"
                     *ngIf="AllowDocumentUpload && !hasHistoryLandInfoId && !isFormReadonly" class="ml-2 bg-green">
                 <mat-icon class="mr-2">cloud_upload</mat-icon>
                 Upload Documents
