@@ -5,12 +5,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class TargetTourplanService {
-
-  
-  hearderdate: BehaviorSubject<any>;
+    closeCalendarSource = new BehaviorSubject<any>(new Date());
+    isCloseCalander = this.closeCalendarSource.asObservable();
   constructor() {
+   // this.hearderdate = new BehaviorSubject(new Date());
   }
-  getDatefromHaeder(date: Date) {
-    this.hearderdate.next(date);
+//   getDatefromHaeder(date: Date) {
+//      this.hearderdate.next(date);
+//   }
+  closeCalander(message: Date) {
+    this.closeCalendarSource.next(message)
   }
 }

@@ -1,4 +1,4 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from 'app/shared/shared.module';
 import {RouterModule} from '@angular/router';
@@ -8,7 +8,7 @@ import { CreateTourLlanComponent } from './create-tour-plan/create-tour-plan.com
 import { CreateTourPlanPopupComponent } from './create-tour-plan/create-tour-plan-popup/create-tour-plan-popup.component';
 import { TargetsHierarchyComponent } from './targets-hierarchy/targets-hierarchy.component';
 import { TargetsTrackingComponent } from './targets-tracking/targets-tracking.component';
-
+export let AppInjector: Injector;
 const routing = [
 
     // {
@@ -59,4 +59,7 @@ const routing = [
     ]
 })
 export class TourPlanModule {
+    constructor(private injector: Injector) {
+        AppInjector = this.injector;
+      }
 }

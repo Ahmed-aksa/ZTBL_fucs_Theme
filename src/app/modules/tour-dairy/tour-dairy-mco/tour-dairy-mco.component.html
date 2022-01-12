@@ -21,14 +21,14 @@
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mr-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Mco Name</mat-label>
-                                            <input matInput placeholder="Enter Mco Name" formControlName="McoName" autocomplete="off" readonly="readonly"/>
+                                            <mat-label class="customMatLabel">Name of Officer</mat-label>
+                                            <input matInput placeholder="Enter Name of Officer" formControlName="Name" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">PPNO:</mat-label>
-                                            <input matInput placeholder="Enter PPNO" formControlName="PPNO" maxlength="30"
+                                            <mat-label class="customMatLabel">PP NO:</mat-label>
+                                            <input matInput placeholder="Enter Ppno" formControlName="Ppno" maxlength="30"
                                                    autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
@@ -39,12 +39,6 @@
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
-<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
-<!--                                        <button class="bg-gray-500" mat-raised-button color="primary" (click)="Add()">-->
-<!--                                            <mat-icon class="mr-2">add</mat-icon>-->
-<!--                                            Add-->
-<!--                                        </button>-->
-<!--                                    </div>-->
 
                                 </div>
 
@@ -61,7 +55,7 @@
 
     </div>
 <div class="row">
-    <div class="col-lg-12 p-0 ist-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+    <div class="col-lg-12 p-0 ist-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-3">
         <table class="table mb-0">
             <thead>
             <tr class="table-header-background text-center">
@@ -224,13 +218,13 @@
 
             <tr>
                 <td class="border-r border-gray-400">
-                    <div class="font-bold text-green text-center">
-                        Total
-                    </div>
-                    <!-- <mat-form-field class=" mat-form-field-fluid w-full"
+<!--                    <div class="font-bold text-green text-center">-->
+<!--                        Total-->
+<!--                    </div>-->
+                    <mat-form-field class=" mat-form-field-fluid w-full"
                                     appearance="outline">
                         <input matInput placeholder="Total">
-                    </mat-form-field> -->
+                    </mat-form-field>
                 </td>
                 <td class="border-r border-gray-400">
                     <mat-form-field class=" mat-form-field-fluid w-full"
@@ -355,7 +349,7 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-12 p-0 sec-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+    <div class="col-lg-12 p-0 sec-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-3">
 
         <table class="table mb-0 ">
                     <thead>
@@ -389,10 +383,20 @@
                         <td class="border-r border-gray-400"></td>
                         <td class="border-r border-gray-400"></td>
                         <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400">
+                            <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
+                                            appearance="outline">
+                                <input matInput>
+                            </mat-form-field>
+                        </td>
                         <td class="border-r border-gray-400"></td>
                         <td class="border-r border-gray-400"></td>
-                        <td class="border-r border-gray-400"></td>
-                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400">
+                            <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
+                                            appearance="outline">
+                                <input matInput>
+                            </mat-form-field>
+                        </td>
                         <td class="border-r border-gray-400"></td>
                     </tr>
 
@@ -402,7 +406,7 @@
 </div>
 
 <div class="row ">
-    <div class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+    <div class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-3">
         <table class="table mb-0 ">
             <thead>
             <tr class="table-header-background text-center">
@@ -448,10 +452,20 @@
             </thead>
             <tbody>
             <tr>
+                <td class="border-r border-gray-400">
+                    <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
+                                    appearance="outline">
+                        <input matInput>
+                    </mat-form-field>
+                </td>
                 <td class="border-r border-gray-400"></td>
                 <td class="border-r border-gray-400"></td>
-                <td class="border-r border-gray-400"></td>
-                <td class="border-r border-gray-400"></td>
+                <td class="border-r border-gray-400">
+                    <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
+                                    appearance="outline">
+                        <input matInput>
+                    </mat-form-field>
+                </td>
                 <td class="border-r border-gray-400"></td>
                 <td class="border-r border-gray-400"></td>
                 <td class="border-r border-gray-400"></td>
