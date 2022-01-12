@@ -163,8 +163,20 @@ export class SetTargetComponent implements OnInit {
                 this.AssignedTargetHeading = Object.values(this.TargetData?.AssignedTargetHeading);
             }
 
-            this.assignedTargetHeadingsData = this.TargetData?.AssignedTarget;
 
+            if(this.TargetData?.AssignedTargetHeading){
+                this.ShowassignedTarget=[];
+                Object.keys(this.TargetData?.AssignedTargetHeading).forEach(x=>{
+
+                    if(this.TargetData?.AssignedTarget[x]){
+                        this.ShowassignedTarget.push(this.TargetData?.AssignedTarget[x])
+                        //console.log(baseResponse?.Targets[0]?.AssignedTarget[x])
+                    }else{
+                        this.ShowassignedTarget.push('-')
+                        //console.log("-");
+                    }
+                });
+            }
             this.bankTargets = this.TargetData?.BankTargets;
 
             this.Heading();
