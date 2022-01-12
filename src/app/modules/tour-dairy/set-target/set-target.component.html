@@ -54,17 +54,19 @@
 <!--                        <th *ngFor="let v of AssignHeadingKeys">{{ v }}</th>-->
 <!--                    </tr>-->
 <!--                    </thead>-->
-                    <thead *ngIf="!AssignedTargetHeading">
-                    <tr class="table-header-background">
-                        <th></th>
-                        <ng-container *ngFor="let v of rowth;let i = index">
-                            <th *ngIf="i !=0">
-                                {{ v }}
-                            </th>
-                        </ng-container>
 
-                    </tr>
-                    </thead>
+<!--                    <thead *ngIf="!AssignedTargetHeading">-->
+<!--                    <tr class="table-header-background">-->
+<!--                        <th>s</th>-->
+<!--                        <ng-container *ngFor="let v of rowth;let i = index">-->
+<!--                            <th *ngIf="i !=0">-->
+<!--                                {{ v }}-->
+<!--                            </th>-->
+<!--                        </ng-container>-->
+
+<!--                    </tr>-->
+<!--                    </thead>-->
+
                     <thead *ngIf="AssignedTargetHeading">
                     <tr class="table-header-background">
                         <th></th>
@@ -76,9 +78,7 @@
 
                     </tr>
                     </thead>
-<!--                    {{ShowassignedTarget|json}}-->
-<!--                    {{assignedTarget|json}}-->
-<!--                    For Assigned Target     -->
+<!--                    Assigned Target Values-->
                     <tbody *ngIf="!bankTargets">
                    <tr>
                         <ng-container>
@@ -91,7 +91,7 @@
                     </tr>
                     </tbody>
  <!--                    For Bank Assigned Target     -->
-<!--                   Bank assigned target-->
+<!--                   Bank assigned Target Values-->
 <!--                    {{bankTargets|json}}-->
                     <tbody *ngIf="bankTargets?.length>0">
                     <tr></tr>
