@@ -1,4 +1,3 @@
-
 <div
     class="  sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
     <div
@@ -85,7 +84,7 @@
                         <ng-container>
                             <td><div><strong class="text-md">Assigned Targets: </strong></div></td>
                             <td *ngFor="let head of ShowassignedTarget" class="p-2">
-                                {{head}}
+                                {{head |number}}
                             </td>
 
                         </ng-container>
@@ -105,7 +104,7 @@
                                         <div class="mat-form-field-fluid w-full" appearance="outline"
                                         >
                                             <mat-form-field  class="w-full">
-                                                <input matInput maxlength="20" (keypress)="numberOnly($event)"
+                                                <input matInput maxlength="20"  name="id-{{rowIndexx}}" [(ngModel)]="roww[keyy]" mask="separator.2" thousandSeparator=","
                                                        [attr.value]="roww[keyy]"
                                                        (input)="onBankInputChanged($event.target.value, rowIndexx, keyy)"
                                                 />
@@ -140,7 +139,7 @@
                                         <div class="mat-form-field-fluid w-full" appearance="outline"
                                         >
                                             <mat-form-field  class="w-full">
-                                                <input matInput maxlength="20" (keypress)="numberOnly($event)"
+                                                <input matInput maxlength="20" name="id-{{rowIndex}}" [(ngModel)]="row[key]" mask="separator.2" thousandSeparator=","
                                                         [attr.value]="row[key]"
                                                         (input)="onInputChanged($event.target.value, rowIndex, key)"
 
@@ -166,7 +165,7 @@
                             <ng-container>
                                 <td><div><strong class="text-md">Totals: </strong></div></td>
                                 <td *ngFor="let a of totals" class="p-4">
-                                    {{a}}
+                                    {{a|number}}
                                 </td>
 
                             </ng-container>
@@ -179,7 +178,6 @@
             </div>
         </div>
     </div>
-
     <div class="row mt-2 mr-1">
         <div class="col-lg-12 text-right">
             <button class="ml-2 bg-green" mat-raised-button color="primary" (click)="save()"><mat-icon class="mr-2">save</mat-icon>Save</button>
