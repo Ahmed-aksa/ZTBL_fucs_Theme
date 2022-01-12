@@ -44,10 +44,9 @@
         <ng-container  *ngIf="Multiple?.length>0">
             <ng-container *ngFor="let m of Multiple;let i = index">
         <mat-tab [label]="Labels[i]">
-            sam
-<!--                    <ng-container>-->
-<!--                        <app-set-target [dateDuration]="dateDuration" [multiple]="true" [UserID]="UserID" [TargetData]="m" ></app-set-target>-->
-<!--                    </ng-container>-->
+                    <ng-container>
+                        <app-set-target [dateDuration]="dateDuration" [multiple]="true" [UserID]="UserID" [TargetData]="m" ></app-set-target>
+                    </ng-container>
         </mat-tab>
             </ng-container>
         </ng-container>
