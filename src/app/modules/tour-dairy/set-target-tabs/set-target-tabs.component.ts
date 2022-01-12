@@ -109,7 +109,7 @@ export class SetTargetTabsComponent implements OnInit {
     TagName;
     Multiple;
     AssignedTargetHeading;
-
+    userGroup: any = [];
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -137,7 +137,7 @@ export class SetTargetTabsComponent implements OnInit {
 
     ngOnInit(): void {
         debugger
-
+        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
         this.GetTragetDuration();
         this.createForm();
         this.UserID;
