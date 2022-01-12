@@ -33,9 +33,9 @@ export class TourDairyZmComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
     maxDate: Date;
-
     sign;
-
+    SelectedBranches = [];
+    preSelect: any;
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
@@ -44,11 +44,18 @@ export class TourDairyZmComponent implements OnInit {
         public dialog: MatDialog,
         private router: Router
     ) {
-        this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        this.loggedInUser = userUtilsService.getUserDetails();
+        console.log(this.loggedInUser)
     }
 
     ngOnInit(): void {
         this.createForm();
+        this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser.User.DisplayName);
+        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
+        this.gridForm.controls['Zone'].setValue(this.loggedInUser.Zone.ZoneName);
+        var zoneId = this.loggedInUser.Zone.ZoneId;
+
+        this.getBranches(zoneId);
     }
 
     isEnableReceipt(isTrCodeChange: boolean) {
@@ -91,10 +98,25 @@ export class TourDairyZmComponent implements OnInit {
         }
     }
 
+    getBranches(changedValue){
+        let changedZone = null;
+        if (changedValue.value) {
+            changedZone = {Zone: {ZoneId: changedValue.value}}
+        } else {
+            changedZone = {Zone: {ZoneId: changedValue}}
+        }
+
+
+        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.SelectedBranches = data.Branches;
+            console.log(this.SelectedBranches)
+        });
+    }
+
     createForm() {
         this.gridForm = this.fb.group({
             NameOfOfficer: [''],
-            PPNO: [''],
+            Ppno: [''],
             Month: [''],
             Zone: [''],
             Name: [''],
