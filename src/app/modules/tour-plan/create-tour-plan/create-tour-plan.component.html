@@ -72,7 +72,7 @@
             <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile border shadow-xs rounded-sm bg-gray-50"
                  id="custom-table-activity-list">
                 <div class="custom-accordion  rounded-lg my-2 bg-white shadow-sm border"
-                     *ngFor="let activity of tragetList;let i=index" (click)="display(i)">
+                     *ngFor="let activity of tragetLitsPartnentDto;let i=index" >
                     <div class="custom-accordion-head border-0"
                          style="cursor: pointer">
                         <div class="self-center ml-8">
@@ -82,10 +82,10 @@
                         </div>
 
                         <div class="mr-8">
-                            <button mat-icon-button *ngIf="" >
+                            <button mat-icon-button (click)="display(i, 'data')" >
                                 <mat-icon>expand_more </mat-icon>
                             </button>
-                            <button mat-icon-button>
+                            <button mat-icon-button (click)="display(i, 'data')">
                                 <mat-icon>expand_less</mat-icon>
                             </button>
                         </div>
@@ -93,31 +93,49 @@
                     <div class="custom-accordion-body bg-gray-50 border-t rounded"
                          id="{{'table_'+i}}"
                          style="display: none">
+                         <button (click)="addTragetLitsChileDto(i)" mat-icon-button>
+                            <mat-icon >add</mat-icon>
+                        </button>
+                        
                         <table class="table table-responsive" style="display: inline-table !important;">
                             <thead class="thead-light">
                             <tr class="table-header-background">
-                                <th>Activity Name</th>
-                                <th>Activity URL</th>
-                                <th>Actions</th>
+                                <th>Sr. No</th>
+                                <th>Purpose</th>
+                                <th>Purpose</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <!-- <tr *ngFor="let child of activity.ChildActvities">
-                                <td>{{child.ActivityName}}</td>
-                                <td>{{child.ActivityUrl}}</td>
+                            <tr *ngFor="let child of activity?.tragetLitsChileDto; let row=index;">
+                                <td>{{row+1}}</td>
                                 <td>
-                                    <button mat-icon-button color="primary" (click)="editActivity(child)">
-                                        <mat-icon  class="text-green">
-                                            {{ activity.isCoreactivity ? 'visibility' : 'create' }}
-                                        </mat-icon>
-                                    </button>&nbsp;
-                                    <button mat-icon-button color="warn" (click)="deleteActivity(child)">
-                                        <mat-icon>
-                                            delete
-                                        </mat-icon>
-                                    </button>
+                                    <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Purpose<strong class="matMandatory">*</strong></mat-label>
+                                            <mat-select >
+                                                <mat-option *ngFor="let loanType of purposeofVisitLov" [value]="loanType.Value">
+                                                    {{loanType.Name}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <!-- <mat-error *ngIf="hasError('DevProdFlag', 'required')">LoanType <strong>required</strong>
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
                                 </td>
-                            </tr> -->
+                                <td>
+                                    <div class="col-lg-3 col-sm-12  kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
+                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                <mat-label class="customMatLabel">Remarks</mat-label>
+                                                <input matInput  placeholder="Enter Remarks" 
+                                                    autocomplete="off" />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                </td>
+                             
+                            </tr>
                             </tbody>
                         </table>
                     </div>

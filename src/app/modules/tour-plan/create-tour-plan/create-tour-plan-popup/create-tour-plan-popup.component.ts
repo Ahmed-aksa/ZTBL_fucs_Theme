@@ -56,7 +56,6 @@ export class CreateTourPlanPopupComponent implements OnInit {
     }
 
     submit() {
-        debugger;
         var returnDate= this.data.daylist.filter(x=>x.isCheck==true);
         this.onCloseClick(returnDate);
         // this.auth.SendOTPResuest(this.otpForm.controls['otp'].value).pipe(finalize(() => {
@@ -86,7 +85,6 @@ export class CreateTourPlanPopupComponent implements OnInit {
     }
 
     onCloseClick(data: any): void {
-        debugger;
         this.dialogRef.close({data: {data}}); // Keep only this row
     }
     
