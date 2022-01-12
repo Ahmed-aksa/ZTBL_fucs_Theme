@@ -405,20 +405,21 @@
                                 <div class="col-lg-12">
                                     <div class="form-group kt-form__group">
                                         <button mat-raised-button color="primary" class="ml-2"
-                                        (click)="deleteRecovery()"
-                                        [disabled]="submitted || viewOnly || ibDisSave"
-                                        *ngIf="isEditMode || dataSaved">
+                                                (click)="deleteRecovery()"
+                                                [disabled]="submitted || viewOnly || ibDisSave"
+                                                *ngIf="(isEditMode || dataSaved) && currentActivity?.D">
                                             <mat-icon class="mr-2">delete_forever</mat-icon>
                                             Delete
                                         </button>
                                         <button mat-raised-button
-                                            class=" mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                            (click)="clearForm()"
-                                            [disabled]="submitted || transactionEdit || viewOnly || dataSaved">
+                                                class=" mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                                                (click)="clearForm()"
+                                                [disabled]="submitted || transactionEdit || viewOnly || dataSaved">
                                             <mat-icon class="mr-2"> clear_all</mat-icon>
                                             Clear
                                         </button>
-                                        <button style="background-color: #01671B;" *ngIf="isSimpleRecovery"
+                                        <button style="background-color: #01671B;"
+                                                *ngIf="isSimpleRecovery  && currentActivity?.C && currentActivity?.U"
                                                 mat-raised-button
                                                 color="primary"
                                                 (click)="save()"
@@ -429,7 +430,9 @@
                                         </button>
 
                                         <button mat-raised-button color="primary" class="ml-2" (click)="makeAndSubmit()"
-                                                [disabled]="submitted || viewOnly || ibDisSave">
+                                                [disabled]="submitted || viewOnly || ibDisSave"
+                                                *ngIf="currentActivity?.C && currentActivity?.U"
+                                        >
                                             <mat-icon class="mr-2">check_circle</mat-icon>
                                             {{submitButtonText}}</button>
 
