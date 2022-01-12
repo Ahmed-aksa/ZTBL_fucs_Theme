@@ -26,6 +26,6 @@ export class TourDairyMcoComponent implements OnInit {
         })
     }
 
-    Add(){}
+    submit(){}
 
 }
