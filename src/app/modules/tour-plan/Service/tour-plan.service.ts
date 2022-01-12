@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../environments/environment';
-import {map} from 'rxjs/operators';
-import {BaseRequestModel} from "../../../shared/models/base_request.model";
-import {Activity} from "../../../shared/models/activity.model";
-import {Circle} from "../../../shared/models/circle.model";
-import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {HttpUtilsService} from "../../../shared/services/http_utils.service";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {TourPlan} from "../Model/tour-plan.model";
-import {DEVICELOCATION} from "../../../shared/models/default.model";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
+import { map } from 'rxjs/operators';
+import { BaseRequestModel } from "../../../shared/models/base_request.model";
+import { Activity } from "../../../shared/models/activity.model";
+import { Circle } from "../../../shared/models/circle.model";
+import { UserUtilsService } from "../../../shared/services/users_utils.service";
+import { HttpUtilsService } from "../../../shared/services/http_utils.service";
+import { BaseResponseModel } from "../../../shared/models/base_response.model";
+import { TourPlan } from "../Model/tour-plan.model";
+import { DEVICELOCATION } from "../../../shared/models/default.model";
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -43,9 +43,9 @@ export class TourPlanService {
 
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourPlan`, this.request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     ChanageTourStatus(tourPlan: TourPlan) {
@@ -54,7 +54,7 @@ export class TourPlanService {
         var v = JSON.stringify(tourPlan)
 
         this.request.TourPlan = {
-            "TourPlanStatus": {"Status": tourPlan.Status, "TourPlanIds": [tourPlan.TourPlanId]}
+            "TourPlanStatus": { "Status": tourPlan.Status, "TourPlanIds": [tourPlan.TourPlanId] }
         };
 
 
@@ -62,9 +62,9 @@ export class TourPlanService {
 
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     ChanageTourStatusMultiple(tourPlan: TourPlan) {
@@ -73,15 +73,15 @@ export class TourPlanService {
         var v = JSON.stringify(tourPlan)
 
         this.request.TourPlan = {
-            "TourPlanStatus": {"Status": tourPlan.Status, "TourPlanIds": tourPlan.TourPlanId}
+            "TourPlanStatus": { "Status": tourPlan.Status, "TourPlanIds": tourPlan.TourPlanId }
         };
         var v = JSON.stringify(this.request)
 
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     GetTourPlanDetail(tourPlan) {
@@ -90,7 +90,7 @@ export class TourPlanService {
         var request = {
 
             TourPlanAndDiaryDto: {
-                TourPlan: {tourPlan}
+                TourPlan: { tourPlan }
             },
             TranId: 0,
             Branch: this.userInfo.Branch,
@@ -102,9 +102,9 @@ export class TourPlanService {
 
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanDetail`, request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     GetTourPlanForApprovel(tourPlan) {
@@ -113,7 +113,7 @@ export class TourPlanService {
         var request = {
 
             TourPlanAndDiaryDto: {
-                TourPlan: {tourPlan}
+                TourPlan: { tourPlan }
             },
             TranId: 0,
             Branch: this.userInfo.Branch,
@@ -125,9 +125,9 @@ export class TourPlanService {
 
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApprovel`, request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     SearchTourPlan(tourPlan, Limit, Offset, branch, zone) {
@@ -146,9 +146,9 @@ export class TourPlanService {
 
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     TourPlanForApproval(tourPlan, Limit, Offset) {
@@ -167,18 +167,18 @@ export class TourPlanService {
 
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApproval`, this.request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     getTargetsHeirarchy() {
         let request = new BaseRequestModel();
         request.User = this.userInfo.User;
         return this.http.post(`${environment.apiUrl}/Target/GetTargetHierarchy`, request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     updateTargetsHierarchy(single_target: any) {
@@ -186,9 +186,9 @@ export class TourPlanService {
         request.User = this.userInfo.User;
         request.Target = single_target;
         return this.http.post(`${environment.apiUrl}/Target/UpdateTargetHierarchy`, request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     getTargetsTracks(id: number, next_number: number, duration) {
@@ -201,21 +201,20 @@ export class TourPlanService {
         }
         request.User = this.userInfo.User;
         return this.http.post(`${environment.apiUrl}/Target/GetTargetTracking`, request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
-    GetHolidays(StartDate, EndDate) :Observable<any> {
-        debugger;
-     var resData={
-        "TourPlan" : {
-            "StartDate": StartDate,
-            "EndDate": EndDate 
+    GetHolidays(StartDate, EndDate): Observable<any> {
+        var resData = {
+            "TourPlan": {
+                "StartDate": StartDate,
+                "EndDate": EndDate
+            }
         }
-     }
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetHolidays`, resData,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: any) => res)
-        );
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: any) => res)
+            );
     }
 }

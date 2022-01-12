@@ -97,7 +97,7 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
             this._sessionExpireService.count.subscribe(c => {
                 if (c == 0) {
                     this.Logout();
-                    return;3
+                    return;
                 }
                 if (c < 60) {
                     this.popup = true;

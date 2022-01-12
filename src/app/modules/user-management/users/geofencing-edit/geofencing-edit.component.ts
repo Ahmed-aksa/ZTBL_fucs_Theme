@@ -451,7 +451,6 @@ export class GeofencingEditComponent implements OnInit {
     }
 
     onSubmit() {
-
         if (this.OldFancPoints.length > 0 && this.pointList.length < 3) {
 
             this.layoutUtilsService.alertElement("", "It looks like you have not made any changes in Fence. Please make desired changes and then try again", "No Changes Detected")
