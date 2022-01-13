@@ -96,8 +96,6 @@ export class TourDiaryBmComponent implements OnInit {
             NameOfOfficer: [''],
             PPNO: [''],
             Month: [''],
-            Zone: [''],
-            Branch: [''],
             Name: [''],
             Designation: [''],
             Date: [''],
