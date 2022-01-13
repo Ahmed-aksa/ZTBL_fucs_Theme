@@ -95,7 +95,7 @@
                     <mat-form-field class=" mat-form-field-fluid w-36"
                                     appearance="outline">
                                 <mat-label class="customMatLabel">Date</mat-label>
-                                <input matInput [matDatepicker]="picker2" formControlName="Date" maxlength="8"
+                                <input matInput readonly [matDatepicker]="picker2" formControlName="Date" maxlength="8"
                                        autocomplete="off" [max]="getToday()" (dateChange)="setDate()" appNumberOnly/>
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>

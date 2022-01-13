@@ -2,11 +2,21 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {CommonService} from "../../../shared/services/common.service";
+import {DatePipe} from "@angular/common";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {DateFormats} from "../../../shared/classes/lov.class";
 
 @Component({
     selector: 'app-tour-dairy-mco',
     templateUrl: './tour-dairy-mco.component.html',
-    styleUrls: ['./tour-dairy-mco.component.scss']
+    styleUrls: ['./tour-dairy-mco.component.scss'],
+    providers: [
+        DatePipe,
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
+    ],
 })
 export class TourDairyMcoComponent implements OnInit {
     gridForm: FormGroup;
@@ -19,6 +29,7 @@ export class TourDairyMcoComponent implements OnInit {
         private fb: FormBuilder,
         private userService: UserUtilsService,
         private _common: CommonService,
+        private datePipe: DatePipe,
     ) {
 
     }
@@ -37,7 +48,7 @@ export class TourDairyMcoComponent implements OnInit {
             Name: [null],
             Ppno: [null],
             Month: [null],
-            Date:[null]
+            Date:[]
         })
     }
 
@@ -52,8 +63,8 @@ export class TourDairyMcoComponent implements OnInit {
 
         // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
         this.minDate = this.gridForm.controls.Date.value;
-        var Date = this.gridForm.controls.Date.value;
-        if (Date._isAMomentObject == undefined) {
+        var varDate = this.gridForm.controls.Date.value;
+        if (varDate._isAMomentObject == undefined) {
             try {
                 var day = this.gridForm.controls.Date.value.getDate();
                 var month = this.gridForm.controls.Date.value.getMonth() + 1;
@@ -64,13 +75,14 @@ export class TourDairyMcoComponent implements OnInit {
                 if (day < 10) {
                     day = "0" + day;
                 }
-                Date = day + "" + month + "" + year;
-                this.date = Date;
+                varDate = day + "" + month + "" + year;
+                this.date = varDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
                 // )
                 // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
                 //  )
                 this.gridForm.controls.Date.setValue(branchWorkingDate);
+
             } catch (e) {
             }
         } else {
@@ -84,13 +96,14 @@ export class TourDairyMcoComponent implements OnInit {
                 if (day < 10) {
                     day = "0" + day;
                 }
-                Date = day + "" + month + "" + year;
+                varDate = day + "" + month + "" + year;
 
-                this.date = Date;
+                this.date = varDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
                 this.gridForm.controls.Date.setValue(branchWorkingDate);
             } catch (e) {
             }
         }
+        console.log(this.date)
     }
 }
