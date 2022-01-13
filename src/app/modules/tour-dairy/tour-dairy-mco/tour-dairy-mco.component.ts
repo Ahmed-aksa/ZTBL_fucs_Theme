@@ -36,64 +36,59 @@ export class TourDairyMcoComponent implements OnInit {
         this.gridForm = this.fb.group({
             Name: [null],
             Ppno: [null],
-            Month: [null]
+            Month: [null],
+            Date:[null]
         })
     }
 
+
+    submit(){}
     getToday() {
         // Today
-
-        if (this.gridForm.controls.ToDate.value) {
-            this.Today = this.gridForm.controls.ToDate.value
-            return this.Today;
-        } else {
-            // this.Today = new Date();
-            this.Today = this._common.workingDate();
-            return this.Today;
-        }
+        this.Today = this._common.workingDate();
+        return this.Today;
     }
-    submit(){}
-    setFromDate() {
+    setDate() {
 
-        // this.gridForm.controls.FromDate.value this.datePipe.transform(this.gridForm.controls.FromDate.value, 'ddMMyyyy')
-        this.minDate = this.gridForm.controls.FromDate.value;
-        var FromDate = this.gridForm.controls.FromDate.value;
-        if (FromDate._isAMomentObject == undefined) {
+        // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
+        this.minDate = this.gridForm.controls.Date.value;
+        var Date = this.gridForm.controls.Date.value;
+        if (Date._isAMomentObject == undefined) {
             try {
-                var day = this.gridForm.controls.FromDate.value.getDate();
-                var month = this.gridForm.controls.FromDate.value.getMonth() + 1;
-                var year = this.gridForm.controls.FromDate.value.getFullYear();
+                var day = this.gridForm.controls.Date.value.getDate();
+                var month = this.gridForm.controls.Date.value.getMonth() + 1;
+                var year = this.gridForm.controls.Date.value.getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
                 if (day < 10) {
                     day = "0" + day;
                 }
-                FromDate = day + "" + month + "" + year;
-                this.date = FromDate;
+                Date = day + "" + month + "" + year;
+                this.date = Date;
                 const branchWorkingDate = new Date(year, month - 1, day);
                 // )
                 // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
                 //  )
-                this.gridForm.controls.FromDate.setValue(branchWorkingDate);
+                this.gridForm.controls.Date.setValue(branchWorkingDate);
             } catch (e) {
             }
         } else {
             try {
-                var day = this.gridForm.controls.FromDate.value.toDate().getDate();
-                var month = this.gridForm.controls.FromDate.value.toDate().getMonth() + 1;
-                var year = this.gridForm.controls.FromDate.value.toDate().getFullYear();
+                var day = this.gridForm.controls.Date.value.toDate().getDate();
+                var month = this.gridForm.controls.Date.value.toDate().getMonth() + 1;
+                var year = this.gridForm.controls.Date.value.toDate().getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
                 if (day < 10) {
                     day = "0" + day;
                 }
-                FromDate = day + "" + month + "" + year;
+                Date = day + "" + month + "" + year;
 
-                this.date = FromDate;
+                this.date = Date;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.FromDate.setValue(branchWorkingDate);
+                this.gridForm.controls.Date.setValue(branchWorkingDate);
             } catch (e) {
             }
         }
