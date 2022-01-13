@@ -10,15 +10,16 @@ export class TargetsComponent implements OnInit {
     userGroup: any = [];
 
     constructor() {
-
     }
 
-
+ isHiddenTab:boolean=true
     ngOnInit(): void {
-        debugger
-        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
-
+        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup;
     }
 
-
+    applyClass(){
+        if(this.userGroup?.length==1){
+           return "dash-tab";
+        }
+    }
 }
