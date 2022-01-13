@@ -94,8 +94,6 @@ export class TourDiaryPcComponent implements OnInit {
             NameOfOfficer: [''],
             PPNO: [''],
             Month: [''],
-            Zone: [''],
-            Branch: [''],
             Name: [''],
             Designation: [''],
             Date: [''],
