@@ -4,7 +4,7 @@
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">Tour Plan List</div>
+            <div class="heading">Tour Plan For Approval</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
@@ -21,11 +21,11 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div [formGroup]="TourPlan">
+            <div [formGroup]="tourPlanApprovalForm">
 
 
                 <div class="flex mt-1" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="TourPlan" [should_hide_fields]="true"
+                    <app-zone-branch-circle [form]="tourPlanApprovalForm" [should_hide_fields]="true"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
@@ -33,7 +33,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">From</mat-label>
                                 <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off"
-                                       formControlName="FromDate" [max]="getToday()" (dateChange)="setFromDate()"
+                                       formControlName="FromDate" (dateChange)="setFromDate()" #to_date
                                        autocomplete="off">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
@@ -46,7 +46,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">To</mat-label>
                                 <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy"
-                                       formControlName="ToDate" [min]="minDate" [max]="getTodayForTo()"
+                                       formControlName="ToDate" [min]="minDate"
                                        (dateChange)="setToDate()" autocomplete="off">
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
@@ -56,21 +56,14 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label>Select tourPlan Status</mat-label>
-                                <mat-select formControlName="Status">
-                                    <mat-option value="">
-                                        Select
-                                    </mat-option>
-                                    <mat-option *ngFor="let obj of tourPlanStatusLov?.LOVs" [value]="obj.Value">
-                                        {{obj.Name}}
-                                    </mat-option>
-                                </mat-select>
+                                <mat-label>PPNO</mat-label>
+                                <input matInput formControlName="PPNO">
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button (click)="SearchTourPlan()" type="button"
+                            <button (click)="searchTourPlanApproval()" type="button"
                                     class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
@@ -115,7 +108,7 @@
                      style="cursor: pointer">
                     <div class=" self-center ml-8">
                         <span class=" text-green">
-                            {{activity.VisitedDate}}
+                            {{activity.UserPPNo}}
                         </span>
                     </div>
 

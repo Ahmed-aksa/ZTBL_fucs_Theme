@@ -1,7 +1,7 @@
 <div class="sm:flex grid" [formGroup]="form">
 
     <div class="mx-2">
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;" *ngIf="show_zone">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Zone</mat-label>
                 <mat-select [(ngModel)]="selected_z" formControlName="ZoneId" *ngIf="!single_zone"
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="mx-2">
-        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;" *ngIf="show_branch">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Branch</mat-label>
                 <mat-select matInput [(ngModel)]="selected_b" formControlName="BranchCode" *ngIf="!single_branch"
@@ -40,7 +40,7 @@
             </mat-form-field>
         </div>
     </div>
-    <div *ngIf="should_show_circle" class="mx-2">
+    <div *ngIf="should_show_circle && show_circle" class="mx-2">
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
