@@ -141,11 +141,15 @@ export class TourPlanService {
         this.request.TourPlan.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
+      var date ={
+        "User": this.request.User,
+        "TourPlan":  tourPlan 
+            
+      }
+       // var req = JSON.stringify(this.request);
 
-        var req = JSON.stringify(this.request);
 
-
-        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, date,
             { headers: this.httpUtils.getHTTPHeaders() }).pipe(
                 map((res: BaseResponseModel) => res)
             );
