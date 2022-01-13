@@ -223,12 +223,12 @@ export class TourPlanService {
 
     searchForTourPlanApproval(
         approval_from: any,
-        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any) {
+        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
-        debugger;
         let request = {
             TourPlan: {
+                UserId: user_id,
                 CircleId: circle?.CircleId,
                 BranchCode: branch?.BranchCode,
                 ZoneId: zone?.ZoneId,

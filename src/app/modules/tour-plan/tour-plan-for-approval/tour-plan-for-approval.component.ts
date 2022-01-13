@@ -16,9 +16,15 @@ import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {finalize} from "rxjs/operators";
+import {finalize, map} from "rxjs/operators";
 import {TourPlan} from '../Model/tour-plan.model';
 import moment from "moment";
+import {SignatureDailogDairyComponent} from "../../tour-dairy/signature-dailog-dairy/signature-dailog-dairy.component";
+import {SignaturePadForTourComponent} from "../signature-pad-for-tour/signature-pad-for-tour.component";
+import {data} from "autoprefixer";
+import {environment} from "../../../../environments/environment";
+import {ToastrService} from "ngx-toastr";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
     selector: 'app-tour-plan-for-approval',
@@ -82,6 +88,8 @@ export class TourPlanForApprovalComponent implements OnInit {
                 private router: Router,
                 private spinner: NgxSpinnerService,
                 private tourPlanService: TourPlanService,
+                private toaster: ToastrService,
+                private http: HttpClient,
                 private _lovService: LovService,
                 private layoutUtilsService: LayoutUtilsService,
                 private _circleService: CircleService,
@@ -313,7 +321,20 @@ export class TourPlanForApprovalComponent implements OnInit {
 
     }
 
-    toggleAccordion(i: number) {
+    toggleByDateAccordion(i) {
+        let down_arrow = document.getElementById('arrow_down_date_' + i).style.display;
+        if (down_arrow == 'block') {
+            document.getElementById('arrow_down_date_' + i).style.display = 'none';
+            document.getElementById('arrow_up_date_' + i).style.display = 'block';
+            document.getElementById('table_date_' + i).style.display = 'block';
+        } else {
+            document.getElementById('arrow_up_date_' + i).style.display = 'none';
+            document.getElementById('arrow_down_date' + i).style.display = 'block';
+            document.getElementById('table_date_' + i).style.display = 'none';
+        }
+    }
+
+    toggleAccordion(i: number, user_id) {
         let down_arrow = document.getElementById('arrow_down_' + i).style.display;
         if (down_arrow == 'block') {
             document.getElementById('arrow_down_' + i).style.display = 'none';
@@ -323,20 +344,20 @@ export class TourPlanForApprovalComponent implements OnInit {
             document.getElementById('arrow_up_' + i).style.display = 'none';
             document.getElementById('arrow_down_' + i).style.display = 'block';
             document.getElementById('table_' + i).style.display = 'none';
-
         }
+        this.searchTourPlanApproval(false, user_id, i);
     }
 
     Plans;
 
-    searchTourPlanApproval(start = false) {
+    searchTourPlanApproval(start = false, user_id = null, index = 0) {
 
         this.spinner.show();
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm.value);
-        this.tourPlanService.searchForTourPlanApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle)
+        this.tourPlanService.searchForTourPlanApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -347,23 +368,22 @@ export class TourPlanForApprovalComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-
-                    this.TourPlans = baseResponse.TourPlan.TourPlans;
+                    if (user_id) {
+                        this.TourPlans[index].TourPlansByDate = baseResponse.TourPlan.TourPlansByDate
+                    } else {
+                        this.TourPlans = baseResponse.TourPlan.TourPlans;
+                    }
                     this.dataSource.data = baseResponse.TourPlan.TourPlans;
-                    if (this.dataSource.data.length > 0)
+                    if (this.dataSource.data?.length > 0)
                         this.matTableLenght = true;
                     else
                         this.matTableLenght = false;
 
                     this.dv = this.dataSource.data;
-                    this.totalItems = baseResponse.TourPlan.TourPlansByDate[0].TourPlans[0].TotalRecords;
-                    this.dataSource.data = this.dv.slice(0, this.totalItems)
-                    //this.dataSource = new MatTableDataSource(data);
-
-                    // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
-                    //this.paginate(this.pageIndex) //calling paginate function
+                    // this.totalItems = baseResponse.TourPlan.TourPlansByDate[0].TourPlans[0].TotalRecords;
+                    this.dataSource.data = this.dv?.slice(0, this.totalItems)
                     this.OffSet = this.pageIndex;
-                    this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                 } else {
 
                     if (this.dv != undefined) {
@@ -388,6 +408,8 @@ export class TourPlanForApprovalComponent implements OnInit {
             return "Submit";
         } else if (status == 'N') {
             return "Pending";
+        } else if (status == 'S') {
+            return "Submitted";
         } else if (status == 'A') {
             return "Authorized";
         } else if (status == 'R') {
@@ -472,5 +494,44 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
+    }
+
+    approvePlan(child: any, status: string, ids = []) {
+        if (ids == []) {
+            ids.push(String(child.TourPlanId));
+        }
+        if (status == 'R') {
+            let formdata = new FormData();
+            formdata.append('UserID', child.UserId);
+            formdata.append('TourPlanIds', JSON.stringify(ids));
+            formdata.append('Status', 'R');
+            formdata.append('Remarks', '');
+            formdata.append('Signature', '');
+            this.http
+                .post<any>(
+                    `${environment.apiUrl}/TourPlanAndDiary/ApproveTourPlan`,
+                    formdata
+                )
+                .pipe(map((res: BaseResponseModel) => res)).subscribe((data) => {
+                if (data.Success) {
+                    this.toaster.success(data.Message);
+                } else {
+                    this.toaster.error(data.Message);
+                }
+            });
+        } else {
+            const signatureDialogRef = this.dialog.open(
+                SignaturePadForTourComponent,
+                {width: '500px', disableClose: true, data: {child: child, ids: ids}},
+            );
+        }
+    }
+
+    approveAll(i: number, j: number, plan_by_date: any) {
+        let ids = [];
+        this.TourPlans[i]?.TourPlansByDate[j]?.TourPlans.forEach((single_data) => {
+            ids.push(String(single_data.TourPlanId));
+        })
+        this.approvePlan(this.TourPlans[i]?.TourPlansByDate[j]?.TourPlans[0], 'A', ids);
     }
 }
