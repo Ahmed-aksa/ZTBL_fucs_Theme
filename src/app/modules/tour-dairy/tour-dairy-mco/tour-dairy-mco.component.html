@@ -94,7 +94,15 @@
                 <td class="border-r border-gray-400">
                     <mat-form-field class=" mat-form-field-fluid w-36"
                                     appearance="outline">
-                        <input matInput>
+                        <div class="mx-2" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label class="customMatLabel">From</mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="FromDate" maxlength="8"
+                                       autocomplete="off" [max]="getToday()" (dateChange)="setFromDate()" appNumberOnly/>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
                     </mat-form-field>
                 </td>
                 <td class="border-r border-gray-400">
