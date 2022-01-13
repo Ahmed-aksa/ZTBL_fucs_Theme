@@ -199,6 +199,11 @@ export class SetTargetTabsComponent implements OnInit {
     }
 
     assignedTargetHeadingsData
+    applyClass(){
+        if(this.Labels?.length==1){
+            return "dash-tab";
+        }
+    }
 
     GetTargets(value: any) {
         if (!value) {
@@ -280,7 +285,6 @@ export class SetTargetTabsComponent implements OnInit {
                     );
                 }
             });
-        console.log(this.Labels)
     }
 
 
