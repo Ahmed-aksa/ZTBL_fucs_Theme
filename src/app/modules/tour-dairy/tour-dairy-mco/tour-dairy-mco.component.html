@@ -1,4 +1,4 @@
-<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+<div [formGroup]="gridForm" class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
 
 
     <div class="row pt-3">
@@ -10,7 +10,7 @@
 
     <div id="Kt-portlet-margin-top">
         <div class="collapse show" id="collapseExample">
-                <form [formGroup]="gridForm" class="kt-form kt-form--group-seperator-dashed">
+                <div class="kt-form kt-form--group-seperator-dashed">
 
                     <div class="kt-form">
 
@@ -49,7 +49,7 @@
                     </div>
 
 
-                </form>
+                </div>
         </div>
 
 
@@ -94,15 +94,11 @@
                 <td class="   ">
                     <mat-form-field class=" mat-form-field-fluid w-36"
                                     appearance="outline">
-                        <div class="mx-2" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label class="customMatLabel">From</mat-label>
-                                <input matInput [matDatepicker]="picker2" formControlName="FromDate" maxlength="8"
-                                       autocomplete="off" [max]="getToday()" (dateChange)="setFromDate()" appNumberOnly/>
+                                <mat-label class="customMatLabel">Date</mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="Date" maxlength="8"
+                                       autocomplete="off" [max]="getToday()" (dateChange)="setDate()" appNumberOnly/>
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
-                            </mat-form-field>
-                        </div>
                     </mat-form-field>
                 </td>
                 <td class="   ">
