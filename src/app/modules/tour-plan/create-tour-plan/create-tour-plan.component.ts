@@ -349,16 +349,16 @@ export class TragetLitsChileDto {
           <div class="mat-calendar-arrow"
                [class.mat-calendar-invert]="calendar.currentView != 'month'"></div>
         </button> -->
-    
+
         <div class="mat-calendar-spacer"></div>
-    
+
         <ng-content></ng-content>
-    
+
         <button mat-icon-button type="button" class="mat-calendar-previous-button mr-3 text-green font-bold"
                 [disabled]="!previousEnabled()" (click)="customPrev()"
                 [attr.aria-label]="prevButtonLabel"><
         </button>
-    
+
         <button mat-icon-button type="button" class="mat-calendar-next-button  text-green font-bold"
                 [disabled]="!nextEnabled()" (click)="customNext()"
                 [attr.aria-label]="nextButtonLabel">
@@ -369,7 +369,7 @@ export class TragetLitsChileDto {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleHeader extends MatCalendarHeader<any> {
-    
+
 
     currentPeriodClicked(): void {
         this.calendar.currentView = this.calendar.currentView == 'month' ? 'multi-year' : 'month';
