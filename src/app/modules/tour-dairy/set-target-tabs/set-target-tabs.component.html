@@ -4,10 +4,9 @@
 
 <div
     class="sm:inset-0 flex flex-col flex-auto min-w-0 overflow-x-hidden overflow-y-auto bg-card dark:bg-transparent">
-    <div *ngIf="isMCO==false" [hidden]="isChild" class="heading">Set Targets
+    <div [hidden]="isChild" class="heading"> Target Setting
     </div>
-    <div *ngIf="isMCO" [hidden]="isChild" class="heading">View Targets
-    </div>
+
     <div [hidden]="isChild" class="pt-3" [formGroup]="targetForm">
         <div class="row">
 
@@ -41,7 +40,7 @@
 
     </div>
 
-    <mat-tab-group [ngClass]="{'dash-tab': userGroup?.length == 1}" class="mt-5 flex  flex-auto dash-ttab  shadow-xs rounded-sm pb-3" style="flex-direction: column; overflow-y: scroll"
+    <mat-tab-group [ngClass]="applyClass()"  class="mt-5 flex  flex-auto dash-ttab  shadow-xs rounded-sm pb-3" style="flex-direction: column; overflow-y: scroll"
                    animationDuration="200ms" style="background-color: white;">
         <ng-container  *ngIf="Multiple?.length>0">
             <ng-container *ngFor="let m of Multiple;let i = index">

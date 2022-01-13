@@ -57,7 +57,6 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {ViewMapsComponent} from "./component/view-map/view-map.component";
 import {CustLoanlistComponent} from "../modules/loan/customer-list/cust-list.component";
 import { CountComponent } from './count/count.component';
-import {NumberDirective} from "./directives/numbers-only.directive";
 
 
 @NgModule({
