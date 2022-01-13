@@ -95,8 +95,6 @@ export class TourDiaryRoComponent implements OnInit {
             NameOfOfficer: [''],
             PPNO: [''],
             Month: [''],
-            Zone: [''],
-            Branch: [''],
             Name: [''],
             Designation: [''],
             Date: [''],

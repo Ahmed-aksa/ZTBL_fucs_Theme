@@ -376,7 +376,17 @@ button:hover {
     --tw-scale-y: 1.1;
     transform: var(--tw-transform);
 }
+.dash-tab{
+    .mat-tab-header{
+        .mat-tab-labels{
+            .mat-tab-label-active{
+                display: none !important;
+            }
+        }
+    }
 
+
+}
 button:focus {
     outline: none !important;
 }

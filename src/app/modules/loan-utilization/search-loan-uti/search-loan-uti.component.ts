@@ -220,7 +220,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     fromdate: string;
 
     setFromDate() {
-
+debugger
         // this.loanutilizationSearch.controls.FromDate.value this.datePipe.transform(this.loanutilizationSearch.controls.FromDate.value, 'ddMMyyyy')
         this.minDate = this.loanutilizationSearch.controls.FromDate.value;
         var FromDate = this.loanutilizationSearch.controls.FromDate.value;

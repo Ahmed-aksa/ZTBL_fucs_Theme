@@ -14,14 +14,18 @@ export class ZoneBranchCircleComponent implements OnInit {
 
     @Input('form') form;
     @Input('should_filter') should_filter = true;
-    @Input('should_show_circle') should_show_circle;
+    @Input('should_show_circle') should_show_circle = true;
     @Input('is_required_circle') is_required_circle;
-
+    @Input('should_hide_fields') should_hide_fields;
     @Output() branchZoneCircleData = new EventEmitter<{
         final_zone: any
         final_branch: any,
         final_circle: any,
     }>();
+
+    show_zone: Boolean = true;
+    show_branch: Boolean = true;
+    show_circle: Boolean = true;
 
     all_data: any;
 
@@ -92,12 +96,15 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.selected_c = this.SelectedCircles?.Id
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
+            this.show_circle = false;
             if (this.form.value.BranchCode) {
                 this.changeBranch(this.selected_b);
             }
             this.emitData();
 
         } else if (!this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
+            this.show_circle = false;
+            this.show_branch = false;
             this.SelectedZones = this.all_data.Zone;
             this.selected_z = this.SelectedZones?.ZoneId;
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
@@ -111,7 +118,8 @@ export class ZoneBranchCircleComponent implements OnInit {
                 this.single_zone = false;
                 this.single_zone = false;
                 this.spinner.hide();
-
+                this.show_circle = false;
+                this.show_branch = false;
             });
 
 
@@ -203,13 +211,13 @@ export class ZoneBranchCircleComponent implements OnInit {
         } else {
             changedZone = {Zone: {ZoneId: changedValue}}
         }
-        
+
 
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.SelectedBranches = data.Branches;
             this.single_branch = false;
             if (has_single_branch) {
-                
+
 
                 this.selected_b = this.selected_single_branch;
                 if (this.selected_single_circle) {

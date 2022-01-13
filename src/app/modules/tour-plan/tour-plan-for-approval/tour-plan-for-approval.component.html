@@ -4,7 +4,7 @@
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">Tour Plan List</div>
+            <div class="heading">Tour Plan For Approval</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
@@ -21,11 +21,11 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div [formGroup]="TourPlan">
+            <div [formGroup]="tourPlanApprovalForm">
 
 
                 <div class="flex mt-1" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="TourPlan" [should_hide_fields]="true"
+                    <app-zone-branch-circle [form]="tourPlanApprovalForm" [should_hide_fields]="true"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
@@ -33,7 +33,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">From</mat-label>
                                 <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off"
-                                       formControlName="FromDate" [max]="getToday()" (dateChange)="setFromDate()"
+                                       formControlName="FromDate" (dateChange)="setFromDate()" #to_date
                                        autocomplete="off">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
@@ -46,7 +46,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">To</mat-label>
                                 <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy"
-                                       formControlName="ToDate" [min]="minDate" [max]="getTodayForTo()"
+                                       formControlName="ToDate" [min]="minDate"
                                        (dateChange)="setToDate()" autocomplete="off">
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
@@ -56,21 +56,14 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label>Select tourPlan Status</mat-label>
-                                <mat-select formControlName="Status">
-                                    <mat-option value="">
-                                        Select
-                                    </mat-option>
-                                    <mat-option *ngFor="let obj of tourPlanStatusLov?.LOVs" [value]="obj.Value">
-                                        {{obj.Name}}
-                                    </mat-option>
-                                </mat-select>
+                                <mat-label>PPNO</mat-label>
+                                <input matInput formControlName="PPNO">
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button (click)="SearchTourPlan()" type="button"
+                            <button (click)="searchTourPlanApproval()" type="button"
                                     class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
@@ -111,28 +104,17 @@
 
             <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border"
                  *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
-                <div class="custom-accordion-head border-0" (click)="toggleAccordion(i)"
-                     style="cursor: pointer">
+                <div class="custom-accordion-head border-0 flex"
+                     (click)="toggleAccordion(i,activity.UserId)"
+                     style="cursor: pointer;justify-content: space-between;">
                     <div class=" self-center ml-8">
                         <span class=" text-green">
-                            {{activity.VisitedDate}}
+                          {{activity.UserName}}({{activity.UserPPNo}})
                         </span>
                     </div>
 
 
                     <div class="mr-5">
-                        <!--                <button mat-icon-button color="warn"-->
-                        <!--                        (click)="deleteActivity(activity)">-->
-                        <!--                  <mat-icon>-->
-                        <!--                    delete-->
-                        <!--                  </mat-icon>-->
-                        <!--                </button>-->
-                        <!--                <button class="ml-2" mat-icon-button color="primary"-->
-                        <!--                        (click)="editActivity(activity)">-->
-                        <!--                  <mat-icon>-->
-                        <!--                    edit-->
-                        <!--                  </mat-icon>-->
-                        <!--                </button>-->
                         <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
                             <mat-icon>expand_more</mat-icon>
                         </button>
@@ -141,41 +123,70 @@
                         </button>
                     </div>
                 </div>
-                <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">
-                    <table class="table table-responsive" style="display: inline-table !important;">
-                        <thead class="thead-light">
-                        <tr class="table-header-background">
-                            <th>VisitedDate</th>
-                            <th>Purpose</th>
-                            <th>Remarks</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none;width:99%;float: right;">
+                    <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border"
+                         *ngFor="let plan_by_date of activity.TourPlansByDate;let j=index; ">
+                        <div class="custom-accordion-head border-0 flex"
+                             (click)="toggleByDateAccordion(i)"
+                             style="cursor: pointer;justify-content: space-between;">
+                            <div class=" self-center ml-8">
+                        <span class=" text-green">
+                          {{plan_by_date.VisitedDate | date}}
+                        </span>
+                            </div>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let child of activity.TourPlans">
-                            <td style="width: 20%">{{child.VisitedDate}}</td>
-                            <td style="width: 20%">{{child.Purpose}}</td>
-                            <td style="width: 20%">{{child.Remarks}}</td>
-                            <td style="width: 20%">{{getStatus(child.Status)}}</td>
-
-                            <td style="width: 20%">
-
-                                <button mat-icon-button color="primary" *ngIf="CheckViewStatus(child)"
-                                        (click)="viewTourPlan(child)">
-                                    <mat-icon class="text-green" title="View land">visibility</mat-icon>
+                            <div class="mr-5">
+                                <button mat-flat-button color="primary"
+                                        (click)="$event.stopPropagation();approveAll(i,j,plan_by_date)">Approve All
                                 </button>
-                                <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"
-                                        (click)="editTourPlan(child)">
-                                    <mat-icon style="margin-left: 5px;" title="Edit Tour Plan">edit</mat-icon>
+                                <button mat-icon-button id="{{'arrow_down_date_'+i}}" style="display: block">
+                                    <mat-icon>expand_more</mat-icon>
                                 </button>
+                                <button mat-icon-button id="{{'arrow_up_date_'+i}}" style="display:none;">
+                                    <mat-icon>expand_less</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="custom-accordion-body" id="{{'table_date_'+i}}"
+                             style="display: none;width:99%;float: right;">
+                            <table class="table table-responsive" style="display: inline-table !important;">
+                                <thead class="thead-light">
+                                <tr class="table-header-background">
+                                    <th>VisitedDate</th>
+                                    <th>Purpose</th>
+                                    <th>Remarks</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let child of plan_by_date.TourPlans">
+                                    <td style="width: 20%">{{child.VisitedDate ? child.VisitedDate : '-'}}</td>
+                                    <td style="width: 20%">{{child.Purpose ? child.Purpose : '-'}}</td>
+                                    <td style="width: 20%">{{child.Remarks ? child.Remarks : '-'}}</td>
+                                    <td style="width: 20%">{{getStatus(child.Status)}}</td>
+
+                                    <td style="width: 20%">
+
+                                        <button mat-icon-button color="primary" *ngIf="child.Status=='S'"
+                                                (click)="$event.stopPropagation();approvePlan(child,'A')">
+                                            <mat-icon class="text-green" title="Approve">done</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="primary" *ngIf="child.Status=='S'"
+                                                (click)="$event.stopPropagation();approvePlan(child,'R')">
+                                            <mat-icon class="text-green" title="Refer back">close</mat-icon>
+                                        </button>
 
 
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
                 </div>
 
             </div>

@@ -4,10 +4,14 @@ import {SharedModule} from 'app/shared/shared.module';
 import {RouterModule} from '@angular/router';
 import {TourPlanComponent} from "./tour-plan/tour-plan.component";
 import {SearchTourPlanComponent} from "./search-tour-plan/search-tour-plan.component";
-import { CreateTourLlanComponent } from './create-tour-plan/create-tour-plan.component';
-import { CreateTourPlanPopupComponent } from './create-tour-plan/create-tour-plan-popup/create-tour-plan-popup.component';
-import { TargetsHierarchyComponent } from './targets-hierarchy/targets-hierarchy.component';
-import { TargetsTrackingComponent } from './targets-tracking/targets-tracking.component';
+import {CreateTourLlanComponent} from './create-tour-plan/create-tour-plan.component';
+import {CreateTourPlanPopupComponent} from './create-tour-plan/create-tour-plan-popup/create-tour-plan-popup.component';
+import {TargetsHierarchyComponent} from './targets-hierarchy/targets-hierarchy.component';
+import {TargetsTrackingComponent} from './targets-tracking/targets-tracking.component';
+import {TourPlanForApprovalComponent} from './tour-plan-for-approval/tour-plan-for-approval.component';
+import {SignaturePadForTourComponent} from './signature-pad-for-tour/signature-pad-for-tour.component';
+import {SignaturePadModule} from "angular2-signaturepad";
+
 export let AppInjector: Injector;
 const routing = [
 
@@ -31,10 +35,10 @@ const routing = [
         path: "target-tracking",
         component: TargetsTrackingComponent,
     },
-    // {
-    //     path: "tour-plan-for-approval",
-    //     component: TourPlanForApprovalComponent,
-    // },
+    {
+        path: "tour-plan-for-approval",
+        component: TourPlanForApprovalComponent,
+    },
 ]
 
 @NgModule({
@@ -43,23 +47,30 @@ const routing = [
         SearchTourPlanComponent,
         CreateTourLlanComponent,
         CreateTourPlanPopupComponent,
-        TargetsTrackingComponent
+        TargetsTrackingComponent,
+        TourPlanForApprovalComponent,
+        SignaturePadForTourComponent
         // TourPlanForApprovalComponent
     ],
     imports: [
         CommonModule,
         SharedModule,
         RouterModule.forChild(routing),
+        SignaturePadModule,
     ],
     entryComponents: [
+        SignaturePadForTourComponent,
         //    ViewFileComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
+    ],
+    exports: [
+        // AppInjector,
     ]
 })
 export class TourPlanModule {
     constructor(private injector: Injector) {
         AppInjector = this.injector;
-      }
+    }
 }
