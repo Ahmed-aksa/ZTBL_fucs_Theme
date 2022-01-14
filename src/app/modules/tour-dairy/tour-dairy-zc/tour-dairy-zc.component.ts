@@ -29,7 +29,7 @@ export class TourDairyZcComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
     maxDate: Date;
-
+    TourPlan;
     sign;
 
     constructor(
@@ -90,12 +90,18 @@ export class TourDairyZcComponent implements OnInit {
     createForm() {
         this.gridForm = this.fb.group({
             NameOfOfficer: [''],
-            PPNO: [''],
-            Month: [''],
-            Zone: [''],
-            Name: [''],
-            Designation: [''],
-            Date: [''],
+            PPNO: [null],
+            Month: [null],
+            Zone: [null],
+            TourDate: [null],
+            TourPlanId: [null],
+            DepartureFromPlace: [null],
+            DepartureFromTime: [null],
+            ArrivalAtPlace: [null],
+            ArrivalAtTime: [null],
+            Name: [null],
+            Designation: [null],
+            Dated: [null],
         });
     }
 

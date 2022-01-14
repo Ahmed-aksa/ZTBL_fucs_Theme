@@ -34,6 +34,7 @@ import { CustomerCwrComponent } from './customer-cwr/customer-cwr.component';
 import { PrintLoanBookletComponent } from './print-loan-booklet/print-loan-booklet.component';
 import { UserActivityBasedReportComponent } from './user-activity-based-report/user-activity-based-report.component';
 import { EnablingDisablingUserOvertimeComponent } from './enabling-disabling-user-overtime/enabling-disabling-user-overtime.component';
+import { ChangesToUserAccessRightsComponent } from './changes-to-user-access-rights/changes-to-user-access-rights.component';
 
 const routing = [
     {
@@ -155,6 +156,10 @@ const routing = [
     {
         path: 'enabling-disabling-user-overtime',
         component: EnablingDisablingUserOvertimeComponent
+    },
+    {
+        path: 'changes-to-user-access-rights',
+        component: ChangesToUserAccessRightsComponent
     }
 ]
 
@@ -191,6 +196,7 @@ const routing = [
         PrintLoanBookletComponent,
         UserActivityBasedReportComponent,
         EnablingDisablingUserOvertimeComponent,
+        ChangesToUserAccessRightsComponent,
     ],
     imports: [
         CommonModule,
