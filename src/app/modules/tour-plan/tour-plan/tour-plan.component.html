@@ -1,5 +1,5 @@
 <div
-    class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+    class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
     <div *ngIf="isAdd" class="heading mt-3">Create Tour Plan</div>
     <div *ngIf="isUpdate" class="heading mt-3">Update Tour Plan</div>
     <!-- Header -->
@@ -117,7 +117,7 @@
         </div>
 
     </div>
-    <div class="flex flex-auto mt-10" style="flex-direction: column;overflow-y: scroll">
+    <div class="flex flex-auto mt-10" style="flex-direction: column; overflow-y: scroll">
         <div *ngIf="dataSource.length>0 && isTable" class="example-table-container">
             <!--[style.height]="gridHeight"-->
             <mat-table class="lmat-elevation-z8"
