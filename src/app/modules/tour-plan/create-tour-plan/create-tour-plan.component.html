@@ -75,6 +75,7 @@
                         <th scope="col">Purpose </th>
                         <th scope="col">Remarks </th>
                         <th scope="col">Status </th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,7 +85,8 @@
                         <td>{{item.VisitedDate}}</td>
                         <td>{{item.Purpose}}</td>
                         <td>{{item.Remarks}}</td>
-                        <td>{{item.Status}}</td>
+                        <td> {{getStatus(item.Status)}} </td>
+                        <td><mat-icon style="cursor: pointer;" (click)="editTourPlan(item)">edit</mat-icon></td>
                     </tr>
                 </tbody>
             </table>
