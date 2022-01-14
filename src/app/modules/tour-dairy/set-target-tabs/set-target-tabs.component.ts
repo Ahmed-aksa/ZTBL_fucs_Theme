@@ -111,6 +111,7 @@ export class SetTargetTabsComponent implements OnInit {
     AssignedTargetHeading;
     userGroup: any = [];
     isMCO:boolean=false;
+    PageTitle;
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -169,9 +170,6 @@ export class SetTargetTabsComponent implements OnInit {
 
             this.ishidden = true;
         }
-
-
-
     }
 
     getAllData(event) {
@@ -266,6 +264,10 @@ export class SetTargetTabsComponent implements OnInit {
                     if(baseResponse?.Targets[0]?.DisbaleControls){
                         this.isMCO = baseResponse?.Targets[0]?.DisbaleControls;
                     }
+                    if(baseResponse?.Targets[0]?.PageTitle){
+                        this.PageTitle = baseResponse?.Targets[0]?.PageTitle;
+                    }
+
                     this.ishidden = true;
                     this.TargetData.UserID=this.UserID;
                     // this.Label = baseResponse?.Targets[0]?.Heading["Name"];
