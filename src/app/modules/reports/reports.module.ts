@@ -32,6 +32,8 @@ import { ReschedulementOfLoanComponent } from './reschedulement-of-loan/reschedu
 import { GetCustomerLegalHeirsComponent } from './get-customer-legal-heirs/get-customer-legal-heirs.component';
 import { CustomerCwrComponent } from './customer-cwr/customer-cwr.component';
 import { PrintLoanBookletComponent } from './print-loan-booklet/print-loan-booklet.component';
+import { UserActivityBasedReportComponent } from './user-activity-based-report/user-activity-based-report.component';
+import { EnablingDisablingUserOvertimeComponent } from './enabling-disabling-user-overtime/enabling-disabling-user-overtime.component';
 
 const routing = [
     {
@@ -146,6 +148,14 @@ const routing = [
         path: 'print-loan-booklet',
         component: PrintLoanBookletComponent
     },
+    {
+        path: 'user-activity-based-report',
+        component: UserActivityBasedReportComponent
+    },
+    {
+        path: 'enabling-disabling-user-overtime',
+        component: EnablingDisablingUserOvertimeComponent
+    }
 ]
 
 
@@ -179,6 +189,8 @@ const routing = [
         GetCustomerLegalHeirsComponent,
         CustomerCwrComponent,
         PrintLoanBookletComponent,
+        UserActivityBasedReportComponent,
+        EnablingDisablingUserOvertimeComponent,
     ],
     imports: [
         CommonModule,
