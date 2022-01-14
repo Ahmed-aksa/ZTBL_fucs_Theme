@@ -143,14 +143,18 @@ export class TourPlanService {
         this.request.TourPlan.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
+      var date ={
+        "User": this.request.User,
+        "TourPlan":  tourPlan 
+            
+      }
+       // var req = JSON.stringify(this.request);
 
-        var req = JSON.stringify(this.request);
 
-
-        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
-            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
-            map((res: BaseResponseModel) => res)
-        );
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, date,
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     TourPlanForApproval(tourPlan, Limit, Offset) {
@@ -223,12 +227,12 @@ export class TourPlanService {
 
     searchForTourPlanApproval(
         approval_from: any,
-        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any) {
+        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
-        debugger;
         let request = {
             TourPlan: {
+                UserId: user_id,
                 CircleId: circle?.CircleId,
                 BranchCode: branch?.BranchCode,
                 ZoneId: zone?.ZoneId,
