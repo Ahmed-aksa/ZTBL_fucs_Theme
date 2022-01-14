@@ -190,7 +190,7 @@ export class SetTargetComponent implements OnInit {
             if(this.TargetData?.AssignedTargetHeading){
                 this.ShowassignedTarget=[];
                 Object.keys(this.TargetData?.AssignedTargetHeading).forEach(x=>{
-
+                if(x!="Name"){
                     if(this.TargetData?.AssignedTarget[x]){
                         this.ShowassignedTarget.push(this.TargetData?.AssignedTarget[x])
                         //console.log(baseResponse?.Targets[0]?.AssignedTarget[x])
@@ -198,6 +198,8 @@ export class SetTargetComponent implements OnInit {
                         this.ShowassignedTarget.push('-')
                         //console.log("-");
                     }
+                }
+
                 });
             }
             // if(response.Target.DisbaleControls){

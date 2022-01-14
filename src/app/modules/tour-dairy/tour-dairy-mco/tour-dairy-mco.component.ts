@@ -24,6 +24,11 @@ export class TourDairyMcoComponent implements OnInit {
     Today = this._common.workingDate();
     minDate: Date;
     date: string;
+    branch: any;
+    zone: any;
+    circle: any;
+
+    TourPlan;
 
     constructor(
         private fb: FormBuilder,
@@ -48,12 +53,19 @@ export class TourDairyMcoComponent implements OnInit {
             Name: [null],
             Ppno: [null],
             Month: [null],
-            Date:[]
+            Date:[],
+            TourPlan:[]
         })
     }
 
 
     submit(){}
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
     getToday() {
         // Today
         this.Today = this._common.workingDate();

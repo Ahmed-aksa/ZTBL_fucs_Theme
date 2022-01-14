@@ -37,7 +37,7 @@
 
     </div>
 
-    <div class="sub-heading">Targets
+    <div class="sub-heading">Assigned Targets
     </div>
     <!--        <div class="flex flex-auto overflow-hidden">-->
         <div  *ngIf="ishidden">
@@ -55,21 +55,21 @@
 <!--                    </tr>-->
 <!--                    </thead>-->
 
-<!--                    <thead *ngIf="!AssignedTargetHeading">-->
-<!--                    <tr class="table-header-background">-->
-<!--                        <th>s</th>-->
-<!--                        <ng-container *ngFor="let v of rowth;let i = index">-->
-<!--                            <th *ngIf="i !=0">-->
-<!--                                {{ v }}-->
-<!--                            </th>-->
-<!--                        </ng-container>-->
+                    <thead *ngIf="isBankTarget">
+                    <tr class="table-header-background">
+                        <th></th>
+                        <ng-container *ngFor="let v of rowth;let i = index">
+                            <th *ngIf="i !=0">
+                                {{ v }}
+                            </th>
+                        </ng-container>
 
-<!--                    </tr>-->
-<!--                    </thead>-->
+                    </tr>
+                    </thead>
 
                     <thead *ngIf="AssignedTargetHeading">
                     <tr class="table-header-background">
-                        <th></th>
+
                         <ng-container *ngFor="let v of AssignedTargetHeadings;let i = index">
                             <th>
                                 {{ v }}
