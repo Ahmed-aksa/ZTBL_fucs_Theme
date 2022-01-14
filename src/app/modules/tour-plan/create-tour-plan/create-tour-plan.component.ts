@@ -79,6 +79,7 @@ export class CreateTourLlanComponent implements OnInit {
       itemsPerPage = 10; //you could use your specified
       totalItems: number | any;
       pageIndex = 1;
+      p:any
       @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
@@ -94,7 +95,6 @@ export class CreateTourLlanComponent implements OnInit {
         this.createForm();
         this.getPurposeofVisitLov();
         this.targetPlan.closeCalendarSource.subscribe((data) => {
-            //this.GetHolidays(data);
         })
         this.disAbleDate = [];
     }
@@ -114,7 +114,6 @@ export class CreateTourLlanComponent implements OnInit {
             Remarks: ["", Validators.required],
             Status: [""],
         });
-        //this.GetHolidays(new Date());
 
     }
 
@@ -123,58 +122,6 @@ export class CreateTourLlanComponent implements OnInit {
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
-
-    // setVisitedDate() {
-    //     var VisitedDate = this.tourPlanForm.controls.VisitedDate.value;
-    //     if (VisitedDate._isAMomentObject == undefined) {
-    //         try {
-    //             var day = this.tourPlanForm.controls.VisitedDate.value.getDate();
-    //             var month = this.tourPlanForm.controls.VisitedDate.value.getMonth() + 1;
-    //             var year = this.tourPlanForm.controls.VisitedDate.value.getFullYear();
-    //             if (month < 10) {
-    //                 month = "0" + month;
-    //             }
-    //             if (day < 10) {
-    //                 day = "0" + day;
-    //             }
-    //             VisitedDate = day + "" + month + "" + year;
-    //             const branchWorkingDate = new Date(year, month - 1, day);
-    //             this.GetHolidays(branchWorkingDate);
-    //             this.VisitedDate = VisitedDate;
-    //             this.tourPlanForm.controls.VisitedDate.setValue(branchWorkingDate)
-    //         } catch (e) {
-    //         }
-    //     } else {
-    //         try {
-    //             var day = this.tourPlanForm.controls.VisitedDate.value.toDate().getDate();
-    //             var month = this.tourPlanForm.controls.VisitedDate.value.toDate().getMonth() + 1;
-    //             var year = this.tourPlanForm.controls.VisitedDate.value.toDate().getFullYear();
-    //             if (month < 10) {
-    //                 month = "0" + month;
-    //             }
-    //             if (day < 10) {
-    //                 day = "0" + day;
-    //             }
-    //             VisitedDate = day + "" + month + "" + year;
-    //             const branchWorkingDate = new Date(year, month - 1, day);
-    //             this.GetHolidays(branchWorkingDate);
-    //             this.VisitedDate = VisitedDate;
-    //             this.tourPlanForm.controls.VisitedDate.setValue(branchWorkingDate);
-    //         } catch (e) {
-    //         }
-    //     }
-
-    // }
-
-    // dateFilter = (d: Date) => {
-    //     if (!d) {
-    //         return;
-    //     }
-    //     var date = new Date(d);
-    //     var isTrue = this.disAbleDate.indexOf(+date.getDate()) == -1;
-    //     console.log(isTrue);
-    //     return isTrue;
-    // };
 
     AddCal() {
 
@@ -188,8 +135,8 @@ export class CreateTourLlanComponent implements OnInit {
         debugger;
         var v = JSON.stringify(this.tourPlanForm.value)
         this.TourPlan = Object.assign(this.tourPlanForm.value);
-        // this.TourPlan.VisitedDate = this.VisitedDate;
         this.TourPlan.Status = "P";
+        this.spinner.show();
         this.tourPlanService
             .createTourPlan(this.TourPlan)
             .pipe(finalize(() => {
@@ -218,7 +165,6 @@ export class CreateTourLlanComponent implements OnInit {
 
 
     onChange = () => {  
-
         var year=new Date();
         var y = year.getFullYear(), m = year.getMonth();
         var firstDay = new Date(y, m, 1);
@@ -235,7 +181,6 @@ export class CreateTourLlanComponent implements OnInit {
             if(result?.data?.data?.date)
             this.tourPlanForm.controls["VisitedDate"].setValue(this.datepipe.transform( new Date(result.data.data.date), 'dd/MM/yyyy'))
             let TourPlanSchedule=result.data?.TourPlanSchedule?.TourPlanSchedule;
-            debugger;
             if(TourPlanSchedule==1){
                 var startDate = moment(new Date(result.data.data.date)).startOf('day');
                 var endDate = moment(new Date(result.data.data.date)).endOf('day');
@@ -261,8 +206,6 @@ export class CreateTourLlanComponent implements OnInit {
         this.spinner.show();
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
-        // zone: any;
-        // circle: any;
         this.TourPlan = Object.assign(this.tourPlanForm.value);
         var TourPlan = {
             "CircleId":this.TourPlan?.CircleId,
@@ -273,7 +216,7 @@ export class CreateTourLlanComponent implements OnInit {
             "Offset": 0
             
         }
-        this.tourPlanService.SearchTourPlan(TourPlan, count, currentIndex, this.branch, this.zone)
+        this.tourPlanService.GetScheduleBaseTourPlan(TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -282,7 +225,7 @@ export class CreateTourLlanComponent implements OnInit {
             .subscribe(baseResponse => {
                 if (baseResponse.Success) {
                     this.OffSet = this.pageIndex;
-                    //this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    this.tragetList=baseResponse.TourPlan.TourPlans;
                 } else {
 
                     
@@ -290,41 +233,30 @@ export class CreateTourLlanComponent implements OnInit {
             });
     }
 
+    editTourPlan(item){
+        this.tourPlanForm.get('TourPlanId').patchValue(item.TourPlanId);
+        this.tourPlanForm.get('ZoneId').patchValue(item.ZoneId);
+        this.tourPlanForm.get('BranchCode').patchValue(item?.BranchCode);
+        this.tourPlanForm.get('CircleId').patchValue(item.CircleId);
+        this.tourPlanForm.get('VisitedDate').patchValue(item.VisitedDate);
+        this.tourPlanForm.get('Purpose').patchValue(item.Purpose);
+        this.tourPlanForm.get('Remarks').patchValue(item.Remarks);
+    }
+    getStatus(status: string) {
 
+        if (status == 'P') {
+            return "Submit";
+        } else if (status == 'N') {
+            return "Pending";
+        } else if (status == 'S') {
+            return "Submitted";
+        } else if (status == 'A') {
+            return "Authorized";
+        } else if (status == 'R') {
+            return "Refer Back";
+        }
+    }
 
-    // Function to call when the input is touched (when a star is clicked).
-    // onTouched = () => {
-    // };
-
-    // display(id, display) {
-    //     if (!display) {
-    //         return;
-    //     }
-    //     let current_display = document.getElementById('table_' + id).style.display;
-    //     if (current_display == 'none') {
-    //         document.getElementById('table_' + id).style.display = 'block';
-    //     } else {
-    //         document.getElementById('table_' + id).style.display = 'none';
-    //     }
-    // }
-
-    // addTragetLitsChileDto(index) {
-    //     if (!this.tragetLitsPartnentDto[index].tragetLitsChileDto) {
-    //         this.tragetLitsPartnentDto[index].tragetLitsChileDto = [];
-    //     }
-    //     this.tragetLitsPartnentDto[index].tragetLitsChileDto.push(new TragetLitsChileDto())
-    // }
-    // setClass() {
-    //     return (date: any) => {
-    //         if (date.getDate() == 1)
-    //             this.changeMonth(date);
-    //     };
-    // }
-    // changeMonth(date: Date) {
-    //     //debugger;
-    //     //this.GetHolidays(date);
-    // }
-    
 }
 
 export class TragetLits {
