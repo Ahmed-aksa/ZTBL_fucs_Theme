@@ -143,6 +143,30 @@ export class TourPlanService {
         this.request.TourPlan.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
+    //   var date ={
+    //     "User": this.request.User,
+    //     "TourPlan":  tourPlan 
+            
+    //   }
+       // var req = JSON.stringify(this.request);
+
+
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
+            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
+                map((res: BaseResponseModel) => res)
+            );
+    }
+    GetScheduleBaseTourPlan(tourPlan, Limit, Offset, branch, zone) {
+        this.request = new BaseRequestModel();
+
+        var userInfo = this.userUtilsService.getUserDetails();
+
+        this.request.User = userInfo.User;
+        this.request.TourPlan = tourPlan;
+        this.request.TourPlan.Limit = Limit;
+        this.request.TourPlan.Offset = Offset;
+        this.request.Zone = zone;
+        this.request.Branch = branch;
       var date ={
         "User": this.request.User,
         "TourPlan":  tourPlan 
@@ -151,7 +175,7 @@ export class TourPlanService {
        // var req = JSON.stringify(this.request);
 
 
-        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, date,
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetScheduleBaseTourPlan`, date,
             { headers: this.httpUtils.getHTTPHeaders() }).pipe(
                 map((res: BaseResponseModel) => res)
             );

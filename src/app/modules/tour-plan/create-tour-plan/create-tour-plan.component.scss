@@ -13,3 +13,8 @@
 .mat-calendar-next-button:hover{
     color: black;
 }
+
+
+#map_canvas {
+    height: calc(100vh - 350px);
+}
