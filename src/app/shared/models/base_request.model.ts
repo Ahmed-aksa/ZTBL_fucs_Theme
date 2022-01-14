@@ -39,6 +39,7 @@ export class BaseRequestModel {
     public LoanUtilization: any;
     public ChangesTourPlanStatusDto: any;
     public TourPlan: any;
+    public TourDiary: any;
     public OTP: OTP;
     Token: any
     RefreshToken: any
