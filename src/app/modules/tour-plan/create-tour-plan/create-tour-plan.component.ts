@@ -79,6 +79,7 @@ export class CreateTourLlanComponent implements OnInit {
       itemsPerPage = 10; //you could use your specified
       totalItems: number | any;
       pageIndex = 1;
+      p:any
       @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
@@ -135,6 +136,7 @@ export class CreateTourLlanComponent implements OnInit {
         var v = JSON.stringify(this.tourPlanForm.value)
         this.TourPlan = Object.assign(this.tourPlanForm.value);
         this.TourPlan.Status = "P";
+        this.spinner.show();
         this.tourPlanService
             .createTourPlan(this.TourPlan)
             .pipe(finalize(() => {
