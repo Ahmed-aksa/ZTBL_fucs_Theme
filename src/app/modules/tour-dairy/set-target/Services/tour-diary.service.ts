@@ -111,70 +111,20 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    saveTargets(bankAssignedTargets, targets, Duration, AssignedTarget, assignedTarget, UserID, TagName,Label) {
+    saveDiary(zone,branch,TourDiary) {
 debugger
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
-        (this.request.Circle = {
-            CircleIds: '53444,53443,53442,53441',
-        }),
-            (this.request.DEVICELOCATION = {
-                BTSID: '0',
-                BTSLOC: '',
-                LAT: '33.65898',
-                LONG: '73.057665',
-                SRC: 'GPS',
-            }),
-            (this.request.TranId = 2830);
-
-        this.request.doPerformOTP = false;
-
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
-
+        this.request.Zone = zone;
+        this.request.Branch = branch;
         this.request.User = userInfo.User;
-        // this.request.User["UserId"] = "B-44";
-
-        this.Profile.ProfileID = UserID;
-        this.request.Profile = this.Profile;
-        this.request.Target = {Targets: targets};
-
-        this.request.Target.Duration = Duration;
-        // this.request.Target.AssignedTarget = AssignedTarget;
-        if (assignedTarget) {
-            if (Object.keys(assignedTarget)?.length) {
-                // this.request.Target["AssignedTarget"] = assignedTarget;
-                // var obj = Object.assign({},assignedTarget)
-                // obj.Name= Label;
-                // this.request.Target["AssignedTarget"] =obj;
-
-                this.request.Target["AssignedTarget"] = this._common.simpleClone(assignedTarget)
-                this.request.Target.AssignedTarget["Name"]=Label
-            }
-        }
-        // if(AssignedTarget){
-        //     if((Object.keys(AssignedTarget)?.length)){
-        //         this.request.Target["AssignedTarget"]=AssignedTarget;
-        //     }
-        // }
-
-        if (bankAssignedTargets) {
-            if (Object.keys(bankAssignedTargets)?.length) {
-                // var obj = Object.assign({},bankAssignedTargets[0])
-                // obj.Name= Label;
-                // this.request.Target["AssignedTarget"] =obj;
-
-                this.request.Target["AssignedTarget"] = this._common.simpleClone(bankAssignedTargets[0])
-                this.request.Target.AssignedTarget["Name"]=Label
-            }
-        }
-
+        this.request.TourDiary = TourDiary;
 
         var req = JSON.stringify(this.request);
 
         return this.http
             .post<any>(
-                `${environment.apiUrl}/Target/AddUpdateTarget`,
+                `${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourDiary`,
                 this.request
             )
             .pipe(map((res: BaseResponseModel) => res));

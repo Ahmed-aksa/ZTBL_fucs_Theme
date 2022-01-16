@@ -31,7 +31,7 @@ export class TourDairyMcoComponent implements OnInit {
     branch: any;
     zone: any;
     circle: any;
-
+    TourDiary;
     TourPlan;
 
     constructor(
@@ -39,7 +39,7 @@ export class TourDairyMcoComponent implements OnInit {
         private userService: UserUtilsService,
         private _common: CommonService,
         private datePipe: DatePipe,
-        private tourDiary: TourDiaryService,
+        private tourDiaryService: TourDiaryService,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
     ) {
@@ -60,14 +60,11 @@ export class TourDairyMcoComponent implements OnInit {
             Ppno: [null],
             Month: [null],
             Date:[],
-            TourPlan:[],
-
-
             DiaryId:[],
-            TourPlanId:[],
-            BranchId:[],
-            ZoneId:[],
-            CircleId:[],
+            TourPlanId:[""],
+            // BranchId:[],
+            // ZoneId:[],
+            // CircleId:[],
             TourDate:[],
             DepartureFromPlace:[],
             DepartureFromTime:[],
@@ -88,18 +85,42 @@ export class TourDairyMcoComponent implements OnInit {
             TotNoOfFarmersVisisted:[],
             AnyOtherWorkDone:[],
             Remarks:[],
-            NoOfMutationPendingASOPM:[],
-            MutationVerifiedDuringMnth:[],
-            UtilizationPendingLastDate:[],
-            UtilizationVerifiedDuringMnth:[],
-            Status:[],
-            CreatedBy:[],
 
         })
     }
 
-    save(){
 
+
+    saveTourDiary() {
+
+
+        if (this.gridForm.invalid) {
+            const controls = this.gridForm.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+
+
+            return;
+        }
+
+        this.TourDiary = Object.assign(this.gridForm.getRawValue());
+debugger
+        this.spinner.show();
+        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            } else {
+
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+        });
     }
 
     submit(){}
@@ -200,7 +221,7 @@ export class TourDairyMcoComponent implements OnInit {
 
     GetTourPlan(){
         this.spinner.show();
-            this.tourDiary
+            this.tourDiaryService
                 .SearchTourPlan(this.zone,this.branch,this.date)
                 .pipe(finalize(() => {
                     this.spinner.hide();
