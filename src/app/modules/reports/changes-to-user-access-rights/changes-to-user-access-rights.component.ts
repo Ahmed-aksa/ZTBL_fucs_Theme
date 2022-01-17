@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
@@ -13,6 +13,8 @@ import {DateFormats, Lov} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {ProfileService} from "../../../shared/services/profile.service";
+import {Profile} from "../../user-management/activity/activity.model";
 
 @Component({
     selector: 'app-changes-to-user-access-rights',
@@ -32,7 +34,8 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
     LoggedInUserInfo: BaseResponseModel;
     statusLov: any;
     loading = false;
-
+    profile: Profile = new Profile();
+    profiles: any[];
     dateDisable: boolean = false;
 
     public reports = new Bufrication();
@@ -49,7 +52,7 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
     zone: any;
     circle: any;
 
-    today = new Date();
+    //today = new Date();
 
 
     //Branch inventory
@@ -67,9 +70,12 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
         private datePipe: DatePipe,
+        private _profileService: ProfileService,
         private _bufrication: ReportsService,
+        private datepipe: DatePipe,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
+        private cdRef: ChangeDetectorRef,
         private toastr: ToastrService,
         private _reports: ReportsService,
     ) {
@@ -77,80 +83,135 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
 
     public LovCall = new Lov();
 
+    GetAllProfiles() {
+
+        this._profileService.getAllProfiles()
+            .pipe(
+                finalize(() => {
+                    this.loading = false;
+                })
+            )
+            .subscribe(baseResponse => {
+                if (baseResponse.Success) {
+                    this.profiles = baseResponse.Profiles;
+                    this.cdRef.detectChanges();
+                } else {
+                    this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
+                }
+            });
+    }
+
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
-
-        if (this.LoggedInUserInfo.Branch.WorkingDate) {
-            let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
-            var day = parseInt(dateString.substring(0, 2));
-            var month = parseInt(dateString.substring(2, 4));
-            var year = parseInt(dateString.substring(4, 8));
-
-            this.today = new Date(year, month - 1, day);
-            this.bufricationForm.controls.WorkingDate.setValue(this.today);
-            this.dateDisable = true
-        } else {
-            this.bufricationForm.controls.WorkingDate.setValue(null);
-        }
+        this.GetAllProfiles();
     }
-
-
-    isEnableWorkingDate() {
-        var workingDate = this.bufricationForm.controls.WorkingDate.value;
-        if (workingDate._isAMomentObject == undefined) {
-            try {
-                var day = this.bufricationForm.controls.WorkingDate.value.getDate();
-                var month = this.bufricationForm.controls.WorkingDate.value.getMonth() + 1;
-                var year = this.bufricationForm.controls.WorkingDate.value.getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
-            } catch (e) {
-
-            }
-        } else {
-            try {
-                var day = this.bufricationForm.controls.WorkingDate.value.toDate().getDate();
-                var month = this.bufricationForm.controls.WorkingDate.value.toDate().getMonth() + 1;
-                var year = this.bufricationForm.controls.WorkingDate.value.toDate().getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                workingDate = day + "" + month + "" + year;
-
-
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
-            } catch (e) {
-
-            }
-        }
-    }
-
-
 
     createForm() {
         this.bufricationForm = this.fb.group({
-            WorkingDate: [null, Validators.required],
-            ReportFormatType: [null, Validators.required]
+            ProfileID: [null, Validators.required],
+            ToDate: [null],
+            FromDate: [null]
         })
     }
 
+    isEnableToDate() {
+        this.bufricationForm.controls['FromDate'].setValidators(Validators.required);
+        this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+        var toDate = this.bufricationForm.controls.ToDate.value;
+        if (toDate._isAMomentObject == undefined) {
+            try {
+                var day = this.bufricationForm.controls.ToDate.value.getDate();
+                var month = this.bufricationForm.controls.ToDate.value.getMonth() + 1;
+                var year = this.bufricationForm.controls.ToDate.value.getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                const branchToDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.ToDate.setValue(branchToDate);
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                var day = this.bufricationForm.controls.ToDate.value.toDate().getDate();
+                var month = this.bufricationForm.controls.ToDate.value.toDate().getMonth() + 1;
+                var year = this.bufricationForm.controls.ToDate.value.toDate().getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                toDate = day + "" + month + "" + year;
+
+
+                const branchToDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.ToDate.setValue(branchToDate);
+            } catch (e) {
+
+            }
+        }
+    }
+
+    isEnableFromDate() {
+        this.bufricationForm.controls['ToDate'].setValidators(Validators.required);
+        this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+        var toDate = this.bufricationForm.controls.FromDate.value;
+        if (toDate._isAMomentObject == undefined) {
+            try {
+                var day = this.bufricationForm.controls.FromDate.value.getDate();
+                var month = this.bufricationForm.controls.FromDate.value.getMonth() + 1;
+                var year = this.bufricationForm.controls.FromDate.value.getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                const branchToDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.FromDate.setValue(branchToDate);
+            } catch (e) {
+
+            }
+        } else {
+            try {
+                var day = this.bufricationForm.controls.FromDate.value.toDate().getDate();
+                var month = this.bufricationForm.controls.FromDate.value.toDate().getMonth() + 1;
+                var year = this.bufricationForm.controls.FromDate.value.toDate().getFullYear();
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                toDate = day + "" + month + "" + year;
+
+
+                const branchToDate = new Date(year, month - 1, day);
+                this.bufricationForm.controls.FromDate.setValue(branchToDate);
+            } catch (e) {
+
+            }
+        }
+    }
+
     controlReset(){
+        this.bufricationForm.controls['ProfileID'].setValue(null)
+        this.bufricationForm.controls['ToDate'].setValue( null)
+        this.bufricationForm.controls['FromDate'].setValue( null)
+
+        this.bufricationForm.controls['ToDate'].clearValidators()
+        this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+        this.bufricationForm.controls['FromDate'].clearValidators()
+        this.bufricationForm.controls['FromDate'].updateValueAndValidity()
     }
 
     find() {
-
-
+        debugger
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();
@@ -161,13 +222,20 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
         this.user.Circle = this.circle;
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
-        this.reports.ReportsNo = "9";
+        this.reports.ReportsNo = "31";
+        this.reports.ReportFormatType = "2";
+
+        var toDate = this.datepipe.transform(this.bufricationForm.controls.ToDate.value, 'ddMMyyyy');
+
+        var fromDate = this.datepipe.transform(this.bufricationForm.controls.FromDate.value, 'ddMMyyyy');
+        this.reports.ToDate = toDate;
+        this.reports.FromDate = fromDate;
 
         // var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         // this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
 
         this.spinner.show();
-        this._reports.reportDynamic(this.reports)
+        this._reports.reportDynamic(this.reports, this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.loaded = true;
