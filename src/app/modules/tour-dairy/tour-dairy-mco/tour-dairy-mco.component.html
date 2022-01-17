@@ -103,8 +103,33 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Departure Time</mat-label>
-                                        <input matInput placeholder="Departure Time" formControlName="DepartureFromTime" maxlength="30"
-                                               autocomplete="off"/>
+<!--                                        <input matInput placeholder="Departure Time" formControlName="DepartureFromTime" maxlength="30"-->
+<!--                                               autocomplete="off"/>-->
+<!--                                      ******************Time Work**********-->
+
+                                        <input
+                                            type="text"
+                                            matInput
+                                            [ngxTimepicker]="timepicker"
+                                            format="24"
+                                            readonly
+                                            formControlName="DepartureFromTime"
+                                        />
+                                        <mat-icon
+                                            matSuffix
+
+                                            (click)="openFromIcon(timepicker)"
+                                        >schedule</mat-icon
+                                        >
+
+<!--                                        <mat-icon-->
+<!--                                            matPrefix-->
+<!--                                            *ngIf="formControlItem.value && !formControlItem.disabled && !required"-->
+<!--                                            (click)="onClear($event)"-->
+<!--                                        >-->
+<!--                                            close-->
+<!--                                        </mat-icon>-->
+
                                     </mat-form-field>
                                 </div>
 
@@ -783,3 +808,5 @@
 <!--    </div>-->
 
 </div>
+
+<ngx-material-timepicker #timepicker></ngx-material-timepicker>

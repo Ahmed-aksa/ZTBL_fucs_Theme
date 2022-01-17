@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {CommonService} from "../../../shared/services/common.service";
@@ -33,6 +33,28 @@ export class TourDairyMcoComponent implements OnInit {
     circle: any;
     TourDiary;
     TourPlan;
+
+
+    //**************** Time ****************************
+    @ViewChild("timepicker") timepicker: any;
+
+    /**
+     * Lets the user click on the icon in the input.
+     */
+    openFromIcon(timepicker: { open: () => void }) {
+        // if (!this.formControlItem.disabled) {
+            timepicker.open();
+        // }
+    }
+
+    /**
+     * Function to clear FormControl's value, called from the HTML template using the clear button
+     *
+     * @param $event - The Event's data object
+     */
+    onClear($event: Event) {
+        this.gridForm.controls['Name'].setValue(null);
+    }
 
     constructor(
         private fb: FormBuilder,
