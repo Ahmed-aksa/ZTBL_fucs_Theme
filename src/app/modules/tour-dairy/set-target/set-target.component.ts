@@ -148,7 +148,20 @@ export class SetTargetComponent implements OnInit {
             }
         );
     }
-
+    checkReadOnly(key){
+        if(this.isMCO==true)
+        {
+            return true;
+        }
+        else{
+            if(key=="SamRecoveryAmount"){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
     ngOnInit(): void {
         // const userInfo = this.userUtilsService.getUserDetails();
         //
@@ -162,7 +175,6 @@ export class SetTargetComponent implements OnInit {
         this.TargetData;
         if(this.multiple==true){
             this.isChild = true;
-            debugger
             // this.Multiple=this.TargetData.Targets;
             this.Label = this.TargetData?.Heading["Name"];
             this.targetForm.controls.Duration.setValue(this.dateDuration)
@@ -453,7 +465,16 @@ export class SetTargetComponent implements OnInit {
                 };
         });
 
-
+        if(this.targets[0]["SamRecoveryAmount"]){
+            var totalSum=0;
+            for(let i =0;i<Object.keys(this.newValue[rowIndex])?.length;i++){
+                this.newValue
+                if(Object.keys(this.newValue[rowIndex])[i].toString()!=="Name" && Object.keys(this.newValue[rowIndex])[i].toString()!="SamRecoveryAmount" && Object.keys(this.newValue[rowIndex])[i].toString()!="Id"){
+                     totalSum = totalSum + Number(this.newValue[rowIndex][(Object.keys(this.newValue[rowIndex])[i])])
+                    }
+            }
+            this.newValue[rowIndex]["SamRecoveryAmount"]=totalSum.toString();
+        }
         this.targets = Object.assign(this.newValue);
 
         // this.onDataChanged(this.newValue);
@@ -472,6 +493,16 @@ export class SetTargetComponent implements OnInit {
                 };
         });
 
+        if(this.targets[0]["SamRecoveryAmount"]){
+            var totalSum=0;
+            for(let i =0;i<Object.keys(this.newBankValue[rowIndex])?.length;i++){
+                this.newBankValue
+                if(Object.keys(this.newBankValue[rowIndex])[i].toString()!=="Name" && Object.keys(this.newBankValue[rowIndex])[i].toString()!="SamRecoveryAmount" && Object.keys(this.newBankValue[rowIndex])[i].toString()!="Id"){
+                    totalSum = totalSum + Number(this.newBankValue[rowIndex][(Object.keys(this.newBankValue[rowIndex])[i])])
+                }
+            }
+            this.newBankValue[rowIndex]["SamRecoveryAmount"]=totalSum.toString();
+        }
 
         this.bankTargets = Object.assign(this.newBankValue);
 
