@@ -111,7 +111,9 @@ export class ReportsService {
                         CircleIds: circles
                     }
                 }
-            }else{
+            }
+
+            else{
                 request = {
                     ReportsFilterCustom: reportsFilter,
                     User: user.User,
@@ -131,7 +133,6 @@ export class ReportsService {
                 Branch: final_branch,
             }
         }
-
         else {
                 request = {
                     ReportsFilterCustom: reportsFilter,
@@ -153,6 +154,40 @@ export class ReportsService {
         //         );
         // }else{
         // }
+    }
+
+    DownLoadLoanInfoDetail(reportsFilter, zone = null, branch = null, circle = null){
+        let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        let final_zone = null;
+        let final_branch = null;
+
+        if (zone == null) {
+            final_zone = user.Zone;
+            final_branch = user.Branch;
+            if (final_branch == undefined) {
+                final_branch = null;
+            }
+        }
+        else {
+            final_zone = zone;
+            final_branch = branch;
+        }
+
+        let request = null;
+        request = {
+            ReportsFilterCustom: {
+                LoanInformation: reportsFilter,
+                //ReportFormatType: '2',
+                //ReportsNo: "25"
+            },
+            User: user.User,
+            Zone: final_zone,
+            Branch: final_branch,
+        }
+        return this.http.post<any>(`${environment.apiUrl}/Reports/DownloadLoanInformationReport`, request)
+            .pipe(
+                map((res: BaseResponseModel) => res)
+            );
     }
 
     voucher(reportsFilter, zone = null, branch = null) {

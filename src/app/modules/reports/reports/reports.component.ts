@@ -66,7 +66,6 @@ export class ReportsComponent implements OnInit {
         if (user) {
         var userdate = JSON.parse(user);
             userdate.MenuBar.forEach(x => {
-                debugger
                 var childURl = x?.children?.find(y => y.link?.includes(url))
                 if (childURl) {
                     ismatch = true;

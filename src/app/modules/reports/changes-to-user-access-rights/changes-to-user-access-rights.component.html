@@ -3,7 +3,7 @@
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">User Activity Based Report</div>
+            <div class="heading">Changes To User Access Rights Over Time</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
@@ -31,11 +31,14 @@
                             <div class="col-lg-12">
                                 <div class="flex" style="flex-wrap: wrap;">
 
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">PPNO:</mat-label>
-                                            <input matInput placeholder="Enter PPNO" formControlName="PPNo"
-                                                   appNumberOnly autocomplete="off"/>
+                                            <mat-label>Roles</mat-label>
+                                            <mat-select placeholder="--Select--" formControlName="ProfileID">
+                                                <mat-option *ngFor="let profile of profiles" [value]="profile.ProfileID">
+                                                    {{profile.ProfileName}}
+                                                </mat-option>
+                                            </mat-select>
                                         </mat-form-field>
                                     </div>
 
