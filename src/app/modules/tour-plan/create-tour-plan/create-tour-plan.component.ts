@@ -109,6 +109,14 @@ export class CreateTourLlanComponent implements OnInit {
         this.disAbleDate = [];
     }
 
+    controlReset(){
+        this.tourPlanForm.controls['CircleName'].reset()
+        this.tourPlanForm.controls['VisitedDate'].reset()
+        this.tourPlanForm.controls['Purpose'].reset()
+        this.tourPlanForm.controls['Remarks'].reset()
+        this.tourPlanForm.controls['Status'].reset()
+    }
+
     async getPurposeofVisitLov() {
         var lovData = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.TourPlanPurpose});
         this.purposeofVisitLov = lovData.LOVs;
@@ -163,7 +171,7 @@ export class CreateTourLlanComponent implements OnInit {
                             baseResponse.Message,
                             baseResponse.Code = null
                         );
-                        this.tourPlanForm.reset()
+                        this.controlReset();
                     } else {
                         this.layoutUtilsService.alertElement(
                             "",
