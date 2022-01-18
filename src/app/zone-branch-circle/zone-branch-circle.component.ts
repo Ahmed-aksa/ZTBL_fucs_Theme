@@ -17,6 +17,8 @@ export class ZoneBranchCircleComponent implements OnInit {
     @Input('should_show_circle') should_show_circle = true;
     @Input('is_required_circle') is_required_circle;
     @Input('should_hide_fields') should_hide_fields;
+    @Input('required_branch') required_branch = true;
+    @Input('required_zone') required_zone = true;
     @Output() branchZoneCircleData = new EventEmitter<{
         final_zone: any
         final_branch: any,
@@ -237,8 +239,19 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     private addFormControls(should_show_circle) {
-        this.form.addControl('ZoneId', new FormControl(null, Validators.required))
-        this.form.addControl('BranchCode', new FormControl(null, Validators.required))
+        let localStorageData = JSON.parse(localStorage.getItem('ZTBLUser'));
+
+        if (this.required_branch && localStorageData.Branch) {
+            this.form.addControl('BranchCode', new FormControl(null, Validators.required))
+        } else {
+            this.form.addControl('BranchCode', new FormControl(null))
+        }
+
+        if (this.required_zone && localStorageData.Zone)
+            this.form.addControl('ZoneId', new FormControl(null, Validators.required))
+        else
+            this.form.addControl('ZoneId', new FormControl(null))
+
         if (should_show_circle)
             this.form.addControl('CircleId', new FormControl(null))
     }
