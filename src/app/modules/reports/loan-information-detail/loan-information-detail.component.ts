@@ -35,6 +35,8 @@ export class LoanInformationDetailComponent implements OnInit {
     LoggedInUserInfo: BaseResponseModel;
     statusLov: any;
     loading = false;
+    table = false;
+    LoanInfoDetail: any;
 
     public reports = new Bufrication();
     branch: any;
@@ -53,87 +55,19 @@ export class LoanInformationDetailComponent implements OnInit {
     ) {
     }
 
-    public LovCall = new Lov();
 
-    select: Selection[] = [
-        {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '3', description: 'MS Excel (Formatted)'},
-        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
-    ];
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
-        this.typeLov();
-        this.bufricationForm.controls["ReportFormatType"].setValue(this.select ? this.select[0].Value : "");
-
-        //this.bufricationForm.controls["WorkingDate"].setValue(this.LoggedInUserInfo.Branch.WorkingDate);
-        if (this.LoggedInUserInfo.Branch.WorkingDate) {
-            let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
-            var day = parseInt(dateString.substring(0, 2));
-            var month = parseInt(dateString.substring(2, 4));
-            var year = parseInt(dateString.substring(4, 8));
-
-            const branchWorkingDate = new Date(year, month - 1, day);
-            this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
-        } else {
-            this.bufricationForm.controls.WorkingDate.setValue(null);
-        }
     }
 
-    async typeLov() {
-        this.statusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.BifurcationLCStatus});
-        this.statusLov = this.statusLov.LOVs;
-        this.bufricationForm.controls["Status"].setValue(this.statusLov ? this.statusLov[0].Value : "")
-    }
-
-    isEnableWorkingDate() {
-        var workingDate = this.bufricationForm.controls.WorkingDate.value;
-        if (workingDate._isAMomentObject == undefined) {
-            try {
-                var day = this.bufricationForm.controls.WorkingDate.value.getDate();
-                var month = this.bufricationForm.controls.WorkingDate.value.getMonth() + 1;
-                var year = this.bufricationForm.controls.WorkingDate.value.getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
-            } catch (e) {
-
-            }
-        } else {
-            try {
-                var day = this.bufricationForm.controls.WorkingDate.value.toDate().getDate();
-                var month = this.bufricationForm.controls.WorkingDate.value.toDate().getMonth() + 1;
-                var year = this.bufricationForm.controls.WorkingDate.value.toDate().getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                workingDate = day + "" + month + "" + year;
-
-
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.bufricationForm.controls.WorkingDate.setValue(branchWorkingDate);
-            } catch (e) {
-
-            }
-        }
-    }
 
 
     createForm() {
         this.bufricationForm = this.fb.group({
-            WorkingDate: [null, Validators.required],
-            LcNo: [null],
-            Status: [null, Validators.required],
-            ReportFormatType: [null, Validators.required]
+            LcNO: [null],
+            GLCode: [null]
         })
     }
 
@@ -152,40 +86,6 @@ export class LoanInformationDetailComponent implements OnInit {
         // });
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "25";
-        var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
-        if (myWorkingDate._isAMomentObject == undefined) {
-
-            try {
-                var day = this.bufricationForm.controls.WorkingDate.value.getDate();
-                var month = this.bufricationForm.controls.WorkingDate.value.getMonth() + 1;
-                var year = this.bufricationForm.controls.WorkingDate.value.getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                myWorkingDate.WorkingDate = day + "" + month + "" + year;
-                this.reports.WorkingDate = myWorkingDate.WorkingDate;
-            } catch (e) {
-
-            }
-        } else {
-            try {
-                var day = this.bufricationForm.controls.WorkingDate.value.toDate().getDate();
-                var month = this.bufricationForm.controls.WorkingDate.value.toDate().getMonth() + 1;
-                var year = this.bufricationForm.controls.WorkingDate.value.toDate().getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                this.reports.WorkingDate = day + "" + month + "" + year;
-            } catch (e) {
-
-            }
-        }
 
         if(this.branch.WorkingDate == undefined){
             this.branch.WorkingDate = this.reports.WorkingDate;
@@ -202,7 +102,34 @@ export class LoanInformationDetailComponent implements OnInit {
             )
             .subscribe((baseResponse: any) => {
                 if (baseResponse.Success === true) {
-                    window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                    this.table = true
+                    console.log(baseResponse)
+                    this.LoanInfoDetail = baseResponse.ReportsFilterCustom.LoanInformationList;
+                    //window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
+                } else {
+                    this.layoutUtilsService.alertElement("", baseResponse.Message);
+                }
+            })
+    }
+
+    download(report){
+        this.spinner.show();
+        this.reports.LoanInformation= report;
+        //this.reports.ReportFormatType = '2';
+        this._reports.CustomDownloads(report, 'LoanInfoDetail',this.zone, this.branch)
+            .pipe(
+                finalize(() => {
+                    this.loaded = true;
+                    this.loading = false;
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse: any) => {
+                if (baseResponse.Success === true) {
+                    this.table = true
+                    console.log(baseResponse)
+                    this.LoanInfoDetail = baseResponse.ReportsFilterCustom.LoanInformationList;
+                    //window.open(baseResponse.ReportsFilterCustom.FilePath, 'Download');
                 } else {
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
                 }

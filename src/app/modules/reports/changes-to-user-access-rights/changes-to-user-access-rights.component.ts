@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
@@ -13,11 +13,13 @@ import {DateFormats, Lov} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {ProfileService} from "../../../shared/services/profile.service";
+import {Profile} from "../../user-management/activity/activity.model";
 
 @Component({
-    selector: 'app-user-activity-based-report',
-    templateUrl: './user-activity-based-report.component.html',
-    styleUrls: ['./user-activity-based-report.component.scss'],
+    selector: 'app-changes-to-user-access-rights',
+    templateUrl: './changes-to-user-access-rights.component.html',
+    styleUrls: ['./changes-to-user-access-rights.component.scss'],
     providers: [
         DatePipe,
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -25,14 +27,15 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
 
     ],
 })
-export class UserActivityBasedReportComponent implements OnInit {
+export class ChangesToUserAccessRightsComponent implements OnInit {
 
     bufricationForm: FormGroup;
     loaded = true;
     LoggedInUserInfo: BaseResponseModel;
     statusLov: any;
     loading = false;
-
+    profile: Profile = new Profile();
+    profiles: any[];
     dateDisable: boolean = false;
 
     public reports = new Bufrication();
@@ -49,7 +52,7 @@ export class UserActivityBasedReportComponent implements OnInit {
     zone: any;
     circle: any;
 
-    today = new Date();
+    //today = new Date();
 
 
     //Branch inventory
@@ -67,25 +70,46 @@ export class UserActivityBasedReportComponent implements OnInit {
         private userUtilsService: UserUtilsService,
         private _lovService: LovService,
         private datePipe: DatePipe,
+        private _profileService: ProfileService,
         private _bufrication: ReportsService,
+        private datepipe: DatePipe,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
+        private cdRef: ChangeDetectorRef,
         private toastr: ToastrService,
         private _reports: ReportsService,
-        private datepipe: DatePipe
     ) {
     }
 
     public LovCall = new Lov();
 
+    GetAllProfiles() {
+
+        this._profileService.getAllProfiles()
+            .pipe(
+                finalize(() => {
+                    this.loading = false;
+                })
+            )
+            .subscribe(baseResponse => {
+                if (baseResponse.Success) {
+                    this.profiles = baseResponse.Profiles;
+                    this.cdRef.detectChanges();
+                } else {
+                    this.layoutUtilsService.alertElement('', baseResponse.Message, baseResponse.Code);
+                }
+            });
+    }
+
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
+        this.GetAllProfiles();
     }
 
     createForm() {
         this.bufricationForm = this.fb.group({
-            PPNo: [null, Validators.required],
+            ProfileID: [null, Validators.required],
             ToDate: [null],
             FromDate: [null]
         })
@@ -187,8 +211,7 @@ export class UserActivityBasedReportComponent implements OnInit {
     }
 
     find() {
-
-
+        debugger
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();
@@ -199,7 +222,7 @@ export class UserActivityBasedReportComponent implements OnInit {
         this.user.Circle = this.circle;
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
-        this.reports.ReportsNo = "32";
+        this.reports.ReportsNo = "31";
         this.reports.ReportFormatType = "2";
 
         var toDate = this.datepipe.transform(this.bufricationForm.controls.ToDate.value, 'ddMMyyyy');
@@ -212,7 +235,7 @@ export class UserActivityBasedReportComponent implements OnInit {
         // this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
 
         this.spinner.show();
-        this._reports.reportDynamic(this.reports)
+        this._reports.reportDynamic(this.reports, this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.loaded = true;

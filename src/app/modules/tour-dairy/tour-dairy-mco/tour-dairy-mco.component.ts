@@ -6,6 +6,10 @@ import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
+import {finalize} from "rxjs/operators";
+import {TourDiaryService} from "../set-target/Services/tour-diary.service";
+import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'app-tour-dairy-mco',
@@ -27,7 +31,7 @@ export class TourDairyMcoComponent implements OnInit {
     branch: any;
     zone: any;
     circle: any;
-
+    TourDiary;
     TourPlan;
 
     constructor(
@@ -35,6 +39,9 @@ export class TourDairyMcoComponent implements OnInit {
         private userService: UserUtilsService,
         private _common: CommonService,
         private datePipe: DatePipe,
+        private tourDiaryService: TourDiaryService,
+        private layoutUtilsService: LayoutUtilsService,
+        private spinner: NgxSpinnerService,
     ) {
 
     }
@@ -45,7 +52,6 @@ export class TourDairyMcoComponent implements OnInit {
         this.createForm()
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
-        console.log(this.gridForm)
     }
 
     createForm() {
@@ -54,13 +60,85 @@ export class TourDairyMcoComponent implements OnInit {
             Ppno: [null],
             Month: [null],
             Date:[],
-            TourPlan:[]
+            DiaryId:[],
+            TourPlanId:[""],
+            // BranchId:[],
+            // ZoneId:[],
+            // CircleId:[],
+            TourDate:[],
+            DepartureFromPlace:[],
+            DepartureFromTime:[],
+            ArrivalAtPlace:[],
+            ArrivalAtTime:[],
+            DisbNoOfCasesReceived:[],
+            DisbNoOfCasesAppraised:[],
+            DisbNoOfRecordVerified:[],
+            DisbNoOfSanctionedAuthorized:[],
+            DisbSanctionLetterDelivered:[],
+            DisbSupplyOrderDelivered:[],
+            NoOfSanctnMutationVerified:[],
+            NoOfUtilizationChecked:[],
+            RecNoOfNoticeDelivered:[],
+            RecNoOfLegalNoticeDelivered:[],
+            RecNoOfDefaulterContacted:[],
+            TotFarmersContacted:[],
+            TotNoOfFarmersVisisted:[],
+            AnyOtherWorkDone:[],
+            Remarks:[],
+
         })
     }
 
 
-    submit(){}
 
+    saveTourDiary() {
+
+
+        if (this.gridForm.invalid) {
+            const controls = this.gridForm.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+
+
+            return;
+        }
+
+        this.TourDiary = Object.assign(this.gridForm.getRawValue());
+debugger
+        this.spinner.show();
+        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            } else {
+
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+        });
+    }
+
+    submit(){}
+    edit(){
+    }
+    delete(){
+    }
+    onClearForm() {
+
+        this.gridForm.controls["DevProdFlag"].setValue("");
+        this.gridForm.controls["DevAmount"].setValue("");
+        this.gridForm.controls["ProdAmount"].setValue("");
+        this.gridForm.controls["AppNumberManual"].setValue("");
+        this.gridForm.controls["CategoryID"].setValue("");
+        this.gridForm.controls["CircleID"].setValue("");
+        this.gridForm.controls["RefDepositAcc"].setValue("");
+        this.gridForm.controls["ApplicantionTitle"].setValue("");
+    }
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
@@ -116,6 +194,51 @@ export class TourDairyMcoComponent implements OnInit {
             } catch (e) {
             }
         }
-        console.log(this.date)
+        this.GetTourPlan()
+    }
+    getTourDiary(val){
+        // debugger
+        // this.spinner.show();
+        // this.tourDiary
+        //     .SearchTourDiary(this.zone,this.branch,val?.value)
+        //     .pipe(finalize(() => {
+        //         this.spinner.hide();
+        //     }))
+        //     .subscribe((baseResponse) => {
+        //         if (baseResponse.Success) {
+        //             debugger
+        //             // this.TargetDuration = baseResponse.Target.TargetDuration;
+        //             // this.TourPlan=baseResponse?.TourPlan?.TourPlans;
+        //         } else {
+        //             this.layoutUtilsService.alertElement(
+        //                 '',
+        //                 baseResponse.Message,
+        //                 baseResponse.Code
+        //             );
+        //         }
+        //     });
+    }
+
+    GetTourPlan(){
+        this.spinner.show();
+            this.tourDiaryService
+                .SearchTourPlan(this.zone,this.branch,this.date)
+                .pipe(finalize(() => {
+                    this.spinner.hide();
+                }))
+                .subscribe((baseResponse) => {
+                    if (baseResponse.Success) {
+                        debugger
+                        // this.TargetDuration = baseResponse.Target.TargetDuration;
+                        this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    } else {
+                        this.layoutUtilsService.alertElement(
+                            '',
+                            baseResponse.Message,
+                            baseResponse.Code
+                        );
+                    }
+                });
+
     }
 }

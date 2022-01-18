@@ -57,6 +57,7 @@ export class SearchTourPlanComponent implements OnInit {
     dv: number | any; //use later
     matTableLenght: any;
     TourPlans;
+    Math: any;
 
     // Pagination
     Limit: any;
@@ -88,6 +89,7 @@ export class SearchTourPlanComponent implements OnInit {
                 private _cdf: ChangeDetectorRef,
                 private userUtilsService: UserUtilsService) {
         this.loggedInUser = userUtilsService.getUserDetails();
+        this.Math = Math;
     }
 
     ngOnInit() {
@@ -312,7 +314,6 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
@@ -465,9 +466,6 @@ export class SearchTourPlanComponent implements OnInit {
 
     }
 
-    paginateAs(pageIndex: any, pageSize: any = this.itemsPerPage) {
-
-    }
 
     async LoadLovs() {
 

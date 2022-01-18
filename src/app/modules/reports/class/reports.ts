@@ -40,5 +40,7 @@ export class Bufrication {
     BatchID: string;
     Nature: string;
     ReportsName: string;
-    OrgHeadInfoId: string
+    OrgHeadInfoId: string;
+    ProfileID: string;
+    LoanInformation: string;
 }

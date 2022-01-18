@@ -44,6 +44,7 @@
                             [theme]="chartOptions1?.theme"
                             [responsive]="chartOptions1?.responsive"
                             [noData]="chartOptions1.noData"
+                            [colors]="chartOptions1?.colors"
                         ></apx-chart>
                     </div>
                 </div>
@@ -90,7 +91,7 @@
         </div>
 
         <div class="row ">
-            <div class="col-lg-4 table-responsive">
+            <div class="col-lg-6 table-responsive">
                 <p class="heading mb-2 text-lg">Disbursement</p>
                 <table class="table  table-striped">
                     <!-- <thead>
@@ -110,7 +111,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-4  table-responsive">
+            <div class="col-lg-6  table-responsive">
                 <p class="heading mb-2 text-lg">Recovery</p>
                 <table class="table  table-striped">
                     <!-- <thead>
@@ -129,7 +130,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-4   table-responsive">
+         </div>
+        <div class="row ">
+
+            <div class="col-lg-6   table-responsive">
                 <p class="heading mb-2 text-lg">Utilization/Mutations</p>
                 <table class="table  table-striped">
                     <!-- <thead>

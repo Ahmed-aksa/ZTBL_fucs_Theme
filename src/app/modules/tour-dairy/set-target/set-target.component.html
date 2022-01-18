@@ -104,7 +104,7 @@
                                         <div class="mat-form-field-fluid w-full" appearance="outline"
                                         >
                                             <mat-form-field  class="w-full">
-                                                <input matInput maxlength="20"  name="id-{{rowIndexx}}" [(ngModel)]="roww[keyy]" mask="separator.2" thousandSeparator=","
+                                                <input matInput maxlength="20" [readonly]="checkReadOnly(keyy)" name="id-{{rowIndexx}}" [(ngModel)]="roww[keyy]" mask="separator.2" thousandSeparator=","
                                                        [attr.value]="roww[keyy]"
                                                        (input)="onBankInputChanged($event.target.value, rowIndexx, keyy)"
                                                 />
@@ -139,7 +139,7 @@
                                         <div class="mat-form-field-fluid w-full" appearance="outline"
                                         >
                                             <mat-form-field  class="w-full">
-                                                <input matInput maxlength="20" [readonly]="isMCO" name="id-{{rowIndex}}" [(ngModel)]="row[key]" mask="separator.2" thousandSeparator=","
+                                                <input matInput maxlength="20" [readonly]="checkReadOnly(key)" name="id-{{rowIndex}}" [(ngModel)]="row[key]" mask="separator.2" thousandSeparator=","
                                                         [attr.value]="row[key]"
                                                         (input)="onInputChanged($event.target.value, rowIndex, key)"
 

@@ -49,10 +49,65 @@
                                             <input matInput formControlName="Month" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
+
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Zone</mat-label>
                                             <input matInput formControlName="Zone" autocomplete="off" readonly="readonly"/>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label>Tour Plan</mat-label>
+                                            <mat-select formControlName="TourPlanId">
+                                                <mat-option>
+                                                    Select
+                                                </mat-option>
+                                                <mat-option *ngFor="let obj of TourPlan" [value]="obj.TourPlanId">
+                                                    {{obj.DisbDesc}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>
+                                            </mat-label>
+                                            <input matInput [matDatepicker]="picker2" formControlName="TourDate" maxlength="30" autocomplete="off"
+                                                   [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>
+                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Departure Place</mat-label>
+                                            <input matInput formControlName="DepartureFromPlace" autocomplete="off" readonly="readonly"/>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Departure Time</mat-label>
+                                            <input matInput formControlName="DepartureFromTime" autocomplete="off" readonly="readonly"/>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Arrival Place</mat-label>
+                                            <input matInput formControlName="ArrivalAtPlace" autocomplete="off" readonly="readonly"/>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Arrival Time</mat-label>
+                                            <input matInput formControlName="ArrivalAtTime" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
 
@@ -364,13 +419,17 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+<!--                                            <mat-label class="customMatLabel">Dated <strong class="matMandatory">*</strong>-->
+<!--                                            </mat-label>-->
+<!--                                            <input matInput [matDatepicker]="picker2" formControlName="Dated" maxlength="30" autocomplete="off"-->
+<!--                                                   [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>-->
+<!--                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+<!--                                            <mat-datepicker #picker2></mat-datepicker>-->
+<!--                                        </mat-form-field>-->
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>
-                                            </mat-label>
-                                            <input matInput [matDatepicker]="picker2" formControlName="Date" maxlength="30" autocomplete="off"
-                                                   [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>
-                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                            <mat-datepicker #picker2></mat-datepicker>
+                                            <mat-label class="customMatLabel">Dated</mat-label>
+                                            <input matInput formControlName="Dated" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
