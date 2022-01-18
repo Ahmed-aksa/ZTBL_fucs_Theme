@@ -95,11 +95,12 @@ export class CreateTourPlanPopupComponent implements OnInit {
     }
 
     GetHolidays() {
+        debugger;
         var y = this.startDate.getFullYear(), m = this.startDate.getMonth();
         var firstDay = new Date(y, m, 1);
         var lastDay = new Date(y, m + 1, 0);
-        var startDate = this.datepipe.transform(firstDay, 'YYYY-MM-dd')
-        var endDate = this.datepipe.transform(lastDay, 'YYYY-MM-dd')
+        var startDate = moment(firstDay).format("YYYY-MM-DD"); //this.datepipe.transform(firstDay, 'YYYY-MM-dd')
+        var endDate = moment(lastDay).format("YYYY-MM-DD");// this.datepipe.transform(lastDay, 'YYYY-MM-dd')
         var daylist = this.targetPlan.getDaysArray(new Date(startDate), new Date(endDate));
         this.daylist = daylist;
         this.spinner.show();
