@@ -18,6 +18,7 @@ import {Store} from "@ngrx/store";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {LovService} from "../../../shared/services/lov.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'search-loan-utilization',
@@ -87,6 +88,7 @@ export class SearchTourPlanComponent implements OnInit {
                 private layoutUtilsService: LayoutUtilsService,
                 private _circleService: CircleService,
                 private _cdf: ChangeDetectorRef,
+                private datePipe: DatePipe,
                 private userUtilsService: UserUtilsService) {
         this.loggedInUser = userUtilsService.getUserDetails();
         this.Math = Math;
@@ -305,8 +307,8 @@ export class SearchTourPlanComponent implements OnInit {
         this.TourPlan = this.filterFB.group({
             Zone: [userInfo?.Zone?.ZoneName],
             Branch: [userInfo?.Branch?.Name],
-            FromDate: [],
-            ToDate: [],
+            StartDate: [],
+            EndDate: [],
             Status: ["", Validators.required],
             CircleId: []
         });
@@ -356,7 +358,8 @@ export class SearchTourPlanComponent implements OnInit {
 
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
-
+        this.TourPlan.controls["StartDate"].setValue(this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy'))
+        this.TourPlan.controls["EndDate"].setValue(this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy'))
         this._TourPlan = Object.assign(this.TourPlan.value);
         this.tourPlanService.SearchTourPlan(this._TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(

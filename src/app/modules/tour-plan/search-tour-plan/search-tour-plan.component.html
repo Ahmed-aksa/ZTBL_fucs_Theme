@@ -33,7 +33,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">From</mat-label>
                                 <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off"
-                                       formControlName="FromDate" (dateChange)="setFromDate()"
+                                       formControlName="StartDate" (dateChange)="setFromDate()"
                                        autocomplete="off">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
@@ -46,7 +46,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">To</mat-label>
                                 <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy"
-                                       formControlName="ToDate" [min]="minDate"
+                                       formControlName="EndDate" [min]="minDate"
                                        (dateChange)="setToDate()" autocomplete="off">
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
