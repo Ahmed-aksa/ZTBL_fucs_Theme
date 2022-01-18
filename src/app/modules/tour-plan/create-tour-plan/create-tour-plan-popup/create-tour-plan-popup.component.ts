@@ -1,17 +1,17 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { finalize, takeUntil, tap } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { AuthService } from 'app/core/auth/auth.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { DatePipe } from '@angular/common';
-import { TargetTourplanService } from '../tragetTourPlan.service';
-import { TourPlanService } from '../../Service/tour-plan.service';
+import {ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {finalize, takeUntil, tap} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {AuthService} from 'app/core/auth/auth.service';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {ToastrService} from 'ngx-toastr';
+import {DatePipe} from '@angular/common';
+import {TargetTourplanService} from '../tragetTourPlan.service';
+import {TourPlanService} from '../../Service/tour-plan.service';
 import moment from 'moment';
-import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 
 @Component({
     selector: 'create-tour-plan-popup',
@@ -90,16 +90,16 @@ export class CreateTourPlanPopupComponent implements OnInit {
     }
 
     onCloseClick(data: any): void {
-        var TourPlanSchedule=this.TourPlanSchedule;
-        this.dialogRef.close({ data: {TourPlanSchedule ,data } }); // Keep only this row
+        var TourPlanSchedule = this.TourPlanSchedule;
+        this.dialogRef.close({data: {TourPlanSchedule, data}}); // Keep only this row
     }
 
     GetHolidays() {
         var y = this.startDate.getFullYear(), m = this.startDate.getMonth();
         var firstDay = new Date(y, m, 1);
         var lastDay = new Date(y, m + 1, 0);
-        var startDate = this.datepipe.transform(firstDay, 'yyyy-MM-dd')
-        var endDate = this.datepipe.transform(lastDay, 'yyyy-MM-dd')
+        var startDate = this.datepipe.transform(firstDay, 'YYYY-MM-dd')
+        var endDate = this.datepipe.transform(lastDay, 'YYYY-MM-dd')
         var daylist = this.targetPlan.getDaysArray(new Date(startDate), new Date(endDate));
         this.daylist = daylist;
         this.spinner.show();
@@ -109,7 +109,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
 
         })).subscribe(result => {
             if (result.Success) {
-                this.TourPlanSchedule=result.TourPlan;
+                this.TourPlanSchedule = result.TourPlan;
                 result.TourPlan.HolidaysByDate.forEach(element => {
                     this.disAbleDate.push(Number(element.HolidayDate.substr(0, 2)))
                 });
@@ -123,16 +123,19 @@ export class CreateTourPlanPopupComponent implements OnInit {
 
         });
     }
+
     foewardDate() {
         var new_date = moment(this.startDate, "DD-MM-YYYY").add(1, 'M');
         this.startDate = new_date.toDate();
         this.GetHolidays();
 
     }
+
     backDate() {
 
         var new_date = moment(this.startDate, "DD-MM-YYYY").add(-1, 'M');
-        this.startDate = new_date.toDate();;
+        this.startDate = new_date.toDate();
+        ;
         this.GetHolidays();
     }
 
@@ -141,13 +144,11 @@ export class CreateTourPlanPopupComponent implements OnInit {
         if (this.dateFilter(date)) {
             this.daylist[index].isCheck = true
             return true;
-        }
-        else {
+        } else {
             var currentDate = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
             if (date == currentDate) {
                 return false;
-            }
-            else {
+            } else {
                 var ischeck = (moment(date).isSameOrBefore(moment(currentDate))); // true
                 this.daylist[index].isCheck = ischeck
                 return ischeck
@@ -155,6 +156,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
         }
 
     }
+
     dateFilter(d: any) {
         if (!d) {
             return;

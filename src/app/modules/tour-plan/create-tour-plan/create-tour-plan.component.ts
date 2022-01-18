@@ -89,6 +89,8 @@ export class CreateTourLlanComponent implements OnInit {
     dataValue: any
     pageIndex = 1;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    startDate: any;
+    endDate: any;
 
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
                 private layoutUtilsService: LayoutUtilsService,
@@ -140,12 +142,11 @@ export class CreateTourLlanComponent implements OnInit {
             );
             return;
         }
-        debugger;
         var v = JSON.stringify(this.tourPlanForm.value)
         this.TourPlan = Object.assign(this.tourPlanForm.value);
         this.TourPlan.Status = "P";
         this.tourPlanService
-            .createTourPlan(this.TourPlan)
+            .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate.format('YYYY-MM-DD'), this.endDate.format('YYYY-MM-DD'))
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
@@ -191,23 +192,22 @@ export class CreateTourLlanComponent implements OnInit {
             if (result?.data?.data == 0)
                 return;
             if (result?.data?.data?.date)
-                this.tourPlanForm.controls["VisitedDate"].setValue(this.datepipe.transform(new Date(result.data.data.date), 'dd/MM/yyyy'))
+                this.tourPlanForm.controls["VisitedDate"].setValue(this.datepipe.transform(new Date(result.data.data.date), 'YYYY-MM-dd'))
             let TourPlanSchedule = result.data?.TourPlanSchedule?.TourPlanSchedule;
             if (TourPlanSchedule == 1) {
-                var startDate = moment(new Date(result.data.data.date)).startOf('day');
-                var endDate = moment(new Date(result.data.data.date)).endOf('day');
-                this.SearchTourPlan(startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD'))
+                this.startDate = moment(new Date(result.data.data.date)).startOf('day');
+                this.endDate = moment(new Date(result.data.data.date)).endOf('day');
+                this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
             }
-
             if (TourPlanSchedule == 2) {
-                var startDate = moment(new Date(result.data.data.date)).startOf('week');
-                var endDate = moment(new Date(result.data.data.date)).endOf('week')
-                this.SearchTourPlan(startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD'))
+                this.startDate = moment(new Date(result.data.data.date)).startOf('week');
+                this.endDate = moment(new Date(result.data.data.date)).endOf('week')
+                this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
             }
             if (TourPlanSchedule == 3) {
-                var startDate = moment(new Date(result.data.data.date)).startOf('month');
-                var endDate = moment(new Date(result.data.data.date)).endOf('month');
-                this.SearchTourPlan(startDate.format('YYYY-MM-DD'), endDate.format('YYYY-MM-DD'))
+                this.startDate = moment(new Date(result.data.data.date)).startOf('month');
+                this.endDate = moment(new Date(result.data.data.date)).endOf('month');
+                this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
             }
         });
 
