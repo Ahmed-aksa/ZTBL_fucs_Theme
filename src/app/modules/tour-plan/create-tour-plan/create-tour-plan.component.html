@@ -110,8 +110,9 @@
         </mat-select>
         <button (click)="paginate(1)">First</button> -->
 
-        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>
-<!-- 
+<!--        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>-->
+        <pagination-controls (pageChange)="paginate($event)" class="my-pagination"></pagination-controls>
+<!--
         <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
         <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p> -->
 

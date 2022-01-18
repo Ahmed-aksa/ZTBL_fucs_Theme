@@ -116,7 +116,7 @@ export class LoanInformationDetailComponent implements OnInit {
         this.spinner.show();
         this.reports.LoanInformation= report;
         //this.reports.ReportFormatType = '2';
-        this._reports.DownLoadLoanInfoDetail(report, this.zone, this.branch)
+        this._reports.CustomDownloads(report, 'LoanInfoDetail',this.zone, this.branch)
             .pipe(
                 finalize(() => {
                     this.loaded = true;

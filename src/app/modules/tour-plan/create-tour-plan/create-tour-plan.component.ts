@@ -86,6 +86,7 @@ export class CreateTourLlanComponent implements OnInit {
     //pagination
     itemsPerPage = 10; //you could use your specified
     totalItems: number | any;
+    dataValue: any
     pageIndex = 1;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -153,6 +154,9 @@ export class CreateTourLlanComponent implements OnInit {
                     if (baseResponse.Success) {
                         this.tragetList = [];
                         this.tragetList = baseResponse.TourPlan.TourPlans;
+                        this.dataValue = this.tragetList;
+                        this.totalItems = this.tragetList.length
+                        this.tragetList = this.dataValue?.slice(0, this.itemsPerPage);
                         this.layoutUtilsService.alertElementSuccess(
                             "",
                             baseResponse.Message,
@@ -249,6 +253,15 @@ export class CreateTourLlanComponent implements OnInit {
         this.tourPlanForm.get('VisitedDate').patchValue(item.VisitedDate);
         this.tourPlanForm.get('Purpose').patchValue(item.Purpose);
         this.tourPlanForm.get('Remarks').patchValue(item.Remarks);
+    }
+
+    paginate(event: any) {
+        debugger
+        this.pageIndex = event;
+        this.tragetList = this.dataValue.slice(
+            event * this.itemsPerPage - this.itemsPerPage,
+            event * this.itemsPerPage
+        );
     }
 
     getStatus(status: string) {

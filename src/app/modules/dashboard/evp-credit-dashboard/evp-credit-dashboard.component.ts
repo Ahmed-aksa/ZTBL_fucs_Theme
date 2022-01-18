@@ -18,6 +18,7 @@ export type ChartOptions = {
     chart: ApexChart;
     responsive: ApexResponsive[];
     labels: any;
+    colors: any[];
     theme: ApexTheme;
     title: ApexTitleSubtitle;
     noData: ApexNoData;
