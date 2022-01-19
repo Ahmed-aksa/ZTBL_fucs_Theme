@@ -273,6 +273,7 @@ export class CreateTourLlanComponent implements OnInit {
     }
 
     editTourPlan(item) {
+        console.log(item)
         this.tourPlanForm.get('TourPlanId').patchValue(item.TourPlanId);
         this.tourPlanForm.get('ZoneId').patchValue(item.ZoneId);
         this.tourPlanForm.get('BranchCode').patchValue(item?.BranchCode);
@@ -280,6 +281,98 @@ export class CreateTourLlanComponent implements OnInit {
         this.tourPlanForm.get('VisitedDate').patchValue(item.VisitedDate);
         this.tourPlanForm.get('Purpose').patchValue(item.Purpose);
         this.tourPlanForm.get('Remarks').patchValue(item.Remarks);
+    }
+
+    checkStatus(item, action){
+        debugger
+        if(action == 'edit'){
+            if(item.Status == 'P' || item.Status == 'R'){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        if(action == 'delete'){
+            if(item.Status == 'P' || item.Status == 'R'){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        if(action == 'submit'){
+            if(item.Status == 'P' || item.Status == 'R'){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    deleteTourPlan(item){
+        this.spinner.show();
+        this.TourPlan = item;
+        this.TourPlan.Status = 'C';
+        this.tourPlanService
+            .ChanageTourStatus(this.TourPlan)
+            .pipe(finalize(() => {
+                this.spinner.hide();
+            }))
+            .subscribe(
+                (baseResponse) => {
+                    if (baseResponse.Success) {
+                        this.tragetList = [];
+                        this.tragetList = baseResponse.TourPlan.TourPlans;
+                        this.dataValue = this.tragetList;
+                        this.totalItems = this.tragetList.length
+                        this.tragetList = this.dataValue?.slice(0, this.itemsPerPage);
+                        this.layoutUtilsService.alertElementSuccess(
+                            "",
+                            baseResponse.Message,
+                            baseResponse.Code = null
+                        );
+                        this.controlReset();
+                    } else {
+                        this.layoutUtilsService.alertElement(
+                            "",
+                            baseResponse.Message,
+                            baseResponse.Code = null
+                        );
+                    }
+                });
+    }
+
+
+    submitTourPlan(item){
+        this.spinner.show();
+        this.TourPlan = item;
+        this.TourPlan.Status = 'S';
+        this.tourPlanService
+            .ChanageTourStatus(this.TourPlan)
+            .pipe(finalize(() => {
+                this.spinner.hide();
+            }))
+            .subscribe(
+                (baseResponse) => {
+                    if (baseResponse.Success) {
+                        this.tragetList = [];
+                        this.tragetList = baseResponse.TourPlan.TourPlans;
+                        this.dataValue = this.tragetList;
+                        this.totalItems = this.tragetList.length
+                        this.tragetList = this.dataValue?.slice(0, this.itemsPerPage);
+                        this.layoutUtilsService.alertElementSuccess(
+                            "",
+                            baseResponse.Message,
+                            baseResponse.Code = null
+                        );
+                        this.controlReset();
+                    } else {
+                        this.layoutUtilsService.alertElement(
+                            "",
+                            baseResponse.Message,
+                            baseResponse.Code = null
+                        );
+                    }
+                });
     }
 
     paginate(event: any) {
@@ -314,6 +407,7 @@ export class TragetLits {
     Purpose: any
     Remarks: any
     Status: any
+    //StatusName: any
     TotalRecords: any
     TourPlanId: any
     UserId: any

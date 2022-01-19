@@ -92,8 +92,21 @@
                         </p>
                     </td>
                     <td> {{getStatus(item.Status)}} </td>
+<!--                    <td> {{getStatus(item.StatusName)}} </td>-->
                     <td>
-                        <mat-icon style="cursor: pointer;" (click)="editTourPlan(item)">edit</mat-icon>
+                        <button  mat-icon-button *ngIf="checkStatus(item, 'edit')"
+                                 (click)="editTourPlan(item)">
+                            <mat-icon title="Edit Tour Plan" style="cursor: pointer;">edit</mat-icon>
+                        </button>
+                        <button  mat-icon-button *ngIf="checkStatus(item, 'delete')"
+                                 (click)="deleteTourPlan(item)">
+                            <mat-icon style="cursor: pointer;" >delete</mat-icon>
+                        </button>
+                        <button  mat-icon-button *ngIf="checkStatus(item, 'submit')"
+                                 (click)="submitTourPlan(item)">
+                            <mat-icon style="cursor: pointer;">assignment_turned_in</mat-icon>
+                        </button>
+
                     </td>
                 </tr>
                 </tbody>
