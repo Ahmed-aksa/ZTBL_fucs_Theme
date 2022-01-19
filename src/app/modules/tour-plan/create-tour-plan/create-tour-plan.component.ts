@@ -153,8 +153,11 @@ export class CreateTourLlanComponent implements OnInit {
         var v = JSON.stringify(this.tourPlanForm.value)
         this.TourPlan = Object.assign(this.tourPlanForm.value);
         this.TourPlan.Status = "P";
+        //this.startDate.format('YYYY-MM-DD'), this.endDate.format('YYYY-MM-DD')
+        this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
+        this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd')
         this.tourPlanService
-            .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate.format('YYYY-MM-DD'), this.endDate.format('YYYY-MM-DD'))
+            .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
@@ -197,6 +200,7 @@ export class CreateTourLlanComponent implements OnInit {
             disableClose: true,
         });
         dialogRef.afterClosed().subscribe(result => {
+            debugger
             if (result?.data?.data == 0)
                 return;
             if (result?.data?.data?.date)
@@ -205,24 +209,39 @@ export class CreateTourLlanComponent implements OnInit {
             if (TourPlanSchedule == 1) {
                 this.startDate = moment(new Date(result.data.data.date)).startOf('day');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('day');
-                this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
+
+                this.startDate = this.datepipe.transform(this.startDate,'YYYY-MM-dd');
+                this.endDate = this.datepipe.transform(this.endDate,'YYYY-MM-dd');
+
+                //this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
+                this.SearchTourPlan(this.startDate, this.endDate)
             }
             if (TourPlanSchedule == 2) {
                 this.startDate = moment(new Date(result.data.data.date)).startOf('week');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('week')
-                this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
+
+                this.startDate = this.datepipe.transform(this.startDate,'YYYY-MM-dd');
+                this.endDate = this.datepipe.transform(this.endDate,'YYYY-MM-dd');
+
+                //this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
+                this.SearchTourPlan(this.startDate, this.endDate)
             }
             if (TourPlanSchedule == 3) {
                 this.startDate = moment(new Date(result.data.data.date)).startOf('month');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('month');
-                this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
+
+                this.startDate = this.datepipe.transform(this.startDate,'YYYY-MM-dd');
+                this.endDate = this.datepipe.transform(this.endDate,'YYYY-MM-dd');
+
+                //this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
+                this.SearchTourPlan(this.startDate, this.endDate)
             }
         });
 
     };
 
     SearchTourPlan(startDate, endDate) {
-
+        debugger
         this.spinner.show();
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
