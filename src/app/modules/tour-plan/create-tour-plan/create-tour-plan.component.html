@@ -86,9 +86,11 @@
                     <td>{{item.UserId}}</td>
                     <td>{{item.VisitedDate}}</td>
                     <td>{{item?.PurposeName}}</td>
-                    <td><p style="max-width: 300px; overflow-wrap: break-word;">
+                    <td>    
+                        <p class="remarks-box">
                         {{item.Remarks}}
-                    </p></td>
+                        </p>
+                    </td>
                     <td> {{getStatus(item.Status)}} </td>
                     <td>
                         <mat-icon style="cursor: pointer;" (click)="editTourPlan(item)">edit</mat-icon>
