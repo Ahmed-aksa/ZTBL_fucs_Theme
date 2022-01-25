@@ -6,10 +6,10 @@ import {
     ChangeDetectionStrategy,
     Injector,
     Inject,
-    ViewChild
+    ViewChild, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
@@ -39,6 +39,7 @@ import {TargetTourplanService} from "./tragetTourPlan.service";
 import {BehaviorSubject} from 'rxjs';
 import {AppInjector} from '../tour-plan.module';
 import {MatPaginator} from '@angular/material/paginator';
+import {Debugger} from "inspector";
 
 const moment = _rollupMoment || _moment;
 
@@ -62,7 +63,7 @@ const moment = _rollupMoment || _moment;
     templateUrl: './create-tour-plan.component.html',
     styleUrls: ['./create-tour-plan.component.scss'],
 })
-export class CreateTourLlanComponent implements OnInit {
+export class CreateTourLlanComponent implements OnInit, OnDestroy{
     tourPlanForm: FormGroup;
     exampleHeader = ExampleHeader
     branch: any;
@@ -91,14 +92,38 @@ export class CreateTourLlanComponent implements OnInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     startDate: any;
     endDate: any;
+    navigationSubscription: any;
+
+    isEdit: any = null;
+    EditViewMode: boolean = false;
+    tourPlanEditView: any;
+
+    //upflag object
+    upFlag: any;
 
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
                 private layoutUtilsService: LayoutUtilsService,
                 private tourPlanService: TourPlanService,
                 private targetPlan: TargetTourplanService,
                 private spinner: NgxSpinnerService,
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private cdRef: ChangeDetectorRef,
                 public datepipe: DatePipe
     ) {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+        this.navigationSubscription = this.router.events.subscribe((e: any) => {
+            // If it is a NavigationEnd event re-initalise the component
+            if (e instanceof NavigationEnd) {
+                //this.initialiseInvites();
+            }
+        });
+
+        var CheckEdit = localStorage.getItem("EditTourPlan");
+        if (CheckEdit == '0') {
+            localStorage.setItem("SearchTourPlan", "");
+        }
     }
 
     ngOnInit(): void {
@@ -107,6 +132,24 @@ export class CreateTourLlanComponent implements OnInit {
         this.targetPlan.closeCalendarSource.subscribe((data) => {
         })
         this.disAbleDate = [];
+
+        var upFlag = this.activatedRoute.snapshot.params['upFlag'];
+        this.isEdit = localStorage.getItem("EditViewTourPlan");
+
+        if (this.isEdit != null && this.isEdit != "0") {
+            this.tourPlanEditView = JSON.parse(localStorage.getItem("SearchTourPlan"));
+            this.EditViewMode = true;
+        }
+
+        this.upFlag = upFlag
+        if (upFlag == "1" && this.isEdit == "1") {
+
+            localStorage.setItem('EditViewTourPlan', '0');
+            localStorage.removeItem('SearchTourPlan')
+            this.spinner.show();
+            setTimeout(() => this.editTourPlan(this.tourPlanEditView), 1000);
+        }
+
     }
 
     controlReset(){
@@ -175,6 +218,9 @@ export class CreateTourLlanComponent implements OnInit {
                             baseResponse.Code = null
                         );
                         this.controlReset();
+                        if(this.EditViewMode == true){
+                            this.EditViewMode = false;
+                        }
                     } else {
                         this.layoutUtilsService.alertElement(
                             "",
@@ -273,18 +319,36 @@ export class CreateTourLlanComponent implements OnInit {
     }
 
     editTourPlan(item) {
+        debugger
+        var visitDate;
         console.log(item)
         this.tourPlanForm.get('TourPlanId').patchValue(item.TourPlanId);
         this.tourPlanForm.get('ZoneId').patchValue(item.ZoneId);
-        this.tourPlanForm.get('BranchCode').patchValue(item?.BranchCode);
+        console.log(this.branch)
+        if(this.branch.BranchId == item?.BranchId){
+            this.tourPlanForm.get('BranchCode').patchValue(this.branch.BranchCode);
+        }
         this.tourPlanForm.get('CircleId').patchValue(item.CircleId);
-        this.tourPlanForm.get('VisitedDate').patchValue(item.VisitedDate);
+
+        visitDate = item.VisitedDate;
+        var day = visitDate.slice(0, 2), month = visitDate.slice(2, 4), year = visitDate.slice(4, 8);
+        visitDate = year+"-"+month+"-"+day;
+        this.tourPlanForm.get('VisitedDate').patchValue(visitDate);
+
+        if(this.EditViewMode == true){
+            this.startDate = moment(new Date(visitDate)).startOf('week');
+            this.endDate = moment(new Date(visitDate)).endOf('week')
+
+            this.startDate = this.datepipe.transform(this.startDate,'YYYY-MM-dd');
+            this.endDate = this.datepipe.transform(this.endDate,'YYYY-MM-dd');
+            this.SearchTourPlan(this.startDate, this.endDate)
+        }
+
         this.tourPlanForm.get('Purpose').patchValue(item.Purpose);
         this.tourPlanForm.get('Remarks').patchValue(item.Remarks);
     }
 
     checkStatus(item, action){
-        debugger
         if(action == 'edit'){
             if(item.Status == 'P' || item.Status == 'R'){
                 return true;
@@ -321,16 +385,12 @@ export class CreateTourLlanComponent implements OnInit {
                 (baseResponse) => {
                     if (baseResponse.Success) {
                         this.tragetList = [];
-                        this.tragetList = baseResponse.TourPlan.TourPlans;
-                        this.dataValue = this.tragetList;
-                        this.totalItems = this.tragetList.length
-                        this.tragetList = this.dataValue?.slice(0, this.itemsPerPage);
+                        this.SearchTourPlan(this.startDate, this.endDate);
                         this.layoutUtilsService.alertElementSuccess(
                             "",
                             baseResponse.Message,
                             baseResponse.Code = null
                         );
-                        this.controlReset();
                     } else {
                         this.layoutUtilsService.alertElement(
                             "",
@@ -375,12 +435,12 @@ export class CreateTourLlanComponent implements OnInit {
                 });
     }
 
-    paginate(event: any) {
+    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
         debugger
-        this.pageIndex = event;
+        this.pageIndex = pageIndex;
         this.tragetList = this.dataValue.slice(
-            event * this.itemsPerPage - this.itemsPerPage,
-            event * this.itemsPerPage
+            pageIndex * this.itemsPerPage - this.itemsPerPage,
+            pageIndex * this.itemsPerPage
         );
     }
 
@@ -396,6 +456,12 @@ export class CreateTourLlanComponent implements OnInit {
             return "Authorized";
         } else if (status == 'R') {
             return "Refer Back";
+        }
+    }
+
+    ngOnDestroy(){
+        if (this.navigationSubscription) {
+            this.navigationSubscription.unsubscribe();
         }
     }
 

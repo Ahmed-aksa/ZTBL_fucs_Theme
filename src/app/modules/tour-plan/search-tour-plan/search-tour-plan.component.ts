@@ -436,16 +436,17 @@ export class SearchTourPlanComponent implements OnInit {
 
     editTourPlan(tourPlan: any) {
         var v = JSON.stringify(tourPlan)
-
         // this.router.navigate(['other']);
 
         //
         // utilization = {Status:this.TourPlan.controls["Status"].value}
-
-        this.router.navigate(['../tour-plan'], {
-            state: {example: tourPlan, flag: 1},
-            relativeTo: this.activatedRoute
-        });
+        localStorage.setItem('SearchTourPlan', v);
+        localStorage.setItem('EditViewTourPlan', '1');
+        this.router.navigate(['../tour-plan', {upFlag: "1"}], {relativeTo: this.activatedRoute});
+        // this.router.navigate(['../tour-plan'], {
+        //     state: {example: tourPlan, flag: 1},
+        //     relativeTo: this.activatedRoute
+        // });
     }
 
 

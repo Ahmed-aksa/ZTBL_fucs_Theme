@@ -102,10 +102,10 @@
                                  (click)="deleteTourPlan(item)">
                             <mat-icon style="cursor: pointer;" >delete</mat-icon>
                         </button>
-                        <button  mat-icon-button *ngIf="checkStatus(item, 'submit')"
-                                 (click)="submitTourPlan(item)">
-                            <mat-icon style="cursor: pointer;">assignment_turned_in</mat-icon>
-                        </button>
+<!--                        <button  mat-icon-button *ngIf="checkStatus(item, 'submit')"-->
+<!--                                 (click)="submitTourPlan(item)">-->
+<!--                            <mat-icon style="cursor: pointer;">assignment_turned_in</mat-icon>-->
+<!--                        </button>-->
 
                     </td>
                 </tr>
@@ -118,14 +118,14 @@
         <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
                 <span class="font-bold text-green">Items per page:</span>
 
-        <!-- <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+        <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>
             <mat-option [value]="25">25</mat-option>
             <mat-option [value]="50">50</mat-option>
         </mat-select>
-        <button (click)="paginate(1)">First</button> -->
+<!--        <button (click)="paginate(1)">First</button> -->
 
 <!--        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>-->
         <pagination-controls (pageChange)="paginate($event)" class="my-pagination"></pagination-controls>

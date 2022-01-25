@@ -71,6 +71,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
     }
 
     submit(data: any) {
+        debugger
         this.onCloseClick(data);
 
 
