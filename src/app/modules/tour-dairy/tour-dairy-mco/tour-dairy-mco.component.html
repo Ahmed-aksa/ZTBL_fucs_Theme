@@ -1,13 +1,13 @@
 <div [formGroup]="gridForm" class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
 
-
+<button type="button" (click)="assignvalues()">do it</button>
     <div class="row pt-3">
         <div class="col-lg-12 p-0 col-sm-12">
             <div class="heading">Tour Diary of MCO</div>
         </div>
     </div>
 
-
+<!--{{MCOModel|json}}-->
     <div id="Kt-portlet-margin-top">
         <div class="collapse show" id="collapseExample">
                 <div class="kt-form kt-form--group-seperator-dashed">
@@ -33,23 +33,23 @@
                                                    autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
+<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
+<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+<!--                                            <mat-label class="customMatLabel">Month</mat-label>-->
+<!--                                            <input matInput placeholder="Enter Month" formControlName="Month" maxlength="30"-->
+<!--                                                   autocomplete="off"/>-->
+<!--                                        </mat-form-field>-->
+<!--                                    </div>-->
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Month</mat-label>
-                                            <input matInput placeholder="Enter Month" formControlName="Month" maxlength="30"
-                                                   autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Date</mat-label>
-                                        <input matInput readonly [matDatepicker]="picker2" formControlName="Date" maxlength="8"
+                                            <mat-label class="customMatLabel">Tour Date</mat-label>
+                                        <input matInput readonly [matDatepicker]="picker2" formControlName="TourDate" maxlength="8"
                                                autocomplete="off" [max]="getToday()" (dateChange)="setDate()" appNumberOnly/>
                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
                                     </div>
-                                    {{TourPlan|json}}
+<!--                                    {{TourPlan|json}}-->
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Tour Plan</mat-label>
@@ -96,7 +96,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Departure Place</mat-label>
-                                        <input matInput placeholder="Departure Place" formControlName="DepartureFromPlace" maxlength="30"
+                                        <input appAlphaNumericField matInput placeholder="Departure Place" formControlName="DepartureFromPlace" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
                                 </div>
@@ -110,15 +110,15 @@
                                         <input
                                             type="text"
                                             matInput
-                                            [ngxTimepicker]="timepicker"
-                                            format="24"
+                                            [ngxTimepicker]="timepickerDeparture"
+                                            [format]="DateFormat()"
                                             readonly
                                             formControlName="DepartureFromTime"
                                         />
                                         <mat-icon
                                             matSuffix
 
-                                            (click)="openFromIcon(timepicker)"
+                                            (click)="openFromIcon(timepickerDeparture)"
                                         >schedule</mat-icon
                                         >
 
@@ -163,15 +163,39 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Arrival Place</mat-label>
-                                        <input matInput placeholder="Arrival Place" formControlName="ArrivalAtPlace" maxlength="30"
+                                        <input appAlphaNumericField matInput placeholder="Arrival Place" formControlName="ArrivalAtPlace" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Arrival Time</mat-label>
-                                        <input matInput placeholder="Arrival Time" formControlName="ArrivalAtTime" maxlength="30"
-                                               autocomplete="off"/>
+                                     <!--   <input matInput placeholder="Arrival Time" formControlName="ArrivalAtTime" maxlength="30"-->
+                                        <!--                                               autocomplete="off"/>-->
+                                        <!--                                      ******************Time Work**********-->
+
+                                        <input
+                                            type="text"
+                                            matInput
+                                            [ngxTimepicker]="timepickerArrival"
+                                            [format]="DateFormat()"
+                                            readonly
+                                            formControlName="ArrivalAtTime"
+                                        />
+                                        <mat-icon
+                                            matSuffix
+
+                                            (click)="openFromIcon(timepickerArrival)"
+                                        >schedule</mat-icon
+                                        >
+
+                                        <!--                                        <mat-icon-->
+                                        <!--                                            matPrefix-->
+                                        <!--                                            *ngIf="formControlItem.value && !formControlItem.disabled && !required"-->
+                                        <!--                                            (click)="onClear($event)"-->
+                                        <!--                                        >-->
+                                        <!--                                            close-->
+                                        <!--                                        </mat-icon>-->
                                     </mat-form-field>
                                 </div>
 
@@ -500,15 +524,15 @@
             <tbody >
             <tr>
                 <td>
-                    <mat-form-field class=" mat-form-field-fluid w-36"
-                                    appearance="outline">
-                               <input matInput>
-                    </mat-form-field>
+<!--                    <mat-form-field class=" mat-form-field-fluid w-36"-->
+<!--                                    appearance="outline">-->
+<!--                               <input matInput>-->
+<!--                    </mat-form-field>-->
                 </td>
                 <td>
-                    <mat-form-field class=" mat-form-field-fluid w-36" appearance="outline">
-                    <input matInput>
-                    </mat-form-field>
+<!--                    <mat-form-field class=" mat-form-field-fluid w-36" appearance="outline">-->
+<!--                    <input matInput>-->
+<!--                    </mat-form-field>-->
 
                 </td>
                 <td  >
@@ -591,65 +615,28 @@
                 <td  >
                     <div class="p-3"><strong class="text-md">Totals: </strong></div>
                 </td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
                 <td></td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  ><div class="w-36"></div></td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>-<div class="w-36"></div></td>
+                <td>-</td>
+                <td></td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
             </tr>
             </tbody>
         </table>
@@ -809,4 +796,5 @@
 
 </div>
 
-<ngx-material-timepicker #timepicker></ngx-material-timepicker>
+<ngx-material-timepicker  #timepickerDeparture></ngx-material-timepicker>
+<ngx-material-timepicker #timepickerArrival></ngx-material-timepicker>
