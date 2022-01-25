@@ -60,7 +60,12 @@ export class NotificationService {
                 CircleIds: this.circleString
             }
         }
-        if (type == 1){}
+        if (type == 1){
+            return this.http.post<any>(`${environment.apiUrl}/Notification/GetDemandNotices`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }
         else if(type == 2){
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetLoaneesInstallments`, request)
                 .pipe(
@@ -86,6 +91,12 @@ export class NotificationService {
         }
         else if(type ==7){
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetCnicExpiryOfLoanee`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }
+        else if(type ==8){
+            return this.http.post<any>(`${environment.apiUrl}/Notification/GetLegalNotices`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );

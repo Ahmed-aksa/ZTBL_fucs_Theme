@@ -49,7 +49,7 @@
             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Remarks</mat-label>
-                    <input matInput appAlphaNumericField placeholder="Enter Remarks" formControlName="Remarks"
+                    <input matInput placeholder="Enter Remarks" formControlName="Remarks"
                            autocomplete="off"/>
                 </mat-form-field>
             </div>
@@ -71,9 +71,9 @@
             <table class="table accordion table-striped">
                 <thead>
                 <tr class="table-header-background">
-                    <th scope="col">SR. No</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Visited Date</th>
+<!--                    <th scope="col">SR. No</th>-->
+                    <th scope="col">Circle</th>
+                    <th scope="col">Visit Date</th>
                     <th scope="col">Purpose</th>
                     <th scope="col">Remarks</th>
                     <th scope="col">Status</th>
@@ -82,14 +82,31 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of tragetList | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems};  let row=index;">
-                    <td>{{row + 1}}</td>
-                    <td>{{item.UserId}}</td>
+<!--                    <td>{{row + 1}}</td>-->
+                    <td>{{item.CircleId}}</td>
                     <td>{{item.VisitedDate}}</td>
                     <td>{{item?.PurposeName}}</td>
-                    <td>{{item.Remarks}}</td>
-                    <td> {{getStatus(item.Status)}} </td>
                     <td>
-                        <mat-icon style="cursor: pointer;" (click)="editTourPlan(item)">edit</mat-icon>
+                        <p class="remarks-box">
+                        {{item.Remarks}}
+                        </p>
+                    </td>
+                    <td> {{getStatus(item.Status)}} </td>
+<!--                    <td> {{getStatus(item.StatusName)}} </td>-->
+                    <td>
+                        <button  mat-icon-button *ngIf="checkStatus(item, 'edit')"
+                                 (click)="editTourPlan(item)">
+                            <mat-icon title="Edit Tour Plan" style="cursor: pointer;">edit</mat-icon>
+                        </button>
+                        <button  mat-icon-button *ngIf="checkStatus(item, 'delete')"
+                                 (click)="deleteTourPlan(item)">
+                            <mat-icon style="cursor: pointer;" >delete</mat-icon>
+                        </button>
+<!--                        <button  mat-icon-button *ngIf="checkStatus(item, 'submit')"-->
+<!--                                 (click)="submitTourPlan(item)">-->
+<!--                            <mat-icon style="cursor: pointer;">assignment_turned_in</mat-icon>-->
+<!--                        </button>-->
+
                     </td>
                 </tr>
                 </tbody>
@@ -101,17 +118,18 @@
         <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
                 <span class="font-bold text-green">Items per page:</span>
 
-        <!-- <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+        <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>
             <mat-option [value]="25">25</mat-option>
             <mat-option [value]="50">50</mat-option>
         </mat-select>
-        <button (click)="paginate(1)">First</button> -->
+<!--        <button (click)="paginate(1)">First</button> -->
 
-        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>
-<!-- 
+<!--        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>-->
+        <pagination-controls (pageChange)="paginate($event)" class="my-pagination"></pagination-controls>
+<!--
         <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
         <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p> -->
 

@@ -33,7 +33,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">From</mat-label>
                                 <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off"
-                                       formControlName="FromDate" (dateChange)="setFromDate()"
+                                       formControlName="StartDate" (dateChange)="setFromDate()"
                                        autocomplete="off">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
@@ -46,7 +46,7 @@
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                 <mat-label class="customMatLabel">To</mat-label>
                                 <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy"
-                                       formControlName="ToDate" [min]="minDate"
+                                       formControlName="EndDate" [min]="minDate"
                                        (dateChange)="setToDate()" autocomplete="off">
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
@@ -149,11 +149,16 @@
                                         (click)="viewTourPlan(child)">
                                     <mat-icon class="text-green" title="View land">visibility</mat-icon>
                                 </button>
+
                                 <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"
                                         (click)="editTourPlan(child)">
                                     <mat-icon style="margin-left: 5px;" title="Edit Tour Plan">edit</mat-icon>
                                 </button>
 
+                                <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"
+                                        (click)="deleteTourPlan(child)">
+                                    <mat-icon style="margin-left: 5px;" title="Delete Tour Plan">delete</mat-icon>
+                                </button>
 
                             </td>
                         </tr>

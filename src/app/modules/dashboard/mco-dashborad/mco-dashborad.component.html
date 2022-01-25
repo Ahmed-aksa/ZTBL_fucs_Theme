@@ -34,7 +34,7 @@
     <div class="flex flex-auto" style="flex-direction: column;">
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2  ">
-                <div class="shadow-sm border"   style="height: calc(100vh - 310px);">
+                <div class="shadow-sm border"style="height: 365px;">
                     <div id="chart" class=" mt-0 py-3  " *ngIf="chartOptions1">
                         <p class="text-green px-2 font-bold mb-0">Performance Indicators</p>
                         <apx-chart
@@ -44,13 +44,14 @@
                             [theme]="chartOptions1?.theme"
                             [responsive]="chartOptions1?.responsive"
                             [noData]="chartOptions1.noData"
+                            [colors]="chartOptions1?.colors"
                         ></apx-chart>
                     </div>
                 </div>
 
             </div>
             <div class="col-lg-6 col-sm-12 my-2">
-                <div class="shadow-sm border"   style="height: calc(100vh - 310px);">
+                <div class="shadow-sm border"style="height: 365px;">
                     <div id="chart" class=" mt-0 py-3" *ngIf="chartOptions2">
                         <p class="text-green px-2 font-bold mb-0">Circle Bench Mark</p>
                         <apx-chart
@@ -70,7 +71,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2">
-                <div class="shadow-sm border"   style="height: calc(100vh - 310px);">
+                <div class="shadow-sm border"style="height: 365px;">
                     <div id="chart" class="mt-0 py-3" *ngIf="chartOptions2">
                         <p class="text-green px-2 font-bold mb-0">Loan Portfolio</p>
                         <apx-chart
@@ -90,7 +91,7 @@
         </div>
 
         <div class="row ">
-            <div class="col-lg-4 table-responsive">
+            <div class="col-lg-6 table-responsive">
                 <p class="heading mb-2 text-lg">Disbursement</p>
                 <table class="table  table-striped">
                     <!-- <thead>
@@ -110,7 +111,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-4  table-responsive">
+            <div class="col-lg-6  table-responsive">
                 <p class="heading mb-2 text-lg">Recovery</p>
                 <table class="table  table-striped">
                     <!-- <thead>
@@ -129,7 +130,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-4   table-responsive">
+         </div>
+        <div class="row ">
+
+            <div class="col-lg-6   table-responsive">
                 <p class="heading mb-2 text-lg">Utilization/Mutations</p>
                 <table class="table  table-striped">
                     <!-- <thead>

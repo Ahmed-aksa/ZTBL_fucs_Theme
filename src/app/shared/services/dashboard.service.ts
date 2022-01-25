@@ -67,6 +67,7 @@ export class DashboardService {
 
             return {
                 series: obj.length>1?obj:[],
+                colors:['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#D7263D', '#F9C80E', '#5A2A27', '#C7F464'],
                 chart: {
                     width: "100%",
                     type: "pie"
@@ -100,10 +101,10 @@ export class DashboardService {
                     offsetX: 0,
                     offsetY: -50,
                     style: {
-                        
+
                         color: '#01671B',
                         fontSize: '18px',
-                        
+
                     }
                 }
             };

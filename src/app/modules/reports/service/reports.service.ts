@@ -156,7 +156,8 @@ export class ReportsService {
         // }
     }
 
-    DownLoadLoanInfoDetail(reportsFilter, zone = null, branch = null, circle = null){
+    CustomDownloads(reportsFilter, Info,zone = null, branch = null, circle = null){
+        debugger
         let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         let final_zone = null;
         let final_branch = null;
@@ -174,20 +175,28 @@ export class ReportsService {
         }
 
         let request = null;
-        request = {
-            ReportsFilterCustom: {
-                LoanInformation: reportsFilter,
-                //ReportFormatType: '2',
-                //ReportsNo: "25"
-            },
-            User: user.User,
-            Zone: final_zone,
-            Branch: final_branch,
+        if(Info == 'LoanInfoDetail'){
+            request = {
+                ReportsFilterCustom: {
+                    LoanInformation: reportsFilter,
+                    ReportFormatType: '2',
+                    ReportsNo: "25"
+                    },
+                User: user.User,
+                Zone: final_zone,
+                Branch: final_branch,
+            }
+            return this.http.post<any>(`${environment.apiUrl}/Reports/DownloadLoanInformationReport`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }else if(Info == 'CustomerCWR'){
+            return this.http.post<any>(`${environment.apiUrl}/Reports/DownloadCWR`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
         }
-        return this.http.post<any>(`${environment.apiUrl}/Reports/DownloadLoanInformationReport`, request)
-            .pipe(
-                map((res: BaseResponseModel) => res)
-            );
+
     }
 
     voucher(reportsFilter, zone = null, branch = null) {

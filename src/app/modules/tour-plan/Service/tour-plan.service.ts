@@ -29,17 +29,19 @@ export class TourPlanService {
 
     userInfo = this.userUtilsService.getUserDetails();
 
-    createTourPlan(TourPlan) {
+    createTourPlan(TourPlan, zone = null, branch = null, circle = null, startDate = null, endDate = null) {
 
         this.request = new BaseRequestModel();
         this.request.DEVICELOCATION = this.deviceLocation;
         this.request.TranId = 2830;
         this.request.doPerformOTP = false;
-        this.request.Zone = this.userInfo.Zone;
-        this.request.Branch = this.userInfo.Branch;
-        this.request.Circle = this.circle;
         this.request.User = this.userInfo.User;
         this.request.TourPlan = TourPlan;
+        this.request.TourPlan.StartDate = startDate;
+        this.request.TourPlan.EndDate = endDate;
+        this.request.Zone = zone;
+        this.request.Branch = branch;
+        this.request.Circle = circle;
 
         var v = JSON.stringify(this.request)
 
@@ -143,19 +145,20 @@ export class TourPlanService {
         this.request.TourPlan.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
-    //   var date ={
-    //     "User": this.request.User,
-    //     "TourPlan":  tourPlan 
-            
-    //   }
-       // var req = JSON.stringify(this.request);
+        //   var date ={
+        //     "User": this.request.User,
+        //     "TourPlan":  tourPlan
+
+        //   }
+        // var req = JSON.stringify(this.request);
 
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-                map((res: BaseResponseModel) => res)
-            );
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
+
     GetScheduleBaseTourPlan(tourPlan, Limit, Offset, branch, zone) {
         this.request = new BaseRequestModel();
 
@@ -167,18 +170,18 @@ export class TourPlanService {
         this.request.TourPlan.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
-      var date ={
-        "User": this.request.User,
-        "TourPlan":  tourPlan 
-            
-      }
-       // var req = JSON.stringify(this.request);
+        var date = {
+            "User": this.request.User,
+            "TourPlan": tourPlan
+
+        }
+        // var req = JSON.stringify(this.request);
 
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetScheduleBaseTourPlan`, date,
-            { headers: this.httpUtils.getHTTPHeaders() }).pipe(
-                map((res: BaseResponseModel) => res)
-            );
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
 
     TourPlanForApproval(tourPlan, Limit, Offset) {
@@ -241,8 +244,10 @@ export class TourPlanService {
             "TourPlan": {
                 "StartDate": StartDate,
                 "EndDate": EndDate
-            }
+            },
+            "User": this.userInfo.User,
         }
+
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetHolidays`, resData,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: any) => res)
