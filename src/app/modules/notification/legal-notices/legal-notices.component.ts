@@ -9,11 +9,11 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
 import {finalize} from "rxjs/operators";
 
 @Component({
-  selector: 'app-demand-notices',
-  templateUrl: './demand-notices.component.html',
-  styleUrls: ['./demand-notices.component.scss']
+  selector: 'app-legal-notices',
+  templateUrl: './legal-notices.component.html',
+  styleUrls: ['./legal-notices.component.scss']
 })
-export class DemandNoticesComponent implements OnInit, AfterViewInit {
+export class LegalNoticesComponent implements OnInit, AfterViewInit {
     displayedColumns = ['Zone', 'Branch',  'Cnic', 'Name', 'FatherName', 'Address','Lcno', 'Markup','Sl', 'Ndd', 'Tsa', 'Los'];
     loaded = true;
     matTableLenght = false;
@@ -47,7 +47,7 @@ export class DemandNoticesComponent implements OnInit, AfterViewInit {
 
 
     find() {
-        let t = 1;
+        let t = 8;
         this.spinner.show();
         this._notification.notificationCards(t)
             .pipe(

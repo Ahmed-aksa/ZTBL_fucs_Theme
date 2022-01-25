@@ -16,6 +16,7 @@ import {RouterModule} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
 import { NotificationPageComponent } from './notification-page/notification-page.component';
 import { GetFenceViolationComponent } from './get-fence-violation/get-fence-violation.component';
+import { LegalNoticesComponent } from './legal-notices/legal-notices.component';
 
 const routing = [
     {
@@ -46,6 +47,14 @@ const routing = [
         path: 'get-fence-violation',
         component: GetFenceViolationComponent
     },
+    {
+        path: 'demand-notices',
+        component: DemandNoticesComponent
+    },
+    {
+        path: 'legal-notices',
+        component: LegalNoticesComponent
+    },
 ]
 
 @NgModule({
@@ -63,7 +72,8 @@ const routing = [
     LoanDefaultersComponent,
     NotificationComponent,
     NotificationPageComponent,
-    GetFenceViolationComponent
+    GetFenceViolationComponent,
+    LegalNoticesComponent
   ],
   imports: [
       CommonModule,

@@ -247,7 +247,6 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
             disableClose: true,
         });
         dialogRef.afterClosed().subscribe(result => {
-            debugger
             if (result?.data?.data == 0)
                 return;
             if (result?.data?.data?.date)
@@ -288,7 +287,6 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     };
 
     SearchTourPlan(startDate, endDate) {
-        debugger
         this.spinner.show();
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
@@ -320,7 +318,6 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     }
 
     editTourPlan(item) {
-        debugger
         var visitDate;
         console.log(item)
         this.tourPlanForm.get('TourPlanId').patchValue(item.TourPlanId);

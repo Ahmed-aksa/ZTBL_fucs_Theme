@@ -114,12 +114,24 @@
 
         <div class="col-lg-4 col-sm-12">
             <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+                      id="llcInquiryText" (click)="click(1)">
                 <count [count]="nDn" *ngIf="nDn  != undefined"></count>
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/ic_demand_notice.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
 
                     <p class=" text-black">Demand Notices</p>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText" (click)="click(8)">
+                <count [count]="nDn" *ngIf="nLn  != undefined"></count>
+                <div class="d-grid" style="justify-items: center;">
+                    <img src="../../../../assets/images/ic_demand_notice.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
+
+                    <p class=" text-black">Legal Notices</p>
                 </div>
             </mat-card>
         </div>
