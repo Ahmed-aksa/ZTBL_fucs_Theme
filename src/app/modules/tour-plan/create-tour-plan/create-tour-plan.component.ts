@@ -153,6 +153,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     }
 
     controlReset(){
+        this.tourPlanForm.controls['TourPlanId'].reset()
         this.tourPlanForm.controls['CircleName'].reset()
         this.tourPlanForm.controls['VisitedDate'].reset()
         this.tourPlanForm.controls['Purpose'].reset()
@@ -386,6 +387,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
                     if (baseResponse.Success) {
                         this.tragetList = [];
                         this.SearchTourPlan(this.startDate, this.endDate);
+                        this.controlReset()
                         this.layoutUtilsService.alertElementSuccess(
                             "",
                             baseResponse.Message,
