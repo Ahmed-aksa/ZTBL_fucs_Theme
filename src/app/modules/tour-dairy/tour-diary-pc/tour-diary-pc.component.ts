@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
@@ -34,6 +34,7 @@ export class TourDiaryPcComponent implements OnInit {
     circle: any;
     sign;
     TourPlan;
+    Format24:boolean=true;
 
     constructor(
         private fb: FormBuilder,
@@ -107,6 +108,25 @@ export class TourDiaryPcComponent implements OnInit {
             NoOfDefaultersContacted: [null],
             ResultsOfContactsSoMade: [null],
         });
+    }
+
+    @ViewChild("timepicker") timepicker: any;
+
+    openFromIcon(timepicker: { open: () => void }) {
+        // if (!this.formControlItem.disabled) {
+        timepicker.open();
+        // }
+    }
+
+    //Date Format
+    DateFormat(){
+        if(this.Format24===true){
+            return 24
+        }
+        else{
+            return 12
+        }
+
     }
 
     submit() {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {
     DateAdapter,
@@ -40,6 +40,8 @@ export class TourDairyZmComponent implements OnInit {
     branch: any;
     circle: any;
     TourPlan: any;
+    Format24:boolean=true;
+
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
@@ -138,6 +140,25 @@ export class TourDairyZmComponent implements OnInit {
             Designation: [null],
             Dated: [null],
         });
+    }
+
+    @ViewChild("timepicker") timepicker: any;
+
+    openFromIcon(timepicker: { open: () => void }) {
+        // if (!this.formControlItem.disabled) {
+        timepicker.open();
+        // }
+    }
+
+    //Date Format
+    DateFormat(){
+        if(this.Format24===true){
+            return 24
+        }
+        else{
+            return 12
+        }
+
     }
 
     submit() {

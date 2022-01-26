@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SignatureDailogDairyComponent} from "../signature-dailog-dairy/signature-dailog-dairy.component";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
@@ -34,6 +34,7 @@ export class TourDairyZcComponent implements OnInit {
     zone: any;
     branch: any;
     circle: any;
+    Format24:boolean=true;
 
     constructor(
         private fb: FormBuilder,
@@ -157,6 +158,25 @@ export class TourDairyZcComponent implements OnInit {
             Designation: [null],
             Dated: [null],
         });
+    }
+
+    @ViewChild("timepicker") timepicker: any;
+
+    openFromIcon(timepicker: { open: () => void }) {
+        // if (!this.formControlItem.disabled) {
+        timepicker.open();
+        // }
+    }
+
+    //Date Format
+    DateFormat(){
+        if(this.Format24===true){
+            return 24
+        }
+        else{
+            return 12
+        }
+
     }
 
     submit() {

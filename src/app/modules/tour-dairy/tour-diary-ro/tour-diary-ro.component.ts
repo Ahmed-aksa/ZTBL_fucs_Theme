@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
@@ -35,6 +35,7 @@ export class TourDiaryRoComponent implements OnInit {
     circle: any;
     sign;
     TourPlan;
+    Format24:boolean=true;
 
     constructor(
         private fb: FormBuilder,
@@ -108,6 +109,25 @@ export class TourDiaryRoComponent implements OnInit {
             NoOfDefaultersContacted: [null],
             ResultsOfContactsSoMade: [null],
         });
+    }
+
+    @ViewChild("timepicker") timepicker: any;
+
+    openFromIcon(timepicker: { open: () => void }) {
+        // if (!this.formControlItem.disabled) {
+        timepicker.open();
+        // }
+    }
+
+    //Date Format
+    DateFormat(){
+        if(this.Format24===true){
+            return 24
+        }
+        else{
+            return 12
+        }
+
     }
 
     submit() {

@@ -97,7 +97,8 @@
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Departure Time</mat-label>
-                                                <input matInput formControlName="DepartureFromTime" autocomplete="off"/>
+                                                <input type="text" matInput [ngxTimepicker]="timepickerDeparture" [format]="DateFormat()" readonly formControlName="DepartureFromTime"/>
+                                                <mat-icon matSuffix (click)="openFromIcon(timepickerDeparture)">schedule</mat-icon>
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -127,7 +128,9 @@
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Arrival Time</mat-label>
-                                                <input matInput formControlName="ArrivalAtTime" autocomplete="off"/>
+                                                <input type="text" matInput [ngxTimepicker]="timepickerArrival" [format]="DateFormat()" readonly
+                                                       formControlName="ArrivalAtTime"/>
+                                                <mat-icon matSuffix (click)="openFromIcon(timepickerArrival)">schedule</mat-icon>
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -440,3 +443,6 @@
     </div>
 
 </div>
+
+<ngx-material-timepicker  #timepickerDeparture></ngx-material-timepicker>
+<ngx-material-timepicker #timepickerArrival></ngx-material-timepicker>
