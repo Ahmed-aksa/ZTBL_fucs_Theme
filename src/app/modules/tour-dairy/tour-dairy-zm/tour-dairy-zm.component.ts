@@ -58,9 +58,9 @@ export class TourDairyZmComponent implements OnInit {
         this.createForm();
         this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
-        var zoneId = this.zone.ZoneId;
-
-        this.getBranches(zoneId);
+        // var zoneId = this.zone.ZoneId;
+        //
+        // this.getBranches(zoneId);
     }
 
     isEnableReceipt(isTrCodeChange: boolean) {
@@ -172,6 +172,10 @@ export class TourDairyZmComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
+
+        var zoneId = this.zone.ZoneId;
+        console.log(zoneId)
+        this.getBranches(zoneId);
 
     }
 }
