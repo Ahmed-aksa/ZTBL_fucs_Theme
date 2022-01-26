@@ -134,4 +134,15 @@
         <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p> -->
 
     </div>
+
+    <div class="row">
+        <div class="col-lg-12 flex  py-2 border-t">
+
+            <button *ngIf="showSubmit" mat-raised-button class="mr-2" color="primary" (click)="submitTourPlan()">
+                <mat-icon class="mr-2">check_circle</mat-icon>
+                Submit
+            </button>
+
+        </div>
+    </div>
 </div>

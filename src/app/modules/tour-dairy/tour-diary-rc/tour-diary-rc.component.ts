@@ -33,6 +33,7 @@ export class TourDiaryRcComponent implements OnInit {
     branch: any;
     circle: any;
     sign;
+    TourPlan;
 
     constructor(
         private fb: FormBuilder,
@@ -50,12 +51,12 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     isEnableReceipt(isTrCodeChange: boolean) {
-        var Date = this.gridForm.controls.Date.value;
+        var Date = this.gridForm.controls.TourDate.value;
         if (Date._isAMomentObject == undefined) {
             try {
-                var day = this.gridForm.controls.Date.value.getDate();
-                var month = this.gridForm.controls.Date.value.getMonth() + 1;
-                var year = this.gridForm.controls.Date.value.getFullYear();
+                var day = this.gridForm.controls.TourDate.value.getDate();
+                var month = this.gridForm.controls.TourDate.value.getMonth() + 1;
+                var year = this.gridForm.controls.TourDate.value.getFullYear();
                 if (month < 10) {
                     month = '0' + month;
                 }
@@ -63,15 +64,15 @@ export class TourDiaryRcComponent implements OnInit {
                     day = '0' + day;
                 }
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.Date.setValue(branchWorkingDate);
+                this.gridForm.controls.TourDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         } else {
             try {
-                var day = this.gridForm.controls.Date.value.toDate().getDate();
+                var day = this.gridForm.controls.TourDate.value.toDate().getDate();
                 var month =
-                    this.gridForm.controls.Date.value.toDate().getMonth() + 1;
-                var year = this.gridForm.controls.Date.value
+                    this.gridForm.controls.TourDate.value.toDate().getMonth() + 1;
+                var year = this.gridForm.controls.TourDate.value
                     .toDate()
                     .getFullYear();
                 if (month < 10) {
@@ -83,7 +84,7 @@ export class TourDiaryRcComponent implements OnInit {
                 Date = day + '' + month + '' + year;
 
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.Date.setValue(branchWorkingDate);
+                this.gridForm.controls.TourDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         }
@@ -91,12 +92,20 @@ export class TourDiaryRcComponent implements OnInit {
 
     createForm() {
         this.gridForm = this.fb.group({
-            NameOfOfficer: [''],
-            PPNO: [''],
-            Month: [''],
-            Name: [''],
-            Designation: [''],
-            Date: [''],
+            NameOfOfficer: [null],
+            PPNO: [null],
+            Month: [null],
+            Name: [null],
+            Date: [null],
+            Designation: [null],
+            TourDate: [null],
+            TourPlanId: [null],
+            DepartureFromPlace: [null],
+            DepartureFromTime: [null],
+            ArrivalAtPlace: [null],
+            ArrivalAtTime: [null],
+            NoOfDefaultersContacted: [null],
+            ResultsOfContactsSoMade: [null],
         });
     }
 

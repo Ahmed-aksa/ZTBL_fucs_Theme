@@ -35,6 +35,7 @@ export class TourDiaryBmComponent implements OnInit {
     circle: any;
 
     sign;
+    TourPlan;
 
     constructor(
         private fb: FormBuilder,
@@ -91,14 +92,71 @@ export class TourDiaryBmComponent implements OnInit {
         }
     }
 
+    // isEnableReceipt(isTrCodeChange: boolean) {
+    //     var Date = this.gridForm.controls.TourDate.value;
+    //     if (Date._isAMomentObject == undefined) {
+    //         try {
+    //             var day = this.gridForm.controls.TourDate.value.getDate();
+    //             var month = this.gridForm.controls.TourDate.value.getMonth() + 1;
+    //             var year = this.gridForm.controls.TourDate.value.getFullYear();
+    //             if (month < 10) {
+    //                 month = '0' + month;
+    //             }
+    //             if (day < 10) {
+    //                 day = '0' + day;
+    //             }
+    //             const branchWorkingDate = new Date(year, month - 1, day);
+    //             this.gridForm.controls.TourDate.setValue(branchWorkingDate);
+    //         } catch (e) {
+    //         }
+    //     } else {
+    //         try {
+    //             var day = this.gridForm.controls.TourDate.value.toDate().getDate();
+    //             var month =
+    //                 this.gridForm.controls.TourDate.value.toDate().getMonth() + 1;
+    //             var year = this.gridForm.controls.TourDate.value
+    //                 .toDate()
+    //                 .getFullYear();
+    //             if (month < 10) {
+    //                 month = '0' + month;
+    //             }
+    //             if (day < 10) {
+    //                 day = '0' + day;
+    //             }
+    //             Date = day + '' + month + '' + year;
+    //
+    //             const branchWorkingDate = new Date(year, month - 1, day);
+    //             this.gridForm.controls.TourDate.setValue(branchWorkingDate);
+    //         } catch (e) {
+    //         }
+    //     }
+    // }
+
     createForm() {
         this.gridForm = this.fb.group({
             NameOfOfficer: [''],
-            PPNO: [''],
-            Month: [''],
-            Name: [''],
-            Designation: [''],
-            Date: [''],
+            PPNO: [null],
+            Month: [null],
+            Zone: [null],
+            TourDate: [null],
+            Date: [null],
+            TourPlanId: [null],
+            DepartureFromPlace: [null],
+            DepartureFromTime: [null],
+            ArrivalAtPlace: [null],
+            ArrivalAtTime: [null],
+            NoOfNewBorrowersContacted: [null],
+            NoOfBorrowersRollover: [null],
+            NoOfDefaultersContacted: [null],
+            AmountRecoveredWithLcno: [null],
+            NoOfUtilizationsCheckedPerQuota: [null],
+            ProgressiveFarmersContacted: [null],
+            NoOfFarmsVisited: [null],
+            AnyOtherWorkDone:[null],
+            Remarks:[null],
+            Name: [null],
+            Designation: [null],
+            Dated: [null],
         });
     }
 

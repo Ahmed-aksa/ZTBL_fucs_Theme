@@ -36,6 +36,10 @@ export class TourDairyZmComponent implements OnInit {
     sign;
     SelectedBranches = [];
     preSelect: any;
+    zone: any;
+    branch: any;
+    circle: any;
+    TourPlan: any;
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
@@ -51,9 +55,8 @@ export class TourDairyZmComponent implements OnInit {
     ngOnInit(): void {
         this.createForm();
         this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser.User.DisplayName);
-        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
-        this.gridForm.controls['Zone'].setValue(this.loggedInUser.Zone.ZoneName);
-        var zoneId = this.loggedInUser.Zone.ZoneId;
+        this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
+        var zoneId = this.zone.ZoneId;
 
         this.getBranches(zoneId);
     }
@@ -116,12 +119,24 @@ export class TourDairyZmComponent implements OnInit {
     createForm() {
         this.gridForm = this.fb.group({
             NameOfOfficer: [''],
-            Ppno: [''],
-            Month: [''],
-            Zone: [''],
-            Name: [''],
-            Designation: [''],
-            Date: [''],
+            PPNO: [null],
+            Month: [null],
+            Zone: [null],
+            TourDate: [null],
+            Date: [null],
+            TourPlanId: [null],
+            DepartureFromPlace: [null],
+            DepartureFromTime: [null],
+            ArrivalAtPlace: [null],
+            ArrivalAtTime: [null],
+            LoanCasesInRecoverySchedule: [null],
+            CheckMCOAndBMTourDiary: [null],
+            ShortComingsInTourDiariesOFMCOAndBM: [null],
+            NoOfDefaultersContactedByZM: [null],
+            Remarks:[null],
+            Name: [null],
+            Designation: [null],
+            Dated: [null],
         });
     }
 
@@ -130,5 +145,12 @@ export class TourDairyZmComponent implements OnInit {
             SignatureDailogDairyComponent,
             {width: '500px', disableClose: true}
         );
+    }
+
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = data.final_circle;
+
     }
 }

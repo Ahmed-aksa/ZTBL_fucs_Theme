@@ -93,11 +93,12 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     startDate: any;
     endDate: any;
     navigationSubscription: any;
-
+    showSubmit: boolean = false;
+    // edit from search
     isEdit: any = null;
     EditViewMode: boolean = false;
     tourPlanEditView: any;
-
+    tourPlanSubmit : any = {};
     //upflag object
     upFlag: any;
 
@@ -310,9 +311,9 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
                 if (baseResponse.Success) {
                     this.OffSet = this.pageIndex;
                     this.tragetList = baseResponse.TourPlan.TourPlans;
+                    this.showSubmit = true;
                 } else {
-
-
+                    this.tragetList = []
                 }
             });
     }
@@ -401,12 +402,14 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     }
 
 
-    submitTourPlan(item){
+    submitTourPlan(){
+        debugger
         this.spinner.show();
-        this.TourPlan = item;
+        this.tourPlanSubmit = this.tragetList;
         this.TourPlan.Status = 'S';
+        this.tourPlanSubmit.Status = this.TourPlan.Status
         this.tourPlanService
-            .ChanageTourStatus(this.TourPlan)
+            .ChanageTourStatusMultiple(this.tourPlanSubmit)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
