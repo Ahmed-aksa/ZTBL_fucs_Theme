@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SetTargetComponent} from './set-target/set-target.component';
 import {SignatureDailogDairyComponent} from './signature-dailog-dairy/signature-dailog-dairy.component';
@@ -26,12 +26,14 @@ import { TourDiaryRoComponent } from './tour-diary-ro/tour-diary-ro.component';
 import { TourDiaryBmComponent } from './tour-diary-bm/tour-diary-bm.component';
 import { TourDiaryPcComponent } from './tour-diary-pc/tour-diary-pc.component';
 import { TourDiaryRcComponent } from './tour-diary-rc/tour-diary-rc.component';
-import {NumberDirective} from "../../shared/directives/numbers-only.directive";
 import {SetTargetTabsComponent} from "./set-target-tabs/set-target-tabs.component";
 import {IConfig, NgxMaskModule} from "ngx-mask";
+import {NgxMaterialTimepickerComponent, NgxMaterialTimepickerModule} from "ngx-material-timepicker";
 export const options: Partial<IConfig> = {
     thousandSeparator: ","
 };
+
+
 
 const routing = [
     {
@@ -107,7 +109,8 @@ const routing = [
         MatDatepickerModule,
         MatIconModule,
         MatDialogModule,
-        NgxMaskModule.forRoot(options)
+        NgxMaskModule.forRoot(options),
+        NgxMaterialTimepickerModule.setLocale('en-US')
     ],
     providers: [
         DatePipe,
