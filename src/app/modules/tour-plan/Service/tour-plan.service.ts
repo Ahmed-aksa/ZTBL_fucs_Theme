@@ -72,13 +72,26 @@ export class TourPlanService {
     }
 
     ChanageTourStatusMultiple(tourPlan: TourPlan) {
+        debugger
+        var value, tourPlanAray = [], tourPlanIds;
+        value = tourPlan
+
+        value.forEach((element)=>{
+            tourPlanAray.push(element.TourPlanId)
+        })
+
+        tourPlanIds = tourPlanAray;
+
         this.request = new BaseRequestModel();
         this.request.User = this.userInfo.User;
         var v = JSON.stringify(tourPlan)
 
         this.request.TourPlan = {
-            "TourPlanStatus": {"Status": tourPlan.Status, "TourPlanIds": tourPlan.TourPlanId}
+            "TourPlanStatus": {"Status": tourPlan.Status, "TourPlanIds": tourPlanIds}
         };
+        // this.request.TourPlan = {
+        //     "TourPlanStatus": {"Status": tourPlan.Status, "TourPlanIds": tourPlan.TourPlanId}
+        // };
         var v = JSON.stringify(this.request)
 
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {
     DateAdapter,
@@ -36,6 +36,12 @@ export class TourDairyZmComponent implements OnInit {
     sign;
     SelectedBranches = [];
     preSelect: any;
+    zone: any;
+    branch: any;
+    circle: any;
+    TourPlan: any;
+    Format24:boolean=true;
+
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
@@ -51,11 +57,10 @@ export class TourDairyZmComponent implements OnInit {
     ngOnInit(): void {
         this.createForm();
         this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser.User.DisplayName);
-        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
-        this.gridForm.controls['Zone'].setValue(this.loggedInUser.Zone.ZoneName);
-        var zoneId = this.loggedInUser.Zone.ZoneId;
-
-        this.getBranches(zoneId);
+        this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
+        // var zoneId = this.zone.ZoneId;
+        //
+        // this.getBranches(zoneId);
     }
 
     isEnableReceipt(isTrCodeChange: boolean) {
@@ -116,13 +121,44 @@ export class TourDairyZmComponent implements OnInit {
     createForm() {
         this.gridForm = this.fb.group({
             NameOfOfficer: [''],
-            Ppno: [''],
-            Month: [''],
-            Zone: [''],
-            Name: [''],
-            Designation: [''],
-            Date: [''],
+            PPNO: [null],
+            Month: [null],
+            Zone: [null],
+            TourDate: [null],
+            Date: [null],
+            TourPlanId: [null],
+            DepartureFromPlace: [null],
+            DepartureFromTime: [null],
+            ArrivalAtPlace: [null],
+            ArrivalAtTime: [null],
+            LoanCasesInRecoverySchedule: [null],
+            CheckMCOAndBMTourDiary: [null],
+            ShortComingsInTourDiariesOFMCOAndBM: [null],
+            NoOfDefaultersContactedByZM: [null],
+            Remarks:[null],
+            Name: [null],
+            Designation: [null],
+            Dated: [null],
         });
+    }
+
+    @ViewChild("timepicker") timepicker: any;
+
+    openFromIcon(timepicker: { open: () => void }) {
+        // if (!this.formControlItem.disabled) {
+        timepicker.open();
+        // }
+    }
+
+    //Date Format
+    DateFormat(){
+        if(this.Format24===true){
+            return 24
+        }
+        else{
+            return 12
+        }
+
     }
 
     submit() {
@@ -130,5 +166,16 @@ export class TourDairyZmComponent implements OnInit {
             SignatureDailogDairyComponent,
             {width: '500px', disableClose: true}
         );
+    }
+
+    getAllData(data) {
+        this.zone = data.final_zone;
+        this.branch = data.final_branch;
+        this.circle = data.final_circle;
+
+        var zoneId = this.zone.ZoneId;
+        console.log(zoneId)
+        this.getBranches(zoneId);
+
     }
 }

@@ -71,6 +71,7 @@
         "ngx-icon-picker": "^1.7.0",
         "ngx-markdown": "12.0.1",
         "ngx-mat-select-search": "^3.3.0",
+        "ngx-material-timepicker": "^5.5.3",
         "ngx-print": "^1.2.1",
         "ngx-quill": "14.3.0",
         "ngx-spinner": "^12.0.0",

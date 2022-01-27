@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ExtraOptions, PreloadAllModules, RouterModule} from '@angular/router';
@@ -17,10 +17,8 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {metaReducers, reducers} from './shared/reducers';
 import {HttpUtilsService} from './shared/services/http_utils.service';
-import {TypesUtilsService} from './shared/services/types-utils.service';
 import {LayoutUtilsService} from './shared/services/layout-utils.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {ConfigurationManagementComponent} from './modules/configuration-management/configuration-management.component';
 import {UserUtilsService} from './shared/services/users_utils.service';
 import {TokenInterceptor} from './shared/httpInterceptor/httpconfig.interceptor';
 import {NdcRequestsModule} from './modules/ndc-requests/ndc-requests.module';
@@ -33,6 +31,7 @@ const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
     scrollPositionRestoration: 'enabled'
 };
+
 
 @NgModule({
     declarations: [

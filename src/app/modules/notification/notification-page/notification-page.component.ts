@@ -22,6 +22,7 @@ export class NotificationPageComponent implements OnInit {
     nDc;
     nCel;
     nDn;
+    nLn;
     nBl;
     nUv;
     nLDef;
@@ -67,7 +68,9 @@ export class NotificationPageComponent implements OnInit {
    }
 
    click(number){
-      if(number == 1){}
+      if(number == 1){
+          this.router.navigateByUrl('/notifications/demand-notices');
+      }
       else if(number == 2){
           this.router.navigateByUrl('/notifications/due-payments');
       }
@@ -81,6 +84,9 @@ export class NotificationPageComponent implements OnInit {
       }
       else if(number == 7){
           this.router.navigateByUrl('/notifications/cnic-expiry-loaner');
+      }
+      else if(number == 8){
+          this.router.navigateByUrl('/notifications/legal-notices');
       }
       else if(number == 12){
           this.router.navigateByUrl('/notifications/get-fence-violation');

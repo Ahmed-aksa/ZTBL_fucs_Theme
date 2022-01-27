@@ -59,6 +59,7 @@ import {CustLoanlistComponent} from "../modules/loan/customer-list/cust-list.com
 import { CountComponent } from './count/count.component';
 
 
+
 @NgModule({
     declarations: [
         UpdateStatusDialogComponent,
@@ -123,6 +124,8 @@ import { CountComponent } from './count/count.component';
             apiKey: 'AIzaSyC3SrcUt_3iPERnX-hk46YYsKJiCTzJ5z0',
             libraries: ['places', 'drawing', 'geometry'],
         }),
+
+
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
@@ -160,7 +163,6 @@ import { CountComponent } from './count/count.component';
         AlertComponent,
         AlphabetOnlyDirective,
         NumberOnlyDirective,
-
         AlphaNumericFieldDirective,
         CapsOnlyDirective,
         AlphaNumSpecialDirective,
