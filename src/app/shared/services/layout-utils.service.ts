@@ -55,7 +55,6 @@ export class LayoutUtilsService {
     }
 
     alertElement(title: string = '', description: string = '', code: string = '') {
-
         return this.dialog.open(AlertDialogComponent, {
             data: {title, description, code},
             width: '440px'

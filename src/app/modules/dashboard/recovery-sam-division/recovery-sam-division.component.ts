@@ -45,7 +45,7 @@ export class RecoverySamDivisionComponent implements OnInit {
     Top10SamZones: any;
     CreditCeiling: any;
 
-    constructor(fb: FormBuilder, private spinner: NgxSpinnerService, private dashboardService: DashboardService) {
+    constructor(fb: FormBuilder, private spinner: NgxSpinnerService, public dashboardService: DashboardService) {
         this.options = fb.group({
             hideRequired: this.hideRequiredControl,
             floatLabel: this.floatLabelControl,
@@ -65,14 +65,17 @@ export class RecoverySamDivisionComponent implements OnInit {
         }
         this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank Book');
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.CreditCeiling, 'Credit Ceiling');
-        this.DisbursmentAchievement = Object.entries(DashboardReport.DisbursmentAchievement);
-        this.RecoveryAchievement = Object.entries(DashboardReport.RecoveryAchievement);
+
+        this.DisbursmentAchievement = this.dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
+        this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
+        
         this.Top10NplZones = DashboardReport.Top10NplZones;
         this.Top10SamZones = DashboardReport.Top10SamZones;
         this.CreditCeiling = DashboardReport.CreditCeiling;
     }
 
     getData() {
+        this.spinner.show()
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {

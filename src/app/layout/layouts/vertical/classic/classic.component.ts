@@ -67,6 +67,9 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
             .subscribe(({ matchingAliases }) => {
                 this.isScreenSmall = !matchingAliases.includes('md');
             });
+        this.SessionStart();
+        
+        
     }
 
     IsIconVisable(url) {
@@ -88,11 +91,11 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         }}
 
     ngOnDestroy(): void {
-        this._sessionExpireService.timerUnSubject();
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
+        // this._sessionExpireService.timerUnSubject();
+        // this._unsubscribeAll.next();
+        // this._unsubscribeAll.complete();
     }
-    ngAfterViewInit() {
+    SessionStart() {
         this.setSessionTime();
             this._sessionExpireService.count.subscribe(c => {
                 if (c == 0) {
@@ -159,5 +162,5 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy {
         var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
         return hDisplay + mDisplay + sDisplay;
     }
-
+    
 }

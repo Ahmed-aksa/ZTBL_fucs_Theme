@@ -42,7 +42,7 @@ export class EvpOdDashboardComponent implements OnInit {
     ResourcesCount: [string, unknown][];
     UtilizationMutation: [string, unknown][];
 
-    constructor(fb: FormBuilder, private spinner: NgxSpinnerService, private dashboardService: DashboardService) {
+    constructor(fb: FormBuilder, private spinner: NgxSpinnerService, public dashboardService: DashboardService) {
         this.options = fb.group({
             hideRequired: this.hideRequiredControl,
             floatLabel: this.floatLabelControl,
@@ -54,6 +54,7 @@ export class EvpOdDashboardComponent implements OnInit {
         this.spinner.show();
         this.getYears();
         this.getData();
+        this.year=(new Date()).getFullYear().toString();
     }
 
     assignRoleData(DashboardReport: any) {
@@ -63,10 +64,10 @@ export class EvpOdDashboardComponent implements OnInit {
         }
         try {
             this.chartOptions = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
-            this.ResourcesCount = Object.entries(DashboardReport?.ResourcesCount);
-            this.UtilizationMutation = Object.entries(DashboardReport?.UtilizationMutation);
-        } catch (err) {
+            this.ResourcesCount =Object.entries(DashboardReport?.ResourcesCount);
+            this.UtilizationMutation = Object.entries(DashboardReport?.UtilizationMutation); 
 
+        } catch (err) {
         } finally {
             this.spinner.hide();
         }
@@ -74,6 +75,7 @@ export class EvpOdDashboardComponent implements OnInit {
     }
 
     getData() {
+        this.spinner.show();
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {

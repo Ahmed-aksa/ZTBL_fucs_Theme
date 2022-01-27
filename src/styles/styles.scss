@@ -21,6 +21,12 @@ body {
     color: white !important;
 }
 
+@media only screen and (min-width: 1550px) {
+    .graph-box{
+      height: 460px !important;
+    }
+  }
+
 .apexcharts-legend.position-bottom.apexcharts-align-left .apexcharts-legend-series .apexcharts-legend-text, .apexcharts-legend.position-top.apexcharts-align-left .apexcharts-legend-series .apexcharts-legend-text, .apexcharts-legend.position-right .apexcharts-legend-series .apexcharts-legend-text, .apexcharts-legend.position-left .apexcharts-legend-series .apexcharts-legend-text {
     width: 130px;
     overflow-wrap: break-word;
