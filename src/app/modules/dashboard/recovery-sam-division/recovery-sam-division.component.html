@@ -38,7 +38,7 @@
 
         <div class="row pb-4">
             <div class="col-lg-6">
-                <div class=" shadow-sm border"  style="height: 365px;" >
+                <div class=" shadow-sm border graph-box"  style="height: 365px;" >
                     <div id="chart2" *ngIf="chartOptions1" class=" mt-0 py-3">
                         <apx-chart [series]="chartOptions1?.series" [chart]="chartOptions1?.chart"
                                    [labels]="chartOptions1?.labels" [title]="chartOptions1?.title"
@@ -50,7 +50,7 @@
 
             </div>
             <div class="col-lg-6">
-                <div class=" shadow-sm border"  style="height: 365px;" >
+                <div class=" shadow-sm border graph-box"  style="height: 365px;" >
                     <div id="chart3" *ngIf="chartOptions2" class=" mt-0 py-3">
                         <apx-chart [series]="chartOptions2?.series" [chart]="chartOptions2?.chart"
                                    [labels]="chartOptions2?.labels" [title]="chartOptions2?.title"
@@ -77,9 +77,37 @@
             <div class="col-lg-6 table-responsive">
                 <table class="table table-striped">
                     <tbody>
-                    <tr *ngFor="let item of DisbursmentAchievement">
-                        <td>{{item[0]}}</td>
-                        <td>{{item[01]}}</td>
+                    <tr *ngFor="let items of DisbursmentAchievement" class="text-center">
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                   {{dashboardService.getCamelCaseString(items[0],0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{dashboardService.getCamelCaseString(items[0],1)}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{dashboardService.getCamelCaseString(items[1],0)}}
+                                 </div>
+                                 <div class="fw-bold">
+                                     {{dashboardService.getCamelCaseString(items[1],1)}}
+                                 </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{dashboardService.getCamelCaseString(items[2],0)}}
+                                 </div>
+                                 <div class="fw-bold">
+                                     {{dashboardService.getCamelCaseString(items[2],1)}}
+                                 </div>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
 
@@ -88,9 +116,37 @@
             <div class="col-lg-6 table-responsive">
                 <table class="table table-striped">
                     <tbody>
-                    <tr *ngFor="let item of RecoveryAchievement">
-                        <td>{{item[0]}}</td>
-                        <td>{{item[01]}}</td>
+                    <tr *ngFor="let items of RecoveryAchievement" class="text-center">
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                   {{dashboardService.getCamelCaseString(items[0],0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{dashboardService.getCamelCaseString(items[0],1)}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{dashboardService.getCamelCaseString(items[1],0)}}
+                                 </div>
+                                 <div class="fw-bold">
+                                     {{dashboardService.getCamelCaseString(items[1],1)}}
+                                 </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{dashboardService.getCamelCaseString(items[2],0)}}
+                                 </div>
+                                 <div class="fw-bold">
+                                     {{dashboardService.getCamelCaseString(items[2],1)}}
+                                 </div>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
 

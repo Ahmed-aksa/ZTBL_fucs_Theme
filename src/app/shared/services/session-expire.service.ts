@@ -50,8 +50,14 @@ export class SessionExpireService {
     }, 1000);
   }
   
-  timerUnSubject(){
-    this.count.unsubscribe();
+
+
+  // timerUnSubject(){
+  //   this.count.unsubscribe();
+  // }
+  ngOnDestroy() {
+    this.count.unsubscribe()
+    clearInterval(this.timer1);
   }
 
 }

@@ -55,6 +55,10 @@ export class EncryptDecryptService {
 
     //The get method is use for decrypt the value.
     AESdecrypt(keys, value) {
+        if (!value) {
+            return;
+         }
+        
         if (!keys) {
             keys = this.getKey()
         }

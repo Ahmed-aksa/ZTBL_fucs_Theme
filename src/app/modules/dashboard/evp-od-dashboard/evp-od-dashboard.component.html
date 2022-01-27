@@ -38,7 +38,7 @@
         <div class=" overflow-x-hidden overflow-y-scroll">
             <div class="row pb-4">
                 <div class="col-lg-6 mb-3">
-                    <div class="shadow-sm border"  style="height: 365px;" >
+                    <div class="shadow-sm border graph-box"  style="height: 365px;" >
                         <div id="chart" *ngIf="chartOptions" class=" mt-0 py-3">
                             <apx-chart [series]="chartOptions?.series" [chart]="chartOptions?.chart"
                                        [labels]="chartOptions?.labels" [title]="chartOptions?.title"
@@ -76,7 +76,7 @@
                         </thead> -->
                         <tbody>
                         <tr *ngFor="let item of ResourcesCount">
-                            <td>{{item[0]}}</td>
+                            <td>{{ dashboardService.getCamelCase(item[0])}}</td>
                             <td>{{item[1]}}</td>
                         </tr>
                         </tbody>
@@ -95,7 +95,7 @@
                         </thead> -->
                         <tbody>
                         <tr *ngFor="let item of UtilizationMutation">
-                            <td>{{item[0]}}</td>
+                            <td> {{dashboardService.getCamelCase(item[0])}}</td>
                             <td>{{item[1]}}</td>
                         </tr>
                         </tbody>

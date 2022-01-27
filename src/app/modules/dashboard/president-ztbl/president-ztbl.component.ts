@@ -42,13 +42,14 @@ export class PresidentZtblComponent implements OnInit {
     CountryTop5: any;
 
 
-    constructor(private spinner: NgxSpinnerService, private dashboardService: DashboardService) {
+    constructor(private spinner: NgxSpinnerService, public dashboardService: DashboardService) {
 
     }
 
     ngOnInit(): void {
         this.getYears();
         this.getData();
+        this.year=(new Date()).getFullYear().toString();
     }
 
     assignRoleData(DashboardReport: any) {
@@ -70,6 +71,7 @@ export class PresidentZtblComponent implements OnInit {
     }
 
     getData() {
+        this.spinner.show()
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {

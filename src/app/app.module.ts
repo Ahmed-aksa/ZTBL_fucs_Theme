@@ -60,12 +60,13 @@ const routerConfig: ExtraOptions = {
         LayoutUtilsService,
         DatePipe,
 
+       
+        { provide: HTTP_INTERCEPTORS, useClass: EncryptDecryptInterceptor, multi: true },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
             multi: true
-        },
-        { provide: HTTP_INTERCEPTORS, useClass: EncryptDecryptInterceptor, multi: true }
+        }
 
     ],
     bootstrap: [

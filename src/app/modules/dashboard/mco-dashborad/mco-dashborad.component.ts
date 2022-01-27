@@ -43,12 +43,14 @@ export class McoDashboradComponent implements OnInit {
     year: any;
     years: any;
 
-    constructor(private _dashboardService: DashboardService, private spinner: NgxSpinnerService) {
+    constructor(public _dashboardService: DashboardService, private spinner: NgxSpinnerService) {
     }
 
     ngOnInit(): void {
+        this.year=(new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
+      
     }
 
     assignRoleData(DashboardReport: any) {
@@ -56,9 +58,10 @@ export class McoDashboradComponent implements OnInit {
         this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport?.PerformanceIndicator, 'Performance Indicators');
         this.chartOptions2 = this._dashboardService.assignKeys(DashboardReport?.LoanPorfolio, 'Loan Portfolio');
         this.chartOptions3 = this._dashboardService.assignKeys(DashboardReport?.LoanPorfolio2, 'Loan Portfolio');
-        this.DisbursmentAchievement=Object.entries(DashboardReport?.DisbursmentAchievement)
-        this.RecoveryAchievement=Object.entries(DashboardReport?.RecoveryAchievement)
-        this.UtilizationMutation=Object.entries(DashboardReport?.UtilizationMutation)
+
+        this.DisbursmentAchievement = this._dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
+        this.RecoveryAchievement = this._dashboardService.getSortDate(DashboardReport?.RecoveryAchievement); 
+        this.UtilizationMutation = Object.entries(DashboardReport?.UtilizationMutation); 
 
     }
 
@@ -69,6 +72,7 @@ export class McoDashboradComponent implements OnInit {
     }
 
     getData() {
+        this.spinner.show()
         this._dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {

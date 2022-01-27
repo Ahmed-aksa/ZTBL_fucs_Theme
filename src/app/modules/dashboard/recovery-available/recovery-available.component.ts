@@ -38,7 +38,7 @@ export class RecoveryAvailableComponent implements OnInit {
 
 
     constructor(
-        private dashboardService: DashboardService,
+        public dashboardService: DashboardService,
         private spinner: NgxSpinnerService
     ) {
     }
@@ -46,9 +46,11 @@ export class RecoveryAvailableComponent implements OnInit {
     ngOnInit(): void {
         this.getYears();
         this.getData();
+        this.year=(new Date()).getFullYear().toString();
     }
 
     getData() {
+        this.spinner.show()
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {
