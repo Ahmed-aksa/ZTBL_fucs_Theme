@@ -220,6 +220,11 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
                             baseResponse.Code = null
                         );
                         this.controlReset();
+
+                        if(this.showSubmit != true){
+                            this.showSubmit = true
+                        }
+
                         if(this.EditViewMode == true){
                             this.EditViewMode = false;
                         }
@@ -427,6 +432,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
                             baseResponse.Code = null
                         );
                         this.controlReset();
+                        this.showSubmit = false;
                     } else {
                         this.layoutUtilsService.alertElement(
                             "",
