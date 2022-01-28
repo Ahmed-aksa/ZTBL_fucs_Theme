@@ -5,15 +5,16 @@ import {environment} from "../../../environments/environment";
 import {BaseResponseModel} from "../models/base_response.model";
 import {Activity} from "../models/activity.model";
 import {HttpClient} from "@angular/common/http";
+import { BaseRequestModel } from '../models/base_request.model';
 
 @Injectable()
 export class UserUtilsService {
     loginResponse: BaseResponseModel;
     tempResponse: BaseResponseModel;
     search_data: any = {Branch: null, UserCircleMappings: null, zone: null};
-
-
-    constructor(private http: HttpClient = null) {
+    
+    constructor(private http: HttpClient = null,) {
+        
     }
 
     public getSearchResultsDataOfZonesBranchCircle() {
@@ -202,6 +203,7 @@ export class UserUtilsService {
     }
 
     getZone() {
+     
         return this.http.post(`${environment.apiUrl}/Zone/GetZones`, null);
     }
 

@@ -102,7 +102,7 @@ export class CircleService {
     getZones(): Observable<BaseResponseModel> {
 
         this.request = new BaseRequestModel();
-
+      
         return this.http.post(`${environment.apiUrl}/Zone/GetZones`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)

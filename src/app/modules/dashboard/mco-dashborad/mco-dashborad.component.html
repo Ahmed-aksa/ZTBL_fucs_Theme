@@ -34,7 +34,7 @@
     <div class="flex flex-auto" style="flex-direction: column;">
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2  ">
-                <div class="shadow-sm border"style="height: 365px;">
+                <div class="shadow-sm border graph-box"style="height: 365px;">
                     <div id="chart" class=" mt-0 py-3  " *ngIf="chartOptions1">
                         <p class="text-green px-2 font-bold mb-0">Performance Indicators</p>
                         <apx-chart
@@ -51,7 +51,7 @@
 
             </div>
             <div class="col-lg-6 col-sm-12 my-2">
-                <div class="shadow-sm border"style="height: 365px;">
+                <div class="shadow-sm border graph-box"style="height: 365px;">
                     <div id="chart" class=" mt-0 py-3" *ngIf="chartOptions2">
                         <p class="text-green px-2 font-bold mb-0">Circle Bench Mark</p>
                         <apx-chart
@@ -71,7 +71,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2">
-                <div class="shadow-sm border"style="height: 365px;">
+                <div class="shadow-sm border graph-box"style="height: 365px;">
                     <div id="chart" class="mt-0 py-3" *ngIf="chartOptions2">
                         <p class="text-green px-2 font-bold mb-0">Loan Portfolio</p>
                         <apx-chart
@@ -91,7 +91,7 @@
         </div>
 
         <div class="row ">
-            <div class="col-lg-6 table-responsive">
+            <div class="col-lg-12 table-responsive">
                 <p class="heading mb-2 text-lg">Disbursement</p>
                 <table class="table  table-striped">
                     <!-- <thead>
@@ -102,16 +102,43 @@
                       </tr>
                     </thead> -->
                     <tbody>
-                    <tr *ngFor="let item of  DisbursmentAchievement">
-                        <td>{{item[0]}}</td>
-                        <td>{{item[1]}}</td>
+                    <tr *ngFor="let items of DisbursmentAchievement" class="text-center">
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                   {{_dashboardService.getCamelCaseString(items[0],0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{_dashboardService.getCamelCaseString(items[0],1)}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{_dashboardService.getCamelCaseString(items[1],0)}}
+                                 </div>
+                                 <div class="fw-bold">
+                                     {{_dashboardService.getCamelCaseString(items[1],1)}}
+                                 </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{_dashboardService.getCamelCaseString(items[2],0)}}
+                                 </div>
+                                 <div class="fw-bold">
+                                     {{_dashboardService.getCamelCaseString(items[2],1)}}
+                                 </div>
+                            </div>
+                        </td>
                     </tr>
-
 
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-6  table-responsive">
+            <div class="col-lg-12  table-responsive">
                 <p class="heading mb-2 text-lg">Recovery</p>
                 <table class="table  table-striped">
                     <!-- <thead>
@@ -122,18 +149,45 @@
                       </tr>
                     </thead> -->
                     <tbody>
-                    <tr *ngFor="let item of  RecoveryAchievement">
-                        <td>{{item[0]}}</td>
-                        <td>{{item[1]}}</td>
+                    <tr *ngFor="let items of RecoveryAchievement" class="text-center">
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                   {{_dashboardService.getCamelCaseString(items[0],0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{_dashboardService.getCamelCaseString(items[0],1)}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{_dashboardService.getCamelCaseString(items[1],0)}}
+                                 </div>
+                                 <div class="fw-bold">
+                                     {{_dashboardService.getCamelCaseString(items[1],1)}}
+                                 </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{_dashboardService.getCamelCaseString(items[2],0)}}
+                                 </div>
+                                 <div class="fw-bold">
+                                     {{_dashboardService.getCamelCaseString(items[2],1)}}
+                                 </div>
+                            </div>
+                        </td>
                     </tr>
-
                     </tbody>
                 </table>
             </div>
          </div>
         <div class="row ">
 
-            <div class="col-lg-6   table-responsive">
+            <div class="col-lg-12   table-responsive">
                 <p class="heading mb-2 text-lg">Utilization/Mutations</p>
                 <table class="table  table-striped">
                     <!-- <thead>
@@ -144,10 +198,10 @@
                       </tr>
                     </thead> -->
                     <tbody>
-                    <tr *ngFor="let item of  UtilizationMutation">
-                        <td>{{item[0]}}</td>
-                        <td>{{item[1]}}</td>
-                    </tr>
+                        <tr *ngFor="let item of  UtilizationMutation">
+                            <td>{{_dashboardService.getCamelCase(item[0])}}</td>
+                            <td>{{item[1]}}</td>
+    
                     </tbody>
                 </table>
             </div>

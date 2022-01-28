@@ -6,6 +6,8 @@ import { EncryptDecryptService } from './shared/services/encrypt_decrypt.service
 import * as Forge from 'node-forge';
 import * as NodeRSA from 'node-rsa';
 import { AuthGuard } from './core/auth/guards/auth.guard';
+import { Observable, of } from 'rxjs';
+import { take } from 'rxjs/operators';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -62,47 +64,51 @@ export class AppComponent implements OnInit {
         });
     }
 
+    checkSession$: Observable<boolean>;
     ngOnInit(): void {
+        if (!environment.IsEncription) { 
+            return
+        }
+        var user = localStorage.getItem("ZTBLUser")
+        if (!user) {
+            let key = this.getNewKey();
+            let UDID = this.newGuid();
+            var data = {
+                "DeviceInfo": {
+                    "IMEI": UDID
+                },
+                "Key": key,
+                "TranId": 0,
+                "User": {
+                    "IsActive": 0,
+                    "App": 1,
+                    "Channel": "user",
+                    "ChannelID": 0,
+                }
+            }
+            var responseEncript = this.encryptDecryptService.AESencrypt(key, data);
 
-        // if (this.authGuard._check('/')) {
-        //     let key = this.getNewKey();
-        //     let UDID = this.newGuid();
-        //     var data = {
-        //         "DeviceInfo": {
-        //             "IMEI": UDID
-        //         },
-        //         "Key": key,
-        //         "TranId": 0,
-        //         "User": {
-        //             "IsActive": 0,
-        //             "App": 1,
-        //             "Channel": "user",
-        //             "ChannelID": 0,
-        //         }
-        //     }
-        //     var responseEncript = this.encryptDecryptService.AESencrypt(key, data);
-
-        //     var rsa1 = Forge.pki.publicKeyFromPem(environment.publicRSAKey);
-        //     var encrypt = (rsa1.encrypt(key));
-        //     encrypt = window.btoa(encrypt);
+            var rsa1 = Forge.pki.publicKeyFromPem(environment.publicRSAKey);
+            var encrypt = (rsa1.encrypt(key));
+            encrypt = window.btoa(encrypt);
 
 
-        //     var cusomeRequestModel = {
-        //         "Key": encrypt,
-        //         "Req": responseEncript
+            var cusomeRequestModel = {
+                "Key": encrypt,
+                "Req": responseEncript
 
-        //     }
-        //     console.log(key);
-        //     console.log(encrypt);
-        //     console.log(responseEncript);
-        //     this.http.post(`${environment.apiUrl}/Account/HealthCheck`, cusomeRequestModel).subscribe((result: any) => {
-        //         if (result.Success) {
-        //             let Keydata = this.encryptDecryptService.AESdecrypt(key, result.Resp);
-        //             localStorage.setItem("ztblKey", JSON.parse(Keydata).Key);
-        //             localStorage.setItem("ztbludid", UDID);
-        //         }
-        //     });
-        // }
+            }
+            console.log(key);
+            console.log(encrypt);
+            console.log(responseEncript);
+            this.http.post(`${environment.apiUrl}/Account/HealthCheck`, cusomeRequestModel).subscribe((result: any) => {
+                if (result.Success) {
+                    let Keydata = this.encryptDecryptService.AESdecrypt(key, result.Resp);
+                    localStorage.setItem("ztblKey", JSON.parse(Keydata).Key);
+                    localStorage.setItem("ztbludid", UDID);
+                }
+            });
+        }
 
     }
     getBase64Encrypted(randomWordArray, pemKey): string {

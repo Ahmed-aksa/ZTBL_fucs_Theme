@@ -12,32 +12,38 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
     }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let authReq = request;
-        // if (!authReq.url.includes('Account/HealthCheck')) {
-        //     if (request.body && request.body.toString() === "[object FormData]") {
-        //     } else {
-        //         var DeviceInfo = {
-        //             "IMEI": this.encryptDecryptService.getUDID()
-        //         }
-        //         request = request.clone({
-        //             body: { ...request.body, DeviceInfo}
-        //         })
-        //         var cusomeRequestModel = {
-        //             "Key": this.encryptDecryptService.RSAencrypt(this.encryptDecryptService.getUDID()),
-        //             "Req": this.encryptDecryptService.AESencrypt(null, request.body)
 
-        //         }
-        //         request = request.clone({
-        //             body: cusomeRequestModel
-        //         });
-        //     }
-        // }
+        if (environment.IsEncription) {
+            if (!authReq.url.includes('Account/HealthCheck')) {
+                if (request.body && request.body.toString() === "[object FormData]") {
+                } else {
+                    var DeviceInfo = {
+                        "IMEI": this.encryptDecryptService.getUDID()
+                    }
+                    request = request.clone({
+                        body: { ...request.body, DeviceInfo }
+                    })
+                    var cusomeRequestModel = {
+                        "Key": this.encryptDecryptService.RSAencrypt(this.encryptDecryptService.getUDID()),
+                        "Req": this.encryptDecryptService.AESencrypt(null, request.body)
+
+                    }
+                    request = request.clone({
+                        body: cusomeRequestModel
+                    });
+                }
+            }
+        }
 
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
                 if (!authReq.url.includes('Account/HealthCheck')) {
                     if (event instanceof HttpResponse) {
                         if (event.url.includes(environment.apiUrl)) {
-                            //event = event.clone({ body: JSON.parse(this.encryptDecryptService.AESdecrypt(null, event.body.Resp)) })
+                            if (environment.IsEncription) {
+                                event = event.clone({ body: JSON.parse(this.encryptDecryptService.AESdecrypt(null, event.body.Resp)) })
+                            }
+                            
                         }
                     }
                 }

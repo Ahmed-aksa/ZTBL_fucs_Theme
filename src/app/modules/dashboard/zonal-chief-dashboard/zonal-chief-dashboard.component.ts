@@ -45,7 +45,7 @@ export class ZonalChiefDashboardComponent implements OnInit {
     public chartnoOfBorrowers: Partial<ChartOptions>;
     CreditCeiling: any;
 
-    constructor(fb: FormBuilder, private dashboardService: DashboardService, private spinner: NgxSpinnerService) {
+    constructor(fb: FormBuilder, public dashboardService: DashboardService, private spinner: NgxSpinnerService) {
         this.options = fb.group({
             hideRequired: this.hideRequiredControl,
             floatLabel: this.floatLabelControl,
@@ -61,8 +61,9 @@ export class ZonalChiefDashboardComponent implements OnInit {
         if (!DashboardReport) {
             return
         }
-        this.DisbursmentAchievement = Object.entries(DashboardReport.DisbursmentAchievement);
-        this.RecoveryAchievement = Object.entries(DashboardReport.RecoveryAchievement);
+
+        this.DisbursmentAchievement = this.dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
+        this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
         this.CirclePositions = DashboardReport.CirclePositions;
         this.CreditCeiling = DashboardReport.CreditCeiling;
         this.chartPerformanceIndicators = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
@@ -71,6 +72,7 @@ export class ZonalChiefDashboardComponent implements OnInit {
     }
 
     getData() {
+        this.spinner.show()
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {

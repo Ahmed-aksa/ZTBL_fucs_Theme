@@ -45,7 +45,7 @@ export class RegionalCheifComponent implements OnInit {
 
     constructor( private route: ActivatedRoute,
          private spinner: NgxSpinnerService,
-         private dashboardService: DashboardService,
+         public dashboardService: DashboardService,
          private router: Router) {
     }
 
@@ -61,12 +61,15 @@ export class RegionalCheifComponent implements OnInit {
         }
 
         this.chartOptions = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio(Branch Wise)');
-         this.RecoveryAchievement = Object.entries(DashboardReport?.RecoveryAchievement);
-         this.CirclePositions = DashboardReport?.CirclePositions;
+        
+        this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
+        
+        this.CirclePositions = DashboardReport?.CirclePositions;
          this.CreditCeiling = DashboardReport.CreditCeiling;
         this.spinner.hide()
     }
     getData() {
+        this.spinner.show()
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {

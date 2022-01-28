@@ -49,7 +49,7 @@ export class EvpCreditDashboardComponent implements OnInit {
     CountryTop5: any;
     CreditCeiling: any;
 
-    constructor(fb: FormBuilder, private dashboardService: DashboardService, private spinner: NgxSpinnerService) {
+    constructor(fb: FormBuilder, public dashboardService: DashboardService, private spinner: NgxSpinnerService) {
         this.options = fb.group({
             hideRequired: this.hideRequiredControl,
             floatLabel: this.floatLabelControl,
@@ -59,6 +59,7 @@ export class EvpCreditDashboardComponent implements OnInit {
     ngOnInit(): void {
         this.getYears();
         this.getData();
+        this.year=(new Date()).getFullYear().toString();
     }
 
 
@@ -70,13 +71,14 @@ export class EvpCreditDashboardComponent implements OnInit {
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicator');
         this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.PurposeWiseDisbursment, 'Purpose Wise Disbursement');
         this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No Of Borrower');
-        this.DisbursmentAchievement = Object.entries(DashboardReport?.DisbursmentAchievement);
-        this.RecoveryAchievement = Object.entries(DashboardReport?.RecoveryAchievement);
+        this.DisbursmentAchievement = this.dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
+        this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement); 
         this.CountryTop5 = DashboardReport?.CountryTop5;
         this.CreditCeiling = DashboardReport.CreditCeiling;
     }
 
     getData() {
+        this.spinner.show()
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {

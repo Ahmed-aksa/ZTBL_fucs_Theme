@@ -25,13 +25,15 @@ export class ProvincialChiefComponent implements OnInit {
 
   constructor( private route: ActivatedRoute,
        private spinner: NgxSpinnerService,
-       private dashboardService: DashboardService,
+       public dashboardService: DashboardService,
        private router: Router) {
   }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+        this.year=(new Date()).getFullYear().toString();
       this.getYears();
       this.getData();
+      
   }
   assignRoleData(DashboardReport: any) {
 
@@ -41,13 +43,14 @@ export class ProvincialChiefComponent implements OnInit {
       }
 
       this.chartOptions = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio(Branch Wise)');
-       this.RecoveryAchievement = Object.entries(DashboardReport?.RecoveryAchievement);
+      this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
        this.CirclePositions = DashboardReport?.CirclePositions;
        this.CreditCeiling = DashboardReport.CreditCeiling;
       this.spinner.hide()
 
   }
     getData() {
+        this.spinner.show()
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {

@@ -43,6 +43,7 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.year=(new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
     }
@@ -51,13 +52,14 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
         if (!DashboardReport?.RecoveryAchievement) {
             return
         }
-        this.recoveryAchievment = Object.entries(DashboardReport?.RecoveryAchievement);
+        this.recoveryAchievment = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
         this.circlePositions = DashboardReport.CirclePositions;
         this.CreditCeiling = DashboardReport.CreditCeiling;
         this.chartOptions = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio');
     }
 
     getData() {
+        this.spinner.show()
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
             this.spinner.hide()
         })).subscribe(result => {
