@@ -170,8 +170,10 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     }
 
     async getPurposeofVisitLov() {
+        debugger
         var lovData = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.TourPlanPurpose});
         this.purposeofVisitLov = lovData.LOVs;
+        console.log(this.purposeofVisitLov)
 
     }
 
