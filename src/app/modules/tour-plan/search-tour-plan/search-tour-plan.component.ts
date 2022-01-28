@@ -67,6 +67,7 @@ export class SearchTourPlanComponent implements OnInit {
     itemsPerPage = 10; //you could use your specified
     totalItems: number | any;
     pageIndex = 1;
+    viewOnly = false;
 
     //Start ZBC
 
@@ -264,32 +265,42 @@ export class SearchTourPlanComponent implements OnInit {
 
     viewTourPlan(TourPlan: any) {
         // this.router.navigate(['other']);
-
-        TourPlan.view = "1";
+        TourPlan.viewOnly = true;
+        var v = JSON.stringify(TourPlan);
+        localStorage.setItem('SearchTourPlan', v);
+        localStorage.setItem('EditViewTourPlan', '1');
+        this.router.navigate(['../tour-plan', {upFlag: "1"}], {relativeTo: this.activatedRoute});
+        //TourPlan.view = "1";
         //
         // utilization = {Status:this.TourPlan.controls["Status"].value}
-        this.router.navigate(['../tour-plan'], {
-            state: {example: TourPlan, flag: 1},
-            relativeTo: this.activatedRoute
-        });
+        // this.router.navigate(['../tour-plan'], {
+        //     state: {example: TourPlan, flag: 1},
+        //     relativeTo: this.activatedRoute
+        // });
     }
 
     CheckViewStatus(loanUtilization: any) {
-        if (this.isMCO) {
-            if (loanUtilization.Status == "C" || loanUtilization.Status == "S" || loanUtilization.Status == "A") {
-                if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
-                    return true
-                } else {
-                    return false
-                }
-            } else {
-                return false;
-            }
-        } else if (this.isBM) {
-            if (loanUtilization.Status == "C" || loanUtilization.Status == "P" || loanUtilization.Status == "R" || loanUtilization.Status == "A") {
-                return true
-            }
-        } else {
+        // if (this.isMCO) {
+        //     if (loanUtilization.Status == "C" || loanUtilization.Status == "S" || loanUtilization.Status == "A") {
+        //         if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
+        //             return true
+        //         } else {
+        //             return false
+        //         }
+        //         return true
+        //     } else {
+        //         return false;
+        //     }
+        // } else if (this.isBM) {
+        //     if (loanUtilization.Status == "C" || loanUtilization.Status == "P" || loanUtilization.Status == "R" || loanUtilization.Status == "A") {
+        //         return true
+        //     }
+        // } else {
+        //     return false
+        // }
+        if (loanUtilization.Status == "C" || loanUtilization.Status == "P" || loanUtilization.Status == "R" || loanUtilization.Status == "A" || loanUtilization.Status == "S") {
+            return true
+        }else {
             return false
         }
     }
@@ -435,6 +446,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     editTourPlan(tourPlan: any) {
+        tourPlan.viewOnly = false;
         var v = JSON.stringify(tourPlan)
         // this.router.navigate(['other']);
 

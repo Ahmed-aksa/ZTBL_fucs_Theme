@@ -101,6 +101,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     tourPlanSubmit : any = {};
     //upflag object
     upFlag: any;
+    viewMode = false;
 
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
                 private layoutUtilsService: LayoutUtilsService,
@@ -140,6 +141,12 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         if (this.isEdit != null && this.isEdit != "0") {
             this.tourPlanEditView = JSON.parse(localStorage.getItem("SearchTourPlan"));
             this.EditViewMode = true;
+            if(this.tourPlanEditView.viewOnly == true){
+                this.viewMode = true
+            }
+            else{
+                this.viewMode = false
+            }
         }
 
         this.upFlag = upFlag
@@ -155,7 +162,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
 
     controlReset(){
         this.tourPlanForm.controls['TourPlanId'].reset()
-        this.tourPlanForm.controls['CircleName'].reset()
+        //this.tourPlanForm.controls['CircleId'].reset()
         this.tourPlanForm.controls['VisitedDate'].reset()
         this.tourPlanForm.controls['Purpose'].reset()
         this.tourPlanForm.controls['Remarks'].reset()
@@ -293,6 +300,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     };
 
     SearchTourPlan(startDate, endDate) {
+        debugger
         this.spinner.show();
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
