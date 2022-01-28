@@ -57,9 +57,10 @@ export class EvpCreditDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.year=(new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
-        this.year=(new Date()).getFullYear().toString();
+        
     }
 
 
