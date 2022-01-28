@@ -101,6 +101,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     tourPlanSubmit : any = {};
     //upflag object
     upFlag: any;
+    viewMode = false;
 
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
                 private layoutUtilsService: LayoutUtilsService,
@@ -128,6 +129,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     }
 
     ngOnInit(): void {
+        debugger
         this.createForm();
         this.getPurposeofVisitLov();
         this.targetPlan.closeCalendarSource.subscribe((data) => {
@@ -140,6 +142,12 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         if (this.isEdit != null && this.isEdit != "0") {
             this.tourPlanEditView = JSON.parse(localStorage.getItem("SearchTourPlan"));
             this.EditViewMode = true;
+            if(this.tourPlanEditView.viewOnly == true){
+                this.viewMode = true
+            }
+            else{
+                this.viewMode = false
+            }
         }
 
         this.upFlag = upFlag

@@ -10,8 +10,8 @@
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong>
                 </mat-label>
-                <input readonly matInput name="VisitedDate" formControlName="VisitedDate" autocomplete="off"/>
-                <mat-icon matSuffix style="cursor: pointer;" (click)="onChange()">mode_edit</mat-icon>
+                <input readonly matInput name="VisitedDate" formControlName="VisitedDate" autocomplete="off" [readonly]="viewMode"/>
+                <mat-icon *ngIf="!viewMode" matSuffix style="cursor: pointer;" (click)="onChange()">mode_edit</mat-icon>
             </mat-form-field>
 
             <!-- <mat-form-field appearance="outline" class="fld">
@@ -27,7 +27,7 @@
         <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Purpose<strong class="matMandatory">*</strong></mat-label>
-                <mat-select formControlName="Purpose">
+                <mat-select formControlName="Purpose" [disabled]="viewMode">
                     <mat-option *ngFor="let loanType of purposeofVisitLov" [value]="loanType.Value">
                         {{loanType.Name}}
                     </mat-option>
@@ -50,14 +50,14 @@
                 <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                     <mat-label class="customMatLabel">Remarks</mat-label>
                     <input matInput placeholder="Enter Remarks" formControlName="Remarks"
-                           autocomplete="off"/>
+                           autocomplete="off" [readonly]="viewMode"/>
                 </mat-form-field>
             </div>
         </div>
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                <button class="ml-2 bg-gray-500" mat-raised-button color="primary" (click)="AddCal()">
+                <button class="ml-2 bg-gray-500" mat-raised-button color="primary" (click)="AddCal()" [disabled]="viewMode">
                     <mat-icon class="mr-2">add_circle_outline</mat-icon>
                     Add
                 </button>
@@ -95,11 +95,11 @@
 <!--                    <td> {{getStatus(item.StatusName)}} </td>-->
                     <td>
                         <button  mat-icon-button *ngIf="checkStatus(item, 'edit')"
-                                 (click)="editTourPlan(item)">
+                                 (click)="editTourPlan(item)" [disabled]="viewMode">
                             <mat-icon title="Edit Tour Plan" style="cursor: pointer;">edit</mat-icon>
                         </button>
                         <button  mat-icon-button *ngIf="checkStatus(item, 'delete')"
-                                 (click)="deleteTourPlan(item)">
+                                 (click)="deleteTourPlan(item)" [disabled]="viewMode">
                             <mat-icon style="cursor: pointer;" >delete</mat-icon>
                         </button>
 <!--                        <button  mat-icon-button *ngIf="checkStatus(item, 'submit')"-->
@@ -138,7 +138,7 @@
     <div class="row">
         <div class="col-lg-12 flex  py-2 border-t">
 
-            <button *ngIf="showSubmit" mat-raised-button class="mr-2" color="primary" (click)="submitTourPlan()">
+            <button *ngIf="showSubmit" mat-raised-button class="mr-2" color="primary" (click)="submitTourPlan()" [disabled]="viewMode">
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Submit
             </button>
