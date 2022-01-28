@@ -47,7 +47,6 @@ export class DashboardService {
             this.request.Circle = circle;
         }
 
-        debugger;
         return this.http
             .post(
                 `${environment.apiUrl}/Dashboard/GetDashboardReport`,
@@ -155,7 +154,6 @@ export class DashboardService {
         }, [])
 
         result.forEach(x => {
-            debugger;
             // var a, b, c;
             // for (let i = 0; i < 3; i++) { 
             //     if (x[i].includes("Target")) {

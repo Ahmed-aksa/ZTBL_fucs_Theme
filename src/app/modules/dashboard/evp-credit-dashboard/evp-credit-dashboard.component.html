@@ -5,11 +5,10 @@
             <div class="form-group col-lg-3">
                 <mat-form-field class="mat-form-field-fluid w-full mb-0" appearance="outline">
                     <mat-label class="customMatLabel">Year</mat-label>
-                    <mat-select [(ngModel)]="year" name="year" #Year="ngModel"
-                                required>
+                    <mat-select [(ngModel)]="year" name="year" #Year="ngModel" required>
 
-                        <mat-option *ngFor="let single_year of years;let i=index"
-                                    [value]="single_year">{{single_year}}</mat-option>
+                        <mat-option *ngFor="let single_year of years;let i=index" [value]="single_year">{{single_year}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <div *ngIf="f.submitted && Year.invalid" class="invalid-feedback">
@@ -18,7 +17,7 @@
             </div>
             <div class="form-group col-lg-3">
                 <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button
-                        (click)="getData()">
+                    (click)="getData()">
                     <mat-icon class="mr-2">search</mat-icon>
                     Search
                 </button>
@@ -37,75 +36,51 @@
         <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="shadow-sm border graph-box"style="height: 365px;" >
+                    <div class="shadow-sm border graph-box" style="height: 365px;">
                         <div id="chart" *ngIf="chartOptions1" class=" mt-0 py-3">
-                            <apx-chart
-                                [series]="chartOptions1?.series"
-                                [chart]="chartOptions1?.chart"
-                                [labels]="chartOptions1?.labels"
-                                [title]="chartOptions1?.title"
-                                [theme]="chartOptions1?.theme"
-                                [responsive]="chartOptions1?.responsive"
-                                [noData]="chartOptions1.noData"
-
-                            ></apx-chart>
+                            <apx-chart [series]="chartOptions1?.series" [chart]="chartOptions1?.chart"
+                                [labels]="chartOptions1?.labels" [title]="chartOptions1?.title"
+                                [theme]="chartOptions1?.theme" [responsive]="chartOptions1?.responsive"
+                                [noData]="chartOptions1.noData"></apx-chart>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-lg-6">
-                    <div class="shadow-sm border graph-box"style="height: 365px;" >
+                    <div class="shadow-sm border graph-box" style="height: 365px;">
                         <div id="chart" *ngIf="chartOptions2" class=" mt-0 py-3">
-                            <apx-chart
-                                [series]="chartOptions2?.series"
-                                [chart]="chartOptions2?.chart"
-                                [labels]="chartOptions2?.labels"
-                                [title]="chartOptions2?.title"
-                                [theme]="chartOptions2?.theme"
-                                [responsive]="chartOptions2?.responsive"
-                                [noData]="chartOptions2.noData"
-
-                            ></apx-chart>
+                            <apx-chart [series]="chartOptions2?.series" [chart]="chartOptions2?.chart"
+                                [labels]="chartOptions2?.labels" [title]="chartOptions2?.title"
+                                [theme]="chartOptions2?.theme" [responsive]="chartOptions2?.responsive"
+                                [noData]="chartOptions2.noData"></apx-chart>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-lg-6 mt-3">
-                    <div class="shadow-sm border graph-box"style="height: 365px;" >
+                    <div class="shadow-sm border graph-box" style="height: 365px;">
                         <div id="chart" *ngIf="chartOptions3" class=" mt-0 py-3">
-                            <apx-chart
-                                [series]="chartOptions3?.series"
-                                [chart]="chartOptions3?.chart"
-                                [labels]="chartOptions3?.labels"
-                                [title]="chartOptions3?.title"
-                                [theme]="chartOptions3?.theme"
-                                [responsive]="chartOptions3?.responsive"
-                                [noData]="chartOptions3.noData"
-
-                            ></apx-chart>
+                            <apx-chart [series]="chartOptions3?.series" [chart]="chartOptions3?.chart"
+                                [labels]="chartOptions3?.labels" [title]="chartOptions3?.title"
+                                [theme]="chartOptions3?.theme" [responsive]="chartOptions3?.responsive"
+                                [noData]="chartOptions3.noData"></apx-chart>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-lg-6 mt-3">
-                    <div class="shadow-sm border graph-box"style="height: 365px;" >
+                    <div class="shadow-sm border graph-box" style="height: 365px;">
                         <div id="chart" *ngIf="chartOptions4" class=" mt-0 py-3">
-                            <apx-chart
-                                [series]="chartOptions4?.series"
-                                [chart]="chartOptions4?.chart"
-                                [labels]="chartOptions4?.labels"
-                                [title]="chartOptions4?.title"
-                                [theme]="chartOptions4?.theme"
-                                [responsive]="chartOptions4?.responsive"
-                                [noData]="chartOptions4.noData"
-
-                            ></apx-chart>
+                            <apx-chart [series]="chartOptions4?.series" [chart]="chartOptions4?.chart"
+                                [labels]="chartOptions4?.labels" [title]="chartOptions4?.title"
+                                [theme]="chartOptions4?.theme" [responsive]="chartOptions4?.responsive"
+                                [noData]="chartOptions4.noData"></apx-chart>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-lg-6 py-3">
-                    <div class="shadow-sm border pt-2" *ngIf="CreditCeiling" style="height: 365px;" >
+                    <div class="shadow-sm border pt-2" *ngIf="CreditCeiling" style="height: 365px;">
                         <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
                         <app-pyramid-chart [item]="CreditCeiling">
 
@@ -126,8 +101,78 @@
                             <th scope="col">%age</th>
                         </tr>
                         </thead> -->
-                        <tbody>
-                            <tr *ngFor="let items of DisbursmentAchievement ; let row=index" class="text-center">
+                        <tbody *ngIf="DisbursmentAchievement">
+                            <tr class="text-center">
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCase("CalenderYearAchievement")}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{DisbursmentAchievement["CalenderYearAchievement"]}}
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCase("CorrespondingCalenderYearAchievement")}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{DisbursmentAchievement["CorrespondingCalenderYearAchievement"]}}
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{getFormatString("Increase_Decrease_Calendar")}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{DisbursmentAchievement["Increase_Decrease_Calendar"]}}
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr class="text-center">
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCase("CorrespondingFiscalYearAchievement")}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{DisbursmentAchievement["CorrespondingFiscalYearAchievement"]}}
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCase("FiscalYearAchievement")}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{DisbursmentAchievement["FiscalYearAchievement"]}}
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{getFormatString("Increase_Decrease_Fiscal")}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{DisbursmentAchievement["Increase_Decrease_Fiscal"]}}
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <!-- <tr *ngFor="let items of DisbursmentAchievement ; let row=index" class="text-center">
                                 <td>
                                     <div class="d-grid">
                                         <div>
@@ -158,7 +203,7 @@
                                          </div>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -177,7 +222,7 @@
                                 <td>
                                     <div class="d-grid">
                                         <div>
-                                           {{dashboardService.getCamelCaseString(items[0],0)}}
+                                            {{dashboardService.getCamelCaseString(items[0],0)}}
                                         </div>
                                         <div class="fw-bold">
                                             {{dashboardService.getCamelCaseString(items[0],1)}}
@@ -188,20 +233,20 @@
                                     <div class="d-grid">
                                         <div>
                                             {{dashboardService.getCamelCaseString(items[1],0)}}
-                                         </div>
-                                         <div class="fw-bold">
-                                             {{dashboardService.getCamelCaseString(items[1],1)}}
-                                         </div>
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{dashboardService.getCamelCaseString(items[1],1)}}
+                                        </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="d-grid">
                                         <div>
                                             {{dashboardService.getCamelCaseString(items[2],0)}}
-                                         </div>
-                                         <div class="fw-bold">
-                                             {{dashboardService.getCamelCaseString(items[2],1)}}
-                                         </div>
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{dashboardService.getCamelCaseString(items[2],1)}}
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -229,10 +274,10 @@
                         </tr>
                         </thead> -->
                         <tbody>
-                        <tr *ngFor="let item of CountryTop5">
-                            <td> {{item.Name}}</td>
-                            <td> {{item.Amount}}</td>
-                        </tr>
+                            <tr *ngFor="let item of CountryTop5">
+                                <td> {{item.Name}}</td>
+                                <td> {{item.Amount}}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -240,5 +285,3 @@
         </div>
     </div>
 </div>
-
-
