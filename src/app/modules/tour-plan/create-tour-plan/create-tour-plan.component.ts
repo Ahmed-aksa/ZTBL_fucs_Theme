@@ -129,7 +129,6 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     }
 
     ngOnInit(): void {
-        debugger
         this.createForm();
         this.getPurposeofVisitLov();
         this.targetPlan.closeCalendarSource.subscribe((data) => {
@@ -163,7 +162,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
 
     controlReset(){
         this.tourPlanForm.controls['TourPlanId'].reset()
-        this.tourPlanForm.controls['CircleName'].reset()
+        //this.tourPlanForm.controls['CircleId'].reset()
         this.tourPlanForm.controls['VisitedDate'].reset()
         this.tourPlanForm.controls['Purpose'].reset()
         this.tourPlanForm.controls['Remarks'].reset()
@@ -301,6 +300,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     };
 
     SearchTourPlan(startDate, endDate) {
+        debugger
         this.spinner.show();
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
