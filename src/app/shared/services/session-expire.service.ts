@@ -11,15 +11,15 @@ export class SessionExpireService {
   count: BehaviorSubject<number>;
   timer1:any;
   constructor() {
-   
+
     //this.timer(this.counter);
   }
-  
-  
+
+
 //    nextCount() {
 //     this.count.next(++this.counter);
 // }
-  
+
   timer(minute: number) {
     // let minute = 1;
     if(!this.count){
@@ -28,7 +28,7 @@ export class SessionExpireService {
     else{
       clearInterval(this.timer1);
     }
-    
+
     let seconds: number = minute * 60;
     let textSec: any = "0";
     let statSec: number = seconds;
@@ -49,7 +49,7 @@ export class SessionExpireService {
       }
     }, 1000);
   }
-  
+
   timerUnSubject(){
     this.count.unsubscribe();
   }
