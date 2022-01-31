@@ -52,9 +52,10 @@ export class EvpOdDashboardComponent implements OnInit {
 
     ngOnInit(): void {
         this.spinner.show();
+        this.year=(new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
-        this.year=(new Date()).getFullYear().toString();
+       
     }
 
     assignRoleData(DashboardReport: any) {

@@ -267,11 +267,18 @@
                             <th scope="col">Amount</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody *ngIf="CountryTop5">
                             <tr *ngFor="let item of CountryTop5; let row=index">
                                 <td>{{row+1}}</td>
-                                <td> {{item.Name}}</td>
-                                <td> {{item.Amount}}</td>
+                                <td> {{item.Name!=''?item.Name:'No Data'}}</td>
+                                <td> {{item.Amount!=''?item.Amount:'No Data'}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!CountryTop5">
+                            <tr>
+                                <td></td>
+                                <td> No Data</td>
+                                <td> No Data</td>
                             </tr>
                         </tbody>
                     </table>
