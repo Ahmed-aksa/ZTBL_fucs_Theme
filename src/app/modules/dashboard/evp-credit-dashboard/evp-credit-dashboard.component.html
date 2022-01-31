@@ -257,24 +257,19 @@
 
             <div class="row">
                 <div class="col-lg-6 table-responsive">
-                    <p class="heading mb-2 text-lg">Circle Wise within Allocated Branches</p>
+                    <p class="heading mb-2 text-lg"> Bursting Annual Credit Ceiling</p>
                     <table class="table table-striped">
 
-                        <!-- <thead>
+                        <thead>
                         <tr class="table-header-background">
-                            <th scope="col">Branch</th>
-                            <th scope="col">Disbursement</th>
-                            <th scope="col">Recovery</th>
-                            <th scope="col">NPL</th>
-                            <th scope="col">SAM</th>
-                            <th scope="col">Outstanding</th>
-                            <th scope="col">Audit Prase</th>
-                            <th scope="col">Utilization</th>
-                            <th scope="col">Mutations</th>
+                            <th scope="col">SR. No</th>
+                            <th scope="col">Name of Zone</th>
+                            <th scope="col">Amount</th>
                         </tr>
-                        </thead> -->
+                        </thead>
                         <tbody>
-                            <tr *ngFor="let item of CountryTop5">
+                            <tr *ngFor="let item of CountryTop5; let row=index">
+                                <td>{{row+1}}</td>
                                 <td> {{item.Name}}</td>
                                 <td> {{item.Amount}}</td>
                             </tr>
