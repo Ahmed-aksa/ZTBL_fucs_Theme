@@ -101,6 +101,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     tourPlanSubmit : any = {};
     //upflag object
     upFlag: any;
+    viewMode = false;
 
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
                 private layoutUtilsService: LayoutUtilsService,
@@ -140,6 +141,12 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         if (this.isEdit != null && this.isEdit != "0") {
             this.tourPlanEditView = JSON.parse(localStorage.getItem("SearchTourPlan"));
             this.EditViewMode = true;
+            if(this.tourPlanEditView.viewOnly == true){
+                this.viewMode = true
+            }
+            else{
+                this.viewMode = false
+            }
         }
 
         this.upFlag = upFlag
@@ -155,7 +162,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
 
     controlReset(){
         this.tourPlanForm.controls['TourPlanId'].reset()
-        this.tourPlanForm.controls['CircleName'].reset()
+        this.tourPlanForm.controls['CircleId'].reset()
         this.tourPlanForm.controls['VisitedDate'].reset()
         this.tourPlanForm.controls['Purpose'].reset()
         this.tourPlanForm.controls['Remarks'].reset()
@@ -165,6 +172,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     async getPurposeofVisitLov() {
         var lovData = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.TourPlanPurpose});
         this.purposeofVisitLov = lovData.LOVs;
+        console.log(this.purposeofVisitLov)
 
     }
 
@@ -293,6 +301,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     };
 
     SearchTourPlan(startDate, endDate) {
+        debugger
         this.spinner.show();
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
@@ -306,6 +315,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
             "Offset": 0
 
         }
+        debugger
         this.tourPlanService.GetScheduleBaseTourPlan(TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(
                 finalize(() => {
@@ -324,6 +334,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     }
 
     editTourPlan(item) {
+        debugger
         var visitDate;
         console.log(item)
         this.tourPlanForm.get('TourPlanId').patchValue(item.TourPlanId);
@@ -332,7 +343,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         if(this.branch.BranchId == item?.BranchId){
             this.tourPlanForm.get('BranchCode').patchValue(this.branch.BranchCode);
         }
-        this.tourPlanForm.get('CircleId').patchValue(item.CircleId);
+        this.tourPlanForm.get('CircleId').patchValue(item.CircleId.toString());
 
         visitDate = item.VisitedDate;
         var day = visitDate.slice(0, 2), month = visitDate.slice(2, 4), year = visitDate.slice(4, 8);

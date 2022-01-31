@@ -6,10 +6,10 @@ export const environment = {
     menuBar: 'menuBar',
     userActivities: 'userActivities',
     Profile_id: '57',
-
+    IsEncription: false,
     isMockEnabled: true, // You have to switch this, when your real back-end is done
     authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
-     //apiUrl: 'http://172.16.1.228:8070/ZTBL.Api',
+    //apiUrl: 'http://172.16.1.228:8070/ZTBL.Api',
     apiUrl: 'http://10.1.103.102:8090/ZTBL.Api', //Ztbl,
     //     apiUrl: 'http://10.1.103.102:8091/UAT_APIS', //Ztbl,
     publicRSAKey: '-----BEGIN PUBLIC KEY-----\n' +

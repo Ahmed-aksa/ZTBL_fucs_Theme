@@ -57,9 +57,10 @@ export class EvpCreditDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.year=(new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
-        this.year=(new Date()).getFullYear().toString();
+        
     }
 
 
@@ -71,7 +72,8 @@ export class EvpCreditDashboardComponent implements OnInit {
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicator');
         this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.PurposeWiseDisbursment, 'Purpose Wise Disbursement');
         this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No Of Borrower');
-        this.DisbursmentAchievement = this.dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
+        debugger;
+        this.DisbursmentAchievement = (DashboardReport.DisbursmentAchievement);
         this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement); 
         this.CountryTop5 = DashboardReport?.CountryTop5;
         this.CreditCeiling = DashboardReport.CreditCeiling;
@@ -92,5 +94,11 @@ export class EvpCreditDashboardComponent implements OnInit {
         this.dashboardService.getYears().subscribe((data) => {
             this.years = data.DashboardReport.YearsForHistoricalData;
         })
+    }
+
+    getFormatString(str: any) {
+        
+        const myArray = str.split("_");
+        return myArray[0] + " / " + myArray[1] +" (+/-)";
     }
 }

@@ -369,11 +369,11 @@ export class TourPlanForApprovalComponent implements OnInit {
 
                 if (baseResponse.Success) {
                     if (user_id) {
-                        this.TourPlans[index].TourPlansByDate = baseResponse.TourPlan.TourPlansByDate
+                        this.TourPlans[index].TourPlansByDate = baseResponse.TourPlanList[0].TourPlansByDate;
                     } else {
-                        this.TourPlans = baseResponse.TourPlan.TourPlans;
+                        this.TourPlans = baseResponse.TourPlanList[0].TourPlans;
                     }
-                    this.dataSource.data = baseResponse.TourPlan.TourPlans;
+                    this.dataSource.data = baseResponse.TourPlanList[0].TourPlans;
                     if (this.dataSource.data?.length > 0)
                         this.matTableLenght = true;
                     else
