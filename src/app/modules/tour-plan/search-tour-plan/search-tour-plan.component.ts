@@ -391,7 +391,7 @@ export class SearchTourPlanComponent implements OnInit {
                         this.matTableLenght = false;
 
                     this.dv = this.dataSource.data;
-                    this.totalItems = baseResponse.TourPlan.TourPlansByDate[0].TourPlans[0].TotalRecords;
+                    this.totalItems = baseResponse.TourPlan.TourPlansByDate[0].TotalRecords;
                     this.dataSource.data = this.dv.slice(0, this.totalItems)
                     //this.dataSource = new MatTableDataSource(data);
 
