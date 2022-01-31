@@ -312,7 +312,6 @@ debugger
         //         }
         //     });
     }
-
     GetTourPlan(){
         this.spinner.show();
             this.tourDiaryService
@@ -335,8 +334,6 @@ debugger
                 });
 
     }
-
-
     assignvalues(){
         console.log(this.MCOModel)
         // this.gridForm.controls['Name'].setValue(null);
