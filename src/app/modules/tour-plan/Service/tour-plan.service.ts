@@ -173,6 +173,7 @@ export class TourPlanService {
     }
 
     GetScheduleBaseTourPlan(tourPlan, Limit, Offset, branch, zone) {
+        debugger
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
@@ -185,9 +186,12 @@ export class TourPlanService {
         this.request.Branch = branch;
         var date = {
             "User": this.request.User,
-            "TourPlan": tourPlan
+            "TourPlan": tourPlan,
+            "Zone": this.request.Zone,
+            "Branch": this.request.Branch
 
         }
+        //this.request.Date = {}
         // var req = JSON.stringify(this.request);
 
 
