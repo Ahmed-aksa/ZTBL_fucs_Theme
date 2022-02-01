@@ -36,6 +36,7 @@ export class TourDairyMcoComponent implements OnInit {
     TourDiary;
     TourPlan;
     Format24:boolean=true;
+    isUpdate:boolean=false;
 
 
     //**************** Time ****************************
@@ -227,6 +228,7 @@ debugger
         this.gridForm.controls['AnyOtherWorkDone'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
 
+        this.isUpdate=false;
         this.setValue();
 
     }
@@ -366,5 +368,6 @@ debugger
 
         // this._cdf.detectChanges();
         // this.createForm()
+        this.isUpdate=true;
     }
 }
