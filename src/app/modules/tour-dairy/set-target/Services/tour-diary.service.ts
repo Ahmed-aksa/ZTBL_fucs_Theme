@@ -48,11 +48,12 @@ export class TourDiaryService {
 
     SearchTourPlan(zone,branch,date) {
 
-        this.request = new BaseRequestModel();
+        // this.request = new BaseRequestModel();
+        let request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.request.Zone = zone;
-        this.request.Branch = branch;
-        this.request.User = userInfo.User;
+        request.Zone = zone;
+        request.Branch = branch;
+        request.User = userInfo.User;
         let TourPlan ={
             "Limit": 500,
             "Offset": 0,
@@ -60,10 +61,12 @@ export class TourDiaryService {
             "StartDate":date,
             "EndDate":""
         }
-        this.request.TourPlan=TourPlan;
+        request.TourPlan=TourPlan;
 
+
+debugger
         return this.http
-            .post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request, {
+            .post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
             })
             .pipe(map((res: BaseResponseModel) => res));
@@ -129,7 +132,6 @@ export class TourDiaryService {
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
-
     submitDiary(zone,branch,TourDiary) {
         debugger
         this.request = new BaseRequestModel();
@@ -143,7 +145,7 @@ export class TourDiaryService {
 
         return this.http
             .post<any>(
-                `${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourDiary`,
+                `${environment.apiUrl}/TourPlanAndDiary/ChangeTourDiaryStatus`,
                 this.request
             )
             .pipe(map((res: BaseResponseModel) => res));
