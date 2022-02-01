@@ -112,7 +112,26 @@ export class TourDiaryService {
     }
 
     saveDiary(zone,branch,TourDiary) {
-debugger
+        debugger
+        this.request = new BaseRequestModel();
+        var userInfo = this.userUtilsService.getUserDetails();
+        this.request.Zone = zone;
+        this.request.Branch = branch;
+        this.request.User = userInfo.User;
+        this.request.TourDiary = TourDiary;
+
+        var req = JSON.stringify(this.request);
+
+        return this.http
+            .post<any>(
+                `${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourDiary`,
+                this.request
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
+
+    submitDiary(zone,branch,TourDiary) {
+        debugger
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.Zone = zone;

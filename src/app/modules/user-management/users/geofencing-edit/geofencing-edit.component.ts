@@ -332,8 +332,11 @@ export class GeofencingEditComponent implements OnInit {
                             fencePoints.forEach((ob, i) => {
                                 var lat: number = +ob.split(",")[0]
                                 var lng: number = +ob.split(",")[1]
-                                polygonArray.push([lat, lng])
-                                existingPolygonPoints.push({lat: lat, lng: lng})
+
+                                if(!isNaN(lat) && !isNaN(lng)){
+                                    polygonArray.push([lat, lng])
+                                    existingPolygonPoints.push({lat: lat, lng: lng})
+                                }
                             });
 
                             if((polygonArray.length>0) && (polygonArray[0][0]!=polygonArray[polygonArray.length-1][0] || polygonArray[0][1]!=polygonArray[polygonArray.length-1][1])){
@@ -354,7 +357,9 @@ export class GeofencingEditComponent implements OnInit {
                              * because most of the work will be done as soon as the data is loaded.
                              *
                              */
-
+                            if(circleInfo.circleCode == '23353-25'){
+                                debugger;
+                            }
                             this.multiPolygonArray.push(circleInfo)
                         }
                     });
@@ -387,7 +392,7 @@ export class GeofencingEditComponent implements OnInit {
 
         var index = -1
         var intersection: any;
-        debugger
+
         for (var i = 0; i < this.multiPolygonArray.length; i++) {
             var poly2 = polygon([
                 this.multiPolygonArray[i].circleFence
@@ -395,6 +400,9 @@ export class GeofencingEditComponent implements OnInit {
             const geom1 = getGeom(newPolygon);
             const geom2 = getGeom(poly2);
 
+            if(i == 580 || i == 663){
+                debugger
+            }
             // var intersec = turf.intersect(geom1, geom2)
             intersection = polygonClipping.intersection(
                 geom1.coordinates as any,

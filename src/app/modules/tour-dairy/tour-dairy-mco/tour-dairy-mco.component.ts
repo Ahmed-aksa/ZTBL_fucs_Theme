@@ -186,6 +186,8 @@ debugger
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.isUpdate=false;
+                this.onClearForm();
             } else {
 
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
