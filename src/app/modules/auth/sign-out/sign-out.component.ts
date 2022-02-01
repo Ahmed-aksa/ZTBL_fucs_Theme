@@ -41,7 +41,9 @@ export class AuthSignOutComponent implements OnInit, OnDestroy {
         timer(1000, 1000)
             .pipe(
                 finalize(() => {
-                    this._router.navigate(['auth/sign-in']);
+                    location.reload();
+                    //this._router.navigate(['auth/sign-in']);
+
                 }),
                 takeWhile(() => this.countdown > 0),
                 takeUntil(this._unsubscribeAll),
@@ -57,5 +59,9 @@ export class AuthSignOutComponent implements OnInit, OnDestroy {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
+    }
+
+    logout() {
+        location.reload();
     }
 }

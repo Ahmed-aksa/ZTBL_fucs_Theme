@@ -10,7 +10,8 @@
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong>
                 </mat-label>
-                <input readonly matInput name="VisitedDate" formControlName="VisitedDate" autocomplete="off" [readonly]="viewMode"/>
+                <input readonly matInput name="VisitedDate" formControlName="VisitedDate" autocomplete="off"
+                       [readonly]="viewMode"/>
                 <mat-icon *ngIf="!viewMode" matSuffix style="cursor: pointer;" (click)="onChange()">mode_edit</mat-icon>
             </mat-form-field>
 
@@ -57,7 +58,8 @@
 
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                <button class="ml-2 bg-gray-500" mat-raised-button color="primary" (click)="AddCal()" [disabled]="viewMode">
+                <button class="ml-2 bg-gray-500" mat-raised-button color="primary" (click)="AddCal()"
+                        [disabled]="viewMode">
                     <mat-icon class="mr-2">add_circle_outline</mat-icon>
                     Add
                 </button>
@@ -66,12 +68,12 @@
     </div>
     <div>
     </div>
-    <div class="container  px-0 pt-2">
+    <div class="container  px-0 pt-2" *ngIf="tragetList">
         <div class="table-responsive  border shadow-xs rounded-sm bg-gray-50" id="map_canvas">
             <table class="table accordion table-striped">
                 <thead>
                 <tr class="table-header-background">
-<!--                    <th scope="col">SR. No</th>-->
+                    <!--                    <th scope="col">SR. No</th>-->
                     <th scope="col">Circle</th>
                     <th scope="col">Visit Date</th>
                     <th scope="col">Purpose</th>
@@ -82,30 +84,30 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of tragetList | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems};  let row=index;">
-<!--                    <td>{{row + 1}}</td>-->
+                    <!--                    <td>{{row + 1}}</td>-->
                     <td>{{item.CircleId}}</td>
                     <td>{{item.VisitedDate}}</td>
                     <td>{{item?.PurposeName}}</td>
                     <td>
                         <p class="remarks-box">
-                        {{item.Remarks}}
+                            {{item.Remarks}}
                         </p>
                     </td>
                     <td> {{getStatus(item.Status)}} </td>
-<!--                    <td> {{getStatus(item.StatusName)}} </td>-->
+                    <!--                    <td> {{getStatus(item.StatusName)}} </td>-->
                     <td>
-                        <button  mat-icon-button *ngIf="checkStatus(item, 'edit')"
-                                 (click)="editTourPlan(item)" [disabled]="viewMode">
+                        <button mat-icon-button *ngIf="checkStatus(item, 'edit')"
+                                (click)="editTourPlan(item)" [disabled]="viewMode">
                             <mat-icon title="Edit Tour Plan" style="cursor: pointer;">edit</mat-icon>
                         </button>
-                        <button  mat-icon-button *ngIf="checkStatus(item, 'delete')"
-                                 (click)="deleteTourPlan(item)" [disabled]="viewMode">
-                            <mat-icon style="cursor: pointer;" >delete</mat-icon>
+                        <button mat-icon-button *ngIf="checkStatus(item, 'delete')"
+                                (click)="deleteTourPlan(item)" [disabled]="viewMode">
+                            <mat-icon style="cursor: pointer;">delete</mat-icon>
                         </button>
-<!--                        <button  mat-icon-button *ngIf="checkStatus(item, 'submit')"-->
-<!--                                 (click)="submitTourPlan(item)">-->
-<!--                            <mat-icon style="cursor: pointer;">assignment_turned_in</mat-icon>-->
-<!--                        </button>-->
+                        <!--                        <button  mat-icon-button *ngIf="checkStatus(item, 'submit')"-->
+                        <!--                                 (click)="submitTourPlan(item)">-->
+                        <!--                            <mat-icon style="cursor: pointer;">assignment_turned_in</mat-icon>-->
+                        <!--                        </button>-->
 
                     </td>
                 </tr>
@@ -116,29 +118,31 @@
     </div>
     <div *ngIf="tragetList" class="mat-select flex" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
         <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-                <span class="font-bold text-green">Items per page:</span>
+        <span class="font-bold text-green">Items per page:</span>
 
-        <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+        <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage"
+                    (valueChange)="paginate(1,$event)"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>
             <mat-option [value]="25">25</mat-option>
             <mat-option [value]="50">50</mat-option>
         </mat-select>
-<!--        <button (click)="paginate(1)">First</button> -->
+        <!--        <button (click)="paginate(1)">First</button> -->
 
-<!--        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>-->
+        <!--        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>-->
         <pagination-controls (pageChange)="paginate($event)" class="my-pagination"></pagination-controls>
-<!--
-        <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p> -->
+        <!--
+                <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+                <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p> -->
 
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="tragetList">
         <div class="col-lg-12 flex  py-2 border-t">
 
-            <button *ngIf="showSubmit" mat-raised-button class="mr-2" color="primary" (click)="submitTourPlan()" [disabled]="viewMode">
+            <button *ngIf="showSubmit" mat-raised-button class="mr-2" color="primary" (click)="submitTourPlan()"
+                    [disabled]="viewMode">
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Submit
             </button>

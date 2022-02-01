@@ -107,29 +107,28 @@
                 <div class="custom-accordion-head border-0 flex"
                      (click)="toggleAccordion(i,activity.UserId)"
                      style="cursor: pointer;justify-content: space-between;">
-                    <div class=" self-center ml-8">
+                    <div class=" self-center ml-8 w-64">
                         <span class=" text-green">
                           {{activity.UserName}}({{activity.UserPPNo}})
                         </span>
                     </div>
 
-
                     <div class="mr-5">
-                        <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
+                        <button mat-icon-button id="{{'arrow_down_'+i}}" >
                             <mat-icon>expand_more</mat-icon>
                         </button>
-                        <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
+                        <button mat-icon-button id="{{'arrow_up_'+i}}" >
                             <mat-icon>expand_less</mat-icon>
                         </button>
                     </div>
                 </div>
-                <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none;width:99%;float: right;">
+                <div class="custom-accordion-body" id="{{'table_'+i}}" >
                     <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border"
                          *ngFor="let plan_by_date of activity.TourPlansByDate;let j=index; ">
                         <div class="custom-accordion-head border-0 flex"
                              (click)="toggleByDateAccordion(i)"
                              style="cursor: pointer;justify-content: space-between;">
-                            <div class=" self-center ml-8">
+                            <div class=" self-center ml-8 w-64">
                         <span class=" text-green">
                           {{plan_by_date.VisitedDate | date}}
                         </span>

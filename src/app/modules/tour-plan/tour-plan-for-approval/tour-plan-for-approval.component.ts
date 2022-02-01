@@ -348,8 +348,6 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.searchTourPlanApproval(false, user_id, i);
     }
 
-    Plans;
-
     searchTourPlanApproval(start = false, user_id = null, index = 0) {
 
         this.spinner.show();
@@ -372,15 +370,14 @@ export class TourPlanForApprovalComponent implements OnInit {
                         this.TourPlans[index].TourPlansByDate = baseResponse.TourPlanList[0].TourPlansByDate;
                     } else {
                         this.TourPlans = baseResponse.TourPlanList[0].TourPlans;
+                        this.dataSource.data = baseResponse.TourPlanList[0].TourPlans;
                     }
-                    this.dataSource.data = baseResponse.TourPlanList[0].TourPlans;
                     if (this.dataSource.data?.length > 0)
                         this.matTableLenght = true;
                     else
                         this.matTableLenght = false;
 
                     this.dv = this.dataSource.data;
-                    // this.totalItems = baseResponse.TourPlan.TourPlansByDate[0].TourPlans[0].TotalRecords;
                     this.dataSource.data = this.dv?.slice(0, this.totalItems)
                     this.OffSet = this.pageIndex;
                     this.dataSource = this.dv?.slice(0, this.itemsPerPage);
