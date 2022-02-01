@@ -126,7 +126,7 @@
                     <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border"
                          *ngFor="let plan_by_date of activity.TourPlansByDate;let j=index; ">
                         <div class="custom-accordion-head border-0 flex"
-                             (click)="toggleByDateAccordion(i)"
+                             (click)="toggleByDateAccordion(j)"
                              style="cursor: pointer;justify-content: space-between;">
                             <div class=" self-center ml-8 w-64">
                         <span class=" text-green">
@@ -138,15 +138,15 @@
                                 <button mat-flat-button color="primary"
                                         (click)="$event.stopPropagation();approveAll(i,j,plan_by_date)">Approve All
                                 </button>
-                                <button mat-icon-button id="{{'arrow_down_date_'+i}}" style="display: block">
+                                <button mat-icon-button id="{{'arrow_down_date_'+j}}" style="display: block">
                                     <mat-icon>expand_more</mat-icon>
                                 </button>
-                                <button mat-icon-button id="{{'arrow_up_date_'+i}}" style="display:none;">
+                                <button mat-icon-button id="{{'arrow_up_date_'+j}}" style="display:none;">
                                     <mat-icon>expand_less</mat-icon>
                                 </button>
                             </div>
                         </div>
-                        <div class="custom-accordion-body" id="{{'table_date_'+i}}"
+                        <div class="custom-accordion-body" id="{{'table_date_'+j}}"
                              style="display: none;">
                             <table class="table table-responsive" style="display: inline-table !important;">
                                 <thead class="thead-light">

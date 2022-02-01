@@ -341,12 +341,15 @@ export class TourPlanForApprovalComponent implements OnInit {
             document.getElementById('arrow_down_' + i).style.display = 'none';
             document.getElementById('arrow_up_' + i).style.display = 'block';
             document.getElementById('table_' + i).style.display = 'block';
+            this.searchTourPlanApproval(false, user_id, i);
+
+
         } else {
             document.getElementById('arrow_up_' + i).style.display = 'none';
             document.getElementById('arrow_down_' + i).style.display = 'block';
             document.getElementById('table_' + i).style.display = 'none';
+
         }
-        this.searchTourPlanApproval(false, user_id, i);
     }
 
     searchTourPlanApproval(start = false, user_id = null, index = 0) {
