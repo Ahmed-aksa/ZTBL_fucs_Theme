@@ -154,24 +154,25 @@ export class DashboardService {
         }, [])
 
         result.forEach(x => {
-            // var a, b, c;
-            // for (let i = 0; i < 3; i++) { 
-            //     if (x[i].includes("Target")) {
-            //         a = x[i];
-            //     }
-            //     else if (x[i].includes("Achievement")) { 
-            //         b = x[i];
-            //     }
-            //     else {
-            //         c = x[i];
-            //     }
-            // }
-            var a = x[2]
-            var b = x[0]
-            var c = x[1]
+            var a, b, c;
+            for (let i = 0; i < 3; i++) { 
+
+                if (x[i].includes("Target")) {
+                    a = x[i];
+                }
+                else if (x[i].includes("Achievement")) { 
+                    b = x[i];
+                }
+                else {
+                    c = x[i];
+                }
+            }
+            // var a = x[2]
+            // var b = x[0]
+            // var c = x[1]
             x[0] = a!=undefined? a + ":" + data[a] : '-';
             x[1] = b!=undefined? b + ":" + data[b] : '-';
-            x[2] = c!=undefined? c + ":" + data[c] : '-';
+            x[2] = c!=undefined? c + "(%):" + data[c] : '-';
 
         });
         return result;

@@ -54,6 +54,7 @@ export class RecoverySamDivisionComponent implements OnInit {
 
 
     ngOnInit(): void {
+        this.year=(new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
     }
@@ -66,7 +67,8 @@ export class RecoverySamDivisionComponent implements OnInit {
         this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank Book');
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.CreditCeiling, 'Credit Ceiling');
 
-        this.DisbursmentAchievement = this.dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
+        this.DisbursmentAchievement = (DashboardReport?.DisbursmentAchievement);
+        debugger;
         this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
         
         this.Top10NplZones = DashboardReport.Top10NplZones;
@@ -89,5 +91,9 @@ export class RecoverySamDivisionComponent implements OnInit {
         this.dashboardService.getYears().subscribe((data) => {
             this.years = data.DashboardReport.YearsForHistoricalData;
         })
+    }
+    getFormatString(str: any) {
+        const myArray = str.split("_");
+        return myArray[0] + " / " + myArray[1] +" (+/-)";
     }
 }

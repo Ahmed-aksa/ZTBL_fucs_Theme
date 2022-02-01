@@ -72,7 +72,6 @@ export class EvpCreditDashboardComponent implements OnInit {
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicator');
         this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.PurposeWiseDisbursment, 'Purpose Wise Disbursement');
         this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No Of Borrower');
-        debugger;
         this.DisbursmentAchievement = (DashboardReport.DisbursmentAchievement);
         this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement); 
         this.CountryTop5 = DashboardReport?.CountryTop5;
