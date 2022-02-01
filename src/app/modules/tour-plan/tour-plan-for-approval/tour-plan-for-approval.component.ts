@@ -368,7 +368,7 @@ export class TourPlanForApprovalComponent implements OnInit {
             )
             .subscribe(baseResponse => {
 
-
+                debugger;
                 if (baseResponse.Success) {
                     if (user_id) {
                         this.TourPlans[index].TourPlansByDate = baseResponse.TourPlanList[0].TourPlansByDate;
