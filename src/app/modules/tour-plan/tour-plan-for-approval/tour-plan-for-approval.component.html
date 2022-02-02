@@ -114,26 +114,26 @@
                     </div>
 
 
-
-
                     <div class="mr-5">
-                        <button class="mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" mat-flat-button color="primary"
-                                (click)="$event.stopPropagation();change(activity,'A')"><mat-icon class="me-2">check_circle</mat-icon>Approve
+                        <button class="mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary"
+                                mat-flat-button color="primary"
+                                (click)="$event.stopPropagation();change(activity,'A')">
+                            <mat-icon class="me-2">check_circle</mat-icon>
+                            Approve
                         </button>
-                        <button class=" mx-3 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" mat-flat-button color="warn" (click)="change(activity,'R')">
+                        <button
+                            class=" mx-3 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500"
+                            mat-flat-button color="warn" (click)="$event.stopPropagation();change(activity,'R')">
                             <mat-icon class="me-2">arrow_back_ios</mat-icon>
-                         F   Referback
+                            Referback
                         </button>
-                        <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block;">
-                            <mat-icon>expand_more</mat-icon>
-                        </button>
-                        <button mat-icon-button id="{{'arrow_up_'+i}}" style="display: none;">
-                            <mat-icon>expand_less</mat-icon>
+                        <button mat-icon-button>
+                            <mat-icon id="{{'arrow_down_'+i}}">expand_more</mat-icon>
                         </button>
                     </div>
                 </div>
                 <div class="custom-accordion-body" id="{{'table_'+i}}"
-                     style="display: none;">
+                     style="display: none !important;">
                     <table class="table table-responsive mt-3" style="display: inline-table !important;">
                         <thead class="thead-light">
                         <tr class="table-header-background">
