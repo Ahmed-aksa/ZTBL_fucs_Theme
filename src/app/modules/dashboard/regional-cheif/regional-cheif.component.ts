@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DashboardService } from 'app/shared/services/dashboard.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DashboardService} from 'app/shared/services/dashboard.service';
 import {
     ApexChart,
     ApexNoData,
@@ -10,7 +10,7 @@ import {
     ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from "rxjs/operators";
 
 export type ChartOptions = {
@@ -43,16 +43,19 @@ export class RegionalCheifComponent implements OnInit {
     p: any;
     CreditCeiling: any;
 
-    constructor( private route: ActivatedRoute,
-         private spinner: NgxSpinnerService,
-         public dashboardService: DashboardService,
-         private router: Router) {
+    constructor(private route: ActivatedRoute,
+                private spinner: NgxSpinnerService,
+                public dashboardService: DashboardService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
+        this.year = (new Date()).getFullYear().toString();
+
         this.getYears();
         this.getData();
     }
+
     assignRoleData(DashboardReport: any) {
 
         this.spinner.show();
@@ -61,13 +64,14 @@ export class RegionalCheifComponent implements OnInit {
         }
 
         this.chartOptions = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Loan Portfolio(Branch Wise)');
-        
+
         this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
-        
+
         this.CirclePositions = DashboardReport?.CirclePositions;
-         this.CreditCeiling = DashboardReport.CreditCeiling;
+        this.CreditCeiling = DashboardReport.CreditCeiling;
         this.spinner.hide()
     }
+
     getData() {
         this.spinner.show()
         this.dashboardService.getDashboardData(this.profile_id, this.year).pipe(finalize(() => {
