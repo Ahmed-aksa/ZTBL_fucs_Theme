@@ -63,7 +63,7 @@ const moment = _rollupMoment || _moment;
     templateUrl: './create-tour-plan.component.html',
     styleUrls: ['./create-tour-plan.component.scss'],
 })
-export class CreateTourLlanComponent implements OnInit, OnDestroy{
+export class CreateTourLlanComponent implements OnInit, OnDestroy {
     tourPlanForm: FormGroup;
     exampleHeader = ExampleHeader
     branch: any;
@@ -98,7 +98,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     isEdit: any = null;
     EditViewMode: boolean = false;
     tourPlanEditView: any;
-    tourPlanSubmit : any = {};
+    tourPlanSubmit: any = {};
     //upflag object
     upFlag: any;
     viewMode = false;
@@ -143,10 +143,9 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         if (this.isEdit != null && this.isEdit != "0") {
             this.tourPlanEditView = JSON.parse(localStorage.getItem("SearchTourPlan"));
             this.EditViewMode = true;
-            if(this.tourPlanEditView.viewOnly == true){
+            if (this.tourPlanEditView.viewOnly == true) {
                 this.viewMode = true
-            }
-            else{
+            } else {
                 this.viewMode = false
             }
         }
@@ -162,7 +161,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
 
     }
 
-    controlReset(){
+    controlReset() {
         this.tourPlanForm.controls['TourPlanId'].reset()
         this.tourPlanForm.controls['CircleId'].reset()
         this.tourPlanForm.controls['VisitedDate'].reset()
@@ -191,13 +190,13 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
 
     }
 
-    getBranchName(branchId){
-        if(branchId == this.branch?.BranchId)
+    getBranchName(branchId) {
+        if (branchId == this.branch?.BranchId)
             return this.branch.Name
     }
 
-    getZoneName(zoneId){
-        if(zoneId == this.zone?.ZoneId)
+    getZoneName(zoneId) {
+        if (zoneId == this.zone?.ZoneId)
             return this.zone.ZoneName
         console.log(this.zone)
     }
@@ -211,6 +210,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     AddCal() {
 
         if (this.tourPlanForm.invalid) {
+            this.layoutUtilsService.alertElement("","Please Add Values");
             const controls = this.tourPlanForm.controls;
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
@@ -243,11 +243,11 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
                         );
                         this.controlReset();
 
-                        if(this.showSubmit != true){
+                        if (this.showSubmit != true) {
                             this.showSubmit = true
                         }
 
-                        if(this.EditViewMode == true){
+                        if (this.EditViewMode == true) {
                             this.EditViewMode = false;
                         }
                     } else {
@@ -284,8 +284,8 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
                 this.startDate = moment(new Date(result.data.data.date)).startOf('day');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('day');
 
-                this.startDate = this.datepipe.transform(this.startDate,'YYYY-MM-dd');
-                this.endDate = this.datepipe.transform(this.endDate,'YYYY-MM-dd');
+                this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
+                this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd');
 
                 //this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
                 this.SearchTourPlan(this.startDate, this.endDate)
@@ -294,8 +294,8 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
                 this.startDate = moment(new Date(result.data.data.date)).startOf('week');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('week')
 
-                this.startDate = this.datepipe.transform(this.startDate,'YYYY-MM-dd');
-                this.endDate = this.datepipe.transform(this.endDate,'YYYY-MM-dd');
+                this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
+                this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd');
 
                 //this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
                 this.SearchTourPlan(this.startDate, this.endDate)
@@ -304,8 +304,8 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
                 this.startDate = moment(new Date(result.data.data.date)).startOf('month');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('month');
 
-                this.startDate = this.datepipe.transform(this.startDate,'YYYY-MM-dd');
-                this.endDate = this.datepipe.transform(this.endDate,'YYYY-MM-dd');
+                this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
+                this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd');
 
                 //this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
                 this.SearchTourPlan(this.startDate, this.endDate)
@@ -316,6 +316,12 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
 
     SearchTourPlan(startDate, endDate) {
         debugger
+
+        if (this.zone == null || this.zone == undefined) {
+            this.layoutUtilsService.alertElement('','Please Add Values');
+            return
+        }
+
         this.spinner.show();
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
@@ -329,7 +335,8 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
             "Offset": 0
 
         }
-        debugger
+
+
         this.tourPlanService.GetScheduleBaseTourPlan(TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(
                 finalize(() => {
@@ -354,23 +361,23 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         this.tourPlanForm.get('TourPlanId').patchValue(item?.TourPlanId);
         this.tourPlanForm.get('ZoneId').patchValue(item?.ZoneId);
         console.log(this.branch)
-        if(this.branch?.BranchId == item?.BranchId){
+        if (this.branch?.BranchId == item?.BranchId) {
             this.tourPlanForm.get('BranchCode').patchValue(this.branch?.BranchCode);
         }
         this.tourPlanForm.get('CircleId').patchValue(item.CircleId.toString());
 
         visitDate = item.VisitedDate;
         var day = visitDate.slice(0, 2), month = visitDate.slice(2, 4), year = visitDate.slice(4, 8);
-        visitDate = year+"-"+month+"-"+day;
+        visitDate = year + "-" + month + "-" + day;
         this.tourPlanForm.get('VisitedDate').patchValue(visitDate);
         this.btnText = 'Update';
 
-        if(this.EditViewMode == true){
+        if (this.EditViewMode == true) {
             this.startDate = moment(new Date(visitDate)).startOf('week');
             this.endDate = moment(new Date(visitDate)).endOf('week')
 
-            this.startDate = this.datepipe.transform(this.startDate,'YYYY-MM-dd');
-            this.endDate = this.datepipe.transform(this.endDate,'YYYY-MM-dd');
+            this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
+            this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd');
             this.SearchTourPlan(this.startDate, this.endDate)
         }
 
@@ -378,31 +385,31 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         this.tourPlanForm.get('Remarks').patchValue(item.Remarks);
     }
 
-    checkStatus(item, action){
-        if(action == 'edit'){
-            if(item.Status == 'P' || item.Status == 'R'){
+    checkStatus(item, action) {
+        if (action == 'edit') {
+            if (item.Status == 'P' || item.Status == 'R') {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
-        if(action == 'delete'){
-            if(item.Status == 'P' || item.Status == 'R'){
+        if (action == 'delete') {
+            if (item.Status == 'P' || item.Status == 'R') {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
-        if(action == 'submit'){
-            if(item.Status == 'P' || item.Status == 'R'){
+        if (action == 'submit') {
+            if (item.Status == 'P' || item.Status == 'R') {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
     }
 
-    deleteTourPlan(item){
+    deleteTourPlan(item) {
         this.spinner.show();
         this.TourPlan = item;
         this.TourPlan.Status = 'C';
@@ -433,7 +440,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     }
 
 
-    submitTourPlan(){
+    submitTourPlan() {
         debugger
         this.spinner.show();
         this.tourPlanSubmit = this.tragetList;
@@ -493,7 +500,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     //     }
     // }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
         if (this.navigationSubscription) {
             this.navigationSubscription.unsubscribe();
         }
