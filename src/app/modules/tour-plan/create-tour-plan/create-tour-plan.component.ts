@@ -103,6 +103,8 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
     upFlag: any;
     viewMode = false;
 
+    btnText = 'Add';
+
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
                 private layoutUtilsService: LayoutUtilsService,
                 private tourPlanService: TourPlanService,
@@ -167,6 +169,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         this.tourPlanForm.controls['Purpose'].reset()
         this.tourPlanForm.controls['Remarks'].reset()
         this.tourPlanForm.controls['Status'].reset()
+        this.btnText = 'Add';
     }
 
     async getPurposeofVisitLov() {
@@ -186,6 +189,17 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
             Status: [""],
         });
 
+    }
+
+    getBranchName(branchId){
+        if(branchId == this.branch?.BranchId)
+            return this.branch.Name
+    }
+
+    getZoneName(zoneId){
+        if(zoneId == this.zone?.ZoneId)
+            return this.zone.ZoneName
+        console.log(this.zone)
     }
 
     getAllData(event) {
@@ -337,11 +351,11 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         debugger
         var visitDate;
         console.log(item)
-        this.tourPlanForm.get('TourPlanId').patchValue(item.TourPlanId);
-        this.tourPlanForm.get('ZoneId').patchValue(item.ZoneId);
+        this.tourPlanForm.get('TourPlanId').patchValue(item?.TourPlanId);
+        this.tourPlanForm.get('ZoneId').patchValue(item?.ZoneId);
         console.log(this.branch)
-        if(this.branch.BranchId == item?.BranchId){
-            this.tourPlanForm.get('BranchCode').patchValue(this.branch.BranchCode);
+        if(this.branch?.BranchId == item?.BranchId){
+            this.tourPlanForm.get('BranchCode').patchValue(this.branch?.BranchCode);
         }
         this.tourPlanForm.get('CircleId').patchValue(item.CircleId.toString());
 
@@ -349,6 +363,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         var day = visitDate.slice(0, 2), month = visitDate.slice(2, 4), year = visitDate.slice(4, 8);
         visitDate = year+"-"+month+"-"+day;
         this.tourPlanForm.get('VisitedDate').patchValue(visitDate);
+        this.btnText = 'Update';
 
         if(this.EditViewMode == true){
             this.startDate = moment(new Date(visitDate)).startOf('week');
