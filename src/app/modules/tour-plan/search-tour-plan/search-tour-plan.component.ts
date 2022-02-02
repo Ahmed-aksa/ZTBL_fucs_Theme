@@ -358,7 +358,6 @@ export class SearchTourPlanComponent implements OnInit {
         }
     }
 
-    Plans;
 
     SearchTourPlan() {
 
@@ -416,6 +415,18 @@ export class SearchTourPlanComponent implements OnInit {
             });
     }
 
+
+    getBranchName(branchId){
+        if(branchId == this.branch?.BranchId)
+            return this.branch.Name
+    }
+
+    getZoneName(zoneId){
+        if(zoneId == this.zone?.ZoneId)
+            return this.zone.ZoneName
+
+        console.log(this.zone)
+    }
 
     // getStatus(status: string) {
     //

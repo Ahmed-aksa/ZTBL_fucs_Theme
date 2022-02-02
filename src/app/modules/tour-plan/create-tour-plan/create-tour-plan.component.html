@@ -61,7 +61,7 @@
                 <button class="ml-2 bg-gray-500" mat-raised-button color="primary" (click)="AddCal()"
                         [disabled]="viewMode">
                     <mat-icon class="mr-2">add_circle_outline</mat-icon>
-                    Add
+                    {{btnText}}
                 </button>
             </div>
         </div>
@@ -74,7 +74,9 @@
                 <thead>
                 <tr class="table-header-background">
                     <!--                    <th scope="col">SR. No</th>-->
-<!--                    <th scope="col">Circle</th>-->
+                    <th scope="col">Zone</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Circle</th>
                     <th scope="col">Visit Date</th>
                     <th scope="col">Purpose</th>
                     <th scope="col">Remarks</th>
@@ -85,7 +87,9 @@
                 <tbody>
                 <tr *ngFor="let item of tragetList | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems};  let row=index;">
                     <!--                    <td>{{row + 1}}</td>-->
-<!--                    <td>{{item.CircleId}}</td>-->
+                    <td>{{getZoneName(item?.ZoneId)}}</td>
+                    <td>{{getBranchName(item?.BranchId)}}</td>
+                    <td>{{item?.CircleId}}</td>
                     <td>{{item.VisitedDate}}</td>
                     <td>{{item?.PurposeName}}</td>
                     <td>
