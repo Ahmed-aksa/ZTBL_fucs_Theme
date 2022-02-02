@@ -4,7 +4,7 @@
     </mat-icon>
 </button>
 
-<signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"
+<signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" *ngIf="!is_referback"
                (onEndEvent)="drawComplete()"></signature-pad>
 <div class="row">
     <div class="col-12">

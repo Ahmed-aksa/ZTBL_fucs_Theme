@@ -383,11 +383,14 @@ export class TourPlanForApprovalComponent implements OnInit {
                         this.matTableLenght = true;
                     else
                         this.matTableLenght = false;
+                    debugger
+                    if(this.dataSource){
+                        this.dv = this.dataSource?.data;
+                        this.dataSource.data = this.dv?.slice(0, this.totalItems)
+                        this.OffSet = this.pageIndex;
+                        this.dataSource = this.dv?.slice(0, this.itemsPerPage);
+                    }
 
-                    this.dv = this.dataSource?.data;
-                    this.dataSource.data = this.dv?.slice(0, this.totalItems)
-                    this.OffSet = this.pageIndex;
-                    this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                 } else {
 
                     if (this.dv != undefined) {
@@ -512,6 +515,7 @@ export class TourPlanForApprovalComponent implements OnInit {
     }
 
     change(parent, status) {
+        debugger
         let parent_index = this.children.indexOf(parent);
         let ids = []
         this.children[parent_index].children.forEach((single_children) => {

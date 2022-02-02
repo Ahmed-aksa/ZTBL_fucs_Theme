@@ -13,6 +13,8 @@ import {Router} from '@angular/router';
 import {LayoutUtilsService} from '../services/layout_utils.service';
 import {AuthService} from 'app/core/auth/auth.service';
 import {NgxSpinnerService} from "ngx-spinner";
+import {CommonService} from "../services/common.service";
+import {EncryptDecryptService} from "../services/encrypt_decrypt.service";
 
 
 @Injectable()
@@ -22,6 +24,8 @@ export class TokenInterceptor implements HttpInterceptor {
                 private injector: Injector, private router: Router,
                 private http: HttpClient,
                 private spinner: NgxSpinnerService,
+                private _common: CommonService,
+                private encryptDecryptService: EncryptDecryptService
     ) {
     }
 
@@ -32,7 +36,7 @@ export class TokenInterceptor implements HttpInterceptor {
         let authReq = req;
         const token: string = localStorage.getItem('accessToken');
         if (token != null && !authReq.url.includes('Account/Login') && !authReq.url.includes('Account/HealthCheck')) {
-            authReq = this.addTokenHeader(req, token);
+            authReq = this.addTokenHeader(req, token, this._common.newGuid());
         }
 
         // let key = environment.AesKey;
@@ -62,14 +66,15 @@ export class TokenInterceptor implements HttpInterceptor {
         return this.refreshTokenSubject.pipe(
             filter(token => token !== null),
             take(1),
-            switchMap((token) => next.handle(this.addTokenHeader(request, token)))
+            switchMap((token) => next.handle(this.addTokenHeader(request, token, this._common.newGuid())))
         );
     }
 
-    private addTokenHeader(request: HttpRequest<any>, token: string) {
+    private addTokenHeader(request: HttpRequest<any>, token: string, IMEI: string) {
         return request = request.clone({
             setHeaders: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                "key": this.encryptDecryptService.RSAencrypt(this.encryptDecryptService.getUDID())
             }
         });
     }

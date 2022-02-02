@@ -16,6 +16,7 @@ export class SignaturePadForTourComponent implements OnInit {
     @ViewChild(SignaturePad, {static: true}) signaturePad: SignaturePad;
     imageFile: any;
     isSignatureAdded = false;
+    is_referback = true;
     public signaturePadOptions: Object = {
         // passed through to szimek/signature_pad constructor
         minWidth: 5,
@@ -34,6 +35,9 @@ export class SignaturePadForTourComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (this.data.status == 'A') {
+            this.is_referback = false;
+        }
     }
 
 
@@ -63,12 +67,14 @@ export class SignaturePadForTourComponent implements OnInit {
     }
 
     submit() {
+
         let formdata = new FormData();
         formdata.append('UserID', String(this.data.userId));
         formdata.append('PlanIds', this.data.ids.toString());
         formdata.append('Status', this.data.status);
         formdata.append('Remarks', this.remarks);
-        formdata.append('Signature', this.imageFile);
+        if (this.data.status == 'A')
+            formdata.append('Signature', this.imageFile);
         this.http
             .post<any>(
                 `${environment.apiUrl}/TourPlanAndDiary/ApproveTourPlan`,
