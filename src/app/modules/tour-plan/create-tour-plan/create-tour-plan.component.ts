@@ -222,6 +222,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         //this.startDate.format('YYYY-MM-DD'), this.endDate.format('YYYY-MM-DD')
         this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
         this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd')
+        this.spinner.show()
         this.tourPlanService
             .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate)
             .pipe(finalize(() => {

@@ -17,6 +17,7 @@ export class SignaturePadForTourComponent implements OnInit {
     imageFile: any;
     isSignatureAdded = false;
     is_referback = true;
+
     public signaturePadOptions: Object = {
         // passed through to szimek/signature_pad constructor
         minWidth: 5,
