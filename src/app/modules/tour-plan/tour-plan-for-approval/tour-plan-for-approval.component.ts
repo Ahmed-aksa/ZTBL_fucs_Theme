@@ -299,6 +299,7 @@ export class TourPlanForApprovalComponent implements OnInit {
             FromDate: [moment(), Validators.required],
             ToDate: [, Validators.required],
             PPNO: [null],
+            Status: ["", Validators.required],
         });
 
     }
@@ -339,6 +340,9 @@ export class TourPlanForApprovalComponent implements OnInit {
     searchTourPlanApproval(start = false, user_id = null, index = 0) {
 
         this.spinner.show();
+        if (!this.tourPlanApprovalForm.controls["Status"].value) {
+            this.tourPlanApprovalForm.controls["Status"].setValue("All")
+        }
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
@@ -355,11 +359,13 @@ export class TourPlanForApprovalComponent implements OnInit {
 
                 if (baseResponse.Success) {
                     if (user_id) {
-                        this.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
+                        this.TourPlans[index].TourPlans = baseResponse.TourPlanList;
+                        // this.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
                         this.TourPlans[index].children = []
                     } else {
-                        this.TourPlans = baseResponse.TourPlanList[0].TourPlans;
-                        this.dataSource.data = baseResponse.TourPlanList[0].TourPlans;
+                        debugger;
+                        this.TourPlans = baseResponse.TourPlanList;
+                        this.dataSource.data = baseResponse.TourPlanList;
                     }
                     this.TourPlans.forEach((single_plan) => {
                         this.children.push(single_plan);
@@ -368,7 +374,6 @@ export class TourPlanForApprovalComponent implements OnInit {
                         this.matTableLenght = true;
                     else
                         this.matTableLenght = false;
-                    debugger
                     if (this.dataSource) {
                         this.dv = this.dataSource?.data;
                         this.dataSource.data = this.dv?.slice(0, this.totalItems)
@@ -391,22 +396,6 @@ export class TourPlanForApprovalComponent implements OnInit {
 
                 }
             });
-    }
-
-
-    getStatus(status: string) {
-
-        if (status == 'P') {
-            return "Submit";
-        } else if (status == 'N') {
-            return "Pending";
-        } else if (status == 'S') {
-            return "Submitted";
-        } else if (status == 'A') {
-            return "Authorized";
-        } else if (status == 'R') {
-            return "Refer Back";
-        }
     }
 
 
@@ -505,7 +494,6 @@ export class TourPlanForApprovalComponent implements OnInit {
     }
 
     change(parent, status) {
-        debugger
         let parent_index = this.children.indexOf(parent);
         let ids = []
         this.children[parent_index]?.children?.forEach((single_children) => {

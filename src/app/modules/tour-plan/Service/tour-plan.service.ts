@@ -284,7 +284,7 @@ export class TourPlanService {
                 ZoneId: zone?.ZoneId,
                 StartDate: start_date.format('YYYY-MM-DD'),
                 EndDate: end_date.format('YYYY-MM-DD'),
-                Status: 'S',
+                Status: approval_from.Status,
                 Limit: String(itemsPerPage),
                 Offset: offset,
                 PPNO: approval_from.PPNO,
@@ -294,6 +294,8 @@ export class TourPlanService {
             Circle: circle,
             User: this.userInfo.User,
         }
+
+        console.log(request);
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetTourPlanForApproval`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(

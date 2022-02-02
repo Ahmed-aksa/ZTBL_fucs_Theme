@@ -63,6 +63,21 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-label>Select tourPlan Status</mat-label>
+                                <mat-select formControlName="Status">
+                                    <mat-option value="">
+                                        Select
+                                    </mat-option>
+                                    <mat-option *ngFor="let obj of tourPlanStatusLov?.LOVs" [value]="obj.Value">
+                                        {{obj.Name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="mx-2">
+                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <button (click)="searchTourPlanApproval()" type="button"
                                     class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary">
                                 <mat-icon class="mr-2">search</mat-icon>
@@ -76,100 +91,20 @@
         </div>
     </div>
 
-
-    <!-- Header -->
-
-    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50"
-         style="flex-direction: column;overflow-y: scroll">
-        <div class="example-table-container  px-2">
-
-            <!--           table -->
-
-            <div class="custom-accordion   rounded-lg my-2 py-3 bg-white shadow-sm border"
-                 *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
-                <div class="custom-accordion-head border-0 flex"
-                     (click)="toggleAccordion(i,activity.UserId)"
-                     style="cursor: pointer;justify-content: space-between;">
-                    <div class=" self-center ml-8 w-64">
-                        <span class=" text-green">
-                          {{activity.UserName}}({{activity.UserPPNo}})
-                        </span>
-                    </div>
+    <mat-tab-group [ngClass]="{'dash-tab': TourPlans?.length == 1}"
+                   class="pt-3 flex  flex-auto dash-ttab  shadow-xs rounded-sm pb-3"
+                   style="flex-direction: column; overflow-y: scroll"
+                   animationDuration="200ms" style="background-color: white;">
 
 
-                    <div class="mr-5">
-                        <button class="mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary"
-                                mat-flat-button color="primary"
-                                (click)="$event.stopPropagation();change(activity,'A')">
-                            <mat-icon class="me-2">check_circle</mat-icon>
-                            Approve
-                        </button>
-                        <button
-                            class=" mx-3 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500"
-                            mat-flat-button color="warn" (click)="$event.stopPropagation();change(activity,'R')">
-                            <mat-icon class="me-2">arrow_back_ios</mat-icon>
-                            Referback
-                        </button>
-                        <button mat-icon-button>
-                            <mat-icon id="{{'arrow_down_'+i}}">expand_more</mat-icon>
-                        </button>
-                    </div>
-                </div>
-                <div class="custom-accordion-body" id="{{'table_'+i}}"
-                     style="display: none !important;">
-                    <table class="table table-responsive mt-3" style="display: inline-table !important;">
-                        <thead class="thead-light">
-                        <tr class="table-header-background">
-                            <th>VisitedDate</th>
-                            <th>Purpose</th>
-                            <th>Remarks</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let child of activity.TourPlans;let j=index">
-                            <td style="width: 20%">{{child.VisitedDate ? child.VisitedDate : '-'}}</td>
-                            <td style="width: 20%">{{child.PurposeName ? child.PurposeName : '-'}}</td>
-                            <td style="width: 20%">{{child.Remarks ? child.Remarks : '-'}}</td>
-                            <td style="width: 20%">{{getStatus(child.Status)}}</td>
-
-                            <td style="width: 20%">
-                                <mat-checkbox (change)="changeCheckBox(activity,child)"></mat-checkbox>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <ng-container *ngFor="let item of TourPlans;let i=index;">
+            <mat-tab [label]="item.Heading">
+                <app-tour-approval-tab [TourPlans]="item" [branch]="branch" [zone]="zone"
+                                       [circle]="circle"
+                                       [tourPlanApprovalForm]="tourPlanApprovalForm.value"></app-tour-approval-tab>
+            </mat-tab>
+        </ng-container>
+    </mat-tab-group>
 
 
-            </div>
-
-
-            <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
-            <div class="mat-table__message" *ngIf="loading">Please wait....</div>
-
-        </div>
-
-    </div>
-    <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-        <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
-        <span class="font-bold text-green">Items per page:</span>
-
-        <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage"
-                    (valueChange)="paginate(1,$event)"
-                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
-            <mat-option [value]="5">5</mat-option>
-            <mat-option [value]="10">10</mat-option>
-            <mat-option [value]="25">25</mat-option>
-            <mat-option [value]="50">50</mat-option>
-        </mat-select>
-        <button (click)="paginate(1)">First</button>
-        <pagination-controls display="inline" (pageChange)="paginate($event)"
-                             style="display: inline-block;"></pagination-controls>
-        <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b class="text-green">{{totalItems}}</b> items</p>
-
-    </div>
 </div>

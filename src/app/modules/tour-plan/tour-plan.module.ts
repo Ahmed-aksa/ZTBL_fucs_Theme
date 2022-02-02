@@ -11,6 +11,7 @@ import {TargetsTrackingComponent} from './targets-tracking/targets-tracking.comp
 import {TourPlanForApprovalComponent} from './tour-plan-for-approval/tour-plan-for-approval.component';
 import {SignaturePadForTourComponent} from './signature-pad-for-tour/signature-pad-for-tour.component';
 import {SignaturePadModule} from "angular2-signaturepad";
+import { TourApprovalTabComponent } from './tour-approval-tab/tour-approval-tab.component';
 
 export let AppInjector: Injector;
 const routing = [
@@ -49,7 +50,8 @@ const routing = [
         CreateTourPlanPopupComponent,
         TargetsTrackingComponent,
         TourPlanForApprovalComponent,
-        SignaturePadForTourComponent
+        SignaturePadForTourComponent,
+        TourApprovalTabComponent
         // TourPlanForApprovalComponent
     ],
     imports: [
