@@ -64,19 +64,19 @@ export class SignaturePadForTourComponent implements OnInit {
 
     submit() {
         let formdata = new FormData();
-        formdata.append('UserID', String(this.data.child.UserId));
-        formdata.append('TourPlanIds', this.data.ids);
-        formdata.append('Status', 'A');
+        formdata.append('UserID', String(this.data.userId));
+        formdata.append('PlanIds', this.data.ids.toString());
+        formdata.append('Status', this.data.status);
         formdata.append('Remarks', this.remarks);
         formdata.append('Signature', this.imageFile);
         this.http
             .post<any>(
                 `${environment.apiUrl}/TourPlanAndDiary/ApproveTourPlan`,
                 formdata
-            )
-            .pipe(map((res: BaseResponseModel) => res)).subscribe((data) => {
+            ).subscribe((data) => {
             if (data.Success) {
                 this.toaster.success(data.Message);
+                this.dialogRef.close();
             } else {
                 this.toaster.error(data.Message);
             }

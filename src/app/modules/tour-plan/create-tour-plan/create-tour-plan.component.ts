@@ -162,7 +162,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
 
     controlReset(){
         this.tourPlanForm.controls['TourPlanId'].reset()
-        //this.tourPlanForm.controls['CircleId'].reset()
+        this.tourPlanForm.controls['CircleId'].reset()
         this.tourPlanForm.controls['VisitedDate'].reset()
         this.tourPlanForm.controls['Purpose'].reset()
         this.tourPlanForm.controls['Remarks'].reset()
