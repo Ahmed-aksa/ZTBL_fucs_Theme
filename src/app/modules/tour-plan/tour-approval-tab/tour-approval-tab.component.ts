@@ -170,5 +170,22 @@ export class TourApprovalTabComponent implements OnInit {
         }
     }
 
+    checkBoxCheck(status){
+        if (status == 'S') {
+            return true;
+        }else{
+            return false;
+        }
+
+        // else if (status == 'N') {
+        //     return "Pending";
+        // } else if (status == 'S') {
+        //     return "Submitted";
+        // } else if (status == 'A') {
+        //     return "Authorized";
+        // } else if (status == 'R') {
+        //     return "Refer Back";
+        // }
+    }
 
 }

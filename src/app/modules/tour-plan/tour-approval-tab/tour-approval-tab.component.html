@@ -56,7 +56,7 @@
                         <td style="width: 20%">{{getStatus(child.Status)}}</td>
 
                         <td style="width: 20%">
-                            <mat-checkbox (change)="changeCheckBox(activity,child)"></mat-checkbox>
+                            <mat-checkbox *ngIf="checkBoxCheck(child.Status)" (change)="changeCheckBox(activity,child)"></mat-checkbox>
                         </td>
                     </tr>
                     </tbody>
