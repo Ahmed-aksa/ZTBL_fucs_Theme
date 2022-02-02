@@ -16,8 +16,7 @@
                 [appearance]="'outline'"
                 [showIcon]="false"
                 [type]="alert.type"
-                [@shake]="alert.type === 'error'">
-                {{alert.message}}
+                [@shake]="alert.type === 'error'" [innerHTML]="alert.message">
             </fuse-alert>
 
             <!-- Sign in form -->
