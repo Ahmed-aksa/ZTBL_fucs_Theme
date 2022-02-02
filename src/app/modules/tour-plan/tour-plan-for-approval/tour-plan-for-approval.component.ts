@@ -78,6 +78,7 @@ export class TourPlanForApprovalComponent implements OnInit {
     zone: any;
     branch: any;
     circle: any;
+    children: [any][any] = [];
 
 
     constructor(private store: Store<AppState>,
@@ -342,14 +343,12 @@ export class TourPlanForApprovalComponent implements OnInit {
             document.getElementById('arrow_up_' + i).style.display = 'block';
             document.getElementById('table_' + i).style.display = 'block';
             this.searchTourPlanApproval(false, user_id, i);
-
-
         } else {
             document.getElementById('arrow_up_' + i).style.display = 'none';
             document.getElementById('arrow_down_' + i).style.display = 'block';
             document.getElementById('table_' + i).style.display = 'none';
-
         }
+        this.children = [];
     }
 
     searchTourPlanApproval(start = false, user_id = null, index = 0) {
@@ -368,14 +367,18 @@ export class TourPlanForApprovalComponent implements OnInit {
             )
             .subscribe(baseResponse => {
 
-                debugger;
+
                 if (baseResponse.Success) {
                     if (user_id) {
-                        this.TourPlans[index].TourPlansByDate = baseResponse.TourPlanList[0].TourPlansByDate;
+                        this.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
+                        this.TourPlans[index].children = []
                     } else {
                         this.TourPlans = baseResponse.TourPlanList[0].TourPlans;
                         this.dataSource.data = baseResponse.TourPlanList[0].TourPlans;
                     }
+                    this.TourPlans.forEach((single_plan) => {
+                        this.children.push(single_plan);
+                    })
                     if (this.dataSource?.data?.length > 0)
                         this.matTableLenght = true;
                     else
@@ -497,47 +500,33 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.circle = data.final_circle;
     }
 
-    approvePlan(child: any, status: string, ids = []) {
+    changeStatus(child: any, status: string, ids = []) {
         if (child) {
-            if (ids == []) {
-                ids.push(String(child.TourPlanId));
-            }
-            if (status == 'R') {
-                let formdata = new FormData();
-                formdata.append('UserID', child.UserId);
-                formdata.append('TourPlanIds', JSON.stringify(ids));
-                formdata.append('Status', 'R');
-                formdata.append('Remarks', '');
-                formdata.append('Signature', '');
-                this.http
-                    .post<any>(
-                        `${environment.apiUrl}/TourPlanAndDiary/ApproveTourPlan`,
-                        formdata
-                    )
-                    .pipe(map((res: BaseResponseModel) => res)).subscribe((data) => {
-                    if (data.Success) {
-                        this.toaster.success(data.Message);
-                    } else {
-                        this.toaster.error(data.Message);
-                    }
-                });
-            } else {
-                debugger;
-                const signatureDialogRef = this.dialog.open(
-                    SignaturePadForTourComponent,
-                    {width: '500px', disableClose: true, data: {child: child, ids: ids}},
-                );
-            }
+            const signatureDialogRef = this.dialog.open(
+                SignaturePadForTourComponent,
+                {width: '500px', disableClose: true, data: {userId: child.UserId, ids: child.children, status: status}},
+            );
         } else {
             this.toaster.error("No Child Found");
         }
     }
 
-    approveAll(i: number, j: number, plan_by_date: any) {
-        let ids = [];
-        this.TourPlans[i]?.TourPlansByDate[j]?.TourPlans.forEach((single_data) => {
-            ids.push(String(single_data.TourPlanId));
+    change(parent, status) {
+        let parent_index = this.children.indexOf(parent);
+        let ids = []
+        this.children[parent_index].children.forEach((single_children) => {
+            ids.push(String(single_children.TourPlanId));
         })
-        this.approvePlan(this.TourPlans[i]?.TourPlansByDate[j]?.TourPlans[0], 'A', ids);
+        this.changeStatus(this.children[parent_index], status, ids);
+    }
+
+
+    changeCheckBox(parent, child: any) {
+        let parent_index = this.children.indexOf(parent);
+        if (!this.children[parent_index].children.includes(child.TourPlanId)) {
+            this.children[parent_index].children.push(child.TourPlanId)
+        } else {
+            this.children[parent_index].children.pop(child.TourPlanId);
+        }
     }
 }
