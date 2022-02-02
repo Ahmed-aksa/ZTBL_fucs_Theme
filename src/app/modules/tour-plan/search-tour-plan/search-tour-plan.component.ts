@@ -417,18 +417,18 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
 
-    getStatus(status: string) {
-
-        if (status == 'P') {
-            return "Submit";
-        } else if (status == 'N') {
-            return "Pending";
-        } else if (status == 'A') {
-            return "Authorized";
-        } else if (status == 'R') {
-            return "Refer Back";
-        }
-    }
+    // getStatus(status: string) {
+    //
+    //     if (status == 'P') {
+    //         return "Submit";
+    //     } else if (status == 'N') {
+    //         return "Pending";
+    //     } else if (status == 'A') {
+    //         return "Authorized";
+    //     } else if (status == 'R') {
+    //         return "Refer Back";
+    //     }
+    // }
 
 
     filterConfiguration(): any {
