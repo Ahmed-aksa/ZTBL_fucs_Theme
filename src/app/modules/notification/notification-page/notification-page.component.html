@@ -150,12 +150,12 @@
 
         <div class="col-lg-4 col-sm-12">
             <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+                      id="llcInquiryText" (click)="click(9)">
                 <count [count]="nUv" *ngIf="nUv  != undefined"></count>
                 <div class="d-grid" style="justify-items: center;">
                     <img src="../../../../assets/images/ic_upcoming_visits.PNG" class="img-responsive center-block w-12 mx-auto mb-3">
 
-                    <p class=" text-black">Upcoming Visits</p>
+                    <p class=" text-black">Upcoming Tour Plan</p>
                 </div>
             </mat-card>
         </div>

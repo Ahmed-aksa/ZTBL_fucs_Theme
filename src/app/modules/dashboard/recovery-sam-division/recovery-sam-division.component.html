@@ -38,7 +38,7 @@
 
         <div class="row pb-4">
             <div class="col-lg-6">
-                <div class=" shadow-sm border graph-box"  style="height: 365px;" >
+                <div class=" shadow-sm border graph-box" style="height: 365px;">
                     <div id="chart2" *ngIf="chartOptions1" class=" mt-0 py-3">
                         <apx-chart [series]="chartOptions1?.series" [chart]="chartOptions1?.chart"
                                    [labels]="chartOptions1?.labels" [title]="chartOptions1?.title"
@@ -50,7 +50,7 @@
 
             </div>
             <div class="col-lg-6">
-                <div class=" shadow-sm border graph-box"  style="height: 365px;" >
+                <div class=" shadow-sm border graph-box" style="height: 365px;">
                     <div id="chart3" *ngIf="chartOptions2" class=" mt-0 py-3">
                         <apx-chart [series]="chartOptions2?.series" [chart]="chartOptions2?.chart"
                                    [labels]="chartOptions2?.labels" [title]="chartOptions2?.title"
@@ -64,8 +64,9 @@
         </div>
         <div class="row">
             <div class="col-lg-6 py-3">
-                <div class="shadow-sm border pt-2" *ngIf="CreditCeiling"  style="height: 365px;" >
-                    <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Purpose wise Default (Over Dues + NPLs)</p>
+                <div class="shadow-sm border pt-2" *ngIf="CreditCeiling" style="height: 365px;">
+                    <p class=" ml-3" style="font-size: 14px; font-weight: 900;">Purpose wise Default (Over Dues +
+                        NPLs)</p>
                     <app-pyramid-chart [item]="CreditCeiling">
                     </app-pyramid-chart>
 
@@ -77,76 +78,76 @@
                 <p class="heading mb-2 text-lg">Recovery</p>
                 <table class="table table-striped">
                     <tbody *ngIf="DisbursmentAchievement">
-                        <tr class="text-center">
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCase("CalenderYear")}}
-                                    </div>
-                                    <div class="fw-bold">
-                                        {{DisbursmentAchievement["CalenderYearAchievement"]}}
-                                    </div>
+                    <tr class="text-center">
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{dashboardService.getCamelCase("CalenderYear")}}
                                 </div>
-                            </td>
+                                <div class="fw-bold">
+                                    {{DisbursmentAchievement["CalenderYearAchievement"]}}
+                                </div>
+                            </div>
+                        </td>
 
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCase("CorrespondingCalenderYear")}}
-                                    </div>
-                                    <div class="fw-bold">
-                                        {{DisbursmentAchievement["CorrespondingCalenderYearAchievement"]}}
-                                    </div>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{dashboardService.getCamelCase("CorrespondingCalenderYear")}}
                                 </div>
-                            </td>
+                                <div class="fw-bold">
+                                    {{DisbursmentAchievement["CorrespondingCalenderYearAchievement"]}}
+                                </div>
+                            </div>
+                        </td>
 
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{getFormatString("Increase_Decrease_Calendar")}}
-                                    </div>
-                                    <div class="fw-bold">
-                                        {{DisbursmentAchievement["Increase_Decrease_Calendar"]}}
-                                    </div>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{getFormatString("Increase_Decrease_Calendar")}}
                                 </div>
-                            </td>
+                                <div class="fw-bold">
+                                    {{DisbursmentAchievement["Increase_Decrease_Calendar"]}}
+                                </div>
+                            </div>
+                        </td>
 
-                        </tr>
-                        <tr class="text-center">
-                        
+                    </tr>
+                    <tr class="text-center">
 
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCase("FiscalYear")}}
-                                    </div>
-                                    <div class="fw-bold">
-                                        {{DisbursmentAchievement["FiscalYearAchievement"]}}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCase("CorrespondingFiscalYear")}}
-                                    </div>
-                                    <div class="fw-bold">
-                                        {{DisbursmentAchievement["CorrespondingFiscalYearAchievement"]}}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{getFormatString("Increase_Decrease_Fiscal")}}
-                                    </div>
-                                    <div class="fw-bold">
-                                        {{DisbursmentAchievement["Increase_Decrease_Fiscal"]}}
-                                    </div>
-                                </div>
-                            </td>
 
-                        </tr>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{dashboardService.getCamelCase("FiscalYear")}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{DisbursmentAchievement["FiscalYearAchievement"]}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{dashboardService.getCamelCase("CorrespondingFiscalYear")}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{DisbursmentAchievement["CorrespondingFiscalYearAchievement"]}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-grid">
+                                <div>
+                                    {{getFormatString("Increase_Decrease_Fiscal")}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{DisbursmentAchievement["Increase_Decrease_Fiscal"]}}
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
                     </tbody>
 
                 </table>
@@ -159,31 +160,31 @@
                         <td>
                             <div class="d-grid">
                                 <div>
-                                   {{dashboardService.getCamelCaseString(items[0],0)}}
+                                    {{dashboardService.getCamelCaseString(items[0], 0)}}
                                 </div>
                                 <div class="fw-bold">
-                                    {{dashboardService.getCamelCaseString(items[0],1)}}
+                                    {{dashboardService.getCamelCaseString(items[0], 1)}}
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-grid">
                                 <div>
-                                    {{dashboardService.getCamelCaseString(items[1],0)}}
-                                 </div>
-                                 <div class="fw-bold">
-                                     {{dashboardService.getCamelCaseString(items[1],1)}}
-                                 </div>
+                                    {{dashboardService.getCamelCaseString(items[1], 0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{dashboardService.getCamelCaseString(items[1], 1)}}
+                                </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-grid">
                                 <div>
-                                    {{dashboardService.getCamelCaseString(items[2],0)}}
-                                 </div>
-                                 <div class="fw-bold">
-                                     {{dashboardService.getCamelCaseString(items[2],1)}}
-                                 </div>
+                                    {{dashboardService.getCamelCaseString(items[2], 0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{dashboardService.getCamelCaseString(items[2], 1)}}
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -204,11 +205,18 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="Top10NplZones">
                     <tr *ngFor="let item of Top10NplZones">
                         <td>{{item.SrNO}}</td>
                         <td>{{item.Name}}</td>
                         <td>{{item.Amount}}</td>
+                    </tr>
+                    </tbody>
+                    <tbody *ngIf="!Top10NplZones">
+                    <tr>
+                        <td>{{'No Data}}</td>
+                        <td>{{'No Data}}</td>
+                        <td>{{'No Data}}</td>
                     </tr>
                     </tbody>
                 </table>
