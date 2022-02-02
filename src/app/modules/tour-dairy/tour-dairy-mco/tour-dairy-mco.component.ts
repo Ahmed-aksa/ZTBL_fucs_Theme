@@ -36,6 +36,7 @@ export class TourDairyMcoComponent implements OnInit {
     TourDiary;
     TourPlan;
     Format24:boolean=true;
+    isUpdate:boolean=false;
 
 
     //**************** Time ****************************
@@ -185,6 +186,8 @@ debugger
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.isUpdate=false;
+                this.onClearForm();
             } else {
 
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
@@ -192,8 +195,80 @@ debugger
 
         });
     }
-
     submit(){}
+    SubmitTourDiary(){
+        debugger
+
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (!this.branch) {
+            var Message = 'Please select Branch';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (!this.circle) {
+            var Message = 'Please select Circle';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (this.gridForm.invalid) {
+            const controls = this.gridForm.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+            return;
+        }
+
+        this.TourDiary = Object.assign(this.gridForm.getRawValue());
+
+        debugger
+        if (!this.TourDiary) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+
+        this.spinner.show();
+        this.tourDiaryService.submitDiary(this.zone,this.branch,this.TourDiary)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.isUpdate=false;
+                this.onClearForm();
+            } else {
+
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+        });
+    }
     edit(){
     }
     delete(){
@@ -227,6 +302,7 @@ debugger
         this.gridForm.controls['AnyOtherWorkDone'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
 
+        this.isUpdate=false;
         this.setValue();
 
     }
@@ -366,5 +442,6 @@ debugger
 
         // this._cdf.detectChanges();
         // this.createForm()
+        this.isUpdate=true;
     }
 }

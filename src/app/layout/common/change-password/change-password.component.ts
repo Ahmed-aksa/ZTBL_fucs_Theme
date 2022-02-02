@@ -37,6 +37,7 @@ export class ChangePasswordComponent implements OnInit {
                 if (data.Success) {
                     document.getElementById('success_to_display').innerHTML = data.Message;
                     document.getElementById('error_to_display').innerHTML = '';
+                    this.matDialogRef.close('true')
                 } else {
                     document.getElementById('error_to_display').innerHTML = data.Message;
                     document.getElementById('success_to_display').innerHTML = '';

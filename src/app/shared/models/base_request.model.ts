@@ -40,6 +40,7 @@ export class BaseRequestModel {
     public ChangesTourPlanStatusDto: any;
     public TourPlan: any;
     public TourDiary: any;
+    public McoTourDiary: any;
     public OTP: OTP;
     Token: any
     RefreshToken: any

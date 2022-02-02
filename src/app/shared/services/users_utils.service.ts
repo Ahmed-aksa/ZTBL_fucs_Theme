@@ -12,9 +12,9 @@ export class UserUtilsService {
     loginResponse: BaseResponseModel;
     tempResponse: BaseResponseModel;
     search_data: any = {Branch: null, UserCircleMappings: null, zone: null};
-    
+
     constructor(private http: HttpClient = null,) {
-        
+
     }
 
     public getSearchResultsDataOfZonesBranchCircle() {
@@ -203,8 +203,8 @@ export class UserUtilsService {
     }
 
     getZone() {
-     
-        return this.http.post(`${environment.apiUrl}/Zone/GetZones`, null);
+        let request=new BaseRequestModel();
+        return this.http.post(`${environment.apiUrl}/Zone/GetZones`, request);
     }
 
     getEligibilityLogs(request) {

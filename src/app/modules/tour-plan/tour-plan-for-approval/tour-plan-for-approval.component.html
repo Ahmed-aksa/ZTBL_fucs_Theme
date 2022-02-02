@@ -112,17 +112,9 @@
                           {{activity.UserName}}({{activity.UserPPNo}})
                         </span>
                     </div>
-                    <div>
-                        <button mat-flat-button color="primary"
-                                (click)="change(activity,'A')">Approve
-                        </button>
-                        <button mat-flat-button color="warn" (click)="change(activity,'R')">
-                            Referback
-                        </button>
-                    </div>
 
                     <div class="mr-5">
-                        <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block;">
+                        <button mat-icon-button id="{{'arrow_down_'+i}}"  style="display: block;">
                             <mat-icon>expand_more</mat-icon>
                         </button>
                         <button mat-icon-button id="{{'arrow_up_'+i}}" style="display: none;">
@@ -130,34 +122,71 @@
                         </button>
                     </div>
                 </div>
-                <div class="custom-accordion-body" id="{{'table_'+i}}"
-                     style="display: none;">
-                    <table class="table table-responsive" style="display: inline-table !important;">
-                        <thead class="thead-light">
-                        <tr class="table-header-background">
-                            <th>VisitedDate</th>
-                            <th>Purpose</th>
-                            <th>Remarks</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                <div class="custom-accordion-body" id="{{'table_'+i}}" >
+                    <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border"
+                         *ngFor="let plan_by_date of activity.TourPlansByDate;let j=index; ">
+                        <div class="custom-accordion-head border-0 flex"
+                             (click)="toggleByDateAccordion(j)"
+                             style="cursor: pointer;justify-content: space-between;">
+                            <div class=" self-center ml-8 w-64">
+                        <span class=" text-green">
+                          {{plan_by_date.VisitedDate | date}}
+                        </span>
+                            </div>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let child of activity.TourPlans;let j=index">
-                            <td style="width: 20%">{{child.VisitedDate ? child.VisitedDate : '-'}}</td>
-                            <td style="width: 20%">{{child.PurposeName ? child.PurposeName : '-'}}</td>
-                            <td style="width: 20%">{{child.Remarks ? child.Remarks : '-'}}</td>
-                            <td style="width: 20%">{{getStatus(child.Status)}}</td>
+                            <div class="mr-5">
+                                <button mat-flat-button color="primary"
+                                        (click)="$event.stopPropagation();approveAll(i,j,plan_by_date)">Approve All
+                                </button>
+                                <button mat-icon-button id="{{'arrow_down_date_'+j}}" style="display: block">
+                                    <mat-icon>expand_more</mat-icon>
+                                </button>
+                                <button mat-icon-button id="{{'arrow_up_date_'+j}}" style="display:none;">
+                                    <mat-icon>expand_less</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="custom-accordion-body" id="{{'table_date_'+j}}"
+                             style="display: none;">
+                            <table class="table table-responsive" style="display: inline-table !important;">
+                                <thead class="thead-light">
+                                <tr class="table-header-background">
+                                    <th>VisitedDate</th>
+                                    <th>Purpose</th>
+                                    <th>Remarks</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
 
-                            <td style="width: 20%">
-                                <mat-checkbox (change)="changeCheckBox(activity,child)"></mat-checkbox>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let child of plan_by_date.TourPlans">
+                                    <td style="width: 20%">{{child.VisitedDate ? child.VisitedDate : '-'}}</td>
+                                    <td style="width: 20%">{{child.PurposeName ? child.PurposeName : '-'}}</td>
+                                    <td style="width: 20%">{{child.Remarks ? child.Remarks : '-'}}</td>
+                                    <td style="width: 20%">{{getStatus(child.Status)}}</td>
+
+                                    <td style="width: 20%">
+
+                                        <button mat-icon-button color="primary" *ngIf="child.Status=='S'"
+                                                (click)="$event.stopPropagation();approvePlan(child,'A')">
+                                            <mat-icon class="text-green" title="Approve">done</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="primary" *ngIf="child.Status=='S'"
+                                                (click)="$event.stopPropagation();approvePlan(child,'R')">
+                                            <mat-icon class="text-green" title="Refer back">close</mat-icon>
+                                        </button>
+
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
                 </div>
-
 
             </div>
 
