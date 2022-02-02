@@ -338,6 +338,15 @@ export class TourPlanForApprovalComponent implements OnInit {
     }
 
     searchTourPlanApproval(start = false, user_id = null, index = 0) {
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
 
         this.spinner.show();
         if (!this.tourPlanApprovalForm.controls["Status"].value) {
