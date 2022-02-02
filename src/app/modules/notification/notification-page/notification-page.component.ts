@@ -88,6 +88,9 @@ export class NotificationPageComponent implements OnInit {
       else if(number == 8){
           this.router.navigateByUrl('/notifications/legal-notices');
       }
+      else if(number == 9){
+          this.router.navigateByUrl('/notifications/upcoming-tour-plan');
+      }
       else if(number == 12){
           this.router.navigateByUrl('/notifications/get-fence-violation');
       }

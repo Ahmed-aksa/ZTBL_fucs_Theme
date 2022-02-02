@@ -55,6 +55,10 @@ const routing = [
         path: 'legal-notices',
         component: LegalNoticesComponent
     },
+    {
+        path: 'upcoming-tour-plan',
+        component: UpcomingVisitsComponent
+    },
 ]
 
 @NgModule({
