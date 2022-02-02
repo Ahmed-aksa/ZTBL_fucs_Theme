@@ -93,7 +93,7 @@
                             {{item.Remarks}}
                         </p>
                     </td>
-                    <td> {{getStatus(item.Status)}} </td>
+                    <td> {{item.StatusName}} </td>
                     <!--                    <td> {{getStatus(item.StatusName)}} </td>-->
                     <td>
                         <button mat-icon-button *ngIf="checkStatus(item, 'edit')"
