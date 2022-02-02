@@ -101,6 +101,12 @@ export class NotificationService {
                     map((res: BaseResponseModel) => res)
                 );
         }
+        else if(type ==9){
+            return this.http.post<any>(`${environment.apiUrl}/Notification/GetUpcomingTourPlan`, request)
+                .pipe(
+                    map((res: BaseResponseModel) => res)
+                );
+        }
         else if(type ==12){
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetFenceVoilations`, request)
                 .pipe(

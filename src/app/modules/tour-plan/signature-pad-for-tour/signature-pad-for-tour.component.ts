@@ -20,8 +20,8 @@ export class SignaturePadForTourComponent implements OnInit {
     public signaturePadOptions: Object = {
         // passed through to szimek/signature_pad constructor
         minWidth: 5,
-        canvasWidth: 500,
-        canvasHeight: 300,
+        canvasWidth: 800,
+        canvasHeight: 450,
         backgroundColor: 'rgb(255,255,255)',
     };
     remarks = '';
