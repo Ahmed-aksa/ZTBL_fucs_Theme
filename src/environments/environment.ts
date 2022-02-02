@@ -40,6 +40,17 @@ export const environment = {
   Regional_CHIEF: '203',//111573
   PROVINCIAL_CHEIF: '205',//77345
 
+    // 48326 ZO monitoring
+    // 54536 ZDPM
+    // 69996 ZM recovery
+    // 70001 Zonal committee
+    // 81426 zonal manager ops
+    // 96387 Zonal chief
+    // 131694 MCO Sahiwal
+    // 128870 MCO Sargodha
+    // 118128 MCO Faisalabad
+    // 80834 BM Sargodha
+
 };
 
 

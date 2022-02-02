@@ -322,30 +322,15 @@ export class TourPlanForApprovalComponent implements OnInit {
 
     }
 
-    toggleByDateAccordion(i) {
-        debugger
-        let down_arrow = document.getElementById('arrow_down_date_' + i).style.display;
-        if (down_arrow == 'block') {
-            document.getElementById('arrow_down_date_' + i).style.display = 'none';
-            document.getElementById('arrow_up_date_' + i).style.display = 'block';
-            document.getElementById('table_date_' + i).style.display = 'block';
-        } else {
-            document.getElementById('arrow_up_date_' + i).style.display = 'none';
-            document.getElementById('arrow_down_date_' + i).style.display = 'block';
-            document.getElementById('table_date_' + i).style.display = 'none';
-        }
-    }
-
     toggleAccordion(i: number, user_id) {
-        let down_arrow = document.getElementById('arrow_down_' + i).style.display;
-        if (down_arrow == 'block') {
-            document.getElementById('arrow_down_' + i).style.display = 'none';
-            document.getElementById('arrow_up_' + i).style.display = 'block';
+        let icon = document.getElementById('arrow_down_' + i).innerHTML;
+        if (icon == 'expand_more') {
+            document.getElementById('arrow_down_' + i).innerHTML = 'expand_less';
             document.getElementById('table_' + i).style.display = 'block';
             this.searchTourPlanApproval(false, user_id, i);
+
         } else {
-            document.getElementById('arrow_up_' + i).style.display = 'none';
-            document.getElementById('arrow_down_' + i).style.display = 'block';
+            document.getElementById('arrow_down_' + i).innerHTML = 'expand_more';
             document.getElementById('table_' + i).style.display = 'none';
         }
         this.children = [];
@@ -384,7 +369,7 @@ export class TourPlanForApprovalComponent implements OnInit {
                     else
                         this.matTableLenght = false;
                     debugger
-                    if(this.dataSource){
+                    if (this.dataSource) {
                         this.dv = this.dataSource?.data;
                         this.dataSource.data = this.dv?.slice(0, this.totalItems)
                         this.OffSet = this.pageIndex;
@@ -507,7 +492,12 @@ export class TourPlanForApprovalComponent implements OnInit {
         if (child) {
             const signatureDialogRef = this.dialog.open(
                 SignaturePadForTourComponent,
-                {minHeight:'600px',width:'850px', disableClose: true, data: {userId: child.UserId, ids: child.children, status: status}},
+                {
+                    minHeight: '600px',
+                    width: '850px',
+                    disableClose: true,
+                    data: {userId: child.UserId, ids: child.children, status: status}
+                },
             );
         } else {
             this.toaster.error("No Child Found");
@@ -518,11 +508,11 @@ export class TourPlanForApprovalComponent implements OnInit {
         debugger
         let parent_index = this.children.indexOf(parent);
         let ids = []
-        this.children[parent_index].children.forEach((single_children) => {
+        this.children[parent_index]?.children?.forEach((single_children) => {
             ids.push(String(single_children.TourPlanId));
         })
 
-        if (ids.length==0) {
+        if (ids.length == 0) {
             var Message = 'Please select Record From List';
             this.layoutUtilsService.alertElement(
                 '',

@@ -43,8 +43,8 @@ export class SignaturePadForTourComponent implements OnInit {
 
     drawComplete() {
         this.isSignatureAdded = true;
-        var base64 = this.signaturePad.toDataURL('image/jpeg');
-        this.imageFile = base64.replace('data:image/jpeg;base64,', '');
+        var base64 = this.signaturePad?.toDataURL('image/jpeg');
+        this.imageFile = base64?.replace('data:image/jpeg;base64,', '');
     }
 
     drawStart() {
@@ -60,7 +60,7 @@ export class SignaturePadForTourComponent implements OnInit {
     }
 
     clearSignature(): void {
-        this.signaturePad.clear();
+        this.signaturePad?.clear();
         this.imageFile = '';
         this.isSignatureAdded = false;
         this.remarks = '';
