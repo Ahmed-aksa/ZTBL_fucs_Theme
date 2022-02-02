@@ -347,12 +347,19 @@ export class TourPlanForApprovalComponent implements OnInit {
             );
             return;
         }
+console.log(this.tourPlanApprovalForm.controls["Status"].value)
+        if(this.tourPlanApprovalForm.controls["Status"].value==""){
+            var Message = 'Please select Status';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
 
         this.spinner.show();
-        if (!this.tourPlanApprovalForm.controls["Status"].value) {
-            this.tourPlanApprovalForm.controls["Status"].setValue("All")
-        }
-        let offset = '0';
+       let offset = '0';
         if (start)
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm.value);

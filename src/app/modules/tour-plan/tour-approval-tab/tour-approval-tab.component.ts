@@ -112,12 +112,13 @@ export class TourApprovalTabComponent implements OnInit {
     }
 
     searchTourPlanApproval(start = false, user_id = null, index = 0) {
+debugger
 
-        this.spinner.show();
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm);
+        this.spinner.show();
         this.tourPlanService.searchForTourPlanApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
             .pipe(
                 finalize(() => {
