@@ -214,9 +214,9 @@
                     </tbody>
                     <tbody *ngIf="!Top10NplZones">
                     <tr>
-                        <td>{{'No Data}}</td>
-                        <td>{{'No Data}}</td>
-                        <td>{{'No Data}}</td>
+                        <td></td>
+                        <td>{{'No Data'}}</td>
+                        <td>{{'No Data'}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -232,11 +232,18 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="Top10SamZones">
                     <tr *ngFor="let item of Top10SamZones">
                         <td>{{item.SrNO}}</td>
                         <td>{{item.Name}}</td>
                         <td>{{item.Amount}}</td>
+                    </tr>
+                    </tbody>
+                    <tbody *ngIf="!Top10SamZones">
+                    <tr>
+                        <td></td>
+                        <td>{{'No Data'}}</td>
+                        <td>{{'No Data'}}</td>
                     </tr>
                     </tbody>
                 </table>

@@ -120,10 +120,16 @@
                             <th scope="col">%age</th>
                         </tr>
                         </thead> -->
-                        <tbody>
+                        <tbody *ngIf="ResourcesCount.length!=0">
                         <tr *ngFor="let item of ResourcesCount">
                             <td>{{dashboardService.getCamelCaseString(item[0])}}</td>
                             <td>{{item[1]}}</td>
+                        </tr>
+                        </tbody>
+                        <tbody *ngIf="ResourcesCount.length==0">
+                        <tr>
+                            <td>No Data Found</td>
+                            <td>No Data Found</td>
                         </tr>
                         </tbody>
                     </table>
@@ -167,9 +173,8 @@
                     </table>
                 </div>
 
-                
+
+            </div>
 
         </div>
-
     </div>
-</div>
