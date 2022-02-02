@@ -360,17 +360,24 @@ export class SearchTourPlanComponent implements OnInit {
 
 
     SearchTourPlan() {
-
-        this.spinner.show();
-        if (!this.TourPlan.controls["Status"].value) {
-            this.TourPlan.controls["Status"].setValue("All")
+        if (this.TourPlan.invalid) {
+            const controls = this.TourPlan.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+            return;
         }
+
+        // if (!this.TourPlan.controls["Status"].value) {
+        //     this.TourPlan.controls["Status"].setValue("All")
+        // }
 
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
         this.TourPlan.controls["StartDate"].setValue(this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy'))
         this.TourPlan.controls["EndDate"].setValue(this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy'))
         this._TourPlan = Object.assign(this.TourPlan.value);
+        this.spinner.show();
         this.tourPlanService.SearchTourPlan(this._TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(
                 finalize(() => {

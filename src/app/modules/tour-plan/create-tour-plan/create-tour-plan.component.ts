@@ -17,7 +17,7 @@ import {DatePipe} from '@angular/common';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
+import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {TourPlan} from '../Model/tour-plan.model';
 import {TourPlanService} from "../Service/tour-plan.service";
 import {CircleService} from "../../../shared/services/circle.service";
@@ -223,6 +223,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         //this.startDate.format('YYYY-MM-DD'), this.endDate.format('YYYY-MM-DD')
         this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
         this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd')
+        this.spinner.show()
         this.tourPlanService
             .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate)
             .pipe(finalize(() => {
@@ -410,33 +411,44 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     }
 
     deleteTourPlan(item) {
-        this.spinner.show();
-        this.TourPlan = item;
-        this.TourPlan.Status = 'C';
-        this.tourPlanService
-            .ChanageTourStatus(this.TourPlan)
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe(
-                (baseResponse) => {
-                    if (baseResponse.Success) {
-                        this.tragetList = [];
-                        this.SearchTourPlan(this.startDate, this.endDate);
-                        this.controlReset()
-                        this.layoutUtilsService.alertElementSuccess(
-                            "",
-                            baseResponse.Message,
-                            baseResponse.Code = null
-                        );
-                    } else {
-                        this.layoutUtilsService.alertElement(
-                            "",
-                            baseResponse.Message,
-                            baseResponse.Code = null
-                        );
-                    }
-                });
+
+
+        let dialogRef = this.layoutUtilsService.AlertElementConfirmation("Do you really want to delete this Document?");
+        dialogRef.afterClosed().subscribe((data) => {
+            if (data) {
+                this.spinner.show();
+
+                this.TourPlan = item;
+                this.TourPlan.Status = 'C';
+                this.tourPlanService
+                    .ChanageTourStatus(this.TourPlan)
+                    .pipe(finalize(() => {
+                        this.spinner.hide();
+                    }))
+                    .subscribe(
+                        (baseResponse) => {
+                            if (baseResponse.Success) {
+                                this.tragetList = [];
+                                this.SearchTourPlan(this.startDate, this.endDate);
+                                this.controlReset()
+                                this.layoutUtilsService.alertElementSuccess(
+                                    "",
+                                    baseResponse.Message,
+                                    baseResponse.Code = null
+                                );
+                            } else {
+                                this.layoutUtilsService.alertElement(
+                                    "",
+                                    baseResponse.Message,
+                                    baseResponse.Code = null
+                                );
+                            }
+                        });
+            } else {
+                return
+            }
+        })
+
     }
 
 

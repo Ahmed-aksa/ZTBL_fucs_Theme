@@ -17,6 +17,7 @@ export class SignaturePadForTourComponent implements OnInit {
     imageFile: any;
     isSignatureAdded = false;
     is_referback = true;
+
     public signaturePadOptions: Object = {
         // passed through to szimek/signature_pad constructor
         minWidth: 5,
@@ -72,9 +73,20 @@ export class SignaturePadForTourComponent implements OnInit {
         formdata.append('UserID', String(this.data.userId));
         formdata.append('PlanIds', this.data.ids.toString());
         formdata.append('Status', this.data.status);
-        formdata.append('Remarks', this.remarks);
-        if (this.data.status == 'A')
-            formdata.append('Signature', this.imageFile);
+        if (this.remarks)
+            formdata.append('Remarks', this.remarks);
+        else {
+            this.toaster.error("Please add Remarks");
+            return;
+        }
+        if (this.data.status == 'A') {
+            if (this.imageFile)
+                formdata.append('Signature', this.imageFile);
+            else {
+                this.toaster.error("Please add Signature");
+                return;
+            }
+        }
         this.http
             .post<any>(
                 `${environment.apiUrl}/TourPlanAndDiary/ApproveTourPlan`,
