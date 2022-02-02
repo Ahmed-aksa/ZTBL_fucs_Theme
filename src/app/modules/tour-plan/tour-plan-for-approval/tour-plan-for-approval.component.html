@@ -102,7 +102,7 @@
 
             <!--           table -->
 
-            <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border"
+            <div class="custom-accordion   rounded-lg my-2 py-3 bg-white shadow-sm border"
                  *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
                 <div class="custom-accordion-head border-0 flex"
                      (click)="toggleAccordion(i,activity.UserId)"
@@ -118,11 +118,11 @@
 
                     <div class="mr-5">
                         <button class="mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" mat-flat-button color="primary"
-                                (click)="change(activity,'A')"><mat-icon>check_circle</mat-icon>Approve
+                                (click)="$event.stopPropagation();change(activity,'A')"><mat-icon class="me-2">check_circle</mat-icon>Approve
                         </button>
                         <button class=" mx-3 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" mat-flat-button color="warn" (click)="change(activity,'R')">
-                            <mat-icon>arrow_back_ios</mat-icon>
-                            Referback
+                            <mat-icon class="me-2">arrow_back_ios</mat-icon>
+                         F   Referback
                         </button>
                         <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block;">
                             <mat-icon>expand_more</mat-icon>
@@ -134,7 +134,7 @@
                 </div>
                 <div class="custom-accordion-body" id="{{'table_'+i}}"
                      style="display: none;">
-                    <table class="table table-responsive" style="display: inline-table !important;">
+                    <table class="table table-responsive mt-3" style="display: inline-table !important;">
                         <thead class="thead-light">
                         <tr class="table-header-background">
                             <th>VisitedDate</th>

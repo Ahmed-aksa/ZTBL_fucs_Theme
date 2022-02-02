@@ -507,7 +507,7 @@ export class TourPlanForApprovalComponent implements OnInit {
         if (child) {
             const signatureDialogRef = this.dialog.open(
                 SignaturePadForTourComponent,
-                {width: '500px', disableClose: true, data: {userId: child.UserId, ids: child.children, status: status}},
+                {minHeight:'600px',width:'850px', disableClose: true, data: {userId: child.UserId, ids: child.children, status: status}},
             );
         } else {
             this.toaster.error("No Child Found");
@@ -521,6 +521,17 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.children[parent_index].children.forEach((single_children) => {
             ids.push(String(single_children.TourPlanId));
         })
+
+        if (ids.length==0) {
+            var Message = 'Please select Record From List';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
         this.changeStatus(this.children[parent_index], status, ids);
     }
 
