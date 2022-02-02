@@ -463,20 +463,20 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy{
         );
     }
 
-    getStatus(status: string) {
-
-        if (status == 'P') {
-            return "Submit";
-        } else if (status == 'N') {
-            return "Pending";
-        } else if (status == 'S') {
-            return "Submitted";
-        } else if (status == 'A') {
-            return "Authorized";
-        } else if (status == 'R') {
-            return "Refer Back";
-        }
-    }
+    // getStatus(status: string) {
+    //
+    //     if (status == 'P') {
+    //         return "Submit";
+    //     } else if (status == 'N') {
+    //         return "Pending";
+    //     } else if (status == 'S') {
+    //         return "Submitted";
+    //     } else if (status == 'A') {
+    //         return "Authorized";
+    //     } else if (status == 'R') {
+    //         return "Refer Back";
+    //     }
+    // }
 
     ngOnDestroy(){
         if (this.navigationSubscription) {
@@ -492,7 +492,7 @@ export class TragetLits {
     Purpose: any
     Remarks: any
     Status: any
-    //StatusName: any
+    StatusName: any
     TotalRecords: any
     TourPlanId: any
     UserId: any
