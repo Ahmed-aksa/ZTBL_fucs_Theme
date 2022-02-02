@@ -8,6 +8,7 @@ import * as NodeRSA from 'node-rsa';
 import { AuthGuard } from './core/auth/guards/auth.guard';
 import { Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
+import {CommonService} from "./shared/services/common.service";
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit {
 
     popup: any = false;
     constructor(private router: Router, private http: HttpClient, private encryptDecryptService: EncryptDecryptService,
-        private authGuard: AuthGuard) {
+        private authGuard: AuthGuard,private _common:CommonService) {
         this.router.events.subscribe((event: any) => {
             var event1 = event;
             if (event instanceof NavigationStart) {
@@ -66,13 +67,13 @@ export class AppComponent implements OnInit {
 
     checkSession$: Observable<boolean>;
     ngOnInit(): void {
-        if (!environment.IsEncription) { 
+        if (!environment.IsEncription) {
             return
         }
         var user = localStorage.getItem("ZTBLUser")
         if (!user) {
             let key = this.getNewKey();
-            let UDID = this.newGuid();
+            let UDID = this._common.newGuid();
             var data = {
                 "DeviceInfo": {
                     "IMEI": UDID
@@ -123,11 +124,5 @@ export class AppComponent implements OnInit {
         });
         return key
     }
-    newGuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0,
-                v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
+
 }
