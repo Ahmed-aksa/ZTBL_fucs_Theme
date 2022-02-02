@@ -347,7 +347,7 @@ export class TourPlanForApprovalComponent implements OnInit {
             );
             return;
         }
-console.log(this.tourPlanApprovalForm.controls["Status"].value)
+    console.log(this.tourPlanApprovalForm.controls["Status"].value)
         if(this.tourPlanApprovalForm.controls["Status"].value==""){
             var Message = 'Please select Status';
             this.layoutUtilsService.alertElement(
@@ -374,6 +374,7 @@ console.log(this.tourPlanApprovalForm.controls["Status"].value)
 
 
                 if (baseResponse.Success) {
+                    debugger
                     if (user_id) {
                         this.TourPlans[index].TourPlans = baseResponse.TourPlanList;
                         // this.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
@@ -398,12 +399,13 @@ console.log(this.tourPlanApprovalForm.controls["Status"].value)
                     }
 
                 } else {
-
+debugger
                     if (this.dv != undefined) {
                         this.matTableLenght = false;
                         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         // this.dataSource.data = [];
                         // this._cdf.detectChanges();
+                        this.TourPlans=null;
                         this.OffSet = 1;
                         this.pageIndex = 1;
                         this.dv = this.dv.slice(1, 0);
