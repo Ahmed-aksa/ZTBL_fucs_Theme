@@ -112,16 +112,18 @@
                           {{activity.UserName}}({{activity.UserPPNo}})
                         </span>
                     </div>
-                    <div>
-                        <button mat-flat-button color="primary"
-                                (click)="change(activity,'A')">Approve
-                        </button>
-                        <button mat-flat-button color="warn" (click)="change(activity,'R')">
-                            Referback
-                        </button>
-                    </div>
+
+
+
 
                     <div class="mr-5">
+                        <button class="mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" mat-flat-button color="primary"
+                                (click)="change(activity,'A')"><mat-icon>check_circle</mat-icon>Approve
+                        </button>
+                        <button class=" mx-3 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" mat-flat-button color="warn" (click)="change(activity,'R')">
+                            <mat-icon>arrow_back_ios</mat-icon>
+                            Referback
+                        </button>
                         <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block;">
                             <mat-icon>expand_more</mat-icon>
                         </button>

@@ -1,15 +1,16 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { environment } from "environments/environment";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { EncryptDecryptService } from "../services/encrypt_decrypt.service";
+import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {environment} from "environments/environment";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {EncryptDecryptService} from "../services/encrypt_decrypt.service";
 
 @Injectable()
 export class EncryptDecryptInterceptor implements HttpInterceptor {
     constructor(private encryptDecryptService: EncryptDecryptService) {
 
     }
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let authReq = request;
 
@@ -21,15 +22,18 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                         "IMEI": this.encryptDecryptService.getUDID()
                     }
                     request = request.clone({
-                        body: { ...request.body, DeviceInfo }
+                        body: {...request.body, DeviceInfo}
                     })
                     var cusomeRequestModel = {
-                        "Key": this.encryptDecryptService.RSAencrypt(this.encryptDecryptService.getUDID()),
+                        // "Key": this.encryptDecryptService.RSAencrypt(this.encryptDecryptService.getUDID()),
                         "Req": this.encryptDecryptService.AESencrypt(null, request.body)
 
                     }
                     request = request.clone({
-                        body: cusomeRequestModel
+                        body: cusomeRequestModel,
+                        setHeaders: {
+                            "key": this.encryptDecryptService.RSAencrypt(this.encryptDecryptService.getUDID())
+                        }
                     });
                 }
             }
@@ -41,9 +45,9 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                     if (event instanceof HttpResponse) {
                         if (event.url.includes(environment.apiUrl)) {
                             if (environment.IsEncription) {
-                                event = event.clone({ body: JSON.parse(this.encryptDecryptService.AESdecrypt(null, event.body.Resp)) })
+                                event = event.clone({body: JSON.parse(this.encryptDecryptService.AESdecrypt(null, event.body.Resp))})
                             }
-                            
+
                         }
                     }
                 }

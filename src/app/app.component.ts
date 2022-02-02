@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationError, NavigationStart, Router, Event } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -95,14 +95,17 @@ export class AppComponent implements OnInit {
 
 
             var cusomeRequestModel = {
-                "Key": encrypt,
+                // "Key": encrypt,
                 "Req": responseEncript
 
             }
-            console.log(key);
-            console.log(encrypt);
-            console.log(responseEncript);
-            this.http.post(`${environment.apiUrl}/Account/HealthCheck`, cusomeRequestModel).subscribe((result: any) => {
+
+            let headers = new HttpHeaders({
+                "key":encrypt
+            });
+            let options = { headers: headers };
+
+            this.http.post(`${environment.apiUrl}/Account/HealthCheck`, cusomeRequestModel,options).subscribe((result: any) => {
                 if (result.Success) {
                     let Keydata = this.encryptDecryptService.AESdecrypt(key, result.Resp);
                     localStorage.setItem("ztblKey", JSON.parse(Keydata).Key);
