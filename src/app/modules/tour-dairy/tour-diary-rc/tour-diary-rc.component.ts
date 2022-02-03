@@ -10,6 +10,8 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {SignatureDailogDairyComponent} from "../signature-dailog-dairy/signature-dailog-dairy.component";
+import {TourDiaryService} from "../set-target/Services/tour-diary.service";
+import {finalize} from "rxjs/operators";
 
 @Component({
     selector: 'app-tour-diary-rc',
@@ -36,12 +38,14 @@ export class TourDiaryRcComponent implements OnInit {
     TourPlan;
     Format24:boolean=true;
     isUpdate:boolean=false;
+    TourDiary;
 
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private userUtilsService: UserUtilsService,
+        private tourDiaryService: TourDiaryService,
         public dialog: MatDialog,
         private router: Router
     ) {
@@ -127,6 +131,99 @@ export class TourDiaryRcComponent implements OnInit {
         else{
             return 12
         }
+
+    }
+
+    saveTourDiary() {
+        debugger
+
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (!this.branch) {
+            var Message = 'Please select Branch';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (!this.circle) {
+            var Message = 'Please select Circle';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
+        if (this.gridForm.invalid) {
+            const controls = this.gridForm.controls;
+            Object.keys(controls).forEach(controlName =>
+                controls[controlName].markAsTouched()
+            );
+            return;
+        }
+
+        this.TourDiary = Object.assign(this.gridForm.getRawValue());
+
+        this.spinner.show();
+        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            } else {
+
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+        });
+    }
+
+    onClearForm() {
+        this.gridForm.controls['Name'].setValue("");
+        this.gridForm.controls['Ppno'].setValue("");
+        this.gridForm.controls['DiaryId'].setValue("");
+        this.gridForm.controls['TourPlanId'].setValue("");
+        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
+        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
+        this.gridForm.controls['CircleId'].setValue("");
+        this.gridForm.controls['TourDate'].setValue("");
+        this.gridForm.controls['DepartureFromPlace'].setValue("");
+        this.gridForm.controls['DepartureFromTime'].setValue("");
+        this.gridForm.controls['ArrivalAtPlace'].setValue("");
+        this.gridForm.controls['ArrivalAtTime'].setValue("");
+        this.gridForm.controls['DisbNoOfCasesReceived'].setValue("");
+        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue("");
+        this.gridForm.controls['DisbNoOfRecordVerified'].setValue("");
+        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue("");
+        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue("");
+        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue("");
+        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue("");
+        this.gridForm.controls['NoOfUtilizationChecked'].setValue("");
+        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue("");
+        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue("");
+        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("");
+        this.gridForm.controls['TotFarmersContacted'].setValue("");
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
+        this.gridForm.controls['AnyOtherWorkDone'].setValue("");
+        this.gridForm.controls['Remarks'].setValue("");
+
+        // this.setValue();
 
     }
 

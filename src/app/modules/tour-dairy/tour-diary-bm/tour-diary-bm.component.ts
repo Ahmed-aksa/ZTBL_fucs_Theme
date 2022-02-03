@@ -65,13 +65,14 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     setValue(){
-        this.gridForm.controls['Name'].setValue(this.loggedInUser?.User?.DisplayName);
-        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
+        this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser?.User?.DisplayName);
+        this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
     }
     createForm() {
         this.gridForm = this.fb.group({
             Name: [''],
-            Ppno: [null],
+            NameOfOfficer: [''],
+            PPNO: [null],
             // Month: [null],
             Zone: [null],
             TourDate: [null],
