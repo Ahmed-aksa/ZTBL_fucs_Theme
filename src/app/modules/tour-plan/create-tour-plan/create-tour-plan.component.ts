@@ -195,7 +195,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     getBranchName(branchId) {
         if (branchId == this.branch?.BranchId) {
             return this.branch.Name
-        }else{
+        } else {
             return "-"
         }
     }
@@ -203,7 +203,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     getZoneName(zoneId) {
         if (zoneId == this.zone?.ZoneId) {
             return this.zone.ZoneName
-        }else{
+        } else {
             return "-"
         }
     }
@@ -479,7 +479,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         } else {
             type = 'Monthly';
         }
-        let dialogRef = this.layoutUtilsService.AlertElementConfirmation('Confirmation', `Tour Plan submission schedule is : <strong>${type}</strong><br>Make Sure You have added the Tour Plan From: <strong>${this.startDate}</strong> To: <strong>${this.endDate}</strong> <br> Once the Tour Plan is submitted, You will no longer be able to add Tour Plan in this date range`);
+        let dialogRef = this.layoutUtilsService.AlertElementConfirmation('Confirmation', `Tour Plan submission schedule is : <strong>${type}</strong><br>Make sure you have added the Tour Plan From: <strong>${moment(this.startDate).format('DD-MM-YYYY')}</strong> To: <strong>${moment(this.endDate).format('DD-MM-YYYY')}</strong> <br> Once the Tour Plan is submitted, You will no longer be able to add Tour Plan in this date range`);
         dialogRef.afterClosed().subscribe((data) => {
             if (data) {
 
@@ -551,7 +551,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         }
     }
 
-    dateChange(date:string){
+    dateChange(date: string) {
         var day = date.slice(0, 2),
             month = date.slice(2, 4),
             year = date.slice(4, 8);
@@ -563,7 +563,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
 export class TragetLits {
     BranchId: any
     CircleId: any
-    CircleCode:any
+    CircleCode: any
     Purpose: any
     Remarks: any
     Status: any

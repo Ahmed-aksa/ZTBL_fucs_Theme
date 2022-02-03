@@ -89,12 +89,12 @@
                     <!--                    <td>{{row + 1}}</td>-->
                     <td>{{getZoneName(item?.ZoneId)}}</td>
                     <td>{{getBranchName(item?.BranchId)}}</td>
-                    <td>{{item?.CircleId}}</td>
-                    <td>{{item.VisitedDate | date:'dd-mm-yyyy'}}</td>
+                    <td>{{item?.CircleCode ? item?.CircleCode : "-"}}</td>
+                    <td>{{dateChange(item.VisitedDate)}}</td>
                     <td>{{item?.PurposeName}}</td>
                     <td [title]="item.Remarks">
                         <p class="remarks-box">
-                            {{item.Remarks.slice(0, 10)}}
+                            {{item.Remarks.slice(0, 30)}}
                         </p>
                     </td>
                     <td> {{item.StatusName}} </td>

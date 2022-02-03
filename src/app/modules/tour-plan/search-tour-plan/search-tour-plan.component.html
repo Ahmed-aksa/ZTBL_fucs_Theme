@@ -143,28 +143,32 @@
                         <tr *ngFor="let child of activity.TourPlans">
                             <td style="width: 20%">{{getZoneName(child?.ZoneId)}}</td>
                             <td style="width: 20%">{{getBranchName(child?.BranchId)}}</td>
-                            <td style="width: 20%">{{child?.CircleCode?child?.CircleCode:"-"}}</td>
+                            <td style="width: 20%">{{child?.CircleCode ? child?.CircleCode : "-"}}</td>
                             <td style="width: 20%">{{dateChange(child.VisitedDate)}}</td>
                             <td style="width: 20%">{{child.PurposeName}}</td>
-                            <td style="width: 20%">{{child.Remarks}}</td>
+                            <td [title]="child.Remarks">
+                                <p class="remarks-box">
+                                    {{child.Remarks.slice(0, 30)}}
+                                </p>
+                            </td>
                             <td style="width: 20%">{{child.StatusName}}</td>
 
                             <td style="width: 20%">
 
-<!--                                <button mat-icon-button color="primary" *ngIf="CheckViewStatus(child)"-->
-<!--                                        (click)="viewTourPlan(child)">-->
-<!--                                    <mat-icon class="text-green" title="View land">visibility</mat-icon>-->
-<!--                                </button>-->
+                                <!--                                <button mat-icon-button color="primary" *ngIf="CheckViewStatus(child)"-->
+                                <!--                                        (click)="viewTourPlan(child)">-->
+                                <!--                                    <mat-icon class="text-green" title="View land">visibility</mat-icon>-->
+                                <!--                                </button>-->
 
                                 <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"
                                         (click)="editTourPlan(child)">
                                     <mat-icon style="margin-left: 5px;" title="Edit Tour Plan">edit</mat-icon>
                                 </button>
 
-<!--                                <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"-->
-<!--                                        (click)="deleteTourPlan(child)">-->
-<!--                                    <mat-icon style="margin-left: 5px;" title="Delete Tour Plan">delete</mat-icon>-->
-<!--                                </button>-->
+                                <!--                                <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"-->
+                                <!--                                        (click)="deleteTourPlan(child)">-->
+                                <!--                                    <mat-icon style="margin-left: 5px;" title="Delete Tour Plan">delete</mat-icon>-->
+                                <!--                                </button>-->
 
                             </td>
                         </tr>
