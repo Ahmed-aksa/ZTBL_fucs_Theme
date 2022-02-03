@@ -1,0 +1,99 @@
+<div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50"
+     style="flex-direction: column;overflow-y: scroll">
+    <div class="example-table-container  px-2">
+
+        <!--           table -->
+
+        <div class="custom-accordion   rounded-lg my-2 py-3 bg-white shadow-sm border"
+
+             *ngFor="let activity of TourPlans?.TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
+            <div class="custom-accordion-head border-0 flex"
+                 (click)="toggleAccordion(i,activity.UserId)"
+                 style="cursor: pointer;justify-content: space-between;">
+                <div class=" self-center ml-8 w-64">
+                        <span class=" text-green">
+                          {{activity.UserName}} ({{activity.UserPPNo}})
+                        </span>
+                </div>
+
+
+<!--                <div class="mr-5">-->
+<!--                    <button class="mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary"-->
+<!--                            mat-flat-button color="primary"-->
+<!--                            (click)="$event.stopPropagation();change(activity,'A')">-->
+<!--                        <mat-icon class="me-2">check_circle</mat-icon>-->
+<!--                        Approve-->
+<!--                    </button>-->
+<!--                    <button-->
+<!--                        class=" mx-3 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500"-->
+<!--                        mat-flat-button color="warn"-->
+<!--                        (click)="$event.stopPropagation();change(activity,'R',i,activity.UserId)">-->
+<!--                        <mat-icon class="me-2">close</mat-icon>-->
+<!--                        Referback-->
+<!--                    </button>-->
+<!--                    <button mat-icon-button>-->
+<!--                        <mat-icon id="{{'arrow_down_'+i}}">expand_more</mat-icon>-->
+<!--                    </button>-->
+<!--                </div>-->
+            </div>
+            <div class="custom-accordion-body" id="{{'table_'+i}}"
+                 style="display: none !important;">
+                <table class="table table-responsive mt-3" style="display: inline-table !important;">
+                    <thead class="thead-light">
+                    <tr class="table-header-background">
+                        <th>Zone</th>
+                        <th>Branch</th>
+                        <th>Circle</th>
+                        <th>Visited Date</th>
+                        <th>Purpose</th>
+                        <th>Remarks</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let child of activity.TourPlans;let j=index">
+                        <td style="width: 20%">{{getZoneName(child?.ZoneId)}}</td>
+                        <td style="width: 20%">{{getBranchName(child?.BranchId)}}</td>
+                        <td style="width: 20%">{{child?.CircleCode ? child?.CircleCode : "-"}}</td>
+                        <td style="width: 20%">{{child.VisitedDate ? dateChange(child?.VisitedDate) : '-'}}</td>
+                        <td style="width: 20%">{{child.PurposeName ? child.PurposeName : '-'}}</td>
+                        <td style="width: 20%" [title]="child.Remarks">
+                            <p class="remarks-box">
+                                {{child.Remarks.slice(0, 30)}}
+                            </p>
+                        </td>
+                        <td style="width: 20%">{{child?.StatusName}}</td>
+
+                        <td style="width: 20%">
+                            <mat-checkbox *ngIf="checkBoxCheck(child.Status)"
+                                          (change)="changeCheckBox(activity,child)"></mat-checkbox>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
+    <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
+    <span class="font-bold text-green">Items per page:</span>
+
+    <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage"
+                (valueChange)="paginate(1,$event)"
+                style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+        <mat-option [value]="5">5</mat-option>
+        <mat-option [value]="10">10</mat-option>
+        <mat-option [value]="25">25</mat-option>
+        <mat-option [value]="50">50</mat-option>
+    </mat-select>
+    <button (click)="paginate(1)">First</button>
+    <pagination-controls display="inline" (pageChange)="paginate($event)"
+                         style="display: inline-block;"></pagination-controls>
+    <button (click)="paginate(Math.ceil(TourPlans?.length/itemsPerPage))">Last</button>
+    <p style="float:right;">Total <b class="text-green">{{TourPlans?.length}}</b> items</p>
+
+</div>
