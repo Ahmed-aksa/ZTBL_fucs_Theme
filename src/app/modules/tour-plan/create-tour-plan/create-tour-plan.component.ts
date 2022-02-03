@@ -208,7 +208,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     }
 
     AddCal() {
-
+        debugger
         if (this.tourPlanForm.invalid) {
             this.layoutUtilsService.alertElement("","Please Add Values");
             const controls = this.tourPlanForm.controls;
@@ -219,7 +219,12 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         }
         var v = JSON.stringify(this.tourPlanForm.value)
         this.TourPlan = Object.assign(this.tourPlanForm.value);
-        this.TourPlan.Status = "P";
+        if(this.tourPlanForm.controls.Status.value == 'R'){
+            this.TourPlan.Status = "S";
+        }
+        else{
+            this.TourPlan.Status = "P";
+        }
         //this.startDate.format('YYYY-MM-DD'), this.endDate.format('YYYY-MM-DD')
         this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
         this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd')
@@ -371,7 +376,13 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         var day = visitDate.slice(0, 2), month = visitDate.slice(2, 4), year = visitDate.slice(4, 8);
         visitDate = year + "-" + month + "-" + day;
         this.tourPlanForm.get('VisitedDate').patchValue(visitDate);
-        this.btnText = 'Update';
+        this.tourPlanForm.get('Status').patchValue(item?.Status);
+
+        if(item?.Status == 'R'){
+            this.btnText = 'Submit';
+        }else{
+            this.btnText = 'Update';
+        }
 
         if (this.EditViewMode == true) {
             this.startDate = moment(new Date(visitDate)).startOf('week');

@@ -49,6 +49,18 @@ export class TourApprovalTabComponent implements OnInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
+    getBranchName(branchId){
+        if(branchId == this.branch?.BranchId)
+            return this.branch.Name
+    }
+
+    getZoneName(zoneId){
+        if(zoneId == this.zone?.ZoneId)
+            return this.zone.ZoneName
+
+        console.log(this.zone)
+    }
+
     change(parent, status) {
         let parent_index = this.children.indexOf(parent);
         let ids = []
