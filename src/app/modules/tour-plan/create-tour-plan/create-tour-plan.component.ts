@@ -40,6 +40,7 @@ import {BehaviorSubject} from 'rxjs';
 import {AppInjector} from '../tour-plan.module';
 import {MatPaginator} from '@angular/material/paginator';
 import {Debugger} from "inspector";
+import {AlertDialogConfirmationComponent} from "../../../shared/crud";
 
 const moment = _rollupMoment || _moment;
 
@@ -104,6 +105,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     viewMode = false;
 
     btnText = 'Add';
+    private TourPlanSchedule: any;
 
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
                 private layoutUtilsService: LayoutUtilsService,
@@ -172,8 +174,8 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     }
 
     async getPurposeofVisitLov() {
-        var lovData = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.TourPlanPurpose});
-        this.purposeofVisitLov = lovData.LOVs;
+        var lovData: any = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.TourPlanPurpose});
+        this.purposeofVisitLov = lovData.LOVs.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));
         console.log(this.purposeofVisitLov)
 
     }
@@ -210,7 +212,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     AddCal() {
         debugger
         if (this.tourPlanForm.invalid) {
-            this.layoutUtilsService.alertElement("","Please Add Values");
+            this.layoutUtilsService.alertElement("", "Please Add Values");
             const controls = this.tourPlanForm.controls;
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
@@ -219,10 +221,9 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         }
         var v = JSON.stringify(this.tourPlanForm.value)
         this.TourPlan = Object.assign(this.tourPlanForm.value);
-        if(this.tourPlanForm.controls.Status.value == 'R'){
+        if (this.tourPlanForm.controls.Status.value == 'R') {
             this.TourPlan.Status = "S";
-        }
-        else{
+        } else {
             this.TourPlan.Status = "P";
         }
         //this.startDate.format('YYYY-MM-DD'), this.endDate.format('YYYY-MM-DD')
@@ -285,8 +286,8 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
                 return;
             if (result?.data?.data?.date)
                 this.tourPlanForm.controls["VisitedDate"].setValue(this.datepipe.transform(new Date(result.data.data.date), 'YYYY-MM-dd'))
-            let TourPlanSchedule = result.data?.TourPlanSchedule?.TourPlanSchedule;
-            if (TourPlanSchedule == 1) {
+            this.TourPlanSchedule = result.data?.TourPlanSchedule?.TourPlanSchedule;
+            if (this.TourPlanSchedule == 1) {
                 this.startDate = moment(new Date(result.data.data.date)).startOf('day');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('day');
 
@@ -296,7 +297,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
                 //this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
                 this.SearchTourPlan(this.startDate, this.endDate)
             }
-            if (TourPlanSchedule == 2) {
+            if (this.TourPlanSchedule == 2) {
                 this.startDate = moment(new Date(result.data.data.date)).startOf('week');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('week')
 
@@ -306,7 +307,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
                 //this.SearchTourPlan(this.startDate.format('YYYY-MM-dd'), this.endDate.format('YYYY-MM-dd'))
                 this.SearchTourPlan(this.startDate, this.endDate)
             }
-            if (TourPlanSchedule == 3) {
+            if (this.TourPlanSchedule == 3) {
                 this.startDate = moment(new Date(result.data.data.date)).startOf('month');
                 this.endDate = moment(new Date(result.data.data.date)).endOf('month');
 
@@ -324,7 +325,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         debugger
 
         if (this.zone == null || this.zone == undefined) {
-            this.layoutUtilsService.alertElement('','Please Add Values');
+            this.layoutUtilsService.alertElement('', 'Please Add Values');
             return
         }
 
@@ -370,7 +371,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         if (this.branch?.BranchId == item?.BranchId) {
             this.tourPlanForm.get('BranchCode').patchValue(this.branch?.BranchCode);
         }
-        this.tourPlanForm.get('CircleId').patchValue(item.CircleId.toString());
+        this.tourPlanForm.get('CircleId').patchValue(item?.CircleId?.toString());
 
         visitDate = item.VisitedDate;
         var day = visitDate.slice(0, 2), month = visitDate.slice(2, 4), year = visitDate.slice(4, 8);
@@ -378,9 +379,9 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         this.tourPlanForm.get('VisitedDate').patchValue(visitDate);
         this.tourPlanForm.get('Status').patchValue(item?.Status);
 
-        if(item?.Status == 'R'){
+        if (item?.Status == 'R') {
             this.btnText = 'Submit';
-        }else{
+        } else {
             this.btnText = 'Update';
         }
 
@@ -464,39 +465,54 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
 
 
     submitTourPlan() {
-        debugger
-        this.spinner.show();
-        this.tourPlanSubmit = this.tragetList;
-        this.TourPlan.Status = 'S';
-        this.tourPlanSubmit.Status = this.TourPlan.Status
-        this.tourPlanService
-            .ChanageTourStatusMultiple(this.tourPlanSubmit)
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe(
-                (baseResponse) => {
-                    if (baseResponse.Success) {
-                        this.tragetList = [];
-                        this.tragetList = baseResponse.TourPlan.TourPlans;
-                        this.dataValue = this.tragetList;
-                        this.totalItems = this.tragetList.length
-                        this.tragetList = this.dataValue?.slice(0, this.itemsPerPage);
-                        this.layoutUtilsService.alertElementSuccess(
-                            "",
-                            baseResponse.Message,
-                            baseResponse.Code = null
-                        );
-                        this.controlReset();
-                        this.showSubmit = false;
-                    } else {
-                        this.layoutUtilsService.alertElement(
-                            "",
-                            baseResponse.Message,
-                            baseResponse.Code = null
-                        );
-                    }
-                });
+        let type = '';
+        if (this.TourPlanSchedule == 1) {
+            type = 'Daily';
+        } else if (this.TourPlanSchedule == 2) {
+            type = 'Weekly';
+        } else {
+            type = 'Monthly';
+        }
+        let dialogRef = this.layoutUtilsService.AlertElementConfirmation('Confirmation', `Tour Plan submission schedule is : <strong>${type}</strong><br>Make Sure You have added the Tour Plan From: <strong>${this.startDate}</strong> To: <strong>${this.endDate}</strong> <br> Once the Tour Plan is submitted, You will no longer be able to add Tour Plan in this date range`);
+        dialogRef.afterClosed().subscribe((data) => {
+            if (data) {
+
+                this.spinner.show();
+                this.tourPlanSubmit = this.tragetList;
+                this.TourPlan.Status = 'S';
+                this.tourPlanSubmit.Status = this.TourPlan.Status
+                this.tourPlanService
+                    .ChanageTourStatusMultiple(this.tourPlanSubmit)
+                    .pipe(finalize(() => {
+                        this.spinner.hide();
+                    }))
+                    .subscribe(
+                        (baseResponse) => {
+                            if (baseResponse.Success) {
+                                this.tragetList = [];
+                                this.tragetList = baseResponse.TourPlan.TourPlans;
+                                this.dataValue = this.tragetList;
+                                this.totalItems = this.tragetList.length
+                                this.tragetList = this.dataValue?.slice(0, this.itemsPerPage);
+                                this.layoutUtilsService.alertElementSuccess(
+                                    "",
+                                    baseResponse.Message,
+                                    baseResponse.Code = null
+                                );
+                                this.controlReset();
+                                this.showSubmit = false;
+                            } else {
+                                this.layoutUtilsService.alertElement(
+                                    "",
+                                    baseResponse.Message,
+                                    baseResponse.Code = null
+                                );
+                            }
+                        });
+            } else {
+                return
+            }
+        })
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {

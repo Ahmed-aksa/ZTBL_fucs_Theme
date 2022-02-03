@@ -158,7 +158,7 @@ export class TourApprovalTabComponent implements OnInit {
                     }
 
                 } else {
-
+                    this.TourPlans.TourPlans[index].TourPlans = [];
                     if (this.dv != undefined) {
                         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         this.OffSet = 1;

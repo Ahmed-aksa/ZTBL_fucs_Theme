@@ -76,7 +76,7 @@ export class TourPlanService {
         var value, tourPlanAray = [], tourPlanIds;
         value = tourPlan
 
-        value.forEach((element)=>{
+        value.forEach((element) => {
             tourPlanAray.push(element.TourPlanId)
         })
 
