@@ -50,15 +50,20 @@ export class TourApprovalTabComponent implements OnInit {
     }
 
     getBranchName(branchId) {
-        if (branchId == this.branch?.BranchId)
+        if (branchId == this.branch?.BranchId){
             return this.branch.Name
+        }else{
+                return "-"
+            }
+
     }
 
     getZoneName(zoneId) {
-        if (zoneId == this.zone?.ZoneId)
+        if (zoneId == this.zone?.ZoneId) {
             return this.zone.ZoneName
-
-        console.log(this.zone)
+        }else{
+            return "-"
+        }
     }
 
     change(parent, status, index, child) {
@@ -202,6 +207,12 @@ export class TourApprovalTabComponent implements OnInit {
         // } else if (status == 'R') {
         //     return "Refer Back";
         // }
+    }
+    dateChange(date:string){
+        var day = date.slice(0, 2),
+            month = date.slice(2, 4),
+            year = date.slice(4, 8);
+        return day + "-" + month + "-" + year;
     }
 
 }
