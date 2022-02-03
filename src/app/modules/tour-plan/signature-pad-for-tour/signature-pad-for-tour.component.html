@@ -1,14 +1,24 @@
-<h2 class="heading" *ngIf="is_referback">Specify Reason to reffer Back</h2>
-<h2 class="heading" *ngIf="!is_referback">Add Signature to Approve Tour Plan</h2>
-<button mat-icon-button color="warn" (click)="close(true)" style="float: right;">
-    <mat-icon>
-        close
-    </mat-icon>
-</button>
+<div class="row">
+
+    <div class="col-lg-11">
+        <h2 class="heading" *ngIf="is_referback">Specify Reason to reffer Back</h2>
+        <h2 class="heading" *ngIf="!is_referback">Add Signature to Approve Tour Plan</h2>
+
+    </div>
+    <div class="col-lg-1">
+        <button mat-icon-button color="warn" (click)="close(true)" style="float: right;">
+        <mat-icon>
+            close
+        </mat-icon>
+    </button>
+    </div>
+</div>
+
+
+
 
 <ng-container>
-    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" [hidden]="is_referback"
-                   (onEndEvent)="drawComplete()"></signature-pad>
+    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" [hidden]="is_referback" (onEndEvent)="drawComplete()"></signature-pad>
 </ng-container>
 
 <!--<div class="row">-->
@@ -20,19 +30,17 @@
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 overflow-hidden">
         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label>Remarks</mat-label>
-            <input matInput [(ngModel)]="remarks" placeholder="Remarks"/>
+            <input matInput [(ngModel)]="remarks" placeholder="Remarks" />
         </mat-form-field>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12 text-right">
-        <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500"
-                mat-flat-button color="warn" (click)="clearSignature()">
+        <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" mat-flat-button color="warn" (click)="clearSignature()">
             <mat-icon class="me-2"> clear_all</mat-icon>
             Clear
         </button>
-        <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary"
-                mat-flat-button color="primary" (click)="submit()">
+        <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" mat-flat-button color="primary" (click)="submit()">
             <mat-icon class="me-2">check_circle</mat-icon>
             Submit
         </button>

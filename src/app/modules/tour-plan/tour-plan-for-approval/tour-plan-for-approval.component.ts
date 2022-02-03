@@ -500,8 +500,8 @@ debugger
             const signatureDialogRef = this.dialog.open(
                 SignaturePadForTourComponent,
                 {
-                    minHeight: '600px',
-                    width: '850px',
+                    // minHeight: '200px',
+                    // width: '850px',
                     disableClose: true,
                     data: {userId: child.UserId, ids: child.children, status: status}
                 },
