@@ -374,9 +374,11 @@ export class SearchTourPlanComponent implements OnInit {
 
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
-        this.TourPlan.controls["StartDate"].setValue(this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy'))
-        this.TourPlan.controls["EndDate"].setValue(this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy'))
+        // this.TourPlan.controls["StartDate"].setValue(this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy'))
+        // this.TourPlan.controls["EndDate"].setValue(this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy'))
         this._TourPlan = Object.assign(this.TourPlan.value);
+        this._TourPlan["StartDate"]=this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy');
+        this._TourPlan["EndDate"]=this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy');
         this.spinner.show();
         this.tourPlanService.SearchTourPlan(this._TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(
