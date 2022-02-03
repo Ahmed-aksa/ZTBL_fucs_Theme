@@ -22,7 +22,7 @@ export class SignaturePadForTourComponent implements OnInit {
         // passed through to szimek/signature_pad constructor
         minWidth: 5,
         canvasWidth: 800,
-        canvasHeight: 450,
+        canvasHeight: 350,
         backgroundColor: 'rgb(255,255,255)',
     };
     remarks = '';
@@ -73,12 +73,7 @@ export class SignaturePadForTourComponent implements OnInit {
         formdata.append('UserID', String(this.data.userId));
         formdata.append('PlanIds', this.data.ids.toString());
         formdata.append('Status', this.data.status);
-        if (this.remarks)
-            formdata.append('Remarks', this.remarks);
-        else {
-            this.toaster.error("Please add Remarks");
-            return;
-        }
+
         if (this.data.status == 'A') {
             if (this.imageFile)
                 formdata.append('Signature', this.imageFile);
@@ -86,6 +81,12 @@ export class SignaturePadForTourComponent implements OnInit {
                 this.toaster.error("Please add Signature");
                 return;
             }
+        }
+        if (this.remarks)
+            formdata.append('Remarks', this.remarks);
+        else {
+            this.toaster.error("Please add Remarks");
+            return;
         }
         this.http
             .post<any>(
@@ -99,5 +100,13 @@ export class SignaturePadForTourComponent implements OnInit {
                 this.toaster.error(data.Message);
             }
         });
+    }
+    classDesign(){
+        if(this.is_referback){
+            return "border-none"
+        }else{
+            return "border-t"
+        }
+
     }
 }

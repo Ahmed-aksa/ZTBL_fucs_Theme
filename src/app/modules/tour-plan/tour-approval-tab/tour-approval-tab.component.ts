@@ -49,22 +49,26 @@ export class TourApprovalTabComponent implements OnInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
-    getBranchName(branchId){
-        if(branchId == this.branch?.BranchId)
+    getBranchName(branchId) {
+        if (branchId == this.branch?.BranchId){
             return this.branch.Name
+        }else{
+                return "-"
+            }
+
     }
 
-    getZoneName(zoneId){
-        if(zoneId == this.zone?.ZoneId)
+    getZoneName(zoneId) {
+        if (zoneId == this.zone?.ZoneId) {
             return this.zone.ZoneName
-
-        console.log(this.zone)
+        }else{
+            return "-"
+        }
     }
 
-    change(parent, status) {
+    change(parent, status, index, child) {
         let parent_index = this.children.indexOf(parent);
         let ids = []
-        debugger;
         this.children[parent_index]?.children?.forEach((single_children) => {
             ids.push(String(single_children.TourPlanId));
         })
@@ -79,7 +83,7 @@ export class TourApprovalTabComponent implements OnInit {
             return;
         }
 
-        this.changeStatus(this.children[parent_index], status, ids);
+        this.changeStatus(this.children[parent_index], status, index);
     }
 
 
@@ -92,20 +96,25 @@ export class TourApprovalTabComponent implements OnInit {
         }
     }
 
-    changeStatus(child: any, status: string, ids = []) {
+    changeStatus(child: any, status: string, index) {
         if (child) {
-            const signatureDialogRef = this.dialog.open(
+            let signatureDialogRef = this.dialog.open(
                 SignaturePadForTourComponent,
                 {
-                    minHeight: '600px',
+                    minHeight: '200px',
                     width: '850px',
                     disableClose: true,
                     data: {userId: child.UserId, ids: child.children, status: status}
                 },
             );
+            signatureDialogRef.afterClosed().subscribe(() => {
+                    this.searchTourPlanApproval(false, child.UserId, index);
+                }
+            )
         } else {
             this.toaster.error("No Child Found");
         }
+
     }
 
 
@@ -124,8 +133,7 @@ export class TourApprovalTabComponent implements OnInit {
     }
 
     searchTourPlanApproval(start = false, user_id = null, index = 0) {
-debugger
-
+        debugger;
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
@@ -183,10 +191,10 @@ debugger
         }
     }
 
-    checkBoxCheck(status){
+    checkBoxCheck(status) {
         if (status == 'S') {
             return true;
-        }else{
+        } else {
             return false;
         }
 
@@ -199,6 +207,12 @@ debugger
         // } else if (status == 'R') {
         //     return "Refer Back";
         // }
+    }
+    dateChange(date:string){
+        var day = date.slice(0, 2),
+            month = date.slice(2, 4),
+            year = date.slice(4, 8);
+        return day + "-" + month + "-" + year;
     }
 
 }

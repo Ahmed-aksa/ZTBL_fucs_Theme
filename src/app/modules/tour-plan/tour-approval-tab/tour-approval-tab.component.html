@@ -26,8 +26,9 @@
                     </button>
                     <button
                         class=" mx-3 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500"
-                        mat-flat-button color="warn" (click)="$event.stopPropagation();change(activity,'R')">
-                        <mat-icon class="me-2">arrow_back_ios</mat-icon>
+                        mat-flat-button color="warn"
+                        (click)="$event.stopPropagation();change(activity,'R',i,activity.UserId)">
+                        <mat-icon class="me-2">close</mat-icon>
                         Referback
                     </button>
                     <button mat-icon-button>
@@ -55,14 +56,15 @@
                     <tr *ngFor="let child of activity.TourPlans;let j=index">
                         <td style="width: 20%">{{getZoneName(child?.ZoneId)}}</td>
                         <td style="width: 20%">{{getBranchName(child?.BranchId)}}</td>
-                        <td style="width: 20%">{{child?.CircleId}}</td>
-                        <td style="width: 20%">{{child.VisitedDate ? child.VisitedDate : '-'}}</td>
+                        <td style="width: 20%">{{child?.CircleCode?child?.CircleCode:"-"}}</td>
+                        <td style="width: 20%">{{child.VisitedDate ? dateChange(child?.VisitedDate) : '-'}}</td>
                         <td style="width: 20%">{{child.PurposeName ? child.PurposeName : '-'}}</td>
                         <td style="width: 20%">{{child.Remarks ? child.Remarks : '-'}}</td>
                         <td style="width: 20%">{{child?.StatusName}}</td>
 
                         <td style="width: 20%">
-                            <mat-checkbox *ngIf="checkBoxCheck(child.Status)" (change)="changeCheckBox(activity,child)"></mat-checkbox>
+                            <mat-checkbox *ngIf="checkBoxCheck(child.Status)"
+                                          (change)="changeCheckBox(activity,child)"></mat-checkbox>
                         </td>
                     </tr>
                     </tbody>

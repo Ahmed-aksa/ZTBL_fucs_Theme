@@ -94,4 +94,11 @@ export class CommonService {
         });
     }
 
+    dateChange(date:string){
+        var day = date.slice(0, 2),
+        month = date.slice(2, 4),
+        year = date.slice(4, 8);
+        return year + "-" + month + "-" + day;
+    }
+
 }

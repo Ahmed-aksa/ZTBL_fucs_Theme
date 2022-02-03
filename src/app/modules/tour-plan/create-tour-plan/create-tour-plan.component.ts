@@ -191,14 +191,19 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     }
 
     getBranchName(branchId) {
-        if (branchId == this.branch?.BranchId)
+        if (branchId == this.branch?.BranchId) {
             return this.branch.Name
+        }else{
+            return "-"
+        }
     }
 
     getZoneName(zoneId) {
-        if (zoneId == this.zone?.ZoneId)
+        if (zoneId == this.zone?.ZoneId) {
             return this.zone.ZoneName
-        console.log(this.zone)
+        }else{
+            return "-"
+        }
     }
 
     getAllData(event) {
@@ -228,6 +233,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         //this.startDate.format('YYYY-MM-DD'), this.endDate.format('YYYY-MM-DD')
         this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
         this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd')
+        debugger
         this.spinner.show()
         this.tourPlanService
             .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate)
@@ -424,7 +430,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     deleteTourPlan(item) {
 
 
-        let dialogRef = this.layoutUtilsService.AlertElementConfirmation("Do you really want to delete this Document?");
+        let dialogRef = this.layoutUtilsService.AlertElementConfirmation("Do you really want to delete the Tour Plan?");
         dialogRef.afterClosed().subscribe((data) => {
             if (data) {
                 this.spinner.show();
@@ -529,11 +535,19 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         }
     }
 
+    dateChange(date:string){
+        var day = date.slice(0, 2),
+            month = date.slice(2, 4),
+            year = date.slice(4, 8);
+        return day + "-" + month + "-" + year;
+    }
+
 }
 
 export class TragetLits {
     BranchId: any
     CircleId: any
+    CircleCode:any
     Purpose: any
     Remarks: any
     Status: any
