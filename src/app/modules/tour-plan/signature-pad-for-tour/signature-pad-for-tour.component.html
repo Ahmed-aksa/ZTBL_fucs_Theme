@@ -7,8 +7,7 @@
 </button>
 
 <ng-container>
-    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" [hidden]="is_referback"
-                   (onEndEvent)="drawComplete()"></signature-pad>
+    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" [hidden]="is_referback" (onEndEvent)="drawComplete()"></signature-pad>
 </ng-container>
 
 <!--<div class="row">-->
@@ -26,13 +25,11 @@
 </div>
 <div class="row">
     <div class="col-lg-12 text-right">
-        <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500"
-                mat-flat-button color="warn" (click)="clearSignature()">
+        <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" mat-flat-button color="warn" (click)="clearSignature()">
             <mat-icon class="me-2"> clear_all</mat-icon>
             Clear
         </button>
-        <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary"
-                mat-flat-button color="primary" (click)="submit()">
+        <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" mat-flat-button color="primary" (click)="submit()">
             <mat-icon class="me-2">check_circle</mat-icon>
             Submit
         </button>
