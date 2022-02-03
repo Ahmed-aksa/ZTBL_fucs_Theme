@@ -16,7 +16,7 @@
 <!--        <input  class="mat-form-field-fluid w-full" appearance="appearance" [(ngModel)]="remarks" placeholder="Remarks"/>-->
 <!--        </div>-->
 <!--</div>-->
-<div class="mx-2 border-t pt-2">
+<div class="mx-2 border-t pt-2" *ngIf="!is_referback">
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 overflow-hidden">
         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label>Remarks</mat-label>
@@ -27,7 +27,7 @@
 <div class="row">
     <div class="col-lg-12 text-right">
         <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500"
-                mat-flat-button color="warn" (click)="clearSignature()">
+                mat-flat-button color="warn" (click)="clearSignature()" *ngIf="!is_referback">
             <mat-icon class="me-2"> clear_all</mat-icon>
             Clear
         </button>

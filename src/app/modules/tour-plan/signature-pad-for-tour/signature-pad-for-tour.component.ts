@@ -73,12 +73,7 @@ export class SignaturePadForTourComponent implements OnInit {
         formdata.append('UserID', String(this.data.userId));
         formdata.append('PlanIds', this.data.ids.toString());
         formdata.append('Status', this.data.status);
-        if (this.remarks)
-            formdata.append('Remarks', this.remarks);
-        else {
-            this.toaster.error("Please add Remarks");
-            return;
-        }
+
         if (this.data.status == 'A') {
             if (this.imageFile)
                 formdata.append('Signature', this.imageFile);
@@ -86,6 +81,12 @@ export class SignaturePadForTourComponent implements OnInit {
                 this.toaster.error("Please add Signature");
                 return;
             }
+        }
+        if (this.remarks)
+            formdata.append('Remarks', this.remarks);
+        else {
+            this.toaster.error("Please add Remarks");
+            return;
         }
         this.http
             .post<any>(
