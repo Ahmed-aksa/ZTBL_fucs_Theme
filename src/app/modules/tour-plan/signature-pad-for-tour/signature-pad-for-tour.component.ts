@@ -101,4 +101,12 @@ export class SignaturePadForTourComponent implements OnInit {
             }
         });
     }
+    classDesign(){
+        if(this.is_referback){
+            return "border-none"
+        }else{
+            return "border-t"
+        }
+
+    }
 }

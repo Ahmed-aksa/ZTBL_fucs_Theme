@@ -19,7 +19,7 @@
     <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" [hidden]="is_referback" (onEndEvent)="drawComplete()"></signature-pad>
 </ng-container>
 
-<div class="mx-2 border-t pt-2" *ngIf="is_referback">
+<div class="mx-2 pt-2"  [ngClass]="classDesign()">
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 overflow-hidden">
         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label>Remarks</mat-label>
@@ -30,7 +30,7 @@
 <div class="row">
     <div class="col-lg-10 ">
         <div class="space-between">
-            <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" mat-flat-button color="warn" (click)="clearSignature()" *ngIf="is_referback">
+            <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" mat-flat-button color="warn" (click)="clearSignature()" *ngIf="!is_referback">
                 <mat-icon class="me-2"> clear_all</mat-icon>
                 Clear Signature
             </button>
@@ -39,7 +39,7 @@
 
     </div>
     <div class="col-lg-2">
-        <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" mat-flat-button color="primary" (click)="submit()">
+        <button class="  mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" mat-flat-button color="primary" (click)="submit()">
             <mat-icon class="me-2">check_circle</mat-icon>
             Submit
         </button>
