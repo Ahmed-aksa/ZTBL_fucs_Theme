@@ -7,12 +7,16 @@
         <table class="table overflow-scroll">
             <thead class="bg-green border-0">
             <tr style="text-align: center">
+                <th scope="col" class="text-white">Encrypted Request</th>
                 <th scope="col" class="text-white">Request</th>
                 <th scope="col" class="text-white">Response</th>
             </tr>
             </thead>
             <tbody>
             <tr>
+                <td class="text-black w-56" style="vertical-align:text-top">
+                    <div class="w-96 break-words">{{RequestResponse?.EncRequest}}</div>
+                </td>
                 <td class="text-black w-56" style="vertical-align:text-top">
                     <div class="w-96 break-words">{{RequestResponse.Request}}</div>
                 </td>

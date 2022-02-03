@@ -35,6 +35,7 @@ export class TourDairyZcComponent implements OnInit {
     branch: any;
     circle: any;
     Format24:boolean=true;
+    isUpdate:boolean=false;
 
     constructor(
         private fb: FormBuilder,
@@ -89,6 +90,41 @@ export class TourDairyZcComponent implements OnInit {
             } catch (e) {
             }
         }
+    }
+
+
+    saveTourDiary(){}
+
+    onClearForm() {
+        this.gridForm.controls['DiaryId'].setValue("");
+        this.gridForm.controls['TourPlanId'].setValue("");
+        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
+        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
+        this.gridForm.controls['CircleId'].setValue("");
+        this.gridForm.controls['TourDate'].setValue("");
+        this.gridForm.controls['DepartureFromPlace'].setValue("");
+        this.gridForm.controls['DepartureFromTime'].setValue("");
+        this.gridForm.controls['ArrivalAtPlace'].setValue("");
+        this.gridForm.controls['ArrivalAtTime'].setValue("");
+        this.gridForm.controls['DisbNoOfCasesReceived'].setValue("");
+        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue("");
+        this.gridForm.controls['DisbNoOfRecordVerified'].setValue("");
+        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue("");
+        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue("");
+        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue("");
+        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue("");
+        this.gridForm.controls['NoOfUtilizationChecked'].setValue("");
+        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue("");
+        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue("");
+        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("");
+        this.gridForm.controls['TotFarmersContacted'].setValue("");
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
+        this.gridForm.controls['AnyOtherWorkDone'].setValue("");
+        this.gridForm.controls['Remarks'].setValue("");
+
+        this.isUpdate=false;
+        //this.setValue();
+
     }
 
     // isEnableReceipt(isTrCodeChange: boolean) {
@@ -179,7 +215,7 @@ export class TourDairyZcComponent implements OnInit {
 
     }
 
-    submit() {
+    SubmitTourDiary() {
         const signatureDialogRef = this.dialog.open(
             SignatureDailogDairyComponent,
             {width: '500px', disableClose: true}

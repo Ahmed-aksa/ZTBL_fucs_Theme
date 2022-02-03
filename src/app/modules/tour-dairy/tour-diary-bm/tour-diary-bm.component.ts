@@ -45,6 +45,7 @@ export class TourDiaryBmComponent implements OnInit {
     // minDate: Date;
     date: string;
     TourDiary;
+    isUpdate:boolean=false;
 
     constructor(
         private fb: FormBuilder,
@@ -95,6 +96,8 @@ export class TourDiaryBmComponent implements OnInit {
         this.setValue();
 
     }
+
+
 
     @ViewChild("timepicker") timepicker: any;
 
@@ -175,7 +178,7 @@ export class TourDiaryBmComponent implements OnInit {
         });
     }
 
-    submit(){}
+    SubmitTourDiary(){}
     edit(){
     }
     delete(){

@@ -35,6 +35,7 @@ export class TourDiaryRcComponent implements OnInit {
     sign;
     TourPlan;
     Format24:boolean=true;
+    isUpdate:boolean=false;
 
     constructor(
         private fb: FormBuilder,
@@ -129,7 +130,7 @@ export class TourDiaryRcComponent implements OnInit {
 
     }
 
-    submit() {
+    SubmitTourDiary() {
         const signatureDialogRef = this.dialog.open(
             SignatureDailogDairyComponent,
             {width: '500px', disableClose: true}
