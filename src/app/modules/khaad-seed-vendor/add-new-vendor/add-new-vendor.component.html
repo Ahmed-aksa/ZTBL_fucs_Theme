@@ -11,7 +11,7 @@
     <div [formGroup]="vendorForm">
 
         <div class="flex" style="flex-wrap: wrap;">
-            <app-zone-branch-circle [form]="vendorForm" [should_show_circle]="true" is_required_circle="true" [should_filter]="false"
+            <app-zone-branch-circle [form]="vendorForm" [show_circle]="true" is_required_circle="true" [should_filter]="false"
                                     (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
 

@@ -81,8 +81,8 @@ export class CircleViewMapComponent implements OnInit {
     }
 
 
-    loadCirclesSinglePoints() {
-        this._circleService.getAllCirclesSinglePoints(this.branch)
+    loadCirclesSinglePoints(br) {
+        this._circleService.getAllCirclesSinglePoints(br)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -130,15 +130,13 @@ export class CircleViewMapComponent implements OnInit {
     onMapReady(map) {
         this.googleMap = map;
         this.setCurrentLocation()
-        if (this.zone && this.branch) {
-            this.loadCirclesSinglePoints();
-        }
+        this.loadCirclesSinglePoints(null);
     }
 
 
     clickedMarker(index: number, infowindow) {
-
         this.viewCircleFence(index);
+        return; // delete
         if (this.previousInfoWindow != null) {
             this.previousInfoWindow.close();
         }
@@ -198,6 +196,11 @@ export class CircleViewMapComponent implements OnInit {
                     });
                     if (polygonCoordinate.length > 0) {
                         this.deleteSelectedShape()
+
+                        if (this.selectedShape) { // delete if condition
+                            this.selectedShape.fillColor = "#FF0000"
+                            this.selectedShape.setMap(this.googleMap);
+                        }
                         this.selectedShape = new google.maps.Polygon({
                             paths: polygonCoordinate,
                             strokeColor: this.viewColor,
@@ -241,7 +244,6 @@ export class CircleViewMapComponent implements OnInit {
     }
 
     deleteSelectedShape() {
-
         if (this.selectedShape) {
             this.selectedShape.setMap(null);
             this.selectedArea = 0;
@@ -253,11 +255,107 @@ export class CircleViewMapComponent implements OnInit {
         this.branch = event.final_branch;
         this.circle = event.final_circle;
 
+        this.circle = new Circle(); // delete
+        this.circle.CircleId = 0; // delete
+        this.loadAll(); // delete
+        return; // delete
         if (this.branch) {
-            this.loadCirclesSinglePoints();
+            this.loadCirclesSinglePoints(this.branch);
         }
     }
 
+    loadAll() {
+        this.zone = null;
+        this.branch = null;
+        //this.loadCirclesSinglePoints(null)
+
+        // delete GetCirclesPolygon api call and uncomment the loadCirclesSinglePoints
+        this._circleService.GetCirclesPolygon(this.circle)
+            .pipe(
+                finalize(() => {
+                    this.loading = false;
+                })
+            )
+            .subscribe(baseResponse => {
+
+                if (baseResponse.Success) {
+                    debugger
+                    var circles = baseResponse.Circles;
+                    // delete all polygon that are already drawn on google map.
+                    this.deleteAllPolygons()
+                    var polygonArray = []
+
+                    circles.forEach((o, i) => {
+
+                        var existingPolygonPoints = []
+                        var fencePointString = o.GeoFancPoints;
+                        var fencePoints = fencePointString.split('|')
+                        if (fencePoints.length > 3) {
+                            fencePoints.forEach((ob, i) => {
+                                var lat: number = +ob.split(",")[0]
+                                var lng: number = +ob.split(",")[1]
+
+                                if (!isNaN(lat) && !isNaN(lng)) {
+                                    polygonArray.push([lat, lng])
+                                    existingPolygonPoints.push({lat: lat, lng: lng})
+                                }
+                            });
+
+                            if ((polygonArray.length > 0) && (polygonArray[0][0] != polygonArray[polygonArray.length - 1][0] || polygonArray[0][1] != polygonArray[polygonArray.length - 1][1])) {
+                                polygonArray.push([polygonArray[0][0], polygonArray[0][1]])
+                            }
+
+                            this.fenceMarkers.push({
+                                lat: o.Lat,
+                                lng: o.Long,
+                                CircleId: o.CircleId,
+                                BranchId: o.BranchId,
+                                CircleCode: o.CircleCode,
+                            });
+                            this.drawPolygonOnMap(existingPolygonPoints, "#FF0000",o.Id)
+
+                            this._cdf.detectChanges()
+                        } else {
+                            console.log(o.Id);
+                        }
+                    });
+
+                } else {
+                    this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+                }
+
+            });
+    }
+
+
+    // delete Section start
+    allPolygons = [];
+
+    drawPolygonOnMap(polygon: any, color: any, circleId: any) {
+        var existingPolygon = new google.maps.Polygon({
+            paths: polygon,
+            strokeColor: color,
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: color,
+            fillOpacity: 0.35,
+            draggable: false,
+            editable: false,
+        });
+
+        existingPolygon.setMap(this.googleMap);
+        this.allPolygons.push(existingPolygon)
+
+    }
+
+    deleteAllPolygons() {
+        for (var i = 0; i < this.allPolygons.length; i++) {
+            this.allPolygons[i].setMap(null);
+        }
+        this.allPolygons = [];
+    }
+
+    // delete Section End    Delete all code within this section
     find() {
 
     }

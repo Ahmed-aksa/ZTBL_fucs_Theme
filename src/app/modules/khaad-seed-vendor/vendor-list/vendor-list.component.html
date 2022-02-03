@@ -31,7 +31,7 @@
         <div class="card card-body">
             <div class="py-1" [formGroup]="listForm">
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="listForm" [should_show_circle]="true"
+                    <app-zone-branch-circle [form]="listForm" [show_circle]="true"
                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
                     <div class="mx-2">
@@ -263,7 +263,7 @@
                 <span class="font-bold text-green">Items per page:</span>
 
         <mat-select
-        class="border-2 pl-1 py-2" 
+        class="border-2 pl-1 py-2"
             display="inline"
             [(value)]="itemsPerPage"
             (valueChange)="paginate(1, $event)"

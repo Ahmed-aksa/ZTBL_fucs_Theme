@@ -109,6 +109,7 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.getTourPlan();
 
         this.settingZBC();
+
     }
 
     //Start ZBC
@@ -299,7 +300,7 @@ export class TourPlanForApprovalComponent implements OnInit {
             FromDate: [moment(), Validators.required],
             ToDate: [, Validators.required],
             PPNO: [null],
-            Status: ["", Validators.required],
+            Status: ["S", Validators.required],
         });
 
     }
@@ -347,8 +348,8 @@ export class TourPlanForApprovalComponent implements OnInit {
             );
             return;
         }
-    console.log(this.tourPlanApprovalForm.controls["Status"].value)
-        if(this.tourPlanApprovalForm.controls["Status"].value==""){
+        console.log(this.tourPlanApprovalForm.controls["Status"].value)
+        if (this.tourPlanApprovalForm.controls["Status"].value == "") {
             var Message = 'Please select Status';
             this.layoutUtilsService.alertElement(
                 '',
@@ -359,7 +360,7 @@ export class TourPlanForApprovalComponent implements OnInit {
         }
 
         this.spinner.show();
-       let offset = '0';
+        let offset = '0';
         if (start)
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm.value);
@@ -399,13 +400,12 @@ export class TourPlanForApprovalComponent implements OnInit {
                     }
 
                 } else {
-debugger
                     if (this.dv != undefined) {
                         this.matTableLenght = false;
                         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         // this.dataSource.data = [];
                         // this._cdf.detectChanges();
-                        this.TourPlans=null;
+                        this.TourPlans = null;
                         this.OffSet = 1;
                         this.pageIndex = 1;
                         this.dv = this.dv.slice(1, 0);
@@ -475,7 +475,6 @@ debugger
         //this.ngxService.start();
 
         this.tourPlanStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes})
-        //
         this.tourPlanStatusLov?.LOVs.forEach(function (value) {
             if (!value.Value)
                 value.Value = "All";
@@ -500,8 +499,6 @@ debugger
             const signatureDialogRef = this.dialog.open(
                 SignaturePadForTourComponent,
                 {
-                    // minHeight: '200px',
-                    // width: '850px',
                     disableClose: true,
                     data: {userId: child.UserId, ids: child.children, status: status}
                 },
