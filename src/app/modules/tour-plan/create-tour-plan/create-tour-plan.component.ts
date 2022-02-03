@@ -424,7 +424,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     deleteTourPlan(item) {
 
 
-        let dialogRef = this.layoutUtilsService.AlertElementConfirmation("Do you really want to delete this Document?");
+        let dialogRef = this.layoutUtilsService.AlertElementConfirmation("Do you really want to delete the Tour Plan?");
         dialogRef.afterClosed().subscribe((data) => {
             if (data) {
                 this.spinner.show();
