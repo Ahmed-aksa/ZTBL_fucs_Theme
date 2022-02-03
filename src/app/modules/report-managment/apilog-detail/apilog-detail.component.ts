@@ -84,7 +84,7 @@ export class ApilogDetailComponent implements OnInit {
                     })
                 )
                 .subscribe((baseResponse: any) => {
-
+                    debugger;
                     if (baseResponse.Success) {
 
                         this.RequestResponse = baseResponse.ActivityLog;

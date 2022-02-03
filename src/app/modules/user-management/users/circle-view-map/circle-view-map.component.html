@@ -22,9 +22,10 @@
 
 
     <div class="collapse show" id="collapseExample">
+        <button *ngIf="showViewAllBtn" type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="loadAll()" style="margin-right: 20px;">View All</button>
         <div class="card card-body">
             <div class="row">
-                <app-zone-branch-circle [form]="viewForm" [should_show_circle]="false"
+                <app-zone-branch-circle [form]="viewForm" [show_circle]="false"
                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
             </div>
         </div>

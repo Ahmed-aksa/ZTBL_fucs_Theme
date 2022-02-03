@@ -45,7 +45,7 @@ export class TourPlanService {
 
         var v = JSON.stringify(this.request)
 
-
+console.log(v)
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourPlan`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)

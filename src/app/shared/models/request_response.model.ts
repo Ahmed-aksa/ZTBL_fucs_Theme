@@ -4,6 +4,7 @@ export class RequestResponse {
     FrontEndRequest: string;
     FrontEndResponse: string;
     APIName: string;
+    EncRequest: string;
 
     clear() {
         this.Request = '';

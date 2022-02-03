@@ -374,9 +374,11 @@ export class SearchTourPlanComponent implements OnInit {
 
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
-        this.TourPlan.controls["StartDate"].setValue(this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy'))
-        this.TourPlan.controls["EndDate"].setValue(this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy'))
+        // this.TourPlan.controls["StartDate"].setValue(this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy'))
+        // this.TourPlan.controls["EndDate"].setValue(this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy'))
         this._TourPlan = Object.assign(this.TourPlan.value);
+        this._TourPlan["StartDate"]=this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy');
+        this._TourPlan["EndDate"]=this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy');
         this.spinner.show();
         this.tourPlanService.SearchTourPlan(this._TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(
@@ -389,9 +391,9 @@ export class SearchTourPlanComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    this.TourPlans = baseResponse.TourPlan.TourPlansByDate;
-                    this.dataSource.data = baseResponse.TourPlan.TourPlansByDate;
-                    if (this.dataSource.data.length > 0)
+                    this.TourPlans = baseResponse?.TourPlan?.TourPlansByDate;
+                    this.dataSource.data = baseResponse?.TourPlan?.TourPlansByDate;
+                    if (this.dataSource?.data?.length > 0)
                         this.matTableLenght = true;
                     else
                         this.matTableLenght = false;
@@ -424,15 +426,20 @@ export class SearchTourPlanComponent implements OnInit {
 
 
     getBranchName(branchId){
-        if(branchId == this.branch?.BranchId)
+        if(branchId == this.branch?.BranchId) {
             return this.branch.Name
+        }else{
+            return "-"
+        }
     }
 
     getZoneName(zoneId){
-        if(zoneId == this.zone?.ZoneId)
+        if(zoneId == this.zone?.ZoneId) {
             return this.zone.ZoneName
-
-        console.log(this.zone)
+        }
+        else{
+            return "-"
+        }
     }
 
     // getStatus(status: string) {
@@ -523,5 +530,11 @@ export class SearchTourPlanComponent implements OnInit {
     getAllData(data) {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
+    }
+    dateChange(date:string){
+        var day = date.slice(0, 2),
+            month = date.slice(2, 4),
+            year = date.slice(4, 8);
+        return day + "-" + month + "-" + year;
     }
 }

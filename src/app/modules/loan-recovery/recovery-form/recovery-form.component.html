@@ -26,7 +26,7 @@
                         <div [class]="!accountDetailFetched?'col-lg-12 p-0':'col-lg-8 p-0'">
                             <div class="flex pl-2 pt-1" style="flex-wrap: wrap; place-content: flex-start;">
 
-                                <app-zone-branch-circle [form]="RecoveryForm" [should_show_circle]="false"
+                                <app-zone-branch-circle [form]="RecoveryForm" [show_circle]="false"
                                                         (branchZoneCircleData)="getAllData($event)"
                                                         [should_filter]="false"></app-zone-branch-circle>
 
