@@ -98,15 +98,15 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.selected_c = this.SelectedCircles?.Id
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
-            //this.show_circle = false;
+            this.show_circle = false;
             if (this.form.value.BranchCode) {
                 this.changeBranch(this.selected_b);
             }
             this.emitData();
 
         } else if (!this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
-            // this.show_circle = false;
-            // this.show_branch = false;
+             this.show_circle = false;
+             this.show_branch = false;
             this.SelectedZones = this.all_data.Zone;
             this.selected_z = this.SelectedZones?.ZoneId;
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
@@ -120,8 +120,8 @@ export class ZoneBranchCircleComponent implements OnInit {
                 this.single_zone = false;
                 this.single_zone = false;
                 this.spinner.hide();
-                // this.show_circle = false;
-                // this.show_branch = false;
+                this.show_circle = false;
+                this.show_branch = false;
             });
 
 
