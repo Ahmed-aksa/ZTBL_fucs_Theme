@@ -34,23 +34,23 @@
                 matSortDirection="asc"
                 matSortDisableClear
             >
-                <ng-container matColumnDef="Zone">
+                <ng-container matColumnDef="Phone">
                     <mat-header-cell *matHeaderCellDef
-                    >Zone Name
+                    >Phone No
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{
-                        notification.ZoneName
+                        notification.PhoneNo
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Branch">
+                <ng-container matColumnDef="Cast">
                     <mat-header-cell *matHeaderCellDef
-                    >Branch Name
+                    >Caste
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{
-                        notification.BranchName
+                        notification.Cast
                         }}</mat-cell>
                 </ng-container>
 
@@ -78,40 +78,33 @@
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Address">
-                    <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-                    <mat-cell *matCellDef="let notification">{{
-                        notification.PermanentAddress
-                        }}</mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="Markup">
+                <ng-container matColumnDef="Lnd">
                     <mat-header-cell *matHeaderCellDef
-                    >Markup
+                    >Legal Notice Date
                     </mat-header-cell
                     >
                     <mat-cell class="text-center" *matCellDef="let notification">{{
-                        notification.Markup
+                        notification.LegalNoticeDate
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Sl">
+                <ng-container matColumnDef="Dnd">
                     <mat-header-cell *matHeaderCellDef
-                    >Sanction Limit
+                    >Demand Notice Date
                     </mat-header-cell
                     >
                     <mat-cell class="text-center" *matCellDef="let notification">{{
-                        notification.SanctionLimit
+                        notification.DemandNoticeDate
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Ndd">
+                <ng-container matColumnDef="Gl">
                     <mat-header-cell *matHeaderCellDef
-                    >Due Date
+                    >GL Code
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{
-                        notification.NextDueDate
+                        notification.GlCode
                         }}</mat-cell>
                 </ng-container>
 
@@ -121,30 +114,21 @@
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{
-                        notification.LoanCaseNumber
+                        notification.LcNo
                         }}</mat-cell>
                 </ng-container>
 
 
-                <ng-container matColumnDef="Tsa">
+                <ng-container matColumnDef="Dd">
                     <mat-header-cell *matHeaderCellDef
-                    >Total Sanction Amount
+                    >Due Date
                     </mat-header-cell
                     >
                     <mat-cell *matCellDef="let notification">{{
-                        notification.TotalSanctionAmount
+                        notification.DueDate
                         }}</mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Los">
-                    <mat-header-cell *matHeaderCellDef
-                    >Loan Outstanding
-                    </mat-header-cell
-                    >
-                    <mat-cell *matCellDef="let notification">{{
-                        notification.LoanOutstanding
-                        }}</mat-cell>
-                </ng-container>
 
                 <mat-header-row
                     *matHeaderRowDef="displayedColumns; sticky: true"
