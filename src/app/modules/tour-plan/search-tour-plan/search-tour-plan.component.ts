@@ -362,6 +362,7 @@ export class SearchTourPlanComponent implements OnInit {
     SearchTourPlan() {
         if (this.TourPlan.invalid) {
             const controls = this.TourPlan.controls;
+            this.layoutUtilsService.alertElement('', 'Please Add Required Values')
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
