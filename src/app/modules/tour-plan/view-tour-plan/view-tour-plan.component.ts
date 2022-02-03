@@ -254,17 +254,17 @@ export class ViewTourPlanComponent implements OnInit {
     }
 
 
-    viewTourPlan(TourPlan: any) {
-        // this.router.navigate(['other']);
-
-        TourPlan.view = "1";
-        //
-        // utilization = {Status:this.TourPlan.controls["Status"].value}
-        this.router.navigate(['../tour-plan'], {
-            state: {example: TourPlan, flag: 1},
-            relativeTo: this.activatedRoute
-        });
-    }
+    // viewTourPlan(TourPlan: any) {
+    //     // this.router.navigate(['other']);
+    //
+    //     TourPlan.view = "1";
+    //     //
+    //     // utilization = {Status:this.TourPlan.controls["Status"].value}
+    //     this.router.navigate(['../tour-plan'], {
+    //         state: {example: TourPlan, flag: 1},
+    //         relativeTo: this.activatedRoute
+    //     });
+    // }
 
     CheckViewStatus(loanUtilization: any) {
         if (this.isMCO) {
@@ -310,7 +310,7 @@ export class ViewTourPlanComponent implements OnInit {
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
-        this.searchTourPlanApproval()
+        this.viewTourPlan()
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
@@ -329,7 +329,7 @@ export class ViewTourPlanComponent implements OnInit {
         if (icon == 'expand_more') {
             document.getElementById('arrow_down_' + i).innerHTML = 'expand_less';
             document.getElementById('table_' + i).style.display = 'block';
-            this.searchTourPlanApproval(false, user_id, i);
+            this.viewTourPlan(false, user_id, i);
 
         } else {
             document.getElementById('arrow_down_' + i).innerHTML = 'expand_more';
@@ -338,7 +338,7 @@ export class ViewTourPlanComponent implements OnInit {
         this.children = [];
     }
 
-    searchTourPlanApproval(start = false, user_id = null, index = 0) {
+    viewTourPlan(start = false, user_id = null, index = 0) {
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -364,7 +364,7 @@ export class ViewTourPlanComponent implements OnInit {
         if (start)
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm.value);
-        this.tourPlanService.searchForTourPlanApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
+        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -460,7 +460,7 @@ export class ViewTourPlanComponent implements OnInit {
                     if (baseResponse.Success) {
 
                         // this.layoutUtilsService.alertElement("", baseResponse.Message);
-                        this.searchTourPlanApproval()
+                        this.viewTourPlan()
                     }
                 });
 

@@ -45,7 +45,7 @@ export class ViewTourTabComponent implements OnInit {
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
-        // this.searchTourPlanApproval()
+        // this.viewTourPlan()
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
@@ -108,7 +108,7 @@ export class ViewTourTabComponent implements OnInit {
                 },
             );
             signatureDialogRef.afterClosed().subscribe(() => {
-                    this.searchTourPlanApproval(false, child.UserId, index);
+                    this.viewTourPlan(false, child.UserId, index);
                 }
             )
         } else {
@@ -123,7 +123,7 @@ export class ViewTourTabComponent implements OnInit {
         if (icon == 'expand_more') {
             document.getElementById('arrow_down_' + i).innerHTML = 'expand_less';
             document.getElementById('table_' + i).style.display = 'block';
-            this.searchTourPlanApproval(false, user_id, i);
+            this.viewTourPlan(false, user_id, i);
 
         } else {
             document.getElementById('arrow_down_' + i).innerHTML = 'expand_more';
@@ -132,14 +132,14 @@ export class ViewTourTabComponent implements OnInit {
         this.children = [];
     }
 
-    searchTourPlanApproval(start = false, user_id = null, index = 0) {
+    viewTourPlan(start = false, user_id = null, index = 0) {
         debugger;
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm);
         this.spinner.show();
-        this.tourPlanService.searchForTourPlanApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
+        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

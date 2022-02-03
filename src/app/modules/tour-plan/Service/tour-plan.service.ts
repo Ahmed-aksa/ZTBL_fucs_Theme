@@ -302,4 +302,37 @@ console.log(v)
             map((res: any) => res)
         );
     }
+
+    viewTourPlan(
+        approval_from: any,
+        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
+        let start_date: Moment = moment(approval_from.FromDate);
+        let end_date: Moment = moment(approval_from.ToDate);
+        let request = {
+            TourPlan: {
+                UserId: user_id,
+                CircleId: circle?.CircleId,
+                BranchCode: branch?.BranchCode,
+                ZoneId: zone?.ZoneId,
+                StartDate: start_date.format('YYYY-MM-DD'),
+                EndDate: end_date.format('YYYY-MM-DD'),
+                Status: approval_from.Status,
+                Limit: String(itemsPerPage),
+                Offset: offset,
+                PPNO: approval_from.PPNO,
+                UserPPNo:approval_from.PPNO,
+            },
+            Zone: zone,
+            Branch: branch,
+            Circle: circle,
+            User: this.userInfo.User,
+        }
+
+        console.log(request);
+
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ViewTourPlans`, request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: any) => res)
+        );
+    }
 }
