@@ -163,9 +163,9 @@ console.log(v)
         //     "TourPlan":  tourPlan
 
         //   }
-        // var req = JSON.stringify(this.request);
+        var req = JSON.stringify(this.request);
 
-
+     console.log(req);
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
