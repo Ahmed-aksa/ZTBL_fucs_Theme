@@ -90,7 +90,7 @@
                     <td>{{getZoneName(item?.ZoneId)}}</td>
                     <td>{{getBranchName(item?.BranchId)}}</td>
                     <td>{{item?.CircleId}}</td>
-                    <td>{{item.VisitedDate}}</td>
+                    <td>{{item.VisitedDate | date:'dd-mm-yyyy'}}</td>
                     <td>{{item?.PurposeName}}</td>
                     <td>
                         <p class="remarks-box">

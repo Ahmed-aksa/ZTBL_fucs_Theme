@@ -391,9 +391,9 @@ export class SearchTourPlanComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    this.TourPlans = baseResponse.TourPlan.TourPlansByDate;
-                    this.dataSource.data = baseResponse.TourPlan.TourPlansByDate;
-                    if (this.dataSource.data.length > 0)
+                    this.TourPlans = baseResponse?.TourPlan?.TourPlansByDate;
+                    this.dataSource.data = baseResponse?.TourPlan?.TourPlansByDate;
+                    if (this.dataSource?.data?.length > 0)
                         this.matTableLenght = true;
                     else
                         this.matTableLenght = false;

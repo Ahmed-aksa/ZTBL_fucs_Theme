@@ -98,7 +98,7 @@
                      style="cursor: pointer">
                     <div class=" self-center ml-8">
                         <span class=" text-green">
-                            {{activity.VisitedDate}}
+                            {{activity.VisitedDate | date:'dd-mm-yyyy'}}
                         </span>
                     </div>
 
@@ -144,7 +144,7 @@
                             <td style="width: 20%">{{getZoneName(child?.ZoneId)}}</td>
                             <td style="width: 20%">{{getBranchName(child?.BranchId)}}</td>
                             <td style="width: 20%">{{child?.CircleId}}</td>
-                            <td style="width: 20%">{{child.VisitedDate}}</td>
+                            <td style="width: 20%">{{child.VisitedDate | date:'dd-mm-yyyy'}}</td>
                             <td style="width: 20%">{{child.PurposeName}}</td>
                             <td style="width: 20%">{{child.Remarks}}</td>
                             <td style="width: 20%">{{child.StatusName}}</td>
