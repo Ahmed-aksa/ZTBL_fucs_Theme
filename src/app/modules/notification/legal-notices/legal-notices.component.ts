@@ -14,7 +14,7 @@ import {finalize} from "rxjs/operators";
   styleUrls: ['./legal-notices.component.scss']
 })
 export class LegalNoticesComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch',  'Cnic', 'Name', 'FatherName', 'Address','Lcno', 'Markup','Sl', 'Ndd', 'Tsa', 'Los'];
+    displayedColumns = ['Name', 'FatherName', 'Cnic','Phone', 'Cast','Lcno', 'Gl','Lnd', 'Dnd', 'Dd'];
     loaded = true;
     matTableLenght = false;
     loading = false;
@@ -57,7 +57,7 @@ export class LegalNoticesComponent implements OnInit, AfterViewInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    this.dataSource = baseResponse.Loan.LoanesDueInstallment
+                    this.dataSource = baseResponse.Loan.DemandLegalNotices
                     this.dv = this.dataSource;
                     this.matTableLenght = true
 
