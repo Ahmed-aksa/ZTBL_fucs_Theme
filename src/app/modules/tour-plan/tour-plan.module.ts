@@ -12,6 +12,7 @@ import {TourPlanForApprovalComponent} from './tour-plan-for-approval/tour-plan-f
 import {SignaturePadForTourComponent} from './signature-pad-for-tour/signature-pad-for-tour.component';
 import {SignaturePadModule} from "angular2-signaturepad";
 import { TourApprovalTabComponent } from './tour-approval-tab/tour-approval-tab.component';
+import {ViewTourPlanComponent} from "./view-tour-plan/view-tour-plan.component";
 
 export let AppInjector: Injector;
 const routing = [
@@ -40,6 +41,10 @@ const routing = [
         path: "tour-plan-for-approval",
         component: TourPlanForApprovalComponent,
     },
+    {
+        path: "view-tour-plan",
+        component: ViewTourPlanComponent,
+    },
 ]
 
 @NgModule({
@@ -51,7 +56,8 @@ const routing = [
         TargetsTrackingComponent,
         TourPlanForApprovalComponent,
         SignaturePadForTourComponent,
-        TourApprovalTabComponent
+        TourApprovalTabComponent,
+        ViewTourPlanComponent
         // TourPlanForApprovalComponent
     ],
     imports: [
