@@ -110,7 +110,7 @@
             <div class="row">
 
                 <div class="col-lg-6 table-responsive">
-                    <p class="heading mb-2 text-lg">Recovery</p>
+                    <p class="heading mb-2 text-lg">Resources CountRes</p>
                     <table class="table  table-striped">
 
                         <!-- <thead>
@@ -120,16 +120,84 @@
                             <th scope="col">%age</th>
                         </tr>
                         </thead> -->
-                        <tbody *ngIf="ResourcesCount.length!=0">
-                        <tr *ngFor="let item of ResourcesCount">
-                            <td>{{dashboardService.getCamelCaseString(item[0])}}</td>
-                            <td>{{item[1]}}</td>
+                        <tbody>
+                        <tr>
+                            <td>No. Of Zones</td>
+                            <td>{{ResourcesCount?.NoOfZones}}</td>
+                        </tr>
+                        <tr>
+                            <td>No. Of Branches</td>
+                            <td>{{ResourcesCount?.NoOfBranches}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of L.L.Us</td>
+                            <td>{{ResourcesCount?.NoOfLLUs}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of IC Units</td>
+                            <td>{{ResourcesCount?.NoOfIcUnits}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of Accounts</td>
+                            <td>{{ResourcesCount?.NoOfAccounts}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of Lockers</td>
+                            <td>{{ResourcesCount?.NoOfLockers}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of Bank-owned Buildings</td>
+                            <td>{{ResourcesCount?.NoOfOwnedBuildings}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of Rented Offices</td>
+                            <td>{{ResourcesCount?.NoOfRentedOffice}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of Branches in Profit</td>
+                            <td>{{ResourcesCount?.NoOfBranchesProfit}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of Branches in Loss</td>
+                            <td>{{ResourcesCount?.NoOfBranchesLoss}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of Biometric Verified <br>consumers (Loan + Accoutns)</td>
+                            <td>{{ResourcesCount?.NoOfBiometricVerified}}</td>
+                        </tr>
+                        <tr>
+                            <td>No. Of MCO Circles</td>
+                            <td>{{ResourcesCount?.NoOfMcoCircles}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of MCOs Available</td>
+                            <td>{{ResourcesCount?.NoOfMcoAvailable}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of Burnt files</td>
+                            <td>{{ResourcesCount?.NoOfBurntFiles}}</td>
+
+                        </tr>
+                        <tr>
+                            <td>No. Of ATM Machines</td>
+                            <td>{{ResourcesCount?.NoOfATMs}}</td>
+
                         </tr>
                         </tbody>
-                        <tbody *ngIf="ResourcesCount.length==0">
+                        <tbody *ngIf="ResourcesCount?.length==0">
                         <tr>
-                            <td>No Data Found</td>
-                            <td>No Data Found</td>
+                            No Data Found
                         </tr>
                         </tbody>
                     </table>
