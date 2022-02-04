@@ -60,9 +60,10 @@ export class NotificationPageComponent implements OnInit {
                   this.nPcl = this.response.CustomerLeadsCount;
                   this.nIlt = this.response.SamNplLoansCount;
                   this.nFvc = this.response.FenceVoilationCount;
+                  this.nDn = this.response.DemandNoticesCount;
+                  this.nLn = this.response.LegalNoticesCount;
               } else {
                   this.layoutUtilsService.alertElement("", baseResponse.Message);
-
               }
           })
    }

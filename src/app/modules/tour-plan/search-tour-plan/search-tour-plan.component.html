@@ -141,8 +141,8 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let child of activity.TourPlans">
-                            <td style="width: 20%">{{getZoneName(child?.ZoneId)}}</td>
-                            <td style="width: 20%">{{getBranchName(child?.BranchId)}}</td>
+                            <td style="width: 20%">{{child?.ZoneName ? child?.ZoneName : "-"}}</td>
+                            <td style="width: 20%">{{child?.BranchName ? child?.BranchName : "-"}}</td>
                             <td style="width: 20%">{{child?.CircleCode ? child?.CircleCode : "-"}}</td>
                             <td style="width: 20%">{{dateChange(child.VisitedDate)}}</td>
                             <td style="width: 20%">{{child.PurposeName}}</td>

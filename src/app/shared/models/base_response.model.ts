@@ -77,6 +77,7 @@ export class BaseResponseModel {
     VillageBenchMarking: any;
     TourPlanAndDiaryDto: any;
     TourPlan: any;
+    TourDairy: any;
     LocationHistory: any;
     DocumentDetails: any;
     DocumentDetail: any;

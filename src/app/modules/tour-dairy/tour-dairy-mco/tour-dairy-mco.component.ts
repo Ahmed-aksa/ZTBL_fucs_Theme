@@ -34,6 +34,7 @@ export class TourDairyMcoComponent implements OnInit {
     zone: any;
     circle: any;
     TourDiary;
+    TourDiaryList = [];
     TourPlan;
     Format24:boolean=true;
     isUpdate:boolean=false;
@@ -127,7 +128,7 @@ export class TourDairyMcoComponent implements OnInit {
             TotNoOfFarmersVisisted:["", [Validators.required]],
             AnyOtherWorkDone:["", [Validators.required]],
             Remarks:["", [Validators.required]],
-
+            Status: [""]
         })
         this.setValue();
     }
@@ -135,7 +136,7 @@ export class TourDairyMcoComponent implements OnInit {
 
 
     saveTourDiary() {
-debugger
+        debugger
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -176,7 +177,8 @@ debugger
         }
 
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
-
+        this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
+        this.TourDiary.Status = 'P';
         this.spinner.show();
         this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
             .pipe(
@@ -185,7 +187,12 @@ debugger
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
+                debugger
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.TourDiary.DiaryId = baseResponse.TourDairy.DiaryId;
+                this.TourDiary.viewType = "TOUR_DIARY";
+                this.TourDiaryList.push(this.TourDiary);
+                console.log(this.TourDiaryList)
                 this.isUpdate=false;
                 this.onClearForm();
             } else {
@@ -198,61 +205,61 @@ debugger
     submit(){}
     SubmitTourDiary(){
         debugger
+        var Status = 'S';
+        // if (!this.zone) {
+        //     var Message = 'Please select Zone';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
+        //
+        // if (!this.branch) {
+        //     var Message = 'Please select Branch';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
+        //
+        // if (!this.circle) {
+        //     var Message = 'Please select Circle';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
+        //
+        // if (this.gridForm.invalid) {
+        //     const controls = this.gridForm.controls;
+        //     Object.keys(controls).forEach(controlName =>
+        //         controls[controlName].markAsTouched()
+        //     );
+        //     return;
+        // }
 
-        if (!this.zone) {
-            var Message = 'Please select Zone';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
+        // this.TourDiary = Object.assign(this.gridForm.getRawValue());
 
-        if (!this.branch) {
-            var Message = 'Please select Branch';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
-
-        if (!this.circle) {
-            var Message = 'Please select Circle';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
-
-        if (this.gridForm.invalid) {
-            const controls = this.gridForm.controls;
-            Object.keys(controls).forEach(controlName =>
-                controls[controlName].markAsTouched()
-            );
-            return;
-        }
-
-        this.TourDiary = Object.assign(this.gridForm.getRawValue());
-
-        debugger
-        if (!this.TourDiary) {
-            var Message = 'Please select Zone';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
+        // debugger
+        // if (!this.TourDiary) {
+        //     var Message = 'Please select Zone';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
 
 
         this.spinner.show();
-        this.tourDiaryService.submitDiary(this.zone,this.branch,this.TourDiary)
+        this.tourDiaryService.submitDiary(this.zone,this.branch, this.circle,this.TourDiary, Status)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -319,6 +326,7 @@ debugger
         this.Today = this._common.workingDate();
         return this.Today;
     }
+
     setDate() {
 
         // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
@@ -366,6 +374,8 @@ debugger
         }
         this.GetTourPlan()
     }
+
+
     getTourDiary(val){
         // debugger
         // this.spinner.show();
@@ -410,6 +420,9 @@ debugger
                 });
 
     }
+
+    editTourDiary(){}
+
     assignvalues(){
         console.log(this.MCOModel)
         // this.gridForm.controls['Name'].setValue(null);

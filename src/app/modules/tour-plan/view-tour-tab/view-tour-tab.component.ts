@@ -53,22 +53,6 @@ export class ViewTourTabComponent implements OnInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
-    getBranchName(branchId) {
-        if (branchId == this.branch?.BranchId){
-            return this.branch.Name
-        }else{
-                return "-"
-            }
-
-    }
-
-    getZoneName(zoneId) {
-        if (zoneId == this.zone?.ZoneId) {
-            return this.zone.ZoneName
-        }else{
-            return "-"
-        }
-    }
 
     change(parent, status, index, child) {
         let parent_index = this.children.indexOf(parent);

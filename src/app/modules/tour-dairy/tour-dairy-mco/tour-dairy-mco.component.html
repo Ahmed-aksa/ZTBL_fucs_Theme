@@ -44,7 +44,7 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Tour Date</mat-label>
                                         <input matInput readonly [matDatepicker]="picker2" formControlName="TourDate" maxlength="8"
-                                               autocomplete="off" [max]="getToday()" (dateChange)="setDate()" appNumberOnly/>
+                                               autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
@@ -517,87 +517,37 @@
                 <th  >No. of supply orders delivered</th>
                 <th   >No. of demand notices delivered</th>
                 <th   >No. of legal notices delivered</th>
-                <th  >No. of defauters contacted</th>
+                <th  >No. of defaulters contacted</th>
                 <th  >Amount recovered (Daily)</th>
                 <th  >Progressive farmers contacted</th>
                 <th   >No. of farms visited</th>
             </tr>
             </thead>
-            <tbody >
+            <tbody *ngFor="let mcoDiary of TourDiaryList">
             <tr>
+                <td>{{mcoDiary.TourDate}}</td>
+                <td>{{mcoDiary.TourDate}}</td>
+                <td>{{mcoDiary.DepartureFromPlace}}</td>
+                <td>{{mcoDiary.DepartureFromTime}}</td>
+                <td>{{mcoDiary.ArrivalAtPlace}}</td>
+                <td>{{mcoDiary.ArrivalAtTime}}</td>
+                <td>{{mcoDiary.DisbNoOfCasesReceived}}</td>
+                <td>{{mcoDiary.DisbNoOfCasesAppraised}}</td>
+                <td>{{mcoDiary.DisbNoOfRecordVerified}}</td>
+                <td>{{mcoDiary.DisbNoOfSanctionedAuthorized}}</td>
+                <td>{{mcoDiary.DisbSanctionLetterDelivered}}</td>
+                <td>{{mcoDiary.DisbSupplyOrderDelivered}}</td>
+                <td>{{mcoDiary.NoOfSanctnMutationVerified}}</td>
+                <td>{{mcoDiary.NoOfUtilizationChecked}}</td>
+                <td>{{mcoDiary.RecNoOfNoticeDelivered}}</td>
+                <td>{{mcoDiary.RecNoOfLegalNoticeDelivered}}</td>
+                <td>{{mcoDiary.RecNoOfDefaulterContacted}}</td>
+                <td></td>
+                <td>{{mcoDiary.TotFarmersContacted}}</td>
+                <td>{{mcoDiary.TotNoOfFarmersVisisted}}</td>
+                <td>{{mcoDiary.AnyOtherWorkDone}}</td>
+                <td>{{mcoDiary.Remarks}}</td>
                 <td>
-<!--                    <mat-form-field class=" mat-form-field-fluid w-36"-->
-<!--                                    appearance="outline">-->
-<!--                               <input matInput>-->
-<!--                    </mat-form-field>-->
-                </td>
-                <td>
-<!--                    <mat-form-field class=" mat-form-field-fluid w-36" appearance="outline">-->
-<!--                    <input matInput>-->
-<!--                    </mat-form-field>-->
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td   > <div class="w-36">
-
-                </div></td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
-
-                </td>
-                <td  >
                     <button class="ml-2" mat-icon-button color="primary" (click)="edit()"
                            >
                         <mat-icon>
