@@ -308,6 +308,7 @@ export class TourDairyMcoComponent implements OnInit {
         this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
         this.gridForm.controls['AnyOtherWorkDone'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
+        this.gridForm.controls['Status'].setValue("");
 
         this.isUpdate=false;
         this.setValue();
