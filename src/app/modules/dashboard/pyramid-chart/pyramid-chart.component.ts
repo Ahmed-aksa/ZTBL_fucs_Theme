@@ -1,19 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-pyramid-chart',
-  templateUrl: './pyramid-chart.component.html',
-  styleUrls: ['./pyramid-chart.component.scss']
+    selector: 'app-pyramid-chart',
+    templateUrl: './pyramid-chart.component.html',
+    styleUrls: ['./pyramid-chart.component.scss']
 })
 export class PyramidChartComponent implements OnInit {
-  @Input() item: any;
-  isData = true;
-  constructor() { }
+    @Input() item: any;
+    // isData = true;
 
-  ngOnInit(): void {
-    if (this.item?.Recovery == 0 && this.item?.Disbursment && this.item?.Margin) {
-      this.isData = false;
+    constructor() {
     }
-  }
+
+    ngOnInit(): void {
+        // if (this.item?.Recovery == 0 && this.item?.Disbursment && this.item?.Margin) {
+        //     this.isData = false;
+        // }
+    }
 
 }

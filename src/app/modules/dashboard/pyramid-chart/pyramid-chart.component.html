@@ -1,4 +1,5 @@
-<div *ngIf="isData" class="pyramid-container " style="min-height: 310px;">
+<div class="pyramid-container " style="min-height: 310px;"
+     *ngIf="!(item?.Recovery=='0' && item?.Disbursment=='0' && item?.Margin=='0')">
     <div id="pyramid-level-2" class="position-relative">
         <div class="position-absolute text" style="top: 88px; font-size: 12px;">Recovery : {{item?.Recovery}}</div>
     </div>
@@ -9,6 +10,7 @@
         <div class="position-absolute top-5 text" style=" font-size: 12px;">Margin :{{item?.Margin}}</div>
     </div>
 </div>
-<div *ngIf="!isData"  style="margin-top: 25%; color: #01671B; font-size: 18px; margin-left: 35%;">
-    <p>No Data  Available </p>
+<div style="margin-top: 25%; color: #01671B; font-size: 18px; margin-left: 35%;"
+     *ngIf="item?.Recovery=='0' && item?.Disbursment=='0' && item?.Margin=='0'">
+    <p>No Data Available </p>
 </div>
