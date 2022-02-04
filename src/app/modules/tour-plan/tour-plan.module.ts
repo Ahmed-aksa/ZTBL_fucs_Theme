@@ -13,6 +13,7 @@ import {SignaturePadForTourComponent} from './signature-pad-for-tour/signature-p
 import {SignaturePadModule} from "angular2-signaturepad";
 import { TourApprovalTabComponent } from './tour-approval-tab/tour-approval-tab.component';
 import {ViewTourPlanComponent} from "./view-tour-plan/view-tour-plan.component";
+import {ViewTourTabComponent} from "./view-tour-tab/view-tour-tab.component";
 
 export let AppInjector: Injector;
 const routing = [
@@ -57,8 +58,10 @@ const routing = [
         TourPlanForApprovalComponent,
         SignaturePadForTourComponent,
         TourApprovalTabComponent,
+        ViewTourTabComponent,
         ViewTourPlanComponent
-        // TourPlanForApprovalComponent
+
+        // ViewTourPlanComponent
     ],
     imports: [
         CommonModule,
