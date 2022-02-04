@@ -52,6 +52,9 @@ export class TokenInterceptor implements HttpInterceptor {
 
                     return this.handle401Error(authReq, next);
                 }
+                if (error.status == 401) {
+                    return this.handle401Error(authReq, next);
+                }
 
                 return throwError(error);
             }));
