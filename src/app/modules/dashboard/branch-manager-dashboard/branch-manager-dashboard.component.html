@@ -17,8 +17,7 @@
                 </div>
             </div>
             <div class="form-group col-lg-3">
-                <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button
-                        (click)="getData()">
+                <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button (click)="getData()">
                     <mat-icon class="mr-2">search</mat-icon>
                     Search
                 </button>
@@ -39,14 +38,8 @@
                 <div class="col-lg-6">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
                         <div id="chart" *ngIf="chartPerformanceIndicators" class=" mt-0 py-3">
-                            <apx-chart [series]="chartPerformanceIndicators?.series"
-                                       [chart]="chartPerformanceIndicators?.chart"
-                                       [labels]="chartPerformanceIndicators?.labels"
-                                       [title]="chartPerformanceIndicators?.title"
-                                       [theme]="chartPerformanceIndicators?.theme"
-                                       [responsive]="chartPerformanceIndicators?.responsive"
-                                       [noData]="chartPerformanceIndicators?.noData"
-                                       [colors]="chartPerformanceIndicators?.colors">
+                            <apx-chart [series]="chartPerformanceIndicators?.series" [chart]="chartPerformanceIndicators?.chart" [labels]="chartPerformanceIndicators?.labels" [title]="chartPerformanceIndicators?.title" [theme]="chartPerformanceIndicators?.theme" [responsive]="chartPerformanceIndicators?.responsive"
+                                [noData]="chartPerformanceIndicators?.noData" [colors]="chartPerformanceIndicators?.colors">
 
                             </apx-chart>
                         </div>
@@ -56,10 +49,7 @@
                 <div class="col-lg-6">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
                         <div id="chart" *ngIf="chartLoanPortfolio" class=" mt-0 py-3">
-                            <apx-chart [series]="chartLoanPortfolio?.series" [chart]="chartLoanPortfolio?.chart"
-                                       [labels]="chartLoanPortfolio?.labels" [title]="chartLoanPortfolio?.title"
-                                       [theme]="chartLoanPortfolio?.theme" [responsive]="chartLoanPortfolio?.responsive"
-                                       [noData]="chartLoanPortfolio.noData"></apx-chart>
+                            <apx-chart [series]="chartLoanPortfolio?.series" [chart]="chartLoanPortfolio?.chart" [labels]="chartLoanPortfolio?.labels" [title]="chartLoanPortfolio?.title" [theme]="chartLoanPortfolio?.theme" [responsive]="chartLoanPortfolio?.responsive" [noData]="chartLoanPortfolio.noData"></apx-chart>
                         </div>
                     </div>
 
@@ -71,10 +61,7 @@
                 <div class="col-lg-6 mt-3">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
                         <div id="chart" *ngIf="chartnoOfBorrowers" class=" mt-0 py-3">
-                            <apx-chart [series]="chartnoOfBorrowers?.series" [chart]="chartnoOfBorrowers?.chart"
-                                       [labels]="chartnoOfBorrowers?.labels" [title]="chartnoOfBorrowers?.title"
-                                       [theme]="chartnoOfBorrowers?.theme" [responsive]="chartnoOfBorrowers?.responsive"
-                                       [noData]="chartnoOfBorrowers.noData"></apx-chart>
+                            <apx-chart [series]="chartnoOfBorrowers?.series" [chart]="chartnoOfBorrowers?.chart" [labels]="chartnoOfBorrowers?.labels" [title]="chartnoOfBorrowers?.title" [theme]="chartnoOfBorrowers?.theme" [responsive]="chartnoOfBorrowers?.responsive" [noData]="chartnoOfBorrowers.noData"></apx-chart>
                         </div>
                     </div>
 
@@ -104,39 +91,39 @@
                         </thead> -->
 
                         <tbody>
-                        <!-- <ng-template > -->
-                        <tr *ngFor="let items of DisbursmentAchievement ; let row=index" class="text-center">
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCaseString(items[0], 0)}}
+                            <!-- <ng-template > -->
+                            <tr *ngFor="let items of DisbursmentAchievement ; let row=index" class="text-center">
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCaseString(items[0], 0)}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{dashboardService.getCamelCaseString(items[0], 1)}}
+                                        </div>
                                     </div>
-                                    <div class="fw-bold">
-                                        {{dashboardService.getCamelCaseString(items[0], 1)}}
+                                </td>
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCaseString(items[1], 0)}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{dashboardService.getCamelCaseString(items[1], 1)}}
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCaseString(items[1], 0)}}
+                                </td>
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCaseString(items[2], 0)}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{dashboardService.getCamelCaseString(items[2], 1)}}
+                                        </div>
                                     </div>
-                                    <div class="fw-bold">
-                                        {{dashboardService.getCamelCaseString(items[1], 1)}}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCaseString(items[2], 0)}}
-                                    </div>
-                                    <div class="fw-bold">
-                                        {{dashboardService.getCamelCaseString(items[2], 1)}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -150,38 +137,38 @@
                     </p>
                     <table class="table  table-bordered">
                         <tbody>
-                        <tr *ngFor="let items of RecoveryAchievement" class="text-center">
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCaseString(items[0], 0)}}
+                            <tr *ngFor="let items of RecoveryAchievement" class="text-center">
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCaseString(items[0], 0)}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{dashboardService.getCamelCaseString(items[0], 1)}}
+                                        </div>
                                     </div>
-                                    <div class="fw-bold">
-                                        {{dashboardService.getCamelCaseString(items[0], 1)}}
+                                </td>
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCaseString(items[1], 0)}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{dashboardService.getCamelCaseString(items[1], 1)}}
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCaseString(items[1], 0)}}
+                                </td>
+                                <td>
+                                    <div class="d-grid">
+                                        <div>
+                                            {{dashboardService.getCamelCaseString(items[2], 0)}}
+                                        </div>
+                                        <div class="fw-bold">
+                                            {{dashboardService.getCamelCaseString(items[2], 1)}}
+                                        </div>
                                     </div>
-                                    <div class="fw-bold">
-                                        {{dashboardService.getCamelCaseString(items[1], 1)}}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-grid">
-                                    <div>
-                                        {{dashboardService.getCamelCaseString(items[2], 0)}}
-                                    </div>
-                                    <div class="fw-bold">
-                                        {{dashboardService.getCamelCaseString(items[2], 1)}}
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -193,27 +180,31 @@
                     </p>
                     <table class="table table-bordered">
                         <thead>
-                        <tr class="table-header-background">
-                            <th>MCO Circles</th>
-                            <th>Disbursement</th>
-                            <th>Recovery</th>
-                            <th>NPL</th>
-                            <th>SAM</th>
-                            <th>Outstanding</th>
-                            <th>Audit Paras</th>
+                            <tr class="table-header-background">
+                                <th>MCO Circles</th>
+                                <th>Disbursement</th>
+                                <th>Recovery</th>
+                                <th>NPL</th>
+                                <th>SAM</th>
+                                <th>Outstanding</th>
+                                <th>Audit Paras</th>
+                                <th>Utilization</th>
+                                <th>Mutation</th>
 
-                        </tr>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let item of CirclePositions">
-                            <td>{{item?.Name}}</td>
-                            <td>{{item?.TotalDisbursment}}</td>
-                            <td>{{item?.TotalRecovery}}</td>
-                            <td>{{item?.NplOS}}</td>
-                            <td>{{item?.SamOS}}</td>
-                            <td>{{item?.TotalOS}}</td>
-                            <td>{{item?.AuditParas}}</td>
-                        </tr>
+                            <tr *ngFor="let item of CirclePositions">
+                                <td>{{item?.Name}}</td>
+                                <td>{{item?.TotalDisbursment}}</td>
+                                <td>{{item?.TotalRecovery}}</td>
+                                <td>{{item?.NplOS}}</td>
+                                <td>{{item?.SamOS}}</td>
+                                <td>{{item?.TotalOS}}</td>
+                                <td>{{item?.AuditParas}}</td>
+                                <td>{{item?.Utilizations}}</td>
+                                <td>{{item?.Mutations}}</td>
+                            </tr>
                         </tbody>
 
                     </table>

@@ -16,24 +16,21 @@
 
 
 <ng-container>
-    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" [hidden]="is_referback"
-                   (onEndEvent)="drawComplete()"></signature-pad>
+    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" [hidden]="is_referback" (onEndEvent)="drawComplete()"></signature-pad>
 </ng-container>
 
 <div class="mx-2 pt-2" [ngClass]="classDesign()">
     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 overflow-hidden">
         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
             <mat-label>Remarks</mat-label>
-            <input maxlength="500" matInput [(ngModel)]="remarks" placeholder="Remarks"/>
+            <input maxlength="500" matInput [(ngModel)]="remarks" placeholder="Remarks" />
         </mat-form-field>
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-10 ">
+    <div class="col-lg-6 ">
         <div class="space-between">
-            <button
-                class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500"
-                mat-flat-button color="warn" (click)="clearSignature()" *ngIf="!is_referback">
+            <button class=" mx-2 mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary bg-red-500" mat-flat-button color="warn" (click)="clearSignature()" *ngIf="!is_referback">
                 <mat-icon class="me-2"> clear_all</mat-icon>
                 Clear Signature
             </button>
@@ -41,14 +38,12 @@
         </div>
 
     </div>
-    <div class="col-lg-2">
-        <button class="  mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" mat-flat-button
-                color="primary" (click)="submit()" *ngIf="!is_referback">
+    <div class="col-lg-6 pe-3" style="text-align: end;">
+        <button class="  mat-raised-button mat-button-base kt-login__btn-primary btn-block mat-primary" mat-flat-button color="primary" (click)="submit()" *ngIf="!is_referback">
             <mat-icon class="me-2">check_circle</mat-icon>
             Approve
         </button>
-        <button class="  mat-raised-button mat-button-base mat-primary" mat-flat-button
-                color="warn" (click)="submit()" *ngIf="is_referback">
+        <button class="  mat-raised-button mat-button-base mat-primary" mat-flat-button color="warn" (click)="submit()" *ngIf="is_referback">
             <mat-icon class="me-2">cancel</mat-icon>
             Referback
         </button>
