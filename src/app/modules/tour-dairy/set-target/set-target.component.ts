@@ -469,7 +469,7 @@ export class SetTargetComponent implements OnInit {
             var totalSum=0;
             for(let i =0;i<Object.keys(this.newValue[rowIndex])?.length;i++){
                 this.newValue
-                if(Object.keys(this.newValue[rowIndex])[i].toString()!=="Name" && Object.keys(this.newValue[rowIndex])[i].toString()!="SamRecoveryAmount" && Object.keys(this.newValue[rowIndex])[i].toString()!="Id"){
+                if(Object.keys(this.newValue[rowIndex])[i].toString()!=="Name" && Object.keys(this.newValue[rowIndex])[i].toString()!="SamRecoveryAmount" && Object.keys(this.newValue[rowIndex])[i].toString()!="Id" && Object.keys(this.newValue[rowIndex])[i].toString()!="DisbursmentAmount"){
                      totalSum = totalSum + Number(this.newValue[rowIndex][(Object.keys(this.newValue[rowIndex])[i])])
                     }
             }
