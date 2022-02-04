@@ -40,7 +40,7 @@ export class EvpOdDashboardComponent implements OnInit {
     hideRequiredControl = new FormControl(false);
     floatLabelControl = new FormControl('auto');
     ResourcesCount: [string, unknown][];
-    UtilizationMutation: [string, unknown][];
+    UtilizationMutation: any;
 
     constructor(fb: FormBuilder, private spinner: NgxSpinnerService, public dashboardService: DashboardService) {
         this.options = fb.group({
@@ -65,8 +65,8 @@ export class EvpOdDashboardComponent implements OnInit {
         }
         try {
             this.chartOptions = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
-            this.ResourcesCount =Object.entries(DashboardReport?.ResourcesCount);
-            this.UtilizationMutation = Object.entries(DashboardReport?.UtilizationMutation); 
+            this.ResourcesCount = DashboardReport?.ResourcesCount;
+            this.UtilizationMutation = DashboardReport?.UtilizationMutation; 
 
         } catch (err) {
         } finally {

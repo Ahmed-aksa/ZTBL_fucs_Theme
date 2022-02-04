@@ -39,7 +39,7 @@ export class McoDashboradComponent implements OnInit {
     public chartOptions3: Partial<ChartOptions>;
     DisbursmentAchievement: any = [];
     RecoveryAchievement: any = [];
-    UtilizationMutation: any = [];
+    UtilizationMutation: any;
     year: any;
     years: any;
 
@@ -61,7 +61,7 @@ export class McoDashboradComponent implements OnInit {
 
         this.DisbursmentAchievement = this._dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
         this.RecoveryAchievement = this._dashboardService.getSortDate(DashboardReport?.RecoveryAchievement); 
-        this.UtilizationMutation = Object.entries(DashboardReport?.UtilizationMutation); 
+        this.UtilizationMutation = DashboardReport?.UtilizationMutation; 
 
     }
 

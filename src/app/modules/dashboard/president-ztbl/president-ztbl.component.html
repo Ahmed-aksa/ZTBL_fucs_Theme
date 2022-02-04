@@ -110,94 +110,12 @@
             <div class="row">
 
                 <div class="col-lg-6 table-responsive">
-                    <p class="heading mb-2 text-lg">Resources CountRes</p>
+                    <p class="heading mb-2 text-lg">Resources Count</p>
                     <table class="table  table-striped">
-
-                        <!-- <thead>
-                        <tr class="table-header-background">
-                            <th scope="col">Calendar Year Target</th>
-                            <th scope="col">Achievement</th>
-                            <th scope="col">%age</th>
-                        </tr>
-                        </thead> -->
                         <tbody>
-                        <tr>
-                            <td>No. Of Zones</td>
-                            <td>{{ResourcesCount?.NoOfZones}}</td>
-                        </tr>
-                        <tr>
-                            <td>No. Of Branches</td>
-                            <td>{{ResourcesCount?.NoOfBranches}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of L.L.Us</td>
-                            <td>{{ResourcesCount?.NoOfLLUs}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of IC Units</td>
-                            <td>{{ResourcesCount?.NoOfIcUnits}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of Accounts</td>
-                            <td>{{ResourcesCount?.NoOfAccounts}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of Lockers</td>
-                            <td>{{ResourcesCount?.NoOfLockers}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of Bank-owned Buildings</td>
-                            <td>{{ResourcesCount?.NoOfOwnedBuildings}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of Rented Offices</td>
-                            <td>{{ResourcesCount?.NoOfRentedOffice}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of Branches in Profit</td>
-                            <td>{{ResourcesCount?.NoOfBranchesProfit}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of Branches in Loss</td>
-                            <td>{{ResourcesCount?.NoOfBranchesLoss}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of Biometric Verified <br>consumers (Loan + Accoutns)</td>
-                            <td>{{ResourcesCount?.NoOfBiometricVerified}}</td>
-                        </tr>
-                        <tr>
-                            <td>No. Of MCO Circles</td>
-                            <td>{{ResourcesCount?.NoOfMcoCircles}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of MCOs Available</td>
-                            <td>{{ResourcesCount?.NoOfMcoAvailable}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of Burnt files</td>
-                            <td>{{ResourcesCount?.NoOfBurntFiles}}</td>
-
-                        </tr>
-                        <tr>
-                            <td>No. Of ATM Machines</td>
-                            <td>{{ResourcesCount?.NoOfATMs}}</td>
-
-                        </tr>
-                        </tbody>
-                        <tbody *ngIf="ResourcesCount?.length==0">
-                        <tr>
-                            No Data Found
+                        <tr *ngFor="let item of ResourcesCount">
+                            <td style [innerHTML]="item.Value"></td>
+                            <td>{{item.Key}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -207,7 +125,7 @@
                     <table class="table  table-striped">
                         <thead>
                         <tr class="table-header-background">
-                            <th scope="col">SrNO</th>
+                            <th scope="col">Sr.#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Amount</th>
                         </tr>

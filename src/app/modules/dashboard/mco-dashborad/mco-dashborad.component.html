@@ -190,17 +190,34 @@
             <div class="col-lg-12   table-responsive">
                 <p class="heading mb-2 text-lg">Utilization/Mutations</p>
                 <table class="table  table-striped">
-                    <!-- <thead>
+                    <thead>
                       <tr class="table-header-background">
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
+                        <th scope="col"></th>
+                        <th scope="col">Utilization</th>
+                        <th scope="col">Mutations</th>
                       </tr>
-                    </thead> -->
+                    </thead>
                     <tbody>
-                        <tr *ngFor="let item of  UtilizationMutation">
-                            <td>{{_dashboardService.getCamelCase(item[0])}}</td>
-                            <td>{{item[1]}}</td>
+                        <tr>
+                            <td>Opening Blanace</td>
+                            <td>{{UtilizationMutation?.UtilizationOpenningBalance}}</td>
+                            <td>{{UtilizationMutation?.MutationOpenningBalance}}</td>
+                        </tr>
+                        <tr>
+                            <td>Added</td>
+                            <td>{{UtilizationMutation?.UtilizationAdded}}</td>
+                            <td>{{UtilizationMutation?.MutationAdded}}</td>
+                        </tr>
+                        <tr>
+                            <td>Checked</td>
+                            <td>{{UtilizationMutation?.UtilizationChecked}}</td>
+                            <td>{{UtilizationMutation?.MutationChecked}}</td>
+                        </tr>
+                        <tr>
+                            <td>Outstanding</td>
+                            <td>{{UtilizationMutation?.UtilizationOutstanding}}</td>
+                            <td>{{UtilizationMutation?.MutationOutstanding}}</td>
+                        </tr>
     
                     </tbody>
                 </table>
