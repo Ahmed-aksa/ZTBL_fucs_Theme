@@ -1,4 +1,4 @@
-export class TourDiaryModel{
+export class TourDiaryMCO{
     DiaryId: string;
     TourPlanId: string;
     BranchId: string;
@@ -31,4 +31,48 @@ export class TourDiaryModel{
     UtilizationVerifiedDuringMnth: string;
     Status: string;
     CreatedBy: string;
+}
+
+export class TourDiaryRC{
+
+    DiaryId: string;
+    TourPlanId: string;
+    BranchId: string;
+    ZoneId: string;
+    CircleId: string;
+    Ppno: string;
+    TourDate: string;
+    DepartureFromPlace: string;
+    DepartureFromTime: string;
+    ArrivalAtPlace: string;
+    ArrivalAtTime: string;
+    Remarks: string;
+    Status: string;
+    CreatedBy: string;
+    NoOfDefaulterContacted: string;
+    ResultContactMade: string;
+    MeasureBoostUpRecord: string;
+
+}
+
+export class TourDiaryRO{
+
+    DiaryId: string;
+    TourPlanId: string;
+    BranchId: string;
+    ZoneId: string;
+    CircleId: string;
+    Ppno: string;
+    TourDate: string;
+    DepartureFromPlace: string;
+    DepartureFromTime: string;
+    ArrivalAtPlace: string;
+    ArrivalAtTime: string;
+    Remarks: string;
+    Status: string;
+    CreatedBy: string;
+    NoOfDefaulterContacted: string;
+    ResultContactMade: string;
+    MeasureBoostUpRecord: string;
+
 }
