@@ -132,21 +132,50 @@ debugger
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
-    submitDiary(zone,branch,TourDiary) {
-        debugger
-        this.request = new BaseRequestModel();
-        var userInfo = this.userUtilsService.getUserDetails();
-        this.request.Zone = zone;
-        this.request.Branch = branch;
-        this.request.User = userInfo.User;
-        this.request.TourDiary = TourDiary;
 
-        var req = JSON.stringify(this.request);
+    submitDiary(zone,branch,circle,TourDiary, Status) {
+        debugger
+        //this.request = new BaseRequestModel();
+        var req;
+        var userInfo = this.userUtilsService.getUserDetails();
+        var circles=[], circleIds;
+
+        if (userInfo.UserCircleMappings && userInfo.UserCircleMappings.length != 0) {
+            userInfo.UserCircleMappings.forEach(element => {
+                circles.push(element.CircleId);
+            });
+        } else {
+            circleIds = [0]
+        }
+
+        circleIds = circles.toString();
+
+        TourDiary.DiaryId = TourDiary.DiaryId.toString();
+        TourDiary.Ppno = TourDiary.Ppno.toString();
+        TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
+
+        req = {
+            User: userInfo.User,
+            Branch: branch,
+            Zone: zone,
+            Circle:{
+                CircleIds: circleIds
+            },
+            TourDiary:{
+                DiaryId: TourDiary.DiaryId,
+                Ppno: TourDiary.Ppno,
+                Status: Status,
+                TourPlanId: TourDiary.TourPlanId,
+            }
+        }
+
+
+        // var req = JSON.stringify(this.request);
 
         return this.http
             .post<any>(
                 `${environment.apiUrl}/TourPlanAndDiary/ChangeTourDiaryStatus`,
-                this.request
+                req
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
