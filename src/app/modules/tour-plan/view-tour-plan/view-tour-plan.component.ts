@@ -298,10 +298,10 @@ export class ViewTourPlanComponent implements OnInit {
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
         this.tourPlanApprovalForm = this.filterFB.group({
-            FromDate: [moment(), Validators.required],
+            FromDate: [, Validators.required],
             ToDate: [, Validators.required],
             PPNO: [null],
-            Status: ["S", Validators.required],
+            Status: ["", Validators.required],
         });
 
     }

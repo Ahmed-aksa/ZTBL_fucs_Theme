@@ -426,22 +426,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
 
-    getBranchName(branchId){
-        if(branchId == this.branch?.BranchId) {
-            return this.branch.Name
-        }else{
-            return "-"
-        }
-    }
 
-    getZoneName(zoneId){
-        if(zoneId == this.zone?.ZoneId) {
-            return this.zone.ZoneName
-        }
-        else{
-            return "-"
-        }
-    }
 
     // getStatus(status: string) {
     //

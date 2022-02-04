@@ -81,17 +81,17 @@
                 <tbody>
                     <tr *ngFor="let item of tragetList | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems};  let row=index;">
                         <!--                    <td>{{row + 1}}</td>-->
-                        <td style="width: 20%">{{getZoneName(item?.ZoneId)}}</td>
-                        <td style="width: 20%">{{getBranchName(item?.BranchId)}}</td>
-                        <td style="width: 20%">{{item?.CircleCode ? item?.CircleCode : "-"}}</td>
-                        <td style="width: 20%">{{dateChange(item.VisitedDate)}}</td>
-                        <td style="width: 20%">{{item?.PurposeName}}</td>
+                        <td>{{item?.ZoneName ? item?.ZoneName : "-"}}</td>
+                        <td>{{item?.BranchName ? item?.BranchName : "-"}}</td>
+                        <td>{{item?.CircleCode ? item?.CircleCode : "-"}}</td>
+                        <td>{{dateChange(item.VisitedDate)}}</td>
+                        <td>{{item?.PurposeName}}</td>
                         <td [title]="item.Remarks">
                             <p class="remarks-box">
                                 {{item.Remarks.slice(0, 30)}}
                             </p>
                         </td>
-                        <td style="width: 20%"> {{item.StatusName}} </td>
+                        <td> {{item.StatusName}} </td>
                         <!--                    <td> {{getStatus(item.StatusName)}} </td>-->
                         <td>
                             <button mat-icon-button *ngIf="checkStatus(item, 'edit')" (click)="editTourPlan(item)" [disabled]="viewMode">

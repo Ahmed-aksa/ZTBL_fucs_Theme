@@ -192,21 +192,6 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
 
     }
 
-    getBranchName(branchId) {
-        if (branchId == this.branch?.BranchId) {
-            return this.branch.Name
-        } else {
-            return "-"
-        }
-    }
-
-    getZoneName(zoneId) {
-        if (zoneId == this.zone?.ZoneId) {
-            return this.zone.ZoneName
-        } else {
-            return "-"
-        }
-    }
 
     getAllData(event) {
         this.zone = event.final_zone;
@@ -573,6 +558,8 @@ export class TragetLits {
     UserId: any
     VisitedDate: any
     ZoneId: any
+    ZoneName:any;
+    BranchName:any;
 }
 
 export class TragetLitsPartnentDto {
