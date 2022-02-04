@@ -7,6 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
 import {TourPlanService} from "../Service/tour-plan.service";
 import {NgxSpinnerService} from "ngx-spinner";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 @Component({
     selector: 'app-view-tour-tab',
@@ -27,6 +28,7 @@ export class ViewTourTabComponent implements OnInit {
     children: [any][any] = [];
     totalItems: number
     Math: any;
+    loggedInUser: any;
 
 
     constructor(
@@ -34,10 +36,12 @@ export class ViewTourTabComponent implements OnInit {
         public dialog: MatDialog,
         private toaster: ToastrService,
         private tourPlanService: TourPlanService,
-        private spinner: NgxSpinnerService) {
+        private spinner: NgxSpinnerService,
+        private userService: UserUtilsService,) {
     }
 
     ngOnInit(): void {
+        this.loggedInUser = this.userService.getUserDetails();
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
@@ -139,7 +143,7 @@ export class ViewTourTabComponent implements OnInit {
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm);
         this.spinner.show();
-        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
+        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id,this.loggedInUser.User.UserName)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

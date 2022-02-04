@@ -62,7 +62,6 @@ export class ViewTourPlanComponent implements OnInit {
     dv: number | any; //use later
     matTableLenght: any;
     TourPlans;
-
     // Pagination
     Limit: any;
     OffSet: number = 0;
@@ -95,11 +94,13 @@ export class ViewTourPlanComponent implements OnInit {
                 private layoutUtilsService: LayoutUtilsService,
                 private _circleService: CircleService,
                 private _cdf: ChangeDetectorRef,
-                private userUtilsService: UserUtilsService) {
+                private userUtilsService: UserUtilsService,
+                private userService: UserUtilsService,) {
         this.loggedInUser = userUtilsService.getUserDetails();
     }
 
     ngOnInit() {
+        this.loggedInUser = this.userService.getUserDetails();
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
         this.setUsers()
@@ -364,7 +365,8 @@ export class ViewTourPlanComponent implements OnInit {
         if (start)
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm.value);
-        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
+        this.loggedInUser.User.UserName
+        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id,this.loggedInUser.User.UserName)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -385,7 +387,7 @@ export class ViewTourPlanComponent implements OnInit {
                         this.TourPlans = baseResponse.TourPlanList;
                         this.dataSource.data = baseResponse.TourPlanList;
                     }
-                    this.TourPlans.forEach((single_plan) => {
+                    this.TourPlans?.forEach((single_plan) => {
                         this.children.push(single_plan);
                     })
                     if (this.dataSource?.data?.length > 0)

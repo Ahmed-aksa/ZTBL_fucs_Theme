@@ -305,7 +305,7 @@ console.log(v)
 
     viewTourPlan(
         approval_from: any,
-        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
+        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id,PPNO) {
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {
@@ -315,12 +315,12 @@ console.log(v)
                 BranchCode: branch?.BranchCode,
                 ZoneId: zone?.ZoneId,
                 StartDate: start_date.format('YYYY-MM-DD'),
-                EndDate: end_date.format('YYYY-MM-DD'),
+                EndDate: null,
                 Status: approval_from.Status,
                 Limit: String(itemsPerPage),
                 Offset: offset,
-                PPNO: approval_from.PPNO,
-                UserPPNo:approval_from.PPNO,
+                // PPNO:PPNO,
+                UserPPNo:String(PPNO),
             },
             Zone: zone,
             Branch: branch,
