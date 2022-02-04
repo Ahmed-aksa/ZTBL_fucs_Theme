@@ -274,6 +274,7 @@ console.log(v)
     searchForTourPlanApproval(
         approval_from: any,
         itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
+        debugger;
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {
@@ -294,6 +295,12 @@ console.log(v)
             Circle: circle,
             User: this.userInfo.User,
         }
+        if(request.TourPlan.StartDate=="Invalid date"){
+            request.TourPlan.StartDate=null;
+        }
+        if(request.TourPlan.EndDate=="Invalid date"){
+            request.TourPlan.EndDate=null;
+        }
 
         console.log(request);
 
@@ -306,6 +313,7 @@ console.log(v)
     viewTourPlan(
         approval_from: any,
         itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id,PPNO) {
+        debugger
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {
@@ -315,17 +323,24 @@ console.log(v)
                 BranchCode: branch?.BranchCode,
                 ZoneId: zone?.ZoneId,
                 StartDate: start_date.format('YYYY-MM-DD'),
-                EndDate: null,
+                EndDate: end_date.format('YYYY-MM-DD'),
                 Status: approval_from.Status,
                 Limit: String(itemsPerPage),
                 Offset: offset,
                 // PPNO:PPNO,
-                UserPPNo:String(PPNO),
+                UserPPNo:approval_from.PPNO,
             },
+
             Zone: zone,
             Branch: branch,
             Circle: circle,
             User: this.userInfo.User,
+        }
+        if(request.TourPlan.StartDate=="Invalid date"){
+            request.TourPlan.StartDate=null;
+        }
+        if(request.TourPlan.EndDate=="Invalid date"){
+            request.TourPlan.EndDate=null;
         }
 
         console.log(request);
