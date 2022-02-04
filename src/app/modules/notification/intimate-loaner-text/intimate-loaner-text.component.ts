@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Lov} from "../../../shared/classes/lov.class";
@@ -7,6 +7,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {finalize} from "rxjs/operators";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-intimate-loaner-text',
@@ -31,6 +32,8 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
 
     statusLov: any;
     public LovCall = new Lov();
+
+    @ViewChild(MatSort) sort: MatSort;
 
 
     constructor(
@@ -73,6 +76,13 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
             })
     }
 
+    applyFilter(event: Event) {
+        debugger
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
         this.itemsPerPage = pageSize;
@@ -86,6 +96,7 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
 
         this.gridHeight = window.innerHeight - 200 + 'px';
+        this.dataSource.sort = this.sort;
     }
 
 
