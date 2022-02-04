@@ -104,6 +104,7 @@ export class TourDairyMcoComponent implements OnInit {
             Name: [""],
             Ppno: [""],
             DiaryId:[null],
+            NameOfOfficer:[null],
             TourPlanId:["", [Validators.required]],
             BranchId:["", [Validators.required]],
             ZoneId:[ "",[Validators.required]],

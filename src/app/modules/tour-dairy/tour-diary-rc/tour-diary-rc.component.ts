@@ -3,7 +3,7 @@ import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
@@ -98,21 +98,25 @@ export class TourDiaryRcComponent implements OnInit {
 
     createForm() {
         this.gridForm = this.fb.group({
-            NameOfOfficer: [null],
-            PPNO: [null],
-            Month: [null],
-            Name: [null],
-            Date: [null],
-            Designation: [null],
-            TourDate: [null],
-            TourPlanId: [null],
-            DepartureFromPlace: [null],
-            DepartureFromTime: [null],
-            ArrivalAtPlace: [null],
-            ArrivalAtTime: [null],
-            NoOfDefaultersContacted: [null],
-            ResultsOfContactsSoMade: [null],
+            Name: [""],
+            Ppno: [""],
+            DiaryId:[null],
+            TourPlanId:["", [Validators.required]],
+            BranchId:["", [Validators.required]],
+            ZoneId:[ "",[Validators.required]],
+            CircleId:["", [Validators.required]],
+            TourDate:["", [Validators.required]],
+            DepartureFromPlace:["", [Validators.required]],
+            DepartureFromTime:["", [Validators.required]],
+            ArrivalAtPlace:["", [Validators.required]],
+            ArrivalAtTime:["", [Validators.required]],
+            NoOfDefaulterContacted:["", [Validators.required]],
+            ResultContactMade:["", [Validators.required]],
+            MeasureBoostUpRecord:["", [Validators.required]],
+            Remarks:["", [Validators.required]],
+            Status: [""],
         });
+        this.setValue()
     }
 
     @ViewChild("timepicker") timepicker: any;
@@ -207,26 +211,19 @@ export class TourDiaryRcComponent implements OnInit {
         this.gridForm.controls['DepartureFromTime'].setValue("");
         this.gridForm.controls['ArrivalAtPlace'].setValue("");
         this.gridForm.controls['ArrivalAtTime'].setValue("");
-        this.gridForm.controls['DisbNoOfCasesReceived'].setValue("");
-        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue("");
-        this.gridForm.controls['DisbNoOfRecordVerified'].setValue("");
-        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue("");
-        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue("");
-        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue("");
-        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue("");
-        this.gridForm.controls['NoOfUtilizationChecked'].setValue("");
-        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue("");
-        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue("");
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("");
-        this.gridForm.controls['TotFarmersContacted'].setValue("");
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
-        this.gridForm.controls['AnyOtherWorkDone'].setValue("");
+        this.gridForm.controls['NoOfDefaulterContacted'].setValue("");
+        this.gridForm.controls['ResultContactMade'].setValue("");
+        this.gridForm.controls['MeasureBoostUpRecord'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
 
-        // this.setValue();
+        this.isUpdate=false;
+        this.setValue();
 
     }
-
+    setValue(){
+        this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
+        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
+    }
     SubmitTourDiary() {
         const signatureDialogRef = this.dialog.open(
             SignatureDailogDairyComponent,

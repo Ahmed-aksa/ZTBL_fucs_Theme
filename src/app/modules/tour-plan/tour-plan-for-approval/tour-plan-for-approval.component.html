@@ -101,6 +101,7 @@
             <mat-tab [label]="item.Heading">
                 <app-tour-approval-tab [TourPlans]="item" [branch]="branch" [zone]="zone"
                                        [circle]="circle"
+                                       [tab_number]="i"
                                        [tourPlanApprovalForm]="tourPlanApprovalForm.value"></app-tour-approval-tab>
             </mat-tab>
         </ng-container>
