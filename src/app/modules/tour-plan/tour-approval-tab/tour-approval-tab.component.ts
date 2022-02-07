@@ -119,7 +119,7 @@ export class TourApprovalTabComponent implements OnInit {
     }
 
     searchTourPlanApproval(start = false, user_id = null, index = 0) {
-        debugger;
+        
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();

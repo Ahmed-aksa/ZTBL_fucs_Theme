@@ -73,7 +73,7 @@ export class CustomerCwrComponent implements OnInit, AfterViewInit {
 
 
     find() {
-        debugger
+        
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.searchCnicForm.markAllAsTouched()

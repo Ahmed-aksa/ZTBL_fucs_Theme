@@ -77,7 +77,7 @@ export class SubmitDocumentsComponent implements OnInit {
                     let has_file = false;
                     this.submit_documents.forEach((single_document, index) => {
                         if (single_document.document_type_id == this.current_document_id.value) {
-                            debugger;
+                            
                             if (!single_document.CustomerDocuments.filter((single_doc: any) => single_doc?.id == i))
                                 single_document.CustomerDocuments.push({
                                     id: i,
@@ -120,7 +120,7 @@ export class SubmitDocumentsComponent implements OnInit {
     submitDocuments() {
         let has_error = false;
         this.spinner.show();
-        debugger;
+        
         if (this.submit_documents.length == 0) {
             this.toaster.error("Please fill all required data");
             this.spinner.hide();
@@ -131,7 +131,7 @@ export class SubmitDocumentsComponent implements OnInit {
                 has_error = true;
             } else {
                 single_document.CustomerDocuments.forEach((customer_document) => {
-                    debugger;
+                    
                     if (customer_document.FilePath == null || customer_document.Description == null || !single_document.document_type_id) {
                         has_error = true;
                     }

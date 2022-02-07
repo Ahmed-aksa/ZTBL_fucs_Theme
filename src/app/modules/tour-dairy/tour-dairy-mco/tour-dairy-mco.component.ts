@@ -87,7 +87,7 @@ export class TourDairyMcoComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger
+        
         this.loggedInUser = this.userService.getUserDetails();
         this.createForm();
 
@@ -137,7 +137,7 @@ export class TourDairyMcoComponent implements OnInit {
 
 
     saveTourDiary() {
-        debugger
+        
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -188,7 +188,7 @@ export class TourDairyMcoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
+                
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiary.DiaryId = baseResponse.TourDairy.DiaryId;
                 this.TourDiary.viewType = "TOUR_DIARY";
@@ -205,7 +205,7 @@ export class TourDairyMcoComponent implements OnInit {
     }
     submit(){}
     SubmitTourDiary(){
-        debugger
+        
         var Status = 'S';
         // if (!this.zone) {
         //     var Message = 'Please select Zone';
@@ -247,7 +247,7 @@ export class TourDairyMcoComponent implements OnInit {
 
         // this.TourDiary = Object.assign(this.gridForm.getRawValue());
 
-        // debugger
+        // 
         // if (!this.TourDiary) {
         //     var Message = 'Please select Zone';
         //     this.layoutUtilsService.alertElement(
@@ -309,6 +309,7 @@ export class TourDairyMcoComponent implements OnInit {
         this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
         this.gridForm.controls['AnyOtherWorkDone'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
+        this.gridForm.controls['Status'].setValue("");
 
         this.isUpdate=false;
         this.setValue();
@@ -378,7 +379,7 @@ export class TourDairyMcoComponent implements OnInit {
 
 
     getTourDiary(val){
-        // debugger
+        // 
         // this.spinner.show();
         // this.tourDiary
         //     .SearchTourDiary(this.zone,this.branch,val?.value)
@@ -387,7 +388,7 @@ export class TourDairyMcoComponent implements OnInit {
         //     }))
         //     .subscribe((baseResponse) => {
         //         if (baseResponse.Success) {
-        //             debugger
+        //             
         //             // this.TargetDuration = baseResponse.Target.TargetDuration;
         //             // this.TourPlan=baseResponse?.TourPlan?.TourPlans;
         //         } else {
@@ -408,7 +409,7 @@ export class TourDairyMcoComponent implements OnInit {
                 }))
                 .subscribe((baseResponse) => {
                     if (baseResponse.Success) {
-                        debugger
+                        
                         // this.TargetDuration = baseResponse.Target.TargetDuration;
                         this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                     } else {

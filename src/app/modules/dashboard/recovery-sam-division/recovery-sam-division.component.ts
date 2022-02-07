@@ -68,7 +68,7 @@ export class RecoverySamDivisionComponent implements OnInit {
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport?.PurposeWiseDisbursment, 'Purpose wise Default (Over Dues NPLs)');
 
         this.DisbursmentAchievement = (DashboardReport?.DisbursmentAchievement);
-        debugger;
+        
         this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
 
         this.Top10NplZones = DashboardReport.Top10NplZones;

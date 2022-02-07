@@ -136,7 +136,7 @@ export class TourDiaryRoComponent implements OnInit {
     }
 
     saveTourDiary() {
-        debugger
+        
 
         if (!this.zone) {
             var Message = 'Please select Zone';

@@ -55,7 +55,7 @@ export class SignatureDialogComponent implements OnInit {
     }
 
     drawComplete() {
-        debugger
+        
         this.isSignatureAdded = true;
         // will be notified of szimek/signature_pad's onEnd event
         var base64 = this.signaturePad.toDataURL('image/jpeg');
@@ -104,7 +104,7 @@ export class SignatureDialogComponent implements OnInit {
     }
 
     clearSignature(): void {
-        debugger
+        
         this.signaturePad.clear();
         this.imageFile = "";
         this.isSignatureAdded = false;

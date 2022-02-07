@@ -369,7 +369,7 @@ export class TourPlanComponent implements OnInit {
         // if(this.flag==1)
         // {this.TourPlan.TourPlanId=this.id;
         // }
-debugger
+
         this.spinner.show();
         this.tourPlanService
             .createTourPlan(this.TourPlan)

@@ -50,7 +50,7 @@ export class ReportsComponent implements OnInit {
     }
 
     reportLength(){
-        debugger
+        
         var reportMenu = localStorage.getItem("ZTBLUser");
         var report = JSON.parse(reportMenu)
         report.MenuBar.forEach(x => {

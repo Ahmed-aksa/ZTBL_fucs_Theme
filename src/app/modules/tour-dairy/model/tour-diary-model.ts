@@ -76,3 +76,50 @@ export class TourDiaryRO{
     MeasureBoostUpRecord: string;
 
 }
+
+export class TourDiaryZM{
+
+    DiaryId: string;
+    TourPlanId: string;
+    BranchId: string;
+    ZoneId: string;
+    CircleId: string;
+    Ppno: string;
+    TourDate: string;
+    DepartureFromPlace: string;
+    DepartureFromTime: string;
+    ArrivalAtPlace: string;
+    ArrivalAtTime: string;
+    Remarks: string;
+    Status: string;
+    CreatedBy: string;
+    NoOfDefaulterContacted: string;
+    ResultContactMade: string;
+    MeasureBoostUpRecord: string;
+
+}
+
+export class TourDiaryZC{
+    Name: string;
+    Ppno: string;
+    Month: string;
+    Date:string;
+    DiaryId:string;
+    TourPlanId:string;
+    BranchId:string;
+    ZoneId:string;
+    CircleId:string;
+    TourDate:string;
+    DepartureFromPlace:string;
+    DepartureFromTime:string;
+    ArrivalAtPlace:string;
+    ArrivalAtTime:string;
+    Remarks:string;
+    GeneralAdmissionComplaints:string;
+    CashManagementCompliance:string;
+    AuditReports:string;
+    OutstandingParas:string;
+    Settlements:string;
+    Status:string;
+    CreatedBy:string;
+}

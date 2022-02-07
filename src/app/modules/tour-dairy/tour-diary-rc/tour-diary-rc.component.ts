@@ -139,7 +139,7 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     saveTourDiary() {
-        debugger
+        
 
         if (!this.zone) {
             var Message = 'Please select Zone';

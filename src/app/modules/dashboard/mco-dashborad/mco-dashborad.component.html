@@ -34,7 +34,7 @@
     <div class="flex flex-auto" style="flex-direction: column;">
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2  ">
-                <div class="shadow-sm border graph-box"style="height: 365px;">
+                <div class="shadow-sm border graph-box" style="height: 365px;">
                     <div id="chart" class=" mt-0 py-3  " *ngIf="chartOptions1">
                         <p class="text-green px-2 font-bold mb-0">Performance Indicators</p>
                         <apx-chart
@@ -51,7 +51,7 @@
 
             </div>
             <div class="col-lg-6 col-sm-12 my-2">
-                <div class="shadow-sm border graph-box"style="height: 365px;">
+                <div class="shadow-sm border graph-box" style="height: 365px;">
                     <div id="chart" class=" mt-0 py-3" *ngIf="chartOptions2">
                         <p class="text-green px-2 font-bold mb-0">Circle Bench Mark</p>
                         <apx-chart
@@ -71,8 +71,8 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2">
-                <div class="shadow-sm border graph-box"style="height: 365px;">
-                    <div id="chart" class="mt-0 py-3" *ngIf="chartOptions2">
+                <div class="shadow-sm border graph-box" style="height: 365px;">
+                    <div id="chart" class="mt-0 py-3" *ngIf="chartOptions3">
                         <p class="text-green px-2 font-bold mb-0">Loan Portfolio</p>
                         <apx-chart
                             [series]="chartOptions3?.series"
@@ -81,6 +81,23 @@
                             [theme]="chartOptions3?.theme"
                             [responsive]="chartOptions3?.responsive"
                             [noData]="chartOptions3.noData"
+
+                        ></apx-chart>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6 col-sm-12 my-2">
+                <div class="shadow-sm border graph-box" style="height: 365px;">
+                    <div id="chart" class="mt-0 py-3" *ngIf="chartOptions4">
+                        <p class="text-green px-2 font-bold mb-0">Circle Radius</p>
+                        <apx-chart
+                            [series]="chartOptions4?.series"
+                            [chart]="chartOptions4?.chart"
+                            [labels]="chartOptions4?.labels"
+                            [theme]="chartOptions4?.theme"
+                            [responsive]="chartOptions4?.responsive"
+                            [noData]="chartOptions4.noData"
 
                         ></apx-chart>
                     </div>
@@ -106,31 +123,31 @@
                         <td>
                             <div class="d-grid">
                                 <div>
-                                   {{_dashboardService.getCamelCaseString(items[0],0)}}
+                                    {{_dashboardService.getCamelCaseString(items[0], 0)}}
                                 </div>
                                 <div class="fw-bold">
-                                    {{_dashboardService.getCamelCaseString(items[0],1)}}
+                                    {{_dashboardService.getCamelCaseString(items[0], 1)}}
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-grid">
                                 <div>
-                                    {{_dashboardService.getCamelCaseString(items[1],0)}}
-                                 </div>
-                                 <div class="fw-bold">
-                                     {{_dashboardService.getCamelCaseString(items[1],1)}}
-                                 </div>
+                                    {{_dashboardService.getCamelCaseString(items[1], 0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{_dashboardService.getCamelCaseString(items[1], 1)}}
+                                </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-grid">
                                 <div>
-                                    {{_dashboardService.getCamelCaseString(items[2],0)}}
-                                 </div>
-                                 <div class="fw-bold">
-                                     {{_dashboardService.getCamelCaseString(items[2],1)}}
-                                 </div>
+                                    {{_dashboardService.getCamelCaseString(items[2], 0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{_dashboardService.getCamelCaseString(items[2], 1)}}
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -153,72 +170,72 @@
                         <td>
                             <div class="d-grid">
                                 <div>
-                                   {{_dashboardService.getCamelCaseString(items[0],0)}}
+                                    {{_dashboardService.getCamelCaseString(items[0], 0)}}
                                 </div>
                                 <div class="fw-bold">
-                                    {{_dashboardService.getCamelCaseString(items[0],1)}}
+                                    {{_dashboardService.getCamelCaseString(items[0], 1)}}
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-grid">
                                 <div>
-                                    {{_dashboardService.getCamelCaseString(items[1],0)}}
-                                 </div>
-                                 <div class="fw-bold">
-                                     {{_dashboardService.getCamelCaseString(items[1],1)}}
-                                 </div>
+                                    {{_dashboardService.getCamelCaseString(items[1], 0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{_dashboardService.getCamelCaseString(items[1], 1)}}
+                                </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-grid">
                                 <div>
-                                    {{_dashboardService.getCamelCaseString(items[2],0)}}
-                                 </div>
-                                 <div class="fw-bold">
-                                     {{_dashboardService.getCamelCaseString(items[2],1)}}
-                                 </div>
+                                    {{_dashboardService.getCamelCaseString(items[2], 0)}}
+                                </div>
+                                <div class="fw-bold">
+                                    {{_dashboardService.getCamelCaseString(items[2], 1)}}
+                                </div>
                             </div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-         </div>
+        </div>
         <div class="row ">
 
             <div class="col-lg-12   table-responsive">
                 <p class="heading mb-2 text-lg">Utilization/Mutations</p>
                 <table class="table  table-striped">
                     <thead>
-                      <tr class="table-header-background">
+                    <tr class="table-header-background">
                         <th scope="col"></th>
                         <th scope="col">Utilization</th>
                         <th scope="col">Mutations</th>
-                      </tr>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Opening Blanace</td>
-                            <td>{{UtilizationMutation?.UtilizationOpenningBalance}}</td>
-                            <td>{{UtilizationMutation?.MutationOpenningBalance}}</td>
-                        </tr>
-                        <tr>
-                            <td>Added</td>
-                            <td>{{UtilizationMutation?.UtilizationAdded}}</td>
-                            <td>{{UtilizationMutation?.MutationAdded}}</td>
-                        </tr>
-                        <tr>
-                            <td>Checked</td>
-                            <td>{{UtilizationMutation?.UtilizationChecked}}</td>
-                            <td>{{UtilizationMutation?.MutationChecked}}</td>
-                        </tr>
-                        <tr>
-                            <td>Outstanding</td>
-                            <td>{{UtilizationMutation?.UtilizationOutstanding}}</td>
-                            <td>{{UtilizationMutation?.MutationOutstanding}}</td>
-                        </tr>
-    
+                    <tr>
+                        <td>Opening Blanace</td>
+                        <td>{{UtilizationMutation?.UtilizationOpenningBalance}}</td>
+                        <td>{{UtilizationMutation?.MutationOpenningBalance}}</td>
+                    </tr>
+                    <tr>
+                        <td>Added</td>
+                        <td>{{UtilizationMutation?.UtilizationAdded}}</td>
+                        <td>{{UtilizationMutation?.MutationAdded}}</td>
+                    </tr>
+                    <tr>
+                        <td>Checked</td>
+                        <td>{{UtilizationMutation?.UtilizationChecked}}</td>
+                        <td>{{UtilizationMutation?.MutationChecked}}</td>
+                    </tr>
+                    <tr>
+                        <td>Outstanding</td>
+                        <td>{{UtilizationMutation?.UtilizationOutstanding}}</td>
+                        <td>{{UtilizationMutation?.MutationOutstanding}}</td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>
