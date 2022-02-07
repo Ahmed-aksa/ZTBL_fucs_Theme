@@ -111,6 +111,7 @@ export class SetTargetComponent implements OnInit {
     Multiple;
     isMCO:boolean=false;
     AssignedTargetHeading;
+    exceptional:boolean=false;
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -359,6 +360,11 @@ export class SetTargetComponent implements OnInit {
     }
 
     get rowth(): string[] {
+        // ************Check For exceptional calculation********
+        if(this.targets[0]["SamRecoveryAmount"]){
+            this.exceptional=true;
+        }
+
         if (!this.targets || !this.targets.length) {
             return [];
         }
@@ -454,7 +460,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     onInputChanged(value, rowIndex: number, propertyKey: string): void {
-
+debugger
         value = this.removeCommaFromString(value);
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex
@@ -466,6 +472,7 @@ export class SetTargetComponent implements OnInit {
         });
 
         if(this.targets[0]["SamRecoveryAmount"]){
+            this.exceptional=true;
             var totalSum=0;
             for(let i =0;i<Object.keys(this.newValue[rowIndex])?.length;i++){
                 this.newValue
@@ -479,6 +486,13 @@ export class SetTargetComponent implements OnInit {
 
         // this.onDataChanged(this.newValue);
         this.Heading();
+    }
+
+    changeCSS(val){
+
+        if(val=="DisbursmentAmount" && this.exceptional==true){
+            return "exceptionalclass"
+        }
     }
 
     onBankInputChanged(value, rowIndex: number, propertyKey: string): void {

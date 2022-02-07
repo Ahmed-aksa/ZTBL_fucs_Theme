@@ -14,6 +14,8 @@ import {UserUtilsService} from '../../../shared/services/users_utils.service';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {SignatureDailogDairyComponent} from '../signature-dailog-dairy/signature-dailog-dairy.component';
+import {finalize} from "rxjs/operators";
+import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 
 @Component({
     selector: 'app-tour-dairy-zm',
@@ -42,12 +44,14 @@ export class TourDairyZmComponent implements OnInit {
     TourPlan: any;
     Format24:boolean=true;
     isUpdate:boolean=false;
+    date: any;
 
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private userUtilsService: UserUtilsService,
+        private tourDiaryService: TourDiaryService,
         public dialog: MatDialog,
         private router: Router
     ) {
@@ -64,44 +68,75 @@ export class TourDairyZmComponent implements OnInit {
         // this.getBranches(zoneId);
     }
 
-    isEnableReceipt(isTrCodeChange: boolean) {
-        var Date = this.gridForm.controls.Date.value;
-        if (Date._isAMomentObject == undefined) {
+    setDate() {
+
+        // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
+        // this.minDate = this.gridForm.controls.Date.value;
+        var varDate = this.gridForm.controls.TourDate.value;
+        if (varDate._isAMomentObject == undefined) {
             try {
-                var day = this.gridForm.controls.Date.value.getDate();
-                var month = this.gridForm.controls.Date.value.getMonth() + 1;
-                var year = this.gridForm.controls.Date.value.getFullYear();
+                var day = this.gridForm.controls.TourDate.value.getDate();
+                var month = this.gridForm.controls.TourDate.value.getMonth() + 1;
+                var year = this.gridForm.controls.TourDate.value.getFullYear();
                 if (month < 10) {
-                    month = '0' + month;
+                    month = "0" + month;
                 }
                 if (day < 10) {
-                    day = '0' + day;
+                    day = "0" + day;
                 }
+                varDate = day + "" + month + "" + year;
+                this.date = varDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.Date.setValue(branchWorkingDate);
+                // )
+                // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
+                //  )
+                this.gridForm.controls.TourDate.setValue(branchWorkingDate);
+
             } catch (e) {
             }
         } else {
             try {
-                var day = this.gridForm.controls.Date.value.toDate().getDate();
-                var month =
-                    this.gridForm.controls.Date.value.toDate().getMonth() + 1;
-                var year = this.gridForm.controls.Date.value
-                    .toDate()
-                    .getFullYear();
+                var day = this.gridForm.controls.TourDate.value.toDate().getDate();
+                var month = this.gridForm.controls.TourDate.value.toDate().getMonth() + 1;
+                var year = this.gridForm.controls.TourDate.value.toDate().getFullYear();
                 if (month < 10) {
-                    month = '0' + month;
+                    month = "0" + month;
                 }
                 if (day < 10) {
-                    day = '0' + day;
+                    day = "0" + day;
                 }
-                Date = day + '' + month + '' + year;
+                varDate = day + "" + month + "" + year;
 
+                this.date = varDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.Date.setValue(branchWorkingDate);
+                this.gridForm.controls.TourDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         }
+        this.GetTourPlan()
+    }
+
+    GetTourPlan(){
+        this.spinner.show();
+        this.tourDiaryService
+            .SearchTourPlan(this.zone,this.branch,this.date)
+            .pipe(finalize(() => {
+                this.spinner.hide();
+            }))
+            .subscribe((baseResponse) => {
+                if (baseResponse.Success) {
+                    debugger
+                    // this.TargetDuration = baseResponse.Target.TargetDuration;
+                    this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                } else {
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        baseResponse.Message,
+                        baseResponse.Code
+                    );
+                }
+            });
+
     }
 
     getBranches(changedValue){
