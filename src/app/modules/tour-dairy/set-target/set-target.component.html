@@ -128,7 +128,7 @@
                         <tbody>
                         <tr *ngFor="let row of targets; let rowIndex = index; trackBy: tracker">
                             <ng-container *ngFor="let key of rowKeys; trackBy: tracker">
-                                <td *ngIf="key!='Id'">
+                                <td [ngClass]="changeCSS(key)" *ngIf="key!='Id'">
                                     <div class="target-input" style="width: 200px;">
                                         <div *ngIf="key=='Name'">
 
@@ -138,7 +138,7 @@
                                         <div class="mat-form-field-fluid w-full" appearance="outline"
                                         >
                                             <mat-form-field  class="w-full">
-                                                <input matInput maxlength="20" [readonly]="checkReadOnly(key)" name="id-{{rowIndex}}" [(ngModel)]="row[key]" mask="separator.2" thousandSeparator=","
+                                                <input  matInput maxlength="20" [readonly]="checkReadOnly(key)" name="id-{{rowIndex}}" [(ngModel)]="row[key]" mask="separator.2" thousandSeparator=","
                                                         [attr.value]="row[key]"
                                                         (input)="onInputChanged($event.target.value, rowIndex, key)"
 
