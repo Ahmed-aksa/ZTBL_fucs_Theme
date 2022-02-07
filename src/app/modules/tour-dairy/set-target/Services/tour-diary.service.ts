@@ -99,7 +99,7 @@ export class TourDiaryService {
         this.request.Circle = {
             CircleIds: _circles,
         }
-        
+
         this.request.User = userInfo.User;
         this.Profile.ProfileID = UserID;
         this.request.Profile = this.Profile;
@@ -115,7 +115,7 @@ export class TourDiaryService {
     }
 
     saveDiary(zone,branch,TourDiary) {
-        
+
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.Zone = zone;
@@ -133,8 +133,8 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    submitDiary(zone,branch,circle,TourDiary, Status) {
-        
+    ChangeStatusDiary(zone,branch,circle,TourDiary, Status) {
+
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -168,7 +168,7 @@ export class TourDiaryService {
                 TourPlanId: TourDiary.TourPlanId,
             }
         }
-
+debugger
 
         // var req = JSON.stringify(this.request);
 
@@ -181,7 +181,7 @@ export class TourDiaryService {
     }
 
     submitTargets(bankAssignedTargets,Duration, UserID, TagName,assignedTarget,Label) {
-        
+
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {

@@ -87,7 +87,7 @@ export class TourDairyMcoComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
+
         this.loggedInUser = this.userService.getUserDetails();
         this.createForm();
 
@@ -137,7 +137,7 @@ export class TourDairyMcoComponent implements OnInit {
 
 
     saveTourDiary() {
-        
+
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -188,12 +188,9 @@ export class TourDairyMcoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
+                debugger
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.TourDiary.DiaryId = baseResponse.TourDairy.DiaryId;
-                this.TourDiary.viewType = "TOUR_DIARY";
-                this.TourDiaryList.push(this.TourDiary);
-                console.log(this.TourDiaryList)
+                this.TourDiaryList=baseResponse.TourDairy["TourDiaries"];
                 this.isUpdate=false;
                 this.onClearForm();
             } else {
@@ -203,10 +200,9 @@ export class TourDairyMcoComponent implements OnInit {
 
         });
     }
-    submit(){}
-    SubmitTourDiary(){
-        
-        var Status = 'S';
+    changeStatus(status){
+
+
         // if (!this.zone) {
         //     var Message = 'Please select Zone';
         //     this.layoutUtilsService.alertElement(
@@ -247,7 +243,7 @@ export class TourDairyMcoComponent implements OnInit {
 
         // this.TourDiary = Object.assign(this.gridForm.getRawValue());
 
-        // 
+        //
         // if (!this.TourDiary) {
         //     var Message = 'Please select Zone';
         //     this.layoutUtilsService.alertElement(
@@ -260,7 +256,7 @@ export class TourDairyMcoComponent implements OnInit {
 
 
         this.spinner.show();
-        this.tourDiaryService.submitDiary(this.zone,this.branch, this.circle,this.TourDiary, Status)
+        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -277,9 +273,39 @@ export class TourDairyMcoComponent implements OnInit {
 
         });
     }
-    edit(){
-    }
-    delete(){
+    edit(mcoDiary){
+
+        // this.gridForm.controls['Name'].setValue(null);
+        // this.gridForm.controls['Ppno'].setValue(null);
+        this.gridForm.controls['DiaryId'].setValue(null);
+        // this.gridForm.controls['TourPlanId'].setValue(null);
+        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
+        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
+        this.gridForm.controls['CircleId'].setValue(mcoDiary.CircleId);
+        this.gridForm.controls['TourDate'].setValue(mcoDiary.TourDate);
+        this.gridForm.controls['DepartureFromPlace'].setValue(mcoDiary.DepartureFromPlace);
+        this.gridForm.controls['DepartureFromTime'].setValue(mcoDiary.DepartureFromTime);
+        this.gridForm.controls['ArrivalAtPlace'].setValue(mcoDiary.ArrivalAtPlace);
+        this.gridForm.controls['ArrivalAtTime'].setValue(mcoDiary.ArrivalAtTime);
+        this.gridForm.controls['DisbNoOfCasesReceived'].setValue(mcoDiary.DisbNoOfCasesReceived);
+        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue(mcoDiary.DisbNoOfCasesAppraised);
+        this.gridForm.controls['DisbNoOfRecordVerified'].setValue(mcoDiary.DisbNoOfRecordVerified);
+        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue(mcoDiary.DisbNoOfSanctionedAuthorized);
+        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue(mcoDiary.DisbSanctionLetterDelivered);
+        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue(mcoDiary.DisbSupplyOrderDelivered);
+        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue(mcoDiary.NoOfSanctnMutationVerified);
+        this.gridForm.controls['NoOfUtilizationChecked'].setValue(mcoDiary.NoOfUtilizationChecked);
+        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue(mcoDiary.RecNoOfNoticeDelivered);
+        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue(mcoDiary.RecNoOfLegalNoticeDelivered);
+        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(mcoDiary.RecNoOfDefaulterContacted);
+        this.gridForm.controls['TotFarmersContacted'].setValue(mcoDiary.TotFarmersContacted);
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(mcoDiary.TotNoOfFarmersVisisted);
+        this.gridForm.controls['AnyOtherWorkDone'].setValue(mcoDiary.AnyOtherWorkDone);
+        this.gridForm.controls['Remarks'].setValue(mcoDiary.Remarks);
+
+        // this._cdf.detectChanges();
+        // this.createForm()
+        this.isUpdate=true;
     }
     onClearForm() {
         this.gridForm.controls['Name'].setValue("");
@@ -312,6 +338,7 @@ export class TourDairyMcoComponent implements OnInit {
         this.gridForm.controls['Status'].setValue("");
 
         this.isUpdate=false;
+        this.gridForm.markAsUntouched();
         this.setValue();
 
     }
@@ -379,7 +406,7 @@ export class TourDairyMcoComponent implements OnInit {
 
 
     getTourDiary(val){
-        // 
+        //
         // this.spinner.show();
         // this.tourDiary
         //     .SearchTourDiary(this.zone,this.branch,val?.value)
@@ -388,7 +415,7 @@ export class TourDairyMcoComponent implements OnInit {
         //     }))
         //     .subscribe((baseResponse) => {
         //         if (baseResponse.Success) {
-        //             
+        //
         //             // this.TargetDuration = baseResponse.Target.TargetDuration;
         //             // this.TourPlan=baseResponse?.TourPlan?.TourPlans;
         //         } else {
@@ -409,7 +436,7 @@ export class TourDairyMcoComponent implements OnInit {
                 }))
                 .subscribe((baseResponse) => {
                     if (baseResponse.Success) {
-                        
+
                         // this.TargetDuration = baseResponse.Target.TargetDuration;
                         this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                     } else {
@@ -424,7 +451,6 @@ export class TourDairyMcoComponent implements OnInit {
     }
 
     editTourDiary(){}
-
     assignvalues(){
         console.log(this.MCOModel)
         // this.gridForm.controls['Name'].setValue(null);
@@ -457,6 +483,6 @@ export class TourDairyMcoComponent implements OnInit {
 
         // this._cdf.detectChanges();
         // this.createForm()
-        this.isUpdate=true;
+        // this.isUpdate=true;
     }
 }
