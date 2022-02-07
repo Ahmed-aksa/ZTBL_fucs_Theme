@@ -204,16 +204,18 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     AddCal() {
 
         if (this.tourPlanForm.invalid) {
-            for (let el in this.tourPlanForm.controls) {
-                if (this.tourPlanForm.controls[el].errors) {
-                    this.toastr.error("Please add " + el);
-                }
-            }
+
             // this.layoutUtilsService.alertElement("", "Please Add Values");
             const controls = this.tourPlanForm.controls;
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
+            for (let el in this.tourPlanForm.controls) {
+                if (this.tourPlanForm.controls[el].errors) {
+                    this.toastr.error("Please add " + el);
+                    return;
+                }
+            }
             return;
         }
         var v = JSON.stringify(this.tourPlanForm.value)
