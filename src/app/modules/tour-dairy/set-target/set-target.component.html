@@ -55,7 +55,7 @@
 <!--                    </tr>-->
 <!--                    </thead>-->
 
-                    <thead *ngIf="isBankTarget">
+                    <thead *ngIf="isBankTarget" style="border: none !important;">
                     <tr class="table-header-background">
                         <th></th>
                         <ng-container *ngFor="let v of rowth;let i = index">
@@ -67,7 +67,7 @@
                     </tr>
                     </thead>
 
-                    <thead *ngIf="AssignedTargetHeading">
+                    <thead *ngIf="AssignedTargetHeading" style="border: none !important;">
                     <tr class="table-header-background">
 
                         <ng-container *ngFor="let v of AssignedTargetHeadings;let i = index">
@@ -79,7 +79,7 @@
                     </tr>
                     </thead>
 <!--                    Assigned Target Values-->
-                    <tbody *ngIf="!bankTargets">
+                    <tbody *ngIf="!bankTargets" style="border: none !important;">
                    <tr>
                         <ng-container>
                             <td><div><strong class="text-md">Assigned Targets: </strong></div></td>
@@ -93,13 +93,13 @@
  <!--                    For Bank Assigned Target     -->
 <!--                   Bank assigned Target Values-->
 <!--                    {{bankTargets|json}}-->
-                    <tbody *ngIf="bankTargets?.length>0">
+                    <tbody *ngIf="bankTargets?.length>0" style="border: none;">
                     <tr></tr>
                     <tr *ngFor="let roww of bankTargets; let rowIndexx = index; trackBy: trackerr">
                         <td><div><strong class="text-md">Bank Assigned Targets: </strong></div></td>
                         <ng-container *ngFor="let keyy of rowBankKeys; trackBy: trackerr">
                             <td>
-                                <div class="target-input" style="width: 200px;">
+                                <div class="target-input" style="width: 240px;">
                                         <div class="mat-form-field-fluid w-full" appearance="outline"
                                         >
                                             <mat-form-field  class="w-full">
@@ -116,20 +116,20 @@
                     </tbody>
 
 <!--                    Main Targets -->
-                        <thead>
+                        <thead style="border: none !important;">
 
                         <tr hidden class="table-header-background">
                             <th *ngFor="let k of rowKeys">{{ k }}</th>
                         </tr>
                         <tr class="table-header-background">
-                            <th *ngFor="let v of rowth">{{ v }}</th>
+                            <th  *ngFor="let v of rowth">{{ v }}</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr *ngFor="let row of targets; let rowIndex = index; trackBy: tracker">
+                        <tbody style="border: none !important;">
+                        <tr class="input-class" *ngFor="let row of targets; let rowIndex = index; trackBy: tracker" style="border: transparent; p">
                             <ng-container *ngFor="let key of rowKeys; trackBy: tracker">
                                 <td [ngClass]="changeCSS(key)" *ngIf="key!='Id'">
-                                    <div class="target-input" style="width: 200px;">
+                                    <div class="target-input" style="width: 240px;">
                                         <div *ngIf="key=='Name'">
 
                                         <div><strong class="text-md">{{row[key]}}</strong></div>
@@ -152,7 +152,7 @@
                             </ng-container>
                         </tr>
                         </tbody>
-                        <thead>
+                        <thead style="border: none !important;">
                         <tr class="table-header-background">
                             <th></th>
                             <th *ngFor="let len of totalLength">Total</th>

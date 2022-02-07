@@ -360,6 +360,11 @@ export class SetTargetComponent implements OnInit {
     }
 
     get rowth(): string[] {
+        // ************Check For exceptional calculation********
+        if(this.targets[0]["SamRecoveryAmount"]){
+            this.exceptional=true;
+        }
+
         if (!this.targets || !this.targets.length) {
             return [];
         }
@@ -455,7 +460,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     onInputChanged(value, rowIndex: number, propertyKey: string): void {
-
+debugger
         value = this.removeCommaFromString(value);
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex
@@ -484,9 +489,9 @@ export class SetTargetComponent implements OnInit {
     }
 
     changeCSS(val){
-        debugger
+
         if(val=="DisbursmentAmount" && this.exceptional==true){
-            return ""
+            return "exceptionalclass"
         }
     }
 
