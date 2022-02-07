@@ -31,3 +31,28 @@ export class DiaryMCO {
     AnyOtherWorkDone:string;
     Remarks:string;
 }
+
+export class TourDiaryZC{
+    Name: string;
+    Ppno: string;
+    Month: string;
+    Date:string;
+    DiaryId:string;
+    TourPlanId:string;
+    BranchId:string;
+    ZoneId:string;
+    CircleId:string;
+    TourDate:string;
+    DepartureFromPlace:string;
+    DepartureFromTime:string;
+    ArrivalAtPlace:string;
+    ArrivalAtTime:string;
+    Remarks:string;
+    GeneralAdmissionComplaints:string;
+    CashManagementCompliance:string;
+    AuditReports:string;
+    OutstandingParas:string;
+    Settlements:string;
+    Status:string;
+    CreatedBy:string;
+}
