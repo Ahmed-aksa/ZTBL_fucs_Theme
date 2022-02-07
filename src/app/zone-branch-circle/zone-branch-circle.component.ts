@@ -19,8 +19,8 @@ export class ZoneBranchCircleComponent implements OnInit {
     @Input('should_hide_fields') should_hide_fields;
     @Input('required_branch') required_branch = true;
     @Input('required_zone') required_zone = true;
-    @Input('show_branch') show_branch=true;
-    @Input('show_zone') show_zone=true;
+    @Input('show_branch') show_branch = true;
+    @Input('show_zone') show_zone = true;
     //@Input('show_circle') show_circle=true;
     @Output() branchZoneCircleData = new EventEmitter<{
         final_zone: any
@@ -105,8 +105,8 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.emitData();
 
         } else if (!this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
-             this.show_circle = false;
-             this.show_branch = false;
+            this.show_circle = false;
+            this.show_branch = false;
             this.SelectedZones = this.all_data.Zone;
             this.selected_z = this.SelectedZones?.ZoneId;
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
@@ -275,11 +275,19 @@ export class ZoneBranchCircleComponent implements OnInit {
             final_circle = this.SelectedCircles[0];
         else
             final_circle = this.SelectedCircles;
-        this.branchZoneCircleData.emit({
-            final_zone: final_zone[0],
-            final_branch: final_branch,
-            final_circle: final_circle
-        });
+        if (final_zone[0])
+            this.branchZoneCircleData.emit({
+                final_zone: final_zone[0],
+                final_branch: final_branch,
+                final_circle: final_circle
+            });
+        else {
+            this.branchZoneCircleData.emit({
+                final_zone: final_zone,
+                final_branch: final_branch,
+                final_circle: final_circle
+            });
+        }
     }
 
     changeCircle(event) {

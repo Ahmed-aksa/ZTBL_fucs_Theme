@@ -70,49 +70,7 @@ export class AppComponent implements OnInit {
         if (!environment.IsEncription) {
             return
         }
-        var user = localStorage.getItem("ZTBLUser")
-        if (!user) {
-            let key = this.getNewKey();
-            let UDID = this._common.newGuid();
-            var data = {
-                "DeviceInfo": {
-                    "IMEI": UDID
-                },
-                "Key": key,
-                "TranId": 0,
-                "User": {
-                    "IsActive": 0,
-                    "App": 1,
-                    "Channel": "user",
-                    "ChannelID": 0,
-                }
-            }
-            var responseEncript = this.encryptDecryptService.AESencrypt(key, data);
 
-            var rsa1 = Forge.pki.publicKeyFromPem(environment.publicRSAKey);
-            var encrypt = (rsa1.encrypt(key));
-            encrypt = window.btoa(encrypt);
-
-
-            var cusomeRequestModel = {
-                // "Key": encrypt,
-                "Req": responseEncript
-
-            }
-
-            let headers = new HttpHeaders({
-                "key":encrypt
-            });
-            let options = { headers: headers };
-
-            this.http.post(`${environment.apiUrl}/Account/HealthCheck`, cusomeRequestModel,options).subscribe((result: any) => {
-                if (result.Success) {
-                    let Keydata = this.encryptDecryptService.AESdecrypt(key, result.Resp);
-                    localStorage.setItem("ztblKey", JSON.parse(Keydata).Key);
-                    localStorage.setItem("ztbludid", UDID);
-                }
-            });
-        }
 
     }
     getBase64Encrypted(randomWordArray, pemKey): string {

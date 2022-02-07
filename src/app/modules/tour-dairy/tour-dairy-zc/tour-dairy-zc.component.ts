@@ -12,6 +12,7 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
+import {TourDiaryZC} from "../model/tour-diary-model";
 
 @Component({
     selector: 'app-tour-dairy-zc',
@@ -32,6 +33,7 @@ export class TourDairyZcComponent implements OnInit {
     loggedInUser: any;
     maxDate: Date;
     TourPlan;
+    TourDiary = new TourDiaryZC();
     sign;
     zone: any;
     branch: any;
@@ -45,6 +47,7 @@ export class TourDairyZcComponent implements OnInit {
         private userService: UserUtilsService,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
+        private datePipe: DatePipe,
         private tourDiaryService: TourDiaryService,
         private userUtilsService: UserUtilsService,
         public dialog: MatDialog,
@@ -63,7 +66,30 @@ export class TourDairyZcComponent implements OnInit {
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
     }
 
-    saveTourDiary(){}
+    saveTourDiary(){
+
+        this.TourDiary = Object.assign(this.gridForm.getRawValue());
+        this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
+        this.TourDiary.Status = 'P';
+        this.spinner.show();
+        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                console.log(baseResponse);
+                this.onClearForm();
+            } else {
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+        });
+
+    }
 
     onClearForm() {
         this.gridForm.controls['DiaryId'].setValue("");
@@ -84,7 +110,7 @@ export class TourDairyZcComponent implements OnInit {
         this.gridForm.controls['AnyOtherWorkDone'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
         this.gridForm.controls['Status'].setValue("");
-
+        this.btnText = 'Save';
     }
 
 
@@ -164,7 +190,9 @@ export class TourDairyZcComponent implements OnInit {
         this.GetTourPlan()
     }
 
-    edit(){}
+    edit(){
+        this.btnText = 'Update';
+    }
 
     delete(){}
 

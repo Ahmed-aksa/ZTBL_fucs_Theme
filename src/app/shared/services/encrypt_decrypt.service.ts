@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
-import { BaseRequestModel } from '../models/base_request.model';
+import {Injectable} from '@angular/core';
+import {BaseRequestModel} from '../models/base_request.model';
 import * as CryptoJS from 'crypto-js';
-import { throwError } from 'rxjs';
+import {throwError} from 'rxjs';
 import * as Forge from 'node-forge';
-import { environment } from 'environments/environment';
-import { AnyFn } from '@ngrx/store/src/selector';
-@Injectable({ providedIn: 'root' })
+import {environment} from 'environments/environment';
+import {AnyFn} from '@ngrx/store/src/selector';
+
+@Injectable({providedIn: 'root'})
 export class EncryptDecryptService {
     public request = new BaseRequestModel();
 
@@ -18,20 +19,20 @@ export class EncryptDecryptService {
 
             key = key.substring(0, 8).concat(key.substring(16, 40));
             return key;
-        }
-        else {
+        } else {
             throwError;
         }
     }
-    getUDID(){
-        let udid= localStorage.getItem("ztbludid");
-        if(udid){
+
+    getUDID() {
+        let udid = localStorage.getItem("ztbludid");
+        if (udid) {
             return udid;
-        }
-        else{
+        } else {
             throwError;
         }
     }
+
     AESencrypt(keys, value) {
         if (!keys) {
             keys = this.getKey()
@@ -57,8 +58,7 @@ export class EncryptDecryptService {
     AESdecrypt(keys, value) {
         if (!value) {
             return;
-         }
-        
+        }
         if (!keys) {
             keys = this.getKey()
         }
@@ -74,11 +74,11 @@ export class EncryptDecryptService {
         return decrypted.toString(CryptoJS.enc.Utf8);
     }
 
-  RSAencrypt(key:any){
-    var rsa1 = Forge.pki.publicKeyFromPem(environment.publicRSAKey);
-    var encrypt = (rsa1.encrypt(key));
-    encrypt = window.btoa(encrypt);
-    return encrypt;
-  }
+    RSAencrypt(key: any) {
+        var rsa1 = Forge.pki.publicKeyFromPem(environment.publicRSAKey);
+        var encrypt = (rsa1.encrypt(key));
+        encrypt = window.btoa(encrypt);
+        return encrypt;
+    }
 
 }

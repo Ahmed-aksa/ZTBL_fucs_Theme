@@ -115,6 +115,7 @@ export class TourDiaryZC{
     ArrivalAtPlace:string;
     ArrivalAtTime:string;
     Remarks:string;
+    LoanCasesInRecoverySchedule: string;
     GeneralAdmissionComplaints:string;
     CashManagementCompliance:string;
     AuditReports:string;

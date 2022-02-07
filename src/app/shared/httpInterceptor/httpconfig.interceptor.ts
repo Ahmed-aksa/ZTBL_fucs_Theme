@@ -30,7 +30,7 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     private isRefreshing = false;
-    private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Object>> {
         let authReq = req;
@@ -48,11 +48,16 @@ export class TokenInterceptor implements HttpInterceptor {
                     this.layoutUtilsService.AlertElementCapture(error.error.Message);
                     return throwError(error);
                 }
-                if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
 
+                if (error instanceof HttpErrorResponse) {
                     return this.handle401Error(authReq, next);
                 }
-                if (error.status == 401) {
+                if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
+                    return this.handle401Error(authReq, next);
+                }
+                if (error.status == 0) {
+                    this.layoutUtilsService.AlertElementCapture("You have been logged out from system");
+
                     return this.handle401Error(authReq, next);
                 }
 
@@ -62,7 +67,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
 
     private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-        
+
         this.spinner.hide();
         this.router.navigateByUrl('sign-out');
         localStorage.clear();
