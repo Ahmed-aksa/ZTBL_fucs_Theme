@@ -320,7 +320,7 @@ export class LandChargeCreationComponent implements OnInit {
     }
 
     searchTehsil(circleId) {
-        debugger
+        
         circleId = circleId.toLowerCase();
         if (circleId != null && circleId != undefined && circleId != "")
             this.TehsilLovDataSelected = this.TehsilLovData.filter(x => x.Name.toLowerCase().indexOf(circleId) > -1);

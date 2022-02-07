@@ -64,7 +64,7 @@ export class TourDiaryService {
         request.TourPlan=TourPlan;
 
 
-debugger
+
         return this.http
             .post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -99,7 +99,7 @@ debugger
         this.request.Circle = {
             CircleIds: _circles,
         }
-        debugger
+        
         this.request.User = userInfo.User;
         this.Profile.ProfileID = UserID;
         this.request.Profile = this.Profile;
@@ -115,7 +115,7 @@ debugger
     }
 
     saveDiary(zone,branch,TourDiary) {
-        debugger
+        
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.Zone = zone;
@@ -134,7 +134,7 @@ debugger
     }
 
     submitDiary(zone,branch,circle,TourDiary, Status) {
-        debugger
+        
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -181,7 +181,7 @@ debugger
     }
 
     submitTargets(bankAssignedTargets,Duration, UserID, TagName,assignedTarget,Label) {
-        debugger
+        
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {

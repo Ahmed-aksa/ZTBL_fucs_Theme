@@ -121,7 +121,7 @@ export class ViewTourTabComponent implements OnInit {
     }
 
     viewTourPlan(start = false, user_id = null, index = 0) {
-        debugger;
+        
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();

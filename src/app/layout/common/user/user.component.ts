@@ -98,7 +98,7 @@ export class UserComponent implements OnInit, OnDestroy {
             panelClass: ['w-4/12', 'max-w-full', 'max-h-full']
         });
         dialogRef.afterClosed().subscribe((res)=>{
-            debugger
+            
             if(res == 'true'){
                 this._router.navigate(['/sign-out']);
             }

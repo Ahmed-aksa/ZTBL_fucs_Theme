@@ -60,7 +60,7 @@ export class PresidentZtblComponent implements OnInit {
             return
         }
 
-        debugger
+        
         this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank  Book');
         this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No. Of Borrowers');

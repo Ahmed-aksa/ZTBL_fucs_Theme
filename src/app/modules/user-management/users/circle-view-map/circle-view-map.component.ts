@@ -279,7 +279,7 @@ export class CircleViewMapComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    debugger
+                    
                     var circles = baseResponse.Circles;
                     // delete all polygon that are already drawn on google map.
                     this.deleteAllPolygons()

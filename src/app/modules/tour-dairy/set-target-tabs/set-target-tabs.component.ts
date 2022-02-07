@@ -138,7 +138,7 @@ export class SetTargetTabsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger
+        
         this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
         this.GetTragetDuration();
         this.createForm();
@@ -165,7 +165,7 @@ export class SetTargetTabsComponent implements OnInit {
             this.assignedTargetHeadingsData = this.TargetData?.AssignedTarget;
 
             this.bankTargets = this.TargetData?.BankTargets;
-            debugger
+            
             this.Heading();
 
             this.ishidden = true;
@@ -225,7 +225,7 @@ export class SetTargetTabsComponent implements OnInit {
             )
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+                    
                     this.dateDuration=this.targetForm.controls.Duration.value;
                     this.Multiple=baseResponse?.Targets;
                     this.headings = baseResponse?.Targets[0]?.Heading;
@@ -246,7 +246,7 @@ export class SetTargetTabsComponent implements OnInit {
 
                         this.AssignedTargetHeading = Object.values(baseResponse?.Targets[0]?.AssignedTargetHeading);
                         Object.keys(baseResponse?.Targets[0]?.AssignedTargetHeading).forEach(x=>{
-                            debugger;
+                            
                             if(baseResponse?.Targets[0]?.AssignedTarget[x]){
                                 this.ShowassignedTarget.push(baseResponse?.Targets[0]?.AssignedTarget[x])
                                 //console.log(baseResponse?.Targets[0]?.AssignedTarget[x])
@@ -259,7 +259,7 @@ export class SetTargetTabsComponent implements OnInit {
                     }
                     this.assignedTargetHeadingsData = baseResponse?.Targets[0]?.AssignedTarget;
                     this.bankTargets = baseResponse?.Targets[0]?.BankTargets;
-                    debugger
+                    
                     this.Heading();
                     if(baseResponse?.Targets[0]?.DisbaleControls){
                         this.isMCO = baseResponse?.Targets[0]?.DisbaleControls;
@@ -276,7 +276,7 @@ export class SetTargetTabsComponent implements OnInit {
                         for(let i=0;i<baseResponse?.Targets?.length;i++){
                             this.Labels.push(baseResponse?.Targets[i]?.Heading["Name"])
                         }
-                        debugger
+                        
                     }
                 } else {
                     this.Multiple=[]
@@ -407,7 +407,7 @@ export class SetTargetTabsComponent implements OnInit {
     }
 
     onInputChanged(value, rowIndex: number, propertyKey: string): void {
-        debugger
+        
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex
                 ? row
@@ -425,7 +425,7 @@ export class SetTargetTabsComponent implements OnInit {
     }
 
     onBankInputChanged(value, rowIndex: number, propertyKey: string): void {
-        debugger
+        
         this.newBankValue = this.bankTargets.map((row, index) => {
             return index !== rowIndex
                 ? row
@@ -513,7 +513,7 @@ export class SetTargetTabsComponent implements OnInit {
     save() {
 
         // Check Total
-        debugger
+        
         if (this.bankTargets?.length > 0) {
             let BankTargetTotals = Object.keys(this.bankTargets[0])
             for (let i = 0; i < this.totals?.length; i++) {

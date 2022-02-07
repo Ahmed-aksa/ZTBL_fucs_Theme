@@ -35,7 +35,7 @@ export class CalculateDbrComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger
+        
 
        this.createFormm()
         this.Flag = this.route.snapshot.params['Flag'];

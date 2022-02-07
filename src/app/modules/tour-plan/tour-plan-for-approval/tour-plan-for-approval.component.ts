@@ -375,13 +375,13 @@ export class TourPlanForApprovalComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    debugger
+                    
                     if (user_id) {
                         this.TourPlans[index].TourPlans = baseResponse.TourPlanList;
                         // this.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
                         this.TourPlans[index].children = []
                     } else {
-                        debugger;
+                        
                         this.TourPlans = baseResponse.TourPlanList;
                         this.dataSource.data = baseResponse.TourPlanList;
                     }

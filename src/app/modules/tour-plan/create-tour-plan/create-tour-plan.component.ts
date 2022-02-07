@@ -39,7 +39,7 @@ import {TargetTourplanService} from "./tragetTourPlan.service";
 import {BehaviorSubject} from 'rxjs';
 import {AppInjector} from '../tour-plan.module';
 import {MatPaginator} from '@angular/material/paginator';
-import {Debugger} from "inspector";
+import {} from "inspector";
 import {AlertDialogConfirmationComponent} from "../../../shared/crud";
 
 const moment = _rollupMoment || _moment;
@@ -200,7 +200,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     }
 
     AddCal() {
-        debugger
+        
         if (this.tourPlanForm.invalid) {
             this.layoutUtilsService.alertElement("", "Please Add Values");
             const controls = this.tourPlanForm.controls;
@@ -219,7 +219,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         //this.startDate.format('YYYY-MM-DD'), this.endDate.format('YYYY-MM-DD')
         this.startDate = this.datepipe.transform(this.startDate, 'YYYY-MM-dd');
         this.endDate = this.datepipe.transform(this.endDate, 'YYYY-MM-dd')
-        debugger
+        
         this.spinner.show()
         this.tourPlanService
             .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate)
@@ -313,7 +313,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     };
 
     SearchTourPlan(startDate, endDate) {
-        debugger
+        
 
         if (this.zone == null || this.zone == undefined) {
             this.layoutUtilsService.alertElement('', 'Please Add Values');
@@ -353,7 +353,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     }
 
     editTourPlan(item) {
-        debugger
+        
         var visitDate;
         console.log(item)
         this.tourPlanForm.get('TourPlanId').patchValue(item?.TourPlanId);
@@ -507,7 +507,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        debugger
+        
         this.pageIndex = pageIndex;
         this.tragetList = this.dataValue.slice(
             pageIndex * this.itemsPerPage - this.itemsPerPage,

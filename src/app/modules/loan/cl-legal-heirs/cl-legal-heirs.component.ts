@@ -193,7 +193,7 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onSaveLegalHeirsForm() {
-        debugger
+        
 
         if (this.legalHeirsForm.invalid) {
             const controls = this.legalHeirsForm.controls;
@@ -230,7 +230,7 @@ export class ClLegalHeirsComponent implements OnInit {
             ).subscribe(baseResponse => {
 
             if (baseResponse.Success) {
-                debugger
+                
                 this.legalHeirs = this.legalHeirsForm.value;
                 // var legalHeirsGrid = new LoanApplicationLegalHeirs();
                 //
@@ -260,7 +260,7 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onDeleteLegalHeirs(ID, index) {
-debugger
+
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';

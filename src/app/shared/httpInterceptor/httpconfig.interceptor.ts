@@ -62,7 +62,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
 
     private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-        debugger;
+        
         this.spinner.hide();
         this.router.navigateByUrl('sign-out');
         localStorage.clear();
