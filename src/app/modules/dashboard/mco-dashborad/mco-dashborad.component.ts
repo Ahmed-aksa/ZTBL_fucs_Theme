@@ -37,9 +37,10 @@ export class McoDashboradComponent implements OnInit {
     public chartOptions1: Partial<ChartOptions>;
     public chartOptions2: Partial<ChartOptions>;
     public chartOptions3: Partial<ChartOptions>;
+    public chartOptions4: Partial<ChartOptions>;
     DisbursmentAchievement: any = [];
     RecoveryAchievement: any = [];
-    UtilizationMutation: any = [];
+    UtilizationMutation: any;
     year: any;
     years: any;
 
@@ -47,21 +48,21 @@ export class McoDashboradComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.year=(new Date()).getFullYear().toString();
+        this.year = (new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
-      
+
     }
 
     assignRoleData(DashboardReport: any) {
-
         this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport?.PerformanceIndicator, 'Performance Indicators');
         this.chartOptions2 = this._dashboardService.assignKeys(DashboardReport?.LoanPorfolio, 'Loan Portfolio');
         this.chartOptions3 = this._dashboardService.assignKeys(DashboardReport?.LoanPorfolio2, 'Loan Portfolio');
+        this.chartOptions4 = this._dashboardService.assignKeys(DashboardReport?.CircleRadius, 'Circle Radius');
 
         this.DisbursmentAchievement = this._dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
-        this.RecoveryAchievement = this._dashboardService.getSortDate(DashboardReport?.RecoveryAchievement); 
-        this.UtilizationMutation = Object.entries(DashboardReport?.UtilizationMutation); 
+        this.RecoveryAchievement = this._dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
+        this.UtilizationMutation = DashboardReport?.UtilizationMutation;
 
     }
 

@@ -37,7 +37,7 @@ export class PresidentZtblComponent implements OnInit {
     public chartOptions2: Partial<ChartOptions>;
     public chartOptions3: Partial<ChartOptions>;
     public chartOptions4: Partial<ChartOptions>;
-    ResourcesCount: [string, unknown][];
+    ResourcesCount: any;
     CountryWorst5: any;
     CountryTop5: any;
 
@@ -47,10 +47,10 @@ export class PresidentZtblComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.year=(new Date()).getFullYear().toString();
+        this.year = (new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
-      
+
     }
 
     assignRoleData(DashboardReport: any) {
@@ -60,11 +60,12 @@ export class PresidentZtblComponent implements OnInit {
             return
         }
 
+        
         this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank  Book');
         this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No. Of Borrowers');
         this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfAccountHolder, 'No. Of Accounts');
-        this.ResourcesCount = Object.entries(DashboardReport?.ResourcesCount);
+        this.ResourcesCount = DashboardReport?.ResourcesCount;
         this.CountryWorst5 = DashboardReport?.CountryWorst5;
         this.CountryTop5 = DashboardReport?.CountryTop5;
         //this.UtilizationMutation = Object.entries(DashboardReport?.UtilizationMutation);

@@ -122,7 +122,7 @@ export class ChargeCreationLoanComponent implements OnInit {
 
         this.ChargeCreationType = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.SearchChargeCreationType});
         // this.ChargeCreationType = this.LoanStatus.LOVs;
-        debugger
+        
 
     }
 

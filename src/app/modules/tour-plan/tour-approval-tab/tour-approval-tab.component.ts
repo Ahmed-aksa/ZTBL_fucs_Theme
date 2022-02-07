@@ -19,6 +19,8 @@ export class TourApprovalTabComponent implements OnInit {
     @Input('branch') branch: any;
     @Input('zone') zone: any;
     @Input('circle') circle: any;
+    @Input('tab_number') tab_number: any;
+
     dataSource = new MatTableDataSource();
     itemsPerPage = 10;
     private OffSet: number;
@@ -117,7 +119,7 @@ export class TourApprovalTabComponent implements OnInit {
     }
 
     searchTourPlanApproval(start = false, user_id = null, index = 0) {
-        debugger;
+        
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
@@ -134,7 +136,7 @@ export class TourApprovalTabComponent implements OnInit {
 
                 if (baseResponse.Success) {
 
-                    this.TourPlans.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
+                    this.TourPlans.TourPlans[index].TourPlans = baseResponse.TourPlanList[this.tab_number].TourPlans;
                     this.TourPlans.TourPlans[index].children = []
                     this.TourPlans.TourPlans.forEach((single_plan) => {
                         this.children.push(single_plan);
@@ -192,7 +194,8 @@ export class TourApprovalTabComponent implements OnInit {
         //     return "Refer Back";
         // }
     }
-    dateChange(date:string){
+
+    dateChange(date: string) {
         var day = date.slice(0, 2),
             month = date.slice(2, 4),
             year = date.slice(4, 8);

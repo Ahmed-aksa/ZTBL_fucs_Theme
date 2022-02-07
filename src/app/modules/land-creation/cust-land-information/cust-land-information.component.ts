@@ -1236,7 +1236,7 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     deleteRow(index) {
-        debugger
+        
         if (this.dynamicArray.length != 0) {
             if (this.dynamicArray[index].LandCustID != null && this.dynamicArray[index].LandCustID != "") {
                 this.spinner.show();

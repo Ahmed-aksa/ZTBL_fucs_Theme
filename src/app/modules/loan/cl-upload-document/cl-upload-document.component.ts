@@ -126,7 +126,7 @@ export class ClUploadDocumentComponent implements OnInit{
     }
 
     ngOnInit() {
-        debugger
+        
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
@@ -138,7 +138,7 @@ export class ClUploadDocumentComponent implements OnInit{
     }
 
     checkReadOnly(){
-        debugger
+        
         if(!this.loanAppID){
             this.docPage = true;
         }else{

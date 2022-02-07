@@ -109,7 +109,7 @@ export class SearchJvComponent implements OnInit {
     }
 
     // onselectionChange(event){
-    //     debugger
+    //     
     //     if(event.value == 'P' || event.value == 'A'){
     //         this.statusAS = true;
     //         this.displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Amount','Status', 'View'];

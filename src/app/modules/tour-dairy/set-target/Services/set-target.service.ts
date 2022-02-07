@@ -90,7 +90,7 @@ export class SetTargetService {
         this.request.Circle = {
             CircleIds: _circles,
         }
-        debugger
+        
         this.request.User = userInfo.User;
         this.Profile.ProfileID = UserID;
         this.request.Profile = this.Profile;
@@ -106,7 +106,7 @@ export class SetTargetService {
     }
 
     saveTargets(bankAssignedTargets, targets, Duration, AssignedTarget, assignedTarget, UserID, TagName,Label) {
-debugger
+
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {
@@ -175,7 +175,7 @@ debugger
     }
 
     submitTargets(bankAssignedTargets,Duration, UserID, TagName,assignedTarget,Label) {
-        debugger
+        
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {

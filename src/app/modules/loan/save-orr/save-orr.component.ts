@@ -535,14 +535,14 @@ let data={
 
     }
     onIncomeChange(e) {
-        debugger
+        
         let index = this.dataSourcee.DBRIncomeList.findIndex(inc => inc.ID === e.srcElement.id);
         this.dataSourcee.DBRIncomeList[index].Value = e.srcElement.value;
 
         this.DototalIncome()
     }
     onLiabChange(e) {
-        debugger
+        
         let index = this.dataSourcee.DBRLiabilitiesList.findIndex(inc => inc.ID === e.srcElement.id);
         this.dataSourcee.DBRLiabilitiesList[index].Value = e.srcElement.value;
 
@@ -562,7 +562,7 @@ let data={
         this.DototalDBR()
     }
     DototalIncome(){
-        debugger
+        
         this.totalDBRIncome=0;
         for(let i=0;i<this.dataSourcee.DBRIncomeList.length;i++){
             if(this.dataSourcee.DBRIncomeList[i].Value){

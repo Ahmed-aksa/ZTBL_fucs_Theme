@@ -75,13 +75,13 @@ export class LoanInquiryComponent implements OnInit {
     }
 
     getAllData(data) {
-        debugger
+        
         this.zone = data.final_zone;
         this.branch = data.final_branch;
     }
 
     find() {
-debugger
+
         var transactionId = this.RecoveryForm.controls.TransactionId.value;
         var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
         // this.hasFormErrors = false;

@@ -54,51 +54,56 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 table-responsive">
-                    <table class="table table-striped">
-                        <!-- <thead>
-                            <tr class="table-header-background">
-                                <th scope="row">No?. of Zones</th>
-                                <th scope="row">No?. of Branchs</th>
-                                <th scope="row">No?. of LLUs</th>
-                                <th scope="row">No?. of IC Units</th>
-                                <th scope="row">No?. of Accounts</th>
-                                <th scope="row">No?. of Lockers</th>
-                                <th scope="row">No?. of Bank owned Buildings</th>
-                                <th scope="row">No?. of Rented Officers</th>
-                                <th scope="row">No?. of Branches in Profits</th>
-                                <th scope="row">No?. of Lose</th>
-                                <th scope="row">No?. of Biometric Verified consumers (Loan + Accounts)</th>
-                                <th scope="row">No?. of MCO Circles</th>
-                                <th scope="row">No?. of MCOs available</th>
-                                <th scope="row">No?. of Burnt Files</th>
-                                <th scope="row">ATM Machines</th>
-                            </tr>
-                        </thead> -->
+                    <p class="heading mb-2 text-lg">Resources Count</p>
+                    <table class="table  table-striped">
                         <tbody>
                         <tr *ngFor="let item of ResourcesCount">
-                            <td>{{ dashboardService.getCamelCase(item[0])}}</td>
-                            <td>{{item[1]}}</td>
+                            <td style [innerHTML]="item.Value"></td>
+                            <td>{{item.Key}}</td>
                         </tr>
                         </tbody>
-
                     </table>
                 </div>
                 <div class="col-lg-6 table-responsive">
                     <table class="table table-striped">
-                        <!-- <thead>
-                            <tr class="table-header-background">
-                                <th scope="col">Utilization</th>
-                                <th scope="col">Mutations</th>
-                                <th scope="col">Audit Para</th>
-                                <th></th>
-                            </tr>
-                        </thead> -->
-                        <tbody>
-                        <tr *ngFor="let item of UtilizationMutation">
-                            <td> {{dashboardService.getCamelCase(item[0])}}</td>
-                            <td>{{item[1]}}</td>
+                        <p class="heading mb-2 text-lg">Utilization/Mutations</p>
+                <table class="table  table-striped">
+                    <thead>
+                      <tr class="table-header-background">
+                        <th scope="col"></th>
+                        <th scope="col">Utilization</th>
+                        <th scope="col">Mutations</th>
+                        <th scope="col">Audit Para</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Opening Blanace</td>
+                            <td>{{UtilizationMutation?.UtilizationOpenningBalance}}</td>
+                            <td>{{UtilizationMutation?.MutationOpenningBalance}}</td>
+                            <td>{{UtilizationMutation?.AuditParaOpenningBalance}}</td>
                         </tr>
-                        </tbody>
+                        <tr>
+                            <td>Added during the year</td>
+                            <td>{{UtilizationMutation?.UtilizationAdded}}</td>
+                            <td>{{UtilizationMutation?.MutationAdded}}</td>
+                            <td>{{UtilizationMutation?.AuditParaAdded}}</td>
+                        </tr>
+                        <tr>
+                            <td>Checked / Settled</td>
+                            <td>{{UtilizationMutation?.UtilizationChecked}}</td>
+                            <td>{{UtilizationMutation?.MutationChecked}}</td>
+                            <td>{{UtilizationMutation?.AuditParaChecked}}</td>
+                        </tr>
+                        <tr>
+                            <td>Outstanding</td>
+                            <td>{{UtilizationMutation?.UtilizationOutstanding}}</td>
+                            <td>{{UtilizationMutation?.MutationOutstanding}}</td>
+                            <td>{{UtilizationMutation?.AuditParaOutstanding}}</td>
+                        </tr>
+    
+                    </tbody>
+                </table>
                     </table>
                 </div>
             </div>

@@ -135,7 +135,7 @@ export class TourDiaryPcComponent implements OnInit {
     }
 
     saveTourDiary() {
-        debugger
+        
 
         if (!this.zone) {
             var Message = 'Please select Zone';

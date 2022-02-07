@@ -120,7 +120,7 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     saveTourDiary() {
-        debugger
+        
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -323,7 +323,7 @@ export class TourDiaryBmComponent implements OnInit {
         }
     }
     getTourDiary(val){
-        // debugger
+        // 
         // this.spinner.show();
         // this.tourDiary
         //     .SearchTourDiary(this.zone,this.branch,val?.value)
@@ -332,7 +332,7 @@ export class TourDiaryBmComponent implements OnInit {
         //     }))
         //     .subscribe((baseResponse) => {
         //         if (baseResponse.Success) {
-        //             debugger
+        //             
         //             // this.TargetDuration = baseResponse.Target.TargetDuration;
         //             // this.TourPlan=baseResponse?.TourPlan?.TourPlans;
         //         } else {
@@ -354,7 +354,7 @@ export class TourDiaryBmComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+                    
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                 } else {
