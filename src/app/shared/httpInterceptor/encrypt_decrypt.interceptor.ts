@@ -1,13 +1,25 @@
-import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
+import {
+    HttpErrorResponse,
+    HttpEvent,
+    HttpHandler,
+    HttpHeaders,
+    HttpInterceptor,
+    HttpRequest,
+    HttpResponse
+} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {environment} from "environments/environment";
 import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import {filter, map, switchMap, take} from "rxjs/operators";
 import {EncryptDecryptService} from "../services/encrypt_decrypt.service";
+import {NgxSpinnerService} from "ngx-spinner";
+import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
+import {TokenInterceptor} from "./httpconfig.interceptor";
 
 @Injectable()
 export class EncryptDecryptInterceptor implements HttpInterceptor {
-    constructor(private encryptDecryptService: EncryptDecryptService) {
+    constructor(private encryptDecryptService: EncryptDecryptService, private spinner: NgxSpinnerService, private router: Router, private toastr: ToastrService) {
 
     }
 
@@ -49,6 +61,18 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                             }
 
                         }
+                    }
+                    if (event instanceof HttpErrorResponse && event.status == 401) {
+                        this.spinner.hide();
+                        this.toastr.error("Please log in again");
+
+                        this.router.navigateByUrl('sign-out');
+                        localStorage.clear();
+                        // return this.tokenInterceptor.refreshTokenSubject.pipe(
+                        //     filter(token => token !== null),
+                        //     take(1),
+                        //     switchMap((token) => next.handle(this.addTokenHeader(request, token, this._common.newGuid())))
+                        // );
                     }
                 }
                 return event;
