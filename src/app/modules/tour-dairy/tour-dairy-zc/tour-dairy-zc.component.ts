@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SignatureDailogDairyComponent} from "../signature-dailog-dairy/signature-dailog-dairy.component";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
@@ -37,11 +37,12 @@ export class TourDairyZcComponent implements OnInit {
     branch: any;
     circle: any;
     Format24:boolean=true;
-    isUpdate:boolean=false;
     date: any;
+    btnText = 'Save'
 
     constructor(
         private fb: FormBuilder,
+        private userService: UserUtilsService,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private tourDiaryService: TourDiaryService,
@@ -54,111 +55,65 @@ export class TourDairyZcComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
+        this.loggedInUser = this.userService.getUserDetails();
     }
 
-    isEnableReceipt(isTrCodeChange: boolean) {
-        var Date = this.gridForm.controls.Date.value;
-        if (Date._isAMomentObject == undefined) {
-            try {
-                var day = this.gridForm.controls.Date.value.getDate();
-                var month = this.gridForm.controls.Date.value.getMonth() + 1;
-                var year = this.gridForm.controls.Date.value.getFullYear();
-                if (month < 10) {
-                    month = '0' + month;
-                }
-                if (day < 10) {
-                    day = '0' + day;
-                }
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.Date.setValue(branchWorkingDate);
-            } catch (e) {
-            }
-        } else {
-            try {
-                var day = this.gridForm.controls.Date.value.toDate().getDate();
-                var month =
-                    this.gridForm.controls.Date.value.toDate().getMonth() + 1;
-                var year = this.gridForm.controls.Date.value
-                    .toDate()
-                    .getFullYear();
-                if (month < 10) {
-                    month = '0' + month;
-                }
-                if (day < 10) {
-                    day = '0' + day;
-                }
-                Date = day + '' + month + '' + year;
-
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.Date.setValue(branchWorkingDate);
-            } catch (e) {
-            }
-        }
+    setValue(){
+        this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
+        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
     }
-
 
     saveTourDiary(){}
 
     onClearForm() {
         this.gridForm.controls['DiaryId'].setValue("");
         this.gridForm.controls['TourPlanId'].setValue("");
-        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
-        this.gridForm.controls['CircleId'].setValue("");
         this.gridForm.controls['TourDate'].setValue("");
         this.gridForm.controls['DepartureFromPlace'].setValue("");
         this.gridForm.controls['DepartureFromTime'].setValue("");
         this.gridForm.controls['ArrivalAtPlace'].setValue("");
         this.gridForm.controls['ArrivalAtTime'].setValue("");
-        this.gridForm.controls['DisbNoOfCasesReceived'].setValue("");
-        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue("");
-        this.gridForm.controls['DisbNoOfRecordVerified'].setValue("");
-        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue("");
-        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue("");
-        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue("");
-        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue("");
-        this.gridForm.controls['NoOfUtilizationChecked'].setValue("");
-        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue("");
-        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue("");
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("");
+        this.gridForm.controls['GeneralAdmissionComplaints'].setValue("");
+        this.gridForm.controls['CashManagementCompliance'].setValue("");
+        this.gridForm.controls['LoanCasesInRecoverySchedule'].setValue("");
+        this.gridForm.controls['AuditReports'].setValue("");
+        this.gridForm.controls['OutstandingParas'].setValue("");
+        this.gridForm.controls['Settlements'].setValue("");
         this.gridForm.controls['TotFarmersContacted'].setValue("");
         this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
         this.gridForm.controls['AnyOtherWorkDone'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
-
-        this.isUpdate=false;
-        //this.setValue();
+        this.gridForm.controls['Status'].setValue("");
 
     }
 
 
     createForm() {
         this.gridForm = this.fb.group({
-            NameOfOfficer: [''],
-            PPNO: [null],
-            Month: [null],
-            Zone: [null],
-            TourDate: [null],
-            Date: [null],
-            TourPlanId: [null],
-            DepartureFromPlace: [null],
-            DepartureFromTime: [null],
-            ArrivalAtPlace: [null],
-            ArrivalAtTime: [null],
-            GeneralAdministration: [null],
-            CashManagement: [null],
-            AuditReports: [null],
-            OutstandingParas: [null],
-            Settlement: [null],
-            LoanCasesInRecoverySchedule: [null],
-            ProgressiveFarmersContacted: [null],
-            NoOfFarmsVisited: [null],
-            AnyOtherWorkDone:[null],
-            Remarks:[null],
-            Name: [null],
-            Designation: [null],
-            Dated: [null],
+            Name: [null, [Validators.required]],
+            Ppno: [null, [Validators.required]],
+            Month: [null, [Validators.required]],
+            DiaryId:[null],
+            NameOfOfficer:[null],
+            TourPlanId:[null, [Validators.required]],
+            TourDate:[null, [Validators.required]],
+            DepartureFromPlace:[null, [Validators.required]],
+            DepartureFromTime:[null, [Validators.required]],
+            ArrivalAtPlace:[null, [Validators.required]],
+            ArrivalAtTime:[null, [Validators.required]],
+            GeneralAdmissionComplaints:[null, [Validators.required]],
+            CashManagementCompliance:[null, [Validators.required]],
+            LoanCasesInRecoverySchedule:[null],
+            AuditReports:[null, [Validators.required]],
+            OutstandingParas:[null, [Validators.required]],
+            Settlements:[null, [Validators.required]],
+            TotFarmersContacted:[null, [Validators.required]],
+            TotNoOfFarmersVisisted:[null, [Validators.required]],
+            AnyOtherWorkDone:[null, [Validators.required]],
+            Remarks:[null, [Validators.required]],
+            Status: [null]
         });
+        this.setValue();
     }
 
     setDate() {
@@ -208,6 +163,10 @@ export class TourDairyZcComponent implements OnInit {
         }
         this.GetTourPlan()
     }
+
+    edit(){}
+
+    delete(){}
 
     GetTourPlan(){
         this.spinner.show();

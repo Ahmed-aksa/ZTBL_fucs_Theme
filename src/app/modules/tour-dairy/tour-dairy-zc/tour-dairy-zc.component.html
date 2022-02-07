@@ -38,13 +38,13 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Name of Officer</mat-label>
-                                            <input matInput formControlName="NameOfOfficer" autocomplete="off" readonly="readonly"/>
+                                            <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">P.P.NO</mat-label>
-                                            <input matInput formControlName="PPNO" autocomplete="off" readonly="readonly"/>
+                                            <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
@@ -81,95 +81,139 @@
 
                                 </div>
 
-                                <div class="sub-heading">Departure From
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="flex" style="flex-wrap: wrap;">
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Departure Place</mat-label>
-                                                <input matInput formControlName="DepartureFromPlace" autocomplete="off"/>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Departure Time</mat-label>
-                                                <input type="text" matInput [ngxTimepicker]="timepickerDeparture" [format]="DateFormat()" readonly formControlName="DepartureFromTime"/>
-                                                <mat-icon matSuffix (click)="openFromIcon(timepickerDeparture)">schedule</mat-icon>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="sub-heading">Arrival At
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="flex" style="flex-wrap: wrap;">
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Arrival Place</mat-label>
-                                                <input matInput formControlName="ArrivalAtPlace" autocomplete="off"/>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Arrival Time</mat-label>
-                                                <input type="text" matInput [ngxTimepicker]="timepickerArrival" [format]="DateFormat()" readonly
-                                                    formControlName="ArrivalAtTime"/>
-                                                <mat-icon matSuffix (click)="openFromIcon(timepickerArrival)">schedule</mat-icon>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
                             </div>
 
                             <div class="sub-heading">Departure From
                             </div>
 
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Departure Place</mat-label>
-                                            <input matInput formControlName="DepartureFromPlace" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
+                            <div id="Kt-portlet-margin-top">
+                                <div class="collapse show" id="collapseExample">
+                                    <div class="kt-form kt-form--group-seperator-dashed">
 
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Departure Time</mat-label>
-                                            <input matInput formControlName="DepartureFromTime" autocomplete="off"/>
-                                        </mat-form-field>
+                                        <div class="kt-form">
+
+                                            <div class="kt-portlet__body">
+
+                                                <div class="col-lg-12 pt-2 px-0">
+                                                    <div class="flex" style="flex-wrap: wrap;">
+
+                                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                                <mat-label class="customMatLabel">Departure Place</mat-label>
+                                                                <input appAlphaNumericField matInput placeholder="Departure Place" formControlName="DepartureFromPlace" maxlength="30"
+                                                                       autocomplete="off"/>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                                <mat-label class="customMatLabel">Departure Time</mat-label>
+                                                                <!--                                        <input matInput placeholder="Departure Time" formControlName="DepartureFromTime" maxlength="30"-->
+                                                                <!--                                               autocomplete="off"/>-->
+                                                                <!--                                      ******************Time Work**********-->
+
+                                                                <input
+                                                                    type="text"
+                                                                    matInput
+                                                                    [ngxTimepicker]="timepickerDeparture"
+                                                                    [format]="DateFormat()"
+                                                                    readonly
+                                                                    formControlName="DepartureFromTime"
+                                                                />
+                                                                <mat-icon
+                                                                    matSuffix
+
+                                                                    (click)="openFromIcon(timepickerDeparture)"
+                                                                >schedule</mat-icon>
+
+                                                                <!--                                        <mat-icon-->
+                                                                <!--                                            matPrefix-->
+                                                                <!--                                            *ngIf="formControlItem.value && !formControlItem.disabled && !required"-->
+                                                                <!--                                            (click)="onClear($event)"-->
+                                                                <!--                                        >-->
+                                                                <!--                                            close-->
+                                                                <!--                                        </mat-icon>-->
+
+                                                            </mat-form-field>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+
                             </div>
 
                             <div class="sub-heading">Arrival At
                             </div>
 
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Arrival Place</mat-label>
-                                            <input matInput formControlName="ArrivalAtPlace" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
+                            <div id="Kt-portlet-margin-top">
+                                <div class="collapse show" id="collapseExample">
+                                    <div class="kt-form kt-form--group-seperator-dashed">
 
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Arrival Time</mat-label>
-                                            <input matInput formControlName="ArrivalAtTime" autocomplete="off"/>
-                                        </mat-form-field>
+                                        <div class="kt-form">
+
+                                            <div class="kt-portlet__body">
+
+                                                <div class="col-lg-12 pt-2 px-0">
+                                                    <div class="flex" style="flex-wrap: wrap;">
+
+                                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                                <mat-label class="customMatLabel">Arrival Place</mat-label>
+                                                                <input appAlphaNumericField matInput placeholder="Arrival Place" formControlName="ArrivalAtPlace" maxlength="30"
+                                                                       autocomplete="off"/>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                                <mat-label class="customMatLabel">Arrival Time</mat-label>
+                                                                <!--   <input matInput placeholder="Arrival Time" formControlName="ArrivalAtTime" maxlength="30"-->
+                                                                <!--                                               autocomplete="off"/>-->
+                                                                <!--                                      ******************Time Work**********-->
+
+                                                                <input
+                                                                    type="text"
+                                                                    matInput
+                                                                    [ngxTimepicker]="timepickerArrival"
+                                                                    [format]="DateFormat()"
+                                                                    readonly
+                                                                    formControlName="ArrivalAtTime"
+                                                                />
+                                                                <mat-icon
+                                                                    matSuffix
+
+                                                                    (click)="openFromIcon(timepickerArrival)"
+                                                                >schedule</mat-icon
+                                                                >
+
+                                                                <!--                                        <mat-icon-->
+                                                                <!--                                            matPrefix-->
+                                                                <!--                                            *ngIf="formControlItem.value && !formControlItem.disabled && !required"-->
+                                                                <!--                                            (click)="onClear($event)"-->
+                                                                <!--                                        >-->
+                                                                <!--                                            close-->
+                                                                <!--                                        </mat-icon>-->
+                                                            </mat-form-field>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
+
 
                             </div>
 
@@ -178,14 +222,14 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">General Administration</mat-label>
-                                            <input matInput formControlName="GeneralAdministration" autocomplete="off"/>
+                                            <input matInput formControlName="GeneralAdmissionComplaints" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Cash Management </mat-label>
-                                            <input matInput formControlName="CashManagement" autocomplete="off"/>
+                                            <input matInput formControlName="CashManagementCompliance" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -214,7 +258,7 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Settlement </mat-label>
-                                            <input matInput formControlName="Settlement" autocomplete="off"/>
+                                            <input matInput formControlName="Settlements" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -240,14 +284,14 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Progressive Farmers Contacted</mat-label>
-                                            <input matInput formControlName="ProgressiveFarmersContacted" autocomplete="off"/>
+                                            <input matInput formControlName="TotFarmersContacted" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of Farms Visited</mat-label>
-                                            <input matInput formControlName="NoOfFarmsVisited" autocomplete="off"/>
+                                            <input matInput formControlName="TotNoOfFarmersVisisted" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -277,8 +321,7 @@
 
                         <div class="row mt-2 mr-1">
                             <div class="col-lg-12 text-right">
-                                <button *ngIf="isUpdate==false" class="ml-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Save</button>
-                                <button *ngIf="isUpdate==true" class="ml-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Update</button>
+                                <button class="ml-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>{{btnText}}</button>
                                 <button mat-raised-button class="mr-2" color="primary" (click)="SubmitTourDiary()">
                                     <mat-icon class="mr-2">check_circle</mat-icon>
                                     Submit
@@ -296,13 +339,13 @@
                                 <table class="table ">
                                     <thead>
                                     <tr class=" text-center">
+                                        <th rowspan="2"  >Actions</th>
                                         <th rowspan="2"  >Date</th>
                                         <th colspan="2"  >Departure from</th>
                                         <th colspan="2"  >Arrival at</th>
                                         <th rowspan="2"  >General Administration/Ambiance & Public Complaints of the Branch Visited</th>
                                         <th rowspan="2"  >Cash Management & Compliance of Bank Instructions/SBP directives on FTC/AML/KYC etc by the Branch visited</th>
-                                        <th colspan="3"  >Audit Reports/Audit Discussions and Compliance Status of Branch Visited
-                                        </th>
+                                        <th colspan="3"  >Audit Reports/Audit Discussions and Compliance Status of Branch Visited</th>
                                     </tr>
                                     <tr class=" text-center">
                                         <th  >Place</th>
@@ -316,66 +359,30 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
+                                        <td>
+                                            <button class="ml-2" mat-icon-button color="primary" (click)="edit()"
+                                            >
+                                                <mat-icon>
+                                                    edit
+                                                </mat-icon>
+                                            </button>
+                                            <button mat-icon-button (click)="delete()">
+                                                <mat-icon class="text-red-500">
+                                                    delete_forever
+                                                </mat-icon>
+                                            </button>
+
                                         </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     </tbody>
                                 </table>

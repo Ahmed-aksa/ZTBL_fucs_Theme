@@ -276,7 +276,7 @@ export class ZoneBranchCircleComponent implements OnInit {
         else
             final_circle = this.SelectedCircles;
         this.branchZoneCircleData.emit({
-            final_zone: final_zone,
+            final_zone: final_zone[0],
             final_branch: final_branch,
             final_circle: final_circle
         });
