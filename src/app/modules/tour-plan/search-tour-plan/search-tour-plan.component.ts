@@ -19,6 +19,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {LovService} from "../../../shared/services/lov.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DatePipe} from "@angular/common";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
     selector: 'search-loan-utilization',
@@ -90,6 +91,7 @@ export class SearchTourPlanComponent implements OnInit {
                 private _circleService: CircleService,
                 private _cdf: ChangeDetectorRef,
                 private datePipe: DatePipe,
+                private toastr: ToastrService,
                 private userUtilsService: UserUtilsService) {
         this.loggedInUser = userUtilsService.getUserDetails();
         this.Math = Math;
@@ -362,10 +364,16 @@ export class SearchTourPlanComponent implements OnInit {
     SearchTourPlan(from_search_button = false) {
         if (this.TourPlan.invalid) {
             const controls = this.TourPlan.controls;
-            this.layoutUtilsService.alertElement('', 'Please Add Required Values')
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
+            for (let el in this.TourPlan.controls) {
+                if (this.TourPlan.controls[el].errors) {
+                    this.toastr.error("Please add " + el);
+                    return;
+                }
+            }
+            return;
             return;
         }
 
