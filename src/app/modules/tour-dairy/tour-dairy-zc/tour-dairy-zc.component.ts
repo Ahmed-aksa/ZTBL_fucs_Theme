@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SignatureDailogDairyComponent} from "../signature-dailog-dairy/signature-dailog-dairy.component";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
@@ -88,7 +87,7 @@ export class TourDiaryZcComponent implements OnInit {
             if (baseResponse.Success) {
 
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.tourDiaryList = baseResponse.TourDairy.TourDiaries;
+                this.tourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.onClearForm();
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);

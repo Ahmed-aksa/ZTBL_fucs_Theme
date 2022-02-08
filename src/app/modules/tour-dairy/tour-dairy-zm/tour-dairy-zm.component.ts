@@ -13,7 +13,6 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {UserUtilsService} from '../../../shared/services/users_utils.service';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
-import {SignatureDailogDairyComponent} from '../signature-dailog-dairy/signature-dailog-dairy.component';
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {TourDiaryZM} from "../model/tour-diary-model";

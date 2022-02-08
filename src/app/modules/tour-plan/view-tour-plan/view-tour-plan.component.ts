@@ -16,13 +16,9 @@ import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {finalize, map} from "rxjs/operators";
+import {finalize} from "rxjs/operators";
 import {TourPlan} from '../Model/tour-plan.model';
-import moment from "moment";
-import {SignatureDailogDairyComponent} from "../../tour-dairy/signature-dailog-dairy/signature-dailog-dairy.component";
 import {SignaturePadForTourComponent} from "../signature-pad-for-tour/signature-pad-for-tour.component";
-import {data} from "autoprefixer";
-import {environment} from "../../../../environments/environment";
 import {ToastrService} from "ngx-toastr";
 import {HttpClient} from "@angular/common/http";
 
@@ -377,13 +373,13 @@ export class ViewTourPlanComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    
+
                     if (user_id) {
                         this.TourPlans[index].TourPlans = baseResponse.TourPlanList;
                         // this.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
                         this.TourPlans[index].children = []
                     } else {
-                        
+
                         this.TourPlans = baseResponse.TourPlanList;
                         this.dataSource.data = baseResponse.TourPlanList;
                     }
