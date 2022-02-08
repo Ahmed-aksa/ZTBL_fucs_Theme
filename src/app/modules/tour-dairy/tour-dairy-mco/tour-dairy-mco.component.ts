@@ -328,12 +328,6 @@ export class TourDairyMcoComponent implements OnInit {
         this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
     }
-    getToday() {
-        // Today
-        this.Today = this._common.workingDate();
-        return this.Today;
-    }
-
     setDate() {
 
         // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
@@ -381,8 +375,6 @@ export class TourDairyMcoComponent implements OnInit {
         }
         this.GetTourPlan()
     }
-
-
     getTourDiary(val){
         //
         // this.spinner.show();
@@ -428,7 +420,6 @@ export class TourDairyMcoComponent implements OnInit {
 
     }
 
-    editTourDiary(){}
     assignvalues(){
         console.log(this.MCOModel)
         // this.gridForm.controls['Name'].setValue(null);
