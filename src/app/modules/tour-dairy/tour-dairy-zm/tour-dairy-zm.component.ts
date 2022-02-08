@@ -33,7 +33,7 @@ import {ToastrService} from "ngx-toastr";
         {provide: MAT_DATE_FORMATS, useValue: DateFormats},
     ],
 })
-export class TourDairyZmComponent implements OnInit {
+export class TourDiaryZmComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
     maxDate: Date;

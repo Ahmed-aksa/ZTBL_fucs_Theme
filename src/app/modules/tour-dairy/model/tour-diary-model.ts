@@ -142,3 +142,14 @@ export class TourDiaryPC{
     Status: string;
     CreatedBy: string;
 }
+
+export class TourDiary {
+    TourPlanId: string[];
+    CircleId: string;
+    VisitedDate: string;
+    Purpose: string;
+    Remarks: string;
+    Status: string;
+
+
+}

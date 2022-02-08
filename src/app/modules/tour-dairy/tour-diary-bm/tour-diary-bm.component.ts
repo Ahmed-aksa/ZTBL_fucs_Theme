@@ -154,7 +154,7 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     getToday() {
-        this.Today = this._common.workingDate();
+        this.Today = new Date();
         return this.Today;
     }
 
@@ -321,7 +321,7 @@ export class TourDiaryBmComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.TourDiaryList = baseResponse.TourDairy["TourDiaries"];
+                this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
                 this.isUpdate = false;
                 this.onClearForm();
             } else {
