@@ -63,35 +63,34 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     setValue() {
-        this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser?.User?.DisplayName);
         this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
     }
 
     createForm() {
+
+        //ArrivalAtPlace
+        //ArrivalAtTime
+        //Remarks
+        //Status
+        //CreatedBy
+
         this.gridForm = this.fb.group({
-            Name: [''],
-            DiaryId: [null],
-            NameOfOfficer: [''],
-            PPNO: [null],
-            Zone: [null],
-            BranchId: [null],
+            DisbNoOfNewBorrowerContacted: [null],
+            DisbBorrowerRollOverCasedContacted: [null],
+            RecAmountRecoveredWithLCNo: [null],
             TourDate: [null],
-            Date: [null],
+            DiaryId: [null],
             TourPlanId: [null],
+            BranchId: [null],
+            ZoneId: [null],
+            CircleId: [null],
+            PPNO: [null],
             DepartureFromPlace: [null],
             DepartureFromTime: [null],
-            ArrivalAtPlace: [null],
             ArrivalAtTime: [null],
-            NoOfNewBorrowersContacted: [null],
-            NoOfBorrowersRollover: [null],
-            NoOfDefaultersContacted: [null],
-            AmountRecoveredWithLcno: [null],
-            NoOfUtilizationsCheckedPerQuota: [null],
-            ProgressiveFarmersContacted: [null],
-            NoOfFarmsVisited: [null],
-            AnyOtherWorkDone: [null],
+            ArrivalAtPlace: [null],
+            Status: [null],
             Remarks: [null],
-            Designation: [null],
             Dated: [null],
         });
         this.setValue();
