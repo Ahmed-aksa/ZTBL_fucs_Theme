@@ -216,6 +216,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
             }
             return;
         }
+        debugger;
         var v = JSON.stringify(this.tourPlanForm.value)
         this.TourPlan = Object.assign(this.tourPlanForm.value);
         if (this.tourPlanForm.controls.Status.value == 'R') {

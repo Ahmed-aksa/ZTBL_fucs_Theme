@@ -30,7 +30,6 @@ export class TourPlanService {
     userInfo = this.userUtilsService.getUserDetails();
 
     createTourPlan(TourPlan, zone = null, branch = null, circle = null, startDate = null, endDate = null) {
-
         this.request = new BaseRequestModel();
         this.request.DEVICELOCATION = this.deviceLocation;
         this.request.TranId = 2830;
@@ -39,13 +38,19 @@ export class TourPlanService {
         this.request.TourPlan = TourPlan;
         this.request.TourPlan.StartDate = startDate;
         this.request.TourPlan.EndDate = endDate;
-        this.request.Zone = zone;
-        this.request.Branch = branch;
-        this.request.Circle = circle;
+        if (zone) {
+            this.request.Zone = zone;
+        } else {
+            this.request.Zone = {
+                ZoneId: TourPlan.ZoneId
+            }
+        }
+        if (branch)
+            this.request.Branch = branch;
+        if (circle)
+            this.request.Circle = circle;
 
         var v = JSON.stringify(this.request)
-
-console.log(v)
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourPlan`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -72,7 +77,7 @@ console.log(v)
     }
 
     ChanageTourStatusMultiple(tourPlan: TourPlan) {
-        
+
         var value, tourPlanAray = [], tourPlanIds;
         value = tourPlan
 
@@ -165,7 +170,7 @@ console.log(v)
         //   }
         var req = JSON.stringify(this.request);
 
-     console.log(req);
+        console.log(req);
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -173,7 +178,7 @@ console.log(v)
     }
 
     GetScheduleBaseTourPlan(tourPlan, Limit, Offset, branch, zone) {
-        
+
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
@@ -242,7 +247,7 @@ console.log(v)
     }
 
     getTargetsTracks(id: number, next_number: number, duration) {
-        
+
         let request = new BaseRequestModel();
         request.Target = {
             Id: String(id),
@@ -274,7 +279,7 @@ console.log(v)
     searchForTourPlanApproval(
         approval_from: any,
         itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
-        
+
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {
@@ -295,11 +300,11 @@ console.log(v)
             Circle: circle,
             User: this.userInfo.User,
         }
-        if(request.TourPlan.StartDate=="Invalid date"){
-            request.TourPlan.StartDate=null;
+        if (request.TourPlan.StartDate == "Invalid date") {
+            request.TourPlan.StartDate = null;
         }
-        if(request.TourPlan.EndDate=="Invalid date"){
-            request.TourPlan.EndDate=null;
+        if (request.TourPlan.EndDate == "Invalid date") {
+            request.TourPlan.EndDate = null;
         }
 
         console.log(request);
@@ -312,8 +317,8 @@ console.log(v)
 
     viewTourPlan(
         approval_from: any,
-        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id,PPNO) {
-        
+        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id, PPNO) {
+
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {
@@ -328,7 +333,7 @@ console.log(v)
                 Limit: String(itemsPerPage),
                 Offset: offset,
                 // PPNO:PPNO,
-                UserPPNo:approval_from.PPNO,
+                UserPPNo: approval_from.PPNO,
             },
 
             Zone: zone,
@@ -336,11 +341,11 @@ console.log(v)
             Circle: circle,
             User: this.userInfo.User,
         }
-        if(request.TourPlan.StartDate=="Invalid date"){
-            request.TourPlan.StartDate=null;
+        if (request.TourPlan.StartDate == "Invalid date") {
+            request.TourPlan.StartDate = null;
         }
-        if(request.TourPlan.EndDate=="Invalid date"){
-            request.TourPlan.EndDate=null;
+        if (request.TourPlan.EndDate == "Invalid date") {
+            request.TourPlan.EndDate = null;
         }
 
         console.log(request);
