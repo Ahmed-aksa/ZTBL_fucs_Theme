@@ -125,7 +125,7 @@ export class TourDairyZcComponent implements OnInit {
         this.gridForm = this.fb.group({
             Name: [null, [Validators.required]],
             Ppno: [null, [Validators.required]],
-            Month: [null, [Validators.required]],
+            Month: [null],
             DiaryId:[null],
             NameOfOfficer:[null],
             TourPlanId:[null, [Validators.required]],
