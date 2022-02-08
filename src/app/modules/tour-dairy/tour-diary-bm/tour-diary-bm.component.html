@@ -8,16 +8,6 @@
             <button (click)="assignValues()">DO it</button>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
-
-            <!--            <p class="text-right">-->
-            <!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->
-            <!--                        color="primary"-->
-            <!--                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">-->
-            <!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
-            <!--                    Advance Filter-->
-            <!--                </button>-->
-            <!--            </p>-->
-
         </div>
     </div>
 
@@ -68,7 +58,7 @@
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Tour Plan</mat-label>
                                         <mat-select formControlName="TourPlanId"
-                                                    (selectionChange)="getTourDiary($event)">
+                                        >
                                             <mat-option>
                                                 Select
                                             </mat-option>
@@ -264,7 +254,7 @@
                                     <mat-icon class="mr-2">save</mat-icon>
                                     Update
                                 </button>
-                                <button mat-raised-button class="mr-2" color="primary" (click)="SubmitTourDiary()">
+                                <button mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
                                     <mat-icon class="mr-2">check_circle</mat-icon>
                                     Submit
                                 </button>
