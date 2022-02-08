@@ -2,9 +2,9 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SetTargetComponent} from './set-target/set-target.component';
 import {SignatureDailogDairyComponent} from './signature-dailog-dairy/signature-dailog-dairy.component';
-import {TourDairyMcoComponent} from './tour-dairy-mco/tour-dairy-mco.component';
-import {TourDairyZcComponent} from './tour-dairy-zc/tour-dairy-zc.component';
-import {TourDairyZmComponent} from './tour-dairy-zm/tour-dairy-zm.component';
+import {TourDiaryMcoComponent} from './tour-dairy-mco/tour-dairy-mco.component';
+import {TourDiaryZcComponent} from './tour-dairy-zc/tour-dairy-zc.component';
+import {TourDiaryZmComponent} from './tour-dairy-zm/tour-dairy-zm.component';
 import {ViewFileComponent} from './view-file/view-file.component';
 import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -47,15 +47,15 @@ const routing = [
     },
     {
         path: "create-tour-diary",
-        component: TourDairyMcoComponent,
+        component: TourDiaryMcoComponent,
     },
     {
         path: "create-tour-diary-zm",
-        component: TourDairyZmComponent,
+        component: TourDiaryZmComponent,
     },
     {
         path: "create-tour-diary-zc",
-        component: TourDairyZcComponent,
+        component: TourDiaryZcComponent,
     },
     {
         path: "create-tour-diary-bm",
@@ -87,9 +87,9 @@ const routing = [
     declarations: [
         SetTargetComponent,
         SignatureDailogDairyComponent,
-        TourDairyMcoComponent,
-        TourDairyZcComponent,
-        TourDairyZmComponent,
+        TourDiaryMcoComponent,
+        TourDiaryZcComponent,
+        TourDiaryZmComponent,
         ViewFileComponent,
         ViewTargetComponent,
         TargetsComponent,
@@ -122,5 +122,5 @@ const routing = [
         SetTargetService
     ],
 })
-export class TourDairyModule {
+export class TourDiaryModule {
 }

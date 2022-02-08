@@ -23,7 +23,7 @@ import {DiaryMCO} from "../set-target/Models/tour-diary.model";
 
     ],
 })
-export class TourDairyMcoComponent implements OnInit {
+export class TourDiaryMcoComponent implements OnInit {
     MCOModel = new DiaryMCO;
     gridForm: FormGroup;
     loggedInUser: any;
@@ -179,6 +179,7 @@ export class TourDairyMcoComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
+        console.log(JSON.stringify(this.TourDiary))
         this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
             .pipe(
                 finalize(() => {
@@ -188,14 +189,13 @@ export class TourDairyMcoComponent implements OnInit {
             if (baseResponse.Success) {
                 debugger
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.TourDiaryList=baseResponse.TourDairy["TourDiaries"];
+                this.TourDiaryList=baseResponse.TourDiary["TourDiaries"];
                 this.isUpdate=false;
                 this.onClearForm();
             } else {
 
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
-
         });
     }
 

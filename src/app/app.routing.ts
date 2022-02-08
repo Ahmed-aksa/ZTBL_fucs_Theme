@@ -119,7 +119,7 @@ export const appRoutes: Route[] = [
             },
             {
                 path: 'tour-diary',
-                loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDairyModule)
+                loadChildren: () => import('app/modules/tour-dairy/tour-dairy.module').then(m => m.TourDiaryModule)
             },
             {
                 path: 'loan-utilization',

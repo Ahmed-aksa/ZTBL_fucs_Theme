@@ -32,7 +32,7 @@ import {TourDiaryZM} from "../model/tour-diary-model";
         {provide: MAT_DATE_FORMATS, useValue: DateFormats},
     ],
 })
-export class TourDairyZmComponent implements OnInit {
+export class TourDiaryZmComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
     maxDate: Date;

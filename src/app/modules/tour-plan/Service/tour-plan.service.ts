@@ -72,7 +72,7 @@ console.log(v)
     }
 
     ChanageTourStatusMultiple(tourPlan: TourPlan) {
-        
+
         var value, tourPlanAray = [], tourPlanIds;
         value = tourPlan
 
@@ -173,7 +173,7 @@ console.log(v)
     }
 
     GetScheduleBaseTourPlan(tourPlan, Limit, Offset, branch, zone) {
-        
+
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
@@ -242,7 +242,7 @@ console.log(v)
     }
 
     getTargetsTracks(id: number, next_number: number, duration) {
-        
+
         let request = new BaseRequestModel();
         request.Target = {
             Id: String(id),
@@ -274,7 +274,7 @@ console.log(v)
     searchForTourPlanApproval(
         approval_from: any,
         itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
-        
+
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {
@@ -313,7 +313,7 @@ console.log(v)
     viewTourPlan(
         approval_from: any,
         itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id,PPNO) {
-        
+
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {

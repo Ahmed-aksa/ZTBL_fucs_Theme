@@ -22,7 +22,7 @@ export class TourDiaryService {
 
     public request = new BaseRequestModel();
     public activity = new Activity();
-
+    userInfo = this.userUtilsService.getUserDetails();
     constructor(
         private http: HttpClient,
         private httpUtils: HttpUtilsService,
@@ -31,19 +31,39 @@ export class TourDiaryService {
         private _common: CommonService
     ) {
     }
-    SearchTourDiary(zone,branch,TourDiary) {
-        this.request = new BaseRequestModel();
-        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        this.request.User = userInfo.User;
-        this.request.Zone = zone;
-        this.request.Branch = branch;
-        this.request.TourDiary=TourDiary;
+    // SearchTourDiary(zone,branch,TourDiary) {
+    //     this.request = new BaseRequestModel();
+    //     var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+    //     this.request.User = userInfo.User;
+    //     this.request.Zone = zone;
+    //     this.request.Branch = branch;
+    //     this.request.TourDiary=TourDiary;
+    //
+    //     return this.http
+    //         .post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourDiary`, this.request, {
+    //             headers: this.httpUtils.getHTTPHeaders(),
+    //         })
+    //         .pipe(map((res: BaseResponseModel) => res));
+    // }
 
-        return this.http
-            .post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourDiary`, this.request, {
-                headers: this.httpUtils.getHTTPHeaders(),
-            })
-            .pipe(map((res: BaseResponseModel) => res));
+
+    ChanageTourStatus(tourPlan: TourPlan) {
+        this.request = new BaseRequestModel();
+        this.request.User = this.userInfo.User;
+        var v = JSON.stringify(tourPlan)
+
+        this.request.TourPlan = {
+            "TourPlanStatus": {"Status": tourPlan.Status, "TourPlanIds": [tourPlan.TourPlanId]}
+        };
+
+
+        var v = JSON.stringify(this.request)
+
+
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
     }
 
     SearchTourPlan(zone,branch,date) {
@@ -112,6 +132,32 @@ export class TourDiaryService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
+
+    SearchTourDiary(tourDiary, Limit, Offset, branch, zone) {
+        this.request = new BaseRequestModel();
+
+        var userInfo = this.userUtilsService.getUserDetails();
+
+        this.request.User = userInfo.User;
+        this.request.TourPlan = tourDiary;
+        this.request.TourPlan.Limit = Limit;
+        this.request.TourPlan.Offset = Offset;
+        this.request.Zone = zone;
+        this.request.Branch = branch;
+        //   var date ={
+        //     "User": this.request.User,
+        //     "TourPlan":  tourPlan
+
+        //   }
+        var req = JSON.stringify(this.request);
+
+        console.log(req);
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourDiary`, this.request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
+
 
     saveDiary(zone,branch,TourDiary) {
 
