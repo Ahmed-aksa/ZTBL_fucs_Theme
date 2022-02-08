@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TourDairyZcComponent} from './tour-dairy-zc.component';
+import {TourDiaryZcComponent} from './tour-dairy-zc.component';
 
-describe('TourDairyZcComponent', () => {
-    let component: TourDairyZcComponent;
-    let fixture: ComponentFixture<TourDairyZcComponent>;
+describe('TourDiaryZcComponent', () => {
+    let component: TourDiaryZcComponent;
+    let fixture: ComponentFixture<TourDiaryZcComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TourDairyZcComponent]
+            declarations: [TourDiaryZcComponent]
         })
             .compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TourDairyZcComponent);
+        fixture = TestBed.createComponent(TourDiaryZcComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
