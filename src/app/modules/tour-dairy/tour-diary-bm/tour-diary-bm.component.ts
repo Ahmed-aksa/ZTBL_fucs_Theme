@@ -13,7 +13,6 @@ import {SignatureDailogDairyComponent} from "../signature-dailog-dairy/signature
 import {finalize} from "rxjs/operators";
 import {CommonService} from "../../../shared/services/common.service";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
-import {DiaryMCO} from "../set-target/Models/tour-diary.model";
 
 @Component({
     selector: 'app-tour-diary-bm',

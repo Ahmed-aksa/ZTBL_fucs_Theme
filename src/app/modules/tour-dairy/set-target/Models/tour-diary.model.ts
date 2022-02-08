@@ -6,7 +6,9 @@ export class TourDiary {
     EndDate;
 
 
-//region common fields
+    /**
+     * region common fields
+     */
 
     PurposeName;
     StatusName;
@@ -25,9 +27,13 @@ export class TourDiary {
     Remarks;
     Status;
     CreatedBy;
-//common fields
+    /**
+     * common fields
+     */
 
-// MCO TourFields
+    /**
+     * MCO TourFields
+     */
     DisbNoOfCasesReceived;
     DisbNoOfCasesAppraised;
     DisbNoOfRecordVerified;
@@ -46,38 +52,53 @@ export class TourDiary {
     MutationVerifiedDuringMnth;
     UtilizationPendingLastDate;
     UtilizationVerifiedDuringMnth;
-//MCO TourFields
+    /**
+     * MCO TourFields
+     */
 
-//RC And RO TourFields
-
+    /**
+     * RC and RO TourFields
+     */
     NoOfDefaulterContacted;
     ResultContactMade;
     MeasureBoostUpRecord;
 
-// RC And RO TourFields
+    /**
+     * RC And RO TourFields
+     */
 
-// BM TourFields
+    /**
+     *     BM TourFields
+     */
     DisbNoOfNewBorrowerContacted;
     DisbBorrowerRollOverCasedContacted;
     RecAmountRecoveredWithLCNo;
 
-// BM TourFields
+    /**
+     * BM TourFields
+     */
 
-// ZM TourFields
+    /**
+     * ZM TourFields
+     */
     LCNotIssuedToBorrowers;
     McoNBmTourDiaryAPPlan;
     AnyShortComingInDiaries;
+    /**
+     * ZM TourFields
+     */
 
-// ZM TourFields
-
-// ZC TourFields
+    /**
+     *  ZC TourFields
+     */
     GeneralAdmissionComplaints;
     CashManagementCompliance;
     AuditReports;
     OutstandingParas;
     Settlements;
-
-// ZC TourFields
+    /**
+     * ZC TourFields
+     */
     SystemGeneratedData;
     TourDiariesByDate;
 
