@@ -358,7 +358,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr >
+                                    <tr *ngFor="let ZcTourDiary of tourDiaryList" >
                                         <td>
                                             <button class="ml-2" mat-icon-button color="primary" (click)="edit()"
                                             >
@@ -373,16 +373,16 @@
                                             </button>
 
                                         </td>
+                                        <td>{{ZcTourDiary.TourDate}}</td>
+                                        <td>{{ZcTourDiary.DepartureFromPlace}}</td>
+                                        <td>{{ZcTourDiary.DepartureFromTime}}</td>
+                                        <td>{{ZcTourDiary.ArrivalAtPlace}}</td>
+                                        <td>{{ZcTourDiary.ArrivalAtTime}}</td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ZcTourDiary.AuditReports}}</td>
+                                        <td>{{ZcTourDiary.OutstandingParas}}</td>
+                                        <td>{{ZcTourDiary.Settlements}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
