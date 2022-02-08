@@ -1,34 +1,85 @@
-import {Validators} from "@angular/forms";
+export class TourDiary {
+    TourDiaries;
+    Limit;
+    Offset;
+    StartDate;
+    EndDate;
 
-export class DiaryMCO {
-    Name: string;
-    Ppno: string;
-    Month: string;
-    Date:string;
-    DiaryId:string;
-    TourPlanId:string;
-    BranchId:string;
-    ZoneId:string;
-    CircleId:string;
-    TourDate:string;
-    DepartureFromPlace:string;
-    DepartureFromTime:string;
-    ArrivalAtPlace:string;
-    ArrivalAtTime:string;
-    DisbNoOfCasesReceived:string;
-    DisbNoOfCasesAppraised:string;
-    DisbNoOfRecordVerified:string;
-    DisbNoOfSanctionedAuthorized:string;
-    DisbSanctionLetterDelivered:string;
-    DisbSupplyOrderDelivered:string;
-    NoOfSanctnMutationVerified:string;
-    NoOfUtilizationChecked:string;
-    RecNoOfNoticeDelivered:string;
-    RecNoOfLegalNoticeDelivered:string;
-    RecNoOfDefaulterContacted:string;
-    TotFarmersContacted:string;
-    TotNoOfFarmersVisisted:string;
-    AnyOtherWorkDone:string;
-    Remarks:string;
+
+//region common fields
+
+    PurposeName;
+    StatusName;
+
+    DiaryId;
+    TourPlanId;
+    BranchId;
+    ZoneId;
+    CircleId;
+    Ppno;
+    TourDate;
+    DepartureFromPlace;
+    DepartureFromTime;
+    ArrivalAtPlace;
+    ArrivalAtTime;
+    Remarks;
+    Status;
+    CreatedBy;
+//common fields
+
+// MCO TourFields
+    DisbNoOfCasesReceived;
+    DisbNoOfCasesAppraised;
+    DisbNoOfRecordVerified;
+    DisbNoOfSanctionedAuthorized;
+    DisbSanctionLetterDelivered;
+    DisbSupplyOrderDelivered;
+    NoOfSanctnMutationVerified;
+    NoOfUtilizationChecked;
+    RecNoOfNoticeDelivered;
+    RecNoOfLegalNoticeDelivered;
+    RecNoOfDefaulterContacted;
+    TOTFarmersContacted;
+    TOTNoOfFarmersVisisted;
+    AnyOtherWorkDone;
+    NoOfMutationPendingASOPM;
+    MutationVerifiedDuringMnth;
+    UtilizationPendingLastDate;
+    UtilizationVerifiedDuringMnth;
+//MCO TourFields
+
+//RC And RO TourFields
+
+    NoOfDefaulterContacted;
+    ResultContactMade;
+    MeasureBoostUpRecord;
+
+// RC And RO TourFields
+
+// BM TourFields
+    DisbNoOfNewBorrowerContacted;
+    DisbBorrowerRollOverCasedContacted;
+    RecAmountRecoveredWithLCNo;
+
+// BM TourFields
+
+// ZM TourFields
+    LCNotIssuedToBorrowers;
+    McoNBmTourDiaryAPPlan;
+    AnyShortComingInDiaries;
+
+// ZM TourFields
+
+// ZC TourFields
+    GeneralAdmissionComplaints;
+    CashManagementCompliance;
+    AuditReports;
+    OutstandingParas;
+    Settlements;
+
+// ZC TourFields
+    SystemGeneratedData;
+    TourDiariesByDate;
+
 }
 

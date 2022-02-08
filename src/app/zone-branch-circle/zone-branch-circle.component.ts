@@ -14,12 +14,14 @@ export class ZoneBranchCircleComponent implements OnInit {
 
     @Input('form') form;
     @Input('should_filter') should_filter = true;
-    @Input('show_circle') show_circle = true;
+    @Input('show_circle') incoming_circle = null;
+    show_circle = true;
     @Input('is_required_circle') is_required_circle;
     @Input('should_hide_fields') should_hide_fields;
     @Input('required_branch') required_branch = true;
     @Input('required_zone') required_zone = true;
-    @Input('show_branch') show_branch = true;
+    @Input('show_branch') incoming_branch = null;
+    show_branch = true;
     @Input('show_zone') show_zone = true;
     //@Input('show_circle') show_circle=true;
     @Output() branchZoneCircleData = new EventEmitter<{
@@ -105,8 +107,10 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.emitData();
 
         } else if (!this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
-            this.show_circle = false;
-            this.show_branch = false;
+            if (!this.incoming_circle && this.incoming_circle != true)
+                this.show_circle = false;
+            if (!this.incoming_branch && this.incoming_branch != true)
+                this.show_branch = false;
             this.SelectedZones = this.all_data.Zone;
             this.selected_z = this.SelectedZones?.ZoneId;
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
@@ -120,8 +124,10 @@ export class ZoneBranchCircleComponent implements OnInit {
                 this.single_zone = false;
                 this.single_zone = false;
                 this.spinner.hide();
-                this.show_circle = false;
-                this.show_branch = false;
+                if (!this.incoming_circle && this.incoming_circle != true)
+                    this.show_circle = false;
+                if (!this.incoming_branch && this.incoming_branch != true)
+                    this.show_branch = false;
             });
 
 
