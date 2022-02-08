@@ -6,8 +6,6 @@ import {finalize} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
-import {TourPlan} from '../Model/tour-plan.model';
-import {TourPlanService} from "../Service/tour-plan.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -19,16 +17,17 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {LovService} from "../../../shared/services/lov.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DatePipe} from "@angular/common";
-import {ToastrService} from 'ngx-toastr';
+import {TourPlanService} from "../../tour-plan/Service/tour-plan.service";
+import { TourPlan } from 'app/modules/tour-plan/Model/tour-plan.model';
 
 @Component({
-    selector: 'search-loan-utilization',
-    templateUrl: './search-tour-plan.component.html',
-    styleUrls: ['./search-tour-plan.component.scss'],
+    selector: 'search-tour-diary',
+    templateUrl: './search-tour-diary.component.html',
+    styleUrls: ['./search-tour-diary.component.scss'],
 
 })
 
-export class SearchTourPlanComponent implements OnInit {
+export class SearchTourDiaryComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     @Input() isDialog: any = false;
@@ -91,7 +90,6 @@ export class SearchTourPlanComponent implements OnInit {
                 private _circleService: CircleService,
                 private _cdf: ChangeDetectorRef,
                 private datePipe: DatePipe,
-                private toastr: ToastrService,
                 private userUtilsService: UserUtilsService) {
         this.loggedInUser = userUtilsService.getUserDetails();
         this.Math = Math;
@@ -143,6 +141,17 @@ export class SearchTourPlanComponent implements OnInit {
         //this.TourPlan.controls['Zone'].setValue(userInfo.Zone.ZoneName);
         //this.TourPlan.controls['Branch'].setValue(userInfo.Branch.Name);
     }
+
+    // CheckEditStatus(loanUtilization: any) {
+    //
+
+    //   if () {
+    //     return true
+    //   }
+    //   else {
+    //     return false
+    //   }
+    // }
 
     setFromDate() {
 
@@ -224,6 +233,25 @@ export class SearchTourPlanComponent implements OnInit {
         }
     }
 
+    getToday() {
+        // Today
+
+        if (this.TourPlan.controls.ToDate.value) {
+            this.Today = this.TourPlan.controls.ToDate.value
+            return this.Today;
+        } else {
+
+            this.Today = new Date();
+            //
+            // .split('T')[0]);
+            return this.Today;
+        }
+    }
+
+    getTodayForTo() {
+        return new Date().toISOString().split('T')[0]
+    }
+
     CheckEditStatus(TourPlan: any) {
         if (TourPlan.Status == "P" || TourPlan.Status == "R") {
             if (TourPlan.UserId == this.loggedInUserDetails.User.UserId) {
@@ -232,6 +260,23 @@ export class SearchTourPlanComponent implements OnInit {
                 return false
             }
         }
+    }
+
+
+    viewTourPlan(TourPlan: any) {
+        // this.router.navigate(['other']);
+        TourPlan.viewOnly = true;
+        var v = JSON.stringify(TourPlan);
+        localStorage.setItem('SearchTourPlan', v);
+        localStorage.setItem('EditViewTourPlan', '1');
+        this.router.navigate(['../tour-plan', {upFlag: "1"}], {relativeTo: this.activatedRoute});
+        //TourPlan.view = "1";
+        //
+        // utilization = {Status:this.TourPlan.controls["Status"].value}
+        // this.router.navigate(['../tour-plan'], {
+        //     state: {example: TourPlan, flag: 1},
+        //     relativeTo: this.activatedRoute
+        // });
     }
 
     CheckViewStatus(loanUtilization: any) {
@@ -260,11 +305,13 @@ export class SearchTourPlanComponent implements OnInit {
         }
     }
 
+
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
     }
+
 
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
@@ -286,6 +333,7 @@ export class SearchTourPlanComponent implements OnInit {
         this.SearchTourPlan()
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
+
 
     hasError(controlName: string, errorName: string): boolean {
         return this.TourPlan.controls[controlName].hasError(errorName);
@@ -310,19 +358,14 @@ export class SearchTourPlanComponent implements OnInit {
         }
     }
 
+
     SearchTourPlan(from_search_button = false) {
         if (this.TourPlan.invalid) {
             const controls = this.TourPlan.controls;
+            this.layoutUtilsService.alertElement('', 'Please Add Required Values')
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
-            for (let el in this.TourPlan.controls) {
-                if (this.TourPlan.controls[el].errors) {
-                    this.toastr.error("Please add " + el);
-                    return;
-                }
-            }
-            return;
             return;
         }
 
