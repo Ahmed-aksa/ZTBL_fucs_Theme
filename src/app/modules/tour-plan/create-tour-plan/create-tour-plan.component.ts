@@ -204,8 +204,6 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     AddCal() {
 
         if (this.tourPlanForm.invalid) {
-
-            // this.layoutUtilsService.alertElement("", "Please Add Values");
             const controls = this.tourPlanForm.controls;
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
@@ -322,13 +320,6 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     };
 
     SearchTourPlan(startDate, endDate) {
-
-
-        if (this.zone == null || this.zone == undefined) {
-            this.layoutUtilsService.alertElement('', 'Please Add Values');
-            return
-        }
-
         this.spinner.show();
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();

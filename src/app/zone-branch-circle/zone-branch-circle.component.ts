@@ -285,19 +285,20 @@ export class ZoneBranchCircleComponent implements OnInit {
             final_circle = this.SelectedCircles[0];
         else
             final_circle = this.SelectedCircles;
-        if (final_zone[0])
-            this.branchZoneCircleData.emit({
-                final_zone: final_zone[0],
-                final_branch: final_branch,
-                final_circle: final_circle
-            });
-        else {
-            this.branchZoneCircleData.emit({
-                final_zone: final_zone,
-                final_branch: final_branch,
-                final_circle: final_circle
-            });
-        }
+        if (final_zone)
+            if (final_zone[0])
+                this.branchZoneCircleData.emit({
+                    final_zone: final_zone[0],
+                    final_branch: final_branch,
+                    final_circle: final_circle
+                });
+            else {
+                this.branchZoneCircleData.emit({
+                    final_zone: final_zone,
+                    final_branch: final_branch,
+                    final_circle: final_circle
+                });
+            }
     }
 
     changeCircle(event) {
