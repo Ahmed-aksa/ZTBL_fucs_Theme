@@ -104,18 +104,6 @@
 
 
                     <div class="mr-5">
-                        <!--                <button mat-icon-button color="warn"-->
-                        <!--                        (click)="deleteActivity(activity)">-->
-                        <!--                  <mat-icon>-->
-                        <!--                    delete-->
-                        <!--                  </mat-icon>-->
-                        <!--                </button>-->
-                        <!--                <button class="ml-2" mat-icon-button color="primary"-->
-                        <!--                        (click)="editActivity(activity)">-->
-                        <!--                  <mat-icon>-->
-                        <!--                    edit-->
-                        <!--                  </mat-icon>-->
-                        <!--                </button>-->
                         <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
                             <mat-icon>expand_more</mat-icon>
                         </button>
@@ -154,22 +142,10 @@
                             <td style="width: 20%">{{child.StatusName}}</td>
 
                             <td style="width: 20%">
-
-                                <!--                                <button mat-icon-button color="primary" *ngIf="CheckViewStatus(child)"-->
-                                <!--                                        (click)="viewTourPlan(child)">-->
-                                <!--                                    <mat-icon class="text-green" title="View land">visibility</mat-icon>-->
-                                <!--                                </button>-->
-
                                 <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"
                                         (click)="editTourPlan(child)">
                                     <mat-icon style="margin-left: 5px;" title="Edit Tour Plan">edit</mat-icon>
                                 </button>
-
-                                <!--                                <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"-->
-                                <!--                                        (click)="deleteTourPlan(child)">-->
-                                <!--                                    <mat-icon style="margin-left: 5px;" title="Delete Tour Plan">delete</mat-icon>-->
-                                <!--                                </button>-->
-
                             </td>
                         </tr>
                         </tbody>
@@ -181,9 +157,7 @@
 
             <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>
             <div class="mat-table__message" *ngIf="loading">Please wait....</div>
-
         </div>
-
     </div>
     <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
         <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
