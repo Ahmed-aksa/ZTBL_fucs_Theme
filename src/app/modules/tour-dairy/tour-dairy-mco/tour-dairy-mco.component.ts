@@ -200,6 +200,23 @@ export class TourDairyMcoComponent implements OnInit {
     }
     changeStatus(data,status){
 
+        if(status=="C"){
+            const _title = 'Confirmation';
+            const _description = 'Do you really want to continue?';
+            const _waitDesciption = '';
+            const _deleteMessage = ``;
+
+            const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
+
+
+            dialogRef.afterClosed().subscribe(res => {
+
+                if (!res) {
+                    return;
+                }
+        });
+        }
+
         debugger
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if(status=="S"){
