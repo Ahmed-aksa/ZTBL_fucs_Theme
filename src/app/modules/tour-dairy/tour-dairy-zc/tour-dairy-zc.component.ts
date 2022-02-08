@@ -107,7 +107,7 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['ArrivalAtTime'].setValue("");
         this.gridForm.controls['GeneralAdmissionComplaints'].setValue("");
         this.gridForm.controls['CashManagementCompliance'].setValue("");
-        this.gridForm.controls['LoanCasesInRecoverySchedule'].setValue("");
+        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue("");
         this.gridForm.controls['AuditReports'].setValue("");
         this.gridForm.controls['OutstandingParas'].setValue("");
         this.gridForm.controls['Settlements'].setValue("");
@@ -134,7 +134,7 @@ export class TourDiaryZcComponent implements OnInit {
             ArrivalAtTime:[null, [Validators.required]],
             GeneralAdmissionComplaints:[null, [Validators.required]],
             CashManagementCompliance:[null, [Validators.required]],
-            LoanCasesInRecoverySchedule:[null],
+            LCNotIssuedToBorrowers:[null],
             AuditReports:[null, [Validators.required]],
             OutstandingParas:[null, [Validators.required]],
             Settlements:[null, [Validators.required]],
