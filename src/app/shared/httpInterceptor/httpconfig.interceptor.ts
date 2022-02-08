@@ -15,6 +15,7 @@ import {AuthService} from 'app/core/auth/auth.service';
 import {NgxSpinnerService} from "ngx-spinner";
 import {CommonService} from "../services/common.service";
 import {EncryptDecryptService} from "../services/encrypt_decrypt.service";
+import {environment} from "../../../environments/environment";
 
 
 @Injectable()
@@ -35,13 +36,10 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Object>> {
         let authReq = req;
         const token: string = localStorage.getItem('accessToken');
-        if (token != null && !authReq.url.includes('Account/Login') && !authReq.url.includes('Account/HealthCheck')) {
-            authReq = this.addTokenHeader(req, token, this._common.newGuid());
-        }
-
-        // let key = environment.AesKey;
-        // console.log(AES.encrypt(JSON.stringify(req.body), key).toString());
-        //
+        if (environment.IsEncription)
+            if (token != null && !authReq.url.includes('Account/Login') && !authReq.url.includes('Account/HealthCheck')) {
+                authReq = this.addTokenHeader(req, token, this._common.newGuid());
+            }
         return next.handle(authReq)
             .pipe(catchError(error => {
                 if (error.status === 403) {
