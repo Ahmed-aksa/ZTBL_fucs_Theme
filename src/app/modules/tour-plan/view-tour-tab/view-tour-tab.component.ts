@@ -8,6 +8,7 @@ import {finalize} from "rxjs/operators";
 import {TourPlanService} from "../Service/tour-plan.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
+import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
 
 @Component({
     selector: 'app-view-tour-tab',
@@ -37,7 +38,8 @@ export class ViewTourTabComponent implements OnInit {
         private toaster: ToastrService,
         private tourPlanService: TourPlanService,
         private spinner: NgxSpinnerService,
-        private userService: UserUtilsService,) {
+        private userService: UserUtilsService,
+        private dialogRef: MatDialog,) {
     }
 
     ngOnInit(): void {
@@ -121,7 +123,7 @@ export class ViewTourTabComponent implements OnInit {
     }
 
     viewTourPlan(start = false, user_id = null, index = 0) {
-        
+
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
@@ -203,4 +205,22 @@ export class ViewTourTabComponent implements OnInit {
         return day + "-" + month + "-" + year;
     }
 
+    ViewSign(val){
+        if(val == "" || val == null || val == undefined){
+            return false
+        }else{
+            return true
+
+        }
+    }
+
+    DisplaySign(url: any){
+        debugger
+
+            const dialogRef = this.dialogRef.open(ViewFileComponent, {
+                width: '100vh',
+                height: '100vh',
+                data: {url: url}
+            });
+        }
 }

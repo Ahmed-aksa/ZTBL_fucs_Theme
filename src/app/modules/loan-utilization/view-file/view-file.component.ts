@@ -76,8 +76,13 @@ export class ViewFileComponent implements OnInit {
 
         // this.url = data.url
         // this.url = 'http://localhost:4200/assets/media/logos/profilepicturelogo.png';
-        this.url.push('http://localhost:4200/assets/media/logos/profilepicturelogo.png')
 
+        if(this.data?.url ){
+            debugger
+            this.url.push(this.data?.url);
+        }else{
+            this.url.push('http://localhost:4200/assets/media/logos/profilepicturelogo.png')
+        }
         this.viewFileArray = data.documentView
 
     }

@@ -42,7 +42,7 @@
                             <th>Purpose</th>
                             <th>Remarks</th>
                             <th>Status</th>
-                            <!--                        <th>Actions</th>-->
+                            <th>Actions</th>
 
                         </tr>
                     </thead>
@@ -64,6 +64,12 @@
                             <!--                            <mat-checkbox *ngIf="checkBoxCheck(child.Status)"-->
                             <!--                                          (change)="changeCheckBox(activity,child)"></mat-checkbox>-->
                             <!--                        </td>-->
+                            <td>
+                                <button mat-icon-button color="primary" *ngIf="ViewSign(child.Signature)"
+                                        (click)="DisplaySign(child.Signature)">
+                                    <mat-icon  class="text-green" title="View land">visibility</mat-icon>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
