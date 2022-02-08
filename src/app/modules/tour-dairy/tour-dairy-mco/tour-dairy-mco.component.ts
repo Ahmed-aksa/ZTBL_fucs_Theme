@@ -36,8 +36,8 @@ export class TourDairyMcoComponent implements OnInit {
     TourDiary;
     TourDiaryList = [];
     TourPlan;
-    Format24:boolean=true;
-    isUpdate:boolean=false;
+    Format24: boolean = true;
+    isUpdate: boolean = false;
 
 
     //**************** Time ****************************
@@ -48,16 +48,15 @@ export class TourDairyMcoComponent implements OnInit {
      */
     openFromIcon(timepicker: { open: () => void }) {
         // if (!this.formControlItem.disabled) {
-            timepicker.open();
+        timepicker.open();
         // }
     }
 
     //Date Format
-    DateFormat(){
-        if(this.Format24===true){
+    DateFormat() {
+        if (this.Format24 === true) {
             return 24
-        }
-        else{
+        } else {
             return 12
         }
 
@@ -94,44 +93,47 @@ export class TourDairyMcoComponent implements OnInit {
         // this.gridForm.controls['ArrivalAtTime'].setValue("1:13 AM");
     }
 
-    setValue(){
+    setValue() {
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
     }
+
     createForm() {
         this.gridForm = this.fb.group({
             Name: [""],
             Ppno: [""],
-            DiaryId:[null],
-            NameOfOfficer:[null],
-            TourPlanId:["", [Validators.required]],
-            BranchId:["", [Validators.required]],
-            ZoneId:[ "",[Validators.required]],
-            CircleId:["", [Validators.required]],
-            TourDate:["", [Validators.required]],
-            DepartureFromPlace:["", [Validators.required]],
-            DepartureFromTime:["", [Validators.required]],
-            ArrivalAtPlace:["", [Validators.required]],
-            ArrivalAtTime:["", [Validators.required]],
-            DisbNoOfCasesReceived:["", [Validators.required]],
-            DisbNoOfCasesAppraised:["", [Validators.required]],
-            DisbNoOfRecordVerified:["", [Validators.required]],
-            DisbNoOfSanctionedAuthorized:["", [Validators.required]],
-            DisbSanctionLetterDelivered:["", [Validators.required]],
-            DisbSupplyOrderDelivered:["", [Validators.required]],
-            NoOfSanctnMutationVerified:["", [Validators.required]],
-            NoOfUtilizationChecked:["", [Validators.required]],
-            RecNoOfNoticeDelivered:["", [Validators.required]],
-            RecNoOfLegalNoticeDelivered:["", [Validators.required]],
-            RecNoOfDefaulterContacted:["", [Validators.required]],
-            TotFarmersContacted:["", [Validators.required]],
-            TotNoOfFarmersVisisted:["", [Validators.required]],
-            AnyOtherWorkDone:["", [Validators.required]],
-            Remarks:["", [Validators.required]],
+            DiaryId: [null],
+            NameOfOfficer: [null],
+            TourPlanId: ["", [Validators.required]],
+            BranchId: ["", [Validators.required]],
+            ZoneId: ["", [Validators.required]],
+            CircleId: ["", [Validators.required]],
+            TourDate: ["", [Validators.required]],
+            DepartureFromPlace: ["", [Validators.required]],
+            DepartureFromTime: ["", [Validators.required]],
+            ArrivalAtPlace: ["", [Validators.required]],
+            ArrivalAtTime: ["", [Validators.required]],
+            DisbNoOfCasesReceived: ["", [Validators.required]],
+            DisbNoOfCasesAppraised: ["", [Validators.required]],
+            DisbNoOfRecordVerified: ["", [Validators.required]],
+            DisbNoOfSanctionedAuthorized: ["", [Validators.required]],
+            DisbSanctionLetterDelivered: ["", [Validators.required]],
+            DisbSupplyOrderDelivered: ["", [Validators.required]],
+            NoOfSanctnMutationVerified: ["", [Validators.required]],
+            NoOfUtilizationChecked: ["", [Validators.required]],
+            RecNoOfNoticeDelivered: ["", [Validators.required]],
+            RecNoOfLegalNoticeDelivered: ["", [Validators.required]],
+            RecNoOfDefaulterContacted: ["", [Validators.required]],
+            TotFarmersContacted: ["", [Validators.required]],
+            TotNoOfFarmersVisisted: ["", [Validators.required]],
+            AnyOtherWorkDone: ["", [Validators.required]],
+            Remarks: ["", [Validators.required]],
             Status: [""]
         })
         this.setValue();
     }
+
+
     saveTourDiary() {
 
 
@@ -314,6 +316,7 @@ export class TourDairyMcoComponent implements OnInit {
         this.Today = this._common.workingDate();
         return this.Today;
     }
+
     setDate() {
 
         // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
@@ -361,6 +364,8 @@ export class TourDairyMcoComponent implements OnInit {
         }
         this.GetTourPlan()
     }
+
+
     getTourDiary(val){
         //
         // this.spinner.show();
