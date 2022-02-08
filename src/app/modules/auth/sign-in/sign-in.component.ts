@@ -92,94 +92,17 @@ export class AuthSignInComponent implements OnInit {
             });
             let options = {headers: headers};
             this.spinner.show();
-            this.http.post(`${environment.apiUrl}/Account/HealthCheck`, cusomeRequestModel, options).subscribe((result: any) => {
-                if (result.Success) {
-                    let Keydata = this.encryptDecryptService.AESdecrypt(key, result.Resp);
-                    localStorage.setItem("ztblKey", JSON.parse(Keydata).Key);
-                    localStorage.setItem("ztbludid", UDID);
-                    this.showAlert = false;
-                    var loginMode = this.signInForm.value;
-                    loginMode['App'] = 1;
-
-                    this._authService.signIn(loginMode)
-                        .subscribe((result) => {
-                                this.spinner.hide();
-                                if (result.Success) {
-                                    this.toaster.success(result.Message);
-                                    if (!result.isWebOTPEnabled) {
-                                        if (result.LoanUtilization) {
-                                            localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
-                                            localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
-                                            localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
-                                        }
-                                        const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-                                        this._router.navigateByUrl(redirectURL);
-                                        window.location.reload();
-                                    } else if (result.isWebOTPEnabled) {
-                                        const dialogRef = this.dialog.open(OtpComponent, {
-                                            data: {result},
-                                            disableClose: true,
-                                            panelClass: ['max-w-full', 'max-h-full', 'sm:w-3/12', 'w-full'],
-                                        });
-
-                                        dialogRef.afterClosed().subscribe(res => {
-                                            if (res.data.data.Success) {
-                                                if (res.data.data.Token) {
-                                                    localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));
-                                                    localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
-                                                    localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
-                                                    const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-                                                    window.location.reload();
-                                                    this._router.navigateByUrl(redirectURL);
-                                                } else {
-                                                    this.signInNgForm.resetForm();
-                                                    this.signInForm.enable();
-                                                    // this.alert = {
-                                                    //     type: 'error',
-                                                    //     message: 'invalid OTP',
-                                                    // };
-                                                    this._router.navigateByUrl("/auth/sign-in");
-                                                    // this.showAlert = true;
-
-                                                }
-                                            } else {
-                                                this.signInNgForm.resetForm();
-                                                this.signInForm.enable();
-                                                // this.alert = {
-                                                //     type: 'error',
-                                                //     message: 'invalid OTP',
-                                                // };
-                                                this._router.navigateByUrl("/auth/sign-in");
-                                                // this.showAlert = true;
-                                            }
-                                        });
-                                    }
-                                } else {
-                                    this.signInNgForm.resetForm();
-                                    this.signInForm.enable();
-                                    this.alert = {
-                                        type: 'error',
-                                        message: result.Message,
-                                    };
-                                    this.showAlert = true;
-
-                                }
-
-                            },
-                            (response) => {
-                                this.spinner.hide();
-
-                                this.signInNgForm.resetForm();
-                                this.signInForm.enable();
-                                this.alert = {
-                                    type: 'error',
-                                    message: response
-                                };
-                                this.showAlert = true;
-                            }
-                        );
-                }
-            });
+            if (environment.IsEncription)
+                this.http.post(`${environment.apiUrl}/Account/HealthCheck`, cusomeRequestModel, options).subscribe((result: any) => {
+                    if (result.Success) {
+                        let Keydata = this.encryptDecryptService.AESdecrypt(key, result.Resp);
+                        localStorage.setItem("ztblKey", JSON.parse(Keydata).Key);
+                        localStorage.setItem("ztbludid", UDID);
+                        this.finalSignIn();
+                    }
+                });
+            else
+                this.finalSignIn();
         }
 
 
@@ -192,5 +115,89 @@ export class AuthSignInComponent implements OnInit {
             return v.toString(16);
         });
         return key
+    }
+
+    private finalSignIn() {
+        this.showAlert = false;
+        var loginMode = this.signInForm.value;
+        loginMode['App'] = 1;
+
+        this._authService.signIn(loginMode)
+            .subscribe((result) => {
+                    this.spinner.hide();
+                    if (result.Success) {
+                        this.toaster.success(result.Message);
+                        if (!result.isWebOTPEnabled) {
+                            if (result.LoanUtilization) {
+                                localStorage.setItem('MaxNumberOfImages', JSON.stringify(result.LoanUtilization["MaxNumberOfImages"]));
+                                localStorage.setItem('MaxNumberOfVideo', JSON.stringify(result.LoanUtilization["MaxNumberOfVideo"]));
+                                localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
+                            }
+                            const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                            this._router.navigateByUrl(redirectURL);
+                            window.location.reload();
+                        } else if (result.isWebOTPEnabled) {
+                            const dialogRef = this.dialog.open(OtpComponent, {
+                                data: {result},
+                                disableClose: true,
+                                panelClass: ['max-w-full', 'max-h-full', 'sm:w-3/12', 'w-full'],
+                            });
+
+                            dialogRef.afterClosed().subscribe(res => {
+                                if (res.data.data.Success) {
+                                    if (res.data.data.Token) {
+                                        localStorage.setItem('MaxNumberOfImages', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfImages"]));
+                                        localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
+                                        localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
+                                        const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                                        window.location.reload();
+                                        this._router.navigateByUrl(redirectURL);
+                                    } else {
+                                        this.signInNgForm.resetForm();
+                                        this.signInForm.enable();
+                                        // this.alert = {
+                                        //     type: 'error',
+                                        //     message: 'invalid OTP',
+                                        // };
+                                        this._router.navigateByUrl("/auth/sign-in");
+                                        // this.showAlert = true;
+
+                                    }
+                                } else {
+                                    this.signInNgForm.resetForm();
+                                    this.signInForm.enable();
+                                    // this.alert = {
+                                    //     type: 'error',
+                                    //     message: 'invalid OTP',
+                                    // };
+                                    this._router.navigateByUrl("/auth/sign-in");
+                                    // this.showAlert = true;
+                                }
+                            });
+                        }
+                    } else {
+                        this.signInNgForm.resetForm();
+                        this.signInForm.enable();
+                        this.alert = {
+                            type: 'error',
+                            message: result.Message,
+                        };
+                        this.showAlert = true;
+
+                    }
+
+                },
+                (response) => {
+                    this.spinner.hide();
+
+                    this.signInNgForm.resetForm();
+                    this.signInForm.enable();
+                    this.alert = {
+                        type: 'error',
+                        message: response
+                    };
+                    this.showAlert = true;
+                }
+            );
     }
 }
