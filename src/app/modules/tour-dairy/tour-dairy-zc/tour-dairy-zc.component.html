@@ -47,12 +47,6 @@
                                             <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Month<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Month" autocomplete="off" readonly="readonly"/>
-                                        </mat-form-field>
-                                    </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -360,13 +354,13 @@
                                     <tbody>
                                     <tr *ngFor="let ZcTourDiary of tourDiaryList" >
                                         <td>
-                                            <button class="ml-2" mat-icon-button color="primary" (click)="edit()"
+                                            <button class="ml-2" mat-icon-button color="primary" (click)="edit(ZcTourDiary)"
                                             >
                                                 <mat-icon>
                                                     edit
                                                 </mat-icon>
                                             </button>
-                                            <button mat-icon-button (click)="delete()">
+                                            <button mat-icon-button (click)="delete(ZcTourDiary)">
                                                 <mat-icon class="text-red-500">
                                                     delete_forever
                                                 </mat-icon>
@@ -420,43 +414,18 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
+                                    <tr *ngFor="let ZcTourDiary of tourDiaryList">
+                                        <td>{{ZcTourDiary.Settlements}}</td>
+                                        <td>{{ZcTourDiary.TOTFarmersContacted}}</td>
+                                        <td>{{ZcTourDiary.TOTNoOfFarmersVisisted}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{ZcTourDiary.AnyOtherWorkDone}}</td>
+                                        <td>{{ZcTourDiary.Remarks}}</td>
                                     </tr>
 
                                     </tbody>
