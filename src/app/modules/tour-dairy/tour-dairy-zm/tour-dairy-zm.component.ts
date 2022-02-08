@@ -16,6 +16,7 @@ import {Router} from '@angular/router';
 import {SignatureDailogDairyComponent} from '../signature-dailog-dairy/signature-dailog-dairy.component';
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
+import {TourDiaryZM} from "../model/tour-diary-model";
 
 @Component({
     selector: 'app-tour-dairy-zm',
@@ -42,6 +43,7 @@ export class TourDairyZmComponent implements OnInit {
     branch: any;
     circle: any;
     TourPlan: any;
+    TourDiary = new TourDiaryZM();
     Format24:boolean=true;
     isUpdate:boolean=false;
     date: any;
@@ -50,6 +52,7 @@ export class TourDairyZmComponent implements OnInit {
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
+        private datePipe: DatePipe,
         private userUtilsService: UserUtilsService,
         private tourDiaryService: TourDiaryService,
         public dialog: MatDialog,
@@ -63,15 +66,9 @@ export class TourDairyZmComponent implements OnInit {
         this.createForm();
         this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
-        // var zoneId = this.zone.ZoneId;
-        //
-        // this.getBranches(zoneId);
     }
 
     setDate() {
-
-        // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
-        // this.minDate = this.gridForm.controls.Date.value;
         var varDate = this.gridForm.controls.TourDate.value;
         if (varDate._isAMomentObject == undefined) {
             try {
@@ -178,7 +175,30 @@ export class TourDairyZmComponent implements OnInit {
         });
     }
 
-    saveTourDiary(){}
+    saveTourDiary(){
+
+        this.TourDiary = Object.assign(this.gridForm.getRawValue());
+        this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
+        this.TourDiary.Status = 'P';
+        this.spinner.show();
+        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                console.log(baseResponse);
+                this.onClearForm();
+            } else {
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+        });
+
+    }
 
     onClearForm() {
         this.gridForm.controls['DiaryId'].setValue("");
@@ -232,11 +252,26 @@ export class TourDairyZmComponent implements OnInit {
     }
 
     SubmitTourDiary() {
-        const signatureDialogRef = this.dialog.open(
-            SignatureDailogDairyComponent,
-            {width: '500px', disableClose: true}
-        );
+        // const signatureDialogRef = this.dialog.open(
+        //     SignatureDailogDairyComponent,
+        //     {width: '500px', disableClose: true}
+        // );
+        this.spinner.show();
+        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            } else {
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+        });
     }
+
 
     getAllData(data) {
         this.zone = data.final_zone;
