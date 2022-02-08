@@ -99,7 +99,7 @@ export class TourDiaryPcComponent implements OnInit {
     createForm() {
         this.gridForm = this.fb.group({
             NameOfOfficer: [null],
-            PPNO: [null],
+            Ppno: [null],
             Month: [null],
             Name: [null],
             Date: [null],
@@ -112,6 +112,8 @@ export class TourDiaryPcComponent implements OnInit {
             ArrivalAtTime: [null],
             NoOfDefaultersContacted: [null],
             ResultsOfContactsSoMade: [null],
+            EffortsForBoostingUpRecovery: [null],
+            Remarks: [null],
         });
     }
 
@@ -135,7 +137,7 @@ export class TourDiaryPcComponent implements OnInit {
     }
 
     saveTourDiary() {
-        
+
 
         if (!this.zone) {
             var Message = 'Please select Zone';

@@ -130,7 +130,7 @@ export class TourDairyZcComponent implements OnInit {
             ArrivalAtTime:[null, [Validators.required]],
             GeneralAdmissionComplaints:[null, [Validators.required]],
             CashManagementCompliance:[null, [Validators.required]],
-            // LoanCasesInRecoverySchedule:[null],
+            LoanCasesInRecoverySchedule:[null],
             AuditReports:[null, [Validators.required]],
             OutstandingParas:[null, [Validators.required]],
             Settlements:[null, [Validators.required]],

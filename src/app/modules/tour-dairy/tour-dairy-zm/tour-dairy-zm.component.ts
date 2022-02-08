@@ -143,9 +143,9 @@ export class TourDairyZmComponent implements OnInit {
         } else {
             changedZone = {Zone: {ZoneId: changedValue}}
         }
-
-
+        this.spinner.show();
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
+            this.spinner.hide();
             this.SelectedBranches = data.Branches;
             console.log(this.SelectedBranches)
         });
@@ -154,9 +154,8 @@ export class TourDairyZmComponent implements OnInit {
     createForm() {
         this.gridForm = this.fb.group({
             NameOfOfficer: [''],
-            PPNO: [null],
+            Ppno: [null],
             Month: [null],
-            Zone: [null],
             TourDate: [null],
             Date: [null],
             TourPlanId: [null],
