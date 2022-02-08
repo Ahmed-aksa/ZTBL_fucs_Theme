@@ -134,7 +134,7 @@ export class TourDiaryService {
     }
 
     ChangeStatusDiary(zone,branch,circle,TourDiary, Status) {
-
+debugger
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
