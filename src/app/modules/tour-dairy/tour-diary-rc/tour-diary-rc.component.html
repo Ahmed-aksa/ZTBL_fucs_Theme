@@ -201,7 +201,22 @@
                                         <th colspan="2" class="border-r border-gray-400">SAM</th>
                                     </tr>
 
-                                    <tr  *ngFor="let mcoDiary of TourDiaryList"  class="table-header-background text-center">
+                                    <tr  class="table-header-background text-center">
+
+                                        <th class="border-r border-gray-400">Place</th>
+                                        <th class="border-r border-gray-400">Time</th>
+                                        <th class="border-r border-gray-400">Place</th>
+                                        <th class="border-r border-gray-400">Time</th>
+                                        <th class="border-r border-gray-400">No.</th>
+                                        <th class="border-r border-gray-400">Amt.</th>
+                                        <th class="border-r border-gray-400">No.</th>
+                                        <th class="border-r border-gray-400">Amt.</th>
+                                        <th class="border-r border-gray-400">No.</th>
+                                        <th class="border-r border-gray-400">Amt.</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let mcoDiary of TourDiaryList">
                                         <td>
                                             <button class="ml-2" mat-icon-button color="primary" (click)="edit(mcoDiary)"
                                             >
@@ -216,22 +231,8 @@
                                             </button>
 
                                         </td>
-                                        <th class="border-r border-gray-400">Place</th>
-                                        <th class="border-r border-gray-400">Time</th>
-                                        <th class="border-r border-gray-400">Place</th>
-                                        <th class="border-r border-gray-400">Time</th>
-                                        <th class="border-r border-gray-400">No.</th>
-                                        <th class="border-r border-gray-400">Amt.</th>
-                                        <th class="border-r border-gray-400">No.</th>
-                                        <th class="border-r border-gray-400">Amt.</th>
-                                        <th class="border-r border-gray-400">No.</th>
-                                        <th class="border-r border-gray-400">Amt.</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
                                         <td class="border-r border-gray-400">
-
+sam
                                         </td>
                                         <td class="border-r border-gray-400">
 

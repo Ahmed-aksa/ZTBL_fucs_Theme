@@ -234,8 +234,8 @@ export class TourDiaryRcComponent implements OnInit {
         );
     }
 
-    changeStatus(data,status){
 
+    delete(data,status){
         if(status=="C"){
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -250,10 +250,43 @@ export class TourDiaryRcComponent implements OnInit {
                 if (!res) {
                     return;
                 }
+
+                if(status=="S"){
+                    this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
+                    this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
+                    this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
+
+                }else{
+                    this.TourDiary.DiaryId = data["DiaryId"];
+                    this.TourDiary.TourPlanId = data["TourPlanId"];
+                    this.TourDiary.Ppno = data["Ppno"];
+                }
+
+                this.spinner.show();
+                this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status)
+                    .pipe(
+                        finalize(() => {
+                            this.spinner.hide();
+                        })
+                    ).subscribe(baseResponse => {
+                    if (baseResponse.Success) {
+                        debugger
+                        this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                        this.isUpdate=false;
+                        this.onClearForm();
+                        this.TourDiary=null;
+                    } else {
+                        this.TourDiary=null;
+                        this.layoutUtilsService.alertElement('', baseResponse.Message);
+                    }
+
+                });
             });
         }
+    }
 
-        debugger
+    changeStatus(data,status){
+
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if(status=="S"){
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
