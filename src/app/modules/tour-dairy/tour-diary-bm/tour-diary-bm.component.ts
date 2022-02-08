@@ -154,7 +154,7 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     getToday() {
-        this.Today = this._common.workingDate();
+        this.Today = new Date();
         return this.Today;
     }
 

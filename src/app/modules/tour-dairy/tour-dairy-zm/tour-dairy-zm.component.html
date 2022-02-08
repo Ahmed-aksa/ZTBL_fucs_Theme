@@ -117,7 +117,7 @@
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label>Branches</mat-label>
                                                 <mat-select matInput formControlName="ArrivalAtPlace">
-                                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.BranchCode">
+                                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.Name">
                                                         {{branch?.Name}}
                                                     </mat-option>
                                                 </mat-select>
@@ -143,21 +143,21 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not been issued to borrowers</mat-label>
-                                            <input matInput formControlName="LoanCasesInRecoverySchedule" autocomplete="off"/>
+                                            <input matInput formControlName="LCNotIssuedToBorrowers" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour Plan</mat-label>
-                                            <input matInput formControlName="CheckMCOAndBMTourDiary" autocomplete="off"/>
+                                            <input matInput formControlName="McoNBmTourDiaryAPPlan" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Any short comings in Tour Diaries of MCOs/Branch Manager</mat-label>
-                                            <input matInput formControlName="ShortComingsInTourDiariesOFMCOAndBM" autocomplete="off"/>
+                                            <input matInput formControlName="AnyShortComingInDiaries" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
@@ -181,9 +181,9 @@
 
                             <div class="row mt-2 mr-1">
                                 <div class="col-lg-12 text-right">
-                                    <button *ngIf="isUpdate==false" class="ml-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Save</button>
-                                    <button *ngIf="isUpdate==true" class="ml-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Update</button>
-                                    <button mat-raised-button class="mr-2" color="primary" (click)="SubmitTourDiary()">
+                                    <button class="ml-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>
+                                        {{btnText}}</button>
+                                    <button mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
                                         <mat-icon class="mr-2">check_circle</mat-icon>
                                         Submit
                                     </button>
@@ -200,6 +200,7 @@
                                 <table class="table ">
                                     <thead>
                                     <tr class=" text-center">
+                                        <th rowspan="2"  >Actions</th>
                                         <th rowspan="2"  >Date</th>
                                         <th colspan="2" rowspan="2"  >Departure from</th>
                                         <th colspan="2" rowspan="2"  >Arrival at</th>
@@ -218,7 +219,8 @@
                                         <th rowspan="2"  >No. of Notices issued by the branch to SPA/Guarantors</th>
                                     </tr>
                                     <tr class=" text-center sub-table">
-                                        <th  ></th>
+                                        <th></th>
+                                        <th></th>
                                         <th  >Place</th>
                                         <th  >Time</th>
                                         <th  >Place</th>
@@ -233,6 +235,20 @@
                                     </thead>
                                     <tbody>
                                     <tr>
+                                        <td>
+                                            <button class="ml-2" mat-icon-button color="primary" (click)="edit()"
+                                            >
+                                                <mat-icon>
+                                                    edit
+                                                </mat-icon>
+                                            </button>
+                                            <button mat-icon-button (click)="delete()">
+                                                <mat-icon class="text-red-500">
+                                                    delete_forever
+                                                </mat-icon>
+                                            </button>
+
+                                        </td>
                                         <td  >
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline" style="width: 12rem !important">

@@ -90,6 +90,10 @@ export class TourDiaryZM{
     DepartureFromTime: string;
     ArrivalAtPlace: string;
     ArrivalAtTime: string;
+    LCNotIssuedToBorrowers: string;
+    McoNBmTourDiaryAPPlan: string;
+    AnyShortComingInDiaries: string;
+    NoOfDefaultersContactedByZM: string;
     Remarks: string;
     Status: string;
     CreatedBy: string;

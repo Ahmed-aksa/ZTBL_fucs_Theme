@@ -144,17 +144,6 @@ export class SearchTourPlanComponent implements OnInit {
         //this.TourPlan.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
-    // CheckEditStatus(loanUtilization: any) {
-    //
-
-    //   if () {
-    //     return true
-    //   }
-    //   else {
-    //     return false
-    //   }
-    // }
-
     setFromDate() {
 
         // this.TourPlan.controls.FromDate.reset();
@@ -235,25 +224,6 @@ export class SearchTourPlanComponent implements OnInit {
         }
     }
 
-    getToday() {
-        // Today
-
-        if (this.TourPlan.controls.ToDate.value) {
-            this.Today = this.TourPlan.controls.ToDate.value
-            return this.Today;
-        } else {
-
-            this.Today = new Date();
-            //
-            // .split('T')[0]);
-            return this.Today;
-        }
-    }
-
-    getTodayForTo() {
-        return new Date().toISOString().split('T')[0]
-    }
-
     CheckEditStatus(TourPlan: any) {
         if (TourPlan.Status == "P" || TourPlan.Status == "R") {
             if (TourPlan.UserId == this.loggedInUserDetails.User.UserId) {
@@ -262,23 +232,6 @@ export class SearchTourPlanComponent implements OnInit {
                 return false
             }
         }
-    }
-
-
-    viewTourPlan(TourPlan: any) {
-        // this.router.navigate(['other']);
-        TourPlan.viewOnly = true;
-        var v = JSON.stringify(TourPlan);
-        localStorage.setItem('SearchTourPlan', v);
-        localStorage.setItem('EditViewTourPlan', '1');
-        this.router.navigate(['../tour-plan', {upFlag: "1"}], {relativeTo: this.activatedRoute});
-        //TourPlan.view = "1";
-        //
-        // utilization = {Status:this.TourPlan.controls["Status"].value}
-        // this.router.navigate(['../tour-plan'], {
-        //     state: {example: TourPlan, flag: 1},
-        //     relativeTo: this.activatedRoute
-        // });
     }
 
     CheckViewStatus(loanUtilization: any) {
@@ -307,13 +260,11 @@ export class SearchTourPlanComponent implements OnInit {
         }
     }
 
-
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
     }
-
 
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
@@ -335,7 +286,6 @@ export class SearchTourPlanComponent implements OnInit {
         this.SearchTourPlan()
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
-
 
     hasError(controlName: string, errorName: string): boolean {
         return this.TourPlan.controls[controlName].hasError(errorName);
@@ -359,7 +309,6 @@ export class SearchTourPlanComponent implements OnInit {
 
         }
     }
-
 
     SearchTourPlan(from_search_button = false) {
         if (this.TourPlan.invalid) {
