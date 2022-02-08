@@ -40,7 +40,8 @@ export class TourDairyZcComponent implements OnInit {
     circle: any;
     Format24:boolean=true;
     date: any;
-    btnText = 'Save'
+    btnText = 'Save';
+    tourDiaryList;
 
     constructor(
         private fb: FormBuilder,
@@ -144,8 +145,6 @@ export class TourDairyZcComponent implements OnInit {
 
     setDate() {
 
-        // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
-        // this.minDate = this.gridForm.controls.Date.value;
         var varDate = this.gridForm.controls.TourDate.value;
         if (varDate._isAMomentObject == undefined) {
             try {
@@ -161,9 +160,6 @@ export class TourDairyZcComponent implements OnInit {
                 varDate = day + "" + month + "" + year;
                 this.date = varDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                // )
-                // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
-                //  )
                 this.gridForm.controls.TourDate.setValue(branchWorkingDate);
 
             } catch (e) {
@@ -205,8 +201,6 @@ export class TourDairyZcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
-                    // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -239,10 +233,24 @@ export class TourDairyZcComponent implements OnInit {
     }
 
     SubmitTourDiary() {
-        const signatureDialogRef = this.dialog.open(
-            SignatureDailogDairyComponent,
-            {width: '500px', disableClose: true}
-        );
+        // const signatureDialogRef = this.dialog.open(
+        //     SignatureDailogDairyComponent,
+        //     {width: '500px', disableClose: true}
+        // );
+        this.spinner.show();
+        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            } else {
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+        });
     }
 
     getAllData(data) {

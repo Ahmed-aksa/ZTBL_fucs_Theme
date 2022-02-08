@@ -93,10 +93,6 @@ export class TourDiaryZM{
     Remarks: string;
     Status: string;
     CreatedBy: string;
-    NoOfDefaulterContacted: string;
-    ResultContactMade: string;
-    MeasureBoostUpRecord: string;
-
 }
 
 export class TourDiaryZC{
@@ -123,4 +119,22 @@ export class TourDiaryZC{
     Settlements:string;
     Status:string;
     CreatedBy:string;
+}
+
+export class TourDiaryPC{
+
+    DiaryId: string;
+    TourPlanId: string;
+    BranchId: string;
+    ZoneId: string;
+    CircleId: string;
+    Ppno: string;
+    TourDate: string;
+    DepartureFromPlace: string;
+    DepartureFromTime: string;
+    ArrivalAtPlace: string;
+    ArrivalAtTime: string;
+    Remarks: string;
+    Status: string;
+    CreatedBy: string;
 }
