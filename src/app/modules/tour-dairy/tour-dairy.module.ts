@@ -29,6 +29,7 @@ import { TourDiaryRcComponent } from './tour-diary-rc/tour-diary-rc.component';
 import {SetTargetTabsComponent} from "./set-target-tabs/set-target-tabs.component";
 import {IConfig, NgxMaskModule} from "ngx-mask";
 import {NgxMaterialTimepickerComponent, NgxMaterialTimepickerModule} from "ngx-material-timepicker";
+import {SearchTourDiaryComponent} from "./search-tour-diary/search-tour-diary.component";
 export const options: Partial<IConfig> = {
     thousandSeparator: ","
 };
@@ -75,6 +76,9 @@ const routing = [
     {
         path: "view-target",
         component: ViewTargetComponent,
+    },{
+        path: "search-tour-diary",
+        component: SearchTourDiaryComponent,
     }
 ];
 
@@ -93,7 +97,8 @@ const routing = [
         TourDiaryPcComponent,
         TourDiaryBmComponent,
         TourDiaryRoComponent,
-        SetTargetTabsComponent
+        SetTargetTabsComponent,
+        SearchTourDiaryComponent
     ],
     imports: [
         CommonModule,
