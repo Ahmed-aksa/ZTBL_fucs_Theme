@@ -13,6 +13,7 @@ import {DateFormats} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {TourDiaryZC} from "../model/tour-diary-model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-tour-dairy-zc',
@@ -52,7 +53,8 @@ export class TourDairyZcComponent implements OnInit {
         private tourDiaryService: TourDiaryService,
         private userUtilsService: UserUtilsService,
         public dialog: MatDialog,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) {
         this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
@@ -68,7 +70,11 @@ export class TourDairyZcComponent implements OnInit {
     }
 
     saveTourDiary(){
-
+        if (this.gridForm.invalid) {
+            this.toastr.error("Please Enter Required values");
+            this.gridForm.markAllAsTouched()
+            return;
+        }
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
@@ -119,7 +125,7 @@ export class TourDairyZcComponent implements OnInit {
         this.gridForm = this.fb.group({
             Name: [null, [Validators.required]],
             Ppno: [null, [Validators.required]],
-            Month: [null, [Validators.required]],
+            Month: [null],
             DiaryId:[null],
             NameOfOfficer:[null],
             TourPlanId:[null, [Validators.required]],
@@ -186,6 +192,58 @@ export class TourDairyZcComponent implements OnInit {
         this.GetTourPlan()
     }
 
+    changeStatus(data,status){
+
+        if(status=="C"){
+            const _title = 'Confirmation';
+            const _description = 'Do you really want to continue?';
+            const _waitDesciption = '';
+            const _deleteMessage = ``;
+
+            const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
+
+
+            dialogRef.afterClosed().subscribe(res => {
+
+                if (!res) {
+                    return;
+                }
+            });
+        }
+
+        debugger
+        this.TourDiary = Object.assign(this.gridForm.getRawValue());
+        if(status=="S"){
+            this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
+            this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
+            this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
+
+        }else{
+            this.TourDiary.DiaryId = data["DiaryId"];
+            this.TourDiary.TourPlanId = data["TourPlanId"];
+            this.TourDiary.Ppno = data["Ppno"];
+        }
+
+        this.spinner.show();
+        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                debugger
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.onClearForm();
+                this.TourDiary=null;
+            } else {
+                this.TourDiary=null;
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+
+        });
+    }
+
     edit(){
         this.btnText = 'Update';
     }
@@ -230,27 +288,6 @@ export class TourDairyZcComponent implements OnInit {
             return 12
         }
 
-    }
-
-    SubmitTourDiary() {
-        // const signatureDialogRef = this.dialog.open(
-        //     SignatureDailogDairyComponent,
-        //     {width: '500px', disableClose: true}
-        // );
-        this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status)
-            .pipe(
-                finalize(() => {
-                    this.spinner.hide();
-                })
-            ).subscribe(baseResponse => {
-            if (baseResponse.Success) {
-                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-            } else {
-                this.layoutUtilsService.alertElement('', baseResponse.Message);
-            }
-
-        });
     }
 
     getAllData(data) {
