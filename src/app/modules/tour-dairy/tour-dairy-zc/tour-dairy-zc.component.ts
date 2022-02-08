@@ -88,7 +88,7 @@ export class TourDiaryZcComponent implements OnInit {
             if (baseResponse.Success) {
 
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                console.log(baseResponse);
+                this.tourDiaryList = baseResponse.TourDairy.TourDiaries;
                 this.onClearForm();
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
