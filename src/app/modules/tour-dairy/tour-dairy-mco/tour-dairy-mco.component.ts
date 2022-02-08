@@ -10,7 +10,7 @@ import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {DiaryMCO} from "../set-target/Models/tour-diary.model";
+import {TourDiary} from "../set-target/Models/tour-diary.model";
 
 @Component({
     selector: 'app-tour-dairy-mco',
@@ -24,7 +24,7 @@ import {DiaryMCO} from "../set-target/Models/tour-diary.model";
     ],
 })
 export class TourDiaryMcoComponent implements OnInit {
-    MCOModel = new DiaryMCO;
+    MCOModel = new TourDiary;
     gridForm: FormGroup;
     loggedInUser: any;
     Today = this._common.workingDate();
