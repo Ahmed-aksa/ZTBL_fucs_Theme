@@ -98,7 +98,6 @@ export class TourDairyMcoComponent implements OnInit {
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
     }
-
     createForm() {
         this.gridForm = this.fb.group({
             Name: [""],
@@ -133,9 +132,6 @@ export class TourDairyMcoComponent implements OnInit {
         })
         this.setValue();
     }
-
-
-
     saveTourDiary() {
 
 
@@ -318,7 +314,6 @@ export class TourDairyMcoComponent implements OnInit {
         this.Today = this._common.workingDate();
         return this.Today;
     }
-
     setDate() {
 
         // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
@@ -366,8 +361,6 @@ export class TourDairyMcoComponent implements OnInit {
         }
         this.GetTourPlan()
     }
-
-
     getTourDiary(val){
         //
         // this.spinner.show();
