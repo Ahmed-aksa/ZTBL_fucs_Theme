@@ -360,6 +360,17 @@ export class SearchTourDiaryComponent implements OnInit {
 
 
     SearchTourDiary(from_search_button = false) {
+
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+        
         if (this.TourDiary.invalid) {
             const controls = this.TourDiary.controls;
             this.layoutUtilsService.alertElement('', 'Please Add Required Values')

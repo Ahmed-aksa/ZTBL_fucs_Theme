@@ -79,7 +79,8 @@ export class TourDiaryService {
             "Offset": 0,
             "Status": "S",
             "StartDate":date,
-            "EndDate":""
+            "EndDate":"",
+            "VisitDate":date,
         }
         request.TourPlan=TourPlan;
         console.log(JSON.stringify(request))
@@ -134,14 +135,15 @@ export class TourDiaryService {
     }
 
     SearchTourDiary(tourDiary, Limit, Offset, branch, zone) {
+
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
 
         this.request.User = userInfo.User;
-        this.request.TourPlan = tourDiary;
-        this.request.TourPlan.Limit = Limit;
-        this.request.TourPlan.Offset = Offset;
+        this.request.TourDiary = tourDiary;
+        this.request.TourDiary.Limit = Limit;
+        this.request.TourDiary.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
         //   var date ={

@@ -311,18 +311,28 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     SearchTourPlan(from_search_button = false) {
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
         if (this.TourPlan.invalid) {
             const controls = this.TourPlan.controls;
             Object.keys(controls).forEach(controlName =>
                 controls[controlName].markAsTouched()
             );
-            for (let el in this.TourPlan.controls) {
-                if (this.TourPlan.controls[el].errors) {
-                    this.toastr.error("Please add " + el);
-                    return;
-                }
-            }
-            return;
+            // for (let el in this.TourPlan.controls) {
+            //     if (this.TourPlan.controls[el].errors) {
+            //         this.toastr.error("Please add " + el);
+            //         return;
+            //     }
+            // }
+            // return;
             return;
         }
 
