@@ -9,7 +9,7 @@
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Zone Name</mat-label>
+                        <mat-label class="customMatLabel">Zone Name<strong class="matMandatory">*</strong></mat-label>
                         <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="ZoneName"
                                appNumberOnly autocomplete="off" readonly="readonly"/>
                     </mat-form-field>
@@ -18,7 +18,7 @@
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Branch Name</mat-label>
+                        <mat-label class="customMatLabel">Branch Name<strong class="matMandatory">*</strong></mat-label>
                         <input matInput placeholder="Enter Vendor's Phone Number'" formControlName="BranchName"
                                appNumberOnly autocomplete="off" readonly="readonly"/>
                     </mat-form-field>
@@ -88,7 +88,7 @@
             <div class="col-lg-3 col-sm-12">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Remarks</mat-label>
+                        <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
                         <input matInput [readonly]='readonly' appAlphaNumericField placeholder="Enter Remarks"
                                formControlName="Remarks" autocomplete="off"/>
                     </mat-form-field>
@@ -107,13 +107,26 @@
                 <mat-icon class="mr-2">add_circle</mat-icon>
                 Add
             </button>
-            <button mat-raised-button color="primary" *ngIf="isUpdate" (click)="Update()"><mat-icon class="mr-2">update</mat-icon> Update</button>
-            <button *ngIf="isApproval"  class="ml-2"  mat-raised-button color="primary" (click)="ChanageTourStatus('A')">Authorize
+            <button mat-raised-button color="primary" *ngIf="isUpdate" (click)="Update()">
+                <mat-icon class="mr-2">update</mat-icon>
+                Update
             </button>
-            <button *ngIf="isApproval" class="ml-2"  mat-raised-button color="primary" (click)="ChanageTourStatus('R')">Reffer Back
+            <button *ngIf="isApproval" class="ml-2" mat-raised-button color="primary" (click)="ChanageTourStatus('A')">
+                Authorize
             </button>
-            <button *ngIf="flag=='1'"  class="ml-2 bg-green" mat-raised-button color="primary" (click)="ChanageTourStatus('S')"><mat-icon class="mr-2">check_circle</mat-icon>Submit</button>
-            <button *ngIf="flag=='1'" class="ml-2 bg-red-500"  mat-raised-button color="primary" (click)="ChanageTourStatus('C')"><mat-icon class="mr-2">cancel</mat-icon>Cancel</button>
+            <button *ngIf="isApproval" class="ml-2" mat-raised-button color="primary" (click)="ChanageTourStatus('R')">
+                Reffer Back
+            </button>
+            <button *ngIf="flag=='1'" class="ml-2 bg-green" mat-raised-button color="primary"
+                    (click)="ChanageTourStatus('S')">
+                <mat-icon class="mr-2">check_circle</mat-icon>
+                Submit
+            </button>
+            <button *ngIf="flag=='1'" class="ml-2 bg-red-500" mat-raised-button color="primary"
+                    (click)="ChanageTourStatus('C')">
+                <mat-icon class="mr-2">cancel</mat-icon>
+                Cancel
+            </button>
         </div>
 
     </div>

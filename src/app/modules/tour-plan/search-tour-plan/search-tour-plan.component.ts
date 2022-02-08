@@ -300,7 +300,7 @@ export class SearchTourPlanComponent implements OnInit {
         // }
         if (loanUtilization.Status == "C" || loanUtilization.Status == "P" || loanUtilization.Status == "R" || loanUtilization.Status == "A" || loanUtilization.Status == "S") {
             return true
-        }else {
+        } else {
             return false
         }
     }
@@ -359,7 +359,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
 
-    SearchTourPlan() {
+    SearchTourPlan(from_search_button = false) {
         if (this.TourPlan.invalid) {
             const controls = this.TourPlan.controls;
             this.layoutUtilsService.alertElement('', 'Please Add Required Values')
@@ -378,8 +378,10 @@ export class SearchTourPlanComponent implements OnInit {
         // this.TourPlan.controls["StartDate"].setValue(this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy'))
         // this.TourPlan.controls["EndDate"].setValue(this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy'))
         this._TourPlan = Object.assign(this.TourPlan.value);
-        this._TourPlan["StartDate"]=this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy');
-        this._TourPlan["EndDate"]=this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy');
+        this._TourPlan["StartDate"] = this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy');
+        this._TourPlan["EndDate"] = this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy');
+        if (from_search_button == true)
+            this.OffSet = 0;
         this.spinner.show();
         this.tourPlanService.SearchTourPlan(this._TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(
@@ -424,8 +426,6 @@ export class SearchTourPlanComponent implements OnInit {
                 }
             });
     }
-
-
 
 
     // getStatus(status: string) {
@@ -517,7 +517,8 @@ export class SearchTourPlanComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
     }
-    dateChange(date:string){
+
+    dateChange(date: string) {
         var day = date.slice(0, 2),
             month = date.slice(2, 4),
             year = date.slice(4, 8);

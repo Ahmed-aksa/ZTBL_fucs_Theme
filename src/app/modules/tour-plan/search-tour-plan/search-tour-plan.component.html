@@ -56,7 +56,7 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <mat-label>Select tourPlan Status</mat-label>
+                                <mat-label>Select Tour Plan Status <strong class="matMandatory">*</strong></mat-label>
                                 <mat-select formControlName="Status">
                                     <mat-option value="">
                                         Select
@@ -70,7 +70,7 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button (click)="SearchTourPlan()" type="button"
+                            <button (click)="SearchTourPlan(true)" type="button"
                                     class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
