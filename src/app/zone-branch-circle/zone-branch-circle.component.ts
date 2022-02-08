@@ -77,7 +77,7 @@ export class ZoneBranchCircleComponent implements OnInit {
         if (this.all_data.Branch && this.all_data.Zone && this.all_data.UserCircleMappings) {
 
             this.SelectedBranches = this.all_data.Branch;
-            this.SelectedZones = this.sortLovs(this.all_data.Zone);
+            this.SelectedZones = this.all_data.Zone;
             this.SelectedCircles = this.all_data.UserCircleMappings;
             this.selected_z = this.SelectedZones?.ZoneId
             this.selected_b = this.SelectedBranches?.BranchCode
@@ -114,7 +114,14 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.spinner.show();
 
             this.userUtilsService.getZone().subscribe((data: any) => {
-                this.SelectedZones = data.Zones;
+                this.SelectedZones = data.Zones.sort((a, b) => {
+                    if (a.ZoneName < b.ZoneName) {
+                        return -1;
+                    }
+                    if (a.ZoneName > b.ZoneName) {
+                        return 1;
+                    }
+                });
                 this.single_zone = false;
                 this.single_zone = false;
                 this.spinner.hide();
@@ -182,7 +189,7 @@ export class ZoneBranchCircleComponent implements OnInit {
         }
         if (!this.selected_c && this.show_circle) {
             this.userUtilsService.getCircle(changedBranch).subscribe((data: any) => {
-                this.SelectedCircles = this.sortLovs(data.Circles);
+                this.SelectedCircles = data.Circles;
                 this.single_circle = false;
 
                 if (has_single_circle) {
@@ -212,7 +219,14 @@ export class ZoneBranchCircleComponent implements OnInit {
 
 
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.SelectedBranches = this.sortLovs(data.Branches);
+            this.SelectedBranches = data.Branches.sort((a, b) => {
+                if (a.Name < b.Name) {
+                    return -1;
+                }
+                if (a.Name > b.Name) {
+                    return 1;
+                }
+            });
             this.single_branch = false;
             if (has_single_branch) {
 
@@ -297,16 +311,5 @@ export class ZoneBranchCircleComponent implements OnInit {
                 this.form.get(key).reset();
         });
         this.emitData();
-    }
-
-    public sortLovs(Data: any) {
-        return Data?.sort((a, b) => {
-            if (a.Name < b.Name) {
-                return -1;
-            }
-            if (a.Name > b.Name) {
-                return 1;
-            }
-        });
     }
 }

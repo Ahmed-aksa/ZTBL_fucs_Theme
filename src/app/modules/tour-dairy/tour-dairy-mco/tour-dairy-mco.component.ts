@@ -200,8 +200,6 @@ export class TourDairyMcoComponent implements OnInit {
     }
 
     changeStatus(data, status) {
-
-        debugger
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if (status == "S") {
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
