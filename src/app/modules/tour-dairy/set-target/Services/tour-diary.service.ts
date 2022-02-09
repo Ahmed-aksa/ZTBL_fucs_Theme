@@ -81,7 +81,6 @@ export class TourDiaryService {
             "VisitDate":date,
         }
         request.TourPlan=TourPlan;
-        console.log(JSON.stringify(request))
 
         return this.http
             .post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, request, {
