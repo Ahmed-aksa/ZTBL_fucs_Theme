@@ -448,6 +448,7 @@ export class TourDiaryMcoComponent implements OnInit {
             debugger
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    // this.TourDiaryList = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',

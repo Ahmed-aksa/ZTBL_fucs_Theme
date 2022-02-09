@@ -155,6 +155,13 @@
                                                 <input matInput formControlName="ResultContactMade" autocomplete="off"/>
                                             </mat-form-field>
                                         </div>
+
+                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                <mat-label class="customMatLabel">Measure Boost Up Record</mat-label>
+                                                <input matInput formControlName="MeasureBoostUpRecord" autocomplete="off"/>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -164,8 +171,8 @@
 
                             <div class="row mt-2 mr-1">
                                 <div class="col-lg-12 text-right">
-                                    <button *ngIf="isUpdate==false" class="ml-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Save</button>
-                                    <button *ngIf="isUpdate==true" class="ml-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Update</button>
+                                    <button *ngIf="isUpdate==false" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Save</button>
+                                    <button *ngIf="isUpdate==true" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Update</button>
                                     <button mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
                                         <mat-icon class="mr-2">check_circle</mat-icon>
                                         Submit
@@ -200,7 +207,7 @@
                                     </tr>
 
                                     <tr  class="table-header-background text-center">
-
+                                        <th></th>
                                         <th class="border-r border-gray-400">Place</th>
                                         <th class="border-r border-gray-400">Time</th>
                                         <th class="border-r border-gray-400">Place</th>
@@ -230,19 +237,19 @@
 
                                         </td>
                                         <td class="border-r border-gray-400">
-sam
+                                            {{mcoDiary.TourDate}}
                                         </td>
                                         <td class="border-r border-gray-400">
-
+                                            {{mcoDiary.DepartureFromPlace}}
                                         </td>
                                         <td class="border-r border-gray-400">
-
+                                            {{mcoDiary.DepartureFromTime}}
                                         </td>
                                         <td class="border-r border-gray-400">
-
+                                            {{mcoDiary.ArrivalAtPlace}}
                                         </td>
                                         <td class="border-r border-gray-400">
-
+                                            {{mcoDiary.ArrivalAtTime}}
                                         </td>
                                         <td class="border-r border-gray-400"></td>
                                         <td class="border-r border-gray-400"></td>
@@ -251,10 +258,10 @@ sam
                                         <td class="border-r border-gray-400"></td>
                                         <td class="border-r border-gray-400"></td>
                                         <td class="border-r border-gray-400">
-
+                                            {{mcoDiary.NoOfDefaulterContacted}}
                                         </td>
                                         <td class="border-r border-gray-400">
-
+                                            {{mcoDiary.ResultContactMade}}
                                         </td>
                                     </tr>
                                     </tbody>

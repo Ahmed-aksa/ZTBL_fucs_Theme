@@ -420,15 +420,15 @@ export class TourDiaryRcComponent implements OnInit {
             return;
         }
 
-        if (!this.branch) {
-            var Message = 'Please select Branch';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
+        // if (!this.branch) {
+        //     var Message = 'Please select Branch';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
 
         this.spinner.show();
         this.tourDiaryService
