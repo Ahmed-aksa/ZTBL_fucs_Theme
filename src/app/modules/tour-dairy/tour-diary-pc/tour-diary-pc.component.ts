@@ -238,13 +238,12 @@ export class TourDiaryPcComponent implements OnInit {
         }
         this.spinner.show();
         this.tourDiaryService
-            .SearchTourPlan(this.zone, this.branch, this.date)
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {                    // this.TargetDuration = baseResponse.Target.TargetDuration;
-                    this.TourPlan = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 } else {
                     this.layoutUtilsService.alertElement(
