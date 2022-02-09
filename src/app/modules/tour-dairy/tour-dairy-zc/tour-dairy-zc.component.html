@@ -33,6 +33,7 @@
 
                                     <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
                                                             [is_required_circle]="false"
+                                                            [should_filter]="false"
                                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
@@ -372,8 +373,8 @@
                                         <td>{{ZcTourDiary.DepartureFromTime}}</td>
                                         <td>{{ZcTourDiary.ArrivalAtPlace}}</td>
                                         <td>{{ZcTourDiary.ArrivalAtTime}}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ZcTourDiary.GeneralAdmissionComplaints}}</td>
+                                        <td>{{ZcTourDiary.CashManagementCompliance}}</td>
                                         <td>{{ZcTourDiary.AuditReports}}</td>
                                         <td>{{ZcTourDiary.OutstandingParas}}</td>
                                         <td>{{ZcTourDiary.Settlements}}</td>
