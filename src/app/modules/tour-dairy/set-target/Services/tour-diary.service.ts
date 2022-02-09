@@ -67,7 +67,7 @@ export class TourDiaryService {
     }
 
     SearchTourPlan(zone,branch,date) {
-
+        debugger
         // this.request = new BaseRequestModel();
         let request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();

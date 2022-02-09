@@ -26,6 +26,15 @@
                                 <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
                                                         [is_required_circle]="false"
                                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Name of Officer</mat-label>
+                                        <input matInput formControlName="NameOfOfficer" autocomplete="off"
+                                               readonly="readonly"/>
+                                    </mat-form-field>
+                                </div>
+
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">P.P.NO</mat-label>
@@ -49,7 +58,7 @@
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Tour Plan</mat-label>
                                         <mat-select formControlName="TourPlanId"
-                                        >
+                                                    (selectionChange)="getTourDiary($event)">
                                             <mat-option>
                                                 Select
                                             </mat-option>
@@ -137,7 +146,7 @@
                                             <mat-label class="customMatLabel">No. of borrowers of Roll-over cases
                                                 contacted
                                             </mat-label>
-                                            <input matInput formControlName="DisbBorrowerRollOverCasedContacted"
+                                            <input matInput formControlName="DisbBorrowerRollOverCasesContacted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -153,6 +162,15 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">No. of Defaulters contacted</mat-label>
+                                            <input matInput formControlName="RecNoOfDefaulterContacted"
+                                                   autocomplete="off"/>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Amount recovered with L.C. No.</mat-label>
                                             <input matInput formControlName="RecAmountRecoveredWithLCNo"
                                                    autocomplete="off"/>
@@ -161,10 +179,58 @@
                                 </div>
 
                             </div>
-                            <div class="sub-heading">Transfer of Technology
-                            </div>
+
                             <div class="col-lg-12">
                                 <div class="flex" style="flex-wrap: wrap;">
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">No. of Utilizations checked as per quota
+                                            </mat-label>
+                                            <input matInput formControlName="NoOfUtilizationChecked"
+                                                   autocomplete="off"/>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="sub-heading">Transfer of Technology
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="flex" style="flex-wrap: wrap;">
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Progressive Farmers contacted</mat-label>
+                                            <input matInput formControlName="TOTFarmersContacted"
+                                                   autocomplete="off"/>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">No. of farms visited</mat-label>
+                                            <input matInput formControlName="TOTNoOfFarmersVisisted"
+                                                   autocomplete="off"/>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="flex" style="flex-wrap: wrap;">
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Any other work done</mat-label>
+                                            <input matInput formControlName="AnyOtherWorkDone" autocomplete="off"/>
+                                        </mat-form-field>
+                                    </div>
+
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
@@ -221,6 +287,7 @@
                                     <th class="border-r border-gray-400">No. of new borrowers contacted</th>
                                     <th class="border-r border-gray-400">No. of borrowers of Roll-over cases contacted
                                     </th>
+                                    <th class="border-r border-gray-400">No. of Defaulters contacted</th>
                                     <th class="border-r border-gray-400">Amount recovered with L.C. No.</th>
                                 </tr>
                                 </thead>
@@ -518,17 +585,6 @@
 
             </div>
         </div>
-
-        <!--        <div class="row">-->
-        <!--            <div class="col-lg-12 flex  py-2 border-t">-->
-        <!--                <button mat-raised-button class="mr-2" color="primary" (click)="SubmitTourDiary()">-->
-        <!--                    <mat-icon class="mr-2">check_circle</mat-icon>-->
-        <!--                    Submit-->
-        <!--                </button>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
-
     </div>
 
 </div>
