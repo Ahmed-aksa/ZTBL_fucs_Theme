@@ -28,6 +28,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
     private unsubscribe: Subject<any>;
     startDate: any;
     TourPlanSchedule: any;
+    zone: any;
 
     constructor(
         private authService: AuthService,
@@ -50,6 +51,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
         this.initRegistrationForm();
         this.startDate = this.data.year
         this.daylist = this.data.daylist
+        this.zone = this.data?.zone;
         this.disAbleDate = [];
         this.GetHolidays();
     }
@@ -93,6 +95,17 @@ export class CreateTourPlanPopupComponent implements OnInit {
     }
 
     GetHolidays() {
+
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
         var y = this.startDate.getFullYear(), m = this.startDate.getMonth();
         var firstDay = new Date(y, m, 1);
         var lastDay = new Date(y, m + 1, 0);
@@ -102,7 +115,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
         this.daylist = daylist;
         this.spinner.show();
         this.disAbleDate = [];
-        this.tourPlanService.GetHolidays(this.targetPlan.dateFormte(startDate), this.targetPlan.dateFormte(endDate)).pipe(finalize(() => {
+        this.tourPlanService.GetHolidays(this.targetPlan.dateFormte(startDate), this.targetPlan.dateFormte(endDate),this.zone).pipe(finalize(() => {
             this.spinner.hide();
 
         })).subscribe(result => {

@@ -19,12 +19,9 @@ import {finalize} from "rxjs/operators";
     styleUrls: ['./tour-diary-rc.component.scss'],
     providers: [
         DatePipe,
-        {
-            provide: DateAdapter,
-            useClass: MomentDateAdapter,
-            deps: [MAT_DATE_LOCALE],
-        },
-        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
+
     ],
 })
 export class TourDiaryRcComponent implements OnInit {
@@ -49,7 +46,8 @@ export class TourDiaryRcComponent implements OnInit {
         private userUtilsService: UserUtilsService,
         private tourDiaryService: TourDiaryService,
         public dialog: MatDialog,
-        private router: Router
+        private router: Router,
+        private datePipe: DatePipe,
     ) {
         this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
@@ -183,7 +181,8 @@ debugger
         // }
 
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
-
+        this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
+        this.TourDiary.Status = 'P';
         this.spinner.show();
         this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
             .pipe(
@@ -193,8 +192,10 @@ debugger
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
+                this.isUpdate = false;
+                this.onClearForm();
             } else {
-
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
 
@@ -207,7 +208,7 @@ debugger
         this.gridForm.controls['DiaryId'].setValue("");
         this.gridForm.controls['TourPlanId'].setValue("");
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
+        // this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
         this.gridForm.controls['CircleId'].setValue("");
         this.gridForm.controls['TourDate'].setValue("");
         this.gridForm.controls['DepartureFromPlace'].setValue("");
@@ -331,8 +332,8 @@ debugger
         this.gridForm.controls['DiaryId'].setValue(mcoDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(mcoDiary.TourPlanId);
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
-        this.gridForm.controls['CircleId'].setValue(mcoDiary.CircleId);
+        // this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
+        // this.gridForm.controls['CircleId'].setValue(mcoDiary.CircleId);
         this.gridForm.controls['TourDate'].setValue(mcoDiary.TourDate);
         this.gridForm.controls['DepartureFromPlace'].setValue(mcoDiary.DepartureFromPlace);
         this.gridForm.controls['DepartureFromTime'].setValue(mcoDiary.DepartureFromTime);
@@ -352,8 +353,24 @@ debugger
         this.gridForm.controls['TotFarmersContacted'].setValue(mcoDiary.TotFarmersContacted);
         this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(mcoDiary.TotNoOfFarmersVisisted);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(mcoDiary.AnyOtherWorkDone);
-        this.gridForm.controls['Remarks'].setValue(mcoDiary.Remarks);
 
+
+        this.gridForm.controls['Name'].setValue("");
+        this.gridForm.controls['Ppno'].setValue("");
+        this.gridForm.controls['DiaryId'].setValue("");
+        this.gridForm.controls['TourPlanId'].setValue("");
+        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
+        // this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
+        this.gridForm.controls['CircleId'].setValue("");
+        this.gridForm.controls['TourDate'].setValue("");
+        this.gridForm.controls['DepartureFromPlace'].setValue("");
+        this.gridForm.controls['DepartureFromTime'].setValue("");
+        this.gridForm.controls['ArrivalAtPlace'].setValue("");
+        this.gridForm.controls['ArrivalAtTime'].setValue("");
+        this.gridForm.controls['NoOfDefaulterContacted'].setValue("");
+        this.gridForm.controls['ResultContactMade'].setValue("");
+        this.gridForm.controls['MeasureBoostUpRecord'].setValue("");
+        this.gridForm.controls['Remarks'].setValue("");
         // this._cdf.detectChanges();
         // this.createForm()
         this.isUpdate=true;

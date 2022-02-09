@@ -244,7 +244,7 @@ export class TourDiaryPcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    
+
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
 
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
@@ -361,18 +361,7 @@ export class TourDiaryPcComponent implements OnInit {
             if (!res) {
                 return;
             }
-
-            if (status == 'S') {
-                this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
-                this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
-                this.TourDiary.Ppno = this.gridForm.controls["PPNO"]?.value;
-
-            } else {
-                this.TourDiary.DiaryId = data["DiaryId"];
-                this.TourDiary.TourPlanId = data["TourPlanId"];
-                this.TourDiary.Ppno = data["Ppno"];
-            }
-
+            this.TourDiary = Object.assign(data);
             this.spinner.show();
             this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
                 .pipe(

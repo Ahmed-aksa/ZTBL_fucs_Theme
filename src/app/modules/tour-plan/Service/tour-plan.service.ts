@@ -51,6 +51,7 @@ export class TourPlanService {
             this.request.Circle = circle;
 
         var v = JSON.stringify(this.request)
+        console.log(v)
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourPlan`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -197,8 +198,8 @@ export class TourPlanService {
 
         }
         //this.request.Date = {}
-        // var req = JSON.stringify(this.request);
-
+        var req = JSON.stringify(this.request);
+        console.log(req)
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetScheduleBaseTourPlan`, date,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -261,13 +262,14 @@ export class TourPlanService {
         );
     }
 
-    GetHolidays(StartDate, EndDate): Observable<any> {
+    GetHolidays(StartDate, EndDate,zone): Observable<any> {
         var resData = {
             "TourPlan": {
                 "StartDate": StartDate,
                 "EndDate": EndDate
             },
             "User": this.userInfo.User,
+            "Zone":zone,
         }
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetHolidays`, resData,

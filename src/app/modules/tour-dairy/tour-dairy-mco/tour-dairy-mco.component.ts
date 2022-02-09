@@ -217,18 +217,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 }
                 debugger
                 this.TourDiary = Object.assign(data);
-                if (status == "S") {
-                    this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
-                    this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
-                    this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
-
-                } else {
-                    this.TourDiary.DiaryId = data["DiaryId"];
-                    this.TourDiary.TourPlanId = data["TourPlanId"];
-                    this.TourDiary.Ppno = data["Ppno"];
-                }
-
-                this.spinner.show();
+               this.spinner.show();
                 this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
                     .pipe(
                         finalize(() => {
@@ -244,6 +233,7 @@ export class TourDiaryMcoComponent implements OnInit {
                         this.onClearForm();
                         this.TourDiary = null;
                     } else {
+                        this.TourDiaryList=[];
                         this.TourDiary = null;
                         this.layoutUtilsService.alertElement('', baseResponse.Message);
                     }
@@ -276,11 +266,16 @@ export class TourDiaryMcoComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
                 debugger
+                debugger
+                this.TourDiaryList=[];
+                this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.isUpdate = false;
                 this.onClearForm();
                 this.TourDiary = null;
+
             } else {
+                this.TourDiaryList=[];
                 this.TourDiary = null;
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
@@ -498,5 +493,11 @@ export class TourDiaryMcoComponent implements OnInit {
         // this._cdf.detectChanges();
         // this.createForm()
         // this.isUpdate=true;
+    }
+    dateChange(date: string) {
+        var day = date.slice(0, 2),
+            month = date.slice(2, 4),
+            year = date.slice(4, 8);
+        return day + "-" + month + "-" + year;
     }
 }
