@@ -23,6 +23,7 @@ export class TourDiaryService {
     public request = new BaseRequestModel();
     public activity = new Activity();
     userInfo = this.userUtilsService.getUserDetails();
+
     constructor(
         private http: HttpClient,
         private httpUtils: HttpUtilsService,
@@ -31,6 +32,7 @@ export class TourDiaryService {
         private _common: CommonService
     ) {
     }
+
     // SearchTourDiary(zone,branch,TourDiary) {
     //     this.request = new BaseRequestModel();
     //     var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -66,21 +68,21 @@ export class TourDiaryService {
         );
     }
 
-    SearchTourPlan(zone,branch,date) {
+    SearchTourPlan(zone, branch, date) {
         let request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         request.Zone = zone;
         request.Branch = branch;
         request.User = userInfo.User;
-        let TourPlan ={
+        let TourPlan = {
             "Limit": 500,
             "Offset": 0,
             "Status": "S",
-            "StartDate":date,
-            "EndDate":"",
-            "TourDate":date,
+            "StartDate": date,
+            "EndDate": "",
+            "TourDate": date,
         }
-        request.TourPlan=TourPlan;
+        request.TourPlan = TourPlan;
 
         return this.http
             .post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourPlan`, request, {
@@ -191,7 +193,7 @@ export class TourDiaryService {
     }
 
 
-    saveDiary(zone,branch,TourDiary) {
+    saveDiary(zone, branch, TourDiary) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -210,12 +212,12 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    ChangeStatusDiary(zone,branch,circle,TourDiary, Status) {
-debugger
+    ChangeStatusDiary(zone, branch, circle, TourDiary, Status) {
+        debugger
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
-        var circles=[], circleIds;
+        var circles = [], circleIds;
 
         if (userInfo.UserCircleMappings && userInfo.UserCircleMappings.length != 0) {
             userInfo.UserCircleMappings.forEach(element => {
@@ -224,28 +226,31 @@ debugger
         } else {
             circleIds = [0]
         }
-
         circleIds = circles.toString();
 
         TourDiary.DiaryId = TourDiary.DiaryId.toString();
-        TourDiary.Ppno = TourDiary.Ppno.toString();
+        if (TourDiary.Ppno)
+            TourDiary.Ppno = TourDiary.Ppno.toString();
+        else
+            TourDiary.Ppno = TourDiary.PPNO.toString();
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
+        // TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
 
         req = {
             User: userInfo.User,
             Branch: branch,
             Zone: zone,
-            Circle:{
+            Circle: {
                 CircleIds: circleIds
             },
-            TourDiary:{
+            TourDiary: {
                 DiaryId: TourDiary.DiaryId,
                 Ppno: TourDiary.Ppno,
                 Status: Status,
                 TourPlanId: TourDiary.TourPlanId,
             }
         }
-debugger
+        debugger
 
         // var req = JSON.stringify(this.request);
 
@@ -257,7 +262,7 @@ debugger
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    submitTargets(bankAssignedTargets,Duration, UserID, TagName,assignedTarget,Label) {
+    submitTargets(bankAssignedTargets, Duration, UserID, TagName, assignedTarget, Label) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -300,7 +305,7 @@ debugger
                 // this.request.Target["AssignedTarget"] =obj;
 
                 this.request.Target["AssignedTarget"] = this._common.simpleClone(assignedTarget)
-                this.request.Target.AssignedTarget["Name"]=Label
+                this.request.Target.AssignedTarget["Name"] = Label
             }
         }
 
@@ -311,7 +316,7 @@ debugger
                 // this.request.Target["AssignedTarget"] =obj;
 
                 this.request.Target["AssignedTarget"] = this._common.simpleClone(bankAssignedTargets[0])
-                this.request.Target.AssignedTarget["Name"]=Label
+                this.request.Target.AssignedTarget["Name"] = Label
             }
         }
 

@@ -432,9 +432,8 @@ export class TourDiaryRcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-
+                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
-                    this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
