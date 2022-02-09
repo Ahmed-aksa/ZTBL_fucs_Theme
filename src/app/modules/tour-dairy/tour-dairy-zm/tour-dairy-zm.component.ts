@@ -212,7 +212,6 @@ export class TourDiaryZmComponent implements OnInit {
         this.gridForm = this.fb.group({
             Name: [null],
             Ppno: [null],
-            Month: [null],
             TourDate: [null],
             //Date: [null],
             TourPlanId: [null],

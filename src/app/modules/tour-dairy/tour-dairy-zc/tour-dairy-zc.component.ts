@@ -11,8 +11,8 @@ import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
-import {TourDiaryZC} from "../model/tour-diary-model";
 import {ToastrService} from "ngx-toastr";
+import {TourDiary} from "../set-target/Models/tour-diary.model";
 
 @Component({
     selector: 'app-tour-dairy-zc',
@@ -33,7 +33,7 @@ export class TourDiaryZcComponent implements OnInit {
     loggedInUser: any;
     maxDate: Date;
     TourPlan;
-    TourDiary = new TourDiaryZC();
+    TourDiary = new TourDiary();
     sign;
     zone: any;
     branch: any;
@@ -107,7 +107,7 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['ArrivalAtTime'].setValue("");
         this.gridForm.controls['GeneralAdmissionComplaints'].setValue("");
         this.gridForm.controls['CashManagementCompliance'].setValue("");
-        this.gridForm.controls['LoanCasesInRecoverySchedule'].setValue("");
+        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue("");
         this.gridForm.controls['AuditReports'].setValue("");
         this.gridForm.controls['OutstandingParas'].setValue("");
         this.gridForm.controls['Settlements'].setValue("");
@@ -124,7 +124,6 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm = this.fb.group({
             Name: [null, [Validators.required]],
             Ppno: [null, [Validators.required]],
-            Month: [null],
             DiaryId:[null],
             NameOfOfficer:[null],
             TourPlanId:[null, [Validators.required]],
@@ -135,7 +134,7 @@ export class TourDiaryZcComponent implements OnInit {
             ArrivalAtTime:[null, [Validators.required]],
             GeneralAdmissionComplaints:[null, [Validators.required]],
             CashManagementCompliance:[null, [Validators.required]],
-            LoanCasesInRecoverySchedule:[null],
+            LCNotIssuedToBorrowers:[null],
             AuditReports:[null, [Validators.required]],
             OutstandingParas:[null, [Validators.required]],
             Settlements:[null, [Validators.required]],
@@ -243,11 +242,29 @@ export class TourDiaryZcComponent implements OnInit {
         });
     }
 
-    edit(){
+    edit(zcDiary){
         this.btnText = 'Update';
+        this.gridForm.controls['DiaryId'].setValue("");
+        this.gridForm.controls['TourPlanId'].setValue("");
+        this.gridForm.controls['TourDate'].setValue("");
+        this.gridForm.controls['DepartureFromPlace'].setValue("");
+        this.gridForm.controls['DepartureFromTime'].setValue("");
+        this.gridForm.controls['ArrivalAtPlace'].setValue("");
+        this.gridForm.controls['ArrivalAtTime'].setValue("");
+        this.gridForm.controls['GeneralAdmissionComplaints'].setValue("");
+        this.gridForm.controls['CashManagementCompliance'].setValue("");
+        this.gridForm.controls['LoanCasesInRecoverySchedule'].setValue("");
+        this.gridForm.controls['AuditReports'].setValue("");
+        this.gridForm.controls['OutstandingParas'].setValue("");
+        this.gridForm.controls['Settlements'].setValue("");
+        this.gridForm.controls['TotFarmersContacted'].setValue("");
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
+        this.gridForm.controls['AnyOtherWorkDone'].setValue("");
+        this.gridForm.controls['Remarks'].setValue("");
+        this.gridForm.controls['Status'].setValue("");
     }
 
-    delete(){}
+    delete(zczcDiary){}
 
     GetTourPlan(){
         this.spinner.show();
