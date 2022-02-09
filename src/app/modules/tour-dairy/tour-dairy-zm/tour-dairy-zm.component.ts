@@ -122,7 +122,7 @@ export class TourDiaryZmComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+                    
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                 } else {
@@ -160,7 +160,7 @@ export class TourDiaryZmComponent implements OnInit {
             });
         }
 
-        debugger
+        
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if(status=="S"){
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
@@ -181,7 +181,7 @@ export class TourDiaryZmComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
+                
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.onClearForm();
                 this.TourDiary=null;

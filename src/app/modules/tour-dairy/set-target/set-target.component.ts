@@ -460,7 +460,7 @@ export class SetTargetComponent implements OnInit {
     }
 
     onInputChanged(value, rowIndex: number, propertyKey: string): void {
-debugger
+
         value = this.removeCommaFromString(value);
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex

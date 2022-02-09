@@ -187,9 +187,10 @@ export class TourDiaryMcoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
+                this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.isUpdate = false;
                 this.onClearForm();
             } else {
@@ -234,7 +235,7 @@ export class TourDiaryMcoComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        debugger
+                        
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.isUpdate = false;
                         this.onClearForm();
@@ -271,7 +272,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
+                
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.isUpdate = false;
                 this.onClearForm();
@@ -356,7 +357,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     getAllData(event) {
-        debugger
+        
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
@@ -445,10 +446,9 @@ export class TourDiaryMcoComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-            debugger
-                    // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-                    // this.TourDiaryList = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+
+                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',

@@ -209,7 +209,7 @@ export class TourDiaryZcComponent implements OnInit {
             });
         }
 
-        debugger
+        
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if(status=="S"){
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
@@ -230,7 +230,7 @@ export class TourDiaryZcComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
+                
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.onClearForm();
                 this.TourDiary=null;
@@ -299,7 +299,7 @@ export class TourDiaryZcComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        debugger
+                        
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.onClearForm();
                         this.TourDiary = null;
