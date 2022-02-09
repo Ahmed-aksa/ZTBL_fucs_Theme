@@ -15,7 +15,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
-import {TourDiaryZM} from "../model/tour-diary-model";
+import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -43,7 +43,9 @@ export class TourDiaryZmComponent implements OnInit {
     branch: any;
     circle: any;
     TourPlan: any;
-    TourDiary = new TourDiaryZM();
+    TourDiary = new TourDiary();
+    tourDiaryList = [];
+
     Format24:boolean=true;
     isUpdate:boolean=false;
     date: any;
@@ -125,6 +127,7 @@ export class TourDiaryZmComponent implements OnInit {
                     
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    console.log(baseResponse)
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -213,7 +216,7 @@ export class TourDiaryZmComponent implements OnInit {
             Name: [null],
             Ppno: [null],
             TourDate: [null],
-            //Date: [null],
+            DiaryId: [null],
             TourPlanId: [null],
             DepartureFromPlace: [null],
             DepartureFromTime: [null],
@@ -222,8 +225,9 @@ export class TourDiaryZmComponent implements OnInit {
             LCNotIssuedToBorrowers: [null],
             McoNBmTourDiaryAPPlan: [null],
             AnyShortComingInDiaries: [null],
-            NoOfDefaultersContactedByZM: [null],
+            RecNoOfDefaulterContacted: [null],
             Remarks:[null],
+            Status:[null],
         });
         this.setValue()
     }
@@ -249,7 +253,7 @@ export class TourDiaryZmComponent implements OnInit {
             if (baseResponse.Success) {
 
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                console.log(baseResponse);
+                this.tourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.onClearForm();
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
@@ -262,9 +266,6 @@ export class TourDiaryZmComponent implements OnInit {
     onClearForm() {
         this.gridForm.controls['DiaryId'].setValue("");
         this.gridForm.controls['TourPlanId'].setValue("");
-        // this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        // this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
-        // this.gridForm.controls['CircleId'].setValue("");
         this.gridForm.controls['TourDate'].setValue("");
         this.gridForm.controls['DepartureFromPlace'].setValue("");
         this.gridForm.controls['DepartureFromTime'].setValue("");
@@ -273,8 +274,9 @@ export class TourDiaryZmComponent implements OnInit {
         this.gridForm.controls['LCNotIssuedToBorrowers'].setValue("");
         this.gridForm.controls['McoNBmTourDiaryAPPlan'].setValue("");
         this.gridForm.controls['AnyShortComingInDiaries'].setValue("");
-        this.gridForm.controls['NoOfDefaultersContactedByZM'].setValue("");
+        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
+        this.gridForm.controls['Status'].setValue("");
         this.btnText = 'Save'
         //this.setValue();
 
@@ -299,10 +301,75 @@ export class TourDiaryZmComponent implements OnInit {
 
     }
 
-    edit(){
-        this.btnText = 'Update'
+    edit(zmDiary){
+        debugger
+        this.btnText = 'Update';
+        this.gridForm.controls['DiaryId'].setValue(zmDiary.DiaryId);
+        this.gridForm.controls['TourPlanId'].setValue(zmDiary.TourPlanId);
+        let date = zmDiary.TourDate;
+        var month = date.slice(0,2), day=date.slice(3, 5), year= date.slice(6, 10);
+        date = day+month+year
+        this.gridForm.controls['TourDate'].setValue(date);
+        this.gridForm.controls['DepartureFromPlace'].setValue(zmDiary.DepartureFromPlace);
+        this.gridForm.controls['DepartureFromTime'].setValue(zmDiary.DepartureFromTime);
+        this.gridForm.controls['ArrivalAtPlace'].setValue(zmDiary.ArrivalAtPlace);
+        this.gridForm.controls['ArrivalAtTime'].setValue(zmDiary.ArrivalAtTime);
+        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zmDiary.LCNotIssuedToBorrowers);
+        this.gridForm.controls['McoNBmTourDiaryAPPlan'].setValue(zmDiary.McoNBmTourDiaryAPPlan);
+        this.gridForm.controls['AnyShortComingInDiaries'].setValue(zmDiary.AnyShortComingInDiaries);
+        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(zmDiary.LCNotIssuedToBorrowers);
+        this.gridForm.controls['Remarks'].setValue(zmDiary.Remarks);
+        this.gridForm.controls['Status'].setValue(zmDiary.Status);
     }
-    delete(){}
+
+    delete(data, status) {
+        if (status == "C") {
+            const _title = 'Confirmation';
+            const _description = 'Do you really want to continue?';
+            const _waitDesciption = '';
+            const _deleteMessage = ``;
+
+            const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
+
+
+            dialogRef.afterClosed().subscribe(res => {
+
+                if (!res) {
+                    return;
+                }
+
+                if (status == "S") {
+                    this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
+                    this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
+                    this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
+
+                } else {
+                    this.TourDiary.DiaryId = data["DiaryId"];
+                    this.TourDiary.TourPlanId = data["TourPlanId"];
+                    this.TourDiary.Ppno = data["Ppno"];
+                }
+
+                this.spinner.show();
+                this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+                    .pipe(
+                        finalize(() => {
+                            this.spinner.hide();
+                        })
+                    ).subscribe(baseResponse => {
+                    if (baseResponse.Success) {
+                        debugger
+                        this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                        this.onClearForm();
+                        this.TourDiary = null;
+                    } else {
+                        this.TourDiary = null;
+                        this.layoutUtilsService.alertElement('', baseResponse.Message);
+                    }
+
+                });
+            });
+        }
+    }
 
 
     getAllData(data) {

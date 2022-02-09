@@ -243,22 +243,26 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     edit(zcDiary){
+        debugger
         this.btnText = 'Update';
         this.gridForm.controls['DiaryId'].setValue(zcDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(zcDiary.TourPlanId);
-        this.gridForm.controls['TourDate'].setValue(zcDiary.TourDate);
+        let date = zcDiary.TourDate;
+        var month = date.slice(0,2), day=date.slice(3, 5), year= date.slice(6, 10);
+        date = day+month+year
+        this.gridForm.controls['TourDate'].setValue(date);
         this.gridForm.controls['DepartureFromPlace'].setValue(zcDiary.DepartureFromPlace);
         this.gridForm.controls['DepartureFromTime'].setValue(zcDiary.DepartureFromTime);
         this.gridForm.controls['ArrivalAtPlace'].setValue(zcDiary.ArrivalAtPlace);
         this.gridForm.controls['ArrivalAtTime'].setValue(zcDiary.ArrivalAtTime);
-        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(zcDiary.ArrivalAtTime);
-        this.gridForm.controls['CashManagementCompliance'].setValue(zcDiary.GeneralAdmissionComplaints);
+        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(zcDiary.GeneralAdmissionComplaints);
+        this.gridForm.controls['CashManagementCompliance'].setValue(zcDiary.CashManagementCompliance);
         this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zcDiary.LCNotIssuedToBorrowers);
         this.gridForm.controls['AuditReports'].setValue(zcDiary.AuditReports);
         this.gridForm.controls['OutstandingParas'].setValue(zcDiary.OutstandingParas);
         this.gridForm.controls['Settlements'].setValue(zcDiary.Settlements);
-        this.gridForm.controls['TotFarmersContacted'].setValue(zcDiary.TotFarmersContacted);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(zcDiary.TotNoOfFarmersVisisted);
+        this.gridForm.controls['TotFarmersContacted'].setValue(zcDiary.TOTFarmersContacted);
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(zcDiary.TOTNoOfFarmersVisisted);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(zcDiary.AnyOtherWorkDone);
         this.gridForm.controls['Remarks'].setValue(zcDiary.Remarks);
         this.gridForm.controls['Status'].setValue(zcDiary.Status);
@@ -354,7 +358,12 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     getAllData(data) {
-        this.zone = data.final_zone;
+        debugger
+        if(data.final_zone[0]){
+            this.zone = data.final_zone[0];
+        }else{
+            this.zone = data.final_zone;
+        }
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
