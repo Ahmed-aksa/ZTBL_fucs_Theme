@@ -426,7 +426,7 @@ export class TourDiaryRcComponent implements OnInit {
 
         this.spinner.show();
         this.tourDiaryService
-            .SearchTourPlan(this.zone,this.branch,this.date)
+            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))

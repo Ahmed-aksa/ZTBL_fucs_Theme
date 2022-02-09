@@ -88,7 +88,40 @@ export class TourDiaryService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
+    GetScheduleBaseTourPlan(zone,branch,date) {
 
+        this.request = new BaseRequestModel();
+
+        // var userInfo = this.userUtilsService.getUserDetails();
+        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+
+        let request = new BaseRequestModel();
+
+        request.Zone = zone;
+        request.Branch = branch;
+        request.User = userInfo.User;
+        let TourPlan ={
+            "Limit": 500,
+            "Offset": 0,
+            "Status": "A",
+            "StartDate":date,
+            "EndDate":date,
+
+        }
+        let TourDiary={
+            "TourDate":date,
+        }
+        request.TourPlan=TourPlan;
+        request.TourDiary=TourDiary;
+        //this.request.Date = {}
+         var req = JSON.stringify(request);
+ console.log(JSON.stringify(request))
+
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetScheduleBaseTourPlan`, request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: BaseResponseModel) => res)
+        );
+    }
     Profile = new Profile();
 
     GetTargets(value: string, zone, branch, circle, UserID) {
