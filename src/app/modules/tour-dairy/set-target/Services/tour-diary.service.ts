@@ -226,7 +226,6 @@ export class TourDiaryService {
         } else {
             circleIds = [0]
         }
-
         circleIds = circles.toString();
 
         TourDiary.DiaryId = TourDiary.DiaryId.toString();
@@ -235,6 +234,7 @@ export class TourDiaryService {
         else
             TourDiary.Ppno = TourDiary.PPNO.toString();
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
+        // TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
 
         req = {
             User: userInfo.User,

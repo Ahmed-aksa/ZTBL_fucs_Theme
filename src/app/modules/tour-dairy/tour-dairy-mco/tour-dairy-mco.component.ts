@@ -447,7 +447,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 if (baseResponse.Success) {
             debugger
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
-                    this.TourPlan = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     // this.TourDiaryList = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -468,8 +468,8 @@ export class TourDiaryMcoComponent implements OnInit {
         // this.gridForm.controls['TourPlanId'].setValue(null);
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
         this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
-        this.gridForm.controls['CircleId'].setValue(null);
-        this.gridForm.controls['TourDate'].setValue(null);
+        // this.gridForm.controls['CircleId'].setValue(null);
+        // this.gridForm.controls['TourDate'].setValue(null);
         this.gridForm.controls['DepartureFromPlace'].setValue("rawalpindi");
         this.gridForm.controls['DepartureFromTime'].setValue("21:00");
         this.gridForm.controls['ArrivalAtPlace'].setValue("rawalpindi");
