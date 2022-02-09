@@ -117,15 +117,9 @@ export class TourDiaryBmComponent implements OnInit {
         }
     }
 
-    edit() {
-    }
-
-    delete() {
-    }
-
     onClearForm() {
-        this.gridForm.controls['Name'].setValue("");
-        this.gridForm.controls['Ppno'].setValue("");
+        // this.gridForm.controls['Name'].setValue("");
+        this.gridForm.controls['PPNO'].setValue("");
         this.gridForm.controls['DiaryId'].setValue("");
         this.gridForm.controls['TourPlanId'].setValue("");
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
@@ -136,20 +130,16 @@ export class TourDiaryBmComponent implements OnInit {
         this.gridForm.controls['ArrivalAtPlace'].setValue("");
         this.gridForm.controls['ArrivalAtTime'].setValue("");
         // this.gridForm.controls['DisbNoOfCasesAppraised'].setValue("");
-        this.gridForm.controls['DisbNoOfRecordVerified'].setValue("");
-        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue("");
-        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue("");
-        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue("");
-        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue("");
-        this.gridForm.controls['NoOfUtilizationChecked'].setValue("");
-        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue("");
-        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue("");
+        this.gridForm.controls['DisbNoOfNewBorrowerContacted'].setValue("");
         this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("");
-        this.gridForm.controls['TotFarmersContacted'].setValue("");
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
+        this.gridForm.controls['DisbBorrowerRollOverCasesContacted'].setValue("");
+        this.gridForm.controls['RecAmountRecoveredWithLCNo'].setValue("");
+        this.gridForm.controls['NoOfUtilizationChecked'].setValue("");
+        this.gridForm.controls['AnyOtherWorkDone'].setValue("");
+        this.gridForm.controls['TOTFarmersContacted'].setValue("");
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue("");
         this.gridForm.controls['AnyOtherWorkDone'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
-
         this.setValue();
     }
 
@@ -266,6 +256,7 @@ export class TourDiaryBmComponent implements OnInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {                    // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -332,10 +323,10 @@ export class TourDiaryBmComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-                debugger;
+            debugger;
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.isUpdate = false;
                 this.onClearForm();
             } else {
@@ -377,4 +368,57 @@ export class TourDiaryBmComponent implements OnInit {
     getTourDiary(event) {
 
     }
+
+    editData(tour_list) {
+        this.gridForm.patchValue(tour_list);
+    }
+
+    deleteData(data, status = 'C') {
+        const _title = 'Confirmation';
+        const _description = 'Do you really want to continue?';
+        const _waitDesciption = '';
+        const _deleteMessage = ``;
+
+        const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
+
+
+        dialogRef.afterClosed().subscribe(res => {
+
+            if (!res) {
+                return;
+            }
+
+            if (status == 'S') {
+                this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
+                this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
+                this.TourDiary.Ppno = this.gridForm.controls["PPNO"]?.value;
+
+            } else {
+                this.TourDiary.DiaryId = data["DiaryId"];
+                this.TourDiary.TourPlanId = data["TourPlanId"];
+                this.TourDiary.Ppno = data["Ppno"];
+            }
+
+            this.spinner.show();
+            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+                .pipe(
+                    finalize(() => {
+                        this.spinner.hide();
+                    })
+                ).subscribe(baseResponse => {
+                if (baseResponse.Success) {
+                    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                    this.isUpdate = false;
+                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                    this.onClearForm();
+                    this.TourDiary = null;
+                } else {
+                    this.TourDiary = null;
+                    this.layoutUtilsService.alertElement('', baseResponse.Message);
+                }
+
+            });
+        });
+    }
+
 }
