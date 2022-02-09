@@ -227,12 +227,6 @@ export class TourDiaryRcComponent implements OnInit {
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
     }
-    SubmitTourDiary() {
-        const signatureDialogRef = this.dialog.open(
-            SignatureDailogDairyComponent,
-            {width: '500px', disableClose: true}
-        );
-    }
 
 
     delete(data,status){
@@ -432,7 +426,7 @@ export class TourDiaryRcComponent implements OnInit {
 
         this.spinner.show();
         this.tourDiaryService
-            .SearchTourPlan(this.zone,this.branch,this.date)
+            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))

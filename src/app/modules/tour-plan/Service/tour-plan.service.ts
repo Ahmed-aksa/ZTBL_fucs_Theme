@@ -348,6 +348,10 @@ export class TourPlanService {
             request.TourPlan.EndDate = null;
         }
 
+        if(request?.TourPlan?.UserPPNo==""){
+            request.TourPlan.UserPPNo = null;
+        }
+
         console.log(request);
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ViewTourPlans`, request,
