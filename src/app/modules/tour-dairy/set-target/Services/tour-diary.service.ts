@@ -78,7 +78,7 @@ export class TourDiaryService {
             "Status": "S",
             "StartDate":date,
             "EndDate":"",
-            "VisitDate":date,
+            "TourDate":date,
         }
         request.TourPlan=TourPlan;
 

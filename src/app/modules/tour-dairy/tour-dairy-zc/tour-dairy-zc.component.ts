@@ -244,27 +244,74 @@ export class TourDiaryZcComponent implements OnInit {
 
     edit(zcDiary){
         this.btnText = 'Update';
-        this.gridForm.controls['DiaryId'].setValue("");
-        this.gridForm.controls['TourPlanId'].setValue("");
-        this.gridForm.controls['TourDate'].setValue("");
-        this.gridForm.controls['DepartureFromPlace'].setValue("");
-        this.gridForm.controls['DepartureFromTime'].setValue("");
-        this.gridForm.controls['ArrivalAtPlace'].setValue("");
-        this.gridForm.controls['ArrivalAtTime'].setValue("");
-        this.gridForm.controls['GeneralAdmissionComplaints'].setValue("");
-        this.gridForm.controls['CashManagementCompliance'].setValue("");
-        this.gridForm.controls['LoanCasesInRecoverySchedule'].setValue("");
-        this.gridForm.controls['AuditReports'].setValue("");
-        this.gridForm.controls['OutstandingParas'].setValue("");
-        this.gridForm.controls['Settlements'].setValue("");
-        this.gridForm.controls['TotFarmersContacted'].setValue("");
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
-        this.gridForm.controls['AnyOtherWorkDone'].setValue("");
-        this.gridForm.controls['Remarks'].setValue("");
-        this.gridForm.controls['Status'].setValue("");
+        this.gridForm.controls['DiaryId'].setValue(zcDiary.DiaryId);
+        this.gridForm.controls['TourPlanId'].setValue(zcDiary.TourPlanId);
+        this.gridForm.controls['TourDate'].setValue(zcDiary.TourDate);
+        this.gridForm.controls['DepartureFromPlace'].setValue(zcDiary.DepartureFromPlace);
+        this.gridForm.controls['DepartureFromTime'].setValue(zcDiary.DepartureFromTime);
+        this.gridForm.controls['ArrivalAtPlace'].setValue(zcDiary.ArrivalAtPlace);
+        this.gridForm.controls['ArrivalAtTime'].setValue(zcDiary.ArrivalAtTime);
+        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(zcDiary.ArrivalAtTime);
+        this.gridForm.controls['CashManagementCompliance'].setValue(zcDiary.GeneralAdmissionComplaints);
+        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zcDiary.LCNotIssuedToBorrowers);
+        this.gridForm.controls['AuditReports'].setValue(zcDiary.AuditReports);
+        this.gridForm.controls['OutstandingParas'].setValue(zcDiary.OutstandingParas);
+        this.gridForm.controls['Settlements'].setValue(zcDiary.Settlements);
+        this.gridForm.controls['TotFarmersContacted'].setValue(zcDiary.TotFarmersContacted);
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(zcDiary.TotNoOfFarmersVisisted);
+        this.gridForm.controls['AnyOtherWorkDone'].setValue(zcDiary.AnyOtherWorkDone);
+        this.gridForm.controls['Remarks'].setValue(zcDiary.Remarks);
+        this.gridForm.controls['Status'].setValue(zcDiary.Status);
     }
 
-    delete(zczcDiary){}
+    delete(data, status) {
+        if (status == "C") {
+            const _title = 'Confirmation';
+            const _description = 'Do you really want to continue?';
+            const _waitDesciption = '';
+            const _deleteMessage = ``;
+
+            const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
+
+
+            dialogRef.afterClosed().subscribe(res => {
+
+                if (!res) {
+                    return;
+                }
+
+                if (status == "S") {
+                    this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
+                    this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
+                    this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
+
+                } else {
+                    this.TourDiary.DiaryId = data["DiaryId"];
+                    this.TourDiary.TourPlanId = data["TourPlanId"];
+                    this.TourDiary.Ppno = data["Ppno"];
+                }
+
+                this.spinner.show();
+                this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+                    .pipe(
+                        finalize(() => {
+                            this.spinner.hide();
+                        })
+                    ).subscribe(baseResponse => {
+                    if (baseResponse.Success) {
+                        debugger
+                        this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                        this.onClearForm();
+                        this.TourDiary = null;
+                    } else {
+                        this.TourDiary = null;
+                        this.layoutUtilsService.alertElement('', baseResponse.Message);
+                    }
+
+                });
+            });
+        }
+    }
 
     GetTourPlan(){
         this.spinner.show();

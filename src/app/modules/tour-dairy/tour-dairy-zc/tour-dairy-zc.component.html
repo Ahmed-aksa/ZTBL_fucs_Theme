@@ -360,7 +360,7 @@
                                                     edit
                                                 </mat-icon>
                                             </button>
-                                            <button mat-icon-button (click)="delete(ZcTourDiary)">
+                                            <button mat-icon-button (click)="delete(ZcTourDiary, 'C')">
                                                 <mat-icon class="text-red-500">
                                                     delete_forever
                                                 </mat-icon>
@@ -415,7 +415,7 @@
                                     </thead>
                                     <tbody>
                                     <tr *ngFor="let ZcTourDiary of tourDiaryList">
-                                        <td>{{ZcTourDiary.Settlements}}</td>
+                                        <td>{{ZcTourDiary.LCNotIssuedToBorrowers}}</td>
                                         <td>{{ZcTourDiary.TOTFarmersContacted}}</td>
                                         <td>{{ZcTourDiary.TOTNoOfFarmersVisisted}}</td>
                                         <td></td>
