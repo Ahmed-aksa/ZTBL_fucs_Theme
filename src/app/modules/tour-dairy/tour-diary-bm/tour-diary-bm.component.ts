@@ -249,13 +249,14 @@ export class TourDiaryBmComponent implements OnInit {
     GetTourPlan() {
         this.spinner.show();
         this.tourDiaryService
-            .SearchTourPlan(this.zone, this.branch, this.date)
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {                    // this.TargetDuration = baseResponse.Target.TargetDuration;
-                    this.TourPlan = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -323,9 +324,11 @@ export class TourDiaryBmComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            debugger;
+            
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.isUpdate = false;
                 this.onClearForm();
@@ -358,6 +361,10 @@ export class TourDiaryBmComponent implements OnInit {
                 this.isUpdate = false;
                 this.onClearForm();
                 this.TourDiary = null;
+
+                this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
             } else {
                 this.TourDiary = null;
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
@@ -409,6 +416,7 @@ export class TourDiaryBmComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                     this.isUpdate = false;
+                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     this.onClearForm();
                     this.TourDiary = null;

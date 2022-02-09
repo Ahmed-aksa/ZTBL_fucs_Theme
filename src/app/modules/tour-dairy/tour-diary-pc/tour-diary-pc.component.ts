@@ -243,7 +243,10 @@ export class TourDiaryPcComponent implements OnInit {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
-                if (baseResponse.Success) {                    // this.TargetDuration = baseResponse.Target.TargetDuration;
+                if (baseResponse.Success) {
+                    
+                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 } else {
                     this.layoutUtilsService.alertElement(
@@ -266,7 +269,6 @@ export class TourDiaryPcComponent implements OnInit {
         this.gridForm.controls['NoOfDefaulterContacted'].setValue("2");
         this.gridForm.controls['MeasureBoostUpRecord'].setValue("2");
         this.gridForm.controls['ResultContactMade'].setValue("2");
-        this.gridForm.controls['AnyOtherWorkDone'].setValue("Yes");
     }
 
     saveTourDiary() {

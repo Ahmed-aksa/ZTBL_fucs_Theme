@@ -53,11 +53,11 @@ export class TokenInterceptor implements HttpInterceptor {
                 if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
                     return this.handle401Error(authReq, next);
                 }
-                if (error.status == 0) {
-                    this.layoutUtilsService.AlertElementCapture("You have been logged out from system");
-
-                    return this.handle401Error(authReq, next);
-                }
+                // if (error.status == 0) {
+                //     this.layoutUtilsService.AlertElementCapture("You have been logged out from system");
+                //
+                //     return this.handle401Error(authReq, next);
+                // }
 
                 return throwError(error);
             }));

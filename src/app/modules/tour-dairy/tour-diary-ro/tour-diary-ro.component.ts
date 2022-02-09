@@ -272,7 +272,7 @@ export class TourDiaryRoComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        debugger
+                        
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.isUpdate = false;
                         this.onClearForm();
@@ -309,7 +309,7 @@ export class TourDiaryRoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
+                
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.isUpdate = false;
                 this.onClearForm();
@@ -438,7 +438,7 @@ export class TourDiaryRoComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+                    
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                     // this.TourDiaryList = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
