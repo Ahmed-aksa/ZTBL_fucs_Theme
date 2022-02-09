@@ -224,12 +224,12 @@ debugger
         } else {
             circleIds = [0]
         }
-
         circleIds = circles.toString();
 
         TourDiary.DiaryId = TourDiary.DiaryId.toString();
         TourDiary.Ppno = TourDiary.Ppno.toString();
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
+        // TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
 
         req = {
             User: userInfo.User,
