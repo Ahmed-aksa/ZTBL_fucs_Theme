@@ -209,7 +209,7 @@ export class TourDiaryZcComponent implements OnInit {
             });
         }
 
-        debugger
+        
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if(status=="S"){
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
@@ -230,7 +230,7 @@ export class TourDiaryZcComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
+                
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.onClearForm();
                 this.TourDiary=null;
@@ -303,7 +303,7 @@ export class TourDiaryZcComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        debugger
+                        
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.onClearForm();
                         this.TourDiary = null;
@@ -320,13 +320,13 @@ export class TourDiaryZcComponent implements OnInit {
     GetTourPlan(){
         this.spinner.show();
         this.tourDiaryService
-            .SearchTourPlan(this.zone,this.branch,this.date)
+            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',

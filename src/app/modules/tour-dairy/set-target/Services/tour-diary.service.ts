@@ -90,7 +90,8 @@ export class TourDiaryService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
-    GetScheduleBaseTourPlan(zone,branch,date) {
+
+    GetScheduleBaseTourPlan(zone, branch, date) {
 
         this.request = new BaseRequestModel();
 
@@ -102,28 +103,29 @@ export class TourDiaryService {
         request.Zone = zone;
         request.Branch = branch;
         request.User = userInfo.User;
-        let TourPlan ={
+        let TourPlan = {
             "Limit": 500,
             "Offset": 0,
             "Status": "A",
-            "StartDate":date,
-            "EndDate":date,
+            "StartDate": date,
+            "EndDate": date,
 
         }
-        let TourDiary={
-            "TourDate":date,
+        let TourDiary = {
+            "TourDate": date,
         }
-        request.TourPlan=TourPlan;
-        request.TourDiary=TourDiary;
+        request.TourPlan = TourPlan;
+        request.TourDiary = TourDiary;
         //this.request.Date = {}
-         var req = JSON.stringify(request);
- console.log(JSON.stringify(request))
+        var req = JSON.stringify(request);
+        console.log(JSON.stringify(request))
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetScheduleBaseTourPlan`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
         );
     }
+
     Profile = new Profile();
 
     GetTargets(value: string, zone, branch, circle, UserID) {
@@ -213,7 +215,7 @@ export class TourDiaryService {
     }
 
     ChangeStatusDiary(zone, branch, circle, TourDiary, Status) {
-        debugger
+
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -250,7 +252,7 @@ export class TourDiaryService {
                 TourPlanId: TourDiary.TourPlanId,
             }
         }
-        debugger
+
 
         // var req = JSON.stringify(this.request);
 

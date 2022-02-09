@@ -215,7 +215,7 @@ export class ViewTourTabComponent implements OnInit {
     }
 
     DisplaySign(url: any){
-        debugger
+        
 
             const dialogRef = this.dialogRef.open(ViewFileComponent, {
                 width: '100vh',

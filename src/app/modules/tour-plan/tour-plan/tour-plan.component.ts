@@ -426,7 +426,7 @@ export class TourPlanComponent implements OnInit {
         this.TourPlan = Object.assign(this.TourForm.value);
         this.TourPlan.VisitedDate = this.VisitedDate;
         this.TourPlan.Status = value;
-        debugger;
+        
 
 
         this.spinner.show();
