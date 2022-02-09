@@ -33,6 +33,7 @@
 
                                     <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
                                                             [is_required_circle]="false"
+                                                            [should_filter]="false"
                                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
@@ -82,8 +83,12 @@
                                     <div class="flex" style="flex-wrap: wrap;">
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Departure Place</mat-label>
-                                                <input matInput formControlName="DepartureFromPlace" autocomplete="off"/>
+                                                <mat-label>Departure From Place</mat-label>
+                                                <mat-select matInput formControlName="DepartureFromPlace">
+                                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.Name">
+                                                        {{branch?.Name}}
+                                                    </mat-option>
+                                                </mat-select>
                                             </mat-form-field>
                                         </div>
 
@@ -109,7 +114,7 @@
 <!--                                            </mat-form-field>-->
 
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label>Branches</mat-label>
+                                                <mat-label>Arrival At Place</mat-label>
                                                 <mat-select matInput formControlName="ArrivalAtPlace">
                                                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.Name">
                                                         {{branch?.Name}}
@@ -228,51 +233,26 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <tr *ngFor="let ZmTourDiary of tourDiaryList">
                                         <td>
-                                            <button class="ml-2" mat-icon-button color="primary" (click)="edit()"
+                                            <button class="ml-2" mat-icon-button color="primary" (click)="edit(ZmTourDiary)"
                                             >
                                                 <mat-icon>
                                                     edit
                                                 </mat-icon>
                                             </button>
-                                            <button mat-icon-button (click)="delete()">
+                                            <button mat-icon-button (click)="delete(ZmTourDiary, 'C')">
                                                 <mat-icon class="text-red-500">
                                                     delete_forever
                                                 </mat-icon>
                                             </button>
 
                                         </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
+                                        <td>{{ZmTourDiary.TourDate}}</td>
+                                        <td>{{ZmTourDiary.DepartureFromPlace}}</td>
+                                        <td>{{ZmTourDiary.DepartureFromTime}}</td>
+                                        <td>{{ZmTourDiary.ArrivalAtPlace}}</td>
+                                        <td>{{ZmTourDiary.ArrivalAtTime}}</td>
                                         <td  ></td>
                                         <td  ></td>
                                         <td  ></td>
@@ -312,46 +292,21 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  ></td>
-                                        <td  >
+                                    <tr *ngFor="let ZmTourDiary of tourDiaryList">
+                                        <td>{{ZmTourDiary.LCNotIssuedToBorrowers}}</td>
+                                        <td>{{ZmTourDiary.McoNBmTourDiaryAPPlan}}</td>
+                                        <td>{{ZmTourDiary.AnyShortComingInDiaries}}</td>
+                                        <td></td>
+                                        <td>
                                             <ul>
                                                 <li>Reschedulement</li>
                                                 <li>Restructring of Installments</li>
                                                 <li>RightOff/remission</li>
                                             </ul>
                                         </td>
-                                        <td  ></td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td  >
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
+                                        <td></td>
+                                        <td>{{ZmTourDiary.NoOfDefaulterContacted}}</td>
+                                        <td>{{ZmTourDiary.Remarks}}</td>
                                     </tr>
 
                                     </tbody>

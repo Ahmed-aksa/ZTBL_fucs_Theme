@@ -84,6 +84,7 @@ export class TourDiary {
     LCNotIssuedToBorrowers;
     McoNBmTourDiaryAPPlan;
     AnyShortComingInDiaries;
+
     /**
      * ZM TourFields
      */
