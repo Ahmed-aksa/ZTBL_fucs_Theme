@@ -118,7 +118,7 @@ export class TourDiaryZmComponent implements OnInit {
     GetTourPlan(){
         this.spinner.show();
         this.tourDiaryService
-            .SearchTourPlan(this.zone,this.branch,this.date)
+            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
@@ -126,7 +126,7 @@ export class TourDiaryZmComponent implements OnInit {
                 if (baseResponse.Success) {
                     debugger
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
-                    this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     console.log(baseResponse)
                 } else {
                     this.layoutUtilsService.alertElement(
