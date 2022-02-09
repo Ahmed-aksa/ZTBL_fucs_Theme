@@ -216,7 +216,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
             }
             return;
         }
-        
+
         var v = JSON.stringify(this.tourPlanForm.value)
         this.TourPlan = Object.assign(this.tourPlanForm.value);
         if (this.tourPlanForm.controls.Status.value == 'R') {
@@ -268,6 +268,16 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
 
 
     onChange = () => {
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
         var year = new Date();
         var y = year.getFullYear(), m = year.getMonth();
         var firstDay = new Date(y, m, 1);
@@ -275,9 +285,11 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
         var startDate = this.datepipe.transform(firstDay, 'yyyy-MM-dd')
         var endDate = this.datepipe.transform(lastDay, 'yyyy-MM-dd')
         var daylist = this.targetPlan.getDaysArray(new Date(startDate), new Date(endDate));
+        var zone = this.zone;
+
         const dialogRef = this.dialog.open(CreateTourPlanPopupComponent, {
             width: '60%',
-            data: {daylist, year},
+            data: {daylist, year,zone},
             disableClose: true,
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -321,6 +333,17 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     };
 
     SearchTourPlan(startDate, endDate) {
+
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+
         this.spinner.show();
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();

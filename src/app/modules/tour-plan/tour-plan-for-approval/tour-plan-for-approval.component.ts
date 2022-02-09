@@ -489,7 +489,11 @@ export class TourPlanForApprovalComponent implements OnInit {
     }
 
     getAllData(data) {
-        this.zone = data.final_zone;
+        if(data.final_zone[0]){
+            this.zone = data.final_zone[0];
+        }else{
+            this.zone = data.final_zone;
+        }
         this.branch = data.final_branch;
         this.circle = data.final_circle;
     }

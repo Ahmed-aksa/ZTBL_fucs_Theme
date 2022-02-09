@@ -10,7 +10,7 @@
             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                 <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong>
                 </mat-label>
-                <input readonly matInput name="VisitedDate" formControlName="VisitedDate" autocomplete="off"
+                <input [disabled]="zone" readonly matInput name="VisitedDate" formControlName="VisitedDate" autocomplete="off"
                        [readonly]="viewMode"/>
                 <mat-icon *ngIf="!viewMode" matSuffix style="cursor: pointer;" (click)="onChange()">mode_edit</mat-icon>
             </mat-form-field>

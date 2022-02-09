@@ -320,13 +320,13 @@ export class TourDiaryZcComponent implements OnInit {
     GetTourPlan(){
         this.spinner.show();
         this.tourDiaryService
-            .SearchTourPlan(this.zone,this.branch,this.date)
+            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    this.TourPlan=baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
