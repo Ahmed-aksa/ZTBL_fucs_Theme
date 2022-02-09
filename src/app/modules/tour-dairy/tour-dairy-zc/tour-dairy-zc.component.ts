@@ -78,7 +78,7 @@ export class TourDiaryZcComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
+        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary,true)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -209,7 +209,7 @@ export class TourDiaryZcComponent implements OnInit {
             });
         }
 
-        
+
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if(status=="S"){
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
@@ -223,14 +223,14 @@ export class TourDiaryZcComponent implements OnInit {
         }
 
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status)
+        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status, true)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
+
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.onClearForm();
                 this.TourDiary=null;
@@ -269,6 +269,7 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     delete(data, status) {
+        debugger
         if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -284,26 +285,16 @@ export class TourDiaryZcComponent implements OnInit {
                     return;
                 }
 
-                if (status == "S") {
-                    this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
-                    this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
-                    this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
-
-                } else {
-                    this.TourDiary.DiaryId = data["DiaryId"];
-                    this.TourDiary.TourPlanId = data["TourPlanId"];
-                    this.TourDiary.Ppno = data["Ppno"];
-                }
-
-                this.spinner.show();
-                this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+                this.TourDiary = Object.assign(data);
+              this.spinner.show();
+                this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, true)
                     .pipe(
                         finalize(() => {
                             this.spinner.hide();
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        
+
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.onClearForm();
                         this.TourDiary = null;
