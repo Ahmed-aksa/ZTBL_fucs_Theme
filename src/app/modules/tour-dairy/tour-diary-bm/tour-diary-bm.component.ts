@@ -63,6 +63,7 @@ export class TourDiaryBmComponent implements OnInit {
 
     setValue() {
         this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
+        this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser.User.DisplayName);
     }
 
     createForm() {
@@ -75,8 +76,13 @@ export class TourDiaryBmComponent implements OnInit {
 
         this.gridForm = this.fb.group({
             DisbNoOfNewBorrowerContacted: [null],
-            DisbBorrowerRollOverCasedContacted: [null],
+            DisbBorrowerRollOverCasesContacted: [null],
             RecAmountRecoveredWithLCNo: [null],
+            RecNoOfDefaulterContacted: [null],
+            NoOfUtilizationChecked: [null],
+            TOTFarmersContacted: [null],
+            TOTNoOfFarmersVisisted: [null],
+            AnyOtherWorkDone: [null],
             TourDate: [null],
             DiaryId: [null],
             TourPlanId: [null],
@@ -91,6 +97,8 @@ export class TourDiaryBmComponent implements OnInit {
             Status: [null],
             Remarks: [null],
             Dated: [null],
+            NameOfOfficer: [null],
+
         });
         this.setValue();
     }
@@ -141,6 +149,7 @@ export class TourDiaryBmComponent implements OnInit {
         this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
         this.gridForm.controls['AnyOtherWorkDone'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
+
         this.setValue();
     }
 
@@ -277,9 +286,14 @@ export class TourDiaryBmComponent implements OnInit {
         this.gridForm.controls['ArrivalAtPlace'].setValue("rawalpindi");
         this.gridForm.controls['ArrivalAtTime'].setValue("23:00");
         this.gridForm.controls['DisbNoOfNewBorrowerContacted'].setValue("2");
+        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("2");
+        this.gridForm.controls['Remarks'].setValue("by behlole");
+        this.gridForm.controls['DisbBorrowerRollOverCasesContacted'].setValue("2");
         this.gridForm.controls['RecAmountRecoveredWithLCNo'].setValue("2");
-        this.gridForm.controls['DisbBorrowerRollOverCasedContacted'].setValue("2");
-        this.gridForm.controls['Remarks'].setValue("by sam");
+        this.gridForm.controls['NoOfUtilizationChecked'].setValue("2");
+        this.gridForm.controls['TOTFarmersContacted'].setValue("2");
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue("2");
+        this.gridForm.controls['AnyOtherWorkDone'].setValue("Yes");
     }
 
     saveTourDiary() {
@@ -318,6 +332,7 @@ export class TourDiaryBmComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
+                debugger;
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
@@ -357,5 +372,9 @@ export class TourDiaryBmComponent implements OnInit {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
         });
+    }
+
+    getTourDiary(event) {
+
     }
 }
