@@ -236,7 +236,7 @@ export class TourDiaryService {
         else
             TourDiary.Ppno = TourDiary.PPNO.toString();
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
-        TourDiary.TourDate = TourDiary.TourDate.toString();
+        // TourDiary.TourDate = TourDiary.TourDate.toString();
 
         req = {
             User: userInfo.User,
@@ -250,6 +250,7 @@ export class TourDiaryService {
                 Ppno: TourDiary.Ppno,
                 Status: Status,
                 TourPlanId: TourDiary.TourPlanId,
+                TourDate:TourDiary.TourDate
             }
         }
 
