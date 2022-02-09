@@ -216,8 +216,6 @@ export class TourDiaryService {
     }
 
     ChangeStatusDiary(zone, branch, circle, TourDiary, Status, is_zc = false) {
-        debugger
-
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -256,7 +254,7 @@ export class TourDiaryService {
             }
         }
         if (is_zc) {
-            this.request.User["ProfileId"] = environment.ZC;
+            req.User["ProfileId"] = environment.ZC;
         }
 
 

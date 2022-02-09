@@ -243,7 +243,6 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     edit(zcDiary){
-        debugger
         this.btnText = 'Update';
         this.gridForm.controls['DiaryId'].setValue(zcDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(zcDiary.TourPlanId);
@@ -269,7 +268,6 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     delete(data, status) {
-        debugger
         if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -349,7 +347,6 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     getAllData(data) {
-        debugger
         if(data.final_zone[0]){
             this.zone = data.final_zone[0];
         }else{
