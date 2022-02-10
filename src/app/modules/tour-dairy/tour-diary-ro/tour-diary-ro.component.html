@@ -30,7 +30,9 @@
 
                             <div class="col-lg-12">
                                 <div class="flex" style="flex-wrap: wrap;">
-
+                                    <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
+                                                            [is_required_circle]="false"
+                                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Name of Officer</mat-label>
@@ -49,6 +51,24 @@
 <!--                                            <input matInput formControlName="Month" autocomplete="off" readonly="readonly"/>-->
 <!--                                        </mat-form-field>-->
 <!--                                    </div>-->
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                        <!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+                                        <!--                                            <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>-->
+                                        <!--                                            </mat-label>-->
+                                        <!--                                            <input matInput [matDatepicker]="picker" formControlName="TourDate" maxlength="30" autocomplete="off"-->
+                                        <!--                                                   [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>-->
+                                        <!--                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+                                        <!--                                            <mat-datepicker #picker></mat-datepicker>-->
+                                        <!--                                        </mat-form-field>-->
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Tour Date</mat-label>
+                                            <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
+                                                    maxlength="8"
+                                                    autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
+                                            <mat-datepicker-toggle (click)="checkZone()" [disabled]="!zone" matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
@@ -58,32 +78,20 @@
                                                     Select
                                                 </mat-option>
                                                 <mat-option *ngFor="let obj of TourPlan" [value]="obj.TourPlanId">
-                                                    {{obj.DisbDesc}}
+                                                    {{obj.PurposeName}}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
 
 
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>
-                                            </mat-label>
-                                            <input matInput [matDatepicker]="picker" formControlName="TourDate" maxlength="30" autocomplete="off"
-                                                   [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>
-                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                            <mat-datepicker #picker></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
 <!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
 <!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
 <!--                                            <mat-label class="customMatLabel">Zone</mat-label>-->
 <!--                                            <input matInput formControlName="Zone" autocomplete="off" readonly="readonly"/>-->
 <!--                                        </mat-form-field>-->
 <!--                                    </div>-->
-                                    <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
-                                                            [is_required_circle]="false"
-                                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+
 
                                 </div>
 
@@ -137,14 +145,20 @@
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">No. of defaulters contacted</mat-label>
-                                                <input matInput formControlName="NoOfDefaultersContacted" autocomplete="off"/>
+                                                <input appNumberOnly matInput formControlName="NoOfDefaulterContacted" autocomplete="off"/>
                                             </mat-form-field>
                                         </div>
 
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Results of contacts so made</mat-label>
-                                                <input matInput formControlName="ResultsOfContactsSoMade" autocomplete="off"/>
+                                                <input appNumberOnly matInput formControlName="ResultContactMade" autocomplete="off"/>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                <mat-label class="customMatLabel">Measure Boost Up Record</mat-label>
+                                                <input appNumberOnly matInput formControlName="MeasureBoostUpRecord" autocomplete="off"/>
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -156,9 +170,9 @@
 
                             <div class="row mt-2 mr-1">
                                 <div class="col-lg-12 text-right">
-                                    <button *ngIf="isUpdate==false" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Save</button>
-                                    <button *ngIf="isUpdate==true" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Update</button>
-                                    <button mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
+                                    <button type="button" *ngIf="isUpdate==false" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Save</button>
+                                    <button type="button" *ngIf="isUpdate==true" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Update</button>
+                                    <button type="button" *ngIf="isUpdate==true" mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
                                         <mat-icon class="mr-2">check_circle</mat-icon>
                                         Submit
                                     </button>
@@ -172,22 +186,23 @@
                             </div>
 
                             <div class="col-lg-12 p-0 ist-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table ">
+                                <table class="table">
                                     <thead>
                                     <tr class="table-header-background text-center">
                                         <th rowspan="3" class="border-r border-gray-400">Date</th>
                                         <th colspan="2" rowspan="2" class="border-r border-gray-400">Departure from</th>
                                         <th colspan="2" rowspan="2" class="border-r border-gray-400">Arrival at</th>
-                                        <th colspan="6" class="border-r border-gray-400">Portfolio of the Circle(s)</th>
-                                        <th rowspan="3" class="border-r border-gray-400">No. of defaulters contacted </th>
+                                        <th rowspan="3" class="border-r border-gray-400">No. of defaulters contacted</th>
                                         <th rowspan="3" class="border-r border-gray-400">Results of contacts so made
                                         </th>
+                                        <th rowspan="3" class="border-r border-gray-400">Measures/Efforts for boosting up
+                                            recovery
+                                        </th>
+                                        <th rowspan="3" class="border-r border-gray-400">Remarks</th>
+                                        <th rowspan="3" class="border-r border-gray-400">Actions</th>
                                     </tr>
 
                                     <tr class="table-header-background text-center">
-                                        <th colspan="2" class="border-r border-gray-400">General</th>
-                                        <th colspan="2" class="border-r border-gray-400">NPLs</th>
-                                        <th colspan="2" class="border-r border-gray-400">SAM</th>
                                     </tr>
 
                                     <tr class="table-header-background text-center">
@@ -195,89 +210,119 @@
                                         <th class="border-r border-gray-400">Time</th>
                                         <th class="border-r border-gray-400">Place</th>
                                         <th class="border-r border-gray-400">Time</th>
-                                        <th class="border-r border-gray-400">No.</th>
-                                        <th class="border-r border-gray-400">Amt.</th>
-                                        <th class="border-r border-gray-400">No.</th>
-                                        <th class="border-r border-gray-400">Amt.</th>
-                                        <th class="border-r border-gray-400">No.</th>
-                                        <th class="border-r border-gray-400">Amt.</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody *ngFor="let single_list of TourDiaryList">
                                     <tr>
                                         <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
-                                                <input matInput readonly="readonly">
+                                                <input matInput readonly="readonly" [value]="single_list.TourDate">
                                             </mat-form-field>
                                         </td>
                                         <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
-                                                <input matInput readonly="readonly">
+                                                <input matInput readonly="readonly"
+                                                       [value]="single_list.DepartureFromPlace">
                                             </mat-form-field>
                                         </td>
                                         <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
-                                                <input matInput readonly="readonly">
+                                                <input matInput readonly="readonly" [value]="single_list.DepartureFromTime">
                                             </mat-form-field>
                                         </td>
                                         <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
-                                                <input matInput readonly="readonly">
+                                                <input matInput readonly="readonly" [value]="single_list.ArrivalAtPlace">
                                             </mat-form-field>
                                         </td>
                                         <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
-                                                <input matInput readonly="readonly">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400"></td>
-                                        <td class="border-r border-gray-400"></td>
-                                        <td class="border-r border-gray-400"></td>
-                                        <td class="border-r border-gray-400"></td>
-                                        <td class="border-r border-gray-400"></td>
-                                        <td class="border-r border-gray-400"></td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly">
+                                                <input matInput readonly="readonly" [value]="single_list.ArrivalAtTime">
                                             </mat-form-field>
                                         </td>
                                         <td class="border-r border-gray-400">
                                             <mat-form-field class=" mat-form-field-fluid w-full"
                                                             appearance="outline">
-                                                <input matInput readonly="readonly">
+                                                <input matInput readonly="readonly"
+                                                       [value]="single_list.NoOfDefaulterContacted">
                                             </mat-form-field>
+                                        </td>
+                                        <td class="border-r border-gray-400">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline">
+                                                <input matInput readonly="readonly" [value]="single_list.ResultContactMade">
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r border-gray-400">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline" style="width: 12rem !important">
+                                                <input matInput [value]="single_list.MeasureBoostUpRecord">
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r border-gray-400">
+                                            <mat-form-field class=" mat-form-field-fluid w-full"
+                                                            appearance="outline" style="width: 12rem !important">
+                                                <input matInput [value]="single_list.Remarks">
+                                            </mat-form-field>
+                                        </td>
+                                        <td class="border-r border-gray-400">
+                                            <button type="button" mat-icon-button (click)="edit(single_list)">
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                            <button type="button" mat-icon-button (click)="delete(single_list)">
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table ">
+                            <div
+                                class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+                                <table class="table">
                                     <thead>
                                     <tr class="table-header-background text-center">
+                                        <th colspan="6" class="border-r border-gray-400">Portfolio of the
+                                            Province/Zone/Branch/Circle
+                                        </th>
                                         <th colspan="16" class="border-r border-gray-400">RECOVERY</th>
                                     </tr>
                                     </thead>
                                     <thead>
                                     <tr class="table-header-background text-center">
                                         <!-- UTILIZATIONS -->
-                                        <th colspan="3" class="border-r border-gray-400">Annual Target/Recoverable of Province/Zone/Branch/Circle</th>
-                                        <th colspan="3" class="border-r border-gray-400">Proportionate Target upto the end of month under report</th>
-                                        <th colspan="3" class="border-r border-gray-400">Recovery achievement until the month under report  </th>
+                                        <th colspan="2" class="border-r border-gray-400">General</th>
+                                        <th colspan="2" class="border-r border-gray-400">NPLs</th>
+                                        <th colspan="2" class="border-r border-gray-400">SAM</th>
+                                        <th colspan="3" class="border-r border-gray-400">Annual Target/Recoverable of
+                                            Province/Zone/Branch/Circle
+                                        </th>
+                                        <th colspan="3" class="border-r border-gray-400">Proportionate Target upto the end
+                                            of month under report
+                                        </th>
+                                        <th colspan="3" class="border-r border-gray-400">Recovery achievement during the
+                                            month under report
+                                        </th>
                                         <th colspan="3" class="border-r border-gray-400">Balance Recoverable</th>
-                                        <th rowspan="2" class="border-r border-gray-400">Recovery during the corresponding period</th>
+                                        <th rowspan="2" class="border-r border-gray-400">Recovery during corresponding
+                                            period
+                                        </th>
                                         <th rowspan="2" class="border-r border-gray-400">Increase/Deficit</th>
-                                        <th rowspan="2" class="border-r border-gray-400">Measures/Efforts for boosting up recovery</th>
-                                        <th rowspan="2" class="border-r border-gray-400">Remarks</th>
+
                                     </tr>
                                     <tr class="table-header-background text-center">
+                                        <th colspan="1" class="border-r border-gray-400">No.</th>
+                                        <th colspan="1" class="border-r border-gray-400">Amt.</th>
+                                        <th colspan="1" class="border-r border-gray-400">No.</th>
+                                        <th colspan="1" class="border-r border-gray-400">Amt.</th>
+                                        <th colspan="1" class="border-r border-gray-400">No.</th>
+                                        <th colspan="1" class="border-r border-gray-400">Amt.</th>
                                         <th class="border-r border-gray-400">Past Dues</th>
                                         <th class="border-r border-gray-400">Current Dues</th>
                                         <th class="border-r border-gray-400">Total</th>
@@ -308,51 +353,9 @@
                                         <td class="border-r border-gray-400"></td>
                                         <td class="border-r border-gray-400"></td>
                                         <td class="border-r border-gray-400"></td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput>
-                                            </mat-form-field>
-                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Name</mat-label>
-                                            <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Designation</mat-label>
-                                            <input matInput formControlName="Designation" autocomplete="off" readonly="readonly"/>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>
-                                            </mat-label>
-                                            <input matInput [matDatepicker]="picker2" formControlName="Date" maxlength="30" autocomplete="off"
-                                                   [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>
-                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                            <mat-datepicker #picker2></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-
                             </div>
 
                         </div>
