@@ -1,26 +1,11 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from 'app/shared/services/dashboard.service';
 import {
-    ApexChart,
-    ApexNoData,
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexTheme,
-    ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from "rxjs/operators";
-
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    theme: ApexTheme;
-    title: ApexTitleSubtitle;
-    noData: ApexNoData;
-};
+import { ChartOptions } from '../dashboard.component';
 
 @Component({
     selector: 'app-president-ztbl',
@@ -60,7 +45,7 @@ export class PresidentZtblComponent implements OnInit {
             return
         }
 
-        
+
         this.chartOptions1 = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport.LoanPorfolio, 'Bank  Book');
         this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No. Of Borrowers');

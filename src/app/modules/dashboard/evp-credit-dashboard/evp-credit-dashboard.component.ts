@@ -1,28 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {
-    ApexChart,
-    ApexNoData,
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexTheme,
-    ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DashboardService} from "../../../shared/services/dashboard.service";
 import {finalize} from "rxjs/operators";
 import {NgxSpinnerService} from "ngx-spinner";
-
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    colors: any[];
-    theme: ApexTheme;
-    title: ApexTitleSubtitle;
-    noData: ApexNoData;
-};
+import { ChartOptions } from '../dashboard.component';
 
 @Component({
     selector: 'app-evp-credit-dashboard',
@@ -60,7 +44,7 @@ export class EvpCreditDashboardComponent implements OnInit {
         this.year=(new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
-        
+
     }
 
 
@@ -73,7 +57,7 @@ export class EvpCreditDashboardComponent implements OnInit {
         this.chartOptions3 = this.dashboardService.assignKeys(DashboardReport.PurposeWiseDisbursment, 'Purpose Wise Disbursement');
         this.chartOptions4 = this.dashboardService.assignKeys(DashboardReport.NoOfBorrowers, 'No Of Borrower');
         this.DisbursmentAchievement = (DashboardReport.DisbursmentAchievement);
-        this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement); 
+        this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
         this.CountryTop5 = DashboardReport?.CountryTop5;
         this.CreditCeiling = DashboardReport.CreditCeiling;
     }
@@ -96,7 +80,7 @@ export class EvpCreditDashboardComponent implements OnInit {
     }
 
     getFormatString(str: any) {
-        
+
         const myArray = str.split("_");
         return myArray[0] + " / " + myArray[1] +" (+/-)";
     }

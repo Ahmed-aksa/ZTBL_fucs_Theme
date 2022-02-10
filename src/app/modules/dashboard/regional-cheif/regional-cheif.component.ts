@@ -12,17 +12,7 @@ import {
 } from "ng-apexcharts";
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from "rxjs/operators";
-
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    theme: ApexTheme;
-    title: ApexTitleSubtitle;
-    noData: ApexNoData;
-
-};
+import {ChartOptions} from "../dashboard.component";
 
 @Component({
     selector: 'app-regional-cheif',

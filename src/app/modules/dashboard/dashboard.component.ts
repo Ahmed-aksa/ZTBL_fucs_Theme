@@ -8,12 +8,6 @@ import {ThrowStmt} from '@angular/compiler';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from "rxjs/operators";
 import {DashboardService} from "../../shared/services/dashboard.service";
-import {ClApplicationHeaderComponent} from "../loan/cl-application-header/cl-application-header.component";
-import {ClCustomersComponent} from "../loan/cl-customers/cl-customers.component";
-import {ClSecuritiesComponent} from "../loan/cl-securities/cl-securities.component";
-import {ClLegalHeirsComponent} from "../loan/cl-legal-heirs/cl-legal-heirs.component";
-import {ClPurposeComponent} from "../loan/cl-purpose/cl-purpose.component";
-import {ClLoanWitnessComponent} from "../loan/cl-loan-witness/cl-loan-witness.component";
 import {McoDashboradComponent} from "./mco-dashborad/mco-dashborad.component";
 import {RecoveryOfficerDashboardComponent} from "./recovery-officer-dashboard/recovery-officer-dashboard.component";
 import { BranchManagerDashboardComponent } from './branch-manager-dashboard/branch-manager-dashboard.component';
@@ -24,6 +18,27 @@ import { PresidentZtblComponent } from './president-ztbl/president-ztbl.componen
 import { RegionalCheifComponent } from './regional-cheif/regional-cheif.component';
 import { ProvincialChiefComponent } from './provincial-chief/provincial-chief.component';
 import { RecoverySamDivisionComponent } from './recovery-sam-division/recovery-sam-division.component';
+import {
+    ApexChart, ApexDataLabels,
+    ApexNoData,
+    ApexNonAxisChartSeries,
+    ApexResponsive,
+    ApexTheme,
+    ApexTitleSubtitle, ApexTooltip
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+    series: ApexNonAxisChartSeries;
+    chart: ApexChart;
+    responsive: ApexResponsive[];
+    labels: any;
+    colors: any[];
+    theme: ApexTheme;
+    title: ApexTitleSubtitle;
+    noData: ApexNoData;
+    tooltip: ApexTooltip;
+    dataLabels: ApexDataLabels;
+};
 
 @Component({
     selector: 'app-dashboard',
@@ -31,6 +46,7 @@ import { RecoverySamDivisionComponent } from './recovery-sam-division/recovery-s
     styleUrls: ['./dashboard.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
+
 export class DashboardComponent implements OnInit {
 
     @ViewChild(McoDashboradComponent, {static: false}) mcoDashboardComponent: McoDashboradComponent;

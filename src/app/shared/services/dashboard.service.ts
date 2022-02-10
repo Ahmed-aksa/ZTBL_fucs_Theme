@@ -7,7 +7,7 @@ import {BaseRequestModel} from '../models/base_request.model';
 import {BaseResponseModel} from '../models/base_response.model';
 import {HttpUtilsService} from './http_utils.service';
 import {UserUtilsService} from './users_utils.service';
-import {ChartOptions} from "../../modules/dashboard/evp-credit-dashboard/evp-credit-dashboard.component";
+import {ChartOptions} from "../../modules/dashboard/dashboard.component";
 
 @Injectable({providedIn: 'root'})
 export class DashboardService {
@@ -57,23 +57,28 @@ export class DashboardService {
     }
 
     assignKeys(data: any, title): Partial<ChartOptions> {
-        if (title == 'Performance Indicators')
-            debugger;
+
         if (data) {
+            let colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#D7263D', '#F9C80E', '#5A2A27', '#C7F464'];
             var obj = [];
             var labels = [];
             if (data)
                 (Object.keys(data))?.forEach(x => {
-                    if (Number(data[x]) != 0) {
-                        labels.push(x);
+                    //if (Number(data[x]) != 0) {
+                        labels.push(this.getCamelCase(x));
                         obj.push(Number(data[x]));
-                    }
+                    //}
 
                 });
 
+            var series = [];
+            var sliceSize = 100/obj.length
+            for (let i=0; i < obj?.length; i++){
+                series.push(sliceSize)
+            }
             return {
-                series: obj.length > 1 ? obj : [],
-                colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#D7263D', '#F9C80E', '#5A2A27', '#C7F464'],
+                series: obj.length > 1 ? series : [],
+                colors: colors,
                 chart: {
                     width: "100%",
                     type: "pie"
@@ -86,6 +91,21 @@ export class DashboardService {
                 },
                 title: {
                     text: title
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val, object) {
+                        debugger;
+                        //return object.w.config.labels[object.seriesIndex] + " : "+obj[object.seriesIndex]
+                        return obj[object.seriesIndex]
+                    }
+                },
+                tooltip: {
+                    custom: function({ series, seriesIndex, dataPointIndex, w }) {
+                        let value = data[w.config.labels[seriesIndex].replaceAll(" ", "")];
+                        debugger;
+                        return "<div class='px-3 py-2' style='background-color:"+colors[seriesIndex]+"'>" +w.config.labels[seriesIndex]+" : "+value + "</div>";
+                    }
                 },
                 responsive: [
                     {
