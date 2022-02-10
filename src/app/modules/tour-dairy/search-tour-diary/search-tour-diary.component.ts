@@ -19,6 +19,7 @@ import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DatePipe} from "@angular/common";
 import {TourDiary} from "../model/tour-diary-model";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
     selector: 'search-tour-diary',
@@ -68,6 +69,7 @@ export class SearchTourDiaryComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     viewOnly = false;
+    zc = false;
 
     //Start ZBC
 
@@ -96,8 +98,15 @@ export class SearchTourDiaryComponent implements OnInit {
     }
 
     ngOnInit() {
+
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
+        console.log(this.loggedInUserDetails)
+        this.loggedInUserDetails.User.userGroup.forEach(element=>{
+            if(element.ProfileID == Number(environment.ZC)){
+                this.zc = true;
+            }
+        })
         this.setUsers()
         this.LoadLovs();
         this.createForm();
@@ -370,7 +379,7 @@ export class SearchTourDiaryComponent implements OnInit {
             );
             return;
         }
-        
+
         if (this.TourDiary.invalid) {
             const controls = this.TourDiary.controls;
             this.layoutUtilsService.alertElement('', 'Please Add Required Values')
@@ -394,7 +403,7 @@ export class SearchTourDiaryComponent implements OnInit {
         if (from_search_button == true)
             this.OffSet = 0;
         this.spinner.show();
-        this.tourDiaryService.SearchTourDiary(this._TourDiary, count, currentIndex, this.branch, this.zone)
+        this.tourDiaryService.SearchTourDiary(this._TourDiary, count, currentIndex, this.branch, this.zone, this.zc)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -525,7 +534,11 @@ export class SearchTourDiaryComponent implements OnInit {
     }
 
     getAllData(data) {
-        this.zone = data.final_zone;
+        if(data.final_zone[0]){
+            this.zone = data.final_zone[0];
+        }else{
+            this.zone = data.final_zone;
+        }
         this.branch = data.final_branch;
     }
 
