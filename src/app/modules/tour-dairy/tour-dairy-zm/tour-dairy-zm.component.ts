@@ -302,7 +302,7 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     edit(zmDiary){
-        debugger
+        
         this.btnText = 'Update';
         this.gridForm.controls['DiaryId'].setValue(zmDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(zmDiary.TourPlanId);
@@ -357,7 +357,7 @@ export class TourDiaryZmComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        debugger
+                        
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.onClearForm();
                         this.TourDiary = null;

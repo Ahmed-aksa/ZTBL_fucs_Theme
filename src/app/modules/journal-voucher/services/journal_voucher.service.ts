@@ -25,7 +25,7 @@ export class JournalVoucherService {
     }
 
     saveApplicationHeader(loanReq: LoanApplicationHeader): Observable<BaseResponseModel> {
-
+        
         this.request = new BaseRequestModel();
 
         var loanInfo = new Loan();
@@ -40,6 +40,7 @@ export class JournalVoucherService {
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
         var req = JSON.stringify(this.request);
+        console.log(req)
 
         return this.http.post(`${environment.apiUrl}/Loan/SaveApplicationHeader`, req,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(

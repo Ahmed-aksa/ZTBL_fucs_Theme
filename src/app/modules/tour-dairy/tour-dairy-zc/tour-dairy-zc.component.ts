@@ -252,6 +252,54 @@ export class TourDiaryZcComponent implements OnInit {
         });
     }
 
+    checkStatus(item, action) {
+        if (action == 'edit') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (action == 'delete') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        // if (action == 'submit') {
+        //     if (item.Status == 'P' || item.Status == 'R') {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
+    }
+
+    edit(zcDiary){
+        this.btnText = 'Update';
+        this.gridForm.controls['DiaryId'].setValue(zcDiary.DiaryId);
+        this.gridForm.controls['TourPlanId'].setValue(zcDiary.TourPlanId);
+        //let date = zcDiary.TourDate;
+        // var month = date.slice(0,2), day=date.slice(3, 5), year= date.slice(6, 10);
+        // date = day+month+year
+        this.gridForm.controls['TourDate'].setValue(zcDiary.TourDate);
+        this.gridForm.controls['DepartureFromPlace'].setValue(zcDiary.DepartureFromPlace);
+        this.gridForm.controls['DepartureFromTime'].setValue(zcDiary.DepartureFromTime);
+        this.gridForm.controls['ArrivalAtPlace'].setValue(zcDiary.ArrivalAtPlace);
+        this.gridForm.controls['ArrivalAtTime'].setValue(zcDiary.ArrivalAtTime);
+        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(zcDiary.GeneralAdmissionComplaints);
+        this.gridForm.controls['CashManagementCompliance'].setValue(zcDiary.CashManagementCompliance);
+        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zcDiary.LCNotIssuedToBorrowers);
+        this.gridForm.controls['AuditReports'].setValue(zcDiary.AuditReports);
+        this.gridForm.controls['OutstandingParas'].setValue(zcDiary.OutstandingParas);
+        this.gridForm.controls['Settlements'].setValue(zcDiary.Settlements);
+        this.gridForm.controls['TotFarmersContacted'].setValue(zcDiary.TOTFarmersContacted);
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(zcDiary.TOTNoOfFarmersVisisted);
+        this.gridForm.controls['AnyOtherWorkDone'].setValue(zcDiary.AnyOtherWorkDone);
+        this.gridForm.controls['Remarks'].setValue(zcDiary.Remarks);
+        this.gridForm.controls['Status'].setValue(zcDiary.Status);
+    }
 
 
     delete(data, status) {

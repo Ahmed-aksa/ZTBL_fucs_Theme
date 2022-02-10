@@ -50,8 +50,10 @@ export class LoanService {
     }
 
     saveApplicationHeader(
-        loanReq: LoanApplicationHeader
+        loanReq: LoanApplicationHeader,
+        zone = null, branch = null, circle = null
     ): Observable<BaseResponseModel> {
+        debugger;
         this.request = new BaseRequestModel();
 
         var loanInfo = new Loan();
@@ -61,12 +63,17 @@ export class LoanService {
         this.request.TranId = 0;
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.User = userInfo.User;
-        this.request.Zone = userInfo.Zone;
-        this.request.Branch = userInfo.Branch;
+        if (zone)
+            this.request.Zone = zone;
+        else
+            this.request.Zone = userInfo.Zone;
+
+        if (branch)
+            this.request.Zone = zone;
+        else
+            this.request.Branch = userInfo.Branch;
         this.activity.ActivityID = 1;
         this.request.Activity = this.activity;
-
-
         return this.http
             .post(
                 `${environment.apiUrl}/Loan/SaveApplicationHeader`,
@@ -183,6 +190,7 @@ export class LoanService {
             })
             .pipe(map((res: BaseResponseModel) => res));
     }
+
     getLoanSecurities(loanAppId) {
 
         this.request = new BaseRequestModel();
@@ -817,7 +825,7 @@ export class LoanService {
             CircleIds: selectedCircleId,
         };
         var request = {
-            Loan:loanFilter,
+            Loan: loanFilter,
             TranId: 0,
             User: userInfo.User,
             Zone: zone,
@@ -837,7 +845,7 @@ export class LoanService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    searchDBR(loanFilter: SearchDBR, zone, branch,Limit, Offset) {
+    searchDBR(loanFilter: SearchDBR, zone, branch, Limit, Offset) {
         var userInfo = this.userUtilsService.getUserDetails();
         var selectedCircleId = '';
 
@@ -868,7 +876,7 @@ export class LoanService {
             CircleIds: selectedCircleId,
         };
         var Pagination = {
-            Limit : Limit,
+            Limit: Limit,
             Offset: Offset
         };
         var request = {
@@ -879,7 +887,7 @@ export class LoanService {
             Activity: this.activity,
             Branch: branch,
             Circle: selectedCircle,
-            Pagination:Pagination,
+            Pagination: Pagination,
         };
 
         var req = JSON.stringify(request);
@@ -910,7 +918,7 @@ export class LoanService {
     }
 
     saveOrr(orrRequest: any) {
-        
+
         this.request = new BaseRequestModel();
         var loanInfo = new Loan();
         //var oRR = new ORR();
