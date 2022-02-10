@@ -200,7 +200,7 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     delete(data, status) {
-        
+
         if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -213,7 +213,7 @@ export class TourDiaryRcComponent implements OnInit {
                 if (!res) {
                     return;
                 }
-                
+
                 this.TourDiary = Object.assign(data);
                 this.spinner.show();
                 this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
@@ -223,7 +223,7 @@ export class TourDiaryRcComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        
+
                         this.TourDiaryList=[];
                         this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -263,7 +263,7 @@ export class TourDiaryRcComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
+
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.isUpdate=false;
                 this.onClearForm();
@@ -364,7 +364,7 @@ export class TourDiaryRcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    
+                    debugger
                     this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

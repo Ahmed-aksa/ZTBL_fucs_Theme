@@ -235,7 +235,7 @@ export class ClPurposeComponent implements OnInit {
     }
 
     onEditPurpose(data: LoanApplicationPurpose) {
-        
+
         this.onClearSavePurpose();
         console.log(JSON.stringify(data))
         this.index;
@@ -459,6 +459,7 @@ export class ClPurposeComponent implements OnInit {
     }
 
     onSavePurpose() {
+        debugger
         this.purposeForm.controls
         console.log(this.purposeForm)
         if (this.purposeForm.controls['BwrAgreeInsurancePrem'].value == "") {
@@ -555,6 +556,12 @@ export class ClPurposeComponent implements OnInit {
             Number(this.loanApplicationPurpose.AmountRequired) +
             Number(this.loanApplicationPurpose.AmountInHand);
         if (this.isCheckedEquity && MarketPrice != SumEquityLoan) {
+            this.layoutUtilsService.alertMessage(
+                '',
+                'Market Price Must be equal to sum of Equity and Loan Applied'
+            );
+            return;
+        }else if(MarketPrice != SumEquityLoan){
             this.layoutUtilsService.alertMessage(
                 '',
                 'Market Price Must be equal to sum of Equity and Loan Applied'

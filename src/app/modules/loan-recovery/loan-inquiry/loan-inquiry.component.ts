@@ -75,13 +75,13 @@ export class LoanInquiryComponent implements OnInit {
     }
 
     getAllData(data) {
-        
+
         this.zone = data.final_zone;
         this.branch = data.final_branch;
     }
 
     find() {
-
+        debugger
         var transactionId = this.RecoveryForm.controls.TransactionId.value;
         var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
         // this.hasFormErrors = false;
@@ -90,8 +90,8 @@ export class LoanInquiryComponent implements OnInit {
         //   return;
         // }
 
-        if (!loanCaseNo) {
-            var Message = 'Please Enter loan Case No.';
+        if (!loanCaseNo && !transactionId) {
+            var Message = 'Please Enter Loan Case No. or LA File/Booklet No.';
             this.layoutUtilsService.alertElement(
                 '',
                 Message,

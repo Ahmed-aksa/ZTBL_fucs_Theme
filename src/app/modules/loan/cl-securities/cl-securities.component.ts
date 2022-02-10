@@ -293,7 +293,7 @@ this.getLoanSecurities();
         });
     }
     else {
-      this.layoutUtilsService.alertMessage("", "Please make changes before attaching");
+      this.layoutUtilsService.alertMessage("", "Please Select Land Before Attaching");
     }
   }
 
@@ -405,13 +405,13 @@ this.getLoanSecurities();
   }
 
   showUpdateSecuritiesForm(loan) {
-
+        debugger
         this.LoanSecuritiesForm.controls["Quantity"].setValue(loan.Quantity);
         this.LoanSecuritiesForm.controls["UnitPrice"].setValue(loan.UnitPrice);
         this.loanSecurities.MaxCreditLimit = loan?.MaxCreditLimit;
-          this.LoanSecuritiesForm.controls["CollTypeID"].setValue(loan?.CollTypeID);
+          this.LoanSecuritiesForm.controls["CollTypeID"].setValue(String(loan?.CollTypeID));
           this.LoanSecuritiesForm.controls["AppSecurityID"].setValue(loan?.AppSecurityID);
-          this.LoanSecuritiesForm.controls["QuantityUnit"].setValue(loan?.QuantityUnit);
+          this.LoanSecuritiesForm.controls["QuantityUnit"].setValue(String(loan?.QuantityUnit));
 
   }
 }
