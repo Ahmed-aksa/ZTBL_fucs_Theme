@@ -175,7 +175,6 @@ export class TourDiaryRoComponent implements OnInit {
         this.gridForm.controls['ArrivalAtPlace'].setValue("");
         this.gridForm.controls['ArrivalAtTime'].setValue("");
         this.gridForm.controls['NoOfDefaulterContacted'].setValue("");
-
         this.gridForm.controls['Remarks'].setValue("");
         this.gridForm.controls['MeasureBoostUpRecord'].setValue("");
         this.gridForm.controls['ResultContactMade'].setValue("");
