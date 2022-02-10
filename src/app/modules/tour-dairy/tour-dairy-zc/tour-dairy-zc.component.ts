@@ -41,7 +41,8 @@ export class TourDiaryZcComponent implements OnInit {
     Format24:boolean=true;
     date: any;
     btnText = 'Save';
-    tourDiaryList;
+    TourDiaryList;
+    isUpdate:boolean=false;
 
     constructor(
         private fb: FormBuilder,
@@ -62,7 +63,15 @@ export class TourDiaryZcComponent implements OnInit {
         this.createForm();
         this.loggedInUser = this.userService.getUserDetails();
     }
-    checkZone(){
+
+    setValue(){
+        this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
+        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
+    }
+
+    saveTourDiary() {
+        debugger
+
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -72,39 +81,55 @@ export class TourDiaryZcComponent implements OnInit {
             );
             return;
         }
-    }
-    setValue(){
-        this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
-        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
-    }
 
-    saveTourDiary(){
-        if (this.gridForm.invalid) {
-            this.toastr.error("Please Enter Required values");
-            this.gridForm.markAllAsTouched()
-            return;
-        }
+        // if (!this.branch) {
+        //     var Message = 'Please select Branch';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
+
+        // if (!this.circle) {
+        //     var Message = 'Please select Circle';
+        //     this.layoutUtilsService.alertElement(
+        //         '',
+        //         Message,
+        //         null
+        //     );
+        //     return;
+        // }
+
+        // if (this.gridForm.invalid) {
+        //     const controls = this.gridForm.controls;
+        //     Object.keys(controls).forEach(controlName =>
+        //         controls[controlName].markAsTouched()
+        //     );
+        //     return;
+        // }
+
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary,true)
+        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.tourDiaryList = baseResponse.TourDiary.TourDiaries;
+                this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
+                this.isUpdate = false;
                 this.onClearForm();
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
 
         });
-
     }
 
     onClearForm() {
@@ -127,8 +152,24 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['Remarks'].setValue("");
         this.gridForm.controls['Status'].setValue("");
         this.btnText = 'Save';
+
+        this.gridForm.markAsUntouched();
+        this.isUpdate=false;
+        this.setValue();
+
     }
 
+    checkZone(){
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+    }
 
     createForm() {
         this.gridForm = this.fb.group({
@@ -252,55 +293,10 @@ export class TourDiaryZcComponent implements OnInit {
         });
     }
 
-    checkStatus(item, action) {
-        if (action == 'edit') {
-            if (item.Status == 'P' || item.Status == 'R') {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (action == 'delete') {
-            if (item.Status == 'P' || item.Status == 'R') {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        // if (action == 'submit') {
-        //     if (item.Status == 'P' || item.Status == 'R') {
-        //         return true;
-        //     } else {
-        //         return false;
-        //     }
-        // }
+    edit(mcoDiary) {
+        this.gridForm.patchValue(mcoDiary);
+        this.isUpdate = true;
     }
-
-    edit(zcDiary){
-        this.btnText = 'Update';
-        this.gridForm.controls['DiaryId'].setValue(zcDiary.DiaryId);
-        this.gridForm.controls['TourPlanId'].setValue(zcDiary.TourPlanId);
-        //let date = zcDiary.TourDate;
-        // var month = date.slice(0,2), day=date.slice(3, 5), year= date.slice(6, 10);
-        // date = day+month+year
-        this.gridForm.controls['TourDate'].setValue(zcDiary.TourDate);
-        this.gridForm.controls['DepartureFromPlace'].setValue(zcDiary.DepartureFromPlace);
-        this.gridForm.controls['DepartureFromTime'].setValue(zcDiary.DepartureFromTime);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(zcDiary.ArrivalAtPlace);
-        this.gridForm.controls['ArrivalAtTime'].setValue(zcDiary.ArrivalAtTime);
-        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(zcDiary.GeneralAdmissionComplaints);
-        this.gridForm.controls['CashManagementCompliance'].setValue(zcDiary.CashManagementCompliance);
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zcDiary.LCNotIssuedToBorrowers);
-        this.gridForm.controls['AuditReports'].setValue(zcDiary.AuditReports);
-        this.gridForm.controls['OutstandingParas'].setValue(zcDiary.OutstandingParas);
-        this.gridForm.controls['Settlements'].setValue(zcDiary.Settlements);
-        this.gridForm.controls['TotFarmersContacted'].setValue(zcDiary.TOTFarmersContacted);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(zcDiary.TOTNoOfFarmersVisisted);
-        this.gridForm.controls['AnyOtherWorkDone'].setValue(zcDiary.AnyOtherWorkDone);
-        this.gridForm.controls['Remarks'].setValue(zcDiary.Remarks);
-        this.gridForm.controls['Status'].setValue(zcDiary.Status);
-    }
-
 
     delete(data, status) {
         if (status == "C") {
@@ -350,7 +346,10 @@ export class TourDiaryZcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
+                    debugger
+                    this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',

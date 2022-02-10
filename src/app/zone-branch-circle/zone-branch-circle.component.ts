@@ -14,7 +14,7 @@ export class ZoneBranchCircleComponent implements OnInit {
 
     @Input('form') form;
     @Input('should_filter') should_filter = true;
-    @Input('show_circle') incoming_circle = true;
+    @Input('show_circle') incoming_circle = null;
     show_circle = true;
     @Input('is_required_circle') is_required_circle;
     @Input('should_hide_fields') should_hide_fields;
@@ -126,11 +126,13 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.userUtilsService.getZone().subscribe((data: any) => {
                 this.SelectedZones = data.Zones;
                 this.single_zone = false;
-                this.single_zone = false;
                 this.spinner.hide();
-                if (!this.incoming_circle && this.incoming_circle != true)
-                    this.show_circle = false;
-                if (!this.incoming_branch && this.incoming_branch != true)
+                debugger;
+                if (this.incoming_circle)
+                    this.show_circle = this.incoming_circle;
+                else
+                    this.show_circle=false;
+                if (!this.incoming_branch)
                     this.show_branch = false;
             });
 

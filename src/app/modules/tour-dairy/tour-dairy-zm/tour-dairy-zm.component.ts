@@ -44,7 +44,7 @@ export class TourDiaryZmComponent implements OnInit {
     circle: any;
     TourPlan: any;
     TourDiary = new TourDiary();
-    tourDiaryList = [];
+    TourDiaryList = [];
 
     Format24:boolean=true;
     isUpdate:boolean=false;
@@ -124,10 +124,10 @@ export class TourDiaryZmComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    
-                    // this.TargetDuration = baseResponse.Target.TargetDuration;
+                    debugger
+                    this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-                    console.log(baseResponse)
+                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -163,7 +163,7 @@ export class TourDiaryZmComponent implements OnInit {
             });
         }
 
-        
+
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if(status=="S"){
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
@@ -184,7 +184,7 @@ export class TourDiaryZmComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
+
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.onClearForm();
                 this.TourDiary=null;
@@ -253,7 +253,7 @@ export class TourDiaryZmComponent implements OnInit {
             if (baseResponse.Success) {
 
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.tourDiaryList = baseResponse.TourDiary.TourDiaries;
+                this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.onClearForm();
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
@@ -261,6 +261,18 @@ export class TourDiaryZmComponent implements OnInit {
 
         });
 
+    }
+
+    checkZone(){
+        if (!this.zone) {
+            var Message = 'Please select Zone';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
     }
 
     onClearForm() {
@@ -302,7 +314,7 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     edit(zmDiary){
-        
+
         this.btnText = 'Update';
         this.gridForm.controls['DiaryId'].setValue(zmDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(zmDiary.TourPlanId);
@@ -357,7 +369,7 @@ export class TourDiaryZmComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        
+
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.onClearForm();
                         this.TourDiary = null;
