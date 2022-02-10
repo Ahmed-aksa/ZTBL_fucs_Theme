@@ -386,7 +386,7 @@ export class RecoveryService {
         zone,
         branch
     ): Observable<BaseResponseModel> {
-        
+        debugger
         var userInfo = this.userUtilsService.getUserDetails();
         //var branch = {BranchId: userInfo.Branch.BranchId};
         var recovery = {Lcno: lcNo, LnTransactionID: LnTransactionID};
