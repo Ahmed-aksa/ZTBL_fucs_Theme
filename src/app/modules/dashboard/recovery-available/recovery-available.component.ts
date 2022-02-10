@@ -1,26 +1,11 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {
-    ApexChart,
-    ApexNoData,
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexTheme,
-    ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
 import {finalize} from "rxjs/operators";
 import {DashboardService} from "../../../shared/services/dashboard.service";
 import {NgxSpinnerService} from "ngx-spinner";
-
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    theme: ApexTheme;
-    title: ApexTitleSubtitle;
-    noData: ApexNoData;
-};
+import {ChartOptions} from "../dashboard.component";
 
 @Component({
     selector: 'app-recovery-available',

@@ -1,28 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from 'app/shared/services/dashboard.service';
 import {
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexChart,
-    ApexTheme,
-    ApexTitleSubtitle,
     ChartComponent,
-    ApexNoData
 
 } from "ng-apexcharts";
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
-
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    theme: ApexTheme;
-    title: ApexTitleSubtitle;
-    noData: ApexNoData;
-};
-
+import {ChartOptions} from "../dashboard.component";
 @Component({
     selector: 'app-mco-dashborad',
     templateUrl: './mco-dashborad.component.html',

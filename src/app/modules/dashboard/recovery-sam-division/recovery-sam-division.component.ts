@@ -1,27 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {
-    ApexChart,
-    ApexNoData,
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexTheme,
-    ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
 import {DashboardService} from "../../../shared/services/dashboard.service";
 import {finalize} from "rxjs/operators";
-
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    theme: ApexTheme;
-    title: ApexTitleSubtitle;
-    noData: ApexNoData;
-};
+import {ChartOptions} from "../dashboard.component";
 
 @Component({
     selector: 'app-recovery-sam-division',
@@ -68,7 +53,7 @@ export class RecoverySamDivisionComponent implements OnInit {
         this.chartOptions2 = this.dashboardService.assignKeys(DashboardReport?.PurposeWiseDisbursment, 'Purpose wise Default (Over Dues NPLs)');
 
         this.DisbursmentAchievement = (DashboardReport?.DisbursmentAchievement);
-        
+
         this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
 
         this.Top10NplZones = DashboardReport.Top10NplZones;

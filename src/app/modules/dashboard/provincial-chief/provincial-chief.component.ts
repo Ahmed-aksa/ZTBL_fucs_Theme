@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DashboardService } from 'app/shared/services/dashboard.service';
 import { ChartComponent } from 'ng-apexcharts';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ChartOptions } from '../evp-credit-dashboard/evp-credit-dashboard.component';
 import {finalize} from "rxjs/operators";
+import {ChartOptions} from "../dashboard.component";
 
 @Component({
   selector: 'app-provincial-chief',
@@ -33,7 +33,7 @@ export class ProvincialChiefComponent implements OnInit {
         this.year=(new Date()).getFullYear().toString();
       this.getYears();
       this.getData();
-      
+
   }
   assignRoleData(DashboardReport: any) {
 

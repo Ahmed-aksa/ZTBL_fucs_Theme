@@ -1,28 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexChart,
-    ApexTheme,
-    ApexTitleSubtitle,
-    ChartComponent,
-    ApexNoData
+    ChartComponent
 } from "ng-apexcharts";
 import {finalize} from "rxjs/operators";
 import {NgxSpinnerService} from "ngx-spinner";
 import {DashboardService} from "../../../shared/services/dashboard.service";
-
-
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    theme: ApexTheme;
-    title: ApexTitleSubtitle;
-    noData: ApexNoData;
-};
+import {ChartOptions} from "../dashboard.component";
 
 @Component({
     selector: 'app-evp-od-dashboard',
@@ -55,7 +39,7 @@ export class EvpOdDashboardComponent implements OnInit {
         this.year=(new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
-       
+
     }
 
     assignRoleData(DashboardReport: any) {
@@ -66,7 +50,7 @@ export class EvpOdDashboardComponent implements OnInit {
         try {
             this.chartOptions = this.dashboardService.assignKeys(DashboardReport.PerformanceIndicator, 'Performance Indicators');
             this.ResourcesCount = DashboardReport?.ResourcesCount;
-            this.UtilizationMutation = DashboardReport?.UtilizationMutation; 
+            this.UtilizationMutation = DashboardReport?.UtilizationMutation;
 
         } catch (err) {
         } finally {
