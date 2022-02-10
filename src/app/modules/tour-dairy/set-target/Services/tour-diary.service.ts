@@ -195,7 +195,7 @@ export class TourDiaryService {
     }
 
 
-    saveDiary(zone, branch, TourDiary) {
+    saveDiary(zone, branch, TourDiary, is_zc = false) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -203,8 +203,9 @@ export class TourDiaryService {
         this.request.Branch = branch;
         this.request.User = userInfo.User;
         this.request.TourDiary = TourDiary;
-
-        var req = JSON.stringify(this.request);
+        if (is_zc) {
+            this.request.User["ProfileId"] = environment.ZC;
+        }
 
         return this.http
             .post<any>(
@@ -214,8 +215,7 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    ChangeStatusDiary(zone, branch, circle, TourDiary, Status) {
-
+    ChangeStatusDiary(zone, branch, circle, TourDiary, Status, is_zc = false) {
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -235,6 +235,8 @@ export class TourDiaryService {
             TourDiary.Ppno = TourDiary.Ppno.toString();
         else
             TourDiary.Ppno = TourDiary.PPNO.toString();
+        TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
+        // TourDiary.TourDate = TourDiary.TourDate.toString();
 
         req = {
             User: userInfo.User,
@@ -248,8 +250,11 @@ export class TourDiaryService {
                 Ppno: TourDiary.Ppno,
                 Status: Status,
                 TourPlanId: TourDiary.TourPlanId,
-                TourDate: TourDiary.TourDate.toString()
+                TourDate:TourDiary.TourDate
             }
+        }
+        if (is_zc) {
+            req.User["ProfileId"] = environment.ZC;
         }
 
 
