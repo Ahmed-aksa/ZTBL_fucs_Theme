@@ -23,7 +23,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     @Input('show_branch') incoming_branch = null;
     show_branch = true;
     @Input('show_zone') show_zone = true;
-    // @Input('show_circle') show_circle=true;
+    //@Input('show_circle') show_circle=true;
     @Output() branchZoneCircleData = new EventEmitter<{
         final_zone: any
         final_branch: any,
@@ -87,11 +87,8 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.selected_c = this.SelectedCircles?.Id
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
-            if (!this.incoming_circle && this.incoming_circle != true) {
-                this.show_circle = false;
-                this.single_circle = false;
-            }
 
+            this.single_circle = false;
             this.emitData();
 
         } else if (this.all_data.Branch && this.all_data.Zone && !this.all_data.UserCircleMappings) {
@@ -103,8 +100,7 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.selected_c = this.SelectedCircles?.Id
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
-            if (!this.incoming_circle && this.incoming_circle != true)
-                this.show_circle = false;
+            this.show_circle = false;
             if (this.form.value.BranchCode) {
                 this.changeBranch(this.selected_b);
             }
@@ -126,13 +122,11 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.userUtilsService.getZone().subscribe((data: any) => {
                 this.SelectedZones = data.Zones;
                 this.single_zone = false;
+                this.single_zone = false;
                 this.spinner.hide();
-                debugger;
-                if (this.incoming_circle)
-                    this.show_circle = this.incoming_circle;
-                else
-                    this.show_circle=false;
-                if (!this.incoming_branch)
+                if (!this.incoming_circle && this.incoming_circle != true)
+                    this.show_circle = false;
+                if (!this.incoming_branch && this.incoming_branch != true)
                     this.show_branch = false;
             });
 
