@@ -106,7 +106,6 @@ export class TourDiaryService {
         let TourPlan = {
             "Limit": 500,
             "Offset": 0,
-            "Status": "A",
             "StartDate": date,
             "EndDate": date,
 
