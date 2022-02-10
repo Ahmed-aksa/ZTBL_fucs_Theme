@@ -187,7 +187,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
+                
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
                 this.isUpdate = false;
@@ -200,7 +200,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     delete(data, status) {
-        debugger
+        
         if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -215,7 +215,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 if (!res) {
                     return;
                 }
-                debugger
+                
                 this.TourDiary = Object.assign(data);
                this.spinner.show();
                 this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
@@ -225,7 +225,7 @@ export class TourDiaryMcoComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        debugger
+                        
                         this.TourDiaryList=[];
                         this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -265,8 +265,8 @@ export class TourDiaryMcoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
-                debugger
+                
+                
                 this.TourDiaryList=[];
                 this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -355,7 +355,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     getAllData(event) {
-        debugger
+        
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
@@ -444,7 +444,7 @@ export class TourDiaryMcoComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-            debugger
+            
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

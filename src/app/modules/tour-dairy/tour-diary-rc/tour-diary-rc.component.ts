@@ -140,7 +140,7 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     saveTourDiary() {
-debugger
+
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -231,7 +231,7 @@ debugger
 
 
     delete(data, status) {
-        debugger
+        
         if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -246,7 +246,7 @@ debugger
                 if (!res) {
                     return;
                 }
-                debugger
+                
                 this.TourDiary = Object.assign(data);
                 if (status == "S") {
                     this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
@@ -267,7 +267,7 @@ debugger
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        debugger
+                        
                         this.TourDiaryList=[];
                         this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -306,7 +306,7 @@ debugger
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
+                
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.isUpdate=false;
                 this.onClearForm();
@@ -453,7 +453,7 @@ debugger
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+                    
                     this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
