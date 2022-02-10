@@ -1,21 +1,21 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
-import {SignaturePadForTourComponent} from "../signature-pad-for-tour/signature-pad-for-tour.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
-import {finalize} from "rxjs/operators";
-import {TourPlanService} from "../Service/tour-plan.service";
 import {NgxSpinnerService} from "ngx-spinner";
+import {SignaturePadForTourComponent} from "../../tour-plan/signature-pad-for-tour/signature-pad-for-tour.component";
+import {finalize} from "rxjs/operators";
+import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 
 @Component({
-    selector: 'app-tour-approval-tab',
-    templateUrl: './tour-approval-tab.component.html',
-    styleUrls: ['./tour-approval-tab.component.scss']
+    selector: 'app-tour-diary-approval-tab',
+    templateUrl: './tour-diary-approval-tab.component.html',
+    styleUrls: ['./tour-diary-approval-tab.component.scss']
 })
 export class TourApprovalTabComponent implements OnInit {
-    @Input('TourPlans') TourPlans: any;
-    @Input('tourPlanApprovalForm') tourPlanApprovalForm: any;
+    @Input('TourDiary') TourDiary: any;
+    @Input('tourDiaryApprovalForm') tourDiaryApprovalForm: any;
     @Input('branch') branch: any;
     @Input('zone') zone: any;
     @Input('circle') circle: any;
@@ -35,7 +35,7 @@ export class TourApprovalTabComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         public dialog: MatDialog,
         private toaster: ToastrService,
-        private tourPlanService: TourPlanService,
+        private tourDiaryService: TourDiaryService,
         private spinner: NgxSpinnerService) {
     }
 
@@ -123,9 +123,9 @@ export class TourApprovalTabComponent implements OnInit {
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
-        let _TourPlan = Object.assign(this.tourPlanApprovalForm);
+        let _TourPlan = Object.assign(this.tourDiaryApprovalForm);
         this.spinner.show();
-        this.tourPlanService.searchForTourPlanApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
+        this.tourDiaryService.searchTourDiaryApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -136,9 +136,9 @@ export class TourApprovalTabComponent implements OnInit {
 
                 if (baseResponse.Success) {
 
-                    this.TourPlans.TourPlans[index].TourPlans = baseResponse.TourPlan.TourPlans[this.tab_number].TourPlans;
-                    this.TourPlans.TourPlans[index].children = []
-                    this.TourPlans.TourPlans.forEach((single_plan) => {
+                    this.TourDiary.TourDiary[index].TourDiary = baseResponse.TourDiary.TourDiaries[this.tab_number]?.TourDiary;
+                    this.TourDiary.TourDiary[index].children = []
+                    this.TourDiary.TourDiary.forEach((single_plan) => {
                         this.children.push(single_plan);
                     })
                     if (this.dataSource) {
@@ -149,7 +149,7 @@ export class TourApprovalTabComponent implements OnInit {
                     }
 
                 } else {
-                    this.TourPlans.TourPlans[index].TourPlans = [];
+                    this.TourDiary.TourDiary[index].TourDiary = [];
                     if (this.dv != undefined) {
                         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         this.OffSet = 1;
@@ -203,3 +203,4 @@ export class TourApprovalTabComponent implements OnInit {
     }
 
 }
+

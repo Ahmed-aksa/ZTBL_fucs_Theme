@@ -4,6 +4,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
+import {TourPlan} from "../../tour-plan/Model/tour-plan.model";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../shared/reducers";
@@ -11,27 +12,23 @@ import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {NgxSpinnerService} from "ngx-spinner";
-import {TourPlanService} from "../Service/tour-plan.service";
+import {TourPlanService} from "../../tour-plan/Service/tour-plan.service";
+import {ToastrService} from "ngx-toastr";
+import {HttpClient} from "@angular/common/http";
 import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout-utils.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {finalize, map} from "rxjs/operators";
-import {TourPlan} from '../Model/tour-plan.model';
-import moment from "moment";
-import {SignatureDailogDairyComponent} from "../../tour-dairy/signature-dailog-dairy/signature-dailog-dairy.component";
-import {SignaturePadForTourComponent} from "../signature-pad-for-tour/signature-pad-for-tour.component";
-import {data} from "autoprefixer";
-import {environment} from "../../../../environments/environment";
-import {ToastrService} from "ngx-toastr";
-import {HttpClient} from "@angular/common/http";
+import {finalize} from "rxjs/operators";
+import {SignaturePadForTourComponent} from "../../tour-plan/signature-pad-for-tour/signature-pad-for-tour.component";
+import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 
 @Component({
-    selector: 'app-tour-plan-for-approval',
-    templateUrl: './tour-plan-for-approval.component.html',
-    styleUrls: ['./tour-plan-for-approval.component.scss']
+    selector: 'app-tour-diary-approval',
+    templateUrl: './tour-diary-approval.component.html',
+    styleUrls: ['./tour-diary-approval.component.scss']
 })
-export class TourPlanForApprovalComponent implements OnInit {
+export class TourDiaryApprovalComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     @Input() isDialog: any = false;
@@ -42,7 +39,7 @@ export class TourPlanForApprovalComponent implements OnInit {
 
     displayedColumns = ['VisitedDate', 'Purpose', 'Remarks', 'Status', 'TotalRecords', "Actions"];
     gridHeight: string;
-    tourPlanApprovalForm: FormGroup;
+    tourDiaryForm: FormGroup;
     myDate = new Date().toLocaleDateString();
     isMCO: boolean = false;
     isBM: boolean = false;
@@ -53,7 +50,6 @@ export class TourPlanForApprovalComponent implements OnInit {
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
-    TourPlansByDate;
     minDate: Date;
     fromdate: string;
     todate: string;
@@ -61,7 +57,7 @@ export class TourPlanForApprovalComponent implements OnInit {
     tourPlanStatusLov;
     dv: number | any; //use later
     matTableLenght: any;
-    TourPlans;
+    TourDiary;
 
     // Pagination
     Limit: any;
@@ -88,7 +84,7 @@ export class TourPlanForApprovalComponent implements OnInit {
                 private filterFB: FormBuilder,
                 private router: Router,
                 private spinner: NgxSpinnerService,
-                private tourPlanService: TourPlanService,
+                private tourDiaryService: TourDiaryService,
                 private toaster: ToastrService,
                 private http: HttpClient,
                 private _lovService: LovService,
@@ -105,9 +101,6 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.setUsers()
         this.LoadLovs();
         this.createForm();
-        // this.setCircles();
-        this.getTourPlan();
-
         this.settingZBC();
 
     }
@@ -141,33 +134,16 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
-
-        //var userInfo = this.userUtilsService.getUserDetails();
-        //this.TourPlan.controls['Zone'].setValue(userInfo.Zone.ZoneName);
-        //this.TourPlan.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
-    // CheckEditStatus(loanUtilization: any) {
-    //
-
-    //   if () {
-    //     return true
-    //   }
-    //   else {
-    //     return false
-    //   }
-    // }
-
     setFromDate() {
-
-        // this.TourPlan.controls.FromDate.reset();
-        this.minDate = this.tourPlanApprovalForm.controls.FromDate.value;
-        var FromDate = this.tourPlanApprovalForm.controls.FromDate.value;
+        this.minDate = this.tourDiaryForm.controls.FromDate.value;
+        var FromDate = this.tourDiaryForm.controls.FromDate.value;
         if (FromDate._isAMomentObject == undefined) {
             try {
-                var day = this.tourPlanApprovalForm.controls.FromDate.value.getDate();
-                var month = this.tourPlanApprovalForm.controls.FromDate.value.getMonth() + 1;
-                var year = this.tourPlanApprovalForm.controls.FromDate.value.getFullYear();
+                var day = this.tourDiaryForm.controls.FromDate.value.getDate();
+                var month = this.tourDiaryForm.controls.FromDate.value.getMonth() + 1;
+                var year = this.tourDiaryForm.controls.FromDate.value.getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
@@ -176,14 +152,14 @@ export class TourPlanForApprovalComponent implements OnInit {
                 }
                 const branchWorkingDate = new Date(year, month - 1, day);
                 this.fromdate = branchWorkingDate.toString();
-                this.tourPlanApprovalForm.controls.FromDate.setValue(branchWorkingDate)
+                this.tourDiaryForm.controls.FromDate.setValue(branchWorkingDate)
             } catch (e) {
             }
         } else {
             try {
-                var day = this.tourPlanApprovalForm.controls.FromDate.value.toDate().getDate();
-                var month = this.tourPlanApprovalForm.controls.FromDate.value.toDate().getMonth() + 1;
-                var year = this.tourPlanApprovalForm.controls.FromDate.value.toDate().getFullYear();
+                var day = this.tourDiaryForm.controls.FromDate.value.toDate().getDate();
+                var month = this.tourDiaryForm.controls.FromDate.value.toDate().getMonth() + 1;
+                var year = this.tourDiaryForm.controls.FromDate.value.toDate().getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
@@ -194,7 +170,7 @@ export class TourPlanForApprovalComponent implements OnInit {
 
                 this.fromdate = FromDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.tourPlanApprovalForm.controls.FromDate.setValue(branchWorkingDate);
+                this.tourDiaryForm.controls.FromDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         }
@@ -202,12 +178,12 @@ export class TourPlanForApprovalComponent implements OnInit {
 
     setToDate() {
 
-        var ToDate = this.tourPlanApprovalForm.controls.ToDate.value;
+        var ToDate = this.tourDiaryForm.controls.ToDate.value;
         if (ToDate._isAMomentObject == undefined) {
             try {
-                var day = this.tourPlanApprovalForm.controls.ToDate.value.getDate();
-                var month = this.tourPlanApprovalForm.controls.ToDate.value.getMonth() + 1;
-                var year = this.tourPlanApprovalForm.controls.ToDate.value.getFullYear();
+                var day = this.tourDiaryForm.controls.ToDate.value.getDate();
+                var month = this.tourDiaryForm.controls.ToDate.value.getMonth() + 1;
+                var year = this.tourDiaryForm.controls.ToDate.value.getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
@@ -215,14 +191,14 @@ export class TourPlanForApprovalComponent implements OnInit {
                     day = "0" + day;
                 }
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.tourPlanApprovalForm.controls.ToDate.setValue(branchWorkingDate)
+                this.tourDiaryForm.controls.ToDate.setValue(branchWorkingDate)
             } catch (e) {
             }
         } else {
             try {
-                var day = this.tourPlanApprovalForm.controls.ToDate.value.toDate().getDate();
-                var month = this.tourPlanApprovalForm.controls.ToDate.value.toDate().getMonth() + 1;
-                var year = this.tourPlanApprovalForm.controls.ToDate.value.toDate().getFullYear();
+                var day = this.tourDiaryForm.controls.ToDate.value.toDate().getDate();
+                var month = this.tourDiaryForm.controls.ToDate.value.toDate().getMonth() + 1;
+                var year = this.tourDiaryForm.controls.ToDate.value.toDate().getFullYear();
                 if (month < 10) {
                     month = "0" + month;
                 }
@@ -232,7 +208,7 @@ export class TourPlanForApprovalComponent implements OnInit {
                 ToDate = day + "" + month + "" + year;
                 this.todate = ToDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
-                this.tourPlanApprovalForm.controls.ToDate.setValue(branchWorkingDate);
+                this.tourDiaryForm.controls.ToDate.setValue(branchWorkingDate);
             } catch (e) {
             }
         }
@@ -251,19 +227,6 @@ export class TourPlanForApprovalComponent implements OnInit {
                 return false
             }
         }
-    }
-
-
-    viewTourPlan(TourPlan: any) {
-        // this.router.navigate(['other']);
-
-        TourPlan.view = "1";
-        //
-        // utilization = {Status:this.TourPlan.controls["Status"].value}
-        this.router.navigate(['../tour-plan'], {
-            state: {example: TourPlan, flag: 1},
-            relativeTo: this.activatedRoute
-        });
     }
 
     CheckViewStatus(loanUtilization: any) {
@@ -296,7 +259,7 @@ export class TourPlanForApprovalComponent implements OnInit {
 
     createForm() {
         var userInfo = this.userUtilsService.getUserDetails();
-        this.tourPlanApprovalForm = this.filterFB.group({
+        this.tourDiaryForm = this.filterFB.group({
             FromDate: [, Validators.required],
             ToDate: [, Validators.required],
             PPNO: [null],
@@ -310,26 +273,22 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.itemsPerPage = pageSize;
         this.OffSet = (pageIndex - 1) * this.itemsPerPage;
         this.pageIndex = pageIndex;
-        this.searchTourPlanApproval()
+        this.searchTourDiaryApproval()
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
 
     hasError(controlName: string, errorName: string): boolean {
-        return this.tourPlanApprovalForm.controls[controlName].hasError(errorName);
+        return this.tourDiaryForm.controls[controlName].hasError(errorName);
     }
 
-    getTourPlan() {
-
-
-    }
 
     toggleAccordion(i: number, user_id) {
         let icon = document.getElementById('arrow_down_' + i).innerHTML;
         if (icon == 'expand_more') {
             document.getElementById('arrow_down_' + i).innerHTML = 'expand_less';
             document.getElementById('table_' + i).style.display = 'block';
-            this.searchTourPlanApproval(false, user_id, i);
+            this.searchTourDiaryApproval(false, user_id, i);
 
         } else {
             document.getElementById('arrow_down_' + i).innerHTML = 'expand_more';
@@ -338,7 +297,7 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.children = [];
     }
 
-    searchTourPlanApproval(start = false, user_id = null, index = 0) {
+    searchTourDiaryApproval(start = false, user_id = null, index = 0) {
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -348,8 +307,8 @@ export class TourPlanForApprovalComponent implements OnInit {
             );
             return;
         }
-        console.log(this.tourPlanApprovalForm.controls["Status"].value)
-        if (this.tourPlanApprovalForm.controls["Status"].value == "") {
+        console.log(this.tourDiaryForm.controls["Status"].value)
+        if (this.tourDiaryForm.controls["Status"].value == "") {
             var Message = 'Please select Status';
             this.layoutUtilsService.alertElement(
                 '',
@@ -363,8 +322,8 @@ export class TourPlanForApprovalComponent implements OnInit {
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
-        let _TourPlan = Object.assign(this.tourPlanApprovalForm.value);
-        this.tourPlanService.searchForTourPlanApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
+        let _TourPlan = Object.assign(this.tourDiaryForm.value);
+        this.tourDiaryService.searchTourDiaryApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -372,20 +331,19 @@ export class TourPlanForApprovalComponent implements OnInit {
                 })
             )
             .subscribe(baseResponse => {
-
+                console.log(baseResponse);
 
                 if (baseResponse.Success) {
-                    console.log(baseResponse);
+
                     if (user_id) {
-                        this.TourPlans[index].TourPlans = baseResponse.TourPlan.TourPlans;
-                        // this.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
-                        this.TourPlans[index].children = []
+                        this.TourDiary[index].TourDiary = baseResponse.TourDiary.TourDiaries;
+                        this.TourDiary[index].children = []
                     } else {
 
-                        this.TourPlans = baseResponse.TourPlan.TourPlans;
-                        this.dataSource.data = baseResponse.TourPlan.TourPlans;
+                        this.TourDiary = baseResponse.TourDiary.TourDiaries;
+                        this.dataSource.data = baseResponse.TourDiary.TourDiaries;
                     }
-                    this.TourPlans.forEach((single_plan) => {
+                    this.TourDiary.forEach((single_plan) => {
                         this.children.push(single_plan);
                     })
                     if (this.dataSource?.data?.length > 0)
@@ -405,7 +363,7 @@ export class TourPlanForApprovalComponent implements OnInit {
                         this.dataSource = this.dv.slice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
                         // this.dataSource.data = [];
                         // this._cdf.detectChanges();
-                        this.TourPlans = null;
+                        this.TourDiary = null;
                         this.OffSet = 1;
                         this.pageIndex = 1;
                         this.dv = this.dv.slice(1, 0);
@@ -443,27 +401,6 @@ export class TourPlanForApprovalComponent implements OnInit {
             state: {example: tourPlan, flag: 1},
             relativeTo: this.activatedRoute
         });
-    }
-
-
-    deleteTourPlan(tourPlan) {
-        tourPlan.Status = "C";
-
-        this.spinner.show();
-        this.tourPlanService
-            .ChanageTourStatus(tourPlan)
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe(
-                (baseResponse) => {
-                    if (baseResponse.Success) {
-
-                        // this.layoutUtilsService.alertElement("", baseResponse.Message);
-                        this.searchTourPlanApproval()
-                    }
-                });
-
     }
 
     paginateAs(pageIndex: any, pageSize: any = this.itemsPerPage) {
@@ -512,27 +449,6 @@ export class TourPlanForApprovalComponent implements OnInit {
         }
     }
 
-    change(parent, status) {
-        let parent_index = this.children.indexOf(parent);
-        let ids = []
-        this.children[parent_index]?.children?.forEach((single_children) => {
-            ids.push(String(single_children.TourPlanId));
-        })
-
-        if (ids.length == 0) {
-            var Message = 'Please select Record From List';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
-
-        this.changeStatus(this.children[parent_index], status, ids);
-    }
-
-
     changeCheckBox(parent, child: any) {
         let parent_index = this.children.indexOf(parent);
         if (!this.children[parent_index].children.includes(child.TourPlanId)) {
@@ -542,3 +458,4 @@ export class TourPlanForApprovalComponent implements OnInit {
         }
     }
 }
+

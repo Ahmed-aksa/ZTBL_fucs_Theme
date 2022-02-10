@@ -77,6 +77,7 @@ const routing = [
         CUSTOM_ELEMENTS_SCHEMA
     ],
     exports: [
+        TourApprovalTabComponent,
         // AppInjector,
     ]
 })

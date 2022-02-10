@@ -345,7 +345,6 @@ export class ViewTourPlanComponent implements OnInit {
             );
             return;
         }
-        console.log(this.tourPlanApprovalForm.controls["Status"].value)
         if (this.tourPlanApprovalForm.controls["Status"].value == "") {
             var Message = 'Please select Status';
             this.layoutUtilsService.alertElement(
@@ -362,7 +361,7 @@ export class ViewTourPlanComponent implements OnInit {
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourPlanApprovalForm.value);
         this.loggedInUser.User.UserName
-        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id,this.loggedInUser.User.UserName)
+        this.tourPlanService.viewTourPlan(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id, this.loggedInUser.User.UserName)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -373,15 +372,13 @@ export class ViewTourPlanComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-
                     if (user_id) {
-                        this.TourPlans[index].TourPlans = baseResponse.TourPlanList;
-                        // this.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
+                        this.TourPlans[index].TourPlans = baseResponse.TourPlan.TourPlans;
                         this.TourPlans[index].children = []
                     } else {
 
-                        this.TourPlans = baseResponse.TourPlanList;
-                        this.dataSource.data = baseResponse.TourPlanList;
+                        this.TourPlans = baseResponse.TourPlan.TourPlans;
+                        this.dataSource.data = baseResponse.TourPlan.TourPlans;
                     }
                     this.TourPlans?.forEach((single_plan) => {
                         this.children.push(single_plan);

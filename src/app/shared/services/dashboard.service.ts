@@ -1,15 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BaseRequestModel } from '../models/base_request.model';
-import { BaseResponseModel } from '../models/base_response.model';
-import { HttpUtilsService } from './http_utils.service';
-import { UserUtilsService } from './users_utils.service';
-import { ChartOptions } from "../../modules/dashboard/evp-credit-dashboard/evp-credit-dashboard.component";
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from 'environments/environment';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {BaseRequestModel} from '../models/base_request.model';
+import {BaseResponseModel} from '../models/base_response.model';
+import {HttpUtilsService} from './http_utils.service';
+import {UserUtilsService} from './users_utils.service';
+import {ChartOptions} from "../../modules/dashboard/evp-credit-dashboard/evp-credit-dashboard.component";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class DashboardService {
     public request = new BaseRequestModel();
 
@@ -51,18 +51,23 @@ export class DashboardService {
             .post(
                 `${environment.apiUrl}/Dashboard/GetDashboardReport`,
                 this.request,
-                { headers: this.httpUtils.getHTTPHeaders() }
+                {headers: this.httpUtils.getHTTPHeaders()}
             )
             .pipe(map((res: any) => res));
     }
 
     assignKeys(data: any, title): Partial<ChartOptions> {
+        if (title == 'Performance Indicators')
+            debugger;
         if (data) {
             var obj = [];
+            var labels = [];
             if (data)
-                (Object.values(data))?.forEach(x => {
-                    if (Number(x) != 0)
-                        obj.push(Number(x));
+                (Object.keys(data))?.forEach(x => {
+                    if (Number(data[x]) != 0) {
+                        labels.push(x);
+                        obj.push(Number(data[x]));
+                    }
 
                 });
 
@@ -73,7 +78,7 @@ export class DashboardService {
                     width: "100%",
                     type: "pie"
                 },
-                labels: obj.length > 1 ? Object.keys(data).map(key => key = key.replace(/([a-z0-9])([A-Z])/g, '$1 $2')) : [],
+                labels: labels.length > 1 ? labels : [],
                 theme: {
                     monochrome: {
                         enabled: false
@@ -116,23 +121,27 @@ export class DashboardService {
         return this.http.post(
             `${environment.apiUrl}/Dashboard/GetYearsForDashboard`,
             this.request,
-            { headers: this.httpUtils.getHTTPHeaders() }
+            {headers: this.httpUtils.getHTTPHeaders()}
         )
             .pipe(map((res: any) => res));
     }
 
     getCamelCaseString(data, check) {
-        if (!data) { return }
+        if (!data) {
+            return
+        }
         const myArray = data.split(":");
         if (check == 0) {
             return myArray[0].replace(/([a-z0-9])([A-Z])/g, '$1 $2')
-        }
-        else {
+        } else {
             return myArray[1];
         }
     }
+
     getCamelCase(data,) {
-        if (!data) { return }
+        if (!data) {
+            return
+        }
 
         return data.replace(/([a-z0-9])([A-Z])/g, '$1 $2')
 
@@ -142,7 +151,7 @@ export class DashboardService {
         var date = Object.getOwnPropertyNames(data);
         var sortArray = date.sort();
 
-        var perChunk = 3 // items per chunk    
+        var perChunk = 3 // items per chunk
         var result = sortArray.reduce((resultArray, item, index) => {
             const chunkIndex = Math.floor(index / perChunk)
             if (!resultArray[chunkIndex]) {
@@ -155,24 +164,22 @@ export class DashboardService {
 
         result.forEach(x => {
             var a, b, c;
-            for (let i = 0; i < 3; i++) { 
+            for (let i = 0; i < 3; i++) {
 
                 if (x[i].includes("Target")) {
                     a = x[i];
-                }
-                else if (x[i].includes("Achievement")) { 
+                } else if (x[i].includes("Achievement")) {
                     b = x[i];
-                }
-                else {
+                } else {
                     c = x[i];
                 }
             }
             // var a = x[2]
             // var b = x[0]
             // var c = x[1]
-            x[0] = a!=undefined? a + ":" + data[a] : '-';
-            x[1] = b!=undefined? b + ":" + data[b] : '-';
-            x[2] = c!=undefined? c + "(%):" + data[c] : '-';
+            x[0] = a != undefined ? a + ":" + data[a] : '-';
+            x[1] = b != undefined ? b + ":" + data[b] : '-';
+            x[2] = c != undefined ? c + "(%):" + data[c] : '-';
 
         });
         return result;

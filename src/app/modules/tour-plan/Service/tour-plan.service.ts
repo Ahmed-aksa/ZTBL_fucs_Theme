@@ -262,14 +262,14 @@ export class TourPlanService {
         );
     }
 
-    GetHolidays(StartDate, EndDate,zone): Observable<any> {
+    GetHolidays(StartDate, EndDate, zone): Observable<any> {
         var resData = {
             "TourPlan": {
                 "StartDate": StartDate,
                 "EndDate": EndDate
             },
             "User": this.userInfo.User,
-            "Zone":zone,
+            "Zone": zone,
         }
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetHolidays`, resData,
@@ -350,11 +350,9 @@ export class TourPlanService {
             request.TourPlan.EndDate = null;
         }
 
-        if(request?.TourPlan?.UserPPNo==""){
+        if (request?.TourPlan?.UserPPNo == "") {
             request.TourPlan.UserPPNo = null;
         }
-
-        console.log(request);
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ViewTourPlans`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(

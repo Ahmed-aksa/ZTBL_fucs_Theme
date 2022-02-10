@@ -13,6 +13,7 @@ import {environment} from '../../../../../environments/environment';
 import {Profile} from "../../../user-management/activity/activity.model";
 import {Target} from "../Models/set-target.model";
 import {TourPlan} from "../../../tour-plan/Model/tour-plan.model";
+import moment, {Moment} from "moment";
 
 @Injectable({
     providedIn: 'root',
@@ -249,7 +250,7 @@ export class TourDiaryService {
                 Ppno: TourDiary.Ppno,
                 Status: Status,
                 TourPlanId: TourDiary.TourPlanId,
-                TourDate:TourDiary.TourDate
+                TourDate: TourDiary.TourDate
             }
         }
         if (is_zc) {
@@ -336,6 +337,45 @@ export class TourDiaryService {
     }
 
 
+    searchTourDiaryApproval(
+        approval_from: any,
+        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
+
+        let start_date: Moment = moment(approval_from.FromDate);
+        let end_date: Moment = moment(approval_from.ToDate);
+        let request = {
+            TourDiary: {
+                UserId: user_id,
+                CircleId: circle?.CircleId,
+                BranchCode: branch?.BranchCode,
+                ZoneId: zone?.ZoneId,
+                StartDate: start_date.format('YYYY-MM-DD'),
+                EndDate: end_date.format('YYYY-MM-DD'),
+                Status: approval_from.Status,
+                TourDate: null,
+                Limit: String(itemsPerPage),
+                Offset: offset,
+                PPNO: approval_from.PPNO,
+            },
+            Zone: zone,
+            Branch: branch,
+            Circle: circle,
+            User: this.userInfo.User,
+        }
+        if (request.TourDiary.StartDate == "Invalid date") {
+            request.TourDiary.StartDate = null;
+        }
+        if (request.TourDiary.EndDate == "Invalid date") {
+            request.TourDiary.EndDate = null;
+        }
+
+        console.log(request);
+
+        return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourDiaryForApproval`, request,
+            {headers: this.httpUtils.getHTTPHeaders()}).pipe(
+            map((res: any) => res)
+        );
+    }
 }
 
 export class Targets {

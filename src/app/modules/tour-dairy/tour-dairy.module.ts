@@ -20,20 +20,23 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatDialogModule} from "@angular/material/dialog";
 import {SetTargetService} from "./set-target/Services/set-target.service";
 import {SharedModule} from 'app/shared/shared.module';
-import { ViewTargetComponent } from './view-target/view-target.component';
+import {ViewTargetComponent} from './view-target/view-target.component';
 import {TargetsComponent} from "./Targets.component";
-import { TourDiaryRoComponent } from './tour-diary-ro/tour-diary-ro.component';
-import { TourDiaryBmComponent } from './tour-diary-bm/tour-diary-bm.component';
-import { TourDiaryPcComponent } from './tour-diary-pc/tour-diary-pc.component';
-import { TourDiaryRcComponent } from './tour-diary-rc/tour-diary-rc.component';
+import {TourDiaryRoComponent} from './tour-diary-ro/tour-diary-ro.component';
+import {TourDiaryBmComponent} from './tour-diary-bm/tour-diary-bm.component';
+import {TourDiaryPcComponent} from './tour-diary-pc/tour-diary-pc.component';
+import {TourDiaryRcComponent} from './tour-diary-rc/tour-diary-rc.component';
 import {SetTargetTabsComponent} from "./set-target-tabs/set-target-tabs.component";
 import {IConfig, NgxMaskModule} from "ngx-mask";
 import {NgxMaterialTimepickerComponent, NgxMaterialTimepickerModule} from "ngx-material-timepicker";
 import {SearchTourDiaryComponent} from "./search-tour-diary/search-tour-diary.component";
+import {TourDiaryApprovalComponent} from './tour-diary-approval/tour-diary-approval.component';
+import {TourPlanModule} from "../tour-plan/tour-plan.module";
+import {TourApprovalTabComponent} from './tour-diary-approval-tab/tour-diary-approval-tab.component';
+
 export const options: Partial<IConfig> = {
     thousandSeparator: ","
 };
-
 
 
 const routing = [
@@ -76,9 +79,14 @@ const routing = [
     {
         path: "view-target",
         component: ViewTargetComponent,
-    },{
+    },
+    {
         path: "search-tour-diary",
         component: SearchTourDiaryComponent,
+    },
+    {
+        path: "tour-diary-approval",
+        component: TourDiaryApprovalComponent,
     }
 ];
 
@@ -98,7 +106,9 @@ const routing = [
         TourDiaryBmComponent,
         TourDiaryRoComponent,
         SetTargetTabsComponent,
-        SearchTourDiaryComponent
+        SearchTourDiaryComponent,
+        TourDiaryApprovalComponent,
+        TourApprovalTabComponent,
     ],
     imports: [
         CommonModule,
@@ -115,7 +125,8 @@ const routing = [
         MatIconModule,
         MatDialogModule,
         NgxMaskModule.forRoot(options),
-        NgxMaterialTimepickerModule.setLocale('en-US')
+        NgxMaterialTimepickerModule.setLocale('en-US'),
+        TourPlanModule
     ],
     providers: [
         DatePipe,

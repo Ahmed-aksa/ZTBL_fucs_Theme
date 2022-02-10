@@ -254,7 +254,9 @@ export class TourDiaryBmComponent implements OnInit {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
-                if (baseResponse.Success) {                    // this.TargetDuration = baseResponse.Target.TargetDuration;
+                if (baseResponse.Success) {
+                    debugger;
+                    // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
 
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
@@ -324,7 +326,7 @@ export class TourDiaryBmComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourPlan = baseResponse?.TourPlan?.TourPlans;
@@ -378,6 +380,7 @@ export class TourDiaryBmComponent implements OnInit {
 
     editData(tour_list) {
         this.gridForm.patchValue(tour_list);
+        this.gridForm.controls['TourDate'].setValue(new Date(tour_list.TourDate));
     }
 
     deleteData(data, status = 'C') {
