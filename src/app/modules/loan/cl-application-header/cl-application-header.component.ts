@@ -257,7 +257,7 @@ export class ClApplicationHeaderComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    
+
                     this.applicationHeaderForm.controls["LoanCaseNo"].setValue("");
                     this.applicationHeaderForm.controls["LoanCaseNo"].setValue(baseResponse.Loan.ApplicationHeader.LoanAutoNo);
                 } else {
@@ -269,14 +269,14 @@ export class ClApplicationHeaderComponent implements OnInit {
     }
 
     checkDisable() {
-        if(this.route.snapshot.params['Lcno']){
+        if (this.route.snapshot.params['Lcno']) {
             if (this.isCheckLcInProgress == true || this.applicationHeaderForm.controls["LoanCaseNo"]?.value) {
                 return true
             } else {
                 return false
             }
-        }else{
-           return false
+        } else {
+            return false
         }
 
 
@@ -390,9 +390,10 @@ export class ClApplicationHeaderComponent implements OnInit {
 
 
         this.isSaveApplicationHeaderInProgress = true;
-        this.loanApplicationHeader.AppStatus=1;
+        this.loanApplicationHeader.AppStatus = 1;
+        this.loanApplicationHeader.ZoneId = String(this.loanApplicationHeader.ZoneId);
         this.spinner.show();
-        this._loanService.saveApplicationHeader(this.loanApplicationHeader)
+        this._loanService.saveApplicationHeader(this.loanApplicationHeader, this.zone, this.branch, this.circle)
             .pipe(
                 finalize(() => {
                     this.isSaveApplicationHeaderInProgress = false;

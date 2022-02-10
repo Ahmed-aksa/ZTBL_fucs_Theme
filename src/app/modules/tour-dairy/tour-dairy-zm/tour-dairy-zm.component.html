@@ -51,12 +51,12 @@
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>
-                                            </mat-label>
-                                            <input matInput [matDatepicker]="picker" formControlName="TourDate" maxlength="30" autocomplete="off"
-                                                   [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>
-                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                            <mat-datepicker #picker></mat-datepicker>
+                                            <mat-label class="customMatLabel">Tour Date</mat-label>
+                                            <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
+                                                    maxlength="8"
+                                                    autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
+                                            <mat-datepicker-toggle (click)="checkZone()" [disabled]="!zone" matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
                                     </div>
 
@@ -233,7 +233,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let ZmTourDiary of tourDiaryList">
+                                    <tr *ngFor="let ZmTourDiary of TourDiaryList">
                                         <td>
                                             <button class="ml-2" mat-icon-button color="primary" (click)="edit(ZmTourDiary)"
                                             >
@@ -292,7 +292,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr *ngFor="let ZmTourDiary of tourDiaryList">
+                                    <tr *ngFor="let ZmTourDiary of TourDiaryList">
                                         <td>{{ZmTourDiary.LCNotIssuedToBorrowers}}</td>
                                         <td>{{ZmTourDiary.McoNBmTourDiaryAPPlan}}</td>
                                         <td>{{ZmTourDiary.AnyShortComingInDiaries}}</td>

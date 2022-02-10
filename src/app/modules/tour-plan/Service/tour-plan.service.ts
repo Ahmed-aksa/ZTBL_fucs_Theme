@@ -190,6 +190,7 @@ export class TourPlanService {
         this.request.TourPlan.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
+        tourPlan.Status="";
         var date = {
             "User": this.request.User,
             "TourPlan": tourPlan,
@@ -197,8 +198,9 @@ export class TourPlanService {
             "Branch": this.request.Branch
 
         }
+
         //this.request.Date = {}
-        var req = JSON.stringify(this.request);
+        var req = JSON.stringify(date);
         console.log(req)
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetScheduleBaseTourPlan`, date,
@@ -272,6 +274,7 @@ export class TourPlanService {
             "Zone": zone,
         }
 
+        console.log(JSON.stringify(resData))
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetHolidays`, resData,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: any) => res)

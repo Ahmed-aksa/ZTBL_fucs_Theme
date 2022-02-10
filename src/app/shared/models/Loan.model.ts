@@ -1,5 +1,5 @@
 export class Loan {
-    Securities:LoanSecurities
+    Securities: LoanSecurities
     ApplicationHeader: LoanApplicationHeader
     LoanApplicationpurpose: LoanApplicationPurpose
     CustomersLoanLands: CustomersLoanLand[] = [];
@@ -98,7 +98,7 @@ export class ORR {
 
 
 export class LoanApplicationHeader {
-    ZoneId: number;
+    ZoneId: string | number;
     BranchID: number;
     AppDate: string;
     DevProdFlag: string; //LoanType
@@ -163,7 +163,7 @@ export class LoanApplicationPurpose {
     DevProdID: number;
     SchemeID: number;
     checkEquity: boolean;
-    CropName:string;
+    CropName: string;
 
 
     //GLCode: string;
@@ -387,6 +387,7 @@ export class SearchLoan {
     Appdt: string;
     Status: string;
 }
+
 export class SearchChargeCreation {
     ZoneId: string;
     BranchId: string;
@@ -401,8 +402,8 @@ export class SearchDBR {
 
 }
 
-export class Pagination{
-    Limit:string;
+export class Pagination {
+    Limit: string;
 
 }
 
