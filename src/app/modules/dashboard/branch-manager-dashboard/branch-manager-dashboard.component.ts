@@ -1,28 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexChart,
-    ApexTheme,
-    ApexTitleSubtitle,
     ChartComponent,
-    ApexNoData
 } from "ng-apexcharts";
 import { DashboardService } from "../../../shared/services/dashboard.service";
 import { finalize } from "rxjs/operators";
 import { NgxSpinnerService } from 'ngx-spinner';
-
-
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    theme: ApexTheme;
-    title: ApexTitleSubtitle;
-    noData: ApexNoData;
-};
+import {ChartOptions} from "../dashboard.component";
 
 @Component({
     selector: 'app-branch-manager-dashboard',
@@ -58,12 +42,12 @@ export class BranchManagerDashboardComponent implements OnInit {
         this.year = (new Date()).getFullYear().toString();
         this.getYears();
         this.getData();
-      
+
     }
 
     assignRoleData(DashboardReport: any) {
         this.DisbursmentAchievement = this.dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
-        this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement); 
+        this.RecoveryAchievement = this.dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
         this.CirclePositions = DashboardReport.CirclePositions;
         this.CreditCeiling = DashboardReport.CreditCeiling;
 
@@ -92,5 +76,5 @@ export class BranchManagerDashboardComponent implements OnInit {
 
 
 
-   
+
 }

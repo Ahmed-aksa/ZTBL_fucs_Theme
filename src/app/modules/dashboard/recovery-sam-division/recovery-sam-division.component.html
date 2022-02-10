@@ -40,9 +40,14 @@
             <div class="col-lg-6">
                 <div class=" shadow-sm border graph-box" style="height: 365px;">
                     <div id="chart2" *ngIf="chartOptions1" class=" mt-0 py-3">
-                        <apx-chart [series]="chartOptions1?.series" [chart]="chartOptions1?.chart"
-                                   [labels]="chartOptions1?.labels" [title]="chartOptions1?.title"
-                                   [theme]="chartOptions1?.theme" [responsive]="chartOptions1?.responsive"
+                        <apx-chart [series]="chartOptions1?.series"
+                                   [chart]="chartOptions1?.chart"
+                                   [labels]="chartOptions1?.labels"
+                                   [title]="chartOptions1?.title"
+                                   [theme]="chartOptions1?.theme"
+                                   [tooltip]="chartOptions1.tooltip"
+                                   [dataLabels]="chartOptions1.dataLabels"
+                                   [responsive]="chartOptions1?.responsive"
                                    [noData]="chartOptions1.noData"
                         ></apx-chart>
                     </div>
@@ -52,9 +57,14 @@
             <div class="col-lg-6">
                 <div class=" shadow-sm border graph-box" style="height: 365px;">
                     <div id="chart3" *ngIf="chartOptions2" class=" mt-0 py-3">
-                        <apx-chart [series]="chartOptions2?.series" [chart]="chartOptions2?.chart"
-                                   [labels]="chartOptions2?.labels" [title]="chartOptions2?.title"
-                                   [theme]="chartOptions2?.theme" [responsive]="chartOptions2?.responsive"
+                        <apx-chart [series]="chartOptions2?.series"
+                                   [chart]="chartOptions2?.chart"
+                                   [labels]="chartOptions2?.labels"
+                                   [title]="chartOptions2?.title"
+                                   [theme]="chartOptions2?.theme"
+                                   [tooltip]="chartOptions2.tooltip"
+                                   [dataLabels]="chartOptions2.dataLabels"
+                                   [responsive]="chartOptions2?.responsive"
                                    [noData]="chartOptions2.noData"
                         ></apx-chart>
                     </div>

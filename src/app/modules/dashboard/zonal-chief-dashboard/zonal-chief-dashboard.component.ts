@@ -1,26 +1,13 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexChart,
-    ApexTheme,
-    ApexTitleSubtitle,
     ChartComponent
 } from "ng-apexcharts";
 import {DashboardService} from "../../../shared/services/dashboard.service";
 import {finalize} from "rxjs/operators";
 import {NgxSpinnerService} from "ngx-spinner";
+import { ChartOptions } from '../dashboard.component';
 
-
-export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    theme: ApexTheme;
-    title: ApexTitleSubtitle;
-};
 
 @Component({
     selector: 'app-zonal-chief-dashboard',

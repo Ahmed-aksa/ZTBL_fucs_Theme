@@ -40,9 +40,13 @@
                 <div class="col-lg-6 mb-3">
                     <div class="shadow-sm border graph-box"  style="height: 365px;" >
                         <div id="chart" *ngIf="chartOptions" class=" mt-0 py-3">
-                            <apx-chart [series]="chartOptions?.series" [chart]="chartOptions?.chart"
-                                       [labels]="chartOptions?.labels" [title]="chartOptions?.title"
+                            <apx-chart [series]="chartOptions?.series"
+                                       [chart]="chartOptions?.chart"
+                                       [labels]="chartOptions?.labels"
+                                       [title]="chartOptions?.title"
                                        [theme]="chartOptions?.theme"
+                                       [tooltip]="chartOptions.tooltip"
+                                       [dataLabels]="chartOptions.dataLabels"
                                        [responsive]="chartOptions?.responsive"
                                        [noData]="chartOptions.noData"
                                        [colors]="chartOptions?.colors"
@@ -101,7 +105,7 @@
                             <td>{{UtilizationMutation?.MutationOutstanding}}</td>
                             <td>{{UtilizationMutation?.AuditParaOutstanding}}</td>
                         </tr>
-    
+
                     </tbody>
                 </table>
                     </table>
