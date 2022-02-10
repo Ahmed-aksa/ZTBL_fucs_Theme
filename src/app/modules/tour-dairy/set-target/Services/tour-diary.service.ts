@@ -341,20 +341,20 @@ export class TourDiaryService {
 
     searchTourDiaryApproval(
         approval_from: any,
-        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
+        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id, tour_date = null) {
 
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {
             TourDiary: {
-                UserId: user_id,
+                CreatedBy: user_id,
                 CircleId: circle?.CircleId,
                 BranchCode: branch?.BranchCode,
                 ZoneId: zone?.ZoneId,
                 StartDate: start_date.format('YYYY-MM-DD'),
                 EndDate: end_date.format('YYYY-MM-DD'),
                 Status: approval_from.Status,
-                TourDate: null,
+                TourDate: tour_date,
                 Limit: String(itemsPerPage),
                 Offset: offset,
                 PPNO: approval_from.PPNO,

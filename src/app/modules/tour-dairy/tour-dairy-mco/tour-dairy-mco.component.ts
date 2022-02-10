@@ -187,7 +187,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
+
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
                 this.isUpdate = false;
@@ -200,7 +200,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     delete(data, status) {
-        
+
         if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -215,7 +215,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 if (!res) {
                     return;
                 }
-                
+
                 this.TourDiary = Object.assign(data);
                this.spinner.show();
                 this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
@@ -225,7 +225,7 @@ export class TourDiaryMcoComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        
+
                         this.TourDiaryList=[];
                         this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -265,8 +265,8 @@ export class TourDiaryMcoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
-                
+
+
                 this.TourDiaryList=[];
                 this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -286,7 +286,7 @@ export class TourDiaryMcoComponent implements OnInit {
     edit(mcoDiary) {
 
         // this.gridForm.controls['Name'].setValue(null);
-        // this.gridForm.controls['Ppno'].setValue(null);
+        // this.gridForm.controls['Ppno4'].setValue(null);
         this.gridForm.controls['DiaryId'].setValue(mcoDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(mcoDiary.TourPlanId);
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
@@ -355,7 +355,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     getAllData(event) {
-        
+
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
@@ -444,12 +444,14 @@ export class TourDiaryMcoComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-            
+
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     // this.TourDiaryList = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
                 } else {
+                    this.TourPlan = null;
+
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,
