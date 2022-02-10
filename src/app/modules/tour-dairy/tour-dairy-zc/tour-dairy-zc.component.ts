@@ -114,14 +114,15 @@ export class TourDiaryZcComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
+        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary, true)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
+                debugger
             if (baseResponse.Success) {
-                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
                 this.isUpdate = false;
                 this.onClearForm();
@@ -168,6 +169,23 @@ export class TourDiaryZcComponent implements OnInit {
                 null
             );
             return;
+        }
+    }
+
+    checkStatus(item, action) {
+        if (action == 'edit') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (action == 'delete') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

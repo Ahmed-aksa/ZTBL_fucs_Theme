@@ -232,9 +232,9 @@ export class TourDiaryService {
 
         TourDiary.DiaryId = TourDiary.DiaryId.toString();
         if (TourDiary.Ppno)
-            TourDiary.Ppno = TourDiary.Ppno.toString();
+            TourDiary.Ppno = TourDiary?.Ppno?.toString();
         else
-            TourDiary.Ppno = TourDiary.PPNO.toString();
+            TourDiary.Ppno = TourDiary?.PPNO?.toString();
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
         // TourDiary.TourDate = TourDiary.TourDate.toString();
 
