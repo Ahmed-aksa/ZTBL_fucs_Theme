@@ -62,7 +62,7 @@ export class TourDiaryPcComponent implements OnInit {
     }
 
     setValue() {
-        this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
+        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
         this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser.User.DisplayName);
     }
 
@@ -76,7 +76,7 @@ export class TourDiaryPcComponent implements OnInit {
 
         this.gridForm = this.fb.group({
             NameOfOfficer: [null],
-            PPNO: [null],
+            Ppno: [null],
             Month: [null],
             Name: [null],
             Date: [null],
@@ -113,7 +113,7 @@ export class TourDiaryPcComponent implements OnInit {
 
     onClearForm() {
         // this.gridForm.controls['Name'].setValue("");
-        this.gridForm.controls['PPNO'].setValue("");
+        this.gridForm.controls['Ppno'].setValue("");
         this.gridForm.controls['DiaryId'].setValue("");
         this.gridForm.controls['TourPlanId'].setValue("");
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
