@@ -813,6 +813,8 @@ export class RecoveryFormComponent implements OnInit {
         this.recoveryDataModel.BookNo = this.recoveryDataModel.BookNo == null ? "" : this.recoveryDataModel.BookNo;
         this.recoveryDataModel.ReceiptNo = this.recoveryDataModel.ReceiptNo == null ? "" : this.recoveryDataModel.ReceiptNo;
 
+        debugger
+
         this.spinner.show();
         this.submitted = true;
         this._recoveryService
@@ -896,6 +898,7 @@ export class RecoveryFormComponent implements OnInit {
             if (!res) {
                 return;
             } else {
+
                 this.spinner.show();
                 this._recoveryService
                     .submitRecovery(transactionID, remarks, disbursementID, this.RecoveryType.toString(), this.recoveryDataModel.EffectiveDate)

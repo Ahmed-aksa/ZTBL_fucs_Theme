@@ -321,6 +321,7 @@ export class RecoveryService {
             Zone: zone
         };
 
+        console.log(JSON.stringify(request));
         return this.http
             .post(`${environment.apiUrl}/Recovery/SaveRecoveryData`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
@@ -351,9 +352,13 @@ export class RecoveryService {
         };
         var request = {
             Branch: userInfo.Branch,
-            User: user,
+            User:userInfo.User,
             Recovery: recovery,
         };
+
+console.log(JSON.stringify(request));
+debugger
+
         return this.http
             .post(`${environment.apiUrl}/Recovery/SubmitRecovery`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),
