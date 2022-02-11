@@ -866,7 +866,7 @@ export class RecoveryFormComponent implements OnInit {
                     this.cdRef.detectChanges();
 
                     if (this.isSimpleRecovery)
-                        this.layoutUtilsService.alertMessage("", baseResponse.Message);
+                        this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
 
                     if (this.isInterBranchRecovery) {
                         this.ibDisSave = true;
