@@ -299,7 +299,8 @@ export class TourDiaryZcComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-
+                this.TourDiaryList=[];
+                this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.onClearForm();
                 this.TourDiary=null;
@@ -341,7 +342,8 @@ export class TourDiaryZcComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-
+                        this.TourDiaryList=[];
+                        this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.onClearForm();
                         this.TourDiary = null;
@@ -365,7 +367,6 @@ export class TourDiaryZcComponent implements OnInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
 
-                    this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 } else {
