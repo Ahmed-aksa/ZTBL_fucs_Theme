@@ -101,7 +101,7 @@ export class TourDiaryRoComponent implements OnInit {
 
 
     saveTourDiary() {
-        debugger
+
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -202,7 +202,7 @@ export class TourDiaryRoComponent implements OnInit {
     }
 
     delete(data, status) {
-        debugger
+
         if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -215,7 +215,7 @@ export class TourDiaryRoComponent implements OnInit {
                 if (!res) {
                     return;
                 }
-                debugger
+
                 this.TourDiary = Object.assign(data);
                 this.spinner.show();
                 this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
@@ -225,7 +225,7 @@ export class TourDiaryRoComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        debugger
+
                         this.TourDiaryList=[];
                         this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -289,7 +289,7 @@ export class TourDiaryRoComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
 
-                debugger
+
                 this.TourDiaryList=[];
                 this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -312,7 +312,7 @@ export class TourDiaryRoComponent implements OnInit {
 
     }
     edit(mcoDiary) {
-        debugger
+
         this.gridForm.patchValue(mcoDiary);
         this.isUpdate = true;
     }
@@ -395,7 +395,7 @@ export class TourDiaryRoComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+
                     this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

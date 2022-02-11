@@ -95,7 +95,7 @@ export class DashboardService {
                 dataLabels: {
                     enabled: true,
                     formatter: function (val, object) {
-                        debugger;
+
                         //return object.w.config.labels[object.seriesIndex] + " : "+obj[object.seriesIndex]
                         return obj[object.seriesIndex]
                     }
@@ -103,7 +103,7 @@ export class DashboardService {
                 tooltip: {
                     custom: function({ series, seriesIndex, dataPointIndex, w }) {
                         let value = data[w.config.labels[seriesIndex].replaceAll(" ", "")];
-                        debugger;
+
                         return "<div class='px-3 py-2' style='background-color:"+colors[seriesIndex]+"'>" +w.config.labels[seriesIndex]+" : "+value + "</div>";
                     }
                 },

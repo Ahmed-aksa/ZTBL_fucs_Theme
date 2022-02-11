@@ -213,7 +213,7 @@ export class TourDiaryRcComponent implements OnInit {
                 if (!res) {
                     return;
                 }
-            debugger
+
                 this.TourDiary = Object.assign(data);
                 this.spinner.show();
                 this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
@@ -287,7 +287,7 @@ export class TourDiaryRcComponent implements OnInit {
 
     }
     edit(mcoDiary) {
-        debugger
+
         this.gridForm.patchValue(mcoDiary);
         this.isUpdate = true;
     }
@@ -394,7 +394,7 @@ export class TourDiaryRcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+
                     this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

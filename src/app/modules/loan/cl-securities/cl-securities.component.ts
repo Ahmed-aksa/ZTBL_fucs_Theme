@@ -405,7 +405,7 @@ this.getLoanSecurities();
   }
 
   showUpdateSecuritiesForm(loan) {
-        debugger
+
         this.LoanSecuritiesForm.controls["Quantity"].setValue(loan.Quantity);
         this.LoanSecuritiesForm.controls["UnitPrice"].setValue(loan.UnitPrice);
         this.loanSecurities.MaxCreditLimit = loan?.MaxCreditLimit;

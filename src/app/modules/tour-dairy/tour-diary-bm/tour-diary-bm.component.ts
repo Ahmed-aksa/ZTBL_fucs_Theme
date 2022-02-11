@@ -255,7 +255,7 @@ export class TourDiaryBmComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger;
+
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
 

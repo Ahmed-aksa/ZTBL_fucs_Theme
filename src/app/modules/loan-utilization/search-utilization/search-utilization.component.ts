@@ -295,7 +295,10 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         if (!this.utilizationSearch.controls['Status'].value) {
             this.utilizationSearch.controls['Status'].setValue('All');
         }
+        debugger
         this._utilizationSearch = Object.assign(this.utilizationSearch.value);
+        this._utilizationSearch["ZoneId"]= this._utilizationSearch["ZoneId"].toString();
+
         this._loanutilizationService.searchUtilization(this._utilizationSearch, this.zone, this.branch, this.circle, count, currentIndex)
             .pipe(
                 finalize(() => {
@@ -377,6 +380,10 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
 
 
     editloanutilization(utilization: any) {
+        localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(utilization.BranchCode));
+        localStorage.setItem('selected_single_circle', JSON.stringify(utilization.CircleId));
+
         localStorage.removeItem('utilization')
         localStorage.setItem('utilization', JSON.stringify(utilization));
         this.router.navigate(['/loan-utilization/loan-uti'], {
@@ -387,6 +394,10 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
 
 
     viewloanutilization(utilization: any) {
+        localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(utilization.BranchCode));
+        localStorage.setItem('selected_single_circle', JSON.stringify(utilization.CircleId));
+
         utilization.view = '1';
         localStorage.removeItem('utilization')
         localStorage.setItem('utilization', JSON.stringify(utilization));
