@@ -271,7 +271,7 @@ export class ClUploadDocumentComponent implements OnInit{
     }
 
     onFileChange(event, i) {
-        debugger
+
         let totNumber = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
@@ -332,7 +332,7 @@ export class ClUploadDocumentComponent implements OnInit{
     }
 
     saveLoanDocuments() {
-        debugger
+
         this.maxLength = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
         for (let i = 0; i < this.number_of_files; i++) {
             // @ts-ignore

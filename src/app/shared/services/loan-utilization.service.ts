@@ -244,19 +244,6 @@ export class LoanUtilizationService {
         formData.append('IsVideo', val);
         formData.append('File', file);
 
-    )
-        ;
-    )
-        ;
-    )
-        ;
-    )
-        ;
-    )
-        ;
-    )
-        ;
-
         return this.http
             .post<any>(
                 `${environment.apiUrl}/LoanUtilization/UploadUtlization`,

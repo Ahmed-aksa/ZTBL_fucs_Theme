@@ -459,7 +459,7 @@ export class ClPurposeComponent implements OnInit {
     }
 
     onSavePurpose() {
-        debugger
+
         this.purposeForm.controls
         console.log(this.purposeForm)
         if (this.purposeForm.controls['BwrAgreeInsurancePrem'].value == "") {

@@ -281,6 +281,14 @@ export class ZoneBranchCircleComponent implements OnInit {
             final_circle = this.SelectedCircles[0];
         else
             final_circle = this.SelectedCircles;
+
+        /*if(final_zone != null){
+            final_zone.ZoneId = final_zone.ZoneId.toString()
+        }
+        if(final_branch != null){
+            final_branch.BranchId = final_branch.BranchId.toString()
+        }*/
+
         this.branchZoneCircleData.emit({
             final_zone: final_zone,
             final_branch: final_branch,

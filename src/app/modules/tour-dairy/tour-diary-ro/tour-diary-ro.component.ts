@@ -101,7 +101,7 @@ export class TourDiaryRoComponent implements OnInit {
 
 
     saveTourDiary() {
-        debugger
+
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -202,7 +202,7 @@ export class TourDiaryRoComponent implements OnInit {
     }
 
     delete(data, status) {
-        debugger
+
         if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -215,7 +215,7 @@ export class TourDiaryRoComponent implements OnInit {
                 if (!res) {
                     return;
                 }
-                debugger
+
                 this.TourDiary = Object.assign(data);
                 this.spinner.show();
                 this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
@@ -225,7 +225,7 @@ export class TourDiaryRoComponent implements OnInit {
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        debugger
+
                         this.TourDiaryList=[];
                         this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
@@ -243,35 +243,63 @@ export class TourDiaryRoComponent implements OnInit {
         }
     }
 
-    changeStatus(data,status){
+    checkStatus(item, action) {
+        if (action == 'edit') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (action == 'delete') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (action == 'submit') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    changeStatus(data, status) {
 
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
-        if(status=="S"){
+        if (status == "S") {
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
             this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
             this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
 
-        }else{
+        } else {
             this.TourDiary.DiaryId = data["DiaryId"];
             this.TourDiary.TourPlanId = data["TourPlanId"];
             this.TourDiary.Ppno = data["Ppno"];
         }
 
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status)
+        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger
+
+
+                this.TourDiaryList=[];
+                this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.isUpdate=false;
+                this.isUpdate = false;
                 this.onClearForm();
-                this.TourDiary=null;
+                this.TourDiary = null;
+
             } else {
-                this.TourDiary=null;
+                this.TourDiaryList=[];
+                this.TourDiary = null;
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
 
@@ -284,6 +312,7 @@ export class TourDiaryRoComponent implements OnInit {
 
     }
     edit(mcoDiary) {
+
         this.gridForm.patchValue(mcoDiary);
         this.isUpdate = true;
     }
@@ -366,7 +395,7 @@ export class TourDiaryRoComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+
                     this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

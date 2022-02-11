@@ -53,7 +53,7 @@ export class LoanService {
         loanReq: LoanApplicationHeader,
         zone = null, branch = null, circle = null
     ): Observable<BaseResponseModel> {
-        debugger;
+
         this.request = new BaseRequestModel();
 
         var loanInfo = new Loan();

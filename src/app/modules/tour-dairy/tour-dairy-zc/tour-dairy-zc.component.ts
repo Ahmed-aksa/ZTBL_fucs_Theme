@@ -70,7 +70,7 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     saveTourDiary() {
-        debugger
+
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -120,7 +120,7 @@ export class TourDiaryZcComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-                debugger
+
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
@@ -364,7 +364,7 @@ export class TourDiaryZcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger
+
                     this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
