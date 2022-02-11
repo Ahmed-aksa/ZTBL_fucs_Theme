@@ -15,7 +15,7 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {CommonService} from "../../../shared/services/common.service";
 
 @Component({
-    selector: 'app-tour-diary-pc',
+    selector: 'app-tour-diary-approval-pc',
     templateUrl: './tour-diary-pc.component.html',
     styleUrls: ['./tour-diary-pc.component.scss'],
     providers: [

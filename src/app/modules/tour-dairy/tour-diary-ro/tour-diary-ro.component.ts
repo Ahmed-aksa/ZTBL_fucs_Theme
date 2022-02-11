@@ -13,7 +13,7 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {finalize} from "rxjs/operators";
 
 @Component({
-    selector: 'app-tour-diary-ro',
+    selector: 'app-tour-diary-approval-ro',
     templateUrl: './tour-diary-ro.component.html',
     styleUrls: ['./tour-diary-ro.component.scss'],
     providers: [

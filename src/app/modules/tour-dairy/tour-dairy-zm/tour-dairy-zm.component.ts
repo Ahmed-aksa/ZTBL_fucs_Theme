@@ -19,7 +19,7 @@ import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-    selector: 'app-tour-dairy-zm',
+    selector: 'app-tour-diary-approval-zm',
     templateUrl: './tour-dairy-zm.component.html',
     styleUrls: ['./tour-dairy-zm.component.scss'],
     providers: [

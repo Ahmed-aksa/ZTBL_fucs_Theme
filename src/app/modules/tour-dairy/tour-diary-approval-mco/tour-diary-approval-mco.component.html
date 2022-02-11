@@ -1,1 +1,787 @@
-<p>tour-diary-approval-mco works!</p>
+<div [formGroup]="gridForm"
+     class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+
+    <button type="button" (click)="assignvalues()">do it</button>
+    <div class="row pt-3">
+        <div class="col-lg-12 p-0 col-sm-12">
+            <div class="heading">Tour Diary of MCO</div>
+        </div>
+    </div>
+
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="kt-form kt-form--group-seperator-dashed">
+
+                <div class="kt-form">
+
+                    <div class="kt-portlet__body">
+
+                        <div class="col-lg-12 pt-2 px-0">
+                            <div class="flex" style="flex-wrap: wrap;">
+                                <app-zone-branch-circle [form]="gridForm" [show_circle]="true"
+                                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mr-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Name of Officer<strong
+                                            class="matMandatory">*</strong></mat-label>
+                                        <input matInput placeholder="Enter Name of Officer" formControlName="Name"
+                                               autocomplete="off" readonly="readonly"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">PP NO: <strong
+                                            class="matMandatory">*</strong></mat-label>
+                                        <input matInput placeholder="Enter Ppno" formControlName="Ppno" maxlength="30"
+                                               autocomplete="off" readonly="readonly"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Tour Date</mat-label>
+                                        <input matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
+                                               maxlength="8"
+                                               autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <!--                                    {{TourPlan|json}}-->
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Tour Plan</mat-label>
+                                        <mat-select formControlName="TourPlanId"
+                                                    (selectionChange)="getTourDiary($event)">
+                                            <mat-option>
+                                                Select
+                                            </mat-option>
+                                            <mat-option *ngFor="let obj of TourPlan" [value]="obj.TourPlanId">
+                                                {{obj.PurposeName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <!--                                        <mat-error *ngIf="isControlHasError('LoanDisbID','required')">-->
+                                    <!--                                            <strong class="mx-3">Loan Disbursment ID is mandatory</strong>-->
+                                    <!--                                        </mat-error>-->
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="sub-heading">Departure From
+    </div>
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="kt-form kt-form--group-seperator-dashed">
+
+                <div class="kt-form">
+
+                    <div class="kt-portlet__body">
+
+                        <div class="col-lg-12 pt-2 px-0">
+                            <div class="flex" style="flex-wrap: wrap;">
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Departure Place</mat-label>
+                                        <input appAlphaNumericField matInput placeholder="Departure Place"
+                                               formControlName="DepartureFromPlace" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Departure Time</mat-label>
+                                        <!--                                        <input matInput placeholder="Departure Time" formControlName="DepartureFromTime" maxlength="30"-->
+                                        <!--                                               autocomplete="off"/>-->
+                                        <!--                                      ******************Time Work**********-->
+
+                                        <input
+                                            type="text"
+                                            matInput
+                                            [ngxTimepicker]="timepickerDeparture"
+                                            [format]="DateFormat()"
+                                            readonly
+                                            formControlName="DepartureFromTime"
+                                        />
+                                        <mat-icon
+                                            class="cursor-pointer"
+                                            matSuffix
+
+                                            (click)="openFromIcon(timepickerDeparture)"
+                                        >schedule
+                                        </mat-icon>
+
+                                        <!--                                        <mat-icon-->
+                                        <!--                                            matPrefix-->
+                                        <!--                                            *ngIf="formControlItem.value && !formControlItem.disabled && !required"-->
+                                        <!--                                            (click)="onClear($event)"-->
+                                        <!--                                        >-->
+                                        <!--                                            close-->
+                                        <!--                                        </mat-icon>-->
+
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="sub-heading">Arrival At
+    </div>
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="kt-form kt-form--group-seperator-dashed">
+
+                <div class="kt-form">
+
+                    <div class="kt-portlet__body">
+
+                        <div class="col-lg-12 pt-2 px-0">
+                            <div class="flex" style="flex-wrap: wrap;">
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Arrival Place</mat-label>
+                                        <input appAlphaNumericField matInput placeholder="Arrival Place"
+                                               formControlName="ArrivalAtPlace" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Arrival Time</mat-label>
+                                        <!--   <input matInput placeholder="Arrival Time" formControlName="ArrivalAtTime" maxlength="30"-->
+                                        <!--                                               autocomplete="off"/>-->
+                                        <!--                                      ******************Time Work**********-->
+
+                                        <input
+                                            type="text"
+                                            matInput
+                                            [ngxTimepicker]="timepickerArrival"
+                                            [format]="DateFormat()"
+                                            readonly
+                                            formControlName="ArrivalAtTime"
+                                        />
+                                        <mat-icon
+                                            matSuffix
+                                            class="cursor-pointer"
+                                            (click)="openFromIcon(timepickerArrival)"
+                                        >schedule
+                                        </mat-icon
+                                        >
+
+                                        <!--                                        <mat-icon-->
+                                        <!--                                            matPrefix-->
+                                        <!--                                            *ngIf="formControlItem.value && !formControlItem.disabled && !required"-->
+                                        <!--                                            (click)="onClear($event)"-->
+                                        <!--                                        >-->
+                                        <!--                                            close-->
+                                        <!--                                        </mat-icon>-->
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="sub-heading">Disbursement
+    </div>
+
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="kt-form kt-form--group-seperator-dashed">
+
+                <div class="kt-form">
+
+                    <div class="kt-portlet__body">
+
+                        <div class="col-lg-12 pt-2 px-0">
+                            <div class="flex" style="flex-wrap: wrap;">
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. Of Cases Received</mat-label>
+                                        <input matInput placeholder="No. Of Cases Received"
+                                               formControlName="DisbNoOfCasesReceived" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. Of Cases Appraised</mat-label>
+                                        <input matInput placeholder="DisbNoOfCasesAppraised"
+                                               formControlName="DisbNoOfCasesAppraised" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of cases in which original revenue record
+                                            verified
+                                        </mat-label>
+                                        <input matInput placeholder="DisbNoOfRecordVerified"
+                                               formControlName="DisbNoOfRecordVerified" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of cases sanctioned if authorized
+                                        </mat-label>
+                                        <input matInput placeholder="DisbNoOfSanctionedAuthorized"
+                                               formControlName="DisbNoOfSanctionedAuthorized" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of sanction letters delivered</mat-label>
+                                        <input matInput placeholder="DisbSanctionLetterDelivered"
+                                               formControlName="DisbSanctionLetterDelivered" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of supply orders delivered</mat-label>
+                                        <input matInput placeholder="DisbSupplyOrderDelivered"
+                                               formControlName="DisbSupplyOrderDelivered" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="sub-heading">Mutations/Utilizations
+    </div>
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="kt-form kt-form--group-seperator-dashed">
+
+                <div class="kt-form">
+
+                    <div class="kt-portlet__body">
+
+                        <div class="col-lg-12 pt-2 px-0">
+                            <div class="flex" style="flex-wrap: wrap;">
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of utilizations checked</mat-label>
+                                        <input matInput placeholder="No. Of Cases Received"
+                                               formControlName="NoOfUtilizationChecked" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of sanctioned mutations verified
+                                        </mat-label>
+                                        <input matInput placeholder="No Of Sanctn Mutation Verified"
+                                               formControlName="NoOfSanctnMutationVerified" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="sub-heading">Recovery
+    </div>
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="kt-form kt-form--group-seperator-dashed">
+
+                <div class="kt-form">
+
+                    <div class="kt-portlet__body">
+
+                        <div class="col-lg-12 pt-2 px-0">
+                            <div class="flex" style="flex-wrap: wrap;">
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of demand notices delivered</mat-label>
+                                        <input matInput placeholder="No. Of Cases Received"
+                                               formControlName="RecNoOfNoticeDelivered" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of legal notices delivered</mat-label>
+                                        <input matInput placeholder="DisbNoOfCasesAppraised"
+                                               formControlName="RecNoOfLegalNoticeDelivered" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Amount recovered (Daily)</mat-label>
+                                        <input matInput placeholder="RecNoOfDefaulterContacted"
+                                               formControlName="RecNoOfDefaulterContacted" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of defauters contacted</mat-label>
+                                        <input matInput placeholder="DisbNoOfCasesAppraised"
+                                               formControlName="RecNoOfDefaulterContacted" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="sub-heading">Transfer of Technology
+    </div>
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="kt-form kt-form--group-seperator-dashed">
+
+                <div class="kt-form">
+
+                    <div class="kt-portlet__body">
+
+                        <div class="col-lg-12 pt-2 px-0">
+                            <div class="flex" style="flex-wrap: wrap;">
+
+                                <!--                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
+                                <!--                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+                                <!--                                        <mat-label class="customMatLabel">Amount recovered (Daily)</mat-label>-->
+                                <!--                                        <input matInput placeholder="No. Of Cases Received" formControlName="DisbNoOfCasesReceived" maxlength="30"-->
+                                <!--                                               autocomplete="off"/>-->
+                                <!--                                    </mat-form-field>-->
+                                <!--                                </div>-->
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Progressive farmers contacted</mat-label>
+                                        <input matInput placeholder="TotFarmersContacted"
+                                               formControlName="TotFarmersContacted" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of farms visited</mat-label>
+                                        <input matInput placeholder="TotNoOfFarmersVisisted"
+                                               formControlName="TotNoOfFarmersVisisted" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div id="Kt-portlet-margin-top">
+        <div class="collapse show" id="collapseExample">
+            <div class="kt-form kt-form--group-seperator-dashed">
+
+                <div class="kt-form">
+
+                    <div class="kt-portlet__body">
+
+                        <div class="col-lg-12 pt-2 px-0">
+                            <div class="flex" style="flex-wrap: wrap;">
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Any other work done</mat-label>
+                                        <input matInput placeholder="AnyOtherWorkDone"
+                                               formControlName="AnyOtherWorkDone" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Remarks</mat-label>
+                                        <input matInput placeholder="Remarks" formControlName="Remarks" maxlength="30"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row mt-2 mr-1">
+        <div class="col-lg-12 text-right">
+            <button *ngIf="isUpdate==false" class="mr-2 bg-green" mat-raised-button color="primary"
+                    (click)="saveTourDiary()">
+                <mat-icon class="mr-2">save</mat-icon>
+                Save
+            </button>
+            <button *ngIf="isUpdate==true" class="mr-2 bg-green" mat-raised-button color="primary"
+                    (click)="saveTourDiary()">
+                <mat-icon class="mr-2">save</mat-icon>
+                Update
+            </button>
+            <button *ngIf="isUpdate==true" mat-raised-button class="mr-2" color="primary"
+                    (click)="changeStatus('','S')">
+                <mat-icon class="mr-2">check_circle</mat-icon>
+                Submit
+            </button>
+            <button type="button"
+                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                    mat-raised-button color="danger" (click)="onClearForm()">
+                <mat-icon class="mr-2"> clear_all</mat-icon>
+                Clear
+            </button>
+        </div>
+    </div>
+<!--    {{TourDiaryList|json}}-->
+    <div class="mt-2 row">
+        <div class="col-lg-12 p-0 ist-table overflow-auto shadow-xs rounded-sm mt-3">
+            <table class="table mb-0">
+                <thead>
+                <tr class=" text-center">
+                    <th rowspan="2">Actions</th>
+                    <th style="height: 40px;" rowspan="2">Date</th>
+                    <th style="height: 40px;" rowspan="2">Tour Plan</th>
+                    <th colspan="2">Departure from</th>
+                    <th colspan="2">Arrival at</th>
+                    <th colspan="6">Disbursements</th>
+                    <th rowspan="2">No. of sanctioned mutations verified</th>
+                    <th rowspan="2">No. of utilizations checked</th>
+                    <th colspan="4">Recovery</th>
+                    <th colspan="2">TRANSFER OF TECHNOLOGY</th>
+                    <th rowspan="2">Any other work done</th>
+                    <th rowspan="2">Remarks</th>
+
+                </tr>
+                <tr class=" text-center sub-table">
+                    <th>Place</th>
+                    <th>Time</th>
+                    <th>Place</th>
+                    <th>Time</th>
+                    <th>No.of cases received/ entertained</th>
+                    <th>No. of cases appraised</th>
+                    <th>No. of cases in which original revenue record verified</th>
+                    <th>No. of cases sanctioned if authorized</th>
+                    <th>No. of sanction letters delivered</th>
+                    <th>No. of supply orders delivered</th>
+                    <th>No. of demand notices delivered</th>
+                    <th>No. of legal notices delivered</th>
+                    <th>No. of defaulters contacted</th>
+                    <th>Amount recovered (Daily)</th>
+                    <th>Progressive farmers contacted</th>
+                    <th>No. of farms visited</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let mcoDiary of TourDiaryList">
+                    <td>
+                        <button class="ml-2" mat-icon-button color="primary" (click)="edit(mcoDiary)"
+                        >
+                            <mat-icon>
+                                edit
+                            </mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="delete(mcoDiary,'C')">
+                            <mat-icon class="text-red-500">
+                                delete_forever
+                            </mat-icon>
+                        </button>
+
+                    </td>
+                    <td>{{dateChange(mcoDiary.TourDate)}}</td>
+                    <td></td>
+                    <td>{{mcoDiary.DepartureFromPlace}}</td>
+                    <td>{{mcoDiary.DepartureFromTime}}</td>
+                    <td>{{mcoDiary.ArrivalAtPlace}}</td>
+                    <td>{{mcoDiary.ArrivalAtTime}}</td>
+                    <td>{{mcoDiary.DisbNoOfCasesReceived}}</td>
+                    <td>{{mcoDiary.DisbNoOfCasesAppraised}}</td>
+                    <td>{{mcoDiary.DisbNoOfRecordVerified}}</td>
+                    <td>{{mcoDiary.DisbNoOfSanctionedAuthorized}}</td>
+                    <td>{{mcoDiary.DisbSanctionLetterDelivered}}</td>
+                    <td>{{mcoDiary.DisbSupplyOrderDelivered}}</td>
+                    <td>{{mcoDiary.NoOfSanctnMutationVerified}}</td>
+                    <td>{{mcoDiary.NoOfUtilizationChecked}}</td>
+                    <td>{{mcoDiary.RecNoOfNoticeDelivered}}</td>
+                    <td>{{mcoDiary.RecNoOfLegalNoticeDelivered}}</td>
+                    <td>{{mcoDiary.RecNoOfDefaulterContacted}}</td>
+                    <td></td>
+                    <td>{{mcoDiary.TotFarmersContacted}}</td>
+                    <td>{{mcoDiary.TotNoOfFarmersVisisted}}</td>
+                    <td>{{mcoDiary.AnyOtherWorkDone}}</td>
+                    <td>{{mcoDiary.Remarks}}</td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="p-3"><strong class="text-md">Totals: </strong></div>
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>-
+                        <div class="w-36"></div>
+                    </td>
+                    <td>-</td>
+                    <td></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 p-0 sec-table overflow-auto  shadow-xs rounded-sm mt-3">
+
+            <table class="table mb-0 ">
+                <thead>
+                <tr class=" text-center">
+                    <th colspan="6">Disbursements</th>
+                    <th colspan="5">Mutations</th>
+                </tr>
+                </thead>
+                <thead>
+                <tr class=" text-center sub-table">
+                    <!-- Disbursements -->
+                    <th>Annual Target</th>
+                    <th>Proportionate Target upto the end of month under report</th>
+                    <th>Total Disbursement upto the end of previous month</th>
+                    <th>Disburse-ment during the month under report</th>
+                    <th>Total Disbursement upto the end of the month under report</th>
+                    <th>Increase/Deficit</th>
+                    <!-- Mutations -->
+                    <th>No. of Mutations pending as on the previous month</th>
+                    <th>No. of disbursed cases during the month</th>
+                    <th>Total No. of mutations to be verified</th>
+                    <th>Mutation verified during the month</th>
+                    <th>Pending for verification</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
+                                        appearance="outline">
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
+                                        appearance="outline">
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+                    <td></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-lg-12 p-0  third-table  overflow-auto  shadow-xs rounded-sm  mt-3">
+            <table class="table mb-0 ">
+                <thead>
+                <tr class=" text-center">
+                    <th colspan="5">UTILIZATIONS</th>
+                    <th colspan="12">RECOVERY</th>
+                </tr>
+                </thead>
+                <thead>
+                <tr class=" text-center sub-table">
+                    <!-- UTILIZATIONS -->
+                    <th rowspan="4">No. of utilizations pending as on last date of the previous month</th>
+                    <th rowspan="4">No. of cases disbursed during the month</th>
+                    <th rowspan="4">Total No. of utilizations to be verified</th>
+                    <th rowspan="4">Utilization verified during the month</th>
+                    <th rowspan="4">Pending cases checking of utilization</th>
+                    <!-- RECOVERY -->
+                    <th colspan="4">Amount in default upto the month under Report (Target)</th>
+                    <th colspan="4">Recovery during the month under Report.</th>
+                    <th colspan="4">Balance Recoverable</th>
+                </tr>
+                <tr class=" text-center">
+                    <th colspan="2">Past Dues</th>
+                    <th colspan="2">Current Dues</th>
+                    <th colspan="2">Past Dues</th>
+                    <th colspan="2">Current Dues</th>
+                    <th colspan="2">Past Dues</th>
+                    <th colspan="2">Current Dues</th>
+                </tr>
+                <tr class=" text-center">
+                    <th>No.</th>
+                    <th>Amount</th>
+                    <th>No.</th>
+                    <th>Amount</th>
+                    <th>No.</th>
+                    <th>Amount</th>
+                    <th>No.</th>
+                    <th>Amount</th>
+                    <th>No.</th>
+                    <th>Amount</th>
+                    <th>No.</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
+                                        appearance="outline">
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
+                                        appearance="outline">
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 flex  py-2 border-t">
+            <button *ngIf="isUpdate" mat-raised-button class="mr-2" color="primary">
+                <mat-icon class="mr-2">check_circle</mat-icon>
+                Submit
+            </button>
+        </div>
+    </div>
+
+    <!--    <div class="col-lg-12 mt-2">-->
+
+    <!--    </div>-->
+
+</div>
+
+<ngx-material-timepicker #timepickerDeparture></ngx-material-timepicker>
+<ngx-material-timepicker #timepickerArrival></ngx-material-timepicker>

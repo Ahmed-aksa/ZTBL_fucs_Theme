@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2  ">
                 <div class="shadow-sm border graph-box" style="height: 365px;">
-                    <div id="chart" class=" mt-0 py-3  " *ngIf="chartOptions1">
+                    <div id="chart" class=" mt-0 py-3  position-relative " *ngIf="chartOptions1">
                         <p class="text-green px-2 font-bold mb-0">Performance Indicators</p>
                         <apx-chart
                             [series]="chartOptions1?.series"
@@ -48,6 +48,7 @@
                             [noData]="chartOptions1.noData"
                             [colors]="chartOptions1?.colors"
                         ></apx-chart>
+                        <p class="text-green px-1 font-medium mb-0 position-absolute" style="bottom: 19px; right: 3px; font-size: 12px;">**Deposits figures are for complete branch</p>
                     </div>
                 </div>
 

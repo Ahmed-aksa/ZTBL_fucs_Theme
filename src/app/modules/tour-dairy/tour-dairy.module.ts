@@ -32,14 +32,14 @@ import {NgxMaterialTimepickerComponent, NgxMaterialTimepickerModule} from "ngx-m
 import {SearchTourDiaryComponent} from "./search-tour-diary/search-tour-diary.component";
 import {TourDiaryApprovalComponent} from './tour-diary-approval/tour-diary-approval.component';
 import {TourPlanModule} from "../tour-plan/tour-plan.module";
-import {TourApprovalTabComponent} from './tour-diary-approval-tab/tour-diary-approval-tab.component';
-import { TourDiaryApprovalMcoComponent } from './tour-diary-approval-mco/tour-diary-approval-mco.component';
-import { TourDiaryApprovalBmComponent } from './tour-diary-approval-bm/tour-diary-approval-bm.component';
-import { TourDiaryApprovalRoComponent } from './tour-diary-approval-ro/tour-diary-approval-ro.component';
-import { TourDiaryApprovalRcComponent } from './tour-diary-approval-rc/tour-diary-approval-rc.component';
-import { TourDiaryApprovalPcComponent } from './tour-diary-approval-pc/tour-diary-approval-pc.component';
-import { TourDiaryApprovalZcComponent } from './tour-diary-approval-zc/tour-diary-approval-zc.component';
-import { TourDiaryApprovalZmComponent } from './tour-diary-approval-zm/tour-diary-approval-zm.component';
+import {TourApprovalTabComponent} from "./tour-diary-approval-tab/tour-diary-approval-tab.component";
+import {TourDiaryApprovalBmComponent} from "./tour-diary-approval-bm/tour-diary-approval-bm.component";
+import {TourDiaryApprovalZmComponent} from "./tour-diary-approval-zm/tour-diary-approval-zm.component";
+import {TourDiaryApprovalMcoComponent} from "./tour-diary-approval-mco/tour-diary-approval-mco.component";
+import {TourDiaryApprovalPcComponent} from "./tour-diary-approval-pc/tour-diary-approval-pc.component";
+import {TourDiaryApprovalRcComponent} from "./tour-diary-approval-rc/tour-diary-approval-rc.component";
+import {TourDiaryApprovalRoComponent} from "./tour-diary-approval-ro/tour-diary-approval-ro.component";
+import {TourDiaryApprovalZcComponent} from "./tour-diary-approval-zc/tour-diary-approval-zc.component";
 
 export const options: Partial<IConfig> = {
     thousandSeparator: ","
@@ -68,19 +68,19 @@ const routing = [
         component: TourDiaryZcComponent,
     },
     {
-        path: "create-tour-diary-bm",
+        path: "create-tour-diary-approval-bm",
         component: TourDiaryBmComponent,
     },
     {
-        path: "create-tour-diary-pc",
+        path: "create-tour-diary-approval-pc",
         component: TourDiaryPcComponent,
     },
     {
-        path: "create-tour-diary-ro",
+        path: "create-tour-diary-approval-ro",
         component: TourDiaryRoComponent,
     },
     {
-        path: "create-tour-diary-rc",
+        path: "create-tour-diary-approval-rc",
         component: TourDiaryRcComponent,
     },
     {
@@ -94,7 +94,30 @@ const routing = [
     {
         path: "tour-diary-approval",
         component: TourDiaryApprovalComponent,
-    }
+    },
+    //Approval URL
+    {
+        path: "tour-diary-approval-bm",
+        component: TourDiaryApprovalBmComponent,
+    }, {
+        path: "tour-diary-approval-zm",
+        component: TourDiaryApprovalZmComponent,
+    }, {
+        path: "tour-diary-approval-mco",
+        component: TourDiaryApprovalMcoComponent,
+    }, {
+        path: "tour-diary-approval-pc",
+        component: TourDiaryApprovalPcComponent,
+    }, {
+        path: "tour-diary-approval-rc",
+        component: TourDiaryApprovalRcComponent,
+    }, {
+        path: "tour-diary-approval-ro",
+        component: TourDiaryApprovalRoComponent,
+    }, {
+        path: "tour-diary-approval-zc",
+        component: TourDiaryApprovalZcComponent,
+    },
 ];
 
 
@@ -116,13 +139,17 @@ const routing = [
         SearchTourDiaryComponent,
         TourDiaryApprovalComponent,
         TourApprovalTabComponent,
-        TourDiaryApprovalMcoComponent,
+
+        // Diary Approvals
         TourDiaryApprovalBmComponent,
-        TourDiaryApprovalRoComponent,
-        TourDiaryApprovalRcComponent,
-        TourDiaryApprovalPcComponent,
-        TourDiaryApprovalZcComponent,
         TourDiaryApprovalZmComponent,
+        TourDiaryApprovalMcoComponent,
+        TourDiaryApprovalPcComponent,
+        TourDiaryApprovalRcComponent,
+        TourDiaryApprovalRoComponent,
+        TourDiaryApprovalZcComponent
+
+
     ],
     imports: [
         CommonModule,

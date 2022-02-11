@@ -71,9 +71,9 @@
 <!--                                          (change)="changeCheckBox(activity,child)"></mat-checkbox>-->
 <!--                        </td>-->
                         <td>
-                            <button mat-icon-button color="primary" *ngIf="CheckEditStatus(child)"
-                                    (click)="editloanutilization(child)">
-                                <mat-icon style="margin-left: 5px;" title="Edit land">edit</mat-icon>
+                            <button mat-icon-button color="primary" *ngIf="CheckDirectionStatus(child)"
+                                    (click)="redirectTourDiary(child)">
+                                <mat-icon style="margin-left: 5px;" title="redirect tour diary">directions</mat-icon>
                             </button>
                         </td>
                     </tr>

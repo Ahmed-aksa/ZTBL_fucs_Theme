@@ -66,7 +66,7 @@ export class DashboardService {
                 (Object.keys(data))?.forEach(x => {
                     //if (Number(data[x]) != 0) {
                         labels.push(this.getCamelCase(x));
-                        obj.push(Number(data[x]));
+                        obj.push(data[x]);
                     //}
 
                 });
@@ -94,10 +94,11 @@ export class DashboardService {
                 },
                 dataLabels: {
                     enabled: true,
+                    distributed: true,
                     formatter: function (val, object) {
 
                         //return object.w.config.labels[object.seriesIndex] + " : "+obj[object.seriesIndex]
-                        return obj[object.seriesIndex]
+                        return obj[object.seriesIndex];
                     }
                 },
                 tooltip: {

@@ -13,7 +13,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
 
 @Component({
-    selector: 'app-tour-dairy-mco',
+    selector: 'app-tour-diary-approval-mco',
     templateUrl: './tour-dairy-mco.component.html',
     styleUrls: ['./tour-dairy-mco.component.scss'],
     providers: [

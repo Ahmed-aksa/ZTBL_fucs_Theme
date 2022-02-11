@@ -198,7 +198,7 @@ export class TourApprovalTabComponent implements OnInit {
         // }
     }
 
-    CheckEditStatus(loanUtilization: any) {
+    CheckDirectionStatus(loanUtilization: any) {
         // this.loggedInUserDetails.User.UserId;
         // if (this.isMCO) {
         //     if (loanUtilization.Status == 'P' || loanUtilization.Status == 'R') {
@@ -221,22 +221,21 @@ export class TourApprovalTabComponent implements OnInit {
 
     }
 
-    editloanutilization(utilization: any) {
-
-        if(utilization){
-
-        }
+    redirectTourDiary(data: any) {
+debugger
+        if(data?.RedirectTo){
 
         localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
-        localStorage.setItem('selected_single_branch', JSON.stringify(utilization.BranchCode));
-        localStorage.setItem('selected_single_circle', JSON.stringify(utilization.CircleId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(data.BranchCode));
+        localStorage.setItem('selected_single_circle', JSON.stringify(data.CircleId));
 
-        localStorage.removeItem('utilization')
-        localStorage.setItem('utilization', JSON.stringify(utilization));
-        this.router.navigate(['/loan-utilization/loan-uti'], {
+        localStorage.removeItem('TourDiary')
+        localStorage.setItem('TourDiary', JSON.stringify(data));
+        this.router.navigate([data?.RedirectTo], {
             // state: {example: utilization},
             relativeTo: this.activatedRoute
         });
+        }
     }
 
     dateChange(date: string) {
