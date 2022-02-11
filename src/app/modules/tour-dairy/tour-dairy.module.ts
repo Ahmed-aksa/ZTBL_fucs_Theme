@@ -33,6 +33,13 @@ import {SearchTourDiaryComponent} from "./search-tour-diary/search-tour-diary.co
 import {TourDiaryApprovalComponent} from './tour-diary-approval/tour-diary-approval.component';
 import {TourPlanModule} from "../tour-plan/tour-plan.module";
 import {TourApprovalTabComponent} from './tour-diary-approval-tab/tour-diary-approval-tab.component';
+import { TourDiaryApprovalMcoComponent } from './tour-diary-approval-mco/tour-diary-approval-mco.component';
+import { TourDiaryApprovalBmComponent } from './tour-diary-approval-bm/tour-diary-approval-bm.component';
+import { TourDiaryApprovalRoComponent } from './tour-diary-approval-ro/tour-diary-approval-ro.component';
+import { TourDiaryApprovalRcComponent } from './tour-diary-approval-rc/tour-diary-approval-rc.component';
+import { TourDiaryApprovalPcComponent } from './tour-diary-approval-pc/tour-diary-approval-pc.component';
+import { TourDiaryApprovalZcComponent } from './tour-diary-approval-zc/tour-diary-approval-zc.component';
+import { TourDiaryApprovalZmComponent } from './tour-diary-approval-zm/tour-diary-approval-zm.component';
 
 export const options: Partial<IConfig> = {
     thousandSeparator: ","
@@ -109,6 +116,13 @@ const routing = [
         SearchTourDiaryComponent,
         TourDiaryApprovalComponent,
         TourApprovalTabComponent,
+        TourDiaryApprovalMcoComponent,
+        TourDiaryApprovalBmComponent,
+        TourDiaryApprovalRoComponent,
+        TourDiaryApprovalRcComponent,
+        TourDiaryApprovalPcComponent,
+        TourDiaryApprovalZcComponent,
+        TourDiaryApprovalZmComponent,
     ],
     imports: [
         CommonModule,
