@@ -217,6 +217,7 @@ export class TourDiaryService {
 
     ChangeStatusDiary(zone, branch, circle, TourDiary, Status, is_zc = false) {
         //this.request = new BaseRequestModel();
+        debugger
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
         var circles = [], circleIds;
@@ -234,7 +235,7 @@ export class TourDiaryService {
         if (TourDiary.Ppno)
             TourDiary.Ppno = TourDiary.Ppno.toString();
         else
-            TourDiary.Ppno = TourDiary.PPNO.toString();
+            TourDiary.Ppno = userInfo?.User?.UserName.toString();
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
         // TourDiary.TourDate = TourDiary.TourDate.toString();
 
