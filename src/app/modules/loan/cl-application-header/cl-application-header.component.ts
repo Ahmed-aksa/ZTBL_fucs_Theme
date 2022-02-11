@@ -393,7 +393,7 @@ export class ClApplicationHeaderComponent implements OnInit {
         this.loanApplicationHeader.AppStatus = 1;
         this.loanApplicationHeader.ZoneId = String(this.loanApplicationHeader.ZoneId);
         this.spinner.show();
-        this._loanService.saveApplicationHeader(this.loanApplicationHeader, this.zone, this.branch, this.circle)
+        this._loanService.saveApplicationHeader(this.loanApplicationHeader)
             .pipe(
                 finalize(() => {
                     this.isSaveApplicationHeaderInProgress = false;

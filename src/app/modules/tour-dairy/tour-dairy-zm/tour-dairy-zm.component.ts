@@ -318,10 +318,7 @@ export class TourDiaryZmComponent implements OnInit {
         this.btnText = 'Update';
         this.gridForm.controls['DiaryId'].setValue(zmDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(zmDiary.TourPlanId);
-        let date = zmDiary.TourDate;
-        var month = date.slice(0,2), day=date.slice(3, 5), year= date.slice(6, 10);
-        date = day+month+year
-        this.gridForm.controls['TourDate'].setValue(date);
+        this.gridForm.controls['TourDate'].setValue(zmDiary.TourDate);
         this.gridForm.controls['DepartureFromPlace'].setValue(zmDiary.DepartureFromPlace);
         this.gridForm.controls['DepartureFromTime'].setValue(zmDiary.DepartureFromTime);
         this.gridForm.controls['ArrivalAtPlace'].setValue(zmDiary.ArrivalAtPlace);
@@ -350,17 +347,7 @@ export class TourDiaryZmComponent implements OnInit {
                     return;
                 }
 
-                if (status == "S") {
-                    this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
-                    this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
-                    this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
-
-                } else {
-                    this.TourDiary.DiaryId = data["DiaryId"];
-                    this.TourDiary.TourPlanId = data["TourPlanId"];
-                    this.TourDiary.Ppno = data["Ppno"];
-                }
-
+                this.TourDiary = Object.assign(data);
                 this.spinner.show();
                 this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
                     .pipe(
@@ -380,6 +367,23 @@ export class TourDiaryZmComponent implements OnInit {
 
                 });
             });
+        }
+    }
+
+    checkStatus(item, action) {
+        if (action == 'edit') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (action == 'delete') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

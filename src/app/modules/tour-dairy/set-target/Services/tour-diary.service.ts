@@ -168,8 +168,7 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    SearchTourDiary(tourDiary, Limit, Offset, branch, zone) {
-
+    SearchTourDiary(tourDiary, Limit, Offset, branch, zone, is_zc = false) {
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
@@ -180,6 +179,9 @@ export class TourDiaryService {
         this.request.TourDiary.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
+        if (is_zc) {
+            this.request.User["ProfileId"] = environment.ZC;
+        }
         //   var date ={
         //     "User": this.request.User,
         //     "TourPlan":  tourPlan
@@ -217,7 +219,6 @@ export class TourDiaryService {
 
     ChangeStatusDiary(zone, branch, circle, TourDiary, Status, is_zc = false) {
         //this.request = new BaseRequestModel();
-        debugger
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
         var circles = [], circleIds;
@@ -233,9 +234,9 @@ export class TourDiaryService {
 
         TourDiary.DiaryId = TourDiary.DiaryId.toString();
         if (TourDiary.Ppno)
-            TourDiary.Ppno = TourDiary.Ppno.toString();
+            TourDiary.Ppno = TourDiary?.Ppno?.toString();
         else
-            TourDiary.Ppno = userInfo?.User?.UserName.toString();
+            TourDiary.Ppno = TourDiary?.PPNO?.toString();
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
         // TourDiary.TourDate = TourDiary.TourDate.toString();
 
@@ -340,20 +341,20 @@ export class TourDiaryService {
 
     searchTourDiaryApproval(
         approval_from: any,
-        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id) {
+        itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id, tour_date = null) {
 
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {
             TourDiary: {
-                UserId: user_id,
+                CreatedBy: user_id,
                 CircleId: circle?.CircleId,
                 BranchCode: branch?.BranchCode,
                 ZoneId: zone?.ZoneId,
                 StartDate: start_date.format('YYYY-MM-DD'),
                 EndDate: end_date.format('YYYY-MM-DD'),
                 Status: approval_from.Status,
-                TourDate: null,
+                TourDate: tour_date,
                 Limit: String(itemsPerPage),
                 Offset: offset,
                 PPNO: approval_from.PPNO,

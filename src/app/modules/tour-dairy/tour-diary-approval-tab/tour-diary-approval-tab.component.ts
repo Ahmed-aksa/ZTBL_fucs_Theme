@@ -135,10 +135,10 @@ export class TourApprovalTabComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-
-                    this.TourDiary.TourDiary[index].TourDiary = baseResponse.TourDiary.TourDiaries[this.tab_number]?.TourDiary;
-                    this.TourDiary.TourDiary[index].children = []
-                    this.TourDiary.TourDiary.forEach((single_plan) => {
+                    debugger;
+                    this.TourDiary.TourDiaries[index].TourDiary = baseResponse.TourDiary.TourDiaries[this.tab_number]?.TourDiaries;
+                    this.TourDiary.TourDiaries[index].children = []
+                    this.TourDiary.TourDiaries.forEach((single_plan) => {
                         this.children.push(single_plan);
                     })
                     if (this.dataSource) {

@@ -126,7 +126,7 @@ export class ClUploadDocumentComponent implements OnInit{
     }
 
     ngOnInit() {
-        
+
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();
@@ -138,7 +138,7 @@ export class ClUploadDocumentComponent implements OnInit{
     }
 
     checkReadOnly(){
-        
+
         if(!this.loanAppID){
             this.docPage = true;
         }else{
@@ -271,6 +271,7 @@ export class ClUploadDocumentComponent implements OnInit{
     }
 
     onFileChange(event, i) {
+        debugger
         let totNumber = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
         if (event.target.files && event.target.files[0]) {
             const filesAmount = event.target.files.length;
@@ -331,6 +332,7 @@ export class ClUploadDocumentComponent implements OnInit{
     }
 
     saveLoanDocuments() {
+        debugger
         this.maxLength = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
         for (let i = 0; i < this.number_of_files; i++) {
             // @ts-ignore
@@ -343,6 +345,11 @@ export class ClUploadDocumentComponent implements OnInit{
             }
 
         }
+        if (this.rawData.length < this.maxLength) {
+            this.layoutUtilsService.alertElement('', 'Please add all files');
+            return false;
+        }
+
         if (this.index < this.rawData.length) {
             if (this.docId[this.index]) {
                 this.index = this.index + 1;
@@ -377,6 +384,7 @@ export class ClUploadDocumentComponent implements OnInit{
                 this.loanDocument.PageNumber = page_number;
                 this.loanDocument.Description = description;
                 if (this.PostDocument.invalid) {
+                    this.toastr.error("Please enter requried fields");
                     const controls = this.PostDocument.controls;
                     Object.keys(controls).forEach(controlName =>
                         controls[controlName].markAsTouched()
