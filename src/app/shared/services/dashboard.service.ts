@@ -94,11 +94,13 @@ export class DashboardService {
                 },
                 dataLabels: {
                     enabled: true,
-                    distributed: true,
                     formatter: function (val, object) {
-
-                        //return object.w.config.labels[object.seriesIndex] + " : "+obj[object.seriesIndex]
-                        return obj[object.seriesIndex];
+                        let data = obj[object.seriesIndex];
+                        if(isNaN(data) && data.includes(",")){
+                            return  data.split(",")
+                        }else {
+                            return obj[object.seriesIndex];
+                        }
                     }
                 },
                 tooltip: {
