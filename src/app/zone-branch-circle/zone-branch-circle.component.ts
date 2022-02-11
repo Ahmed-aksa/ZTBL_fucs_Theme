@@ -72,7 +72,7 @@ export class ZoneBranchCircleComponent implements OnInit {
 
         }
 
-        this.addFormControls(this.show_circle);
+        this.addFormControls();
         this.all_data = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         if (this.all_data.UserCircleMappings?.length == 0) {
             this.all_data.UserCircleMappings = null;
@@ -88,6 +88,9 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
 
+            if (!this.incoming_circle && this.incoming_circle != true){
+                this.show_circle = false
+            }
             this.single_circle = false;
             this.emitData();
 
@@ -244,7 +247,7 @@ export class ZoneBranchCircleComponent implements OnInit {
 
     }
 
-    private addFormControls(should_show_circle) {
+    private addFormControls() {
         let localStorageData = JSON.parse(localStorage.getItem('ZTBLUser'));
 
         if (this.required_branch && localStorageData.Branch) {
@@ -258,8 +261,11 @@ export class ZoneBranchCircleComponent implements OnInit {
         else
             this.form.addControl('ZoneId', new FormControl(null))
 
-        if (should_show_circle)
+        debugger
+
+        if(this.show_circle){
             this.form.addControl('CircleId', new FormControl(null))
+        }
     }
 
     // eslint-disable-next-line @typescript-eslint/member-ordering

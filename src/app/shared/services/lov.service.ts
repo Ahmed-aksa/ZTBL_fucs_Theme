@@ -18,8 +18,8 @@ export class LovService {
     }
 
     public async CallLovAPI(DataObj: Lov) {
-        var req = {LovPagination: {TagName: DataObj.TagName}};
 
+        var req = {LovPagination: {TagName: DataObj.TagName}};
         return this.http
             .post(`${environment.apiUrl}/LOV/GetLOVsByTag`, req, {
                 headers: this.httpUtils.getHTTPHeaders(),
