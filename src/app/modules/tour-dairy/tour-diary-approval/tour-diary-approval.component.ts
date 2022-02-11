@@ -323,6 +323,7 @@ export class TourDiaryApprovalComponent implements OnInit {
         if (start)
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourDiaryForm.value);
+        debugger
         this.tourDiaryService.searchTourDiaryApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
             .pipe(
                 finalize(() => {

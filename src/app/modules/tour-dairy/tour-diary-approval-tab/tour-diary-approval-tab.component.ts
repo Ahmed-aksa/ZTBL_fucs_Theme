@@ -7,6 +7,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {SignaturePadForTourComponent} from "../../tour-plan/signature-pad-for-tour/signature-pad-for-tour.component";
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-tour-diary-approval-tab',
@@ -36,7 +37,9 @@ export class TourApprovalTabComponent implements OnInit {
         public dialog: MatDialog,
         private toaster: ToastrService,
         private tourDiaryService: TourDiaryService,
-        private spinner: NgxSpinnerService) {
+        private spinner: NgxSpinnerService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,) {
     }
 
     ngOnInit(): void {
@@ -193,6 +196,47 @@ export class TourApprovalTabComponent implements OnInit {
         // } else if (status == 'R') {
         //     return "Refer Back";
         // }
+    }
+
+    CheckEditStatus(loanUtilization: any) {
+        // this.loggedInUserDetails.User.UserId;
+        // if (this.isMCO) {
+        //     if (loanUtilization.Status == 'P' || loanUtilization.Status == 'R') {
+        //         if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
+        //             return true;
+        //         } else {
+        //             return false;
+        //         }
+        //     } else {
+        //         return false;
+        //     }
+        // } else if (this.isBM) {
+        //     if (loanUtilization.Status == 'S') {
+        //         return true;
+        //     }
+        // } else {
+        //     return false;
+        // }
+        return true
+
+    }
+
+    editloanutilization(utilization: any) {
+
+        if(utilization){
+
+        }
+
+        localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(utilization.BranchCode));
+        localStorage.setItem('selected_single_circle', JSON.stringify(utilization.CircleId));
+
+        localStorage.removeItem('utilization')
+        localStorage.setItem('utilization', JSON.stringify(utilization));
+        this.router.navigate(['/loan-utilization/loan-uti'], {
+            // state: {example: utilization},
+            relativeTo: this.activatedRoute
+        });
     }
 
     dateChange(date: string) {
