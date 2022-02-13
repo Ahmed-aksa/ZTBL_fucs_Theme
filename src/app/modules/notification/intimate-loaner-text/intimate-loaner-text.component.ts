@@ -6,8 +6,19 @@ import {NotificationService} from "../service/notification.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
-import {finalize} from "rxjs/operators";
-import {MatSort} from "@angular/material/sort";
+import {finalize, map} from "rxjs/operators";
+import {MatSort, Sort} from "@angular/material/sort";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../shared/reducers";
+import {Observable, of} from "rxjs";
+import {
+    fromMatPaginator,
+    fromMatSort,
+    paginateRows,
+    sortRows
+} from "../../report-managment/apilogs-list/datasource-utils";
+import {PageEvent} from "@angular/material/paginator";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-intimate-loaner-text',
@@ -20,6 +31,8 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
     matTableLenght = false;
     loading = false;
 
+    notificationTable: FormGroup;
+
     itemsPerPage = 10;
     pageIndex = 1;
     totalItems: number | any;
@@ -27,6 +40,9 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
     gridHeight: string;
 
     dataSource: MatTableDataSource<any>;
+    displayedRows$: Observable<any[]>;
+    totalRows$: Observable<number>;
+    rows: any
 
     LoggedInUserInfo: BaseResponseModel;
 
@@ -37,15 +53,25 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
 
 
     constructor(
+        private store: Store<AppState>,
         private _notification: NotificationService,
         private spinner: NgxSpinnerService,
         private _lovService: LovService,
+        private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
     ) {
     }
 
     ngOnInit(): void {
+        this.createForm()
         this.find()
+    }
+
+    createForm(){
+        this.notificationTable = this.fb.group({
+            Name:[],
+            Cnic:[]
+        })
     }
 
 
@@ -60,9 +86,14 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
             )
             .subscribe((baseResponse: BaseResponseModel) => {
                 if (baseResponse.Success === true) {
-                    this.dataSource = baseResponse.Loan.SamNpLList
+                    this.dataSource = new MatTableDataSource<any>(baseResponse.Loan.SamNpLList)
                     this.dv = this.dataSource;
                     this.matTableLenght = true
+
+                    this.rows = of(this.dataSource.data);
+
+                    this.totalRows$ = this.rows.pipe(map((rows: any) => rows.length));
+                    //this.displayedRows$ = this.rows.pipe(sortRows(this.sortEvents$), paginateRows(this.pageEvents$));
 
                 } else {
 
@@ -76,10 +107,14 @@ export class IntimateLoanerTextComponent implements OnInit, AfterViewInit {
             })
     }
 
-    applyFilter(event: Event) {
-        
-        const filterValue = (event.target as HTMLInputElement).value;
+    applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
+        const sortEvents$: Observable<Sort> = fromMatSort(this.sort);
+        // const pageEvents$: Observable<PageEvent> = fromMatPaginator(this.paginator);
+        const rows$ = of(this.dataSource.filteredData);
+        this.totalRows$ = rows$.pipe(map(rows => rows.length));
+        this.displayedRows$ = rows$.pipe(sortRows(sortEvents$));
+
     }
 
 
