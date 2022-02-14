@@ -110,8 +110,8 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
     createForm() {
         this.bufricationForm = this.fb.group({
             ProfileID: [null, Validators.required],
-            ToDate: [null],
-            FromDate: [null]
+            ToDate: [null, Validators.required],
+            FromDate: [null, Validators.required]
         })
     }
 
@@ -204,14 +204,11 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
         this.bufricationForm.controls['ToDate'].setValue( null)
         this.bufricationForm.controls['FromDate'].setValue( null)
 
-        this.bufricationForm.controls['ToDate'].clearValidators()
-        this.bufricationForm.controls['ToDate'].updateValueAndValidity()
-        this.bufricationForm.controls['FromDate'].clearValidators()
-        this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+        this.bufricationForm.markAsUntouched();
+        this.bufricationForm.markAsPristine();
     }
 
     find() {
-        
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.bufricationForm.markAllAsTouched();
@@ -230,6 +227,7 @@ export class ChangesToUserAccessRightsComponent implements OnInit {
         var fromDate = this.datepipe.transform(this.bufricationForm.controls.FromDate.value, 'ddMMyyyy');
         this.reports.ToDate = toDate;
         this.reports.FromDate = fromDate;
+        this.reports.ProfileID = this.reports?.ProfileID?.toString()
 
         // var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         // this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
