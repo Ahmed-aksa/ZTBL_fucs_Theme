@@ -5,363 +5,131 @@
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
             <div class="heading">TOUR DIARY & PROGRESS REPORT OF PROVINCIAL CHIEF</div>
-            <button (click)="assignValues()">Patch Dummy Data</button>
         </div>
     </div>
 
 
     <div id="Kt-portlet-margin-top">
         <div class="collapse show" id="collapseExample">
-            <form [formGroup]="gridForm" class="kt-form kt-form--group-seperator-dashed">
+            <div class="col-lg-12 p-0 ist-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table">
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <th rowspan="3" class="border-r border-gray-400">Date</th>
+                        <th colspan="2" rowspan="2" class="border-r border-gray-400">Departure from</th>
+                        <th colspan="2" rowspan="2" class="border-r border-gray-400">Arrival at</th>
+                        <th rowspan="3" class="border-r border-gray-400">No. of defaulters contacted</th>
+                        <th rowspan="3" class="border-r border-gray-400">Results of contacts so made
+                        </th>
+                        <th rowspan="3" class="border-r border-gray-400">Measures/Efforts for boosting up
+                            recovery
+                        </th>
+                        <th rowspan="3" class="border-r border-gray-400">Remarks</th>
+                    </tr>
 
-                <div class="kt-form">
+                    <tr class="table-header-background text-center">
+                    </tr>
 
-                    <div class="kt-portlet__body">
+                    <tr class="table-header-background text-center">
+                        <th class="border-r border-gray-400">Place</th>
+                        <th class="border-r border-gray-400">Time</th>
+                        <th class="border-r border-gray-400">Place</th>
+                        <th class="border-r border-gray-400">Time</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let single_list of TourDiaryList">
+                    <tr>
+                        <td class="border-r border-gray-400">{{single_list.TourDate}}</td>
+                        <td class="border-r border-gray-400">{{single_list.DepartureFromPlace}}</td>
+                        <td class="border-r border-gray-400">{{single_list.DepartureFromTime}}</td>
+                        <td class="border-r border-gray-400">{{single_list.ArrivalAtPlace}}</td>
+                        <td class="border-r border-gray-400">{{single_list.ArrivalAtTime}}</td>
+                        <td class="border-r border-gray-400">{{single_list.NoOfDefaulterContacted}}</td>
+                        <td class="border-r border-gray-400">{{single_list.ResultContactMade}}</td>
+                        <td class="border-r border-gray-400">{{single_list.MeasureBoostUpRecord}}</td>
+                        <td class="border-r border-gray-400">{{single_list.Remarks}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                        <div class="col-lg-12">
-                            <div class="flex" style="flex-wrap: wrap;">
-                                <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
-                                                        [is_required_circle]="false"
-                                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Name of Officer</mat-label>
-                                        <input matInput formControlName="NameOfOfficer" autocomplete="off"
-                                               readonly="readonly"/>
-                                    </mat-form-field>
-                                </div>
+            <div
+                class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table">
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <th colspan="6" class="border-r border-gray-400">Portfolio of the
+                            Province/Zone/Branch/Circle
+                        </th>
+                        <th colspan="16" class="border-r border-gray-400">RECOVERY</th>
+                    </tr>
+                    </thead>
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <!-- UTILIZATIONS -->
+                        <th colspan="2" class="border-r border-gray-400">General</th>
+                        <th colspan="2" class="border-r border-gray-400">NPLs</th>
+                        <th colspan="2" class="border-r border-gray-400">SAM</th>
+                        <th colspan="3" class="border-r border-gray-400">Annual Target/Recoverable of
+                            Province/Zone/Branch/Circle
+                        </th>
+                        <th colspan="3" class="border-r border-gray-400">Proportionate Target upto the end
+                            of month under report
+                        </th>
+                        <th colspan="3" class="border-r border-gray-400">Recovery achievement during the
+                            month under report
+                        </th>
+                        <th colspan="3" class="border-r border-gray-400">Balance Recoverable</th>
+                        <th rowspan="2" class="border-r border-gray-400">Recovery during corresponding
+                            period
+                        </th>
+                        <th rowspan="2" class="border-r border-gray-400">Increase/Deficit</th>
 
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">P.P.NO</mat-label>
-                                        <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
-                                    </mat-form-field>
-                                </div>
-
-
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong
-                                            class="matMandatory">*</strong>
-                                        </mat-label>
-                                        <input matInput [matDatepicker]="picker" formControlName="TourDate"
-                                               maxlength="30" autocomplete="off"
-                                               [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label>Tour Plan</mat-label>
-                                        <mat-select formControlName="TourPlanId">
-                                            <mat-option>
-                                                Select
-                                            </mat-option>
-                                            <mat-option *ngFor="let obj of TourPlan" [value]="obj.TourPlanId">
-                                                {{obj.PurposeName}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-
-                            </div>
-
-                            <div class="sub-heading">Departure From
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
-                                         style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Departure Place</mat-label>
-                                            <input matInput formControlName="DepartureFromPlace" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
-                                         style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Departure Time</mat-label>
-                                            <input type="text" matInput [ngxTimepicker]="timepickerDeparture"
-                                                   [format]="DateFormat()" readonly
-                                                   formControlName="DepartureFromTime"/>
-                                            <mat-icon matSuffix (click)="openFromIcon(timepickerDeparture)">schedule
-                                            </mat-icon>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="sub-heading">Arrival At
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
-                                         style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Arrival Place</mat-label>
-                                            <input matInput formControlName="ArrivalAtPlace" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
-                                         style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Arrival Time</mat-label>
-                                            <input type="text" matInput [ngxTimepicker]="timepickerArrival"
-                                                   [format]="DateFormat()" readonly
-                                                   formControlName="ArrivalAtTime"/>
-                                            <mat-icon matSuffix (click)="openFromIcon(timepickerArrival)">schedule
-                                            </mat-icon>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
-                                         style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">No. of defaulters contacted</mat-label>
-                                            <input matInput formControlName="NoOfDefaulterContacted"
-                                                   autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
-                                         style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Results of contacts so made</mat-label>
-                                            <input matInput formControlName="ResultContactMade"
-                                                   autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
-                                         style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Remarks</mat-label>
-                                            <input matInput formControlName="Remarks"
-                                                   autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="row mt-2 mr-1">
-                            <div class="col-lg-12 text-right">
-                                <button *ngIf="isUpdate==false" class="ml-2 bg-green" mat-raised-button color="primary"
-                                        (click)="saveTourDiary()">
-                                    <mat-icon class="mr-2">save</mat-icon>
-                                    Save
-                                </button>
-                                <button *ngIf="isUpdate==true" class="ml-2 bg-green" mat-raised-button color="primary"
-                                        (click)="saveTourDiary()">
-                                    <mat-icon class="mr-2">save</mat-icon>
-                                    Update
-                                </button>
-                                <button mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
-                                    <mat-icon class="mr-2">check_circle</mat-icon>
-                                    Submit
-                                </button>
-                                <button type="button"
-                                        class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                        mat-raised-button color="danger" (click)="onClearForm()">
-                                    <mat-icon class="mr-2"> clear_all</mat-icon>
-                                    Clear
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 p-0 ist-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                            <table class="table">
-                                <thead>
-                                <tr class="table-header-background text-center">
-                                    <th rowspan="3" class="border-r border-gray-400">Date</th>
-                                    <th colspan="2" rowspan="2" class="border-r border-gray-400">Departure from</th>
-                                    <th colspan="2" rowspan="2" class="border-r border-gray-400">Arrival at</th>
-                                    <th rowspan="3" class="border-r border-gray-400">No. of defaulters contacted</th>
-                                    <th rowspan="3" class="border-r border-gray-400">Results of contacts so made
-                                    </th>
-                                    <th rowspan="3" class="border-r border-gray-400">Measures/Efforts for boosting up
-                                        recovery
-                                    </th>
-                                    <th rowspan="3" class="border-r border-gray-400">Remarks</th>
-                                    <th rowspan="3" class="border-r border-gray-400">Actions</th>
-                                </tr>
-
-                                <tr class="table-header-background text-center">
-                                </tr>
-
-                                <tr class="table-header-background text-center">
-                                    <th class="border-r border-gray-400">Place</th>
-                                    <th class="border-r border-gray-400">Time</th>
-                                    <th class="border-r border-gray-400">Place</th>
-                                    <th class="border-r border-gray-400">Time</th>
-                                </tr>
-                                </thead>
-                                <tbody *ngFor="let single_list of TourDiaryList">
-                                <tr>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list.TourDate">
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list.DepartureFromPlace">
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list.DepartureFromTime">
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list.ArrivalAtPlace">
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list.ArrivalAtTime">
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly"
-                                                   [value]="single_list.NoOfDefaulterContacted">
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list.ResultContactMade">
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline" style="width: 12rem !important">
-                                            <input matInput [value]="single_list.MeasureBoostUpRecord">
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline" style="width: 12rem !important">
-                                            <input matInput [value]="single_list.Remarks">
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <button mat-icon-button (click)="editData(single_list)">
-                                            <mat-icon>edit</mat-icon>
-                                        </button>
-                                        <button mat-icon-button (click)="deleteData(single_list)">
-                                            <mat-icon>delete</mat-icon>
-                                        </button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div
-                            class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                            <table class="table">
-                                <thead>
-                                <tr class="table-header-background text-center">
-                                    <th colspan="6" class="border-r border-gray-400">Portfolio of the
-                                        Province/Zone/Branch/Circle
-                                    </th>
-                                    <th colspan="16" class="border-r border-gray-400">RECOVERY</th>
-                                </tr>
-                                </thead>
-                                <thead>
-                                <tr class="table-header-background text-center">
-                                    <!-- UTILIZATIONS -->
-                                    <th colspan="2" class="border-r border-gray-400">General</th>
-                                    <th colspan="2" class="border-r border-gray-400">NPLs</th>
-                                    <th colspan="2" class="border-r border-gray-400">SAM</th>
-                                    <th colspan="3" class="border-r border-gray-400">Annual Target/Recoverable of
-                                        Province/Zone/Branch/Circle
-                                    </th>
-                                    <th colspan="3" class="border-r border-gray-400">Proportionate Target upto the end
-                                        of month under report
-                                    </th>
-                                    <th colspan="3" class="border-r border-gray-400">Recovery achievement during the
-                                        month under report
-                                    </th>
-                                    <th colspan="3" class="border-r border-gray-400">Balance Recoverable</th>
-                                    <th rowspan="2" class="border-r border-gray-400">Recovery during corresponding
-                                        period
-                                    </th>
-                                    <th rowspan="2" class="border-r border-gray-400">Increase/Deficit</th>
-
-                                </tr>
-                                <tr class="table-header-background text-center">
-                                    <th colspan="1" class="border-r border-gray-400">No.</th>
-                                    <th colspan="1" class="border-r border-gray-400">Amt.</th>
-                                    <th colspan="1" class="border-r border-gray-400">No.</th>
-                                    <th colspan="1" class="border-r border-gray-400">Amt.</th>
-                                    <th colspan="1" class="border-r border-gray-400">No.</th>
-                                    <th colspan="1" class="border-r border-gray-400">Amt.</th>
-                                    <th class="border-r border-gray-400">Past Dues</th>
-                                    <th class="border-r border-gray-400">Current Dues</th>
-                                    <th class="border-r border-gray-400">Total</th>
-                                    <th class="border-r border-gray-400">Past Dues</th>
-                                    <th class="border-r border-gray-400">Current Dues</th>
-                                    <th class="border-r border-gray-400">Total</th>
-                                    <th class="border-r border-gray-400">Past Dues</th>
-                                    <th class="border-r border-gray-400">Current Dues</th>
-                                    <th class="border-r border-gray-400">Total</th>
-                                    <th class="border-r border-gray-400">Past Dues</th>
-                                    <th class="border-r border-gray-400">Current Dues</th>
-                                    <th class="border-r border-gray-400">Total</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
+                    </tr>
+                    <tr class="table-header-background text-center">
+                        <th colspan="1" class="border-r border-gray-400">No.</th>
+                        <th colspan="1" class="border-r border-gray-400">Amt.</th>
+                        <th colspan="1" class="border-r border-gray-400">No.</th>
+                        <th colspan="1" class="border-r border-gray-400">Amt.</th>
+                        <th colspan="1" class="border-r border-gray-400">No.</th>
+                        <th colspan="1" class="border-r border-gray-400">Amt.</th>
+                        <th class="border-r border-gray-400">Past Dues</th>
+                        <th class="border-r border-gray-400">Current Dues</th>
+                        <th class="border-r border-gray-400">Total</th>
+                        <th class="border-r border-gray-400">Past Dues</th>
+                        <th class="border-r border-gray-400">Current Dues</th>
+                        <th class="border-r border-gray-400">Total</th>
+                        <th class="border-r border-gray-400">Past Dues</th>
+                        <th class="border-r border-gray-400">Current Dues</th>
+                        <th class="border-r border-gray-400">Total</th>
+                        <th class="border-r border-gray-400">Past Dues</th>
+                        <th class="border-r border-gray-400">Current Dues</th>
+                        <th class="border-r border-gray-400">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                        <td class="border-r border-gray-400"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
 
 </div>
 
-<ngx-material-timepicker #timepickerDeparture></ngx-material-timepicker>
-<ngx-material-timepicker #timepickerArrival></ngx-material-timepicker>
