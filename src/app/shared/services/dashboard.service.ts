@@ -140,6 +140,100 @@ export class DashboardService {
         }
     }
 
+    assignKeysForMCO(data: any, title): Partial<ChartOptions> {
+
+        if (data) {
+            let colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#D7263D', '#F9C80E', '#5A2A27', '#C7F464'];
+            var obj = [];
+            var labels = [];
+            if (data)
+                (Object.keys(data))?.forEach(x => {
+                    //if (Number(data[x]) != 0) {
+                    let key = this.getCamelCase(x);
+                        if(key.includes("Deposit")){
+                            key += " (For Complete Branch)"
+                            labels.push(key);
+                        }else{
+                            labels.push(key);
+                        }
+                        obj.push(data[x]);
+                    //}
+
+                });
+
+            var series = [];
+            var sliceSize = 100/obj.length
+            for (let i=0; i < obj?.length; i++){
+                series.push(sliceSize)
+            }
+            return {
+                series: obj.length > 1 ? series : [],
+                colors: colors,
+                chart: {
+                    width: "100%",
+                    type: "pie"
+                },
+                labels: labels.length > 1 ? labels : [],
+                theme: {
+                    monochrome: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: title
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (val, object) {
+                        let data = obj[object.seriesIndex];
+                        if(isNaN(data) && data.includes(",")){
+                            return  data.split(",")
+                        }else {
+                            return obj[object.seriesIndex];
+                        }
+                    }
+                },
+                tooltip: {
+                    custom: function({ series, seriesIndex, dataPointIndex, w }) {
+                        debugger
+                        let key = w.config.labels[seriesIndex].replaceAll(" ", "")
+                        if(key.includes("(For")){
+                            key = key.split("(")[0];
+                        }
+                        let value = data[key];
+                        return "<div class='px-3 py-2' style='background-color:"+colors[seriesIndex]+"'>" +w.config.labels[seriesIndex]+" : "+value + "</div>";
+                    }
+                },
+                responsive: [
+                    {
+                        breakpoint: undefined,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: "bottom"
+                            }
+                        }
+                    }
+                ],
+                noData: {
+                    text: "No Data Available",
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    offsetX: 0,
+                    offsetY: -50,
+                    style: {
+
+                        color: '#01671B',
+                        fontSize: '18px',
+
+                    }
+                }
+            };
+        }
+    }
+
     getYears() {
         return this.http.post(
             `${environment.apiUrl}/Dashboard/GetYearsForDashboard`,
