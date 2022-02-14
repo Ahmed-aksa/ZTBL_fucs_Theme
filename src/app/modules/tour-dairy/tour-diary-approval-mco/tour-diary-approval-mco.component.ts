@@ -151,6 +151,9 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
     }
 
     getTourDiaryDetail(){
+        // if(!this.data){
+        //
+        // }
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
         console.log(JSON.stringify(this.TourDiary))
