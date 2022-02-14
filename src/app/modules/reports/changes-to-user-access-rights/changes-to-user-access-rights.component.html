@@ -33,7 +33,7 @@
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label>Roles</mat-label>
+                                            <mat-label>Roles<strong class="matMandatory">*</strong></mat-label>
                                             <mat-select placeholder="--Select--" formControlName="ProfileID">
                                                 <mat-option *ngFor="let profile of profiles" [value]="profile.ProfileID">
                                                     {{profile.ProfileName}}

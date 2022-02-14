@@ -157,7 +157,7 @@ export class ReportsService {
     }
 
     CustomDownloads(reportsFilter, Info,zone = null, branch = null, circle = null){
-        
+
         let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         let final_zone = null;
         let final_branch = null;
