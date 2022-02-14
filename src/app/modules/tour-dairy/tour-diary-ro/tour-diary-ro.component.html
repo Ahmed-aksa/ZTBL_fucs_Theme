@@ -189,6 +189,7 @@
                                 <table class="table">
                                     <thead>
                                     <tr class="table-header-background text-center">
+                                        <th rowspan="3" class="border-r border-gray-400">Actions</th>
                                         <th rowspan="3" class="border-r border-gray-400">Date</th>
                                         <th colspan="2" rowspan="2" class="border-r border-gray-400">Departure from</th>
                                         <th colspan="2" rowspan="2" class="border-r border-gray-400">Arrival at</th>
@@ -199,7 +200,6 @@
                                             recovery
                                         </th>
                                         <th rowspan="3" class="border-r border-gray-400">Remarks</th>
-                                        <th rowspan="3" class="border-r border-gray-400">Actions</th>
                                     </tr>
 
                                     <tr class="table-header-background text-center">
@@ -215,62 +215,6 @@
                                     <tbody *ngFor="let single_list of TourDiaryList">
                                     <tr>
                                         <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly" [value]="single_list.TourDate">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly"
-                                                       [value]="single_list.DepartureFromPlace">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly" [value]="single_list.DepartureFromTime">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly" [value]="single_list.ArrivalAtPlace">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly" [value]="single_list.ArrivalAtTime">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly"
-                                                       [value]="single_list.NoOfDefaulterContacted">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline">
-                                                <input matInput readonly="readonly" [value]="single_list.ResultContactMade">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput [value]="single_list.MeasureBoostUpRecord">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
-                                            <mat-form-field class=" mat-form-field-fluid w-full"
-                                                            appearance="outline" style="width: 12rem !important">
-                                                <input matInput [value]="single_list.Remarks">
-                                            </mat-form-field>
-                                        </td>
-                                        <td class="border-r border-gray-400">
                                             <button *ngIf="checkStatus(single_list, 'edit')" type="button" mat-icon-button (click)="edit(single_list)">
                                                 <mat-icon>edit</mat-icon>
                                             </button>
@@ -278,6 +222,15 @@
                                                 <mat-icon>delete</mat-icon>
                                             </button>
                                         </td>
+                                        <td class="border-r border-gray-400">{{single_list.TourDate}}</td>
+                                        <td class="border-r border-gray-400">{{single_list.DepartureFromPlace}}</td>
+                                        <td class="border-r border-gray-400">{{single_list.DepartureFromTime}}</td>
+                                        <td class="border-r border-gray-400">{{single_list.ArrivalAtPlace}}</td>
+                                        <td class="border-r border-gray-400">{{single_list.ArrivalAtTime}}</td>
+                                        <td class="border-r border-gray-400">{{single_list.NoOfDefaulterContacted}}</td>
+                                        <td class="border-r border-gray-400">{{single_list.ResultContactMade}}</td>
+                                        <td class="border-r border-gray-400">{{single_list.MeasureBoostUpRecord}}</td>
+                                        <td class="border-r border-gray-400">{{single_list.Remarks}}</td>
                                     </tr>
                                     </tbody>
                                 </table>

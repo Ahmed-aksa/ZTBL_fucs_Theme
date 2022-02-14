@@ -25,3 +25,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice.  To 
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+###PLEASE NOTE THIS TO MAKE APEX CHARTS WORKING PLEASE DO FOLLOWING CHANGES
+Replace  `formatter?(val: string | number | number[], opts?: any): string | number;`  To  `formatter?(val: string | number | number[], opts?: any): string | number | string[];`
+In file
+`ZTBL_fucs_Theme\node_modules\ng-apexcharts\lib\model\apex-types.d.ts`

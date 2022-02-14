@@ -813,7 +813,6 @@ export class RecoveryFormComponent implements OnInit {
         this.recoveryDataModel.BookNo = this.recoveryDataModel.BookNo == null ? "" : this.recoveryDataModel.BookNo;
         this.recoveryDataModel.ReceiptNo = this.recoveryDataModel.ReceiptNo == null ? "" : this.recoveryDataModel.ReceiptNo;
 
-        debugger
 
         this.spinner.show();
         this.submitted = true;

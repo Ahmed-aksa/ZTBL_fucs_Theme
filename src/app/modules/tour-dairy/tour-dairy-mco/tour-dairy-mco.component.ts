@@ -199,6 +199,23 @@ export class TourDiaryMcoComponent implements OnInit {
         });
     }
 
+    checkStatus(item, action) {
+        if (action == 'edit') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (action == 'delete') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     delete(data, status) {
 
         if (status == "C") {

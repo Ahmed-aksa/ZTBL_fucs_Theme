@@ -295,7 +295,6 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         if (!this.utilizationSearch.controls['Status'].value) {
             this.utilizationSearch.controls['Status'].setValue('All');
         }
-        debugger
         this._utilizationSearch = Object.assign(this.utilizationSearch.value);
         this._utilizationSearch["ZoneId"]= this._utilizationSearch["ZoneId"].toString();
 

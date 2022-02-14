@@ -355,10 +355,6 @@ export class RecoveryService {
             User:userInfo.User,
             Recovery: recovery,
         };
-
-console.log(JSON.stringify(request));
-debugger
-
         return this.http
             .post(`${environment.apiUrl}/Recovery/SubmitRecovery`, request, {
                 headers: this.httpUtils.getHTTPHeaders(),

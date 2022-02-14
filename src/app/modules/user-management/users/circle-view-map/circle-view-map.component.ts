@@ -94,6 +94,7 @@ export class CircleViewMapComponent implements OnInit {
                 this.deleteSelectedShape()
                 this.circlesSinglePoint = baseResponse.circleSinglePoints;
                 this.fenceMarkers = []
+
                 this.circlesSinglePoint.forEach((o, i) => {
 
                     if (o.Long != 0 && o.Lat != 0) {
@@ -102,6 +103,7 @@ export class CircleViewMapComponent implements OnInit {
                             lat: o.Lat,
                             lng: o.Long,
                             CircleId: o.CircleId,
+                            BranchCode: o.BranchCode,
                             BranchId: o.BranchId,
                             CircleCode: o.CircleCode,
                         });
@@ -279,7 +281,7 @@ export class CircleViewMapComponent implements OnInit {
             .subscribe(baseResponse => {
 
                 if (baseResponse.Success) {
-                    
+
                     var circles = baseResponse.Circles;
                     // delete all polygon that are already drawn on google map.
                     this.deleteAllPolygons()
@@ -312,7 +314,7 @@ export class CircleViewMapComponent implements OnInit {
                                 BranchId: o.BranchId,
                                 CircleCode: o.CircleCode,
                             });
-                            this.drawPolygonOnMap(existingPolygonPoints, "#FF0000",o.Id)
+                            this.drawPolygonOnMap(existingPolygonPoints, "#FF0000", o.Id)
 
                             this._cdf.detectChanges()
                         } else {
