@@ -39,7 +39,8 @@ export class McoDashboradComponent implements OnInit {
     }
 
     assignRoleData(DashboardReport: any) {
-        this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport?.PerformanceIndicator, 'Performance Indicators');
+        //this.chartOptions1 = this._dashboardService.assignKeys(DashboardReport?.PerformanceIndicator, 'Performance Indicators');
+        this.chartOptions1 = this._dashboardService.assignKeysForMCO(DashboardReport?.PerformanceIndicator, 'Performance Indicators');
         this.chartOptions2 = this._dashboardService.assignKeys(DashboardReport?.LoanPorfolio, 'Loan Portfolio');
         this.chartOptions3 = this._dashboardService.assignKeys(DashboardReport?.LoanPorfolio2, 'Loan Portfolio');
         this.chartOptions4 = this._dashboardService.assignKeys(DashboardReport?.CircleRadius, 'Circle Radius');
