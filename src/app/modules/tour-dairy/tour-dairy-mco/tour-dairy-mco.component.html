@@ -559,13 +559,13 @@
                 <tbody>
                 <tr *ngFor="let mcoDiary of TourDiaryList">
                     <td>
-                        <button class="ml-2" mat-icon-button color="primary" (click)="edit(mcoDiary)"
+                        <button class="ml-2" mat-icon-button *ngIf="checkStatus(mcoDiary, 'delete')" color="primary" (click)="edit(mcoDiary)"
                         >
                             <mat-icon>
                                 edit
                             </mat-icon>
                         </button>
-                        <button mat-icon-button (click)="delete(mcoDiary,'C')">
+                        <button mat-icon-button *ngIf="checkStatus(mcoDiary, 'delete')" (click)="delete(mcoDiary,'C')">
                             <mat-icon class="text-red-500">
                                 delete_forever
                             </mat-icon>
