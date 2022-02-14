@@ -222,12 +222,11 @@ export class TourApprovalTabComponent implements OnInit {
     }
 
     redirectTourDiary(data: any) {
-debugger
         if(data?.RedirectTo){
 
         localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
-        localStorage.setItem('selected_single_branch', JSON.stringify(data.BranchCode));
-        localStorage.setItem('selected_single_circle', JSON.stringify(data.CircleId));
+        localStorage.setItem('selected_single_branch', JSON.stringify(this.branch.BranchCode));
+        // localStorage.setItem('selected_single_circle', JSON.stringify(data.CircleId));
 
         localStorage.removeItem('TourDiary')
         localStorage.setItem('TourDiary', JSON.stringify(data));

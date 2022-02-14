@@ -139,7 +139,7 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.spinner.show();
 
             if (this.SelectedZones && this.SelectedZones.length != 0) {
-                this.SelectedCircles.filter(single_circle => {
+                this.SelectedCircles?.filter(single_circle => {
                     if (single_circle.CircleId == this.selected_single_circle) {
                         this.selected_c = this.selected_single_circle;
                     }
@@ -260,8 +260,6 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.form.addControl('ZoneId', new FormControl(null, Validators.required))
         else
             this.form.addControl('ZoneId', new FormControl(null))
-
-        debugger
 
         if(this.show_circle){
             this.form.addControl('CircleId', new FormControl(null))
