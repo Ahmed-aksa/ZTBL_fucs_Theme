@@ -88,8 +88,11 @@ export class ZoneBranchCircleComponent implements OnInit {
             this.form.controls["ZoneId"].setValue(this.SelectedZones.ZoneName);
             this.form.controls["BranchCode"].setValue(this.SelectedBranches.BranchCode);
 
-            if (!this.incoming_circle && this.incoming_circle != true){
+            if (!this.incoming_circle && this.incoming_circle != true) {
                 this.show_circle = false
+            }
+            if (!this.incoming_branch && this.incoming_branch != true) {
+                this.show_branch = false
             }
             this.single_circle = false;
             this.emitData();
@@ -261,7 +264,7 @@ export class ZoneBranchCircleComponent implements OnInit {
         else
             this.form.addControl('ZoneId', new FormControl(null))
 
-        if(this.show_circle){
+        if (this.show_circle) {
             this.form.addControl('CircleId', new FormControl(null))
         }
     }
