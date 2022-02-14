@@ -64,6 +64,13 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
     }
 
+    dateChange(date: string) {
+        var day = date.slice(0, 2),
+            month = date.slice(2, 4),
+            year = date.slice(4, 8);
+        return day + "-" + month + "-" + year;
+    }
+
     /**
      * Function to clear FormControl's value, called from the HTML template using the clear button
      *
@@ -100,6 +107,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
         this.loggedInUser = this.userService.getUserDetails();
         this.createForm();
         this.gridForm.disable();
+        this.getTourDiaryDetail();
     }
 
     setValue() {
@@ -142,6 +150,29 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
         this.setValue();
     }
 
+    getTourDiaryDetail(){
+        this.TourDiary = Object.assign(this.data);
+        this.spinner.show();
+        console.log(JSON.stringify(this.TourDiary))
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.TourDiary)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.TourDiaryList = baseResponse.TourDiary;
+                this.gridForm.patchValue(this.TourDiaryList);
+                this.gridForm.controls['TourDate'].setValue(new Date(this.TourDiaryList["TourDate"]));
+                this.isUpdate = false;
+            } else {
+
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+        });
+    }
+
 
     getAllData(event) {
 
@@ -162,8 +193,26 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
             if (!res) {
                 return;
             }
-            this.toastr.success("Approved");
+            let status = 'A';
+            this.TourDiary = Object.assign(this.data);
+            this.spinner.show();
+            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+                .pipe(
+                    finalize(() => {
+                        this.spinner.hide();
+                    })
+                ).subscribe(baseResponse => {
+                if (baseResponse.Success) {
+                    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                    this.toastr.success("Approved");
+                } else {
+                    this.layoutUtilsService.alertElement('', baseResponse.Message);
+                }
+
+            });
+
         })
+
     }
 
     referback() {
@@ -175,7 +224,25 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
             if (!res) {
                 return;
             }
-            this.toastr.success("Referbacked");
+            let status = 'R';
+            this.TourDiary = Object.assign(this.data);
+            this.spinner.show();
+            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+                .pipe(
+                    finalize(() => {
+                        this.spinner.hide();
+                    })
+                ).subscribe(baseResponse => {
+                if (baseResponse.Success) {
+                    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                    this.toastr.success("Referbacked");
+                } else {
+                    this.layoutUtilsService.alertElement('', baseResponse.Message);
+                }
+
+            });
+
+
         })
     }
 }
