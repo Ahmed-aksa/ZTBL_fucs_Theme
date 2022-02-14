@@ -358,7 +358,7 @@ export class GeofencingEditComponent implements OnInit {
                              *
                              */
                             if(circleInfo.circleCode == '23353-25'){
-                                
+
                             }
                             this.multiPolygonArray.push(circleInfo)
                         }
@@ -401,7 +401,7 @@ export class GeofencingEditComponent implements OnInit {
             const geom2 = getGeom(poly2);
 
             if(i == 580 || i == 663){
-                
+
             }
             // var intersec = turf.intersect(geom1, geom2)
             intersection = polygonClipping.intersection(
