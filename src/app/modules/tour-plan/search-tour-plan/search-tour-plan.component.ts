@@ -311,6 +311,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     SearchTourPlan(from_search_button = false) {
+
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -339,6 +340,8 @@ export class SearchTourPlanComponent implements OnInit {
         // if (!this.TourPlan.controls["Status"].value) {
         //     this.TourPlan.controls["Status"].setValue("All")
         // }
+        if (from_search_button == true)
+            this.OffSet = 0;
 
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
@@ -347,8 +350,7 @@ export class SearchTourPlanComponent implements OnInit {
         this._TourPlan = Object.assign(this.TourPlan.value);
         this._TourPlan["StartDate"] = this.datePipe.transform(this.TourPlan.controls["StartDate"].value, 'ddMMyyyy');
         this._TourPlan["EndDate"] = this.datePipe.transform(this.TourPlan.controls["EndDate"].value, 'ddMMyyyy');
-        if (from_search_button == true)
-            this.OffSet = 0;
+
         this.spinner.show();
         this.tourPlanService.SearchTourPlan(this._TourPlan, count, currentIndex, this.branch, this.zone)
             .pipe(
