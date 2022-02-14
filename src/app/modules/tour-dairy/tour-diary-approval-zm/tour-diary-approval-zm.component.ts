@@ -67,324 +67,38 @@ export class TourDiaryApprovalZmComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.createForm();
-    }
-
-    setDate() {
-        var varDate = this.gridForm.controls.TourDate.value;
-        if (varDate._isAMomentObject == undefined) {
-            try {
-                var day = this.gridForm.controls.TourDate.value.getDate();
-                var month = this.gridForm.controls.TourDate.value.getMonth() + 1;
-                var year = this.gridForm.controls.TourDate.value.getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                varDate = day + "" + month + "" + year;
-                this.date = varDate;
-                const branchWorkingDate = new Date(year, month - 1, day);
-                // )
-                // let newdate = this.datePipe.transform(branchWorkingDate, 'ddmmyyyy')
-                //  )
-                this.gridForm.controls.TourDate.setValue(branchWorkingDate);
-
-            } catch (e) {
-            }
+        if (JSON.parse(localStorage.getItem('TourDiary'))) {
+            localStorage.removeItem('TourDiary');
         } else {
-            try {
-                var day = this.gridForm.controls.TourDate.value.toDate().getDate();
-                var month = this.gridForm.controls.TourDate.value.toDate().getMonth() + 1;
-                var year = this.gridForm.controls.TourDate.value.toDate().getFullYear();
-                if (month < 10) {
-                    month = "0" + month;
-                }
-                if (day < 10) {
-                    day = "0" + day;
-                }
-                varDate = day + "" + month + "" + year;
+            this.toastr.error("No Tour Diary For Approval Found");
+            this.router.navigate(['/tour-diary/tour-diary-approval']);
+        }
+    }
 
-                this.date = varDate;
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.gridForm.controls.TourDate.setValue(branchWorkingDate);
-            } catch (e) {
+    approve() {
+        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
+
+
+        dialogRef.afterClosed().subscribe(res => {
+
+            if (!res) {
+                return;
             }
-        }
-        this.GetTourPlan()
+            this.toastr.success("Approved");
+        })
     }
 
-    GetTourPlan(){
-        this.spinner.show();
-        this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date)
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-
-                    this.TourDiaryList=[]
-                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                } else {
-                    this.layoutUtilsService.alertElement(
-                        '',
-                        baseResponse.Message,
-                        baseResponse.Code
-                    );
-                }
-            });
-
-    }
-
-    setValue(){
-        this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
-        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
-    }
-
-    changeStatus(data,status){
-
-        if(status=="C"){
-            const _title = 'Confirmation';
-            const _description = 'Do you really want to continue?';
-            const _waitDesciption = '';
-            const _deleteMessage = ``;
-
-            const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
+    referback() {
+        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
 
 
-            dialogRef.afterClosed().subscribe(res => {
+        dialogRef.afterClosed().subscribe(res => {
 
-                if (!res) {
-                    return;
-                }
-            });
-        }
-
-
-        this.TourDiary = Object.assign(this.gridForm.getRawValue());
-        if(status=="S"){
-            this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
-            this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
-            this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
-
-        }else{
-            this.TourDiary.DiaryId = data["DiaryId"];
-            this.TourDiary.TourPlanId = data["TourPlanId"];
-            this.TourDiary.Ppno = data["Ppno"];
-        }
-
-        this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status)
-            .pipe(
-                finalize(() => {
-                    this.spinner.hide();
-                })
-            ).subscribe(baseResponse => {
-            if (baseResponse.Success) {
-
-                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.onClearForm();
-                this.TourDiary=null;
-            } else {
-                this.TourDiary=null;
-                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            if (!res) {
+                return;
             }
-
-        });
-    }
-
-    getBranches(changedValue){
-        let changedZone = null;
-        if (changedValue.value) {
-            changedZone = {Zone: {ZoneId: changedValue.value}}
-        } else {
-            changedZone = {Zone: {ZoneId: changedValue}}
-        }
-        this.spinner.show();
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.spinner.hide();
-            this.SelectedBranches = data.Branches;
-            console.log(this.SelectedBranches)
-        });
-    }
-
-    createForm() {
-        this.gridForm = this.fb.group({
-            Name: [null],
-            Ppno: [null],
-            TourDate: [null],
-            DiaryId: [null],
-            TourPlanId: [null],
-            DepartureFromPlace: [null],
-            DepartureFromTime: [null],
-            ArrivalAtPlace: [null],
-            ArrivalAtTime: [null],
-            LCNotIssuedToBorrowers: [null],
-            McoNBmTourDiaryAPPlan: [null],
-            AnyShortComingInDiaries: [null],
-            RecNoOfDefaulterContacted: [null],
-            Remarks:[null],
-            Status:[null],
-        });
-        this.setValue()
-    }
-
-    saveTourDiary(){
-
-        if (this.gridForm.invalid) {
-            this.toastr.error("Please Enter Required values");
-            this.gridForm.markAllAsTouched()
-            return;
-        }
-
-        this.TourDiary = Object.assign(this.gridForm.getRawValue());
-        this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
-        this.TourDiary.Status = 'P';
-        this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
-            .pipe(
-                finalize(() => {
-                    this.spinner.hide();
-                })
-            ).subscribe(baseResponse => {
-            if (baseResponse.Success) {
-
-                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
-                this.onClearForm();
-            } else {
-                this.layoutUtilsService.alertElement('', baseResponse.Message);
-            }
-
-        });
-
-    }
-
-    checkZone(){
-        if (!this.zone) {
-            var Message = 'Please select Zone';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
-    }
-
-    onClearForm() {
-        this.gridForm.controls['DiaryId'].setValue("");
-        this.gridForm.controls['TourPlanId'].setValue("");
-        this.gridForm.controls['TourDate'].setValue("");
-        this.gridForm.controls['DepartureFromPlace'].setValue("");
-        this.gridForm.controls['DepartureFromTime'].setValue("");
-        this.gridForm.controls['ArrivalAtPlace'].setValue("");
-        this.gridForm.controls['ArrivalAtTime'].setValue("");
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue("");
-        this.gridForm.controls['McoNBmTourDiaryAPPlan'].setValue("");
-        this.gridForm.controls['AnyShortComingInDiaries'].setValue("");
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("");
-        this.gridForm.controls['Remarks'].setValue("");
-        this.gridForm.controls['Status'].setValue("");
-        this.btnText = 'Save'
-        //this.setValue();
-
-    }
-
-    @ViewChild("timepicker") timepicker: any;
-
-    openFromIcon(timepicker: { open: () => void }) {
-        // if (!this.formControlItem.disabled) {
-        timepicker.open();
-        // }
-    }
-
-    //Date Format
-    DateFormat(){
-        if(this.Format24===true){
-            return 24
-        }
-        else{
-            return 12
-        }
-
-    }
-
-    edit(zmDiary){
-
-        this.btnText = 'Update';
-        this.gridForm.controls['DiaryId'].setValue(zmDiary.DiaryId);
-        this.gridForm.controls['TourPlanId'].setValue(zmDiary.TourPlanId);
-        this.gridForm.controls['TourDate'].setValue(zmDiary.TourDate);
-        this.gridForm.controls['DepartureFromPlace'].setValue(zmDiary.DepartureFromPlace);
-        this.gridForm.controls['DepartureFromTime'].setValue(zmDiary.DepartureFromTime);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(zmDiary.ArrivalAtPlace);
-        this.gridForm.controls['ArrivalAtTime'].setValue(zmDiary.ArrivalAtTime);
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zmDiary.LCNotIssuedToBorrowers);
-        this.gridForm.controls['McoNBmTourDiaryAPPlan'].setValue(zmDiary.McoNBmTourDiaryAPPlan);
-        this.gridForm.controls['AnyShortComingInDiaries'].setValue(zmDiary.AnyShortComingInDiaries);
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(zmDiary.LCNotIssuedToBorrowers);
-        this.gridForm.controls['Remarks'].setValue(zmDiary.Remarks);
-        this.gridForm.controls['Status'].setValue(zmDiary.Status);
-    }
-
-    delete(data, status) {
-        if (status == "C") {
-            const _title = 'Confirmation';
-            const _description = 'Do you really want to continue?';
-            const _waitDesciption = '';
-            const _deleteMessage = ``;
-
-            const dialogRef = this.layoutUtilsService.AlertElementConfirmation(_title, _description, _waitDesciption);
-
-
-            dialogRef.afterClosed().subscribe(res => {
-
-                if (!res) {
-                    return;
-                }
-
-                this.TourDiary = Object.assign(data);
-                this.spinner.show();
-                this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
-                    .pipe(
-                        finalize(() => {
-                            this.spinner.hide();
-                        })
-                    ).subscribe(baseResponse => {
-                    if (baseResponse.Success) {
-
-                        this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                        this.onClearForm();
-                        this.TourDiary = null;
-                    } else {
-                        this.TourDiary = null;
-                        this.layoutUtilsService.alertElement('', baseResponse.Message);
-                    }
-
-                });
-            });
-        }
-    }
-
-    checkStatus(item, action) {
-        if (action == 'edit') {
-            if (item.Status == 'P' || item.Status == 'R') {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (action == 'delete') {
-            if (item.Status == 'P' || item.Status == 'R') {
-                return true;
-            } else {
-                return false;
-            }
-        }
+            this.toastr.success("Referbacked");
+        })
     }
 
 
@@ -392,10 +106,5 @@ export class TourDiaryApprovalZmComponent implements OnInit {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
-
-        var zoneId = this.zone.ZoneId;
-        console.log(zoneId)
-        this.getBranches(zoneId);
-
     }
 }
