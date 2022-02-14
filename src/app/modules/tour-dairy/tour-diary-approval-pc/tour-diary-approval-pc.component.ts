@@ -10,6 +10,8 @@ import {DateFormats} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {CommonService} from "../../../shared/services/common.service";
+import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-tour-diary-approval-pc',
@@ -48,11 +50,19 @@ export class TourDiaryApprovalPcComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private _cdf: ChangeDetectorRef,
+        private router: Router,
+        private toastr: ToastrService
     ) {
         this.loggedInUser = userService.getSearchResultsDataOfZonesBranchCircle();
     }
 
     ngOnInit(): void {
+        if (JSON.parse(localStorage.getItem('TourDiary'))) {
+            localStorage.removeItem('TourDiary');
+        } else {
+            this.toastr.error("No Tour Diary For Approval Found");
+            this.router.navigate(['/tour-diary/tour-diary-approval']);
+        }
     }
 
 
@@ -60,6 +70,32 @@ export class TourDiaryApprovalPcComponent implements OnInit {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
+    }
+
+    approve() {
+        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
+
+
+        dialogRef.afterClosed().subscribe(res => {
+
+            if (!res) {
+                return;
+            }
+            this.toastr.success("Approved");
+        })
+    }
+
+    referback() {
+        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
+
+
+        dialogRef.afterClosed().subscribe(res => {
+
+            if (!res) {
+                return;
+            }
+            this.toastr.success("Referbacked");
+        })
     }
 
 }

@@ -5,610 +5,234 @@
         <div class="col-lg-9 col-sm-12">
             <div class="heading">TOUR DIARY & PROGRESS REPORT OF ZONAL CHIEF</div>
         </div>
-        <div class="col-lg-3 col-sm-12 self-center">
+        <div class="col-lg-3 col-sm-12 self-center"></div>
 
-            <!--            <p class="text-right">-->
-            <!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->
-            <!--                        color="primary"-->
-            <!--                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">-->
-            <!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
-            <!--                    Advance Filter-->
-            <!--                </button>-->
-            <!--            </p>-->
-
-        </div>
     </div>
 
 
     <div id="Kt-portlet-margin-top">
         <div class="collapse show" id="collapseExample">
-                <form [formGroup]="gridForm" class="kt-form kt-form--group-seperator-dashed">
-
-                    <div class="kt-form">
-
-                        <div class="kt-portlet__body">
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-
-                                    <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
-                                                            [is_required_circle]="false"
-                                                            [should_filter]="false"
-                                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Name of Officer<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Tour Date</mat-label>
-                                            <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
-                                                    maxlength="8"
-                                                    autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
-                                            <mat-datepicker-toggle (click)="checkZone()" [disabled]="!zone" matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                            <mat-datepicker #picker2></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label>Tour Plan<strong class="matMandatory">*</strong></mat-label>
-                                            <mat-select formControlName="TourPlanId">
-                                                <mat-option>
-                                                    Select
-                                                </mat-option>
-                                                <mat-option *ngFor="let obj of TourPlan" [value]="obj.TourPlanId">
-                                                    {{obj.PurposeName}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="sub-heading">Departure From
-                            </div>
-
-                            <div id="Kt-portlet-margin-top">
-                                <div class="collapse show" id="collapseExample">
-                                    <div class="kt-form kt-form--group-seperator-dashed">
-
-                                        <div class="kt-form">
-
-                                            <div class="kt-portlet__body">
-
-                                                <div class="col-lg-12 pt-2 px-0">
-                                                    <div class="flex" style="flex-wrap: wrap;">
-
-                                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                                <mat-label class="customMatLabel">Departure Place<strong class="matMandatory">*</strong></mat-label>
-                                                                <input appAlphaNumericField matInput placeholder="Departure Place" formControlName="DepartureFromPlace" maxlength="30"
-                                                                       autocomplete="off"/>
-                                                            </mat-form-field>
-                                                        </div>
-                                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                                <mat-label class="customMatLabel">Departure Time<strong class="matMandatory">*</strong></mat-label>
-                                                                <!--                                        <input matInput placeholder="Departure Time" formControlName="DepartureFromTime" maxlength="30"-->
-                                                                <!--                                               autocomplete="off"/>-->
-                                                                <!--                                      ******************Time Work**********-->
-
-                                                                <input
-                                                                    type="text"
-                                                                    matInput
-                                                                    [ngxTimepicker]="timepickerDeparture"
-                                                                    [format]="DateFormat()"
-                                                                    readonly
-                                                                    formControlName="DepartureFromTime"
-                                                                />
-                                                                <mat-icon
-                                                                    matSuffix
-
-                                                                    (click)="openFromIcon(timepickerDeparture)"
-                                                                >schedule</mat-icon>
-
-                                                                <!--                                        <mat-icon-->
-                                                                <!--                                            matPrefix-->
-                                                                <!--                                            *ngIf="formControlItem.value && !formControlItem.disabled && !required"-->
-                                                                <!--                                            (click)="onClear($event)"-->
-                                                                <!--                                        >-->
-                                                                <!--                                            close-->
-                                                                <!--                                        </mat-icon>-->
-
-                                                            </mat-form-field>
-                                                        </div>
-
-                                                    </div>
-
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="sub-heading">Arrival At
-                            </div>
-
-                            <div id="Kt-portlet-margin-top">
-                                <div class="collapse show" id="collapseExample">
-                                    <div class="kt-form kt-form--group-seperator-dashed">
-
-                                        <div class="kt-form">
-
-                                            <div class="kt-portlet__body">
-
-                                                <div class="col-lg-12 pt-2 px-0">
-                                                    <div class="flex" style="flex-wrap: wrap;">
-
-                                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                                <mat-label class="customMatLabel">Arrival Place<strong class="matMandatory">*</strong></mat-label>
-                                                                <input appAlphaNumericField matInput placeholder="Arrival Place" formControlName="ArrivalAtPlace" maxlength="30"
-                                                                       autocomplete="off"/>
-                                                            </mat-form-field>
-                                                        </div>
-                                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                                <mat-label class="customMatLabel">Arrival Time<strong class="matMandatory">*</strong></mat-label>
-                                                                <!--   <input matInput placeholder="Arrival Time" formControlName="ArrivalAtTime" maxlength="30"-->
-                                                                <!--                                               autocomplete="off"/>-->
-                                                                <!--                                      ******************Time Work**********-->
-
-                                                                <input
-                                                                    type="text"
-                                                                    matInput
-                                                                    [ngxTimepicker]="timepickerArrival"
-                                                                    [format]="DateFormat()"
-                                                                    readonly
-                                                                    formControlName="ArrivalAtTime"
-                                                                />
-                                                                <mat-icon
-                                                                    matSuffix
-
-                                                                    (click)="openFromIcon(timepickerArrival)"
-                                                                >schedule</mat-icon
-                                                                >
-
-                                                                <!--                                        <mat-icon-->
-                                                                <!--                                            matPrefix-->
-                                                                <!--                                            *ngIf="formControlItem.value && !formControlItem.disabled && !required"-->
-                                                                <!--                                            (click)="onClear($event)"-->
-                                                                <!--                                        >-->
-                                                                <!--                                            close-->
-                                                                <!--                                        </mat-icon>-->
-                                                            </mat-form-field>
-                                                        </div>
-
-                                                    </div>
-
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">General Administration<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="GeneralAdmissionComplaints" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Cash Management <strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="CashManagementCompliance" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="sub-heading">Audit Reports/Audit Discussions and Compliance Status of Branch Visited
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Audit Reports<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="AuditReports" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Outstanding Paras <strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="OutstandingParas" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Settlement <strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Settlements" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">No. of loan cases in which Recovery Schedule</mat-label>
-                                            <input matInput formControlName="LCNotIssuedToBorrowers" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="sub-heading">Transfer of Technology
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Progressive Farmers Contacted<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="TotFarmersContacted" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">No. of Farms Visited<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="TotNoOfFarmersVisisted" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Any other work done<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="AnyOtherWorkDone" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Remarks" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="row mt-2 mr-1">
-                            <div class="col-lg-12 text-right">
-                                <button type="button" *ngIf="isUpdate==false" class="ml-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>{{btnText}}</button>
-                                <button type="button" *ngIf="isUpdate==true" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Update</button>
-
-                                <button type="button" *ngIf="isUpdate==true" mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
-                                    <mat-icon class="mr-2">check_circle</mat-icon>
-                                    Submit
-                                </button>
-                                <button type="button"
-                                        class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                        mat-raised-button color="danger" (click)="onClearForm()">
-                                    <mat-icon class="mr-2"> clear_all</mat-icon>
-                                    Clear
-                                </button>
-                            </div>
-                        </div>
-
-                            <div class="col-lg-12 p-0 ist-table  overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table ">
-                                    <thead>
-                                    <tr class=" text-center">
-                                        <th rowspan="2"  >Actions</th>
-                                        <th rowspan="2"  >Date</th>
-                                        <th colspan="2"  >Departure from</th>
-                                        <th colspan="2"  >Arrival at</th>
-                                        <th rowspan="2"  >General Administration/Ambiance & Public Complaints of the Branch Visited</th>
-                                        <th rowspan="2"  >Cash Management & Compliance of Bank Instructions/SBP directives on FTC/AML/KYC etc by the Branch visited</th>
-                                        <th colspan="3"  >Audit Reports/Audit Discussions and Compliance Status of Branch Visited</th>
-                                    </tr>
-                                    <tr class=" text-center">
-                                        <th  >Place</th>
-                                        <th  >Time</th>
-                                        <th  >Place</th>
-                                        <th  >Time</th>
-                                        <th  >Audit Reports</th>
-                                        <th  >Outstanding Paras</th>
-                                        <th  >Settlement</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr *ngFor="let ZcTourDiary of TourDiaryList" >
-                                        <td>
-                                            <button   type="button" class="ml-2" mat-icon-button color="primary" *ngIf="checkStatus(ZcTourDiary, 'edit')"  (click)="edit(ZcTourDiary)"
-                                            >
-                                                <mat-icon>
-                                                    edit
-                                                </mat-icon>
-                                            </button>
-                                            <button  type="button" mat-icon-button *ngIf="checkStatus(ZcTourDiary, 'delete')" (click)="delete(ZcTourDiary, 'C')">
-                                                <mat-icon class="text-red-500">
-                                                    delete_forever
-                                                </mat-icon>
-                                            </button>
-
-                                        </td>
-                                        <td>{{ZcTourDiary.TourDate}}</td>
-                                        <td>{{ZcTourDiary.DepartureFromPlace}}</td>
-                                        <td>{{ZcTourDiary.DepartureFromTime}}</td>
-                                        <td>{{ZcTourDiary.ArrivalAtPlace}}</td>
-                                        <td>{{ZcTourDiary.ArrivalAtTime}}</td>
-                                        <td>{{ZcTourDiary.GeneralAdmissionComplaints}}</td>
-                                        <td>{{ZcTourDiary.CashManagementCompliance}}</td>
-                                        <td>{{ZcTourDiary.AuditReports}}</td>
-                                        <td>{{ZcTourDiary.OutstandingParas}}</td>
-                                        <td>{{ZcTourDiary.Settlements}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-<!--                            <div class="row pt-3">-->
-<!--                                <div class="col-lg-12 p-0 col-sm-12">-->
-<!--                                    <div class="sub-heading">Transfer of Technology, Portfolio of Branch Visited and Remarks</div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-                            <div class="col-lg-12 p-0 sec-table  overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table ">
-                                    <thead>
-                                    <tr class=" text-center">
-                                        <th rowspan="3"  >No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not
-                                            been issued to borrowers
-                                        </th>
-                                        <th colspan="2"  >
-                                            Transfer of Technology
-                                        </th>
-                                        <th colspan="6"  >Portfolio of the Branch Visited</th>
-                                        <th rowspan="3"  >Any other work done</th>
-                                        <th rowspan="3"  >Remarks</th>
-                                    </tr>
-                                    <tr class=" text-center">
-                                        <th  >Progressive Farmers contacted</th>
-                                        <th  >No. of farms visited</th>
-                                        <th  >No.</th>
-                                        <th  >Amt.</th>
-                                        <th  >No.</th>
-                                        <th  >Amt.</th>
-                                        <th  >No.</th>
-                                        <th  >Amt.</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr *ngFor="let ZcTourDiary of TourDiaryList">
-                                        <td>{{ZcTourDiary.LCNotIssuedToBorrowers}}</td>
-                                        <td>{{ZcTourDiary.TOTFarmersContacted}}</td>
-                                        <td>{{ZcTourDiary.TOTNoOfFarmersVisisted}}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{ZcTourDiary.AnyOtherWorkDone}}</td>
-                                        <td>{{ZcTourDiary.Remarks}}</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="col-lg-12 p-0  third-table   overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table ">
-                                    <thead>
-                                    <tr class=" text-center">
-                                        <th colspan="6"  >
-                                            Disbursement
-                                        </th>
-                                    </tr>
-                                    <tr class=" text-center">
-                                        <th  >Annual Target</th>
-                                        <th  >Proportionate Target up to the end of month under report</th>
-                                        <th  >Total disbursement up to the end of previous month </th>
-                                        <th  >Disbursement during the month under report</th>
-                                        <th  >Total disbursement up to the end of month under report</th>
-                                        <th  >Increase/Deficit</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                            <div class="col-lg-12 p-0  third-table   overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table">
-                                    <thead>
-                                    <tr class="table-header-background text-center">
-                                        <th colspan="15"  >RECOVERY</th>
-                                    </tr>
-                                    </thead>
-                                    <thead>
-                                    <tr class="table-header-background text-center">
-                                        <!-- UTILIZATIONS -->
-                                        <th colspan="3"  >Amount in default up to the month under report (TARGET)</th>
-                                        <th colspan="3"  >Recovery during the month under report</th>
-                                        <th colspan="3"  >Balance Recoverable</th>
-                                        <th colspan="3"  >Recovery during corresponding period</th>
-                                        <th rowspan="2"  >Increase/Deficit</th>
-                                        <th colspan="2"  >Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
-                                    </tr>
-                                    <tr class="table-header-background text-center">
-                                        <th  >Past Dues</th>
-                                        <th  >Current Dues</th>
-                                        <th  >Total</th>
-                                        <th  >Past Dues</th>
-                                        <th  >Current Dues</th>
-                                        <th  >Total</th>
-                                        <th  >Past Dues</th>
-                                        <th  >Current Dues</th>
-                                        <th  >Total</th>
-                                        <th  >Past Dues</th>
-                                        <th  >Current Dues</th>
-                                        <th  >Total</th>
-                                        <th  >Activity</th>
-                                        <th  >No.</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  >
-                                            <ul>
-                                                <li>Reschedulement</li>
-                                                <li>Restructring of Installments</li>
-                                                <li>RightOff/remission</li>
-                                            </ul>
-                                        </td>
-                                        <td  ></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="col-lg-12 p-0  third-table   overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table ">
-                                    <thead>
-                                    <tr class="table-header-background text-center">
-                                        <th colspan="5"  >
-                                            Deposits
-                                        </th>
-                                    </tr>
-                                    <tr class="table-header-background text-center">
-                                        <th  >Annual Target</th>
-                                        <th  >Proportionate Target</th>
-                                        <th  >Achievement Percentage</th>
-                                        <th  >Deposit Balance during corresponding period</th>
-                                        <th  >Increase/Deficit</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-<!--                            <div class="col-lg-12">-->
-<!--                                <div class="flex" style="flex-wrap: wrap;">-->
-
-<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
-<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                                            <mat-label class="customMatLabel">Name</mat-label>-->
-<!--                                            <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>-->
-<!--                                        </mat-form-field>-->
-<!--                                    </div>-->
-<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
-<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                                            <mat-label class="customMatLabel">Designation</mat-label>-->
-<!--                                            <input matInput formControlName="Designation" autocomplete="off" readonly="readonly"/>-->
-<!--                                        </mat-form-field>-->
-<!--                                    </div>-->
-<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
-<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                                            <mat-label class="customMatLabel">Dated <strong class="matMandatory">*</strong>-->
-<!--                                            </mat-label>-->
-<!--                                            <input matInput [matDatepicker]="picker2" formControlName="Dated" maxlength="30" autocomplete="off"-->
-<!--                                                   [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>-->
-<!--                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
-<!--                                            <mat-datepicker #picker2></mat-datepicker>-->
-<!--                                        </mat-form-field>-->
-<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                                            <mat-label class="customMatLabel">Dated</mat-label>-->
-<!--                                            <input matInput formControlName="Dated" autocomplete="off" readonly="readonly"/>-->
-<!--                                        </mat-form-field>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-
-<!--                            </div>-->
-
-                        </div>
-
-
-                </form>
+            <div class="col-lg-12 p-0 ist-table  overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table ">
+                    <thead>
+                    <tr class=" text-center">
+                        <th rowspan="2"  >Date</th>
+                        <th colspan="2"  >Departure from</th>
+                        <th colspan="2"  >Arrival at</th>
+                        <th rowspan="2"  >General Administration/Ambiance & Public Complaints of the Branch Visited</th>
+                        <th rowspan="2"  >Cash Management & Compliance of Bank Instructions/SBP directives on FTC/AML/KYC etc by the Branch visited</th>
+                        <th colspan="3"  >Audit Reports/Audit Discussions and Compliance Status of Branch Visited</th>
+                    </tr>
+                    <tr class=" text-center">
+                        <th  >Place</th>
+                        <th  >Time</th>
+                        <th  >Place</th>
+                        <th  >Time</th>
+                        <th  >Audit Reports</th>
+                        <th  >Outstanding Paras</th>
+                        <th  >Settlement</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let ZcTourDiary of TourDiaryList" >
+                        <td>{{ZcTourDiary.TourDate}}</td>
+                        <td>{{ZcTourDiary.DepartureFromPlace}}</td>
+                        <td>{{ZcTourDiary.DepartureFromTime}}</td>
+                        <td>{{ZcTourDiary.ArrivalAtPlace}}</td>
+                        <td>{{ZcTourDiary.ArrivalAtTime}}</td>
+                        <td>{{ZcTourDiary.GeneralAdmissionComplaints}}</td>
+                        <td>{{ZcTourDiary.CashManagementCompliance}}</td>
+                        <td>{{ZcTourDiary.AuditReports}}</td>
+                        <td>{{ZcTourDiary.OutstandingParas}}</td>
+                        <td>{{ZcTourDiary.Settlements}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="col-lg-12 p-0 sec-table  overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table ">
+                    <thead>
+                    <tr class=" text-center">
+                        <th rowspan="3"  >No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not
+                            been issued to borrowers
+                        </th>
+                        <th colspan="2"  >
+                            Transfer of Technology
+                        </th>
+                        <th colspan="6"  >Portfolio of the Branch Visited</th>
+                        <th rowspan="3"  >Any other work done</th>
+                        <th rowspan="3"  >Remarks</th>
+                    </tr>
+                    <tr class=" text-center">
+                        <th  >Progressive Farmers contacted</th>
+                        <th  >No. of farms visited</th>
+                        <th  >No.</th>
+                        <th  >Amt.</th>
+                        <th  >No.</th>
+                        <th  >Amt.</th>
+                        <th  >No.</th>
+                        <th  >Amt.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let ZcTourDiary of TourDiaryList">
+                        <td>{{ZcTourDiary.LCNotIssuedToBorrowers}}</td>
+                        <td>{{ZcTourDiary.TOTFarmersContacted}}</td>
+                        <td>{{ZcTourDiary.TOTNoOfFarmersVisisted}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ZcTourDiary.AnyOtherWorkDone}}</td>
+                        <td>{{ZcTourDiary.Remarks}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-12 p-0  third-table   overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table ">
+                    <thead>
+                    <tr class=" text-center">
+                        <th colspan="6"  >
+                            Disbursement
+                        </th>
+                    </tr>
+                    <tr class=" text-center">
+                        <th  >Annual Target</th>
+                        <th  >Proportionate Target up to the end of month under report</th>
+                        <th  >Total disbursement up to the end of previous month </th>
+                        <th  >Disbursement during the month under report</th>
+                        <th  >Total disbursement up to the end of month under report</th>
+                        <th  >Increase/Deficit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="col-lg-12 p-0  third-table   overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table">
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <th colspan="15"  >RECOVERY</th>
+                    </tr>
+                    </thead>
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <!-- UTILIZATIONS -->
+                        <th colspan="3"  >Amount in default up to the month under report (TARGET)</th>
+                        <th colspan="3"  >Recovery during the month under report</th>
+                        <th colspan="3"  >Balance Recoverable</th>
+                        <th colspan="3"  >Recovery during corresponding period</th>
+                        <th rowspan="2"  >Increase/Deficit</th>
+                        <th colspan="2"  >Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
+                    </tr>
+                    <tr class="table-header-background text-center">
+                        <th  >Past Dues</th>
+                        <th  >Current Dues</th>
+                        <th  >Total</th>
+                        <th  >Past Dues</th>
+                        <th  >Current Dues</th>
+                        <th  >Total</th>
+                        <th  >Past Dues</th>
+                        <th  >Current Dues</th>
+                        <th  >Total</th>
+                        <th  >Past Dues</th>
+                        <th  >Current Dues</th>
+                        <th  >Total</th>
+                        <th  >Activity</th>
+                        <th  >No.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  >
+                            <ul>
+                                <li>Reschedulement</li>
+                                <li>Restructring of Installments</li>
+                                <li>RightOff/remission</li>
+                            </ul>
+                        </td>
+                        <td  ></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-12 p-0  third-table   overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table ">
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <th colspan="5"  >
+                            Deposits
+                        </th>
+                    </tr>
+                    <tr class="table-header-background text-center">
+                        <th  >Annual Target</th>
+                        <th  >Proportionate Target</th>
+                        <th  >Achievement Percentage</th>
+                        <th  >Deposit Balance during corresponding period</th>
+                        <th  >Increase/Deficit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                        <td  ></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-<!--        <div class="row">-->
-<!--            <div class="col-lg-12 flex  py-2 border-t">-->
-<!--                <button mat-raised-button class="mr-2" color="primary" (click)="SubmitTourDiary()">-->
-<!--                    <mat-icon class="mr-2">check_circle</mat-icon>-->
-<!--                    Submit-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="row mt-2 mr-1">
+            <div class="col-lg-12 text-right">
+                <button type="button" class="mr-2 bg-green" mat-raised-button color="primary"
+                        (click)="approve()">
+                    <mat-icon class="mr-2">check_circle</mat-icon>
+                    Save
+                </button>
+                <button type="button" class="mr-2  bg-red" mat-raised-button color="primary"
+                        (click)="referback()">
+                    <mat-icon class="mr-2">cancel</mat-icon>
+                    Referback
+                </button>
+            </div>
+        </div>
 
 
     </div>
-
-    <ngx-material-timepicker  #timepickerDeparture></ngx-material-timepicker>
-    <ngx-material-timepicker #timepickerArrival></ngx-material-timepicker>
