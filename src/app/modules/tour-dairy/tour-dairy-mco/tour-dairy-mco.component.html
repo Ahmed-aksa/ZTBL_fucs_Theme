@@ -39,7 +39,9 @@
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Tour Date</mat-label>
+                                        <mat-label class="customMatLabel">Tour Date<strong
+                                            class="matMandatory">*</strong>
+                                        </mat-label>
                                         <input matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
                                                maxlength="8"
                                                autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
@@ -50,7 +52,9 @@
                                 <!--                                    {{TourPlan|json}}-->
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Tour Plan</mat-label>
+                                        <mat-label class="customMatLabel">Tour Plan<strong
+                                            class="matMandatory">*</strong>
+                                        </mat-label>
                                         <mat-select formControlName="TourPlanId"
                                                     (selectionChange)="getTourDiary($event)">
                                             <mat-option>
@@ -94,7 +98,9 @@
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Departure Place</mat-label>
+                                        <mat-label class="customMatLabel">Departure Place<strong
+                                            class="matMandatory">*</strong>
+                                        </mat-label>
                                         <input appAlphaNumericField matInput placeholder="Departure Place"
                                                formControlName="DepartureFromPlace" maxlength="30"
                                                autocomplete="off"/>
@@ -102,7 +108,9 @@
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Departure Time</mat-label>
+                                        <mat-label class="customMatLabel">Departure Time<strong
+                                            class="matMandatory">*</strong>
+                                        </mat-label>
                                         <!--                                        <input matInput placeholder="Departure Time" formControlName="DepartureFromTime" maxlength="30"-->
                                         <!--                                               autocomplete="off"/>-->
                                         <!--                                      ******************Time Work**********-->
@@ -161,7 +169,9 @@
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Arrival Place</mat-label>
+                                        <mat-label class="customMatLabel">Arrival Place<strong
+                                            class="matMandatory">*</strong>
+                                        </mat-label>
                                         <input appAlphaNumericField matInput placeholder="Arrival Place"
                                                formControlName="ArrivalAtPlace" maxlength="30"
                                                autocomplete="off"/>
@@ -169,7 +179,9 @@
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Arrival Time</mat-label>
+                                        <mat-label class="customMatLabel">Arrival Time<strong
+                                            class="matMandatory">*</strong>
+                                        </mat-label>
                                         <!--   <input matInput placeholder="Arrival Time" formControlName="ArrivalAtTime" maxlength="30"-->
                                         <!--                                               autocomplete="off"/>-->
                                         <!--                                      ******************Time Work**********-->

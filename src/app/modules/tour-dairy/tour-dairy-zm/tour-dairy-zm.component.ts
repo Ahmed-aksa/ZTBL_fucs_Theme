@@ -7,7 +7,7 @@ import {
 } from '@angular/material/core';
 import {DateFormats} from '../../../shared/classes/lov.class';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {UserUtilsService} from '../../../shared/services/users_utils.service';
@@ -213,15 +213,15 @@ export class TourDiaryZmComponent implements OnInit {
 
     createForm() {
         this.gridForm = this.fb.group({
-            Name: [null],
-            Ppno: [null],
-            TourDate: [null],
+            Name: [null, [Validators.required]],
+            Ppno: [null, [Validators.required]],
+            TourDate: [null, [Validators.required]],
             DiaryId: [null],
-            TourPlanId: [null],
-            DepartureFromPlace: [null],
-            DepartureFromTime: [null],
-            ArrivalAtPlace: [null],
-            ArrivalAtTime: [null],
+            TourPlanId: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
             LCNotIssuedToBorrowers: [null],
             McoNBmTourDiaryAPPlan: [null],
             AnyShortComingInDiaries: [null],

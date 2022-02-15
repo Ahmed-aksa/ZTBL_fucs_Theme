@@ -262,6 +262,7 @@ export class SearchTourDiaryComponent implements OnInit {
     }
 
     CheckEditStatus(TourDiary: any) {
+        console.log(TourDiary)
         if (TourDiary.Status == "P" || TourDiary.Status == "R") {
             if (TourDiary.UserId == this.loggedInUserDetails.User.UserId) {
                 return true
@@ -392,7 +393,8 @@ export class SearchTourDiaryComponent implements OnInit {
         // if (!this.TourDiary.controls["Status"].value) {
         //     this.TourDiary.controls["Status"].setValue("All")
         // }
-
+        if (from_search_button == true)
+            this.OffSet = 0;
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
         // this.TourDiary.controls["StartDate"].setValue(this.datePipe.transform(this.TourDiary.controls["StartDate"].value, 'ddMMyyyy'))
@@ -400,8 +402,7 @@ export class SearchTourDiaryComponent implements OnInit {
         this._TourDiary = Object.assign(this.TourDiary.value);
         this._TourDiary["StartDate"] = this.datePipe.transform(this.TourDiary.controls["StartDate"].value, 'ddMMyyyy');
         this._TourDiary["EndDate"] = this.datePipe.transform(this.TourDiary.controls["EndDate"].value, 'ddMMyyyy');
-        if (from_search_button == true)
-            this.OffSet = 0;
+
         this.spinner.show();
         this.tourDiaryService.SearchTourDiary(this._TourDiary, count, currentIndex, this.branch, this.zone, this.zc)
             .pipe(
@@ -414,22 +415,22 @@ export class SearchTourDiaryComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    this.TourDiarys = baseResponse?.TourDiary?.TourDiarysByDate;
-                    this.dataSource.data = baseResponse?.TourDiary?.TourDiarysByDate;
+                    debugger
+                    this.TourDiarys = baseResponse?.TourDiary?.TourDiaries;
+                    this.dataSource.data =baseResponse?.TourDiary?.TourDiaries;
+
                     if (this.dataSource?.data?.length > 0)
                         this.matTableLenght = true;
                     else
                         this.matTableLenght = false;
 
                     this.dv = this.dataSource.data;
-                    this.totalItems = baseResponse.TourDiary.TourDiarysByDate[0].TotalRecords;
-                    this.dataSource.data = this.dv.slice(0, this.totalItems)
+                    // this.totalItems = baseResponse.TourDiary.TourDiarysByDate[0].TotalRecords;
+                    this.dataSource.data = this.dv
                     //this.dataSource = new MatTableDataSource(data);
 
                     // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
-                    //this.paginate(this.pageIndex) //calling paginate function
                     this.OffSet = this.pageIndex;
-                    this.dataSource = this.dv.slice(0, this.itemsPerPage);
                 } else {
 
                     // if (this.dv != undefined) {
@@ -546,9 +547,9 @@ export class SearchTourDiaryComponent implements OnInit {
     }
 
     dateChange(date: string) {
-        var day = date.slice(0, 2),
-            month = date.slice(2, 4),
-            year = date.slice(4, 8);
+        var day = date?.slice(0, 2),
+            month = date?.slice(2, 4),
+            year = date?.slice(4, 8);
         return day + "-" + month + "-" + year;
     }
 }
