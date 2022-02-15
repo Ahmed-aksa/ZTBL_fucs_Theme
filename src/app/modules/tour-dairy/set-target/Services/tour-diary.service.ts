@@ -216,6 +216,25 @@ export class TourDiaryService {
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
+    getTourDiaryDetail(zone, branch, TourDiary) {
+
+        this.request = new BaseRequestModel();
+        var userInfo = this.userUtilsService.getUserDetails();
+        this.request.Zone = zone;
+        this.request.Branch = branch;
+        this.request.User = userInfo.User;
+        this.request.TourDiary = TourDiary;
+        // if (is_zc) {
+        //     this.request.User["ProfileId"] = environment.ZC;
+        // }
+
+        return this.http
+            .post<any>(
+                `${environment.apiUrl}/TourPlanAndDiary/GetTourDiaryApprovalDetail`,
+                this.request
+            )
+            .pipe(map((res: BaseResponseModel) => res));
+    }
 
     ChangeStatusDiary(zone, branch, circle, TourDiary, Status, is_zc = false) {
         //this.request = new BaseRequestModel();
@@ -255,12 +274,10 @@ export class TourDiaryService {
                 TourDate: TourDiary.TourDate
             }
         }
-        if (is_zc) {
-            req.User["ProfileId"] = environment.ZC;
-        }
 
 
-        // var req = JSON.stringify(this.request);
+
+       console.log(JSON.stringify(req));
 
         return this.http
             .post<any>(
