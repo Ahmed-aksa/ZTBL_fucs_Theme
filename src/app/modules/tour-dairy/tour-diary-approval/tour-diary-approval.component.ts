@@ -265,7 +265,7 @@ export class TourDiaryApprovalComponent implements OnInit {
             PPNO: [null],
             Status: ["S", Validators.required],
         });
-
+        this.tourDiaryForm.controls['Status'].disable();
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {

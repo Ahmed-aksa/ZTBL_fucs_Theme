@@ -340,6 +340,7 @@ export class EligibilityRequestComponent implements OnInit {
                 Offset: this.OffSet.toString()
             }
         };
+        request.EligibilityRequest.ZoneId=request.EligibilityRequest.ZoneId.toString();
         this.eligibilityRequestSearch = Object.assign(this.eligibilityRequestSearch, this.eligibilityRequestForm.value);
         this.customerService.getEligibilityRequestData(request)
             .pipe(

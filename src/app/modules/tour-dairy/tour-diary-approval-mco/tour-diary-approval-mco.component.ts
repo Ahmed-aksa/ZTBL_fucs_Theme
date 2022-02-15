@@ -150,7 +150,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
         this.setValue();
     }
 
-    getTourDiaryDetail(){
+    getTourDiaryDetail() {
         // if(!this.data){
         //
         // }
