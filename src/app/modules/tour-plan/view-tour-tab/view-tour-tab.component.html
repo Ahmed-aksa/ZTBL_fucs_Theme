@@ -55,7 +55,7 @@
                             <td style="width: 20%">{{child.PurposeName ? child.PurposeName : '-'}}</td>
                             <td style="width: 20%" [title]="child.Remarks">
                                 <p class="remarks-box mt-2">
-                                    {{child.Remarks.slice(0, 30)}}
+                                    {{child?.Remarks?.slice(0, 30)}}
                                 </p>
                             </td>
                             <td style="width: 20%">{{child?.StatusName}}</td>

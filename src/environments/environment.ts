@@ -7,7 +7,7 @@ export const environment = {
     userActivities: 'ZTBLUser',
     ZTBLUser: 'ZTBLUser',
     isMockEnabled: true, // You have to switch this, when your real back-end is done
-    IsEncription: false,
+    IsEncription: true,
     authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
     Profile_id: '57',
     // apiUrl: 'http://172.16.1.228:8070/ZTBL.Api', //admins

@@ -41,7 +41,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
     Format24: boolean = true;
     isUpdate: boolean = false;
     data;
-
+    systemGenerated: any;
 
     //**************** Time ****************************
     @ViewChild("timepicker") timepicker: any;
@@ -110,9 +110,6 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
 
     getTourDiaryDetail() {
-        // if(!this.data){
-        //
-        // }
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
         console.log(JSON.stringify(this.TourDiary))
@@ -125,6 +122,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
             debugger
             if (baseResponse.Success) {
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
