@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {CommonService} from "../../../shared/services/common.service";
-import {DatePipe} from "@angular/common";
+import {DatePipe, ViewportScroller} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
@@ -38,6 +38,11 @@ export class TourDiaryMcoComponent implements OnInit {
     TourPlan;
     Format24: boolean = true;
     isUpdate: boolean = false;
+
+    pageYoffset = 0;
+    @HostListener('window:scroll', ['$event']) onScroll(event){
+        this.pageYoffset = window.pageYOffset;
+    }
 
 
     //**************** Time ****************************
@@ -81,6 +86,7 @@ export class TourDiaryMcoComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private _cdf: ChangeDetectorRef,
+        private scroll: ViewportScroller
     ) {
 
     }
@@ -100,42 +106,42 @@ export class TourDiaryMcoComponent implements OnInit {
 
     createForm() {
         this.gridForm = this.fb.group({
-            Name: [""],
-            Ppno: [""],
+            Name: [null],
+            Ppno: [null],
             DiaryId: [null],
             NameOfOfficer: [null],
-            TourPlanId: ["", [Validators.required]],
-            BranchId: ["", [Validators.required]],
-            ZoneId: ["", [Validators.required]],
-            CircleId: ["", [Validators.required]],
-            TourDate: ["", [Validators.required]],
-            DepartureFromPlace: ["", [Validators.required]],
-            DepartureFromTime: ["", [Validators.required]],
-            ArrivalAtPlace: ["", [Validators.required]],
-            ArrivalAtTime: ["", [Validators.required]],
-            DisbNoOfCasesReceived: [""],
-            DisbNoOfCasesAppraised: [""],
-            DisbNoOfRecordVerified: [""],
-            DisbNoOfSanctionedAuthorized: [""],
-            DisbSanctionLetterDelivered: [""],
-            DisbSupplyOrderDelivered: [""],
-            NoOfSanctnMutationVerified: [""],
-            NoOfUtilizationChecked: [""],
-            RecNoOfNoticeDelivered: [""],
-            RecNoOfLegalNoticeDelivered: [""],
-            RecNoOfDefaulterContacted: [""],
-            TotFarmersContacted: [""],
-            TotNoOfFarmersVisisted: [""],
-            AnyOtherWorkDone: [""],
-            Remarks: [""],
-            Status: [""]
+            TourPlanId: [null, [Validators.required]],
+            BranchId: [null, [Validators.required]],
+            ZoneId: [null, [Validators.required]],
+            CircleId: [null, [Validators.required]],
+            TourDate: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
+            DisbNoOfCasesReceived: [null],
+            DisbNoOfCasesAppraised: [null],
+            DisbNoOfRecordVerified: [null],
+            DisbNoOfSanctionedAuthorized: [null],
+            DisbSanctionLetterDelivered: [null],
+            DisbSupplyOrderDelivered: [null],
+            NoOfSanctnMutationVerified: [null],
+            NoOfUtilizationChecked: [null],
+            RecNoOfNoticeDelivered: [null],
+            RecNoOfLegalNoticeDelivered: [null],
+            RecNoOfDefaulterContacted: [null],
+            TotFarmersContacted: [null],
+            TotNoOfFarmersVisisted: [null],
+            AnyOtherWorkDone: [null],
+            Remarks: [null],
+            Status: [null]
         })
         this.setValue();
     }
 
 
     saveTourDiary() {
-
+        debugger
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -179,8 +185,9 @@ export class TourDiaryMcoComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
+        //this.circle = null
         console.log(JSON.stringify(this.TourDiary))
-        this.tourDiaryService.saveDiary(this.zone, this.branch, this.TourDiary)
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -259,6 +266,7 @@ export class TourDiaryMcoComponent implements OnInit {
             });
         }
     }
+
 
     changeStatus(data, status) {
 

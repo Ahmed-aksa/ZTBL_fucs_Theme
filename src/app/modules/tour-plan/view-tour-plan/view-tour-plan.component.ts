@@ -373,6 +373,7 @@ export class ViewTourPlanComponent implements OnInit {
 
                 if (baseResponse.Success) {
                     if (user_id) {
+
                         this.TourPlans[index].TourPlans = baseResponse.TourPlan.TourPlans;
                         this.TourPlans[index].children = []
                     } else {

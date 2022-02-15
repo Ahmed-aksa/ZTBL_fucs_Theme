@@ -66,6 +66,11 @@ const routing = [
         path: "create-tour-diary-zm",
         component: TourDiaryZmComponent,
     },
+
+    {
+        path: "create-tour-diary-rc",
+        component: TourDiaryRcComponent,
+    },
     {
         path: "create-tour-diary-zc",
         component: TourDiaryZcComponent,
