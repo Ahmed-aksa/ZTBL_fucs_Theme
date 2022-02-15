@@ -13,6 +13,7 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import { TourDiary } from '../set-target/Models/tour-diary.model';
+import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 
 @Component({
     selector: 'app-tour-diary-approval-zc',
@@ -43,6 +44,8 @@ export class TourDiaryApprovalZcComponent implements OnInit {
     btnText = 'Save';
     TourDiaryList;
     isUpdate:boolean=false;
+    data;
+    systemGenerated: any;
 
     constructor(
         private fb: FormBuilder,
@@ -60,49 +63,93 @@ export class TourDiaryApprovalZcComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (JSON.parse(localStorage.getItem('TourDiary'))) {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
             localStorage.removeItem('TourDiary');
         } else {
             this.toastr.error("No Tour Diary For Approval Found");
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
+        this.loggedInUser = this.userService.getUserDetails();
+        this.getTourDiaryDetail();
     }
 
-    approve() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
 
-
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
+    getTourDiaryDetail() {
+        this.TourDiary = Object.assign(this.data);
+        this.spinner.show();
+        console.log(JSON.stringify(this.TourDiary))
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.TourDiary)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            debugger
+            if (baseResponse.Success) {
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+            } else {
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
-            this.toastr.success("Approved");
-        })
-    }
-
-    referback() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
-
-
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
-            }
-            this.toastr.success("Referbacked");
-        })
+        });
     }
 
 
-    getAllData(data) {
-        if(data.final_zone[0]){
-            this.zone = data.final_zone[0];
-        }else{
-            this.zone = data.final_zone;
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
+
+    changeStatus(status) {
+
+        const signatureDialogRef = this.dialog.open(
+            SignaturePadForDiaryApproval,
+            {
+                disableClose: true,
+                data: {data: this.TourDiaryList, status: status}
+            },
+        );
+        let dialogRef = null;
+        if (status == 'A') {
+            dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
+
+        } else if(status == 'R'){
+            dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
+
         }
-        this.branch = data.final_branch;
-        this.circle = data.final_circle;
+
+
+        dialogRef.afterClosed().subscribe(res => {
+
+            if (!res) {
+                return;
+            }
+            this.TourDiary = Object.assign(this.data);
+            this.spinner.show();
+            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+                .pipe(
+                    finalize(() => {
+                        this.spinner.hide();
+                    })
+                ).subscribe(baseResponse => {
+                if (baseResponse.Success) {
+                    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                    if(status=='A'){
+                        this.toastr.success("Approved");
+                    }
+                    else if(status == 'R'){
+                        this.toastr.success("ReferBack");
+                    }
+
+                } else {
+                    this.layoutUtilsService.alertElement('', baseResponse.Message);
+                }
+
+            });
+
+        })
 
     }
 }
