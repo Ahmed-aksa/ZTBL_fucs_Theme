@@ -32,8 +32,8 @@ export class TourDiaryRcComponent implements OnInit {
     circle: any;
     sign;
     TourPlan;
-    Format24:boolean=true;
-    isUpdate:boolean=false;
+    Format24: boolean = true;
+    isUpdate: boolean = false;
     TourDiary;
     TourDiaryList = [];
     date: string;
@@ -59,21 +59,21 @@ export class TourDiaryRcComponent implements OnInit {
         this.gridForm = this.fb.group({
             Name: ["", [Validators.required]],
             Ppno: ["", [Validators.required]],
-            DiaryId:[null],
-            Month:[""],
-            TourPlanId:["", [Validators.required]],
-            BranchId:[""],
-            ZoneId:[ ""],
-            CircleId:[""],
-            TourDate:["", [Validators.required]],
-            DepartureFromPlace:["", [Validators.required]],
-            DepartureFromTime:["", [Validators.required]],
-            ArrivalAtPlace:["", [Validators.required]],
-            ArrivalAtTime:["", [Validators.required]],
-            NoOfDefaulterContacted:[""],
-            ResultContactMade:[""],
-            MeasureBoostUpRecord:[""],
-            Remarks:[""],
+            DiaryId: [null],
+            Month: [""],
+            TourPlanId: ["", [Validators.required]],
+            BranchId: [""],
+            ZoneId: [""],
+            CircleId: [""],
+            TourDate: ["", [Validators.required]],
+            DepartureFromPlace: ["", [Validators.required]],
+            DepartureFromTime: ["", [Validators.required]],
+            ArrivalAtPlace: ["", [Validators.required]],
+            ArrivalAtTime: ["", [Validators.required]],
+            NoOfDefaulterContacted: [""],
+            ResultContactMade: [""],
+            MeasureBoostUpRecord: [""],
+            Remarks: [""],
             Status: [""],
         });
         this.setValue()
@@ -88,11 +88,10 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     //Date Format
-    DateFormat(){
-        if(this.Format24===true){
+    DateFormat() {
+        if (this.Format24 === true) {
             return 24
-        }
-        else{
+        } else {
             return 12
         }
 
@@ -143,7 +142,7 @@ export class TourDiaryRcComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary)
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.TourDiary)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -178,16 +177,17 @@ export class TourDiaryRcComponent implements OnInit {
         this.gridForm.controls['ResultContactMade'].setValue("");
 
         this.gridForm.markAsUntouched();
-        this.isUpdate=false;
+        this.isUpdate = false;
         this.setValue();
 
     }
-    setValue(){
+
+    setValue() {
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
     }
 
-    checkZone(){
+    checkZone() {
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -224,14 +224,14 @@ export class TourDiaryRcComponent implements OnInit {
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
 
-                        this.TourDiaryList=[];
-                        this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
+                        this.TourDiaryList = [];
+                        this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.isUpdate = false;
                         this.onClearForm();
                         this.TourDiary = null;
                     } else {
-                        this.TourDiaryList=[];
+                        this.TourDiaryList = [];
                         this.TourDiary = null;
                         this.layoutUtilsService.alertElement('', baseResponse.Message);
                     }
@@ -265,27 +265,29 @@ export class TourDiaryRcComponent implements OnInit {
             if (baseResponse.Success) {
 
 
-                this.TourDiaryList=[];
-                this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
+                this.TourDiaryList = [];
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.isUpdate = false;
                 this.onClearForm();
                 this.TourDiary = null;
 
             } else {
-                this.TourDiaryList=[];
+                this.TourDiaryList = [];
                 this.TourDiary = null;
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
 
         });
     }
+
     getAllData(data) {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
     }
+
     edit(mcoDiary) {
 
         this.gridForm.patchValue(mcoDiary);
@@ -317,9 +319,6 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     setDate() {
-
-        // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
-        // this.minDate = this.gridForm.controls.Date.value;
         var varDate = this.gridForm.controls.TourDate.value;
         if (varDate._isAMomentObject == undefined) {
             try {
@@ -364,7 +363,7 @@ export class TourDiaryRcComponent implements OnInit {
         this.GetTourPlan()
     }
 
-    GetTourPlan(){
+    GetTourPlan() {
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -388,14 +387,14 @@ export class TourDiaryRcComponent implements OnInit {
 
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date)
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
 
-                    this.TourDiaryList=[]
+                    this.TourDiaryList = []
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
@@ -409,7 +408,8 @@ export class TourDiaryRcComponent implements OnInit {
             });
 
     }
-    getTourDiary(val){
+
+    getTourDiary(val) {
         //
         // this.spinner.show();
         // this.tourDiary

@@ -139,8 +139,9 @@ export class ViewTourTabComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
+                    // baseResponse.TourPlan.TourPlans[0].TourPlans
 
-                    this.TourPlans.TourPlans[index].TourPlans = baseResponse.TourPlanList[0].TourPlans;
+                    this.TourPlans.TourPlans[index].TourPlans = baseResponse.TourPlan.TourPlans[0].TourPlans;
                     this.TourPlans.TourPlans[index].children = []
                     this.TourPlans.TourPlans.forEach((single_plan) => {
                         this.children.push(single_plan);
@@ -215,7 +216,7 @@ export class ViewTourTabComponent implements OnInit {
     }
 
     DisplaySign(url: any){
-        
+
 
             const dialogRef = this.dialogRef.open(ViewFileComponent, {
                 width: '100vh',
