@@ -86,14 +86,12 @@ export class UserActivityBasedReportComponent implements OnInit {
     createForm() {
         this.bufricationForm = this.fb.group({
             PPNo: [null, Validators.required],
-            ToDate: [null],
-            FromDate: [null]
+            ToDate: [null, Validators.required],
+            FromDate: [null, Validators.required]
         })
     }
 
     isEnableToDate() {
-        this.bufricationForm.controls['FromDate'].setValidators(Validators.required);
-        this.bufricationForm.controls['FromDate'].updateValueAndValidity()
         var toDate = this.bufricationForm.controls.ToDate.value;
         if (toDate._isAMomentObject == undefined) {
             try {
@@ -134,8 +132,6 @@ export class UserActivityBasedReportComponent implements OnInit {
     }
 
     isEnableFromDate() {
-        this.bufricationForm.controls['ToDate'].setValidators(Validators.required);
-        this.bufricationForm.controls['ToDate'].updateValueAndValidity()
         var toDate = this.bufricationForm.controls.FromDate.value;
         if (toDate._isAMomentObject == undefined) {
             try {
@@ -176,14 +172,12 @@ export class UserActivityBasedReportComponent implements OnInit {
     }
 
     controlReset(){
-        this.bufricationForm.controls['ProfileID'].setValue(null)
+        this.bufricationForm.controls['PPNo'].setValue(null)
         this.bufricationForm.controls['ToDate'].setValue( null)
         this.bufricationForm.controls['FromDate'].setValue( null)
 
-        this.bufricationForm.controls['ToDate'].clearValidators()
-        this.bufricationForm.controls['ToDate'].updateValueAndValidity()
-        this.bufricationForm.controls['FromDate'].clearValidators()
-        this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+        this.bufricationForm.markAsUntouched();
+        this.bufricationForm.markAsPristine();
     }
 
     find() {
@@ -194,9 +188,6 @@ export class UserActivityBasedReportComponent implements OnInit {
             this.bufricationForm.markAllAsTouched();
             return;
         }
-        this.user.Branch = this.branch;
-        this.user.Zone = this.zone;
-        this.user.Circle = this.circle;
 
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "32";
