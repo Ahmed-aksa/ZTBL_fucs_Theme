@@ -12,6 +12,8 @@ import {Router} from "@angular/router";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {finalize} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
+import {SignaturePadForTourComponent} from "../../tour-plan/signature-pad-for-tour/signature-pad-for-tour.component";
+import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 
 @Component({
     selector: 'app-tour-diary-approval-ro',
@@ -71,31 +73,16 @@ export class TourDiaryApprovalRoComponent implements OnInit {
 
     }
 
-    approve() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
-
-
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
-            }
-            this.toastr.success("Approved");
-        })
+    changeStatus(status) {
+        const signatureDialogRef = this.dialog.open(
+            SignaturePadForDiaryApproval,
+            {
+                disableClose: true,
+                data: {data: this.TourDiaryList, status: status}
+            },
+        );
     }
 
-    referback() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
-
-
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
-            }
-            this.toastr.success("Referbacked");
-        })
-    }
 
     getTourDiaryDetail() {
         this.spinner.show();
@@ -107,7 +94,8 @@ export class TourDiaryApprovalRoComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.TourDiaryList = baseResponse.TourDiary;
+                debugger;
+                this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
             } else {
 
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
