@@ -3,7 +3,7 @@
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">TOUR DIARY & PROGRESS REPORT OF RECOVERY OFFICER</div>
+            <div class="heading" #container>TOUR DIARY & PROGRESS REPORT OF RECOVERY OFFICER</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
@@ -215,7 +215,7 @@
                                     <tbody *ngFor="let single_list of TourDiaryList">
                                     <tr>
                                         <td class="border-r border-gray-400">
-                                            <button *ngIf="checkStatus(single_list, 'edit')" type="button" mat-icon-button (click)="edit(single_list)">
+                                            <button *ngIf="checkStatus(single_list, 'edit')" type="button" mat-icon-button (click)="edit(single_list); container.scrollTop = 0">
                                                 <mat-icon>edit</mat-icon>
                                             </button>
                                             <button  *ngIf="checkStatus(single_list, 'delete')" type="button" mat-icon-button (click)="delete(single_list,'C')">

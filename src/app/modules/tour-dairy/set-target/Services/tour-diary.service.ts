@@ -197,12 +197,13 @@ export class TourDiaryService {
     }
 
 
-    saveDiary(zone, branch, TourDiary, is_zc = false) {
+    saveDiary(zone, branch, circle,TourDiary, is_zc = false) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         this.request.Zone = zone;
         this.request.Branch = branch;
+        this.request.Circle = circle;
         this.request.User = userInfo.User;
         this.request.TourDiary = TourDiary;
         if (is_zc) {
