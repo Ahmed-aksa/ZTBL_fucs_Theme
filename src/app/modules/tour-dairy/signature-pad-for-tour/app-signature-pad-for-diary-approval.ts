@@ -68,10 +68,16 @@ export class SignaturePadForDiaryApproval implements OnInit {
     }
 
     submit() {
+        debugger
+
+        let diaries
+        for(let i=0;i<this.data?.data?.length;i++){
+            diaries.push(this.data?.data[i]?.DiaryId)
+        }
 
         let formdata = new FormData();
         formdata.append('UserID', String(this.data.userId));
-        formdata.append('PlanIds', this.data.ids.toString());
+        formdata.append('DiaryIds', diaries.toString());
         formdata.append('Status', this.data.status);
 
         if (this.data.status == 'A') {
@@ -90,7 +96,7 @@ export class SignaturePadForDiaryApproval implements OnInit {
         }
         this.http
             .post<any>(
-                `${environment.apiUrl}/TourPlanAndDiary/ApproveTourPlan`,
+                `${environment.apiUrl}/TourPlanAndDiary/ChangeTourDiaryStatus`,
                 formdata
             ).subscribe((data) => {
             if (data.Success) {

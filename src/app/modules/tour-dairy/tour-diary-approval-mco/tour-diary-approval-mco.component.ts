@@ -13,6 +13,8 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
     selector: 'app-tour-diary-approval-mco',
@@ -63,7 +65,6 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
     }
 
-
     dateChange(date: string) {
         if(date){
             var day = date.slice(0, 2),
@@ -89,7 +90,8 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private _cdf: ChangeDetectorRef,
         private router: Router,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private dialog: MatDialog
     ) {
 
     }
@@ -131,13 +133,20 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
 
     getAllData(event) {
-
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
 
     changeStatus(status) {
+
+        const signatureDialogRef = this.dialog.open(
+            SignaturePadForDiaryApproval,
+            {
+                disableClose: true,
+                data: {data: this.TourDiaryList, status: status}
+            },
+        );
         let dialogRef = null;
         if (status == 'A') {
             dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
