@@ -26,7 +26,6 @@ import {ToastrService} from "ngx-toastr";
     ],
 })
 export class TourDiaryApprovalMcoComponent implements OnInit {
-    gridForm: FormGroup;
     loggedInUser: any;
     Today = this._common.workingDate();
     // minDate: Date;
@@ -64,11 +63,15 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
     }
 
+
     dateChange(date: string) {
-        var day = date.slice(0, 2),
-            month = date.slice(2, 4),
-            year = date.slice(4, 8);
-        return day + "-" + month + "-" + year;
+        if(date){
+            var day = date.slice(0, 2),
+                month = date.slice(2, 4),
+                year = date.slice(4, 8);
+            return day + "-" + month + "-" + year;
+        }
+
     }
 
     /**
@@ -76,11 +79,6 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
      *
      * @param $event - The Event's data object
      */
-    onClear($event: Event) {
-        this.gridForm.controls['Name'].setValue(null);
-
-    }
-
     constructor(
         private fb: FormBuilder,
         private userService: UserUtilsService,
@@ -108,10 +106,6 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
         this.getTourDiaryDetail();
     }
 
-    setValue() {
-        this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
-        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
-    }
 
     getTourDiaryDetail() {
         // if(!this.data){
@@ -128,12 +122,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
             ).subscribe(baseResponse => {
             debugger
             if (baseResponse.Success) {
-
-                // this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.TourDiaryList = baseResponse.TourDiary;
-                this.gridForm.patchValue(this.TourDiaryList);
-                this.gridForm.controls['TourDate'].setValue(new Date(this.TourDiaryList["TourDate"]));
-                this.isUpdate = false;
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
@@ -146,9 +135,6 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
-
-        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
-        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
     }
 
     changeStatus(status) {
