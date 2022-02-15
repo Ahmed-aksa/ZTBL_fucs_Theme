@@ -40,6 +40,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
     TourDiaryList = [];
     date: string;
     data: Object;
+    systemGenerated: any;
 
 
     constructor(
@@ -96,6 +97,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 debugger;
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
+                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
             } else {
 
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
