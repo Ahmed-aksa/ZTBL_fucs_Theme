@@ -3,7 +3,7 @@
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
+            <div class="heading" #container>TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
@@ -235,13 +235,13 @@
                                     <tbody>
                                     <tr *ngFor="let ZmTourDiary of TourDiaryList">
                                         <td>
-                                            <button class="ml-2" mat-icon-button color="primary" *ngIf="checkStatus(ZmTourDiary, 'edit')" (click)="edit(ZmTourDiary)"
+                                            <button class="ml-2" mat-icon-button color="primary" *ngIf="checkStatus(ZmTourDiary, 'edit')" (click)="edit(ZmTourDiary); container.scrollTop = 0"
                                             >
                                                 <mat-icon>
                                                     edit
                                                 </mat-icon>
                                             </button>
-                                            <button mat-icon-button *ngIf="checkStatus(ZmTourDiary, 'delete')" (click)="delete(ZmTourDiary, 'C')">
+                                            <button mat-icon-button *ngIf="checkStatus(ZmTourDiary, 'delete')" (click)="delete(ZmTourDiary, 'C'); container.scrollTop = 0">
                                                 <mat-icon class="text-red-500">
                                                     delete_forever
                                                 </mat-icon>

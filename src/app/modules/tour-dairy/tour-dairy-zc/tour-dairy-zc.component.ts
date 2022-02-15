@@ -114,7 +114,7 @@ export class TourDiaryZcComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone,this.branch,this.TourDiary, true)
+        this.tourDiaryService.saveDiary(this.zone, this.circle,this.branch,this.TourDiary, true)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
