@@ -302,6 +302,7 @@ export class TourDiaryMcoComponent implements OnInit {
 
     edit(mcoDiary) {
 
+
         // this.gridForm.controls['Name'].setValue(null);
         // this.gridForm.controls['Ppno4'].setValue(null);
         this.gridForm.controls['DiaryId'].setValue(mcoDiary.DiaryId);
