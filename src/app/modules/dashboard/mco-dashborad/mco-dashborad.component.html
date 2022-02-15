@@ -48,7 +48,7 @@
                             [noData]="chartOptions1.noData"
                             [colors]="chartOptions1?.colors"
                         ></apx-chart>
-<!--                        <p class="text-green px-1 font-medium mb-0 position-absolute" style="bottom: 19px; right: 3px; font-size: 12px;">**Deposits figures are for complete branch</p>-->
+                        <!--                        <p class="text-green px-1 font-medium mb-0 position-absolute" style="bottom: 19px; right: 3px; font-size: 12px;">**Deposits figures are for complete branch</p>-->
                     </div>
                 </div>
 
@@ -66,6 +66,7 @@
                             [dataLabels]="chartOptions2.dataLabels"
                             [responsive]="chartOptions2?.responsive"
                             [noData]="chartOptions2.noData"
+                            [colors]="chartOptions2?.colors"
 
                         ></apx-chart>
                     </div>
@@ -81,13 +82,14 @@
                         <p class="text-green px-2 font-bold mb-0">Loan Portfolio</p>
                         <apx-chart
                             [series]="chartOptions3?.series"
-                            [chart]="chartOptions3?.chart"
+                            [chart]="chartOptions3.chart"
                             [labels]="chartOptions3?.labels"
                             [theme]="chartOptions3?.theme"
                             [tooltip]="chartOptions3.tooltip"
-                            [dataLabels]="chartOptions3.dataLabels"
+                            [dataLabels]="chartOptions3?.dataLabels"
                             [responsive]="chartOptions3?.responsive"
-                            [noData]="chartOptions3.noData"
+                            [noData]="chartOptions3?.noData"
+                            [colors]="chartOptions3?.colors"
 
                         ></apx-chart>
                     </div>

@@ -10,14 +10,14 @@ import {finalize} from "rxjs/operators";
 import {DashboardService} from "../../shared/services/dashboard.service";
 import {McoDashboradComponent} from "./mco-dashborad/mco-dashborad.component";
 import {RecoveryOfficerDashboardComponent} from "./recovery-officer-dashboard/recovery-officer-dashboard.component";
-import { BranchManagerDashboardComponent } from './branch-manager-dashboard/branch-manager-dashboard.component';
-import { ZonalChiefDashboardComponent } from './zonal-chief-dashboard/zonal-chief-dashboard.component';
-import { EvpCreditDashboardComponent } from './evp-credit-dashboard/evp-credit-dashboard.component';
+import {BranchManagerDashboardComponent} from './branch-manager-dashboard/branch-manager-dashboard.component';
+import {ZonalChiefDashboardComponent} from './zonal-chief-dashboard/zonal-chief-dashboard.component';
+import {EvpCreditDashboardComponent} from './evp-credit-dashboard/evp-credit-dashboard.component';
 import {EvpOdDashboardComponent} from "./evp-od-dashboard/evp-od-dashboard.component";
-import { PresidentZtblComponent } from './president-ztbl/president-ztbl.component';
-import { RegionalCheifComponent } from './regional-cheif/regional-cheif.component';
-import { ProvincialChiefComponent } from './provincial-chief/provincial-chief.component';
-import { RecoverySamDivisionComponent } from './recovery-sam-division/recovery-sam-division.component';
+import {PresidentZtblComponent} from './president-ztbl/president-ztbl.component';
+import {RegionalCheifComponent} from './regional-cheif/regional-cheif.component';
+import {ProvincialChiefComponent} from './provincial-chief/provincial-chief.component';
+import {RecoverySamDivisionComponent} from './recovery-sam-division/recovery-sam-division.component';
 import {
     ApexChart, ApexDataLabels,
     ApexNoData,
@@ -77,27 +77,5 @@ export class DashboardComponent implements OnInit {
     ngOnInit(): void {
 
         this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
-            //     this.mcoDashboardComponent?.assignRoleData(result.DashboardReport);
-            //     this.recoveryOfficerDashboardComponent?.assignRoleData(result.DashboardReport);
-            //     this.branchManagerDashboardComponent?.assignRoleData(result.DashboardReport);
-            //     this.zonalChiefDashboardComponent?.assignRoleData(result.DashboardReport);
-            //     this.evpCreditDashboardComponent?.assignRoleData(result.DashboardReport);
-            //     this.evpOdDashboardComponent?.assignRoleData(result.DashboardReport);
-            //     this.presidentZtblComponent?.assignRoleData(result.DashboardReport);
-            //     this.regionalCheifComponent?.assignRoleData(result.DashboardReport);
-            //     this.provincialChiefComponent?.assignRoleData(result.DashboardReport);
-            //     this.recoverySamDivisionComponent?.assignRoleData(result.DashboardReport);
-
-
     }
-
-
-
-    // @HostListener('window:keydown')
-    // @HostListener('window:mousedown')
-    // // @HostListener('mousemove')
-    // checkUserActivity() {
-    //     this.setSessionTime();
-    // }
-
 }
