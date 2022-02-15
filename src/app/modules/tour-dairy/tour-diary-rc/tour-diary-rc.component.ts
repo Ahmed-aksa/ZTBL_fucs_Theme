@@ -27,9 +27,9 @@ export class TourDiaryRcComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
     maxDate: Date;
-    zone: any;
-    branch: any;
-    circle: any;
+    zone: any = null;
+    branch: any = null;
+    circle: any = null;
     sign;
     TourPlan;
     Format24: boolean = true;
@@ -142,7 +142,7 @@ export class TourDiaryRcComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone, this.branch, this.TourDiary)
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
