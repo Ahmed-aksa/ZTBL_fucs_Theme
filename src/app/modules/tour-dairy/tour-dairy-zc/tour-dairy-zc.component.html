@@ -51,7 +51,7 @@
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Tour Date</mat-label>
+                                            <mat-label class="customMatLabel">Tour Date<strong class="matMandatory">*</strong></mat-label>
                                             <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
                                                     maxlength="8"
                                                     autocomplete="off" (dateChange)="setDate()" appNumberOnly/>

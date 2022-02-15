@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
@@ -75,19 +75,19 @@ export class TourDiaryPcComponent implements OnInit {
         //CreatedBy
 
         this.gridForm = this.fb.group({
-            NameOfOfficer: [null],
-            Ppno: [null],
+            NameOfOfficer: [null, [Validators.required]],
+            Ppno: [null, [Validators.required]],
             Month: [null],
             Name: [null],
             Date: [null],
             Designation: [null],
-            TourDate: [null],
+            TourDate: [null, [Validators.required]],
             DiaryId: [null],
-            TourPlanId: [null],
-            DepartureFromPlace: [null],
-            DepartureFromTime: [null],
-            ArrivalAtPlace: [null],
-            ArrivalAtTime: [null],
+            TourPlanId: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
             NoOfDefaulterContacted: [null],
             ResultContactMade: [null],
             MeasureBoostUpRecord: [null],

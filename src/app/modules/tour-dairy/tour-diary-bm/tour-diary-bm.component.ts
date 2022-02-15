@@ -3,7 +3,7 @@ import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
@@ -83,21 +83,21 @@ export class TourDiaryBmComponent implements OnInit {
             TOTFarmersContacted: [null],
             TOTNoOfFarmersVisisted: [null],
             AnyOtherWorkDone: [null],
-            TourDate: [null],
+            TourDate: [null, [Validators.required]],
             DiaryId: [null],
-            TourPlanId: [null],
+            TourPlanId: [null, [Validators.required]],
             BranchId: [null],
             ZoneId: [null],
             CircleId: [null],
-            PPNO: [null],
-            DepartureFromPlace: [null],
-            DepartureFromTime: [null],
-            ArrivalAtTime: [null],
-            ArrivalAtPlace: [null],
+            PPNO: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
             Status: [null],
             Remarks: [null],
             Dated: [null],
-            NameOfOfficer: [null],
+            NameOfOfficer: [null, [Validators.required]],
 
         });
         this.setValue();

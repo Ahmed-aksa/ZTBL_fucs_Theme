@@ -35,13 +35,13 @@
                                                             (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Name of Officer</mat-label>
+                                            <mat-label class="customMatLabel">Name of Officer<strong class="matMandatory">*</strong></mat-label>
                                             <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">P.P.NO</mat-label>
+                                            <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong></mat-label>
                                             <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
                                         </mat-form-field>
                                     </div>
@@ -61,7 +61,7 @@
                                         <!--                                            <mat-datepicker #picker></mat-datepicker>-->
                                         <!--                                        </mat-form-field>-->
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Tour Date</mat-label>
+                                            <mat-label class="customMatLabel">Tour Date<strong class="matMandatory">*</strong></mat-label>
                                             <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
                                                     maxlength="8"
                                                     autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
@@ -72,7 +72,7 @@
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label>Tour Plan</mat-label>
+                                            <mat-label>Tour Plan<strong class="matMandatory">*</strong></mat-label>
                                             <mat-select formControlName="TourPlanId">
                                                 <mat-option>
                                                     Select
@@ -102,14 +102,14 @@
                                     <div class="flex" style="flex-wrap: wrap;">
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Departure Place</mat-label>
+                                                <mat-label class="customMatLabel">Departure Place<strong class="matMandatory">*</strong></mat-label>
                                                 <input matInput formControlName="DepartureFromPlace" autocomplete="off"/>
                                             </mat-form-field>
                                         </div>
 
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Departure Time</mat-label>
+                                                <mat-label class="customMatLabel">Departure Time<strong class="matMandatory">*</strong></mat-label>
                                                 <input type="text" matInput [ngxTimepicker]="timepickerDeparture" [format]="DateFormat()" readonly formControlName="DepartureFromTime"/>
                                                 <mat-icon matSuffix (click)="openFromIcon(timepickerDeparture)">schedule</mat-icon>
                                             </mat-form-field>

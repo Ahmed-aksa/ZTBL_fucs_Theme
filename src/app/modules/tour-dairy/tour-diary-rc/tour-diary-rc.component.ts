@@ -57,8 +57,8 @@ export class TourDiaryRcComponent implements OnInit {
 
     createForm() {
         this.gridForm = this.fb.group({
-            Name: [""],
-            Ppno: [""],
+            Name: ["", [Validators.required]],
+            Ppno: ["", [Validators.required]],
             DiaryId:[null],
             Month:[""],
             TourPlanId:["", [Validators.required]],
@@ -70,9 +70,9 @@ export class TourDiaryRcComponent implements OnInit {
             DepartureFromTime:["", [Validators.required]],
             ArrivalAtPlace:["", [Validators.required]],
             ArrivalAtTime:["", [Validators.required]],
-            NoOfDefaulterContacted:["", [Validators.required]],
-            ResultContactMade:["", [Validators.required]],
-            MeasureBoostUpRecord:["", [Validators.required]],
+            NoOfDefaulterContacted:[""],
+            ResultContactMade:[""],
+            MeasureBoostUpRecord:[""],
             Remarks:[""],
             Status: [""],
         });
