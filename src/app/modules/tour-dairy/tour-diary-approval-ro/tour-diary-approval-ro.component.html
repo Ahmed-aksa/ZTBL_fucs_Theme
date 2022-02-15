@@ -48,57 +48,57 @@
                                 <td class="border-r border-gray-400">
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
-                                        <input matInput readonly="readonly" [value]="single_list.TourDate">
+                                        <input matInput readonly="readonly" [value]="single_list?.TourDate">
                                     </mat-form-field>
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
                                         <input matInput readonly="readonly"
-                                               [value]="single_list.DepartureFromPlace">
+                                               [value]="single_list?.DepartureFromPlace">
                                     </mat-form-field>
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
-                                        <input matInput readonly="readonly" [value]="single_list.DepartureFromTime">
+                                        <input matInput readonly="readonly" [value]="single_list?.DepartureFromTime">
                                     </mat-form-field>
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
-                                        <input matInput readonly="readonly" [value]="single_list.ArrivalAtPlace">
+                                        <input matInput readonly="readonly" [value]="single_list?.ArrivalAtPlace">
                                     </mat-form-field>
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
-                                        <input matInput readonly="readonly" [value]="single_list.ArrivalAtTime">
+                                        <input matInput readonly="readonly" [value]="single_list?.ArrivalAtTime">
                                     </mat-form-field>
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
                                         <input matInput readonly="readonly"
-                                               [value]="single_list.NoOfDefaulterContacted">
+                                               [value]="single_list?.NoOfDefaulterContacted">
                                     </mat-form-field>
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline">
-                                        <input matInput readonly="readonly" [value]="single_list.ResultContactMade">
+                                        <input matInput readonly="readonly" [value]="single_list?.ResultContactMade">
                                     </mat-form-field>
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline" style="width: 12rem !important">
-                                        <input matInput [value]="single_list.MeasureBoostUpRecord">
+                                        <input matInput [value]="single_list?.MeasureBoostUpRecord">
                                     </mat-form-field>
                                 </td>
                                 <td class="border-r border-gray-400">
                                     <mat-form-field class=" mat-form-field-fluid w-full"
                                                     appearance="outline" style="width: 12rem !important">
-                                        <input matInput [value]="single_list.Remarks">
+                                        <input matInput [value]="single_list?.Remarks">
                                     </mat-form-field>
                                 </td>
                             </tr>
@@ -162,20 +162,26 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
-                                <td class="border-r border-gray-400"></td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioGeneralNo}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioGeneralAmount}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioNplNo}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioNplAmount}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioSamNo}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioSamAmount}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.AnnualTargetPD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.AnnualTargetCD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.AnnualTargetTotal}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.ProportionatTargetPD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.ProportionatTargetCD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.ProportionatTargetTotal}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.RecoveryTargetPD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.RecoveryTargetCD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.RecoveryTargetTotal}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.BalanceRecoverabletPD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.BalanceRecoverableCD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.BalanceRecoverableTotal}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.RecoveryDuringCorrespondingPeroid}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.IncreaseDeficit}}</td>
                             </tr>
                             </tbody>
                         </table>
