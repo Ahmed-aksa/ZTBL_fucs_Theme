@@ -302,7 +302,6 @@ export class TourDiaryMcoComponent implements OnInit {
 
     edit(mcoDiary) {
 
-
         // this.gridForm.controls['Name'].setValue(null);
         // this.gridForm.controls['Ppno4'].setValue(null);
         this.gridForm.controls['DiaryId'].setValue(mcoDiary.DiaryId);
@@ -310,7 +309,7 @@ export class TourDiaryMcoComponent implements OnInit {
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
         this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
         this.gridForm.controls['CircleId'].setValue(mcoDiary.CircleId);
-        this.gridForm.controls['TourDate'].setValue(mcoDiary.TourDate);
+        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(mcoDiary.TourDate));
         this.gridForm.controls['DepartureFromPlace'].setValue(mcoDiary.DepartureFromPlace);
         this.gridForm.controls['DepartureFromTime'].setValue(mcoDiary.DepartureFromTime);
         this.gridForm.controls['ArrivalAtPlace'].setValue(mcoDiary.ArrivalAtPlace);
@@ -334,6 +333,8 @@ export class TourDiaryMcoComponent implements OnInit {
         // this._cdf.detectChanges();
         // this.createForm()
         this.isUpdate = true;
+        this.date=mcoDiary.TourDate;
+        this.GetTourPlan()
     }
 
     onClearForm() {
@@ -382,6 +383,7 @@ export class TourDiaryMcoComponent implements OnInit {
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
     }
 
+
     setDate() {
 
         // this.gridForm.controls.Date.value this.datePipe.transform(this.gridForm.controls.Date.value, 'ddMMyyyy')
@@ -392,6 +394,8 @@ export class TourDiaryMcoComponent implements OnInit {
                 var day = this.gridForm.controls.TourDate.value.getDate();
                 var month = this.gridForm.controls.TourDate.value.getMonth() + 1;
                 var year = this.gridForm.controls.TourDate.value.getFullYear();
+
+
                 if (month < 10) {
                     month = "0" + month;
                 }
@@ -480,40 +484,6 @@ export class TourDiaryMcoComponent implements OnInit {
 
     }
 
-    assignvalues() {
-        console.log(this.MCOModel)
-        // this.gridForm.controls['Name'].setValue(null);
-        // this.gridForm.controls['Ppno'].setValue(null);
-        this.gridForm.controls['DiaryId'].setValue(null);
-        // this.gridForm.controls['TourPlanId'].setValue(null);
-        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
-        // this.gridForm.controls['CircleId'].setValue(null);
-        // this.gridForm.controls['TourDate'].setValue(null);
-        this.gridForm.controls['DepartureFromPlace'].setValue("rawalpindi");
-        this.gridForm.controls['DepartureFromTime'].setValue("21:00");
-        this.gridForm.controls['ArrivalAtPlace'].setValue("rawalpindi");
-        this.gridForm.controls['ArrivalAtTime'].setValue("23:00");
-        this.gridForm.controls['DisbNoOfCasesReceived'].setValue("2");
-        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue("2");
-        this.gridForm.controls['DisbNoOfRecordVerified'].setValue("2");
-        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue("4");
-        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue("4");
-        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue("7");
-        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue("2");
-        this.gridForm.controls['NoOfUtilizationChecked'].setValue("2");
-        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue("4");
-        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue("4");
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("4");
-        this.gridForm.controls['TotFarmersContacted'].setValue("8");
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("8");
-        this.gridForm.controls['AnyOtherWorkDone'].setValue("none");
-        this.gridForm.controls['Remarks'].setValue("by sam");
-
-        // this._cdf.detectChanges();
-        // this.createForm()
-        // this.isUpdate=true;
-    }
     dateChange(date: string) {
         var day = date.slice(0, 2),
             month = date.slice(2, 4),
