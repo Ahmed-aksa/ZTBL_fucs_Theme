@@ -26,7 +26,6 @@ import {ToastrService} from "ngx-toastr";
     ],
 })
 export class TourDiaryApprovalMcoComponent implements OnInit {
-    gridForm: FormGroup;
     loggedInUser: any;
     Today = this._common.workingDate();
     // minDate: Date;
@@ -64,11 +63,15 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
     }
 
+
     dateChange(date: string) {
-        var day = date.slice(0, 2),
-            month = date.slice(2, 4),
-            year = date.slice(4, 8);
-        return day + "-" + month + "-" + year;
+        if(date){
+            var day = date.slice(0, 2),
+                month = date.slice(2, 4),
+                year = date.slice(4, 8);
+            return day + "-" + month + "-" + year;
+        }
+
     }
 
     /**
@@ -76,11 +79,6 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
      *
      * @param $event - The Event's data object
      */
-    onClear($event: Event) {
-        this.gridForm.controls['Name'].setValue(null);
-
-    }
-
     constructor(
         private fb: FormBuilder,
         private userService: UserUtilsService,
@@ -105,50 +103,9 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
         this.loggedInUser = this.userService.getUserDetails();
-        this.createForm();
-        this.gridForm.disable();
         this.getTourDiaryDetail();
     }
 
-    setValue() {
-        this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
-        this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
-    }
-
-    createForm() {
-        this.gridForm = this.fb.group({
-            Name: [""],
-            Ppno: [""],
-            DiaryId: [null],
-            NameOfOfficer: [null],
-            TourPlanId: ["", [Validators.required]],
-            BranchId: ["", [Validators.required]],
-            ZoneId: ["", [Validators.required]],
-            CircleId: ["", [Validators.required]],
-            TourDate: ["", [Validators.required]],
-            DepartureFromPlace: ["", [Validators.required]],
-            DepartureFromTime: ["", [Validators.required]],
-            ArrivalAtPlace: ["", [Validators.required]],
-            ArrivalAtTime: ["", [Validators.required]],
-            DisbNoOfCasesReceived: ["", [Validators.required]],
-            DisbNoOfCasesAppraised: ["", [Validators.required]],
-            DisbNoOfRecordVerified: ["", [Validators.required]],
-            DisbNoOfSanctionedAuthorized: ["", [Validators.required]],
-            DisbSanctionLetterDelivered: ["", [Validators.required]],
-            DisbSupplyOrderDelivered: ["", [Validators.required]],
-            NoOfSanctnMutationVerified: ["", [Validators.required]],
-            NoOfUtilizationChecked: ["", [Validators.required]],
-            RecNoOfNoticeDelivered: ["", [Validators.required]],
-            RecNoOfLegalNoticeDelivered: ["", [Validators.required]],
-            RecNoOfDefaulterContacted: ["", [Validators.required]],
-            TotFarmersContacted: ["", [Validators.required]],
-            TotNoOfFarmersVisisted: ["", [Validators.required]],
-            AnyOtherWorkDone: ["", [Validators.required]],
-            Remarks: ["", [Validators.required]],
-            Status: [""]
-        })
-        this.setValue();
-    }
 
     getTourDiaryDetail() {
         // if(!this.data){
@@ -163,14 +120,10 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
+            debugger
             if (baseResponse.Success) {
-                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                this.TourDiaryList = baseResponse.TourDiary;
-                this.gridForm.patchValue(this.TourDiaryList);
-                this.gridForm.controls['TourDate'].setValue(new Date(this.TourDiaryList["TourDate"]));
-                this.isUpdate = false;
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
             } else {
-
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
         });
@@ -182,13 +135,17 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
-
-        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
-        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
     }
 
-    approve() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
+    changeStatus(status) {
+        let dialogRef = null;
+        if (status == 'A') {
+            dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
+
+        } else if(status == 'R'){
+            dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
+
+        }
 
 
         dialogRef.afterClosed().subscribe(res => {
@@ -196,7 +153,6 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
             if (!res) {
                 return;
             }
-            let status = 'A';
             this.TourDiary = Object.assign(this.data);
             this.spinner.show();
             this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
@@ -207,7 +163,13 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
                 ).subscribe(baseResponse => {
                 if (baseResponse.Success) {
                     this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                    this.toastr.success("Approved");
+                    if(status=='A'){
+                        this.toastr.success("Approved");
+                    }
+                    else if(status == 'R'){
+                        this.toastr.success("ReferBack");
+                    }
+
                 } else {
                     this.layoutUtilsService.alertElement('', baseResponse.Message);
                 }
@@ -216,36 +178,5 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
         })
 
-    }
-
-    referback() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
-
-
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
-            }
-            let status = 'R';
-            this.TourDiary = Object.assign(this.data);
-            this.spinner.show();
-            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
-                .pipe(
-                    finalize(() => {
-                        this.spinner.hide();
-                    })
-                ).subscribe(baseResponse => {
-                if (baseResponse.Success) {
-                    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                    this.toastr.success("Referbacked");
-                } else {
-                    this.layoutUtilsService.alertElement('', baseResponse.Message);
-                }
-
-            });
-
-
-        })
     }
 }

@@ -348,7 +348,6 @@ export class TourPlanForApprovalComponent implements OnInit {
             );
             return;
         }
-        console.log(this.tourPlanApprovalForm.controls["Status"].value)
         if (this.tourPlanApprovalForm.controls["Status"].value == "") {
             var Message = 'Please select Status';
             this.layoutUtilsService.alertElement(

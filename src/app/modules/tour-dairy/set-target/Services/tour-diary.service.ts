@@ -228,6 +228,8 @@ export class TourDiaryService {
         //     this.request.User["ProfileId"] = environment.ZC;
         // }
 
+        console.log(JSON.stringify(this.request))
+
         return this.http
             .post<any>(
                 `${environment.apiUrl}/TourPlanAndDiary/GetTourDiaryApprovalDetail`,

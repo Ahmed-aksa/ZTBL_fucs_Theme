@@ -40,6 +40,9 @@ import {TourDiaryApprovalPcComponent} from "./tour-diary-approval-pc/tour-diary-
 import {TourDiaryApprovalRcComponent} from "./tour-diary-approval-rc/tour-diary-approval-rc.component";
 import {TourDiaryApprovalRoComponent} from "./tour-diary-approval-ro/tour-diary-approval-ro.component";
 import {TourDiaryApprovalZcComponent} from "./tour-diary-approval-zc/tour-diary-approval-zc.component";
+import {
+    SignaturePadForDiaryApproval,
+} from "./signature-pad-for-tour/app-signature-pad-for-diary-approval";
 
 export const options: Partial<IConfig> = {
     thousandSeparator: ","
@@ -147,7 +150,8 @@ const routing = [
         TourDiaryApprovalPcComponent,
         TourDiaryApprovalRcComponent,
         TourDiaryApprovalRoComponent,
-        TourDiaryApprovalZcComponent
+        TourDiaryApprovalZcComponent,
+        SignaturePadForDiaryApproval
 
 
     ],
@@ -173,6 +177,9 @@ const routing = [
         DatePipe,
         SetTargetService
     ],
+    entryComponents: [
+        SignaturePadForDiaryApproval
+    ]
 })
 export class TourDiaryModule {
 }
