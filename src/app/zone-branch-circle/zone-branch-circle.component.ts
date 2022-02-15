@@ -296,8 +296,9 @@ export class ZoneBranchCircleComponent implements OnInit {
             final_branch.BranchId = final_branch.BranchId.toString()
         }*/
 
+
         this.branchZoneCircleData.emit({
-            final_zone: final_zone,
+            final_zone: Array.isArray(final_zone) ? final_zone[0] : final_zone,
             final_branch: final_branch,
             final_circle: final_circle
         });

@@ -26,7 +26,6 @@ import {ToastrService} from "ngx-toastr";
 })
 
 export class TourDiaryApprovalRoComponent implements OnInit {
-    gridForm: FormGroup;
     loggedInUser: any;
     maxDate: Date;
     zone: any;
@@ -36,9 +35,10 @@ export class TourDiaryApprovalRoComponent implements OnInit {
     TourPlan;
     Format24: boolean = true;
     isUpdate: boolean = false;
-    TourDiary;
     TourDiaryList = [];
     date: string;
+    data: Object;
+
 
     constructor(
         private fb: FormBuilder,
@@ -54,12 +54,14 @@ export class TourDiaryApprovalRoComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (JSON.parse(localStorage.getItem('TourDiary'))) {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
             localStorage.removeItem('TourDiary');
         } else {
             this.toastr.error("No Tour Diary For Approval Found");
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
+        this.getTourDiaryDetail();
     }
 
     getAllData(data) {
@@ -94,4 +96,23 @@ export class TourDiaryApprovalRoComponent implements OnInit {
             this.toastr.success("Referbacked");
         })
     }
+
+    getTourDiaryDetail() {
+        this.spinner.show();
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, Object.assign(this.data))
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.TourDiaryList = baseResponse.TourDiary;
+            } else {
+
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+        });
+    }
+
 }
