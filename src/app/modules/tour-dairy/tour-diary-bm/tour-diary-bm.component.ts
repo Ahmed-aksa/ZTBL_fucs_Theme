@@ -382,7 +382,9 @@ export class TourDiaryBmComponent implements OnInit {
 
     editData(tour_list) {
         this.gridForm.patchValue(tour_list);
-        this.gridForm.controls['TourDate'].setValue(new Date(tour_list.TourDate));
+        this.gridForm.get('TourDate').patchValue(this._common.stringToDate(tour_list.TourDate));
+        this.date=tour_list.TourDate;
+        this.GetTourPlan()
     }
 
     deleteData(data, status = 'C') {
