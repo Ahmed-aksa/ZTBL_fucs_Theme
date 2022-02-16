@@ -149,8 +149,8 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['AuditReports'].setValue(null);
         this.gridForm.controls['OutstandingParas'].setValue(null);
         this.gridForm.controls['Settlements'].setValue(null);
-        this.gridForm.controls['TotFarmersContacted'].setValue(null);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(null);
+        this.gridForm.controls['TOTFarmersContacted'].setValue(null);
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(null);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(null);
         this.gridForm.controls['Remarks'].setValue(null);
         this.gridForm.controls['Status'].setValue(null);
@@ -209,8 +209,8 @@ export class TourDiaryZcComponent implements OnInit {
             AuditReports:[null],
             OutstandingParas:[null],
             Settlements:[null],
-            TotFarmersContacted:[null],
-            TotNoOfFarmersVisisted:[null],
+            TOTFarmersContacted:[null],
+            TOTNoOfFarmersVisisted:[null],
             AnyOtherWorkDone:[null],
             Remarks:[null],
             Status: [null]

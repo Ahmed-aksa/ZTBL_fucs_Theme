@@ -7,8 +7,6 @@
             <div class="heading">Tour Diary of MCO</div>
         </div>
     </div>
-
-    {{MCOModel|json}}
     <div id="Kt-portlet-margin-top">
         <div class="collapse show" id="collapseExample">
             <div class="kt-form kt-form--group-seperator-dashed">
@@ -434,16 +432,16 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Progressive farmers contacted</mat-label>
-                                        <input matInput placeholder="TotFarmersContacted"
-                                               formControlName="TotFarmersContacted" maxlength="30"
+                                        <input matInput placeholder="TOTFarmersContacted"
+                                               formControlName="TOTFarmersContacted" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of farms visited</mat-label>
-                                        <input matInput placeholder="TotNoOfFarmersVisisted"
-                                               formControlName="TotNoOfFarmersVisisted" maxlength="30"
+                                        <input matInput placeholder="TOTNoOfFarmersVisisted"
+                                               formControlName="TOTNoOfFarmersVisisted" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
                                 </div>
@@ -571,7 +569,7 @@
                 <tbody>
                 <tr *ngFor="let mcoDiary of TourDiaryList">
                     <td>
-                        <button class="ml-2" mat-icon-button *ngIf="checkStatus(mcoDiary, 'delete')" color="primary" (click)="edit(mcoDiary); container.scrollTop = 0"
+                        <button class="ml-2" mat-icon-button *ngIf="checkStatus(mcoDiary, 'edit')" color="primary" (click)="edit(mcoDiary); container.scrollTop = 0"
                         >
                             <mat-icon>
                                 edit
@@ -602,13 +600,12 @@
                     <td>{{mcoDiary.RecNoOfLegalNoticeDelivered}}</td>
                     <td>{{mcoDiary.RecNoOfDefaulterContacted}}</td>
                     <td></td>
-                    <td>{{mcoDiary.TotFarmersContacted}}</td>
-                    <td>{{mcoDiary.TotNoOfFarmersVisisted}}</td>
+                    <td>{{mcoDiary.TOTFarmersContacted}}</td>
+                    <td>{{mcoDiary.TOTNoOfFarmersVisisted}}</td>
                     <td>{{mcoDiary.AnyOtherWorkDone}}</td>
                     <td>{{mcoDiary.Remarks}}</td>
 
                 </tr>
-
                 <tr>
                     <td>
                         <div class="p-3"><strong class="text-md">Totals: </strong></div>
@@ -618,23 +615,23 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>-</td>
+                    <td>{{TotalNoOfCasesReceived}}</td>
+                    <td>{{TotalDisbNoOfCasesAppraised}}</td>
+                    <td>{{TotalDisbNoOfRecordVerified}}</td>
+                    <td>{{TotalDisbNoOfSanctionedAuthorized}}</td>
+                    <td>{{TotalDisbSanctionLetterDelivered}}</td>
+                    <td>{{TotalDisbSupplyOrderDelivered}}</td>
+                    <td>{{TotalNoOfSanctnMutationVerified}}</td>
+                    <td>{{TotalNoOfUtilizationChecked}}</td>
+                    <td>{{TotalRecNoOfNoticeDelivered}}</td>
+                    <td>{{TotalRecNoOfLegalNoticeDelivered}}</td>
+                    <td>{{TotalRecNoOfDefaulterContacted}}</td>
                     <td>-
                         <div class="w-36"></div>
                     </td>
-                    <td>-</td>
-                    <td></td>
-                    <td>-</td>
+                    <td>{{TotalTOTFarmersContacted}}</td>
+                    <td>{{TotalTOTNoOfFarmersVisisted}}</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>

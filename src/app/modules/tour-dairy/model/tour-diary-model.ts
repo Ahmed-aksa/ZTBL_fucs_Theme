@@ -21,8 +21,8 @@ export class TourDiaryMCO{
     RecNoOfNoticeDelivered: string;
     RecNoOfLegalNoticeDelivered: string;
     RecNoOfDefaulterContacted: string;
-    TotFarmersContacted: string;
-    TotNoOfFarmersVisisted: string;
+    TOTFarmersContacted: string;
+    TOTNoOfFarmersVisisted: string;
     AnyOtherWorkDone: string;
     Remarks: string;
     NoOfMutationPendingASOPM: string;

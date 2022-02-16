@@ -42,6 +42,21 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
     isUpdate: boolean = false;
     data;
     systemGenerated: any;
+    TotalNoOfCasesReceived=0;
+    TotalDisbNoOfCasesAppraised=0;
+    TotalDisbNoOfRecordVerified=0;
+    TotalDisbNoOfSanctionedAuthorized=0;
+    TotalDisbSanctionLetterDelivered=0;
+    TotalDisbSupplyOrderDelivered=0;
+    TotalRecNoOfDefaulterContacted=0;
+    TotalRecNoOfLegalNoticeDelivered=0;
+    TotalRecNoOfNoticeDelivered=0;
+    TotalNoOfUtilizationChecked=0;
+    TotalNoOfSanctnMutationVerified=0;
+    TotalTOTNoOfFarmersVisisted=0;
+    TotalTOTFarmersContacted=0;
+
+
 
     //**************** Time ****************************
     @ViewChild("timepicker") timepicker: any;
@@ -122,6 +137,54 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
             if (baseResponse.Success) {
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalNoOfCasesReceived = this.TotalNoOfCasesReceived+Number(element?.DisbNoOfCasesReceived)
+                });
+
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbNoOfCasesAppraised = this.TotalDisbNoOfCasesAppraised+Number(element?.DisbNoOfCasesAppraised)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbNoOfRecordVerified = this.TotalDisbNoOfRecordVerified+Number(element?.DisbNoOfRecordVerified)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbNoOfSanctionedAuthorized = this.TotalDisbNoOfSanctionedAuthorized+Number(element?.DisbNoOfSanctionedAuthorized)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbSanctionLetterDelivered = this.TotalDisbSanctionLetterDelivered+Number(element?.DisbSanctionLetterDelivered)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbSupplyOrderDelivered = this.TotalDisbSupplyOrderDelivered+Number(element?.DisbSupplyOrderDelivered)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalRecNoOfDefaulterContacted = this.TotalRecNoOfDefaulterContacted+Number(element?.RecNoOfDefaulterContacted)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalRecNoOfLegalNoticeDelivered = this.TotalRecNoOfLegalNoticeDelivered+Number(element?.RecNoOfLegalNoticeDelivered)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalRecNoOfNoticeDelivered = this.TotalRecNoOfNoticeDelivered+Number(element?.RecNoOfNoticeDelivered)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalNoOfUtilizationChecked = this.TotalNoOfUtilizationChecked+Number(element?.NoOfUtilizationChecked)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalNoOfSanctnMutationVerified = this.TotalNoOfSanctnMutationVerified+Number(element?.NoOfSanctnMutationVerified)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalTOTNoOfFarmersVisisted = this.TotalTOTNoOfFarmersVisisted+Number(element?.TOTNoOfFarmersVisisted)
+                });
+
+                this.TourDiaryList.forEach(element=>{
+
+                    debugger
+                    let a =  Number(element?.TOTFarmersContacted)
+                    this.TotalTOTFarmersContacted = this.TotalTOTFarmersContacted+Number(element?.TOTFarmersContacted)
+                });
+
+
+
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
