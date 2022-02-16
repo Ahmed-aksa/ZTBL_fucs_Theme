@@ -12,6 +12,7 @@ import {DateFormats} from "../../../shared/classes/lov.class";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {ToastrService} from "ngx-toastr";
+import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 
 @Component({
     selector: 'app-tour-diary-approval-rc',
@@ -38,6 +39,8 @@ export class TourDiaryApprovalRcComponent implements OnInit {
     TourDiary;
     TourDiaryList = [];
     date: string;
+    systemGenerated: any;
+    data: any;
 
     constructor(
         private fb: FormBuilder,
@@ -54,12 +57,14 @@ export class TourDiaryApprovalRcComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'));
         if (JSON.parse(localStorage.getItem('TourDiary'))) {
             localStorage.removeItem('TourDiary');
         } else {
             this.toastr.error("No Tour Diary For Approval Found");
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
+        this.getTourDiaryDetail();
     }
 
     DateFormat() {
@@ -79,29 +84,40 @@ export class TourDiaryApprovalRcComponent implements OnInit {
 
     }
 
-    approve() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
-
-
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
+    changeStatus(status) {
+        const signatureDialogRef = this.dialog.open(
+            SignaturePadForDiaryApproval,
+            {
+                disableClose: true,
+                data: {data: this.TourDiaryList, status: status}
+            },
+        );
+        signatureDialogRef.afterClosed().subscribe((res) => {
+            if (res == true) {
+                this.router.navigate(['/tour-diary/tour-diary-approval']);
+            } else {
+                return
             }
-            this.toastr.success("Approved");
         })
     }
 
-    referback() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
+    getTourDiaryDetail() {
+        this.spinner.show();
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, Object.assign(this.data))
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                debugger;
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+            } else {
 
-
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
-            this.toastr.success("Referbacked");
-        })
+        });
     }
 }
