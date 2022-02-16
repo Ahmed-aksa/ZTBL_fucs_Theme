@@ -39,10 +39,6 @@ export class TourDiaryMcoComponent implements OnInit {
     Format24: boolean = true;
     isUpdate: boolean = false;
 
-    pageYoffset = 0;
-    @HostListener('window:scroll', ['$event']) onScroll(event){
-        this.pageYoffset = window.pageYOffset;
-    }
 
 
     //**************** Time ****************************

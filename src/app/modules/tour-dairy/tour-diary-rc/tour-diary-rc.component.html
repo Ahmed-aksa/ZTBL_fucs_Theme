@@ -9,7 +9,7 @@
     </div>
 
 
-    <div id="Kt-portlet-margin-top">
+    <div id="Kt-portlet-margin-top" #container>
         <div class="collapse show" id="collapseExample">
             <form [formGroup]="gridForm" class="kt-form kt-form--group-seperator-dashed">
 
@@ -215,6 +215,7 @@
                                 <tr class="table-header-background text-center">
                                     <th rowspan="3" class="border-r border-gray-400">Actions</th>
                                     <th rowspan="3" class="border-r border-gray-400">Date</th>
+                                    <th rowspan="3" class="border-r border-gray-400">Tour Plan</th>
                                     <th colspan="2" rowspan="2" class="border-r border-gray-400">Departure from</th>
                                     <th colspan="2" rowspan="2" class="border-r border-gray-400">Arrival at</th>
                                     <th rowspan="3" class="border-r border-gray-400">No. of defaulters contacted</th>
@@ -240,7 +241,7 @@
                                 <tr>
                                     <td class="border-r border-gray-400">
                                         <button *ngIf="checkStatus(single_list, 'edit')" type="button" mat-icon-button
-                                                (click)="edit(single_list)">
+                                                (click)="edit(single_list); container.scrollTop = 0">
                                             <mat-icon>edit</mat-icon>
                                         </button>
                                         <button *ngIf="checkStatus(single_list, 'delete')" type="button" mat-icon-button
@@ -249,6 +250,7 @@
                                         </button>
                                     </td>
                                     <td class="border-r border-gray-400">{{single_list.TourDate}}</td>
+                                    <td class="border-r border-gray-400"></td>
                                     <td class="border-r border-gray-400">{{single_list.DepartureFromPlace}}</td>
                                     <td class="border-r border-gray-400">{{single_list.DepartureFromTime}}</td>
                                     <td class="border-r border-gray-400">{{single_list.ArrivalAtPlace}}</td>
