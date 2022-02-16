@@ -335,6 +335,9 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['Remarks'].setValue(zcDiary.Remarks);
         this.gridForm.controls['Status'].setValue(zcDiary.Status);
         this.isUpdate = true;
+
+        this.date=zcDiary.TourDate;
+        this.GetTourPlan()
     }
 
     delete(data, status) {

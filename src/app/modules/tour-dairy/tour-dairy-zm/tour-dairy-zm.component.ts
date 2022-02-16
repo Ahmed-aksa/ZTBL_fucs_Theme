@@ -331,6 +331,9 @@ export class TourDiaryZmComponent implements OnInit {
         this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(zmDiary.LCNotIssuedToBorrowers);
         this.gridForm.controls['Remarks'].setValue(zmDiary.Remarks);
         this.gridForm.controls['Status'].setValue(zmDiary.Status);
+
+        this.date=zmDiary.TourDate;
+        this.GetTourPlan()
     }
 
     delete(data, status) {
