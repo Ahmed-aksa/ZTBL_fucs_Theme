@@ -261,59 +261,6 @@ export class SearchTourDiaryComponent implements OnInit {
         return new Date().toISOString().split('T')[0]
     }
 
-    CheckEditStatus(TourDiary: any) {
-        console.log(TourDiary)
-        if (TourDiary.Status == "P" || TourDiary.Status == "R") {
-            if (TourDiary.UserId == this.loggedInUserDetails.User.UserId) {
-                return true
-            } else {
-                return false
-            }
-        }
-    }
-
-
-    viewTourDiary(TourDiary: any) {
-        // this.router.navigate(['other']);
-        TourDiary.viewOnly = true;
-        var v = JSON.stringify(TourDiary);
-        localStorage.setItem('SearchTourDiary', v);
-        localStorage.setItem('EditViewTourDiary', '1');
-        this.router.navigate(['../tour-plan', {upFlag: "1"}], {relativeTo: this.activatedRoute});
-        //TourDiary.view = "1";
-        //
-        // utilization = {Status:this.TourDiary.controls["Status"].value}
-        // this.router.navigate(['../tour-plan'], {
-        //     state: {example: TourDiary, flag: 1},
-        //     relativeTo: this.activatedRoute
-        // });
-    }
-
-    CheckViewStatus(loanUtilization: any) {
-        // if (this.isMCO) {
-        //     if (loanUtilization.Status == "C" || loanUtilization.Status == "S" || loanUtilization.Status == "A") {
-        //         if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
-        //             return true
-        //         } else {
-        //             return false
-        //         }
-        //         return true
-        //     } else {
-        //         return false;
-        //     }
-        // } else if (this.isBM) {
-        //     if (loanUtilization.Status == "C" || loanUtilization.Status == "P" || loanUtilization.Status == "R" || loanUtilization.Status == "A") {
-        //         return true
-        //     }
-        // } else {
-        //     return false
-        // }
-        if (loanUtilization.Status == "C" || loanUtilization.Status == "P" || loanUtilization.Status == "R" || loanUtilization.Status == "A" || loanUtilization.Status == "S") {
-            return true
-        } else {
-            return false
-        }
-    }
 
 
     applyFilter(filterValue: string) {
@@ -477,42 +424,6 @@ export class SearchTourDiaryComponent implements OnInit {
 
     }
 
-    editTourDiary(tourDiary: any) {
-        tourDiary.viewOnly = false;
-        var v = JSON.stringify(tourDiary)
-        // this.router.navigate(['other']);
-
-        //
-        // utilization = {Status:this.TourDiary.controls["Status"].value}
-        localStorage.setItem('SearchTourDiary', v);
-        localStorage.setItem('EditViewTourDiary', '1');
-        this.router.navigate(['../tour-plan', {upFlag: "1"}], {relativeTo: this.activatedRoute});
-        // this.router.navigate(['../tour-plan'], {
-        //     state: {example: tourDiary, flag: 1},
-        //     relativeTo: this.activatedRoute
-        // });
-    }
-
-
-    deleteTourDiary(tourDiary) {
-        tourDiary.Status = "C";
-
-        this.spinner.show();
-        this.tourDiaryService
-            .ChanageTourStatus(tourDiary)
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe(
-                (baseResponse) => {
-                    if (baseResponse.Success) {
-
-                        // this.layoutUtilsService.alertElement("", baseResponse.Message);
-                        this.SearchTourDiary()
-                    }
-                });
-
-    }
 
 
     async LoadLovs() {

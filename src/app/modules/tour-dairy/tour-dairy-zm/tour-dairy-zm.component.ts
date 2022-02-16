@@ -17,6 +17,7 @@ import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {ToastrService} from "ngx-toastr";
+import {CommonService} from "../../../shared/services/common.service";
 
 @Component({
     selector: 'app-tour-diary-approval-zm',
@@ -60,7 +61,8 @@ export class TourDiaryZmComponent implements OnInit {
         private tourDiaryService: TourDiaryService,
         public dialog: MatDialog,
         private router: Router,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private _common: CommonService,
     ) {
         this.loggedInUser = userUtilsService.getUserDetails();
         console.log(this.loggedInUser)
@@ -276,19 +278,19 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     onClearForm() {
-        this.gridForm.controls['DiaryId'].setValue("");
-        this.gridForm.controls['TourPlanId'].setValue("");
-        this.gridForm.controls['TourDate'].setValue("");
-        this.gridForm.controls['DepartureFromPlace'].setValue("");
-        this.gridForm.controls['DepartureFromTime'].setValue("");
-        this.gridForm.controls['ArrivalAtPlace'].setValue("");
-        this.gridForm.controls['ArrivalAtTime'].setValue("");
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue("");
-        this.gridForm.controls['McoNBmTourDiaryAPPlan'].setValue("");
-        this.gridForm.controls['AnyShortComingInDiaries'].setValue("");
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("");
-        this.gridForm.controls['Remarks'].setValue("");
-        this.gridForm.controls['Status'].setValue("");
+        this.gridForm.controls['DiaryId'].setValue(null);
+        this.gridForm.controls['TourPlanId'].setValue(null);
+        this.gridForm.controls['TourDate'].setValue(null);
+        this.gridForm.controls['DepartureFromPlace'].setValue(null);
+        this.gridForm.controls['DepartureFromTime'].setValue(null);
+        this.gridForm.controls['ArrivalAtPlace'].setValue(null);
+        this.gridForm.controls['ArrivalAtTime'].setValue(null);
+        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(null);
+        this.gridForm.controls['McoNBmTourDiaryAPPlan'].setValue(null);
+        this.gridForm.controls['AnyShortComingInDiaries'].setValue(null);
+        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(null);
+        this.gridForm.controls['Remarks'].setValue(null);
+        this.gridForm.controls['Status'].setValue(null);
         this.btnText = 'Save'
         //this.setValue();
 
@@ -318,7 +320,7 @@ export class TourDiaryZmComponent implements OnInit {
         this.btnText = 'Update';
         this.gridForm.controls['DiaryId'].setValue(zmDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(zmDiary.TourPlanId);
-        this.gridForm.controls['TourDate'].setValue(zmDiary.TourDate);
+        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(zmDiary.TourDate));
         this.gridForm.controls['DepartureFromPlace'].setValue(zmDiary.DepartureFromPlace);
         this.gridForm.controls['DepartureFromTime'].setValue(zmDiary.DepartureFromTime);
         this.gridForm.controls['ArrivalAtPlace'].setValue(zmDiary.ArrivalAtPlace);

@@ -11,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {finalize} from "rxjs/operators";
+import {CommonService} from "../../../shared/services/common.service";
 
 @Component({
     selector: 'app-tour-diary-approval-ro',
@@ -48,6 +49,7 @@ export class TourDiaryRoComponent implements OnInit {
         public dialog: MatDialog,
         private router: Router,
         private datePipe: DatePipe,
+        private _common: CommonService,
     ) {
         this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
@@ -61,18 +63,17 @@ export class TourDiaryRoComponent implements OnInit {
             Name: ["", [Validators.required]],
             Ppno: ["", [Validators.required]],
             DiaryId:[null],
-            Month:[""],
-            TourPlanId:["", [Validators.required]],
-            TourDate:["", [Validators.required]],
-            DepartureFromPlace:["", [Validators.required]],
-            DepartureFromTime:["", [Validators.required]],
-            ArrivalAtPlace:["", [Validators.required]],
-            ArrivalAtTime:["", [Validators.required]],
-            NoOfDefaulterContacted:[""],
-            ResultContactMade:[""],
-            MeasureBoostUpRecord:[""],
-            Remarks:[""],
-            Status: [""],
+            TourPlanId:[null, [Validators.required]],
+            TourDate:[null, [Validators.required]],
+            DepartureFromPlace:[null, [Validators.required]],
+            DepartureFromTime:[null, [Validators.required]],
+            ArrivalAtPlace:[null, [Validators.required]],
+            ArrivalAtTime:[null, [Validators.required]],
+            NoOfDefaulterContacted:[null],
+            ResultContactMade:[null],
+            MeasureBoostUpRecord:[null],
+            Remarks:[null],
+            Status: [null],
         });
         this.setValue()
     }
@@ -162,19 +163,19 @@ export class TourDiaryRoComponent implements OnInit {
 
     onClearForm() {
         // this.gridForm.controls['Name'].setValue("");
-        this.gridForm.controls['Ppno'].setValue("");
-        this.gridForm.controls['DiaryId'].setValue("");
-        this.gridForm.controls['TourPlanId'].setValue("");
+        this.gridForm.controls['Ppno'].setValue(null);
+        this.gridForm.controls['DiaryId'].setValue(null);
+        this.gridForm.controls['TourPlanId'].setValue(null);
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        this.gridForm.controls['TourDate'].setValue("");
-        this.gridForm.controls['DepartureFromPlace'].setValue("");
-        this.gridForm.controls['DepartureFromTime'].setValue("");
-        this.gridForm.controls['ArrivalAtPlace'].setValue("");
-        this.gridForm.controls['ArrivalAtTime'].setValue("");
-        this.gridForm.controls['NoOfDefaulterContacted'].setValue("");
-        this.gridForm.controls['Remarks'].setValue("");
-        this.gridForm.controls['MeasureBoostUpRecord'].setValue("");
-        this.gridForm.controls['ResultContactMade'].setValue("");
+        this.gridForm.controls['TourDate'].setValue(null);
+        this.gridForm.controls['DepartureFromPlace'].setValue(null);
+        this.gridForm.controls['DepartureFromTime'].setValue(null);
+        this.gridForm.controls['ArrivalAtPlace'].setValue(null);
+        this.gridForm.controls['ArrivalAtTime'].setValue(null);
+        this.gridForm.controls['NoOfDefaulterContacted'].setValue(null);
+        this.gridForm.controls['Remarks'].setValue(null);
+        this.gridForm.controls['MeasureBoostUpRecord'].setValue(null);
+        this.gridForm.controls['ResultContactMade'].setValue(null);
 
         this.gridForm.markAsUntouched();
         this.isUpdate=false;

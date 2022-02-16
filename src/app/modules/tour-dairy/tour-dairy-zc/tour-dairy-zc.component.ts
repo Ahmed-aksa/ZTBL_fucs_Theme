@@ -13,6 +13,7 @@ import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {ToastrService} from "ngx-toastr";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
+import {CommonService} from "../../../shared/services/common.service";
 
 @Component({
     selector: 'app-tour-diary-approval-zc',
@@ -54,7 +55,8 @@ export class TourDiaryZcComponent implements OnInit {
         private userUtilsService: UserUtilsService,
         public dialog: MatDialog,
         private router: Router,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private _common: CommonService,
     ) {
         this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
@@ -134,24 +136,24 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     onClearForm() {
-        this.gridForm.controls['DiaryId'].setValue("");
-        this.gridForm.controls['TourPlanId'].setValue("");
-        this.gridForm.controls['TourDate'].setValue("");
-        this.gridForm.controls['DepartureFromPlace'].setValue("");
-        this.gridForm.controls['DepartureFromTime'].setValue("");
-        this.gridForm.controls['ArrivalAtPlace'].setValue("");
-        this.gridForm.controls['ArrivalAtTime'].setValue("");
-        this.gridForm.controls['GeneralAdmissionComplaints'].setValue("");
-        this.gridForm.controls['CashManagementCompliance'].setValue("");
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue("");
-        this.gridForm.controls['AuditReports'].setValue("");
-        this.gridForm.controls['OutstandingParas'].setValue("");
-        this.gridForm.controls['Settlements'].setValue("");
-        this.gridForm.controls['TotFarmersContacted'].setValue("");
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue("");
-        this.gridForm.controls['AnyOtherWorkDone'].setValue("");
-        this.gridForm.controls['Remarks'].setValue("");
-        this.gridForm.controls['Status'].setValue("");
+        this.gridForm.controls['DiaryId'].setValue(null);
+        this.gridForm.controls['TourPlanId'].setValue(null);
+        this.gridForm.controls['TourDate'].setValue(null);
+        this.gridForm.controls['DepartureFromPlace'].setValue(null);
+        this.gridForm.controls['DepartureFromTime'].setValue(null);
+        this.gridForm.controls['ArrivalAtPlace'].setValue(null);
+        this.gridForm.controls['ArrivalAtTime'].setValue(null);
+        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(null);
+        this.gridForm.controls['CashManagementCompliance'].setValue(null);
+        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(null);
+        this.gridForm.controls['AuditReports'].setValue(null);
+        this.gridForm.controls['OutstandingParas'].setValue(null);
+        this.gridForm.controls['Settlements'].setValue(null);
+        this.gridForm.controls['TotFarmersContacted'].setValue(null);
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(null);
+        this.gridForm.controls['AnyOtherWorkDone'].setValue(null);
+        this.gridForm.controls['Remarks'].setValue(null);
+        this.gridForm.controls['Status'].setValue(null);
         this.btnText = 'Save';
 
         this.gridForm.markAsUntouched();
@@ -312,8 +314,26 @@ export class TourDiaryZcComponent implements OnInit {
         });
     }
 
-    edit(mcoDiary) {
-        this.gridForm.patchValue(mcoDiary);
+    edit(zcDiary) {
+        //this.gridForm.patchValue(mcoDiary); //Patch value will not do everything as we need
+        this.gridForm.controls['DiaryId'].setValue(zcDiary.DiaryId);
+        this.gridForm.controls['TourPlanId'].setValue(zcDiary.TourPlanId);
+        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(zcDiary.TourDate));
+        this.gridForm.controls['DepartureFromPlace'].setValue(zcDiary.DepartureFromPlace);
+        this.gridForm.controls['DepartureFromTime'].setValue(zcDiary.DepartureFromTime);
+        this.gridForm.controls['ArrivalAtPlace'].setValue(zcDiary.ArrivalAtPlace);
+        this.gridForm.controls['ArrivalAtTime'].setValue(zcDiary.ArrivalAtTime);
+        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(zcDiary.GeneralAdmissionComplaints);
+        this.gridForm.controls['CashManagementCompliance'].setValue(zcDiary.CashManagementCompliance);
+        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zcDiary.LCNotIssuedToBorrowers);
+        this.gridForm.controls['AuditReports'].setValue(zcDiary.AuditReports);
+        this.gridForm.controls['OutstandingParas'].setValue(zcDiary.OutstandingParas);
+        this.gridForm.controls['Settlements'].setValue(zcDiary.Settlements);
+        this.gridForm.controls['TotFarmersContacted'].setValue(zcDiary.TOTFarmersContacted);
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(zcDiary.TOTNoOfFarmersVisisted);
+        this.gridForm.controls['AnyOtherWorkDone'].setValue(zcDiary.AnyOtherWorkDone);
+        this.gridForm.controls['Remarks'].setValue(zcDiary.Remarks);
+        this.gridForm.controls['Status'].setValue(zcDiary.Status);
         this.isUpdate = true;
     }
 
