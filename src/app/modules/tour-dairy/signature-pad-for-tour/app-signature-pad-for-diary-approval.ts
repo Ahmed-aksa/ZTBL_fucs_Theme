@@ -57,6 +57,7 @@ export class SignaturePadForDiaryApproval implements OnInit {
     }
 
     close(bySystem: Boolean): void {
+        debugger
         this.dialogRef.close(bySystem);
     }
 
@@ -68,18 +69,14 @@ export class SignaturePadForDiaryApproval implements OnInit {
     }
 
     submit() {
-        debugger
-
-        let diaries
+        let diaries=[]
         for(let i=0;i<this.data?.data?.length;i++){
-            diaries.push(this.data?.data[i]?.DiaryId)
+            diaries.push((this.data?.data[i]?.ProfileID).toString()+"#"+(this.data?.data[i]?.DiaryId).toString())
         }
-
         let formdata = new FormData();
         formdata.append('UserID', String(this.data.userId));
         formdata.append('DiaryIds', diaries.toString());
         formdata.append('Status', this.data.status);
-
         if (this.data.status == 'A') {
             if (this.imageFile)
                 formdata.append('Signature', this.imageFile);
@@ -96,12 +93,12 @@ export class SignaturePadForDiaryApproval implements OnInit {
         }
         this.http
             .post<any>(
-                `${environment.apiUrl}/TourPlanAndDiary/ChangeTourDiaryStatus`,
+                `${environment.apiUrl}/TourPlanAndDiary/ApproveReferbackTourDiary`,
                 formdata
             ).subscribe((data) => {
             if (data.Success) {
                 this.toaster.success(data.Message);
-                this.dialogRef.close();
+                this.dialogRef.close(true);
             } else {
                 this.toaster.error(data.Message);
             }
