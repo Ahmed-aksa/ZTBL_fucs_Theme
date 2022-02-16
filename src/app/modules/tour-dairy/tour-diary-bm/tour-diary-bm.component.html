@@ -1,10 +1,10 @@
 <div
-    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent" #container>
 
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading" #container>TOUR DIARY & PROGRESS REPORT OF BRANCH MANAGER</div>
+            <div class="heading">TOUR DIARY & PROGRESS REPORT OF BRANCH MANAGER</div>
             <!--            <button (click)="assignValues()">DO it</button>-->
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
@@ -135,7 +135,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of new borrowers contacted</mat-label>
-                                            <input matInput formControlName="DisbNoOfNewBorrowerContacted"
+                                            <input appNumberOnly matInput formControlName="DisbNoOfNewBorrowerContacted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -146,7 +146,7 @@
                                             <mat-label class="customMatLabel">No. of borrowers of Roll-over cases
                                                 contacted
                                             </mat-label>
-                                            <input matInput formControlName="DisbBorrowerRollOverCasesContacted"
+                                            <input appNumberOnly matInput formControlName="DisbBorrowerRollOverCasesContacted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -163,7 +163,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of Defaulters contacted</mat-label>
-                                            <input matInput formControlName="RecNoOfDefaulterContacted"
+                                            <input appNumberOnly matInput formControlName="RecNoOfDefaulterContacted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -172,7 +172,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Amount recovered with L.C. No.</mat-label>
-                                            <input matInput formControlName="RecAmountRecoveredWithLCNo"
+                                            <input appNumberOnly matInput formControlName="RecAmountRecoveredWithLCNo"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -187,7 +187,7 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of Utilizations checked as per quota
                                             </mat-label>
-                                            <input matInput formControlName="NoOfUtilizationChecked"
+                                            <input appNumberOnly matInput formControlName="NoOfUtilizationChecked"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -204,7 +204,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Progressive Farmers contacted</mat-label>
-                                            <input matInput formControlName="TOTFarmersContacted"
+                                            <input appNumberOnly matInput formControlName="TOTFarmersContacted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -213,7 +213,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of farms visited</mat-label>
-                                            <input matInput formControlName="TOTNoOfFarmersVisisted"
+                                            <input appNumberOnly matInput formControlName="TOTNoOfFarmersVisisted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -227,7 +227,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Any other work done</mat-label>
-                                            <input matInput formControlName="AnyOtherWorkDone" autocomplete="off"/>
+                                            <input  matInput formControlName="AnyOtherWorkDone" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
@@ -314,7 +314,7 @@
                                     <td class="border-r border-gray-400">
                                         <mat-form-field class=" mat-form-field-fluid w-full"
                                                         appearance="outline">
-                                            <input matInput readonly="readonly">
+                                            <input matInput readonly="readonly" [value]="single_list?.PlanPurposeName">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">

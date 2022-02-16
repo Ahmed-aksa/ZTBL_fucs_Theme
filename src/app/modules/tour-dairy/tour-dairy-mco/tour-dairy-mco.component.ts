@@ -39,6 +39,20 @@ export class TourDiaryMcoComponent implements OnInit {
     Format24: boolean = true;
     isUpdate: boolean = false;
 
+    systemGenerated: any;
+    TotalNoOfCasesReceived=0;
+    TotalDisbNoOfCasesAppraised=0;
+    TotalDisbNoOfRecordVerified=0;
+    TotalDisbNoOfSanctionedAuthorized=0;
+    TotalDisbSanctionLetterDelivered=0;
+    TotalDisbSupplyOrderDelivered=0;
+    TotalRecNoOfDefaulterContacted=0;
+    TotalRecNoOfLegalNoticeDelivered=0;
+    TotalRecNoOfNoticeDelivered=0;
+    TotalNoOfUtilizationChecked=0;
+    TotalNoOfSanctnMutationVerified=0;
+    TotalTOTNoOfFarmersVisisted=0;
+    TotalTOTFarmersContacted=0;
 
 
     //**************** Time ****************************
@@ -123,8 +137,8 @@ export class TourDiaryMcoComponent implements OnInit {
             RecNoOfNoticeDelivered: [null],
             RecNoOfLegalNoticeDelivered: [null],
             RecNoOfDefaulterContacted: [null],
-            TotFarmersContacted: [null],
-            TotNoOfFarmersVisisted: [null],
+            TOTFarmersContacted: [null],
+            TOTNoOfFarmersVisisted: [null],
             AnyOtherWorkDone: [null],
             Remarks: [null],
             Status: [null]
@@ -190,6 +204,50 @@ export class TourDiaryMcoComponent implements OnInit {
 
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
+                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+
+                this.TourDiaryList.forEach(element=>{
+
+                    this.TotalNoOfCasesReceived = this.TotalNoOfCasesReceived+Number(element?.DisbNoOfCasesReceived)
+                });
+
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbNoOfCasesAppraised = this.TotalDisbNoOfCasesAppraised+Number(element?.DisbNoOfCasesAppraised)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbNoOfRecordVerified = this.TotalDisbNoOfRecordVerified+Number(element?.DisbNoOfRecordVerified)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbNoOfSanctionedAuthorized = this.TotalDisbNoOfSanctionedAuthorized+Number(element?.DisbNoOfSanctionedAuthorized)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbSanctionLetterDelivered = this.TotalDisbSanctionLetterDelivered+Number(element?.DisbSanctionLetterDelivered)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalDisbSupplyOrderDelivered = this.TotalDisbSupplyOrderDelivered+Number(element?.DisbSupplyOrderDelivered)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalRecNoOfDefaulterContacted = this.TotalRecNoOfDefaulterContacted+Number(element?.RecNoOfDefaulterContacted)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalRecNoOfLegalNoticeDelivered = this.TotalRecNoOfLegalNoticeDelivered+Number(element?.RecNoOfLegalNoticeDelivered)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalRecNoOfNoticeDelivered = this.TotalRecNoOfNoticeDelivered+Number(element?.RecNoOfNoticeDelivered)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalNoOfUtilizationChecked = this.TotalNoOfUtilizationChecked+Number(element?.NoOfUtilizationChecked)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalNoOfSanctnMutationVerified = this.TotalNoOfSanctnMutationVerified+Number(element?.NoOfSanctnMutationVerified)
+                });
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalTOTNoOfFarmersVisisted = this.TotalTOTNoOfFarmersVisisted+Number(element?.TOTNoOfFarmersVisisted)
+                });
+
+                this.TourDiaryList.forEach(element=>{
+                    this.TotalTOTFarmersContacted = this.TotalTOTFarmersContacted+Number(element?.TOTFarmersContacted)
+                });
                 this.isUpdate = false;
                 this.onClearForm();
             } else {
@@ -328,8 +386,8 @@ export class TourDiaryMcoComponent implements OnInit {
         this.gridForm.controls['RecNoOfNoticeDelivered'].setValue(mcoDiary.RecNoOfNoticeDelivered);
         this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue(mcoDiary.RecNoOfLegalNoticeDelivered);
         this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(mcoDiary.RecNoOfDefaulterContacted);
-        this.gridForm.controls['TotFarmersContacted'].setValue(mcoDiary.TotFarmersContacted);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(mcoDiary.TotNoOfFarmersVisisted);
+        this.gridForm.controls['TOTFarmersContacted'].setValue(mcoDiary.TOTFarmersContacted);
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(mcoDiary.TOTNoOfFarmersVisisted);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(mcoDiary.AnyOtherWorkDone);
         this.gridForm.controls['Remarks'].setValue(mcoDiary.Remarks);
 
@@ -364,8 +422,8 @@ export class TourDiaryMcoComponent implements OnInit {
         this.gridForm.controls['RecNoOfNoticeDelivered'].setValue(null);
         this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue(null);
         this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(null);
-        this.gridForm.controls['TotFarmersContacted'].setValue(null);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(null);
+        this.gridForm.controls['TOTFarmersContacted'].setValue(null);
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(null);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(null);
         this.gridForm.controls['Remarks'].setValue(null);
         this.gridForm.controls['Status'].setValue(null);
@@ -466,7 +524,7 @@ export class TourDiaryMcoComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-
+debugger
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

@@ -1,9 +1,9 @@
-<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent" #container>
 
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading" #container>TOUR DIARY & PROGRESS REPORT OF ZONAL CHIEF</div>
+            <div class="heading">TOUR DIARY & PROGRESS REPORT OF ZONAL CHIEF</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
@@ -279,14 +279,14 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Progressive Farmers Contacted<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="TotFarmersContacted" autocomplete="off"/>
+                                            <input matInput formControlName="TOTFarmersContacted" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of Farms Visited<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="TotNoOfFarmersVisisted" autocomplete="off"/>
+                                            <input matInput formControlName="TOTNoOfFarmersVisisted" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -372,7 +372,7 @@
 
                                         </td>
                                         <td>{{ZcTourDiary.TourDate}}</td>
-                                        <td></td>
+                                        <td>{{ZcTourDiary?.PlanPurposeName}}</td>
                                         <td>{{ZcTourDiary.DepartureFromPlace}}</td>
                                         <td>{{ZcTourDiary.DepartureFromTime}}</td>
                                         <td>{{ZcTourDiary.ArrivalAtPlace}}</td>

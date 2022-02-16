@@ -39,11 +39,11 @@ export class TourDiaryZcComponent implements OnInit {
     zone: any;
     branch: any;
     circle: any;
-    Format24: boolean = true;
+    Format24:boolean=true;
     date: any;
     btnText = 'Save';
     TourDiaryList;
-    isUpdate: boolean = false;
+    isUpdate:boolean=false;
 
     constructor(
         private fb: FormBuilder,
@@ -66,7 +66,7 @@ export class TourDiaryZcComponent implements OnInit {
         this.loggedInUser = this.userService.getUserDetails();
     }
 
-    setValue() {
+    setValue(){
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
     }
@@ -116,7 +116,7 @@ export class TourDiaryZcComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone, this.circle, this.branch, this.TourDiary, true)
+        this.tourDiaryService.saveDiary(this.zone, this.circle,this.branch,this.TourDiary, true)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -157,12 +157,12 @@ export class TourDiaryZcComponent implements OnInit {
         this.btnText = 'Save';
 
         this.gridForm.markAsUntouched();
-        this.isUpdate = false;
+        this.isUpdate=false;
         this.setValue();
 
     }
 
-    checkZone() {
+    checkZone(){
         if (!this.zone) {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
@@ -195,24 +195,24 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm = this.fb.group({
             Name: [null, [Validators.required]],
             Ppno: [null, [Validators.required]],
-            DiaryId: [null],
-            NameOfOfficer: [null],
-            TourPlanId: [null, [Validators.required]],
-            TourDate: [null, [Validators.required]],
-            DepartureFromPlace: [null, [Validators.required]],
-            DepartureFromTime: [null, [Validators.required]],
-            ArrivalAtPlace: [null, [Validators.required]],
-            ArrivalAtTime: [null, [Validators.required]],
-            GeneralAdmissionComplaints: [null],
-            CashManagementCompliance: [null],
-            LCNotIssuedToBorrowers: [null],
-            AuditReports: [null],
-            OutstandingParas: [null],
-            Settlements: [null],
-            TotFarmersContacted: [null],
-            TotNoOfFarmersVisisted: [null],
-            AnyOtherWorkDone: [null],
-            Remarks: [null],
+            DiaryId:[null],
+            NameOfOfficer:[null],
+            TourPlanId:[null, [Validators.required]],
+            TourDate:[null, [Validators.required]],
+            DepartureFromPlace:[null, [Validators.required]],
+            DepartureFromTime:[null, [Validators.required]],
+            ArrivalAtPlace:[null, [Validators.required]],
+            ArrivalAtTime:[null, [Validators.required]],
+            GeneralAdmissionComplaints:[null],
+            CashManagementCompliance:[null],
+            LCNotIssuedToBorrowers:[null],
+            AuditReports:[null],
+            OutstandingParas:[null],
+            Settlements:[null],
+            TOTFarmersContacted:[null],
+            TOTNoOfFarmersVisisted:[null],
+            AnyOtherWorkDone:[null],
+            Remarks:[null],
             Status: [null]
         });
         this.setValue();
@@ -261,9 +261,9 @@ export class TourDiaryZcComponent implements OnInit {
         this.GetTourPlan()
     }
 
-    changeStatus(data, status) {
+    changeStatus(data,status){
 
-        if (status == "C") {
+        if(status=="C"){
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
             const _waitDesciption = '';
@@ -282,32 +282,32 @@ export class TourDiaryZcComponent implements OnInit {
 
 
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
-        if (status == "S") {
+        if(status=="S"){
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
             this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
             this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
 
-        } else {
+        }else{
             this.TourDiary.DiaryId = data["DiaryId"];
             this.TourDiary.TourPlanId = data["TourPlanId"];
             this.TourDiary.Ppno = data["Ppno"];
         }
 
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, true)
+        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status, true)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                this.TourDiaryList = [];
-                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                this.TourDiaryList=[];
+                this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.onClearForm();
-                this.TourDiary = null;
+                this.TourDiary=null;
             } else {
-                this.TourDiary = null;
+                this.TourDiary=null;
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
 
@@ -315,26 +315,12 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     edit(zcDiary) {
-        //this.gridForm.patchValue(mcoDiary); //Patch value will not do everything as we need
-        this.gridForm.controls['DiaryId'].setValue(zcDiary.DiaryId);
-        this.gridForm.controls['TourPlanId'].setValue(zcDiary.TourPlanId);
-        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(zcDiary.TourDate));
-        this.gridForm.controls['DepartureFromPlace'].setValue(zcDiary.DepartureFromPlace);
-        this.gridForm.controls['DepartureFromTime'].setValue(zcDiary.DepartureFromTime);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(zcDiary.ArrivalAtPlace);
-        this.gridForm.controls['ArrivalAtTime'].setValue(zcDiary.ArrivalAtTime);
-        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(zcDiary.GeneralAdmissionComplaints);
-        this.gridForm.controls['CashManagementCompliance'].setValue(zcDiary.CashManagementCompliance);
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zcDiary.LCNotIssuedToBorrowers);
-        this.gridForm.controls['AuditReports'].setValue(zcDiary.AuditReports);
-        this.gridForm.controls['OutstandingParas'].setValue(zcDiary.OutstandingParas);
-        this.gridForm.controls['Settlements'].setValue(zcDiary.Settlements);
-        this.gridForm.controls['TotFarmersContacted'].setValue(zcDiary.TOTFarmersContacted);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(zcDiary.TOTNoOfFarmersVisisted);
-        this.gridForm.controls['AnyOtherWorkDone'].setValue(zcDiary.AnyOtherWorkDone);
-        this.gridForm.controls['Remarks'].setValue(zcDiary.Remarks);
-        this.gridForm.controls['Status'].setValue(zcDiary.Status);
+        this.gridForm.patchValue(zcDiary);
+        this.gridForm.get('TourDate').patchValue(this._common.stringToDate(zcDiary.TourDate));
         this.isUpdate = true;
+
+        this.date=zcDiary.TourDate;
+        this.GetTourPlan()
     }
 
     delete(data, status) {
@@ -354,16 +340,16 @@ export class TourDiaryZcComponent implements OnInit {
                 }
 
                 this.TourDiary = Object.assign(data);
-                this.spinner.show();
-                this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'ZC')
+              this.spinner.show();
+                this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, true)
                     .pipe(
                         finalize(() => {
                             this.spinner.hide();
                         })
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
-                        this.TourDiaryList = [];
-                        this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                        this.TourDiaryList=[];
+                        this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.onClearForm();
                         this.TourDiary = null;
