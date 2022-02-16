@@ -230,6 +230,22 @@ export class TourDiaryPcComponent implements OnInit {
         this.GetTourPlan()
     }
 
+    checkStatus(item, action) {
+        if (action == 'edit') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (action == 'delete') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 
     GetTourPlan() {
         if (!this.zone) {
@@ -244,7 +260,6 @@ export class TourDiaryPcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
 
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
@@ -339,12 +354,10 @@ export class TourDiaryPcComponent implements OnInit {
         });
     }
 
-    getTourDiary(event) {
-
-    }
-
     editData(tour_list) {
         this.gridForm.patchValue(tour_list);
+        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(tour_list.TourDate));
+
     }
 
     deleteData(data, status = 'C') {

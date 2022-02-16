@@ -59,7 +59,7 @@ const routing = [
         component: TargetsComponent,
     },
     {
-        path: "create-tour-diary",
+        path: "create-tour-diary-mco",
         component: TourDiaryMcoComponent,
     },
     {
@@ -76,19 +76,19 @@ const routing = [
         component: TourDiaryZcComponent,
     },
     {
-        path: "create-tour-diary-approval-bm",
+        path: "create-tour-diary-bm",
         component: TourDiaryBmComponent,
     },
     {
-        path: "create-tour-diary-approval-pc",
+        path: "create-tour-diary-pc",
         component: TourDiaryPcComponent,
     },
     {
-        path: "create-tour-diary-approval-ro",
+        path: "create-tour-diary-ro",
         component: TourDiaryRoComponent,
     },
     {
-        path: "create-tour-diary-approval-rc",
+        path: "create-tour-diary-rc",
         component: TourDiaryRcComponent,
     },
     {
