@@ -315,25 +315,8 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     edit(zcDiary) {
-        //this.gridForm.patchValue(mcoDiary); //Patch value will not do everything as we need
-        this.gridForm.controls['DiaryId'].setValue(zcDiary.DiaryId);
-        this.gridForm.controls['TourPlanId'].setValue(zcDiary.TourPlanId);
-        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(zcDiary.TourDate));
-        this.gridForm.controls['DepartureFromPlace'].setValue(zcDiary.DepartureFromPlace);
-        this.gridForm.controls['DepartureFromTime'].setValue(zcDiary.DepartureFromTime);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(zcDiary.ArrivalAtPlace);
-        this.gridForm.controls['ArrivalAtTime'].setValue(zcDiary.ArrivalAtTime);
-        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(zcDiary.GeneralAdmissionComplaints);
-        this.gridForm.controls['CashManagementCompliance'].setValue(zcDiary.CashManagementCompliance);
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(zcDiary.LCNotIssuedToBorrowers);
-        this.gridForm.controls['AuditReports'].setValue(zcDiary.AuditReports);
-        this.gridForm.controls['OutstandingParas'].setValue(zcDiary.OutstandingParas);
-        this.gridForm.controls['Settlements'].setValue(zcDiary.Settlements);
-        this.gridForm.controls['TotFarmersContacted'].setValue(zcDiary.TOTFarmersContacted);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(zcDiary.TOTNoOfFarmersVisisted);
-        this.gridForm.controls['AnyOtherWorkDone'].setValue(zcDiary.AnyOtherWorkDone);
-        this.gridForm.controls['Remarks'].setValue(zcDiary.Remarks);
-        this.gridForm.controls['Status'].setValue(zcDiary.Status);
+        this.gridForm.patchValue(zcDiary);
+        this.gridForm.get('TourDate').patchValue(this._common.stringToDate(zcDiary.TourDate));
         this.isUpdate = true;
 
         this.date=zcDiary.TourDate;

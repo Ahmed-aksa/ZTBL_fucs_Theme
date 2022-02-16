@@ -163,10 +163,11 @@ export class TourDiaryRoComponent implements OnInit {
 
     onClearForm() {
         // this.gridForm.controls['Name'].setValue("");
-        this.gridForm.controls['Ppno'].setValue(null);
+        //this.gridForm.controls['Ppno'].setValue(null);
         this.gridForm.controls['DiaryId'].setValue(null);
         this.gridForm.controls['TourPlanId'].setValue(null);
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
+        this.gridForm.controls["CircleId"].setValue(null);
         this.gridForm.controls['TourDate'].setValue(null);
         this.gridForm.controls['DepartureFromPlace'].setValue(null);
         this.gridForm.controls['DepartureFromTime'].setValue(null);
@@ -312,7 +313,12 @@ export class TourDiaryRoComponent implements OnInit {
     edit(mcoDiary) {
 
         this.gridForm.patchValue(mcoDiary);
+        this.gridForm.get('CircleId').patchValue(mcoDiary.CircleId?.toString());
+        this.gridForm.get('TourDate').patchValue(this._common.stringToDate(mcoDiary.TourDate));
+
         this.isUpdate = true;
+        this.date=mcoDiary.TourDate;
+        this.GetTourPlan()
     }
 
     setDate() {
