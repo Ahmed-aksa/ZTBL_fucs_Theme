@@ -1,9 +1,9 @@
-<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent" #container>
 
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading" #container>TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
+            <div class="heading">TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
@@ -251,7 +251,7 @@
 
                                         </td>
                                         <td>{{ZmTourDiary.TourDate}}</td>
-                                        <td></td>
+                                        <td>{{ZmTourDiary?.PlanPurposeName}}</td>
                                         <td>{{ZmTourDiary.DepartureFromPlace}}</td>
                                         <td>{{ZmTourDiary.DepartureFromTime}}</td>
                                         <td>{{ZmTourDiary.ArrivalAtPlace}}</td>

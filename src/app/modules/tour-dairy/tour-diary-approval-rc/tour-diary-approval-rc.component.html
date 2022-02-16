@@ -15,174 +15,199 @@
 
     <div id="Kt-portlet-margin-top">
         <div class="collapse show" id="collapseExample">
-            <form class="kt-form kt-form--group-seperator-dashed">
 
-                <div class="kt-form">
+            <div class="kt-form">
 
-                    <div class="kt-portlet__body">
-                        <div class="col-lg-12 p-0 ist-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                            <table class="table ">
-                                <thead>
-                                <tr class="table-header-background text-center">
-                                    <th rowspan="2">Actions</th>
-                                    <th rowspan="3" class="border-r border-gray-400">Date</th>
-                                    <th colspan="2" rowspan="2" class="border-r border-gray-400">Departure from</th>
-                                    <th colspan="2" rowspan="2" class="border-r border-gray-400">Arrival at</th>
-                                    <th colspan="6" class="border-r border-gray-400">Portfolio of the
-                                        Province/Zone/Branch/Circle
-                                    </th>
-                                    <th rowspan="3" class="border-r border-gray-400">No. of defaulters contacted</th>
-                                    <th rowspan="3" class="border-r border-gray-400">Results of contacts so made
-                                    </th>
-                                </tr>
+                <div class="kt-portlet__body">
 
-                                <tr class="table-header-background text-center">
-                                    <th colspan="2" class="border-r border-gray-400">General</th>
-                                    <th colspan="2" class="border-r border-gray-400">NPLs</th>
-                                    <th colspan="2" class="border-r border-gray-400">SAM</th>
-                                </tr>
 
-                                <tr class="table-header-background text-center">
-                                    <th></th>
-                                    <th class="border-r border-gray-400">Place</th>
-                                    <th class="border-r border-gray-400">Time</th>
-                                    <th class="border-r border-gray-400">Place</th>
-                                    <th class="border-r border-gray-400">Time</th>
-                                    <th class="border-r border-gray-400">No.</th>
-                                    <th class="border-r border-gray-400">Amt.</th>
-                                    <th class="border-r border-gray-400">No.</th>
-                                    <th class="border-r border-gray-400">Amt.</th>
-                                    <th class="border-r border-gray-400">No.</th>
-                                    <th class="border-r border-gray-400">Amt.</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr *ngFor="let rcDiary of TourDiaryList">
-                                    <td class="border-r border-gray-400">
-                                        {{rcDiary.TourDate}}
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        {{rcDiary.DepartureFromPlace}}
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        {{rcDiary.DepartureFromTime}}
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        {{rcDiary.ArrivalAtPlace}}
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        {{rcDiary.ArrivalAtTime}}
-                                    </td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400">
-                                        {{rcDiary.NoOfDefaulterContacted}}
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        {{rcDiary.ResultContactMade}}
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="col-lg-12 p-0 ist-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+                        <table class="table">
+                            <thead>
+                            <tr class="table-header-background text-center">
+                                <th rowspan="3" class="border-r border-gray-400">Date</th>
+                                <th colspan="2" rowspan="2" class="border-r border-gray-400">Departure from</th>
+                                <th colspan="2" rowspan="2" class="border-r border-gray-400">Arrival at</th>
+                                <th rowspan="3" class="border-r border-gray-400">No. of defaulters contacted</th>
+                                <th rowspan="3" class="border-r border-gray-400">Results of contacts so made
+                                </th>
+                                <th rowspan="3" class="border-r border-gray-400">Measures/Efforts for boosting up
+                                    recovery
+                                </th>
+                                <th rowspan="3" class="border-r border-gray-400">Remarks</th>
+                            </tr>
 
-                        <div
-                            class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                            <table class="table ">
-                                <thead>
-                                <tr class="table-header-background text-center">
-                                    <th colspan="16" class="border-r border-gray-400">RECOVERY</th>
-                                </tr>
-                                </thead>
-                                <thead>
-                                <tr class="table-header-background text-center">
-                                    <!-- UTILIZATIONS -->
-                                    <th colspan="3" class="border-r border-gray-400">Annual Target/Recoverable of
-                                        Province/Zone/Branch/Circle
-                                    </th>
-                                    <th colspan="3" class="border-r border-gray-400">Proportionate Target upto the end
-                                        of month under report
-                                    </th>
-                                    <th colspan="3" class="border-r border-gray-400">Recovery achievement during the
-                                        month under report
-                                    </th>
-                                    <th colspan="3" class="border-r border-gray-400">Balance Recoverable</th>
-                                    <th rowspan="2" class="border-r border-gray-400">Recovery during the corresponding
-                                        period
-                                    </th>
-                                    <th rowspan="2" class="border-r border-gray-400">Increase/Deficit</th>
-                                    <th rowspan="2" class="border-r border-gray-400">Measures/Efforts for boosting up
-                                        recovery
-                                    </th>
-                                    <th rowspan="2" class="border-r border-gray-400">Remarks</th>
-                                </tr>
-                                <tr class="table-header-background text-center">
-                                    <th class="border-r border-gray-400">Past Dues</th>
-                                    <th class="border-r border-gray-400">Current Dues</th>
-                                    <th class="border-r border-gray-400">Total</th>
-                                    <th class="border-r border-gray-400">Past Dues</th>
-                                    <th class="border-r border-gray-400">Current Dues</th>
-                                    <th class="border-r border-gray-400">Total</th>
-                                    <th class="border-r border-gray-400">Past Dues</th>
-                                    <th class="border-r border-gray-400">Current Dues</th>
-                                    <th class="border-r border-gray-400">Total</th>
-                                    <th class="border-r border-gray-400">Past Dues</th>
-                                    <th class="border-r border-gray-400">Current Dues</th>
-                                    <th class="border-r border-gray-400">Total</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline" style="width: 12rem !important">
-                                            <input matInput>
-                                        </mat-form-field>
-                                    </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline" style="width: 12rem !important">
-                                            <input matInput>
-                                        </mat-form-field>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                            <tr class="table-header-background text-center">
+                            </tr>
+
+                            <tr class="table-header-background text-center">
+                                <th class="border-r border-gray-400">Place</th>
+                                <th class="border-r border-gray-400">Time</th>
+                                <th class="border-r border-gray-400">Place</th>
+                                <th class="border-r border-gray-400">Time</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let single_list of TourDiaryList">
+                            <tr>
+                                <td class="border-r border-gray-400">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline">
+                                        <input matInput readonly="readonly" [value]="single_list?.TourDate">
+                                    </mat-form-field>
+                                </td>
+                                <td class="border-r border-gray-400">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline">
+                                        <input matInput readonly="readonly"
+                                               [value]="single_list?.DepartureFromPlace">
+                                    </mat-form-field>
+                                </td>
+                                <td class="border-r border-gray-400">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline">
+                                        <input matInput readonly="readonly" [value]="single_list?.DepartureFromTime">
+                                    </mat-form-field>
+                                </td>
+                                <td class="border-r border-gray-400">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline">
+                                        <input matInput readonly="readonly" [value]="single_list?.ArrivalAtPlace">
+                                    </mat-form-field>
+                                </td>
+                                <td class="border-r border-gray-400">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline">
+                                        <input matInput readonly="readonly" [value]="single_list?.ArrivalAtTime">
+                                    </mat-form-field>
+                                </td>
+                                <td class="border-r border-gray-400">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline">
+                                        <input matInput readonly="readonly"
+                                               [value]="single_list?.NoOfDefaulterContacted">
+                                    </mat-form-field>
+                                </td>
+                                <td class="border-r border-gray-400">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline">
+                                        <input matInput readonly="readonly" [value]="single_list?.ResultContactMade">
+                                    </mat-form-field>
+                                </td>
+                                <td class="border-r border-gray-400">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline" style="width: 12rem !important">
+                                        <input matInput [value]="single_list?.MeasureBoostUpRecord">
+                                    </mat-form-field>
+                                </td>
+                                <td class="border-r border-gray-400">
+                                    <mat-form-field class=" mat-form-field-fluid w-full"
+                                                    appearance="outline" style="width: 12rem !important">
+                                        <input matInput [value]="single_list?.Remarks">
+                                    </mat-form-field>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
 
-            </form>
+                    <div
+                        class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+                        <table class="table">
+                            <thead>
+                            <tr class="table-header-background text-center">
+                                <th colspan="6" class="border-r border-gray-400">Portfolio of the
+                                    Province/Zone/Branch/Circle
+                                </th>
+                                <th colspan="16" class="border-r border-gray-400">RECOVERY</th>
+                            </tr>
+                            </thead>
+                            <thead>
+                            <tr class="table-header-background text-center">
+                                <!-- UTILIZATIONS -->
+                                <th colspan="2" class="border-r border-gray-400">General</th>
+                                <th colspan="2" class="border-r border-gray-400">NPLs</th>
+                                <th colspan="2" class="border-r border-gray-400">SAM</th>
+                                <th colspan="3" class="border-r border-gray-400">Annual Target/Recoverable of
+                                    Province/Zone/Branch/Circle
+                                </th>
+                                <th colspan="3" class="border-r border-gray-400">Proportionate Target upto the end
+                                    of month under report
+                                </th>
+                                <th colspan="3" class="border-r border-gray-400">Recovery achievement during the
+                                    month under report
+                                </th>
+                                <th colspan="3" class="border-r border-gray-400">Balance Recoverable</th>
+                                <th rowspan="2" class="border-r border-gray-400">Recovery during corresponding
+                                    period
+                                </th>
+                                <th rowspan="2" class="border-r border-gray-400">Increase/Deficit</th>
+
+                            </tr>
+                            <tr class="table-header-background text-center">
+                                <th colspan="1" class="border-r border-gray-400">No.</th>
+                                <th colspan="1" class="border-r border-gray-400">Amt.</th>
+                                <th colspan="1" class="border-r border-gray-400">No.</th>
+                                <th colspan="1" class="border-r border-gray-400">Amt.</th>
+                                <th colspan="1" class="border-r border-gray-400">No.</th>
+                                <th colspan="1" class="border-r border-gray-400">Amt.</th>
+                                <th class="border-r border-gray-400">Past Dues</th>
+                                <th class="border-r border-gray-400">Current Dues</th>
+                                <th class="border-r border-gray-400">Total</th>
+                                <th class="border-r border-gray-400">Past Dues</th>
+                                <th class="border-r border-gray-400">Current Dues</th>
+                                <th class="border-r border-gray-400">Total</th>
+                                <th class="border-r border-gray-400">Past Dues</th>
+                                <th class="border-r border-gray-400">Current Dues</th>
+                                <th class="border-r border-gray-400">Total</th>
+                                <th class="border-r border-gray-400">Past Dues</th>
+                                <th class="border-r border-gray-400">Current Dues</th>
+                                <th class="border-r border-gray-400">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioGeneralNo}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioGeneralAmount}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioNplNo}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioNplAmount}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioSamNo}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.PortfolioSamAmount}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.AnnualTargetPD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.AnnualTargetCD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.AnnualTargetTotal}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.ProportionatTargetPD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.ProportionatTargetCD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.ProportionatTargetTotal}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.RecoveryTargetPD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.RecoveryTargetCD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.RecoveryTargetTotal}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.BalanceRecoverabletPD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.BalanceRecoverableCD}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.BalanceRecoverableTotal}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.RecoveryDuringCorrespondingPeroid}}</td>
+                                <td class="border-r border-gray-400">{{systemGenerated.IncreaseDeficit}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
         </div>
+
+
     </div>
+
 
     <div class="row mt-2 mr-1">
         <div class="col-lg-12 text-right">
-            <button type="button" (click)="approve()" mat-raised-button class="mr-2" color="primary" >
+            <button type="button" (click)="changeStatus('A')" mat-raised-button class="mr-2" color="primary">
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Approve
             </button>
             <button type="button"
                     class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                    mat-raised-button color="danger" (click)="referback()">
+                    mat-raised-button color="danger" (click)="changeStatus('R')">
                 <mat-icon class="mr-2"> clear_all</mat-icon>
                 Referback
             </button>

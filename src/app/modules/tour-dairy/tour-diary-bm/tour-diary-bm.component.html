@@ -1,10 +1,10 @@
 <div
-    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent" #container>
 
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading" #container>TOUR DIARY & PROGRESS REPORT OF BRANCH MANAGER</div>
+            <div class="heading">TOUR DIARY & PROGRESS REPORT OF BRANCH MANAGER</div>
             <!--            <button (click)="assignValues()">DO it</button>-->
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
@@ -314,7 +314,7 @@
                                     <td class="border-r border-gray-400">
                                         <mat-form-field class=" mat-form-field-fluid w-full"
                                                         appearance="outline">
-                                            <input matInput readonly="readonly">
+                                            <input matInput readonly="readonly" [value]="single_list?.PlanPurposeName">
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">

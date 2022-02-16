@@ -307,7 +307,6 @@ export class TourDiaryApprovalComponent implements OnInit {
             );
             return;
         }
-        console.log(this.tourDiaryForm.controls["Status"].value)
         if (this.tourDiaryForm.controls["Status"].value == "") {
             var Message = 'Please select Status';
             this.layoutUtilsService.alertElement(
@@ -426,7 +425,7 @@ export class TourDiaryApprovalComponent implements OnInit {
     }
 
     getAllData(data) {
-        if (data.final_zone[0]) {
+        if (Array.isArray(data.final_zone)) {
             this.zone = data.final_zone[0];
         } else {
             this.zone = data.final_zone;

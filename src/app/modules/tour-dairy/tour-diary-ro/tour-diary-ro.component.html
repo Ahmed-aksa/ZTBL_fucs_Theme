@@ -1,9 +1,9 @@
-<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent" #container>
 
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading" #container>TOUR DIARY & PROGRESS REPORT OF RECOVERY OFFICER</div>
+            <div class="heading">TOUR DIARY & PROGRESS REPORT OF RECOVERY OFFICER</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
@@ -155,10 +155,20 @@
                                                 <input appNumberOnly matInput formControlName="ResultContactMade" autocomplete="off"/>
                                             </mat-form-field>
                                         </div>
+
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Measure Boost Up Record</mat-label>
                                                 <input appNumberOnly matInput formControlName="MeasureBoostUpRecord" autocomplete="off"/>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                             style="width: 225px;">
+                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                                <mat-label class="customMatLabel">Remarks</mat-label>
+                                                <input  matInput formControlName="Remarks"
+                                                        autocomplete="off"/>
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -224,7 +234,7 @@
                                             </button>
                                         </td>
                                         <td class="border-r border-gray-400">{{single_list.TourDate}}</td>
-                                        <td class="border-r border-gray-400"></td>
+                                        <td class="border-r border-gray-400">{{single_list.PlanPurposeName}}</td>
                                         <td class="border-r border-gray-400">{{single_list.DepartureFromPlace}}</td>
                                         <td class="border-r border-gray-400">{{single_list.DepartureFromTime}}</td>
                                         <td class="border-r border-gray-400">{{single_list.ArrivalAtPlace}}</td>

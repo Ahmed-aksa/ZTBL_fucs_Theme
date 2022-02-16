@@ -197,7 +197,7 @@ export class TourDiaryService {
     }
 
 
-    saveDiary(zone, branch, circle,TourDiary, is_zc = false) {
+    saveDiary(zone, branch, circle, TourDiary, is_zc = false) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -219,6 +219,7 @@ export class TourDiaryService {
             )
             .pipe(map((res: BaseResponseModel) => res));
     }
+
     getTourDiaryDetail(zone, branch, TourDiary) {
 
         this.request = new BaseRequestModel();
@@ -281,8 +282,7 @@ export class TourDiaryService {
         }
 
 
-
-       console.log(JSON.stringify(req));
+        console.log(JSON.stringify(req));
 
         return this.http
             .post<any>(
@@ -375,8 +375,8 @@ debugger
                 ZoneId: zone?.ZoneId,
                 StartDate: start_date.format('YYYY-MM-DD'),
                 EndDate: end_date.format('YYYY-MM-DD'),
-                Status: 'S',
                 // Status: approval_from.Status,
+                Status: 'S',
                 TourDate: tour_date,
                 Limit: String(itemsPerPage),
                 Offset: offset,
