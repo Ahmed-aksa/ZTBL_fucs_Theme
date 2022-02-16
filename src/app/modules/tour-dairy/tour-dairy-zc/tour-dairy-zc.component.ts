@@ -149,8 +149,8 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['AuditReports'].setValue(null);
         this.gridForm.controls['OutstandingParas'].setValue(null);
         this.gridForm.controls['Settlements'].setValue(null);
-        this.gridForm.controls['TotFarmersContacted'].setValue(null);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(null);
+        this.gridForm.controls['TOTFarmersContacted'].setValue(null);
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(null);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(null);
         this.gridForm.controls['Remarks'].setValue(null);
         this.gridForm.controls['Status'].setValue(null);
@@ -209,8 +209,8 @@ export class TourDiaryZcComponent implements OnInit {
             AuditReports:[null],
             OutstandingParas:[null],
             Settlements:[null],
-            TotFarmersContacted:[null],
-            TotNoOfFarmersVisisted:[null],
+            TOTFarmersContacted:[null],
+            TOTNoOfFarmersVisisted:[null],
             AnyOtherWorkDone:[null],
             Remarks:[null],
             Status: [null]
@@ -329,8 +329,8 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['AuditReports'].setValue(zcDiary.AuditReports);
         this.gridForm.controls['OutstandingParas'].setValue(zcDiary.OutstandingParas);
         this.gridForm.controls['Settlements'].setValue(zcDiary.Settlements);
-        this.gridForm.controls['TotFarmersContacted'].setValue(zcDiary.TOTFarmersContacted);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(zcDiary.TOTNoOfFarmersVisisted);
+        this.gridForm.controls['TOTFarmersContacted'].setValue(zcDiary.TOTFarmersContacted);
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(zcDiary.TOTNoOfFarmersVisisted);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(zcDiary.AnyOtherWorkDone);
         this.gridForm.controls['Remarks'].setValue(zcDiary.Remarks);
         this.gridForm.controls['Status'].setValue(zcDiary.Status);

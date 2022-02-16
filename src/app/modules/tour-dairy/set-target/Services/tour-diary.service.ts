@@ -210,6 +210,8 @@ export class TourDiaryService {
             this.request.User["ProfileId"] = environment.ZC;
         }
 
+        console.log(JSON.stringify(this.request))
+
         return this.http
             .post<any>(
                 `${environment.apiUrl}/TourPlanAndDiary/CreateUpdateTourDiary`,
@@ -362,7 +364,7 @@ export class TourDiaryService {
     searchTourDiaryApproval(
         approval_from: any,
         itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id, tour_date = null) {
-
+debugger
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {
@@ -373,7 +375,8 @@ export class TourDiaryService {
                 ZoneId: zone?.ZoneId,
                 StartDate: start_date.format('YYYY-MM-DD'),
                 EndDate: end_date.format('YYYY-MM-DD'),
-                Status: approval_from.Status,
+                Status: 'S',
+                // Status: approval_from.Status,
                 TourDate: tour_date,
                 Limit: String(itemsPerPage),
                 Offset: offset,
@@ -391,7 +394,7 @@ export class TourDiaryService {
             request.TourDiary.EndDate = null;
         }
 
-        console.log(request);
+        console.log(JSON.stringify(request));
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/SearchTourDiaryForApproval`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(

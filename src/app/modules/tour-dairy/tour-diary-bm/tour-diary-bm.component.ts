@@ -141,6 +141,8 @@ export class TourDiaryBmComponent implements OnInit {
         this.gridForm.controls['AnyOtherWorkDone'].setValue("");
         this.gridForm.controls['Remarks'].setValue("");
         this.setValue();
+
+        this.gridForm.markAsUntouched();
     }
 
     getAllData(event) {
