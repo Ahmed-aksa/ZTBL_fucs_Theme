@@ -11,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {finalize} from "rxjs/operators";
+import {CommonService} from "../../../shared/services/common.service";
 
 @Component({
     selector: 'app-tour-diary-approval-rc',
@@ -47,6 +48,7 @@ export class TourDiaryRcComponent implements OnInit {
         public dialog: MatDialog,
         private router: Router,
         private datePipe: DatePipe,
+        private commonService: CommonService
     ) {
         this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
@@ -290,7 +292,8 @@ export class TourDiaryRcComponent implements OnInit {
 
     edit(mcoDiary) {
 
-        this.gridForm.patchValue(mcoDiary);
+        this.gridForm.patchValue(mcoDiary)
+        this.gridForm.value.TourDate = this.commonService.stringToDate(mcoDiary.TourDate);
         this.isUpdate = true;
     }
 
