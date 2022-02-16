@@ -118,44 +118,14 @@ export class TourDiaryApprovalZmComponent implements OnInit {
                 data: {data: this.TourDiaryList, status: status}
             },
         );
-        let dialogRef = null;
-        if (status == 'A') {
-            dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
 
-        } else if(status == 'R'){
-            dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
-
-        }
-
-
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
+        signatureDialogRef.afterClosed().subscribe((res)=>{
+            if(res == true){
+                this.router.navigate(['/tour-diary/tour-diary-approval']);
             }
-            this.TourDiary = Object.assign(this.data);
-            this.spinner.show();
-            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
-                .pipe(
-                    finalize(() => {
-                        this.spinner.hide();
-                    })
-                ).subscribe(baseResponse => {
-                if (baseResponse.Success) {
-                    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                    if(status=='A'){
-                        this.toastr.success("Approved");
-                    }
-                    else if(status == 'R'){
-                        this.toastr.success("ReferBack");
-                    }
-
-                } else {
-                    this.layoutUtilsService.alertElement('', baseResponse.Message);
-                }
-
-            });
-
+            else{
+                return
+            }
         })
 
     }
