@@ -39,6 +39,7 @@ export const environment = {
     PZ: '204',//704000
     Regional_CHIEF: '203',//111573
     PROVINCIAL_CHEIF: '205',//77345
+    ZC_BAHAWALNAGAR: '205',//68174
 
     // 48326 ZO monitoring
     // 54536 ZDPM

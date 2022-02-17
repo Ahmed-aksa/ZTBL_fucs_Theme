@@ -3,9 +3,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {MatDialog} from "@angular/material/dialog";
-import {Router} from "@angular/router";
-import {SignatureDailogDairyComponent} from "../signature-dailog-dairy/signature-dailog-dairy.component";
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
@@ -43,6 +40,7 @@ export class TourDiaryPcComponent implements OnInit {
     TourDiary;
     isUpdate: boolean = false;
     TourDiaryList: any;
+    systemGenerated: any;
 
     constructor(
         private fb: FormBuilder,
@@ -261,8 +259,8 @@ export class TourDiaryPcComponent implements OnInit {
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
