@@ -298,7 +298,6 @@ debugger
 
     }
 
-
     @ViewChild("timepicker") timepicker: any;
 
     openFromIcon(timepicker: { open: () => void }) {
@@ -403,6 +402,8 @@ debugger
         this.circle = data.final_circle;
 
         var zoneId = this.zone.ZoneId;
+        console.log(zoneId)
         this.getBranches(zoneId);
+
     }
 }

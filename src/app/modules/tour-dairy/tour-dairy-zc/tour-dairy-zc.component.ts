@@ -287,7 +287,7 @@ export class TourDiaryZcComponent implements OnInit {
         }
 
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status, true)
+        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status, 'ZC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

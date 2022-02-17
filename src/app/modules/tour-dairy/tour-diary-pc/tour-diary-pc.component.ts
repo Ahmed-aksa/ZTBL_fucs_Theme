@@ -127,9 +127,7 @@ export class TourDiaryPcComponent implements OnInit {
         this.isUpdate = false;
         this.gridForm.markAsUntouched();
         this.setValue();
-
     }
-
 
     getAllData(event) {
         this.zone = event.final_zone;
@@ -265,7 +263,7 @@ export class TourDiaryPcComponent implements OnInit {
                     this.TourDiaryList=[];
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                    this.systemGenerated = baseResponse?.TourDiary?.SystemGeneratedData;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -360,7 +358,8 @@ export class TourDiaryPcComponent implements OnInit {
     editData(tour_list) {
         this.gridForm.patchValue(tour_list);
         this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(tour_list.TourDate));
-
+        this.isUpdate = true;
+        this.GetTourPlan()
     }
 
     deleteData(data, status = 'C') {
