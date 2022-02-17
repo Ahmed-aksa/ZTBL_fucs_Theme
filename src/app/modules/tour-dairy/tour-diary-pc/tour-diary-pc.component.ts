@@ -134,6 +134,8 @@ export class TourDiaryPcComponent implements OnInit {
         this.gridForm.controls['MeasureBoostUpRecord'].setValue("");
         this.gridForm.controls['ResultContactMade'].setValue("");
         this.setValue();
+        this.isUpdate = false;
+        this.gridForm.markAsUntouched();
     }
 
     getAllData(event) {
@@ -269,7 +271,7 @@ export class TourDiaryPcComponent implements OnInit {
                 if (baseResponse.Success) {
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                    this.systemGenerated = baseResponse?.TourDiary?.SystemGeneratedData;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -364,7 +366,8 @@ export class TourDiaryPcComponent implements OnInit {
     editData(tour_list) {
         this.gridForm.patchValue(tour_list);
         this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(tour_list.TourDate));
-
+        this.isUpdate = true;
+        this.GetTourPlan()
     }
 
     deleteData(data, status = 'C') {

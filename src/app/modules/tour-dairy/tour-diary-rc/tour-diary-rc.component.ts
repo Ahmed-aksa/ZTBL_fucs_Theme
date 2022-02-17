@@ -302,8 +302,9 @@ export class TourDiaryRcComponent implements OnInit {
     edit(mcoDiary) {
 
         this.gridForm.patchValue(mcoDiary)
-        this.gridForm.value.TourDate = this.commonService.stringToDate(mcoDiary.TourDate);
+        this.gridForm.controls.TourDate.setValue(this.commonService.stringToDate(mcoDiary.TourDate)); //= this.commonService.stringToDate(mcoDiary.TourDate);
         this.isUpdate = true;
+        this.GetTourPlan();
     }
 
     checkStatus(item, action) {
