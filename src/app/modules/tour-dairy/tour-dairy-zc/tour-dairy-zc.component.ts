@@ -44,6 +44,7 @@ export class TourDiaryZcComponent implements OnInit {
     btnText = 'Save';
     TourDiaryList;
     isUpdate:boolean=false;
+    data;
 
     constructor(
         private fb: FormBuilder,
@@ -64,6 +65,11 @@ export class TourDiaryZcComponent implements OnInit {
     ngOnInit(): void {
         this.createForm();
         this.loggedInUser = this.userService.getUserDetails();
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
+            localStorage.removeItem('TourDiary');
+            this.edit(this.data)
+        }
     }
 
     setValue(){

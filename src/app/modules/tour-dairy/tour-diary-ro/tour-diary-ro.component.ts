@@ -40,6 +40,7 @@ export class TourDiaryRoComponent implements OnInit {
     TourDiaryList = [];
     date: string;
     systemGenerated: any;
+    data;
 
     constructor(
         private fb: FormBuilder,
@@ -57,6 +58,11 @@ export class TourDiaryRoComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
+            localStorage.removeItem('TourDiary');
+            this.edit(this.data)
+        }
     }
 
     createForm() {

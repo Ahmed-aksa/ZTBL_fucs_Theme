@@ -43,6 +43,8 @@ export class TourDiaryBmComponent implements OnInit {
     TourDiary;
     isUpdate: boolean = false;
     TourDiaryList: any;
+    data;
+    systemGenerated: any;
 
     constructor(
         private fb: FormBuilder,
@@ -59,6 +61,11 @@ export class TourDiaryBmComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
+            localStorage.removeItem('TourDiary');
+            this.editData(this.data)
+        }
     }
 
     setValue() {

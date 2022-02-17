@@ -41,7 +41,7 @@ export class TourDiaryPcComponent implements OnInit {
     isUpdate: boolean = false;
     TourDiaryList: any;
     systemGenerated: any;
-
+    data;
     constructor(
         private fb: FormBuilder,
         private userService: UserUtilsService,
@@ -57,6 +57,11 @@ export class TourDiaryPcComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
+            localStorage.removeItem('TourDiary');
+            this.editData(this.data)
+        }
     }
 
     setValue() {
