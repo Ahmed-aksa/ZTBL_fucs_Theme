@@ -11,6 +11,8 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-tour-diary-approval-mco',
@@ -38,6 +40,7 @@ export class TourDiaryMcoComponent implements OnInit {
     TourPlan;
     Format24: boolean = true;
     isUpdate: boolean = false;
+    data;
 
     systemGenerated: any;
     TotalNoOfCasesReceived=0;
@@ -96,13 +99,24 @@ export class TourDiaryMcoComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private _cdf: ChangeDetectorRef,
-        private scroll: ViewportScroller
+        private scroll: ViewportScroller,
+        private router: Router,
+        private toastr: ToastrService,
     ) {
 
     }
 
     ngOnInit(): void {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
+            localStorage.removeItem('TourDiary');
+            this.edit(this.data)
 
+        } else {
+            this.toastr.error("No Tour Diary For Approval Found");
+            this.router.navigate(['/tour-diary/tour-diary-approval']);
+        }
+        this.loggedInUser = this.userService.getUserDetails();
         this.loggedInUser = this.userService.getUserDetails();
         this.createForm();
 

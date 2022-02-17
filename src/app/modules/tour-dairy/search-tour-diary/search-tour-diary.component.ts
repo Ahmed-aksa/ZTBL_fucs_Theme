@@ -123,7 +123,28 @@ export class SearchTourDiaryComponent implements OnInit {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
+    CheckDirectionStatus(loanUtilization: any) {
+        // this.loggedInUserDetails.User.UserId;
+        // if (this.isMCO) {
+        //     if (loanUtilization.Status == 'P' || loanUtilization.Status == 'R') {
+        //         if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
+        //             return true;
+        //         } else {
+        //             return false;
+        //         }
+        //     } else {
+        //         return false;
+        //     }
+        // } else if (this.isBM) {
+        //     if (loanUtilization.Status == 'S') {
+        //         return true;
+        //     }
+        // } else {
+        //     return false;
+        // }
+        return true
 
+    }
 
     //End ZBC
 
