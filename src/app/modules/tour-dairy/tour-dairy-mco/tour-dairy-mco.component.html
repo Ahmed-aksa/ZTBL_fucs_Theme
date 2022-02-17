@@ -745,33 +745,34 @@
                 </thead>
                 <tbody>
                 <tr>
+                    <td>{{systemGenerated?.UUtilizationPendingPM}}
+                        <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
+                        <!--                                        appearance="outline">-->
+                        <!--                            <input matInput>-->
+                        <!--                        </mat-form-field>-->
+                    </td>
+                    <td>{{systemGenerated?.UNoOfCasesDisbursed }}</td>
+                    <td>{{systemGenerated?.UNoOfUtliztionToVerify }}</td>
                     <td>
                         <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
                                         appearance="outline">
-                            <input matInput>
+                            <input matInput [value]="systemGenerated?.UUtilizationVerified">
                         </mat-form-field>
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
-                                        appearance="outline">
-                            <input matInput>
-                        </mat-form-field>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{systemGenerated?.UPendingCasesChecking }}</td>
+                    <td>{{systemGenerated?.RTPastDuesNo  }}</td>
+                    <td>{{systemGenerated?.RTPstDuesAmount  }}</td>
+                    <td>{{systemGenerated?.RTCurrentDuesNo  }}</td>
+                    <td>{{systemGenerated?.RTCurrentDuesAmount  }}</td>
+                    <td>{{systemGenerated?.RRPastDuesNo  }}</td>
+                    <td>{{systemGenerated?.RRPastDuesAmount  }}</td>
+                    <td>{{systemGenerated?.RRCurrentDuesNo  }}</td>
+                    <td>{{systemGenerated?.RRCurrentDuesAmount  }}</td>
+                    <td>{{systemGenerated?.RBPastDuesNo  }}</td>
+                    <td>{{systemGenerated?.RBPastDuesAmount  }}</td>
+                    <td>{{systemGenerated?.RBCurrentDuesNo  }}</td>
+                    <td>{{systemGenerated?.RBCurrentDuesAmount  }}</td>
+
                 </tr>
                 </tbody>
             </table>
