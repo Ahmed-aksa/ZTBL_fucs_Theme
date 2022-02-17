@@ -242,7 +242,7 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    ChangeStatusDiary(zone, branch, circle, TourDiary, Status, role=null) {
+    ChangeStatusDiary(zone, branch, circle, TourDiary, Status, role = null) {
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -265,8 +265,21 @@ export class TourDiaryService {
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
         // TourDiary.TourDate = TourDiary.TourDate.toString();
 
-        if (role=='ZC') {
+        if (role == 'ZC') {
             userInfo.User.ProfileId = environment.ZC;
+        } else if (role == 'MCO') {
+            userInfo.User.ProfileId = environment.MCO_Group_ID;
+        } else if (role == 'ZM') {
+            userInfo.User.ProfileId = environment.ZM;
+        } else if (role == 'BM') {
+            userInfo.User.ProfileId = environment.BM;
+        } else if (role == 'PC') {
+            userInfo.User.ProfileId = environment.PROVINCIAL_CHEIF;
+        } else if (role == 'RC') {
+            userInfo.User.ProfileId = environment.Regional_CHIEF;
+        }
+        else if (role == 'RO') {
+            userInfo.User.ProfileId = environment.RECOVERY_OFFICER;
         }
         req = {
             User: userInfo.User,
@@ -364,7 +377,7 @@ export class TourDiaryService {
     searchTourDiaryApproval(
         approval_from: any,
         itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id, tour_date = null) {
-debugger
+        debugger
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {

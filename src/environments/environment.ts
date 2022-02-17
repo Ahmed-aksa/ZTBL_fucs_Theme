@@ -33,13 +33,14 @@ export const environment = {
     RECOVERY_OFFICER: '206',//120203
     BM: '57',//80834
     ZC: '75',//54964
+    ZM: '69',//81426
     EVP_CD: '200',//112664
     EVP_OD: '202',//116035
     EVP_RS: '201',//111537
     PZ: '204',//704000
     Regional_CHIEF: '203',//111573
     PROVINCIAL_CHEIF: '205',//77345
-    ZC_BAHAWALNAGAR: '205',//68174
+    ZC_BAHAWALNAGAR: '75',//68174
 
     // 48326 ZO monitoring
     // 54536 ZDPM

@@ -61,16 +61,9 @@ export class TourPlanService {
     ChanageTourStatus(tourPlan: TourPlan) {
         this.request = new BaseRequestModel();
         this.request.User = this.userInfo.User;
-        var v = JSON.stringify(tourPlan)
-
         this.request.TourPlan = {
             "TourPlanStatus": {"Status": tourPlan.Status, "TourPlanIds": [tourPlan.TourPlanId]}
         };
-
-
-        var v = JSON.stringify(this.request)
-
-
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ChanageTourPlanStatus`, this.request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: BaseResponseModel) => res)
@@ -190,7 +183,7 @@ export class TourPlanService {
         this.request.TourPlan.Offset = Offset;
         this.request.Zone = zone;
         this.request.Branch = branch;
-        tourPlan.Status="";
+        tourPlan.Status = "";
         var date = {
             "User": this.request.User,
             "TourPlan": tourPlan,
