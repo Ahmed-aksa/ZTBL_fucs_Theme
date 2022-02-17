@@ -43,6 +43,8 @@ import {TourDiaryApprovalZcComponent} from "./tour-diary-approval-zc/tour-diary-
 import {
     SignaturePadForDiaryApproval,
 } from "./signature-pad-for-tour/app-signature-pad-for-diary-approval";
+import {AppModule} from "../../app.module";
+import {SearchTourDiaryTabComponent} from "./search-tour-diary-tab/search-tour-diary-tab.component";
 
 export const options: Partial<IConfig> = {
     thousandSeparator: ","
@@ -156,7 +158,8 @@ const routing = [
         TourDiaryApprovalRcComponent,
         TourDiaryApprovalRoComponent,
         TourDiaryApprovalZcComponent,
-        SignaturePadForDiaryApproval
+        SignaturePadForDiaryApproval,
+        SearchTourDiaryTabComponent
 
 
     ],
@@ -176,7 +179,7 @@ const routing = [
         MatDialogModule,
         NgxMaskModule.forRoot(options),
         NgxMaterialTimepickerModule.setLocale('en-US'),
-        TourPlanModule
+        TourPlanModule,
     ],
     providers: [
         DatePipe,
