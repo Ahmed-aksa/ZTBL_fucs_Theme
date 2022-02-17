@@ -103,7 +103,7 @@ export class TourDiaryApprovalBmComponent implements OnInit {
         // }
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'BM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

@@ -377,7 +377,7 @@ export class TourDiaryBmComponent implements OnInit {
             this.TourDiary.Ppno = data["Ppno"];
         }
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'BM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -437,7 +437,7 @@ export class TourDiaryBmComponent implements OnInit {
             }
 
             this.spinner.show();
-            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status)
+            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'BM')
                 .pipe(
                     finalize(() => {
                         this.spinner.hide();
