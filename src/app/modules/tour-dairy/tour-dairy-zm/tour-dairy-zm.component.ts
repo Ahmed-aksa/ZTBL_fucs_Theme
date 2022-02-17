@@ -51,7 +51,7 @@ export class TourDiaryZmComponent implements OnInit {
     isUpdate:boolean=false;
     date: any;
     btnText = 'Save';
-
+    data;
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
@@ -72,6 +72,14 @@ export class TourDiaryZmComponent implements OnInit {
         this.createForm();
     }
 
+    ngAfterViewInit()
+    {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
+            localStorage.removeItem('TourDiary');
+            this.edit(this.data)
+        }
+    }
     setDate() {
         var varDate = this.gridForm.controls.TourDate.value;
         if (varDate._isAMomentObject == undefined) {

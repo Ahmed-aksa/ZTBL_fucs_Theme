@@ -107,22 +107,22 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.data = JSON.parse(localStorage.getItem('TourDiary'))
-        if (this.data) {
-            localStorage.removeItem('TourDiary');
-            this.edit(this.data)
 
-        } else {
-            this.toastr.error("No Tour Diary For Approval Found");
-            this.router.navigate(['/tour-diary/tour-diary-approval']);
-        }
         this.loggedInUser = this.userService.getUserDetails();
         this.loggedInUser = this.userService.getUserDetails();
         this.createForm();
 
+
         // this.gridForm.controls['ArrivalAtTime'].setValue("1:13 AM");
     }
-
+    ngAfterViewInit()
+    {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
+            localStorage.removeItem('TourDiary');
+            this.edit(this.data)
+        }
+    }
     setValue() {
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);

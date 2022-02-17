@@ -39,6 +39,7 @@ export class TourDiaryRcComponent implements OnInit {
     TourDiaryList = [];
     date: string;
     systemGenerated: any;
+    data;
 
     constructor(
         private fb: FormBuilder,
@@ -57,7 +58,14 @@ export class TourDiaryRcComponent implements OnInit {
     ngOnInit(): void {
         this.createForm();
     }
-
+    ngAfterViewInit()
+    {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
+            localStorage.removeItem('TourDiary');
+            this.edit(this.data)
+        }
+    }
     createForm() {
         this.gridForm = this.fb.group({
             Name: ["", [Validators.required]],

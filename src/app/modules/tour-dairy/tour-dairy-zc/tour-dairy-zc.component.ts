@@ -43,7 +43,8 @@ export class TourDiaryZcComponent implements OnInit {
     date: any;
     btnText = 'Save';
     TourDiaryList;
-    isUpdate: boolean = false;
+    isUpdate:boolean=false;
+    data;
 
     constructor(
         private fb: FormBuilder,
@@ -65,8 +66,15 @@ export class TourDiaryZcComponent implements OnInit {
         this.createForm();
         this.loggedInUser = this.userService.getUserDetails();
     }
-
-    setValue() {
+    ngAfterViewInit()
+    {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+        if (this.data) {
+            localStorage.removeItem('TourDiary');
+            this.edit(this.data)
+        }
+    }
+    setValue(){
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
     }
@@ -149,8 +157,8 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['AuditReports'].setValue(null);
         this.gridForm.controls['OutstandingParas'].setValue(null);
         this.gridForm.controls['Settlements'].setValue(null);
-        this.gridForm.controls['TotFarmersContacted'].setValue(null);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(null);
+        this.gridForm.controls['TOTFarmersContacted'].setValue(null);
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(null);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(null);
         this.gridForm.controls['Remarks'].setValue(null);
         this.gridForm.controls['Status'].setValue(null);
@@ -251,7 +259,6 @@ export class TourDiaryZcComponent implements OnInit {
                     day = "0" + day;
                 }
                 varDate = day + "" + month + "" + year;
-
                 this.date = varDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
                 this.gridForm.controls.TourDate.setValue(branchWorkingDate);
@@ -261,9 +268,9 @@ export class TourDiaryZcComponent implements OnInit {
         this.GetTourPlan()
     }
 
-    changeStatus(data, status) {
+    changeStatus(data,status){
 
-        if (status == "C") {
+        if(status=="C"){
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
             const _waitDesciption = '';
@@ -282,32 +289,32 @@ export class TourDiaryZcComponent implements OnInit {
 
 
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
-        if (status == "S") {
+        if(status=="S"){
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
             this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
             this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
 
-        } else {
+        }else{
             this.TourDiary.DiaryId = data["DiaryId"];
             this.TourDiary.TourPlanId = data["TourPlanId"];
             this.TourDiary.Ppno = data["Ppno"];
         }
 
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'ZC')
+        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status, true)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                this.TourDiaryList = [];
-                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                this.TourDiaryList=[];
+                this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.onClearForm();
-                this.TourDiary = null;
+                this.TourDiary=null;
             } else {
-                this.TourDiary = null;
+                this.TourDiary=null;
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
 
