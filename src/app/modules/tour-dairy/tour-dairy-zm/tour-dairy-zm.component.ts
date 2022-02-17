@@ -300,6 +300,7 @@ export class TourDiaryZmComponent implements OnInit {
         this.gridForm.controls['Remarks'].setValue(null);
         this.gridForm.controls['Status'].setValue(null);
         this.btnText = 'Save'
+        this.gridForm.markAsUntouched()
         //this.setValue();
 
     }
