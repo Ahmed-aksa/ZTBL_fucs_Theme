@@ -48,7 +48,6 @@ export class SearchTourDiaryComponent implements OnInit {
     public CustomerStatusLov: any;
     _TourDiary = new TourDiary;
     isUserAdmin: boolean = false;
-    isZoneUser: boolean = false;
     loggedInUserDetails: any;
     TourDiarysByDate;
     minDate: Date;
@@ -61,7 +60,6 @@ export class SearchTourDiaryComponent implements OnInit {
     TourDiarys;
     Math: any;
 
-    // Pagination
     Limit: any;
     OffSet: number = 0;
     //pagination
@@ -77,7 +75,7 @@ export class SearchTourDiaryComponent implements OnInit {
 
     zone: any;
     branch: any;
-
+    circle: any;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -102,57 +100,21 @@ export class SearchTourDiaryComponent implements OnInit {
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
         console.log(this.loggedInUserDetails)
-        this.loggedInUserDetails.User.userGroup.forEach(element=>{
-            if(element.ProfileID == Number(environment.ZC)){
+        this.loggedInUserDetails.User.userGroup.forEach(element => {
+            if (element.ProfileID == Number(environment.ZC)) {
                 this.zc = true;
             }
         })
         this.setUsers()
         this.LoadLovs();
         this.createForm();
-        // this.setCircles();
-        this.getTourDiary();
-
-        this.settingZBC();
-    }
-
-    //Start ZBC
-    userInfo = this.userUtilsService.getUserDetails();
-
-    settingZBC() {
-
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
-    CheckDirectionStatus(loanUtilization: any) {
-        // this.loggedInUserDetails.User.UserId;
-        // if (this.isMCO) {
-        //     if (loanUtilization.Status == 'P' || loanUtilization.Status == 'R') {
-        //         if (loanUtilization.CreatedBy == this.loggedInUserDetails.User.UserId) {
-        //             return true;
-        //         } else {
-        //             return false;
-        //         }
-        //     } else {
-        //         return false;
-        //     }
-        // } else if (this.isBM) {
-        //     if (loanUtilization.Status == 'S') {
-        //         return true;
-        //     }
-        // } else {
-        //     return false;
-        // }
-        return true
 
-    }
-
-    //End ZBC
-
+    userInfo = this.userUtilsService.getUserDetails();
 
     setUsers() {
         var userInfo = this.userUtilsService.getUserDetails();
-        //
-        //MCO User
         if (userInfo.User.userGroup[0].ProfileID == "56") {
             this.isMCO = true;
         }
@@ -166,26 +128,9 @@ export class SearchTourDiaryComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 400 + 'px';
-
-        //var userInfo = this.userUtilsService.getUserDetails();
-        //this.TourDiary.controls['Zone'].setValue(userInfo.Zone.ZoneName);
-        //this.TourDiary.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
-    // CheckEditStatus(loanUtilization: any) {
-    //
-
-    //   if () {
-    //     return true
-    //   }
-    //   else {
-    //     return false
-    //   }
-    // }
-
     setFromDate() {
-
-        // this.TourDiary.controls.FromDate.reset();
         this.minDate = this.TourDiary.controls.FromDate.value;
         var FromDate = this.TourDiary.controls.FromDate.value;
         if (FromDate._isAMomentObject == undefined) {
@@ -263,27 +208,6 @@ export class SearchTourDiaryComponent implements OnInit {
         }
     }
 
-    getToday() {
-        // Today
-
-        if (this.TourDiary.controls.ToDate.value) {
-            this.Today = this.TourDiary.controls.ToDate.value
-            return this.Today;
-        } else {
-
-            this.Today = new Date();
-            //
-            // .split('T')[0]);
-            return this.Today;
-        }
-    }
-
-    getTodayForTo() {
-        return new Date().toISOString().split('T')[0]
-    }
-
-
-
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
@@ -304,38 +228,10 @@ export class SearchTourDiaryComponent implements OnInit {
 
     }
 
-    paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
-        this.itemsPerPage = pageSize;
-        this.OffSet = (pageIndex - 1) * this.itemsPerPage;
-        this.pageIndex = pageIndex;
-        this.SearchTourDiary()
-        this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
-    }
-
 
     hasError(controlName: string, errorName: string): boolean {
         return this.TourDiary.controls[controlName].hasError(errorName);
     }
-
-    getTourDiary() {
-
-
-    }
-
-    toggleAccordion(i: number) {
-        let down_arrow = document.getElementById('arrow_down_' + i).style.display;
-        if (down_arrow == 'block') {
-            document.getElementById('arrow_down_' + i).style.display = 'none';
-            document.getElementById('arrow_up_' + i).style.display = 'block';
-            document.getElementById('table_' + i).style.display = 'block';
-        } else {
-            document.getElementById('arrow_up_' + i).style.display = 'none';
-            document.getElementById('arrow_down_' + i).style.display = 'block';
-            document.getElementById('table_' + i).style.display = 'none';
-
-        }
-    }
-
 
     SearchTourDiary(from_search_button = false) {
 
@@ -357,16 +253,10 @@ export class SearchTourDiaryComponent implements OnInit {
             );
             return;
         }
-
-        // if (!this.TourDiary.controls["Status"].value) {
-        //     this.TourDiary.controls["Status"].setValue("All")
-        // }
         if (from_search_button == true)
             this.OffSet = 0;
         var count = this.itemsPerPage.toString();
         var currentIndex = this.OffSet.toString();
-        // this.TourDiary.controls["StartDate"].setValue(this.datePipe.transform(this.TourDiary.controls["StartDate"].value, 'ddMMyyyy'))
-        // this.TourDiary.controls["EndDate"].setValue(this.datePipe.transform(this.TourDiary.controls["EndDate"].value, 'ddMMyyyy'))
         this._TourDiary = Object.assign(this.TourDiary.value);
         this._TourDiary["StartDate"] = this.datePipe.transform(this.TourDiary.controls["StartDate"].value, 'ddMMyyyy');
         this._TourDiary["EndDate"] = this.datePipe.transform(this.TourDiary.controls["EndDate"].value, 'ddMMyyyy');
@@ -385,51 +275,13 @@ export class SearchTourDiaryComponent implements OnInit {
                 if (baseResponse.Success) {
                     debugger
                     this.TourDiarys = baseResponse?.TourDiary?.TourDiaries;
-                    this.dataSource.data =baseResponse?.TourDiary?.TourDiaries;
-
-                    if (this.dataSource?.data?.length > 0)
-                        this.matTableLenght = true;
-                    else
-                        this.matTableLenght = false;
-
-                    this.dv = this.dataSource.data;
-                    // this.totalItems = baseResponse.TourDiary.TourDiarysByDate[0].TotalRecords;
-                    this.dataSource.data = this.dv
-                    //this.dataSource = new MatTableDataSource(data);
-
-                    // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
-                    this.OffSet = this.pageIndex;
                 } else {
 
-                    // if (this.dv != undefined) {
-                    this.matTableLenght = false;
                     this.TourDiarys = [];
-                    this.dataSource = this.dv?.splice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
-                    // this.dataSource.data = [];
-                    // this._cdf.detectChanges();
-                    this.OffSet = 1;
-                    this.pageIndex = 1;
-                    this.dv = this.dv?.splice(1, 0);
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    // }
                 }
             });
     }
-
-
-    // getStatus(status: string) {
-    //
-    //     if (status == 'P') {
-    //         return "Submit";
-    //     } else if (status == 'N') {
-    //         return "Pending";
-    //     } else if (status == 'A') {
-    //         return "Authorized";
-    //     } else if (status == 'R') {
-    //         return "Refer Back";
-    //     }
-    // }
-
 
     filterConfiguration(): any {
         const filter: any = {};
@@ -438,50 +290,26 @@ export class SearchTourDiaryComponent implements OnInit {
         return filter;
     }
 
-    ngOnDestroy() {
-    }
-
-    masterToggle() {
-
-    }
-
-
-
     async LoadLovs() {
-
-        //this.ngxService.start();
-
         this.tourDiaryStatusLov = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.UtilizationTypes})
         //
         this.tourDiaryStatusLov?.LOVs.forEach(function (value) {
             if (!value.Value)
                 value.Value = "All";
         });
-
-
-        ////For Bill type
-        // this.EducationLov = await this._lovService.CallLovAPI(this.LovCall = { TagName: LovConfigurationKey.Education })
-
-        // this.ngxService.stop();
-
     }
 
     getAllData(data) {
 
-        if(Array.isArray(data.final_zone)){
+        if (Array.isArray(data.final_zone)) {
             this.zone = data.final_zone[0];
-        }
-        else{
+        } else {
             this.zone = data.final_zone;
         }
 
         this.branch = data.final_branch;
+        this.circle = data.final_circle;
     }
 
-    dateChange(date: string) {
-        var day = date?.slice(0, 2),
-            month = date?.slice(2, 4),
-            year = date?.slice(4, 8);
-        return day + "-" + month + "-" + year;
-    }
+
 }
