@@ -12,6 +12,8 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {CommonService} from "../../../shared/services/common.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
+import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
     selector: 'app-tour-diary-approval-pc',
@@ -40,6 +42,8 @@ export class TourDiaryApprovalPcComponent implements OnInit {
     TourDiary;
     isUpdate: boolean = false;
     TourDiaryList: any;
+    systemGenerated: any;
+    data: any;
 
     constructor(
         private fb: FormBuilder,
@@ -51,18 +55,21 @@ export class TourDiaryApprovalPcComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private _cdf: ChangeDetectorRef,
         private router: Router,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private dialog: MatDialog
     ) {
         this.loggedInUser = userService.getSearchResultsDataOfZonesBranchCircle();
     }
 
     ngOnInit(): void {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'));
         if (JSON.parse(localStorage.getItem('TourDiary'))) {
             localStorage.removeItem('TourDiary');
         } else {
             this.toastr.error("No Tour Diary For Approval Found");
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
+        this.getTourDiaryDetail();
     }
 
 
@@ -72,30 +79,42 @@ export class TourDiaryApprovalPcComponent implements OnInit {
         this.circle = event.final_circle;
     }
 
-    approve() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the approval?");
-
-
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
+    changeStatus(status) {
+        const signatureDialogRef = this.dialog.open(
+            SignaturePadForDiaryApproval,
+            {
+                disableClose: true,
+                data: {data: this.TourDiaryList, status: status}
+            },
+        );
+        signatureDialogRef.afterClosed().subscribe((res) => {
+            if (res == true) {
+                this.router.navigate(['/tour-diary/tour-diary-approval']);
+            } else {
+                return
             }
-            this.toastr.success("Approved");
         })
     }
 
-    referback() {
-        const dialogRef = this.layoutUtilsService.AlertElementConfirmation("", "Are You Suer you want to confirm the Referback?");
 
+    getTourDiaryDetail() {
+        this.spinner.show();
+        debugger;
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.data)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+            } else {
 
-        dialogRef.afterClosed().subscribe(res => {
-
-            if (!res) {
-                return;
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
-            this.toastr.success("Referbacked");
-        })
+        });
     }
 
 }

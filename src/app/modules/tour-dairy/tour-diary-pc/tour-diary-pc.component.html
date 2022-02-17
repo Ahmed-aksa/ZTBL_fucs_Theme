@@ -1,11 +1,12 @@
 <div
-    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent"
+    #container>
 
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading" #container>TOUR DIARY & PROGRESS REPORT OF PROVINCIAL CHIEF</div>
-            <button (click)="assignValues()">Patch Dummy Data</button>
+            <div class="heading">TOUR DIARY & PROGRESS REPORT OF PROVINCIAL CHIEF</div>
+            <!--            <button (click)="assignValues()">Patch Dummy Data</button>-->
         </div>
     </div>
 
@@ -25,7 +26,8 @@
                                                         (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Name of Officer<strong class="matMandatory">*</strong></mat-label>
+                                        <mat-label class="customMatLabel">Name of Officer<strong
+                                            class="matMandatory">*</strong></mat-label>
                                         <input matInput formControlName="NameOfOfficer" autocomplete="off"
                                                readonly="readonly"/>
                                     </mat-form-field>
@@ -33,7 +35,8 @@
 
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong></mat-label>
+                                        <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong>
+                                        </mat-label>
                                         <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
                                     </mat-form-field>
                                 </div>
@@ -75,7 +78,8 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Departure Place<strong class="matMandatory">*</strong></mat-label>
+                                            <mat-label class="customMatLabel">Departure Place<strong
+                                                class="matMandatory">*</strong></mat-label>
                                             <input matInput formControlName="DepartureFromPlace" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -83,7 +87,8 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Departure Time<strong class="matMandatory">*</strong></mat-label>
+                                            <mat-label class="customMatLabel">Departure Time<strong
+                                                class="matMandatory">*</strong></mat-label>
                                             <input type="text" matInput [ngxTimepicker]="timepickerDeparture"
                                                    [format]="DateFormat()" readonly
                                                    formControlName="DepartureFromTime"/>
@@ -102,7 +107,8 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Arrival Place<strong class="matMandatory">*</strong></mat-label>
+                                            <mat-label class="customMatLabel">Arrival Place<strong class="matMandatory">*</strong>
+                                            </mat-label>
                                             <input matInput formControlName="ArrivalAtPlace" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -110,7 +116,8 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Arrival Time<strong class="matMandatory">*</strong></mat-label>
+                                            <mat-label class="customMatLabel">Arrival Time<strong
+                                                class="matMandatory">*</strong></mat-label>
                                             <input type="text" matInput [ngxTimepicker]="timepickerArrival"
                                                    [format]="DateFormat()" readonly
                                                    formControlName="ArrivalAtTime"/>
@@ -144,8 +151,8 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Measure Boost Up Record</mat-label>
-                                            <input appNumberOnly matInput formControlName="MeasureBoostUpRecord"
+                                            <mat-label class="customMatLabel">Measure Boosted Up Record</mat-label>
+                                            <input matInput formControlName="MeasureBoostUpRecord"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -225,12 +232,7 @@
                                             <input matInput readonly="readonly" [value]="single_list.TourDate">
                                         </mat-form-field>
                                     </td>
-                                    <td class="border-r border-gray-400">
-                                        <mat-form-field class=" mat-form-field-fluid w-full"
-                                                        appearance="outline">
-                                            <input matInput readonly="readonly" [value]="single_list?.PlanPurposeName">
-                                        </mat-form-field>
-                                    </td>
+
                                     <td class="border-r border-gray-400">
                                         <mat-form-field class=" mat-form-field-fluid w-full"
                                                         appearance="outline">
@@ -282,10 +284,13 @@
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <button mat-icon-button (click)="editData(single_list); container.scrollTop = 0">
+                                        <button mat-icon-button
+                                                (click)="editData(single_list); container.scrollTop = 0"
+                                                *ngIf="checkStatus(single_list,'edit')">
                                             <mat-icon>edit</mat-icon>
                                         </button>
-                                        <button mat-icon-button (click)="deleteData(single_list)">
+                                        <button mat-icon-button (click)="deleteData(single_list)"
+                                                *ngIf="checkStatus(single_list,'delete')">
                                             <mat-icon>delete</mat-icon>
                                         </button>
                                     </td>

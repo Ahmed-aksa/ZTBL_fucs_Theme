@@ -242,7 +242,7 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    ChangeStatusDiary(zone, branch, circle, TourDiary, Status, is_zc = false) {
+    ChangeStatusDiary(zone, branch, circle, TourDiary, Status, role=null) {
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -265,6 +265,9 @@ export class TourDiaryService {
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
         // TourDiary.TourDate = TourDiary.TourDate.toString();
 
+        if (role=='ZC') {
+            userInfo.User.ProfileId = environment.ZC;
+        }
         req = {
             User: userInfo.User,
             Branch: branch,
@@ -280,9 +283,6 @@ export class TourDiaryService {
                 TourDate: TourDiary.TourDate
             }
         }
-
-
-        console.log(JSON.stringify(req));
 
         return this.http
             .post<any>(

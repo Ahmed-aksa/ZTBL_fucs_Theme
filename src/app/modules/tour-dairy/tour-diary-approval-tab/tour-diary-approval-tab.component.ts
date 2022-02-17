@@ -222,10 +222,10 @@ export class TourApprovalTabComponent implements OnInit {
     }
 
     redirectTourDiary(data: any) {
-        debugger
         if (data?.RedirectTo) {
             localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
-            localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
+            if (this.branch)
+                localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
             localStorage.removeItem('TourDiary')
             localStorage.setItem('TourDiary', JSON.stringify(data));
             this.router.navigate([data?.RedirectTo], {

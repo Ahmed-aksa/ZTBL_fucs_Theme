@@ -149,8 +149,8 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['AuditReports'].setValue(null);
         this.gridForm.controls['OutstandingParas'].setValue(null);
         this.gridForm.controls['Settlements'].setValue(null);
-        this.gridForm.controls['TOTFarmersContacted'].setValue(null);
-        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(null);
+        this.gridForm.controls['TotFarmersContacted'].setValue(null);
+        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(null);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(null);
         this.gridForm.controls['Remarks'].setValue(null);
         this.gridForm.controls['Status'].setValue(null);
@@ -363,10 +363,10 @@ export class TourDiaryZcComponent implements OnInit {
         }
     }
 
-    GetTourPlan(){
+    GetTourPlan() {
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date)
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
@@ -395,20 +395,19 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     //Date Format
-    DateFormat(){
-        if(this.Format24===true){
+    DateFormat() {
+        if (this.Format24 === true) {
             return 24
-        }
-        else{
+        } else {
             return 12
         }
 
     }
 
     getAllData(data) {
-        if(data.final_zone[0]){
+        if (Array.isArray(data.final_zone)) {
             this.zone = data.final_zone[0];
-        }else{
+        } else {
             this.zone = data.final_zone;
         }
         this.branch = data.final_branch;
