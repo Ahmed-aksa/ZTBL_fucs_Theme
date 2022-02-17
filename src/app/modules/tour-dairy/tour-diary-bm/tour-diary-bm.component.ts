@@ -153,6 +153,23 @@ export class TourDiaryBmComponent implements OnInit {
         this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
     }
 
+    checkStatus(item, action) {
+        if (action == 'edit') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (action == 'delete') {
+            if (item.Status == 'P' || item.Status == 'R') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     getToday() {
         this.Today = new Date();
         return this.Today;

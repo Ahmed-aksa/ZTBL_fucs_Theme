@@ -405,10 +405,10 @@
                                         </mat-form-field>
                                     </td>
                                     <td class="border-r border-gray-400">
-                                        <button mat-icon-button (click)="editData(single_list); container.scrollTop = 0">
+                                        <button *ngIf="checkStatus(single_list, 'edit')" mat-icon-button (click)="editData(single_list); container.scrollTop = 0">
                                             <mat-icon>edit</mat-icon>
                                         </button>
-                                        <button mat-icon-button (click)="deleteData(single_list)">
+                                        <button *ngIf="checkStatus(single_list, 'delete')" mat-icon-button (click)="deleteData(single_list)">
                                             <mat-icon>delete</mat-icon>
                                         </button>
                                     </td>
