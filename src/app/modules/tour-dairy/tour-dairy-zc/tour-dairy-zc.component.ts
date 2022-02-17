@@ -149,8 +149,8 @@ export class TourDiaryZcComponent implements OnInit {
         this.gridForm.controls['AuditReports'].setValue(null);
         this.gridForm.controls['OutstandingParas'].setValue(null);
         this.gridForm.controls['Settlements'].setValue(null);
-        this.gridForm.controls['TotFarmersContacted'].setValue(null);
-        this.gridForm.controls['TotNoOfFarmersVisisted'].setValue(null);
+        this.gridForm.controls['TOTFarmersContacted'].setValue(null);
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(null);
         this.gridForm.controls['AnyOtherWorkDone'].setValue(null);
         this.gridForm.controls['Remarks'].setValue(null);
         this.gridForm.controls['Status'].setValue(null);
@@ -251,7 +251,6 @@ export class TourDiaryZcComponent implements OnInit {
                     day = "0" + day;
                 }
                 varDate = day + "" + month + "" + year;
-
                 this.date = varDate;
                 const branchWorkingDate = new Date(year, month - 1, day);
                 this.gridForm.controls.TourDate.setValue(branchWorkingDate);
