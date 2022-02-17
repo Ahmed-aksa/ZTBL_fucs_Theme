@@ -86,7 +86,7 @@ export class TourDiaryApprovalZmComponent implements OnInit {
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
         console.log(JSON.stringify(this.TourDiary))
-        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.TourDiary)
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

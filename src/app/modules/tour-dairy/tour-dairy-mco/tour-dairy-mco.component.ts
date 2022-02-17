@@ -208,7 +208,7 @@ export class TourDiaryMcoComponent implements OnInit {
         this.spinner.show();
         //this.circle = null
         console.log(JSON.stringify(this.TourDiary))
-        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary)
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary,'MCO')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -379,11 +379,6 @@ export class TourDiaryMcoComponent implements OnInit {
         // this.gridForm.controls['Ppno'].setValue(mcoDiary.Ppno);
         this.gridForm.controls['DiaryId'].setValue(mcoDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(mcoDiary.TourPlanId);
-        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        if (this.branch?.BranchId == mcoDiary?.BranchId) {
-            this.gridForm.get('BranchCode').patchValue(this.branch?.BranchCode);
-        }
-        this.gridForm.get('CircleId').patchValue(mcoDiary.CircleId?.toString());
         this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(mcoDiary.TourDate));
         this.gridForm.controls['DepartureFromPlace'].setValue(mcoDiary.DepartureFromPlace);
         this.gridForm.controls['DepartureFromTime'].setValue(mcoDiary.DepartureFromTime);
@@ -413,35 +408,11 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     onClearForm() {
-        // this.gridForm.controls['Name'].setValue(null);
-        // this.gridForm.controls['Ppno'].setValue(null);
-        this.gridForm.controls['DiaryId'].setValue(null);
-        this.gridForm.controls['TourPlanId'].setValue(null);
-        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
-        this.gridForm.controls['CircleId'].setValue(null);
-        this.gridForm.controls['TourDate'].setValue(null);
-        this.gridForm.controls['DepartureFromPlace'].setValue(null);
-        this.gridForm.controls['DepartureFromTime'].setValue(null);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(null);
-        this.gridForm.controls['ArrivalAtTime'].setValue(null);
-        this.gridForm.controls['DisbNoOfCasesReceived'].setValue(null);
-        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue(null);
-        this.gridForm.controls['DisbNoOfRecordVerified'].setValue(null);
-        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue(null);
-        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue(null);
-        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue(null);
-        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue(null);
-        this.gridForm.controls['NoOfUtilizationChecked'].setValue(null);
-        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue(null);
-        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue(null);
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(null);
-        this.gridForm.controls['TOTFarmersContacted'].setValue(null);
-        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(null);
-        this.gridForm.controls['AnyOtherWorkDone'].setValue(null);
-        this.gridForm.controls['Remarks'].setValue(null);
-        this.gridForm.controls['Status'].setValue(null);
 
+        Object.keys(this.gridForm.controls).forEach((key) => {
+            if (key != 'BranchCode' && key != 'ZoneId' && key != 'WorkingDate' && key != 'CircleId')
+                this.gridForm.get(key).reset();
+        });
         this.isUpdate = false;
         this.gridForm.markAsUntouched();
         this.setValue();
@@ -532,20 +503,19 @@ export class TourDiaryMcoComponent implements OnInit {
     GetTourPlan() {
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date)
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date,'MCO')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
 debugger
-                    // this.TargetDuration = baseResponse.Target.TargetDuration;
+                    this.TourDiaryList=[];
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    // this.TourDiaryList = baseResponse?.TourPlan?.TourPlansByDate[0]?.TourPlans;
+                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                 } else {
                     this.TourPlan = null;
-
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,

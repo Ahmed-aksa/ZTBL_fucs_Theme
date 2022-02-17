@@ -92,7 +92,7 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    GetScheduleBaseTourPlan(zone, branch, date) {
+    GetScheduleBaseTourPlan(zone, branch, date,role) {
 
         this.request = new BaseRequestModel();
 
@@ -114,11 +114,12 @@ export class TourDiaryService {
         let TourDiary = {
             "TourDate": date,
         }
+
+        userInfo.User.ProfileId=this.getProfileId(role)
         request.TourPlan = TourPlan;
         request.TourDiary = TourDiary;
-        //this.request.Date = {}
-        var req = JSON.stringify(request);
         console.log(JSON.stringify(request))
+        debugger
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetScheduleBaseTourPlan`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -182,11 +183,6 @@ export class TourDiaryService {
         if (is_zc) {
             this.request.User["ProfileId"] = environment.ZC;
         }
-        //   var date ={
-        //     "User": this.request.User,
-        //     "TourPlan":  tourPlan
-
-        //   }
         var req = JSON.stringify(this.request);
 
         console.log(req);
@@ -197,18 +193,16 @@ export class TourDiaryService {
     }
 
 
-    saveDiary(zone, branch, circle, TourDiary, is_zc = false) {
+    saveDiary(zone, branch, circle, TourDiary, role) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
+        userInfo.User.ProfileId=this.getProfileId(role)
         this.request.Zone = zone;
         this.request.Branch = branch;
         this.request.Circle = circle;
         this.request.User = userInfo.User;
         this.request.TourDiary = TourDiary;
-        if (is_zc) {
-            this.request.User["ProfileId"] = environment.ZC;
-        }
 
         console.log(JSON.stringify(this.request))
 
@@ -220,20 +214,18 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    getTourDiaryDetail(zone, branch, TourDiary) {
-
+    getTourDiaryDetail(zone, branch,circle, TourDiary,role=null) {
+debugger
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
+        userInfo.User.ProfileId=this.getProfileId(role)
         this.request.Zone = zone;
         this.request.Branch = branch;
+        this.request.Circle = circle;
         this.request.User = userInfo.User;
         this.request.TourDiary = TourDiary;
-        // if (is_zc) {
-        //     this.request.User["ProfileId"] = environment.ZC;
-        // }
-
         console.log(JSON.stringify(this.request))
-
+debugger
         return this.http
             .post<any>(
                 `${environment.apiUrl}/TourPlanAndDiary/GetTourDiaryApprovalDetail`,
@@ -242,7 +234,7 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    ChangeStatusDiary(zone, branch, circle, TourDiary, Status, role = null) {
+    ChangeStatusDiary(zone, branch, circle, TourDiary, Status, role =null) {
         //this.request = new BaseRequestModel();
         var req;
         var userInfo = this.userUtilsService.getUserDetails();
@@ -257,6 +249,7 @@ export class TourDiaryService {
         }
         circleIds = circles.toString();
 
+        userInfo.User.ProfileId=this.getProfileId(role)
         TourDiary.DiaryId = TourDiary.DiaryId.toString();
         if (TourDiary.Ppno)
             TourDiary.Ppno = TourDiary?.Ppno?.toString();
@@ -265,22 +258,7 @@ export class TourDiaryService {
         TourDiary.TourPlanId = TourDiary.TourPlanId.toString();
         // TourDiary.TourDate = TourDiary.TourDate.toString();
 
-        if (role == 'ZC') {
-            userInfo.User.ProfileId = environment.ZC;
-        } else if (role == 'MCO') {
-            userInfo.User.ProfileId = environment.MCO_Group_ID;
-        } else if (role == 'ZM') {
-            userInfo.User.ProfileId = environment.ZM;
-        } else if (role == 'BM') {
-            userInfo.User.ProfileId = environment.BM;
-        } else if (role == 'PC') {
-            userInfo.User.ProfileId = environment.PROVINCIAL_CHEIF;
-        } else if (role == 'RC') {
-            userInfo.User.ProfileId = environment.Regional_CHIEF;
-        }
-        else if (role == 'RO') {
-            userInfo.User.ProfileId = environment.RECOVERY_OFFICER;
-        }
+
         req = {
             User: userInfo.User,
             Branch: branch,
@@ -371,6 +349,26 @@ export class TourDiaryService {
                 this.request
             )
             .pipe(map((res: BaseResponseModel) => res));
+    }
+
+    getProfileId(role){
+        debugger
+        if (role == 'ZC') {
+            return environment.ZC;
+        } else if (role == 'MCO') {
+            return environment.MCO_Group_ID;
+        } else if (role == 'ZM') {
+            return environment.ZM;
+        } else if (role == 'BM') {
+            return environment.BM;
+        } else if (role == 'PC') {
+            return environment.PROVINCIAL_CHEIF;
+        } else if (role == 'RC') {
+            return environment.Regional_CHIEF;
+        }
+        else if (role == 'RO') {
+            return environment.RECOVERY_OFFICER;
+        }
     }
 
 

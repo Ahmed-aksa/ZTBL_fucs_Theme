@@ -124,32 +124,17 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     onClearForm() {
-        // this.gridForm.controls['Name'].setValue("");
-        this.gridForm.controls['PPNO'].setValue("");
-        this.gridForm.controls['DiaryId'].setValue("");
-        this.gridForm.controls['TourPlanId'].setValue("");
-        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        this.gridForm.controls["BranchId"].setValue(this.branch.BranchId);
-        this.gridForm.controls['TourDate'].setValue("");
-        this.gridForm.controls['DepartureFromPlace'].setValue("");
-        this.gridForm.controls['DepartureFromTime'].setValue("");
-        this.gridForm.controls['ArrivalAtPlace'].setValue("");
-        this.gridForm.controls['ArrivalAtTime'].setValue("");
-        // this.gridForm.controls['DisbNoOfCasesAppraised'].setValue("");
-        this.gridForm.controls['DisbNoOfNewBorrowerContacted'].setValue("");
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue("");
-        this.gridForm.controls['DisbBorrowerRollOverCasesContacted'].setValue("");
-        this.gridForm.controls['RecAmountRecoveredWithLCNo'].setValue("");
-        this.gridForm.controls['NoOfUtilizationChecked'].setValue("");
-        this.gridForm.controls['AnyOtherWorkDone'].setValue("");
-        this.gridForm.controls['TOTFarmersContacted'].setValue("");
-        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue("");
-        this.gridForm.controls['AnyOtherWorkDone'].setValue("");
-        this.gridForm.controls['Remarks'].setValue("");
+
+        Object.keys(this.gridForm.controls).forEach((key) => {
+            if (key != 'BranchCode' && key != 'ZoneId' && key != 'WorkingDate' && key != 'CircleId')
+                this.gridForm.get(key).reset();
+        });
+        this.isUpdate = false;
+        this.gridForm.markAsUntouched();
         this.setValue();
 
-        this.gridForm.markAsUntouched();
     }
+
 
     getAllData(event) {
         this.zone = event.final_zone;
@@ -274,18 +259,19 @@ export class TourDiaryBmComponent implements OnInit {
     GetTourPlan() {
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date)
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date,'BM')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-
-                    // this.TargetDuration = baseResponse.Target.TargetDuration;
+                    this.TourDiaryList=[];
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                 } else {
+
+                    this.TourPlan = null;
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,
@@ -345,7 +331,7 @@ export class TourDiaryBmComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle,this.TourDiary)
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle,this.TourDiary,'BM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

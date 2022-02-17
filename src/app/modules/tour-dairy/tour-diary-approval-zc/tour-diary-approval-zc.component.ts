@@ -78,8 +78,8 @@ export class TourDiaryApprovalZcComponent implements OnInit {
     getTourDiaryDetail() {
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        console.log(JSON.stringify(this.TourDiary))
-        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.TourDiary)
+        debugger
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'RC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
