@@ -38,6 +38,7 @@ export class TourDiaryRcComponent implements OnInit {
     TourDiary;
     TourDiaryList = [];
     date: string;
+    systemGenerated: any;
 
     constructor(
         private fb: FormBuilder,
@@ -400,6 +401,7 @@ export class TourDiaryRcComponent implements OnInit {
                     this.TourDiaryList = []
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                     // this.TargetDuration = baseResponse.Target.TargetDuration;
                 } else {
                     this.layoutUtilsService.alertElement(
