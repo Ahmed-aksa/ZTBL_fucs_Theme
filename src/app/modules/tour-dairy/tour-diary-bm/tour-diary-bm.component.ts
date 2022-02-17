@@ -7,9 +7,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {MatDialog} from "@angular/material/dialog";
-import {Router} from "@angular/router";
-import {SignatureDailogDairyComponent} from "../signature-dailog-dairy/signature-dailog-dairy.component";
 import {finalize} from "rxjs/operators";
 import {CommonService} from "../../../shared/services/common.service";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
@@ -61,13 +58,15 @@ export class TourDiaryBmComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
+    }
+    ngAfterViewInit()
+    {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
             this.editData(this.data)
         }
     }
-
     setValue() {
         this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
         this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser.User.DisplayName);

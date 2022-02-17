@@ -65,13 +65,15 @@ export class TourDiaryZcComponent implements OnInit {
     ngOnInit(): void {
         this.createForm();
         this.loggedInUser = this.userService.getUserDetails();
+    }
+    ngAfterViewInit()
+    {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
             this.edit(this.data)
         }
     }
-
     setValue(){
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);

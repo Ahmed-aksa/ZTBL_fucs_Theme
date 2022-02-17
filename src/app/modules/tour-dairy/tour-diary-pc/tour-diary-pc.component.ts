@@ -57,6 +57,10 @@ export class TourDiaryPcComponent implements OnInit {
 
     ngOnInit(): void {
         this.createForm();
+
+    }
+    ngAfterViewInit()
+    {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');

@@ -112,14 +112,17 @@ export class TourDiaryMcoComponent implements OnInit {
         this.loggedInUser = this.userService.getUserDetails();
         this.createForm();
 
+
+        // this.gridForm.controls['ArrivalAtTime'].setValue("1:13 AM");
+    }
+    ngAfterViewInit()
+    {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
             this.edit(this.data)
         }
-        // this.gridForm.controls['ArrivalAtTime'].setValue("1:13 AM");
     }
-
     setValue() {
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
