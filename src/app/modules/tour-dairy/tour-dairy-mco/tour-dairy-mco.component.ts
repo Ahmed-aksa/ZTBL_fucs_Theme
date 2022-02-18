@@ -411,6 +411,7 @@ debugger
         if(mcoDiary.DiaryId){
             this.checkDisable = false;
         }
+        this.gridForm.controls['CircleId'].setValue(mcoDiary.CircleId.toString());
         this.gridForm.controls['DiaryId'].setValue(mcoDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(mcoDiary.TourPlanId);
         this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(mcoDiary.TourDate));
