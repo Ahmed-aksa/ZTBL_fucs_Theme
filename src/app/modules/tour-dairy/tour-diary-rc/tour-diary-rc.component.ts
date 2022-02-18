@@ -41,6 +41,8 @@ export class TourDiaryRcComponent implements OnInit {
     systemGenerated: any;
     data;
 
+    checkDisable = true;
+
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
@@ -178,6 +180,7 @@ export class TourDiaryRcComponent implements OnInit {
                 this.gridForm.get(key).reset();
         });
         this.isUpdate = false;
+        this.checkDisable = true;
         this.gridForm.markAsUntouched();
         this.setValue();
 
@@ -292,6 +295,9 @@ export class TourDiaryRcComponent implements OnInit {
 
     edit(mcoDiary) {
 
+        if(mcoDiary.DiaryId){
+            this.checkDisable = false;
+        }
         this.gridForm.patchValue(mcoDiary)
         this.gridForm.controls.TourDate.setValue(this.commonService.stringToDate(mcoDiary.TourDate)); //= this.commonService.stringToDate(mcoDiary.TourDate);
         this.isUpdate = true;

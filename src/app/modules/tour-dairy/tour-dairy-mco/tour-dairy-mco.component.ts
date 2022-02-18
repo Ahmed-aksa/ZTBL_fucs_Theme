@@ -42,6 +42,8 @@ export class TourDiaryMcoComponent implements OnInit {
     isUpdate: boolean = false;
     data;
 
+    checkDisable = true;
+
     systemGenerated: any;
     TotalNoOfCasesReceived=0;
     TotalDisbNoOfCasesAppraised=0;
@@ -377,6 +379,9 @@ export class TourDiaryMcoComponent implements OnInit {
 
         // this.gridForm.controls['Name'].setValue(mcoDiary.Name);
         // this.gridForm.controls['Ppno'].setValue(mcoDiary.Ppno);
+        if(mcoDiary.DiaryId){
+            this.checkDisable = false;
+        }
         this.gridForm.controls['DiaryId'].setValue(mcoDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(mcoDiary.TourPlanId);
         this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(mcoDiary.TourDate));
@@ -414,6 +419,7 @@ export class TourDiaryMcoComponent implements OnInit {
                 this.gridForm.get(key).reset();
         });
         this.isUpdate = false;
+        this.checkDisable = true;
         this.gridForm.markAsUntouched();
         this.setValue();
 

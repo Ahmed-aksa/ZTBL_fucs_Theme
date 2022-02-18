@@ -46,6 +46,8 @@ export class TourDiaryZcComponent implements OnInit {
     isUpdate:boolean=false;
     data;
 
+    checkDisable = true;
+
     constructor(
         private fb: FormBuilder,
         private userService: UserUtilsService,
@@ -150,6 +152,7 @@ export class TourDiaryZcComponent implements OnInit {
                 this.gridForm.get(key).reset();
         });
         this.isUpdate = false;
+        this.checkDisable = true;
         this.gridForm.markAsUntouched();
         this.setValue();
 
@@ -308,6 +311,9 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     edit(zcDiary) {
+        if(zcDiary.DiaryId){
+            this.checkDisable = false;
+        }
         this.gridForm.patchValue(zcDiary);
         this.gridForm.get('TourDate').patchValue(this._common.stringToDate(zcDiary.TourDate));
         this.isUpdate = true;

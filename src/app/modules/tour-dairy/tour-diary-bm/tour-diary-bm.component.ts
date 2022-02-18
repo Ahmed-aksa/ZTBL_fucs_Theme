@@ -43,6 +43,8 @@ export class TourDiaryBmComponent implements OnInit {
     data;
     systemGenerated: any;
 
+    checkDisable = true;
+
     constructor(
         private fb: FormBuilder,
         private userService: UserUtilsService,
@@ -130,6 +132,7 @@ export class TourDiaryBmComponent implements OnInit {
                 this.gridForm.get(key).reset();
         });
         this.isUpdate = false;
+        this.checkDisable = true;
         this.gridForm.markAsUntouched();
         this.setValue();
 
@@ -390,6 +393,9 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     editData(tour_list) {
+        if(tour_list.DiaryId){
+            this.checkDisable = false;
+        }
         this.gridForm.patchValue(tour_list);
         this.gridForm.get('TourDate').patchValue(this._common.stringToDate(tour_list.TourDate));
         this.date=tour_list.TourDate;

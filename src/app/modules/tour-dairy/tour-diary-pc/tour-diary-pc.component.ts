@@ -42,6 +42,8 @@ export class TourDiaryPcComponent implements OnInit {
     TourDiaryList: any;
     systemGenerated: any;
     data;
+    checkDisable = true;
+
     constructor(
         private fb: FormBuilder,
         private userService: UserUtilsService,
@@ -125,6 +127,7 @@ export class TourDiaryPcComponent implements OnInit {
                 this.gridForm.get(key).reset();
         });
         this.isUpdate = false;
+        this.checkDisable = true;
         this.gridForm.markAsUntouched();
         this.setValue();
     }
@@ -356,6 +359,9 @@ export class TourDiaryPcComponent implements OnInit {
     }
 
     editData(tour_list) {
+        if(tour_list.DiaryId){
+            this.checkDisable = false;
+        }
         this.gridForm.patchValue(tour_list);
         this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(tour_list.TourDate));
         this.isUpdate = true;
