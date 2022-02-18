@@ -232,6 +232,20 @@ export class TourDiaryMcoComponent implements OnInit {
         });
     }
     Calculations(){
+        this.TotalNoOfCasesReceived=0;
+        this.TotalDisbNoOfCasesAppraised=0;
+        this.TotalDisbNoOfRecordVerified=0;
+        this.TotalDisbNoOfSanctionedAuthorized=0;
+        this.TotalDisbSanctionLetterDelivered=0;
+        this.TotalDisbSupplyOrderDelivered=0;
+        this.TotalRecNoOfDefaulterContacted=0;
+        this.TotalRecNoOfLegalNoticeDelivered=0;
+        this.TotalRecNoOfNoticeDelivered=0;
+        this.TotalNoOfUtilizationChecked=0;
+        this.TotalNoOfSanctnMutationVerified=0;
+        this.TotalTOTNoOfFarmersVisisted=0;
+        this.TotalTOTFarmersContacted=0;
+
         this.TourDiaryList.forEach(element=>{
             if(!isNaN(element?.DisbNoOfCasesReceived))
             this.TotalNoOfCasesReceived = this.TotalNoOfCasesReceived+Number(element?.DisbNoOfCasesReceived)
