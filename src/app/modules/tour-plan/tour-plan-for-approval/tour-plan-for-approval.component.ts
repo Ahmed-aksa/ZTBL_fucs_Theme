@@ -302,7 +302,7 @@ export class TourPlanForApprovalComponent implements OnInit {
             PPNO: [null],
             Status: ["S", Validators.required],
         });
-
+        this.tourPlanApprovalForm.controls['Status'].disable();
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
@@ -488,10 +488,9 @@ export class TourPlanForApprovalComponent implements OnInit {
     }
 
     getAllData(data) {
-        if(Array.isArray(data.final_zone)){
+        if (Array.isArray(data.final_zone)) {
             this.zone = data.final_zone[0];
-        }
-        else{
+        } else {
             this.zone = data.final_zone;
         }
 
