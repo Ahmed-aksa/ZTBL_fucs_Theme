@@ -405,7 +405,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     edit(mcoDiary) {
-
+debugger
         // this.gridForm.controls['Name'].setValue(mcoDiary.Name);
         // this.gridForm.controls['Ppno'].setValue(mcoDiary.Ppno);
         if(mcoDiary.DiaryId){
@@ -455,7 +455,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     getAllData(event) {
-
+debugger
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;

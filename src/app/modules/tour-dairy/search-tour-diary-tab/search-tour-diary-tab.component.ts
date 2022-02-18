@@ -48,12 +48,11 @@ export class SearchTourDiaryTabComponent implements OnInit {
     }
 
     redirectTourDiary(data: any) {
+        debugger
         if (data?.RedirectTo) {
             localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
-            if (this.branch)
-                localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
-            if (this.circle)
-                localStorage.setItem('selected_single_circle', JSON.stringify(this.circle?.CircleId));
+            localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
+            localStorage.setItem('selected_single_circle', JSON.stringify((data?.CircleId).toString()));
             localStorage.removeItem('TourDiary')
             localStorage.setItem('TourDiary', JSON.stringify(data));
             this.router.navigate([data?.RedirectTo], {
@@ -63,9 +62,9 @@ export class SearchTourDiaryTabComponent implements OnInit {
     }
 
     CheckDirectionStatus(model: any) {
-        if(model.Status=='P'){
+        if (model.Status == 'P') {
             return true;
-        }else if(model.Status=='R'){
+        } else if (model.Status == 'R') {
             return true;
         }
         return false;
