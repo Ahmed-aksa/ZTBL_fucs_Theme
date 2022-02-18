@@ -28,7 +28,7 @@ import {CommonService} from "../../../shared/services/common.service";
 export class TourDiaryRoComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
-    maxDate: Date;
+    maxDate = new Date();
     zone: any;
     branch: any;
     circle: any;

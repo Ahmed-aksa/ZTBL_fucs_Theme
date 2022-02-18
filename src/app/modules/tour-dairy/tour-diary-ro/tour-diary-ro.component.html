@@ -36,13 +36,13 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Name of Officer<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>
+                                            <input matInput formControlName="Name" autocomplete="off" readonly="readonly" placeholder="Name of Officer"/>
                                         </mat-form-field>
                                     </div>
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
+                                            <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly" placeholder="Ppno"/>
                                         </mat-form-field>
                                     </div>
 <!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
@@ -52,19 +52,11 @@
 <!--                                        </mat-form-field>-->
 <!--                                    </div>-->
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-                                        <!--                                            <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>-->
-                                        <!--                                            </mat-label>-->
-                                        <!--                                            <input matInput [matDatepicker]="picker" formControlName="TourDate" maxlength="30" autocomplete="off"-->
-                                        <!--                                                   [max]="maxDate" (dateChange)="isEnableReceipt(false)" appNumberOnly/>-->
-                                        <!--                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-                                        <!--                                            <mat-datepicker #picker></mat-datepicker>-->
-                                        <!--                                        </mat-form-field>-->
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Tour Date<strong class="matMandatory">*</strong></mat-label>
-                                            <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
+                                            <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate" placeholder="Tour Date"
                                                     maxlength="8"
-                                                    autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
+                                                    autocomplete="off" [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>
                                             <mat-datepicker-toggle (click)="checkZone()" [disabled]="!zone" matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
@@ -103,14 +95,14 @@
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Departure Place<strong class="matMandatory">*</strong></mat-label>
-                                                <input matInput formControlName="DepartureFromPlace" autocomplete="off"/>
+                                                <input matInput formControlName="DepartureFromPlace" autocomplete="off" placeholder="Departure Place "/>
                                             </mat-form-field>
                                         </div>
 
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Departure Time<strong class="matMandatory">*</strong></mat-label>
-                                                <input type="text" matInput [ngxTimepicker]="timepickerDeparture" [format]="DateFormat()" readonly formControlName="DepartureFromTime"/>
+                                                <input type="text" matInput [ngxTimepicker]="timepickerDeparture" [format]="DateFormat()" readonly formControlName="DepartureFromTime" placeholder="Departure Time"/>
                                                 <mat-icon matSuffix (click)="openFromIcon(timepickerDeparture)">schedule</mat-icon>
                                             </mat-form-field>
                                         </div>
@@ -152,14 +144,14 @@
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Results of contacts so made</mat-label>
-                                                <input appNumberOnly matInput formControlName="ResultContactMade" autocomplete="off"/>
+                                                <input appNumberOnly placeholder="Results of contacts so made" matInput formControlName="ResultContactMade" autocomplete="off"/>
                                             </mat-form-field>
                                         </div>
 
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Measure Boost Up Record</mat-label>
-                                                <input appNumberOnly matInput formControlName="MeasureBoostUpRecord" autocomplete="off"/>
+                                                <input appNumberOnly matInput placeholder="Measure Boost Up Record" formControlName="MeasureBoostUpRecord" autocomplete="off"/>
                                             </mat-form-field>
                                         </div>
 
@@ -167,7 +159,7 @@
                                              style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Remarks</mat-label>
-                                                <input  matInput formControlName="Remarks"
+                                                <input  matInput placeholder="Remarks" formControlName="Remarks"
                                                         autocomplete="off"/>
                                             </mat-form-field>
                                         </div>

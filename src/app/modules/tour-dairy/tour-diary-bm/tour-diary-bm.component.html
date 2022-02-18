@@ -30,7 +30,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Name of Officer<strong class="matMandatory">*</strong></mat-label>
-                                        <input matInput formControlName="NameOfOfficer" autocomplete="off"
+                                        <input matInput formControlName="NameOfOfficer" autocomplete="off" placeholder="Name of Officer"
                                                readonly="readonly"/>
                                     </mat-form-field>
                                 </div>
@@ -38,7 +38,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong></mat-label>
-                                        <input matInput formControlName="PPNO" autocomplete="off" readonly="readonly"/>
+                                        <input matInput formControlName="PPNO" autocomplete="off" readonly="readonly" placeholder="PPNO"/>
                                     </mat-form-field>
                                 </div>
 
@@ -47,8 +47,8 @@
                                         <mat-label class="customMatLabel">Tour Date<strong class="matMandatory">*</strong></mat-label>
                                         <input matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
                                                maxlength="8"
-                                               autocomplete="off" [max]="getToday()" (dateChange)="setDate()"
-                                               appNumberOnly/>
+                                               autocomplete="off" [max]="maxDate"(dateChange)="setDate()"
+                                               appNumberOnly placeholder="TourDate"/>
                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
                                     </mat-form-field>
@@ -80,7 +80,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Departure Place<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="DepartureFromPlace" autocomplete="off"/>
+                                            <input matInput formControlName="DepartureFromPlace" autocomplete="off" placeholder="Departure Place"/>
                                         </mat-form-field>
                                     </div>
 
@@ -90,7 +90,7 @@
                                             <mat-label class="customMatLabel">Departure Time<strong class="matMandatory">*</strong></mat-label>
                                             <input type="text" matInput [ngxTimepicker]="timepickerDeparture"
                                                    [format]="DateFormat()" readonly
-                                                   formControlName="DepartureFromTime"/>
+                                                   formControlName="DepartureFromTime" placeholder="Departure Time"/>
                                             <mat-icon matSuffix (click)="openFromIcon(timepickerDeparture)">schedule
                                             </mat-icon>
                                         </mat-form-field>
@@ -107,7 +107,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Arrival Place<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="ArrivalAtPlace" autocomplete="off"/>
+                                            <input matInput formControlName="ArrivalAtPlace" autocomplete="off" placeholder="Arrival Place"/>
                                         </mat-form-field>
                                     </div>
 
@@ -118,7 +118,7 @@
                                             <input type="text" matInput [ngxTimepicker]="timepickerArrival"
                                                    [format]="DateFormat()" readonly
                                                    formControlName="ArrivalAtTime"/>
-                                            <mat-icon matSuffix (click)="openFromIcon(timepickerArrival)">schedule
+                                            <mat-icon matSuffix (click)="openFromIcon(timepickerArrival)" placeholder="Arrival Time">schedule
                                             </mat-icon>
                                         </mat-form-field>
                                     </div>
@@ -135,7 +135,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of new borrowers contacted</mat-label>
-                                            <input appNumberOnly matInput formControlName="DisbNoOfNewBorrowerContacted"
+                                            <input appNumberOnly matInput formControlName="DisbNoOfNewBorrowerContacted" placeholder="No. of new borrowers contacted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -146,7 +146,7 @@
                                             <mat-label class="customMatLabel">No. of borrowers of Roll-over cases
                                                 contacted
                                             </mat-label>
-                                            <input appNumberOnly matInput formControlName="DisbBorrowerRollOverCasesContacted"
+                                            <input appNumberOnly matInput formControlName="DisbBorrowerRollOverCasesContacted" placeholder="No. of borrowers of Roll-over cases"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -163,7 +163,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of Defaulters contacted</mat-label>
-                                            <input appNumberOnly matInput formControlName="RecNoOfDefaulterContacted"
+                                            <input appNumberOnly matInput formControlName="RecNoOfDefaulterContacted" placeholder="No. of Defaulters contacted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -172,7 +172,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Amount recovered with L.C. No.</mat-label>
-                                            <input appNumberOnly matInput formControlName="RecAmountRecoveredWithLCNo"
+                                            <input appNumberOnly matInput formControlName="RecAmountRecoveredWithLCNo" placeholder="Amount recovered with L.C. No."
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -187,7 +187,7 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of Utilizations checked as per quota
                                             </mat-label>
-                                            <input appNumberOnly matInput formControlName="NoOfUtilizationChecked"
+                                            <input appNumberOnly matInput formControlName="NoOfUtilizationChecked" placeholder="No. of Utilizations checked as per quota"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -204,7 +204,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Progressive Farmers contacted</mat-label>
-                                            <input appNumberOnly matInput formControlName="TOTFarmersContacted"
+                                            <input appNumberOnly matInput formControlName="TOTFarmersContacted" placeholder="Progressive Farmers contacted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -213,7 +213,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of farms visited</mat-label>
-                                            <input appNumberOnly matInput formControlName="TOTNoOfFarmersVisisted"
+                                            <input appNumberOnly matInput formControlName="TOTNoOfFarmersVisisted" placeholder="No. of farms visited"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -227,7 +227,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Any other work done</mat-label>
-                                            <input  matInput formControlName="AnyOtherWorkDone" autocomplete="off"/>
+                                            <input  matInput formControlName="AnyOtherWorkDone" autocomplete="off" placeholder="Any other work done"/>
                                         </mat-form-field>
                                     </div>
 
@@ -235,7 +235,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Remarks</mat-label>
-                                            <input matInput formControlName="Remarks" autocomplete="off"/>
+                                            <input matInput formControlName="Remarks" autocomplete="off" placeholder="Remarks"/>
                                         </mat-form-field>
                                     </div>
                                 </div>

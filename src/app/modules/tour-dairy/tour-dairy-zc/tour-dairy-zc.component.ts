@@ -45,7 +45,6 @@ export class TourDiaryZcComponent implements OnInit {
     TourDiaryList;
     isUpdate:boolean=false;
     data;
-
     checkDisable = true;
 
     constructor(

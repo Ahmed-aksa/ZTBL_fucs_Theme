@@ -42,7 +42,7 @@
                                         </mat-label>
                                         <input matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
                                                maxlength="8"
-                                               autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
+                                               autocomplete="off" [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>
                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
                                     </mat-form-field>
@@ -241,7 +241,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. Of Cases Received</mat-label>
-                                        <input matInput placeholder="No. Of Cases Received"
+                                        <input matInput appNumberOnly placeholder="No. Of Cases Received"
                                                formControlName="DisbNoOfCasesReceived" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -249,7 +249,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. Of Cases Appraised</mat-label>
-                                        <input matInput placeholder="No Of Cases Appraised"
+                                        <input matInput appNumberOnly placeholder="No Of Cases Appraised"
                                                formControlName="DisbNoOfCasesAppraised" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -259,7 +259,7 @@
                                         <mat-label class="customMatLabel">No. of cases in which original revenue record
                                             verified
                                         </mat-label>
-                                        <input matInput placeholder="No Of Record Verified"
+                                        <input matInput appNumberOnly placeholder="No Of Record Verified"
                                                formControlName="DisbNoOfRecordVerified" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -268,7 +268,7 @@
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of cases sanctioned if authorized
                                         </mat-label>
-                                        <input matInput placeholder="No Of Sanctioned Authorized"
+                                        <input matInput appNumberOnly placeholder="No Of Sanctioned Authorized"
                                                formControlName="DisbNoOfSanctionedAuthorized" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -276,7 +276,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of sanction letters delivered</mat-label>
-                                        <input matInput placeholder="Sanction Letter Delivered"
+                                        <input matInput appNumberOnly placeholder="Sanction Letter Delivered"
                                                formControlName="DisbSanctionLetterDelivered" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -284,7 +284,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of supply orders delivered</mat-label>
-                                        <input matInput placeholder="Supply Order Delivered"
+                                        <input matInput appNumberOnly placeholder="Supply Order Delivered"
                                                formControlName="DisbSupplyOrderDelivered" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -321,7 +321,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of utilizations checked</mat-label>
-                                        <input matInput placeholder="No. Of Cases Received"
+                                        <input matInput appNumberOnly placeholder="No. Of Cases Received"
                                                formControlName="NoOfUtilizationChecked" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -330,7 +330,7 @@
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of sanctioned mutations verified
                                         </mat-label>
-                                        <input matInput placeholder="No Of Sanctn Mutation Verified"
+                                        <input matInput appNumberOnly placeholder="No Of Sanctn Mutation Verified"
                                                formControlName="NoOfSanctnMutationVerified" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -365,7 +365,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of demand notices delivered</mat-label>
-                                        <input matInput placeholder="No. Of Cases Received"
+                                        <input matInput appNumberOnly placeholder="No. Of Cases Received"
                                                formControlName="RecNoOfNoticeDelivered" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -373,7 +373,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of legal notices delivered</mat-label>
-                                        <input matInput placeholder="DisbNoOfCasesAppraised"
+                                        <input matInput appNumberOnly placeholder="DisbNoOfCasesAppraised"
                                                formControlName="RecNoOfLegalNoticeDelivered" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -381,7 +381,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Amount recovered (Daily)</mat-label>
-                                        <input matInput placeholder="RecNoOfDefaulterContacted"
+                                        <input matInput appNumberOnly placeholder="RecNoOfDefaulterContacted"
                                                formControlName="RecNoOfDefaulterContacted" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -389,7 +389,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of defauters contacted</mat-label>
-                                        <input matInput placeholder="DisbNoOfCasesAppraised"
+                                        <input matInput appNumberOnly placeholder="DisbNoOfCasesAppraised"
                                                formControlName="RecNoOfDefaulterContacted" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -432,7 +432,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">Progressive farmers contacted</mat-label>
-                                        <input matInput placeholder="TOTFarmersContacted"
+                                        <input matInput appNumberOnly placeholder="TOTFarmersContacted"
                                                formControlName="TOTFarmersContacted" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -440,7 +440,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. of farms visited</mat-label>
-                                        <input matInput placeholder="TOTNoOfFarmersVisisted"
+                                        <input matInput appNumberOnly placeholder="TOTNoOfFarmersVisisted"
                                                formControlName="TOTNoOfFarmersVisisted" maxlength="30"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -606,7 +606,7 @@
                     <td>{{mcoDiary.Remarks}}</td>
 
                 </tr>
-                <tr>
+                <tr *ngIf="TourDiaryList?.length>0">
                     <td>
                         <div class="p-3"><strong class="text-md">Totals: </strong></div>
                     </td>
