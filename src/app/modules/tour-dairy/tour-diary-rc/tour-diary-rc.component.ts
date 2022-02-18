@@ -27,7 +27,6 @@ import {CommonService} from "../../../shared/services/common.service";
 export class TourDiaryRcComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
-    maxDate: Date;
     zone: any = null;
     branch: any = null;
     circle: any = null;
@@ -40,7 +39,7 @@ export class TourDiaryRcComponent implements OnInit {
     date: string;
     systemGenerated: any;
     data;
-
+    maxDate = new Date();
     checkDisable = true;
 
     constructor(

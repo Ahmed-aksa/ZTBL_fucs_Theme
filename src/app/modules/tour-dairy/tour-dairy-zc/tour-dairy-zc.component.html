@@ -54,7 +54,7 @@
                                             <mat-label class="customMatLabel">Tour Date<strong class="matMandatory">*</strong></mat-label>
                                             <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
                                                     maxlength="8"
-                                                    autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
+                                                    autocomplete="off" [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>
                                             <mat-datepicker-toggle (click)="checkZone()" [disabled]="!zone" matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
@@ -217,14 +217,14 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">General Administration<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="GeneralAdmissionComplaints" autocomplete="off"/>
+                                            <input matInput placeholder="General Administration" formControlName="GeneralAdmissionComplaints" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Cash Management <strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="CashManagementCompliance" autocomplete="off"/>
+                                            <input matInput placeholder="Cash Management" formControlName="CashManagementCompliance" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -239,21 +239,21 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Audit Reports<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="AuditReports" autocomplete="off"/>
+                                            <input matInput placeholder="Audit Reports" formControlName="AuditReports" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Outstanding Paras <strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="OutstandingParas" autocomplete="off"/>
+                                            <input matInput placeholder="Outstanding Paras" formControlName="OutstandingParas" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Settlement <strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Settlements" autocomplete="off"/>
+                                            <input matInput placeholder="Settlement" formControlName="Settlements" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -265,7 +265,7 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of loan cases in which Recovery Schedule</mat-label>
-                                            <input matInput formControlName="LCNotIssuedToBorrowers" autocomplete="off"/>
+                                            <input matInput placeholder="No. of loan cases in which Recovery Schedule" appNumberOnly formControlName="LCNotIssuedToBorrowers" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -279,14 +279,14 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Progressive Farmers Contacted<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="TOTFarmersContacted" autocomplete="off"/>
+                                            <input matInput placeholder="rogressive Farmers Contacted" appNumberOnly formControlName="TOTFarmersContacted" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of Farms Visited<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="TOTNoOfFarmersVisisted" autocomplete="off"/>
+                                            <input matInput placeholder="No. of Farms Visited" appNumberOnly formControlName="TOTNoOfFarmersVisisted" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -298,14 +298,14 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Any other work done<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="AnyOtherWorkDone" autocomplete="off"/>
+                                            <input matInput placeholder="Any other work done" formControlName="AnyOtherWorkDone" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Remarks" autocomplete="off"/>
+                                            <input matInput placeholder="Remarks" formControlName="Remarks" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
                                 </div>

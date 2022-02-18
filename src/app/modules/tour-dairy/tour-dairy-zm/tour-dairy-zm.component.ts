@@ -36,7 +36,6 @@ import {CommonService} from "../../../shared/services/common.service";
 export class TourDiaryZmComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
-    maxDate: Date;
     sign;
     SelectedBranches = [];
     preSelect: any;
@@ -46,7 +45,7 @@ export class TourDiaryZmComponent implements OnInit {
     TourPlan: any;
     TourDiary = new TourDiary();
     TourDiaryList = [];
-
+    maxDate = new Date();
     Format24:boolean=true;
     isUpdate:boolean=false;
     date: any;

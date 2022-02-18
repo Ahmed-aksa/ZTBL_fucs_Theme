@@ -41,6 +41,7 @@ export class TourDiaryMcoComponent implements OnInit {
     Format24: boolean = true;
     isUpdate: boolean = false;
     data;
+    maxDate = new Date();
 
     checkDisable = true;
 
@@ -221,55 +222,69 @@ export class TourDiaryMcoComponent implements OnInit {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
-
-                this.TourDiaryList.forEach(element=>{
-
-                    this.TotalNoOfCasesReceived = this.TotalNoOfCasesReceived+Number(element?.DisbNoOfCasesReceived)
-                });
-
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalDisbNoOfCasesAppraised = this.TotalDisbNoOfCasesAppraised+Number(element?.DisbNoOfCasesAppraised)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalDisbNoOfRecordVerified = this.TotalDisbNoOfRecordVerified+Number(element?.DisbNoOfRecordVerified)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalDisbNoOfSanctionedAuthorized = this.TotalDisbNoOfSanctionedAuthorized+Number(element?.DisbNoOfSanctionedAuthorized)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalDisbSanctionLetterDelivered = this.TotalDisbSanctionLetterDelivered+Number(element?.DisbSanctionLetterDelivered)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalDisbSupplyOrderDelivered = this.TotalDisbSupplyOrderDelivered+Number(element?.DisbSupplyOrderDelivered)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalRecNoOfDefaulterContacted = this.TotalRecNoOfDefaulterContacted+Number(element?.RecNoOfDefaulterContacted)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalRecNoOfLegalNoticeDelivered = this.TotalRecNoOfLegalNoticeDelivered+Number(element?.RecNoOfLegalNoticeDelivered)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalRecNoOfNoticeDelivered = this.TotalRecNoOfNoticeDelivered+Number(element?.RecNoOfNoticeDelivered)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalNoOfUtilizationChecked = this.TotalNoOfUtilizationChecked+Number(element?.NoOfUtilizationChecked)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalNoOfSanctnMutationVerified = this.TotalNoOfSanctnMutationVerified+Number(element?.NoOfSanctnMutationVerified)
-                });
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalTOTNoOfFarmersVisisted = this.TotalTOTNoOfFarmersVisisted+Number(element?.TOTNoOfFarmersVisisted)
-                });
-
-                this.TourDiaryList.forEach(element=>{
-                    this.TotalTOTFarmersContacted = this.TotalTOTFarmersContacted+Number(element?.TOTFarmersContacted)
-                });
+                this.Calculations();
                 this.isUpdate = false;
                 this.onClearForm();
             } else {
 
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
+        });
+    }
+    Calculations(){
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.DisbNoOfCasesReceived))
+            this.TotalNoOfCasesReceived = this.TotalNoOfCasesReceived+Number(element?.DisbNoOfCasesReceived)
+        });
+
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.DisbNoOfCasesAppraised))
+            this.TotalDisbNoOfCasesAppraised = this.TotalDisbNoOfCasesAppraised+Number(element?.DisbNoOfCasesAppraised)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.DisbNoOfRecordVerified))
+            this.TotalDisbNoOfRecordVerified = this.TotalDisbNoOfRecordVerified+Number(element?.DisbNoOfRecordVerified)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.DisbNoOfSanctionedAuthorized))
+            this.TotalDisbNoOfSanctionedAuthorized = this.TotalDisbNoOfSanctionedAuthorized+Number(element?.DisbNoOfSanctionedAuthorized)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.DisbSanctionLetterDelivered))
+            this.TotalDisbSanctionLetterDelivered = this.TotalDisbSanctionLetterDelivered+Number(element?.DisbSanctionLetterDelivered)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.DisbSupplyOrderDelivered))
+            this.TotalDisbSupplyOrderDelivered = this.TotalDisbSupplyOrderDelivered+Number(element?.DisbSupplyOrderDelivered)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.RecNoOfDefaulterContacted))
+            this.TotalRecNoOfDefaulterContacted = this.TotalRecNoOfDefaulterContacted+Number(element?.RecNoOfDefaulterContacted)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.RecNoOfLegalNoticeDelivered))
+            this.TotalRecNoOfLegalNoticeDelivered = this.TotalRecNoOfLegalNoticeDelivered+Number(element?.RecNoOfLegalNoticeDelivered)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.RecNoOfNoticeDelivered))
+            this.TotalRecNoOfNoticeDelivered = this.TotalRecNoOfNoticeDelivered+Number(element?.RecNoOfNoticeDelivered)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.NoOfUtilizationChecked))
+            this.TotalNoOfUtilizationChecked = this.TotalNoOfUtilizationChecked+Number(element?.NoOfUtilizationChecked)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.NoOfSanctnMutationVerified))
+            this.TotalNoOfSanctnMutationVerified = this.TotalNoOfSanctnMutationVerified+Number(element?.NoOfSanctnMutationVerified)
+        });
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.TOTNoOfFarmersVisisted))
+            this.TotalTOTNoOfFarmersVisisted = this.TotalTOTNoOfFarmersVisisted+Number(element?.TOTNoOfFarmersVisisted)
+        });
+
+        this.TourDiaryList.forEach(element=>{
+            if(!isNaN(element?.TOTFarmersContacted))
+                this.TotalTOTFarmersContacted = this.TotalTOTFarmersContacted+Number(element?.TOTFarmersContacted)
         });
     }
 
@@ -520,6 +535,7 @@ debugger
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                    this.Calculations();
                 } else {
                     this.TourPlan = null;
                     this.layoutUtilsService.alertElement(

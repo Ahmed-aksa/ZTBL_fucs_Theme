@@ -28,7 +28,6 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 export class TourDiaryBmComponent implements OnInit {
     gridForm: FormGroup;
     loggedInUser: any;
-    maxDate: Date;
     zone: any;
     branch: any;
     circle: any;
@@ -42,7 +41,7 @@ export class TourDiaryBmComponent implements OnInit {
     TourDiaryList: any;
     data;
     systemGenerated: any;
-
+    maxDate = new Date();
     checkDisable = true;
 
     constructor(
@@ -162,11 +161,6 @@ export class TourDiaryBmComponent implements OnInit {
                 return false;
             }
         }
-    }
-
-    getToday() {
-        this.Today = new Date();
-        return this.Today;
     }
 
     setTourDate() {

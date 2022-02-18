@@ -34,7 +34,7 @@
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong>
                                         </mat-label>
-                                        <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
+                                        <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly" placeholder="Ppno"/>
                                     </mat-form-field>
                                 </div>
 
@@ -53,7 +53,7 @@
                                             class="matMandatory">*</strong></mat-label>
                                         <input matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
                                                maxlength="8"
-                                               autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
+                                               autocomplete="off" [max]="maxDate" (dateChange)="setDate()" appNumberOnly placeholder="Tour Date"/>
                                         <mat-datepicker-toggle (click)="checkZone()" [disabled]="!zone" matSuffix
                                                                [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
@@ -92,7 +92,7 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Departure Place<strong
                                                 class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="DepartureFromPlace" autocomplete="off"/>
+                                            <input matInput formControlName="DepartureFromPlace" autocomplete="off" placeholder="Departure Place"/>
                                         </mat-form-field>
                                     </div>
 
@@ -103,7 +103,7 @@
                                                 class="matMandatory">*</strong></mat-label>
                                             <input type="text" matInput [ngxTimepicker]="timepickerDeparture"
                                                    [format]="DateFormat()" readonly
-                                                   formControlName="DepartureFromTime"/>
+                                                   formControlName="DepartureFromTime" placeholder=">Departure Time"/>
                                             <mat-icon matSuffix (click)="openFromIcon(timepickerDeparture)">schedule
                                             </mat-icon>
                                         </mat-form-field>
@@ -121,7 +121,7 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Arrival Place<strong class="matMandatory">*</strong>
                                             </mat-label>
-                                            <input matInput formControlName="ArrivalAtPlace" autocomplete="off"/>
+                                            <input matInput formControlName="ArrivalAtPlace" autocomplete="off" placeholder="Arrival Place"/>
                                         </mat-form-field>
                                     </div>
 
@@ -131,7 +131,7 @@
                                             <mat-label class="customMatLabel">Arrival Time<strong
                                                 class="matMandatory">*</strong></mat-label>
                                             <input type="text" matInput [ngxTimepicker]="timepickerArrival"
-                                                   [format]="DateFormat()" readonly formControlName="ArrivalAtTime"/>
+                                                   [format]="DateFormat()" readonly formControlName="ArrivalAtTime" placeholder="Arrival Time"/>
                                             <mat-icon matSuffix (click)="openFromIcon(timepickerArrival)">schedule
                                             </mat-icon>
                                         </mat-form-field>
@@ -146,7 +146,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of defaulters contacted</mat-label>
-                                            <input appNumberOnly matInput formControlName="NoOfDefaulterContacted"
+                                            <input appNumberOnly matInput formControlName="NoOfDefaulterContacted" placeholder="No. of defaulters contacted"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -155,7 +155,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Results of contacts so made</mat-label>
-                                            <input appNumberOnly matInput formControlName="ResultContactMade"
+                                            <input appNumberOnly matInput formControlName="ResultContactMade" placeholder="Results of contacts so made"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -164,7 +164,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Measure Boost Up Record</mat-label>
-                                            <input appNumberOnly matInput formControlName="MeasureBoostUpRecord"
+                                            <input appNumberOnly matInput formControlName="MeasureBoostUpRecord" placeholder="Measure Boost Up Record"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
@@ -172,7 +172,7 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Remarks</mat-label>
-                                            <input  matInput formControlName="Remarks"
+                                            <input  matInput formControlName="Remarks" placeholder="Remarks"
                                                    autocomplete="off"/>
                                         </mat-form-field>
                                     </div>

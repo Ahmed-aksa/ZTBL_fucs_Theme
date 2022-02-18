@@ -54,7 +54,7 @@
                                             <mat-label class="customMatLabel">Tour Date<strong class="matMandatory">*</strong></mat-label>
                                             <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
                                                     maxlength="8"
-                                                    autocomplete="off" (dateChange)="setDate()" appNumberOnly/>
+                                                    autocomplete="off" [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>
                                             <mat-datepicker-toggle (click)="checkZone()" [disabled]="!zone" matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
@@ -142,35 +142,35 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not been issued to borrowers</mat-label>
-                                            <input matInput formControlName="LCNotIssuedToBorrowers" autocomplete="off"/>
+                                            <input matInput placeholder="No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not been issued to borrowers" appNumberOnly formControlName="LCNotIssuedToBorrowers" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour Plan</mat-label>
-                                            <input matInput formControlName="McoNBmTourDiaryAPPlan" autocomplete="off"/>
+                                            <input matInput placeholder="Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour Plan" formControlName="McoNBmTourDiaryAPPlan" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Any short comings in Tour Diaries of MCOs/Branch Manager</mat-label>
-                                            <input matInput formControlName="AnyShortComingInDiaries" autocomplete="off"/>
+                                            <input matInput placeholder="Any short comings in Tour Diaries of MCOs/Branch Manager" formControlName="AnyShortComingInDiaries" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of Defaulters contacted by the Z.M (Rec. & SAM)</mat-label>
-                                            <input matInput formControlName="RecNoOfDefaulterContacted" autocomplete="off"/>
+                                            <input matInput placeholder="No. of Defaulters contacted by the Z.M (Rec. & SAM)" appNumberOnly formControlName="RecNoOfDefaulterContacted" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Remarks</mat-label>
-                                            <input matInput formControlName="Remarks" autocomplete="off"/>
+                                            <input matInput placeholder="Remarks" formControlName="Remarks" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
