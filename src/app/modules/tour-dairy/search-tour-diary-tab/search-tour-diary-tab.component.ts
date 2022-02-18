@@ -65,6 +65,8 @@ export class SearchTourDiaryTabComponent implements OnInit {
     CheckDirectionStatus(model: any) {
         if(model.Status=='P'){
             return true;
+        }else if(model.Status=='R'){
+            return true;
         }
         return false;
     }
