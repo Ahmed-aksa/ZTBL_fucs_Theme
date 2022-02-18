@@ -124,10 +124,11 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
 
     getTourDiaryDetail() {
+
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
         console.log(JSON.stringify(this.TourDiary))
-        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.TourDiary)
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'BM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

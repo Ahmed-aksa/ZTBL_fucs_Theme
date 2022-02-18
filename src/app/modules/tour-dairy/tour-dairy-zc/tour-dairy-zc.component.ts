@@ -124,7 +124,7 @@ export class TourDiaryZcComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone, this.circle, this.branch, this.TourDiary, true)
+        this.tourDiaryService.saveDiary(this.zone, this.circle, this.branch, this.TourDiary, 'ZC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -144,31 +144,17 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     onClearForm() {
-        this.gridForm.controls['DiaryId'].setValue(null);
-        this.gridForm.controls['TourPlanId'].setValue(null);
-        this.gridForm.controls['TourDate'].setValue(null);
-        this.gridForm.controls['DepartureFromPlace'].setValue(null);
-        this.gridForm.controls['DepartureFromTime'].setValue(null);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(null);
-        this.gridForm.controls['ArrivalAtTime'].setValue(null);
-        this.gridForm.controls['GeneralAdmissionComplaints'].setValue(null);
-        this.gridForm.controls['CashManagementCompliance'].setValue(null);
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(null);
-        this.gridForm.controls['AuditReports'].setValue(null);
-        this.gridForm.controls['OutstandingParas'].setValue(null);
-        this.gridForm.controls['Settlements'].setValue(null);
-        this.gridForm.controls['TOTFarmersContacted'].setValue(null);
-        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(null);
-        this.gridForm.controls['AnyOtherWorkDone'].setValue(null);
-        this.gridForm.controls['Remarks'].setValue(null);
-        this.gridForm.controls['Status'].setValue(null);
-        this.btnText = 'Save';
 
-        this.gridForm.markAsUntouched();
+        Object.keys(this.gridForm.controls).forEach((key) => {
+            if (key != 'BranchCode' && key != 'ZoneId' && key != 'WorkingDate' && key != 'CircleId')
+                this.gridForm.get(key).reset();
+        });
         this.isUpdate = false;
+        this.gridForm.markAsUntouched();
         this.setValue();
 
     }
+
 
     checkZone() {
         if (!this.zone) {
@@ -373,16 +359,20 @@ export class TourDiaryZcComponent implements OnInit {
     GetTourPlan() {
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date)
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date,'ZC')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-
+                debugger
+                    this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+
                 } else {
+                    this.TourDiaryList=[]
+                    this.TourPlan = null;
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,

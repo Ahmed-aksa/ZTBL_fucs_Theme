@@ -103,7 +103,7 @@ export class TourDiaryApprovalBmComponent implements OnInit {
         // }
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'BM')
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'ZC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -111,6 +111,7 @@ export class TourDiaryApprovalBmComponent implements OnInit {
             ).subscribe(baseResponse => {
             debugger
             if (baseResponse.Success) {
+
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
             } else {

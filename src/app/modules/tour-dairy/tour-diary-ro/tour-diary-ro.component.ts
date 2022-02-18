@@ -153,7 +153,7 @@ export class TourDiaryRoComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary)
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary,'RO')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -172,27 +172,17 @@ export class TourDiaryRoComponent implements OnInit {
     }
 
     onClearForm() {
-        // this.gridForm.controls['Name'].setValue("");
-        //this.gridForm.controls['Ppno'].setValue(null);
-        this.gridForm.controls['DiaryId'].setValue(null);
-        this.gridForm.controls['TourPlanId'].setValue(null);
-        this.gridForm.controls["ZoneId"].setValue(this.zone.ZoneId);
-        this.gridForm.controls["CircleId"].setValue(null);
-        this.gridForm.controls['TourDate'].setValue(null);
-        this.gridForm.controls['DepartureFromPlace'].setValue(null);
-        this.gridForm.controls['DepartureFromTime'].setValue(null);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(null);
-        this.gridForm.controls['ArrivalAtTime'].setValue(null);
-        this.gridForm.controls['NoOfDefaulterContacted'].setValue(null);
-        this.gridForm.controls['Remarks'].setValue(null);
-        this.gridForm.controls['MeasureBoostUpRecord'].setValue(null);
-        this.gridForm.controls['ResultContactMade'].setValue(null);
 
-        this.gridForm.markAsUntouched();
+        Object.keys(this.gridForm.controls).forEach((key) => {
+            if (key != 'BranchCode' && key != 'ZoneId' && key != 'WorkingDate' && key != 'CircleId')
+                this.gridForm.get(key).reset();
+        });
         this.isUpdate = false;
+        this.gridForm.markAsUntouched();
         this.setValue();
 
     }
+
 
     setValue() {
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
@@ -407,7 +397,7 @@ export class TourDiaryRoComponent implements OnInit {
 
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date)
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date,'RO')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
@@ -418,8 +408,8 @@ export class TourDiaryRoComponent implements OnInit {
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
-                    // this.TargetDuration = baseResponse.Target.TargetDuration;
                 } else {
+                    this.TourPlan = null;
                     this.layoutUtilsService.alertElement(
                         '',
                         baseResponse.Message,

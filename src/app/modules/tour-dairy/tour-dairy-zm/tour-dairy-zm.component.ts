@@ -128,13 +128,13 @@ export class TourDiaryZmComponent implements OnInit {
     GetTourPlan(){
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date)
+            .GetScheduleBaseTourPlan(this.zone,this.branch,this.date,'ZM')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-
+debugger
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 } else {
@@ -254,7 +254,7 @@ export class TourDiaryZmComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone,this.branch, this.circle,this.TourDiary)
+        this.tourDiaryService.saveDiary(this.zone,this.branch, this.circle,this.TourDiary,'ZM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -286,21 +286,15 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     onClearForm() {
-        this.gridForm.controls['DiaryId'].setValue(null);
-        this.gridForm.controls['TourPlanId'].setValue(null);
-        this.gridForm.controls['TourDate'].setValue(null);
-        this.gridForm.controls['DepartureFromPlace'].setValue(null);
-        this.gridForm.controls['DepartureFromTime'].setValue(null);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(null);
-        this.gridForm.controls['ArrivalAtTime'].setValue(null);
-        this.gridForm.controls['LCNotIssuedToBorrowers'].setValue(null);
-        this.gridForm.controls['McoNBmTourDiaryAPPlan'].setValue(null);
-        this.gridForm.controls['AnyShortComingInDiaries'].setValue(null);
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(null);
-        this.gridForm.controls['Remarks'].setValue(null);
-        this.gridForm.controls['Status'].setValue(null);
-        this.btnText = 'Save'
-        //this.setValue();
+
+        Object.keys(this.gridForm.controls).forEach((key) => {
+            if (key != 'BranchCode' && key != 'ZoneId' && key != 'WorkingDate' && key != 'CircleId')
+                this.gridForm.get(key).reset();
+        });
+        this.isUpdate = false;
+        this.gridForm.markAsUntouched();
+        this.setValue();
+
 
     }
 

@@ -98,9 +98,9 @@ export class TourDiaryApprovalPcComponent implements OnInit {
 
 
     getTourDiaryDetail() {
+        this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        debugger;
-        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.data)
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

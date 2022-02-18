@@ -102,8 +102,9 @@ export class TourDiaryApprovalRcComponent implements OnInit {
     }
 
     getTourDiaryDetail() {
+        this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, Object.assign(this.data))
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -111,7 +112,7 @@ export class TourDiaryApprovalRcComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
                 debugger;
-                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
             } else {

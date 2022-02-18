@@ -41,6 +41,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
     date: string;
     data: Object;
     systemGenerated: any;
+    TourDiary;
 
 
     constructor(
@@ -94,15 +95,15 @@ export class TourDiaryApprovalRoComponent implements OnInit {
 
 
     getTourDiaryDetail() {
+        this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, Object.assign(this.data))
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'BM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 debugger;
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
