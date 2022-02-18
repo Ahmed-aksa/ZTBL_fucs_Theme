@@ -599,7 +599,7 @@
                     <td>{{mcoDiary.RecNoOfNoticeDelivered}}</td>
                     <td>{{mcoDiary.RecNoOfLegalNoticeDelivered}}</td>
                     <td>{{mcoDiary.RecNoOfDefaulterContacted}}</td>
-                    <td></td>
+                    <td>{{systemGenerated?.AmountRecoverDaily}}</td>
                     <td>{{mcoDiary.TOTFarmersContacted}}</td>
                     <td>{{mcoDiary.TOTNoOfFarmersVisisted}}</td>
                     <td>{{mcoDiary.AnyOtherWorkDone}}</td>
@@ -670,27 +670,28 @@
                 </thead>
                 <tbody>
                 <tr>
+                    <td>{{systemGenerated?.DAnnualTarget}}</td>
+                    <td>{{systemGenerated?.DPropoTargetEOM}}</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
-                                        appearance="outline">
-                            <input matInput>
-                        </mat-form-field>
+                    <td>{{systemGenerated?.DDisbDuringMonth}}</td>
+                    <td>{{systemGenerated?.DTotalDisbDuringMonth }}</td>
+                    <td>{{systemGenerated?.DIncreaseDeficit}}</td>
+                    <!-- Mutations -->
+                    <td>{{systemGenerated?.MNoMutationPendingPM }}</td>
+                    <td>{{systemGenerated?.MNoDisbDuringMonth}}
+                        <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
+                        <!--                                        appearance="outline">-->
+                        <!--                            <input matInput [value]=" ">-->
+                        <!--                        </mat-form-field>-->
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
-                                        appearance="outline">
-                            <input matInput>
-                        </mat-form-field>
+                    <td>{{systemGenerated?.MMutationToBeVerified}}</td>
+                    <td>{{systemGenerated?.MMutationPending}}</td>
+                    <td>{{systemGenerated?.MMutationToBeVerified}}
+                        <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
+                        <!--                                        appearance="outline">-->
+                        <!--                            <input matInput [value]="">-->
+                        <!--                        </mat-form-field>-->
                     </td>
-                    <td></td>
                 </tr>
 
                 </tbody>
