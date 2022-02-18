@@ -265,6 +265,7 @@ debugger
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.onClearForm();
+                this.btnText = 'Save';
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
@@ -292,6 +293,7 @@ debugger
                 this.gridForm.get(key).reset();
         });
         this.isUpdate = false;
+        this.btnText = 'Save';
         this.gridForm.markAsUntouched();
         this.setValue();
 
