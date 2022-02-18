@@ -46,6 +46,7 @@ export class TourDiaryZmComponent implements OnInit {
     TourPlan: any;
     TourDiary = new TourDiary();
     TourDiaryList = [];
+    checkDisable = true;
 
     Format24:boolean=true;
     isUpdate:boolean=false;
@@ -208,7 +209,7 @@ debugger
 
     getBranches(changedValue){
         let changedZone = null;
-        if (changedValue.value) {
+        if (changedValue?.value) {
             changedZone = {Zone: {ZoneId: changedValue.value}}
         } else {
             changedZone = {Zone: {ZoneId: changedValue}}
@@ -216,7 +217,7 @@ debugger
         this.spinner.show();
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
             this.spinner.hide();
-            this.SelectedBranches = data.Branches;
+            this.SelectedBranches = data?.Branches;
             console.log(this.SelectedBranches)
         });
     }
@@ -292,6 +293,7 @@ debugger
                 this.gridForm.get(key).reset();
         });
         this.isUpdate = false;
+        this.checkDisable = true;
         this.gridForm.markAsUntouched();
         this.setValue();
 
@@ -319,6 +321,9 @@ debugger
 
     edit(zmDiary){
 
+        if(zmDiary.DiaryId){
+            this.checkDisable = false;
+        }
         this.btnText = 'Update';
         this.gridForm.controls['DiaryId'].setValue(zmDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(zmDiary.TourPlanId);
@@ -401,7 +406,7 @@ debugger
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
-        var zoneId = this.zone.ZoneId;
+        var zoneId = this.zone?.ZoneId;
         console.log(zoneId)
         this.getBranches(zoneId);
 

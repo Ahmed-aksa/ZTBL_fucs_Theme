@@ -256,7 +256,7 @@
                                     <mat-icon class="mr-2">save</mat-icon>
                                     Update
                                 </button>
-                                <button mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
+                                <button mat-raised-button class="mr-2" color="primary" [disabled]="checkDisable" (click)="changeStatus('','S')">
                                     <mat-icon class="mr-2">check_circle</mat-icon>
                                     Submit
                                 </button>
