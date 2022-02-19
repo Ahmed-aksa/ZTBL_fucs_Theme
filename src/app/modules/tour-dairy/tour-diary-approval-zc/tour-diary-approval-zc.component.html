@@ -1,223 +1,227 @@
-<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent">
+<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent" #container>
 
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading" #container>TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
+            <div class="heading">TOUR DIARY & PROGRESS REPORT OF ZONAL CHIEF</div>
         </div>
-        <div class="col-lg-3 col-sm-12 self-center">
+    </div>
 
-            <!--            <p class="text-right">-->
-            <!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->
-            <!--                        color="primary"-->
-            <!--                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">-->
-            <!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
-            <!--                    Advance Filter-->
-            <!--                </button>-->
-            <!--            </p>-->
-
-        </div>
+    <div class="col-lg-12 p-0 ist-table  overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+        <table class="table ">
+            <thead>
+            <tr class=" text-center">
+                <th rowspan="2"  >Date</th>
+                <th rowspan="2">Tour Plan</th>
+                <th colspan="2"  >Departure from</th>
+                <th colspan="2"  >Arrival at</th>
+                <th rowspan="2"  >General Administration/Ambiance & Public Complaints of the Branch Visited</th>
+                <th rowspan="2"  >Cash Management & Compliance of Bank Instructions/SBP directives on FTC/AML/KYC etc by the Branch visited</th>
+                <th colspan="3"  >Audit Reports/Audit Discussions and Compliance Status of Branch Visited</th>
+            </tr>
+            <tr class=" text-center">
+                <th  >Place</th>
+                <th  >Time</th>
+                <th  >Place</th>
+                <th  >Time</th>
+                <th  >Audit Reports</th>
+                <th  >Outstanding Paras</th>
+                <th  >Settlement</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ZcTourDiary of TourDiaryList" >
+                <td>{{ZcTourDiary.TourDate}}</td>
+                <td>{{ZcTourDiary?.PlanPurposeName}}</td>
+                <td>{{ZcTourDiary.DepartureFromPlace}}</td>
+                <td>{{ZcTourDiary.DepartureFromTime}}</td>
+                <td>{{ZcTourDiary.ArrivalAtPlace}}</td>
+                <td>{{ZcTourDiary.ArrivalAtTime}}</td>
+                <td>{{ZcTourDiary.GeneralAdmissionComplaints}}</td>
+                <td>{{ZcTourDiary.CashManagementCompliance}}</td>
+                <td>{{ZcTourDiary.AuditReports}}</td>
+                <td>{{ZcTourDiary.OutstandingParas}}</td>
+                <td>{{ZcTourDiary.Settlements}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 
     <div id="Kt-portlet-margin-top">
         <div class="collapse show" id="collapseExample">
-            <div class="kt-form kt-form--group-seperator-dashed">
 
-                <div class="kt-form">
+            <div class="col-lg-12 p-0 sec-table  overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table ">
+                    <thead>
+                    <tr class=" text-center">
+                        <th rowspan="3"  >No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not
+                            been issued to borrowers
+                        </th>
+                        <th colspan="2"  >
+                            Transfer of Technology
+                        </th>
+                        <th colspan="6"  >Portfolio of the Branch Visited</th>
+                        <th rowspan="3"  >Any other work done</th>
+                        <th rowspan="3"  >Remarks</th>
+                    </tr>
+                    <tr class=" text-center">
+                        <th  >Progressive Farmers contacted</th>
+                        <th  >No. of farms visited</th>
+                        <th  >No.</th>
+                        <th  >Amt.</th>
+                        <th  >No.</th>
+                        <th  >Amt.</th>
+                        <th  >No.</th>
+                        <th  >Amt.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let ZcTourDiary of TourDiaryList">
+                        <td>{{ZcTourDiary.LCNotIssuedToBorrowers}}</td>
+                        <td>{{ZcTourDiary.TOTFarmersContacted}}</td>
+                        <td>{{ZcTourDiary.TOTNoOfFarmersVisisted}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ZcTourDiary.AnyOtherWorkDone}}</td>
+                        <td>{{ZcTourDiary.Remarks}}</td>
+                    </tr>
 
-                    <div class="kt-portlet__body">
-
-                  <div class="col-lg-12 p-0  third-table  overflow-auto  shadow-xs rounded-sm bg-gray-50 mt-2">
-                            <table class="table ">
-                                <thead>
-                                <tr class=" text-center">
-                                    <th rowspan="2"  >Date</th>
-                                    <th colspan="2" rowspan="2"  >Departure from</th>
-                                    <th colspan="2" rowspan="2"  >Arrival at</th>
-                                    <th colspan="6"  >Portfolio of the branch visited</th>
-                                    <th colspan="3"  >Recovery</th>
-                                    <th rowspan="4"  >No. of loan cases in which recovery suits have been filed in Banking Court by the
-                                        branch
-                                    </th>
-                                </tr>
-                                <tr class=" text-center sub-table">
-                                    <th colspan="2"  >General</th>
-                                    <th colspan="2"  >NPL's</th>
-                                    <th colspan="2"  >Sam</th>
-                                    <th rowspan="2"  >No. of Demand Notices issued by the branch</th>
-                                    <th rowspan="2"  >No. of Legal Notices issued by the branch</th>
-                                    <th rowspan="2"  >No. of Notices issued by the branch to SPA/Guarantors</th>
-                                </tr>
-                                <tr class=" text-center sub-table">
-                                    <th></th>
-                                    <th></th>
-                                    <th  >Place</th>
-                                    <th  >Time</th>
-                                    <th  >Place</th>
-                                    <th  >Time</th>
-                                    <th  >No.</th>
-                                    <th  >Amt.</th>
-                                    <th  >No.</th>
-                                    <th  >Amt.</th>
-                                    <th  >No.</th>
-                                    <th  >Amt.</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr *ngFor="let ZmTourDiary of TourDiaryList">
-
-                                    <td>{{ZmTourDiary.TourDate}}</td>
-                                    <td>{{ZmTourDiary.DepartureFromPlace}}</td>
-                                    <td>{{ZmTourDiary.DepartureFromTime}}</td>
-                                    <td>{{ZmTourDiary.ArrivalAtPlace}}</td>
-                                    <td>{{ZmTourDiary.ArrivalAtTime}}</td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="col-lg-12 p-0 sec-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                            <table class="table ">
-                                <thead>
-                                <tr class="table-header-background text-center">
-                                    <th rowspan="2"  >No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not
-                                        been issued to borrowers
-                                    </th>
-                                    <th rowspan="2"  >Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour
-                                        Plan
-                                    </th>
-                                    <th rowspan="2"  >Any short comings in Tour Diaries of MCOs/Branch Manager</th>
-                                    <th rowspan="2"  >No. of zero recovery cases of the branch</th>
-                                    <th colspan="2"  >No. of loan cases where Reschedulement/Restructuring/write-off remission of mark-up
-                                        done by the branch
-                                    </th>
-                                    <th rowspan="2"  >No. of Defaulters contacted by the Z.M (Rec. & SAM)</th>
-                                    <th rowspan="2"  >Remarks</th>
-                                </tr>
-                                <tr class="table-header-background text-center sub-table">
-                                    <th  >Activity</th>
-                                    <th  >No.</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr *ngFor="let ZmTourDiary of TourDiaryList">
-                                    <td>{{ZmTourDiary.LCNotIssuedToBorrowers}}</td>
-                                    <td>{{ZmTourDiary.McoNBmTourDiaryAPPlan}}</td>
-                                    <td>{{ZmTourDiary.AnyShortComingInDiaries}}</td>
-                                    <td></td>
-                                    <td>
-                                        <ul>
-                                            <li>Reschedulement</li>
-                                            <li>Restructring of Installments</li>
-                                            <li>RightOff/remission</li>
-                                        </ul>
-                                    </td>
-                                    <td></td>
-                                    <td>{{ZmTourDiary.NoOfDefaulterContacted}}</td>
-                                    <td>{{ZmTourDiary.Remarks}}</td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                            <table class="table ">
-                                <thead>
-                                <tr class="table-header-background text-center">
-                                    <th colspan="15"  >RECOVERY</th>
-                                </tr>
-                                </thead>
-                                <thead>
-                                <tr class="table-header-background text-center">
-                                    <!-- UTILIZATIONS -->
-                                    <th colspan="3"  >Amount in default up to the month under report (TARGET)</th>
-                                    <th colspan="3"  >Recovery during the month under report</th>
-                                    <th colspan="3"  >Balance Recoverable</th>
-                                    <th colspan="3"  >Recovery during corresponding period</th>
-                                    <th rowspan="2"  >Increase/Deficit</th>
-                                    <th colspan="2"  >Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
-                                </tr>
-                                <tr class="table-header-background text-center sub-table">
-                                    <th  >Past Dues</th>
-                                    <th  >Current Dues</th>
-                                    <th  >Total</th>
-                                    <th  >Past Dues</th>
-                                    <th  >Current Dues</th>
-                                    <th  >Total</th>
-                                    <th  >Past Dues</th>
-                                    <th  >Current Dues</th>
-                                    <th  >Total</th>
-                                    <th  >Past Dues</th>
-                                    <th  >Current Dues</th>
-                                    <th  >Total</th>
-                                    <th  >Activity</th>
-                                    <th  >No.</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  ></td>
-                                    <td  >
-                                        <ul>
-                                            <li>Reschedulement</li>
-                                            <li>Restructring of Installments</li>
-                                            <li>RightOff/remission</li>
-                                        </ul>
-                                    </td>
-                                    <td  ></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-
+                    </tbody>
+                </table>
             </div>
+
+            <div class="col-lg-12 p-0  third-table   overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table ">
+                    <thead>
+                    <tr class=" text-center">
+                        <th colspan="6"  >
+                            Disbursement
+                        </th>
+                    </tr>
+                    <tr class=" text-center">
+                        <th  >Annual Target</th>
+                        <th  >Proportionate Target up to the end of month under report</th>
+                        <th  >Total disbursement up to the end of previous month </th>
+                        <th  >Disbursement during the month under report</th>
+                        <th  >Total disbursement up to the end of month under report</th>
+                        <th  >Increase/Deficit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td >{{systemGenerated?.DisbAnnualTarget}}</td>
+                        <td >{{systemGenerated?.DPropTargetEoM}}</td>
+                        <td >{{systemGenerated?.DTotalDisbEOPM}}</td>
+                        <td >{{systemGenerated?.DisbDuringMnth}}</td>
+                        <td >{{systemGenerated?.DTotalDisbUpToEOM}}</td>
+                        <td >{{systemGenerated?.DisbIncreaseDeficit}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="col-lg-12 p-0  third-table   overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table">
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <th colspan="15"  >RECOVERY</th>
+                    </tr>
+                    </thead>
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <!-- UTILIZATIONS -->
+                        <th colspan="3"  >Amount in default up to the month under report (TARGET)</th>
+                        <th colspan="3"  >Recovery during the month under report</th>
+                        <th colspan="3"  >Balance Recoverable</th>
+                        <th colspan="3"  >Recovery during corresponding period</th>
+                        <th rowspan="2"  >Increase/Deficit</th>
+                        <th colspan="2"  >Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
+                    </tr>
+                    <tr class="table-header-background text-center">
+                        <th  >Past Dues</th>
+                        <th  >Current Dues</th>
+                        <th  >Total</th>
+                        <th  >Past Dues</th>
+                        <th  >Current Dues</th>
+                        <th  >Total</th>
+                        <th  >Past Dues</th>
+                        <th  >Current Dues</th>
+                        <th  >Total</th>
+                        <th  >Past Dues</th>
+                        <th  >Current Dues</th>
+                        <th  >Total</th>
+                        <th  >Activity</th>
+                        <th  >No.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td >{{systemGenerated?.RecoveryAmountUpToEOMPD}}</td>
+                        <td >{{systemGenerated?.RecoveryAmountUpToEOMCD}}</td>
+                        <td >{{systemGenerated?.RecoveryAmountUpToEOMTotal}}</td>
+                        <td >{{systemGenerated?.RDuringMonthPD}}</td>
+                        <td >{{systemGenerated?.RDuringMonthCD}}</td>
+                        <td >{{systemGenerated?.RDuringMonthTotal}}</td>
+                        <td >{{systemGenerated?.RBalnceRecoverablePD}}</td>
+                        <td >{{systemGenerated?.RBalnceRecoverableCD}}</td>
+                        <td >{{systemGenerated?.RBalnceRecoverableTotal}}</td>
+                        <td >{{systemGenerated?.RDuringCorrespondingPD}}</td>
+                        <td >{{systemGenerated?.RDuringCorrespondingCD}}</td>
+                        <td >{{systemGenerated?.RDuringCorrespondingTotal}}</td>
+                        <td >{{systemGenerated?.RecIncreaseDecrease}}</td>
+                        <td  >
+                            <ul>
+                                <li>Reschedulement</li>
+                                <li>Restructring of Installments</li>
+                                <li>RightOff/remission</li>
+                            </ul>
+                        </td>
+                        <td  ></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-12 p-0  third-table   overflow-auto shadow-xs rounded-sm bg-gray-50 mt-2">
+                <table class="table ">
+                    <thead>
+                    <tr class="table-header-background text-center">
+                        <th colspan="5"  >
+                            Deposits
+                        </th>
+                    </tr>
+                    <tr class="table-header-background text-center">
+                        <th  >Annual Target</th>
+                        <th  >Proportionate Target</th>
+                        <th  >Achievement Percentage</th>
+                        <th  >Deposit Balance during corresponding period</th>
+                        <th  >Increase/Deficit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td >{{systemGenerated?.DepositAnnualTarget}}</td>
+                        <td >{{systemGenerated?.DepProportionateTarget}}</td>
+                        <td >{{systemGenerated?.DepAcchivementPercentage}}</td>
+                        <td >{{systemGenerated?.DepCorrespondingPeriod}}</td>
+                        <td >{{systemGenerated?.DepIncreaseDecrease}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
 
-
     </div>
-    <div class="row mt-2 mr-1">
-        <div class="col-lg-12 text-right">
-            <button type="button" class="mr-2 bg-green" mat-raised-button color="primary"
-                    (click)="changeStatus('A')">
-                <mat-icon class="mr-2">check_circle</mat-icon>
-                Approve
-            </button>
-            <button type="button" class="mr-2  bg-red" mat-raised-button color="primary"
-                    (click)="changeStatus('R')">
-                <mat-icon class="mr-2">cancel</mat-icon>
-                Referback
-            </button>
-        </div>
-    </div>
-</div>
 
-<ngx-material-timepicker  #timepickerDeparture></ngx-material-timepicker>
-<ngx-material-timepicker #timepickerArrival></ngx-material-timepicker>
+    <ngx-material-timepicker  #timepickerDeparture></ngx-material-timepicker>
+    <ngx-material-timepicker #timepickerArrival></ngx-material-timepicker>

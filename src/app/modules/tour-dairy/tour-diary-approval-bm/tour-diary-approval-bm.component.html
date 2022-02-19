@@ -182,12 +182,12 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DisbAnnualTarget}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DPropTargetEoM}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DTotalDisbEOPM}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DisbDuringMnth}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DTotalDisbUpToEOM}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DisbIncreaseDeficit}}</td>
                                 </tr>
 
                                 </tbody>
@@ -242,16 +242,16 @@
                                     <td class="border-r border-gray-400"></td>
                                     <td class="border-r border-gray-400"></td>
                                     <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RDuringMonthPD}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RDuringMonthCD}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RDuringMonthTotal}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RBalnceRecoverablePD}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RBalnceRecoverableCD}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RBalnceRecoverableTotal}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RDuringCorrespondingPD}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RDuringCorrespondingCD}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RDuringCorrespondingTotal}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.RecIncreaseDecrease}}</td>
                                     <td class="border-r border-gray-400">
                                         <ul>
                                             <li>Reschedulement</li>
@@ -285,16 +285,17 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
-                                    <td class="border-r border-gray-400"></td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DepositAnnualTarget}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DepProportionateTarget}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DepAcchivementPercentage}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DepCorrespondingPeriod}}</td>
+                                    <td class="border-r border-gray-400">{{systemGenerated?.DepIncreaseDecrease}}</td>
                                 </tr>
 
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                 </div>
 
@@ -302,7 +303,7 @@
             </div>
         </div>
     </div>
-s
+
     <div class="row mt-2 mr-1">
         <div class="col-lg-12 text-right">
             <button class="mr-2 bg-green" mat-raised-button color="primary" (click)="changeStatus('A')">
