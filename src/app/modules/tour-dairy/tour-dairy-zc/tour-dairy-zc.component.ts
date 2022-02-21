@@ -73,8 +73,13 @@ export class TourDiaryZcComponent implements OnInit {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
-            this.edit(this.data)
+
         }
+        setTimeout(() => {
+            if (this.zone) {
+                this.edit(this.data)
+            }
+        }, 1000);
     }
     setValue(){
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
