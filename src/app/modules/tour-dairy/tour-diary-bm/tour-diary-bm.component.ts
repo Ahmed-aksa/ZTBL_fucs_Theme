@@ -390,6 +390,7 @@ export class TourDiaryBmComponent implements OnInit {
         if(tour_list.DiaryId){
             this.checkDisable = false;
         }
+        this.isUpdate = true;
         this.gridForm.patchValue(tour_list);
         this.gridForm.get('TourDate').patchValue(this._common.stringToDate(tour_list.TourDate));
         this.date=tour_list.TourDate;
