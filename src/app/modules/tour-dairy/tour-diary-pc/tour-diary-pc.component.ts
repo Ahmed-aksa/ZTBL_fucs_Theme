@@ -325,6 +325,7 @@ export class TourDiaryPcComponent implements OnInit {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
                 this.isUpdate = false;
                 this.onClearForm();
             } else {

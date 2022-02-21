@@ -51,6 +51,7 @@ export class TourDiaryZmComponent implements OnInit {
     date: any;
     btnText = 'Save';
     data;
+    systemGenerated: any;
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
@@ -141,6 +142,7 @@ export class TourDiaryZmComponent implements OnInit {
 debugger
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                    this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
                 } else {
                     this.layoutUtilsService.alertElement(
                         '',
@@ -268,6 +270,7 @@ debugger
 
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
+                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
                 this.onClearForm();
                 this.btnText = 'Save';
             } else {

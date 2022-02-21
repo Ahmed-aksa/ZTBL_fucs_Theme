@@ -343,7 +343,7 @@ export class TourDiaryBmComponent implements OnInit {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-
+                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.isUpdate = false;
                 this.onClearForm();
