@@ -63,11 +63,16 @@ export class TourDiaryPcComponent implements OnInit {
     }
     ngAfterViewInit()
     {
-        this.data = JSON.parse(localStorage.getItem('TourDiary'))
+          this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
-            this.editData(this.data)
+
         }
+        setTimeout(() => {
+            if (this.zone) {
+                this.editData(this.data)
+            }
+        }, 1000);
     }
 
     setValue() {

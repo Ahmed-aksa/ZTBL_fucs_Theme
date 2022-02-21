@@ -64,8 +64,13 @@ export class TourDiaryRcComponent implements OnInit {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
-            this.edit(this.data)
+
         }
+        setTimeout(() => {
+            if (this.zone) {
+                this.edit(this.data)
+            }
+        }, 1000);
     }
     createForm() {
         this.gridForm = this.fb.group({
@@ -290,10 +295,11 @@ export class TourDiaryRcComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
+
     }
 
     edit(mcoDiary) {
-
+        this.spinner.show();
         if(mcoDiary.DiaryId){
             this.checkDisable = false;
         }
@@ -301,6 +307,7 @@ export class TourDiaryRcComponent implements OnInit {
         this.gridForm.controls.TourDate.setValue(this.commonService.stringToDate(mcoDiary.TourDate)); //= this.commonService.stringToDate(mcoDiary.TourDate);
         this.isUpdate = true;
         this.GetTourPlan();
+        this.spinner.hide();
     }
 
     checkStatus(item, action) {

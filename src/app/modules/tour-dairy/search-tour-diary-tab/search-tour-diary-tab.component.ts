@@ -50,9 +50,15 @@ export class SearchTourDiaryTabComponent implements OnInit {
     redirectTourDiary(data: any) {
         debugger
         if (data?.RedirectTo) {
-            localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
-            localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
-            localStorage.setItem('selected_single_circle', JSON.stringify((data?.CircleId).toString()));
+            if(this.zone){
+                localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
+            }
+            if(this.branch){
+                localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
+            }
+            if(data?.CircleId){
+                localStorage.setItem('selected_single_circle', JSON.stringify((data?.CircleId).toString()));
+            }
             localStorage.removeItem('TourDiary')
             localStorage.setItem('TourDiary', JSON.stringify(data));
             this.router.navigate([data?.RedirectTo], {
