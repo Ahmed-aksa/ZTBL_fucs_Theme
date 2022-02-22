@@ -104,7 +104,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                debugger;
+                
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
             } else {

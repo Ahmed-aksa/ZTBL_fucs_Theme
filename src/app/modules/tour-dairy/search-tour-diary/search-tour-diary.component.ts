@@ -273,7 +273,7 @@ export class SearchTourDiaryComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    debugger
+                    
                     this.TourDiarys = baseResponse?.TourDiary?.TourDiaries;
                 } else {
 

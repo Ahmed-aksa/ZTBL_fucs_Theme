@@ -109,7 +109,7 @@ export class TourDiaryApprovalBmComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            debugger
+            
             if (baseResponse.Success) {
 
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

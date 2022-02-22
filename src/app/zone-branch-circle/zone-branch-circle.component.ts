@@ -61,7 +61,7 @@ export class ZoneBranchCircleComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger
+        
         if (localStorage.getItem('selected_single_zone')) {
             this.selected_single_zone = JSON.parse(localStorage.getItem('selected_single_zone'));
         }
