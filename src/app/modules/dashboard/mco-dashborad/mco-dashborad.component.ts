@@ -47,6 +47,7 @@ export class McoDashboradComponent implements OnInit {
 
         this.DisbursmentAchievement = this._dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
         this.RecoveryAchievement = this._dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
+        
         this.UtilizationMutation = DashboardReport?.UtilizationMutation;
 
     }
