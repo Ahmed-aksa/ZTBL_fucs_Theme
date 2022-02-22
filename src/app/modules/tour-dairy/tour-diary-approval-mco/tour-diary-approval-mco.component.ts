@@ -134,7 +134,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            debugger
+            
             if (baseResponse.Success) {
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
@@ -179,7 +179,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
                 this.TourDiaryList.forEach(element=>{
 
-                    debugger
+                    
                     let a =  Number(element?.TOTFarmersContacted)
                     this.TotalTOTFarmersContacted = this.TotalTOTFarmersContacted+Number(element?.TOTFarmersContacted)
                 });

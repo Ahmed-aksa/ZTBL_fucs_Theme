@@ -195,7 +195,7 @@ export class DashboardService {
                 },
                 tooltip: {
                     custom: function({ series, seriesIndex, dataPointIndex, w }) {
-                        debugger
+                        
                         let key = w.config.labels[seriesIndex].replaceAll(" ", "")
                         if(key.includes("(For")){
                             key = key.split("(")[0];

@@ -31,22 +31,22 @@
                                                         [should_filter]="false"></app-zone-branch-circle>
 
 
-                                <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;"
-                                     *ngIf="isSimpleRecovery">
-                                    <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
-                                        <mat-label>Circle <strong class="matMandatory">*</strong></mat-label>
-                                        <mat-select formControlName="CircleID"
-                                                    [(ngModel)]="UserCircleMappingsDefaultSelected"
-                                                    [disabled]="recoverySaved || viewOnly">
-                                            <mat-option *ngFor="let list of UserCircleMappings"
-                                                        [value]="list.CircleId">
-                                                {{list.CircleCode}}
-                                            </mat-option>
-                                        </mat-select>
-                                        <mat-error *ngIf="hasError('CircleID', 'required')">Circle ID
-                                            <strong>required</strong></mat-error>
-                                    </mat-form-field>
-                                </div>
+                                <!--                                <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;"-->
+                                <!--                                     *ngIf="isSimpleRecovery">-->
+                                <!--                                    <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">-->
+                                <!--                                        <mat-label>Circle <strong class="matMandatory">*</strong></mat-label>-->
+                                <!--                                        <mat-select formControlName="CircleID"-->
+                                <!--                                                    [(ngModel)]="UserCircleMappingsDefaultSelected"-->
+                                <!--                                                    [disabled]="recoverySaved || viewOnly">-->
+                                <!--                                            <mat-option *ngFor="let list of UserCircleMappings"-->
+                                <!--                                                        [value]="list.CircleId">-->
+                                <!--                                                {{list.CircleCode}}-->
+                                <!--                                            </mat-option>-->
+                                <!--                                        </mat-select>-->
+                                <!--                                        <mat-error *ngIf="hasError('CircleID', 'required')">Circle ID-->
+                                <!--                                            <strong>required</strong></mat-error>-->
+                                <!--                                    </mat-form-field>-->
+                                <!--                                </div>-->
                                 <div class="mx-2 flex flex-shrink-0 items-center mt-6 sm:mt-0"
                                      style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid  w-full" appearance="outline">
@@ -411,6 +411,7 @@
                                             <mat-icon class="mr-2">delete_forever</mat-icon>
                                             Delete
                                         </button>
+
                                         <button mat-raised-button
                                                 class=" mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
                                                 (click)="clearForm()"
@@ -428,7 +429,6 @@
                                             <mat-icon class="mr-2">save</mat-icon>
                                             Save
                                         </button>
-
                                         <button mat-raised-button color="primary" class="ml-2" (click)="makeAndSubmit()"
                                                 [disabled]="submitted || viewOnly || ibDisSave"
                                                 *ngIf="currentActivity?.C && currentActivity?.U"
@@ -447,7 +447,7 @@
                             <table class="table table-striped table-bordered" style="width: 370px">
                                 <thead>
                                 <tr class="table-header-background">
-                                    <th colspan="2">Acount Detail</th>
+                                    <th colspan="2">Account Detail</th>
                                 </tr>
                                 </thead>
                                 <tbody>

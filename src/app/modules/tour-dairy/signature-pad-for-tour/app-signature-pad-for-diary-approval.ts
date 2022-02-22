@@ -57,7 +57,7 @@ export class SignaturePadForDiaryApproval implements OnInit {
     }
 
     close(bySystem: Boolean): void {
-        debugger
+        
         this.dialogRef.close(bySystem);
     }
 

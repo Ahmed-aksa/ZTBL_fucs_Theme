@@ -78,14 +78,14 @@ export class TourDiaryApprovalZcComponent implements OnInit {
     getTourDiaryDetail() {
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        debugger
+        
         this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'RC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            debugger
+            
             if (baseResponse.Success) {
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;

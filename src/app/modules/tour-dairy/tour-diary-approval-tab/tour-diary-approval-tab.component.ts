@@ -107,12 +107,12 @@ export class TourApprovalTabComponent implements OnInit {
     }
 
 
-    toggleAccordion(i: number, user_id) {
+    toggleAccordion(i: number, user_id,tour_date) {
         let icon = document.getElementById('arrow_down_' + i).innerHTML;
         if (icon == 'expand_more') {
             document.getElementById('arrow_down_' + i).innerHTML = 'expand_less';
             document.getElementById('table_' + i).style.display = 'block';
-            this.searchTourPlanApproval(false, user_id, i);
+            this.searchTourPlanApproval(false, user_id, i,tour_date);
 
         } else {
             document.getElementById('arrow_down_' + i).innerHTML = 'expand_more';
@@ -121,14 +121,14 @@ export class TourApprovalTabComponent implements OnInit {
         this.children = [];
     }
 
-    searchTourPlanApproval(start = false, user_id = null, index = 0) {
+    searchTourPlanApproval(start = false, user_id = null, index = 0,tour_date=null) {
 
         let offset = '0';
         if (start)
             offset = this.OffSet.toString();
         let _TourPlan = Object.assign(this.tourDiaryApprovalForm);
         this.spinner.show();
-        this.tourDiaryService.searchTourDiaryApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id)
+        this.tourDiaryService.searchTourDiaryApproval(_TourPlan, this.itemsPerPage, offset, this.branch, this.zone, this.circle, user_id,tour_date)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

@@ -405,7 +405,7 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     deleteData(data, status = 'C') {
-        debugger
+        
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';

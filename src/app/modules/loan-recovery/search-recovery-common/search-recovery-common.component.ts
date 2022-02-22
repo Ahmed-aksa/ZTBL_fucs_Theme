@@ -215,7 +215,7 @@ export class SearchRecoveryCommonComponent implements OnInit {
         });
     }
 
-    find() {
+    find(from_button = false) {
         var loanCaseNo = this.RecoveryForm.controls.LoanCaseNo.value;
         var status = this.RecoveryForm.controls.Status.value;
         var transactionDate = this.datePipe.transform(this.RecoveryForm.controls.TransactionDate.value, 'ddMMyyyy');
@@ -248,7 +248,6 @@ export class SearchRecoveryCommonComponent implements OnInit {
                     this.MatTableLenght = true;
                     this.RecoveryLoanTransaction = baseResponse.Recovery.RecoveryLoanTransaction;
 
-
                     this.recoveryDetail = this.RecoveryLoanTransaction;
                     this.totalItems = baseResponse.Recovery.RecoveryLoanTransaction[0].TotalCount;
                     this.RecoveryLoanTransaction = this.recoveryDetail.slice(0, this.totalItems)
@@ -256,7 +255,8 @@ export class SearchRecoveryCommonComponent implements OnInit {
 
                     var recoveryType = this.RecoveryForm.get('RecoveryType').value;
                     this.searchSBS = (recoveryType == 4 || recoveryType == 3);
-
+                    if (from_button)
+                        this.pageIndex = 0;
                     this.cdRef.detectChanges();
                 } else {
                     this.matTableLenght = false;

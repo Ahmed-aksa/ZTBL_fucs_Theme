@@ -139,7 +139,7 @@ export class TourDiaryZmComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-debugger
+
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;

@@ -173,7 +173,7 @@ export class TourDiaryMcoComponent implements OnInit {
 
 
     saveTourDiary() {
-        debugger
+        
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -413,7 +413,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     edit(mcoDiary) {
-debugger
+
         // this.gridForm.controls['Name'].setValue(mcoDiary.Name);
         // this.gridForm.controls['Ppno'].setValue(mcoDiary.Ppno);
         if(mcoDiary.DiaryId){
@@ -553,7 +553,7 @@ debugger
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-debugger
+
                     this.TourDiaryList=[];
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

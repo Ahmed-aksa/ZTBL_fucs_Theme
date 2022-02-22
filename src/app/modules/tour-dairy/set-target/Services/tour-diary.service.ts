@@ -119,7 +119,7 @@ export class TourDiaryService {
         request.TourPlan = TourPlan;
         request.TourDiary = TourDiary;
         console.log(JSON.stringify(request))
-        debugger
+        
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/GetScheduleBaseTourPlan`, request,
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
@@ -170,7 +170,7 @@ export class TourDiaryService {
     }
 
     SearchTourDiary(tourDiary, Limit, Offset, branch, zone, is_zc = false) {
-        debugger;
+        
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
@@ -216,7 +216,7 @@ export class TourDiaryService {
     }
 
     getTourDiaryDetail(zone, branch,circle, TourDiary,role=null) {
-debugger
+
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         userInfo.User.ProfileId=this.getProfileId(role)
@@ -226,7 +226,7 @@ debugger
         this.request.User = userInfo.User;
         this.request.TourDiary = TourDiary;
         console.log(JSON.stringify(this.request))
-debugger
+
         return this.http
             .post<any>(
                 `${environment.apiUrl}/TourPlanAndDiary/GetTourDiaryApprovalDetail`,
@@ -353,7 +353,7 @@ debugger
     }
 
     getProfileId(role){
-        debugger
+        
         if (role == 'ZC') {
             return environment.ZC;
         } else if (role == 'MCO') {
@@ -376,7 +376,7 @@ debugger
     searchTourDiaryApproval(
         approval_from: any,
         itemsPerPage: number, offset: string, branch: any, zone: any, circle: any, user_id, tour_date = null) {
-        debugger
+        
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
         let request = {

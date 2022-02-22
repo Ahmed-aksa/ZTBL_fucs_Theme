@@ -16,10 +16,11 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {TokenInterceptor} from "./httpconfig.interceptor";
+import {UserUtilsService} from "../services/users_utils.service";
 
 @Injectable()
 export class EncryptDecryptInterceptor implements HttpInterceptor {
-    constructor(private encryptDecryptService: EncryptDecryptService, private spinner: NgxSpinnerService, private router: Router, private toastr: ToastrService) {
+    constructor(private encryptDecryptService: EncryptDecryptService, private spinner: NgxSpinnerService, private router: Router, private toastr: ToastrService, private userUtils: UserUtilsService) {
 
     }
 
@@ -33,6 +34,22 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                     var DeviceInfo = {
                         "IMEI": this.encryptDecryptService.getUDID()
                     }
+                    if (request.body) {
+                        if (!request.body?.hasOwnProperty('Zone')) {
+                            request.body.Zone = this.userUtils.getSearchResultsDataOfZonesBranchCircle()?.Zone;
+                        }
+                        if (!request.body?.hasOwnProperty('Branch')) {
+                            request.body.Branch = this.userUtils.getSearchResultsDataOfZonesBranchCircle()?.Branch;
+                        }
+                        if (!request.body?.hasOwnProperty('Circle')) {
+                            let circles = this.userUtils.getSearchResultsDataOfZonesBranchCircle()?.UserCircleMappings;
+                            if (Array.isArray(circles))
+                                request.body.Circle = circles[0];
+                            else
+                                request.body.Circle = circles;
+                        }
+                    }
+                    debugger;
                     request = request.clone({
                         body: {...request.body, DeviceInfo}
                     })

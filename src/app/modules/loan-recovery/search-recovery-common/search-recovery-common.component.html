@@ -247,7 +247,7 @@
                                             "
                                                 color="primary"
                                                 type="button"
-                                                (click)="find()"
+                                                (click)="find(true)"
                                             >
                                                 <mat-icon class="mr-2"
                                                 >search
@@ -330,6 +330,7 @@
                         "
                     >
                         <td>
+
                             {{ transaction.UserBranchName }}
                         </td>
                         <td>{{ transaction.VoucherNo }}</td>

@@ -45,58 +45,60 @@ export class UserUtilsService {
          *      All Will be enabled as discussed in Case 3
          */
         let user_data = JSON.parse(localStorage.getItem('ZTBLUser'));
-        this.search_data.User = user_data.User;
-        /**
-         * Branch Data Manipulation
-         */
-        if (
-            user_data.Branch &&
-            user_data.UserCircleMappings &&
-            user_data.Zone) {
+        if(user_data) {
+            this.search_data.User = user_data.User;
+            /**
+             * Branch Data Manipulation
+             */
+            if (
+                user_data.Branch &&
+                user_data.UserCircleMappings &&
+                user_data.Zone) {
 
-            /**
-             * Case 1
-             */
-            this.search_data.Branch = user_data.Branch;
-            this.search_data.UserCircleMappings = user_data.UserCircleMappings;
-            this.search_data.Zone = user_data.Zone;
-        } else if (
-            user_data.Branch &&
-            user_data.UserCircleMappings &&
-            !user_data.Zone) {
-            /**
-             * Case 2
-             */
-            this.search_data.Branch = user_data.Branch;
-            this.search_data.UserCircleMappings = null;
-            this.search_data.Zone = user_data.Zone;
-        } else if (
-            (user_data.Branch == null || user_data.Branch == undefined) &&
-            (user_data.UserCircleMappings == null || user_data.UserCircleMappings == undefined) &&
-            (user_data.Zone != null || user_data.Zone != undefined)
-        ) {
-            /**
-             * Case 3
-             */
-            this.search_data.Branch = true;
-            this.search_data.UserCircleMappings = true;
-            this.search_data.Zone = user_data.Zone;
-        } else if (
-            !user_data.Branch &&
-            !user_data.UserCircleMappings &&
-            !user_data.Zone) {
-            /**
-             * Case 4
-             */
+                /**
+                 * Case 1
+                 */
+                this.search_data.Branch = user_data.Branch;
+                this.search_data.UserCircleMappings = user_data.UserCircleMappings;
+                this.search_data.Zone = user_data.Zone;
+            } else if (
+                user_data.Branch &&
+                user_data.UserCircleMappings &&
+                !user_data.Zone) {
+                /**
+                 * Case 2
+                 */
+                this.search_data.Branch = user_data.Branch;
+                this.search_data.UserCircleMappings = null;
+                this.search_data.Zone = user_data.Zone;
+            } else if (
+                (user_data.Branch == null || user_data.Branch == undefined) &&
+                (user_data.UserCircleMappings == null || user_data.UserCircleMappings == undefined) &&
+                (user_data.Zone != null || user_data.Zone != undefined)
+            ) {
+                /**
+                 * Case 3
+                 */
+                this.search_data.Branch = true;
+                this.search_data.UserCircleMappings = true;
+                this.search_data.Zone = user_data.Zone;
+            } else if (
+                !user_data.Branch &&
+                !user_data.UserCircleMappings &&
+                !user_data.Zone) {
+                /**
+                 * Case 4
+                 */
 
-            this.search_data.Branch = null;
-            this.search_data.UserCircleMappings = null;
-            this.search_data.Zone = null;
+                this.search_data.Branch = null;
+                this.search_data.UserCircleMappings = null;
+                this.search_data.Zone = null;
 
-        } else if (user_data.Zone) {
-            this.search_data.branch = null;
-            this.search_data.UserCircleMappings = null;
-            this.search_data.Zone = user_data.Zone;
+            } else if (user_data.Zone) {
+                this.search_data.branch = null;
+                this.search_data.UserCircleMappings = null;
+                this.search_data.Zone = user_data.Zone;
+            }
         }
         return this.search_data;
     }

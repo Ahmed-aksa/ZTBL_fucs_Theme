@@ -189,15 +189,15 @@ export class RecoveryFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.router.url == '/loan-recovery/sbs-fa-branch')
+        if (this.router.url == '/loan-recovery/sbs-fa-branch' || this.router.url.startsWith('/loan-recovery/sbs-fa-branch'))
             this.currentActivity = this.userUtilsService.getActivity('SBS Recovery');
-        if (this.router.url == '/loan-recovery/fa-branch')
+        if (this.router.url == '/loan-recovery/fa-branch' || this.router.url.startsWith('/loan-recovery/fa-branch'))
             this.currentActivity = this.userUtilsService.getActivity('Recovery');
-        if (this.router.url == '/loan-recovery/inter-branch')
+        if (this.router.url == '/loan-recovery/inter-branch' || this.router.url.startsWith('/loan-recovery/inter-branch'))
             this.currentActivity = this.userUtilsService.getActivity('Inter Branch Recovery');
-        if (this.router.url == '/loan-recovery/sbs-inter-branch')
+        if (this.router.url == '/loan-recovery/sbs-inter-branch' || this.router.url.startsWith('/loan-recovery/sbs-inter-branch'))
             this.currentActivity = this.userUtilsService.getActivity('SBS Inter Branch');
-        if (this.router.url == '/loan-recovery/search-recovery-transaction')
+        if (this.router.url == '/loan-recovery/search-recovery-transaction' || this.router.url.startsWith('/loan-recovery/search-recovery-transaction'))
             this.currentActivity = this.userUtilsService.getActivity('Advance Search Recovery');
         this.spinner.show();
         this.searchFilterCtrlCoordinator.valueChanges
@@ -291,6 +291,7 @@ export class RecoveryFormComponent implements OnInit {
 
     ngAfterViewInit() {
         this.spinner.hide();
+        console.log(this.currentActivity);
     }
 
     private filterCoordinator() {
@@ -536,7 +537,7 @@ export class RecoveryFormComponent implements OnInit {
         }
 
         var TransactionType = this.RecoveryForm.controls.TransactionType.value;
-        var circleID = this.RecoveryForm.controls.CircleID.value;
+        var circleID = this.RecoveryForm.controls.CircleId.value;
         var ForSBs = this.RecoveryType == RecoveryTypes.SBSRecovery || this.RecoveryType == RecoveryTypes.SBSInterBranchRecovery ? true : false;
         var ForInterBranch = this.RecoveryType == RecoveryTypes.InterBranchRecovery || this.RecoveryType == RecoveryTypes.SBSInterBranchRecovery ? true : false;
         var mode = (this.transactionID == undefined || this.transactionID == null || this.transactionID == "") ? 1 : 2;
