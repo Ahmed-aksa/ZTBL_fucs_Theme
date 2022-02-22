@@ -45,7 +45,6 @@ export class McoDashboradComponent implements OnInit {
         this.chartOptions3 = this._dashboardService.assignKeysForMCO(DashboardReport?.LoanPorfolio2, 'Loan Portfolio');
         this.chartOptions4 = this._dashboardService.assignKeys(DashboardReport?.CircleRadius, 'Circle Radius');
 
-        debugger
         this.DisbursmentAchievement = this._dashboardService.getSortDate(DashboardReport?.DisbursmentAchievement);
         this.RecoveryAchievement = this._dashboardService.getSortDate(DashboardReport?.RecoveryAchievement);
         this.UtilizationMutation = DashboardReport?.UtilizationMutation;
