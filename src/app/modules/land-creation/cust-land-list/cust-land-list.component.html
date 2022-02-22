@@ -202,12 +202,12 @@
                 <ng-container matColumnDef="View">
                     <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
                     <mat-cell *matCellDef="let land">
-                        <button mat-icon-button color="primary" *ngIf="CheckEidtStatus(land)"
+                        <button mat-icon-button color="primary" *ngIf="CheckEidtStatus(land) && currentActivity?.U"
                                 (click)="editland(land)">
                             <mat-icon style="margin-left: 5px;" title="Edit land">edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button color="primary" *ngIf="CheckViewStatus(land)"
+                        <button mat-icon-button color="primary" *ngIf="CheckViewStatus(land) && currentActivity?.R"
                                 (click)="editland(land)">
                             <mat-icon style="color:#01671B !important;" title="View land">visibility</mat-icon>
                         </button>

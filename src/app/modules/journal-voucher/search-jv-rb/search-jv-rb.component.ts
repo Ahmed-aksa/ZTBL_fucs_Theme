@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
 import {JournalVocherData} from "../models/journal_voucher.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -13,6 +13,7 @@ import {finalize} from "rxjs/operators";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {Activity} from "../../../shared/models/activity.model";
 
 
 @Component({
@@ -26,7 +27,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
     ],
 })
-export class SearchJvRbComponent implements OnInit {
+export class SearchJvRbComponent implements OnInit, AfterViewInit {
     displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Debit', 'Credit', 'Status', 'Edit', 'View'];
     Math: any;
     OffSet: any;
@@ -62,6 +63,7 @@ export class SearchJvRbComponent implements OnInit {
     referbackForm: FormGroup;
     JvStatuses: any;
     Nature: any;
+    currentActivity: Activity;
 
     constructor(
         private cdRef: ChangeDetectorRef,
@@ -80,55 +82,19 @@ export class SearchJvRbComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Referred Back Transaction');
         this.loadLOV();
         this.createForm();
-        this.SearchJvData();
 
-        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-        if (userInfo.Branch && userInfo.Branch.BranchCode != "All") {
-
-            this.Branches = userInfo.Branch;
-            this.SelectedBranches = this.Branches;
-
-            this.Zones = userInfo.Zone;
-            this.SelectedZones = this.Zones;
-            this.selected_z = this.SelectedZones?.ZoneId
-            this.selected_b = this.SelectedBranches?.BranchCode
-            this.referbackForm.controls["ZoneId"]?.setValue(this.SelectedZones?.Id);
-            this.referbackForm.controls["OrganizationUnit"]?.setValue(this.SelectedBranches?.Name);
-            let dateString = userInfo?.Branch?.WorkingDate;
-            var day = parseInt(dateString?.substring(0, 2));
-            var month = parseInt(dateString?.substring(2, 4));
-            var year = parseInt(dateString?.substring(4, 8));
-
-            const branchWorkingDate = new Date(year, month - 1, day);
-            this.referbackForm.controls.TransactionDate.setValue(branchWorkingDate);
-            this.referbackForm.controls.ZoneId.setValue(userInfo?.Zone?.ZoneName);
-            this.referbackForm.controls.OrganizationUnit.setValue(userInfo?.Branch?.Name);
-            this.maxDate = new Date(year, month - 1, day);
-        } else if (!userInfo.Branch && !userInfo.Zone && !userInfo.Zone) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                let dateString = String(new Date());
-                var day = parseInt(dateString?.substring(0, 2));
-                var month = parseInt(dateString?.substring(2, 4));
-                var year = parseInt(dateString?.substring(4, 8));
-
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.referbackForm.controls.TransactionDate.setValue(branchWorkingDate);
-                this.referbackForm.controls.ZoneId.setValue(userInfo?.Zone?.ZoneName);
-                this.referbackForm.controls.OrganizationUnit.setValue(userInfo?.Branch?.Name);
-                this.maxDate = new Date(year, month - 1, day);
-                this.Zones = data?.Zones;
-                this.SelectedZones = this?.Zones;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-
-        }
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
-        this.find();
+
+        //this.find();
+    }
+
+    ngAfterViewInit(){
+        if (this.zone) {
+            setTimeout(() => this.SearchJvData(), 1000);
+        }
     }
 
 
@@ -147,8 +113,6 @@ export class SearchJvRbComponent implements OnInit {
 
     createForm() {
         this.referbackForm = this.fb.group({
-            ZoneId: [''],
-            OrganizationUnit: [''],
             TransactionDate: [''],
             Nature: [''],
             VoucherNo: [''],
@@ -164,7 +128,6 @@ export class SearchJvRbComponent implements OnInit {
 
 
         this.spinner.show();
-        this.spinner.show();
         var status = this.referbackForm.controls.Status.value;
         var nature = this.referbackForm.controls.Nature.value;
         var manualVoucher = this.referbackForm.controls.VoucherNo.value;
@@ -176,17 +139,8 @@ export class SearchJvRbComponent implements OnInit {
         }
 
         // this.JournalVoucher = Object.assign(this.JournalVoucher, status);
-        let branch = null;
-        if (this.SelectedBranches.length)
-            branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
-        else
-            branch = this.SelectedBranches;
-        let zone = null;
-        if (this.SelectedZones.length)
-            zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-        else
-            zone = this.SelectedZones;
-        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate, branch, zone)
+
+        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -311,13 +265,4 @@ export class SearchJvRbComponent implements OnInit {
 
     }
 
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
-    }
 }

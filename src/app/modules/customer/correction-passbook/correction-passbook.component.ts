@@ -10,6 +10,7 @@ import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {ToastrService} from "ngx-toastr";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-correction-passbook',
@@ -38,6 +39,7 @@ export class CorrectionPassbookComponent implements OnInit {
 
     // Pass:PassBookRec[]=[];
     customerRec: any;
+    currentActivity: Activity;
 
     constructor(private fb: FormBuilder,
                 private layoutUtilsService: LayoutUtilsService,
@@ -52,6 +54,7 @@ export class CorrectionPassbookComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Correction of Passbook Number');
         this.createForm()
 
         //   Object.keys(this.cpForm.controls).forEach((control: string) => {

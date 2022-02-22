@@ -31,7 +31,7 @@
                                     </div>
                                     <!--<button style="display: block;margin-left: auto;margin-right: auto;" type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
                                     <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">-->
-                                    <input *ngIf="HideShowSaveButton"
+                                    <input *ngIf="HideShowSaveButton && currentActivity.C"
                                            style="display: block;margin-left: auto;margin-right: auto;"
                                            id="uploadprofile"
                                            formControlName="file"
@@ -663,7 +663,7 @@
                         <!--<button type="button" class="button-red pull-left" mat-raised-button cdkFocusInitial>
                           Cancel
                         </button>-->
-                        <button type="button" class="btn btn-primary bg-green  " mat-raised-button color="primary"
+                        <button type="button" class="btn btn-primary bg-green" *ngIf="currentActivity.C" mat-raised-button color="primary"
                                 (click)="onSubmit(false)" [disabled]="viewLoading || submitted">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
@@ -671,11 +671,12 @@
                         <button type="button" mat-raised-button type="button"
                                 class="mx-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-gray-500 text-white"
                                 mat-raised-button
+                                *ngIf="currentActivity.U"
                                 (click)="submitDocuments()">
                             <mat-icon class="mr-2">check_circle</mat-icon>
                             Submit Documents
                         </button>
-                        <button type="button" class="btn btn-primary" mat-raised-button color="primary"
+                        <button type="button" class="btn btn-primary" mat-raised-button color="primary" *ngIf="currentActivity.U"
                                 (click)="onSubmit(true)" [disabled]="viewLoading || submitted">
                             <mat-icon class="mr-2">check_circle</mat-icon>
                             Submit
@@ -714,7 +715,7 @@
                         <mat-icon>visibility</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" (click)="deleteImage(single_images.customer_document)"
-                            *ngIf="HideShowSaveButton">
+                            *ngIf="HideShowSaveButton && currentActivity.D">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>

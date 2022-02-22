@@ -101,4 +101,8 @@ export class CommonService {
         return year + "-" + month + "-" + day;
     }
 
+    CheckStatus(){
+
+    }
+
 }

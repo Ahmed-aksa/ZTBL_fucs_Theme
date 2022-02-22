@@ -25,6 +25,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {ToastrService} from "ngx-toastr";
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-search-jv',
@@ -85,6 +86,7 @@ export class SearchJvComponent implements OnInit {
 
 
     requiryTypeRequired = false;
+    currentActivity: Activity;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -109,7 +111,7 @@ export class SearchJvComponent implements OnInit {
     }
 
     // onselectionChange(event){
-    //     
+    //
     //     if(event.value == 'P' || event.value == 'A'){
     //         this.statusAS = true;
     //         this.displayedColumns = ['Branch', 'VoucherNO', 'TransactionDate', 'Category', 'TransactionMaster', 'Amount','Status', 'View'];
@@ -124,6 +126,7 @@ export class SearchJvComponent implements OnInit {
 
     ngOnInit() {
 
+        //this.currentActivity = this.userUtilsService.getActivity('J.V Transaction');
         this.createForm();
         this.loadLOV();
         let userInfo = this.userUtilsService.getUserDetails();
