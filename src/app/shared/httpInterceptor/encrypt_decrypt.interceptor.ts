@@ -49,7 +49,7 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                                 request.body.Circle = circles;
                         }
                     }
-                    debugger;
+                    
                     request = request.clone({
                         body: {...request.body, DeviceInfo}
                     })

@@ -60,19 +60,29 @@ export class TourDiaryBmComponent implements OnInit {
     ngOnInit(): void {
         this.createForm();
     }
-    ngAfterViewInit()
-    {
-          this.data = JSON.parse(localStorage.getItem('TourDiary'))
+
+    ngAfterViewInit() {
+        this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
 
         }
+
+        /**
+         * Hit Edit data request after second
+         */
         setTimeout(() => {
             if (this.zone) {
                 this.editData(this.data)
+            } else {
+                this.zone = {
+                    ZoneId: this.data.ZoneId
+                };
+                this.editData(this.data);
             }
         }, 1000);
     }
+
     setValue() {
         this.gridForm.controls['PPNO'].setValue(this.loggedInUser.User.UserName);
         this.gridForm.controls['NameOfOfficer'].setValue(this.loggedInUser.User.DisplayName);
@@ -259,15 +269,16 @@ export class TourDiaryBmComponent implements OnInit {
 
 
     GetTourPlan() {
+
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date,'BM')
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'BM')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    this.TourDiaryList=[];
+                    this.TourDiaryList = [];
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
@@ -333,7 +344,7 @@ export class TourDiaryBmComponent implements OnInit {
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle,this.TourDiary,'BM')
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary, 'BM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -343,7 +354,7 @@ export class TourDiaryBmComponent implements OnInit {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.isUpdate = false;
                 this.onClearForm();
@@ -367,7 +378,7 @@ export class TourDiaryBmComponent implements OnInit {
             this.TourDiary.Ppno = data["Ppno"];
         }
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'BM')
+        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'BM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -394,18 +405,18 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     editData(tour_list) {
-        if(tour_list.DiaryId){
+        if (tour_list.DiaryId) {
             this.checkDisable = false;
         }
         this.isUpdate = true;
         this.gridForm.patchValue(tour_list);
         this.gridForm.get('TourDate').patchValue(this._common.stringToDate(tour_list.TourDate));
-        this.date=tour_list.TourDate;
+        this.date = tour_list.TourDate;
         this.GetTourPlan()
     }
 
     deleteData(data, status = 'C') {
-        
+
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';
@@ -419,7 +430,7 @@ export class TourDiaryBmComponent implements OnInit {
             if (!res) {
                 return;
             }
-            if(!this.TourDiary){
+            if (!this.TourDiary) {
                 this.TourDiary = {}
             }
             if (status == 'S') {
@@ -436,7 +447,7 @@ export class TourDiaryBmComponent implements OnInit {
             }
 
             this.spinner.show();
-            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'BM')
+            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'BM')
                 .pipe(
                     finalize(() => {
                         this.spinner.hide();

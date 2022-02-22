@@ -102,18 +102,27 @@ export class TourDiaryApprovalBmComponent implements OnInit {
         //
         // }
         this.TourDiary = Object.assign(this.data);
+        debugger;
+        if (!this.zone) {
+            this.zone = {
+                ZoneId: this.data.ZoneId
+            };
+            this.branch = {
+                BranchCode: this.data.BranchId
+            }
+        }
         this.spinner.show();
-        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'ZC')
+        this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary, 'ZC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
 
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
             } else {
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
@@ -129,22 +138,15 @@ export class TourDiaryApprovalBmComponent implements OnInit {
                 data: {data: this.TourDiaryList, status: status}
             },
         );
-        signatureDialogRef.afterClosed().subscribe((res)=>{
-            if(res == true){
+        signatureDialogRef.afterClosed().subscribe((res) => {
+            if (res == true) {
                 this.router.navigate(['/tour-diary/tour-diary-approval']);
-            }
-            else{
+            } else {
                 return
             }
         })
 
     }
-
-
-
-
-
-
 
 
 }
