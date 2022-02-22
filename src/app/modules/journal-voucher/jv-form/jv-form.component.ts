@@ -29,6 +29,7 @@ import {
 import {
     JvOrganizationalStructureComponentComponent
 } from "../jv-organizational-structure-component/jv-organizational-structure-component.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-jv-form',
@@ -81,6 +82,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
     bindGridData: any;
 
     deleteBtn: boolean = true;
+    currentActivity: Activity;
 
 
     myPrevID: any = {};
@@ -180,7 +182,7 @@ export class JvFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('J.V Transaction');
         this.isEditMode = localStorage.getItem("EditJvData");
         if (this.isEditMode != "0") {
             this.JvSearchData = JSON.parse(localStorage.getItem("SearchJvData"));

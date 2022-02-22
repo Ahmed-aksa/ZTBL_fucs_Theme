@@ -13,6 +13,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-mco',
@@ -42,6 +43,8 @@ export class TourDiaryMcoComponent implements OnInit {
     isUpdate: boolean = false;
     data;
     maxDate = new Date();
+    currentActivity: Activity;
+
 
     checkDisable = true;
 
@@ -110,7 +113,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        this.currentActivity = this.userService.getActivity('Tour Diary For MCO');
         this.loggedInUser = this.userService.getUserDetails();
         this.loggedInUser = this.userService.getUserDetails();
         this.createForm();
@@ -461,7 +464,7 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     getAllData(event) {
-        
+
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;

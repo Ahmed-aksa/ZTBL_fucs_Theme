@@ -46,7 +46,7 @@
                     <input type="button" mat-raised-button color="primary"
                            class=" ml-2 w-3/12 mat-raised-button mat-button-base mat-primary searchLCBtn"
                            (click)="openJVMasterCodeDialog()" value="Search" [disabled]="submitted || transactionEdit"
-                           *ngIf="!viewOnly"/>
+                           *ngIf="!viewOnly && currentActivity.C"/>
                 </div>
             </div>
             <div class="mx-2">
@@ -181,7 +181,7 @@
                     <input type="button" mat-raised-button color="primary"
                            class="ml-2 w-3/12 mat-raised-button mat-button-base mat-primary searchLCBtn" value="Search"
                            (click)="openJvOrganizationDialog()" [disabled]="submitted || transactionEdit"
-                           *ngIf="!viewOnly"/>
+                           *ngIf="!viewOnly && currentActivity.C"/>
                 </div>
             </div>
 
@@ -197,7 +197,7 @@
                     <input type="button" mat-raised-button color="primary"
                            class="ml-2 w-3/12 mat-raised-button mat-button-base mat-primary searchLCBtn" value="Search"
                            (click)="searchLC()" [disabled]="submitted || transactionEdit || viewOnly"
-                           [readonly]="recoverySaved || transactionEdit" *ngIf="!viewOnly"/>
+                           [readonly]="recoverySaved || transactionEdit" *ngIf="!viewOnly && currentActivity.C"/>
                 </div>
             </div>
             <div class="mx-2">
@@ -229,7 +229,7 @@
                         </mat-select>
                         <!-- <mat-error *ngIf="hasError('LoanDisbID', 'required')">Disbursement ID <strong>required</strong></mat-error> -->
                     </mat-form-field>
-                    <span style="color: #01671B;" class="cursor-pointer mx-4" id="llcInquiryText" *ngIf="!viewOnly"
+                    <span style="color: #01671B;" class="cursor-pointer mx-4" id="llcInquiryText" *ngIf="!viewOnly && currentActivity.C"
                           (click)="viewLLCInquiryGL()"><b class="underline">View LC Inquiry</b></span>
                 </div>
             </div>
@@ -391,37 +391,37 @@
 
 
         <button style="background-color: #01671B;" mat-raised-button color="primary" (click)="save()" type="submit"
-                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly">
+                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly && currentActivity.C">
             <mat-icon class="mr-2">save</mat-icon>
             Save
         </button>
         <button mat-raised-button color="primary"
                 class="ml-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
                 (click)="clearForm()"
-                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly">
+                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly && currentActivity.C">
             <mat-icon class="mr-2"> clear_all</mat-icon>
             Clear
         </button>
         <!-- <button mat-raised-button color="primary" class="ml-2" type="reset" [disabled]="submitted || transactionEdit">Clear</button> -->
 
         <button mat-raised-button color="primary" class="ml-2" (click)="submitJv()"
-                [disabled]="submitted || viewOnly" *ngIf="!viewOnly">
+                [disabled]="submitted || viewOnly" *ngIf="!viewOnly && currentActivity.U">
             <mat-icon class="mr-2">check_circle</mat-icon>
             Submit
         </button>
         <button mat-raised-button color="primary" class="ml-2" (click)=" backToList()"
-                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly">
+                [disabled]="submitted || transactionEdit" *ngIf="!viewOnly && currentActivity.C">
             <mat-icon class="mr-2">list</mat-icon>
             Back To List
         </button>
 
         <button mat-raised-button color="primary" class="ml-2" (click)="deleteJv()"
-                [disabled]="submitted || viewOnly" *ngIf="isEditMode && deleteBtn && !viewOnly">
+                [disabled]="submitted || viewOnly" *ngIf="isEditMode && deleteBtn && !viewOnly && currentActivity.D">
             <mat-icon class="mr-2">delete_forever</mat-icon>
             Delete
         </button>
         <button mat-raised-button color="primary" class="ml-2" [disabled]="submitted || transactionEdit"
-                (click)="findJv()" *ngIf="!viewOnly">
+                (click)="findJv()" *ngIf="!viewOnly && currentActivity.U">
             <mat-icon class="mr-2">search</mat-icon>
             Search
         </button>
@@ -506,12 +506,12 @@
                     <td>{{gl.OrgDeptID}}</td>
                     <td>{{gl.DrAmount}}</td>
                     <td>{{gl.CrAmount}}</td>
-                    <td *ngIf="!viewOnly">
+                    <td *ngIf="!viewOnly && currentActivity.U">
                         <button mat-icon-button color="primary" (click)="editRow(gl.TransactionSeq)">
                             <mat-icon style="margin-left: 5px;" title="Edit Customer">edit</mat-icon>
                         </button>
                     </td>
-                    <td *ngIf="!viewOnly">
+                    <td *ngIf="!viewOnly && currentActivity.C">
                         <button mat-icon-button color="primary" (click)="deleteRow(gl)">
                             <mat-icon style="margin-left: 5px;" title="Edit Customer">delete</mat-icon>
                         </button>

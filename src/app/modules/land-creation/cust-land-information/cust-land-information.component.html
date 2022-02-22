@@ -274,7 +274,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button class="py-2" mat-raised-button color="primary" style="background-color: #01671B;" type="button"
+            <button *ngIf="currentActivity?.C" class="py-2" mat-raised-button color="primary" style="background-color: #01671B;" type="button"
                     (click)="saveCustomerLandInfo()">
                 <mat-icon class="mr-2">save</mat-icon>
                 Save
@@ -282,7 +282,7 @@
             <button mat-raised-button color="primary" type="button"
                     class="ml-2 mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
                     (click)="clearSaveCustomerLandInfo()"
-                    *ngIf="!isFormReadonly">
+                    *ngIf="!isFormReadonly && currentActivity?.C">
                 <mat-icon class="mr-2"> clear_all</mat-icon>
                 Clear
             </button>
@@ -619,23 +619,23 @@
             <button style="background-color: #01671B;" class="mr-2" mat-raised-button type="button" color="primary"
                     (click)="saveCustomerLandInfoDetails()"
                     [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                    *ngIf="ShowTable && !isFormReadonly">
+                    *ngIf="ShowTable && !isFormReadonly && currentActivity?.C">
                 <mat-icon class="mr-2">save</mat-icon>
                 Save
             </button>
             <button mat-raised-button type="button" color="primary" (click)="landChargeCreation()"
-                    *ngIf="AllowchargeCreation ">
+                    *ngIf="AllowchargeCreation && currentActivity?.C">
                 <mat-icon class="mr-2">create</mat-icon>
                 Land Charge Creation
             </button>
             <button mat-raised-button color="primary" (click)="landUploadFiles()" type="button"
-                    *ngIf="AllowDocumentUpload && !hasHistoryLandInfoId && !isFormReadonly" class="ml-2 bg-green">
+                    *ngIf="AllowDocumentUpload && !hasHistoryLandInfoId && !isFormReadonly && currentActivity?.C" class="ml-2 bg-green">
                 <mat-icon class="mr-2">cloud_upload</mat-icon>
                 Upload Documents
             </button>
             <button mat-raised-button color="primary" class="ml-2" type="button" (click)="submitCustomerLandInfo()"
                     [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                    *ngIf="AllowSubmit && !isFormReadonly">
+                    *ngIf="AllowSubmit && !isFormReadonly && currentActivity?.U">
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Submit
             </button>

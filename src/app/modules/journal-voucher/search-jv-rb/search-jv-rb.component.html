@@ -144,7 +144,7 @@
                 <ng-container matColumnDef="Edit">
                     <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
                     <mat-cell *matCellDef="let jv">
-                        <button mat-icon-button color="primary" *ngIf="CheckEditStatus(jv)"
+                        <button mat-icon-button color="primary" *ngIf="CheckEditStatus(jv) && currentActivity.U"
                                 (click)="editJv(jv)">
                             <mat-icon style="margin-left: 2px;" title="View jv">edit</mat-icon>
                         </button>

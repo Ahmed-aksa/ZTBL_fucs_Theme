@@ -139,6 +139,8 @@ export class CustomerProfileComponent implements OnInit {
     private tran_id: number;
     private document_details: any;
 
+    currentActivity: Activity;
+
     constructor(
         // public dialogRef: MatDialogRef<RoleEditComponent>,
         private formBuilder: FormBuilder,
@@ -162,7 +164,7 @@ export class CustomerProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('Create Customer');
         this.images.push(this.ProfileImageSrc);
         this.bit = localStorage.getItem('CreateCustomerBit');
 

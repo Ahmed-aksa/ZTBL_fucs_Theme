@@ -99,6 +99,10 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
         this.createForm();
         this.getLoanStatus();
 
+        if (this.zone) {
+            setTimeout(() => this.find(), 1000);
+        }
+
         if (this.LoggedInUserInfo.Branch.WorkingDate) {
             let dateString = this.LoggedInUserInfo.Branch.WorkingDate;
             var day = parseInt(dateString.substring(0, 2));

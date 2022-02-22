@@ -105,6 +105,8 @@ export class CheckEligibilityComponent implements OnInit {
     UrduCurrentAddress: string = '';
     private customer_number: any;
 
+    currentActivity: Activity;
+
     constructor(
         private formBuilder: FormBuilder,
         private _customerService: CustomerService,
@@ -123,6 +125,7 @@ export class CheckEligibilityComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Check Eligibility');
         this.NDCPerform = false;
         this.IsNdcDefaulter = false;
         this.NDCActionPerformSuccess = true;

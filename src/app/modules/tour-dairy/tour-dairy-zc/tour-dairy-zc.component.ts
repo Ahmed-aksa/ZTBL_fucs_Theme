@@ -14,6 +14,7 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {ToastrService} from "ngx-toastr";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {CommonService} from "../../../shared/services/common.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-zc',
@@ -47,6 +48,7 @@ export class TourDiaryZcComponent implements OnInit {
     data;
     checkDisable = true;
     systemGenerated: any;
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,

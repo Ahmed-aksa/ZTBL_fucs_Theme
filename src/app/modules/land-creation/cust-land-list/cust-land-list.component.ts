@@ -22,6 +22,7 @@ import {Branch} from 'app/shared/models/branch.model';
 import {Zone} from 'app/shared/models/zone.model';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-cust-land-list',
@@ -76,6 +77,7 @@ export class CustLandListComponent implements OnInit {
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
     private LoggedInUserInfo: any;
+    currentActivity: Activity;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -115,7 +117,7 @@ export class CustLandListComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('Search Land');
         this.matTableLenght = false;
         this.LoadLovs();
         this.ShowViewMore = false;

@@ -25,7 +25,7 @@ export class JournalVoucherService {
     }
 
     saveApplicationHeader(loanReq: LoanApplicationHeader): Observable<BaseResponseModel> {
-        
+
         this.request = new BaseRequestModel();
 
         var loanInfo = new Loan();
@@ -215,6 +215,8 @@ export class JournalVoucherService {
             User: userInfo.User,
             Zone: zone
         };
+        var req = JSON.stringify(request)
+        console.log(req)
 
 
         return this.http.post(`${environment.apiUrl}/JournalVoucher/SearchJvTransactions?page=${this.pageIndex}&size=${this.size}`, request,

@@ -13,6 +13,7 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {finalize} from "rxjs/operators";
 import {JournalVocherData} from "../models/journal_voucher.model";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-search-jv-pending',
@@ -63,6 +64,7 @@ export class SearchJvPendingComponent implements OnInit {
     branch: any;
     zone: any;
     circle: any;
+    currentActivity: Activity;
 
     //userDetail : any;
     constructor(
@@ -82,57 +84,11 @@ export class SearchJvPendingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Pending Transaction(J.V)');
         this.loadLOV();
         this.createForm();
-        this.SearchJvData();
 
-        var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
-
-
-        if (userInfo.Branch && userInfo.Branch.BranchCode != "All") {
-
-            this.Branches = userInfo.Branch;
-            this.SelectedBranches = this.Branches;
-
-            this.Zones = userInfo.Zone;
-            this.SelectedZones = this.Zones;
-
-            this.selected_z = this.SelectedZones.ZoneId
-            this.selected_b = this.SelectedBranches.BranchCode
-            this.pendingForm.controls["ZoneId"]?.setValue(this.SelectedZones.Id);
-            this.pendingForm.controls["OrganizationUnit"]?.setValue(this.SelectedBranches.branchCode);
-            let dateString = userInfo?.Branch?.WorkingDate;
-            var day = parseInt(dateString?.substring(0, 2));
-            var month = parseInt(dateString?.substring(2, 4));
-            var year = parseInt(dateString?.substring(4, 8));
-
-            const branchWorkingDate = new Date(year, month - 1, day);
-            this.pendingForm.controls.TransactionDate.setValue(branchWorkingDate);
-            this.pendingForm.controls.ZoneId.setValue(userInfo?.Zone?.ZoneName);
-            this.pendingForm.controls.OrganizationUnit.setValue(userInfo?.Branch?.branchCode);
-            this.maxDate = new Date(year, month - 1, day);
-        } else if (!userInfo.Branch && !userInfo.Zone && !userInfo.Zone) {
-            this.spinner.show();
-            this.userUtilsService.getZone().subscribe((data: any) => {
-                let dateString = String(new Date());
-                var day = parseInt(dateString?.substring(0, 2));
-                var month = parseInt(dateString?.substring(2, 4));
-                var year = parseInt(dateString?.substring(4, 8));
-
-                const branchWorkingDate = new Date(year, month - 1, day);
-                this.pendingForm.controls.TransactionDate.setValue(branchWorkingDate);
-                this.pendingForm.controls.ZoneId.setValue(userInfo?.Zone?.ZoneName);
-                this.pendingForm.controls.OrganizationUnit.setValue(userInfo?.Branch?.Name);
-                this.maxDate = new Date(year, month - 1, day);
-                this.Zones = data?.Zones;
-                this.SelectedZones = this?.Zones;
-                this.single_zone = false;
-                this.disable_zone = false;
-                this.spinner.hide();
-            });
-
-        }
-        this.find();
+        //this.find();
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
     }
 
@@ -166,8 +122,6 @@ export class SearchJvPendingComponent implements OnInit {
 
     createForm() {
         this.pendingForm = this.fb.group({
-            ZoneId: [''],
-            OrganizationUnit: [''],
             TransactionDate: [''],
             Nature: [''],
             VoucherNo: [''],
@@ -177,8 +131,6 @@ export class SearchJvPendingComponent implements OnInit {
 
 
     SearchJvData() {
-
-
         this.spinner.show();
         var status = this.pendingForm.controls.Status.value;
         var nature = this.pendingForm.controls.Nature.value;
@@ -189,17 +141,8 @@ export class SearchJvPendingComponent implements OnInit {
             nature = '1';
         }
         this.JournalVoucher = Object.assign(this.JournalVoucher, status);
-        let branch = null;
-        if (this.SelectedBranches.length)
-            branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
-        else
-            branch = this.SelectedBranches;
-        let zone = null;
-        if (this.SelectedZones.length)
-            zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-        else
-            zone = this.SelectedZones;
-        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate, branch, zone)
+
+        this.jv.getSearchJvTransactions(status, nature, manualVoucher, trDate, this.branch, this.zone)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -309,14 +252,10 @@ export class SearchJvPendingComponent implements OnInit {
 
     }
 
-    changeZone(changedValue) {
-        let changedZone = {Zone: {ZoneId: changedValue.value}}
-        this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
-            this.Branches = data.Branches;
-            this.SelectedBranches = this.Branches;
-            this.single_branch = false;
-            this.disable_branch = false;
-        });
+    ngAfterViewInit(){
+        if (this.zone) {
+            setTimeout(() => this.SearchJvData(), 1000);
+        }
     }
 }
 
