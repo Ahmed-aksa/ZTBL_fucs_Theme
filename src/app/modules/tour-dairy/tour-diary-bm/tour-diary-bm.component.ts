@@ -356,10 +356,12 @@ export class TourDiaryBmComponent implements OnInit {
     changeStatus(data, status) {
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if (status == "S") {
+            this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
             this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
             this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
         } else {
+            this.TourDiary.TourDate = data["TourDate"]
             this.TourDiary.DiaryId = data["DiaryId"];
             this.TourDiary.TourPlanId = data["TourPlanId"];
             this.TourDiary.Ppno = data["Ppno"];
@@ -403,6 +405,7 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     deleteData(data, status = 'C') {
+        debugger
         const _title = 'Confirmation';
         const _description = 'Do you really want to continue?';
         const _waitDesciption = '';
@@ -416,13 +419,17 @@ export class TourDiaryBmComponent implements OnInit {
             if (!res) {
                 return;
             }
-
+            if(!this.TourDiary){
+                this.TourDiary = {}
+            }
             if (status == 'S') {
+                this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
                 this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
                 this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
                 this.TourDiary.Ppno = this.gridForm.controls["PPNO"]?.value;
 
             } else {
+                this.TourDiary.TourDate = data["TourDate"]
                 this.TourDiary.DiaryId = data["DiaryId"];
                 this.TourDiary.TourPlanId = data["TourPlanId"];
                 this.TourDiary.Ppno = data["Ppno"];

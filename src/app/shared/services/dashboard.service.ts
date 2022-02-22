@@ -274,11 +274,15 @@ export class DashboardService {
             if (!resultArray[chunkIndex]) {
                 resultArray[chunkIndex] = [] // start a new chunk
             }
-
             resultArray[chunkIndex].push(item)
             return resultArray
         }, [])
 
+        if(result.length > 3){
+            // inorder to fix the table view as per given view in FSD.    
+            [result[1], result[3]] = [result[3], result[1]];
+            [result[2], result[3]] = [result[3], result[2]];
+        }
         result.forEach(x => {
             var a, b, c;
             for (let i = 0; i < 3; i++) {
