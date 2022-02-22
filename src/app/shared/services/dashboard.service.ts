@@ -295,9 +295,7 @@ export class DashboardService {
                     c = x[i];
                 }
             }
-            // var a = x[2]
-            // var b = x[0]
-            // var c = x[1]
+            
             x[0] = a != undefined ? a + ":" + data[a] : '-';
             x[1] = b != undefined ? b + ":" + data[b] : '-';
             x[2] = c != undefined ? c + "(%):" + data[c] : '-';
