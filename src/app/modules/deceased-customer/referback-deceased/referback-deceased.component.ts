@@ -13,6 +13,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-referback-deceased',
@@ -54,6 +55,7 @@ export class ReferbackDeceasedComponent implements OnInit {
     referBackForm: FormGroup;
     loggedInUser: any;
     gridHeight: string;
+    currentActivity : Activity;
 
     select: Selection[] = [
         {value: '1', viewValue: 'NO'},
@@ -74,6 +76,7 @@ export class ReferbackDeceasedComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Referred Back (Deceased)')
         this.createForm();
         var userInfo =
             this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();

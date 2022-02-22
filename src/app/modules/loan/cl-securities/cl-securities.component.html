@@ -73,12 +73,13 @@
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12 mb-2">
                         <button style="background-color: #01671B;" type="button" [disabled]="isSecuritiesFormInProgress"
-                                class="btn btn-primary" mat-raised-button color="primary"
+                                class="btn btn-primary" mat-raised-button color="primary" *ngIf="currentActivity.C"
                                 (click)="onSaveLoanSecurities()">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
                         </button>
                         <button type="button"
+                                *ngIf="currentActivity.C"
                                 class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
                                 mat-raised-button color="danger" (click)="clearLoanSecuritiesForm()">
                             <mat-icon class="mr-2"> clear_all</mat-icon>
@@ -112,7 +113,7 @@
                                     <td>
 
 
-                                        <mat-icon (click)="showUpdateSecuritiesForm(loan)" class="text-green cursor-pointer">
+                                        <mat-icon (click)="showUpdateSecuritiesForm(loan)"  *ngIf="currentActivity.U"class="text-green cursor-pointer">
                                                 edit
                                         </mat-icon>
 
@@ -176,7 +177,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <button type="button" class="btn btn-primary float-right" mat-raised-button color="primary"
+                <button type="button" class="btn btn-primary float-right" mat-raised-button *ngIf="currentActivity.C" color="primary"
                         (click)="attachCustomerLandtoLoan()">
                     Attach
                 </button>

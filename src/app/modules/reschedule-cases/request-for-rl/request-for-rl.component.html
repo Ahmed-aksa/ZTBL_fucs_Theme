@@ -111,7 +111,7 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button class="bg-gray-500 mt-2" mat-raised-button color="primary" (click)="find()">
+                            <button *ngIf="currentActivity.C" class="bg-gray-500 mt-2" mat-raised-button color="primary" (click)="find()">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -194,14 +194,14 @@
                 <td>{{res.GlSubname}}</td>
                 <td>{{res.MajorBorrower}}</td>
                 <td>
-                    <button mat-raised-button color="primary" (click)="deleteRow(i)">Delete</button>
+                    <button mat-raised-button color="primary" *ngIf="currentActivity.D" (click)="deleteRow(i)">Delete</button>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
     <div *ngIf="AddTable && checkedArr.length>0" class="d-flex justify-content-center">
-        <button mat-raised-button color="primary" (click)="submitData()">Submit</button>
-        <button class="ml-2" mat-raised-button color="primary" (click)="cancelData()">Cancel</button>
+        <button mat-raised-button color="primary" *ngIf="currentActivity.U" (click)="submitData()">Submit</button>
+        <button class="ml-2" mat-raised-button color="primary" *ngIf="currentActivity.D" (click)="cancelData()">Cancel</button>
     </div>
 </div>

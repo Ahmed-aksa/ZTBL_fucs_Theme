@@ -17,6 +17,7 @@ import {finalize} from 'rxjs/operators';
 import {ClDocumentViewComponent} from '../cl-document-view/cl-document-view.component';
 import {Zone} from '../../user-management/users/utils/zone.model'
 import {ToastrService} from "ngx-toastr";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-cl-upload-document',
@@ -98,6 +99,8 @@ export class ClUploadDocumentComponent implements OnInit{
 
     uploaded = "File Uploaded"
 
+    currentActivity: Activity
+
 
     constructor(
         private frmbuilder: FormBuilder,
@@ -127,6 +130,7 @@ export class ClUploadDocumentComponent implements OnInit{
 
     ngOnInit() {
 
+        this.currentActivity = this.userUtilsService.getActivity('Create Loan')
         this.getLoanType();
         this.getDocument();
         this.getDocumentLoanType();

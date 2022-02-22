@@ -12,6 +12,8 @@ import { LovService } from 'app/shared/services/lov.service';
 import { LayoutUtilsService } from 'app/shared/services/layout_utils.service';
 import { MatSelectChange } from '@angular/material/select';
 import { finalize } from 'rxjs/operators';
+import {Activity} from "../../../shared/models/activity.model";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 @Component({
   selector: 'kt-cl-securities',
@@ -54,11 +56,14 @@ export class ClSecuritiesComponent implements OnInit {
   currentSelectedSecurityType: string;
   currentUpdateSecurityRecordId: number;
 
+  currentActivity: Activity
+
   constructor(
     private _loanService: LoanService,
     private _cdf: ChangeDetectorRef,
     private _lovService: LovService,
     private formBuilder: FormBuilder,
+    private userUtilService: UserUtilsService,
     private datePipe: DatePipe,
     private layoutUtilsService: LayoutUtilsService,
     private spinner: NgxSpinnerService
@@ -67,6 +72,7 @@ export class ClSecuritiesComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.currentActivity = this.userUtilService.getActivity('Create Loan')
     this.isSecuritiesFormInProgress = false
     this.currentUpdateSecurityRecordId = 0;
     this.createForm();

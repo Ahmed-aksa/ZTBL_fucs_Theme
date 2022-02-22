@@ -22,6 +22,7 @@ import {CommonService} from 'app/shared/services/common.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from "../../../shared/services/lov.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-cl-loan-witness',
@@ -66,6 +67,8 @@ export class ClLoanWitnessComponent implements OnInit {
     status_lovs: any;
     funded_lovs: any;
 
+    currentActivity: Activity
+
     constructor
     (
         private formBuilder: FormBuilder,
@@ -85,7 +88,7 @@ export class ClLoanWitnessComponent implements OnInit {
 
     ngOnInit() {
 
-
+        this.currentActivity = this.userUtilsService.getActivity('Create Loan')
         this.getPersonalSuretiesForm();
         this.getCorporateSuretiesForm();
         this.getLoanRefrencesForm();

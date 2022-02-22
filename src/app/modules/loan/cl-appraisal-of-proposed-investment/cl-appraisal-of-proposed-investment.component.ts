@@ -12,6 +12,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {$e} from "@angular/compiler/src/chars";
 import {ToastrService} from "ngx-toastr";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-cl-appraisal-of-proposed-investment',
@@ -40,6 +41,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     crops: any;
     selectedCrops: any;
     selectedCropsName: string;
+    currentActivity: Activity;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -56,6 +58,7 @@ export class ClAppraisalOfProposedInvestmentComponent implements OnInit {
     hasFormErrors = false;
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Create Loan')
         this.createForm();
         this.getProposedCropType();
         this.getCrops();

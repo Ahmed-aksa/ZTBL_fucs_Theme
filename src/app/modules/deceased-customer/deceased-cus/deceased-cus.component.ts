@@ -30,6 +30,7 @@ import {finalize} from 'rxjs/operators';
 import {ViewFileComponent} from "../view-file/view-file.component";
 import {CircleService} from "../../../shared/services/circle.service";
 import {ToastrService} from "ngx-toastr";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-deceased-cus',
@@ -130,6 +131,7 @@ export class DeceasedCusComponent implements OnInit {
     private final_branch: any;
     private final_zone: any;
     isUserAdmin: boolean = false;
+    currentActivity : Activity;
 
 
     constructor(
@@ -226,6 +228,7 @@ export class DeceasedCusComponent implements OnInit {
 
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Deceased Customers')
         this.createForm();
         this.settingZBC();
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -396,7 +399,7 @@ export class DeceasedCusComponent implements OnInit {
     // }
 
     onChang(e) {
-        
+
         if (e == false) {
             this.myModel = false
             // this.customerForm.controls["IsNadraCertificateVerified"].setValue(this.myModel);
@@ -573,7 +576,7 @@ export class DeceasedCusComponent implements OnInit {
     }
 
     MarkAsDeceasedCustomer() {
-        
+
         this.errorShow = false;
         this.hasFormErrors = false;
 
