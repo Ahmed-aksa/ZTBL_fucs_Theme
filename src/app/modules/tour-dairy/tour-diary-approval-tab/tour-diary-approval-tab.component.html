@@ -8,7 +8,7 @@
 
              *ngFor="let activity of TourDiary?.TourDiaries | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">
             <div class="custom-accordion-head border-0 flex"
-                 (click)="toggleAccordion(i,activity.CreatedBy)"
+                 (click)="toggleAccordion(i,activity.CreatedBy, activity.TourDate)"
                  style="cursor: pointer;justify-content: space-between;">
                 <div class=" self-center ml-8 w-64">
                         <span class=" text-green">
