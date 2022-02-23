@@ -35,6 +35,7 @@ import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {LoanService} from 'app/shared/services/loan.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {ClGlSchemeCropConfigurationComponent} from '../cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component';
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-cl-purpose',
@@ -85,6 +86,8 @@ export class ClPurposeComponent implements OnInit {
     public Facility: any;
     public FacilitySelected: any;
 
+    currentActivity: Activity;
+
     constructor(
         private formBuilder: FormBuilder,
         public dialog: MatDialog,
@@ -110,6 +113,7 @@ export class ClPurposeComponent implements OnInit {
 
     //-------------------------------Form Level Functions-------------------------------//
     createForm() {
+        this.currentActivity = this.userUtilsService.getActivity('Create Loan')
         this.purposeForm = this.formBuilder.group({
             GlSubID: [
                 this.loanApplicationPurpose.GlSubID,

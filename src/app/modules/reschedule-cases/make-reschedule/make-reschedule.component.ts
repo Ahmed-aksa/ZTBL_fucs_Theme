@@ -36,6 +36,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {BufricationOfOsBalancesLcComponent} from "../../reports/bufrication-of-os-balances-lc/bufrication-of-os-balances-lc.component";
 import {UploadDocumentsComponent} from "./upload-documents/upload-documents.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-make-rc',
@@ -87,6 +88,7 @@ export class MakeRcComponent implements OnInit {
     loanReschID: string;
 
     public ReschedulingTypes: any;
+    currentActivity: Activity;
 
 
     navigationSubscription: any;
@@ -163,7 +165,7 @@ export class MakeRcComponent implements OnInit {
 
     ngOnInit() {
 
-
+        this.currentActivity = this.userUtilsService.getActivity('Make Reschedule');
         this.LoadLovs();
         this.createForm();
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -188,7 +190,7 @@ export class MakeRcComponent implements OnInit {
 
 
     GetReshTransaction() {
-        
+
         this.spinner.show();
         this.loanReschID = this.route.snapshot.params["loanReschID"];
         this.rescheduling.LoanReschID = parseInt(this.loanReschID)

@@ -15,6 +15,7 @@ import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {of} from 'rxjs';
 import {finalize} from 'rxjs/operators';
+import {Activity} from "../../../shared/models/activity.model";
 
 
 @Component({
@@ -43,6 +44,7 @@ export class ClLegalHeirsComponent implements OnInit {
     public maskEnums = MaskEnum;
     today = new Date();
     containers = [];
+    currentActivity: Activity;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -60,6 +62,7 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Create Loan')
         this.spinner.show();
         this.createForm();
         this.LoadLovs();
@@ -193,7 +196,7 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     onSaveLegalHeirsForm() {
-        
+
 
         if (this.legalHeirsForm.invalid) {
             const controls = this.legalHeirsForm.controls;
@@ -230,7 +233,7 @@ export class ClLegalHeirsComponent implements OnInit {
             ).subscribe(baseResponse => {
 
             if (baseResponse.Success) {
-                
+
                 this.legalHeirs = this.legalHeirsForm.value;
                 // var legalHeirsGrid = new LoanApplicationLegalHeirs();
                 //

@@ -19,6 +19,7 @@ import {
 import {MatDialog} from "@angular/material/dialog";
 import {CustomerListComponent} from "../../customer/customer-list/customer-list.component";
 import {CustLoanlistComponent} from "../customer-list/cust-list.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-cl-customers',
@@ -47,6 +48,7 @@ export class ClCustomersComponent implements OnInit {
     @Input() loanDetail: Loan;
     @Input('customersList') customer_list;
     @Output() loanCustomerCall: EventEmitter<any> = new EventEmitter();
+    currentActivity: Activity;
 
     constructor(private formBuilder: FormBuilder,
                 private userUtilsService: UserUtilsService,
@@ -62,6 +64,7 @@ export class ClCustomersComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Create Loan')
         this.LoadLovs();
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
         this.createForm();
@@ -101,7 +104,7 @@ export class ClCustomersComponent implements OnInit {
     }
 
     attachCustomer() {
-        
+
         this.hasFormErrors = false;
         if (this.loanCustomerForm.invalid) {
             const controls = this.loanCustomerForm.controls;
@@ -286,7 +289,7 @@ export class ClCustomersComponent implements OnInit {
     }
 
     onSaveCustomer() {
-        
+
         if (this.loanDetail == null || this.loanDetail == undefined) {
             this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
             return;

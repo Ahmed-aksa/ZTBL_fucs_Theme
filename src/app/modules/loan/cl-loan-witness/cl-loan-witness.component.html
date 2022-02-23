@@ -124,12 +124,12 @@
                                     <td>
                                         <div class="flex">
                                             <button  type="button" class=" mr-3 flex font-bold items-center	"
-                                                 color="primary" (click)="onSavePersonalSuretiesForm()">
+                                                 color="primary" *ngIf="currentActivity.C" (click)="onSavePersonalSuretiesForm()">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
                                             <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" (click)="onClearLoanSuretiesForm()">
+                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearLoanSuretiesForm()">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -178,7 +178,7 @@
 
 
                                                 <td>
-                                                    <button  type="button" class="flex  font-bold  items-center"
+                                                    <button *ngIf="currentActivity.U" type="button" class="flex  font-bold  items-center"
                                                         color="primary" (click)="onEditPersonalSureties(loan)">
                                                         <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
                                                         Edit
@@ -254,12 +254,12 @@
 
 
                                         <div class="flex">
-                                            <button  type="button" class=" mr-3 flex  font-bold  items-center"
+                                            <button *ngIf="currentActivity.C"  type="button" class=" mr-3 flex  font-bold  items-center"
                                                  color="primary" (click)="onSaveCorporateSuretiesForm()">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
-                                            <button  type="button" class="flex  font-bold  items-center"
+                                            <button *ngIf="currentActivity.C"  type="button" class="flex  font-bold  items-center"
                                                     color="primary" (click)="onClearCorporateSuretiesForm()">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
@@ -294,7 +294,7 @@
 
                                                 <td>
                                                     <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" (click)="onEditLoanCorporateSuretyArray(loan)">
+                                                    color="primary" *ngIf="currentActivity.C" (click)="onEditLoanCorporateSuretyArray(loan)">
                                                     <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
                                                     Edit
                                                 </button>
@@ -397,12 +397,12 @@
 
                                         <div class="flex">
                                             <button  type="button" class=" mr-3 flex  font-bold  items-center"
-                                                 color="primary" (click)="onSaveLoanRefrencesForm()">
+                                                 color="primary" *ngIf="currentActivity.C" (click)="onSaveLoanRefrencesForm()">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
                                             <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" (click)="onClearLoanRefrencesForm()">
+                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearLoanRefrencesForm()">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -446,7 +446,7 @@
 
                                                 <td>
                                                     <button  type="button" class="flex  font-bold  items-center"
-                                                        color="primary" (click)="onEditRefrence(loan)">
+                                                        color="primary" *ngIf="currentActivity.C" (click)="onEditRefrence(loan)">
                                                         <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
                                                         Edit
                                                      </button>
@@ -519,12 +519,12 @@
 
                                         <div class="flex">
                                             <button  type="button" class=" mr-3 flex  font-bold  items-center"
-                                                 color="primary" (click)="onSaveLoanWitnessForm()">
+                                                 color="primary" *ngIf="currentActivity.C" (click)="onSaveLoanWitnessForm()">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
                                             <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" (click)="onClearLoanWitnessForm()">
+                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearLoanWitnessForm()">
                                                 <mat-icon class="text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -559,7 +559,7 @@
                                                 <td>
 
                                                     <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary" (click)="onEditLoanWitnessArray(loan)">
+                                                    color="primary" *ngIf="currentActivity.C" (click)="onEditLoanWitnessArray(loan)">
                                                     <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
                                                     Edit
                                                  </button>
@@ -642,12 +642,12 @@
 
                                         <div class="flex">
                                             <button  type="button" class=" mr-3 flex  font-bold  items-center"
-                                                 color="primary" (click)="onSaveLoanPastPaidForm()">
+                                                 color="primary" *ngIf="currentActivity.C" (click)="onSaveLoanPastPaidForm()">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
                                             <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary"  (click)="onClearLoanPastPaidForm()">
+                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearLoanPastPaidForm()">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -826,12 +826,12 @@
 
                                         <div class="flex">
                                             <button  type="button" class=" mr-3 flex  font-bold  items-center"
-                                                 color="primary" (click)="onSaveCurrentLoansForm()">
+                                                 color="primary" *ngIf="currentActivity.C" (click)="onSaveCurrentLoansForm()">
                                                 <mat-icon class=" text-2xl text-green">save</mat-icon>
                                                 Save
                                             </button>
                                             <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary"  (click)="onClearCurrentLoansForm()">
+                                                    color="primary" *ngIf="currentActivity.C" (click)="onClearCurrentLoansForm()">
                                                 <mat-icon class=" text-2xl text-red-500">cancel</mat-icon>
                                                 Cancel
                                             </button>
@@ -877,7 +877,7 @@
 
                                                 <td>
                                                     <button  type="button" class="flex  font-bold  items-center"
-                                                    color="primary"  (click)="onEditLoanCurrentList(loan)">
+                                                    color="primary" *ngIf="currentActivity.U"  (click)="onEditLoanCurrentList(loan)">
                                                     <mat-icon class=" text-xl text-gray-500">edit</mat-icon>
                                                     Edit
                                                  </button>
@@ -931,12 +931,12 @@
                     <div class="col-lg-12 kt-margin-bottom-20-mobile">
                         <button style="background-color: #01671B;"
                                 class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                (click)="saveCheckList()">
+                                *ngIf="currentActivity.C" (click)="saveCheckList()">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
                         </button>
                         <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary mx-2"
-                                (click)="submitLoanApplication()">
+                                *ngIf="currentActivity.U" (click)="submitLoanApplication()">
                             <mat-icon class="mr-2">check_circle</mat-icon>
                             Submit
                         </button>

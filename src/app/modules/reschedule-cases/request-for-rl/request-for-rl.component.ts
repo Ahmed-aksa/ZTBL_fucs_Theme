@@ -38,6 +38,7 @@ import {
     MAT_DATE_LOCALE,
 } from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-request-for-rl',
@@ -110,6 +111,7 @@ export class RequestForRlComponent implements OnInit {
     final_zone: any;
     public LovCall = new Lov();
     public ReschedulingList = new ReschedulingList();
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -130,6 +132,7 @@ export class RequestForRlComponent implements OnInit {
 
         //
         this.create();
+        this.currentActivity = this.userUtilsService.getActivity('Request for Reschedule Loan');
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         //
         this.getRequestTypes();
@@ -277,7 +280,7 @@ export class RequestForRlComponent implements OnInit {
     }
 
     onSelectionChange(e) {
-        
+
         if (this.RfrlForm.controls.RequestCategory.value == '2' && e.value == '2') {
             this.graceMonthsSelect = true;
             this.RfrlForm.get('GraceMonths').setValidators([

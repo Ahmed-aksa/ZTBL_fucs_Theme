@@ -20,6 +20,7 @@ import {CommonService} from 'app/shared/services/common.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {ClUploadDocumentComponent} from "../cl-upload-document/cl-upload-document.component";
 import {ActivatedRoute} from "@angular/router";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-cl-application-header',
@@ -76,6 +77,8 @@ export class ClApplicationHeaderComponent implements OnInit {
     SelectedLoanCategory: any = [];
     @Output() applicationCall: EventEmitter<any> = new EventEmitter();
 
+    currentActivity: Activity;
+
     constructor(
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
@@ -92,6 +95,7 @@ export class ClApplicationHeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Create Loan')
         this.spinner.show();
         this.isCheckLcInProgress = false;
         this.isSaveApplicationHeaderInProgress = false;

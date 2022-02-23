@@ -71,11 +71,11 @@
                     <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
                     <mat-cell *matCellDef="let DeceasedCustomer">
 
-                        <button mat-icon-button color="primary" (click)="editDeceased(DeceasedCustomer)">
+                        <button mat-icon-button color="primary" *ngIf="currentActivity.U" (click)="editDeceased(DeceasedCustomer)">
                             <mat-icon style="margin-left: 2px;" title="View">edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button color="primary" (click)="viewDeceased(DeceasedCustomer)">
+                        <button mat-icon-button color="primary" *ngIf="currentActivity.R" (click)="viewDeceased(DeceasedCustomer)">
                             <mat-icon style="margin-left: 2px;" title="View">visibility</mat-icon>
                         </button>
 

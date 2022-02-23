@@ -24,6 +24,7 @@ import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {CircleService} from "../../../shared/services/circle.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-refer-back-reschedule-cases',
@@ -78,6 +79,7 @@ export class ReferBackRescheduleCasesComponent implements OnInit, AfterViewInit 
 
     matTableLenght: boolean;
     private loading: boolean;
+    currentActivity: Activity;
 
     constructor(
         private spinner: NgxSpinnerService,
@@ -97,7 +99,7 @@ export class ReferBackRescheduleCasesComponent implements OnInit, AfterViewInit 
 
     ngOnInit() {
         // this.getLoanStatus();
-
+        this.currentActivity = this.userUtilsService.getActivity('Referback Reschedule');
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
         this.createForm();
         this.getLoanStatus();

@@ -7,6 +7,8 @@ import {LoanService} from 'app/shared/services/loan.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {Activity} from "../../../shared/models/activity.model";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 
 @Component({
@@ -26,17 +28,18 @@ export class CalculateDbrComponent implements OnInit {
     totalDBRLiabilities:number=0;
     DBR:number=0;
     Flag;
+    currentActivity: Activity;
     constructor(private route: ActivatedRoute,
                 private _loanService: LoanService,
                 private cdRef: ChangeDetectorRef,
+                private userUtilService: UserUtilsService,
                 private layoutUtilsService: LayoutUtilsService,
                 private spinner: NgxSpinnerService,
-                private fb: FormBuilder,) {
+                private fb: FormBuilder) {
     }
 
     ngOnInit() {
-        
-
+        this.currentActivity = this.userUtilService.getActivity('Calculate DBR')
        this.createFormm()
         this.Flag = this.route.snapshot.params['Flag'];
         if(this.Flag==1){

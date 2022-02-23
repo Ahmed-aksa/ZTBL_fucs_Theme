@@ -21,6 +21,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {CircleService} from '../../../shared/services/circle.service';
 import {LovService} from '../../../shared/services/lov.service';
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-pending-reschedule-cases',
@@ -78,6 +79,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
     LoanTypes: any = [];
     private rcSearch: any;
     private loading: boolean;
+    currentActivity: Activity;
 
     constructor(
         private spinner: NgxSpinnerService,
@@ -95,6 +97,7 @@ export class PendingRescheduleCasesComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Pending Reschedule');
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
         this.createForm();
         this.getLoanStatus();
