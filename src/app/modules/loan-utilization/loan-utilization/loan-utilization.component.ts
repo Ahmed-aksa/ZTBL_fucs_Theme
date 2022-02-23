@@ -19,6 +19,7 @@ import {Zone} from '../../../shared/models/zone.model';
 import {Circle} from 'app/shared/models/circle.model';
 import {Branch} from 'app/shared/models/branch.model';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-loan-utilization',
@@ -127,6 +128,7 @@ export class LoanUtilizationComponent implements OnInit {
         {value: '0', viewValue: 'NO'},
         {value: '1', viewValue: 'Yes'},
     ];
+    currentActivity: Activity
 
 
     constructor(
@@ -141,7 +143,7 @@ export class LoanUtilizationComponent implements OnInit {
         private dialog: MatDialog,
         private route: ActivatedRoute,
     ) {
-// 
+//
         // this.loggedInUser = userUtilsService.getUserDetails();
         // if (this.router.getCurrentNavigation()?.extras?.state !== undefined) {
         //     this.loanUtilizationModel = this.router.getCurrentNavigation().extras.state.example;
@@ -178,6 +180,7 @@ export class LoanUtilizationComponent implements OnInit {
     VideoTimeLimit: number;
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Loan Utilization')
         // localStorage.setItem('utilization', JSON.stringify(utilization));
         this.loanUtilizationModel=JSON.parse(localStorage.getItem('utilization'))
         this.mediaGetter=JSON.parse(localStorage.getItem('utilization'))
@@ -432,7 +435,7 @@ ng
     }
 
     changeStatus(status: string) {
-        
+
         this.loanUtilizationModel.Remarks = this.customerForm.controls.Remarks.value;
 
 

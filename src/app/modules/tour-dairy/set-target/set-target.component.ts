@@ -23,6 +23,7 @@ import {finalize} from 'rxjs/operators';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {SetTargetService} from './Services/set-target.service';
 import {BankTarget, Target} from "./Models/set-target.model";
+import {Activity} from "../../../shared/models/activity.model";
 
 class SetTarget {
     Id: number;
@@ -112,6 +113,7 @@ export class SetTargetComponent implements OnInit {
     isMCO:boolean=false;
     AssignedTargetHeading;
     exceptional:boolean=false;
+    currentActivity: Activity;
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -169,7 +171,7 @@ export class SetTargetComponent implements OnInit {
         // if(userInfo?.User?.userGroup[0]?.ProfileID=="56"){
         //     this.isMCO=true;
         // }
-
+        this.currentActivity = this.userUtilsService.getActivity('Set Target')
         this.GetTragetDuration();
         this.createForm();
         this.UserID;

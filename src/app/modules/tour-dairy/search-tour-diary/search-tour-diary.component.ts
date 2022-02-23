@@ -20,6 +20,7 @@ import {DatePipe} from "@angular/common";
 import {TourDiary} from "../model/tour-diary-model";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {environment} from "../../../../environments/environment";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'search-tour-diary',
@@ -76,6 +77,7 @@ export class SearchTourDiaryComponent implements OnInit {
     zone: any;
     branch: any;
     circle: any;
+    currentActivity: Activity;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -96,7 +98,6 @@ export class SearchTourDiaryComponent implements OnInit {
     }
 
     ngOnInit() {
-
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
         console.log(this.loggedInUserDetails)
@@ -273,7 +274,7 @@ export class SearchTourDiaryComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    
+
                     this.TourDiarys = baseResponse?.TourDiary?.TourDiaries;
                 } else {
 

@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-search-tour-diary-tab',
@@ -20,10 +22,12 @@ export class SearchTourDiaryTabComponent implements OnInit {
     pageIndex: string;
     dataSource = new MatTableDataSource();
     dv: number | any; //use later
-    constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    currentActivity: Activity;
+    constructor(private router: Router, private activatedRoute: ActivatedRoute, private userUtilsService: UserUtilsService) {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Search Tour Diary')
     }
 
     toggleAccordion(i: number) {
@@ -48,7 +52,7 @@ export class SearchTourDiaryTabComponent implements OnInit {
     }
 
     redirectTourDiary(data: any) {
-        
+
         if (data?.RedirectTo) {
             if(this.zone.ZoneId)
                 localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));

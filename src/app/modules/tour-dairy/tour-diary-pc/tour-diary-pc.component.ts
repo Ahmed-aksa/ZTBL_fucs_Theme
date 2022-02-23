@@ -10,6 +10,7 @@ import {DateFormats} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {CommonService} from "../../../shared/services/common.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-pc',
@@ -43,6 +44,7 @@ export class TourDiaryPcComponent implements OnInit {
     systemGenerated: any;
     data;
     checkDisable = true;
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -58,6 +60,7 @@ export class TourDiaryPcComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userService.getActivity('Tour Diary For PC')
         this.createForm();
 
     }

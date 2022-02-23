@@ -27,6 +27,7 @@ import {VillageBenchMark} from '../model/village-benchmark.model';
 import {VillageWiseBenchMarkingService} from '../service/village-wise-bench-marking.service';
 import {RemarkDialogComponent} from './remark-dialog/remark-dialog.component';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-get-village-bench-marking',
@@ -60,7 +61,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     zone: any;
     branch: any;
     circle: any;
-
+    currentActivity: Activity
     constructor(
         private layoutUtilsService: LayoutUtilsService,
         private router: Router,
@@ -82,7 +83,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('Get Village Bench Marking')
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
 

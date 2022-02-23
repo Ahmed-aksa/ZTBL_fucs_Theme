@@ -65,7 +65,7 @@
                         </td>
                         <td style="width: 20%">{{child?.StatusName}}</td>
                         <td>
-                            <button mat-icon-button color="primary" *ngIf="CheckDirectionStatus(child)"
+                            <button mat-icon-button color="primary" *ngIf="CheckDirectionStatus(child) && currentActivity.C"
                                     (click)="redirectTourDiary(child)">
                                 <mat-icon style="margin-left: 5px;" title="redirect tour diary">directions</mat-icon>
                             </button>

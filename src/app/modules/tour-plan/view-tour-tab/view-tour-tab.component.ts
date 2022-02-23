@@ -9,6 +9,7 @@ import {TourPlanService} from "../Service/tour-plan.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {ViewFileComponent} from "../../loan-utilization/view-file/view-file.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-view-tour-tab',
@@ -30,6 +31,7 @@ export class ViewTourTabComponent implements OnInit {
     totalItems: number
     Math: any;
     loggedInUser: any;
+    currentActivity: Activity
 
 
     constructor(
@@ -43,6 +45,7 @@ export class ViewTourTabComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userService.getActivity('View Tour Plan')
         this.loggedInUser = this.userService.getUserDetails();
     }
 

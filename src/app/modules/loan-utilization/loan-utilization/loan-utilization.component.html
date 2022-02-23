@@ -210,7 +210,7 @@
                         <div class="row">
                             <div class="col-lg-12  text-right relative">
                                 <div class="bg-white float-right">
-                                    <button mat-icon-button *ngIf="!viewonly" (click)="removeImage(url,i)"
+                                    <button mat-icon-button *ngIf="!viewonly && currentActivity.D" (click)="removeImage(url,i)"
                                             class="close-button float-right absolute right-4 top-0 bg-red-500">
                                         <!-- X -->
                                         <mat-icon class="close-icon w-12 h-12 text-white bg-danger">close</mat-icon>
@@ -243,7 +243,7 @@
         </div>
 
         <div>
-            <input [required] *ngIf="!viewonly" (click)="ifResetRequiredV()" formControlName="fileV" type='file'
+            <input [required] *ngIf="!viewonly && currentActivity.C" (click)="ifResetRequiredV()" formControlName="fileV" type='file'
                    accept="video/*" (change)="onSelectFileV($event)"/>
         </div>
 
@@ -257,7 +257,7 @@
                     <div class="row">
                         <div class="col-lg-12 text-right relative">
                             <div class="bg-white float-right">
-                                <button mat-icon-button *ngIf="!viewonly" (click)="removeVideo(url,i)"
+                                <button mat-icon-button *ngIf="!viewonly && currentActivity.D" (click)="removeVideo(url,i)"
                                         class="close-button float-right absolute right-4 top bg-red-500">
                                     <!-- X -->
                                     <mat-icon class="close-icon text-white w-12 h-12 text-white bg-danger">close
@@ -306,24 +306,24 @@
         <div class="col-lg-12 text-right">
             <div class="float-right mr-4 mt-2 border-t py-2">
                 <button class="ml-2 bg-green mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                        *ngIf="isSave" mat-raised-button (click)="save()">
+                        *ngIf="isSave && currentActivity.C" mat-raised-button (click)="save()">
                     <mat-icon class="mr-2">save</mat-icon>
                     Save
                 </button>
                 <button class="ml-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                        *ngIf="isSubmit" mat-raised-button color="primary" (click)="changeStatus('S')">
+                        *ngIf="isSubmit && currentActivity.U" mat-raised-button color="primary" (click)="changeStatus('S')">
                     <mat-icon class="mr-2">check_circle</mat-icon>
                     Submit
                 </button>
-                <button class="ml-2" *ngIf="isReffer" mat-raised-button color="primary" (click)="changeStatus('R')">
+                <button class="ml-2" *ngIf="isReffer && currentActivity.U" mat-raised-button color="primary" (click)="changeStatus('R')">
                     Reffer
                     Back
                 </button>
-                <button class="ml-2" *ngIf="isAuthorize" mat-raised-button color="primary"
+                <button class="ml-2" *ngIf="isAuthorize && currentActivity.U" mat-raised-button color="primary"
                         (click)="changeStatus('A')">
                     Authorize
                 </button>
-                <button *ngIf="isDelete" class="ml-2 bg-danger" mat-raised-button color="primary"
+                <button *ngIf="isDelete && currentActivity.D" class="ml-2 bg-danger" mat-raised-button color="primary"
                         (click)="changeStatus('C')">
                     <mat-icon class="mr-2 ">delete_forever</mat-icon>
                     Delete

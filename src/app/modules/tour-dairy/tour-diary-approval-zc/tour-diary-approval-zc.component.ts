@@ -14,6 +14,7 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import { TourDiary } from '../set-target/Models/tour-diary.model';
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-zc',
@@ -46,6 +47,7 @@ export class TourDiaryApprovalZcComponent implements OnInit {
     isUpdate:boolean=false;
     data;
     systemGenerated: any;
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -63,6 +65,7 @@ export class TourDiaryApprovalZcComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For ZC')
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
@@ -78,14 +81,14 @@ export class TourDiaryApprovalZcComponent implements OnInit {
     getTourDiaryDetail() {
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        
+
         this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'RC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;

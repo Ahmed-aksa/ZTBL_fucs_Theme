@@ -41,10 +41,10 @@
                         </div>
                         <div class="mr-8" style="display: flex;
     margin-right: 10%;">
-                            <button mat-icon-button>
+                            <button mat-icon-button *ngIf="currentActivity.D">
                                 <mat-icon class="text-red-500">delete_forever</mat-icon>
                             </button>
-                            <button mat-icon-button color="primary" style="margin-left: 10%;"
+                            <button mat-icon-button color="primary" style="margin-left: 10%;" *ngIf="currentActivity.U"
                                     (click)="editConfiguration(parent_configuration)">
                                 <mat-icon>edit</mat-icon>
                             </button>
@@ -80,10 +80,10 @@
                                 <td class="break-all" style="width: 400px;">{{child.KeyValue}}</td>
                                 <td>
                                     <div class="flex">
-                                        <button mat-icon-button color="primary">
+                                        <button mat-icon-button color="primary" *ngIf="currentActivity.D">
                                             <mat-icon>delete</mat-icon>
                                         </button>
-                                        <button mat-icon-button color="warn" style="margin-left: 10%;"
+                                        <button mat-icon-button color="warn" style="margin-left: 10%;" *ngIf="currentActivity.U"
                                                 (click)="editConfiguration(child)">
                                             <mat-icon>edit</mat-icon>
                                         </button>

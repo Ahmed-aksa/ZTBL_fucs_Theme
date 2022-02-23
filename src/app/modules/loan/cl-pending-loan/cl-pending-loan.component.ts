@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {Activity} from "../../../shared/models/activity.model";
 
 import {finalize} from 'rxjs/operators';
 
@@ -64,7 +65,7 @@ export class ClPendingLoanComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     dv: number | any; //use later
-
+    currentActivity: Activity;
 
     constructor(
         private spinner: NgxSpinnerService,
@@ -81,6 +82,7 @@ export class ClPendingLoanComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Pending Loan');
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
         if (this.LoggedInUserInfo.Branch?.BranchCode == 'All') {
             this.loggedInUserIsAdmin = true;

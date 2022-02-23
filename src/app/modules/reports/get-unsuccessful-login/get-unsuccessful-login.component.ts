@@ -12,6 +12,7 @@ import {finalize} from 'rxjs/operators';
 import {SearchLoanCaseByCnic} from '../class/reports';
 import {ReportsService} from '../service/reports.service';
 import {ToastrService} from "ngx-toastr";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
   selector: 'app-get-unsuccessful-login',
@@ -43,6 +44,7 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
 
     statusLov: any;
     public LovCall = new Lov();
+    currentActivity: Activity;
 
 
     constructor(
@@ -57,7 +59,7 @@ export class GetUnsuccessfulLoginComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-
+        this.currentActivity = this.userUtilsService.getActivity('Get Unsuccessful Login')
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
         this.searchCnicForm.controls['PPNo'].setValue(this.LoggedInUserInfo.User.UserName)

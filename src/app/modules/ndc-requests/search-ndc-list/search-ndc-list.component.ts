@@ -35,6 +35,7 @@ import {HttpClient} from '@angular/common/http';
 import {CircleService} from '../../../shared/services/circle.service';
 import {Router} from '@angular/router';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-search-ndc-list',
@@ -105,6 +106,7 @@ export class SearchNdcListComponent implements OnInit {
     private _cdf: ChangeDetectorRef;
     isUserAdmin: boolean = false;
     private loggedInUserDetails: any;
+    currentActivity: Activity;
 
     constructor(
         public dialog: MatDialog,
@@ -121,6 +123,7 @@ export class SearchNdcListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Search NDC List')
         this.createForm();
         if (this.hasSrNo != true) {
             this.ndc_requests_displayed_columns = [

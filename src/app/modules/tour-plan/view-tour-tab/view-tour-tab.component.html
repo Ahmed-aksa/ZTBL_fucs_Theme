@@ -61,7 +61,7 @@
                         </td>
                         <td style="width: 20%">{{child?.StatusName}}</td>
                         <td>
-                            <button mat-icon-button color="primary" *ngIf="ViewSign(child.Signature)"
+                            <button mat-icon-button color="primary" *ngIf="ViewSign(child.Signature) && currentActivity.R"
                                     (click)="DisplaySign(child.Signature)">
                                 <mat-icon class="text-green" title="View land">visibility</mat-icon>
                             </button>

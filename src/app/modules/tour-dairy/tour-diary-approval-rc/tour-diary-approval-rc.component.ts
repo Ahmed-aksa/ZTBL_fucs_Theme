@@ -13,6 +13,7 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {ToastrService} from "ngx-toastr";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-rc',
@@ -41,6 +42,7 @@ export class TourDiaryApprovalRcComponent implements OnInit {
     date: string;
     systemGenerated: any;
     data: any;
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -57,6 +59,7 @@ export class TourDiaryApprovalRcComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For RC')
         this.data = JSON.parse(localStorage.getItem('TourDiary'));
         if (JSON.parse(localStorage.getItem('TourDiary'))) {
             localStorage.removeItem('TourDiary');
@@ -111,7 +114,7 @@ export class TourDiaryApprovalRcComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
+
 
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;

@@ -15,6 +15,7 @@ import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {MatDialog} from "@angular/material/dialog";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-mco',
@@ -55,6 +56,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
     TotalNoOfSanctnMutationVerified=0;
     TotalTOTNoOfFarmersVisisted=0;
     TotalTOTFarmersContacted=0;
+    currentActivity: Activity;
 
 
 
@@ -111,6 +113,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userService.getActivity('Tour Diary Approval For MCO')
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
@@ -134,7 +137,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
@@ -179,7 +182,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
 
                 this.TourDiaryList.forEach(element=>{
 
-                    
+
                     let a =  Number(element?.TOTFarmersContacted)
                     this.TotalTOTFarmersContacted = this.TotalTOTFarmersContacted+Number(element?.TOTFarmersContacted)
                 });

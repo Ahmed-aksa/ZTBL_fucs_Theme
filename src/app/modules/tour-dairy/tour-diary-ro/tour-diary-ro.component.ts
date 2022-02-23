@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {finalize} from "rxjs/operators";
 import {CommonService} from "../../../shared/services/common.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-ro',
@@ -43,6 +44,7 @@ export class TourDiaryRoComponent implements OnInit {
     data;
 
     checkDisable = true;
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -59,6 +61,7 @@ export class TourDiaryRoComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Diary For RO')
         this.createForm();
        }
 

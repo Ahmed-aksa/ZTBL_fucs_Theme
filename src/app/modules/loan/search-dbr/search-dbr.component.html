@@ -158,10 +158,10 @@
 <!--            <a class="self-center cursor-pointer text-green" (click)="ApplyOrr(loan)"> Apply ORR</a>-->
 
                         <button mat-icon-button color="primary" (click)="EditDBR(loan)"
-                                *ngIf="CheckEditStatus(loan)">
+                                *ngIf="CheckEditStatus(loan) && currentActivity.U">
                             <mat-icon style="margin-left: 5px;" title="Edit DBR">edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="primary" (click)="ViewDBR(loan)">
+                        <button mat-icon-button color="primary" *ngIf="currentActivity.R" (click)="ViewDBR(loan)">
                             <mat-icon style="margin-left: 5px;" title="View DBR">visibility</mat-icon>
                         </button>
                             </mat-cell>

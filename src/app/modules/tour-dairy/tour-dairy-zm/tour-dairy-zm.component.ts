@@ -18,6 +18,7 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {ToastrService} from "ngx-toastr";
 import {CommonService} from "../../../shared/services/common.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-zm',
@@ -52,6 +53,8 @@ export class TourDiaryZmComponent implements OnInit {
     btnText = 'Save';
     data;
     systemGenerated: any;
+    currentActivity: Activity;
+
     constructor(
         private fb: FormBuilder,
         private layoutUtilsService: LayoutUtilsService,
@@ -69,6 +72,7 @@ export class TourDiaryZmComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Diary For ZM')
         this.createForm();
     }
 

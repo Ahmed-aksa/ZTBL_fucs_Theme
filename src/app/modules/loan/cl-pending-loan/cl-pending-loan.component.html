@@ -151,7 +151,7 @@
                         <ng-container matColumnDef="Action">
                             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                             <mat-cell *matCellDef="let loan">
-                                <button mat-icon-button color="primary" (click)="editLoan(loan)">
+                                <button mat-icon-button color="primary" *ngIf="currentActivity.U" (click)="editLoan(loan)">
                                     <mat-icon style="margin-left: 5px;" title="View Loan">accessibility_new</mat-icon>
                                 </button>
                             </mat-cell>

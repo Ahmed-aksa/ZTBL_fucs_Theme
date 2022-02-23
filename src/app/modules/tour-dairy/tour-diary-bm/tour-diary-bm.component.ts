@@ -10,6 +10,7 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {finalize} from "rxjs/operators";
 import {CommonService} from "../../../shared/services/common.service";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-bm',
@@ -43,6 +44,7 @@ export class TourDiaryBmComponent implements OnInit {
     systemGenerated: any;
     maxDate = new Date();
     checkDisable = true;
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -58,6 +60,7 @@ export class TourDiaryBmComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userService.getActivity('Tour Diary For BM')
         this.createForm();
     }
 

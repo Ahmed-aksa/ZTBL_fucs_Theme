@@ -10,6 +10,8 @@ import {finalize} from 'rxjs/operators';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 import {CalculateDbrComponent} from "../calculate-dbr/calculate-dbr.component";
 import {LoanDbr, SearchLoanDbr} from "../../../shared/models/Loan.model";
+import {Activity} from "../../../shared/models/activity.model";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 @Component({
     selector: 'kt-save-orr',
@@ -44,6 +46,7 @@ export class SaveOrrComponent implements OnInit {
     totalDBRLiabilities:number=0;
     DBR:number=0;
     Flag;
+    currentActivity: Activity
 
     constructor(
         private route: ActivatedRoute,
@@ -55,10 +58,12 @@ export class SaveOrrComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private fb: FormBuilder,
+        private userUtilService: UserUtilsService,
         private cdRef: ChangeDetectorRef,) {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilService.getActivity('Save ORR')
         this.Flag = this.route.snapshot.params['Flag'];
         if(this.Flag==1){
             this.isReadOnly=false;
@@ -535,14 +540,14 @@ let data={
 
     }
     onIncomeChange(e) {
-        
+
         let index = this.dataSourcee.DBRIncomeList.findIndex(inc => inc.ID === e.srcElement.id);
         this.dataSourcee.DBRIncomeList[index].Value = e.srcElement.value;
 
         this.DototalIncome()
     }
     onLiabChange(e) {
-        
+
         let index = this.dataSourcee.DBRLiabilitiesList.findIndex(inc => inc.ID === e.srcElement.id);
         this.dataSourcee.DBRLiabilitiesList[index].Value = e.srcElement.value;
 
@@ -562,7 +567,7 @@ let data={
         this.DototalDBR()
     }
     DototalIncome(){
-        
+
         this.totalDBRIncome=0;
         for(let i=0;i<this.dataSourcee.DBRIncomeList.length;i++){
             if(this.dataSourcee.DBRIncomeList[i].Value){

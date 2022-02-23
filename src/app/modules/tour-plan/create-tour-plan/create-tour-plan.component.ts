@@ -42,6 +42,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {} from "inspector";
 import {AlertDialogConfirmationComponent} from "../../../shared/crud";
 import {ToastrService} from "ngx-toastr";
+import {Activity} from "../../../shared/models/activity.model";
 
 const moment = _rollupMoment || _moment;
 
@@ -107,6 +108,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
 
     btnText = 'Add';
     private TourPlanSchedule: any;
+    currentActivity: Activity
 
     constructor(private fb: FormBuilder, public dialog: MatDialog, private _lovService: LovService,
                 private layoutUtilsService: LayoutUtilsService,
@@ -117,7 +119,8 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
                 private router: Router,
                 private cdRef: ChangeDetectorRef,
                 public datepipe: DatePipe,
-                public toastr: ToastrService
+                public toastr: ToastrService,
+                private userUtilsService: UserUtilsService
     ) {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
@@ -135,6 +138,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Create Tour Plan')
         this.createForm();
         this.getPurposeofVisitLov();
         this.targetPlan.closeCalendarSource.subscribe((data) => {

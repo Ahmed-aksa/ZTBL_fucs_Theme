@@ -33,6 +33,7 @@ import {VendorDetail} from '../class/vendor-detail';
 import {KhaadSeedVendorService} from '../service/khaad-seed-vendor.service';
 import {AddressLocationComponent} from './address-location/address-location.component';
 import {ToastrService} from "ngx-toastr";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-add-new-vendor',
@@ -83,6 +84,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
     zone: any
 
     loc_text = "Choose Location"
+    currentActivity: Activity;
 
     public LovCall = new Lov();
     public khaadSeedVendor = new KhaadSeedVendor();
@@ -123,7 +125,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-
+        this.currentActivity = this.userUtilsService.getActivity('Add New Vendor')
         this.images.push(this.ProfileImageSrc);
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
 

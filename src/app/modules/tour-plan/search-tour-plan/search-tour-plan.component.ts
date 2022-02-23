@@ -20,6 +20,7 @@ import {LovService} from "../../../shared/services/lov.service";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DatePipe} from "@angular/common";
 import {ToastrService} from 'ngx-toastr';
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'search-loan-utilization',
@@ -76,6 +77,7 @@ export class SearchTourPlanComponent implements OnInit {
 
     zone: any;
     branch: any;
+    currentActivity: Activity;
 
 
     constructor(private store: Store<AppState>,
@@ -98,6 +100,7 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Search Tour Plan')
         var userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
         this.setUsers()

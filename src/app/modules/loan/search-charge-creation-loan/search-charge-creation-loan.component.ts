@@ -16,7 +16,7 @@ import {LoanService} from 'app/shared/services/loan.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
-
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-referback-loan-uti',
@@ -47,6 +47,7 @@ export class ChargeCreationLoanComponent implements OnInit {
     circle: any = [];
 
     loggedInUserIsAdmin: boolean = false;
+    currentActivity: Activity;
 
     displayedColumns = ['LoanCaseNo',
         'CustomerName',
@@ -83,6 +84,7 @@ export class ChargeCreationLoanComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Search Charge Creation');
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
 
         if (this.LoggedInUserInfo.Branch?.BranchCode == 'All') {
@@ -122,7 +124,7 @@ export class ChargeCreationLoanComponent implements OnInit {
 
         this.ChargeCreationType = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.SearchChargeCreationType});
         // this.ChargeCreationType = this.LoanStatus.LOVs;
-        
+
 
     }
 

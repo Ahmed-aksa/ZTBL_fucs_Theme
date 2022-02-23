@@ -18,6 +18,7 @@ import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {ToastrService} from "ngx-toastr";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-zm',
@@ -52,6 +53,7 @@ export class TourDiaryApprovalZmComponent implements OnInit {
     btnText = 'Save';
     data;
     systemGenerated: any;
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -70,6 +72,7 @@ export class TourDiaryApprovalZmComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For ZM')
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
@@ -92,7 +95,7 @@ export class TourDiaryApprovalZmComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;

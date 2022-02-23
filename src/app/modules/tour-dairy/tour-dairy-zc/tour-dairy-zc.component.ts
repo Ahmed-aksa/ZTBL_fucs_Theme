@@ -67,6 +67,7 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Diary For ZC')
         this.createForm();
         this.loggedInUser = this.userService.getUserDetails();
     }
@@ -379,7 +380,7 @@ export class TourDiaryZcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                
+
                     this.TourDiaryList=[]
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;

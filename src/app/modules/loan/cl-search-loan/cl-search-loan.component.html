@@ -87,7 +87,6 @@
     <!-- Header -->
     <div>
 
-
         <!-- Main -->
         <div class="flex flex-auto overflow-y-scroll">
 
@@ -151,10 +150,10 @@
                             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                             <mat-cell *matCellDef="let loan">
                                 <button mat-icon-button color="primary" (click)="editLoan(loan)"
-                                        *ngIf="CheckEditStatus(loan)">
+                                        *ngIf="CheckEditStatus(loan) && currentActivity.U">
                                     <mat-icon style="margin-left: 5px;" title="View Loan">edit</mat-icon>
                                 </button>
-                                <button mat-icon-button color="primary" (click)="ViewOrr(loan)">
+                                <button mat-icon-button color="primary" *ngIf="currentActivity.R" (click)="ViewOrr(loan)">
                                     <mat-icon class="text-green" style="margin-left: 5px;" title="View Loan">visibility</mat-icon>
                                 </button>
                                 <button  mat-icon-button *ngIf="checkMap(loan)" color="primary"

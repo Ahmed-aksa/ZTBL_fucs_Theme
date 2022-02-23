@@ -16,6 +16,7 @@ import {LoanService} from 'app/shared/services/loan.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
+import {Activity} from "../../../shared/models/activity.model";
 
 
 @Component({
@@ -62,6 +63,7 @@ export class RejectedLoanComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     dv: number | any; //use later
+    currentActivity: Activity;
 
     constructor(
         private spinner: NgxSpinnerService,
@@ -79,6 +81,7 @@ export class RejectedLoanComponent implements OnInit {
 
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Rejected Loan');
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
         if (this.LoggedInUserInfo.Branch?.BranchCode == 'All') {
             this.loggedInUserIsAdmin = true;

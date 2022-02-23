@@ -17,6 +17,7 @@ import {finalize} from 'rxjs/operators';
 import {LoanUtilizationService} from '../service/loan-utilization.service';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {LoanUtilizationSearch} from '../Model/loan-utilization.model';
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'kt-search-utilization',
@@ -87,6 +88,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
     //Start ZBC
 
     LoggedInUserInfo: BaseResponseModel;
+    currentActivity: Activity
 
 
     //End ZBC
@@ -109,7 +111,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('Search Utilization')
         const userDetails = this.userUtilsService.getUserDetails();
         this.loggedInUserDetails = userDetails;
         this.setUsers();

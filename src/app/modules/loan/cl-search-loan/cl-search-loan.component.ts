@@ -18,6 +18,7 @@ import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Activity} from "../../../shared/models/activity.model";
 
 
 @Component({
@@ -66,6 +67,7 @@ export class ClSearchLoanComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     dv: number | any; //use later
+    currentActivity: Activity;
 
 
     constructor(
@@ -84,6 +86,7 @@ export class ClSearchLoanComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Search Loan')
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
         if (this.LoggedInUserInfo.Branch?.BranchCode == 'All') {
             this.loggedInUserIsAdmin = true;
@@ -168,7 +171,7 @@ export class ClSearchLoanComponent implements OnInit {
                         this.loading = false;
                         this.matTableLenght = true;
                         this.dataSource.data = baseResponse.Loan.ApplicationHeaderList;
-
+console.log(this.dataSource.data);
                         this.dv = this.dataSource.data;
 
                         this.totalItems = baseResponse.Loan.ApplicationHeaderList.length;

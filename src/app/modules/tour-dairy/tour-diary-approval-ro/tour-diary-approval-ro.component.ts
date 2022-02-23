@@ -14,6 +14,7 @@ import {finalize} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
 import {SignaturePadForTourComponent} from "../../tour-plan/signature-pad-for-tour/signature-pad-for-tour.component";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-ro',
@@ -42,7 +43,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
     data: Object;
     systemGenerated: any;
     TourDiary;
-
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -58,6 +59,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For RO')
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
@@ -104,7 +106,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
+
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
             } else {

@@ -16,6 +16,8 @@ import {Configuration} from "../models/configuration.model";
 import {ConfigurationEditComponent} from "../configuration-edit/configuration-edit.component";
 import {ConfigurationService} from "../service/configuration.service";
 import {DocumentTypeModel} from "../models/document_type.model";
+import {Activity} from "../../../shared/models/activity.model";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 // Services
 
@@ -33,17 +35,20 @@ export class ConfigurationListComponent implements OnInit {
     gridHeight: string;
     loading: boolean = false;
     lists_record: any = [];
+    currentActivity: Activity;
 
     constructor(
         private store: Store<AppState>,
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
+        private userUtilsService: UserUtilsService,
         private layoutUtilsService: LayoutUtilsService,
         private _configurationService: ConfigurationService,
     ) {
     }
 
     ngOnInit() {
+        this.currentActivity = this.userUtilsService.getActivity('Configurations')
         this.loadConfigurationPage();
     }
 

@@ -28,6 +28,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {VillageBenchMark} from '../model/village-benchmark.model';
 import {VillageWiseBenchMarkingService} from '../service/village-wise-bench-marking.service';
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-add-update-bench-marking',
@@ -71,6 +72,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     updatingCase = false;
 
     is_view: boolean = false;
+    currentActivity: Activity
 
     constructor(
         private layoutUtilsService: LayoutUtilsService,
@@ -184,7 +186,7 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.currentActivity = this.userUtilsService.getActivity('Add Update Bench Marking')
         this.createForm();
         this.LoadLovs();
 

@@ -14,6 +14,7 @@ import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-bm',
@@ -46,6 +47,7 @@ export class TourDiaryApprovalBmComponent implements OnInit {
     TourDiaryList: any;
     systemGenerated;
     data;
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -64,6 +66,7 @@ export class TourDiaryApprovalBmComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userService.getActivity('Tour Diary Approval For BM')
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');

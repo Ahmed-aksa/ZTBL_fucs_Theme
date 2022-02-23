@@ -15,6 +15,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {PaginationService} from "ngx-pagination";
 import {PaginatorService} from "../../../shared/services/paginator.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-geo-fencing-list',
@@ -50,6 +51,7 @@ export class GeoFencingListComponent implements OnInit {
     zone: any;
     branch: any;
     circle: any;
+    currentActivity: Activity
 
     constructor(
         private router: Router,
@@ -65,6 +67,7 @@ export class GeoFencingListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Geo Fencing List')
         this.createForm();
     }
 

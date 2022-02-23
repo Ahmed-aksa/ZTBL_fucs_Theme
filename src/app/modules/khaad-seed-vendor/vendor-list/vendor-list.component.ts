@@ -28,6 +28,7 @@ import {KhaadSeedVendorService} from '../service/khaad-seed-vendor.service';
 import {VendorDetail} from '../class/vendor-detail';
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-vendor-list',
@@ -89,6 +90,7 @@ export class VendorListComponent implements OnInit {
     user: any = {};
 
     public LovCall = new Lov();
+    currentActivity: Activity;
 
 
     constructor(
@@ -106,7 +108,7 @@ export class VendorListComponent implements OnInit {
 
 
     ngOnInit(): void {
-
+        this.currentActivity = this.userUtilsService.getActivity('View Vendor List');
         this.createForm();
         this.typeLov();
     }

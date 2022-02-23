@@ -7,6 +7,8 @@ import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
 import {TourPlanService} from "../Service/tour-plan.service";
 import {NgxSpinnerService} from "ngx-spinner";
+import {Activity} from "../../../shared/models/activity.model";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
 
 @Component({
     selector: 'app-tour-approval-tab',
@@ -29,17 +31,20 @@ export class TourApprovalTabComponent implements OnInit {
     children: [any][any] = [];
     totalItems: number
     Math: any;
-
+    currentActivity: Activity;
 
     constructor(
         private layoutUtilsService: LayoutUtilsService,
         public dialog: MatDialog,
         private toaster: ToastrService,
         private tourPlanService: TourPlanService,
-        private spinner: NgxSpinnerService) {
+        private spinner: NgxSpinnerService,
+        private userUtilsService: UserUtilsService
+        ) {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Plan For Approval')
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {

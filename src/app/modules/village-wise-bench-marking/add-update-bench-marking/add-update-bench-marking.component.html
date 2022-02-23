@@ -179,22 +179,22 @@
         </div>
 
         <div class="mt-2  border-t py-4" *ngIf="is_view">
-            <button mat-raised-button color="primary" *ngIf="isAdd && !updatingCase" class="mr-4" (click)="Add()">
+            <button mat-raised-button color="primary" *ngIf="isAdd && !updatingCase  && currentActivity.C" class="mr-4" (click)="Add()">
                 <mat-icon class="mr-2">add_circle</mat-icon>
                 Add
             </button>
-            <button mat-raised-button color="primary" *ngIf="isUpdate || updatingCase" class="mr-4" (click)="update()">
+            <button mat-raised-button color="primary" *ngIf="isUpdate || updatingCase && currentActivity.U" class="mr-4" (click)="update()">
                 <mat-icon class="mr-2">add_circle</mat-icon>
                 Update
             </button>
-            <button mat-raised-button  class="mr-4 bg-green mat-primary"  *ngIf="updatingCase" (click)="SubmitSingle()">
+            <button mat-raised-button  class="mr-4 bg-green mat-primary"  *ngIf="updatingCase && currentActivity.U" (click)="SubmitSingle()">
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Submit
             </button>
 
             <button mat-raised-button
                     class="mat-focus-indicator btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger"
-                    (click)="clear()">
+                    *ngIf="currentActivity.C" (click)="clear()">
                 <mat-icon class="mr-2"> clear_all</mat-icon>
                 Clear
             </button>
@@ -237,11 +237,11 @@
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                <button mat-icon-button color="primary" (click)="editRow(array, i)">
+                                <button mat-icon-button color="primary" *ngIf="currentActivity.U" (click)="editRow(array, i)">
                                     <mat-icon title="Edit Customer">edit</mat-icon>
                                 </button>
                                 <button mat-icon-button color="primary" style="margin-left: 5px"
-                                        (click)="deleteRow(i,array)">
+                                        *ngIf="currentActivity.D" (click)="deleteRow(i,array)">
                                     <mat-icon title="Edit Customer">delete</mat-icon>
                                 </button>
                             </div>

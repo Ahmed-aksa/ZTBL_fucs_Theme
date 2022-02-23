@@ -8,6 +8,8 @@ import {SignaturePadForTourComponent} from "../../tour-plan/signature-pad-for-to
 import {finalize} from "rxjs/operators";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-tab',
@@ -31,6 +33,8 @@ export class TourApprovalTabComponent implements OnInit {
     totalItems: number
     Math: any;
 
+    currentActivity: Activity;
+
 
     constructor(
         private layoutUtilsService: LayoutUtilsService,
@@ -38,11 +42,13 @@ export class TourApprovalTabComponent implements OnInit {
         private toaster: ToastrService,
         private tourDiaryService: TourDiaryService,
         private spinner: NgxSpinnerService,
+        private userUtilsService: UserUtilsService,
         private router: Router,
         private activatedRoute: ActivatedRoute,) {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval')
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {

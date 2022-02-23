@@ -16,6 +16,7 @@ import {LoanService} from 'app/shared/services/loan.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
+import {Activity} from "../../../shared/models/activity.model";
 
 
 @Component({
@@ -61,6 +62,7 @@ export class ReferbackLoanFromCADComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     dv: number | any; //use later
+    currentActivity: Activity;
 
     constructor(
         private spinner: NgxSpinnerService,
@@ -77,6 +79,7 @@ export class ReferbackLoanFromCADComponent implements OnInit {
 
     ngOnInit() {
         this.LoggedInUserInfo = this.userUtilsService.getUserDetails();
+        this.currentActivity = this.userUtilsService.getActivity('Refer Back Loan from CAD');
 
         if (this.LoggedInUserInfo.Branch?.BranchCode == 'All') {
             this.loggedInUserIsAdmin = true;

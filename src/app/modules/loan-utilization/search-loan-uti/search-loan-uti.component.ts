@@ -26,6 +26,7 @@ import {Zone} from 'app/shared/models/zone.model';
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-search-loan-uti',
@@ -96,6 +97,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     LoggedInUserInfo: BaseResponseModel;
+    currentActivity: Activity
 
 
     constructor(private store: Store<AppState>,
@@ -117,8 +119,7 @@ export class SearchLoanUtilizationComponent implements OnInit {
     }
 
     ngOnInit() {
-
-
+        this.currentActivity = this.userUtilsService.getActivity('Search Loan For Utilization')
         if (this.isDialog)
             this.displayedColumns = [
 

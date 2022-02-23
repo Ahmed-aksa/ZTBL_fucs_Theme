@@ -12,6 +12,7 @@ import { Router } from "@angular/router";
 import { TourDiaryService } from "../set-target/Services/tour-diary.service";
 import { finalize } from "rxjs/operators";
 import { CommonService } from "../../../shared/services/common.service";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-rc',
@@ -41,6 +42,7 @@ export class TourDiaryRcComponent implements OnInit {
     data;
     maxDate = new Date();
     checkDisable = true;
+    currentActivity: Activity;
 
     constructor(
         private fb: FormBuilder,
@@ -57,6 +59,7 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentActivity = this.userUtilsService.getActivity('Tour Diary For RC')
         this.createForm();
     }
     ngAfterViewInit() {
@@ -386,7 +389,7 @@ export class TourDiaryRcComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    
+
                     this.TourDiaryList = []
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
