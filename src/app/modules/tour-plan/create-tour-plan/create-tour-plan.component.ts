@@ -160,7 +160,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
             localStorage.setItem('EditViewTourPlan', '0');
             localStorage.removeItem('SearchTourPlan')
             this.spinner.show();
-            setTimeout(() => this.editTourPlan(this.tourPlanEditView), 10000);
+            setTimeout(() => this.editTourPlan(this.tourPlanEditView), 1000);
         }
 
     }
@@ -268,7 +268,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
 
 
     onChange = () => {
-        if (!this.zone) {
+        if (!this.zone && this.isEdit != '1') {
             var Message = 'Please select Zone';
             this.layoutUtilsService.alertElement(
                 '',
@@ -289,7 +289,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
 
         const dialogRef = this.dialog.open(CreateTourPlanPopupComponent, {
             width: '60%',
-            data: {daylist, year,zone},
+            data: {daylist, year, zone},
             disableClose: true,
         });
         dialogRef.afterClosed().subscribe(result => {
