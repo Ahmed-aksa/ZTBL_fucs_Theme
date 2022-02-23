@@ -108,7 +108,8 @@ export class TourDiaryApprovalBmComponent implements OnInit {
                 ZoneId: this.data.ZoneId
             };
             this.branch = {
-                BranchCode: this.data.BranchId
+                BranchId: this.data.BranchId,
+                BranchCode:this.data?.BranchCode
             }
         }
         this.spinner.show();

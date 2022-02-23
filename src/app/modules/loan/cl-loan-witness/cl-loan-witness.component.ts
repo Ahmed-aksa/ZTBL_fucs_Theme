@@ -44,12 +44,12 @@ export class ClLoanWitnessComponent implements OnInit {
     EditableCnicReference;
     EditableCnicWitness;
     EditableCnicSureties;
-    isSubmittedPersonalSuretiesForm= false;
-    isSubmittedCorporateSuretiesForm= false;
-    isSubmittedLoanRefrencesForm= false;
-    isSubmittedLoanWitnessForm= false;
-    isSubmittedLoanPastPaidForm= false;
-    isSubmittedCurrentLoansForm= false;
+    isSubmittedPersonalSuretiesForm = false;
+    isSubmittedCorporateSuretiesForm = false;
+    isSubmittedLoanRefrencesForm = false;
+    isSubmittedLoanWitnessForm = false;
+    isSubmittedLoanPastPaidForm = false;
+    isSubmittedCurrentLoansForm = false;
     loanPersonalSuretiesArray: PersonalSureties[] = [];
     editLoanPersonalSuretiesArray: PersonalSureties[] = [];
 
@@ -112,27 +112,28 @@ export class ClLoanWitnessComponent implements OnInit {
     /**********************************************************************************************************/
     personalSuretiesForm: FormGroup;
     personalSureties = new PersonalSureties();
+
     hasError(controlName: string, errorName: string): boolean {
         return this.personalSuretiesForm?.controls[controlName].hasError(errorName);
     }
+
     createPersonalSuretiesForm() {
         this.personalSuretiesForm = this.formBuilder.group({
-            Cnic: [this.personalSureties.Cnic,Validators.required],
-            FullName: [this.personalSureties.FullName,Validators.required],
-            Percentage: [this.personalSureties.Percentage,Validators.required],
-            Address: [this.personalSureties.Address,Validators.required],
-            Phone: [this.personalSureties.Phone,Validators.required],
-            AccountNo: [this.personalSureties.AccountNo,Validators.required],
-            SourceofIncome: [this.personalSureties.SourceofIncome,Validators.required],
-            AnnualIncome: [this.personalSureties.AnnualIncome,Validators.required],
-            AssetValue: [this.personalSureties.AssetValue,Validators.required],
-            PresentDues: [this.personalSureties.PresentDues,Validators.required],
-            NetValue: [this.personalSureties.NetValue,Validators.required],
+            Cnic: [this.personalSureties.Cnic, Validators.required],
+            FullName: [this.personalSureties.FullName, Validators.required],
+            Percentage: [this.personalSureties.Percentage, Validators.required],
+            Address: [this.personalSureties.Address, Validators.required],
+            Phone: [this.personalSureties.Phone, Validators.required],
+            AccountNo: [this.personalSureties.AccountNo, Validators.required],
+            SourceofIncome: [this.personalSureties.SourceofIncome, Validators.required],
+            AnnualIncome: [this.personalSureties.AnnualIncome, Validators.required],
+            AssetValue: [this.personalSureties.AssetValue, Validators.required],
+            PresentDues: [this.personalSureties.PresentDues, Validators.required],
+            NetValue: [this.personalSureties.NetValue, Validators.required],
             PersonalSuretyID: [this.personalSureties.PersonalSuretyID]
         });
 
     }
-
 
 
     onSavePersonalSuretiesForm() {
@@ -153,7 +154,7 @@ export class ClLoanWitnessComponent implements OnInit {
             this.isSubmittedPersonalSuretiesForm = true;
             //this.spinner.hide();
             return;
-        }else{
+        } else {
             this.isSubmittedPersonalSuretiesForm = false;
         }
 
@@ -188,11 +189,15 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            if (baseResponse.Loan?.PersonalSuretiesList)
-                this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
-            this.personalSuretiesForm.reset();
-            this.EditableCnicSureties = null;
-            this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            if (baseResponse.Success) {
+                if (baseResponse.Loan?.PersonalSuretiesList)
+                    this.loanPersonalSuretiesArray = baseResponse.Loan.PersonalSuretiesList;
+                this.personalSuretiesForm.reset();
+                this.EditableCnicSureties = null;
+            } else {
+
+                this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+            }
         });
     }
 
@@ -201,14 +206,16 @@ export class ClLoanWitnessComponent implements OnInit {
     /**********************************************************************************************************/
     corporateSuretiesForm: FormGroup;
     corporateSureties = new CorporateSurety();
+
     hasErrorCorporateSuretiesForm(controlName: string, errorName: string): boolean {
         return this.corporateSuretiesForm?.controls[controlName].hasError(errorName);
     }
+
     createCorporateSuretiesForm() {
         this.corporateSuretiesForm = this.formBuilder.group({
-            CompanyName: [this.corporateSureties.CompanyName,Validators.required],
-            MemorandumDate: [this.corporateSureties.MemorandumDate,Validators.required],
-            RefrenceNo: [this.corporateSureties.RefrenceNo,Validators.required],
+            CompanyName: [this.corporateSureties.CompanyName, Validators.required],
+            MemorandumDate: [this.corporateSureties.MemorandumDate, Validators.required],
+            RefrenceNo: [this.corporateSureties.RefrenceNo, Validators.required],
             CorporateSuretyID: [this.corporateSureties.CorporateSuretyID]
         });
     }
@@ -229,7 +236,7 @@ export class ClLoanWitnessComponent implements OnInit {
             this.isSubmittedCorporateSuretiesForm = true;
             //this.spinner.hide();
             return;
-        }else{
+        } else {
             this.isSubmittedCorporateSuretiesForm = false;
         }
 
@@ -264,18 +271,20 @@ export class ClLoanWitnessComponent implements OnInit {
 
     loanRefrencesForm: FormGroup;
     loanRefrences = new LoanRefrences();
+
     hasErrorLoanRefrencesForm(controlName: string, errorName: string): boolean {
         return this.loanRefrencesForm?.controls[controlName].hasError(errorName);
     }
+
     createLoanRefrencesForm() {
         this.loanRefrencesForm = this.formBuilder.group({
-            Cnic: [this.loanRefrences.Cnic,Validators.required],
-            Name: [this.loanRefrences.Name,Validators.required],
-            Address: [this.loanRefrences.Address,Validators.required],
+            Cnic: [this.loanRefrences.Cnic, Validators.required],
+            Name: [this.loanRefrences.Name, Validators.required],
+            Address: [this.loanRefrences.Address, Validators.required],
             Phone: [this.loanRefrences.Phone],
             Fax: [this.loanRefrences.Fax],
-            Email: [this.loanRefrences.Email,Validators.email],
-            Ntn: [this.loanRefrences.Ntn,Validators.required],
+            Email: [this.loanRefrences.Email, Validators.email],
+            Ntn: [this.loanRefrences.Ntn, Validators.required],
             ReferenceID: [this.loanRefrences.ReferenceID]
         });
     }
@@ -283,13 +292,13 @@ export class ClLoanWitnessComponent implements OnInit {
     onClearLoanRefrencesForm() {
         this.loanRefrencesForm.reset()
         this.EditableCnicReference = null;
-        this.isSubmittedLoanRefrencesForm=false;
+        this.isSubmittedLoanRefrencesForm = false;
     }
 
     onClearLoanWitnessForm() {
         this.loanWitnessForm.reset()
         this.EditableCnicWitness = null;
-        this.isSubmittedLoanWitnessForm=false;
+        this.isSubmittedLoanWitnessForm = false;
     }
 
     onClearLoanSuretiesForm() {
@@ -297,19 +306,21 @@ export class ClLoanWitnessComponent implements OnInit {
         this.isSubmittedPersonalSuretiesForm = false;
         this.EditableCnicSureties = null;
     }
+
     onClearCorporateSuretiesForm() {
         this.corporateSuretiesForm.reset()
-        this.isSubmittedCorporateSuretiesForm=false;
-    }
-    onClearLoanPastPaidForm() {
-        this.loanPastPaidForm.reset()
-        this.isSubmittedLoanPastPaidForm=false;
-    }
-    onClearCurrentLoansForm() {
-        this.currentLoansForm.reset()
-        this.isSubmittedCurrentLoansForm=false;
+        this.isSubmittedCorporateSuretiesForm = false;
     }
 
+    onClearLoanPastPaidForm() {
+        this.loanPastPaidForm.reset()
+        this.isSubmittedLoanPastPaidForm = false;
+    }
+
+    onClearCurrentLoansForm() {
+        this.currentLoansForm.reset()
+        this.isSubmittedCurrentLoansForm = false;
+    }
 
 
     onSaveLoanRefrencesForm() {
@@ -327,7 +338,7 @@ export class ClLoanWitnessComponent implements OnInit {
             this.isSubmittedLoanRefrencesForm = true;
             //this.spinner.hide();
             return;
-        }else{
+        } else {
             this.isSubmittedLoanRefrencesForm = false;
         }
 
@@ -381,14 +392,16 @@ export class ClLoanWitnessComponent implements OnInit {
 
     loanWitnessForm: FormGroup;
     loanWitness = new LoanWitness();
+
     hasErrorLoanWitnessForm(controlName: string, errorName: string): boolean {
         return this.loanWitnessForm?.controls[controlName].hasError(errorName);
     }
+
     createLoanWitnessForm() {
         this.loanWitnessForm = this.formBuilder.group({
-            Cnic: [this.loanWitness.Cnic,Validators.required],
-            WitnessName: [this.loanWitness.WitnessName,Validators.required],
-            WitnessAddress: [this.loanWitness.WitnessAddress,Validators.required],
+            Cnic: [this.loanWitness.Cnic, Validators.required],
+            WitnessName: [this.loanWitness.WitnessName, Validators.required],
+            WitnessAddress: [this.loanWitness.WitnessAddress, Validators.required],
             WitnessesID: [this.loanWitness.WitnessesID]
         });
     }
@@ -408,7 +421,7 @@ export class ClLoanWitnessComponent implements OnInit {
             this.isSubmittedLoanWitnessForm = true;
             //this.spinner.hide();
             return;
-        }else{
+        } else {
             this.isSubmittedLoanWitnessForm = false;
         }
 
@@ -465,15 +478,17 @@ export class ClLoanWitnessComponent implements OnInit {
 
     loanPastPaidForm: FormGroup;
     loanPastPaid = new LoanPastPaid();
+
     hasErrorLoanPastPaidForm(controlName: string, errorName: string): boolean {
         return this.loanPastPaidForm?.controls[controlName].hasError(errorName);
     }
+
     createLoanPastPaidForm() {
         this.loanPastPaidForm = this.formBuilder.group({
-            BankName: [this.loanPastPaid.BankName,Validators.required],
+            BankName: [this.loanPastPaid.BankName, Validators.required],
             AmountToPaid: [this.loanPastPaid.AmountToPaid],
-            DueDate: [this.loanPastPaid.DueDate,Validators.required],
-            LastPaidDate: [this.loanPastPaid.LastPaidDate,Validators.required],
+            DueDate: [this.loanPastPaid.DueDate, Validators.required],
+            LastPaidDate: [this.loanPastPaid.LastPaidDate, Validators.required],
             PaidLoanID: [this.loanPastPaid?.PaidLoanID]
         });
     }
@@ -495,7 +510,7 @@ export class ClLoanWitnessComponent implements OnInit {
             this.isSubmittedLoanPastPaidForm = true;
             //this.spinner.hide();
             return;
-        }else{
+        } else {
             this.isSubmittedLoanPastPaidForm = false;
         }
 
@@ -529,20 +544,22 @@ export class ClLoanWitnessComponent implements OnInit {
 
     currentLoansForm: FormGroup;
     currentLoans = new CurrentLoans();
+
     hasErrorCurrentLoansForm(controlName: string, errorName: string): boolean {
         return this.currentLoansForm?.controls[controlName].hasError(errorName);
     }
+
     createCurrentLoansForm() {
         this.currentLoansForm = this.formBuilder.group({
-            PurposeDetail: [this.currentLoans.PurposeDetail,Validators.required],
-            BankName: [this.currentLoans.BankName,Validators.required],
-            TotalDebit: [this.currentLoans.TotalDebit,Validators.required],
-            FundNonfundFlag: [this.currentLoans.FundNonfundFlag,Validators.required],
-            GurenteeDetail: [this.currentLoans.GurenteeDetail,Validators.required],
-            Status: [this.currentLoans.Status,Validators.required],
-            DateDebitAcheive: [this.currentLoans.DateDebitAcheive,Validators.required],
-            AmountToPaid: [this.currentLoans.AmountToPaid,Validators.required],
-            DueDate: [this.currentLoans.DueDate,Validators.required],
+            PurposeDetail: [this.currentLoans.PurposeDetail, Validators.required],
+            BankName: [this.currentLoans.BankName, Validators.required],
+            TotalDebit: [this.currentLoans.TotalDebit, Validators.required],
+            FundNonfundFlag: [this.currentLoans.FundNonfundFlag, Validators.required],
+            GurenteeDetail: [this.currentLoans.GurenteeDetail, Validators.required],
+            Status: [this.currentLoans.Status, Validators.required],
+            DateDebitAcheive: [this.currentLoans.DateDebitAcheive, Validators.required],
+            AmountToPaid: [this.currentLoans.AmountToPaid, Validators.required],
+            DueDate: [this.currentLoans.DueDate, Validators.required],
             CurrentLoanID: [this.currentLoans.CurrentLoanID],
         });
     }
@@ -587,7 +604,7 @@ export class ClLoanWitnessComponent implements OnInit {
             this.isSubmittedCurrentLoansForm = true;
             //this.spinner.hide();
             return;
-        }else{
+        } else {
             this.isSubmittedCurrentLoansForm = false;
         }
 
@@ -682,18 +699,19 @@ export class ClLoanWitnessComponent implements OnInit {
         }
 
     }
+
     setCheckBoxFirstTime(docObj) {
-        this.loanDocumentCheckListArray=[]
+        this.loanDocumentCheckListArray = []
         this.loanDetail.ApplicationHeader.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-    for(let i=0;i<docObj?.length;i++){
-    if (docObj[i].isAttached) {
-        var obj = new LoanDocumentCheckList();
-        obj.DocumentID = docObj[i].DocumentID;
-        obj.is_checked = true;
-        obj.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
-        this.loanDocumentCheckListArray.push(obj)
-    }
-}
+        for (let i = 0; i < docObj?.length; i++) {
+            if (docObj[i].isAttached) {
+                var obj = new LoanDocumentCheckList();
+                obj.DocumentID = docObj[i].DocumentID;
+                obj.is_checked = true;
+                obj.LoanAppID = this.loanDetail.ApplicationHeader.LoanAppID;
+                this.loanDocumentCheckListArray.push(obj)
+            }
+        }
 
 
     }
@@ -733,12 +751,11 @@ export class ClLoanWitnessComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-if(baseResponse.Success==true){
-    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-}
-else{
-    this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
-}
+            if (baseResponse.Success == true) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            } else {
+                this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+            }
 
         });
     }
@@ -966,12 +983,11 @@ else{
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-if(baseResponse.Success==true){
-    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-}
-else{
-    this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
-}
+            if (baseResponse.Success == true) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+            } else {
+                this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
+            }
 
         });
 

@@ -38,19 +38,7 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                         if (!request.body?.hasOwnProperty('Zone')) {
                             request.body.Zone = this.userUtils.getSearchResultsDataOfZonesBranchCircle()?.Zone;
                         }
-                        if (!request.body?.hasOwnProperty('Branch')) {
-                            request.body.Branch = this.userUtils.getSearchResultsDataOfZonesBranchCircle()?.Branch;
-                        }
-                        if (!request.body?.hasOwnProperty('Circle')) {
-                            let circles = this.userUtils.getSearchResultsDataOfZonesBranchCircle()?.UserCircleMappings;
-                            if (Array.isArray(circles))
-                                request.body.Circle = circles[0];
-                            else
-                                request.body.Circle = circles;
-                        }
-
                     }
-
                     request = request.clone({
                         body: {...request.body, DeviceInfo}
                     })
