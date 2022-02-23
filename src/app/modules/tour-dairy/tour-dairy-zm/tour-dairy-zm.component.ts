@@ -348,6 +348,7 @@ export class TourDiaryZmComponent implements OnInit {
         this.gridForm.controls['Status'].setValue(zmDiary.Status);
 
         this.date=zmDiary.TourDate;
+        this.isUpdate=true;
         this.GetTourPlan()
     }
 

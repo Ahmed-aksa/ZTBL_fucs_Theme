@@ -108,7 +108,7 @@
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Passbook/Reference No <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input [readonly]="isFormReadonly" matInput placeholder="Enter Passbook NO"
+                        <input [readonly]="isFormReadonly" matInput placeholder="Enter Passbook NO" appNumberOnly
                                formControlName="PassbookNO"
                                maxlength="30" autocomplete="off" appAlphaNumSpecial/>
                         <mat-error *ngIf="hasError('PassbookNO', 'required')">Passbook/Reference No
@@ -200,7 +200,7 @@
                         <mat-label class="customMatLabel">No of Customers: <strong class="matMandatory"></strong>
                         </mat-label>
                         <input [readonly]="isFormReadonly" matInput placeholder="Number Of Customer"
-                               formControlName="NumberOfCustomer" (keyup)="onKey($event)" maxlength="2"
+                               formControlName="NumberOfCustomer" (keyup)="onKey($event)" maxlength="2" min="1"
                                autocomplete="off"
                                appNumberOnly/>
                         <!--<mat-error *ngIf="hasError('FamilyNumber', 'required')">Family No <strong>required</strong></mat-error>-->

@@ -5,7 +5,7 @@ import {environment} from "../../../environments/environment";
 import {BaseResponseModel} from "../models/base_response.model";
 import {Activity} from "../models/activity.model";
 import {HttpClient} from "@angular/common/http";
-import { BaseRequestModel } from '../models/base_request.model';
+import {BaseRequestModel} from '../models/base_request.model';
 
 @Injectable()
 export class UserUtilsService {
@@ -45,7 +45,7 @@ export class UserUtilsService {
          *      All Will be enabled as discussed in Case 3
          */
         let user_data = JSON.parse(localStorage.getItem('ZTBLUser'));
-        if(user_data) {
+        if (user_data) {
             this.search_data.User = user_data.User;
             /**
              * Branch Data Manipulation
@@ -156,12 +156,13 @@ export class UserUtilsService {
     public getActivity(activityName: string): Activity {
         var activities = this.getUserActivities();
         if (activities?.length) {
-            var act = activities.filter(x => x.ActivityName == activityName)[0];
-
-            act.C = act.C == '1' ? true : false
-            act.D = act.D == '1' ? true : false
-            act.U = act.U == '1' ? true : false
-            act.R = act.R == '1' ? true : false
+            var act = activities?.filter(x => x.ActivityName == activityName)[0];
+            if (act) {
+                act.C = act.C == '1' ? true : false
+                act.D = act.D == '1' ? true : false
+                act.U = act.U == '1' ? true : false
+                act.R = act.R == '1' ? true : false
+            }
             return act;
         }
 
@@ -205,7 +206,7 @@ export class UserUtilsService {
     }
 
     getZone() {
-        let request=new BaseRequestModel();
+        let request = new BaseRequestModel();
         return this.http.post(`${environment.apiUrl}/Zone/GetZones`, request);
     }
 

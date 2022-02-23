@@ -111,7 +111,8 @@ export class TourDiaryApprovalBmComponent implements OnInit {
                 ZoneId: this.data.ZoneId
             };
             this.branch = {
-                BranchCode: this.data.BranchId
+                BranchId: this.data.BranchId,
+                BranchCode:this.data?.BranchCode
             }
         }
         this.spinner.show();
@@ -141,14 +142,6 @@ export class TourDiaryApprovalBmComponent implements OnInit {
                 data: {data: this.TourDiaryList, status: status}
             },
         );
-        signatureDialogRef.afterClosed().subscribe((res) => {
-            if (res == true) {
-                this.router.navigate(['/tour-diary/tour-diary-approval']);
-            } else {
-                return
-            }
-        })
-
     }
 
 

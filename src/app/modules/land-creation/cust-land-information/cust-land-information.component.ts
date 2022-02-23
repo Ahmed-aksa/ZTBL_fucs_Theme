@@ -622,7 +622,6 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     clearSaveCustomerLandInfo() {
-        this.spinner.show();
         if (this.LandInfo.Id) {
             return;
         }
@@ -651,7 +650,7 @@ export class CustLandInformationComponent implements OnInit {
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
                 baseResponse.Zones?.forEach(function (value) {
-                    value.ZoneName = value.ZoneName.split("-")[1];
+                    value.ZoneName = value.ZoneName?.split("-")[1];
                 })
                 this.zoneLovAll = baseResponse.Zones;
             } else
@@ -1077,7 +1076,7 @@ export class CustLandInformationComponent implements OnInit {
     onKey(event: any) {
         var value = event.target.value;
         if (value == undefined || value == null || value == '') {
-            return
+            value=0;
         }
         // if(this.dynamicArray.length > value){
         //   this.dynamicArray.length = 0;
@@ -1236,7 +1235,7 @@ export class CustLandInformationComponent implements OnInit {
     }
 
     deleteRow(index) {
-        
+
         if (this.dynamicArray.length != 0) {
             if (this.dynamicArray[index].LandCustID != null && this.dynamicArray[index].LandCustID != "") {
                 this.spinner.show();

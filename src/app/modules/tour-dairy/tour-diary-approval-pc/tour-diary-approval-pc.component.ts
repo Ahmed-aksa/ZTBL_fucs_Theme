@@ -90,13 +90,6 @@ export class TourDiaryApprovalPcComponent implements OnInit {
                 data: {data: this.TourDiaryList, status: status}
             },
         );
-        signatureDialogRef.afterClosed().subscribe((res) => {
-            if (res == true) {
-                this.router.navigate(['/tour-diary/tour-diary-approval']);
-            } else {
-                return
-            }
-        })
     }
 
 
