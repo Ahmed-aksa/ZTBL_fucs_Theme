@@ -160,7 +160,7 @@ export class CreateTourLlanComponent implements OnInit, OnDestroy {
             localStorage.setItem('EditViewTourPlan', '0');
             localStorage.removeItem('SearchTourPlan')
             this.spinner.show();
-            setTimeout(() => this.editTourPlan(this.tourPlanEditView), 1000);
+            setTimeout(() => this.editTourPlan(this.tourPlanEditView), 10000);
         }
 
     }
