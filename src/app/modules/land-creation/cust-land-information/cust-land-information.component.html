@@ -108,7 +108,7 @@
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Passbook/Reference No <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input [readonly]="isFormReadonly" matInput placeholder="Enter Passbook NO"
+                        <input [readonly]="isFormReadonly" matInput placeholder="Enter Passbook NO" appNumberOnly
                                formControlName="PassbookNO"
                                maxlength="30" autocomplete="off" appAlphaNumSpecial/>
                         <mat-error *ngIf="hasError('PassbookNO', 'required')">Passbook/Reference No

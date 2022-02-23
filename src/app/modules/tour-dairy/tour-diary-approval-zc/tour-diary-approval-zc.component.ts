@@ -78,14 +78,14 @@ export class TourDiaryApprovalZcComponent implements OnInit {
     getTourDiaryDetail() {
         this.TourDiary = Object.assign(this.data);
         this.spinner.show();
-        
+
         this.tourDiaryService.getTourDiaryDetail(this.zone, this.branch, this.circle, this.TourDiary,'RC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-            
+
             if (baseResponse.Success) {
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
@@ -111,14 +111,6 @@ export class TourDiaryApprovalZcComponent implements OnInit {
                 data: {data: this.TourDiaryList, status: status}
             },
         );
-        signatureDialogRef.afterClosed().subscribe((res)=>{
-            if(res == true){
-                this.router.navigate(['/tour-diary/tour-diary-approval']);
-            }
-            else{
-                return
-            }
-        })
     }
 
 }

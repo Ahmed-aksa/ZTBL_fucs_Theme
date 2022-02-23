@@ -83,14 +83,6 @@ export class TourDiaryApprovalRoComponent implements OnInit {
                 data: {data: this.TourDiaryList, status: status}
             },
         );
-        signatureDialogRef.afterClosed().subscribe((res)=>{
-            if(res == true){
-                this.router.navigate(['/tour-diary/tour-diary-approval']);
-            }
-            else{
-                return
-            }
-        })
     }
 
 
@@ -104,7 +96,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                
+
                 this.TourDiaryList = baseResponse.TourDiary.TourDiaries;
                 this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
             } else {

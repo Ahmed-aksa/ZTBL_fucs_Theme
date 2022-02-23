@@ -46,6 +46,9 @@ export class TokenInterceptor implements HttpInterceptor {
                     this.layoutUtilsService.AlertElementCapture(error.error.Message);
                     return throwError(error);
                 }
+                if (error instanceof HttpErrorResponse) {
+                    return this.handle401Error(authReq, next);
+                }
                 if (error instanceof HttpErrorResponse && !authReq.url.includes('sign-out') && error.status === 401) {
                     return this.handle401Error(authReq, next);
                 }
