@@ -39,6 +39,7 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                             request.body.Zone = this.userUtils.getSearchResultsDataOfZonesBranchCircle()?.Zone;
                         }
                     }
+
                     request = request.clone({
                         body: {...request.body, DeviceInfo}
                     })

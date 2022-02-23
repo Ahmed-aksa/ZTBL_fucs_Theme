@@ -275,7 +275,9 @@ export class CustLandListComponent implements OnInit {
     }
 
     searchLand() {
-
+        if (!this.selected_z) {
+            this.layoutUtilsService.alertElement("", "Please Select Zone");
+        }
         this.OffSet = 0;
         this.pageIndex = 0;
         this.dataSource.data = [];
@@ -330,7 +332,7 @@ export class CustLandListComponent implements OnInit {
         this.CustomerLandRelation = Object.assign(this.CustomerLandRelation, this.landSearch.value);
         this.assignBranchAndZone();
         this.CustomerLandRelation.BranchId = this.final_branch?.BranchId;
-        this.CustomerLandRelation.ZoneId = this.final_zone?.ZoneId;
+        this.CustomerLandRelation.ZoneId = this.final_zone?.ZoneId.toString();
         this._landService.searchLand(this.CustomerLandRelation, this.isUserAdmin, this.isZoneUser, this.final_branch, this.final_zone)
             .pipe(
                 finalize(() => {
@@ -496,9 +498,9 @@ export class CustLandListComponent implements OnInit {
 
     checkMap(data) {
         if (data?.Lat?.length > 0) {
-            if(data.Lat=="0.0"){
+            if (data.Lat == "0.0") {
                 return false;
-            }else{
+            } else {
                 return true;
             }
         } else {

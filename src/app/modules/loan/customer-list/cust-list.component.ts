@@ -139,7 +139,10 @@ export class CustLoanlistComponent implements OnInit {
 
 
     searchCustomer(is_first = false) {
-
+        if(!this.zone){
+            this.layoutUtilsService.alertElement("","Please Select Zone");
+            return;
+        }
         if (is_first == true)
             this.OffSet = 0;
         this._customer.clear();

@@ -1076,7 +1076,7 @@ export class CustLandInformationComponent implements OnInit {
     onKey(event: any) {
         var value = event.target.value;
         if (value == undefined || value == null || value == '') {
-            return
+            value=0;
         }
         // if(this.dynamicArray.length > value){
         //   this.dynamicArray.length = 0;
