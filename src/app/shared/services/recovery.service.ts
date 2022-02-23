@@ -127,7 +127,7 @@ export class RecoveryService {
             Status: status,
             CurrentIndex: currentIndex,
             Count: count,
-            WorkingDate: branch.WorkingDate,
+            WorkingDate:transactionDate,
             RecoveryData: recoveryData,
         };
         var request = {

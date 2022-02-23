@@ -48,8 +48,9 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
                             else
                                 request.body.Circle = circles;
                         }
+
                     }
-                    
+
                     request = request.clone({
                         body: {...request.body, DeviceInfo}
                     })

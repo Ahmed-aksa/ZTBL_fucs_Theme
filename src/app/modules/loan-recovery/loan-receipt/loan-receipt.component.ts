@@ -80,7 +80,6 @@ export class LoanReceiptComponent implements OnInit {
 
     close(): void {
         this.dialogRef.close();
-        this.router.navigateByUrl('/dashboard');
         //const url = this.router.serializeUrl(
         //  this.router.createUrlTree(['../../dashboard'], { relativeTo: this.activatedRoute })
         //);

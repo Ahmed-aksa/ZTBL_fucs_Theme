@@ -115,26 +115,6 @@
                 <!--          </mat-form-field>-->
                 <!--        </div>-->
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
-
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Circle <strong class="matMandatory">*</strong></mat-label>
-                        <mat-select formControlName="CircleID">
-                            <mat-option>
-                                <ngx-mat-select-search placeholderLabel="Search Loan Type..."
-                                                       (focusout)="validateircleOnFocusOut()"
-                                                       noEntriesFoundLabel="No Circle Found"
-                                                       (keyup)="searchircle($event.target.value)">
-                                </ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option *ngFor="let Circle of SelectedCircles" [value]="Circle.Id">
-                                <!-- [value]="Circle.Id" -->
-                                {{Circle.CircleCode }}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="hasError('CircleID', 'required')">Circle <strong>required</strong></mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                         <mat-label class="customMatLabel">Deposit Acc# <strong class="matMandatory">*</strong>
                         </mat-label>
