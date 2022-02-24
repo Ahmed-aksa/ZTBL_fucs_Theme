@@ -128,15 +128,15 @@ export class TourDiaryMcoComponent implements OnInit {
         if (this.data) {
             localStorage.removeItem('TourDiary');
             if (localStorage.getItem('visibility') == 'false') {
-                this.edit_mode = false;
-            } else {
                 this.edit_mode = true;
+            } else {
+                this.edit_mode = false;
             }
             localStorage.removeItem('visibility');
-
+            localStorage.removeItem('TourDiary');
         }
         setTimeout(() => {
-            if (this.zone) {
+            if (this.zone && this.data) {
                 this.edit(this.data)
             }
         }, 1000);
@@ -421,41 +421,42 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     edit(mcoDiary) {
-
         // this.gridForm.controls['Name'].setValue(mcoDiary.Name);
         // this.gridForm.controls['Ppno'].setValue(mcoDiary.Ppno);
         if (mcoDiary?.DiaryId) {
             this.checkDisable = false;
         }
         this.gridForm.controls['CircleId'].setValue(mcoDiary?.CircleId?.toString());
-        this.gridForm.controls['DiaryId'].setValue(mcoDiary.DiaryId);
-        this.gridForm.controls['TourPlanId'].setValue(mcoDiary.TourPlanId);
-        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(mcoDiary.TourDate));
-        this.gridForm.controls['DepartureFromPlace'].setValue(mcoDiary.DepartureFromPlace);
-        this.gridForm.controls['DepartureFromTime'].setValue(mcoDiary.DepartureFromTime);
-        this.gridForm.controls['ArrivalAtPlace'].setValue(mcoDiary.ArrivalAtPlace);
-        this.gridForm.controls['ArrivalAtTime'].setValue(mcoDiary.ArrivalAtTime);
-        this.gridForm.controls['DisbNoOfCasesReceived'].setValue(mcoDiary.DisbNoOfCasesReceived);
-        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue(mcoDiary.DisbNoOfCasesAppraised);
-        this.gridForm.controls['DisbNoOfRecordVerified'].setValue(mcoDiary.DisbNoOfRecordVerified);
-        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue(mcoDiary.DisbNoOfSanctionedAuthorized);
-        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue(mcoDiary.DisbSanctionLetterDelivered);
-        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue(mcoDiary.DisbSupplyOrderDelivered);
-        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue(mcoDiary.NoOfSanctnMutationVerified);
-        this.gridForm.controls['NoOfUtilizationChecked'].setValue(mcoDiary.NoOfUtilizationChecked);
-        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue(mcoDiary.RecNoOfNoticeDelivered);
-        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue(mcoDiary.RecNoOfLegalNoticeDelivered);
-        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(mcoDiary.RecNoOfDefaulterContacted);
-        this.gridForm.controls['TOTFarmersContacted'].setValue(mcoDiary.TOTFarmersContacted);
-        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(mcoDiary.TOTNoOfFarmersVisisted);
-        this.gridForm.controls['AnyOtherWorkDone'].setValue(mcoDiary.AnyOtherWorkDone);
-        this.gridForm.controls['Remarks'].setValue(mcoDiary.Remarks);
+        this.gridForm.controls['DiaryId'].setValue(mcoDiary?.DiaryId);
+        this.gridForm.controls['TourPlanId'].setValue(mcoDiary?.TourPlanId);
+        this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(mcoDiary?.TourDate));
+        this.gridForm.controls['DepartureFromPlace'].setValue(mcoDiary?.DepartureFromPlace);
+        this.gridForm.controls['DepartureFromTime'].setValue(mcoDiary?.DepartureFromTime);
+        this.gridForm.controls['ArrivalAtPlace'].setValue(mcoDiary?.ArrivalAtPlace);
+        this.gridForm.controls['ArrivalAtTime'].setValue(mcoDiary?.ArrivalAtTime);
+        this.gridForm.controls['DisbNoOfCasesReceived'].setValue(mcoDiary?.DisbNoOfCasesReceived);
+        this.gridForm.controls['DisbNoOfCasesAppraised'].setValue(mcoDiary?.DisbNoOfCasesAppraised);
+        this.gridForm.controls['DisbNoOfRecordVerified'].setValue(mcoDiary?.DisbNoOfRecordVerified);
+        this.gridForm.controls['DisbNoOfSanctionedAuthorized'].setValue(mcoDiary?.DisbNoOfSanctionedAuthorized);
+        this.gridForm.controls['DisbSanctionLetterDelivered'].setValue(mcoDiary?.DisbSanctionLetterDelivered);
+        this.gridForm.controls['DisbSupplyOrderDelivered'].setValue(mcoDiary?.DisbSupplyOrderDelivered);
+        this.gridForm.controls['NoOfSanctnMutationVerified'].setValue(mcoDiary?.NoOfSanctnMutationVerified);
+        this.gridForm.controls['NoOfUtilizationChecked'].setValue(mcoDiary?.NoOfUtilizationChecked);
+        this.gridForm.controls['RecNoOfNoticeDelivered'].setValue(mcoDiary?.RecNoOfNoticeDelivered);
+        this.gridForm.controls['RecNoOfLegalNoticeDelivered'].setValue(mcoDiary?.RecNoOfLegalNoticeDelivered);
+        this.gridForm.controls['RecNoOfDefaulterContacted'].setValue(mcoDiary?.RecNoOfDefaulterContacted);
+        this.gridForm.controls['TOTFarmersContacted'].setValue(mcoDiary?.TOTFarmersContacted);
+        this.gridForm.controls['TOTNoOfFarmersVisisted'].setValue(mcoDiary?.TOTNoOfFarmersVisisted);
+        this.gridForm.controls['AnyOtherWorkDone'].setValue(mcoDiary?.AnyOtherWorkDone);
+        this.gridForm.controls['Remarks'].setValue(mcoDiary?.Remarks);
 
         // this._cdf.detectChanges();
         // this.createForm()
         this.isUpdate = true;
-        this.date = mcoDiary.TourDate;
-        this.GetTourPlan()
+        this.date = mcoDiary?.TourDate;
+        if(this.date){
+            this.GetTourPlan()
+        }
     }
 
     onClearForm() {

@@ -50,6 +50,8 @@ export class TourDiaryZcComponent implements OnInit {
     systemGenerated: any;
     currentActivity: Activity;
 
+    edit_mode: boolean = true;
+
     constructor(
         private fb: FormBuilder,
         private userService: UserUtilsService,
@@ -76,10 +78,16 @@ export class TourDiaryZcComponent implements OnInit {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
-
+            if (localStorage.getItem('visibility') == 'false') {
+                this.edit_mode = true;
+            } else {
+                this.edit_mode = false;
+            }
+            localStorage.removeItem('visibility');
+            localStorage.removeItem('TourDiary');
         }
         setTimeout(() => {
-            if (this.zone) {
+            if (this.zone && this.data) {
                 this.edit(this.data)
             }
         }, 1000);

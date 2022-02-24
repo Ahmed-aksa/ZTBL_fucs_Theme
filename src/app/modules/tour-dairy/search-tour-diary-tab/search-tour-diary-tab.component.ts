@@ -55,15 +55,17 @@ export class SearchTourDiaryTabComponent implements OnInit {
     redirectTourDiary(data: any, mode) {
 
         if (data?.RedirectTo) {
+            debugger
             if (this.zone.ZoneId)
                 localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
             if (this.branch?.BranchCode)
                 localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
             if (data?.CircleId)
                 localStorage.setItem('selected_single_circle', JSON.stringify((data?.CircleId)?.toString()));
-            localStorage.removeItem('TourDiary')
+            var tourDiary = JSON.stringify(data)
+            localStorage.setItem('TourDiary', tourDiary)
             if (mode == 'V') {
-                localStorage.setItem('visibility', 'false');
+                localStorage.setItem('visibility', 'true');
             } else {
                 if (mode == 'E') {
                     localStorage.setItem('visibility', 'false');
