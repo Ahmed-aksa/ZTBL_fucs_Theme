@@ -108,8 +108,8 @@ export class TourDiaryService {
             "Limit": 500,
             "Offset": 0,
             "StartDate": date,
+            "Status": "A",
             "EndDate": date,
-
         }
         let TourDiary = {
             "TourDate": date,
