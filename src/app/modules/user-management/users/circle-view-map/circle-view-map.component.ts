@@ -132,7 +132,7 @@ export class CircleViewMapComponent implements OnInit {
     onMapReady(map) {
         this.googleMap = map;
         this.setCurrentLocation()
-        debugger;
+        ;
         if (this.zone)
             this.loadCirclesSinglePoints(null);
     }

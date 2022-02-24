@@ -69,7 +69,6 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
 
                         }
                     }
-                    debugger;
                     if (event instanceof HttpErrorResponse && event.status == 401) {
                         this.spinner.hide();
                         this.toastr.error("Please log in again");

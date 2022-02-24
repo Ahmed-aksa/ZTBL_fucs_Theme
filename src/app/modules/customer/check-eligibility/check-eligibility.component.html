@@ -368,7 +368,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a mat-flat-button [routerLink]="['dashboard']"
+                                <a mat-flat-button [routerLink]="['dashboard']" *ngIf="should_regenerate"
                                    class=" mt-2 bg-red-500 text-white mat-focus-indicator mat-flat-button mat-button-base mat-primary">Close/Exit</a>
                             </div>
                         </div>
@@ -471,13 +471,13 @@
                     </button>
                     <button type="button"
                             (click)="refreshEcib()"
-                            *ngIf="ECIBPerform && currentActivity.C"
+                            *ngIf="should_regenerate"
                             class="mat-focus-indicator w-32  mat-flat-button mat-button-base mat-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                     >
                         Refresh
                     </button>
-                    <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess && currentActivity.C"
+                    <button (click)="NextOpenCreateCustomer()" *ngIf="ECIBPerformSuccess"
                             type="button"
                             class="mat-focus-indicator w-32 mat-flat-button mat-button-base mat-primary bg-green"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"

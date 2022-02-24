@@ -49,23 +49,24 @@ export class TourDiaryMcoComponent implements OnInit {
     checkDisable = true;
 
     systemGenerated: any;
-    TotalNoOfCasesReceived=0;
-    TotalDisbNoOfCasesAppraised=0;
-    TotalDisbNoOfRecordVerified=0;
-    TotalDisbNoOfSanctionedAuthorized=0;
-    TotalDisbSanctionLetterDelivered=0;
-    TotalDisbSupplyOrderDelivered=0;
-    TotalRecNoOfDefaulterContacted=0;
-    TotalRecNoOfLegalNoticeDelivered=0;
-    TotalRecNoOfNoticeDelivered=0;
-    TotalNoOfUtilizationChecked=0;
-    TotalNoOfSanctnMutationVerified=0;
-    TotalTOTNoOfFarmersVisisted=0;
-    TotalTOTFarmersContacted=0;
+    TotalNoOfCasesReceived = 0;
+    TotalDisbNoOfCasesAppraised = 0;
+    TotalDisbNoOfRecordVerified = 0;
+    TotalDisbNoOfSanctionedAuthorized = 0;
+    TotalDisbSanctionLetterDelivered = 0;
+    TotalDisbSupplyOrderDelivered = 0;
+    TotalRecNoOfDefaulterContacted = 0;
+    TotalRecNoOfLegalNoticeDelivered = 0;
+    TotalRecNoOfNoticeDelivered = 0;
+    TotalNoOfUtilizationChecked = 0;
+    TotalNoOfSanctnMutationVerified = 0;
+    TotalTOTNoOfFarmersVisisted = 0;
+    TotalTOTFarmersContacted = 0;
 
 
     //**************** Time ****************************
     @ViewChild("timepicker") timepicker: any;
+    edit_mode: boolean = true;
 
     /**
      * Lets the user click on the icon in the input.
@@ -121,11 +122,17 @@ export class TourDiaryMcoComponent implements OnInit {
 
         // this.gridForm.controls['ArrivalAtTime'].setValue("1:13 AM");
     }
-    ngAfterViewInit()
-    {
+
+    ngAfterViewInit() {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
+            if (localStorage.getItem('visibility') == 'false') {
+                this.edit_mode = false;
+            } else {
+                this.edit_mode = true;
+            }
+            localStorage.removeItem('visibility');
 
         }
         setTimeout(() => {
@@ -134,6 +141,7 @@ export class TourDiaryMcoComponent implements OnInit {
             }
         }, 1000);
     }
+
     setValue() {
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
@@ -218,7 +226,7 @@ export class TourDiaryMcoComponent implements OnInit {
         this.TourDiary.Status = 'P';
         this.spinner.show();
         //this.circle = null
-        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary,'MCO')
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary, 'MCO')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -228,7 +236,7 @@ export class TourDiaryMcoComponent implements OnInit {
 
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
-                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                 this.Calculations();
                 this.isUpdate = false;
                 this.onClearForm();
@@ -238,74 +246,75 @@ export class TourDiaryMcoComponent implements OnInit {
             }
         });
     }
-    Calculations(){
-        this.TotalNoOfCasesReceived=0;
-        this.TotalDisbNoOfCasesAppraised=0;
-        this.TotalDisbNoOfRecordVerified=0;
-        this.TotalDisbNoOfSanctionedAuthorized=0;
-        this.TotalDisbSanctionLetterDelivered=0;
-        this.TotalDisbSupplyOrderDelivered=0;
-        this.TotalRecNoOfDefaulterContacted=0;
-        this.TotalRecNoOfLegalNoticeDelivered=0;
-        this.TotalRecNoOfNoticeDelivered=0;
-        this.TotalNoOfUtilizationChecked=0;
-        this.TotalNoOfSanctnMutationVerified=0;
-        this.TotalTOTNoOfFarmersVisisted=0;
-        this.TotalTOTFarmersContacted=0;
 
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.DisbNoOfCasesReceived))
-            this.TotalNoOfCasesReceived = this.TotalNoOfCasesReceived+Number(element?.DisbNoOfCasesReceived)
-        });
+    Calculations() {
+        this.TotalNoOfCasesReceived = 0;
+        this.TotalDisbNoOfCasesAppraised = 0;
+        this.TotalDisbNoOfRecordVerified = 0;
+        this.TotalDisbNoOfSanctionedAuthorized = 0;
+        this.TotalDisbSanctionLetterDelivered = 0;
+        this.TotalDisbSupplyOrderDelivered = 0;
+        this.TotalRecNoOfDefaulterContacted = 0;
+        this.TotalRecNoOfLegalNoticeDelivered = 0;
+        this.TotalRecNoOfNoticeDelivered = 0;
+        this.TotalNoOfUtilizationChecked = 0;
+        this.TotalNoOfSanctnMutationVerified = 0;
+        this.TotalTOTNoOfFarmersVisisted = 0;
+        this.TotalTOTFarmersContacted = 0;
 
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.DisbNoOfCasesAppraised))
-            this.TotalDisbNoOfCasesAppraised = this.TotalDisbNoOfCasesAppraised+Number(element?.DisbNoOfCasesAppraised)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.DisbNoOfRecordVerified))
-            this.TotalDisbNoOfRecordVerified = this.TotalDisbNoOfRecordVerified+Number(element?.DisbNoOfRecordVerified)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.DisbNoOfSanctionedAuthorized))
-            this.TotalDisbNoOfSanctionedAuthorized = this.TotalDisbNoOfSanctionedAuthorized+Number(element?.DisbNoOfSanctionedAuthorized)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.DisbSanctionLetterDelivered))
-            this.TotalDisbSanctionLetterDelivered = this.TotalDisbSanctionLetterDelivered+Number(element?.DisbSanctionLetterDelivered)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.DisbSupplyOrderDelivered))
-            this.TotalDisbSupplyOrderDelivered = this.TotalDisbSupplyOrderDelivered+Number(element?.DisbSupplyOrderDelivered)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.RecNoOfDefaulterContacted))
-            this.TotalRecNoOfDefaulterContacted = this.TotalRecNoOfDefaulterContacted+Number(element?.RecNoOfDefaulterContacted)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.RecNoOfLegalNoticeDelivered))
-            this.TotalRecNoOfLegalNoticeDelivered = this.TotalRecNoOfLegalNoticeDelivered+Number(element?.RecNoOfLegalNoticeDelivered)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.RecNoOfNoticeDelivered))
-            this.TotalRecNoOfNoticeDelivered = this.TotalRecNoOfNoticeDelivered+Number(element?.RecNoOfNoticeDelivered)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.NoOfUtilizationChecked))
-            this.TotalNoOfUtilizationChecked = this.TotalNoOfUtilizationChecked+Number(element?.NoOfUtilizationChecked)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.NoOfSanctnMutationVerified))
-            this.TotalNoOfSanctnMutationVerified = this.TotalNoOfSanctnMutationVerified+Number(element?.NoOfSanctnMutationVerified)
-        });
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.TOTNoOfFarmersVisisted))
-            this.TotalTOTNoOfFarmersVisisted = this.TotalTOTNoOfFarmersVisisted+Number(element?.TOTNoOfFarmersVisisted)
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.DisbNoOfCasesReceived))
+                this.TotalNoOfCasesReceived = this.TotalNoOfCasesReceived + Number(element?.DisbNoOfCasesReceived)
         });
 
-        this.TourDiaryList.forEach(element=>{
-            if(!isNaN(element?.TOTFarmersContacted))
-                this.TotalTOTFarmersContacted = this.TotalTOTFarmersContacted+Number(element?.TOTFarmersContacted)
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.DisbNoOfCasesAppraised))
+                this.TotalDisbNoOfCasesAppraised = this.TotalDisbNoOfCasesAppraised + Number(element?.DisbNoOfCasesAppraised)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.DisbNoOfRecordVerified))
+                this.TotalDisbNoOfRecordVerified = this.TotalDisbNoOfRecordVerified + Number(element?.DisbNoOfRecordVerified)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.DisbNoOfSanctionedAuthorized))
+                this.TotalDisbNoOfSanctionedAuthorized = this.TotalDisbNoOfSanctionedAuthorized + Number(element?.DisbNoOfSanctionedAuthorized)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.DisbSanctionLetterDelivered))
+                this.TotalDisbSanctionLetterDelivered = this.TotalDisbSanctionLetterDelivered + Number(element?.DisbSanctionLetterDelivered)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.DisbSupplyOrderDelivered))
+                this.TotalDisbSupplyOrderDelivered = this.TotalDisbSupplyOrderDelivered + Number(element?.DisbSupplyOrderDelivered)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.RecNoOfDefaulterContacted))
+                this.TotalRecNoOfDefaulterContacted = this.TotalRecNoOfDefaulterContacted + Number(element?.RecNoOfDefaulterContacted)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.RecNoOfLegalNoticeDelivered))
+                this.TotalRecNoOfLegalNoticeDelivered = this.TotalRecNoOfLegalNoticeDelivered + Number(element?.RecNoOfLegalNoticeDelivered)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.RecNoOfNoticeDelivered))
+                this.TotalRecNoOfNoticeDelivered = this.TotalRecNoOfNoticeDelivered + Number(element?.RecNoOfNoticeDelivered)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.NoOfUtilizationChecked))
+                this.TotalNoOfUtilizationChecked = this.TotalNoOfUtilizationChecked + Number(element?.NoOfUtilizationChecked)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.NoOfSanctnMutationVerified))
+                this.TotalNoOfSanctnMutationVerified = this.TotalNoOfSanctnMutationVerified + Number(element?.NoOfSanctnMutationVerified)
+        });
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.TOTNoOfFarmersVisisted))
+                this.TotalTOTNoOfFarmersVisisted = this.TotalTOTNoOfFarmersVisisted + Number(element?.TOTNoOfFarmersVisisted)
+        });
+
+        this.TourDiaryList.forEach(element => {
+            if (!isNaN(element?.TOTFarmersContacted))
+                this.TotalTOTFarmersContacted = this.TotalTOTFarmersContacted + Number(element?.TOTFarmersContacted)
         });
     }
 
@@ -344,8 +353,8 @@ export class TourDiaryMcoComponent implements OnInit {
                 }
 
                 this.TourDiary = Object.assign(data);
-               this.spinner.show();
-                this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'MCO')
+                this.spinner.show();
+                this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'MCO')
                     .pipe(
                         finalize(() => {
                             this.spinner.hide();
@@ -353,14 +362,14 @@ export class TourDiaryMcoComponent implements OnInit {
                     ).subscribe(baseResponse => {
                     if (baseResponse.Success) {
 
-                        this.TourDiaryList=[];
-                        this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
+                        this.TourDiaryList = [];
+                        this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                         this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                         this.isUpdate = false;
                         this.onClearForm();
                         this.TourDiary = null;
                     } else {
-                        this.TourDiaryList=[];
+                        this.TourDiaryList = [];
                         this.TourDiary = null;
                         this.layoutUtilsService.alertElement('', baseResponse.Message);
                     }
@@ -386,7 +395,7 @@ export class TourDiaryMcoComponent implements OnInit {
         }
 
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'MCO')
+        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'MCO')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -395,15 +404,15 @@ export class TourDiaryMcoComponent implements OnInit {
             if (baseResponse.Success) {
 
 
-                this.TourDiaryList=[];
-                this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
+                this.TourDiaryList = [];
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.isUpdate = false;
                 this.onClearForm();
                 this.TourDiary = null;
 
             } else {
-                this.TourDiaryList=[];
+                this.TourDiaryList = [];
                 this.TourDiary = null;
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
@@ -415,10 +424,10 @@ export class TourDiaryMcoComponent implements OnInit {
 
         // this.gridForm.controls['Name'].setValue(mcoDiary.Name);
         // this.gridForm.controls['Ppno'].setValue(mcoDiary.Ppno);
-        if(mcoDiary.DiaryId){
+        if (mcoDiary?.DiaryId) {
             this.checkDisable = false;
         }
-        this.gridForm.controls['CircleId'].setValue(mcoDiary.CircleId.toString());
+        this.gridForm.controls['CircleId'].setValue(mcoDiary?.CircleId?.toString());
         this.gridForm.controls['DiaryId'].setValue(mcoDiary.DiaryId);
         this.gridForm.controls['TourPlanId'].setValue(mcoDiary.TourPlanId);
         this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(mcoDiary.TourDate));
@@ -445,7 +454,7 @@ export class TourDiaryMcoComponent implements OnInit {
         // this._cdf.detectChanges();
         // this.createForm()
         this.isUpdate = true;
-        this.date=mcoDiary.TourDate;
+        this.date = mcoDiary.TourDate;
         this.GetTourPlan()
     }
 
@@ -546,14 +555,14 @@ export class TourDiaryMcoComponent implements OnInit {
     GetTourPlan() {
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date,'MCO')
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'MCO')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    debugger;
-                    this.TourDiaryList=[];
+                    ;
+                    this.TourDiaryList = [];
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
