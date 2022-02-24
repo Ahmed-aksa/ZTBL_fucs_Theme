@@ -379,14 +379,6 @@
                                 </div>
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                        <mat-label class="customMatLabel">Amount recovered (Daily)</mat-label>
-                                        <input matInput appNumberOnly placeholder="Amount recovered (Daily)"
-                                               formControlName="RecNoOfDefaulterContacted" maxlength="30"
-                                               autocomplete="off"/>
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. Of Defauters Contacted</mat-label>
                                         <input matInput appNumberOnly placeholder="No. Of Defauters Contacted"
                                                formControlName="RecNoOfDefaulterContacted" maxlength="30"
@@ -502,23 +494,23 @@
 
     <div class="row mt-2 mr-1">
         <div class="col-lg-12 text-right">
-            <button  type="button" *ngIf="isUpdate==false &&  currentActivity.C" class="mr-2 bg-green" mat-raised-button color="primary"
+            <button  type="button" *ngIf="isUpdate==false &&  currentActivity.C && edit_mode" class="mr-2 bg-green" mat-raised-button color="primary"
                     (click)="saveTourDiary()">
                 <mat-icon class="mr-2">save</mat-icon>
                 Save
             </button>
-            <button type="button" *ngIf="isUpdate==true && currentActivity.U" class="mr-2 bg-green" mat-raised-button color="primary"
+            <button type="button" *ngIf="isUpdate==true && currentActivity.U && edit_mode" class="mr-2 bg-green" mat-raised-button color="primary"
                     (click)="saveTourDiary()">
                 <mat-icon class="mr-2">save</mat-icon>
                 Update
             </button>
-            <button  type="button" *ngIf="isUpdate==true  && currentActivity.U"  mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
+            <button  type="button" *ngIf="isUpdate==true  && currentActivity.U && edit_mode"  mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Submit
             </button>
             <button type="button"
                     class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                    mat-raised-button color="danger" *ngIf="currentActivity.C" (click)="onClearForm()">
+                    mat-raised-button color="danger" *ngIf="currentActivity.C && edit_mode" (click)="onClearForm()">
                 <mat-icon class="mr-2"> clear_all</mat-icon>
                 Clear
             </button>
@@ -568,13 +560,13 @@
                 <tbody>
                 <tr *ngFor="let mcoDiary of TourDiaryList">
                     <td>
-                        <button class="ml-2" mat-icon-button *ngIf="checkStatus(mcoDiary, 'edit') && currentActivity.U" color="primary" (click)="edit(mcoDiary); container.scrollTop = 0"
+                        <button class="ml-2" mat-icon-button *ngIf="checkStatus(mcoDiary, 'edit') && currentActivity.U && edit_mode" color="primary" (click)="edit(mcoDiary); container.scrollTop = 0"
                         >
                             <mat-icon>
                                 edit
                             </mat-icon>
                         </button>
-                        <button mat-icon-button *ngIf="checkStatus(mcoDiary, 'delete') && currentActivity.D" (click)="delete(mcoDiary,'C')">
+                        <button mat-icon-button *ngIf="checkStatus(mcoDiary, 'delete') && currentActivity.D && edit_mode" (click)="delete(mcoDiary,'C')">
                             <mat-icon class="text-red-500">
                                 delete_forever
                             </mat-icon>

@@ -328,7 +328,7 @@ export class TourDiaryRoComponent implements OnInit {
 
     edit(mcoDiary) {
 
-        if(mcoDiary.DiaryId){
+        if(mcoDiary?.DiaryId){
             this.checkDisable = false;
         }
         this.gridForm.patchValue(mcoDiary);

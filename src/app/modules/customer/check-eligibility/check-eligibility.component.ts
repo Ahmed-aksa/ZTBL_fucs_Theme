@@ -95,7 +95,7 @@ export class CheckEligibilityComponent implements OnInit {
     show_ndc = false;
     IS_NIVS: string;
 
-    should_regenerate: boolean = true;
+    should_regenerate: boolean = false;
     private first_request_response: BaseResponseModel;
     private rawData: any = [];
 
@@ -400,6 +400,7 @@ export class CheckEligibilityComponent implements OnInit {
                 })
             )
             .subscribe((baseResponse: BaseResponseModel) => {
+                ;
                 if (baseResponse.Success === true) {
                     this.BiometricCredentials = false;
                     this.ECIBPerformForm = true;
@@ -423,8 +424,9 @@ export class CheckEligibilityComponent implements OnInit {
                         this.ECIBPerformSuccess = true;
                         localStorage.setItem('SearchCustomerStatus', JSON.stringify(this.Customer));
                     }
-                    if (this.CustomerECIB == '551') {
+                    if (this.CustomerECIB.Code == '551') {
                         this.ECIBPerform = false;
+                        this.should_regenerate=true;
                     }
                     if (this.Customer.ECIBPDFLink == null || this.Customer.ECIBPDFLink == "") {
                         this.EcibLinkView = false;

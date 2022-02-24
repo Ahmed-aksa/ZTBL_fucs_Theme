@@ -105,7 +105,7 @@ export class TourDiaryApprovalBmComponent implements OnInit {
         //
         // }
         this.TourDiary = Object.assign(this.data);
-        debugger;
+        ;
         if (!this.zone) {
             this.zone = {
                 ZoneId: this.data.ZoneId

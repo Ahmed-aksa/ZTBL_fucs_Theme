@@ -23,6 +23,7 @@ export class SearchTourDiaryTabComponent implements OnInit {
     dataSource = new MatTableDataSource();
     dv: number | any; //use later
     currentActivity: Activity;
+
     constructor(private router: Router, private activatedRoute: ActivatedRoute, private userUtilsService: UserUtilsService) {
     }
 
@@ -51,17 +52,23 @@ export class SearchTourDiaryTabComponent implements OnInit {
         return day + "-" + month + "-" + year;
     }
 
-    redirectTourDiary(data: any) {
+    redirectTourDiary(data: any, mode) {
 
         if (data?.RedirectTo) {
-            if(this.zone.ZoneId)
+            if (this.zone.ZoneId)
                 localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
-            if(this.branch?.BranchCode)
+            if (this.branch?.BranchCode)
                 localStorage.setItem('selected_single_branch', JSON.stringify(this.branch?.BranchCode));
-            if(data?.CircleId)
+            if (data?.CircleId)
                 localStorage.setItem('selected_single_circle', JSON.stringify((data?.CircleId)?.toString()));
             localStorage.removeItem('TourDiary')
-            localStorage.setItem('TourDiary', JSON.stringify(data));
+            if (mode == 'V') {
+                localStorage.setItem('visibility', 'false');
+            } else {
+                if (mode == 'E') {
+                    localStorage.setItem('visibility', 'false');
+                }
+            }
             this.router.navigate([data?.RedirectTo], {
                 relativeTo: this.activatedRoute
             });

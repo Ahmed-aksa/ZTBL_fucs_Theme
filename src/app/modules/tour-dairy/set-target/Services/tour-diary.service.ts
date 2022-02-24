@@ -216,7 +216,7 @@ export class TourDiaryService {
     }
 
     getTourDiaryDetail(zone, branch,circle, TourDiary,role=null) {
-        debugger;
+        ;
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         userInfo.User.ProfileId=this.getProfileId(role)
