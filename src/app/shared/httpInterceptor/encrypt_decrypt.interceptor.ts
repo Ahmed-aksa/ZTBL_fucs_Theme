@@ -69,17 +69,13 @@ export class EncryptDecryptInterceptor implements HttpInterceptor {
 
                         }
                     }
+                    debugger;
                     if (event instanceof HttpErrorResponse && event.status == 401) {
                         this.spinner.hide();
                         this.toastr.error("Please log in again");
 
                         this.router.navigateByUrl('sign-out');
                         localStorage.clear();
-                        // return this.tokenInterceptor.refreshTokenSubject.pipe(
-                        //     filter(token => token !== null),
-                        //     take(1),
-                        //     switchMap((token) => next.handle(this.addTokenHeader(request, token, this._common.newGuid())))
-                        // );
                     }
                 }
                 return event;

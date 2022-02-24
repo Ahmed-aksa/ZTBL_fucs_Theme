@@ -173,7 +173,7 @@ export class TourDiaryMcoComponent implements OnInit {
 
 
     saveTourDiary() {
-        
+
 
         if (!this.zone) {
             var Message = 'Please select Zone';
@@ -218,7 +218,6 @@ export class TourDiaryMcoComponent implements OnInit {
         this.TourDiary.Status = 'P';
         this.spinner.show();
         //this.circle = null
-        console.log(JSON.stringify(this.TourDiary))
         this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary,'MCO')
             .pipe(
                 finalize(() => {
@@ -553,7 +552,7 @@ export class TourDiaryMcoComponent implements OnInit {
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-
+                    debugger;
                     this.TourDiaryList=[];
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
