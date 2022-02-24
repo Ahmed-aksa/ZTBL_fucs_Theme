@@ -83,7 +83,6 @@ export class ClUploadDocumentComponent implements OnInit{
     number_of_files: number = 0;
     docId = [];
     numArray = [];
-    first: boolean;
     fallout: boolean = false;
 
     checkCompare = false;
@@ -470,7 +469,6 @@ export class ClUploadDocumentComponent implements OnInit{
             return
         }
 
-        //this.first = bool;
         this._loanService.getLoanDetailsByLcNo(this.PostDocument.controls.LcNo.value, LoanDoc, this.branch, this.zone)
             .pipe(
                 finalize(() => {
@@ -492,11 +490,8 @@ export class ClUploadDocumentComponent implements OnInit{
                 }
 
             } else {
-                if (this.first == false) {
-                    //this.layoutUtilsService.alertElement('', baseResponse.Message);
-
-                }
-                this.PostDocument.controls['LoanStatus'].setValue("New Case");
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+                //this.PostDocument.controls['LoanStatus'].setValue("New Case");
                 //
             }
         });
