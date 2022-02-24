@@ -55,7 +55,7 @@
                                             <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
                                                     maxlength="8"
                                                     autocomplete="off" [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>
-                                            <mat-datepicker-toggle (click)="checkZone()" [disabled]="!zone" matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker-toggle (click)="checkZone()" [disabled]="(!zone || !edit_mode) && currentActivity.R" matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
                                     </div>
@@ -63,7 +63,7 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label>Tour Plan<strong class="matMandatory">*</strong></mat-label>
-                                            <mat-select formControlName="TourPlanId">
+                                            <mat-select formControlName="TourPlanId" [disabled]="!edit_mode && currentActivity.R">
                                                 <mat-option>
                                                     Select
                                                 </mat-option>
@@ -84,7 +84,7 @@
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label>Departure From Place<strong class="matMandatory">*</strong></mat-label>
-                                                <mat-select matInput formControlName="DepartureFromPlace">
+                                                <mat-select matInput formControlName="DepartureFromPlace" [disabled]="!edit_mode && currentActivity.R">
                                                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.Name">
                                                         {{branch?.Name}}
                                                     </mat-option>
@@ -95,8 +95,9 @@
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Departure Time<strong class="matMandatory">*</strong></mat-label>
-                                                <input type="text" matInput [ngxTimepicker]="timepickerDeparture" [format]="DateFormat()" readonly formControlName="DepartureFromTime"/>
-                                                <mat-icon matSuffix (click)="openFromIcon(timepickerDeparture)">schedule</mat-icon>
+                                                <input type="text" matInput [ngxTimepicker]="timepickerDeparture" [format]="DateFormat()" [disabled]="!edit_mode && currentActivity.R" readonly formControlName="DepartureFromTime"/>
+                                                <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix (click)="openFromIcon(timepickerDeparture)">schedule</mat-icon>
+                                                <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -115,7 +116,7 @@
 
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label>Arrival At Place<strong class="matMandatory">*</strong></mat-label>
-                                                <mat-select matInput formControlName="ArrivalAtPlace">
+                                                <mat-select matInput formControlName="ArrivalAtPlace" [disabled]="!edit_mode && currentActivity.R">
                                                     <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.Name">
                                                         {{branch?.Name}}
                                                     </mat-option>
@@ -126,9 +127,10 @@
                                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                             <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                                 <mat-label class="customMatLabel">Arrival Time<strong class="matMandatory">*</strong></mat-label>
-                                                <input type="text" matInput [ngxTimepicker]="timepickerArrival" [format]="DateFormat()" readonly
+                                                <input type="text" matInput [ngxTimepicker]="timepickerArrival" [format]="DateFormat()" [disabled]="!edit_mode && currentActivity.R" readonly
                                                        formControlName="ArrivalAtTime"/>
-                                                <mat-icon matSuffix (click)="openFromIcon(timepickerArrival)">schedule</mat-icon>
+                                                <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix (click)="openFromIcon(timepickerArrival)">schedule</mat-icon>
+                                                <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -142,35 +144,35 @@
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 240px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Loan Cases Not Issued to Borrowers</mat-label>
-                                            <input matInput placeholder="Loan Cases Not issued To Borrowers" appNumberOnly formControlName="LCNotIssuedToBorrowers" autocomplete="off"/>
+                                            <input matInput placeholder="Loan Cases Not issued To Borrowers" appNumberOnly formControlName="LCNotIssuedToBorrowers" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 245px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Tour Diaries Are As Per Approved Tour Plan</mat-label>
-                                            <input matInput placeholder="Tour Diaries As Per Approved Tour Plan" formControlName="McoNBmTourDiaryAPPlan" autocomplete="off"/>
+                                            <input matInput placeholder="Tour Diaries As Per Approved Tour Plan" formControlName="McoNBmTourDiaryAPPlan" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Any short comings in Tour Diaries</mat-label>
-                                            <input matInput placeholder="Any short comings in Tour Diaries" formControlName="AnyShortComingInDiaries" autocomplete="off"/>
+                                            <input matInput placeholder="Any short comings in Tour Diaries" formControlName="AnyShortComingInDiaries" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. of Defaulters Contacted</mat-label>
-                                            <input matInput placeholder="No. of Defaulters Contacted" appNumberOnly formControlName="RecNoOfDefaulterContacted" autocomplete="off"/>
+                                            <input matInput placeholder="No. of Defaulters Contacted" appNumberOnly formControlName="RecNoOfDefaulterContacted" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
                                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Remarks</mat-label>
-                                            <input matInput placeholder="Remarks" formControlName="Remarks" autocomplete="off"/>
+                                            <input matInput placeholder="Remarks" formControlName="Remarks" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
                                         </mat-form-field>
                                     </div>
 
@@ -182,11 +184,11 @@
                                 <div class="col-lg-12 text-right">
                                     <button type="button" class="ml-2 bg-green" mat-raised-button color="primary" *ngIf="currentActivity.C || currentActivity.U" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>
                                         {{btnText}}</button>
-                                    <button  type="button" *ngIf="isUpdate==true && currentActivity.U"  mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
+                                    <button  type="button" *ngIf="isUpdate==true && currentActivity.U && edit_mode"  mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
                                         <mat-icon class="mr-2">check_circle</mat-icon>
                                         Submit
                                     </button>
-                                    <button type="button"
+                                    <button type="button" *ngIf="edit_mode && currentActivity.C"
                                             class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
                                             mat-raised-button color="danger" (click)="onClearForm()">
                                         <mat-icon class="mr-2"> clear_all</mat-icon>
@@ -237,13 +239,13 @@
                                     <tbody>
                                     <tr *ngFor="let ZmTourDiary of TourDiaryList">
                                         <td>
-                                            <button class="ml-2" mat-icon-button color="primary" *ngIf="checkStatus(ZmTourDiary, 'edit') && currentActivity.U" (click)="edit(ZmTourDiary); container.scrollTop = 0"
+                                            <button class="ml-2" mat-icon-button color="primary" *ngIf="checkStatus(ZmTourDiary, 'edit') && currentActivity.U && edit_mode" (click)="edit(ZmTourDiary); container.scrollTop = 0"
                                             >
                                                 <mat-icon>
                                                     edit
                                                 </mat-icon>
                                             </button>
-                                            <button mat-icon-button *ngIf="checkStatus(ZmTourDiary, 'delete') && currentActivity.D" (click)="delete(ZmTourDiary, 'C'); container.scrollTop = 0">
+                                            <button mat-icon-button *ngIf="checkStatus(ZmTourDiary, 'delete') && currentActivity.D && edit_mode" (click)="delete(ZmTourDiary, 'C'); container.scrollTop = 0">
                                                 <mat-icon class="text-red-500">
                                                     delete_forever
                                                 </mat-icon>

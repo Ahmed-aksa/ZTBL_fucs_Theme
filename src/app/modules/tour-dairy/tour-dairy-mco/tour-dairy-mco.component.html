@@ -54,7 +54,7 @@
                                             class="matMandatory">*</strong>
                                         </mat-label>
                                         <mat-select formControlName="TourPlanId"
-                                                    (selectionChange)="getTourDiary($event)">
+                                                    (selectionChange)="getTourDiary($event)" [disabled]="!edit_mode && currentActivity.R">
                                             <mat-option>
                                                 Select
                                             </mat-option>

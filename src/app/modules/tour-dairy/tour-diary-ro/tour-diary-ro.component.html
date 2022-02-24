@@ -73,7 +73,7 @@
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
                                     <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label>Tour Plan<strong class="matMandatory">*</strong></mat-label>
-                                        <mat-select formControlName="TourPlanId">
+                                        <mat-select formControlName="TourPlanId" [disabled]="!edit_mode && currentActivity.R">
                                             <mat-option>
                                                 Select
                                             </mat-option>
@@ -116,10 +116,10 @@
                                             <mat-label class="customMatLabel">Departure Time<strong
                                                 class="matMandatory">*</strong></mat-label>
                                             <input type="text" matInput [ngxTimepicker]="timepickerDeparture"
-                                                   [format]="DateFormat()" readonly formControlName="DepartureFromTime"
+                                                   [format]="DateFormat()" readonly [disabled]="!edit_mode && currentActivity.R" formControlName="DepartureFromTime"
                                                    placeholder="Departure Time"/>
-                                            <mat-icon matSuffix (click)="openFromIcon(timepickerDeparture)">schedule
-                                            </mat-icon>
+                                            <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix (click)="openFromIcon(timepickerDeparture)">schedule</mat-icon>
+                                            <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -142,11 +142,11 @@
                                          style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Arrival Time</mat-label>
-                                            <input type="text" matInput [ngxTimepicker]="timepickerArrival"
+                                            <input type="text" matInput [disabled]="!edit_mode && currentActivity.R" [ngxTimepicker]="timepickerArrival"
                                                    [format]="DateFormat()" readonly
                                                    formControlName="ArrivalAtTime"/>
-                                            <mat-icon matSuffix (click)="openFromIcon(timepickerArrival)">schedule
-                                            </mat-icon>
+                                            <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix (click)="openFromIcon(timepickerArrival)">schedule</mat-icon>
+                                            <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -160,7 +160,7 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">No. Of Defaulters Contacted</mat-label>
                                             <input appNumberOnly matInput placeholder="No. Of Defaulters Contacted" formControlName="NoOfDefaulterContacted"
-                                                   autocomplete="off"/>
+                                                   autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
                                         </mat-form-field>
                                     </div>
 
@@ -169,7 +169,7 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Results Of Contacts So Made</mat-label>
                                             <input appNumberOnly placeholder="Results Of Contacts So Made" matInput
-                                                   formControlName="ResultContactMade" autocomplete="off"/>
+                                                   formControlName="ResultContactMade" autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
                                         </mat-form-field>
                                     </div>
 
@@ -178,7 +178,7 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Measure Boosting Up Record</mat-label>
                                             <input appNumberOnly matInput placeholder="Measure Boosting Up Record"
-                                                   formControlName="MeasureBoostUpRecord" autocomplete="off"/>
+                                                   formControlName="MeasureBoostUpRecord" autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
                                         </mat-form-field>
                                     </div>
 
@@ -187,7 +187,7 @@
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                             <mat-label class="customMatLabel">Remarks</mat-label>
                                             <input matInput placeholder="Remarks" formControlName="Remarks"
-                                                   autocomplete="off"/>
+                                                   autocomplete="off" [readonly]="!edit_mode && currentActivity.R"/>
                                         </mat-form-field>
                                     </div>
                                 </div>
@@ -199,15 +199,15 @@
 
                             <div class="row mt-2 mr-1">
                                 <div class="col-lg-12 text-right">
-                                    <button type="button" *ngIf="isUpdate==false && currentActivity.C" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Save</button>
-                                    <button type="button" *ngIf="isUpdate==true && currentActivity.D" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Update</button>
-                                    <button type="button" mat-raised-button class="mr-2" color="primary" [disabled]="checkDisable" *ngIf="currentActivity.U" (click)="changeStatus('','S')">
+                                    <button type="button" *ngIf="isUpdate==false && currentActivity.C && edit_mode" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Save</button>
+                                    <button type="button" *ngIf="isUpdate==true && currentActivity.D && edit_mode" class="mr-2 bg-green" mat-raised-button color="primary" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>Update</button>
+                                    <button type="button" mat-raised-button class="mr-2" color="primary" [disabled]="checkDisable" *ngIf="currentActivity.U && edit_mode" (click)="changeStatus('','S')">
                                         <mat-icon class="mr-2">check_circle</mat-icon>
                                         Submit
                                     </button>
                                     <button type="button"
                                             class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                            mat-raised-button color="danger" *ngIf="currentActivity.C" (click)="onClearForm()">
+                                            mat-raised-button color="danger" *ngIf="currentActivity.C && edit_mode" (click)="onClearForm()">
                                         <mat-icon class="mr-2"> clear_all</mat-icon>
                                         Clear
                                     </button>
@@ -245,10 +245,10 @@
                                     <tbody *ngFor="let single_list of TourDiaryList">
                                     <tr>
                                         <td class="border-r border-gray-400">
-                                            <button *ngIf="checkStatus(single_list, 'edit') && currentActivity.U" type="button" mat-icon-button (click)="edit(single_list); container.scrollTop = 0">
+                                            <button *ngIf="checkStatus(single_list, 'edit') && currentActivity.U && edit_mode" type="button" mat-icon-button (click)="edit(single_list); container.scrollTop = 0">
                                                 <mat-icon>edit</mat-icon>
                                             </button>
-                                            <button  *ngIf="checkStatus(single_list, 'delete') && currentActivity.D" type="button" mat-icon-button (click)="delete(single_list,'C')">
+                                            <button  *ngIf="checkStatus(single_list, 'delete') && currentActivity.D && edit_mode" type="button" mat-icon-button (click)="delete(single_list,'C')">
                                                 <mat-icon>delete</mat-icon>
                                             </button>
                                         </td>

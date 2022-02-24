@@ -46,6 +46,8 @@ export class TourDiaryBmComponent implements OnInit {
     checkDisable = true;
     currentActivity: Activity;
 
+    edit_mode: boolean = true;
+
     constructor(
         private fb: FormBuilder,
         private userService: UserUtilsService,
@@ -68,20 +70,17 @@ export class TourDiaryBmComponent implements OnInit {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
-
-        }
-
-        /**
-         * Hit Edit data request after second
-         */
-        setTimeout(() => {
-            if (this.zone) {
-                this.editData(this.data)
+            if (localStorage.getItem('visibility') == 'false') {
+                this.edit_mode = true;
             } else {
-                this.zone = {
-                    ZoneId: this.data.ZoneId
-                };
-                this.editData(this.data);
+                this.edit_mode = false;
+            }
+            localStorage.removeItem('visibility');
+            localStorage.removeItem('TourDiary');
+        }
+        setTimeout(() => {
+            if (this.zone && this.data) {
+                this.editData(this.data)
             }
         }, 1000);
     }
