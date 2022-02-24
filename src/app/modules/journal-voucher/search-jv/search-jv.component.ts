@@ -231,7 +231,7 @@ export class SearchJvComponent implements OnInit {
         } else {
             this.OffSet = 0;
             this.pageIndex = 0;
-            this.dataSource.data = [];
+            this.dataSource.data = null;
             this.SearchJvData();
         }
     }
@@ -282,8 +282,9 @@ export class SearchJvComponent implements OnInit {
                 } else {
 
                     this.matTableLenght = false;
-                    this.OffSet = 1;
+                    this.OffSet = 0;
                     this.pageIndex = 1;
+                    this.dataSource = this.dv?.slice(1, 0);
                     this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
                 }
 
