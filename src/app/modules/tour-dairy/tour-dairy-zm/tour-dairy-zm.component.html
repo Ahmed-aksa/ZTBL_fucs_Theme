@@ -252,22 +252,22 @@
                                             </button>
 
                                         </td>
-                                        <td>{{ZmTourDiary.TourDate}}</td>
+                                        <td>{{ZmTourDiary?.TourDate}}</td>
                                         <td>{{ZmTourDiary?.PlanPurposeName}}</td>
-                                        <td>{{ZmTourDiary.DepartureFromPlace}}</td>
-                                        <td>{{ZmTourDiary.DepartureFromTime}}</td>
-                                        <td>{{ZmTourDiary.ArrivalAtPlace}}</td>
-                                        <td>{{ZmTourDiary.ArrivalAtTime}}</td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ZmTourDiary?.DepartureFromPlace}}</td>
+                                        <td>{{ZmTourDiary?.DepartureFromTime}}</td>
+                                        <td>{{ZmTourDiary?.ArrivalAtPlace}}</td>
+                                        <td>{{ZmTourDiary?.ArrivalAtTime}}</td>
+                                        <td>{{systemGenerated?.PortfolioGeneralNo}}</td>
+                                        <td>{{systemGenerated?.PortfolioGeneralAmount}}</td>
+                                        <td>{{systemGenerated?.PortfolioNplNo}}</td>
+                                        <td>{{systemGenerated?.PortfolioNplAmount}}</td>
+                                        <td>{{systemGenerated?.PortfolioSamNo}}</td>
+                                        <td>{{systemGenerated?.PortfolioSamAmount}}</td>
+                                        <td>{{systemGenerated?.RecDemandNoticesIssued}}</td>
+                                        <td>{{systemGenerated?.RecLegalNoticesIssued}}</td>
+                                        <td>{{systemGenerated?.RecNoticesIssuedBySAP}}</td>
+                                        <td>{{systemGenerated?.RecCasesFiledByBranch}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -298,10 +298,10 @@
                                     </thead>
                                     <tbody>
                                     <tr *ngFor="let ZmTourDiary of TourDiaryList">
-                                        <td>{{ZmTourDiary.LCNotIssuedToBorrowers}}</td>
-                                        <td>{{ZmTourDiary.McoNBmTourDiaryAPPlan}}</td>
-                                        <td>{{ZmTourDiary.AnyShortComingInDiaries}}</td>
-                                        <td></td>
+                                        <td>{{ZmTourDiary?.LCNotIssuedToBorrowers}}</td>
+                                        <td>{{ZmTourDiary?.McoNBmTourDiaryAPPlan}}</td>
+                                        <td>{{ZmTourDiary?.AnyShortComingInDiaries}}</td>
+                                        <td>{{systemGenerated?.NoOfZeroRecoveryCases}}</td>
                                         <td>
                                             <ul>
                                                 <li>Reschedulement</li>
@@ -309,9 +309,9 @@
                                                 <li>RightOff/remission</li>
                                             </ul>
                                         </td>
-                                        <td></td>
-                                        <td>{{ZmTourDiary.NoOfDefaulterContacted}}</td>
-                                        <td>{{ZmTourDiary.Remarks}}</td>
+                                        <td>{{systemGenerated?.LoanCasesReschRemissionNO}}</td>
+                                        <td>{{ZmTourDiary?.NoOfDefaulterContacted}}</td>
+                                        <td>{{ZmTourDiary?.Remarks}}</td>
                                     </tr>
 
                                     </tbody>
