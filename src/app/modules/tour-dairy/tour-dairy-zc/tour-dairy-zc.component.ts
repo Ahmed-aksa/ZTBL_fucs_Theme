@@ -219,7 +219,7 @@ export class TourDiaryZcComponent implements OnInit {
             ArrivalAtTime: [null, [Validators.required]],
             GeneralAdmissionComplaints: [null],
             CashManagementCompliance: [null],
-            LCNotIssuedToBorrowers: [null],
+            NoOfUtilizationChecked: [null],
             AuditReports: [null],
             OutstandingParas: [null],
             Settlements: [null],
