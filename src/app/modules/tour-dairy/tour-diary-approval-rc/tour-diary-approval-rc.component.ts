@@ -59,6 +59,7 @@ export class TourDiaryApprovalRcComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        debugger
         this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For RC')
         this.data = JSON.parse(localStorage.getItem('TourDiary'));
         if (JSON.parse(localStorage.getItem('TourDiary'))) {
@@ -67,7 +68,31 @@ export class TourDiaryApprovalRcComponent implements OnInit {
             this.toastr.error("No Tour Diary For Approval Found");
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
-        this.getTourDiaryDetail();
+        this.createForm()
+    }
+
+    createForm() {
+        this.gridForm = this.fb.group({
+            Name: ["", [Validators.required]],
+            Ppno: ["", [Validators.required]],
+            DiaryId: [null],
+            Month: [""],
+            TourPlanId: ["", [Validators.required]],
+            BranchId: [""],
+            ZoneId: [""],
+            CircleId: [""],
+            TourDate: ["", [Validators.required]],
+            DepartureFromPlace: ["", [Validators.required]],
+            DepartureFromTime: ["", [Validators.required]],
+            ArrivalAtPlace: ["", [Validators.required]],
+            ArrivalAtTime: ["", [Validators.required]],
+            NoOfDefaulterContacted: [""],
+            ResultContactMade: [""],
+            MeasureBoostUpRecord: [""],
+            Remarks: [""],
+            Status: [""],
+        });
+        // this.setValue()
     }
 
     DateFormat() {
@@ -81,9 +106,14 @@ export class TourDiaryApprovalRcComponent implements OnInit {
 
 
     getAllData(data) {
+        debugger
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
+        
+        if(this.zone){
+            this.getTourDiaryDetail();
+        }
 
     }
 

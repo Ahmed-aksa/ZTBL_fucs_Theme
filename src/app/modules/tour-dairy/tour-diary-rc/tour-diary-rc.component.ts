@@ -282,17 +282,18 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     getAllData(data) {
+        debugger
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
         // once the selected zone is patched to the view then load the diary in edit mode.
-        if (this.zone) {
-            if (this.data) {
-                localStorage.removeItem('TourDiary');
-                this.edit(this.data)
-            }
-        }
+        // if (this.zone) {
+        //     if (this.data) {
+        //         localStorage.removeItem('TourDiary');
+        //         this.edit(this.data)
+        //     }
+        // }
     }
 
     edit(mcoDiary) {
