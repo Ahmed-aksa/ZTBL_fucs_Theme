@@ -62,7 +62,7 @@ const moment = _rollupMoment || _moment;
 
 
 @Component({
-    selector: 'create-tour-plan',
+    selector: 'create-tour-plan-mco',
     templateUrl: './create-tour-plan-mco.component.html',
     styleUrls: ['./create-tour-plan-mco.component.scss'],
 })

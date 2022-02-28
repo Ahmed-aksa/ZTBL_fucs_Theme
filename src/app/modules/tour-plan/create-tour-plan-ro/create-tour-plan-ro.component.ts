@@ -226,7 +226,7 @@ export class CreateTourPlanRoComponent implements OnInit, OnDestroy {
 
         this.spinner.show()
         this.tourPlanService
-            .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate,"ZC")
+            .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate,"RO")
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
