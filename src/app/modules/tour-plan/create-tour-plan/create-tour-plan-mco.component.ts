@@ -63,10 +63,10 @@ const moment = _rollupMoment || _moment;
 
 @Component({
     selector: 'create-tour-plan',
-    templateUrl: './create-tour-plan.component.html',
-    styleUrls: ['./create-tour-plan.component.scss'],
+    templateUrl: './create-tour-plan-mco.component.html',
+    styleUrls: ['./create-tour-plan-mco.component.scss'],
 })
-export class CreateTourPlanComponent implements OnInit, OnDestroy {
+export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
     tourPlanForm: FormGroup;
     exampleHeader = ExampleHeader
     branch: any;
@@ -605,7 +605,7 @@ export class TragetLitsChileDto {
 /** Custom header component for datepicker. */
 @Component({
     selector: 'example-header',
-    styleUrls: ['./create-tour-plan.component.scss'],
+    styleUrls: ['./create-tour-plan-mco.component.scss'],
     template: `
         <div class="mat-calendar-header">
             <div class="mat-calendar-controls">
