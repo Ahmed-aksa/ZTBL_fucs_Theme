@@ -59,7 +59,7 @@ export class TourDiaryApprovalRcComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger
+        
         this.currentActivity = this.userUtilsService.getActivity('Tour Diary Approval For RC')
         this.data = JSON.parse(localStorage.getItem('TourDiary'));
         if (JSON.parse(localStorage.getItem('TourDiary'))) {
@@ -106,7 +106,7 @@ export class TourDiaryApprovalRcComponent implements OnInit {
 
 
     getAllData(data) {
-        debugger
+        
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;

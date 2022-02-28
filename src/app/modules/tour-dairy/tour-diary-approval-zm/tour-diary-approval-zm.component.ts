@@ -1,25 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {DatePipe} from '@angular/common';
 import {
     DateAdapter,
     MAT_DATE_FORMATS,
     MAT_DATE_LOCALE,
 } from '@angular/material/core';
-import { DateFormats } from '../../../shared/classes/lov.class';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {DateFormats} from '../../../shared/classes/lov.class';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { UserUtilsService } from '../../../shared/services/users_utils.service';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { finalize } from "rxjs/operators";
-import { TourDiaryService } from "../set-target/Services/tour-diary.service";
-import { TourDiary } from "../set-target/Models/tour-diary.model";
-import { ToastrService } from "ngx-toastr";
-import { SignaturePadForDiaryApproval } from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
-import { Activity } from "../../../shared/models/activity.model";
-import {Debugger} from "inspector";
+import {LayoutUtilsService} from '../../../shared/services/layout_utils.service';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {UserUtilsService} from '../../../shared/services/users_utils.service';
+import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {finalize} from "rxjs/operators";
+import {TourDiaryService} from "../set-target/Services/tour-diary.service";
+import {TourDiary} from "../set-target/Models/tour-diary.model";
+import {ToastrService} from "ngx-toastr";
+import {SignaturePadForDiaryApproval} from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
+import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
     selector: 'app-tour-diary-approval-zm',
@@ -32,7 +31,7 @@ import {Debugger} from "inspector";
             useClass: MomentDateAdapter,
             deps: [MAT_DATE_LOCALE],
         },
-        { provide: MAT_DATE_FORMATS, useValue: DateFormats },
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats},
     ],
 })
 export class TourDiaryApprovalZmComponent implements OnInit {
@@ -97,13 +96,13 @@ export class TourDiaryApprovalZmComponent implements OnInit {
                 })
             ).subscribe(baseResponse => {
 
-                if (baseResponse.Success) {
-                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
-                } else {
-                    this.layoutUtilsService.alertElement('', baseResponse.Message);
-                }
-            });
+            if (baseResponse.Success) {
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+            } else {
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
+        });
     }
 
     createForm() {
@@ -141,15 +140,14 @@ export class TourDiaryApprovalZmComponent implements OnInit {
             SignaturePadForDiaryApproval,
             {
                 disableClose: true,
-                data: { data: this.TourDiaryList, status: status }
+                data: {data: this.TourDiaryList, status: status}
             },
         );
 
         signatureDialogRef.afterClosed().subscribe((res) => {
             if (res == true) {
                 this.router.navigate(['/tour-diary/tour-diary-approval']);
-            }
-            else {
+            } else {
                 return
             }
         })

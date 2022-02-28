@@ -280,6 +280,7 @@ export class TourPlanService {
 
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
+        
         let request = {
             TourPlan: {
                 UserId: user_id,

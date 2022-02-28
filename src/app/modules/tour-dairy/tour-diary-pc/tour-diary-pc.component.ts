@@ -380,6 +380,7 @@ export class TourDiaryPcComponent implements OnInit {
             this.checkDisable = false;
         }
         this.gridForm.patchValue(tour_list);
+        this.date=this.gridForm.value.TourDate;
         this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(tour_list.TourDate));
         this.isUpdate = true;
         this.GetTourPlan()

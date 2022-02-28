@@ -1,4 +1,6 @@
-<div class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent" #container>
+<div
+    class="px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 overflow-y-scroll overflow-x-hidden bg-card dark:bg-transparent"
+    #container>
 
 
     <div class="row pt-3">
@@ -7,14 +9,14 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 
-<!--            <p class="text-right">-->
-<!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->
-<!--                        color="primary"-->
-<!--                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">-->
-<!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
-<!--                    Advance Filter-->
-<!--                </button>-->
-<!--            </p>-->
+            <!--            <p class="text-right">-->
+            <!--                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"-->
+            <!--                        color="primary"-->
+            <!--                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">-->
+            <!--                    <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>-->
+            <!--                    Advance Filter-->
+            <!--                </button>-->
+            <!--            </p>-->
 
         </div>
     </div>
@@ -22,173 +24,216 @@
 
     <div id="Kt-portlet-margin-top">
         <div class="collapse show" id="collapseExample">
-                <form [formGroup]="gridForm" class="kt-form kt-form--group-seperator-dashed">
+            <form [formGroup]="gridForm" class="kt-form kt-form--group-seperator-dashed">
 
-                    <div class="kt-form">
+                <div class="kt-form">
 
-                        <div class="kt-portlet__body">
+                    <div class="kt-portlet__body">
 
-                            <div class="col-lg-12 mt-2">
+                        <div class="col-lg-12 mt-2">
+                            <div class="flex" style="flex-wrap: wrap;">
+
+                                <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
+                                                        [is_required_circle]="false"
+                                                        [should_filter]="false"
+                                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Name of Officer<strong
+                                            class="matMandatory">*</strong></mat-label>
+                                        <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong>
+                                        </mat-label>
+                                        <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Tour Date<strong
+                                            class="matMandatory">*</strong></mat-label>
+                                        <input matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
+                                               maxlength="8"
+                                               autocomplete="off" [max]="maxDate" (dateChange)="setDate()"
+                                               appNumberOnly/>
+                                        <mat-datepicker-toggle (click)="checkZone()"
+                                                               [disabled]="(!zone || !edit_mode) && currentActivity.R"
+                                                               matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label>Tour Plan<strong class="matMandatory">*</strong></mat-label>
+                                        <mat-select formControlName="TourPlanId"
+                                                    [disabled]="!edit_mode && currentActivity.R">
+                                            <mat-option>
+                                                Select
+                                            </mat-option>
+                                            <mat-option *ngFor="let obj of TourPlan" [value]="obj.TourPlanId">
+                                                {{obj.PurposeName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="sub-heading">Departure From
+                            </div>
+
+                            <div class="col-lg-12">
                                 <div class="flex" style="flex-wrap: wrap;">
-
-                                    <app-zone-branch-circle [form]="gridForm" [show_circle]="false"
-                                                            [is_required_circle]="false"
-                                                            [should_filter]="false"
-                                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Name of Officer<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">P.P.NO<strong class="matMandatory">*</strong></mat-label>
-                                            <input matInput formControlName="Ppno" autocomplete="off" readonly="readonly"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Tour Date<strong class="matMandatory">*</strong></mat-label>
-                                            <input  matInput readonly [matDatepicker]="picker2" formControlName="TourDate"
-                                                    maxlength="8"
-                                                    autocomplete="off" [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>
-                                            <mat-datepicker-toggle (click)="checkZone()" [disabled]="(!zone || !edit_mode) && currentActivity.R" matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                            <mat-datepicker #picker2></mat-datepicker>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label>Tour Plan<strong class="matMandatory">*</strong></mat-label>
-                                            <mat-select formControlName="TourPlanId" [disabled]="!edit_mode && currentActivity.R">
-                                                <mat-option>
-                                                    Select
-                                                </mat-option>
-                                                <mat-option *ngFor="let obj of TourPlan" [value]="obj.TourPlanId">
-                                                    {{obj.PurposeName}}
+                                            <mat-label>Departure From Place<strong class="matMandatory">*</strong>
+                                            </mat-label>
+                                            <mat-select matInput formControlName="DepartureFromPlace"
+                                                        [disabled]="!edit_mode && currentActivity.R">
+                                                <mat-option *ngFor="let branch of SelectedBranches"
+                                                            [value]="branch?.Name">
+                                                    {{branch?.Name}}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
 
-                                </div>
-
-                                <div class="sub-heading">Departure From
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="flex" style="flex-wrap: wrap;">
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label>Departure From Place<strong class="matMandatory">*</strong></mat-label>
-                                                <mat-select matInput formControlName="DepartureFromPlace" [disabled]="!edit_mode && currentActivity.R">
-                                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.Name">
-                                                        {{branch?.Name}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Departure Time<strong class="matMandatory">*</strong></mat-label>
-                                                <input type="text" matInput [ngxTimepicker]="timepickerDeparture" [format]="DateFormat()" [disabled]="!edit_mode && currentActivity.R" readonly formControlName="DepartureFromTime"/>
-                                                <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix (click)="openFromIcon(timepickerDeparture)">schedule</mat-icon>
-                                                <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
-                                            </mat-form-field>
-                                        </div>
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                            <mat-label class="customMatLabel">Departure Time<strong
+                                                class="matMandatory">*</strong></mat-label>
+                                            <input type="text" matInput [ngxTimepicker]="timepickerDeparture"
+                                                   [format]="DateFormat()" [disabled]="!edit_mode && currentActivity.R"
+                                                   readonly formControlName="DepartureFromTime"/>
+                                            <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix
+                                                      (click)="openFromIcon(timepickerDeparture)">schedule
+                                            </mat-icon>
+                                            <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
+                                        </mat-form-field>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="sub-heading">Arrival At
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="flex" style="flex-wrap: wrap;">
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-<!--                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                                                <mat-label class="customMatLabel">Arrival Place</mat-label>-->
-<!--                                                <input matInput formControlName="ArrivalAtPlace" autocomplete="off" readonly="readonly"/>-->
-<!--                                            </mat-form-field>-->
-
-                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label>Arrival At Place<strong class="matMandatory">*</strong></mat-label>
-                                                <mat-select matInput formControlName="ArrivalAtPlace" [disabled]="!edit_mode && currentActivity.R">
-                                                    <mat-option *ngFor="let branch of SelectedBranches" [value]="branch?.Name">
-                                                        {{branch?.Name}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                                <mat-label class="customMatLabel">Arrival Time<strong class="matMandatory">*</strong></mat-label>
-                                                <input type="text" matInput [ngxTimepicker]="timepickerArrival" [format]="DateFormat()" [disabled]="!edit_mode && currentActivity.R" readonly
-                                                       formControlName="ArrivalAtTime"/>
-                                                <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix (click)="openFromIcon(timepickerArrival)">schedule</mat-icon>
-                                                <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-
-                                </div>
-
+                            <div class="sub-heading">Arrival At
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="flex" style="flex-wrap: wrap;">
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 240px;">
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <!--                                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+                                        <!--                                                <mat-label class="customMatLabel">Arrival Place</mat-label>-->
+                                        <!--                                                <input matInput formControlName="ArrivalAtPlace" autocomplete="off" readonly="readonly"/>-->
+                                        <!--                                            </mat-form-field>-->
+
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Loan Cases Not Issued to Borrowers</mat-label>
-                                            <input matInput placeholder="Loan Cases Not issued To Borrowers" appNumberOnly formControlName="LCNotIssuedToBorrowers" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
+                                            <mat-label>Arrival At Place<strong class="matMandatory">*</strong>
+                                            </mat-label>
+                                            <mat-select matInput formControlName="ArrivalAtPlace"
+                                                        [disabled]="!edit_mode && currentActivity.R">
+                                                <mat-option *ngFor="let branch of SelectedBranches"
+                                                            [value]="branch?.Name">
+                                                    {{branch?.Name}}
+                                                </mat-option>
+                                            </mat-select>
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 245px;">
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
                                         <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Tour Diaries Are As Per Approved Tour Plan</mat-label>
-                                            <input matInput placeholder="Tour Diaries As Per Approved Tour Plan" formControlName="McoNBmTourDiaryAPPlan" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
+                                            <mat-label class="customMatLabel">Arrival Time<strong
+                                                class="matMandatory">*</strong></mat-label>
+                                            <input type="text" matInput [ngxTimepicker]="timepickerArrival"
+                                                   [format]="DateFormat()" [disabled]="!edit_mode && currentActivity.R"
+                                                   readonly
+                                                   formControlName="ArrivalAtTime"/>
+                                            <mat-icon *ngIf="edit_mode" class="cursor-pointer" matSuffix
+                                                      (click)="openFromIcon(timepickerArrival)">schedule
+                                            </mat-icon>
+                                            <mat-icon *ngIf="!edit_mode" matSuffix>schedule</mat-icon>
                                         </mat-form-field>
                                     </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Any short comings in Tour Diaries</mat-label>
-                                            <input matInput placeholder="Any short comings in Tour Diaries" formControlName="AnyShortComingInDiaries" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">No. of Defaulters Contacted</mat-label>
-                                            <input matInput placeholder="No. of Defaulters Contacted" appNumberOnly formControlName="RecNoOfDefaulterContacted" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">Remarks</mat-label>
-                                            <input matInput placeholder="Remarks" formControlName="Remarks" [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
-                                        </mat-form-field>
-                                    </div>
-
                                 </div>
 
                             </div>
 
-                            <div class="row mt-2 mr-1">
-                                <div class="col-lg-12 text-right">
-                                    <button type="button" class="ml-2 bg-green" mat-raised-button color="primary" *ngIf="currentActivity.C || currentActivity.U" (click)="saveTourDiary()"><mat-icon class="mr-2">save</mat-icon>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="flex" style="flex-wrap: wrap;">
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 240px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Loan Cases Not Issued to Borrowers</mat-label>
+                                        <input matInput placeholder="Loan Cases Not issued To Borrowers" appNumberOnly
+                                               formControlName="LCNotIssuedToBorrowers"
+                                               [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 245px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Tour Diaries Are As Per Approved Tour Plan
+                                        </mat-label>
+                                        <input matInput placeholder="Tour Diaries As Per Approved Tour Plan"
+                                               formControlName="McoNBmTourDiaryAPPlan"
+                                               [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Any short comings in Tour Diaries</mat-label>
+                                        <input matInput placeholder="Any short comings in Tour Diaries"
+                                               formControlName="AnyShortComingInDiaries"
+                                               [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. of Defaulters Contacted</mat-label>
+                                        <input matInput placeholder="No. of Defaulters Contacted" appNumberOnly
+                                               formControlName="RecNoOfDefaulterContacted"
+                                               [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Remarks</mat-label>
+                                        <input matInput placeholder="Remarks" formControlName="Remarks"
+                                               [readonly]="!edit_mode && currentActivity.R" autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-2 mr-1">
+                            <div class="col-lg-12 text-right">
+                                <div *ngIf="edit_mode">
+                                    <button type="button" class="ml-2 bg-green" mat-raised-button color="primary"
+                                            *ngIf="currentActivity.C || currentActivity.U"
+                                            (click)="saveTourDiary()">
+                                        <mat-icon class="mr-2">save</mat-icon>
                                         {{btnText}}</button>
-                                    <button  type="button" *ngIf="isUpdate==true && currentActivity.U && edit_mode"  mat-raised-button class="mr-2" color="primary" (click)="changeStatus('','S')">
+                                    <button type="button" *ngIf="isUpdate==true && currentActivity.U"
+                                            mat-raised-button class="mr-2" color="primary"
+                                            (click)="changeStatus('','S')">
                                         <mat-icon class="mr-2">check_circle</mat-icon>
                                         Submit
                                     </button>
-                                    <button type="button" *ngIf="edit_mode && currentActivity.C"
+                                    <button type="button" *ngIf="currentActivity.C"
                                             class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
                                             mat-raised-button color="danger" (click)="onClearForm()">
                                         <mat-icon class="mr-2"> clear_all</mat-icon>
@@ -196,239 +241,251 @@
                                     </button>
                                 </div>
                             </div>
-
-                            <div class="col-lg-12 p-0  third-table  overflow-auto  shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table ">
-                                    <thead>
-                                    <tr class=" text-center">
-                                        <th rowspan="2"  >Actions</th>
-                                        <th rowspan="2"  >Date</th>
-                                        <th rowspan="2">Tour Plan</th>
-                                        <th colspan="2" rowspan="2"  >Departure from</th>
-                                        <th colspan="2" rowspan="2"  >Arrival at</th>
-                                        <th colspan="6"  >Portfolio of the branch visited</th>
-                                        <th colspan="3"  >Recovery</th>
-                                        <th rowspan="4"  >No. of loan cases in which recovery suits have been filed in Banking Court by the
-                                            branch
-                                        </th>
-                                    </tr>
-                                    <tr class=" text-center sub-table">
-                                        <th colspan="2"  >General</th>
-                                        <th colspan="2"  >NPL's</th>
-                                        <th colspan="2"  >Sam</th>
-                                        <th rowspan="2"  >No. of Demand Notices issued by the branch</th>
-                                        <th rowspan="2"  >No. of Legal Notices issued by the branch</th>
-                                        <th rowspan="2"  >No. of Notices issued by the branch to SPA/Guarantors</th>
-                                    </tr>
-                                    <tr class=" text-center sub-table">
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th  >Place</th>
-                                        <th  >Time</th>
-                                        <th  >Place</th>
-                                        <th  >Time</th>
-                                        <th  >No.</th>
-                                        <th  >Amt.</th>
-                                        <th  >No.</th>
-                                        <th  >Amt.</th>
-                                        <th  >No.</th>
-                                        <th  >Amt.</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr *ngFor="let ZmTourDiary of TourDiaryList">
-                                        <td>
-                                            <button class="ml-2" mat-icon-button color="primary" *ngIf="checkStatus(ZmTourDiary, 'edit') && currentActivity.U && edit_mode" (click)="edit(ZmTourDiary); container.scrollTop = 0"
-                                            >
-                                                <mat-icon>
-                                                    edit
-                                                </mat-icon>
-                                            </button>
-                                            <button mat-icon-button *ngIf="checkStatus(ZmTourDiary, 'delete') && currentActivity.D && edit_mode" (click)="delete(ZmTourDiary, 'C'); container.scrollTop = 0">
-                                                <mat-icon class="text-red-500">
-                                                    delete_forever
-                                                </mat-icon>
-                                            </button>
-
-                                        </td>
-                                        <td>{{ZmTourDiary?.TourDate}}</td>
-                                        <td>{{ZmTourDiary?.PlanPurposeName}}</td>
-                                        <td>{{ZmTourDiary?.DepartureFromPlace}}</td>
-                                        <td>{{ZmTourDiary?.DepartureFromTime}}</td>
-                                        <td>{{ZmTourDiary?.ArrivalAtPlace}}</td>
-                                        <td>{{ZmTourDiary?.ArrivalAtTime}}</td>
-                                        <td>{{systemGenerated?.PortfolioGeneralNo}}</td>
-                                        <td>{{systemGenerated?.PortfolioGeneralAmount}}</td>
-                                        <td>{{systemGenerated?.PortfolioNplNo}}</td>
-                                        <td>{{systemGenerated?.PortfolioNplAmount}}</td>
-                                        <td>{{systemGenerated?.PortfolioSamNo}}</td>
-                                        <td>{{systemGenerated?.PortfolioSamAmount}}</td>
-                                        <td>{{systemGenerated?.RecDemandNoticesIssued}}</td>
-                                        <td>{{systemGenerated?.RecLegalNoticesIssued}}</td>
-                                        <td>{{systemGenerated?.RecNoticesIssuedBySAP}}</td>
-                                        <td>{{systemGenerated?.RecCasesFiledByBranch}}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="col-lg-12 p-0 sec-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table ">
-                                    <thead>
-                                    <tr class="table-header-background text-center">
-                                        <th rowspan="2"  >No. of loan cases in which Recovery Schedule/Revised Recovery Schedules have not
-                                            been issued to borrowers
-                                        </th>
-                                        <th rowspan="2"  >Whether checked that MCOs and Branch Manager’s tour diaries are as per approved Tour
-                                            Plan
-                                        </th>
-                                        <th rowspan="2"  >Any short comings in Tour Diaries of MCOs/Branch Manager</th>
-                                        <th rowspan="2"  >No. of zero recovery cases of the branch</th>
-                                        <th colspan="2"  >No. of loan cases where Reschedulement/Restructuring/write-off remission of mark-up
-                                            done by the branch
-                                        </th>
-                                        <th rowspan="2"  >No. of Defaulters contacted by the Z.M (Rec. & SAM)</th>
-                                        <th rowspan="2"  >Remarks</th>
-                                    </tr>
-                                    <tr class="table-header-background text-center sub-table">
-                                        <th  >Activity</th>
-                                        <th  >No.</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr *ngFor="let ZmTourDiary of TourDiaryList">
-                                        <td>{{ZmTourDiary?.LCNotIssuedToBorrowers}}</td>
-                                        <td>{{ZmTourDiary?.McoNBmTourDiaryAPPlan}}</td>
-                                        <td>{{ZmTourDiary?.AnyShortComingInDiaries}}</td>
-                                        <td>{{systemGenerated?.NoOfZeroRecoveryCases}}</td>
-                                        <td>
-                                            <ul>
-                                                <li>Reschedulement</li>
-                                                <li>Restructring of Installments</li>
-                                                <li>RightOff/remission</li>
-                                            </ul>
-                                        </td>
-                                        <td>{{systemGenerated?.LoanCasesReschRemissionNO}}</td>
-                                        <td>{{ZmTourDiary?.NoOfDefaulterContacted}}</td>
-                                        <td>{{ZmTourDiary?.Remarks}}</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
-                                <table class="table ">
-                                    <thead>
-                                    <tr class="table-header-background text-center">
-                                        <th colspan="15"  >RECOVERY</th>
-                                    </tr>
-                                    </thead>
-                                    <thead>
-                                    <tr class="table-header-background text-center">
-                                        <!-- UTILIZATIONS -->
-                                        <th colspan="3"  >Amount in default up to the month under report (TARGET)</th>
-                                        <th colspan="3"  >Recovery during the month under report</th>
-                                        <th colspan="3"  >Balance Recoverable</th>
-                                        <th colspan="3"  >Recovery during corresponding period</th>
-                                        <th rowspan="2"  >Increase/Deficit</th>
-                                        <th colspan="2"  >Reschedulement/Restructuring/Write-off/Remission cases of the branch visited</th>
-                                    </tr>
-                                    <tr class="table-header-background text-center sub-table">
-                                        <th  >Past Dues</th>
-                                        <th  >Current Dues</th>
-                                        <th  >Total</th>
-                                        <th  >Past Dues</th>
-                                        <th  >Current Dues</th>
-                                        <th  >Total</th>
-                                        <th  >Past Dues</th>
-                                        <th  >Current Dues</th>
-                                        <th  >Total</th>
-                                        <th  >Past Dues</th>
-                                        <th  >Current Dues</th>
-                                        <th  >Total</th>
-                                        <th  >Activity</th>
-                                        <th  >No.</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  ></td>
-                                        <td  >
-                                            <ul>
-                                                <li>Reschedulement</li>
-                                                <li>Restructring of Installments</li>
-                                                <li>RightOff/remission</li>
-                                            </ul>
-                                        </td>
-                                        <td  ></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-<!--                            <div class="col-lg-12">-->
-<!--                                <div class="flex" style="flex-wrap: wrap;">-->
-
-<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
-<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                                            <mat-label class="customMatLabel">Name</mat-label>-->
-<!--                                            <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>-->
-<!--                                        </mat-form-field>-->
-<!--                                    </div>-->
-<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
-<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                                            <mat-label class="customMatLabel">Designation</mat-label>-->
-<!--                                            <input matInput formControlName="Designation" autocomplete="off" readonly="readonly"/>-->
-<!--                                        </mat-form-field>-->
-<!--                                    </div>-->
-<!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
-<!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
-<!--                                            <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>-->
-<!--                                            </mat-label>-->
-<!--                                            <input matInput [matDatepicker]="picker2" formControlName="Date" maxlength="30" autocomplete="off"-->
-<!--                                                   [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>-->
-<!--                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
-<!--                                            <mat-datepicker #picker2></mat-datepicker>-->
-<!--                                        </mat-form-field>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-
-<!--                            </div>-->
-
                         </div>
-                    </div>
 
-                </form>
+                        <div class="col-lg-12 p-0  third-table  overflow-auto  shadow-xs rounded-sm bg-gray-50 mt-2">
+                            <table class="table ">
+                                <thead>
+                                <tr class=" text-center">
+                                    <th rowspan="2">Actions</th>
+                                    <th rowspan="2">Date</th>
+                                    <th rowspan="2">Tour Plan</th>
+                                    <th colspan="2" rowspan="2">Departure from</th>
+                                    <th colspan="2" rowspan="2">Arrival at</th>
+                                    <th colspan="6">Portfolio of the branch visited</th>
+                                    <th colspan="3">Recovery</th>
+                                    <th rowspan="4">No. of loan cases in which recovery suits have been filed in Banking
+                                        Court by the
+                                        branch
+                                    </th>
+                                </tr>
+                                <tr class=" text-center sub-table">
+                                    <th colspan="2">General</th>
+                                    <th colspan="2">NPL's</th>
+                                    <th colspan="2">Sam</th>
+                                    <th rowspan="2">No. of Demand Notices issued by the branch</th>
+                                    <th rowspan="2">No. of Legal Notices issued by the branch</th>
+                                    <th rowspan="2">No. of Notices issued by the branch to SPA/Guarantors</th>
+                                </tr>
+                                <tr class=" text-center sub-table">
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Place</th>
+                                    <th>Time</th>
+                                    <th>Place</th>
+                                    <th>Time</th>
+                                    <th>No.</th>
+                                    <th>Amt.</th>
+                                    <th>No.</th>
+                                    <th>Amt.</th>
+                                    <th>No.</th>
+                                    <th>Amt.</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let ZmTourDiary of TourDiaryList">
+                                    <td>
+                                        <button class="ml-2" mat-icon-button color="primary"
+                                                *ngIf="checkStatus(ZmTourDiary, 'edit') && currentActivity.U && edit_mode"
+                                                (click)="edit(ZmTourDiary); container.scrollTop = 0"
+                                        >
+                                            <mat-icon>
+                                                edit
+                                            </mat-icon>
+                                        </button>
+                                        <button mat-icon-button
+                                                *ngIf="checkStatus(ZmTourDiary, 'delete') && currentActivity.D && edit_mode"
+                                                (click)="delete(ZmTourDiary, 'C'); container.scrollTop = 0">
+                                            <mat-icon class="text-red-500">
+                                                delete_forever
+                                            </mat-icon>
+                                        </button>
+
+                                    </td>
+                                    <td>{{ZmTourDiary?.TourDate}}</td>
+                                    <td>{{ZmTourDiary?.PlanPurposeName}}</td>
+                                    <td>{{ZmTourDiary?.DepartureFromPlace}}</td>
+                                    <td>{{ZmTourDiary?.DepartureFromTime}}</td>
+                                    <td>{{ZmTourDiary?.ArrivalAtPlace}}</td>
+                                    <td>{{ZmTourDiary?.ArrivalAtTime}}</td>
+                                    <td>{{systemGenerated?.PortfolioGeneralNo}}</td>
+                                    <td>{{systemGenerated?.PortfolioGeneralAmount}}</td>
+                                    <td>{{systemGenerated?.PortfolioNplNo}}</td>
+                                    <td>{{systemGenerated?.PortfolioNplAmount}}</td>
+                                    <td>{{systemGenerated?.PortfolioSamNo}}</td>
+                                    <td>{{systemGenerated?.PortfolioSamAmount}}</td>
+                                    <td>{{systemGenerated?.RecDemandNoticesIssued}}</td>
+                                    <td>{{systemGenerated?.RecLegalNoticesIssued}}</td>
+                                    <td>{{systemGenerated?.RecNoticesIssuedBySAP}}</td>
+                                    <td>{{systemGenerated?.RecCasesFiledByBranch}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-lg-12 p-0 sec-table overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+                            <table class="table ">
+                                <thead>
+                                <tr class="table-header-background text-center">
+                                    <th rowspan="2">No. of loan cases in which Recovery Schedule/Revised Recovery
+                                        Schedules have not
+                                        been issued to borrowers
+                                    </th>
+                                    <th rowspan="2">Whether checked that MCOs and Branch Manager’s tour diaries are as
+                                        per approved Tour
+                                        Plan
+                                    </th>
+                                    <th rowspan="2">Any short comings in Tour Diaries of MCOs/Branch Manager</th>
+                                    <th rowspan="2">No. of zero recovery cases of the branch</th>
+                                    <th colspan="2">No. of loan cases where Reschedulement/Restructuring/write-off
+                                        remission of mark-up
+                                        done by the branch
+                                    </th>
+                                    <th rowspan="2">No. of Defaulters contacted by the Z.M (Rec. & SAM)</th>
+                                    <th rowspan="2">Remarks</th>
+                                </tr>
+                                <tr class="table-header-background text-center sub-table">
+                                    <th>Activity</th>
+                                    <th>No.</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let ZmTourDiary of TourDiaryList">
+                                    <td>{{ZmTourDiary?.LCNotIssuedToBorrowers}}</td>
+                                    <td>{{ZmTourDiary?.McoNBmTourDiaryAPPlan}}</td>
+                                    <td>{{ZmTourDiary?.AnyShortComingInDiaries}}</td>
+                                    <td>{{systemGenerated?.NoOfZeroRecoveryCases}}</td>
+                                    <td>
+                                        <ul>
+                                            <li>Reschedulement</li>
+                                            <li>Restructring of Installments</li>
+                                            <li>RightOff/remission</li>
+                                        </ul>
+                                    </td>
+                                    <td>{{systemGenerated?.LoanCasesReschRemissionNO}}</td>
+                                    <td>{{ZmTourDiary?.NoOfDefaulterContacted}}</td>
+                                    <td>{{ZmTourDiary?.Remarks}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div
+                            class="col-lg-12 p-0  third-table  overflow-auto border shadow-xs rounded-sm bg-gray-50 mt-2">
+                            <table class="table ">
+                                <thead>
+                                <tr class="table-header-background text-center">
+                                    <th colspan="15">RECOVERY</th>
+                                </tr>
+                                </thead>
+                                <thead>
+                                <tr class="table-header-background text-center">
+                                    <!-- UTILIZATIONS -->
+                                    <th colspan="3">Amount in default up to the month under report (TARGET)</th>
+                                    <th colspan="3">Recovery during the month under report</th>
+                                    <th colspan="3">Balance Recoverable</th>
+                                    <th colspan="3">Recovery during corresponding period</th>
+                                    <th rowspan="2">Increase/Deficit</th>
+                                    <th colspan="2">Reschedulement/Restructuring/Write-off/Remission cases of the branch
+                                        visited
+                                    </th>
+                                </tr>
+                                <tr class="table-header-background text-center sub-table">
+                                    <th>Past Dues</th>
+                                    <th>Current Dues</th>
+                                    <th>Total</th>
+                                    <th>Past Dues</th>
+                                    <th>Current Dues</th>
+                                    <th>Total</th>
+                                    <th>Past Dues</th>
+                                    <th>Current Dues</th>
+                                    <th>Total</th>
+                                    <th>Past Dues</th>
+                                    <th>Current Dues</th>
+                                    <th>Total</th>
+                                    <th>Activity</th>
+                                    <th>No.</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <ul>
+                                            <li>Reschedulement</li>
+                                            <li>Restructring of Installments</li>
+                                            <li>RightOff/remission</li>
+                                        </ul>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--                            <div class="col-lg-12">-->
+                        <!--                                <div class="flex" style="flex-wrap: wrap;">-->
+
+                        <!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
+                        <!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+                        <!--                                            <mat-label class="customMatLabel">Name</mat-label>-->
+                        <!--                                            <input matInput formControlName="Name" autocomplete="off" readonly="readonly"/>-->
+                        <!--                                        </mat-form-field>-->
+                        <!--                                    </div>-->
+                        <!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
+                        <!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+                        <!--                                            <mat-label class="customMatLabel">Designation</mat-label>-->
+                        <!--                                            <input matInput formControlName="Designation" autocomplete="off" readonly="readonly"/>-->
+                        <!--                                        </mat-form-field>-->
+                        <!--                                    </div>-->
+                        <!--                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">-->
+                        <!--                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">-->
+                        <!--                                            <mat-label class="customMatLabel">Date of Visit (ddMMyyyy) <strong class="matMandatory">*</strong>-->
+                        <!--                                            </mat-label>-->
+                        <!--                                            <input matInput [matDatepicker]="picker2" formControlName="Date" maxlength="30" autocomplete="off"-->
+                        <!--                                                   [max]="maxDate" (dateChange)="setDate()" appNumberOnly/>-->
+                        <!--                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+                        <!--                                            <mat-datepicker #picker2></mat-datepicker>-->
+                        <!--                                        </mat-form-field>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+
+
+                        <!--                            </div>-->
+
+                    </div>
+                </div>
+
+            </form>
         </div>
 
-<!--        <div class="row">-->
-<!--            <div class="col-lg-12 flex  py-2 border-t">-->
-<!--                <button mat-raised-button class="mr-2" color="primary" (click)="SubmitTourDiary()">-->
-<!--                    <mat-icon class="mr-2">check_circle</mat-icon>-->
-<!--                    Submit-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="row">-->
+        <!--            <div class="col-lg-12 flex  py-2 border-t">-->
+        <!--                <button mat-raised-button class="mr-2" color="primary" (click)="SubmitTourDiary()">-->
+        <!--                    <mat-icon class="mr-2">check_circle</mat-icon>-->
+        <!--                    Submit-->
+        <!--                </button>-->
+        <!--            </div>-->
+        <!--        </div>-->
 
 
     </div>
 
 </div>
 
-<ngx-material-timepicker  #timepickerDeparture></ngx-material-timepicker>
+<ngx-material-timepicker #timepickerDeparture></ngx-material-timepicker>
 <ngx-material-timepicker #timepickerArrival></ngx-material-timepicker>
