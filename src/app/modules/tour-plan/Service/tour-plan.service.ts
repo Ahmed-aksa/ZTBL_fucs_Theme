@@ -28,16 +28,40 @@ export class TourPlanService {
     }
 
     userInfo = this.userUtilsService.getUserDetails();
+    getProfileId(role) {
 
-    createTourPlan(TourPlan, zone = null, branch = null, circle = null, startDate = null, endDate = null) {
+        if (role == 'ZC') {
+            return environment.ZC;
+        } else if (role == 'MCO') {
+            return environment.MCO_Group_ID;
+        } else if (role == 'ZM') {
+            return environment.ZM;
+        } else if (role == 'BM') {
+            return environment.BM;
+        } else if (role == 'PC') {
+            return environment.PROVINCIAL_CHEIF;
+        } else if (role == 'RC') {
+            return environment.Regional_CHIEF;
+        } else if (role == 'RO') {
+            return environment.RECOVERY_OFFICER;
+        } else {
+            return this.userInfo.User.ProfileId;
+        }
+    }
+    createTourPlan(TourPlan, zone = null, branch = null, circle = null, startDate = null, endDate = null,role) {
         this.request = new BaseRequestModel();
         this.request.DEVICELOCATION = this.deviceLocation;
         this.request.TranId = 2830;
         this.request.doPerformOTP = false;
+        this.userInfo.User.ProfileId = this.getProfileId(role)
         this.request.User = this.userInfo.User;
         this.request.TourPlan = TourPlan;
         this.request.TourPlan.StartDate = startDate;
         this.request.TourPlan.EndDate = endDate;
+
+
+
+
         if (zone) {
             this.request.Zone = zone;
         } else {
@@ -280,7 +304,7 @@ export class TourPlanService {
 
         let start_date: Moment = moment(approval_from.FromDate);
         let end_date: Moment = moment(approval_from.ToDate);
-        
+
         let request = {
             TourPlan: {
                 UserId: user_id,

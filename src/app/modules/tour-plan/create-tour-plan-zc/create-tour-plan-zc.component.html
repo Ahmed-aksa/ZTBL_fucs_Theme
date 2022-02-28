@@ -1,0 +1,153 @@
+<div
+    class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-auto bg-card dark:bg-transparent">
+    <div class="heading mt-3">Create Tour Plan For ZC</div>
+    <!-- Header -->
+    <div class="flex pt-2" style="flex-wrap:wrap;" [formGroup]="tourPlanForm">
+        <app-zone-branch-circle [form]="tourPlanForm" [should_filter]="true"
+                                [is_required_circle]="true"
+                                (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-label class="customMatLabel">Date of Visit (dd/MM/yyyy) <strong class="matMandatory">*</strong>
+                </mat-label>
+                <input [disabled]="zone" readonly matInput name="VisitedDate" formControlName="VisitedDate" autocomplete="off"
+                       [readonly]="viewMode && currentActivity.R"/>
+                <mat-icon *ngIf="!viewMode && currentActivity.C" matSuffix style="cursor: pointer;" (click)="onChange()">mode_edit</mat-icon>
+            </mat-form-field>
+
+            <!-- <mat-form-field appearance="outline" class="fld">
+                <input
+                  matInput
+                  placeholder="myPlaceholder"
+                  class="inp"
+                  formControlName="VisitedDate"
+                >
+
+              </mat-form-field> -->
+        </div>
+        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
+            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-label class="customMatLabel">Purpose<strong class="matMandatory">*</strong></mat-label>
+                <mat-select formControlName="Purpose" [disabled]="viewMode">
+                    <mat-option *ngFor="let loanType of purposeofVisitLov" [value]="loanType.Value">
+                        {{loanType.Name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <!-- <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <mat-form-field appearance="fill" class="w-full">
+                    <input matInput [matDatepicker]="dp" placeholder="Month" [formControl]="date">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                </mat-form-field>
+                <mat-datepicker #dp startView="multi-year" (monthSelected)="_selectMonthHandler($event,dp)"
+                    panelClass="example-month-picker">
+                </mat-datepicker>
+            </div>
+        </div> -->
+        <div class="col-lg-3 col-sm-12  kt-margin-bottom-20-mobile mx-2" style="width: 225px;">
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-label class="customMatLabel">Remarks<strong
+                        class="matMandatory">*</strong></mat-label>
+                    <input maxlength="500" matInput placeholder="Enter Remarks" formControlName="Remarks"
+                           autocomplete="off" [readonly]="viewMode"/>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
+            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
+                <button class="ml-2 bg-gray-500" mat-raised-button color="primary" *ngIf="currentActivity.C" (click)="AddCal()"
+                        [disabled]="viewMode && currentActivity.R">
+                    <mat-icon class="mr-2">add_circle_outline</mat-icon>
+                    {{btnText}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>
+    <div class="container  px-0 pt-2" *ngIf="tragetList">
+        <div class="table-responsive  border shadow-xs rounded-sm bg-gray-50" id="map_canvas">
+            <table class="table accordion table-striped">
+                <thead>
+                <tr class="table-header-background">
+                    <!--                    <th scope="col">SR. No</th>-->
+                    <th scope="col">Zone</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Circle</th>
+                    <th scope="col">Visit Date</th>
+                    <th scope="col">Purpose</th>
+                    <th scope="col">Remarks</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of tragetList | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems};  let row=index;">
+                    <!--                    <td>{{row + 1}}</td>-->
+                    <td>{{item?.ZoneName ? item?.ZoneName : "-"}}</td>
+                    <td>{{item?.BranchName ? item?.BranchName : "-"}}</td>
+                    <td>{{item?.CircleCode ? item?.CircleCode : "-"}}</td>
+                    <td>{{dateChange(item.VisitedDate)}}</td>
+                    <td>{{item?.PurposeName}}</td>
+                    <td [title]="item.Remarks">
+                        <p class="remarks-box mt-2">
+                            {{item.Remarks.slice(0, 30)}}
+                        </p>
+                    </td>
+                    <td> {{item.StatusName}} </td>
+                    <!--                    <td> {{getStatus(item.StatusName)}} </td>-->
+                    <td>
+                        <button mat-icon-button *ngIf="checkStatus(item, 'edit') && currentActivity.U" (click)="editTourPlan(item)"
+                                [disabled]="viewMode">
+                            <mat-icon title="Edit Tour Plan" style="cursor: pointer;">edit</mat-icon>
+                        </button>
+                        <button mat-icon-button *ngIf="checkStatus(item, 'delete') && currentActivity.D" (click)="deleteTourPlan(item)"
+                                [disabled]="viewMode">
+                            <mat-icon style="cursor: pointer;">delete</mat-icon>
+                        </button>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div *ngIf="tragetList" class="mat-select flex" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
+        <!-- This mat select is customized, not a part of Ngx Paginator, used for selected items per page -->
+        <span class="font-bold text-green">Items per page:</span>
+
+        <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage"
+                    (valueChange)="paginate(1,$event)"
+                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+        </mat-select>
+        <!--        <button (click)="paginate(1)">First</button> -->
+
+        <!--        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>-->
+        <pagination-controls (pageChange)="paginate($event)" class="my-pagination"></pagination-controls>
+        <!--
+                <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
+                <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p> -->
+
+    </div>
+
+    <div class="row" *ngIf="tragetList">
+        <div class="col-lg-12 flex  py-2 border-t">
+
+            <button *ngIf="showSubmit && currentActivity.U" mat-raised-button class="mr-2" color="primary" (click)="submitTourPlan()"
+                    [disabled]="viewMode">
+                <mat-icon class="mr-2">check_circle</mat-icon>
+                Submit
+            </button>
+
+        </div>
+    </div>
+</div>

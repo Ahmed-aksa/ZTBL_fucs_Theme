@@ -373,7 +373,7 @@ export class TourPlanComponent implements OnInit {
 
         this.spinner.show();
         this.tourPlanService
-            .createTourPlan(this.TourPlan)
+            .createTourPlan(this.TourPlan, null, null, null, null, null, null)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
@@ -426,7 +426,7 @@ export class TourPlanComponent implements OnInit {
         this.TourPlan = Object.assign(this.TourForm.value);
         this.TourPlan.VisitedDate = this.VisitedDate;
         this.TourPlan.Status = value;
-        
+
 
 
         this.spinner.show();

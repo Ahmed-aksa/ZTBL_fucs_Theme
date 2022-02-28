@@ -27,7 +27,7 @@ import {Circle} from 'app/shared/models/circle.model';
 import {Branch} from 'app/shared/models/branch.model';
 import {Zone} from 'app/shared/models/zone.model';
 import {SlashDateFormats} from "../../../shared/models/slash-format.class";
-import {CreateTourPlanPopupComponent} from './create-tour-plan-popup/create-tour-plan-popup.component';
+import {CreateTourPlanPopupComponent} from '../create-tour-plan/create-tour-plan-popup/create-tour-plan-popup.component';
 import {LovService} from 'app/shared/services/lov.service';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 
@@ -35,7 +35,7 @@ import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
 import {MatDatepicker} from '@angular/material/datepicker/datepicker';
 import {MatCalendarHeader} from '@angular/material/datepicker';
-import {TargetTourplanService} from "./tragetTourPlan.service";
+import {TargetTourplanService} from "../create-tour-plan/tragetTourPlan.service";
 import {BehaviorSubject} from 'rxjs';
 import {AppInjector} from '../tour-plan.module';
 import {MatPaginator} from '@angular/material/paginator';
@@ -62,11 +62,11 @@ const moment = _rollupMoment || _moment;
 
 
 @Component({
-    selector: 'create-tour-plan',
-    templateUrl: './create-tour-plan.component.html',
-    styleUrls: ['./create-tour-plan.component.scss'],
+    selector: 'create-tour-plan-pc',
+    templateUrl: './create-tour-plan-pc.component.html',
+    styleUrls: ['./create-tour-plan-pc.component.scss'],
 })
-export class CreateTourPlanComponent implements OnInit, OnDestroy {
+export class CreateTourPlanPcComponent implements OnInit, OnDestroy {
     tourPlanForm: FormGroup;
     exampleHeader = ExampleHeader
     branch: any;
@@ -234,7 +234,7 @@ export class CreateTourPlanComponent implements OnInit, OnDestroy {
 
         this.spinner.show()
         this.tourPlanService
-            .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate, 'MCO')
+            .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate, 'PC')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))

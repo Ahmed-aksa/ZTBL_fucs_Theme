@@ -353,26 +353,26 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    getProfileId(role) {
+        getProfileId(role) {
 
-        if (role == 'ZC') {
-            return environment.ZC;
-        } else if (role == 'MCO') {
-            return environment.MCO_Group_ID;
-        } else if (role == 'ZM') {
-            return environment.ZM;
-        } else if (role == 'BM') {
-            return environment.BM;
-        } else if (role == 'PC') {
-            return environment.PROVINCIAL_CHEIF;
-        } else if (role == 'RC') {
-            return environment.Regional_CHIEF;
-        } else if (role == 'RO') {
-            return environment.RECOVERY_OFFICER;
-        } else {
-            return this.userInfo.User.ProfileId;
+            if (role == 'ZC') {
+                return environment.ZC;
+            } else if (role == 'MCO') {
+                return environment.MCO_Group_ID;
+            } else if (role == 'ZM') {
+                return environment.ZM;
+            } else if (role == 'BM') {
+                return environment.BM;
+            } else if (role == 'PC') {
+                return environment.PROVINCIAL_CHEIF;
+            } else if (role == 'RC') {
+                return environment.Regional_CHIEF;
+            } else if (role == 'RO') {
+                return environment.RECOVERY_OFFICER;
+            } else {
+                return this.userInfo.User.ProfileId;
+            }
         }
-    }
 
 
     searchTourDiaryApproval(
