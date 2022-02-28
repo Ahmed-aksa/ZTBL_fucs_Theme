@@ -74,7 +74,7 @@ export class TourDiaryApprovalZcComponent implements OnInit {
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
         this.loggedInUser = this.userService.getUserDetails();
-        this.getTourDiaryDetail();
+        this.createForm()
     }
 
 
@@ -98,11 +98,41 @@ export class TourDiaryApprovalZcComponent implements OnInit {
         });
     }
 
+    createForm() {
+        this.gridForm = this.fb.group({
+            Name: [null, [Validators.required]],
+            Ppno: [null, [Validators.required]],
+            DiaryId: [null],
+            NameOfOfficer: [null],
+            TourPlanId: [null, [Validators.required]],
+            TourDate: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
+            GeneralAdmissionComplaints: [null],
+            CashManagementCompliance: [null],
+            NoOfUtilizationChecked: [null],
+            AuditReports: [null],
+            OutstandingParas: [null],
+            Settlements: [null],
+            TOTFarmersContacted: [null],
+            TOTNoOfFarmersVisisted: [null],
+            AnyOtherWorkDone: [null],
+            Remarks: [null],
+            Status: [null]
+        });
+    }
+
 
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
+
+        if (this.zone) {
+            this.getTourDiaryDetail();
+        }
     }
 
     changeStatus(status) {

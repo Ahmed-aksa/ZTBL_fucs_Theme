@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
@@ -32,6 +32,7 @@ import {Activity} from "../../../shared/models/activity.model";
 })
 export class TourDiaryApprovalPcComponent implements OnInit {
     loggedInUser: any;
+    gridForm: FormGroup;
     maxDate: Date;
     zone: any;
     branch: any;
@@ -72,7 +73,30 @@ export class TourDiaryApprovalPcComponent implements OnInit {
             this.toastr.error("No Tour Diary For Approval Found");
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
-        this.getTourDiaryDetail();
+        this.createForm()
+    }
+
+    createForm() {
+
+        this.gridForm = this.fb.group({
+            NameOfOfficer: [null, [Validators.required]],
+            Ppno: [null, [Validators.required]],
+            Month: [null],
+            Name: [null],
+            Date: [null],
+            Designation: [null],
+            TourDate: [null, [Validators.required]],
+            DiaryId: [null],
+            TourPlanId: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
+            NoOfDefaulterContacted: [null],
+            ResultContactMade: [null],
+            MeasureBoostUpRecord: [null],
+            Remarks: [null],
+        });
     }
 
 
@@ -80,6 +104,10 @@ export class TourDiaryApprovalPcComponent implements OnInit {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
+
+        if (this.zone) {
+            this.getTourDiaryDetail();
+        }
     }
 
     changeStatus(status) {

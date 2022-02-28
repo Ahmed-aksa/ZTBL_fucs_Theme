@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NgxSpinnerService} from "ngx-spinner";
 import {finalize} from "rxjs/operators";
 import {DateFormats} from "../../../shared/classes/lov.class";
@@ -75,7 +75,7 @@ export class TourDiaryApprovalBmComponent implements OnInit {
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
         this.loggedInUser = this.userService.getUserDetails();
-        this.getTourDiaryDetail();
+        this.createForm();
     }
 
 
@@ -93,11 +93,43 @@ export class TourDiaryApprovalBmComponent implements OnInit {
         }
     }
 
+    createForm() {
+        this.gridForm = this.fb.group({
+            DisbNoOfNewBorrowerContacted: [null],
+            DisbBorrowerRollOverCasesContacted: [null],
+            RecAmountRecoveredWithLCNo: [null],
+            RecNoOfDefaulterContacted: [null],
+            NoOfUtilizationChecked: [null],
+            TOTFarmersContacted: [null],
+            TOTNoOfFarmersVisisted: [null],
+            AnyOtherWorkDone: [null],
+            TourDate: [null, [Validators.required]],
+            DiaryId: [null],
+            TourPlanId: [null, [Validators.required]],
+            BranchId: [null],
+            ZoneId: [null],
+            CircleId: [null],
+            PPNO: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
+            Status: [null],
+            Remarks: [null],
+            Dated: [null],
+            NameOfOfficer: [null, [Validators.required]],
+
+        });
+    }
+
 
     getAllData(event) {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
+        if (this.zone) {
+            this.getTourDiaryDetail();
+        }
     }
 
     getTourDiaryDetail() {

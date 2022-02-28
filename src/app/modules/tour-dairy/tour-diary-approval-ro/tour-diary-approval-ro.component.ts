@@ -30,6 +30,7 @@ import {Activity} from "../../../shared/models/activity.model";
 
 export class TourDiaryApprovalRoComponent implements OnInit {
     loggedInUser: any;
+    gridForm: FormGroup;
     maxDate: Date;
     zone: any;
     branch: any;
@@ -67,7 +68,7 @@ export class TourDiaryApprovalRoComponent implements OnInit {
             this.toastr.error("No Tour Diary For Approval Found");
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
-        this.getTourDiaryDetail();
+        this.createForm();
     }
 
     getAllData(data) {
@@ -75,6 +76,29 @@ export class TourDiaryApprovalRoComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
+        if (this.zone) {
+            this.getTourDiaryDetail();
+        }
+
+    }
+
+    createForm() {
+        this.gridForm = this.fb.group({
+            Name: ["", [Validators.required]],
+            Ppno: ["", [Validators.required]],
+            DiaryId: [null],
+            TourPlanId: [null, [Validators.required]],
+            TourDate: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
+            NoOfDefaulterContacted: [null],
+            ResultContactMade: [null],
+            MeasureBoostUpRecord: [null],
+            Remarks: [null],
+            Status: [null],
+        });
     }
 
     changeStatus(status) {

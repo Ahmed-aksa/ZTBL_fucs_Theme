@@ -7,7 +7,7 @@ import {
 } from '@angular/material/core';
 import { DateFormats } from '../../../shared/classes/lov.class';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { LayoutUtilsService } from '../../../shared/services/layout_utils.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserUtilsService } from '../../../shared/services/users_utils.service';
@@ -19,6 +19,7 @@ import { TourDiary } from "../set-target/Models/tour-diary.model";
 import { ToastrService } from "ngx-toastr";
 import { SignaturePadForDiaryApproval } from "../signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import { Activity } from "../../../shared/models/activity.model";
+import {Debugger} from "inspector";
 
 @Component({
     selector: 'app-tour-diary-approval-zm',
@@ -81,6 +82,7 @@ export class TourDiaryApprovalZmComponent implements OnInit {
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
         this.loggedInUser = this.userService.getUserDetails();
+        this.createForm();
     }
 
 
@@ -104,6 +106,25 @@ export class TourDiaryApprovalZmComponent implements OnInit {
             });
     }
 
+    createForm() {
+        this.gridForm = this.fb.group({
+            Name: [null, [Validators.required]],
+            Ppno: [null, [Validators.required]],
+            TourDate: [null, [Validators.required]],
+            DiaryId: [null],
+            TourPlanId: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
+            LCNotIssuedToBorrowers: [null],
+            McoNBmTourDiaryAPPlan: [null],
+            AnyShortComingInDiaries: [null],
+            RecNoOfDefaulterContacted: [null],
+            Remarks:[null],
+            Status:[null],
+        });
+    }
 
     getAllData(event) {
         this.zone = event.final_zone;

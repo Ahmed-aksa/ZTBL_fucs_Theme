@@ -32,6 +32,7 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
     loggedInUser: any;
     Today = this._common.workingDate();
     // minDate: Date;
+    gridForm: FormGroup;
     date: string;
     branch: any;
     zone: any;
@@ -122,7 +123,38 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
             this.router.navigate(['/tour-diary/tour-diary-approval']);
         }
         this.loggedInUser = this.userService.getUserDetails();
-        this.getTourDiaryDetail();
+        this.createForm()
+    }
+
+    createForm() {
+        this.gridForm = this.fb.group({
+            Name: [null],
+            Ppno: [null],
+            DiaryId: [null],
+            NameOfOfficer: [null],
+            TourPlanId: [null, [Validators.required]],
+            TourDate: [null, [Validators.required]],
+            DepartureFromPlace: [null, [Validators.required]],
+            DepartureFromTime: [null, [Validators.required]],
+            ArrivalAtPlace: [null, [Validators.required]],
+            ArrivalAtTime: [null, [Validators.required]],
+            DisbNoOfCasesReceived: [null],
+            DisbNoOfCasesAppraised: [null],
+            DisbNoOfRecordVerified: [null],
+            DisbNoOfSanctionedAuthorized: [null],
+            DisbSanctionLetterDelivered: [null],
+            DisbSupplyOrderDelivered: [null],
+            NoOfSanctnMutationVerified: [null],
+            NoOfUtilizationChecked: [null],
+            RecNoOfNoticeDelivered: [null],
+            RecNoOfLegalNoticeDelivered: [null],
+            RecNoOfDefaulterContacted: [null],
+            TOTFarmersContacted: [null],
+            TOTNoOfFarmersVisisted: [null],
+            AnyOtherWorkDone: [null],
+            Remarks: [null],
+            Status: [null]
+        })
     }
 
 
@@ -199,6 +231,9 @@ export class TourDiaryApprovalMcoComponent implements OnInit {
         this.zone = event.final_zone;
         this.branch = event.final_branch;
         this.circle = event.final_circle;
+        if (this.zone) {
+            this.getTourDiaryDetail();
+        }
     }
 
     changeStatus(status) {
