@@ -302,7 +302,6 @@ export class TourPlanForApprovalComponent implements OnInit {
             PPNO: [null],
             Status: ["S", Validators.required],
         });
-        this.tourPlanApprovalForm.controls['Status'].disable();
     }
 
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {

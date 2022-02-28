@@ -282,7 +282,7 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     getAllData(data) {
-        debugger
+        
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;

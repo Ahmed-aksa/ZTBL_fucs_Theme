@@ -55,7 +55,7 @@ export class SearchTourDiaryTabComponent implements OnInit {
     redirectTourDiary(data: any, mode) {
 
         if (data?.RedirectTo) {
-            debugger
+            
             if (this.zone.ZoneId)
                 localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
             if (this.branch?.BranchCode)

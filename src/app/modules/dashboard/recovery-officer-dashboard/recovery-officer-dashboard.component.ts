@@ -34,7 +34,7 @@ export class RecoveryOfficerDashboardComponent implements OnInit {
     }
 
     assignRoleData(DashboardReport: any) {
-        debugger
+        
         if (!DashboardReport?.RecoveryAchievement) {
             return
         }
