@@ -20,29 +20,21 @@ import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {TourPlan} from '../Model/tour-plan.model';
 import {TourPlanService} from "../Service/tour-plan.service";
-import {CircleService} from "../../../shared/services/circle.service";
-import {CommonService} from "../../../shared/services/common.service";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
-import {Circle} from 'app/shared/models/circle.model';
-import {Branch} from 'app/shared/models/branch.model';
-import {Zone} from 'app/shared/models/zone.model';
-import {SlashDateFormats} from "../../../shared/models/slash-format.class";
-import {CreateTourPlanPopupComponent} from '../create-tour-plan/create-tour-plan-popup/create-tour-plan-popup.component';
 import {LovService} from 'app/shared/services/lov.service';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 
 import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
-import {MatDatepicker} from '@angular/material/datepicker/datepicker';
 import {MatCalendarHeader} from '@angular/material/datepicker';
-import {TargetTourplanService} from "../create-tour-plan/tragetTourPlan.service";
-import {BehaviorSubject} from 'rxjs';
 import {AppInjector} from '../tour-plan.module';
 import {MatPaginator} from '@angular/material/paginator';
 import {} from "inspector";
-import {AlertDialogConfirmationComponent} from "../../../shared/crud";
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
+import {TargetTourplanService} from "../create-tour-plan/tragetTourPlan.service";
+import {
+    CreateTourPlanPopupComponent
+} from "../create-tour-plan/create-tour-plan-popup/create-tour-plan-popup.component";
 
 const moment = _rollupMoment || _moment;
 
@@ -234,7 +226,7 @@ export class CreateTourPlanZmComponent implements OnInit, OnDestroy {
 
         this.spinner.show()
         this.tourPlanService
-            .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate, 'ZM')
+            .createTourPlan(this.TourPlan, this.zone, this.branch, this.circle, this.startDate, this.endDate,"ZC")
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
@@ -605,7 +597,7 @@ export class TragetLitsChileDto {
 /** Custom header component for datepicker. */
 @Component({
     selector: 'example-header',
-    styleUrls: ['./create-tour-plan.component.scss'],
+    styleUrls: ['./create-tour-plan-zm.component.scss'],
     template: `
         <div class="mat-calendar-header">
             <div class="mat-calendar-controls">

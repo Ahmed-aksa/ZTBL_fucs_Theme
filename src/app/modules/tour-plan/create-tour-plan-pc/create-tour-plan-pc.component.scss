@@ -1,0 +1,28 @@
+.mat-calendar-previous-button::after, .mat-calendar-next-button::after {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    content: none;
+    margin: 15.5px;
+    border: 0 solid currentColor;
+    border-top-width: 2px;
+}
+
+.mat-calendar-next-button:hover{
+    color: black;
+}
+
+
+#map_canvas {
+    height: calc(100vh - 350px);
+}
+
+.remarks-box{
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    width: 160px; 
+    height: 1.2em; 
+    white-space: nowrap;
+}
