@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {Subject, timer} from 'rxjs';
 import {finalize, takeUntil, takeWhile, tap} from 'rxjs/operators';
 import {AuthService} from 'app/core/auth/auth.service';
+import {BaseResponseModel} from "../../../shared/models/base_response.model";
+import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 
 @Component({
     selector: 'auth-sign-out',
@@ -22,7 +24,8 @@ export class AuthSignOutComponent implements OnInit, OnDestroy {
      */
     constructor(
         private _authService: AuthService,
-        private _router: Router
+        private _router: Router,
+        private layoutUtilsService: LayoutUtilsService
     ) {
     }
 
@@ -35,21 +38,34 @@ export class AuthSignOutComponent implements OnInit, OnDestroy {
      */
     ngOnInit(): void {
         // Sign out
-        this._authService.signOut();
+        this._authService.signOut().pipe(
+            finalize(() => {
+                // this.spinner.hide();
+            })
+        )
+            .subscribe((baseResponse: BaseResponseModel) => {
+                if (baseResponse?.Success === true) {
+                    // Redirect after the countdown
+                    timer(1000, 1000)
+                        .pipe(
+                            finalize(() => {
+                                location.reload();
+                                localStorage.clear()
+                                //this._router.navigate(['auth/sign-in']);
 
-        // Redirect after the countdown
-        timer(1000, 1000)
-            .pipe(
-                finalize(() => {
-                    location.reload();
-                    //this._router.navigate(['auth/sign-in']);
+                            }),
+                            takeWhile(() => this.countdown > 0),
+                            takeUntil(this._unsubscribeAll),
+                            tap(() => this.countdown--)
+                        )
+                        .subscribe();
+                }
+                else{
+                    this.layoutUtilsService.alertElement('', baseResponse.Message)
+                }
+            })
 
-                }),
-                takeWhile(() => this.countdown > 0),
-                takeUntil(this._unsubscribeAll),
-                tap(() => this.countdown--)
-            )
-            .subscribe();
+
     }
 
     /**

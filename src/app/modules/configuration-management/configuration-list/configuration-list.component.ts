@@ -48,7 +48,6 @@ export class ConfigurationListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentActivity = this.userUtilsService.getActivity('Configurations')
         this.loadConfigurationPage();
     }
 

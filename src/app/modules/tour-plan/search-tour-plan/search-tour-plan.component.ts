@@ -447,26 +447,6 @@ export class SearchTourPlanComponent implements OnInit {
     }
 
 
-    deleteTourPlan(tourPlan) {
-        tourPlan.Status = "C";
-
-        this.spinner.show();
-        this.tourPlanService
-            .ChanageTourStatus(tourPlan)
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe(
-                (baseResponse) => {
-                    if (baseResponse.Success) {
-
-                        // this.layoutUtilsService.alertElement("", baseResponse.Message);
-                        this.SearchTourPlan()
-                    }
-                });
-
-    }
-
 
     async LoadLovs() {
 

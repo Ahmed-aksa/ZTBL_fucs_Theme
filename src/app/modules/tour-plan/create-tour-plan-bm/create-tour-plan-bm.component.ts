@@ -355,7 +355,7 @@ export class CreateTourPlanBmComponent implements OnInit, OnDestroy {
         }
 
 
-        this.tourPlanService.GetScheduleBaseTourPlan(TourPlan, count, currentIndex, this.branch, this.zone)
+        this.tourPlanService.GetScheduleBaseTourPlan(TourPlan, count, currentIndex, this.branch, this.zone, 'BM')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -444,7 +444,7 @@ export class CreateTourPlanBmComponent implements OnInit, OnDestroy {
                 this.TourPlan = item;
                 this.TourPlan.Status = 'C';
                 this.tourPlanService
-                    .ChanageTourStatus(this.TourPlan)
+                    .ChanageTourStatus(this.TourPlan, 'BM')
                     .pipe(finalize(() => {
                         this.spinner.hide();
                     }))
@@ -493,7 +493,7 @@ export class CreateTourPlanBmComponent implements OnInit, OnDestroy {
                 this.TourPlan.Status = 'S';
                 this.tourPlanSubmit.Status = this.TourPlan.Status
                 this.tourPlanService
-                    .ChanageTourStatusMultiple(this.tourPlanSubmit)
+                    .ChanageTourStatusMultiple(this.tourPlanSubmit, 'BM')
                     .pipe(finalize(() => {
                         this.spinner.hide();
                     }))

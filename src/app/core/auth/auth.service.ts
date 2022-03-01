@@ -11,6 +11,7 @@ import {BaseRequestModel, OTP} from "../../shared/models/base_request.model";
 import {environment} from "../../../environments/environment";
 import {HttpUtilsService} from "../../shared/services/http_utils.service";
 import {BaseResponseModel} from "../../shared/models/base_response.model";
+import {UserUtilsService} from "../../shared/services/users_utils.service";
 
 @Injectable()
 export class AuthService {
@@ -21,6 +22,7 @@ export class AuthService {
     constructor(
         private httpUtils: HttpClient,
         private _userService: UserService,
+        private _userUtilsService: UserUtilsService,
     ) {
 
     }
@@ -143,15 +145,35 @@ export class AuthService {
     /**
      * Sign out
      */
+    // signOut(): Observable<any> {
+    //     // Remove the access token from the local storage
+    //     localStorage.clear();
+    //
+    //     // Set the authenticated flag to false
+    //     this._authenticated = false;
+    //
+    //     // Return the observable
+    //     return of(true);
+    // }
+
     signOut(): Observable<any> {
-        // Remove the access token from the local storage
-        localStorage.clear();
-
-        // Set the authenticated flag to false
-        this._authenticated = false;
-
-        // Return the observable
-        return of(true);
+        this.request = new BaseRequestModel();
+        //this._authenticated = false;
+        // localStorage.clear();
+        var userInfo = this._userUtilsService.getUserDetails();
+        this.request.User = userInfo.User;
+        return this.httpUtils.post<any>(`${environment.apiUrl}/Account/Logout`, this.request)
+            .pipe(
+                map((res: BaseResponseModel) => res
+                )
+            );
+        // return this.httpUtils.post<any>(`${environment.apiUrl}/Account/Logout`, this.request)
+        //     .pipe(
+        //         map((res: BaseResponseModel) => {
+        //                 res;
+        //             }
+        //         )
+        //     );
     }
 
     /**

@@ -3,7 +3,7 @@
     <div class="heading mt-3">Create Tour Plan For MCO</div>
     <!-- Header -->
     <div class="flex pt-2" style="flex-wrap:wrap;" [formGroup]="tourPlanForm">
-        <app-zone-branch-circle [form]="tourPlanForm" [should_filter]="true"
+        <app-zone-branch-circle [form]="tourPlanForm" [should_filter]="false"
                                 [is_required_circle]="true"
                                 (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">

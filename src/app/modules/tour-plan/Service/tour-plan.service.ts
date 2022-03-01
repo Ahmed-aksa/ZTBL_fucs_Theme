@@ -53,7 +53,7 @@ export class TourPlanService {
         this.request.DEVICELOCATION = this.deviceLocation;
         this.request.TranId = 2830;
         this.request.doPerformOTP = false;
-        this.userInfo.User.ProfileId = this.getProfileId(role)
+        this.request.User["ProfileId"] = this.getProfileId(role)
         this.request.User = this.userInfo.User;
         this.request.TourPlan = TourPlan;
         this.request.TourPlan.StartDate = startDate;
@@ -82,9 +82,10 @@ export class TourPlanService {
         );
     }
 
-    ChanageTourStatus(tourPlan: TourPlan) {
+    ChanageTourStatus(tourPlan: TourPlan, role= null) {
         this.request = new BaseRequestModel();
         this.request.User = this.userInfo.User;
+        this.request.User["ProfileId"] = this.getProfileId(role)
         this.request.TourPlan = {
             "TourPlanStatus": {"Status": tourPlan.Status, "TourPlanIds": [tourPlan.TourPlanId]}
         };
@@ -94,7 +95,7 @@ export class TourPlanService {
         );
     }
 
-    ChanageTourStatusMultiple(tourPlan: TourPlan) {
+    ChanageTourStatusMultiple(tourPlan: TourPlan, role=null) {
 
         var value, tourPlanAray = [], tourPlanIds;
         value = tourPlan
@@ -106,6 +107,7 @@ export class TourPlanService {
         tourPlanIds = tourPlanAray;
 
         this.request = new BaseRequestModel();
+        this.request.User["ProfileId"] = this.getProfileId(role)
         this.request.User = this.userInfo.User;
         var v = JSON.stringify(tourPlan)
 
@@ -195,13 +197,14 @@ export class TourPlanService {
         );
     }
 
-    GetScheduleBaseTourPlan(tourPlan, Limit, Offset, branch, zone) {
-
+    GetScheduleBaseTourPlan(tourPlan, Limit, Offset, branch, zone, role=null) {
+        debugger
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();
 
         this.request.User = userInfo.User;
+        this.request.User["ProfileId"] = this.getProfileId(role)
         this.request.TourPlan = tourPlan;
         this.request.TourPlan.Limit = Limit;
         this.request.TourPlan.Offset = Offset;

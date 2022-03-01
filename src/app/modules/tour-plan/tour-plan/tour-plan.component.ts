@@ -431,7 +431,7 @@ export class TourPlanComponent implements OnInit {
 
         this.spinner.show();
         this.tourPlanService
-            .ChanageTourStatus(this.TourPlan)
+            .ChanageTourStatus(this.TourPlan, null)
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
