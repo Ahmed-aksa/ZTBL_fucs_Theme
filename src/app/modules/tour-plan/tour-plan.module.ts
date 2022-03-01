@@ -20,6 +20,7 @@ import { CreateTourPlanPcComponent } from './create-tour-plan-pc/create-tour-pla
 import { CreateTourPlanRoComponent } from './create-tour-plan-ro/create-tour-plan-ro.component';
 import { CreateTourPlanRcComponent } from './create-tour-plan-rc/create-tour-plan-rc.component';
 import { CreateTourPlanBmComponent } from './create-tour-plan-bm/create-tour-plan-bm.component';
+import {SearchTourPlanTabComponent} from "./search-tour-plan-tab/search-tour-plan-tab.component";
 
 export let AppInjector: Injector;
 const routing = [
@@ -29,11 +30,31 @@ const routing = [
     //     component: TourPlanComponent,
     // },
     {
-        path: "tour-plan-mco",
+        path: "create-tour-plan-mco",
         component: CreateTourPlanMcoComponent,
     },{
-        path: "tour-plan-zc",
+        path: "create-tour-plan-bm",
+        component: CreateTourPlanBmComponent,
+    },
+    {
+        path: "create-tour-plan-ro",
+        component: CreateTourPlanRoComponent,
+    },
+    {
+        path: "create-tour-plan-zm",
+        component: CreateTourPlanZmComponent,
+    },
+    {
+        path: "create-tour-plan-zc",
         component: CreateTourPlanZCComponent,
+    },
+    {
+        path: "create-tour-plan-rc",
+        component: CreateTourPlanRcComponent,
+    },
+    {
+        path: "create-tour-plan-pc",
+        component: CreateTourPlanPcComponent,
     },
     {
         path: "search-tour-plan",
@@ -74,7 +95,8 @@ const routing = [
         CreateTourPlanPcComponent,
         CreateTourPlanRoComponent,
         CreateTourPlanRcComponent,
-        CreateTourPlanBmComponent
+        CreateTourPlanBmComponent,
+        SearchTourPlanTabComponent
 
         // ViewTourPlanComponent
     ],

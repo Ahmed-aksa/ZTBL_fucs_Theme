@@ -77,6 +77,7 @@ export class SearchTourPlanComponent implements OnInit {
 
     zone: any;
     branch: any;
+    circle: any;
     currentActivity: Activity;
 
 
@@ -97,6 +98,13 @@ export class SearchTourPlanComponent implements OnInit {
                 private userUtilsService: UserUtilsService) {
         this.loggedInUser = userUtilsService.getUserDetails();
         this.Math = Math;
+    }
+
+    filterConfiguration(): any {
+        const filter: any = {};
+        const searchText: string = this.searchInput.nativeElement.value;
+        filter.title = searchText;
+        return filter;
     }
 
     ngOnInit() {
@@ -366,35 +374,37 @@ export class SearchTourPlanComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    this.TourPlans = baseResponse?.TourPlan?.TourPlansByDate;
-                    this.dataSource.data = baseResponse?.TourPlan?.TourPlansByDate;
-                    if (this.dataSource?.data?.length > 0)
-                        this.matTableLenght = true;
-                    else
-                        this.matTableLenght = false;
-
-                    this.dv = this.dataSource.data;
-                    this.totalItems = baseResponse.TourPlan.TourPlansByDate[0].TotalRecords;
-                    this.dataSource.data = this.dv.slice(0, this.totalItems)
-                    //this.dataSource = new MatTableDataSource(data);
-
-                    // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
-                    //this.paginate(this.pageIndex) //calling paginate function
-                    this.OffSet = this.pageIndex;
-                    this.dataSource = this.dv.slice(0, this.itemsPerPage);
+                    debugger
+                    this.TourPlans = baseResponse?.TourPlan?.TourPlans;
+                    // this.dataSource.data = baseResponse?.TourPlan?.TourPlans;
+                    // if (this.dataSource?.data?.length > 0)
+                    //     this.matTableLenght = true;
+                    // else
+                    //     this.matTableLenght = false;
+                    //
+                    // this.dv = this?.dataSource?.data;
+                    // this.totalItems = baseResponse?.TourPlan?.TourPlansByDate[0]?.TotalRecords;
+                    // this.dataSource.data = this.dv?.slice(0, this.totalItems)
+                    // //this.dataSource = new MatTableDataSource(data);
+                    //
+                    // // this.totalItems = baseResponse.JournalVoucher.JournalVoucherDataList.length;
+                    // //this.paginate(this.pageIndex) //calling paginate function
+                    // this.OffSet = this.pageIndex;
+                    // this.dataSource = this.dv?.slice(0, this.itemsPerPage);
                 } else {
-
-                    // if (this.dv != undefined) {
-                    this.matTableLenght = false;
                     this.TourPlans = [];
-                    this.dataSource = this.dv?.splice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
-                    // this.dataSource.data = [];
-                    // this._cdf.detectChanges();
-                    this.OffSet = 1;
-                    this.pageIndex = 1;
-                    this.dv = this.dv?.splice(1, 0);
                     this.layoutUtilsService.alertElement("", baseResponse.Message);
-                    // }
+                    // // if (this.dv != undefined) {
+                    // this.matTableLenght = false;
+                    // this.TourPlans = [];
+                    // this.dataSource = this.dv?.splice(1, 0);//this.dv.slice(2 * this.itemsPerPage - this.itemsPerPage, 2 * this.itemsPerPage);
+                    // // this.dataSource.data = [];
+                    // // this._cdf.detectChanges();
+                    // this.OffSet = 1;
+                    // this.pageIndex = 1;
+                    // this.dv = this.dv?.splice(1, 0);
+                    // this.layoutUtilsService.alertElement("", baseResponse.Message);
+                    // // }
                 }
             });
     }
@@ -412,14 +422,6 @@ export class SearchTourPlanComponent implements OnInit {
     //         return "Refer Back";
     //     }
     // }
-
-
-    filterConfiguration(): any {
-        const filter: any = {};
-        const searchText: string = this.searchInput.nativeElement.value;
-        filter.title = searchText;
-        return filter;
-    }
 
     ngOnDestroy() {
     }
@@ -488,6 +490,7 @@ export class SearchTourPlanComponent implements OnInit {
     getAllData(data) {
         this.zone = data.final_zone;
         this.branch = data.final_branch;
+        this.circle = data.final_circle;
     }
 
     dateChange(date: string) {

@@ -130,7 +130,7 @@ export class CreateTourPlanRoComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.currentActivity = this.userUtilsService.getActivity('Create Tour Plan')
+        this.currentActivity = this.userUtilsService.getActivity('Create Tour Plan For RO')
         this.createForm();
         this.getPurposeofVisitLov();
         this.targetPlan.closeCalendarSource.subscribe((data) => {
@@ -143,7 +143,7 @@ export class CreateTourPlanRoComponent implements OnInit, OnDestroy {
         if (this.isEdit != null && this.isEdit != "0") {
             this.tourPlanEditView = JSON.parse(localStorage.getItem("SearchTourPlan"));
             this.EditViewMode = true;
-            if (this.tourPlanEditView.viewOnly == true) {
+            if (this.tourPlanEditView.visibility == true) {
                 this.viewMode = true
             } else {
                 this.viewMode = false

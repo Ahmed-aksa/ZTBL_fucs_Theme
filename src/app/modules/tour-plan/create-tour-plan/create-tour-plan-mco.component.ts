@@ -138,7 +138,8 @@ export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.currentActivity = this.userUtilsService.getActivity('Create Tour Plan')
+        debugger
+        this.currentActivity = this.userUtilsService.getActivity('Create Tour Plan For MCO')
         this.createForm();
         this.getPurposeofVisitLov();
         this.targetPlan.closeCalendarSource.subscribe((data) => {
@@ -147,11 +148,12 @@ export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
 
         var upFlag = this.activatedRoute.snapshot.params['upFlag'];
         this.isEdit = localStorage.getItem("EditViewTourPlan");
+        let visibility = localStorage.getItem('Visibility')
 
         if (this.isEdit != null && this.isEdit != "0") {
             this.tourPlanEditView = JSON.parse(localStorage.getItem("SearchTourPlan"));
             this.EditViewMode = true;
-            if (this.tourPlanEditView.viewOnly == true) {
+            if (visibility == 'true') {
                 this.viewMode = true
             } else {
                 this.viewMode = false
