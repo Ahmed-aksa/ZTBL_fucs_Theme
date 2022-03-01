@@ -58,7 +58,7 @@ export class ActivityListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentActivity = this.userUtilsService.getActivity('Pages');
+        //this.currentActivity = this.userUtilsService.getActivity('Pages');
         this.getUserActivities();
 
     }

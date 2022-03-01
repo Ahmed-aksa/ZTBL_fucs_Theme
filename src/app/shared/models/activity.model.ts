@@ -9,6 +9,8 @@ export class Activity {
     isActivityChecked: boolean;
     IsActive: boolean;
     IsVisible: boolean;
+    IsEODVisible: boolean;
+    IsVisibleInAPP: boolean;
     IsParent: any;
     Status: boolean;
     IsReadOnly: boolean;

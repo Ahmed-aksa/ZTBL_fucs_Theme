@@ -89,14 +89,22 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3">
-                            <mat-checkbox style="margin-top: 15px;" formControlName="IsVisible"
-                                          [checked]="this.data.activity.IsVisible"
+                            <mat-checkbox style="margin-top: 15px;" formControlName="IsEODVisible"
+                                          [checked]="this.data.activity.IsEODVisible"
                             ><span>Should Show after EOD?</span>
+                            </mat-checkbox>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3">
+                            <mat-checkbox style="margin-top: 15px;" formControlName="IsVisibleInAPP"
+                                          [checked]="this.data.activity.IsVisibleInAPP"
+                            ><span>Should Show in Mobile App?</span>
                             </mat-checkbox>
                         </div>
 
 
                     </div>
+
                     <div *ngIf="isVisible">
 
                         <div class="row">

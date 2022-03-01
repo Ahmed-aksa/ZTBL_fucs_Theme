@@ -121,37 +121,7 @@
             <div class="row">
 
                 <div class="col-lg-6 table-responsive">
-                    <p class="heading mb-2 text-lg">Resources Count</p>
-                    <table class="table  table-striped">
-                        <tbody>
-                        <tr *ngFor="let item of ResourcesCount">
-                            <td style [innerHTML]="item.Value"></td>
-                            <td>{{item.Key}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-lg-6 table-responsive">
-                    <p class="heading mb-2 text-lg">Country Top 5 Zone</p>
-                    <table class="table  table-striped">
-                        <thead>
-                        <tr class="table-header-background">
-                            <th scope="col">Sr.#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let item of CountryTop5">
-                            <td>{{item.SrNO}}</td>
-                            <td>{{item.Name}}</td>
-                            <td>{{item.Amount}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-lg-6 table-responsive">
-                    <p class="heading mb-2 text-lg">Country Top 5 Worst Zones</p>
+                    <p class="heading mb-2 text-lg">Country Top 5 Worst Zones (Maximum NPL + SAM)</p>
                     <table class="table  table-striped">
                         <thead>
                         <tr class="table-header-background">
@@ -170,6 +140,37 @@
                     </table>
                 </div>
 
+                <div class="col-lg-6 table-responsive">
+                    <p class="heading mb-2 text-lg">Country Top 5 Zone (Minimum NPL + SAM)</p>
+                    <table class="table  table-striped">
+                        <thead>
+                        <tr class="table-header-background">
+                            <th scope="col">Sr.#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of CountryTop5">
+                            <td>{{item.SrNO}}</td>
+                            <td>{{item.Name}}</td>
+                            <td>{{item.Amount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-lg-6 table-responsive">
+                    <p class="heading mb-2 text-lg">Resources Count</p>
+                    <table class="table  table-striped">
+                        <tbody>
+                        <tr *ngFor="let item of ResourcesCount">
+                            <td style [innerHTML]="item.Value"></td>
+                            <td>{{item.Key}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
 

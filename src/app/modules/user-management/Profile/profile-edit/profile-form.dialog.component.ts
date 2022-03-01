@@ -104,7 +104,7 @@ export class ProfileFormDialogComponent implements OnInit {
         this.GetAllProfiles();
 
         var u = new UserUtilsService();
-        this._currentActivity = u.getActivity('Pages');
+        // this._currentActivity = u.getActivity('Pages');
 
     }
 
