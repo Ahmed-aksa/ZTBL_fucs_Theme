@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {DatePipe} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
@@ -47,6 +47,7 @@ export class TourDiaryBmComponent implements OnInit {
     currentActivity: Activity;
 
     edit_mode: boolean = true;
+    has_previous: boolean = false;
 
     constructor(
         private fb: FormBuilder,
@@ -57,6 +58,7 @@ export class TourDiaryBmComponent implements OnInit {
         private layoutUtilsService: LayoutUtilsService,
         private spinner: NgxSpinnerService,
         private _cdf: ChangeDetectorRef,
+        private location: Location
     ) {
         this.loggedInUser = userService.getSearchResultsDataOfZonesBranchCircle();
     }
@@ -69,6 +71,7 @@ export class TourDiaryBmComponent implements OnInit {
     ngAfterViewInit() {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
+            this.has_previous = true;
             localStorage.removeItem('TourDiary');
             if (localStorage.getItem('visibility') == 'false') {
                 this.edit_mode = true;
@@ -493,4 +496,7 @@ export class TourDiaryBmComponent implements OnInit {
         });
     }
 
+    previousPage() {
+        this.location.back();
+    }
 }

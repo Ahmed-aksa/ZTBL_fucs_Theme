@@ -112,35 +112,6 @@ export class TourDiaryZcComponent implements OnInit {
             );
             return;
         }
-
-        // if (!this.branch) {
-        //     var Message = 'Please select Branch';
-        //     this.layoutUtilsService.alertElement(
-        //         '',
-        //         Message,
-        //         null
-        //     );
-        //     return;
-        // }
-
-        // if (!this.circle) {
-        //     var Message = 'Please select Circle';
-        //     this.layoutUtilsService.alertElement(
-        //         '',
-        //         Message,
-        //         null
-        //     );
-        //     return;
-        // }
-
-        // if (this.gridForm.invalid) {
-        //     const controls = this.gridForm.controls;
-        //     Object.keys(controls).forEach(controlName =>
-        //         controls[controlName].markAsTouched()
-        //     );
-        //     return;
-        // }
-
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
@@ -439,7 +410,7 @@ export class TourDiaryZcComponent implements OnInit {
 
     }
 
-    previousPage() {
+    previous() {
         this.location.back();
     }
 }

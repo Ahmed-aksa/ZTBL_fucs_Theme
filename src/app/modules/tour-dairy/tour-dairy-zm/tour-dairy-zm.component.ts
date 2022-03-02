@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {DatePipe} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import {
     DateAdapter,
     MAT_DATE_FORMATS,
@@ -55,6 +55,7 @@ export class TourDiaryZmComponent implements OnInit {
     systemGenerated: any;
     currentActivity: Activity;
     edit_mode: boolean = true;
+    has_previous: boolean = false;
 
     constructor(
         private fb: FormBuilder,
@@ -67,9 +68,9 @@ export class TourDiaryZmComponent implements OnInit {
         private router: Router,
         private toastr: ToastrService,
         private _common: CommonService,
+        private location: Location
     ) {
         this.loggedInUser = userUtilsService.getUserDetails();
-        console.log(this.loggedInUser)
     }
 
     ngOnInit(): void {
@@ -80,6 +81,7 @@ export class TourDiaryZmComponent implements OnInit {
     ngAfterViewInit() {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
+            this.has_previous = true;
             localStorage.removeItem('TourDiary');
             if (localStorage.getItem('visibility') == 'false') {
                 this.edit_mode = true;
@@ -448,5 +450,9 @@ export class TourDiaryZmComponent implements OnInit {
         console.log(zoneId)
         this.getBranches(zoneId);
 
+    }
+
+    previous() {
+        this.location.back();
     }
 }

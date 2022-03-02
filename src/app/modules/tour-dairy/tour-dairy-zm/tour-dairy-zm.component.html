@@ -5,7 +5,10 @@
 
     <div class="row pt-3">
         <div class="col-lg-9 col-sm-12">
-            <div class="heading">TOUR DIARY & PROGRESS REPORT OF ZM (RECOVERY & SAM)</div>
+            <div class="heading" style="display: flex;justify-content: space-between">TOUR DIARY & PROGRESS REPORT OF ZM
+                (RECOVERY & SAM)
+                <button (click)="previous()" *ngIf="has_previous">Previous</button>
+            </div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
 

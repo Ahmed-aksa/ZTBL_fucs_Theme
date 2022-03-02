@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DatePipe } from "@angular/common";
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from "@angular/material/core";
-import { MomentDateAdapter } from "@angular/material-moment-adapter";
-import { DateFormats } from "../../../shared/classes/lov.class";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { LayoutUtilsService } from "../../../shared/services/layout_utils.service";
-import { NgxSpinnerService } from "ngx-spinner";
-import { UserUtilsService } from "../../../shared/services/users_utils.service";
-import { MatDialog } from "@angular/material/dialog";
-import { Router } from "@angular/router";
-import { TourDiaryService } from "../set-target/Services/tour-diary.service";
-import { finalize } from "rxjs/operators";
-import { CommonService } from "../../../shared/services/common.service";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {DatePipe, Location} from "@angular/common";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {DateFormats} from "../../../shared/classes/lov.class";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {NgxSpinnerService} from "ngx-spinner";
+import {UserUtilsService} from "../../../shared/services/users_utils.service";
+import {MatDialog} from "@angular/material/dialog";
+import {Router} from "@angular/router";
+import {TourDiaryService} from "../set-target/Services/tour-diary.service";
+import {finalize} from "rxjs/operators";
+import {CommonService} from "../../../shared/services/common.service";
 import {Activity} from "../../../shared/models/activity.model";
 
 @Component({
@@ -20,8 +20,8 @@ import {Activity} from "../../../shared/models/activity.model";
     styleUrls: ['./tour-diary-rc.component.scss'],
     providers: [
         DatePipe,
-        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-        { provide: MAT_DATE_FORMATS, useValue: DateFormats }
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: DateFormats}
 
     ],
 })
@@ -45,6 +45,7 @@ export class TourDiaryRcComponent implements OnInit {
     currentActivity: Activity;
 
     edit_mode: boolean = true;
+    has_previous: boolean = false;
 
     constructor(
         private fb: FormBuilder,
@@ -55,7 +56,8 @@ export class TourDiaryRcComponent implements OnInit {
         public dialog: MatDialog,
         private router: Router,
         private datePipe: DatePipe,
-        private commonService: CommonService
+        private commonService: CommonService,
+        private location: Location
     ) {
         this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
@@ -64,9 +66,11 @@ export class TourDiaryRcComponent implements OnInit {
         this.currentActivity = this.userUtilsService.getActivity('Tour Diary For RC')
         this.createForm();
     }
+
     ngAfterViewInit() {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
+            this.has_previous = true;
             localStorage.removeItem('TourDiary');
             if (localStorage.getItem('visibility') == 'false') {
                 this.edit_mode = true;
@@ -82,6 +86,7 @@ export class TourDiaryRcComponent implements OnInit {
             }
         }, 1000);
     }
+
     createForm() {
         this.gridForm = this.fb.group({
             Name: ["", [Validators.required]],
@@ -166,17 +171,17 @@ export class TourDiaryRcComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-                if (baseResponse.Success) {
-                    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                    this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
-                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
-                    this.isUpdate = false;
-                    this.onClearForm();
-                } else {
-                    this.layoutUtilsService.alertElement('', baseResponse.Message);
-                }
+            if (baseResponse.Success) {
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                this.isUpdate = false;
+                this.onClearForm();
+            } else {
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
 
-            });
+        });
     }
 
     onClearForm() {
@@ -235,21 +240,21 @@ export class TourDiaryRcComponent implements OnInit {
                             this.spinner.hide();
                         })
                     ).subscribe(baseResponse => {
-                        if (baseResponse.Success) {
+                    if (baseResponse.Success) {
 
-                            this.TourDiaryList = [];
-                            this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                            this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                            this.isUpdate = false;
-                            this.onClearForm();
-                            this.TourDiary = null;
-                        } else {
-                            this.TourDiaryList = [];
-                            this.TourDiary = null;
-                            this.layoutUtilsService.alertElement('', baseResponse.Message);
-                        }
+                        this.TourDiaryList = [];
+                        this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                        this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                        this.isUpdate = false;
+                        this.onClearForm();
+                        this.TourDiary = null;
+                    } else {
+                        this.TourDiaryList = [];
+                        this.TourDiary = null;
+                        this.layoutUtilsService.alertElement('', baseResponse.Message);
+                    }
 
-                    });
+                });
             });
         }
     }
@@ -275,23 +280,23 @@ export class TourDiaryRcComponent implements OnInit {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
-                if (baseResponse.Success) {
+            if (baseResponse.Success) {
 
 
-                    this.TourDiaryList = [];
-                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                    this.isUpdate = false;
-                    this.onClearForm();
-                    this.TourDiary = null;
+                this.TourDiaryList = [];
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                this.isUpdate = false;
+                this.onClearForm();
+                this.TourDiary = null;
 
-                } else {
-                    this.TourDiaryList = [];
-                    this.TourDiary = null;
-                    this.layoutUtilsService.alertElement('', baseResponse.Message);
-                }
+            } else {
+                this.TourDiaryList = [];
+                this.TourDiary = null;
+                this.layoutUtilsService.alertElement('', baseResponse.Message);
+            }
 
-            });
+        });
     }
 
     getAllData(data) {
@@ -317,7 +322,7 @@ export class TourDiaryRcComponent implements OnInit {
         this.gridForm.patchValue(mcoDiary)
         this.gridForm.controls.TourDate.setValue(this.commonService.stringToDate(mcoDiary.TourDate)); //= this.commonService.stringToDate(mcoDiary.TourDate);
         this.isUpdate = true;
-        this.date=mcoDiary.TourDate;
+        this.date = mcoDiary.TourDate;
         this.GetTourPlan();
     }
 
@@ -460,4 +465,7 @@ export class TourDiaryRcComponent implements OnInit {
         //     });
     }
 
+    previousPage() {
+        this.location.back();
+    }
 }
