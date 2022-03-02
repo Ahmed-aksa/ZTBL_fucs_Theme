@@ -12,6 +12,7 @@ import {Activity} from "../../../shared/models/activity.model";
 export class SearchTourDiaryTabComponent implements OnInit {
     @Input('TourDiary') TourDiary: any;
     @Input('tourDiaryApprovalForm') tourDiaryApprovalForm: any;
+    @Input('form') searchForm: any;
     @Input('branch') branch: any;
     @Input('zone') zone: any;
     @Input('circle') circle: any;
@@ -55,7 +56,7 @@ export class SearchTourDiaryTabComponent implements OnInit {
     redirectTourDiary(data: any, mode) {
 
         if (data?.RedirectTo) {
-            
+
             if (this.zone.ZoneId)
                 localStorage.setItem('selected_single_zone', JSON.stringify(this.zone.ZoneId));
             if (this.branch?.BranchCode)
@@ -71,6 +72,7 @@ export class SearchTourDiaryTabComponent implements OnInit {
                     localStorage.setItem('visibility', 'false');
                 }
             }
+            sessionStorage.setItem('search-page', JSON.stringify(this.searchForm.value));
             this.router.navigate([data?.RedirectTo], {
                 relativeTo: this.activatedRoute
             });

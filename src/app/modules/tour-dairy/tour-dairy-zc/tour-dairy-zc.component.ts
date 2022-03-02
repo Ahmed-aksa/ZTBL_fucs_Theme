@@ -5,7 +5,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
-import {DatePipe} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
@@ -44,12 +44,12 @@ export class TourDiaryZcComponent implements OnInit {
     date: any;
     btnText = 'Save';
     TourDiaryList;
-    isUpdate:boolean=false;
+    isUpdate: boolean = false;
     data;
     checkDisable = true;
     systemGenerated: any;
     currentActivity: Activity;
-
+    has_previous: boolean = false;
     edit_mode: boolean = true;
 
     constructor(
@@ -64,6 +64,7 @@ export class TourDiaryZcComponent implements OnInit {
         private router: Router,
         private toastr: ToastrService,
         private _common: CommonService,
+        private location: Location
     ) {
         this.loggedInUser = userUtilsService.getSearchResultsDataOfZonesBranchCircle();
     }
@@ -73,10 +74,11 @@ export class TourDiaryZcComponent implements OnInit {
         this.createForm();
         this.loggedInUser = this.userService.getUserDetails();
     }
-    ngAfterViewInit()
-    {
+
+    ngAfterViewInit() {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
+            this.has_previous = true;
             localStorage.removeItem('TourDiary');
             if (localStorage.getItem('visibility') == 'false') {
                 this.edit_mode = true;
@@ -92,7 +94,8 @@ export class TourDiaryZcComponent implements OnInit {
             }
         }, 1000);
     }
-    setValue(){
+
+    setValue() {
         this.gridForm.controls['Name'].setValue(this.loggedInUser.User.DisplayName);
         this.gridForm.controls['Ppno'].setValue(this.loggedInUser.User.UserName);
     }
@@ -152,7 +155,7 @@ export class TourDiaryZcComponent implements OnInit {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
-                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                 this.isUpdate = false;
                 this.onClearForm();
             } else {
@@ -274,9 +277,9 @@ export class TourDiaryZcComponent implements OnInit {
         this.GetTourPlan()
     }
 
-    changeStatus(data,status){
+    changeStatus(data, status) {
 
-        if(status=="C"){
+        if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
             const _waitDesciption = '';
@@ -295,32 +298,32 @@ export class TourDiaryZcComponent implements OnInit {
 
 
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
-        if(status=="S"){
+        if (status == "S") {
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
             this.TourDiary.TourPlanId = this.gridForm.controls["TourPlanId"]?.value;
             this.TourDiary.Ppno = this.gridForm.controls["Ppno"]?.value;
 
-        }else{
+        } else {
             this.TourDiary.DiaryId = data["DiaryId"];
             this.TourDiary.TourPlanId = data["TourPlanId"];
             this.TourDiary.Ppno = data["Ppno"];
         }
 
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone,this.branch, this.circle,this.TourDiary, status, 'ZC')
+        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'ZC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
                 })
             ).subscribe(baseResponse => {
             if (baseResponse.Success) {
-                this.TourDiaryList=[];
-                this.TourDiaryList= baseResponse?.TourDiary?.TourDiaries;
+                this.TourDiaryList = [];
+                this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.onClearForm();
-                this.TourDiary=null;
+                this.TourDiary = null;
             } else {
-                this.TourDiary=null;
+                this.TourDiary = null;
                 this.layoutUtilsService.alertElement('', baseResponse.Message);
             }
 
@@ -328,7 +331,7 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     edit(zcDiary) {
-        if(zcDiary.DiaryId){
+        if (zcDiary.DiaryId) {
             this.checkDisable = false;
         }
         this.gridForm.patchValue(zcDiary);
@@ -382,20 +385,20 @@ export class TourDiaryZcComponent implements OnInit {
     GetTourPlan() {
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date,'ZC')
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZC')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
 
-                    this.TourDiaryList=[]
+                    this.TourDiaryList = []
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
 
                 } else {
-                    this.TourDiaryList=[]
+                    this.TourDiaryList = []
                     this.TourPlan = null;
                     this.layoutUtilsService.alertElement(
                         '',
@@ -434,6 +437,10 @@ export class TourDiaryZcComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
+    }
+
+    previousPage() {
+        this.location.back();
     }
 }
 

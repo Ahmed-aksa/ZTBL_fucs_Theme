@@ -21,6 +21,7 @@ import {TourDiary} from "../model/tour-diary-model";
 import {TourDiaryService} from "../set-target/Services/tour-diary.service";
 import {environment} from "../../../../environments/environment";
 import {Activity} from "../../../shared/models/activity.model";
+import {CommonService} from "../../../shared/services/common.service";
 
 @Component({
     selector: 'search-tour-diary',
@@ -92,6 +93,7 @@ export class SearchTourDiaryComponent implements OnInit {
                 private _circleService: CircleService,
                 private _cdf: ChangeDetectorRef,
                 private datePipe: DatePipe,
+                private _common: CommonService,
                 private userUtilsService: UserUtilsService) {
         this.loggedInUser = userUtilsService.getUserDetails();
         this.Math = Math;
@@ -110,6 +112,19 @@ export class SearchTourDiaryComponent implements OnInit {
         this.LoadLovs();
         this.createForm();
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
+        setTimeout(() => {
+            let sessionData = sessionStorage.getItem('search-page');
+            if (sessionData) {
+                sessionStorage.removeItem('search-page');
+                let data = JSON.parse(sessionData);
+
+                this.TourDiary.patchValue(data);
+                this.TourDiary.controls['StartDate'].setValue(this._common.stringToDate(data.StartDate));
+                this.TourDiary.controls['EndDate'].setValue(this._common.stringToDate(data.EndDate));
+                this.SearchTourDiary(true);
+            }
+        }, 1000)
+
     }
 
     userInfo = this.userUtilsService.getUserDetails();

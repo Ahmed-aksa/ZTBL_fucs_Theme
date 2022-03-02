@@ -14,6 +14,8 @@ import {TourDiary} from "../set-target/Models/tour-diary.model";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
+import moment from 'moment';
+import {Location} from '@angular/common'
 
 @Component({
     selector: 'app-tour-diary-approval-mco',
@@ -44,7 +46,7 @@ export class TourDiaryMcoComponent implements OnInit {
     data;
     maxDate = new Date();
     currentActivity: Activity;
-
+    has_previous: Boolean = false;
 
     checkDisable = true;
 
@@ -109,6 +111,7 @@ export class TourDiaryMcoComponent implements OnInit {
         private scroll: ViewportScroller,
         private router: Router,
         private toastr: ToastrService,
+        private location: Location
     ) {
 
     }
@@ -126,6 +129,7 @@ export class TourDiaryMcoComponent implements OnInit {
     ngAfterViewInit() {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
+            this.has_previous = true;
             localStorage.removeItem('TourDiary');
             if (localStorage.getItem('visibility') == 'false') {
                 this.edit_mode = true;
@@ -184,12 +188,7 @@ export class TourDiaryMcoComponent implements OnInit {
 
 
         if (!this.zone) {
-            var Message = 'Please select Zone';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
+
             return;
         }
 
@@ -203,15 +202,6 @@ export class TourDiaryMcoComponent implements OnInit {
             return;
         }
 
-        // if (!this.circle) {
-        //     var Message = 'Please select Circle';
-        //     this.layoutUtilsService.alertElement(
-        //         '',
-        //         Message,
-        //         null
-        //     );
-        //     return;
-        // }
 
         if (this.gridForm.invalid) {
             const controls = this.gridForm.controls;
@@ -220,12 +210,25 @@ export class TourDiaryMcoComponent implements OnInit {
             );
             return;
         }
+        let departure_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.DepartureFromTime)
+        let arrival_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.ArrivalAtTime)
+        if (arrival_datetime < departure_datetime) {
+            var Message = 'Arrival Time should be greater than departure time';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
 
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        //this.circle = null
+
+
+        this.circle = null
         this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary, 'MCO')
             .pipe(
                 finalize(() => {
@@ -336,7 +339,6 @@ export class TourDiaryMcoComponent implements OnInit {
     }
 
     delete(data, status) {
-
         if (status == "C") {
             const _title = 'Confirmation';
             const _description = 'Do you really want to continue?';
@@ -381,7 +383,17 @@ export class TourDiaryMcoComponent implements OnInit {
 
 
     changeStatus(data, status) {
-
+        let departure_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.DepartureFromTime)
+        let arrival_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.ArrivalAtTime)
+        if (arrival_datetime < departure_datetime) {
+            var Message = 'Arrival Time should be greater than departure time';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         if (status == "S") {
             this.TourDiary.DiaryId = this.gridForm.controls["DiaryId"]?.value;
@@ -454,7 +466,7 @@ export class TourDiaryMcoComponent implements OnInit {
         // this.createForm()
         this.isUpdate = true;
         this.date = mcoDiary?.TourDate;
-        if(this.date){
+        if (this.date) {
             this.GetTourPlan()
         }
     }
@@ -585,5 +597,9 @@ export class TourDiaryMcoComponent implements OnInit {
             month = date.slice(2, 4),
             year = date.slice(4, 8);
         return day + "-" + month + "-" + year;
+    }
+
+    previousPage() {
+        this.location.back();
     }
 }

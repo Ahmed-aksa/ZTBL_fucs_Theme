@@ -66,8 +66,8 @@ export class TourDiaryPcComponent implements OnInit {
         this.createForm();
 
     }
-    ngAfterViewInit()
-    {
+
+    ngAfterViewInit() {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
@@ -273,13 +273,13 @@ export class TourDiaryPcComponent implements OnInit {
         }
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date,'PC')
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'PC')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))
             .subscribe((baseResponse) => {
                 if (baseResponse.Success) {
-                    this.TourDiaryList=[];
+                    this.TourDiaryList = [];
                     this.TourPlan = baseResponse?.TourPlan?.TourPlans;
                     this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
                     this.systemGenerated = baseResponse?.TourDiary?.SystemGeneratedData;
@@ -323,11 +323,24 @@ export class TourDiaryPcComponent implements OnInit {
             );
             return;
         }
+
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
+        let departure_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.DepartureFromTime)
+        let arrival_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.ArrivalAtTime)
+        if (arrival_datetime < departure_datetime) {
+            var Message = 'Arrival Time should be greater than departure time';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary,'PC')
+
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary, 'PC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -336,7 +349,7 @@ export class TourDiaryPcComponent implements OnInit {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                 this.isUpdate = false;
                 this.onClearForm();
             } else {
@@ -356,8 +369,19 @@ export class TourDiaryPcComponent implements OnInit {
             this.TourDiary.TourPlanId = data["TourPlanId"];
             this.TourDiary.Ppno = data["Ppno"];
         }
+        let departure_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.DepartureFromTime)
+        let arrival_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.ArrivalAtTime)
+        if (arrival_datetime < departure_datetime) {
+            var Message = 'Arrival Time should be greater than departure time';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
         this.spinner.show();
-        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'PC')
+        this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'PC')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -376,11 +400,11 @@ export class TourDiaryPcComponent implements OnInit {
     }
 
     editData(tour_list) {
-        if(tour_list.DiaryId){
+        if (tour_list.DiaryId) {
             this.checkDisable = false;
         }
         this.gridForm.patchValue(tour_list);
-        this.date=this.gridForm.value.TourDate;
+        this.date = this.gridForm.value.TourDate;
         this.gridForm.controls['TourDate'].setValue(this._common.stringToDate(tour_list.TourDate));
         this.isUpdate = true;
         this.GetTourPlan()
@@ -402,7 +426,7 @@ export class TourDiaryPcComponent implements OnInit {
             }
             this.TourDiary = Object.assign(data);
             this.spinner.show();
-            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status,'PC')
+            this.tourDiaryService.ChangeStatusDiary(this.zone, this.branch, this.circle, this.TourDiary, status, 'PC')
                 .pipe(
                     finalize(() => {
                         this.spinner.hide();

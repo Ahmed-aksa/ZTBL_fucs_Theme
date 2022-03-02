@@ -28,6 +28,7 @@ export class TourPlanService {
     }
 
     userInfo = this.userUtilsService.getUserDetails();
+
     getProfileId(role) {
 
         if (role == 'ZC') {
@@ -48,18 +49,17 @@ export class TourPlanService {
             return this.userInfo.User.ProfileId;
         }
     }
-    createTourPlan(TourPlan, zone = null, branch = null, circle = null, startDate = null, endDate = null,role) {
+
+    createTourPlan(TourPlan, zone = null, branch = null, circle = null, startDate = null, endDate = null, role) {
         this.request = new BaseRequestModel();
         this.request.DEVICELOCATION = this.deviceLocation;
         this.request.TranId = 2830;
         this.request.doPerformOTP = false;
-        this.request.User["ProfileId"] = this.getProfileId(role)
         this.request.User = this.userInfo.User;
+        this.request.User["ProfileId"] = this.getProfileId(role)
         this.request.TourPlan = TourPlan;
         this.request.TourPlan.StartDate = startDate;
         this.request.TourPlan.EndDate = endDate;
-
-
 
 
         if (zone) {
@@ -82,7 +82,7 @@ export class TourPlanService {
         );
     }
 
-    ChanageTourStatus(tourPlan: TourPlan, role= null) {
+    ChanageTourStatus(tourPlan: TourPlan, role = null) {
         this.request = new BaseRequestModel();
         this.request.User = this.userInfo.User;
         this.request.User["ProfileId"] = this.getProfileId(role)
@@ -95,7 +95,7 @@ export class TourPlanService {
         );
     }
 
-    ChanageTourStatusMultiple(tourPlan: TourPlan, role=null) {
+    ChanageTourStatusMultiple(tourPlan: TourPlan, role = null) {
 
         var value, tourPlanAray = [], tourPlanIds;
         value = tourPlan
@@ -107,8 +107,8 @@ export class TourPlanService {
         tourPlanIds = tourPlanAray;
 
         this.request = new BaseRequestModel();
-        this.request.User["ProfileId"] = this.getProfileId(role)
         this.request.User = this.userInfo.User;
+        this.request.User["ProfileId"] = this.getProfileId(role)
         var v = JSON.stringify(tourPlan)
 
         this.request.TourPlan = {
@@ -197,8 +197,7 @@ export class TourPlanService {
         );
     }
 
-    GetScheduleBaseTourPlan(tourPlan, Limit, Offset, branch, zone, role=null) {
-        debugger
+    GetScheduleBaseTourPlan(tourPlan, Limit, Offset, branch, zone, role = null) {
         this.request = new BaseRequestModel();
 
         var userInfo = this.userUtilsService.getUserDetails();

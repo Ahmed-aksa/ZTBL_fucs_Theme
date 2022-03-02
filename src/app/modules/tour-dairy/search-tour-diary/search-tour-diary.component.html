@@ -93,7 +93,7 @@
 
         <ng-container *ngFor="let item of TourDiarys;let i=index;">
             <mat-tab [label]="item?.Heading">
-                <app-search-tour-diary-tab [TourDiary]="item" [branch]="branch" [zone]="zone"
+                <app-search-tour-diary-tab [TourDiary]="item" [branch]="branch" [zone]="zone" [form]="TourDiary"
                                            [circle]="circle"
                                            [tab_number]="i"></app-search-tour-diary-tab>
             </mat-tab>

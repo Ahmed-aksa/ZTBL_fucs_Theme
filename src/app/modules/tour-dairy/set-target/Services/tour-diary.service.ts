@@ -353,26 +353,26 @@ export class TourDiaryService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-        getProfileId(role) {
+    getProfileId(role) {
 
-            if (role == 'ZC') {
-                return environment.ZC;
-            } else if (role == 'MCO') {
-                return environment.MCO_Group_ID;
-            } else if (role == 'ZM') {
-                return environment.ZM;
-            } else if (role == 'BM') {
-                return environment.BM;
-            } else if (role == 'PC') {
-                return environment.PROVINCIAL_CHEIF;
-            } else if (role == 'RC') {
-                return environment.Regional_CHIEF;
-            } else if (role == 'RO') {
-                return environment.RECOVERY_OFFICER;
-            } else {
-                return this.userInfo.User.ProfileId;
-            }
+        if (role == 'ZC') {
+            return environment.ZC;
+        } else if (role == 'MCO') {
+            return environment.MCO_Group_ID;
+        } else if (role == 'ZM') {
+            return environment.ZM;
+        } else if (role == 'BM') {
+            return environment.BM;
+        } else if (role == 'PC') {
+            return environment.PROVINCIAL_CHEIF;
+        } else if (role == 'RC') {
+            return environment.Regional_CHIEF;
+        } else if (role == 'RO') {
+            return environment.RECOVERY_OFFICER;
+        } else {
+            return this.userInfo.User.ProfileId;
         }
+    }
 
 
     searchTourDiaryApproval(
@@ -414,6 +414,19 @@ export class TourDiaryService {
             {headers: this.httpUtils.getHTTPHeaders()}).pipe(
             map((res: any) => res)
         );
+    }
+
+    combineDateAndTime(date, time) {
+
+
+        const yy = new Date(date).getFullYear();
+        const mm = new Date(date).getMonth() + 1;
+        const dd = new Date(date).getDate();
+
+        var interMedDt = new Date(mm + '-' + dd + '-' + yy);
+        interMedDt.setHours((time.split(' ')[0]).split(':')[0]);
+        interMedDt.setMinutes((time.split(' ')[0]).split(':')[1]);
+        return interMedDt
     }
 }
 

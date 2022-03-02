@@ -65,10 +65,9 @@ export class TourDiaryRoComponent implements OnInit {
     ngOnInit(): void {
         this.currentActivity = this.userUtilsService.getActivity('Tour Diary For RO')
         this.createForm();
-       }
+    }
 
-    ngAfterViewInit()
-    {
+    ngAfterViewInit() {
         this.data = JSON.parse(localStorage.getItem('TourDiary'))
         if (this.data) {
             localStorage.removeItem('TourDiary');
@@ -166,12 +165,22 @@ export class TourDiaryRoComponent implements OnInit {
         //     );
         //     return;
         // }
-
+        let departure_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.DepartureFromTime)
+        let arrival_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.ArrivalAtTime)
+        if (arrival_datetime < departure_datetime) {
+            var Message = 'Arrival Time should be greater than departure time';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
         this.TourDiary.Status = 'P';
         this.spinner.show();
-        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary,'RO')
+        this.tourDiaryService.saveDiary(this.zone, this.branch, this.circle, this.TourDiary, 'RO')
             .pipe(
                 finalize(() => {
                     this.spinner.hide();
@@ -180,7 +189,7 @@ export class TourDiaryRoComponent implements OnInit {
             if (baseResponse.Success) {
                 this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
                 this.TourDiaryList = baseResponse.TourDiary["TourDiaries"];
-                this.systemGenerated=baseResponse.TourDiary.SystemGeneratedData;
+                this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
                 this.isUpdate = false;
                 this.onClearForm();
             } else {
@@ -336,7 +345,7 @@ export class TourDiaryRoComponent implements OnInit {
 
     edit(mcoDiary) {
 
-        if(mcoDiary?.DiaryId){
+        if (mcoDiary?.DiaryId) {
             this.checkDisable = false;
         }
         this.gridForm.patchValue(mcoDiary);
@@ -420,7 +429,7 @@ export class TourDiaryRoComponent implements OnInit {
 
         this.spinner.show();
         this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date,'RO')
+            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'RO')
             .pipe(finalize(() => {
                 this.spinner.hide();
             }))

@@ -138,7 +138,7 @@ export class CreateTourPlanMcoComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        debugger
+        
         this.currentActivity = this.userUtilsService.getActivity('Create Tour Plan For MCO')
         this.createForm();
         this.getPurposeofVisitLov();

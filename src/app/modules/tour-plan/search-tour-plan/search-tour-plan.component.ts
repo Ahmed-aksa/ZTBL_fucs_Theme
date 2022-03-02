@@ -374,7 +374,7 @@ export class SearchTourPlanComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    debugger
+                    
                     this.TourPlans = baseResponse?.TourPlan?.TourPlans;
                     // this.dataSource.data = baseResponse?.TourPlan?.TourPlans;
                     // if (this.dataSource?.data?.length > 0)

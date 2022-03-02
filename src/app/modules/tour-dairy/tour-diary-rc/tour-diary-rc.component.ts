@@ -144,6 +144,17 @@ export class TourDiaryRcComponent implements OnInit {
         //     );
         //     return;
         // }
+        let departure_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.DepartureFromTime)
+        let arrival_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.ArrivalAtTime)
+        if (arrival_datetime < departure_datetime) {
+            var Message = 'Arrival Time should be greater than departure time';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            )
+            return;
+        }
 
         this.TourDiary = Object.assign(this.gridForm.getRawValue());
         this.TourDiary.TourDate = this.datePipe.transform(this.gridForm.controls.TourDate.value, 'ddMMyyyy')
@@ -200,6 +211,8 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     delete(data, status) {
+        let departure_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.DepartureFromTime)
+        let arrival_datetime = this.tourDiaryService.combineDateAndTime(this.gridForm.value.TourDate, this.gridForm.value.ArrivalAtTime)
 
         if (status == "C") {
             const _title = 'Confirmation';
@@ -282,7 +295,7 @@ export class TourDiaryRcComponent implements OnInit {
     }
 
     getAllData(data) {
-        
+
         this.zone = data.final_zone;
         this.branch = data.final_branch;
         this.circle = data.final_circle;
