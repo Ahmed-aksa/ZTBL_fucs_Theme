@@ -394,7 +394,7 @@ export class TourDiaryService {
                 TourDate: tour_date,
                 Limit: String(itemsPerPage),
                 Offset: offset,
-                PPNO: approval_from.PPNO,
+                Ppno: approval_from.PPNo,
             },
             Zone: zone,
             Branch: branch,

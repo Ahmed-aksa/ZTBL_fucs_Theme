@@ -67,7 +67,7 @@ export class KhaadSeedVendorService {
         formData.append('PhoneNumber', vendor.PhoneNumber);
         formData.append('Description', vendor.Description);
         formData.append('CreatedBy', userInfo.User.UserId);
-        formData.append('UserPPNO', userInfo.User.UserName);
+        formData.append('PPNo', userInfo.User.UserName);
         formData.append('Lat', vendor.Lat);
         formData.append('ZoneId', vendor.ZoneId);
         formData.append('BranchCode', vendor.BranchCode);

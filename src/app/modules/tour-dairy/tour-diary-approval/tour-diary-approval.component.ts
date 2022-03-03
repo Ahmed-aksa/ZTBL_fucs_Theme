@@ -262,7 +262,7 @@ export class TourDiaryApprovalComponent implements OnInit {
         this.tourDiaryForm = this.filterFB.group({
             FromDate: [, Validators.required],
             ToDate: [, Validators.required],
-            PPNO: [null],
+            PPNo: [null],
             Status: ["S", Validators.required],
         });
         this.tourDiaryForm.controls['Status'].disable();

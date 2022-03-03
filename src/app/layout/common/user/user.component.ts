@@ -10,11 +10,15 @@ import {
 import {Router} from '@angular/router';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {finalize, takeUntil} from 'rxjs/operators';
 import {User} from 'app/core/user/user.types';
 import {UserService} from 'app/core/user/user.service';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ChangePasswordComponent} from "../change-password/change-password.component";
+import {BaseResponseModel} from "../../../shared/models/base_response.model";
+import {AuthService} from "../../../core/auth/auth.service";
+import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
     selector: 'user',
@@ -40,7 +44,10 @@ export class UserComponent implements OnInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
         private _userService: UserService,
-        private matDialogRef: MatDialog
+        private matDialogRef: MatDialog,
+        private authService: AuthService,
+        private layoutUtilsService: LayoutUtilsService,
+        private spinner: NgxSpinnerService
     ) {
     }
 
@@ -90,19 +97,32 @@ export class UserComponent implements OnInit, OnDestroy {
      * Sign out
      */
     signOut(): void {
-        this._router.navigate(['/sign-out']);
+        this.spinner.show();
+        this.authService.signOut().pipe(
+            finalize(() => {
+                this.spinner.hide();
+            })
+        )
+            .subscribe((baseResponse: BaseResponseModel) => {
+                if (baseResponse?.Success === true) {
+                    // Redirect after the countdown
+                    this._router.navigate(['/sign-out']);
+
+                } else {
+                    this.layoutUtilsService.alertElement('', baseResponse.Message)
+                }
+            })
     }
 
     changePassword() {
         let dialogRef = this.matDialogRef.open(ChangePasswordComponent, {
             panelClass: ['w-4/12', 'max-w-full', 'max-h-full']
         });
-        dialogRef.afterClosed().subscribe((res)=>{
-            
-            if(res == 'true'){
+        dialogRef.afterClosed().subscribe((res) => {
+
+            if (res == 'true') {
                 this._router.navigate(['/sign-out']);
-            }
-            else{
+            } else {
                 return
             }
         })

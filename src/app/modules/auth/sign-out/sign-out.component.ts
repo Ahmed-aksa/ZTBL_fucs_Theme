@@ -37,35 +37,19 @@ export class AuthSignOutComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-        // Sign out
-        this._authService.signOut().pipe(
-            finalize(() => {
-                // this.spinner.hide();
-            })
-        )
-            .subscribe((baseResponse: BaseResponseModel) => {
-                if (baseResponse?.Success === true) {
-                    // Redirect after the countdown
-                    timer(1000, 1000)
-                        .pipe(
-                            finalize(() => {
-                                location.reload();
-                                localStorage.clear()
-                                //this._router.navigate(['auth/sign-in']);
+        timer(1000, 1000)
+            .pipe(
+                finalize(() => {
+                    location.reload();
+                    localStorage.clear()
+                    //this._router.navigate(['auth/sign-in']);
 
-                            }),
-                            takeWhile(() => this.countdown > 0),
-                            takeUntil(this._unsubscribeAll),
-                            tap(() => this.countdown--)
-                        )
-                        .subscribe();
-                }
-                else{
-                    this.layoutUtilsService.alertElement('', baseResponse.Message)
-                }
-            })
-
-
+                }),
+                takeWhile(() => this.countdown > 0),
+                takeUntil(this._unsubscribeAll),
+                tap(() => this.countdown--)
+            )
+            .subscribe();
     }
 
     /**

@@ -195,7 +195,7 @@ export class DashboardService {
                 },
                 tooltip: {
                     custom: function({ series, seriesIndex, dataPointIndex, w }) {
-                        
+
                         let key = w.config.labels[seriesIndex].replaceAll(" ", "")
                         if(key.includes("(For")){
                             key = key.split("(")[0];
@@ -278,8 +278,9 @@ export class DashboardService {
             return resultArray
         }, [])
 
+        debugger;
         if(result.length > 3){
-            // inorder to fix the table view as per given view in FSD.    
+            // inorder to fix the table view as per given view in FSD.
             [result[1], result[3]] = [result[3], result[1]];
             [result[2], result[3]] = [result[3], result[2]];
         }
@@ -295,7 +296,7 @@ export class DashboardService {
                     c = x[i];
                 }
             }
-            
+
             x[0] = a != undefined ? a + ":" + data[a] : '-';
             x[1] = b != undefined ? b + ":" + data[b] : '-';
             x[2] = c != undefined ? c + "(%):" + data[c] : '-';

@@ -35,9 +35,10 @@
         <!-- Products list -->
         <div class="flex flex-auto overflow-x-hidden overflow-y-scroll" style="flex-direction: column;">
             <div class="row">
+
                 <div class="col-lg-6">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
-                        <div id="chart" *ngIf="chartOptions1" class=" mt-0 py-3">
+                        <div id="chart" *ngIf="chartOptions1" class=" mt-0 py-3  position-relative ">
                             <apx-chart [series]="chartOptions1?.series" [chart]="chartOptions1?.chart"
                                        [labels]="chartOptions1?.labels" [title]="chartOptions1?.title"
                                        [theme]="chartOptions1?.theme" [responsive]="chartOptions1?.responsive"
@@ -52,7 +53,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
-                        <div id="chart" *ngIf="chartOptions2" class=" mt-0 py-3">
+                        <div id="chart" *ngIf="chartOptions2" class=" mt-0 py-3  position-relative ">
                             <apx-chart [series]="chartOptions2?.series"
                                        [chart]="chartOptions2?.chart"
                                        [labels]="chartOptions2?.labels"
@@ -70,7 +71,7 @@
                 </div>
                 <div class="col-lg-6 mt-3">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
-                        <div id="chart" *ngIf="chartOptions3" class=" mt-0 py-3">
+                        <div id="chart" *ngIf="chartOptions3" class=" mt-0 py-3  position-relative ">
                             <apx-chart [series]="chartOptions3?.series"
                                        [chart]="chartOptions3?.chart"
                                        [labels]="chartOptions3?.labels"
@@ -87,7 +88,7 @@
                 </div>
                 <div class="col-lg-6 mt-3">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
-                        <div id="chart" *ngIf="chartOptions4" class=" mt-0 py-3">
+                        <div id="chart" *ngIf="chartOptions4" class=" mt-0 py-3  position-relative ">
                             <apx-chart [series]="chartOptions4?.series"
                                        [chart]="chartOptions4?.chart"
                                        [labels]="chartOptions4?.labels"
@@ -164,21 +165,20 @@
                             <td>
                                 <div class="d-grid">
                                     <div>
-                                        {{dashboardService.getCamelCase("CorrespondingFiscalYearAchievement")}}
-                                    </div>
-                                    <div class="fw-bold">
-                                        {{DisbursmentAchievement["CorrespondingFiscalYearAchievement"]}}
-                                    </div>
-                                </div>
-                            </td>
-
-                            <td>
-                                <div class="d-grid">
-                                    <div>
                                         {{dashboardService.getCamelCase("FiscalYearAchievement")}}
                                     </div>
                                     <div class="fw-bold">
                                         {{DisbursmentAchievement["FiscalYearAchievement"]}}
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-grid">
+                                    <div>
+                                        {{dashboardService.getCamelCase("CorrespondingFiscalYearAchievement")}}
+                                    </div>
+                                    <div class="fw-bold">
+                                        {{DisbursmentAchievement["CorrespondingFiscalYearAchievement"]}}
                                     </div>
                                 </div>
                             </td>

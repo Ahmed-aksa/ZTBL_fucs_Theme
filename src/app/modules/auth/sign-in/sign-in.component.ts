@@ -134,8 +134,9 @@ export class AuthSignInComponent implements OnInit {
                                 localStorage.setItem('VideoTimeLimit', JSON.stringify(result.LoanUtilization["VideoTimeLimit"]));
                             }
                             const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-                            this._router.navigateByUrl(redirectURL);
-                            window.location.reload();
+                            this._router.navigateByUrl(redirectURL).then(() => {
+                                window.location.reload();
+                            });
                         } else if (result.isWebOTPEnabled) {
                             const dialogRef = this.dialog.open(OtpComponent, {
                                 data: {result},
@@ -150,8 +151,9 @@ export class AuthSignInComponent implements OnInit {
                                         localStorage.setItem('MaxNumberOfVideo', JSON.stringify(res?.data?.data?.LoanUtilization["MaxNumberOfVideo"]));
                                         localStorage.setItem('VideoTimeLimit', JSON.stringify(res?.data?.data?.LoanUtilization["VideoTimeLimit"]));
                                         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-                                        window.location.reload();
-                                        this._router.navigateByUrl(redirectURL);
+                                        this._router.navigateByUrl(redirectURL).then(() => {
+                                            window.location.reload();
+                                        });
                                     } else {
                                         this.signInNgForm.resetForm();
                                         this.signInForm.enable();

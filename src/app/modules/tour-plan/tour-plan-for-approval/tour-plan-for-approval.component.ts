@@ -299,7 +299,7 @@ export class TourPlanForApprovalComponent implements OnInit {
         this.tourPlanApprovalForm = this.filterFB.group({
             FromDate: [, Validators.required],
             ToDate: [, Validators.required],
-            UserPPNo: [null],
+            PPNo: [null],
             Status: ["S", Validators.required],
         });
     }

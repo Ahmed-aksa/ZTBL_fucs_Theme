@@ -318,7 +318,7 @@ export class TourPlanService {
                 Status: approval_from.Status,
                 Limit: String(itemsPerPage),
                 Offset: offset,
-                PPNO: approval_from.PPNO,
+                PPNo: approval_from.PPNo,
             },
             Zone: zone,
             Branch: branch,
@@ -358,7 +358,7 @@ export class TourPlanService {
                 Limit: String(itemsPerPage),
                 Offset: offset,
                 // PPNO:PPNO,
-                UserPPNo: approval_from.PPNO,
+                PPNo: approval_from.PPNO,
             },
 
             Zone: zone,
@@ -373,8 +373,8 @@ export class TourPlanService {
             request.TourPlan.EndDate = null;
         }
 
-        if (request?.TourPlan?.UserPPNo == "") {
-            request.TourPlan.UserPPNo = null;
+        if (request?.TourPlan?.PPNo == "") {
+            request.TourPlan.PPNo = null;
         }
 
         return this.http.post(`${environment.apiUrl}/TourPlanAndDiary/ViewTourPlans`, request,

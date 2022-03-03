@@ -12,7 +12,7 @@ export class KhaadSeedVendor {
     Address: string;
     Description: string;
     CreatedBy: string;
-    UserPPNO: string;
+    PPNo: string;
     Lat: string;
     Lng: string;
     PhoneNumber: string;
