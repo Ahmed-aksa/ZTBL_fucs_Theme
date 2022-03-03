@@ -45,6 +45,7 @@ import {
 } from "./signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {AppModule} from "../../app.module";
 import {SearchTourDiaryTabComponent} from "./search-tour-diary-tab/search-tour-diary-tab.component";
+import {ViewDocumentComponent} from './view-document/view-document.component';
 
 export const options: Partial<IConfig> = {
     thousandSeparator: ","
@@ -52,6 +53,10 @@ export const options: Partial<IConfig> = {
 
 
 const routing = [
+    {
+        path: '',
+        component: ViewDocumentComponent
+    },
     {
         path: "set-target",
         component: TargetsComponent,
@@ -159,7 +164,8 @@ const routing = [
         TourDiaryApprovalRoComponent,
         TourDiaryApprovalZcComponent,
         SignaturePadForDiaryApproval,
-        SearchTourDiaryTabComponent
+        SearchTourDiaryTabComponent,
+        ViewDocumentComponent
 
 
     ],

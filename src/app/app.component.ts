@@ -1,14 +1,15 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, NavigationError, NavigationStart, Router, Event } from '@angular/router';
-import { environment } from 'environments/environment';
-import { EncryptDecryptService } from './shared/services/encrypt_decrypt.service';
+import {Component, OnInit} from '@angular/core';
+import {NavigationEnd, NavigationError, NavigationStart, Router, Event} from '@angular/router';
+import {environment} from 'environments/environment';
+import {EncryptDecryptService} from './shared/services/encrypt_decrypt.service';
 import * as Forge from 'node-forge';
 import * as NodeRSA from 'node-rsa';
-import { AuthGuard } from './core/auth/guards/auth.guard';
-import { Observable, of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import {AuthGuard} from './core/auth/guards/auth.guard';
+import {Observable, of} from 'rxjs';
+import {take} from 'rxjs/operators';
 import {CommonService} from "./shared/services/common.service";
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -17,13 +18,14 @@ import {CommonService} from "./shared/services/common.service";
 export class AppComponent implements OnInit {
 
     popup: any = false;
+
     constructor(private router: Router, private http: HttpClient, private encryptDecryptService: EncryptDecryptService,
-        private authGuard: AuthGuard,private _common:CommonService) {
+                private authGuard: AuthGuard, private _common: CommonService) {
         this.router.events.subscribe((event: any) => {
             var event1 = event;
             if (event instanceof NavigationStart) {
                 if (event1?.url) {
-                    if (!event1?.url.includes('auth') && !event1?.url.includes('sign-out')) {
+                    if (!event1?.url.includes('auth') && !event1?.url.includes('sign-out') && !event1.url.includes('v_id')) {
                         var user = localStorage.getItem("ZTBLUser")
                         if (user) {
                             var userdate = JSON.parse(user);
@@ -36,10 +38,6 @@ export class AppComponent implements OnInit {
                                 if (childURl) {
                                     ismatch = true;
                                 }
-                                else {
-                                    // console.log("Sam :LL");
-                                }
-
                             });
                             if (!ismatch) {
                                 if (!event1?.url.includes('dashboard')) {
@@ -66,6 +64,7 @@ export class AppComponent implements OnInit {
     }
 
     checkSession$: Observable<boolean>;
+
     ngOnInit(): void {
         if (!environment.IsEncription) {
             return
@@ -73,10 +72,12 @@ export class AppComponent implements OnInit {
 
 
     }
+
     getBase64Encrypted(randomWordArray, pemKey): string {
         const pk = Forge.pki.publicKeyFromPem(pemKey);
         return Forge.util.encode64(pk.encrypt(Forge.util.hexToBytes(randomWordArray)));
     }
+
     getNewKey() {
         let key = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = Math.random() * 16 | 0,
