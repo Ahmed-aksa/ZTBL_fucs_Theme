@@ -1,4 +1,5 @@
-\<div
+\
+<div
     class=" px-10 sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-scroll bg-card dark:bg-transparent">
 
     <div class="row py-3">
@@ -8,20 +9,20 @@
 
     </div>
 
-    <div class="" [formGroup]="mrForm">
+    <div [formGroup]="mrForm" class="">
 
         <div class="flex" style="flex-wrap: wrap;">
-            <app-zone-branch-circle [form]="mrForm" [show_circle]="false"
-                                    (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+            <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="mrForm"
+                                    [show_circle]="false"></app-zone-branch-circle>
 
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Transaction Date</mat-label>
-                        <input matInput placeholder="Enter Tran Date" formControlName="TranDate" readonly="readonly"
-                               maxlength="13" autocomplete="off"/>
+                        <input autocomplete="off" formControlName="TranDate" matInput maxlength="13"
+                               placeholder="Enter Tran Date" readonly="readonly"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -29,26 +30,26 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-6/12" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-6/12">
                         <mat-label class="customMatLabel">LC# <strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter Loan Case No" formControlName="Lcno" maxlength="13"
-                               autocomplete="off" appNumberOnly/>
+                        <input appNumberOnly autocomplete="off" formControlName="Lcno" matInput
+                               maxlength="13" placeholder="Enter Loan Case No"/>
                     </mat-form-field>
-                    <input type="button" mat-raised-button color="primary" *ngIf="currentActivity.C"
-                           class="w-5/12 ml-1 w-full mat-raised-button mat-button-base mat-primary searchLCBtn"
-                           (click)="subProposal()" value="Search"/>
+                    <input (click)="subProposal()" *ngIf="currentActivity.C" class="w-5/12 ml-1 w-full mat-raised-button mat-button-base mat-primary searchLCBtn" color="primary"
+                           mat-raised-button
+                           type="button" value="Search"/>
                 </div>
             </div>
 
 
             <div *ngIf="!expand" class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Sub Proposal <strong class="matMandatory">*</strong>
                         </mat-label>
                         <mat-select formControlName="LoanAppSanctionID">
-                            <mat-option *ngFor="let sub of SubProposalGLList" [value]="sub.LoanAppSanctionID"
-                                        (click)="Disbursement(sub.LoanAppSanctionID)">
+                            <mat-option (click)="Disbursement(sub.LoanAppSanctionID)" *ngFor="let sub of SubProposalGLList"
+                                        [value]="sub.LoanAppSanctionID">
                                 {{sub.Description}}
                             </mat-option>
                         </mat-select>
@@ -58,12 +59,12 @@
 
             <div *ngIf="expand" class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Sub Proposal <strong class="matMandatory">*</strong>
                         </mat-label>
                         <mat-select formControlName="LoanAppSanctionID">
-                            <mat-option *ngFor="let sub of SubProposalGLList" [value]="sub.LoanAppSanctionID"
-                                        (click)="Disbursement(sub.LoanAppSanctionID)">
+                            <mat-option (click)="Disbursement(sub.LoanAppSanctionID)" *ngFor="let sub of SubProposalGLList"
+                                        [value]="sub.LoanAppSanctionID">
                                 {{sub.Description}}
                             </mat-option>
                         </mat-select>
@@ -74,7 +75,7 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Disbursement <strong class="matMandatory">*</strong>
                         </mat-label>
                         <mat-select formControlName="LoanDisbID">
@@ -89,14 +90,14 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-6/12" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-6/12">
                         <mat-label class="customMatLabel">New Gl Code<strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter New Gl Code" formControlName="GlSubIDNew" maxlength="13"
-                               autocomplete="off" appNumberOnly/>
+                        <input appNumberOnly autocomplete="off" formControlName="GlSubIDNew" matInput
+                               maxlength="13" placeholder="Enter New Gl Code"/>
                     </mat-form-field>
-                    <input type="button" mat-raised-button color="primary" *ngIf="currentActivity.C"
-                           class="w-full ml-1 w-5/12 mat-raised-button mat-button-base mat-primary searchLCBtn"
-                           (click)="newGlDialog()" value="Search"/>
+                    <input (click)="newGlDialog()" *ngIf="currentActivity.C" class="w-full ml-1 w-5/12 mat-raised-button mat-button-base mat-primary searchLCBtn" color="primary"
+                           mat-raised-button
+                           type="button" value="Search"/>
 
                 </div>
             </div>
@@ -104,19 +105,19 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">New Scheme Code</mat-label>
-                        <input matInput placeholder="Enter New Scheme Code" formControlName="SchemeCode" maxlength="10"
-                               autocomplete="off" appNumberOnly/>
+                        <input appNumberOnly autocomplete="off" formControlName="SchemeCode" matInput
+                               maxlength="10" placeholder="Enter New Scheme Code"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">New Crop Code</mat-label>
-                        <input matInput placeholder="Enter New Corp Code" formControlName="CropCode" maxlength="10"
-                               autocomplete="off" appNumberOnly/>
+                        <input appNumberOnly autocomplete="off" formControlName="CropCode" matInput
+                               maxlength="10" placeholder="Enter New Corp Code"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -124,30 +125,30 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Down Payment (%) <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input matInput placeholder="Enter Down Payment" formControlName="AmountPayableForReschPer"
-                               maxlength="5" autocomplete="off" appNumberOnly/>
+                        <input appNumberOnly autocomplete="off" formControlName="AmountPayableForReschPer"
+                               matInput maxlength="5" placeholder="Enter Down Payment"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Grace Days(1st Installment)</mat-label>
-                        <input matInput placeholder="Enter Manager Grace Days" formControlName="ProposalID"
-                               readonly="readonly" maxlength="13" autocomplete="off"/>
+                        <input autocomplete="off" formControlName="ProposalID" matInput
+                               maxlength="13" placeholder="Enter Manager Grace Days" readonly="readonly"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Mark-UP Installment (%)</mat-label>
-                        <input matInput placeholder="Enter Mark-UP Installment"
-                               formControlName="OutSDMarkupWithIstInstPer" readonly="readonly" maxlength="13"
-                               autocomplete="off"/>
+                        <input autocomplete="off" formControlName="OutSDMarkupWithIstInstPer"
+                               matInput maxlength="13" placeholder="Enter Mark-UP Installment"
+                               readonly="readonly"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -155,7 +156,7 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Resch Type <strong class="matMandatory">*</strong></mat-label>
                         <mat-select formControlName="RescheduleTypeID">
                             <mat-option *ngFor="let type of ReschedulingTypes" [value]="type.Value">
@@ -169,9 +170,9 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 465px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Remarks<strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter Remarks" formControlName="Remarks" autocomplete="off"/>
+                        <input autocomplete="off" formControlName="Remarks" matInput placeholder="Enter Remarks"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -185,30 +186,31 @@
         <div class="row">
             <div class="col-lg-12 flex  py-2 border-t">
 
-                <button mat-raised-button class="mr-2" color="primary" *ngIf="currentActivity.C" (click)="uploadDocuments()">
+                <button (click)="uploadDocuments()" *ngIf="currentActivity.C" class="mr-2" color="primary"
+                        mat-raised-button>
                     <mat-icon class="mr-2">check_circle</mat-icon>
                     Upload Documents
                 </button>
 
 
-                <button style="background-color: #01671B;" mat-raised-button class="mr-2" color="primary"
-                        *ngIf="currentActivity.C" (click)="SaveData()">
+                <button (click)="SaveData()" *ngIf="currentActivity.C" class="mr-2" color="primary"
+                        mat-raised-button style="background-color: #01671B;">
                     <mat-icon class="mr-2">save</mat-icon>
                     Save
                 </button>
-                <button mat-raised-button class="mr-2" color="primary" *ngIf="currentActivity.U" (click)="SubmitData()">
+                <button (click)="SubmitData()" *ngIf="currentActivity.U" class="mr-2" color="primary" mat-raised-button>
                     <mat-icon class="mr-2">check_circle</mat-icon>
                     Submit
                 </button>
-                <button mat-raised-button
-                    class="mr-2 mat-focus-indicator  btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger"
-                    color="primary" *ngIf="currentActivity.C" (click)="clear()">
+                <button (click)="clear()"
+                        *ngIf="currentActivity.C"
+                        class="mr-2 mat-focus-indicator  btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger" color="primary" mat-raised-button>
                     <mat-icon class="mr-2"> clear_all</mat-icon>
                     Clear
                 </button>
-                <button mat-raised-button
-                        class=" mat-focus-indicator  btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger"
-                        color="primary" *ngIf="currentActivity.D" (click)="cancelTransaction()">
+                <button (click)="cancelTransaction()"
+                        *ngIf="currentActivity.D"
+                        class=" mat-focus-indicator  btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger" color="primary" mat-raised-button>
                     <mat-icon class="mr-2">cancel</mat-icon>
                     Cancel Transaction
                 </button>
@@ -218,18 +220,18 @@
         </div>
         <div class="row">
             <div class="col-lg-12 text-right py-2">
-                <span id="llcInquiryText" class="mr-4 cursor-pointer"
-                      [routerLink]="['/reschedule-cases/pending-reschedule']"><b>Pending List</b></span>
-                <span id="llcInquiryText" class="mr-4 cursor-pointer"
-                      [routerLink]="['/reschedule-cases/refer-back-reschedule']"><b>Referback List</b></span>
-                <span style="color: #01671B;" class="cursor-pointer" id="llcInqiryText" (click)="viewLCInquiry()"><b>View LC Inquiry</b></span>
+                <span [routerLink]="['/reschedule-cases/pending-reschedule']" class="mr-4 cursor-pointer"
+                      id="llcInquiryText"><b>Pending List</b></span>
+                <span [routerLink]="['/reschedule-cases/refer-back-reschedule']" class="mr-4 cursor-pointer"
+                      id="llcInquiryText"><b>Referback List</b></span>
+                <span (click)="viewLCInquiry()" class="cursor-pointer" id="llcInqiryText" style="color: #01671B;"><b>View LC Inquiry</b></span>
             </div>
         </div>
 
         <div class="col-lg-12">
             <div class="table-responsive">
 
-                <table class="table table-striped" *ngIf="table">
+                <table *ngIf="table" class="table table-striped">
                     <thead>
                     <tr class="table-header-background">
                         <th>Int Rate</th>

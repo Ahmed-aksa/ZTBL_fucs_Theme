@@ -1,13 +1,5 @@
 // Angular
-import {
-    Component,
-    OnInit,
-    ElementRef,
-    ViewChild,
-    ChangeDetectionStrategy,
-    OnDestroy,
-    ChangeDetectorRef, AfterViewInit
-} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog} from '@angular/material/dialog';
@@ -20,7 +12,7 @@ import {ActivityFormDialogComponent} from '../activity-edit/activity-form.dialog
 import {ProfileService} from '../profile.service';
 import {UserUtilsService} from "../../../../shared/services/users_utils.service";
 
-;
+
 
 //import { BaseComponentPage } from '../../../base-component.component';
 

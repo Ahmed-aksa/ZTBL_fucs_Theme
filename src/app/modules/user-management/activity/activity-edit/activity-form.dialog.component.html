@@ -1,11 +1,11 @@
-<div class="kt-portlet"
-     [class]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+<div [class]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"
+     class="kt-portlet">
     <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
         <div class="kt-portlet__head-label flex">
             <h3 class=" w-11/12 text-3xl font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
                 style="background-color: #f6fcf8;">{{getTitle()}}</h3>
-            <button type="button" color="danger" class="w-1/12 text-right" [mat-dialog-close]="data.animal"
-                    cdkFocusInitial>
+            <button [mat-dialog-close]="data.animal" cdkFocusInitial class="w-1/12 text-right" color="danger"
+                    type="button">
                 <mat-icon class="text-red-500">cancel</mat-icon>
             </button>
         </div>
@@ -14,17 +14,17 @@
         <form [formGroup]="activityForm" class="kt-form kt-form--group-seperator-dashed">
             <div class="kt-form">
                 <div class="kt-portlet__body">
-                    <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
-                              (close)="onAlertClose($event)">
+                    <kt-alert (close)="onAlertClose($event)" *ngIf="hasFormErrors" [duration]="30000" [showCloseButton]="true"
+                              type="warn">
                         Oh snap! Change a few things up and try submitting again.
                     </kt-alert>
 
                     <div class="form-group kt-form__group row">
                         <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                <input matInput placeholder="Enter Page Name" formControlName="ActivityName"
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                <input autocomplete="off" formControlName="ActivityName" matInput
                                        maxlength="200"
-                                       autocomplete="off"/>
+                                       placeholder="Enter Page Name"/>
                                 <mat-error *ngIf="hasError('ActivityName', 'required')">Name <strong>required</strong>
                                 </mat-error>
                                 <!-- <mat-hint align="start">Please enter <strong>Page Name</strong></mat-hint> -->
@@ -32,18 +32,18 @@
                         </div>
                         <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label for="ActivityUrl">Enter URL</mat-label>
 
-                                <input matInput placeholder="Enter URL" formControlName="ActivityUrl" maxlength="60"
-                                       autocomplete="off"/>
+                                <input autocomplete="off" formControlName="ActivityUrl" matInput maxlength="60"
+                                       placeholder="Enter URL"/>
                             </mat-form-field>
                         </div>
-                        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile" *ngIf="!isVisible">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <div *ngIf="!isVisible" class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label for="PageIcon">Enter Icon</mat-label>
 
-                                <input matInput placeholder="Enter Page Icon" formControlName="PageIcon" maxlength="60"
+                                <input formControlName="PageIcon" matInput maxlength="60" placeholder="Enter Page Icon"
                                 />
                                 <!--                <input  (iconPickerSelect)="onIconPickerSelect(newIcon)"/>-->
 
@@ -51,36 +51,36 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile" *ngIf="isVisible">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <div *ngIf="isVisible" class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label for="TagName">Enter Tag</mat-label>
 
-                                <input matInput placeholder="Enter Tag" formControlName="TagName" maxlength="60"
-                                       autocomplete="off"/>
+                                <input autocomplete="off" formControlName="TagName" matInput maxlength="60"
+                                       placeholder="Enter Tag"/>
                             </mat-form-field>
                         </div>
-                        <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile" *ngIf="isVisible">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <div *ngIf="isVisible" class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label for="PageSequence">Page Sequence</mat-label>
 
-                                <input matInput appNumberOnly placeholder="Page Sequence" formControlName="PageSequence"
-                                       autocomplete="off"/>
+                                <input appNumberOnly autocomplete="off" formControlName="PageSequence" matInput
+                                       placeholder="Page Sequence"/>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="row">
 
                         <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile">
-                            <mat-checkbox style="margin-top: 15px;" formControlName="IsParent"
-                                          [checked]="this.data.activity.isParent"
-                                          (change)="showOrHide($event)"><span>Is Parent?</span>
+                            <mat-checkbox (change)="showOrHide($event)" [checked]="this.data.activity.isParent"
+                                          formControlName="IsParent"
+                                          style="margin-top: 15px;"><span>Is Parent?</span>
                             </mat-checkbox>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3">
-                            <mat-checkbox style="margin-top: 15px;" formControlName="IsActive"
-                                          [checked]="this.data.activity.isActive"
+                            <mat-checkbox [checked]="this.data.activity.isActive" formControlName="IsActive"
+                                          style="margin-top: 15px;"
                             ><span>Should Show in Side Menu?</span>
                             </mat-checkbox>
                         </div>
@@ -89,15 +89,15 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3">
-                            <mat-checkbox style="margin-top: 15px;" formControlName="IsEODVisible"
-                                          [checked]="this.data.activity.IsEODVisible"
+                            <mat-checkbox [checked]="this.data.activity.IsEODVisible" formControlName="IsEODVisible"
+                                          style="margin-top: 15px;"
                             ><span>Should Show after EOD?</span>
                             </mat-checkbox>
                         </div>
 
                         <div class="col-lg-3 col-sm-12 kt-margin-bottom-20-mobile mb-3">
-                            <mat-checkbox style="margin-top: 15px;" formControlName="IsVisibleInAPP"
-                                          [checked]="this.data.activity.IsVisibleInAPP"
+                            <mat-checkbox [checked]="this.data.activity.IsVisibleInAPP" formControlName="IsVisibleInAPP"
+                                          style="margin-top: 15px;"
                             ><span>Should Show in Mobile App?</span>
                             </mat-checkbox>
                         </div>
@@ -117,7 +117,7 @@
 
                         <div class="form-group kt-form__group row">
                             <div class="col-lg-4 col-sm-12 mt-2 kt-margin-bottom-20-mobile">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                     <mat-label>Parent</mat-label>
                                     <mat-select formControlName="ParentActivityID" name="ParentActivityID">
                                         <mat-option *ngFor="let item of parentActivities" [value]="item.ActivityID">
@@ -136,9 +136,9 @@
                         <div class="row text-right">
                             <div class="col-lg-12">
 
-                                <button type="button" class="btn btn-primary bg-green" mat-raised-button color="primary"
-                                        (click)="onSubmit()"
-                                        [disabled]="viewLoading || submitted">
+                                <button (click)="onSubmit()" [disabled]="viewLoading || submitted" class="btn btn-primary bg-green" color="primary"
+                                        mat-raised-button
+                                        type="button">
                                     <mat-icon class="mr-2">save</mat-icon>
                                     Save
                                 </button>

@@ -13,13 +13,7 @@
 /* eslint-disable curly */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import {
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild,} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
@@ -103,10 +97,11 @@ export class SearchNdcListComponent implements OnInit {
     public Zone = new Zone();
 
     SrNo: number | any;
-    private _cdf: ChangeDetectorRef;
     isUserAdmin: boolean = false;
-    private loggedInUserDetails: any;
     currentActivity: Activity;
+    Num: any;
+    private _cdf: ChangeDetectorRef;
+    private loggedInUserDetails: any;
 
     constructor(
         public dialog: MatDialog,
@@ -242,15 +237,15 @@ export class SearchNdcListComponent implements OnInit {
             });
     }
 
+    // findCnic(cnic: HTMLInputElement) {
+    //   this.loadUsersList(cnic.value);
+    // }
+
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.gridHeight = window.innerHeight - 300 + 'px';
     }
-
-    // findCnic(cnic: HTMLInputElement) {
-    //   this.loadUsersList(cnic.value);
-    // }
 
     findCnic() {
         this.loadUsersList();
@@ -338,8 +333,6 @@ export class SearchNdcListComponent implements OnInit {
             {responseType: 'blob'}
         );
     }
-
-    Num: any;
 
     paginateRequest(pageIndex: any, pageSize: any = this.pageSize) {
         if (pageSize)

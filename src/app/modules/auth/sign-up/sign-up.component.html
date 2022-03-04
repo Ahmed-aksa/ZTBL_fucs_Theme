@@ -12,34 +12,34 @@
             <div class="flex items-baseline mt-0.5 font-medium">
                 <div>Already have an account?</div>
                 <a
-                    class="ml-1 text-primary-500 hover:underline"
-                    [routerLink]="['/pages/authentication/sign-in']">Sign in
+                    [routerLink]="['/pages/authentication/sign-in']"
+                    class="ml-1 text-primary-500 hover:underline">Sign in
                 </a>
             </div>
 
             <!-- Alert -->
             <fuse-alert
-                class="mt-8 -mb-4"
                 *ngIf="showAlert"
+                [@shake]="alert.type === 'error'"
                 [appearance]="'outline'"
                 [showIcon]="false"
                 [type]="alert.type"
-                [@shake]="alert.type === 'error'">
+                class="mt-8 -mb-4">
                 {{alert.message}}
             </fuse-alert>
 
             <!-- Sign Up form -->
             <form
-                class="mt-8"
-                [formGroup]="signUpForm">
+                [formGroup]="signUpForm"
+                class="mt-8">
 
                 <!-- Name field -->
                 <mat-form-field class="w-full">
                     <mat-label>Full name</mat-label>
                     <input
+                        [formControlName]="'name'"
                         id="name"
-                        matInput
-                        [formControlName]="'name'">
+                        matInput>
                     <mat-error *ngIf="signUpForm.get('name').hasError('required')">
                         Full name is required
                     </mat-error>
@@ -49,9 +49,9 @@
                 <mat-form-field class="w-full">
                     <mat-label>Email address</mat-label>
                     <input
+                        [formControlName]="'email'"
                         id="email"
-                        matInput
-                        [formControlName]="'email'">
+                        matInput>
                     <mat-error *ngIf="signUpForm.get('email').hasError('required')">
                         Email address is required
                     </mat-error>
@@ -64,24 +64,24 @@
                 <mat-form-field class="w-full">
                     <mat-label>Password</mat-label>
                     <input
+                        #passwordField
+                        [formControlName]="'password'"
                         id="password"
                         matInput
-                        type="password"
-                        [formControlName]="'password'"
-                        #passwordField>
+                        type="password">
                     <button
-                        mat-icon-button
-                        type="button"
                         (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
-                        matSuffix>
+                        mat-icon-button
+                        matSuffix
+                        type="button">
                         <mat-icon
-                            class="icon-size-5"
                             *ngIf="passwordField.type === 'password'"
-                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                            [svgIcon]="'heroicons_solid:eye'"
+                            class="icon-size-5"></mat-icon>
                         <mat-icon
-                            class="icon-size-5"
                             *ngIf="passwordField.type === 'text'"
-                            [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                            [svgIcon]="'heroicons_solid:eye-off'"
+                            class="icon-size-5"></mat-icon>
                     </button>
                     <mat-error>
                         Password is required
@@ -92,9 +92,9 @@
                 <mat-form-field class="w-full">
                     <mat-label>Company</mat-label>
                     <input
+                        [formControlName]="'company'"
                         id="company-confirm"
-                        matInput
-                        [formControlName]="'company'">
+                        matInput>
                 </mat-form-field>
 
                 <!-- ToS and PP -->
@@ -104,24 +104,24 @@
                         [formControlName]="'agreements'">
                         <span>I agree to the</span>
                         <a
-                            class="ml-1 text-primary-500 hover:underline"
-                            [routerLink]="['./']">Terms of Service
+                            [routerLink]="['./']"
+                            class="ml-1 text-primary-500 hover:underline">Terms of Service
                         </a>
                         <span>and</span>
                         <a
-                            class="ml-1 text-primary-500 hover:underline"
-                            [routerLink]="['./']">Privacy Policy
+                            [routerLink]="['./']"
+                            class="ml-1 text-primary-500 hover:underline">Privacy Policy
                         </a>
                     </mat-checkbox>
                 </div>
 
                 <!-- Submit button -->
                 <button
-                    class="fuse-mat-button-large w-full mt-6"
-                    mat-flat-button
+                    (click)="signUp()"
                     [color]="'primary'"
                     [disabled]="signUpForm.disabled"
-                    (click)="signUp()">
+                    class="fuse-mat-button-large w-full mt-6"
+                    mat-flat-button>
                     <span *ngIf="!signUpForm.disabled">
                         Create your free account
                     </span>
@@ -139,23 +139,23 @@
         <!-- Background - @formatter:off -->
         <!-- Rings -->
         <svg class="absolute inset-0 pointer-events-none"
-             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice"
+             height="100%" preserveAspectRatio="xMidYMax slice" viewBox="0 0 960 540" width="100%"
              xmlns="http://www.w3.org/2000/svg">
             <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
-                <circle r="234" cx="196" cy="23"></circle>
-                <circle r="234" cx="790" cy="491"></circle>
+                <circle cx="196" cy="23" r="234"></circle>
+                <circle cx="790" cy="491" r="234"></circle>
             </g>
         </svg>
         <!-- Dots -->
         <svg class="absolute -top-16 -right-16 text-gray-700"
-             viewBox="0 0 220 192" width="220" height="192" fill="none">
+             fill="none" height="192" viewBox="0 0 220 192" width="220">
             <defs>
-                <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20"
-                         patternUnits="userSpaceOnUse">
-                    <rect x="0" y="0" width="4" height="4" fill="currentColor"></rect>
+                <pattern height="20" id="837c3e70-6c3a-44e6-8854-cc48c737b659" patternUnits="userSpaceOnUse" width="20" x="0"
+                         y="0">
+                    <rect fill="currentColor" height="4" width="4" x="0" y="0"></rect>
                 </pattern>
             </defs>
-            <rect width="220" height="192" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)"></rect>
+            <rect fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)" height="192" width="220"></rect>
         </svg>
         <!-- @formatter:on -->
         <!-- Content -->

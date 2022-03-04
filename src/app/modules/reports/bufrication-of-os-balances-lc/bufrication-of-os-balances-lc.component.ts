@@ -21,7 +21,6 @@ import {finalize} from 'rxjs/operators';
 import {Bufrication} from '../class/reports';
 import {ReportsService} from '../service/reports.service';
 import {ToastrService} from "ngx-toastr";
-import {MatDialogRef} from '@angular/material/dialog';
 import {DatePipe} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -50,6 +49,12 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
     zone: any;
     circle: any;
     user: any = {}
+    public LovCall = new Lov();
+    select: Selection[] = [
+        {Value: '2', description: 'Portable Document Format (PDF)'},
+        {Value: '3', description: 'MS Excel (Formatted)'},
+        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
+    ];
 
     constructor(
         //private dialogRef: MatDialogRef<BufricationOfOsBalancesLcComponent>,
@@ -62,14 +67,6 @@ export class BufricationOfOsBalancesLcComponent implements OnInit {
         private _reports: ReportsService
     ) {
     }
-
-    public LovCall = new Lov();
-
-    select: Selection[] = [
-        {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '3', description: 'MS Excel (Formatted)'},
-        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
-    ];
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();

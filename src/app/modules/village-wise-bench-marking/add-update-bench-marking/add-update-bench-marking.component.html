@@ -11,17 +11,17 @@
 
         <div class="flex mt-3" style="flex-wrap: wrap;">
 
-            <app-zone-branch-circle [form]="addUpdateBenchMarkForm" [show_circle]="true"
-                                    (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+            <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="addUpdateBenchMarkForm"
+                                    [show_circle]="true"></app-zone-branch-circle>
 
-            <input matInput hidden formControlName="CircleCode"/>
+            <input formControlName="CircleCode" hidden matInput/>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Village Name<strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter Village Name'"
-                               formControlName="VillageName"/>
+                        <input [readonly]="!is_view" formControlName="VillageName" matInput
+                               placeholder="Enter Village Name'"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -29,12 +29,12 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">No. of Farmer<strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter No. of Farmer"
+                        <input [readonly]="!is_view" appNumberOnly autocomplete="off"
                                formControlName="NoOfFarmer"
-                               autocomplete="off" appNumberOnly/>
+                               matInput placeholder="Enter No. of Farmer"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -60,35 +60,35 @@
             <!--            </mat-form-field>-->
             <!--          </div>-->
             <!--        </div>-->
-            <input matInput hidden formControlName="Id"/>
+            <input formControlName="Id" hidden matInput/>
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">MaleCount<strong class="matMandatory">*</strong></mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter MaleCount Population"
+                        <input [readonly]="!is_view" appNumberOnly autocomplete="off"
                                formControlName="MaleCount"
-                               autocomplete="off" appNumberOnly/>
+                               matInput placeholder="Enter MaleCount Population"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">FemaleCount<strong class="matMandatory">*</strong></mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter FemaleCount Population"
+                        <input [readonly]="!is_view" appNumberOnly autocomplete="off"
                                formControlName="FemaleCount"
-                               autocomplete="off" appNumberOnly/>
+                               matInput placeholder="Enter FemaleCount Population"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">TransGenderCount<strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter TransGenderCount Population"
-                               formControlName="TransGenderCount" autocomplete="off" appNumberOnly/>
+                        <input [readonly]="!is_view" appNumberOnly autocomplete="off"
+                               formControlName="TransGenderCount" matInput placeholder="Enter TransGenderCount Population"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -96,18 +96,18 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Farm Size<strong class="matMandatory">*</strong></mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter Farm Size" formControlName="FarmSize"
-                               autocomplete="off"
-                               appNumberOnly/>
+                        <input [readonly]="!is_view" appNumberOnly autocomplete="off" formControlName="FarmSize"
+                               matInput
+                               placeholder="Enter Farm Size"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                     <div *ngIf="farmSizeForVillageWise" class="col-lg-12 col-sm-12">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label>Select Farm Size Unit<strong class="matMandatory">*</strong></mat-label>
                             <mat-select [disabled]="!is_view" formControlName="FarmSizeUnit">
                                 <mat-option value="">
@@ -123,22 +123,23 @@
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Average Loan Size<strong class="matMandatory">*</strong>
                         </mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter Average Loan Size"
+                        <input [readonly]="!is_view" appNumberOnly autocomplete="off"
                                formControlName="AverageLoanSize"
-                               autocomplete="off" appNumberOnly/>
+                               matInput placeholder="Enter Average Loan Size"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Subsistence Farmer<strong class="matMandatory">*</strong></mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter Tour Subsistence Farmer"
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                        <mat-label class="customMatLabel">Subsistence Farmer<strong class="matMandatory">*</strong>
+                        </mat-label>
+                        <input [readonly]="!is_view" appNumberOnly autocomplete="off"
                                formControlName="SubsistenceFarmer"
-                               autocomplete="off" appNumberOnly/>
+                               matInput placeholder="Enter Tour Subsistence Farmer"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -146,31 +147,32 @@
 
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                        <mat-label class="customMatLabel">Economic Farmer<strong class="matMandatory">*</strong></mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter Tour Economic Farmer"
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                        <mat-label class="customMatLabel">Economic Farmer<strong class="matMandatory">*</strong>
+                        </mat-label>
+                        <input [readonly]="!is_view" appNumberOnly autocomplete="off"
                                formControlName="EconomicFarmer"
-                               autocomplete="off" appNumberOnly/>
+                               matInput placeholder="Enter Tour Economic Farmer"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Big Farmers<strong class="matMandatory">*</strong></mat-label>
-                        <input [readonly]="!is_view" matInput placeholder="Enter Big Farmers"
-                               formControlName="BigFarmers" autocomplete="off"
-                               appNumberOnly/>
+                        <input [readonly]="!is_view" appNumberOnly autocomplete="off"
+                               formControlName="BigFarmers" matInput
+                               placeholder="Enter Big Farmers"/>
                     </mat-form-field>
                 </div>
             </div>
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Agri Business Potential</mat-label>
-                        <input [readonly]="!is_view" matInput maxlength="200"
-                               placeholder="Enter Agri Business Potential"
-                               formControlName="AgriBusinessPotential" autocomplete="off"/>
+                        <input [readonly]="!is_view" autocomplete="off" formControlName="AgriBusinessPotential"
+                               matInput
+                               maxlength="200" placeholder="Enter Agri Business Potential"/>
                     </mat-form-field>
                 </div>
             </div>
@@ -178,31 +180,34 @@
 
         </div>
 
-        <div class="mt-2  border-t py-4" *ngIf="is_view">
-            <button mat-raised-button color="primary" *ngIf="isAdd && !updatingCase  && currentActivity.C" class="mr-4" (click)="Add()">
+        <div *ngIf="is_view" class="mt-2  border-t py-4">
+            <button (click)="Add()" *ngIf="isAdd && !updatingCase  && currentActivity.C" class="mr-4" color="primary"
+                    mat-raised-button>
                 <mat-icon class="mr-2">add_circle</mat-icon>
                 Add
             </button>
-            <button mat-raised-button color="primary" *ngIf="isUpdate || updatingCase && currentActivity.U" class="mr-4" (click)="update()">
+            <button (click)="update()" *ngIf="isUpdate || updatingCase && currentActivity.U" class="mr-4" color="primary"
+                    mat-raised-button>
                 <mat-icon class="mr-2">add_circle</mat-icon>
                 Update
             </button>
-            <button mat-raised-button  class="mr-4 bg-green mat-primary"  *ngIf="updatingCase && currentActivity.U" (click)="SubmitSingle()">
+            <button (click)="SubmitSingle()" *ngIf="updatingCase && currentActivity.U" class="mr-4 bg-green mat-primary"
+                    mat-raised-button>
                 <mat-icon class="mr-2">check_circle</mat-icon>
                 Submit
             </button>
 
-            <button mat-raised-button
-                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger"
-                    *ngIf="currentActivity.C" (click)="clear()">
+            <button (click)="clear()"
+                    *ngIf="currentActivity.C"
+                    class="mat-focus-indicator btn bg-red-500 text-white rounded-md mat-raised-button mat-button-base mat-danger" mat-raised-button>
                 <mat-icon class="mr-2"> clear_all</mat-icon>
                 Clear
             </button>
         </div>
-        <div class="row" *ngIf="!updatingCase">
-            <div  class="col-lg-12">
+        <div *ngIf="!updatingCase" class="row">
+            <div class="col-lg-12">
 
-                <table class="table table-striped" *ngIf="tableLength">
+                <table *ngIf="tableLength" class="table table-striped">
                     <thead>
                     <tr class="table-header-background text-center">
                         <th>Circle Code</th>
@@ -218,7 +223,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="text-center" *ngFor="let array of village; let i = index">
+                    <tr *ngFor="let array of village; let i = index" class="text-center">
                         <td style="width: 100px; text-align:center;">{{array?.CircleCode}}</td>
                         <td>{{array?.VillageName}}</td>
                         <td>{{array?.NoOfFarmer}}</td>
@@ -237,11 +242,12 @@
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                <button mat-icon-button color="primary" *ngIf="currentActivity.U" (click)="editRow(array, i)">
+                                <button (click)="editRow(array, i)" *ngIf="currentActivity.U" color="primary"
+                                        mat-icon-button>
                                     <mat-icon title="Edit Customer">edit</mat-icon>
                                 </button>
-                                <button mat-icon-button color="primary" style="margin-left: 5px"
-                                        *ngIf="currentActivity.D" (click)="deleteRow(i,array)">
+                                <button (click)="deleteRow(i,array)" *ngIf="currentActivity.D" color="primary"
+                                        mat-icon-button style="margin-left: 5px">
                                     <mat-icon title="Edit Customer">delete</mat-icon>
                                 </button>
                             </div>
@@ -255,10 +261,9 @@
         </div>
 
 
-
-        <div class="row mt-2 justify-content-center" *ngIf="tableLength && !updatingCase">
+        <div *ngIf="tableLength && !updatingCase" class="row mt-2 justify-content-center">
             <div class="col-lg-12 text-right">
-                <button mat-raised-button color="primary" (click)="Submit()">
+                <button (click)="Submit()" color="primary" mat-raised-button>
                     <mat-icon class="mr-2">check_circle</mat-icon>
                     Submit
                 </button>

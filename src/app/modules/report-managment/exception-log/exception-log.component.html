@@ -9,9 +9,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center mt-2">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -24,29 +24,29 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="" [formGroup]="FilterForm">
+            <div [formGroup]="FilterForm" class="">
 
 
                 <div class="row">
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
                             <mat-form-field appearance="outline" class=" w-full">
-                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search"
+                                <input (keyup)="applyFilter($event.target.value)" appearance="outline" autocomplete="off"
                                        formControlName="TranId"
-                                       autocomplete="off"
-                                       appearance="outline">
+                                       matInput
+                                       placeholder="Search">
                                 <!-- <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint> -->
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Choose start date</mat-label>
-                                <input matInput [matDatepicker]="picker1" formControlName="StartDate"
-                                       (dateChange)="comparisonStartdateValidator()" autocomplete="off">
+                                <input (dateChange)="comparisonStartdateValidator()" [matDatepicker]="picker1" autocomplete="off"
+                                       formControlName="StartDate" matInput>
 
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
 
                                 <mat-datepicker #picker1></mat-datepicker>
 
@@ -62,12 +62,12 @@
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 sm:ml-4">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Choose end date</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="EndDate"
-                                       (dateChange)="comparisonEnddateValidator()" autocomplete="off">
+                                <input (dateChange)="comparisonEnddateValidator()" [matDatepicker]="picker" autocomplete="off"
+                                       formControlName="EndDate" matInput>
 
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
 
                                 <mat-error *ngIf="FilterForm.controls['EndDate'].hasError('invaliddaterange')">
@@ -81,9 +81,9 @@
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <button mat-raised-button
+                            <button (click)="loadErrorLogs()"
                                     class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                    type="button" (click)="loadErrorLogs()">
+                                    mat-raised-button type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -96,28 +96,28 @@
     </div>
 
 
-    <div class="example-table-container overflow-scroll border shadow-xs rounded-sm bg-gray-50"
-         [style.height]="gridHeight">
-        <mat-table class=""
+    <div [style.height]="gridHeight"
+         class="example-table-container overflow-scroll border shadow-xs rounded-sm bg-gray-50">
+        <mat-table #sort1="matSort"
                    #table
                    [dataSource]="dataSource"
+                   class=""
                    matSort
-                   #sort1="matSort"
                    matSortActive="id"
                    matSortDirection="asc"
                    matSortDisableClear>
 
             <ng-container matColumnDef="Id">
                 <!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
-                <mat-header-cell [style.min-width]="_IdWidth" *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-                <mat-cell [style.min-width]="_IdWidth" *matCellDef="let errorLog">{{errorLog.Id}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef [style.min-width]="_IdWidth" mat-sort-header>Id</mat-header-cell>
+                <mat-cell *matCellDef="let errorLog" [style.min-width]="_IdWidth">{{errorLog.Id}}</mat-cell>
             </ng-container>
 
 
             <ng-container matColumnDef="TransactionId">
-                <mat-header-cell [style.min-width]="_IdWidth" *matHeaderCellDef mat-sort-header>Transaction Id
+                <mat-header-cell *matHeaderCellDef [style.min-width]="_IdWidth" mat-sort-header>Transaction Id
                 </mat-header-cell>
-                <mat-cell [style.min-width]="_IdWidth" *matCellDef="let errorLog">{{errorLog.TransactionId}}</mat-cell>
+                <mat-cell *matCellDef="let errorLog" [style.min-width]="_IdWidth">{{errorLog.TransactionId}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Code">
@@ -126,17 +126,17 @@
             </ng-container>
 
             <ng-container matColumnDef="DateTime">
-                <mat-header-cell [style.min-width]="_dateWidth" *matHeaderCellDef mat-sort-header>DateTime
+                <mat-header-cell *matHeaderCellDef [style.min-width]="_dateWidth" mat-sort-header>DateTime
                 </mat-header-cell>
-                <mat-cell [style.min-width]="_dateWidth"
-                          *matCellDef="let errorLog">{{errorLog.DateTime |date:'medium'}}</mat-cell>
+                <mat-cell *matCellDef="let errorLog"
+                          [style.min-width]="_dateWidth">{{errorLog.DateTime |date:'medium'}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="MethodName">
-                <mat-header-cell [style.min-width]="_apiNameWidth" *matHeaderCellDef mat-sort-header>Method Name
+                <mat-header-cell *matHeaderCellDef [style.min-width]="_apiNameWidth" mat-sort-header>Method Name
                 </mat-header-cell>
-                <mat-cell [style.min-width]="_apiNameWidth"
-                          *matCellDef="let errorLog">{{errorLog.MethodName}}</mat-cell>
+                <mat-cell *matCellDef="let errorLog"
+                          [style.min-width]="_apiNameWidth">{{errorLog.MethodName}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="LoginName">
@@ -157,8 +157,8 @@
             <ng-container matColumnDef="View">
                 <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
                 <mat-cell *matCellDef="let errorLog">
-                    <button mat-icon-button color="primary"
-                            (click)="viewErrorLogDetails(errorLog)">
+                    <button (click)="viewErrorLogDetails(errorLog)" color="primary"
+                            mat-icon-button>
                         <mat-icon title="View">info</mat-icon>
                     </button>
                 </mat-cell>
@@ -170,11 +170,11 @@
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
 
-        <div class="mat-table__message" *ngIf="dataSource.data.length==0">No records found</div>
-        <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+        <div *ngIf="dataSource.data.length==0" class="mat-table__message">No records found</div>
+        <div *ngIf="loading" class="mat-table__message">Please wait....</div>
     </div>
     <div>
-        <mat-paginator [length]="15" [pageSize]="5" [pageSizeOptions]="[5,10,15,30, 50, 100]"
+        <mat-paginator [length]="15" [pageSizeOptions]="[5,10,15,30, 50, 100]" [pageSize]="5"
                        [showFirstLastButtons]="true"></mat-paginator>
     </div>
 </div>

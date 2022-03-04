@@ -20,16 +20,6 @@ export class TargetsHierarchyComponent implements OnInit {
         this.getTargetsHeirarchy();
     }
 
-    private getTargetsHeirarchy() {
-        this.spinner.show();
-        this.targetsService.getTargetsHeirarchy().subscribe((data) => {
-            this.spinner.hide();
-            if (data.Success) {
-                this.targets = data.Target.Targets;
-            }
-        })
-    }
-
     updateTarget(single_target: any, is_active) {
         if (is_active == '1') {
             single_target.IsActive = '0';
@@ -45,6 +35,16 @@ export class TargetsHierarchyComponent implements OnInit {
             } else {
                 this.toastr.error(data.Message);
 
+            }
+        })
+    }
+
+    private getTargetsHeirarchy() {
+        this.spinner.show();
+        this.targetsService.getTargetsHeirarchy().subscribe((data) => {
+            this.spinner.hide();
+            if (data.Success) {
+                this.targets = data.Target.Targets;
             }
         })
     }

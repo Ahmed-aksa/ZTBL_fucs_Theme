@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats, Lov} from "../../../shared/classes/lov.class";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {Bufrication} from "../class/reports";
 import {LovService} from "../../../shared/services/lov.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {ToastrService} from "ngx-toastr";
 import {ReportsService} from "../service/reports.service";
-import {MatDialogRef} from "@angular/material/dialog";
-import {AffidavitForLegalHeirsComponent} from "../affidavit-for-legal-heirs/affidavit-for-legal-heirs.component";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {finalize} from "rxjs/operators";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
@@ -48,6 +46,7 @@ export class LaFileProgressComponent implements OnInit {
 
 
     user: any = {}
+    public LovCall = new Lov();
 
     constructor(
         private fb: FormBuilder,
@@ -61,10 +60,6 @@ export class LaFileProgressComponent implements OnInit {
     ) {
     }
 
-    public LovCall = new Lov();
-
-
-
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.createForm();
@@ -72,9 +67,7 @@ export class LaFileProgressComponent implements OnInit {
 
 
     createForm() {
-        this.bufricationForm = this.fb.group({
-
-        })
+        this.bufricationForm = this.fb.group({})
     }
 
 

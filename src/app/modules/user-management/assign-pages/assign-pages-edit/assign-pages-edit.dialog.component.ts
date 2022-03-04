@@ -1,18 +1,18 @@
-import {Component, OnInit, Inject, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
-
-;
+import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {each, find, some} from 'lodash';
 import {delay} from 'rxjs/operators';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Role} from '../role.model';
 import {Permission} from '../permission.model';
 import {Observable, of, Subscription} from 'rxjs';
 import {AppState} from 'app/shared/reducers';
-import {Store, select} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {selectLastCreatedRoleId, selectRoleById} from 'app/shared/selectors/role.selectors';
 import {selectAllPermissions} from 'app/shared/selectors/permission.selectors';
 import {Update} from '@ngrx/entity';
 import {RoleOnServerCreated, RoleUpdated} from 'app/shared/actions/role.actions';
+
+
 
 @Component({
     selector: 'kt-assign-pages-edit-dialog',

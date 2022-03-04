@@ -7,9 +7,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -20,21 +20,21 @@
     <!-- Header -->
 
 
-    <div class="collapse show" id="collapseExample" >
+    <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="kt-form kt-form-margin" [formGroup]="deceasedCustomerSearch">
+            <div [formGroup]="deceasedCustomerSearch" class="kt-form kt-form-margin">
                 <div>
 
 
                     <div class="flex" style="flex-wrap: wrap;">
-                        <app-zone-branch-circle [form]="deceasedCustomerSearch" [show_circle]="false"
-                                                (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                        <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="deceasedCustomerSearch"
+                                                [show_circle]="false"></app-zone-branch-circle>
                         <div class="mx-2">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                     <mat-label>Cnic</mat-label>
-                                    <input appNumberOnly matInput formControlName="Cnic" placeholder="" maxlength="13"
-                                           autocomplete="off">
+                                    <input appNumberOnly autocomplete="off" formControlName="Cnic" matInput maxlength="13"
+                                           placeholder="">
                                     <!-- <mat-error *ngIf="hasError('Cnic', 'pattern')">Cnic should only contain numberic values <strong>required</strong></mat-error> -->
                                     <!-- <mat-error *ngIf="deceasedCustomerSearch.get('Cnic').hasError('required')">
                                     First Name is Required!
@@ -57,10 +57,10 @@
 
                         <div class="mx-2">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                     <mat-label>Customer Name</mat-label>
-                                    <input appAlphabetOnly matInput formControlName="CustomerName" placeholder=""
-                                           maxlength="100" autocomplete="off">
+                                    <input appAlphabetOnly autocomplete="off" formControlName="CustomerName" matInput
+                                           maxlength="100" placeholder="">
                                     <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
 
                                 </mat-form-field>
@@ -68,19 +68,19 @@
                         </div>
                         <div class="mx-2">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                     <mat-label>Father Name</mat-label>
-                                    <input appAlphabetOnly matInput formControlName="FatherName" placeholder=""
-                                           maxlength="100" autocomplete="off">
+                                    <input appAlphabetOnly autocomplete="off" formControlName="FatherName" matInput
+                                           maxlength="100" placeholder="">
                                     <!--  <mat-error *ngIf="hasError('landName', 'required')">landName <strong>required</strong></mat-error>-->
                                 </mat-form-field>
                             </div>
                         </div>
                         <div class="mx-2">
-                            <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;"
-                                 *ngIf="CustomerStatusLov">
+                            <div *ngIf="CustomerStatusLov" class="flex flex-shrink-0 items-center mt-6 sm:mt-0"
+                                 style="width: 225px;">
 
-                                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                     <mat-label>Customer Status</mat-label>
                                     <mat-select formControlName="CustomerStatus">
                                         <mat-option>
@@ -105,8 +105,8 @@
                         <div class="mx-2">
                             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
                                 <button
-                                    class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary mat-raised-button"
-                                    [disabled]="deceasedCustomerSearch.invalid" (click)="SearchDeceasedCustomer()"
+                                    (click)="SearchDeceasedCustomer()"
+                                    [disabled]="deceasedCustomerSearch.invalid" class=" mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary mat-raised-button"
                                     color="primary">
                                     <mat-icon class="mr-2">search</mat-icon>
                                     Search
@@ -160,13 +160,13 @@
 
 
     <!-- Search end -->
-    <div class="mat-table__wrapper border shadow-xs rounded-sm bg-gray-50 overflow-scroll" [style.height]="gridHeight">
+    <div [style.height]="gridHeight" class="mat-table__wrapper border shadow-xs rounded-sm bg-gray-50 overflow-scroll">
 
-        <mat-table class="lmat-elevation-z8"
+        <mat-table #sort1="matSort"
                    #table
                    [dataSource]="dataSource"
+                   class="lmat-elevation-z8"
                    matSort
-                   #sort1="matSort"
                    matSortActive="id"
                    matSortDirection="asc"
                    matSortDisableClear>
@@ -183,9 +183,9 @@
                 <mat-cell *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.DeathDate}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="Cnic">
-                <mat-header-cell style="min-width: 150px;" *matHeaderCellDef mat-sort-header>CNIC</mat-header-cell>
-                <mat-cell style="min-width: 150px;"
-                          *matCellDef="let DeceasedCustomer">{{DeceasedCustomer.Cnic}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header style="min-width: 150px;">CNIC</mat-header-cell>
+                <mat-cell *matCellDef="let DeceasedCustomer"
+                          style="min-width: 150px;">{{DeceasedCustomer.Cnic}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="address">
@@ -224,13 +224,13 @@
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
         </mat-table>
-        <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
-        <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+        <div *ngIf="!loading && dataSource.data.length==0" class="mat-table__message">No records found</div>
+        <div *ngIf="loading" class="mat-table__message">Please wait....</div>
     </div>
 
     <div class="mat-table__bottom">
-        <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
-        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15, 30, 50, 100]"
+        <mat-spinner *ngIf="loading" [diameter]="20"></mat-spinner>
+        <mat-paginator [length]="15" [pageSizeOptions]="[15, 30, 50, 100]" [pageSize]="15"
                        [showFirstLastButtons]="true"></mat-paginator>
 
         <!--<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>

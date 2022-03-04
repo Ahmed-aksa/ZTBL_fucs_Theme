@@ -12,16 +12,13 @@ import {CreateCustomer} from 'app/shared/models/customer.model';
 import {LoanUtilizationSearch} from 'app/modules/loan-utilization/Model/loan-utilization.model';
 import {CircleService} from 'app/shared/services/circle.service';
 import {CommonService} from 'app/shared/services/common.service';
-import {LayoutUtilsService, MessageType} from 'app/shared/services/layout_utils.service';
+import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {AppState} from "../../../shared/reducers";
 import {Store} from "@ngrx/store";
-import {Circle} from 'app/shared/models/circle.model';
-import {Branch} from 'app/shared/models/branch.model';
-import {Zone} from 'app/shared/models/zone.model';
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
@@ -74,16 +71,13 @@ export class EligibilityRequestComponent implements OnInit {
     public LovCall = new Lov();
     public CustomerStatusLov: any;
     _customer: CreateCustomer = new CreateCustomer();
-    private eligibilityRequestSearch = new LoanUtilizationSearch;
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
     loanutilizationStatusLov;
     matTableLenght: any;
     dv: number | any; //use later
-
     maxDate: any;
-
     Limit: any;
     OffSet: number = 0;
     //pagination
@@ -91,17 +85,21 @@ export class EligibilityRequestComponent implements OnInit {
     totalItems: number | any;
     pageIndex = 1;
     LoggedInUserInfo: BaseResponseModel;
-    //Zone inventory
-
     //Branch inventory
     images: Array<object> = [];
+    //Zone inventory
     show_pics: boolean;
     should_show_approve_and_reject: boolean = false;
     branch: any;
     circle: any;
     zone: any;
-
     userInfo: any;
+    searchLoan;
+    minDate: Date;
+    fromdate: string;
+    todate: string;
+    Today = new Date;
+    private eligibilityRequestSearch = new LoanUtilizationSearch;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -130,7 +128,6 @@ export class EligibilityRequestComponent implements OnInit {
         //this.FilterForm.controls["EndDate"].setValue(this.myDate);
     }
 
-
     ngAfterViewInit() {
 
         this.dataSource.paginator = this.paginator;
@@ -151,12 +148,9 @@ export class EligibilityRequestComponent implements OnInit {
         //this.eligibilityRequestForm.controls['Branch'].setValue(userInfo.Branch.Name);
     }
 
-    searchLoan;
-
     show() {
         this.searchLoan = Object.assign(this.eligibilityRequestForm);
     }
-
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
@@ -173,7 +167,6 @@ export class EligibilityRequestComponent implements OnInit {
 
     }
 
-
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
         this.itemsPerPage = pageSize;
@@ -183,7 +176,6 @@ export class EligibilityRequestComponent implements OnInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
-
     paginateAs(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
     }
@@ -191,9 +183,6 @@ export class EligibilityRequestComponent implements OnInit {
     hasError(controlName: string, errorName: string): boolean {
         return this.eligibilityRequestForm.controls[controlName].hasError(errorName);
     }
-
-    minDate: Date;
-    fromdate: string;
 
     setFromDate() {
 
@@ -241,8 +230,6 @@ export class EligibilityRequestComponent implements OnInit {
         }
     }
 
-    todate: string;
-
     setToDate() {
 
 
@@ -281,8 +268,6 @@ export class EligibilityRequestComponent implements OnInit {
             }
         }
     }
-
-    Today = new Date;
 
     getToday() {
         // Today
@@ -340,7 +325,7 @@ export class EligibilityRequestComponent implements OnInit {
                 Offset: this.OffSet.toString()
             }
         };
-        request.EligibilityRequest.ZoneId=request.EligibilityRequest.ZoneId.toString();
+        request.EligibilityRequest.ZoneId = request.EligibilityRequest.ZoneId.toString();
         this.eligibilityRequestSearch = Object.assign(this.eligibilityRequestSearch, this.eligibilityRequestForm.value);
         this.customerService.getEligibilityRequestData(request)
             .pipe(

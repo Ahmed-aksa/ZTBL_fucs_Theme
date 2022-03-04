@@ -8,8 +8,8 @@
     <form [formGroup]="LoanAOPIForm" class="kt-form kt-form--group-seperator-dashed">
         <div class="kt-form">
             <div class="kt-portlet__body">
-                <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
-                          (close)="onAlertClose($event)">
+                <kt-alert (close)="onAlertClose($event)" *ngIf="hasFormErrors" [duration]="30000" [showCloseButton]="true"
+                          type="warn">
                     Please enter valid Input
                 </kt-alert>
 
@@ -27,102 +27,102 @@
                                 <tbody>
                                 <tr>
                                     <td>Crop Income</td>
-                                    <td><input placeholder="0" class="form-control" (input)="dtInputChange()"
-                                               formControlName="CropIncomeFutureControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="CropIncomePresnetControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="CropIncomeFutureControl"
+                                               maxlength="12" placeholder="0"/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="CropIncomePresnetControl"
+                                               maxlength="12" placeholder="0"/></td>
                                 </tr>
                                 <tr>
                                     <td>Livestock/Dairy Income</td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="LiveStockIncomeFutureControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="LiveStockIncomePresnetControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="LiveStockIncomeFutureControl"
+                                               maxlength="12" placeholder="0"/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="LiveStockIncomePresnetControl"
+                                               maxlength="12" placeholder="0"/></td>
                                 </tr>
                                 <tr>
                                     <td>Others(Specify)</td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="OthersFutureControl" maxlength="12" autocomplete="off"
-                                               appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="OthersPresnetControl" maxlength="12" autocomplete="off"
-                                               appNumberOnly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="OthersFutureControl" maxlength="12"
+                                               placeholder="0"/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="OthersPresnetControl" maxlength="12"
+                                               placeholder="0"/></td>
                                 </tr>
                                 <tr>
                                     <td>Total Income</td>
-                                    <td><input class="form-control" placeholder="0" readonly (input)="dtInputChange()"
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off" class="form-control"
                                                formControlName="TotalIncomeFutureControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" readonly (input)="dtInputChange()"
+                                               placeholder="0" readonly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off" class="form-control"
                                                formControlName="TotalIncomePresnetControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
+                                               placeholder="0" readonly/></td>
                                 </tr>
                                 <tr>
                                     <td>Crop Raising Expenditure</td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="CropRaisingFutureControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="CropRaisingPresnetControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="CropRaisingFutureControl"
+                                               maxlength="12" placeholder="0"/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="CropRaisingPresnetControl"
+                                               maxlength="12" placeholder="0"/></td>
                                 </tr>
                                 <tr>
                                     <td>Livestock/Dairy Farming Expenditure</td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="LiveStockFarmingFutureControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="LiveStockFarmingPresnetControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="LiveStockFarmingFutureControl"
+                                               maxlength="12" placeholder="0"/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="LiveStockFarmingPresnetControl"
+                                               maxlength="12" placeholder="0"/></td>
                                 </tr>
                                 <tr>
                                     <td>Rents, Lease, Payments and others(Specify)</td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="OtherExpenditureFutureControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="OtherExpenditurePresnetControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="OtherExpenditureFutureControl"
+                                               maxlength="12" placeholder="0"/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="OtherExpenditurePresnetControl"
+                                               maxlength="12" placeholder="0"/></td>
                                 </tr>
                                 <tr>
                                     <td>Loan Installments (ZTBL & other Bank if any)</td>
-                                    <td><input class="form-control" (input)="dtInputChange()" placeholder="0"
-                                               formControlName="LoanFutureControl" maxlength="12" autocomplete="off"
-                                               appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" (input)="dtInputChange()"
-                                               formControlName="LoanPresnetControl" maxlength="12" autocomplete="off"
-                                               appNumberOnly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="LoanFutureControl" maxlength="12"
+                                               placeholder="0"/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off"
+                                               class="form-control" formControlName="LoanPresnetControl" maxlength="12"
+                                               placeholder="0"/></td>
                                 </tr>
                                 <tr>
                                     <td>Total Expenditure</td>
-                                    <td><input class="form-control" placeholder="0" readonly (input)="dtInputChange()"
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off" class="form-control"
                                                formControlName="ExpenditureFutureControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" readonly (input)="dtInputChange()"
+                                               placeholder="0" readonly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off" class="form-control"
                                                formControlName="ExpenditurePresnetControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
+                                               placeholder="0" readonly/></td>
                                 </tr>
                                 <tr>
                                     <td>Total Net Income</td>
-                                    <td><input class="form-control" placeholder="0" readonly (input)="dtInputChange()"
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off" class="form-control"
                                                formControlName="NetIncomeFutureControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" readonly (input)="dtInputChange()"
+                                               placeholder="0" readonly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off" class="form-control"
                                                formControlName="NetIncomePresnetControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
+                                               placeholder="0" readonly/></td>
                                 </tr>
                                 <tr>
                                     <td>Increase in Net Income</td>
-                                    <td><input class="form-control" placeholder="0" readonly (input)="dtInputChange()"
-                                               formControlName="IncreaseFutureControl" maxlength="12" autocomplete="off"
-                                               appNumberOnly/></td>
-                                    <td><input class="form-control" placeholder="0" readonly (input)="dtInputChange()"
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off" class="form-control"
+                                               formControlName="IncreaseFutureControl" maxlength="12" placeholder="0"
+                                               readonly/></td>
+                                    <td><input (input)="dtInputChange()" appNumberOnly autocomplete="off" class="form-control"
                                                formControlName="IncreasePresnetControl" maxlength="12"
-                                               autocomplete="off" appNumberOnly/></td>
+                                               placeholder="0" readonly/></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -132,19 +132,19 @@
                 </div>
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Land lying Un-Cultivated (A-K-M)</mat-label>
-                            <input matInput placeholder="Enter Land lying Un-Cultivated"
-                                   formControlName="UncultivatedLand" maxlength="50"/>
+                            <input formControlName="UncultivatedLand" matInput
+                                   maxlength="50" placeholder="Enter Land lying Un-Cultivated"/>
                             <mat-error *ngIf="hasError('UncultivatedLand', 'pattern')"><strong>Invalid input</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Land not to be Cultivated (A-K-M)</mat-label>
-                            <input matInput placeholder="Enter Land not to be Cultivated"
-                                   formControlName="NocultivatedLand" maxlength="50"/>
+                            <input formControlName="NocultivatedLand" matInput
+                                   maxlength="50" placeholder="Enter Land not to be Cultivated"/>
                             <mat-error *ngIf="hasError('NocultivatedLand', 'pattern')"><strong>Invalid input</strong>
                             </mat-error>
                         </mat-form-field>
@@ -162,7 +162,7 @@
                 </div>
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Type</mat-label>
                             <mat-select formControlName="Type">
                                 <mat-option *ngFor="let proCrop of selectedProposedCropType" [value]="proCrop.Value">
@@ -172,7 +172,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Crop</mat-label>
                             <mat-select formControlName="Crop">
                                 <mat-option *ngFor="let crop of selectedCrops" [value]="crop.Id">
@@ -182,35 +182,38 @@
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Area (A-K-M)</mat-label>
-                            <input matInput placeholder="Enter Area" formControlName="Area" maxlength="50"/>
+                            <input formControlName="Area" matInput maxlength="50" placeholder="Enter Area"/>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Total Output(md)</mat-label>
-                            <input appNumberOnly matInput placeholder="Enter Output" formControlName="Output" maxlength="50"/>
+                            <input appNumberOnly formControlName="Output" matInput maxlength="50"
+                                   placeholder="Enter Output"/>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Price(Rs./Md)</mat-label>
-                            <input appNumberOnly matInput placeholder="Enter Price" formControlName="Price" maxlength="50"/>
+                            <input appNumberOnly formControlName="Price" matInput maxlength="50"
+                                   placeholder="Enter Price"/>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Expenditure %</mat-label>
-                            <input appNumberOnly matInput placeholder="Enter Expenditure" formControlName="Expenditure"
-                                   maxlength="3"/>
+                            <input appNumberOnly formControlName="Expenditure" matInput maxlength="3"
+                                   placeholder="Enter Expenditure"/>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 kt-margin-bottom-20-mobile mb-2">
-                        <button *ngIf="currentActivity.C" type="button" class="btn btn-primary" mat-raised-button color="primary"
-                                (click)="AddCropDetail()">
+                        <button (click)="AddCropDetail()" *ngIf="currentActivity.C" class="btn btn-primary" color="primary"
+                                mat-raised-button
+                                type="button">
                             <mat-icon class="mr-2">add_circle</mat-icon>
                             Add
                         </button>
@@ -265,7 +268,7 @@
                                         {{production.NetIncomeFromCrop}}
                                     </td>
                                     <td style="cursor:pointer;">
-                                        <input type="checkbox" (change)="changeChecked($event,production)"/>
+                                        <input (change)="changeChecked($event,production)" type="checkbox"/>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -286,13 +289,13 @@
 
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12 kt-margin-bottom-20-mobile">
-                        <button *ngIf="currentActivity.D"  type="button" class="btn btn-primary bg-red-500"
-                            mat-raised-button color="primary" (click)="deleteAppraisalItemDetail()">
+                        <button (click)="deleteAppraisalItemDetail()" *ngIf="currentActivity.D" class="btn btn-primary bg-red-500"
+                                color="primary" mat-raised-button type="button">
                             <mat-icon class="mr-2">delete</mat-icon>
                             Delete
                         </button>
-                        <button *ngIf="currentActivity.C" type="button" class="btn btn-primary bg-green ml-3"
-                                mat-raised-button color="primary" (click)="AddAppraisalProposed()">
+                        <button (click)="AddAppraisalProposed()" *ngIf="currentActivity.C" class="btn btn-primary bg-green ml-3"
+                                color="primary" mat-raised-button type="button">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
                         </button>

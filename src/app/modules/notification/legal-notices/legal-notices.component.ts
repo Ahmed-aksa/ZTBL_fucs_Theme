@@ -15,12 +15,12 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../shared/reducers";
 
 @Component({
-  selector: 'app-legal-notices',
-  templateUrl: './legal-notices.component.html',
-  styleUrls: ['./legal-notices.component.scss']
+    selector: 'app-legal-notices',
+    templateUrl: './legal-notices.component.html',
+    styleUrls: ['./legal-notices.component.scss']
 })
 export class LegalNoticesComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Name', 'FatherName', 'Cnic','Phone', 'Cast','Lcno', 'Gl','Lnd', 'Dnd', 'Dd'];
+    displayedColumns = ['Name', 'FatherName', 'Cnic', 'Phone', 'Cast', 'Lcno', 'Gl', 'Lnd', 'Dnd', 'Dd'];
     loaded = true;
     matTableLenght = false;
     loading = false;
@@ -59,10 +59,10 @@ export class LegalNoticesComponent implements OnInit, AfterViewInit {
         this.find()
     }
 
-    createForm(){
+    createForm() {
         this.notificationTable = this.fb.group({
-            Name:[],
-            Cnic:[]
+            Name: [],
+            Cnic: []
         })
     }
 

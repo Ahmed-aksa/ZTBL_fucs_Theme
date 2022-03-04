@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ElementRef, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -79,6 +79,7 @@ export class SearchTourDiaryComponent implements OnInit {
     branch: any;
     circle: any;
     currentActivity: Activity;
+    userInfo = this.userUtilsService.getUserDetails();
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -126,8 +127,6 @@ export class SearchTourDiaryComponent implements OnInit {
         }, 1000)
 
     }
-
-    userInfo = this.userUtilsService.getUserDetails();
 
     setUsers() {
         var userInfo = this.userUtilsService.getUserDetails();

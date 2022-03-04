@@ -15,12 +15,12 @@ import {AppState} from "../../../shared/reducers";
 import {fromMatSort, sortRows} from "../../report-managment/apilogs-list/datasource-utils";
 
 @Component({
-  selector: 'app-possible-customer-leads',
-  templateUrl: './possible-customer-leads.component.html',
-  styleUrls: ['./possible-customer-leads.component.scss']
+    selector: 'app-possible-customer-leads',
+    templateUrl: './possible-customer-leads.component.html',
+    styleUrls: ['./possible-customer-leads.component.scss']
 })
 export class PossibleCustomerLeadsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Requistion', 'Applicant',  'Mobile', 'Amount', 'Cnic', 'Date', 'Crop', 'LiveStock', 'TubeWell', 'Tractor', 'OtherPurpose'];
+    displayedColumns = ['Requistion', 'Applicant', 'Mobile', 'Amount', 'Cnic', 'Date', 'Crop', 'LiveStock', 'TubeWell', 'Tractor', 'OtherPurpose'];
     loaded = true;
     matTableLenght = false;
     loading = false;
@@ -59,10 +59,10 @@ export class PossibleCustomerLeadsComponent implements OnInit, AfterViewInit {
         this.find()
     }
 
-    createForm(){
+    createForm() {
         this.notificationTable = this.fb.group({
-            Name:[],
-            Cnic:[]
+            Name: [],
+            Cnic: []
         })
     }
 

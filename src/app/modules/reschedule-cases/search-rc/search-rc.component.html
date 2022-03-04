@@ -8,9 +8,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -27,17 +27,17 @@
 
 
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="rcSearch" [show_circle]="false"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="rcSearch"
+                                            [show_circle]="false"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Application Date(ddMMyyyy) <strong
                                     class="matMandatory">*</strong>
                                 </mat-label>
-                                <input readonly="readonly" matInput [matDatepicker]="picker3" formControlName="TrDate"
-                                       [max]="today">
-                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                <input [matDatepicker]="picker3" [max]="today" formControlName="TrDate" matInput
+                                       readonly="readonly">
+                                <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
                                 <mat-datepicker #picker3></mat-datepicker>
                                 <!--<mat-error *ngIf="hasError('AppDate', 'required')">Application Date <strong>required</strong></mat-error>-->
                             </mat-form-field>
@@ -45,23 +45,23 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Loan Case#</mat-label>
-                                <input matInput placeholder="Enter Loan Case No" formControlName="Lcno" maxlength="10"
-                                       autocomplete="off" appNumberOnly/>
+                                <input appNumberOnly autocomplete="off" formControlName="Lcno" matInput
+                                       maxlength="10" placeholder="Enter Loan Case No"/>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Status</mat-label>
                                 <mat-select formControlName="Status">
                                     <mat-option>
-                                        <ngx-mat-select-search placeholderLabel="Search Loan Status..."
-                                                               (focusout)="validateLoanStatusOnFocusOut()"
+                                        <ngx-mat-select-search (focusout)="validateLoanStatusOnFocusOut()"
+                                                               (keyup)="searchLoanStatus($event.target.value)"
                                                                noEntriesFoundLabel="No Loan Status Found"
-                                                               (keyup)="searchLoanStatus($event.target.value)">
+                                                               placeholderLabel="Search Loan Status...">
                                         </ngx-mat-select-search>
                                     </mat-option>
                                     <mat-option *ngFor="let loanStatus of SelectedLoanStatus" [value]="loanStatus.Id">
@@ -73,7 +73,7 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button mat-raised-button class="mt-2 bg-gray-500" color="primary" (click)="find()">
+                            <button (click)="find()" class="mt-2 bg-gray-500" color="primary" mat-raised-button>
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -91,11 +91,11 @@
 
     <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50 "
          style="flex-direction: column;overflow-y: scroll">
-        <mat-table class="example-table-container"
+        <mat-table #sort1="matSort"
                    #table
                    [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems}"
+                   class="example-table-container"
                    matSort
-                   #sort1="matSort"
                    matSortActive="id"
                    matSortDirection="asc"
                    matSortDisableClear>
@@ -143,9 +143,10 @@
         </mat-table>
     </div>
     <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">
-                <span class="font-bold text-green">Items per page:</span>
+        <span class="font-bold text-green">Items per page:</span>
 
-        <mat-select class="border-2 pl-1 py-2"  display="inline" [(value)]="itemsPerPage" (valueChange)="paginate(1,$event)"
+        <mat-select (valueChange)="paginate(1,$event)" [(value)]="itemsPerPage" class="border-2 pl-1 py-2"
+                    display="inline"
                     style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">
             <mat-option [value]="5">5</mat-option>
             <mat-option [value]="10">10</mat-option>
@@ -153,10 +154,10 @@
             <mat-option [value]="50">50</mat-option>
         </mat-select>
         <button (click)="paginate(1)">First</button>
-        <pagination-controls display="inline" (pageChange)="paginate($event)"
+        <pagination-controls (pageChange)="paginate($event)" display="inline"
                              style="display: inline-block;"></pagination-controls>
         <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>
-        <p style="float:right;">Total <b  class="text-green">{{totalItems}}</b> items</p>
+        <p style="float:right;">Total <b class="text-green">{{totalItems}}</b> items</p>
     </div>
 
 </div>

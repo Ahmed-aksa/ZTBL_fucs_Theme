@@ -1,11 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import {
-    ChartComponent,
-} from "ng-apexcharts";
-import { DashboardService } from "../../../shared/services/dashboard.service";
-import { finalize } from "rxjs/operators";
-import { NgxSpinnerService } from 'ngx-spinner';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {ChartComponent,} from "ng-apexcharts";
+import {DashboardService} from "../../../shared/services/dashboard.service";
+import {finalize} from "rxjs/operators";
+import {NgxSpinnerService} from 'ngx-spinner';
 import {ChartOptions} from "../dashboard.component";
 
 @Component({
@@ -72,9 +70,6 @@ export class BranchManagerDashboardComponent implements OnInit {
             this.years = data.DashboardReport.YearsForHistoricalData;
         })
     }
-
-
-
 
 
 }

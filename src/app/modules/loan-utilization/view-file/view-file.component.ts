@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {style} from "@angular/animations";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {fromEvent} from "rxjs";
 
 @Component({
@@ -18,7 +17,7 @@ export class ViewFileComponent implements OnInit {
 
     config = {
         btnContainerClass: '',            // The CSS class(es) to be applied to the button container
-         btnClass: 'default',              // The CSS class(es) that will be applied to the buttons e.g. default is needed for FontAwesome icons, while not needed for Material Icons
+        btnClass: 'default',              // The CSS class(es) that will be applied to the buttons e.g. default is needed for FontAwesome icons, while not needed for Material Icons
         btnSubClass: 'material-icons',    // The CSS class(es) that will be applied to span elements inside material buttons (a Elements)
         zoomFactor: 0.1,                  // The amount that the scale will be increased by
         containerBackgroundColor: '#ccc', // The color to use for the background. This can provided in hex, or rgb(a).
@@ -77,10 +76,10 @@ export class ViewFileComponent implements OnInit {
         // this.url = data.url
         // this.url = 'http://localhost:4200/assets/media/logos/profilepicturelogo.png';
 
-        if(this.data?.url ){
-            
+        if (this.data?.url) {
+
             this.url.push(this.data?.url);
-        }else{
+        } else {
             this.url.push('http://localhost:4200/assets/media/logos/profilepicturelogo.png')
         }
         this.viewFileArray = data.documentView

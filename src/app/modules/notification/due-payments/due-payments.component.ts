@@ -15,13 +15,13 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../shared/reducers";
 
 @Component({
-  selector: 'app-due-payments',
-  templateUrl: './due-payments.component.html',
-  styleUrls: ['./due-payments.component.scss']
+    selector: 'app-due-payments',
+    templateUrl: './due-payments.component.html',
+    styleUrls: ['./due-payments.component.scss']
 })
 
 export class DuePaymentsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch',  'Cnic', 'Name', 'FatherName', 'Address','Lcno', 'Markup','Sl', 'Ndd', 'Tsa', 'Los'];
+    displayedColumns = ['Zone', 'Branch', 'Cnic', 'Name', 'FatherName', 'Address', 'Lcno', 'Markup', 'Sl', 'Ndd', 'Tsa', 'Los'];
     loaded = true;
     matTableLenght = false;
     loading = false;
@@ -59,10 +59,10 @@ export class DuePaymentsComponent implements OnInit, AfterViewInit {
         this.find()
     }
 
-    createForm(){
+    createForm() {
         this.notificationTable = this.fb.group({
-            Name:[],
-            Cnic:[]
+            Name: [],
+            Cnic: []
         })
     }
 

@@ -1,10 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
-import {
-    DateAdapter,
-    MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE,} from '@angular/material/core';
 import {DateFormats} from '../../../shared/classes/lov.class';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -120,8 +116,8 @@ export class TourDiaryApprovalZmComponent implements OnInit {
             McoNBmTourDiaryAPPlan: [null],
             AnyShortComingInDiaries: [null],
             RecNoOfDefaulterContacted: [null],
-            Remarks:[null],
-            Status:[null],
+            Remarks: [null],
+            Status: [null],
         });
     }
 

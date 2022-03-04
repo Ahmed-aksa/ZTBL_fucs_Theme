@@ -12,10 +12,10 @@
             <div class="row py-2">
                 <div class="col-lg-12 text-right">
                     <div class=" mt-6 sm:mt-0">
-                        <button *ngIf="currentActivity.C"
-                                mat-flat-button
+                        <button (click)="createOrEditItem()"
+                                *ngIf="currentActivity.C"
                                 [color]="'primary'"
-                                (click)="createOrEditItem()">
+                                mat-flat-button>
                             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                             <span class="ml-2 mr-1">Add New </span>
                         </button>
@@ -32,11 +32,11 @@
     <div class="flex flex-auto overflow-x-hidden sm:overflow-y-auto border shadow-xs rounded-sm bg-gray-50"
          style="flex-direction: column;">
         <div class="flex flex-col flex-auto sm:mb-4 ">
-            <mat-table class="lmat-elevation-z8"
+            <mat-table #sort1="matSort"
                        #table
                        [dataSource]="dataSource | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} "
+                       class="lmat-elevation-z8"
                        matSort
-                       #sort1="matSort"
                        matSortActive="id"
                        matSortDirection="asc"
                        matSortDisableClear>
@@ -59,14 +59,14 @@
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let activity">
-                        <button mat-icon-button color="primary" *ngIf="currentActivity.U"
-                                (click)="createOrEditItem(activity)">
+                        <button (click)="createOrEditItem(activity)" *ngIf="currentActivity.U" color="primary"
+                                mat-icon-button>
                             <mat-icon class="text-green">
                                 {{ activity.isCoreactivity ? 'visibility' : 'create' }}
                             </mat-icon>
                         </button>&nbsp;
-                        <button mat-icon-button color="primary" *ngIf="currentActivity.D"
-                                (click)="deleteActivity(activity)">
+                        <button (click)="deleteActivity(activity)" *ngIf="currentActivity.D" color="primary"
+                                mat-icon-button>
                             <mat-icon>
                                 {{ activity.isCoreactivity ? 'visibility' : 'delete' }}
                             </mat-icon>
@@ -83,7 +83,7 @@
 
     </div>
 
-    <mat-paginator [length]="50" [pageSize]="itemsPerPage" [pageSizeOptions]="[5, 10, 25]">
+    <mat-paginator [length]="50" [pageSizeOptions]="[5, 10, 25]" [pageSize]="itemsPerPage">
     </mat-paginator>
 
 </div>

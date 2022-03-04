@@ -1,12 +1,12 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {KtDialogService} from 'app/shared/services/kt-dialog.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {ProfileService} from 'app/shared/services/profile.service';
-import {delay, finalize} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 import {Activity, Profile} from '../../activity/activity.model';
 
 @Component({
@@ -38,6 +38,10 @@ export class RoleEditComponent implements OnInit {
                 private layoutUtilsService: LayoutUtilsService,
                 private ktDialogService: KtDialogService,
                 private _snackBar: MatSnackBar) {
+    }
+
+    get f(): any {
+        return this.roleForm.controls;
     }
 
     ngOnInit() {
@@ -84,7 +88,6 @@ export class RoleEditComponent implements OnInit {
             });
     }
 
-
     //regex edited from https://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
     createForm() {
         this.roleForm = this.formBuilder.group({
@@ -97,16 +100,9 @@ export class RoleEditComponent implements OnInit {
 
     }
 
-
     hasError(controlName: string, errorName: string): boolean {
         return this.roleForm.controls[controlName].hasError(errorName);
     }
-
-
-    get f(): any {
-        return this.roleForm.controls;
-    }
-
 
     onSubmit(): void {
 

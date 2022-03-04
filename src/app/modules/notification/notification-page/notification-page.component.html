@@ -19,25 +19,26 @@
     </div>
 
     <div class="col-lg-12 row ml-1  mt-2 justify-content-center text-center bg-gray-50  py-4">
-<!--        <div class="col-lg-4 col-sm-12">-->
-<!--            <mat-card  class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"-->
-<!--                      id="llcInquiryText" >-->
-<!--                <count [count]="nRcn" *ngIf="nRcn  != undefined"></count>-->
-<!--                <div class="d-grid" style="justify-items: center;">-->
-<!--&lt;!&ndash;                    <mat-icon class="mb-2 text-green">file_copy</mat-icon>&ndash;&gt;-->
-<!--                    <img src="../../../../assets/images/ic_recovery_collection_notification.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>-->
+        <!--        <div class="col-lg-4 col-sm-12">-->
+        <!--            <mat-card  class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"-->
+        <!--                      id="llcInquiryText" >-->
+        <!--                <count [count]="nRcn" *ngIf="nRcn  != undefined"></count>-->
+        <!--                <div class="d-grid" style="justify-items: center;">-->
+        <!--&lt;!&ndash;                    <mat-icon class="mb-2 text-green">file_copy</mat-icon>&ndash;&gt;-->
+        <!--                    <img src="../../../../assets/images/ic_recovery_collection_notification.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>-->
 
-<!--                    <p class=" text-black">Recovery Collection Notifications</p>-->
-<!--                </div>-->
-<!--            </mat-card>-->
-<!--        </div>-->
+        <!--                    <p class=" text-black">Recovery Collection Notifications</p>-->
+        <!--                </div>-->
+        <!--            </mat-card>-->
+        <!--        </div>-->
 
         <div class="col-lg-4 col-sm-12">
-            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText" (click)="click(12)">
-                <count [count]="nFvc" *ngIf="nFvc  != undefined"></count>
+            <mat-card (click)="click(12)"
+                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+                <count *ngIf="nFvc  != undefined" [count]="nFvc"></count>
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/ic_text_msg.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
+                    <img alt="icon"
+                         class="img-responsive center-block w-12 mx-auto mb-3" src="../../../../assets/images/ic_text_msg.PNG"/>
 
                     <p class=" text-black">Fence Violations</p>
                 </div>
@@ -45,12 +46,13 @@
         </div>
 
         <div class="col-lg-4 col-sm-12">
-            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText" (click)="click(2)">
-                <count [count]="nDpi" *ngIf="nDpi  != undefined" ></count>
+            <mat-card (click)="click(2)"
+                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+                <count *ngIf="nDpi  != undefined" [count]="nDpi"></count>
                 <div class="d-grid" style="justify-items: center;">
                     <!--                    <mat-icon class="mb-2 text-green">file_copy</mat-icon>-->
-                    <img src="../../../../assets/images/ic_due_payments.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
+                    <img alt="icon"
+                         class="img-responsive center-block w-12 mx-auto mb-3" src="../../../../assets/images/ic_due_payments.PNG"/>
 
                     <p class=" text-black">Due Payment Installments</p>
                 </div>
@@ -58,12 +60,13 @@
         </div>
 
         <div class="col-lg-4 col-sm-12">
-            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText" (click)="click(3)">
-                <count [count]="nPcl" *ngIf="nPcl  != undefined"></count>
+            <mat-card (click)="click(3)"
+                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+                <count *ngIf="nPcl  != undefined" [count]="nPcl"></count>
                 <div class="d-grid" style="justify-items: center;">
                     <!--                    <mat-icon class="mb-2 text-green">file_copy</mat-icon>-->
-                    <img src="../../../../assets/images/ic_possible_customer_lead.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
+                    <img alt="icon"
+                         class="img-responsive center-block w-12 mx-auto mb-3" src="../../../../assets/images/ic_possible_customer_lead.PNG"/>
 
                     <p class=" text-black">Possible Customer/Business Leads</p>
                 </div>
@@ -73,11 +76,12 @@
 
     <div class="col-lg-12 row ml-1  mt-2 justify-content-center text-center bg-gray-50  py-4">
         <div class="col-lg-4 col-sm-12">
-            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText" (click)="click(4)">
-                <count [count]="nIlt" *ngIf="nIlt  != undefined"></count>
+            <mat-card (click)="click(4)"
+                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+                <count *ngIf="nIlt  != undefined" [count]="nIlt"></count>
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/ic_loan_defaulters.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
+                    <img alt="icon"
+                         class="img-responsive center-block w-12 mx-auto mb-3" src="../../../../assets/images/ic_loan_defaulters.PNG"/>
 
                     <p class=" text-black">Defaulters For Repayment (SAM & NPL)</p>
                 </div>
@@ -85,11 +89,12 @@
         </div>
 
         <div class="col-lg-4 col-sm-12">
-            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText" (click)="click(5)">
-                <count [count]="nLd" *ngIf="nLd  != undefined"></count>
+            <mat-card (click)="click(5)"
+                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+                <count *ngIf="nLd  != undefined" [count]="nLd"></count>
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/ic_loanersdefaulters.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
+                    <img alt="icon"
+                         class="img-responsive center-block w-12 mx-auto mb-3" src="../../../../assets/images/ic_loanersdefaulters.PNG"/>
 
                     <p class=" text-black">Loaners/Defaulter</p>
                 </div>
@@ -97,12 +102,13 @@
         </div>
 
         <div class="col-lg-4 col-sm-12">
-            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText" (click)="click(7)">
-                <count [count]="nCel" *ngIf="nCel  != undefined"></count>
+            <mat-card (click)="click(7)"
+                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+                <count *ngIf="nCel  != undefined" [count]="nCel"></count>
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/ic_cnic_expiry.png" class="img-responsive center-block w-12 mx-auto mb-3"
-                         alt="icon"/>
+                    <img alt="icon"
+                         class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/ic_cnic_expiry.png"/>
                     <p class=" text-black">CNIC Expiry of Loanee</p>
                 </div>
             </mat-card>
@@ -113,11 +119,12 @@
     <div class="col-lg-12 row ml-1  mt-2 justify-content-center text-center bg-gray-50  py-4">
 
         <div class="col-lg-4 col-sm-12">
-            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText" (click)="click(1)">
-                <count [count]="nDn" *ngIf="nDn  != undefined"></count>
+            <mat-card (click)="click(1)"
+                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+                <count *ngIf="nDn  != undefined" [count]="nDn"></count>
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/ic_demand_notice.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
+                    <img alt="icon"
+                         class="img-responsive center-block w-12 mx-auto mb-3" src="../../../../assets/images/ic_demand_notice.PNG"/>
 
                     <p class=" text-black">Demand Notices</p>
                 </div>
@@ -125,35 +132,37 @@
         </div>
 
         <div class="col-lg-4 col-sm-12">
-            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText" (click)="click(8)">
-                <count [count]="nLn" *ngIf="nLn  != undefined"></count>
+            <mat-card (click)="click(8)"
+                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+                <count *ngIf="nLn  != undefined" [count]="nLn"></count>
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/ic_demand_notice.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>
+                    <img alt="icon"
+                         class="img-responsive center-block w-12 mx-auto mb-3" src="../../../../assets/images/ic_demand_notice.PNG"/>
 
                     <p class=" text-black">Legal Notices</p>
                 </div>
             </mat-card>
         </div>
 
-<!--        <div class="col-lg-4 col-sm-12">-->
-<!--            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"-->
-<!--                      id="llcInquiryText">-->
-<!--                <count [count]="nBl" *ngIf="nBl  != undefined"></count>-->
-<!--                <div class="d-grid" style="justify-items: center;">-->
-<!--                    <img src="../../../../assets/images/ic_business_leads.PNG" class="img-responsive center-block w-12 mx-auto mb-3"-->
-<!--                    alt="icon"/>-->
-<!--                    <p class=" text-black">Business Leads</p>-->
-<!--                </div>-->
-<!--            </mat-card>-->
-<!--        </div>-->
+        <!--        <div class="col-lg-4 col-sm-12">-->
+        <!--            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"-->
+        <!--                      id="llcInquiryText">-->
+        <!--                <count [count]="nBl" *ngIf="nBl  != undefined"></count>-->
+        <!--                <div class="d-grid" style="justify-items: center;">-->
+        <!--                    <img src="../../../../assets/images/ic_business_leads.PNG" class="img-responsive center-block w-12 mx-auto mb-3"-->
+        <!--                    alt="icon"/>-->
+        <!--                    <p class=" text-black">Business Leads</p>-->
+        <!--                </div>-->
+        <!--            </mat-card>-->
+        <!--        </div>-->
 
         <div class="col-lg-4 col-sm-12">
-            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText" (click)="click(9)">
-                <count [count]="nUv" *ngIf="nUv  != undefined"></count>
+            <mat-card (click)="click(9)"
+                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+                <count *ngIf="nUv  != undefined" [count]="nUv"></count>
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/ic_upcoming_visits.PNG" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/ic_upcoming_visits.PNG">
 
                     <p class=" text-black">Upcoming Tour Plan</p>
                 </div>
@@ -161,21 +170,21 @@
         </div>
     </div>
 
-<!--    <div class="col-lg-12 row ml-1  mt-2 justify-content-center text-center bg-gray-50  py-4">-->
+    <!--    <div class="col-lg-12 row ml-1  mt-2 justify-content-center text-center bg-gray-50  py-4">-->
 
-<!--        <div class="col-lg-4 col-sm-12">-->
-<!--            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"-->
-<!--                      id="llcInquiryText">-->
-<!--                <count [count]="nLDef" *ngIf="nLDef  != undefined"></count>-->
-<!--                <div class="d-grid" style="justify-items: center;">-->
-<!--                    <img src="../../../../assets/images/ic_text_msg.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>-->
-<!--                    <p class=" text-black">Intimate the Loaner via Text</p>-->
-<!--                    &lt;!&ndash;                    <p class=" text-black">Loan Defaulters</p>&ndash;&gt;-->
-<!--                </div>-->
-<!--            </mat-card>-->
-<!--        </div>-->
+    <!--        <div class="col-lg-4 col-sm-12">-->
+    <!--            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"-->
+    <!--                      id="llcInquiryText">-->
+    <!--                <count [count]="nLDef" *ngIf="nLDef  != undefined"></count>-->
+    <!--                <div class="d-grid" style="justify-items: center;">-->
+    <!--                    <img src="../../../../assets/images/ic_text_msg.PNG" class="img-responsive center-block w-12 mx-auto mb-3" alt="icon"/>-->
+    <!--                    <p class=" text-black">Intimate the Loaner via Text</p>-->
+    <!--                    &lt;!&ndash;                    <p class=" text-black">Loan Defaulters</p>&ndash;&gt;-->
+    <!--                </div>-->
+    <!--            </mat-card>-->
+    <!--        </div>-->
 
-<!--    </div>-->
+    <!--    </div>-->
 
 </div>
 

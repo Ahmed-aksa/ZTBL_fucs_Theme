@@ -4,10 +4,9 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/naming-convention */
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
-import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
+import {Lov} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
@@ -24,7 +23,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./loan-amounts-convert-to-default.component.scss']
 })
 export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Zone', 'Branch', 'Name', 'Circle','FatherName', 'Caste','Address', 'Cnic','Lcno','GL','Markup','sl','tsa','Ndd','PD','CD','Los'];
+    displayedColumns = ['Zone', 'Branch', 'Name', 'Circle', 'FatherName', 'Caste', 'Address', 'Cnic', 'Lcno', 'GL', 'Markup', 'sl', 'tsa', 'Ndd', 'PD', 'CD', 'Los'];
     // displayedColumns = ['Zone', 'Branch', 'Circle','Ndd', 'Lcno', 'Cnic', 'Name', 'FatherName', 'Address', 'Bcl', 'Los'];
     searchCnicForm: FormGroup;
 
@@ -43,14 +42,16 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewIn
     dataSource: MatTableDataSource<searchLoanCasesByCnic>;
 
     LoggedInUserInfo: BaseResponseModel;
-
+    statusLov: any;
+    public LovCall = new Lov();
+    select: Selection[] = [
+        {Value: '2', description: 'Portable Document Format (PDF)'},
+        {Value: '1', description: 'MS Excel (Formatted)'},
+        {Value: '3', description: 'MS Excel (Data Only Non Formatted)'}
+    ];
     private branch: any;
     private zone: any;
     private circle: any;
-
-    statusLov: any;
-    public LovCall = new Lov();
-
 
     constructor(
         private fb: FormBuilder,
@@ -72,13 +73,6 @@ export class LoanAmountsConvertToDefaultComponent implements OnInit, AfterViewIn
     createForm() {
         this.searchCnicForm = this.fb.group({});
     }
-
-
-    select: Selection[] = [
-        {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '1', description: 'MS Excel (Formatted)'},
-        {Value: '3', description: 'MS Excel (Data Only Non Formatted)'}
-    ];
 
     find() {
 

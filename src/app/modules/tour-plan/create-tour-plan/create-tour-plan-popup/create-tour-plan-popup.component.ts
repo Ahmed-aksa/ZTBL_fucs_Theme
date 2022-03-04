@@ -1,10 +1,9 @@
-import {ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {finalize, takeUntil, tap} from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {AuthService} from 'app/core/auth/auth.service';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
@@ -25,10 +24,10 @@ export class CreateTourPlanPopupComponent implements OnInit {
     errors: any = [];
     daylist: any = [];
     disAbleDate = []
-    private unsubscribe: Subject<any>;
     startDate: any;
     TourPlanSchedule: any;
     zone: any;
+    private unsubscribe: Subject<any>;
 
     constructor(
         private authService: AuthService,
@@ -115,7 +114,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
         this.daylist = daylist;
         this.spinner.show();
         this.disAbleDate = [];
-        this.tourPlanService.GetHolidays(this.targetPlan.dateFormte(startDate), this.targetPlan.dateFormte(endDate),this.zone).pipe(finalize(() => {
+        this.tourPlanService.GetHolidays(this.targetPlan.dateFormte(startDate), this.targetPlan.dateFormte(endDate), this.zone).pipe(finalize(() => {
             this.spinner.hide();
 
         })).subscribe(result => {
@@ -146,7 +145,7 @@ export class CreateTourPlanPopupComponent implements OnInit {
 
         var new_date = moment(this.startDate, "DD-MM-YYYY").add(-1, 'M');
         this.startDate = new_date.toDate();
-        ;
+
         this.GetHolidays();
     }
 

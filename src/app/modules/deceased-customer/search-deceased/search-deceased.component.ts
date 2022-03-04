@@ -14,7 +14,6 @@ import {DeceasedCustomerService} from "../Services/deceased-customer.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {finalize} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
-import {HttpParams} from "@angular/common/http";
 
 
 @Component({
@@ -88,9 +87,14 @@ export class SearchDeceasedComponent implements OnInit {
     SelectedCircles: any = [];
     selected_b;
     selected_c;
+    entry: any = {}
+    //pagination
+    itemsPerPage = 10; //you could use your specified
+    totalItems: number | any;
+    pageIndex = 1;
+    dv: number | any; //use later
     private final_branch: any;
     private final_zone: any;
-    entry: any = {}
 
     constructor(
         private userUtilsService: UserUtilsService,
@@ -104,7 +108,6 @@ export class SearchDeceasedComponent implements OnInit {
         private filterFB: FormBuilder,
     ) {
     }
-
 
     ngOnInit(): void {
         //this.SearchDeceasedCustomer();
@@ -161,28 +164,6 @@ export class SearchDeceasedComponent implements OnInit {
         this.circle = event.final_circle;
     }
 
-    private assignBranchAndZone() {
-
-
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.loggedInUserDetails.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.loggedInUserDetails.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.loggedInUserDetails.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.loggedInUserDetails.Zone = this.final_zone;
-        }
-
-    }
-
     SearchDeceasedCustomer() {
         this.dataSource.data = [];
         this.assignBranchAndZone();
@@ -216,13 +197,6 @@ export class SearchDeceasedComponent implements OnInit {
                 }
             });
     }
-
-
-    //pagination
-    itemsPerPage = 10; //you could use your specified
-    totalItems: number | any;
-    pageIndex = 1;
-    dv: number | any; //use later
 
     SearchLandData() {
         this.assignBranchAndZone();
@@ -379,7 +353,6 @@ export class SearchDeceasedComponent implements OnInit {
         });
     }
 
-
     async LoadLovs() {
 
         //this.ngxService.start();
@@ -464,6 +437,28 @@ export class SearchDeceasedComponent implements OnInit {
                 // this.getBorrower();
             }
         });
+    }
+
+    private assignBranchAndZone() {
+
+
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.loggedInUserDetails.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.loggedInUserDetails.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.loggedInUserDetails.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.loggedInUserDetails.Zone = this.final_zone;
+        }
+
     }
 }
 

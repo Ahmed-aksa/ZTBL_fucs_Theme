@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {DeceasedCusComponent} from './deceased-cus/deceased-cus.component';
 import {ImageViewerComponent} from './image-viewer/image-viewer.component';
 import {ReferbackDeceasedComponent} from './referback-deceased/referback-deceased.component';

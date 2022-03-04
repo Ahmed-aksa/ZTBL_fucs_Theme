@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {HttpUtilsService} from "../../../shared/services/http_utils.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
-import {BaseRequestModel} from "../../../shared/models/base_request.model";
 import {Activity} from "../../../shared/models/activity.model";
 import {environment} from "../../../../environments/environment";
 import {map} from "rxjs/operators";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class NotificationService {
     public activity = new Activity();
@@ -24,13 +23,13 @@ export class NotificationService {
 
     }
 
-    getCircleId(){
+    getCircleId() {
         var circle;
         circle = this.loggedInUserInfo.UserCircleMappings;
-        circle.forEach(element =>{
+        circle.forEach(element => {
             this.circleIds.push(element.Id)
         })
-        this.circleString= this.circleIds.toString();
+        this.circleString = this.circleIds.toString();
     }
 
 
@@ -60,54 +59,47 @@ export class NotificationService {
                 CircleIds: this.circleString
             }
         }
-        if (type == 1){
+        if (type == 1) {
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetDemandNotices`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }
-        else if(type == 2){
+        } else if (type == 2) {
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetLoaneesInstallments`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }else if(type == 3){
+        } else if (type == 3) {
             return this.http.post<any>(`${environment.apiUrl}/Notification/PossibleCustomerLeads`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }
-        else if(type == 4){
+        } else if (type == 4) {
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetSamNplLoansForNotification`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }
-        else if(type == 5){
+        } else if (type == 5) {
             return this.http.post<any>(`${environment.apiUrl}/Notification/LoaneeMightBecomeDafaulter`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }
-        else if(type ==7){
+        } else if (type == 7) {
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetCnicExpiryOfLoanee`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }
-        else if(type ==8){
+        } else if (type == 8) {
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetLegalNotices`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }
-        else if(type ==9){
+        } else if (type == 9) {
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetUpcomingTourPlan`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }
-        else if(type ==12){
+        } else if (type == 12) {
             return this.http.post<any>(`${environment.apiUrl}/Notification/GetFenceVoilations`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)

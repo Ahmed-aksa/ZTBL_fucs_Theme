@@ -3,16 +3,16 @@
         <div class="kt-portlet__body">
             <div class="form-group kt-form__group row">
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">CNIC <strong class="matMandatory">*</strong></mat-label>
-                        <input matInput placeholder="Enter CNIC" formControlName="CNIC" maxlength="13" appNumberOnly/>
+                        <input appNumberOnly formControlName="CNIC" matInput maxlength="13" placeholder="Enter CNIC"/>
                         <mat-error *ngIf="hasError('CNIC', 'required')">CNIC<strong>required</strong></mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">AGPS <strong class="matMandatory">*</strong></mat-label>
-                        <mat-select formControlName="AGPS" [(ngModel)]="agpsModel">
+                        <mat-select [(ngModel)]="agpsModel" formControlName="AGPS">
                             <mat-option>
                                 <ngx-mat-select-search placeholderLabel="Search AGPS...">
 
@@ -28,10 +28,10 @@
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4  col-sm-12 kt-margin-bottom-20-mobile">
-                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                         <mat-label class="customMatLabel">Relationship <strong class="matMandatory">*</strong>
                         </mat-label>
-                        <mat-select formControlName="Relationship" [(ngModel)]="relationshipModel">
+                        <mat-select [(ngModel)]="relationshipModel" formControlName="Relationship">
 
                             <mat-option>
                                 <ngx-mat-select-search placeholderLabel="Search Relationship...">
@@ -49,12 +49,13 @@
                     </mat-form-field>
                 </div>
                 <div class="col-lg-12  kt-margin-bottom-20-mobile flex">
-                    <button class=" mb-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                            color="primary" *ngIf="currentActivity.C" (click)="attachCustomer()" type="button">
+                    <button (click)="attachCustomer()"
+                            *ngIf="currentActivity.C" class=" mb-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary" type="button">
                         <mat-icon class="mr-2">add</mat-icon>
                         Attach
                     </button>
-                    <a class=" mx-3 self-center cursor-pointer text-green" *ngIf="currentActivity.C" (click)="viewCustomer()">Search Customer </a>
+                    <a (click)="viewCustomer()" *ngIf="currentActivity.C"
+                       class=" mx-3 self-center cursor-pointer text-green">Search Customer </a>
                 </div>
 
 
@@ -94,7 +95,7 @@
                                 <td>
                                     {{returnKeyValuePair(customer.RelationID, 'relation')}}
                                 </td>
-                                <td style="cursor:pointer;" *ngIf="currentActivity.D" (click)="deleteRow(customer,i)">
+                                <td (click)="deleteRow(customer,i)" *ngIf="currentActivity.D" style="cursor:pointer;">
                                     <mat-icon class="text-red-500">
                                         delete
                                     </mat-icon>
@@ -108,8 +109,9 @@
             </div>
             <div class="form-group kt-form__group row">
                 <div class="col-lg-3 mt-1p">
-                    <button style="background-color: #01671B;" *ngIf="currentActivity.C" type="button" class="btn btn-primary" mat-raised-button
-                            color="primary" (click)="onSaveCustomer()">
+                    <button (click)="onSaveCustomer()" *ngIf="currentActivity.C" class="btn btn-primary"
+                            color="primary" mat-raised-button
+                            style="background-color: #01671B;" type="button">
                         <mat-icon class="mr-2">save</mat-icon>
                         Save
                     </button>

@@ -1,12 +1,4 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    Inject,
-    NgZone,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Inject, NgZone, OnInit, ViewChild,} from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
@@ -51,6 +43,26 @@ export class ViewGetFancingModalComponent implements OnInit {
 
     @ViewChild('search')
     public searchElementRef: ElementRef;
+    previousInfoWindow: any;
+    isLoadingFence: boolean;
+
+    // final(val){
+    //   this.latlong[this.latlong.length][]
+    // }
+    fenceMarkers: any = [];
+    selectedShape: any;
+    viewColor = '#ecbd00';
+    selectedArea = 0;
+    ///////////////////Os Change Set Map
+    countryRestriction = {
+        latLngBounds: {
+            north: 37.084107,
+            east: 77.823171,
+            south: 23.6345,
+            west: 60.872972,
+        },
+        strictBounds: true,
+    };
 
     constructor(
         public dialogRef: MatDialogRef<ViewGetFancingModalComponent>,
@@ -105,25 +117,6 @@ export class ViewGetFancingModalComponent implements OnInit {
         }
     }
 
-    // final(val){
-    //   this.latlong[this.latlong.length][]
-    // }
-
-    previousInfoWindow: any;
-    isLoadingFence: boolean;
-    fenceMarkers: any = [];
-    selectedShape: any;
-    viewColor = '#ecbd00';
-    selectedArea = 0;
-
-    clickedMarker(index: number, infowindow) {
-        // this.viewCircleFence(index);
-        // if (this.previousInfoWindow != null) {
-        //     this.previousInfoWindow.close();
-        // }
-        // this.previousInfoWindow = infowindow;
-    }
-
     // removeClickedMarker(index: number) {
     //
     //     if (this.selectedMarker == null) {
@@ -142,6 +135,14 @@ export class ViewGetFancingModalComponent implements OnInit {
     //     }
     //
     // }
+
+    clickedMarker(index: number, infowindow) {
+        // this.viewCircleFence(index);
+        // if (this.previousInfoWindow != null) {
+        //     this.previousInfoWindow.close();
+        // }
+        // this.previousInfoWindow = infowindow;
+    }
 
     viewCircleFence() {
         this.isLoadingFence = true;
@@ -295,17 +296,6 @@ export class ViewGetFancingModalComponent implements OnInit {
             this.selectedArea = 0;
         }
     }
-
-    ///////////////////Os Change Set Map
-    countryRestriction = {
-        latLngBounds: {
-            north: 37.084107,
-            east: 77.823171,
-            south: 23.6345,
-            west: 60.872972,
-        },
-        strictBounds: true,
-    };
 
     Heading(i) {
         if (i == 0) {

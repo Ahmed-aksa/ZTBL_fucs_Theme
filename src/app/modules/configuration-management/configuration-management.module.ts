@@ -8,7 +8,6 @@ import {ConfigurationEditComponent} from './configuration-edit/configuration-edi
 import {ConfigurationHistoryComponent} from './configuration-history/configuration-history.component';
 import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/shared.module";
-import {KtDialogService} from "../../shared/services/kt-dialog.service";
 
 
 const routes: Routes = [

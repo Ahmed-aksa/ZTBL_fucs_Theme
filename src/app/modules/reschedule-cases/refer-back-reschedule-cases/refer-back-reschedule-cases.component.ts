@@ -78,8 +78,8 @@ export class ReferBackRescheduleCasesComponent implements OnInit, AfterViewInit 
     OffSet: any;
 
     matTableLenght: boolean;
-    private loading: boolean;
     currentActivity: Activity;
+    private loading: boolean;
 
     constructor(
         private spinner: NgxSpinnerService,

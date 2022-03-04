@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -9,7 +9,7 @@ import {finalize} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
-import {Loan, SearchChargeCreation, SearchLoan} from 'app/shared/models/Loan.model';
+import {Loan, SearchChargeCreation} from 'app/shared/models/Loan.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LoanService} from 'app/shared/services/loan.service';
@@ -115,7 +115,7 @@ export class ChargeCreationLoanComponent implements OnInit {
     createForm() {
         this.loanSearch = this.filterFB.group({
             LcNo: [this.loanFilter.LcNo],
-            Type:[],
+            Type: [],
         });
     }
 
@@ -179,7 +179,7 @@ export class ChargeCreationLoanComponent implements OnInit {
             return;
         }
 
-        if (this.loanSearch.controls.Type.value==undefined||this.loanSearch.controls.Type.value=='') {
+        if (this.loanSearch.controls.Type.value == undefined || this.loanSearch.controls.Type.value == '') {
             var Message = 'Please Select Type.';
             this.layoutUtilsService.alertElement(
                 '',
@@ -189,7 +189,7 @@ export class ChargeCreationLoanComponent implements OnInit {
             return;
         }
 
-        if (this.loanSearch.controls.LcNo.value==undefined||this.loanSearch.controls.LcNo.value=='') {
+        if (this.loanSearch.controls.LcNo.value == undefined || this.loanSearch.controls.LcNo.value == '') {
             var Message = 'Please Enter LcNo.';
             this.layoutUtilsService.alertElement(
                 '',

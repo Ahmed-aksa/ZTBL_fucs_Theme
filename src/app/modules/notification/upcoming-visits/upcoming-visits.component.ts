@@ -9,9 +9,9 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
 import {finalize} from "rxjs/operators";
 
 @Component({
-  selector: 'app-upcoming-visits',
-  templateUrl: './upcoming-visits.component.html',
-  styleUrls: ['./upcoming-visits.component.scss']
+    selector: 'app-upcoming-visits',
+    templateUrl: './upcoming-visits.component.html',
+    styleUrls: ['./upcoming-visits.component.scss']
 })
 export class UpcomingVisitsComponent implements OnInit, AfterViewInit {
     // displayedColumns = ['NotificationType', 'CreatedDateTime',  'NotificationDescription', 'RequestedAt', 'FatherName', 'Address','Lcno', 'Markup','Sl', 'Ndd', 'Tsa', 'Los'];

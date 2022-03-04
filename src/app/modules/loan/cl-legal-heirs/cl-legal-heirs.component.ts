@@ -1,19 +1,16 @@
 import {DatePipe} from '@angular/common';
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatSelectChange} from '@angular/material/select';
-import {DateFormats, Lov, LovConfigurationKey, MaskEnum} from 'app/shared/classes/lov.class';
+import {Lov, LovConfigurationKey, MaskEnum} from 'app/shared/classes/lov.class';
 import {LoanApplicationLegalHeirs} from 'app/shared/models/loan-application-header.model';
-import {CustomersLoanApp, Loan} from 'app/shared/models/Loan.model';
+import {Loan} from 'app/shared/models/Loan.model';
 import {CommonService} from 'app/shared/services/common.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LoanService} from 'app/shared/services/loan.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
-import {of} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {Activity} from "../../../shared/models/activity.model";
 
@@ -89,7 +86,7 @@ export class ClLegalHeirsComponent implements OnInit {
     }
 
     loadCustomers() {
-    this.getLegalHeirs();
+        this.getLegalHeirs();
         this.loanDetail.CustomersLoanList = JSON.parse(localStorage.getItem('customer_loan_list'));
         if (this.loanDetail != null) {
             if (this.loanDetail.CustomersLoanList.length > 0) {
@@ -105,30 +102,29 @@ export class ClLegalHeirsComponent implements OnInit {
 
     }
 
-    getLegalHeirs(){
-            if (this.loanDetail == null || this.loanDetail == undefined) {
-                this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
-                return;
+    getLegalHeirs() {
+        if (this.loanDetail == null || this.loanDetail == undefined) {
+            this.layoutUtilsService.alertMessage("", "Application Header Info Not Found");
+            return;
+        }
+
+        this.spinner.show();
+
+        this._loanService.getGetLegalHeirs(this.loanDetail.ApplicationHeader.LoanAppID)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            ).subscribe(baseResponse => {
+            if (baseResponse.Success === true) {
+                this.legalHeirsArray = baseResponse.Loan.LoanApplicationLegalHeirsList;
+                this._cdf.detectChanges();
+            } else {
+                this.legalHeirsArray = [];
             }
+            // this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
 
-            this.spinner.show();
-
-            this._loanService.getGetLegalHeirs(this.loanDetail.ApplicationHeader.LoanAppID)
-                .pipe(
-                    finalize(() => {
-                        this.spinner.hide();
-                    })
-                ).subscribe(baseResponse => {
-                if (baseResponse.Success===true) {
-                    this.legalHeirsArray = baseResponse.Loan.LoanApplicationLegalHeirsList;
-                    this._cdf.detectChanges();
-                }
-                else{
-                    this.legalHeirsArray=[];
-                }
-                // this.layoutUtilsService.alertElement("", baseResponse.Message, baseResponse.Code);
-
-            });
+        });
     }
 
     async LoadLovs() {
@@ -157,7 +153,7 @@ export class ClLegalHeirsComponent implements OnInit {
             grid.Dob = appLegalHeirsData[i].Dob;
             var devProdFlag = this.RelationshipLov?.filter(x => x.Id == appLegalHeirsData[i].RelationID)
             if (devProdFlag?.length > 0) {
-                grid.RelationName    = devProdFlag[0].Description;
+                grid.RelationName = devProdFlag[0].Description;
             }
 
             tempCustomerArray.push(grid);
@@ -221,7 +217,7 @@ export class ClLegalHeirsComponent implements OnInit {
 
 
         this.legalHeirs = Object.assign(this.legalHeirsForm.value, this.legalHeirsForm.getRawValue());
-        this.legalHeirs.Dob = this.datePipe.transform(this.legalHeirs.Dob,'ddMMyyyy')
+        this.legalHeirs.Dob = this.datePipe.transform(this.legalHeirs.Dob, 'ddMMyyyy')
         var arr = this.loanDetail.ApplicationHeader.LoanAppID;
         this.legalHeirs.CustomerID = this.custID;
         this.spinner.show();
@@ -280,23 +276,22 @@ export class ClLegalHeirsComponent implements OnInit {
             if (this.legalHeirsArray.length == 0) {
                 return false;
             } else {
-                    this.spinner.show();
-                    this._loanService.deleteLegalHeirs(ID, this.legalHeirs.LoanAppID)
-                        .pipe(
-                            finalize(() => {
-                                this.spinner.hide();
-                            })
-                        )
-                        .subscribe(baseResponse => {
-                            if (baseResponse.Success === true) {
-                             this.getLegalHeirs();
-                                this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
-                            }
-                            else{
-                                this.layoutUtilsService.alertMessage("", baseResponse.Message)
-                            }
-
+                this.spinner.show();
+                this._loanService.deleteLegalHeirs(ID, this.legalHeirs.LoanAppID)
+                    .pipe(
+                        finalize(() => {
+                            this.spinner.hide();
                         })
+                    )
+                    .subscribe(baseResponse => {
+                        if (baseResponse.Success === true) {
+                            this.getLegalHeirs();
+                            this.layoutUtilsService.alertElementSuccess("", baseResponse.Message, baseResponse.Code);
+                        } else {
+                            this.layoutUtilsService.alertMessage("", baseResponse.Message)
+                        }
+
+                    })
             }
 
 

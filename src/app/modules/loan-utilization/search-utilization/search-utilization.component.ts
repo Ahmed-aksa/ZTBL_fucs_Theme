@@ -1,5 +1,5 @@
 import {DatePipe} from '@angular/common';
-import {Component, OnInit, ElementRef, ViewChild, Input, ChangeDetectorRef, AfterViewInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
@@ -79,20 +79,20 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
     errors = errorMessages;
     public LovCall = new Lov();
     public CustomerStatusLov: any;
-    private _utilizationSearch = new LoanUtilizationSearch();
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
     loanutilizationStatusLov;
+    LoggedInUserInfo: BaseResponseModel;
 
     //Start ZBC
-
-    LoggedInUserInfo: BaseResponseModel;
     currentActivity: Activity
+    private _utilizationSearch = new LoanUtilizationSearch();
 
 
     //End ZBC
-
+    //Start ZBC
+    private userInfo = this.userUtilsService.getUserDetails();
 
     constructor(
         public dialog: MatDialog,
@@ -142,7 +142,6 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         this.dataSource = this.dv.slice(pageIndex * this.itemsPerPage - this.itemsPerPage, pageIndex * this.itemsPerPage);
     }
 
-
     paginateAs(pageIndex: any, pageSize: any = this.itemsPerPage) {
 
     }
@@ -152,10 +151,6 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
         this.branch = event.final_branch;
         this.circle = event.final_circle;
     }
-
-    //Start ZBC
-    private userInfo = this.userUtilsService.getUserDetails();
-
 
     setUsers() {
         const userInfo = this.userUtilsService.getUserDetails();
@@ -298,7 +293,7 @@ export class SearchUtilizationComponent implements OnInit, AfterViewInit {
             this.utilizationSearch.controls['Status'].setValue('All');
         }
         this._utilizationSearch = Object.assign(this.utilizationSearch.value);
-        this._utilizationSearch["ZoneId"]= this._utilizationSearch["ZoneId"].toString();
+        this._utilizationSearch["ZoneId"] = this._utilizationSearch["ZoneId"].toString();
 
         this._loanutilizationService.searchUtilization(this._utilizationSearch, this.zone, this.branch, this.circle, count, currentIndex)
             .pipe(

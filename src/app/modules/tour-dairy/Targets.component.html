@@ -1,13 +1,12 @@
-
-
 <div
     class=" px-10   sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-auto bg-card dark:bg-transparent">
-<!--    <button class="buttonred">sam</button>-->
-    <mat-tab-group  [ngClass]="applyClass()" class="pt-2 flex flex-auto dash-ttab  shadow-xs rounded-sm pb-3" style="flex-direction: column; overflow-y: scroll"
-                   animationDuration="200ms" style="background-color: white;">
+    <!--    <button class="buttonred">sam</button>-->
+    <mat-tab-group [ngClass]="applyClass()" animationDuration="200ms"
+                   class="pt-2 flex flex-auto dash-ttab  shadow-xs rounded-sm pb-3"
+                   style="flex-direction: column; overflow-y: scroll" style="background-color: white;">
         <ng-container *ngFor="let item of userGroup">
 
-            <mat-tab  *ngIf=" item.ProfileID=='69'" ng-disable="visibleFlag" label="ZM RECOVERY">
+            <mat-tab *ngIf=" item.ProfileID=='69'" label="ZM RECOVERY" ng-disable="visibleFlag">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
@@ -23,28 +22,27 @@
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab label="EVP LMD" *ngIf="item.ProfileID =='207'">
+            <mat-tab *ngIf="item.ProfileID =='207'" label="EVP LMD">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab label="ZONAL CHIEF" *ngIf="item.ProfileID =='75'">
-                <app-set-target-tabs  [UserID]="item.ProfileID"></app-set-target-tabs>
-            </mat-tab>
-
-            <mat-tab label="AUTHOR" *ngIf="item.ProfileID =='57'">
+            <mat-tab *ngIf="item.ProfileID =='75'" label="ZONAL CHIEF">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab label="MAKER" *ngIf="item.ProfileID =='56'">
+            <mat-tab *ngIf="item.ProfileID =='57'" label="AUTHOR">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
 
-            <mat-tab label="REGIONAL CHIEF" *ngIf="item.ProfileID =='203'">
+            <mat-tab *ngIf="item.ProfileID =='56'" label="MAKER">
+                <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
+            </mat-tab>
+
+            <mat-tab *ngIf="item.ProfileID =='203'" label="REGIONAL CHIEF">
                 <app-set-target-tabs [UserID]="item.ProfileID"></app-set-target-tabs>
             </mat-tab>
         </ng-container>
     </mat-tab-group>
-
 
 
 </div>

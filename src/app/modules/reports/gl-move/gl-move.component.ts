@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
-import {MatDialogRef} from "@angular/material/dialog";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LovService} from "../../../shared/services/lov.service";
 import {ReportsService} from "../service/reports.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
-import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
+import {DateFormats, Lov} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
@@ -63,6 +62,12 @@ export class GlMoveComponent implements OnInit {
     SelectedCircles: any = [];
 
     user: any = {}
+    public LovCall = new Lov();
+    select: Selection[] = [
+        {Value: '2', description: 'Portable Document Format (PDF)'},
+        {Value: '3', description: 'MS Excel (Formatted)'},
+        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
+    ];
 
     constructor(
         private fb: FormBuilder,
@@ -76,14 +81,6 @@ export class GlMoveComponent implements OnInit {
         private _reports: ReportsService,
     ) {
     }
-
-    public LovCall = new Lov();
-
-    select: Selection[] = [
-        {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '3', description: 'MS Excel (Formatted)'},
-        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
-    ];
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -228,8 +225,6 @@ export class GlMoveComponent implements OnInit {
     }
 
 
-
-
     createForm() {
         this.bufricationForm = this.fb.group({
             WorkingDate: [null, Validators.required],
@@ -240,7 +235,7 @@ export class GlMoveComponent implements OnInit {
         })
     }
 
-    controlReset(){
+    controlReset() {
         this.bufricationForm.controls['GLCode'].setValue(null)
         this.bufricationForm.controls['ToDate'].setValue(null)
         this.bufricationForm.controls['FromDate'].setValue(null)
@@ -250,8 +245,6 @@ export class GlMoveComponent implements OnInit {
         this.reports.GLCode = null
         this.reports.Nature = null;
     }
-
-
 
 
     // find(toFrom:boolean) {
@@ -360,12 +353,12 @@ export class GlMoveComponent implements OnInit {
 
     findWith() {
 
-            this.bufricationForm.controls['GLCode'].setValidators(Validators.required)
-            this.bufricationForm.controls['GLCode'].updateValueAndValidity()
-            this.bufricationForm.controls['ToDate'].setValidators(Validators.required)
-            this.bufricationForm.controls['ToDate'].updateValueAndValidity()
-            this.bufricationForm.controls['FromDate'].setValidators(Validators.required)
-            this.bufricationForm.controls['FromDate'].updateValueAndValidity()
+        this.bufricationForm.controls['GLCode'].setValidators(Validators.required)
+        this.bufricationForm.controls['GLCode'].updateValueAndValidity()
+        this.bufricationForm.controls['ToDate'].setValidators(Validators.required)
+        this.bufricationForm.controls['ToDate'].updateValueAndValidity()
+        this.bufricationForm.controls['FromDate'].setValidators(Validators.required)
+        this.bufricationForm.controls['FromDate'].updateValueAndValidity()
 
         if (this.bufricationForm.invalid) {
             this.toastr.error("Please Enter Required values");
@@ -382,9 +375,10 @@ export class GlMoveComponent implements OnInit {
         var myWorkingDate = this.bufricationForm.controls.WorkingDate.value;
         this.reports.WorkingDate = this.datePipe.transform(myWorkingDate, 'ddMMyyyy')
 
-            var toDate= this.bufricationForm.controls.ToDate.value, fromDate= this.bufricationForm.controls.FromDate.value;
-            this.reports.FromDate = this.datePipe.transform(fromDate, 'ddMMyyyy')
-            this.reports.ToDate = this.datePipe.transform(toDate, 'ddMMyyyy')
+        var toDate = this.bufricationForm.controls.ToDate.value,
+            fromDate = this.bufricationForm.controls.FromDate.value;
+        this.reports.FromDate = this.datePipe.transform(fromDate, 'ddMMyyyy')
+        this.reports.ToDate = this.datePipe.transform(toDate, 'ddMMyyyy')
 
         this.spinner.show();
         this._reports.reportDynamic(this.reports)
@@ -404,7 +398,6 @@ export class GlMoveComponent implements OnInit {
                 }
             })
     }
-
 
 
     getAllData(data) {

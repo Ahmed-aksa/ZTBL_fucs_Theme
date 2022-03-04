@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {SearchLoanCaseByCnic} from "../class/reports";
 import {MatTableDataSource} from "@angular/material/table";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
@@ -13,12 +13,12 @@ import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
 
 @Component({
-  selector: 'app-customer-cwr',
-  templateUrl: './customer-cwr.component.html',
-  styleUrls: ['./customer-cwr.component.scss']
+    selector: 'app-customer-cwr',
+    templateUrl: './customer-cwr.component.html',
+    styleUrls: ['./customer-cwr.component.scss']
 })
 export class CustomerCwrComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Booklet','Lcno', 'Date', 'Cnic', 'Name', 'f_name', 'f_size','f_no','Action'];
+    displayedColumns = ['Booklet', 'Lcno', 'Date', 'Cnic', 'Name', 'f_name', 'f_size', 'f_no', 'Action'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
@@ -37,13 +37,11 @@ export class CustomerCwrComponent implements OnInit, AfterViewInit {
     LoggedInUserInfo: BaseResponseModel;
 
     user: any = {}
+    statusLov: any;
+    public LovCall = new Lov();
     private branch: any;
     private zone: any;
     private circle: any;
-
-    statusLov: any;
-    public LovCall = new Lov();
-
 
     constructor(
         private fb: FormBuilder,
@@ -73,7 +71,7 @@ export class CustomerCwrComponent implements OnInit, AfterViewInit {
 
 
     find() {
-        
+
         if (this.searchCnicForm.invalid) {
             this.toastr.error("Please Enter Required values");
             this.searchCnicForm.markAllAsTouched()
@@ -134,7 +132,7 @@ export class CustomerCwrComponent implements OnInit, AfterViewInit {
         this.gridHeight = window.innerHeight - 335 + 'px';
     }
 
-    downloadCusCwr(report){
+    downloadCusCwr(report) {
         console.log(report)
     }
 

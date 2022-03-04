@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ElementRef, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -79,7 +79,8 @@ export class SearchTourPlanComponent implements OnInit {
     branch: any;
     circle: any;
     currentActivity: Activity;
-
+    //Start ZBC
+    userInfo = this.userUtilsService.getUserDetails();
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -119,9 +120,6 @@ export class SearchTourPlanComponent implements OnInit {
 
         this.settingZBC();
     }
-
-    //Start ZBC
-    userInfo = this.userUtilsService.getUserDetails();
 
     settingZBC() {
 
@@ -374,7 +372,7 @@ export class SearchTourPlanComponent implements OnInit {
 
 
                 if (baseResponse.Success) {
-                    
+
                     this.TourPlans = baseResponse?.TourPlan?.TourPlans;
                     // this.dataSource.data = baseResponse?.TourPlan?.TourPlans;
                     // if (this.dataSource?.data?.length > 0)
@@ -445,7 +443,6 @@ export class SearchTourPlanComponent implements OnInit {
         //     relativeTo: this.activatedRoute
         // });
     }
-
 
 
     async LoadLovs() {

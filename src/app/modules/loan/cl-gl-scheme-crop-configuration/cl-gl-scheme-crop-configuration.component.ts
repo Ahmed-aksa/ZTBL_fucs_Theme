@@ -1,6 +1,6 @@
-import {Component, OnInit, ChangeDetectorRef, Inject, ViewChild, ElementRef} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, FormControl, FormArray} from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -52,6 +52,10 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
     count: any;
 
     //dataSource: MatTableDataSource<Data> | any;
+    size = 10; //Default Items Per Page
+    //p : number =1;
+    pageIndex = 1; //Page Number
+    length: any; //Data Length or Total Items from Api
 
     constructor(
         public dialogRef: MatDialogRef<ClGlSchemeCropConfigurationComponent>,
@@ -62,13 +66,6 @@ export class ClGlSchemeCropConfigurationComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private _common: CommonService) {
     }
-
-
-    size = 10; //Default Items Per Page
-    //p : number =1;
-    pageIndex = 1; //Page Number
-    length: any; //Data Length or Total Items from Api
-
 
     ngOnInit() {
 

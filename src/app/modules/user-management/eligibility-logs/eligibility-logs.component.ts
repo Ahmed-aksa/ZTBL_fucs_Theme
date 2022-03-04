@@ -1,19 +1,14 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Customer, Documents, MarkDeceasedCustomer} from "../../../shared/models/deceased_customer.model";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {MatTableDataSource} from "@angular/material/table";
-import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {CircleService} from "../../../shared/services/circle.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {DeceasedCustomerService} from "../../../shared/services/deceased-customer.service";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {CommonService} from "../../../shared/services/common.service";
 import {DatePipe} from "@angular/common";
-import {finalize} from "rxjs/operators";
-import {ViewFileComponent} from "../../deceased-customer/view-file/view-file.component";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
 import {DateFormats} from "../../../shared/classes/lov.class";
@@ -130,7 +125,7 @@ export class EligibilityLogsComponent implements OnInit {
                 this.TotalRecords = data.EligibilityRequest.EligibilityRequests[0]?.TotalRecords;
             } else {
                 this.layoutUtilsService.alertMessage("", data.Message);
-                this.dataSource.data = this.dataSource.data.splice(1,0)
+                this.dataSource.data = this.dataSource.data.splice(1, 0)
 
             }
         })

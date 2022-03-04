@@ -10,9 +10,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -25,16 +25,16 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="" [formGroup]="FilterForm">
+            <div [formGroup]="FilterForm" class="">
 
 
                 <div class="row">
                     <div class="col-lg-4 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class="w-full" appearance="outline">
-                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search"
-                                       autocomplete="off"
-                                       appearance="outline">
+                            <mat-form-field appearance="outline" class="w-full">
+                                <input (keyup)="applyFilter($event.target.value)" appearance="outline" autocomplete="off"
+                                       matInput
+                                       placeholder="Search">
                                 <!-- <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint> -->
                             </mat-form-field>
                         </div>
@@ -48,79 +48,79 @@
     <div [formGroup]="FilterForm">
         <div
             class="absolute inset-x-0 bottom-0">
-            <mat-progress-bar [mode]="'indeterminate'" *ngIf="loading"></mat-progress-bar>
+            <mat-progress-bar *ngIf="loading" [mode]="'indeterminate'"></mat-progress-bar>
         </div>
 
 
     </div>
-    <div class="example-table-container border shadow-xs rounded-sm bg-gray-50  overflow-scroll"
-         [style.height]="gridHeight">
-        <mat-table class="lmat-elevation-z8"
+    <div [style.height]="gridHeight"
+         class="example-table-container border shadow-xs rounded-sm bg-gray-50  overflow-scroll">
+        <mat-table #sort1="matSort"
                    #table
                    [dataSource]="dataSource"
+                   class="lmat-elevation-z8"
                    matSort
-                   #sort1="matSort"
                    matSortActive="id"
                    matSortDirection="asc"
                    matSortDisableClear>
 
 
             <ng-container matColumnDef="TransactionId">
-                <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-sort-header-container">Transaction Id
+                <mat-header-cell *matHeaderCellDef class="mat-sort-header-container" mat-sort-header>Transaction Id
                 </mat-header-cell>
                 <mat-cell *matCellDef="let ecibListFull">{{ecibListFull.TranId}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="CREATED">
-                <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-sort-header-container">Created
+                <mat-header-cell *matHeaderCellDef class="mat-sort-header-container" mat-sort-header>Created
                 </mat-header-cell>
                 <mat-cell *matCellDef="let ecibListFull">{{ecibListFull.Created|date:'medium'}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="CNIC">
-                <mat-header-cell style="min-width: 150px;" *matHeaderCellDef mat-sort-header
-                                 class="mat-sort-header-container">CNIC
+                <mat-header-cell *matHeaderCellDef class="mat-sort-header-container" mat-sort-header
+                                 style="min-width: 150px;">CNIC
                 </mat-header-cell>
-                <mat-cell style="min-width: 150px;" *matCellDef="let ecibListFull">{{ecibListFull.Cnic}}</mat-cell>
+                <mat-cell *matCellDef="let ecibListFull" style="min-width: 150px;">{{ecibListFull.Cnic}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="STATUS">
-                <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-sort-header-container">Status
+                <mat-header-cell *matHeaderCellDef class="mat-sort-header-container" mat-sort-header>Status
                 </mat-header-cell>
                 <mat-cell *matCellDef="let ecibListFull">{{ecibListFull.Status}}</mat-cell>
             </ng-container>
 
 
             <ng-container matColumnDef="NTN">
-                <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-sort-header-container">NTN
+                <mat-header-cell *matHeaderCellDef class="mat-sort-header-container" mat-sort-header>NTN
                 </mat-header-cell>
                 <mat-cell *matCellDef="let ecibListFull">{{ecibListFull.Ntn}}</mat-cell>
             </ng-container>
 
 
             <ng-container matColumnDef="NAME">
-                <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-sort-header-container">Name
+                <mat-header-cell *matHeaderCellDef class="mat-sort-header-container" mat-sort-header>Name
                 </mat-header-cell>
                 <mat-cell *matCellDef="let ecibListFull">{{ecibListFull.CustomerName}}</mat-cell>
             </ng-container>
 
 
             <ng-container matColumnDef="PERMANENTADDRESS">
-                <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-sort-header-container">Permanent Address
+                <mat-header-cell *matHeaderCellDef class="mat-sort-header-container" mat-sort-header>Permanent Address
                 </mat-header-cell>
                 <mat-cell *matCellDef="let ecibListFull">{{ecibListFull.PermanentAddress}}</mat-cell>
             </ng-container>
 
 
             <ng-container matColumnDef="BRANCH">
-                <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-sort-header-container">Branch
+                <mat-header-cell *matHeaderCellDef class="mat-sort-header-container" mat-sort-header>Branch
                 </mat-header-cell>
                 <mat-cell *matCellDef="let ecibListFull">{{ecibListFull.Branch}}</mat-cell>
             </ng-container>
 
 
             <ng-container matColumnDef="DOB">
-                <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-sort-header-container">Date of birth
+                <mat-header-cell *matHeaderCellDef class="mat-sort-header-container" mat-sort-header>Date of birth
                 </mat-header-cell>
                 <mat-cell *matCellDef="let ecibListFull">{{ecibListFull.DateOfBirth}}</mat-cell>
             </ng-container>
@@ -142,11 +142,11 @@
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
 
-        <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
-        <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+        <div *ngIf="!loading && dataSource.data.length==0" class="mat-table__message">No records found</div>
+        <div *ngIf="loading" class="mat-table__message">Please wait....</div>
     </div>
     <div>
-        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"
+        <mat-paginator [length]="15" [pageSizeOptions]="[15,30, 50, 100]" [pageSize]="15"
                        [showFirstLastButtons]="true"></mat-paginator>
     </div>
 </div>

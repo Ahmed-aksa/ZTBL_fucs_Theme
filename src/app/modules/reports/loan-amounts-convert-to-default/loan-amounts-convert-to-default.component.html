@@ -15,9 +15,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -29,19 +29,19 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="py-2" [formGroup]="searchCnicForm">
+            <div [formGroup]="searchCnicForm" class="py-2">
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="searchCnicForm" [show_circle]="true"
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="searchCnicForm"
                                             [is_required_circle]="true"
-                                            [show_branch]="true"
                                             [required_branch]="true"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                                            [show_branch]="true"
+                                            [show_circle]="true"></app-zone-branch-circle>
 
 
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button class="mt-2 bg-gray-500"
-                                    mat-raised-button color="primary" (click)="find()">
+                            <button (click)="find()"
+                                    class="mt-2 bg-gray-500" color="primary" mat-raised-button>
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Find
                             </button>
@@ -56,234 +56,234 @@
         </div>
     </div>
 
-<!--    <div>-->
-<!--        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">-->
-<!--            &lt;!&ndash;[style.height]="gridHeight"&ndash;&gt;-->
-<!--            <mat-table-->
-<!--                class="lmat-elevation-z8 overflow-scroll"-->
-<!--                [style.height]="gridHeight"-->
-<!--                #table-->
-<!--                [dataSource]="-->
-<!--                    dataSource-->
-<!--                "-->
-<!--                matSort-->
-<!--                #sort1="matSort"-->
-<!--                matSortActive="id"-->
-<!--                matSortDirection="asc"-->
-<!--                matSortDisableClear-->
-<!--            >-->
-<!--                <ng-container matColumnDef="GL">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >GL Code-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.GlCode-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--    <div>-->
+    <!--        <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">-->
+    <!--            &lt;!&ndash;[style.height]="gridHeight"&ndash;&gt;-->
+    <!--            <mat-table-->
+    <!--                class="lmat-elevation-z8 overflow-scroll"-->
+    <!--                [style.height]="gridHeight"-->
+    <!--                #table-->
+    <!--                [dataSource]="-->
+    <!--                    dataSource-->
+    <!--                "-->
+    <!--                matSort-->
+    <!--                #sort1="matSort"-->
+    <!--                matSortActive="id"-->
+    <!--                matSortDirection="asc"-->
+    <!--                matSortDisableClear-->
+    <!--            >-->
+    <!--                <ng-container matColumnDef="GL">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >GL Code-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.GlCode-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="Zone">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Zone Name-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.ZoneName-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="Zone">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Zone Name-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.ZoneName-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="Branch">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Branch Name-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.BranchName-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="Branch">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Branch Name-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.BranchName-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="Circle">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Circle Code-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.CircleId-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="Circle">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Circle Code-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.CircleId-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="Markup">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Markup-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.Markup-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
-
-
-<!--                <ng-container matColumnDef="PD">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Past Dues-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.PastDueAmount-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
-
-<!--                <ng-container matColumnDef="CD">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Current Dues-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.CurrentDueAmount-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
-
-<!--                <ng-container matColumnDef="Ndd">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Due Date-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.NextDueDate-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="Markup">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Markup-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.Markup-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
 
-<!--                <ng-container matColumnDef="Lcno">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >LC #-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.LcNO-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="PD">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Past Dues-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.PastDueAmount-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="Cnic">-->
-<!--                    <mat-header-cell style="min-width: 120px;" *matHeaderCellDef>CNIC</mat-header-cell>-->
-<!--                    <mat-cell style="min-width: 120px;" *matCellDef="let report">{{-->
-<!--                        report.Cnic-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="CD">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Current Dues-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.CurrentDueAmount-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="Name">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Name-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.CustomerName-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="Ndd">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Due Date-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.NextDueDate-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="FatherName">-->
-<!--                    <mat-header-cell *matHeaderCellDef>Father Name</mat-header-cell>-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.FatherName-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="Caste">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Caste-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.Cast-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="Lcno">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >LC #-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.LcNO-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="sl">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Sanction Limit-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.SanctionLimit-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="Cnic">-->
+    <!--                    <mat-header-cell style="min-width: 120px;" *matHeaderCellDef>CNIC</mat-header-cell>-->
+    <!--                    <mat-cell style="min-width: 120px;" *matCellDef="let report">{{-->
+    <!--                        report.Cnic-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="tsa">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Total Sanction Amount-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.TotalSanctionAmount-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="Name">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Name-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.CustomerName-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="Address">-->
-<!--                    <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.PermanetAddress-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="FatherName">-->
+    <!--                    <mat-header-cell *matHeaderCellDef>Father Name</mat-header-cell>-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.FatherName-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <ng-container matColumnDef="Los">-->
-<!--                    <mat-header-cell *matHeaderCellDef-->
-<!--                    >Loan Outstanding-->
-<!--                    </mat-header-cell-->
-<!--                    >-->
-<!--                    <mat-cell *matCellDef="let report">{{-->
-<!--                        report.LoanOutStanding-->
-<!--                        }}</mat-cell>-->
-<!--                </ng-container>-->
+    <!--                <ng-container matColumnDef="Caste">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Caste-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.Cast-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <mat-header-row-->
-<!--                    *matHeaderRowDef="displayedColumns; sticky: true"-->
-<!--                    class="table-header-background"-->
-<!--                ></mat-header-row>-->
+    <!--                <ng-container matColumnDef="sl">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Sanction Limit-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.SanctionLimit-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <mat-row-->
-<!--                    *matRowDef="let row; columns: displayedColumns"-->
-<!--                ></mat-row>-->
-<!--            </mat-table>-->
+    <!--                <ng-container matColumnDef="tsa">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Total Sanction Amount-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.TotalSanctionAmount-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--            <div class="mat-table__message" *ngIf="loading">-->
-<!--                Please wait....-->
-<!--            </div>-->
+    <!--                <ng-container matColumnDef="Address">-->
+    <!--                    <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.PermanetAddress-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--            &lt;!&ndash; <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">-->
-<!--                        <span class="font-bold text-green">Items per page:</span>-->
+    <!--                <ng-container matColumnDef="Los">-->
+    <!--                    <mat-header-cell *matHeaderCellDef-->
+    <!--                    >Loan Outstanding-->
+    <!--                    </mat-header-cell-->
+    <!--                    >-->
+    <!--                    <mat-cell *matCellDef="let report">{{-->
+    <!--                        report.LoanOutStanding-->
+    <!--                        }}</mat-cell>-->
+    <!--                </ng-container>-->
 
-<!--                <mat-select-->
-<!--                    display="inline"-->
-<!--                    [(value)]="itemsPerPage"-->
-<!--                    (valueChange)="paginate(1, $event)"-->
-<!--                    style="-->
-<!--                        width: 50px;-->
-<!--                        margin-left: 15px;-->
-<!--                        display: inline-block;-->
-<!--                        margin-right: 10px;-->
-<!--                    "-->
-<!--                >-->
-<!--                    <mat-option [value]="5">5</mat-option>-->
-<!--                    <mat-option [value]="10">10</mat-option>-->
-<!--                    <mat-option [value]="25">25</mat-option>-->
-<!--                    <mat-option [value]="50">50</mat-option>-->
-<!--                </mat-select>-->
-<!--                <button (click)="paginate(1)">First</button>-->
-<!--                <pagination-controls-->
-<!--                    display="inline"-->
-<!--                    (pageChange)="paginate($event)"-->
-<!--                    style="display: inline-block"-->
-<!--                ></pagination-controls>-->
-<!--                <button-->
-<!--                    (click)="paginate(Math.ceil(totalItems / itemsPerPage))"-->
-<!--                >-->
-<!--                    Last-->
-<!--                </button>-->
-<!--                <p style="float: right">-->
-<!--                    Total <b>{{ totalItems }}</b> items-->
-<!--                </p>-->
-<!--            </div> &ndash;&gt;-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--                <mat-header-row-->
+    <!--                    *matHeaderRowDef="displayedColumns; sticky: true"-->
+    <!--                    class="table-header-background"-->
+    <!--                ></mat-header-row>-->
+
+    <!--                <mat-row-->
+    <!--                    *matRowDef="let row; columns: displayedColumns"-->
+    <!--                ></mat-row>-->
+    <!--            </mat-table>-->
+
+    <!--            <div class="mat-table__message" *ngIf="loading">-->
+    <!--                Please wait....-->
+    <!--            </div>-->
+
+    <!--            &lt;!&ndash; <div *ngIf="matTableLenght" class="mat-select" style="padding: 5px">-->
+    <!--                        <span class="font-bold text-green">Items per page:</span>-->
+
+    <!--                <mat-select-->
+    <!--                    display="inline"-->
+    <!--                    [(value)]="itemsPerPage"-->
+    <!--                    (valueChange)="paginate(1, $event)"-->
+    <!--                    style="-->
+    <!--                        width: 50px;-->
+    <!--                        margin-left: 15px;-->
+    <!--                        display: inline-block;-->
+    <!--                        margin-right: 10px;-->
+    <!--                    "-->
+    <!--                >-->
+    <!--                    <mat-option [value]="5">5</mat-option>-->
+    <!--                    <mat-option [value]="10">10</mat-option>-->
+    <!--                    <mat-option [value]="25">25</mat-option>-->
+    <!--                    <mat-option [value]="50">50</mat-option>-->
+    <!--                </mat-select>-->
+    <!--                <button (click)="paginate(1)">First</button>-->
+    <!--                <pagination-controls-->
+    <!--                    display="inline"-->
+    <!--                    (pageChange)="paginate($event)"-->
+    <!--                    style="display: inline-block"-->
+    <!--                ></pagination-controls>-->
+    <!--                <button-->
+    <!--                    (click)="paginate(Math.ceil(totalItems / itemsPerPage))"-->
+    <!--                >-->
+    <!--                    Last-->
+    <!--                </button>-->
+    <!--                <p style="float: right">-->
+    <!--                    Total <b>{{ totalItems }}</b> items-->
+    <!--                </p>-->
+    <!--            </div> &ndash;&gt;-->
+    <!--        </div>-->
+    <!--    </div>-->
 
 </div>

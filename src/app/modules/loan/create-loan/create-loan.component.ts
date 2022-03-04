@@ -1,15 +1,16 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import {Loan, LoanApplicationHeader} from 'app/shared/models/Loan.model';
+import {Loan} from 'app/shared/models/Loan.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LoanService} from 'app/shared/services/loan.service';
 import {RecoveryService} from 'app/shared/services/recovery.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
 import {ClApplicationHeaderComponent} from '../cl-application-header/cl-application-header.component';
-import {ClAppraisalOfProposedInvestmentComponent} from '../cl-appraisal-of-proposed-investment/cl-appraisal-of-proposed-investment.component';
+import {
+    ClAppraisalOfProposedInvestmentComponent
+} from '../cl-appraisal-of-proposed-investment/cl-appraisal-of-proposed-investment.component';
 import {ClCustomersComponent} from '../cl-customers/cl-customers.component';
 import {ClLegalHeirsComponent} from '../cl-legal-heirs/cl-legal-heirs.component';
 import {ClLoanWitnessComponent} from '../cl-loan-witness/cl-loan-witness.component';
@@ -17,7 +18,6 @@ import {ClPurposeComponent} from '../cl-purpose/cl-purpose.component';
 import {ClSecuritiesComponent} from '../cl-securities/cl-securities.component';
 import {ClUploadDocumentComponent} from '../cl-upload-document/cl-upload-document.component';
 import {ToastrService} from "ngx-toastr";
-import {ElementRef} from '@angular/core';
 
 @Component({
     selector: 'kt-create-loan',
@@ -35,6 +35,24 @@ export class CreateLoanComponent implements OnInit {
     @ViewChild(ClAppraisalOfProposedInvestmentComponent, {static: false}) appraisalOfProposedComponent: ClAppraisalOfProposedInvestmentComponent;
     @ViewChild(ClUploadDocumentComponent, {static: false}) uploadDocumentComponent: ClUploadDocumentComponent;
     loanApplicationReq: Loan;
+    viewPurpose: boolean;
+    public LnTransactionID: string;
+    public Lcno: string;
+    dynamicList: any;
+    // Objects
+    applicationHeaderDetail: any;
+    applicationCustomerDetail: any;
+    applicationPurposeDetail: any;
+    applicationSecuritiesDetail: any;
+    applicationLegalHeirsDetail: any;
+    applicationAppraisalOfProposed: any;
+    applicationAppraisalOfProposedDetail: any;
+    applicationUploadDocumentsDetail: any;
+    witnesses: any;
+    CustomersLoanAppList: any;
+    disabled_tab: boolean = true;
+    @ViewChild(ClCustomersComponent) child: ClCustomersComponent;
+    @ViewChild(ClLegalHeirsComponent) legal_child: ClLegalHeirsComponent;
 
     constructor(private route: ActivatedRoute,
                 private _recoveryService: RecoveryService,
@@ -58,27 +76,6 @@ export class CreateLoanComponent implements OnInit {
     checkError(val: boolean) {
     }
 
-    viewPurpose: boolean;
-    public LnTransactionID: string;
-    public Lcno: string;
-    dynamicList: any;
-
-    // Objects
-    applicationHeaderDetail: any;
-    applicationCustomerDetail: any;
-    applicationPurposeDetail: any;
-    applicationSecuritiesDetail: any;
-    applicationLegalHeirsDetail: any;
-    applicationAppraisalOfProposed: any;
-    applicationAppraisalOfProposedDetail: any;
-    applicationUploadDocumentsDetail: any;
-    witnesses: any;
-
-    CustomersLoanAppList: any;
-    disabled_tab: boolean = true;
-    @ViewChild(ClCustomersComponent) child: ClCustomersComponent;
-    @ViewChild(ClLegalHeirsComponent) legal_child: ClLegalHeirsComponent;
-
     ngOnInit() {
     }
 
@@ -95,7 +92,7 @@ export class CreateLoanComponent implements OnInit {
         if ((this.LnTransactionID != undefined && this.LnTransactionID != null) && (this.Lcno != undefined && this.Lcno != null)) {
             this.getLoanDetail();
         }
-        if(!this.Lcno){
+        if (!this.Lcno) {
             localStorage.removeItem('customer_loan_list')
         }
     }
@@ -110,7 +107,7 @@ export class CreateLoanComponent implements OnInit {
         if ($event.index == 4) {
             this.legal_child.loadCustomers()
         }
-       if ($event.index == 7) {
+        if ($event.index == 7) {
             this.loanWitnessComponent.getCheckList();
         }
         if ($event.index == 1) {

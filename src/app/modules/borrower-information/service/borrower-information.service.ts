@@ -20,12 +20,11 @@ export class BorrowerInformationService {
 
     public request = new BaseRequestModel();
     public activity = new Activity();
+    circle = new Circle;
+    userDetail = this.userUtilsService.getUserDetails();
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
     }
-
-    circle = new Circle;
-    userDetail = this.userUtilsService.getUserDetails();
 
     getBorrowerInformation(limit, offset, cnic, user, SelectedZones, SelectedBranches, SelectedCircles) {
         var userInfo = this.userDetail;

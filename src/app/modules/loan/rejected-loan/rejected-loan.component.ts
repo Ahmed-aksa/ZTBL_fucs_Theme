@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -37,7 +37,7 @@ export class RejectedLoanComponent implements OnInit {
     loanFilter = new SearchLoan();
     LoggedInUserInfo: BaseResponseModel;
     dataSource = new MatTableDataSource();
-    isMCO:boolean=false;
+    isMCO: boolean = false;
     public LovCall = new Lov();
 
     //Loan Status inventory

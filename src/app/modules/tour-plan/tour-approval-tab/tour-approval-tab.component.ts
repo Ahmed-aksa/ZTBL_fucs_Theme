@@ -25,13 +25,13 @@ export class TourApprovalTabComponent implements OnInit {
 
     dataSource = new MatTableDataSource();
     itemsPerPage = 10;
-    private OffSet: number;
     pageIndex: any;
     dv: number | any; //use later
     children: [any][any] = [];
     totalItems: number
     Math: any;
     currentActivity: Activity;
+    private OffSet: number;
 
     constructor(
         private layoutUtilsService: LayoutUtilsService,
@@ -40,7 +40,7 @@ export class TourApprovalTabComponent implements OnInit {
         private tourPlanService: TourPlanService,
         private spinner: NgxSpinnerService,
         private userUtilsService: UserUtilsService
-        ) {
+    ) {
     }
 
     ngOnInit(): void {

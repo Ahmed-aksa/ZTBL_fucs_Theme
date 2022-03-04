@@ -48,6 +48,7 @@ export class TourDiaryPcComponent implements OnInit {
 
     edit_mode: boolean = true;
     has_previous: boolean = false;
+    @ViewChild("timepicker") timepicker: any;
 
     constructor(
         private fb: FormBuilder,
@@ -83,8 +84,19 @@ export class TourDiaryPcComponent implements OnInit {
             localStorage.removeItem('TourDiary');
         }
         setTimeout(() => {
-            if (this.zone && this.data) {
-                this.editData(this.data)
+
+            if (this.data) {
+                if (!this.zone) {
+                    this.zone = {
+                        ZoneId: this.data.TourDiaries[0].ZoneId
+                    };
+                }
+
+                if (this.data.hasOwnProperty('TourDiaries'))
+                    this.editData(this.data.TourDiaries[0])
+                else {
+                    this.editData(this.data)
+                }
             }
         }, 1000);
     }
@@ -124,8 +136,6 @@ export class TourDiaryPcComponent implements OnInit {
 
         this.setValue();
     }
-
-    @ViewChild("timepicker") timepicker: any;
 
     openFromIcon(timepicker: { open: () => void }) {
         timepicker.open();
@@ -270,6 +280,13 @@ export class TourDiaryPcComponent implements OnInit {
     }
 
     GetTourPlan() {
+        if (this.data.hasOwnProperty('TourDiaries')) {
+            this.TourDiaryList = [];
+            this.TourPlan = this.data?.TourPlan?.TourPlans;
+            this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
+            this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
+            return;
+        }
         if (!this.zone) {
             this.layoutUtilsService.alertElement("", "Please Select Zone First");
             return;
@@ -294,6 +311,7 @@ export class TourDiaryPcComponent implements OnInit {
                     );
                 }
             });
+
     }
 
     assignValues() {

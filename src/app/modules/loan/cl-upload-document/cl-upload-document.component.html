@@ -1,4 +1,4 @@
-<form [formGroup]='PostDocument' (ngSubmit)="PostDocuments(PostDocument)">
+<form (ngSubmit)="PostDocuments(PostDocument)" [formGroup]='PostDocument'>
 
     <div
         class="  sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-y-auto overflow-x-hidden bg-card dark:bg-transparent">
@@ -14,24 +14,22 @@
         </div>
 
         <div class="flex mt-2 " style="flex-wrap: wrap;">
-                <app-zone-branch-circle [form]="PostDocument"
-                                        (branchZoneCircleData)="getAllData($event)" [show_circle]="false" [should_filter]="false"></app-zone-branch-circle>
-
-
-
+            <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)"
+                                    [form]="PostDocument" [should_filter]="false"
+                                    [show_circle]="false"></app-zone-branch-circle>
 
 
             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label class="customMatLabel">Status: <strong class="matMandatory">*</strong>
                     </mat-label>
-                    <input matInput formControlName="LoanStatus" readonly>
+                    <input formControlName="LoanStatus" matInput readonly>
                     <mat-error *ngIf="hasError('LoanStatus', 'required')">Document Ref No
                         <strong>required</strong></mat-error>
                 </mat-form-field>
             </div>
             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label class="customMatLabel">Loan Type:<strong
                         class="matMandatory">*</strong>
                     </mat-label>
@@ -46,10 +44,10 @@
                 </mat-form-field>
             </div>
             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                <mat-form-field class=" mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class=" mat-form-field-fluid w-full">
                     <mat-label class="customMatLabel">Loancase NO: <strong class="matMandatory">*</strong>
                     </mat-label>
-                    <input matInput formControlName="LcNo" appNumberOnly [readonly]="!docPage">
+                    <input [readonly]="!docPage" appNumberOnly formControlName="LcNo" matInput>
                     <mat-error *ngIf="hasError('DocumentRefNo', 'required')">LcNo
                         <strong>required</strong>
                     </mat-error>
@@ -59,10 +57,10 @@
             </div>
             <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
 
-                <input style="width: 50px;" type="button" mat-raised-button color="primary" *ngIf="currentActivity.C"
-                       class=" mat-raised-button mat-button-base mat-primary searchLCBtn"
-                       (click)="loanCase()" value="..."/>
-                </div>
+                <input (click)="loanCase()" *ngIf="currentActivity.C" class=" mat-raised-button mat-button-base mat-primary searchLCBtn" color="primary" mat-raised-button
+                       style="width: 50px;"
+                       type="button" value="..."/>
+            </div>
 
 
             <!--            <div class="col-lg-3 col-sm-12">-->
@@ -76,7 +74,6 @@
             <!--            </div>-->
 
 
-
         </div>
 
         <div class="row pt-3">
@@ -88,10 +85,10 @@
 
         <div class="row pt-3">
             <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label class="customMatLabel">Loan Doc Type:<strong class="matMandatory">*</strong>
                     </mat-label>
-                    <mat-select formControlName="ParentDocId" (selectionChange)="changeDocType($event.value)">
+                    <mat-select (selectionChange)="changeDocType($event.value)" formControlName="ParentDocId">
                         <mat-option *ngFor="let documentType of SelectedDocument"
                                     [value]="documentType.Id">
                             {{documentType.Name }}
@@ -103,10 +100,10 @@
             </div>
 
             <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label class="customMatLabel">Document Ref No. <strong
                         class="matMandatory">*</strong></mat-label>
-                    <input matInput formControlName="DocumentRefNo" appNumberOnly>
+                    <input appNumberOnly formControlName="DocumentRefNo" matInput>
                     <mat-error *ngIf="hasError('DocumentRefNo', 'required')">Document Ref No
                         <strong>required</strong>
                     </mat-error>
@@ -114,20 +111,20 @@
             </div>
 
             <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label class="customMatLabel">No of Files to Upload<strong class="matMandatory">*</strong>
                     </mat-label>
-                    <input matInput formControlName="NoOfFilesToUpload"
-                           (keyup)="changeFilesQuantity()" appNumberOnly min="1">
+                    <input (keyup)="changeFilesQuantity()" appNumberOnly
+                           formControlName="NoOfFilesToUpload" matInput min="1">
                     <mat-error *ngIf="hasError('NoOfFilesToUpload', 'required')">No Of Files To Upload
                         <strong>required</strong></mat-error>
                 </mat-form-field>
             </div>
 
             <div class="col-lg-3 col-sm-12">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label class="customMatLabel">Description</mat-label>
-                    <input matInput formControlName="Description" appAlphaNumericField>
+                    <input appAlphaNumericField formControlName="Description" matInput>
                 </mat-form-field>
             </div>
 
@@ -142,7 +139,7 @@
 
         <div class="row pt-3">
 
-            <div class="table-responsive" *ngIf="showGrid">
+            <div *ngIf="showGrid" class="table-responsive">
 
                 <table class="table table-striped">
                     <thead>
@@ -158,20 +155,20 @@
                         <td>
                             <div class="col-lg-12 kt-margin-bottom-20-mobile">
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                    <input type="file" id="file_{{i}}"
-                                           accept="image/png, image/jpg, image/jpeg"
-                                           (change)="onFileChange($event, i)">
+                                    <input (change)="onFileChange($event, i)" accept="image/png, image/jpg, image/jpeg"
+                                           id="file_{{i}}"
+                                           type="file">
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="col-lg-6 kt-margin-bottom-20-mobile">
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                                    <mat-form-field class=" mat-form-field-fluid w-full"
-                                                    appearance="outline">
+                                    <mat-form-field appearance="outline"
+                                                    class=" mat-form-field-fluid w-full">
                                         <mat-label class="customMatLabel ">Page No</mat-label>
-                                        <input matInput type="number" [value]="i+1"
-                                               id="page_{{i}}" [disabled]="true">
+                                        <input [disabled]="true" [value]="i+1" id="page_{{i}}"
+                                               matInput type="number">
                                         <!--                                        <mat-error *ngIf="hasError('PageNumber', 'pattern')">Please add Valid Number-->
                                         <!--                                            <strong>required</strong></mat-error>-->
                                     </mat-form-field>
@@ -182,11 +179,11 @@
                             <div class="col-lg-12 kt-margin-bottom-20-mobile">
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0"
                                      style="font-size: 14px;">
-                                    <mat-form-field class=" mat-form-field-fluid w-full"
-                                                    appearance="outline">
+                                    <mat-form-field appearance="outline"
+                                                    class=" mat-form-field-fluid w-full">
                                         <mat-label class="customMatLabel">Description</mat-label>
-                                        <input matInput
-                                               id="description_{{i}}" appAlphaNumericField>
+                                        <input appAlphaNumericField
+                                               id="description_{{i}}" matInput>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -203,10 +200,10 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <button style="background-color: #01671B;" type="button"
+            <button (click)="saveLoanDocuments()" *ngIf="currentActivity.C"
                     class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                    *ngIf="currentActivity.C"
-                    (click)="saveLoanDocuments()">
+                    style="background-color: #01671B;"
+                    type="button">
                 <mat-icon class="mr-2">save</mat-icon>
                 Save
             </button>
@@ -219,7 +216,7 @@
 <div class="form-group kt-form__group row" style="margin-top: 2%">
     <div class="col-lg-12">
         <div class="table-responsive">
-            <table class="table table-striped" *ngIf="loanDocumentArray.length !=0">
+            <table *ngIf="loanDocumentArray.length !=0" class="table table-striped">
                 <thead>
                 <tr class="table-header-background">
                     <th>Loan Case No</th>
@@ -236,9 +233,10 @@
                     <td>{{loan.StatusName}}</td>
                     <td>{{loan.LoanType}}</td>
 
-                    <td style="cursor: pointer; color: #ecbd00;"><span *ngIf="currentActivity.R"
-                        (click)="viewDocument(1, loan.ImageID)">View</span> | <span currentActivity.D
-                        (click)="deleteDocument(loan.ImageID)">Delete</span></td>
+                    <td style="cursor: pointer; color: #ecbd00;"><span (click)="viewDocument(1, loan.ImageID)"
+                                                                       *ngIf="currentActivity.R">View</span>
+                        | <span (click)="deleteDocument(loan.ImageID)"
+                                currentActivity.D>Delete</span></td>
                 </tr>
                 </tbody>
             </table>

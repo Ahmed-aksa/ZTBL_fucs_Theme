@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {DatePipe} from '@angular/common'
 import {BaseRequestModel} from "../../../shared/models/base_request.model";
 import {HttpUtilsService} from "../../../shared/services/http_utils.service";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
@@ -158,7 +157,7 @@ export class LoanUtilizationService {
         //     LONG: "73.057665",
         //     SRC: "GPS"
         // },
-            this.request.LoanUtilization = {"UtilizationDetail": value}
+        this.request.LoanUtilization = {"UtilizationDetail": value}
         this.request.TranId = 2830;
         this.request.doPerformOTP = false;
         this.request.Zone = userInfo.Zone;
@@ -227,12 +226,12 @@ export class LoanUtilizationService {
         var req = JSON.stringify(this.request);
 
         formData.append('UtilizationID', loanutilization.ID);
-        if(loanutilization?.Lat != undefined){
+        if (loanutilization?.Lat != undefined) {
             formData.append('Lat', loanutilization.Lat);
             formData.append('Lng', loanutilization.Lng);
-        }else{
+        } else {
             formData.append('Lat', '0.00');
-            formData.append('Lng','0.00');
+            formData.append('Lng', '0.00');
         }
 
         formData.append('UserID', userInfo.User.UserId);

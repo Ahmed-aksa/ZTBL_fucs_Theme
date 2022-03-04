@@ -8,39 +8,39 @@
     <form [formGroup]="LandInformationForm" class="kt-form kt-form--group-seperator-dashed">
         <div class="kt-form">
             <div class="kt-portlet__body">
-                <kt-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
-                          (close)="onAlertClose($event)">
+                <kt-alert (close)="onAlertClose($event)" *ngIf="hasFormErrors" [duration]="30000" [showCloseButton]="true"
+                          type="warn">
                     Please enter valid Input
                 </kt-alert>
 
                 <div class="form-group kt-form__group row">
 
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Reference No <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <input appNumberOnly [readonly]="isFormReadonly" matInput placeholder="Enter Reference No"
-                                   formControlName="LegalDocNo" maxlength="30" autocomplete="off"/>
+                            <input [readonly]="isFormReadonly" appNumberOnly autocomplete="off" formControlName="LegalDocNo"
+                                   matInput maxlength="30" placeholder="Enter Reference No"/>
                             <mat-error *ngIf="hasError('LegalDocNo', 'required')">Reference No <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Passbook No <strong class="matMandatory"></strong>
                             </mat-label>
-                            <input appNumberOnly matInput placeholder="Enter Passbook No" formControlName="PassbookNO"
-                                   readonly="readonly" maxlength="30" autocomplete="off" appAlphaNumSpecial/>
+                            <input appAlphaNumSpecial appNumberOnly autocomplete="off" formControlName="PassbookNO"
+                                   matInput maxlength="30" placeholder="Enter Passbook No" readonly="readonly"/>
                             <mat-error *ngIf="hasError('PassbookNO', 'required')">Passbook No <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Total Area <strong class="matMandatory"></strong>
                             </mat-label>
-                            <input matInput placeholder="Total Area" formControlName="TotalArea" readonly="readonly"
-                                   maxlength="30" autocomplete="off" appAlphabetOnly/>
+                            <input appAlphabetOnly autocomplete="off" formControlName="TotalArea" matInput
+                                   maxlength="30" placeholder="Total Area" readonly="readonly"/>
                         </mat-form-field>
                     </div>
                 </div>
@@ -48,14 +48,14 @@
 
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
 
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Province <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <mat-select formControlName="Province" (selectionChange)="GetDistricts($event)"
-                                        [disabled]="isFormReadonly">
+                            <mat-select (selectionChange)="GetDistricts($event)" [disabled]="isFormReadonly"
+                                        formControlName="Province">
                                 <mat-option>
-                                    <ngx-mat-select-search placeholderLabel="Search Province..."
-                                                           [formControl]="searchFilterCtrlProvince">
+                                    <ngx-mat-select-search [formControl]="searchFilterCtrlProvince"
+                                                           placeholderLabel="Search Province...">
 
                                     </ngx-mat-select-search>
 
@@ -70,16 +70,16 @@
 
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
 
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">District <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <mat-select formControlName="District" (selectionChange)="GetTehsils($event)"
-                                        [disabled]="isFormReadonly">
+                            <mat-select (selectionChange)="GetTehsils($event)" [disabled]="isFormReadonly"
+                                        formControlName="District">
                                 <mat-option>
-                                    <ngx-mat-select-search placeholderLabel="Search District..."
-                                                           (focusout)="validateDistOnFocusOut()"
+                                    <ngx-mat-select-search (focusout)="validateDistOnFocusOut()"
+                                                           (keyup)="searchDist($event.target.value)"
                                                            noEntriesFoundLabel="No District Found"
-                                                           (keyup)="searchDist($event.target.value)">
+                                                           placeholderLabel="Search District...">
                                     </ngx-mat-select-search>
                                 </mat-option>
                                 <mat-option *ngFor="let obj of DistrictLovDataSelected" [value]="obj.Id">
@@ -91,14 +91,14 @@
                     </div>
 
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Tehsil <strong class="matMandatory">*</strong></mat-label>
-                            <mat-select formControlName="Tehsil" [disabled]="isFormReadonly">
+                            <mat-select [disabled]="isFormReadonly" formControlName="Tehsil">
                                 <mat-option>
-                                    <ngx-mat-select-search placeholderLabel="Search Tehsil..."
-                                                           (focusout)="validateTehsilOnFocusOut()"
+                                    <ngx-mat-select-search (focusout)="validateTehsilOnFocusOut()"
+                                                           (keyup)="searchTehsil($event.target.value)"
                                                            noEntriesFoundLabel="No Tehsil Found"
-                                                           (keyup)="searchTehsil($event.target.value)">
+                                                           placeholderLabel="Search Tehsil...">
                                     </ngx-mat-select-search>
                                 </mat-option>
                                 <mat-option *ngFor="let obj of TehsilLovDataSelected" [value]="obj.Id">
@@ -111,21 +111,21 @@
                 <div class="form-group kt-form__group row">
 
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Village/Chak/Moza: <strong class="matMandatory">*</strong>
                             </mat-label>
-                            <input [readonly]="isFormReadonly" matInput placeholder="Village/Chak/Moza"
-                                   formControlName="Village" maxlength="200" autocomplete="off"/>
+                            <input [readonly]="isFormReadonly" autocomplete="off" formControlName="Village"
+                                   matInput maxlength="200" placeholder="Village/Chak/Moza"/>
                         </mat-form-field>
 
                     </div>
 
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Remarks: <strong class="matMandatory"></strong>
                             </mat-label>
-                            <input [readonly]="isFormReadonly" matInput placeholder="Remarks" formControlName="Remarks"
-                                   maxlength="200" autocomplete="off"/>
+                            <input [readonly]="isFormReadonly" autocomplete="off" formControlName="Remarks" matInput
+                                   maxlength="200" placeholder="Remarks"/>
                             <mat-error *ngIf="hasError('Remarks', 'pattern')">
                                 Only Characters, spaces and numbers.
                             </mat-error>
@@ -134,18 +134,15 @@
                     </div>
 
 
-
-
-
                 </div>
                 <span class="font-bold">Area Convertor</span>
 
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-2 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Unit <strong class="matMandatory"></strong></mat-label>
-                            <mat-select [(ngModel)]="Unit" [ngModelOptions]="{standalone: true}"
-                                        [disabled]="isFormReadonly">
+                            <mat-select [(ngModel)]="Unit" [disabled]="isFormReadonly"
+                                        [ngModelOptions]="{standalone: true}">
                                 <mat-option *ngFor="let obj of UnitConverter" [value]="obj.id">
                                     {{obj.name}}
                                 </mat-option>
@@ -154,37 +151,37 @@
 
                     </div>
                     <div class="col-lg-2 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Area <strong class="matMandatory">*</strong></mat-label>
-                            <input matInput placeholder="" [readonly]="isFormReadonly" [(ngModel)]="Area"
-                                   [ngModelOptions]="{standalone: true}" maxlength="30" autocomplete="off"
-                                   ktNumberAndDecimal/>
+                            <input [(ngModel)]="Area" [ngModelOptions]="{standalone: true}" [readonly]="isFormReadonly" autocomplete="off"
+                                   ktNumberAndDecimal matInput maxlength="30"
+                                   placeholder=""/>
                         </mat-form-field>
 
                     </div>
 
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-8/12" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-8/12">
                             <mat-label class="customMatLabel">Convert Unit<strong class="matMandatory"></strong>
                             </mat-label>
-                            <mat-select [(ngModel)]="ConvertUnit" [ngModelOptions]="{standalone: true}"
-                                        [disabled]="isFormReadonly">
+                            <mat-select [(ngModel)]="ConvertUnit" [disabled]="isFormReadonly"
+                                        [ngModelOptions]="{standalone: true}">
                                 <mat-option *ngFor="let obj of UnitConverterd" [value]="obj.id">
                                     {{obj.name}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <button class="4/12 ml-2" mat-raised-button color="primary" (click)="AreaConverter()"
-                                *ngIf="!isFormReadonly">
+                        <button (click)="AreaConverter()" *ngIf="!isFormReadonly" class="4/12 ml-2" color="primary"
+                                mat-raised-button>
                             Convert
                         </button>
                     </div>
 
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Result</mat-label>
-                            <input matInput [(ngModel)]="Result" [ngModelOptions]="{standalone: true}"
-                                   readonly="readonly" maxlength="30" autocomplete="off"/>
+                            <input [(ngModel)]="Result" [ngModelOptions]="{standalone: true}" autocomplete="off"
+                                   matInput maxlength="30" readonly="readonly"/>
                         </mat-form-field>
                     </div>
 
@@ -208,30 +205,33 @@
                                 <tr *ngFor="let dynamic of dynamicArray; let i = index;">
                                     <td>
                                         <strong class="matMandatory">*</strong>
-                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].khata" (keyup)="keyUpValidate($event)"
-                                               [ngModelOptions]="{standalone: true}" class="form-control" type="text"
-                                               [readonly]="isFormReadonly" appAlphaNumSpecial/>
+                                        <input (keypress)="numberOnly($event)" (keyup)="keyUpValidate($event)"
+                                               [(ngModel)]="dynamicArray[i].khata"
+                                               [ngModelOptions]="{standalone: true}" [readonly]="isFormReadonly" appAlphaNumSpecial
+                                               class="form-control" type="text"/>
 
                                     </td>
                                     <td>
                                         <strong class="matMandatory">*</strong>
-                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].Khatooni" (keyup)="keyUpValidate($event)"
-                                               [ngModelOptions]="{standalone: true}" class="form-control" type="text"
-                                               [readonly]="isFormReadonly" appAlphaNumSpecial/>
+                                        <input (keypress)="numberOnly($event)" (keyup)="keyUpValidate($event)"
+                                               [(ngModel)]="dynamicArray[i].Khatooni"
+                                               [ngModelOptions]="{standalone: true}" [readonly]="isFormReadonly" appAlphaNumSpecial
+                                               class="form-control" type="text"/>
 
                                     </td>
                                     <td>
                                         <strong>&nbsp;</strong>
                                         <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].Khasra"
-                                               [ngModelOptions]="{standalone: true}" class="form-control" type="text"
-                                               [readonly]="isFormReadonly" appAlphaNumSpecial/>
+                                               [ngModelOptions]="{standalone: true}" [readonly]="isFormReadonly" appAlphaNumSpecial
+                                               class="form-control" type="text"/>
                                     </td>
                                     <td>
                                         <strong class="matMandatory">*</strong>
-                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].TotalAreaOfKhewat" placeholder="0"
-                                               (keyup)="onKeyInputCalculateValue($event,i)"
-                                               [ngModelOptions]="{standalone: true}" class="form-control" type="text"
-                                               appNumberOnly [readonly]="isFormReadonly"/>
+                                        <input (keypress)="numberOnly($event)"
+                                               (keyup)="onKeyInputCalculateValue($event,i)" [(ngModel)]="dynamicArray[i].TotalAreaOfKhewat"
+                                               [ngModelOptions]="{standalone: true}"
+                                               [readonly]="isFormReadonly" appNumberOnly class="form-control"
+                                               placeholder="0" type="text"/>
 
                                     </td>
                                     <td>
@@ -239,23 +239,26 @@
                                         <table>
                                             <tr>
                                                 <td class="nested-table">
-                                                    <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].Share1" placeholder="0"
-                                                           (keyup)="onKeyInputCalculateValue($event,i)"
-                                                           [ngModelOptions]="{standalone: true}" class="form-control"
-                                                           type="text" appNumberOnly [readonly]="isFormReadonly"/>
+                                                    <input (keypress)="numberOnly($event)"
+                                                           (keyup)="onKeyInputCalculateValue($event,i)" [(ngModel)]="dynamicArray[i].Share1"
+                                                           [ngModelOptions]="{standalone: true}"
+                                                           [readonly]="isFormReadonly" appNumberOnly
+                                                           class="form-control" placeholder="0" type="text"/>
                                                 </td>
                                                 <td class="nested-table nested-table-content">/</td>
                                                 <td class="nested-table">
-                                                    <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].Share2" placeholder="0"
-                                                           (keyup)="onKeyInputCalculateValue($event,i)"
-                                                           [ngModelOptions]="{standalone: true}" class="form-control"
-                                                           type="text" appNumberOnly [readonly]="isFormReadonly"/>
+                                                    <input (keypress)="numberOnly($event)"
+                                                           (keyup)="onKeyInputCalculateValue($event,i)" [(ngModel)]="dynamicArray[i].Share2"
+                                                           [ngModelOptions]="{standalone: true}"
+                                                           [readonly]="isFormReadonly" appNumberOnly
+                                                           class="form-control" placeholder="0" type="text"/>
                                                 </td>
                                                 <td class="nested-table nested-table-content">=</td>
                                                 <td class="nested-table">
-                                                    <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].LegalShare" placeholder="0"
-                                                           [ngModelOptions]="{standalone: true}" class="form-control"
-                                                           type="number" readonly="readonly"/>
+                                                    <input (keypress)="numberOnly($event)"
+                                                           [(ngModel)]="dynamicArray[i].LegalShare" [ngModelOptions]="{standalone: true}"
+                                                           class="form-control" placeholder="0"
+                                                           readonly="readonly" type="number"/>
                                                 </td>
                                             </tr>
                                         </table>
@@ -263,18 +266,19 @@
                                     </td>
                                     <td>
                                         <strong class="matMandatory">*</strong>
-                                        <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].AreaAccordingToShare" placeholder="0"
-                                               [ngModelOptions]="{standalone: true}" class="form-control" type="number"
-                                               readonly="readonly"/>
+                                        <input (keypress)="numberOnly($event)"
+                                               [(ngModel)]="dynamicArray[i].AreaAccordingToShare" [ngModelOptions]="{standalone: true}"
+                                               class="form-control" placeholder="0" readonly="readonly"
+                                               type="number"/>
 
                                     </td>
                                     <td hidden>
                                         <input (keypress)="numberOnly($event)" [(ngModel)]="dynamicArray[i].CCDetailsID"
-                                               [ngModelOptions]="{standalone: true}" class="form-control" type="number"
-                                               readonly="readonly"/>
+                                               [ngModelOptions]="{standalone: true}" class="form-control" readonly="readonly"
+                                               type="number"/>
                                     </td>
                                     <td (click)="deleteRow(i)" style="cursor:pointer;">
-                                        <p class="text-red-500 mt-6" *ngIf="!isFormReadonly">
+                                        <p *ngIf="!isFormReadonly" class="text-red-500 mt-6">
                                             <mat-icon class="mr-2 text-red-500">delete_forever</mat-icon>
                                         </p>
                                     </td>
@@ -286,9 +290,9 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <button class="mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                                *ngIf="!isFormReadonly" type="button" mat-raised-button
-                                                (click)="addRow()">
+                                        <button (click)="addRow()"
+                                                *ngIf="!isFormReadonly" class="mat-focus-indicator mat-flat-button mat-button-base mat-primary" mat-raised-button
+                                                type="button">
                                             <mat-icon class="mr-2">add</mat-icon>
                                             Add New Row
                                         </button>
@@ -303,23 +307,23 @@
             </div>
 
             <div>
-                <span style="color:red;" [innerHTML]="errorMessage"></span>
+                <span [innerHTML]="errorMessage" style="color:red;"></span>
             </div>
 
             <div class="kt-portlet__foot kt-portlet__foot--fit kt-portlet__no-border">
                 <div class="kt-form__actions kt-form__actions--solid">
                     <div class="row text-center">
                         <div class="col-lg-12">
-                            <button style="background-color: #01671B;" *ngIf="!isFormReadonly" mat-raised-button
-                                    color="primary"
-                                    (click)="saveLandChargeCreationDetails()">
+                            <button (click)="saveLandChargeCreationDetails()" *ngIf="!isFormReadonly" color="primary"
+                                    mat-raised-button
+                                    style="background-color: #01671B;">
                                 <mat-icon class="mr-2">save</mat-icon>
                                 Save
                             </button>&nbsp;&nbsp;
-                            <button type="button"
-                                    class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                    mat-raised-button cdkFocusInitial
-                                    (click)="onCloseClick()">
+                            <button (click)="onCloseClick()"
+                                    cdkFocusInitial
+                                    class="mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" mat-raised-button
+                                    type="button">
                                 <mat-icon class="mr-2">cancel</mat-icon>
                                 Cancel
                             </button>

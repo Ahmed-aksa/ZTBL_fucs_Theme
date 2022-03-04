@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
-import {MatDialogRef} from "@angular/material/dialog";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
@@ -47,6 +46,12 @@ export class HoZonalExpenseComponent implements OnInit {
     zone: any;
     circle: any;
     user: any = {}
+    public LovCall = new Lov();
+    select: Selection[] = [
+        {Value: '2', description: 'Portable Document Format (PDF)'},
+        {Value: '3', description: 'MS Excel (Formatted)'},
+        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
+    ];
 
     //getWorkingDate = WorkingDate()
     constructor(
@@ -60,14 +65,6 @@ export class HoZonalExpenseComponent implements OnInit {
         private _reports: ReportsService
     ) {
     }
-
-    public LovCall = new Lov();
-
-    select: Selection[] = [
-        {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '3', description: 'MS Excel (Formatted)'},
-        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
-    ];
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -212,9 +209,9 @@ export class HoZonalExpenseComponent implements OnInit {
         this.reports = Object.assign(this.reports, this.bufricationForm.value);
         this.reports.ReportsNo = "26";
 
-        if(this.summaryCheck == true){
+        if (this.summaryCheck == true) {
             this.reports.SummaryOnly = 1;
-        }else{
+        } else {
             this.reports.SummaryOnly = 0;
         }
         var toDate = this.datepipe.transform(this.bufricationForm.controls.ToDate.value, 'ddMMyyyy');

@@ -8,7 +8,6 @@
 import {ChangeDetectorRef, Component, OnInit} from "@angular/core";
 import {CircleService} from "../../../../shared/services/circle.service";
 import {finalize} from "rxjs/operators";
-import {Branch} from "app/shared/models/branch.model";
 import {LayoutUtilsService} from "../../../../shared/services/layout_utils.service";
 import {Circle} from "app/shared/models/circle.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -49,16 +48,6 @@ export class CircleViewMapComponent implements OnInit {
     branch;
     circle;
     showViewAllBtn: boolean;
-
-    constructor(
-        private _circleService: CircleService,
-        private layoutUtilsService: LayoutUtilsService,
-        private _cdf: ChangeDetectorRef,
-        private fb: FormBuilder
-    ) {
-    }
-
-
     countryRestriction = {
         latLngBounds: {
             north: 37.084107,
@@ -69,6 +58,13 @@ export class CircleViewMapComponent implements OnInit {
         strictBounds: true
     };
 
+    constructor(
+        private _circleService: CircleService,
+        private layoutUtilsService: LayoutUtilsService,
+        private _cdf: ChangeDetectorRef,
+        private fb: FormBuilder
+    ) {
+    }
 
     ngOnInit() {
         this.viewForm = this.fb.group({});
@@ -230,18 +226,6 @@ export class CircleViewMapComponent implements OnInit {
 
     }
 
-
-    private setCurrentLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.lat = position.coords.latitude;
-                this.lng = position.coords.longitude;
-                this.zoom = 12;
-                //this.getAddress(this.latitude, this.longitude);
-            });
-        }
-    }
-
     deleteSelectedShape() {
         if (this.selectedShape) {
             this.selectedShape.setMap(null);
@@ -264,8 +248,20 @@ export class CircleViewMapComponent implements OnInit {
         this.branch = null;
         this.loadCirclesSinglePoints(null)
     }
+
     find() {
 
+    }
+
+    private setCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.lat = position.coords.latitude;
+                this.lng = position.coords.longitude;
+                this.zoom = 12;
+                //this.getAddress(this.latitude, this.longitude);
+            });
+        }
     }
 }//End of class
 

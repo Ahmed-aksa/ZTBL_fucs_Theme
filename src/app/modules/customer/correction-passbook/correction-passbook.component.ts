@@ -40,6 +40,8 @@ export class CorrectionPassbookComponent implements OnInit {
     // Pass:PassBookRec[]=[];
     customerRec: any;
     currentActivity: Activity;
+    k;
+    inputvalue;
 
     constructor(private fb: FormBuilder,
                 private layoutUtilsService: LayoutUtilsService,
@@ -53,6 +55,16 @@ export class CorrectionPassbookComponent implements OnInit {
         this.loggedInUser = userUtilsService.getUserDetails();
     }
 
+    get rowKeys(): string[] {
+        if (!this.PassBookRec || !this.PassBookRec.length) {
+            return [];
+        }
+        this.k = Object.keys(this.PassBookRec[0])
+
+        this.k.splice(0, 2);
+        return this.k;
+    }
+
     ngOnInit() {
         this.currentActivity = this.userUtilsService.getActivity('Correction of Passbook Number');
         this.createForm()
@@ -64,7 +76,6 @@ export class CorrectionPassbookComponent implements OnInit {
         // });
     }
 
-
     npb() {
     }
 
@@ -73,6 +84,13 @@ export class CorrectionPassbookComponent implements OnInit {
             Cnic: [null, Validators.required]
         })
     }
+
+//   onInputChanged(value: string, rowIndex: number, propertyKey: string): void {
+//     this.newValue = this.PassBookRec.map((row, index) => {
+//       return index !== rowIndex? row: {...row, [propertyKey]: value}
+//     })
+//
+//   }
 
     find() {
 
@@ -106,27 +124,6 @@ export class CorrectionPassbookComponent implements OnInit {
                 }
             })
     }
-
-    k;
-
-    get rowKeys(): string[] {
-        if (!this.PassBookRec || !this.PassBookRec.length) {
-            return [];
-        }
-        this.k = Object.keys(this.PassBookRec[0])
-
-        this.k.splice(0, 2);
-        return this.k;
-    }
-
-//   onInputChanged(value: string, rowIndex: number, propertyKey: string): void {
-//     this.newValue = this.PassBookRec.map((row, index) => {
-//       return index !== rowIndex? row: {...row, [propertyKey]: value}
-//     })
-//
-//   }
-
-    inputvalue;
 
     onInputChanged(value: string, rowIndex: number, propertyKey: string): void {
 

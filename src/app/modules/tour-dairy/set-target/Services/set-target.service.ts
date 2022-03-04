@@ -6,12 +6,10 @@ import {HttpUtilsService} from '../../../../shared/services/http_utils.service';
 import {UserUtilsService} from '../../../../shared/services/users_utils.service';
 import {DatePipe} from '@angular/common';
 import {CommonService} from '../../../../shared/services/common.service';
-import {Customer} from '../../../../shared/models/deceased_customer.model';
 import {map} from 'rxjs/operators';
 import {BaseResponseModel} from '../../../../shared/models/base_response.model';
 import {environment} from '../../../../../environments/environment';
 import {Profile} from "../../../user-management/activity/activity.model";
-import {Target} from "../Models/set-target.model";
 
 @Injectable({
     providedIn: 'root',
@@ -21,6 +19,7 @@ export class SetTargetService {
 
     public request = new BaseRequestModel();
     public activity = new Activity();
+    Profile = new Profile();
 
     constructor(
         private http: HttpClient,
@@ -30,7 +29,6 @@ export class SetTargetService {
         private _common: CommonService
     ) {
     }
-
 
     GetTragetDuration(zone, branch, circle) {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -63,8 +61,6 @@ export class SetTargetService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    Profile = new Profile();
-
     GetTargets(value: string, zone, branch, circle, UserID) {
         var userInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         this.request = new BaseRequestModel();
@@ -90,7 +86,7 @@ export class SetTargetService {
         this.request.Circle = {
             CircleIds: _circles,
         }
-        
+
         this.request.User = userInfo.User;
         this.Profile.ProfileID = UserID;
         this.request.Profile = this.Profile;
@@ -105,7 +101,7 @@ export class SetTargetService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    saveTargets(bankAssignedTargets, targets, Duration, AssignedTarget, assignedTarget, UserID, TagName,Label) {
+    saveTargets(bankAssignedTargets, targets, Duration, AssignedTarget, assignedTarget, UserID, TagName, Label) {
 
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
@@ -143,7 +139,7 @@ export class SetTargetService {
                 // this.request.Target["AssignedTarget"] =obj;
 
                 this.request.Target["AssignedTarget"] = this._common.simpleClone(assignedTarget)
-                this.request.Target.AssignedTarget["Name"]=Label
+                this.request.Target.AssignedTarget["Name"] = Label
             }
         }
         // if(AssignedTarget){
@@ -159,7 +155,7 @@ export class SetTargetService {
                 // this.request.Target["AssignedTarget"] =obj;
 
                 this.request.Target["AssignedTarget"] = this._common.simpleClone(bankAssignedTargets[0])
-                this.request.Target.AssignedTarget["Name"]=Label
+                this.request.Target.AssignedTarget["Name"] = Label
             }
         }
 
@@ -174,8 +170,8 @@ export class SetTargetService {
             .pipe(map((res: BaseResponseModel) => res));
     }
 
-    submitTargets(bankAssignedTargets,Duration, UserID, TagName,assignedTarget,Label) {
-        
+    submitTargets(bankAssignedTargets, Duration, UserID, TagName, assignedTarget, Label) {
+
         this.request = new BaseRequestModel();
         var userInfo = this.userUtilsService.getUserDetails();
         (this.request.Circle = {
@@ -217,7 +213,7 @@ export class SetTargetService {
                 // this.request.Target["AssignedTarget"] =obj;
 
                 this.request.Target["AssignedTarget"] = this._common.simpleClone(assignedTarget)
-                this.request.Target.AssignedTarget["Name"]=Label
+                this.request.Target.AssignedTarget["Name"] = Label
             }
         }
 
@@ -228,7 +224,7 @@ export class SetTargetService {
                 // this.request.Target["AssignedTarget"] =obj;
 
                 this.request.Target["AssignedTarget"] = this._common.simpleClone(bankAssignedTargets[0])
-                this.request.Target.AssignedTarget["Name"]=Label
+                this.request.Target.AssignedTarget["Name"] = Label
             }
         }
 

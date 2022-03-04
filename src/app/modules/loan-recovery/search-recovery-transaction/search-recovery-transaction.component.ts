@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'kt-search-recovery-transaction',

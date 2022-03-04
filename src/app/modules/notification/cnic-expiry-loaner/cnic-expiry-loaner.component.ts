@@ -15,13 +15,13 @@ import {AppState} from "../../../shared/reducers";
 import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-cnic-expiry-loaner',
-  templateUrl: './cnic-expiry-loaner.component.html',
-  styleUrls: ['./cnic-expiry-loaner.component.scss']
+    selector: 'app-cnic-expiry-loaner',
+    templateUrl: './cnic-expiry-loaner.component.html',
+    styleUrls: ['./cnic-expiry-loaner.component.scss']
 })
 
 export class CnicExpiryLoanerComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['cnic', 'customer' ,'father', 'address', 'dob','cnicexp'];
+    displayedColumns = ['cnic', 'customer', 'father', 'address', 'dob', 'cnicexp'];
     loaded = true;
     matTableLenght = false;
     loading = false;
@@ -60,10 +60,10 @@ export class CnicExpiryLoanerComponent implements OnInit, AfterViewInit {
         this.find()
     }
 
-    createForm(){
+    createForm() {
         this.notificationTable = this.fb.group({
-            Name:[],
-            Cnic:[]
+            Name: [],
+            Cnic: []
         })
     }
 

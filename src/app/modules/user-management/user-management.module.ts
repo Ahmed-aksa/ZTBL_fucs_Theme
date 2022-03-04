@@ -17,7 +17,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatCardModule} from '@angular/material/card';
@@ -45,7 +45,7 @@ import {GeofencingEditComponent} from './users/geofencing-edit/geofencing-edit.c
 import {CircleViewMapComponent} from './users/circle-view-map/circle-view-map.component';
 import {EligibilityLogsComponent} from './eligibility-logs/eligibility-logs.component';
 import {EligibilityLogDetailComponent} from './eligibility-log-detail/eligibility-log-detail.component';
-import { ApkDeploymentComponent } from './apk-deployment/apk-deployment.component';
+import {ApkDeploymentComponent} from './apk-deployment/apk-deployment.component';
 
 
 const route = [

@@ -1,7 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
-import {JvmasterCodeDialogComponentComponent} from './jvmaster-code-dialog-component/jvmaster-code-dialog-component.component';
-import {JvOrganizationalStructureComponentComponent} from './jv-organizational-structure-component/jv-organizational-structure-component.component';
+import {
+    JvmasterCodeDialogComponentComponent
+} from './jvmaster-code-dialog-component/jvmaster-code-dialog-component.component';
+import {
+    JvOrganizationalStructureComponentComponent
+} from './jv-organizational-structure-component/jv-organizational-structure-component.component';
 import {SharedModule} from "../../shared/shared.module";
 import {JvFormComponent} from './jv-form/jv-form.component';
 import {SearchJvFormComponent} from './search-jv-form/search-jv-form.component';

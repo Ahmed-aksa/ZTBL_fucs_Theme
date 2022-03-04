@@ -16,65 +16,67 @@
         <div id="print-section">
             <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
                 <div class="kt-portlet__head-label">
-                  <p class="text-right mb-0">
-                    <mat-icon (click)="close()" class="text-red-500 cursor-pointer">cancel </mat-icon>
-                  </p>
+                    <p class="text-right mb-0">
+                        <mat-icon (click)="close()" class="text-red-500 cursor-pointer">cancel</mat-icon>
+                    </p>
 
                 </div>
             </div>
             <div>
 
-                <div class="kt-form" *ngIf="!submitted">
+                <div *ngIf="!submitted" class="kt-form">
                     <div class="kt-portlet__body" id="data-section"
                          style="padding:0px !important;overflow-x: hidden !important;">
                         <!--<div class="kt-portlet__body" id="data-section" style="padding:0px !important;overflow-x: hidden !important;max-height: 70vh !important;">-->
-                        <div id="" *ngFor="let item of receiptDetail">
+                        <div *ngFor="let item of receiptDetail" id="">
 
-                            <div class="customReceiptTitle" *ngIf="item.Type=='1'">
+                            <div *ngIf="item.Type=='1'" class="customReceiptTitle">
 
                                 <h4 class="sub-heading  border-t border-yellow-200 text-blue-900">{{item.LabelL}}</h4>
                             </div>
 
                             <div *ngIf="item.Type=='2'">
                                 <div class="row text-md">
-                                    <div class="{{item.LabelR?'col-lg-6 flex my-2 text-md space-between':'col-lg-11 flex pr-5 my-2'}}">
+                                    <div
+                                        class="{{item.LabelR?'col-lg-6 flex my-2 text-md space-between':'col-lg-11 flex pr-5 my-2'}}">
 
-                                          <b class="text-blue-900 mr-8 w-4/12" id="receiptHeadingColor">{{item.LabelL}}:</b>
+                                        <b class="text-blue-900 mr-8 w-4/12" id="receiptHeadingColor">{{item.LabelL}}
+                                            :</b>
 
-                                          <span [innerHTML]="item.ValueL"></span>
+                                        <span [innerHTML]="item.ValueL"></span>
 
-                                        
+
                                     </div>
-                                    <div class="col-lg-6 my-2" *ngIf="item.LabelR">
-                                      <div class="flex text-md space-between">
-                                        <b class="text-blue-900" id="receiptHeadingColor">{{item.LabelR}}:</b>
+                                    <div *ngIf="item.LabelR" class="col-lg-6 my-2">
+                                        <div class="flex text-md space-between">
+                                            <b class="text-blue-900" id="receiptHeadingColor">{{item.LabelR}}:</b>
 
-                                        <div>{{item.ValueR}}</div>
-                                      </div>
+                                            <div>{{item.ValueR}}</div>
+                                        </div>
 
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="customReceiptTitle" *ngIf="item.Type=='3'">
+                            <div *ngIf="item.Type=='3'" class="customReceiptTitle">
                                 <h4 class="sub-heading  border-t border-yellow-200 text-blue-900">{{item.LabelL}}</h4>
                             </div>
 
-                            <div class="row" *ngIf="item.Type=='3'">
-                                <div class="col-lg-12 mt-3" *ngIf="item.ValueL">
+                            <div *ngIf="item.Type=='3'" class="row">
+                                <div *ngIf="item.ValueL" class="col-lg-12 mt-3">
                                     <img src="{{'data:image/jpeg;base64,'+item.ValueL}}"
                                          style="width:300px;margin-left:30%;"/>
                                 </div>
                             </div>
 
-                            <div class="customReceiptTitle" *ngIf="item.Type=='4'">
-                                <h4 class="sub-heading  border-t border-yellow-200 text-blue-900"   >{{item.LabelL}}</h4>
+                            <div *ngIf="item.Type=='4'" class="customReceiptTitle">
+                                <h4 class="sub-heading  border-t border-yellow-200 text-blue-900">{{item.LabelL}}</h4>
                             </div>
 
-                            <div class="row" *ngIf="item.Type=='4'">
-                                <div class="col-lg-12 mt-3" *ngIf="item.ValueL">
-                                    <ngx-barcode [bc-value]="item.ValueL" [bc-display-value]="false"
-                                                 [bc-height]="50"></ngx-barcode>
+                            <div *ngIf="item.Type=='4'" class="row">
+                                <div *ngIf="item.ValueL" class="col-lg-12 mt-3">
+                                    <ngx-barcode [bc-display-value]="false" [bc-height]="50"
+                                                 [bc-value]="item.ValueL"></ngx-barcode>
                                 </div>
                             </div>
 
@@ -108,11 +110,11 @@
                     <div class="col-lg-12 text-right">
 
                         <!--<button mat-raised-button color="primary" class="col-md-3 pull-left" (click)="downloadReceipt()">Download</button>-->
-                        <button mat-raised-button color="primary" class="bg-green" [useExistingCss]="true"
-                                printSectionId="print-section" ngxPrint>Download
+                        <button [useExistingCss]="true" class="bg-green" color="primary" mat-raised-button
+                                ngxPrint printSectionId="print-section">Download
                         </button>
-                        <button mat-raised-button color="primary" class="ml-2 bg-red-500"
-                                (click)="close()">{{receipt.buttonText}}</button>
+                        <button (click)="close()" class="ml-2 bg-red-500" color="primary"
+                                mat-raised-button>{{receipt.buttonText}}</button>
 
                     </div>
 

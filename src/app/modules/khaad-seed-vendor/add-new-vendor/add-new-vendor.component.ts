@@ -20,9 +20,6 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {ViewFileComponent} from 'app/shared/component/view-file/view-file.component';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import {Branch} from 'app/shared/models/branch.model';
-import {Circle} from 'app/shared/models/circle.model';
-import {Zone} from 'app/shared/models/zone.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
@@ -302,7 +299,7 @@ export class AddNewVendorComponent implements OnInit, OnDestroy {
                         var reader = new FileReader();
 
                         reader.onload = (event: any) => {
-                            ;
+
                             this.images = [];
                             this.fileExist = true;
                             this.showPreview = true;

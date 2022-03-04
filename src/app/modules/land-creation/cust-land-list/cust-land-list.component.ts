@@ -19,7 +19,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {CreateCustomer} from "../../../shared/models/customer.model";
 import {CustomerLandRelation} from 'app/shared/models/customer-land-relation.model';
 import {Branch} from 'app/shared/models/branch.model';
-import {Zone} from 'app/shared/models/zone.model';
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 import {Activity} from "../../../shared/models/activity.model";
@@ -76,8 +75,13 @@ export class CustLandListComponent implements OnInit {
     isUserAdmin: boolean = false;
     isZoneUser: boolean = false;
     loggedInUserDetails: any;
-    private LoggedInUserInfo: any;
     currentActivity: Activity;
+    //pagination
+    itemsPerPage = 10; //you could use your specified
+    totalItems: number | any;
+    pageIndex = 1;
+    dv: number | any; //use later
+    private LoggedInUserInfo: any;
 
     constructor(private store: Store<AppState>,
                 public dialog: MatDialog,
@@ -109,7 +113,6 @@ export class CustLandListComponent implements OnInit {
             this.disable_branch = false;
         });
     }
-
 
     changeBranch(changedValue) {
         this.selected_b = changedValue.value;
@@ -156,7 +159,6 @@ export class CustLandListComponent implements OnInit {
         }
     }
 
-
     createForm() {
 
         this.landSearch = this.filterFB.group({
@@ -167,7 +169,6 @@ export class CustLandListComponent implements OnInit {
             BranchId: [this.Branch?.BranchCode]
         });
     }
-
 
     GetZones() {
 
@@ -204,7 +205,6 @@ export class CustLandListComponent implements OnInit {
 
     }
 
-
     GetBranches(ZoneId) {
         this.loading = true;
         this.dataSource.data = [];
@@ -240,7 +240,6 @@ export class CustLandListComponent implements OnInit {
 
     }
 
-
     searchBranch(branchId) {
         branchId = branchId.toLowerCase();
         if (branchId != null && branchId != undefined && branchId != "")
@@ -254,7 +253,6 @@ export class CustLandListComponent implements OnInit {
             this.SelectedBranches = this.Branches;
     }
 
-
     ngAfterViewInit() {
 
         this.dataSource.paginator = this.paginator;
@@ -262,13 +260,11 @@ export class CustLandListComponent implements OnInit {
         this.gridHeight = window.innerHeight - 200 + 'px';
     }
 
-
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
     }
-
 
     hasError(controlName: string, errorName: string): boolean {
         return this.landSearch.controls[controlName].hasError(errorName);
@@ -299,29 +295,10 @@ export class CustLandListComponent implements OnInit {
             this.SelectedZones = this.Zones;
     }
 
-
     viewMore() {
 
         this.OffSet = this.OffSet + 1;
         this.SearchLandData();
-    }
-
-    //pagination
-    itemsPerPage = 10; //you could use your specified
-    totalItems: number | any;
-    pageIndex = 1;
-    dv: number | any; //use later
-    private assignBranchAndZone() {
-        if (this.SelectedBranches.length)
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
-        else
-            this.final_branch = this.SelectedBranches;
-        let zone = null;
-        if (this.SelectedZones.length)
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-        else
-            this.final_zone = this.SelectedZones;
-
     }
 
     SearchLandData() {
@@ -375,7 +352,6 @@ export class CustLandListComponent implements OnInit {
             });
     }
 
-
     paginate(pageIndex: any, pageSize: any = this.itemsPerPage) {
         this.itemsPerPage = pageSize;
         this.pageIndex = pageIndex;
@@ -405,7 +381,6 @@ export class CustLandListComponent implements OnInit {
         return filter;
     }
 
-
     CheckEidtStatusOld(Status: any) {
 
         if (Status == "1" || Status == "4") {
@@ -426,7 +401,6 @@ export class CustLandListComponent implements OnInit {
         }
 
     }
-
 
     CheckEidtStatus(land: any) {
 
@@ -458,10 +432,8 @@ export class CustLandListComponent implements OnInit {
 
     }
 
-
     ngOnDestroy() {
     }
-
 
     masterToggle() {
 
@@ -480,7 +452,6 @@ export class CustLandListComponent implements OnInit {
         localStorage.setItem('EditLandData', '1');
         this.router.navigate(['../land-info-add', {upFlag: "1"}], {relativeTo: this.activatedRoute});
     }
-
 
     async LoadLovs() {
 
@@ -520,6 +491,19 @@ export class CustLandListComponent implements OnInit {
                 return;
             }
         });
+    }
+
+    private assignBranchAndZone() {
+        if (this.SelectedBranches.length)
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0]
+        else
+            this.final_branch = this.SelectedBranches;
+        let zone = null;
+        if (this.SelectedZones.length)
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+        else
+            this.final_zone = this.SelectedZones;
+
     }
 
 }

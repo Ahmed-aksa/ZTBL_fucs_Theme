@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormArray} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
@@ -7,7 +7,6 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LoanService} from 'app/shared/services/loan.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
-import {ViewMapsComponent} from "../../../shared/component/view-map/view-map.component";
 import {CalculateDbrComponent} from "../calculate-dbr/calculate-dbr.component";
 import {LoanDbr, SearchLoanDbr} from "../../../shared/models/Loan.model";
 import {Activity} from "../../../shared/models/activity.model";
@@ -41,10 +40,10 @@ export class SaveOrrComponent implements OnInit {
 
     dataSourcee = new LoanDbr();
     DBRForm: FormGroup;
-    isReadOnly:boolean=true;
-    totalDBRIncome:number=0;
-    totalDBRLiabilities:number=0;
-    DBR:number=0;
+    isReadOnly: boolean = true;
+    totalDBRIncome: number = 0;
+    totalDBRLiabilities: number = 0;
+    DBR: number = 0;
     Flag;
     currentActivity: Activity
 
@@ -65,8 +64,8 @@ export class SaveOrrComponent implements OnInit {
     ngOnInit() {
         this.currentActivity = this.userUtilService.getActivity('Save ORR')
         this.Flag = this.route.snapshot.params['Flag'];
-        if(this.Flag==1){
-            this.isReadOnly=false;
+        if (this.Flag == 1) {
+            this.isReadOnly = false;
         }
         this.createForm();
         this.createFormm();
@@ -81,7 +80,6 @@ export class SaveOrrComponent implements OnInit {
             this.searchLoanDbr();
         }
     }
-
 
 
     createForm() {
@@ -132,7 +130,6 @@ export class SaveOrrComponent implements OnInit {
 
                 })
     }
-
 
 
     getORRDropDownByAppID() {
@@ -308,10 +305,10 @@ export class SaveOrrComponent implements OnInit {
     }
 
     calculateDBR() {
-let data={
-    LnTransactionID:  this.LnTransactionID,
-    Lcno: this.Lcno
-};
+        let data = {
+            LnTransactionID: this.LnTransactionID,
+            Lcno: this.Lcno
+        };
         const dialogRef = this.dialog.open(CalculateDbrComponent, {
             panelClass: ['h-screen', 'max-w-full', 'max-h-full'],
             width: '100%',
@@ -375,10 +372,10 @@ let data={
             });
     }
 
-    getValue(DefaultDays){
-        if(DefaultDays){
+    getValue(DefaultDays) {
+        if (DefaultDays) {
             return DefaultDays;
-        }else{
+        } else {
             return 0;
         }
 
@@ -489,13 +486,14 @@ let data={
     }
 
     //Calculate DBR Start
-    createFormm(){
+    createFormm() {
         this.DBRForm = this.fb.group({
             Liabilites: [this.totalDBRLiabilities],
             Income: [this.totalDBRIncome],
             DBR: [this.DBR],
         });
     }
+
     numberOnly(event): boolean {
         const charCode = event.which ? event.which : event.keyCode;
         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -503,6 +501,7 @@ let data={
         }
         return true;
     }
+
     searchLoanDbr() {
 
         this.spinner.show();
@@ -539,6 +538,7 @@ let data={
                 })
 
     }
+
     onIncomeChange(e) {
 
         let index = this.dataSourcee.DBRIncomeList.findIndex(inc => inc.ID === e.srcElement.id);
@@ -546,6 +546,7 @@ let data={
 
         this.DototalIncome()
     }
+
     onLiabChange(e) {
 
         let index = this.dataSourcee.DBRLiabilitiesList.findIndex(inc => inc.ID === e.srcElement.id);
@@ -555,34 +556,38 @@ let data={
         this.DototalLiabilities();
 
     }
-    DototalLiabilities(){
-        this.totalDBRLiabilities=0;
-        for(let i=0;i<this.dataSourcee.DBRLiabilitiesList.length;i++){
-            if(this.dataSourcee.DBRLiabilitiesList[i].Value){
+
+    DototalLiabilities() {
+        this.totalDBRLiabilities = 0;
+        for (let i = 0; i < this.dataSourcee.DBRLiabilitiesList.length; i++) {
+            if (this.dataSourcee.DBRLiabilitiesList[i].Value) {
                 this.totalDBRLiabilities = this.totalDBRLiabilities + Number(this.dataSourcee.DBRLiabilitiesList[i].Value);
             }
 
         }
-            this.DBRForm.controls["Liabilites"].setValue(this.totalDBRLiabilities)
+        this.DBRForm.controls["Liabilites"].setValue(this.totalDBRLiabilities)
         this.DototalDBR()
     }
-    DototalIncome(){
 
-        this.totalDBRIncome=0;
-        for(let i=0;i<this.dataSourcee.DBRIncomeList.length;i++){
-            if(this.dataSourcee.DBRIncomeList[i].Value){
+    DototalIncome() {
+
+        this.totalDBRIncome = 0;
+        for (let i = 0; i < this.dataSourcee.DBRIncomeList.length; i++) {
+            if (this.dataSourcee.DBRIncomeList[i].Value) {
                 this.totalDBRIncome = this.totalDBRIncome + Number(this.dataSourcee.DBRIncomeList[i].Value);
             }
         }
-            this.DBRForm.controls["Income"].setValue(this.totalDBRIncome)
+        this.DBRForm.controls["Income"].setValue(this.totalDBRIncome)
         this.DototalDBR()
     }
-    DototalDBR(){
-        this.DBR=0;
+
+    DototalDBR() {
+        this.DBR = 0;
         // if after decimal values are not required
         // this.DBR =  Math.round((this.totalDBRLiabilities / this.totalDBRIncome)*100)
-        this.DBR = (this.totalDBRLiabilities / this.totalDBRIncome)*100
+        this.DBR = (this.totalDBRLiabilities / this.totalDBRIncome) * 100
         this.DBRForm.controls["DBR"].setValue(this.DBR.toFixed(2))
     }
+
     //Calculate DBR End
 }

@@ -62,6 +62,7 @@ export class GetVillageBenchMarkingComponent implements OnInit, AfterViewInit {
     branch: any;
     circle: any;
     currentActivity: Activity
+
     constructor(
         private layoutUtilsService: LayoutUtilsService,
         private router: Router,

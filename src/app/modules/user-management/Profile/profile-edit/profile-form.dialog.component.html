@@ -7,8 +7,8 @@
             <div class="heading">Assign Pages</div>
         </div>
         <div class="col-lg-3 col-sm-12 self-center mt-1 text-end ">
-            <button class="  py-1 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                    color="primary" onclick="toggleCollapse()">
+            <button class="  py-1 mat-focus-indicator mat-flat-button mat-button-base mat-primary" color="primary"
+                    onclick="toggleCollapse()" type="button">
                 <mat-icon class="mr-2" id="arrow">keyboard_arrow_down</mat-icon>
                 Advance Filter
             </button>
@@ -23,10 +23,10 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <div class="flex flex-shrink-0 items-center sm:mt-0">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" id="focus-removal">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full" id="focus-removal">
                             <mat-label>Roles</mat-label>
-                            <mat-select placeholder="--Select--" name="ProfileID"
-                                        (selectionChange)="getProfile($event)">
+                            <mat-select (selectionChange)="getProfile($event)" name="ProfileID"
+                                        placeholder="--Select--">
                                 <mat-option *ngFor="let profile of profiles" [value]="profile.ProfileID">
                                     {{profile.ProfileName}}
                                 </mat-option>
@@ -43,9 +43,9 @@
         class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between">
         <!-- Loader -->
         <div
-            class="absolute inset-x-0 bottom-0"
-            *ngIf="isLoading">
-            <mat-progress-bar [mode]="'indeterminate'" *ngIf="isLoading"></mat-progress-bar>
+            *ngIf="isLoading"
+            class="absolute inset-x-0 bottom-0">
+            <mat-progress-bar *ngIf="isLoading" [mode]="'indeterminate'"></mat-progress-bar>
         </div>
         <!-- Title -->
         <!-- Actions -->
@@ -56,21 +56,21 @@
     <div class="mb-4 px-3 ">
         <!-- CONTENT GOES HERE -->
         <div>
-            <div class="form-group row" style="
+            <div class="form-group row" id="canva"
+                 style="
                 min-width: max-content;
 
                 overflow-y:scroll;
             "
-                 id="canva"
             >
                 <div
                     class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile border shadow-xs rounded-sm bg-gray-50 px-2  mat-elevation-z8">
                     <div *ngIf="!isActivityStringValid">
                         <mat-error><strong>Please select any activity</strong></mat-error>
                     </div>
-                    <div class="custom-accordion custom-accordion  rounded-lg my-2 bg-white shadow-sm border"
-                         *ngFor="let activity of userActivities;let i=index">
-                        <div class="custom-accordion-head border-0" (click)="toggleAccordion(activity.ActivityID)"
+                    <div *ngFor="let activity of userActivities;let i=index"
+                         class="custom-accordion custom-accordion  rounded-lg my-2 bg-white shadow-sm border">
+                        <div (click)="toggleAccordion(activity.ActivityID)" class="custom-accordion-head border-0"
                              style="cursor: pointer">
                             <div class="self-center ml-8">
                                 <span class=" text-base text-green">
@@ -78,10 +78,10 @@
                                 </span>
                             </div>
                             <div class="mr-5">
-                                <button mat-icon-button *ngIf="!lists_record.includes(activity.ActivityID)">
+                                <button *ngIf="!lists_record.includes(activity.ActivityID)" mat-icon-button>
                                     <mat-icon>expand_more</mat-icon>
                                 </button>
-                                <button mat-icon-button *ngIf="lists_record.includes(activity.ActivityID)">
+                                <button *ngIf="lists_record.includes(activity.ActivityID)" mat-icon-button>
                                     <mat-icon>expand_less</mat-icon>
                                 </button>
                             </div>
@@ -102,17 +102,17 @@
                                 <tr *ngFor="let child of activity.ChildActvities">
                                     <td>{{child.ActivityName}}</td>
                                     <td>{{child.ActivityUrl}}</td>
-                                    <td><input type="checkbox" [checked]="child.C"
-                                               (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'create',child.C?true:false)">
+                                    <td><input (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'create',child.C?true:false)" [checked]="child.C"
+                                               type="checkbox">
                                     </td>
-                                    <td><input type="checkbox" [checked]="child.R"
-                                               (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'read',child.R?true:false)">
+                                    <td><input (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'read',child.R?true:false)" [checked]="child.R"
+                                               type="checkbox">
                                     </td>
-                                    <td><input type="checkbox" [checked]="child.U"
-                                               (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'update',child.U?true:false)">
+                                    <td><input (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'update',child.U?true:false)" [checked]="child.U"
+                                               type="checkbox">
                                     </td>
-                                    <td><input type="checkbox" [checked]="child.D"
-                                               (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'delete',child.D?true:false)">
+                                    <td><input (change)="updateActivityDetails(activity.ActivityID,child.ActivityID,'delete',child.D?true:false)" [checked]="child.D"
+                                               type="checkbox">
                                     </td>
                                 </tr>
                                 </tbody>
@@ -126,12 +126,12 @@
             </div>
             <div class="row py-2 ">
                 <div class="col-lg-12 p-0 mb-4">
-                    <button type="button" *ngIf="!ShowButton"
-                            color="primary"
-                            class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
-                            (click)="onSubmit()"
+                    <button (click)="onSubmit()" *ngIf="!ShowButton"
+                            [disabled]="viewLoading || submitted"
                             [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
-                            [disabled]="viewLoading || submitted">
+                            class="mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
+                            color="primary"
+                            type="button">
                         <mat-icon class="mr-2">save</mat-icon>
                         Save
                     </button>

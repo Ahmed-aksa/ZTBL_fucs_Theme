@@ -91,7 +91,7 @@ export class SearchJvRbComponent implements OnInit, AfterViewInit {
         //this.find();
     }
 
-    ngAfterViewInit(){
+    ngAfterViewInit() {
         if (this.zone) {
             setTimeout(() => this.SearchJvData(), 1000);
         }

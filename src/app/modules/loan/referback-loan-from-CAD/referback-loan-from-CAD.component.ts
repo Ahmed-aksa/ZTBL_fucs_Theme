@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -117,13 +117,14 @@ export class ReferbackLoanFromCADComponent implements OnInit {
     CheckViewStatus(loan: any) {
 
 
-                if (loan.CreatedBy == this.LoggedInUserInfo.User.UserId) {
-                    return true;
-                } else {
-                    return false;
-                }
+        if (loan.CreatedBy == this.LoggedInUserInfo.User.UserId) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
+
     //-------------------------------Loan Status Functions-------------------------------//
     async getLoanStatus() {
         this.LoanStatus = await this._lovService.CallLovAPI(this.LovCall = {TagName: LovConfigurationKey.LoanStatus});

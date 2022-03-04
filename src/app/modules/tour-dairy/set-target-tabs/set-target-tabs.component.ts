@@ -1,15 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {
-    DateAdapter,
-    MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE,
-} from '@angular/material/core';
-import {
-    MAT_DIALOG_DATA,
-    MatDialog,
-    MatDialogRef,
-} from '@angular/material/dialog';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE,} from '@angular/material/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef,} from '@angular/material/dialog';
 import {DatePipe} from '@angular/common';
 
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -30,13 +22,13 @@ class SetTarget {
     DisbursmentAmount: string;
 }
 
-class TargetData{
+class TargetData {
     UserID;
     AssignedTarget;
     Heading;
     TagName;
     Targets;
-    BankTargets?:[];
+    BankTargets?: [];
 }
 
 class TargetDuration {
@@ -72,16 +64,15 @@ export class SetTargetTabsComponent implements OnInit {
     @Input() UserID: any;
     @Input() multiple;
     @Input() dateDuration;
-    @Input() TargetData=new TargetData;
-    Label="";
-    Labels=[];
+    @Input() TargetData = new TargetData;
+    Label = "";
+    Labels = [];
     targetForm: FormGroup;
-    private array = [];
     totals: any = [];
     AssignedTarget: any = [];
     AssignedTargetToSave: any = [];
     assignedTarget;
-    ShowassignedTarget:Array<any>=[];
+    ShowassignedTarget: Array<any> = [];
     value: any;
     visible: any = true;
     viewerOpen = false;
@@ -110,8 +101,12 @@ export class SetTargetTabsComponent implements OnInit {
     Multiple;
     AssignedTargetHeading;
     userGroup: any = [];
-    isMCO:boolean=false;
+    isMCO: boolean = false;
     PageTitle;
+    assignedTargetHeadingsData
+    arr: Object;
+    private array = [];
+
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -128,178 +123,6 @@ export class SetTargetTabsComponent implements OnInit {
             }
         });
     }
-
-    numberOnly(event): boolean {
-        const charCode = event.which ? event.which : event.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
-    }
-
-    ngOnInit(): void {
-        
-        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
-        this.GetTragetDuration();
-        this.createForm();
-        this.UserID;
-        this.TargetData;
-        if(this.multiple==true){
-            this.isChild = true;
-
-            // this.Multiple=this.TargetData.Targets;
-            // this.Label = this.TargetData?.Heading["Name"];
-            this.targetForm.controls.Duration.setValue(this.dateDuration)
-            this.headings = this.TargetData?.Heading;
-            this.targets = this.TargetData?.Targets;
-            this.assignedTarget = this.TargetData?.AssignedTarget;
-            if (this.TargetData?.AssignedTarget) {
-                this.ShowassignedTarget = Object.values(this.TargetData.AssignedTarget);
-                this.isBankTarget = false;
-            } else {
-                this.isBankTarget = true;
-            }
-            if (this.TargetData?.TagName) {
-                this.TagName=this.TargetData?.TagName
-            }
-            this.assignedTargetHeadingsData = this.TargetData?.AssignedTarget;
-
-            this.bankTargets = this.TargetData?.BankTargets;
-            
-            this.Heading();
-
-            this.ishidden = true;
-        }
-    }
-
-    getAllData(event) {
-        this.zone = event.final_zone;
-        this.branch = event.final_branch;
-        this.circle = event.final_circle;
-    }
-
-    GetTragetDuration() {
-        this._setTarget
-            .GetTragetDuration(this.zone, this.branch, this.circle)
-            .pipe(finalize(() => {
-            }))
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    this.TargetDuration = baseResponse.Target.TargetDuration;
-                } else {
-                    this.layoutUtilsService.alertElement(
-                        '',
-                        baseResponse.Message,
-                        baseResponse.Code
-                    );
-                }
-            });
-    }
-
-    assignedTargetHeadingsData
-    applyClass(){
-        if(this.Labels?.length==1){
-            return "dash-tab";
-        }
-    }
-
-    GetTargets(value: any) {
-        if (!value) {
-            var Message = 'Please select Target';
-            this.layoutUtilsService.alertElement(
-                '',
-                Message,
-                null
-            );
-            return;
-        }
-        this.ishidden = false;
-
-        this.spinner.show();
-        this._setTarget
-            .GetTargets(value, this.zone, this.branch, this.circle, this.UserID)
-            .pipe(
-                finalize(() => {
-                    this.spinner.hide();
-                })
-            )
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
-                    
-                    this.dateDuration=this.targetForm.controls.Duration.value;
-                    this.Multiple=baseResponse?.Targets;
-                    this.headings = baseResponse?.Targets[0]?.Heading;
-                    this.targets = baseResponse?.Targets[0]?.Targets;
-                    // this.previous = Object.assign(this.targets);
-                    this.assignedTarget = baseResponse?.Targets[0]?.AssignedTarget;
-                    if (baseResponse?.Targets[0]?.AssignedTarget) {
-                        //this.ShowassignedTarget = Object.values(baseResponse.Targets[0]?.AssignedTarget);
-                        this.isBankTarget = false;
-                    } else {
-                        this.isBankTarget = true;
-                    }
-                    if (baseResponse?.Targets[0]?.TagName) {
-                        this.TagName=baseResponse?.Targets[0]?.TagName
-                    }
-                    this.ShowassignedTarget=[];
-                    if(baseResponse?.Targets[0]?.AssignedTargetHeading){
-
-                        this.AssignedTargetHeading = Object.values(baseResponse?.Targets[0]?.AssignedTargetHeading);
-                        Object.keys(baseResponse?.Targets[0]?.AssignedTargetHeading).forEach(x=>{
-                            
-                            if(baseResponse?.Targets[0]?.AssignedTarget[x]){
-                                this.ShowassignedTarget.push(baseResponse?.Targets[0]?.AssignedTarget[x])
-                                //console.log(baseResponse?.Targets[0]?.AssignedTarget[x])
-                            }else{
-                                 this.ShowassignedTarget.push('-')
-                                //console.log("-");
-                            }
-                        });
-
-                    }
-                    this.assignedTargetHeadingsData = baseResponse?.Targets[0]?.AssignedTarget;
-                    this.bankTargets = baseResponse?.Targets[0]?.BankTargets;
-                    
-                    this.Heading();
-                    if(baseResponse?.Targets[0]?.DisbaleControls){
-                        this.isMCO = baseResponse?.Targets[0]?.DisbaleControls;
-                    }
-                    if(baseResponse?.Targets[0]?.PageTitle){
-                        this.PageTitle = baseResponse?.Targets[0]?.PageTitle;
-                    }
-
-                    this.ishidden = true;
-                    this.TargetData.UserID=this.UserID;
-                    // this.Label = baseResponse?.Targets[0]?.Heading["Name"];
-                    if(baseResponse?.Targets){
-                        this.Labels=[];
-                        for(let i=0;i<baseResponse?.Targets?.length;i++){
-                            this.Labels.push(baseResponse?.Targets[i]?.Heading["Name"])
-                        }
-                        
-                    }
-                } else {
-                    this.Multiple=[]
-                    this.layoutUtilsService.alertElement(
-                        '',
-                        baseResponse.Message,
-                        baseResponse.Code
-                    );
-                }
-            });
-    }
-
-
-    createForm() {
-        this.targetForm = this.fb.group({
-
-            Duration: [],
-        });
-    }
-
-    tracker = (i) => i;
-    trackerr = (i) => i;
-    arr: Object;
 
     get rowKeys(): string[] {
         if (!this.targets || !this.targets.length) {
@@ -349,7 +172,6 @@ export class SetTargetTabsComponent implements OnInit {
         return Object.keys(this.array);
     }
 
-
     get totalHeading(): string[] {
 
         if (!this.assignedTargetHeadingsData) {
@@ -359,6 +181,187 @@ export class SetTargetTabsComponent implements OnInit {
         }
         return Object.keys(this.assignedTargetHeadingsData);
     }
+
+    get total(): string[] {
+        if (!this.targets || !this.targets.length) {
+            return [];
+        }
+        if (this.heading) {
+        }
+        this.array = Object.values(this.headings);
+        const len = this.array.length;
+        return this.array;
+    }
+
+    numberOnly(event): boolean {
+        const charCode = event.which ? event.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+    ngOnInit(): void {
+
+        this.userGroup = JSON.parse(localStorage.getItem("ZTBLUser"))?.User?.userGroup
+        this.GetTragetDuration();
+        this.createForm();
+        this.UserID;
+        this.TargetData;
+        if (this.multiple == true) {
+            this.isChild = true;
+
+            // this.Multiple=this.TargetData.Targets;
+            // this.Label = this.TargetData?.Heading["Name"];
+            this.targetForm.controls.Duration.setValue(this.dateDuration)
+            this.headings = this.TargetData?.Heading;
+            this.targets = this.TargetData?.Targets;
+            this.assignedTarget = this.TargetData?.AssignedTarget;
+            if (this.TargetData?.AssignedTarget) {
+                this.ShowassignedTarget = Object.values(this.TargetData.AssignedTarget);
+                this.isBankTarget = false;
+            } else {
+                this.isBankTarget = true;
+            }
+            if (this.TargetData?.TagName) {
+                this.TagName = this.TargetData?.TagName
+            }
+            this.assignedTargetHeadingsData = this.TargetData?.AssignedTarget;
+
+            this.bankTargets = this.TargetData?.BankTargets;
+
+            this.Heading();
+
+            this.ishidden = true;
+        }
+    }
+
+    getAllData(event) {
+        this.zone = event.final_zone;
+        this.branch = event.final_branch;
+        this.circle = event.final_circle;
+    }
+
+    GetTragetDuration() {
+        this._setTarget
+            .GetTragetDuration(this.zone, this.branch, this.circle)
+            .pipe(finalize(() => {
+            }))
+            .subscribe((baseResponse) => {
+                if (baseResponse.Success) {
+                    this.TargetDuration = baseResponse.Target.TargetDuration;
+                } else {
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        baseResponse.Message,
+                        baseResponse.Code
+                    );
+                }
+            });
+    }
+
+    applyClass() {
+        if (this.Labels?.length == 1) {
+            return "dash-tab";
+        }
+    }
+
+    GetTargets(value: any) {
+        if (!value) {
+            var Message = 'Please select Target';
+            this.layoutUtilsService.alertElement(
+                '',
+                Message,
+                null
+            );
+            return;
+        }
+        this.ishidden = false;
+
+        this.spinner.show();
+        this._setTarget
+            .GetTargets(value, this.zone, this.branch, this.circle, this.UserID)
+            .pipe(
+                finalize(() => {
+                    this.spinner.hide();
+                })
+            )
+            .subscribe((baseResponse) => {
+                if (baseResponse.Success) {
+
+                    this.dateDuration = this.targetForm.controls.Duration.value;
+                    this.Multiple = baseResponse?.Targets;
+                    this.headings = baseResponse?.Targets[0]?.Heading;
+                    this.targets = baseResponse?.Targets[0]?.Targets;
+                    // this.previous = Object.assign(this.targets);
+                    this.assignedTarget = baseResponse?.Targets[0]?.AssignedTarget;
+                    if (baseResponse?.Targets[0]?.AssignedTarget) {
+                        //this.ShowassignedTarget = Object.values(baseResponse.Targets[0]?.AssignedTarget);
+                        this.isBankTarget = false;
+                    } else {
+                        this.isBankTarget = true;
+                    }
+                    if (baseResponse?.Targets[0]?.TagName) {
+                        this.TagName = baseResponse?.Targets[0]?.TagName
+                    }
+                    this.ShowassignedTarget = [];
+                    if (baseResponse?.Targets[0]?.AssignedTargetHeading) {
+
+                        this.AssignedTargetHeading = Object.values(baseResponse?.Targets[0]?.AssignedTargetHeading);
+                        Object.keys(baseResponse?.Targets[0]?.AssignedTargetHeading).forEach(x => {
+
+                            if (baseResponse?.Targets[0]?.AssignedTarget[x]) {
+                                this.ShowassignedTarget.push(baseResponse?.Targets[0]?.AssignedTarget[x])
+                                //console.log(baseResponse?.Targets[0]?.AssignedTarget[x])
+                            } else {
+                                this.ShowassignedTarget.push('-')
+                                //console.log("-");
+                            }
+                        });
+
+                    }
+                    this.assignedTargetHeadingsData = baseResponse?.Targets[0]?.AssignedTarget;
+                    this.bankTargets = baseResponse?.Targets[0]?.BankTargets;
+
+                    this.Heading();
+                    if (baseResponse?.Targets[0]?.DisbaleControls) {
+                        this.isMCO = baseResponse?.Targets[0]?.DisbaleControls;
+                    }
+                    if (baseResponse?.Targets[0]?.PageTitle) {
+                        this.PageTitle = baseResponse?.Targets[0]?.PageTitle;
+                    }
+
+                    this.ishidden = true;
+                    this.TargetData.UserID = this.UserID;
+                    // this.Label = baseResponse?.Targets[0]?.Heading["Name"];
+                    if (baseResponse?.Targets) {
+                        this.Labels = [];
+                        for (let i = 0; i < baseResponse?.Targets?.length; i++) {
+                            this.Labels.push(baseResponse?.Targets[i]?.Heading["Name"])
+                        }
+
+                    }
+                } else {
+                    this.Multiple = []
+                    this.layoutUtilsService.alertElement(
+                        '',
+                        baseResponse.Message,
+                        baseResponse.Code
+                    );
+                }
+            });
+    }
+
+    createForm() {
+        this.targetForm = this.fb.group({
+
+            Duration: [],
+        });
+    }
+
+    tracker = (i) => i;
+
+    trackerr = (i) => i;
 
     Heading() {
         this.array = Object.values(this.headings);
@@ -395,19 +398,8 @@ export class SetTargetTabsComponent implements OnInit {
         this.totals[num] = dis;
     }
 
-    get total(): string[] {
-        if (!this.targets || !this.targets.length) {
-            return [];
-        }
-        if (this.heading) {
-        }
-        this.array = Object.values(this.headings);
-        const len = this.array.length;
-        return this.array;
-    }
-
     onInputChanged(value, rowIndex: number, propertyKey: string): void {
-        
+
         this.newValue = this.targets.map((row, index) => {
             return index !== rowIndex
                 ? row
@@ -425,7 +417,7 @@ export class SetTargetTabsComponent implements OnInit {
     }
 
     onBankInputChanged(value, rowIndex: number, propertyKey: string): void {
-        
+
         this.newBankValue = this.bankTargets.map((row, index) => {
             return index !== rowIndex
                 ? row
@@ -513,7 +505,7 @@ export class SetTargetTabsComponent implements OnInit {
     save() {
 
         // Check Total
-        
+
         if (this.bankTargets?.length > 0) {
             let BankTargetTotals = Object.keys(this.bankTargets[0])
             for (let i = 0; i < this.totals?.length; i++) {
@@ -555,7 +547,7 @@ export class SetTargetTabsComponent implements OnInit {
             .saveTargets(this.bankTargets,
                 this.targets,
                 this.targetForm.controls.Duration.value,
-                this.AssignedTargetToSave, this.assignedTarget, this.UserID,this.TagName,this.Label
+                this.AssignedTargetToSave, this.assignedTarget, this.UserID, this.TagName, this.Label
             )
             .pipe(
                 finalize(() => {
@@ -623,7 +615,7 @@ export class SetTargetTabsComponent implements OnInit {
 
         this.spinner.show();
         this._setTarget
-            .submitTargets(this.bankTargets,this.targetForm.controls.Duration.value, this.UserID,this.TagName,this.assignedTarget,this.Label)
+            .submitTargets(this.bankTargets, this.targetForm.controls.Duration.value, this.UserID, this.TagName, this.assignedTarget, this.Label)
             .pipe(
                 finalize(() => {
                     this.spinner.hide();

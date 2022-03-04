@@ -4,19 +4,19 @@
             <h5 class="kt-portlet__head-title">Loan Securities</h5>
         </div>
     </div>
-    <form class="kt-form kt-form--group-seperator-dashed" [formGroup]="LoanSecuritiesForm">
+    <form [formGroup]="LoanSecuritiesForm" class="kt-form kt-form--group-seperator-dashed">
         <div class="kt-form">
             <div class="kt-portlet__body">
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Security Type</mat-label>
-                            <mat-select formControlName="CollTypeID" (selectionChange)="setSecurityTypeValue($event)">
+                            <mat-select (selectionChange)="setSecurityTypeValue($event)" formControlName="CollTypeID">
                                 <mat-option>
-                                    <ngx-mat-select-search placeholderLabel="Search Security Type..."
-                                                           (focusout)="validateSecurityTypeOnFocusOut()"
+                                    <ngx-mat-select-search (focusout)="validateSecurityTypeOnFocusOut()"
                                                            (keyup)="searchSecurityType($event.target.value)"
-                                                           noEntriesFoundLabel="No Security Type Found">
+                                                           noEntriesFoundLabel="No Security Type Found"
+                                                           placeholderLabel="Search Security Type...">
                                     </ngx-mat-select-search>
                                 </mat-option>
                                 <mat-option *ngFor="let securityType of SelectedSecurityType" [value]="securityType.Id">
@@ -30,25 +30,25 @@
 
                     </div>-->
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Quantity/ Area Accepted <strong
                                 class="matMandatory">*</strong></mat-label>
-                            <input matInput maxlength="5" formControlName="Quantity" appNumberOnly>
+                            <input appNumberOnly formControlName="Quantity" matInput maxlength="5">
                             <mat-error *ngIf="hasError('Quantity', 'required')">Area <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-lg-4 col-sm-12 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Quantity</mat-label>
                             <mat-select formControlName="QuantityUnit">
-<!--                                <mat-option>-->
-<!--                                    <ngx-mat-select-search placeholderLabel="Search Quantity..."-->
-<!--                                                           (focusout)="validateAreaQuantitOnFocusOut()"-->
-<!--                                                           (keyup)="validateAreaQuantitOnFocusOut()"-->
-<!--                                                           noEntriesFoundLabel="No Quantity Found">-->
-<!--                                    </ngx-mat-select-search>-->
-<!--                                </mat-option>-->
+                                <!--                                <mat-option>-->
+                                <!--                                    <ngx-mat-select-search placeholderLabel="Search Quantity..."-->
+                                <!--                                                           (focusout)="validateAreaQuantitOnFocusOut()"-->
+                                <!--                                                           (keyup)="validateAreaQuantitOnFocusOut()"-->
+                                <!--                                                           noEntriesFoundLabel="No Quantity Found">-->
+                                <!--                                    </ngx-mat-select-search>-->
+                                <!--                                </mat-option>-->
                                 <mat-option *ngFor="let areaQuantity of SelectedAreaQuantities"
                                             [value]="areaQuantity.Id">
                                     {{areaQuantity.Name}}
@@ -61,10 +61,10 @@
 
                     </div>-->
                     <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                             <mat-label class="customMatLabel">Unit Price/Avg Sale Price <strong
                                 class="matMandatory">*</strong></mat-label>
-                            <input matInput maxlength="8" formControlName="UnitPrice" appNumberOnly>
+                            <input appNumberOnly formControlName="UnitPrice" matInput maxlength="8">
                             <mat-error *ngIf="hasError('UnitPrice', 'required')">Unit Price <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
@@ -72,16 +72,16 @@
                 </div>
                 <div class="form-group kt-form__group row">
                     <div class="col-lg-12 mb-2">
-                        <button style="background-color: #01671B;" type="button" [disabled]="isSecuritiesFormInProgress"
-                                class="btn btn-primary" mat-raised-button color="primary" *ngIf="currentActivity.C"
-                                (click)="onSaveLoanSecurities()">
+                        <button (click)="onSaveLoanSecurities()" *ngIf="currentActivity.C" [disabled]="isSecuritiesFormInProgress"
+                                class="btn btn-primary" color="primary" mat-raised-button style="background-color: #01671B;"
+                                type="button">
                             <mat-icon class="mr-2">save</mat-icon>
                             Save
                         </button>
-                        <button type="button"
+                        <button (click)="clearLoanSecuritiesForm()"
                                 *ngIf="currentActivity.C"
                                 class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                                mat-raised-button color="danger" (click)="clearLoanSecuritiesForm()">
+                                color="danger" mat-raised-button type="button">
                             <mat-icon class="mr-2"> clear_all</mat-icon>
                             Clear
                         </button>
@@ -113,8 +113,9 @@
                                     <td>
 
 
-                                        <mat-icon (click)="showUpdateSecuritiesForm(loan)"  *ngIf="currentActivity.U"class="text-green cursor-pointer">
-                                                edit
+                                        <mat-icon (click)="showUpdateSecuritiesForm(loan)" *ngIf="currentActivity.U"
+                                                  class="text-green cursor-pointer">
+                                            edit
                                         </mat-icon>
 
                                     </td>
@@ -164,8 +165,8 @@
                             <td>
 
                                 <mat-checkbox (click)="onChang(custLand,i)"
-                                              [disabled]="IfDisabledBOX(custLand.IsAttached)"
-                                              [checked]="checkBOX(custLand.IsAttached)">
+                                              [checked]="checkBOX(custLand.IsAttached)"
+                                              [disabled]="IfDisabledBOX(custLand.IsAttached)">
                                 </mat-checkbox>
                             </td>
                         </tr>
@@ -177,8 +178,9 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <button type="button" class="btn btn-primary float-right" mat-raised-button *ngIf="currentActivity.C" color="primary"
-                        (click)="attachCustomerLandtoLoan()">
+                <button (click)="attachCustomerLandtoLoan()" *ngIf="currentActivity.C" class="btn btn-primary float-right" color="primary"
+                        mat-raised-button
+                        type="button">
                     Attach
                 </button>
             </div>

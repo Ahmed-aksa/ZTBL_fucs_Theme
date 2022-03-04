@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
-import {MatDialogRef} from "@angular/material/dialog";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LovService} from "../../../shared/services/lov.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
@@ -10,8 +9,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
 import {DatePipe} from "@angular/common";
 import {ReportsService} from "../service/reports.service";
-import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
-import {MatCheckboxChange} from "@angular/material/checkbox";
+import {DateFormats, Lov} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MomentDateAdapter} from "@angular/material-moment-adapter";
@@ -44,6 +42,7 @@ export class MarkOnCaComponent implements OnInit {
     zone: any;
     circle: any;
     user: any = {}
+    public LovCall = new Lov();
 
     //getWorkingDate = WorkingDate()
     constructor(
@@ -57,8 +56,6 @@ export class MarkOnCaComponent implements OnInit {
         private _reports: ReportsService
     ) {
     }
-
-    public LovCall = new Lov();
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();

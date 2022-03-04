@@ -1,12 +1,12 @@
 <div class=" sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
     <div class="heading">Branch Manager</div>
     <!-- Header -->
-    <form name="form" #f="ngForm" novalidate>
+    <form #f="ngForm" name="form" novalidate>
         <div class="form-row row pt-2">
             <div class="form-group col-lg-3">
-                <mat-form-field class="mat-form-field-fluid w-full mb-0" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full mb-0">
                     <mat-label class="customMatLabel">Year</mat-label>
-                    <mat-select [(ngModel)]="year" name="year" #Year="ngModel" required>
+                    <mat-select #Year="ngModel" [(ngModel)]="year" name="year" required>
 
                         <mat-option *ngFor="let single_year of years;let i=index" [value]="single_year">{{single_year}}
                         </mat-option>
@@ -17,8 +17,8 @@
                 </div>
             </div>
             <div class="form-group col-lg-3">
-                <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button
-                        (click)="getData()">
+                <button (click)="getData()" class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary"
+                        mat-raised-button>
                     <mat-icon class="mr-2">search</mat-icon>
                     Search
                 </button>
@@ -38,17 +38,17 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
-                        <div id="chart" *ngIf="chartPerformanceIndicators" class=" mt-0 py-3">
-                            <apx-chart [series]="chartPerformanceIndicators?.series"
-                                       [chart]="chartPerformanceIndicators?.chart"
-                                       [labels]="chartPerformanceIndicators?.labels"
-                                       [title]="chartPerformanceIndicators?.title"
-                                       [theme]="chartPerformanceIndicators?.theme"
-                                       [tooltip]="chartPerformanceIndicators.tooltip"
+                        <div *ngIf="chartPerformanceIndicators" class=" mt-0 py-3" id="chart">
+                            <apx-chart [chart]="chartPerformanceIndicators?.chart"
+                                       [colors]="chartPerformanceIndicators?.colors"
                                        [dataLabels]="chartPerformanceIndicators.dataLabels"
-                                       [responsive]="chartPerformanceIndicators?.responsive"
+                                       [labels]="chartPerformanceIndicators?.labels"
                                        [noData]="chartPerformanceIndicators?.noData"
-                                       [colors]="chartPerformanceIndicators?.colors">
+                                       [responsive]="chartPerformanceIndicators?.responsive"
+                                       [series]="chartPerformanceIndicators?.series"
+                                       [theme]="chartPerformanceIndicators?.theme"
+                                       [title]="chartPerformanceIndicators?.title"
+                                       [tooltip]="chartPerformanceIndicators.tooltip">
 
                             </apx-chart>
                         </div>
@@ -57,16 +57,16 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
-                        <div id="chart" *ngIf="chartLoanPortfolio" class=" mt-0 py-3">
-                            <apx-chart [series]="chartLoanPortfolio?.series"
-                                       [chart]="chartLoanPortfolio?.chart"
-                                       [labels]="chartLoanPortfolio?.labels"
-                                       [title]="chartLoanPortfolio?.title"
-                                       [theme]="chartLoanPortfolio?.theme"
-                                       [tooltip]="chartLoanPortfolio.tooltip"
+                        <div *ngIf="chartLoanPortfolio" class=" mt-0 py-3" id="chart">
+                            <apx-chart [chart]="chartLoanPortfolio?.chart"
                                        [dataLabels]="chartLoanPortfolio.dataLabels"
+                                       [labels]="chartLoanPortfolio?.labels"
+                                       [noData]="chartLoanPortfolio.noData"
                                        [responsive]="chartLoanPortfolio?.responsive"
-                                       [noData]="chartLoanPortfolio.noData"></apx-chart>
+                                       [series]="chartLoanPortfolio?.series"
+                                       [theme]="chartLoanPortfolio?.theme"
+                                       [title]="chartLoanPortfolio?.title"
+                                       [tooltip]="chartLoanPortfolio.tooltip"></apx-chart>
                         </div>
                     </div>
 
@@ -77,22 +77,22 @@
             <div class="row ">
                 <div class="col-lg-6 mt-3">
                     <div class="shadow-sm border graph-box" style="height: 365px;">
-                        <div id="chart" *ngIf="chartnoOfBorrowers" class=" mt-0 py-3">
-                            <apx-chart [series]="chartnoOfBorrowers?.series"
-                                       [chart]="chartnoOfBorrowers?.chart"
-                                       [labels]="chartnoOfBorrowers?.labels"
-                                       [title]="chartnoOfBorrowers?.title"
-                                       [theme]="chartnoOfBorrowers?.theme"
-                                       [tooltip]="chartnoOfBorrowers.tooltip"
+                        <div *ngIf="chartnoOfBorrowers" class=" mt-0 py-3" id="chart">
+                            <apx-chart [chart]="chartnoOfBorrowers?.chart"
                                        [dataLabels]="chartnoOfBorrowers.dataLabels"
+                                       [labels]="chartnoOfBorrowers?.labels"
+                                       [noData]="chartnoOfBorrowers.noData"
                                        [responsive]="chartnoOfBorrowers?.responsive"
-                                       [noData]="chartnoOfBorrowers.noData"></apx-chart>
+                                       [series]="chartnoOfBorrowers?.series"
+                                       [theme]="chartnoOfBorrowers?.theme"
+                                       [title]="chartnoOfBorrowers?.title"
+                                       [tooltip]="chartnoOfBorrowers.tooltip"></apx-chart>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-lg-6 py-3">
-                    <div class="shadow-sm border pt-2 graph-box" *ngIf="CreditCeiling" style="height: 365px;">
+                    <div *ngIf="CreditCeiling" class="shadow-sm border pt-2 graph-box" style="height: 365px;">
                         <p class=" ml-3 mb-5 " style="font-size: 14px; font-weight: 900;">Credit Ceiling</p>
                         <app-pyramid-chart [item]="CreditCeiling" class="mt-5">
 

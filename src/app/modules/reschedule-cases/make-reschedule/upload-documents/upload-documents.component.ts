@@ -13,7 +13,6 @@ import {LayoutUtilsService} from '../../../../shared/services/layout_utils.servi
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {finalize} from 'rxjs/operators';
-import {ClDocumentViewComponent} from '../../../loan/cl-document-view/cl-document-view.component';
 
 @Component({
     selector: 'app-upload-documents',
@@ -41,7 +40,7 @@ export class UploadDocumentsComponent implements OnInit {
     SelectedLoanType: any = [];
     imgData = [];
     bit;
-    fallout=false;
+    fallout = false;
 
     //Document Loan Type inventory
     documentLoanTypes: any = [];
@@ -72,8 +71,8 @@ export class UploadDocumentsComponent implements OnInit {
 
     page_number = [];
     description = [];
+    index = 0;
     private LoanCaseId: any;
-
 
     constructor(
         public dialogRef: MatDialogRef<UploadDocumentsComponent>,
@@ -221,10 +220,8 @@ export class UploadDocumentsComponent implements OnInit {
 
     }
 
-index=0;
-
     saveLoanDocuments() {
-        for(let i=0;i<this.rawData.length;i++){
+        for (let i = 0; i < this.rawData.length; i++) {
             // @ts-ignore
             let page_number = document.getElementById(`page_${i}`)?.value;
             // @ts-ignore
@@ -236,87 +233,86 @@ index=0;
             }
 
         }
-if(this.index<this.rawData.length) {
-    if (this.docId[this.index]) {
-        this.index = this.index + 1;
+        if (this.index < this.rawData.length) {
+            if (this.docId[this.index]) {
+                this.index = this.index + 1;
 
-    }
-
-    this.fallout = false;
-    console.log(this.rawData);
-
-    var count = 0;
-    this.maxLength = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
-    this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
-
-    if (!this.LoanCaseId) {
-        this.bit = '1';
-        this.loanCase();
-        return false;
-    } else {
-        this.loanDocument.LoanCaseID = this.LoanCaseId;
-        this.bit = null;
-    }
-
-    
-    if (this.index < this.rawData.length) {
-        this.loanDocument.file = this.rawData[this.index];
-        // @ts-ignore
-        let page_number = document.getElementById(`page_${this.index}`)?.value;
-        // @ts-ignore
-        let description = document.getElementById(`description_${this.index}`)?.value;
-
-
-
-        this.loanDocument.PageNumber = page_number;
-        this.loanDocument.Description = description;
-        if (this.PostDocument.invalid) {
-            const controls = this.PostDocument.controls;
-            Object.keys(controls).forEach(controlName =>
-                controls[controlName].markAsTouched()
-            );
-            return;
-        }
-
-        if (this.rawData.length < this.maxLength) {
-            if (this.LoanCaseId) {
-                this.layoutUtilsService.alertElement('', 'Please add all files');
-                this.fallout = true;
             }
-            return false;
-        }
 
-        this.spinner.show();
-        this._loanService.documentUpload(this.loanDocument)
-            .pipe(
-                finalize(() => {
-                    this.spinner.hide();
-                })
-            ).subscribe((baseResponse) => {
-            if (baseResponse.Success) {
-                
-                // this.index = this.index + 1;
-                this.docId.push(baseResponse.DocumentDetail.Id);
+            this.fallout = false;
+            console.log(this.rawData);
 
-                if (this.index == this.maxLength) {
-                    this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
-                    this.rawData.length = 0;
-                    this.docId = [];
-                    this.dialogRef.close();
+            var count = 0;
+            this.maxLength = Number(this.PostDocument.controls.NoOfFilesToUpload.value);
+            this.loanDocument = Object.assign(this.loanDocument, this.PostDocument.getRawValue());
 
-                } else {
-                    this.saveLoanDocuments();
-                    this.index++;
-                }
+            if (!this.LoanCaseId) {
+                this.bit = '1';
+                this.loanCase();
+                return false;
             } else {
-                this.layoutUtilsService.alertMessage('', baseResponse.Message);
-                this.fallout = true;
-                return;
+                this.loanDocument.LoanCaseID = this.LoanCaseId;
+                this.bit = null;
             }
 
 
-        });
-    }
+            if (this.index < this.rawData.length) {
+                this.loanDocument.file = this.rawData[this.index];
+                // @ts-ignore
+                let page_number = document.getElementById(`page_${this.index}`)?.value;
+                // @ts-ignore
+                let description = document.getElementById(`description_${this.index}`)?.value;
+
+
+                this.loanDocument.PageNumber = page_number;
+                this.loanDocument.Description = description;
+                if (this.PostDocument.invalid) {
+                    const controls = this.PostDocument.controls;
+                    Object.keys(controls).forEach(controlName =>
+                        controls[controlName].markAsTouched()
+                    );
+                    return;
+                }
+
+                if (this.rawData.length < this.maxLength) {
+                    if (this.LoanCaseId) {
+                        this.layoutUtilsService.alertElement('', 'Please add all files');
+                        this.fallout = true;
+                    }
+                    return false;
+                }
+
+                this.spinner.show();
+                this._loanService.documentUpload(this.loanDocument)
+                    .pipe(
+                        finalize(() => {
+                            this.spinner.hide();
+                        })
+                    ).subscribe((baseResponse) => {
+                    if (baseResponse.Success) {
+
+                        // this.index = this.index + 1;
+                        this.docId.push(baseResponse.DocumentDetail.Id);
+
+                        if (this.index == this.maxLength) {
+                            this.layoutUtilsService.alertElementSuccess('', baseResponse.Message);
+                            this.rawData.length = 0;
+                            this.docId = [];
+                            this.dialogRef.close();
+
+                        } else {
+                            this.saveLoanDocuments();
+                            this.index++;
+                        }
+                    } else {
+                        this.layoutUtilsService.alertMessage('', baseResponse.Message);
+                        this.fallout = true;
+                        return;
+                    }
+
+
+                });
+            }
 
         }
     }

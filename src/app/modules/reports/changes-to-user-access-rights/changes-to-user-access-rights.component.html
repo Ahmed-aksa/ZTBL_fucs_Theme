@@ -1,4 +1,5 @@
-<div class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+<div
+    class=" px-10  sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
 
 
     <div class="row pt-3">
@@ -8,9 +9,9 @@
         <div class="col-lg-3 col-sm-12 self-center">
 
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -31,45 +32,51 @@
                             <div class="col-lg-12">
                                 <div class="flex" style="flex-wrap: wrap;">
 
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label>Roles<strong class="matMandatory">*</strong></mat-label>
-                                            <mat-select placeholder="--Select--" formControlName="ProfileID">
-                                                <mat-option *ngFor="let profile of profiles" [value]="profile.ProfileID">
+                                            <mat-select formControlName="ProfileID" placeholder="--Select--">
+                                                <mat-option *ngFor="let profile of profiles"
+                                                            [value]="profile.ProfileID">
                                                     {{profile.ProfileName}}
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                             <mat-label class="customMatLabel">From Date<strong
                                                 class="matMandatory">*</strong>
                                             </mat-label>
-                                            <input matInput [matDatepicker]="picker2" formControlName="FromDate"
-                                                   maxlength="30"
-                                                   autocomplete="off" (dateChange)="isEnableFromDate()" appNumberOnly/>
-                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <input (dateChange)="isEnableFromDate()" [matDatepicker]="picker2" appNumberOnly
+                                                   autocomplete="off"
+                                                   formControlName="FromDate" matInput maxlength="30"/>
+                                            <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
                                         </mat-form-field>
                                     </div>
 
 
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                                            <mat-label class="customMatLabel">To Date<strong class="matMandatory">*</strong>
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                                            <mat-label class="customMatLabel">To Date<strong
+                                                class="matMandatory">*</strong>
                                             </mat-label>
-                                            <input matInput [matDatepicker]="picker3" formControlName="ToDate"
-                                                   maxlength="30"
-                                                   autocomplete="off" (dateChange)="isEnableToDate()" appNumberOnly/>
-                                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                            <input (dateChange)="isEnableToDate()" [matDatepicker]="picker3" appNumberOnly
+                                                   autocomplete="off"
+                                                   formControlName="ToDate" matInput maxlength="30"/>
+                                            <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
                                             <mat-datepicker #picker3></mat-datepicker>
                                         </mat-form-field>
                                     </div>
 
-                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 225px;">
-                                        <button class="bg-gray-500" mat-raised-button color="primary" (click)="find()"
+                                    <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2"
+                                         style="width: 225px;">
+                                        <button (click)="find()" class="bg-gray-500" color="primary" mat-raised-button
                                                 type="button">
                                             <mat-icon class="mr-2">search</mat-icon>
                                             Find

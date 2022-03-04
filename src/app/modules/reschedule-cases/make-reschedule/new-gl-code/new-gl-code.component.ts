@@ -69,6 +69,10 @@ export class NewGlCodeComponent implements OnInit {
     count: any;
 
     dataSource = new MatTableDataSource();
+    size = 10; //Default Items Per Page
+    //p : number =1;
+    pageIndex = 1; //Page Number
+    length: any; //Data Length or Total Items from Api
 
     constructor(
         private fb: FormBuilder,
@@ -81,11 +85,6 @@ export class NewGlCodeComponent implements OnInit {
         this.parent_data = data;
         // this.datta(data)
     }
-
-    size = 10; //Default Items Per Page
-    //p : number =1;
-    pageIndex = 1; //Page Number
-    length: any; //Data Length or Total Items from Api
 
     ngOnInit() {
         this.createForm();

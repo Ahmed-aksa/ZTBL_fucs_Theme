@@ -1,7 +1,6 @@
 // Angular
-import {Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 // Material
-import {SelectionModel} from '@angular/cdk/collections';
 // RXJS
 import {finalize} from 'rxjs/operators';
 // NGRX

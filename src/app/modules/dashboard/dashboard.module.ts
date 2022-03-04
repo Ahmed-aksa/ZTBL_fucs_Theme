@@ -11,12 +11,12 @@ import {ZonalChiefDashboardComponent} from './zonal-chief-dashboard/zonal-chief-
 import {EvpOdDashboardComponent} from './evp-od-dashboard/evp-od-dashboard.component';
 import {EvpCreditDashboardComponent} from './evp-credit-dashboard/evp-credit-dashboard.component';
 import {RecoveryAvailableComponent} from './recovery-available/recovery-available.component';
-import { PresidentZtblComponent } from './president-ztbl/president-ztbl.component';
-import { RegionalCheifComponent } from './regional-cheif/regional-cheif.component';
-import { CustomerModule } from '../customer/customer.module';
-import { RecoverySamDivisionComponent } from './recovery-sam-division/recovery-sam-division.component';
-import { ProvincialChiefComponent } from './provincial-chief/provincial-chief.component';
-import { PyramidChartComponent } from './pyramid-chart/pyramid-chart.component';
+import {PresidentZtblComponent} from './president-ztbl/president-ztbl.component';
+import {RegionalCheifComponent} from './regional-cheif/regional-cheif.component';
+import {CustomerModule} from '../customer/customer.module';
+import {RecoverySamDivisionComponent} from './recovery-sam-division/recovery-sam-division.component';
+import {ProvincialChiefComponent} from './provincial-chief/provincial-chief.component';
+import {PyramidChartComponent} from './pyramid-chart/pyramid-chart.component';
 
 const route = [
     {

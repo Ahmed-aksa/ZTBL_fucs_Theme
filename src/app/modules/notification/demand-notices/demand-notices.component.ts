@@ -15,12 +15,12 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../shared/reducers";
 
 @Component({
-  selector: 'app-demand-notices',
-  templateUrl: './demand-notices.component.html',
-  styleUrls: ['./demand-notices.component.scss']
+    selector: 'app-demand-notices',
+    templateUrl: './demand-notices.component.html',
+    styleUrls: ['./demand-notices.component.scss']
 })
 export class DemandNoticesComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Name', 'FatherName', 'Cnic','Phone', 'Cast','Lcno', 'Gl','Lnd', 'Dnd', 'Dd'];
+    displayedColumns = ['Name', 'FatherName', 'Cnic', 'Phone', 'Cast', 'Lcno', 'Gl', 'Lnd', 'Dnd', 'Dd'];
     loaded = true;
     matTableLenght = false;
     loading = false;
@@ -59,10 +59,10 @@ export class DemandNoticesComponent implements OnInit, AfterViewInit {
         this.find()
     }
 
-    createForm(){
+    createForm() {
         this.notificationTable = this.fb.group({
-            Name:[],
-            Cnic:[]
+            Name: [],
+            Cnic: []
         })
     }
 

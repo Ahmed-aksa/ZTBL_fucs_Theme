@@ -1,9 +1,9 @@
 <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50"
      style="flex-direction: column;overflow-y: scroll">
     <div class="example-table-container  px-2">
-        <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border"
-             *ngFor="let activity of TourDiary.TourDiaries ; let i = index;">
-            <div class="custom-accordion-head border-0" (click)="toggleAccordion(i)"
+        <div *ngFor="let activity of TourDiary.TourDiaries ; let i = index;"
+             class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border">
+            <div (click)="toggleAccordion(i)" class="custom-accordion-head border-0"
                  style="cursor: pointer">
                 <div class=" self-center ml-8">
                         <span class=" text-green">
@@ -13,10 +13,10 @@
 
 
                 <div class="mr-5">
-                    <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">
+                    <button id="{{'arrow_down_'+i}}" mat-icon-button style="display: block">
                         <mat-icon>expand_more</mat-icon>
                     </button>
-                    <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">
+                    <button id="{{'arrow_up_'+i}}" mat-icon-button style="display:none;">
                         <mat-icon>expand_less</mat-icon>
                     </button>
                 </div>
@@ -51,12 +51,13 @@
                         </td>
                         <td style="width: 20%">{{child.StatusName}}</td>
                         <td>
-                            <button mat-icon-button color="primary" *ngIf="CheckDirectionStatus(child) && currentActivity.U"
-                                    (click)="redirectTourDiary(child,'E')">
+                            <button (click)="redirectTourDiary(child,'E')" *ngIf="CheckDirectionStatus(child) && currentActivity.U"
+                                    color="primary"
+                                    mat-icon-button>
                                 <mat-icon style="margin-left: 5px;" title="edit tour diary">edit</mat-icon>
                             </button>
-                            <button mat-icon-button color="primary"
-                                    (click)="redirectTourDiary(child,'V')">
+                            <button (click)="redirectTourDiary(child,'V')" color="primary"
+                                    mat-icon-button>
                                 <mat-icon style="margin-left: 5px;" title="edit tour diary">visibility</mat-icon>
                             </button>
                         </td>

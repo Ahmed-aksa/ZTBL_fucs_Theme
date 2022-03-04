@@ -8,9 +8,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -25,17 +25,17 @@
 
 
                 <div class="flex mt-1" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="tourPlanApprovalForm" [should_hide_fields]="true"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="tourPlanApprovalForm"
+                                            [should_hide_fields]="true"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">From</mat-label>
-                                <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off"
-                                       formControlName="FromDate" (dateChange)="setFromDate()" #to_date
-                                       autocomplete="off">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <input #to_date (dateChange)="setFromDate()" [matDatepicker]="picker" autocomplete="off"
+                                       autocomplete="off" formControlName="FromDate" matInput
+                                       placeholder="ddMMyyyy">
+                                <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
                         </div>
@@ -43,27 +43,27 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">To</mat-label>
-                                <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy"
-                                       formControlName="ToDate" [min]="minDate"
-                                       (dateChange)="setToDate()" autocomplete="off">
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <input (dateChange)="setToDate()" [matDatepicker]="picker1" [min]="minDate"
+                                       autocomplete="off" formControlName="ToDate"
+                                       matInput placeholder="ddMMyyyy">
+                                <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>PPNO</mat-label>
-                                <input appNumberOnly matInput formControlName="PPNO">
+                                <input appNumberOnly formControlName="PPNO" matInput>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Select tourPlan Status</mat-label>
                                 <mat-select formControlName="Status">
                                     <mat-option value="">
@@ -78,8 +78,8 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button (click)="viewTourPlan()" type="button"
-                                    class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary">
+                            <button (click)="viewTourPlan()" class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary"
+                                    type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -92,16 +92,16 @@
     </div>
 
     <mat-tab-group [ngClass]="{'dash-tab': TourPlans?.length == 1}"
+                   animationDuration="200ms"
                    class="pt-3 flex  flex-auto dash-ttab  shadow-xs rounded-sm pb-3"
-                   style="flex-direction: column; overflow-y: scroll"
-                   animationDuration="200ms" style="background-color: white;">
+                   style="flex-direction: column; overflow-y: scroll" style="background-color: white;">
 
 
         <ng-container *ngFor="let item of TourPlans;let i=index;">
             <mat-tab [label]="item.Heading">
-                <app-view-tour-tab [TourPlans]="item" [branch]="branch" [zone]="zone"
-                                       [circle]="circle"
-                                       [tourPlanApprovalForm]="tourPlanApprovalForm.value"></app-view-tour-tab>
+                <app-view-tour-tab [TourPlans]="item" [branch]="branch" [circle]="circle"
+                                   [tourPlanApprovalForm]="tourPlanApprovalForm.value"
+                                   [zone]="zone"></app-view-tour-tab>
             </mat-tab>
         </ng-container>
     </mat-tab-group>

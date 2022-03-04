@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
-import {MatDialogRef} from "@angular/material/dialog";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LovService} from "../../../shared/services/lov.service";
 import {ReportsService} from "../service/reports.service";
@@ -45,6 +44,7 @@ export class LoanAccountBalanceComponent implements OnInit {
 
 
     user: any = {}
+    public LovCall = new Lov();
 
     constructor(
         private fb: FormBuilder,
@@ -58,9 +58,6 @@ export class LoanAccountBalanceComponent implements OnInit {
         private datepipe: DatePipe
     ) {
     }
-
-    public LovCall = new Lov();
-
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -172,7 +169,6 @@ export class LoanAccountBalanceComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = null;
     }
-
 
 
 }

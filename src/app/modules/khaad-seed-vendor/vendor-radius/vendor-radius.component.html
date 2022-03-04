@@ -8,9 +8,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -24,16 +24,16 @@
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
             <!-- Header -->
-            <div class=" py-1" [formGroup]="radiusForm">
+            <div [formGroup]="radiusForm" class=" py-1">
 
 
                 <div class="flex" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="radiusForm" [show_circle]="true"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="radiusForm"
+                                            [show_circle]="true"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Find Vendor With Radius:</mat-label>
 
                                 <mat-select (selectionChange)="selectRadius($event)" formControlName="Radius">
@@ -50,7 +50,7 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Vendor Type</mat-label>
 
                                 <mat-select (selectionChange)="selectType($event)" formControlName="Type">
@@ -65,10 +65,10 @@
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Vendor Name</mat-label>
-                                <input matInput placeholder="Vendor Name" formControlName="Name" maxlength="30"
-                                       autocomplete="off"/>
+                                <input autocomplete="off" formControlName="Name" matInput maxlength="30"
+                                       placeholder="Vendor Name"/>
                             </mat-form-field>
                         </div>
                     </div>
@@ -76,9 +76,9 @@
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
                             <button
-                                mat-raised-button
+                                (click)="onSelect()"
                                 class=" mt-2 bg-gray-500 mat-raised-button mat-button-base mat-primary"
-                                type="button" (click)="onSelect()">
+                                mat-raised-button type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -92,20 +92,20 @@
 
 
     </div>
-    <agm-map #gm [zoom]="zoom" style="height: 100%;"
-             [latitude]="lat"
+    <agm-map #gm (mapReady)="onMapReady($event)" [latitude]="lat"
              [longitude]="lng"
              [mapTypeControlOptions]="controlOptions"
              [mapTypeControl]="true"
-             (mapReady)="onMapReady($event)"
-             [restriction]="countryRestriction">
+             [restriction]="countryRestriction"
+             [zoom]="zoom"
+             style="height: 100%;">
 
-        <agm-marker *ngFor="let r of radiusInfo; let i = index"
-                    (markerClick)="clickedMarker($event,i, infowindow)"
+        <agm-marker (markerClick)="clickedMarker($event,i, infowindow)"
+                    *ngFor="let r of radiusInfo; let i = index"
+                    [iconUrl]="r.iconUrl"
                     [latitude]="r.Lat"
                     [longitude]="r.Lng"
                     [title]="r.Name"
-                    [iconUrl]="r.iconUrl"
         >
 
             <agm-info-window #infowindow>

@@ -1,15 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DashboardService} from 'app/shared/services/dashboard.service';
-import {
-    ApexChart,
-    ApexNoData,
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexTheme,
-    ApexTitleSubtitle,
-    ChartComponent
-} from "ng-apexcharts";
+import {ChartComponent} from "ng-apexcharts";
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from "rxjs/operators";
 import {ChartOptions} from "../dashboard.component";

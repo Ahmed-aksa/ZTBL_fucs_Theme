@@ -6,15 +6,15 @@
     <div class="kt-login__form">
         <div class="row">
             <div class="col-lg-12 text-end">
-                <button type="button" id="kt_login_signup_cancel" (click)="onCloseClick(0)">
+                <button (click)="onCloseClick(0)" id="kt_login_signup_cancel" type="button">
                     <mat-icon class="text-danger">cancel</mat-icon>
                 </button>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 text-center mb-1">
-                <img src="./assets/media/icons/chat-01.png" class="img-responsive center-block w-16 mx-auto"
-                     alt="icon"/>
+                <img alt="icon" class="img-responsive center-block w-16 mx-auto"
+                     src="./assets/media/icons/chat-01.png"/>
             </div>
         </div>
 
@@ -28,13 +28,13 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form class="kt-form" [formGroup]="otpForm" autocomplete="off">
+                <form [formGroup]="otpForm" autocomplete="off" class="kt-form">
                     <div class="form-group my-2 mb-0">
-                        <mat-form-field class="w-full" appearance="outline">
+                        <mat-form-field appearance="outline" class="w-full">
                             <!--<mat-label>{{ 'AUTH.INPUT.EMAIL' | translate }}</mat-label>-->
                             <mat-label>OTP</mat-label>
-                            <input appNumberOnly matInput type="text" placeholder="OTP" formControlName="otp"
-                                   autocomplete="off"/>
+                            <input appNumberOnly autocomplete="off" formControlName="otp" matInput placeholder="OTP"
+                                   type="text"/>
                             <mat-error *ngIf="isControlHasError('otp','required')">
                                 <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
                             </mat-error>
@@ -54,9 +54,9 @@
                             </div>
                             <div class="col-lg-12">
 
-                                <button (click)="submit()" id="kt_login_signin_submit"
+                                <button (click)="submit()" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
                                         class="w-100 mat-focus-indicator mat-flat-button mat-button-base mat-primary bg-green"
-                                        [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">
+                                        id="kt_login_signin_submit">
                                     <mat-icon class="mr-2">check_circle</mat-icon>
                                     {{'Submit'}}</button>
                             </div>

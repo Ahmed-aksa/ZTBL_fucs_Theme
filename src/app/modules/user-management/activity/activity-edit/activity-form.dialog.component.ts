@@ -1,13 +1,12 @@
-import {Component, OnInit, Inject, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
-import {Observable, of, Subscription, from} from 'rxjs';
-import {delay, finalize} from 'rxjs/operators';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {finalize} from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {Activity} from '../activity.model';
 import {ActivityService} from '../activity.serivce';
-import {KtDialogService} from 'app/shared/services/kt-dialog.service';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 
 @Component({
@@ -37,6 +36,10 @@ export class ActivityFormDialogComponent implements OnInit {
                 private layoutUtilsService: LayoutUtilsService,
                 ///private ktDialogService: KtDialogService,
                 private _snackBar: MatSnackBar) {
+    }
+
+    get f(): any {
+        return this.activityForm.controls;
     }
 
     ngOnInit() {
@@ -157,7 +160,6 @@ export class ActivityFormDialogComponent implements OnInit {
 
     }
 
-
     showOrHide($event) {
 
         if ($event.checked === true) {
@@ -166,11 +168,6 @@ export class ActivityFormDialogComponent implements OnInit {
             this.isVisible = true;
         }
 
-    }
-
-
-    get f(): any {
-        return this.activityForm.controls;
     }
 
     close(result: any): void {

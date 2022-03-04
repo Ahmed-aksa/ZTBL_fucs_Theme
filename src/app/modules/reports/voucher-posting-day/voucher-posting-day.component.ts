@@ -2,14 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Bufrication} from "../class/reports";
-import {MatDialogRef} from "@angular/material/dialog";
 import {UserUtilsService} from "../../../shared/services/users_utils.service";
 import {LovService} from "../../../shared/services/lov.service";
 import {ReportsService} from "../service/reports.service";
 import {LayoutUtilsService} from "../../../shared/services/layout_utils.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
-import {DateFormats, Lov, LovConfigurationKey} from "../../../shared/classes/lov.class";
+import {DateFormats, Lov} from "../../../shared/classes/lov.class";
 import {finalize} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
@@ -70,6 +69,12 @@ export class VoucherPostingDayComponent implements OnInit {
     SelectedCircles: any = [];
 
     user: any = {}
+    public LovCall = new Lov();
+    select: Selection[] = [
+        {Value: '2', description: 'Portable Document Format (PDF)'},
+        {Value: '3', description: 'MS Excel (Formatted)'},
+        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
+    ];
 
     constructor(
         private fb: FormBuilder,
@@ -82,14 +87,6 @@ export class VoucherPostingDayComponent implements OnInit {
         private _reports: ReportsService
     ) {
     }
-
-    public LovCall = new Lov();
-
-    select: Selection[] = [
-        {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '3', description: 'MS Excel (Formatted)'},
-        {Value: '1', description: 'MS Excel (Data Only Non Formatted)'}
-    ];
 
     ngOnInit(): void {
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -109,7 +106,6 @@ export class VoucherPostingDayComponent implements OnInit {
             this.bufricationForm.controls.WorkingDate.setValue(null);
         }
     }
-
 
 
     isEnableWorkingDate() {
@@ -234,7 +230,6 @@ export class VoucherPostingDayComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = null;
     }
-
 
 
 }

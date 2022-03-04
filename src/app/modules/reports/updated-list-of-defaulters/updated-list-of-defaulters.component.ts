@@ -13,10 +13,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
-import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
+import {Lov} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
@@ -33,7 +32,7 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./updated-list-of-defaulters.component.scss']
 })
 export class UpdatedListOfDefaultersComponent implements OnInit {
-    displayedColumns = ['Zone', 'Branch', 'Name', 'FatherName', 'Cnic', 'Caste','Address', 'Lcno', 'GL','Ndd','PD','CD','KKS', 'Los'];
+    displayedColumns = ['Zone', 'Branch', 'Name', 'FatherName', 'Cnic', 'Caste', 'Address', 'Lcno', 'GL', 'Ndd', 'PD', 'CD', 'KKS', 'Los'];
     searchCnicForm: FormGroup;
     loaded = true;
 
@@ -51,14 +50,16 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     dataSource: MatTableDataSource<searchLoanCasesByCnic>;
 
     LoggedInUserInfo: BaseResponseModel;
-
+    statusLov: any;
+    public LovCall = new Lov();
+    select: Selection[] = [
+        {Value: '2', description: 'Portable Document Format (PDF)'},
+        {Value: '1', description: 'MS Excel (Formatted)'},
+        {Value: '3', description: 'MS Excel (Data Only Non Formatted)'}
+    ];
     private branch: any;
     private zone: any;
     private circle: any;
-
-    statusLov: any;
-    public LovCall = new Lov();
-
 
     constructor(
         private fb: FormBuilder,
@@ -80,13 +81,6 @@ export class UpdatedListOfDefaultersComponent implements OnInit {
     createForm() {
         this.searchCnicForm = this.fb.group({})
     }
-
-
-    select: Selection[] = [
-        {Value: '2', description: 'Portable Document Format (PDF)'},
-        {Value: '1', description: 'MS Excel (Formatted)'},
-        {Value: '3', description: 'MS Excel (Data Only Non Formatted)'}
-    ];
 
     find() {
 

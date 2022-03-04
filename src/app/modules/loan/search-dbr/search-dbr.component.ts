@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -9,7 +9,7 @@ import {finalize} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {DateFormats, Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
-import {Loan, SearchDBR, SearchLoan} from 'app/shared/models/Loan.model';
+import {Loan, SearchDBR} from 'app/shared/models/Loan.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {LoanService} from 'app/shared/services/loan.service';
@@ -181,6 +181,7 @@ export class SearchDbrComponent implements OnInit {
             });
 
     }
+
     CheckEditStatus(loan) {
         if (loan.CreatedBy == this.LoggedInUserInfo.User.UserId) {
             return true
@@ -219,16 +220,16 @@ export class SearchDbrComponent implements OnInit {
         // );
         this.router.navigate(
             ['../calculte-dbr',
-                { LnTransactionID: updateLoan.LoanAppID,Lcno: updateLoan.LoanCaseNo ,Flag:"1"}],
-            { relativeTo: this.activatedRoute }
+                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo, Flag: "1"}],
+            {relativeTo: this.activatedRoute}
         );
     }
 
     ViewDBR(updateLoan) {
         this.router.navigate(
             ['../calculte-dbr',
-                { LnTransactionID: updateLoan.LoanAppID,Lcno: updateLoan.LoanCaseNo}],
-            { relativeTo: this.activatedRoute }
+                {LnTransactionID: updateLoan.LoanAppID, Lcno: updateLoan.LoanCaseNo}],
+            {relativeTo: this.activatedRoute}
         );
     }
 }

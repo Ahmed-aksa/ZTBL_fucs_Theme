@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
@@ -116,7 +116,7 @@ export class DocumentTypeListComponent implements OnInit {
 
             this.documentType = new DocumentTypeModel();
             this.documentType.Id = _item.Id;
-            ;
+
 
             this._documentTypeService.DeleteDocumentType(this.documentType).pipe(
                 finalize(() => {

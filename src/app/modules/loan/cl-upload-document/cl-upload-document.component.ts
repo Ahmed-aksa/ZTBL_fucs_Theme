@@ -1,10 +1,8 @@
 import {HttpClient} from '@angular/common/http';
-import {AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import {Branch} from 'app/shared/models/branch.model';
 import {Loan, LoanApplicationHeader, LoanDocuments} from 'app/shared/models/Loan.model';
 import {CircleService} from 'app/shared/services/circle.service';
 import {CommonService} from 'app/shared/services/common.service';
@@ -14,8 +12,6 @@ import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
-import {ClDocumentViewComponent} from '../cl-document-view/cl-document-view.component';
-import {Zone} from '../../user-management/users/utils/zone.model'
 import {ToastrService} from "ngx-toastr";
 import {Activity} from "../../../shared/models/activity.model";
 
@@ -24,7 +20,7 @@ import {Activity} from "../../../shared/models/activity.model";
     templateUrl: './cl-upload-document.component.html',
     styleUrls: ['./cl-upload-document.component.scss'],
 })
-export class ClUploadDocumentComponent implements OnInit{
+export class ClUploadDocumentComponent implements OnInit {
 
     @Input() loanDetail: Loan;
 
@@ -89,17 +85,13 @@ export class ClUploadDocumentComponent implements OnInit{
 
     page_number = [];
     description = [];
-    private LoanCaseId: any;
     loan: any = {}
     pattern = /[^0-9]/g;
-
     loanAppID: any;
     showGrid = false;
-
     uploaded = "File Uploaded"
-
     currentActivity: Activity
-
+    private LoanCaseId: any;
 
     constructor(
         private frmbuilder: FormBuilder,
@@ -140,21 +132,20 @@ export class ClUploadDocumentComponent implements OnInit{
         //
     }
 
-    checkReadOnly(){
+    checkReadOnly() {
 
-        if(!this.loanAppID){
+        if (!this.loanAppID) {
             this.docPage = true;
-        }else{
+        } else {
             this.docPage = false;
         }
     }
 
 
-
     controlReset() {
         //Document Info
         this.index = 0;
-        this.numArray.length =0;
+        this.numArray.length = 0;
         this.imgData.length = 0;
         this.PostDocument.controls['ParentDocId'].reset();
         this.PostDocument.controls['DocumentRefNo'].reset();
@@ -292,7 +283,7 @@ export class ClUploadDocumentComponent implements OnInit{
                         } else {
                             this.numArray.push(i)
                             this.imgData.push(file);
-                            if(this.imgData.length == totNumber){
+                            if (this.imgData.length == totNumber) {
                                 this.getFile()
                             }
                         }
@@ -445,15 +436,15 @@ export class ClUploadDocumentComponent implements OnInit{
         }
     }
 
-    getFile(){
-        for(let i = 0; i<this.imgData.length; i++){
-            for(let j = 0; j<this.numArray.length; j++){
-                if(i == this.numArray[j]){
+    getFile() {
+        for (let i = 0; i < this.imgData.length; i++) {
+            for (let j = 0; j < this.numArray.length; j++) {
+                if (i == this.numArray[j]) {
                     this.rawData.push(this.imgData[j]);
-                    if(this.rawData.length == this.imgData.length){
-                    this.numArray.length =0;
-                    this.imgData.length = 0;
-                    console.log(this.rawData);
+                    if (this.rawData.length == this.imgData.length) {
+                        this.numArray.length = 0;
+                        this.imgData.length = 0;
+                        console.log(this.rawData);
                     }
                 }
             }
@@ -501,9 +492,9 @@ export class ClUploadDocumentComponent implements OnInit{
         this.showGrid = true;
         if (!isNaN(parseInt(this.PostDocument.value.NoOfFilesToUpload))) {
             this.number_of_files = parseInt(this.PostDocument.value.NoOfFilesToUpload);
-            if(this.number_of_files == 0){
+            if (this.number_of_files == 0) {
                 this.rawData.length = 0;
-                this.numArray.length =0;
+                this.numArray.length = 0;
                 this.imgData.length = 0;
                 this.showGrid = false;
             }
@@ -527,7 +518,7 @@ export class ClUploadDocumentComponent implements OnInit{
                 this.PostDocument.controls['Description'].reset();
                 this.index = 0;
                 this.rawData.length = 0;
-                this.numArray.length =0;
+                this.numArray.length = 0;
                 this.imgData.length = 0;
                 this.showGrid = false;
                 // this.rawData.forEach((single_file, index) => {

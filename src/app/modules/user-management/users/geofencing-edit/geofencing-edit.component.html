@@ -1,39 +1,39 @@
-<div class=" px-4  kt-portlet"
-     [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+<div [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }"
+     class=" px-4  kt-portlet">
     <div class="kt-portlet__head kt-portlet__head__custom">
         <div class="kt-portlet__head-label flex">
 
             <h3 class=" heading w-3/12">{{getTitle()}}</h3>
             <div class="w-9/12 text-end">
-                <button *ngIf="isEditBtnShown && _currentActivity.U" type="button" class="btn btn-primary"
-                        mat-raised-button color="primary" (click)="editCircleFence()"
-                        [disabled]="viewLoading || submitted">
+                <button (click)="editCircleFence()" *ngIf="isEditBtnShown && _currentActivity.U" [disabled]="viewLoading || submitted"
+                        class="btn btn-primary" color="primary" mat-raised-button
+                        type="button">
                     <mat-icon class="mr-2">edit</mat-icon>
                     Edit
                 </button>
 
-                <button *ngIf="isDeleteBtnShown && _currentActivity.D" type="button"
-                        class=" mx-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                        mat-raised-button color="primary" (click)="DeeteCircleFence()"
-                        [disabled]="viewLoading || submitted">
+                <button (click)="DeeteCircleFence()" *ngIf="isDeleteBtnShown && _currentActivity.D"
+                        [disabled]="viewLoading || submitted"
+                        class=" mx-2 mat-focus-indicator shadow-md btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" color="primary" mat-raised-button
+                        type="button">
                     <mat-icon class="mr-2">delete_forever</mat-icon>
                     Delete
                 </button>
 
 
-                <button *ngIf="isClearBtnShown" type="button" class="btn btn-primary" mat-raised-button color="primary"
-                        (click)="Clear()" [disabled]="viewLoading || submitted">
+                <button (click)="Clear()" *ngIf="isClearBtnShown" [disabled]="viewLoading || submitted" class="btn btn-primary" color="primary"
+                        mat-raised-button type="button">
                     <mat-icon class="mr-2"> clear_all</mat-icon>
                     Clear
                 </button>
 
-                <button style="background-color: #01671B;" *ngIf="isSaveBtnShown" type="button"
-                        class=" mx-2 btn btn-primary" mat-raised-button
-                        color="primary" (click)="onSubmit()" [disabled]="viewLoading || submitted">
+                <button (click)="onSubmit()" *ngIf="isSaveBtnShown" [disabled]="viewLoading || submitted"
+                        class=" mx-2 btn btn-primary" color="primary"
+                        mat-raised-button style="background-color: #01671B;" type="button">
                     <mat-icon class="mr-2">save</mat-icon>
                     Save
                 </button>
-                <button type="button" class="ml-2" cdkFocusInitial value="Cancel" [mat-dialog-close]="false">
+                <button [mat-dialog-close]="false" cdkFocusInitial class="ml-2" type="button" value="Cancel">
                     <mat-icon class="text-red-500">cancel</mat-icon>
                 </button>
             </div>
@@ -61,17 +61,17 @@
                 <div class="row ">
                     <div class="col-lg-12 col-md-12  mat-elevation-z8 pt-0 p-3">
 
-                        <input type="text" class="form-control mb-2" (keydown.enter)="$event.preventDefault()"
-                               placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off"
-                               spellcheck="off" type="text" #search>
+                        <input #search (keydown.enter)="$event.preventDefault()" autocapitalize="off"
+                               autocorrect="off" class="form-control mb-2" placeholder="Search Nearest Location"
+                               spellcheck="off" type="text" type="text">
 
-                        <agm-map [zoom]="zoom"
+                        <agm-map (mapReady)="onMapReady($event)"
                                  [latitude]="lat"
                                  [longitude]="lng"
                                  [mapTypeControlOptions]="controlOptions"
                                  [mapTypeControl]="true"
-                                 (mapReady)="onMapReady($event)"
                                  [restriction]="countryRestriction"
+                                 [zoom]="zoom"
                                  style="height:75vh;">
                         </agm-map>
 

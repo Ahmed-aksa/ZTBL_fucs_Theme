@@ -1,7 +1,7 @@
-import {Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
-import {debounceTime, distinctUntilChanged, tap, skip, take, delay} from 'rxjs/operators';
-import {fromEvent, merge, Observable, of, Subscription} from 'rxjs';
+import {debounceTime, delay, distinctUntilChanged, skip, take, tap} from 'rxjs/operators';
+import {fromEvent, merge, of, Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AssignPageEditDialogComponent} from '../assign-pages-edit/assign-pages-edit.dialog.component';
 import {MatPaginator} from '@angular/material/paginator';

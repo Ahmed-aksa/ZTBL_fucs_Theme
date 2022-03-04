@@ -4,7 +4,6 @@ import {Configuration} from "../models/configuration.model";
 import {BaseResponseModel} from "../../../shared/models/base_response.model";
 import {Store} from "@ngrx/store";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {KtDialogService} from "../../../shared/services/kt-dialog.service";
 import {finalize} from "rxjs/operators";
 import {ConfigurationService} from "../service/configuration.service";
 import {AppState} from "../../../shared/reducers";
@@ -45,6 +44,10 @@ export class ConfigurationEditComponent implements OnInit {
                 private _snackBar: MatSnackBar) {
     }
 
+    get f(): any {
+        return this.configurationForm.controls;
+    }
+
     ngOnInit() {
         this.configuration.clear();
 
@@ -57,7 +60,6 @@ export class ConfigurationEditComponent implements OnInit {
         this.Inputhint = this.configuration.Description;
         this.getParents();
     }
-
 
     createForm() {
 
@@ -77,16 +79,9 @@ export class ConfigurationEditComponent implements OnInit {
 
     }
 
-
     hasError(controlName: string, errorName: string): boolean {
         return this.configurationForm.controls[controlName].hasError(errorName);
     }
-
-
-    get f(): any {
-        return this.configurationForm.controls;
-    }
-
 
     onSubmit(): void {
         //this.configuration.clear();
@@ -161,18 +156,17 @@ export class ConfigurationEditComponent implements OnInit {
         return 'New configuration';
     }
 
-
-    private getParents() {
-        this._configurationService.getParents().subscribe((data: any) => {
-            this.parents = data.Configurations;
-        });
-    }
-
     changedParentStatus() {
         if (this.configurationForm.value.IsParent == false) {
             this.is_parent = false;
         } else {
             this.is_parent = true;
         }
+    }
+
+    private getParents() {
+        this._configurationService.getParents().subscribe((data: any) => {
+            this.parents = data.Configurations;
+        });
     }
 }

@@ -18,73 +18,82 @@
         </div>
     </div>
 
-    <div class="col-lg-12 row ml-1  mt-2 justify-content-center text-center bg-gray-50  py-4" *ngIf="rowLength >= 2">
-        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/search-loan-case-by-cnic')">
+    <div *ngIf="rowLength >= 2" class="col-lg-12 row ml-1  mt-2 justify-content-center text-center bg-gray-50  py-4">
+        <div *ngIf="IsReportCardVisable('reports/search-loan-case-by-cnic')" class="col-lg-4 col-sm-12">
             <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText" routerLink="search-loan-case-by-cnic">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/id-card.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/id-card.png">
 
                     <p class=" text-black">Search Loan Cases by CNIC</p>
                 </div>
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/bifurcation-of-os-balances-lc')">
+        <div *ngIf="IsReportCardVisable('reports/bifurcation-of-os-balances-lc')" class="col-lg-4 col-sm-12">
 
-            <mat-card routerLink="bifurcation-of-os-balances-lc"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="bifurcation-of-os-balances-lc">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
-                <p class=" text-black"
-               >Bifurcation of Outstanding Balances LC Wise</p>
-            </div>
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
+                    <p class=" text-black"
+                    >Bifurcation of Outstanding Balances LC Wise</p>
+                </div>
 
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12" *ngIf="IsReportCardVisable('reports/updated-list-of-defaulter')">
-            <mat-card routerLink="updated-list-of-defaulter"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/updated-list-of-defaulter')" class="col-lg-4 col-sm-12">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="updated-list-of-defaulter">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
-                <p class=" text-black">Updated List of Defaulters</p>
-            </div>
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
+                    <p class=" text-black">Updated List of Defaulters</p>
+                </div>
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/fa-view-wise')">
-            <mat-card routerLink="fa-view-wise"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/fa-view-wise')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="fa-view-wise">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
-                    <p class=" text-black" >Circle/Party-Wise Early Warning Report (NPL & Charge Off)</p>
-                </div></mat-card>
+                    <p class=" text-black">Circle/Party-Wise Early Warning Report (NPL & Charge Off)</p>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/early-warning-reports')">
+        <div *ngIf="IsReportCardVisable('reports/early-warning-reports')" class="col-lg-4 col-sm-12 mt-5">
 
-            <mat-card routerLink="early-warning-reports"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="early-warning-reports">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
                     <p class=" text-black">Early Warning Report For MCO</p>
                 </div>
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/loan-amount')">
-            <mat-card routerLink="loan-amount" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/loan-amount')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="loan-amount">
 
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
@@ -94,11 +103,14 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/voucher-posting-day-book')">
-            <mat-card routerLink="voucher-posting-day-book" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/voucher-posting-day-book')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="voucher-posting-day-book">
 
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
                     <p class=" text-black"
                     >Voucher Posting Day Book</p>
@@ -106,12 +118,13 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/daily-voucher-proof-listing')">
-            <mat-card routerLink="daily-voucher-proof-listing"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/daily-voucher-proof-listing')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="daily-voucher-proof-listing">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
                     <p class=" text-black"
                     >Daily Voucher Proofs List</p>
@@ -119,12 +132,13 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/affidavit-for-legal-heirs')">
-            <mat-card routerLink="affidavit-for-legal-heirs"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/affidavit-for-legal-heirs')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="affidavit-for-legal-heirs">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
                     <p class=" text-black"
                     >Affidavit For Legal Heirs Printing</p>
@@ -132,12 +146,13 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/payment-behavior')">
-            <mat-card routerLink="payment-behavior"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/payment-behavior')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="payment-behavior">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
                     <p class=" text-black"
                     >Repayment Behaviour</p>
@@ -145,26 +160,30 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/disbursement-performance-report')">
-            <mat-card routerLink="disbursement-performance-report"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/disbursement-performance-report')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="disbursement-performance-report">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
                     >Disbursement Performance Report</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/disbursement-performance-report-purpose-wise')">
-            <mat-card routerLink="disbursement-performance-report-purpose-wise"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+        <div *ngIf="IsReportCardVisable('reports/disbursement-performance-report-purpose-wise')"
+             class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
                       id="llcInquiryText"
+                      routerLink="disbursement-performance-report-purpose-wise"
             >
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
                     <p class=" text-black"
                     >Disbursement Performance Purpose Wise Report</p>
@@ -172,25 +191,28 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/loan-account-balance')">
-            <mat-card routerLink="loan-account-balance"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/loan-account-balance')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="loan-account-balance">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
                     >Loan Account Balancing</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/insurance-report')">
-            <mat-card routerLink="insurance-report"
-                      class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
-                      id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/insurance-report')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="insurance-report">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
                     <p class=" text-black"
                     >Insurance Premimum Reports</p>
@@ -198,32 +220,43 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/la-file-progress-summary')">
-            <mat-card routerLink="la-file-progress-summary" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/la-file-progress-summary')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="la-file-progress-summary">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
                     <p class=" text-black"
                     >Loan Application Progress Report</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/loan-information-details')">
-            <mat-card routerLink="loan-information-details" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/loan-information-details')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="loan-information-details">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
                     >Loan Information Detail</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/get-unsuccessful-login')">
-            <mat-card routerLink="get-unsuccessful-login" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/get-unsuccessful-login')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="get-unsuccessful-login">
 
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
@@ -233,77 +266,104 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/ho-zonal-expense-report')">
-            <mat-card routerLink="ho-zonal-expense-report" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/ho-zonal-expense-report')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="ho-zonal-expense-report">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
                     >HO/Zonal Expenses Report</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/mark-on-ca-report')">
-            <mat-card routerLink="mark-on-ca-report" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/mark-on-ca-report')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="mark-on-ca-report">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
                     >Markup on Central Account</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/recovery-schedule')">
-            <mat-card routerLink="recovery-schedule" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/recovery-schedule')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="recovery-schedule">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
                     >Recovery Installment</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/loan-move')">
-            <mat-card routerLink="loan-move" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/loan-move')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="loan-move">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
                     >Loan Move</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/statement-of-affairs-report')">
-            <mat-card routerLink="statement-of-affairs-report" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/statement-of-affairs-report')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="statement-of-affairs-report">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
                     >Statement of Affairs</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/reschedulement-of-loan')">
-            <mat-card routerLink="reschedulement-of-loan" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/reschedulement-of-loan')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="reschedulement-of-loan">
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
                     >Request For Reschedulement Of Loan Installment Report</p>
-                </div></mat-card>
+                </div>
+            </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/get-customer-legal-heirs')">
-            <mat-card routerLink="get-customer-legal-heirs" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/get-customer-legal-heirs')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="get-customer-legal-heirs">
 
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
@@ -313,11 +373,14 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/customer-cwr')">
-            <mat-card routerLink="customer-cwr" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/customer-cwr')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="customer-cwr">
 
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
@@ -327,11 +390,14 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/gl-move')">
-            <mat-card routerLink="gl-move" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/gl-move')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="gl-move">
 
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
@@ -341,11 +407,14 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/print-loan-booklet')">
-            <mat-card routerLink="print-loan-booklet" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/print-loan-booklet')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="print-loan-booklet">
 
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
@@ -355,11 +424,14 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/user-activity-based-report')">
-            <mat-card routerLink="user-activity-based-report" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/user-activity-based-report')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="user-activity-based-report">
 
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"
@@ -369,11 +441,14 @@
             </mat-card>
         </div>
 
-        <div class="col-lg-4 col-sm-12 mt-5" *ngIf="IsReportCardVisable('reports/changes-to-user-access-rights')">
-            <mat-card routerLink="changes-to-user-access-rights" class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg" id="llcInquiryText">
+        <div *ngIf="IsReportCardVisable('reports/changes-to-user-access-rights')" class="col-lg-4 col-sm-12 mt-5">
+            <mat-card class="cursor-pointer mx-4 d-flex justify-content-center items-center font-bold text-lg"
+                      id="llcInquiryText"
+                      routerLink="changes-to-user-access-rights">
 
                 <div class="d-grid" style="justify-items: center;">
-                    <img src="../../../../assets/images/reports.png" class="img-responsive center-block w-12 mx-auto mb-3">
+                    <img class="img-responsive center-block w-12 mx-auto mb-3"
+                         src="../../../../assets/images/reports.png">
 
 
                     <p class=" text-black"

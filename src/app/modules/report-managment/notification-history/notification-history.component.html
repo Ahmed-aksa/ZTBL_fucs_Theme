@@ -9,9 +9,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center mt-2 ">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -30,22 +30,22 @@
                 <div class="row">
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class=" w-full" appearance="outline">
-                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search"
-                                       autocomplete="off"
-                                       appearance="outline">
+                            <mat-form-field appearance="outline" class=" w-full">
+                                <input (keyup)="applyFilter($event.target.value)" appearance="outline" autocomplete="off"
+                                       matInput
+                                       placeholder="Search">
                                 <mat-hint align="start"><strong>Search</strong> in all fields</mat-hint>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Choose start date</mat-label>
-                                <input matInput [matDatepicker]="picker1" formControlName="StartDate"
-                                       (dateChange)="comparisonStartdateValidator()" autocomplete="off">
+                                <input (dateChange)="comparisonStartdateValidator()" [matDatepicker]="picker1" autocomplete="off"
+                                       formControlName="StartDate" matInput>
 
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
 
                                 <mat-datepicker #picker1></mat-datepicker>
 
@@ -61,12 +61,12 @@
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Choose end date</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="EndDate"
-                                       (dateChange)="comparisonEnddateValidator()" autocomplete="off">
+                                <input (dateChange)="comparisonEnddateValidator()" [matDatepicker]="picker" autocomplete="off"
+                                       formControlName="EndDate" matInput>
 
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
 
                                 <mat-error *ngIf="FilterForm.controls['EndDate'].hasError('invaliddaterange')">
@@ -80,9 +80,9 @@
                     </div>
                     <div class="col-lg-3 col-sm-12">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0">
-                            <button mat-raised-button
+                            <button (click)="loadAllUsersNotifications()"
                                     class="mt-2 bg-gray-500 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                                    type="button" (click)="loadAllUsersNotifications()">
+                                    mat-raised-button type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -95,13 +95,13 @@
     </div>
 
 
-    <div class="example-table-container overflow-scroll border shadow-xs rounded-sm bg-gray-50"
-         [style.height]="gridHeight">
+    <div [style.height]="gridHeight"
+         class="example-table-container overflow-scroll border shadow-xs rounded-sm bg-gray-50">
         <mat-table
+            #sort1="matSort"
             #table
             [dataSource]="dataSource"
             matSort
-            #sort1="matSort"
             matSortActive="id"
             matSortDirection="asc"
             matSortDisableClear>
@@ -122,8 +122,8 @@
             <ng-container matColumnDef="View">
                 <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
                 <mat-cell *matCellDef="let notification">
-                    <button mat-icon-button color="primary"
-                            (click)="viewNotificationLocationDetails(notification)">
+                    <button (click)="viewNotificationLocationDetails(notification)" color="primary"
+                            mat-icon-button>
                         <mat-icon title="View">
                             info
                         </mat-icon>
@@ -137,11 +137,11 @@
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
 
-        <div class="mat-table__message" *ngIf="!loading && dataSource.data.length==0">No records found</div>
-        <div class="mat-table__message" *ngIf="loading">Please wait....</div>
+        <div *ngIf="!loading && dataSource.data.length==0" class="mat-table__message">No records found</div>
+        <div *ngIf="loading" class="mat-table__message">Please wait....</div>
     </div>
     <div>
-        <mat-paginator [length]="15" [pageSize]="15" [pageSizeOptions]="[15,30, 50, 100]"
+        <mat-paginator [length]="15" [pageSizeOptions]="[15,30, 50, 100]" [pageSize]="15"
                        [showFirstLastButtons]="true"></mat-paginator>
     </div>
 </div>

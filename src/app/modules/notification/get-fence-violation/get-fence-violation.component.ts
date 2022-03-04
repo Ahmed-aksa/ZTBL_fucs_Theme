@@ -9,9 +9,9 @@ import {LayoutUtilsService} from "../../../shared/services/layout_utils.service"
 import {finalize} from "rxjs/operators";
 
 @Component({
-  selector: 'app-get-fence-violation',
-  templateUrl: './get-fence-violation.component.html',
-  styleUrls: ['./get-fence-violation.component.scss']
+    selector: 'app-get-fence-violation',
+    templateUrl: './get-fence-violation.component.html',
+    styleUrls: ['./get-fence-violation.component.scss']
 })
 export class GetFenceViolationComponent implements OnInit, AfterViewInit {
     displayedColumns = ['Description', 'Requested'];

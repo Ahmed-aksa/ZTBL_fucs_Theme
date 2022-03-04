@@ -4,9 +4,9 @@
     <form name="form" novalidate>
         <div class="form-row row pt-2">
             <div class="form-group col-lg-3">
-                <mat-form-field class="mat-form-field-fluid w-full mb-0" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full mb-0">
                     <mat-label class="customMatLabel">Year</mat-label>
-                    <mat-select [(ngModel)]="year" name="year" #Year="ngModel"
+                    <mat-select #Year="ngModel" [(ngModel)]="year" name="year"
                                 required>
 
                         <mat-option *ngFor="let single_year of years;let i=index"
@@ -15,8 +15,8 @@
                 </mat-form-field>
             </div>
             <div class="form-group col-lg-3">
-                <button class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary" mat-raised-button
-                        (click)="getData()">
+                <button (click)="getData()" class="btn btn-primary mat-flat-button mr-1 bg-gray-500 mt-2 mat-primary"
+                        mat-raised-button>
                     <mat-icon class="mr-2">search</mat-icon>
                     Search
                 </button>
@@ -35,18 +35,18 @@
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2  ">
                 <div class="shadow-sm border graph-box" style="height: 365px;">
-                    <div id="chart" class=" mt-0 py-3  position-relative " *ngIf="chartOptions1">
+                    <div *ngIf="chartOptions1" class=" mt-0 py-3  position-relative " id="chart">
                         <p class="text-green px-2 font-bold mb-0">Performance Indicators</p>
                         <apx-chart
-                            [series]="chartOptions1?.series"
                             [chart]="chartOptions1?.chart"
+                            [colors]="chartOptions1?.colors"
+                            [dataLabels]="chartOptions1.dataLabels"
                             [labels]="chartOptions1?.labels"
+                            [noData]="chartOptions1.noData"
+                            [responsive]="chartOptions1?.responsive"
+                            [series]="chartOptions1?.series"
                             [theme]="chartOptions1?.theme"
                             [tooltip]="chartOptions1.tooltip"
-                            [dataLabels]="chartOptions1.dataLabels"
-                            [responsive]="chartOptions1?.responsive"
-                            [noData]="chartOptions1.noData"
-                            [colors]="chartOptions1?.colors"
                         ></apx-chart>
                         <!--                        <p class="text-green px-1 font-medium mb-0 position-absolute" style="bottom: 19px; right: 3px; font-size: 12px;">**Deposits figures are for complete branch</p>-->
                     </div>
@@ -55,18 +55,18 @@
             </div>
             <div class="col-lg-6 col-sm-12 my-2">
                 <div class="shadow-sm border graph-box" style="height: 365px;">
-                    <div id="chart" class=" mt-0 py-3" *ngIf="chartOptions2">
+                    <div *ngIf="chartOptions2" class=" mt-0 py-3" id="chart">
                         <p class="text-green px-2 font-bold mb-0">Circle Bench Mark</p>
                         <apx-chart
-                            [series]="chartOptions2?.series"
                             [chart]="chartOptions2?.chart"
+                            [colors]="chartOptions2?.colors"
+                            [dataLabels]="chartOptions2.dataLabels"
                             [labels]="chartOptions2?.labels"
+                            [noData]="chartOptions2.noData"
+                            [responsive]="chartOptions2?.responsive"
+                            [series]="chartOptions2?.series"
                             [theme]="chartOptions2?.theme"
                             [tooltip]="chartOptions2.tooltip"
-                            [dataLabels]="chartOptions2.dataLabels"
-                            [responsive]="chartOptions2?.responsive"
-                            [noData]="chartOptions2.noData"
-                            [colors]="chartOptions2?.colors"
 
                         ></apx-chart>
                     </div>
@@ -78,18 +78,18 @@
         <div class="row">
             <div class="col-lg-6 col-sm-12 my-2">
                 <div class="shadow-sm border graph-box" style="height: 365px;">
-                    <div id="chart" class="mt-0 py-3" *ngIf="chartOptions3">
+                    <div *ngIf="chartOptions3" class="mt-0 py-3" id="chart">
                         <p class="text-green px-2 font-bold mb-0">Loan Portfolio</p>
                         <apx-chart
-                            [series]="chartOptions3?.series"
                             [chart]="chartOptions3.chart"
+                            [colors]="chartOptions3?.colors"
+                            [dataLabels]="chartOptions3?.dataLabels"
                             [labels]="chartOptions3?.labels"
+                            [noData]="chartOptions3?.noData"
+                            [responsive]="chartOptions3?.responsive"
+                            [series]="chartOptions3?.series"
                             [theme]="chartOptions3?.theme"
                             [tooltip]="chartOptions3.tooltip"
-                            [dataLabels]="chartOptions3?.dataLabels"
-                            [responsive]="chartOptions3?.responsive"
-                            [noData]="chartOptions3?.noData"
-                            [colors]="chartOptions3?.colors"
 
                         ></apx-chart>
                     </div>
@@ -98,17 +98,17 @@
             </div>
             <div class="col-lg-6 col-sm-12 my-2">
                 <div class="shadow-sm border graph-box" style="height: 365px;">
-                    <div id="chart" class="mt-0 py-3" *ngIf="chartOptions4">
+                    <div *ngIf="chartOptions4" class="mt-0 py-3" id="chart">
                         <p class="text-green px-2 font-bold mb-0">Circle Radius</p>
                         <apx-chart
-                            [series]="chartOptions4?.series"
                             [chart]="chartOptions4?.chart"
+                            [dataLabels]="chartOptions4.dataLabels"
                             [labels]="chartOptions4?.labels"
+                            [noData]="chartOptions4.noData"
+                            [responsive]="chartOptions4?.responsive"
+                            [series]="chartOptions4?.series"
                             [theme]="chartOptions4?.theme"
                             [tooltip]="chartOptions4.tooltip"
-                            [dataLabels]="chartOptions4.dataLabels"
-                            [responsive]="chartOptions4?.responsive"
-                            [noData]="chartOptions4.noData"
 
                         ></apx-chart>
                     </div>

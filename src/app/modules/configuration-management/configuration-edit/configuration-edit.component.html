@@ -2,23 +2,23 @@
     <div class="kt-portlet__head kt-portlet__head__custom" id="list-header">
         <div class="kt-portlet__head-label flex">
             <h3 class=" w-11/12 heading">Edit Page</h3>
-            <button type="button" color="danger" class="w-1/12 text-right" [mat-dialog-close]="data.animal"
-                    cdkFocusInitial>
+            <button [mat-dialog-close]="data.animal" cdkFocusInitial class="w-1/12 text-right" color="danger"
+                    type="button">
                 <mat-icon class="text-red-500">cancel</mat-icon>
             </button>
         </div>
     </div>
     <div>
-        <mat-alert *ngIf="hasFormErrors" type="warn" [duration]="30000" [showCloseButton]="true"
-                   (close)="onAlertClose($event)">
+        <mat-alert (close)="onAlertClose($event)" *ngIf="hasFormErrors" [duration]="30000" [showCloseButton]="true"
+                   type="warn">
             Please enter valid Input
         </mat-alert>
 
         <div class="form-group kt-form__group row">
             <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
-                    <input matInput placeholder="Enter key name" formControlName="KeyName" maxlength="30"
-                           autocomplete="off"/>
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
+                    <input autocomplete="off" formControlName="KeyName" matInput maxlength="30"
+                           placeholder="Enter key name"/>
                     <mat-error *ngIf="hasError('KeyName', 'required')">Key Name <strong>required</strong>
                     </mat-error>
                     <mat-hint align="left">Please enter <strong>KeyName</strong></mat-hint>
@@ -26,33 +26,33 @@
             </div>
 
             <div class="col-lg-6 kt-margin-bottom-20-mobile">
-                <mat-form-field class="example-full-width w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="example-full-width w-full">
                     <mat-label>Key Value</mat-label>
-                    <input class="w-full" matInput maxlength="100000" placeholder="Key Value"
-                           formControlName="KeyValue">
+                    <input class="w-full" formControlName="KeyValue" matInput maxlength="100000"
+                           placeholder="Key Value">
                     <mat-error *ngIf="hasError('KeyValue', 'required')">Key Value is required</mat-error>
                     <mat-hint align="left">{{Inputhint}}</mat-hint>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="isClob" class="example-full-width" appearance="outline">
+                <mat-form-field *ngIf="isClob" appearance="outline" class="example-full-width">
                     <mat-label>Key Value CLOB</mat-label>
-                    <textarea matInput placeholder="Key Value" rows="10"
-                              formControlName="KeyValueClob"></textarea>
+                    <textarea formControlName="KeyValueClob" matInput placeholder="Key Value"
+                              rows="10"></textarea>
                 </mat-form-field>
 
             </div>
         </div>
         <div class="row py-4">
             <div class="col-lg-4 kt-margin-bottom-20-mobile">
-                <mat-checkbox matInput formControlName="IsParent" (change)="changedParentStatus()">
+                <mat-checkbox (change)="changedParentStatus()" formControlName="IsParent" matInput>
                     isParent?
                 </mat-checkbox>
             </div>
         </div>
         <div class="row pb-4">
-            <div class="col-lg-6 kt-margin-bottom-20-mobile" *ngIf="!configurationForm.value.IsParent"
+            <div *ngIf="!configurationForm.value.IsParent" class="col-lg-6 kt-margin-bottom-20-mobile"
                  style="margin-top: 2%">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label>Select Parent</mat-label>
                     <mat-select formControlName="ParentID">
                         <mat-option *ngFor="let single_parent of parents"
@@ -64,9 +64,9 @@
         <div class="row">
             <div class="col-12 kt-margin-bottom-20-mobile"
                  style="margin-top: 2%">
-                <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                     <mat-label>Select Purpose</mat-label>
-                    <textarea matInput formControlName="Description"></textarea>
+                    <textarea formControlName="Description" matInput></textarea>
                 </mat-form-field>
             </div>
         </div>
@@ -76,9 +76,9 @@
             <div class="kt-form__actions kt-form__actions--solid  pt-4 border-t">
                 <div class="row text-right">
                     <div class="col-lg-12">
-                        <button type="button" class="btn btn-primary bg-green" mat-raised-button color="primary"
-                                (click)="onSubmit()"
-                                [disabled]="viewLoading || submitted">
+                        <button (click)="onSubmit()" [disabled]="viewLoading || submitted" class="btn btn-primary bg-green" color="primary"
+                                mat-raised-button
+                                type="button">
                             <mat-icon class="mr-2">save</mat-icon>
                             {{is_edit ? 'Update' : 'Save'}}
                         </button>

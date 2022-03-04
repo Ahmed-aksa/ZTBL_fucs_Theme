@@ -18,9 +18,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import {Branch} from 'app/shared/models/branch.model';
-import {Circle} from 'app/shared/models/circle.model';
-import {Zone} from 'app/shared/models/zone.model';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
@@ -73,6 +70,9 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
     is_view: boolean = false;
     currentActivity: Activity
+    ID;
+    isUpdate = false;
+    isAdd = true
 
     constructor(
         private layoutUtilsService: LayoutUtilsService,
@@ -192,7 +192,6 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
 
     }
 
-
     createForm() {
         this.addUpdateBenchMarkForm = this.fb.group({
             ZoneId: [null, Validators.required],
@@ -239,12 +238,9 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
         }
     }
 
-
     onAlertClose($event) {
         this.hasFormErrors = false;
     }
-
-    ID;
 
     update() {
 
@@ -403,9 +399,6 @@ export class AddUpdateBenchMarkingComponent implements OnInit {
         this.addUpdateBenchMarkForm.markAsUntouched();
         this.addUpdateBenchMarkForm.markAsPristine();
     }
-
-    isUpdate = false;
-    isAdd = true
 
     editRow(benchmark, indx) {
         this.isUpdate = true;

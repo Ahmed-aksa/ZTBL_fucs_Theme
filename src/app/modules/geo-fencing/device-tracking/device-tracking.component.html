@@ -8,9 +8,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -23,17 +23,17 @@
 
     <div class="collapse show" id="collapseExample">
         <div class="card card-body">
-            <div class="flex mt-1" style="flex-wrap: wrap;" [formGroup]="viewForm">
-                <app-zone-branch-circle [form]="viewForm" [show_circle]="true"
-                                        (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+            <div [formGroup]="viewForm" class="flex mt-1" style="flex-wrap: wrap;">
+                <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="viewForm"
+                                        [show_circle]="true"></app-zone-branch-circle>
 
                 <div class="mx-2">
                     <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                        <mat-form-field class="mat-form-field-fluid w-full" appearance="outline" color="primary">
+                        <mat-form-field appearance="outline" class="mat-form-field-fluid w-full" color="primary">
                             <mat-label class="customMatLabel">PP No.</mat-label>
-                            <input matInput placeholder="PP No." formControlName="PPNo" maxlength="30"
-                                   autocomplete="off"/>
+                            <input autocomplete="off" formControlName="PPNo" matInput maxlength="30"
+                                   placeholder="PP No."/>
                         </mat-form-field>
                     </div>
                 </div>
@@ -42,9 +42,9 @@
             <div class="mx-2">
                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                    <button mat-raised-button
+                    <button (click)="find()"
                             class=" bg-gray-500 mt-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
-                            type="button" (click)="find()">
+                            mat-raised-button type="button">
                         <mat-icon class="mr-2">search</mat-icon>
                         Find
                     </button>
@@ -61,13 +61,13 @@
     <!-- Main -->
 
     <!-- Products list -->
-    <agm-map style="width: 500px;height: 500px"
-             #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng" [mapTypeControlOptions]="controlOptions"
-             [mapTypeControl]="true" (mapReady)="onMapReady($event)" [restriction]="countryRestriction"
+    <agm-map #gm
+             (mapReady)="onMapReady($event)" [latitude]="lat" [longitude]="lng" [mapTypeControlOptions]="controlOptions" [mapTypeControl]="true"
+             [restriction]="countryRestriction" [zoom]="zoom" style="width: 500px;height: 500px"
              style="height: 500px !important;">
 
-        <agm-marker *ngFor="let m of device_locations; let i = index"
-                    (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedMarker(i, infowindow)"
+        <agm-marker (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedMarker(i, infowindow)"
+                    *ngFor="let m of device_locations; let i = index"
                     [latitude]="m.Latitude" [longitude]="m.Longitude" [title]="m.BranchId" class=" h-screen">
 
             <agm-info-window #infowindow>

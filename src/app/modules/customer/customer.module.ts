@@ -14,7 +14,6 @@ import {ReferbackCustomersComponent} from './referback-customers/referback-custo
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {CorrectionPassbookComponent} from './correction-passbook/correction-passbook.component';
 import {CorrectionPhoneComponent} from './correction-phone/correction-phone.component';
-import {CoreModule} from 'app/core/core.module';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';

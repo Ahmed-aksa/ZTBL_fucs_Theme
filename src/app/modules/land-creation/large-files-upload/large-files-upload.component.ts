@@ -49,7 +49,11 @@ export class LargeFilesUploadComponent implements OnInit {
         file: new FormControl('', [Validators.required]),
         fileSource: new FormControl('', [Validators.required])
     });
-
+    newDynamic: any = {};
+    file: any;
+    filesLength: any;
+    imageUrl: any;
+    videoUrl: any;
 
     constructor(
         public dialogRef: MatDialogRef<LargeFilesUploadComponent>,
@@ -63,8 +67,9 @@ export class LargeFilesUploadComponent implements OnInit {
         private cdRef: ChangeDetectorRef) {
     }
 
-    newDynamic: any = {};
-
+    get f() {
+        return this.myForm.controls;
+    }
 
     ngOnInit() {
 
@@ -157,7 +162,6 @@ export class LargeFilesUploadComponent implements OnInit {
 
     }
 
-
     onFileChange(event) {
 
 
@@ -219,81 +223,8 @@ export class LargeFilesUploadComponent implements OnInit {
         }
     }
 
-    private deleteImage(url, Id, i): void {
 
-        if (url !== undefined) {
-
-            if (Id == undefined) {
-                if (url.includes("image/jpeg") || url.includes("image/jpg")) {
-                    this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.Path == url)[0];
-                }
-
-                if (url.includes("video/mp4")) {
-                    this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.VideoPath == url)[0];
-                }
-            } else {
-                if (url.includes("jpeg") || url.includes("jpg")) {
-                    this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.Path == url)[0];
-                }
-
-                if (url.includes("mp4")) {
-                    this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.VideoPath == url)[0];
-                }
-            }
-
-
-            if (this.uploadDocuments.Path !== undefined && this.uploadDocuments.Path !== '') {
-
-                if (this.uploadDocuments.Path.indexOf("http") !== -1) {
-
-
-                    this.DeleteLandData();
-                    this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
-                    this.uploadDocumentsDataFinal.splice(i, 1);
-                    return
-                } else {
-
-                    this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
-                    this.uploadDocumentsDataFinal.splice(i, 1);
-                    return
-                }
-            } else if (this.uploadDocuments.VideoPath !== undefined && this.uploadDocuments.VideoPath !== '') {
-                if (this.uploadDocuments.VideoPath.indexOf("http") !== -1) {
-
-
-                    this.DeleteLandData();
-                    this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.VideoPath !== url);
-                    this.uploadDocumentsDataFinal.splice(i, 1);
-                    return
-                } else {
-
-                    this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.VideoPath !== url);
-                    this.uploadDocumentsDataFinal.splice(i, 1);
-                    return
-                }
-            } else {
-
-
-                this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
-                this.uploadDocumentsDataFinal.splice(i, 1);
-
-                return
-            }
-        } else if (Id != undefined || Id != null) {
-
-            this.uploadDocuments = this.uploadDocumentsData.filter((I) => I.ImageID == Id)[0];
-            this.DeleteLandData();
-            this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.ImageID !== Id);
-            this.uploadDocumentsDataFinal.splice(i, 1);
-            return
-        } else {
-
-            this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
-            this.uploadDocumentsDataFinal.splice(i, 1);
-        }
-
-    }
-
+    // Documents Upload
 
     UploadDocuments() {
 
@@ -333,30 +264,14 @@ export class LargeFilesUploadComponent implements OnInit {
 
     }
 
-
-    get f() {
-        return this.myForm.controls;
-    }
-
     getTitle(): string {
 
         return "Upload Documents";
     }
 
-
     hasError(controlName: string, errorName: string): boolean {
         return this.LandInformationForm.controls[controlName].hasError(errorName);
     }
-
-
-    // Documents Upload
-
-
-    file: any;
-    filesLength: any;
-    imageUrl: any;
-    videoUrl: any;
-
 
     DeleteLandData() {
 
@@ -441,10 +356,84 @@ export class LargeFilesUploadComponent implements OnInit {
         }
     }
 
-
     onCloseClick(): void {
 
         this.dialogRef.close({data: {uploadDocumentsData: this.uploadDocumentsData}}); // Keep only this row
+    }
+
+    private deleteImage(url, Id, i): void {
+
+        if (url !== undefined) {
+
+            if (Id == undefined) {
+                if (url.includes("image/jpeg") || url.includes("image/jpg")) {
+                    this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.Path == url)[0];
+                }
+
+                if (url.includes("video/mp4")) {
+                    this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.VideoPath == url)[0];
+                }
+            } else {
+                if (url.includes("jpeg") || url.includes("jpg")) {
+                    this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.Path == url)[0];
+                }
+
+                if (url.includes("mp4")) {
+                    this.uploadDocuments = this.uploadDocumentsData.filter((d) => d.VideoPath == url)[0];
+                }
+            }
+
+
+            if (this.uploadDocuments.Path !== undefined && this.uploadDocuments.Path !== '') {
+
+                if (this.uploadDocuments.Path.indexOf("http") !== -1) {
+
+
+                    this.DeleteLandData();
+                    this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
+                    this.uploadDocumentsDataFinal.splice(i, 1);
+                    return
+                } else {
+
+                    this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
+                    this.uploadDocumentsDataFinal.splice(i, 1);
+                    return
+                }
+            } else if (this.uploadDocuments.VideoPath !== undefined && this.uploadDocuments.VideoPath !== '') {
+                if (this.uploadDocuments.VideoPath.indexOf("http") !== -1) {
+
+
+                    this.DeleteLandData();
+                    this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.VideoPath !== url);
+                    this.uploadDocumentsDataFinal.splice(i, 1);
+                    return
+                } else {
+
+                    this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.VideoPath !== url);
+                    this.uploadDocumentsDataFinal.splice(i, 1);
+                    return
+                }
+            } else {
+
+
+                this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
+                this.uploadDocumentsDataFinal.splice(i, 1);
+
+                return
+            }
+        } else if (Id != undefined || Id != null) {
+
+            this.uploadDocuments = this.uploadDocumentsData.filter((I) => I.ImageID == Id)[0];
+            this.DeleteLandData();
+            this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.ImageID !== Id);
+            this.uploadDocumentsDataFinal.splice(i, 1);
+            return
+        } else {
+
+            this.uploadDocumentsData = this.uploadDocumentsData.filter((a) => a.Path !== url);
+            this.uploadDocumentsDataFinal.splice(i, 1);
+        }
+
     }
 
 }

@@ -1,15 +1,15 @@
 <div [formGroup]="DBRForm"
-    class=" flex flex-col px-10 flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
+     class=" flex flex-col px-10 flex-auto min-w-0 sm:overflow-scroll bg-card dark:bg-transparent">
     <div class="heading mt-3">Calculate DBR</div>
     <!-- Header -->
 
     <!-- Main -->
-    <div class="flex flex-auto overflow-y-scroll" >
+    <div class="flex flex-auto overflow-y-scroll">
 
         <!-- Products list -->
         <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
             <div class="flex flex-col flex-auto sm:mb-6 overflow-x-hidden sm:overflow-y-auto">
-                <div class="form-group kt-form__group row" *ngIf="ApplicationHeader && !checkk">
+                <div *ngIf="ApplicationHeader && !checkk" class="form-group kt-form__group row">
                     <div class="col-lg-12">
                         <!--            <h3 class="heading">sam</h3>-->
                         <div class="table-responsive">
@@ -66,12 +66,14 @@
                         <td class="col-lg-9">{{item.ItemName}}</td>
                         <td class="col-lg-3">
                             <form class="kt-form kt-form--group-seperator-dashed">
-                                <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                                <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                     <mat-label class="customMatLabel"> {{item.ItemName}} <strong
                                         class="matMandatory">* </strong></mat-label>
-                                    <input [readonly]="isReadOnly" matInput (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{item.ItemName}} + '"
-                                           id="{{item.ID}}" value="{{item.Value}}" (keydown)="onIncomeChange($event)" (keyup)="onIncomeChange($event)"
-                                           autocomplete="off"/>
+                                    <input (keydown)="onIncomeChange($event)" (keypress)="numberOnly($event)" (keyup)="onIncomeChange($event)"
+                                           [readonly]="isReadOnly" autocomplete="off" id="{{item.ID}}"
+                                           matInput maxlength="8" placeholder="Enter '+ {{item.ItemName}} + '"
+                                           type="text"
+                                           value="{{item.Value}}"/>
                                 </mat-form-field>
                             </form>
                         </td>
@@ -95,12 +97,14 @@
                     <tr *ngFor="let liab of dataSourcee.DBRLiabilitiesList">
                         <td class="col-lg-9">{{liab.ItemName}}</td>
                         <td class="col-lg-3">
-                            <mat-form-field class="mat-form-field-fluid" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid">
                                 <mat-label class="customMatLabel"> {{liab.ItemName}} <strong
                                     class="matMandatory">* </strong></mat-label>
-                                <input matInput [readonly]="isReadOnly" (keypress)="numberOnly($event)" maxlength="8" type="text"  placeholder="Enter '+ {{liab.ItemName}} + '"
-                                       id="{{liab.ID}}" value="{{liab.Value}}"  (keydown)="onLiabChange($event)" (keyup)="onLiabChange($event)"
-                                       autocomplete="off"/>
+                                <input (keydown)="onLiabChange($event)" (keypress)="numberOnly($event)" (keyup)="onLiabChange($event)" [readonly]="isReadOnly"
+                                       autocomplete="off" id="{{liab.ID}}"
+                                       matInput maxlength="8" placeholder="Enter '+ {{liab.ItemName}} + '"
+                                       type="text"
+                                       value="{{liab.Value}}"/>
                             </mat-form-field>
                         </td>
                     </tr>
@@ -109,33 +113,32 @@
                 <div class="flex">
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Total Debts/Liabilities</mat-label>
-                                <input matInput readonly appNumberOnly formControlName="Liabilites"
-                                       maxlength="13" autocomplete="off"/>
+                                <input appNumberOnly autocomplete="off" formControlName="Liabilites" matInput
+                                       maxlength="13" readonly/>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">Total Income</mat-label>
-                                <input matInput readonly appNumberOnly formControlName="Income"
-                                       maxlength="13" autocomplete="off"/>
+                                <input appNumberOnly autocomplete="off" formControlName="Income" matInput
+                                       maxlength="13" readonly/>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">DBR</mat-label>
-                                <input matInput readonly appNumberOnly formControlName="DBR"
-                                       maxlength="13" autocomplete="off"/>
+                                <input appNumberOnly autocomplete="off" formControlName="DBR" matInput
+                                       maxlength="13" readonly/>
                             </mat-form-field>
                         </div>
                     </div>
                 </div>
-
 
 
             </div>
@@ -143,14 +146,15 @@
         </div>
         <div class="row">
             <div class="col-lg-12 mt-1p ml-1p mb-1p">
-                <button type="button" *ngIf="!isReadOnly && currentActivity.C" (click)="saveLoanDbr()" class="btn btn-primary bg-green" mat-raised-button
-                        color="primary">
+                <button (click)="saveLoanDbr()" *ngIf="!isReadOnly && currentActivity.C" class="btn btn-primary bg-green"
+                        color="primary" mat-raised-button
+                        type="button">
                     <mat-icon class="mr-2">save</mat-icon>
                     Save & Submit DBR
                 </button>
-                <button *ngIf="!isReadOnly && !checkk" type="button"
-                        class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                        mat-raised-button color="danger">
+                <button *ngIf="!isReadOnly && !checkk" class="mat-focus-indicator btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
+                        color="danger"
+                        mat-raised-button type="button">
                     <mat-icon class="mr-2">cancel</mat-icon>
                     Close
                 </button>

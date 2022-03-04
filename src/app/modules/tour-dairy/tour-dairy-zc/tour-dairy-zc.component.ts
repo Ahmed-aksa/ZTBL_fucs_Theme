@@ -51,6 +51,7 @@ export class TourDiaryZcComponent implements OnInit {
     currentActivity: Activity;
     has_previous: boolean = false;
     edit_mode: boolean = true;
+    @ViewChild("timepicker") timepicker: any;
 
     constructor(
         private fb: FormBuilder,
@@ -89,8 +90,19 @@ export class TourDiaryZcComponent implements OnInit {
             localStorage.removeItem('TourDiary');
         }
         setTimeout(() => {
-            if (this.zone && this.data) {
-                this.edit(this.data)
+
+            if (this.data) {
+                if (!this.zone) {
+                    this.zone = {
+                        ZoneId: this.data.TourDiaries[0].ZoneId
+                    };
+                }
+
+                if (this.data.hasOwnProperty('TourDiaries'))
+                    this.edit(this.data.TourDiaries[0])
+                else {
+                    this.edit(this.data)
+                }
             }
         }, 1000);
     }
@@ -148,7 +160,6 @@ export class TourDiaryZcComponent implements OnInit {
         this.setValue();
 
     }
-
 
     checkZone() {
         if (!this.zone) {
@@ -354,34 +365,39 @@ export class TourDiaryZcComponent implements OnInit {
     }
 
     GetTourPlan() {
-        this.spinner.show();
-        this.tourDiaryService
-            .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZC')
-            .pipe(finalize(() => {
-                this.spinner.hide();
-            }))
-            .subscribe((baseResponse) => {
-                if (baseResponse.Success) {
+        if (this.data.hasOwnProperty('TourDiaries')) {
+            this.TourDiaryList = [];
+            this.TourPlan = this.data?.TourPlan?.TourPlans;
+            this.TourDiaryList = this.data?.TourDiary?.TourDiaries;
+            this.systemGenerated = this.data?.TourDiary?.SystemGeneratedData;
+        } else {
+            this.spinner.show();
+            this.tourDiaryService
+                .GetScheduleBaseTourPlan(this.zone, this.branch, this.date, 'ZC')
+                .pipe(finalize(() => {
+                    this.spinner.hide();
+                }))
+                .subscribe((baseResponse) => {
+                    if (baseResponse.Success) {
 
-                    this.TourDiaryList = []
-                    this.TourPlan = baseResponse?.TourPlan?.TourPlans;
-                    this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
-                    this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
+                        this.TourDiaryList = []
+                        this.TourPlan = baseResponse?.TourPlan?.TourPlans;
+                        this.TourDiaryList = baseResponse?.TourDiary?.TourDiaries;
+                        this.systemGenerated = baseResponse.TourDiary.SystemGeneratedData;
 
-                } else {
-                    this.TourDiaryList = []
-                    this.TourPlan = null;
-                    this.layoutUtilsService.alertElement(
-                        '',
-                        baseResponse.Message,
-                        baseResponse.Code
-                    );
-                }
-            });
+                    } else {
+                        this.TourDiaryList = []
+                        this.TourPlan = null;
+                        this.layoutUtilsService.alertElement(
+                            '',
+                            baseResponse.Message,
+                            baseResponse.Code
+                        );
+                    }
+                });
+        }
 
     }
-
-    @ViewChild("timepicker") timepicker: any;
 
     openFromIcon(timepicker: { open: () => void }) {
         // if (!this.formControlItem.disabled) {

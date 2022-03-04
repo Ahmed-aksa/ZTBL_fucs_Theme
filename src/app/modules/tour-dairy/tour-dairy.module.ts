@@ -1,5 +1,5 @@
-import {LOCALE_ID, NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule, DatePipe} from '@angular/common';
 import {SetTargetComponent} from './set-target/set-target.component';
 import {SignatureDailogDairyComponent} from './signature-dailog-dairy/signature-dailog-dairy.component';
 import {TourDiaryMcoComponent} from './tour-dairy-mco/tour-dairy-mco.component';
@@ -12,7 +12,6 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {NgxSpinnerModule} from "ngx-spinner";
-import {DatePipe} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
 import {SignaturePadModule} from "angular2-signaturepad";
 import {MatDatepickerModule} from "@angular/material/datepicker";
@@ -28,7 +27,7 @@ import {TourDiaryPcComponent} from './tour-diary-pc/tour-diary-pc.component';
 import {TourDiaryRcComponent} from './tour-diary-rc/tour-diary-rc.component';
 import {SetTargetTabsComponent} from "./set-target-tabs/set-target-tabs.component";
 import {IConfig, NgxMaskModule} from "ngx-mask";
-import {NgxMaterialTimepickerComponent, NgxMaterialTimepickerModule} from "ngx-material-timepicker";
+import {NgxMaterialTimepickerModule} from "ngx-material-timepicker";
 import {SearchTourDiaryComponent} from "./search-tour-diary/search-tour-diary.component";
 import {TourDiaryApprovalComponent} from './tour-diary-approval/tour-diary-approval.component';
 import {TourPlanModule} from "../tour-plan/tour-plan.module";
@@ -40,10 +39,7 @@ import {TourDiaryApprovalPcComponent} from "./tour-diary-approval-pc/tour-diary-
 import {TourDiaryApprovalRcComponent} from "./tour-diary-approval-rc/tour-diary-approval-rc.component";
 import {TourDiaryApprovalRoComponent} from "./tour-diary-approval-ro/tour-diary-approval-ro.component";
 import {TourDiaryApprovalZcComponent} from "./tour-diary-approval-zc/tour-diary-approval-zc.component";
-import {
-    SignaturePadForDiaryApproval,
-} from "./signature-pad-for-tour/app-signature-pad-for-diary-approval";
-import {AppModule} from "../../app.module";
+import {SignaturePadForDiaryApproval,} from "./signature-pad-for-tour/app-signature-pad-for-diary-approval";
 import {SearchTourDiaryTabComponent} from "./search-tour-diary-tab/search-tour-diary-tab.component";
 import {ViewDocumentComponent} from './view-document/view-document.component';
 

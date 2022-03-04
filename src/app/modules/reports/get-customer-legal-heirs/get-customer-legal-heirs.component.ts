@@ -13,12 +13,12 @@ import {ToastrService} from "ngx-toastr";
 import {finalize} from "rxjs/operators";
 
 @Component({
-  selector: 'app-get-customer-legal-heirs',
-  templateUrl: './get-customer-legal-heirs.component.html',
-  styleUrls: ['./get-customer-legal-heirs.component.scss']
+    selector: 'app-get-customer-legal-heirs',
+    templateUrl: './get-customer-legal-heirs.component.html',
+    styleUrls: ['./get-customer-legal-heirs.component.scss']
 })
 export class GetCustomerLegalHeirsComponent implements OnInit, AfterViewInit {
-    displayedColumns = ['Cnic','Name', 'Passbook', 'Mutation', 'Occupation', 'Date'];
+    displayedColumns = ['Cnic', 'Name', 'Passbook', 'Mutation', 'Occupation', 'Date'];
     searchCnicForm: FormGroup;
     loaded = true;
     public reports = new SearchLoanCaseByCnic();
@@ -37,13 +37,11 @@ export class GetCustomerLegalHeirsComponent implements OnInit, AfterViewInit {
     LoggedInUserInfo: BaseResponseModel;
 
     user: any = {}
+    statusLov: any;
+    public LovCall = new Lov();
     private branch: any;
     private zone: any;
     private circle: any;
-
-    statusLov: any;
-    public LovCall = new Lov();
-
 
     constructor(
         private fb: FormBuilder,

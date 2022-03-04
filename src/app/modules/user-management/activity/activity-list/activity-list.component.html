@@ -11,10 +11,10 @@
         <div class="col-lg-2 col-sm-12 text-right mt-3">
             <div class="">
                 <button
-                    class="ml-4"
-                    mat-flat-button
+                    (click)="addActivity()"
                     [color]="'primary'"
-                    (click)="addActivity()">
+                    class="ml-4"
+                    mat-flat-button>
                     <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                     <span class="ml-2 mr-1">Add New </span>
                 </button>
@@ -30,16 +30,16 @@
 
         <!-- CONTENT GOES HERE -->
         <div>
-            <div class="form-group row px-3 shadow-none" style="
+            <div class="form-group row px-3 shadow-none" id="pagelist"
+                 style="
             min-width: max-content;
             overflow-y:scroll;"
-                 id="pagelist"
             >
                 <div class="col-lg-12 col-md-12 kt-margin-bottom-20-mobile border shadow-xs rounded-sm bg-gray-50"
                      id="custom-table-activity-list">
-                    <div class="custom-accordion  rounded-lg my-2 bg-white shadow-sm border"
-                         *ngFor="let activity of userActivities;let i=index">
-                        <div class="custom-accordion-head border-0" (click)="toggleAccordion(activity.ActivityID)"
+                    <div *ngFor="let activity of userActivities;let i=index"
+                         class="custom-accordion  rounded-lg my-2 bg-white shadow-sm border">
+                        <div (click)="toggleAccordion(activity.ActivityID)" class="custom-accordion-head border-0"
                              style="cursor: pointer">
                             <div class="self-center ml-8">
                                 <span class="text-base text-green">
@@ -48,21 +48,21 @@
                             </div>
 
                             <div class="mr-8">
-                                <button mat-icon-button (click)="deleteActivity(activity)">
+                                <button (click)="deleteActivity(activity)" mat-icon-button>
                                     <mat-icon class="text-red-500">
                                         delete_forever
                                     </mat-icon>
                                 </button>
-                                <button class="ml-2" mat-icon-button color="primary" (click)="editActivity(activity)"
-                                        >
+                                <button (click)="editActivity(activity)" class="ml-2" color="primary" mat-icon-button
+                                >
                                     <mat-icon>
                                         edit
                                     </mat-icon>
                                 </button>
-                                <button mat-icon-button *ngIf="!lists_record.includes(activity.ActivityID)">
+                                <button *ngIf="!lists_record.includes(activity.ActivityID)" mat-icon-button>
                                     <mat-icon>expand_more</mat-icon>
                                 </button>
-                                <button mat-icon-button *ngIf="lists_record.includes(activity.ActivityID)">
+                                <button *ngIf="lists_record.includes(activity.ActivityID)" mat-icon-button>
                                     <mat-icon>expand_less</mat-icon>
                                 </button>
                             </div>
@@ -83,14 +83,14 @@
                                     <td>{{child.ActivityName}}</td>
                                     <td>{{child.ActivityUrl}}</td>
                                     <td>
-                                        <button mat-icon-button color="primary"
-                                                (click)="editActivity(child)">
+                                        <button (click)="editActivity(child)" color="primary"
+                                                mat-icon-button>
                                             <mat-icon class="text-green">
                                                 {{ activity.isCoreactivity ? 'visibility' : 'create' }}
                                             </mat-icon>
                                         </button>&nbsp;
-                                        <button mat-icon-button color="warn"
-                                                (click)="deleteActivity(child)">
+                                        <button (click)="deleteActivity(child)" color="warn"
+                                                mat-icon-button>
                                             <mat-icon>
                                                 delete
                                             </mat-icon>

@@ -1,16 +1,16 @@
 <h3 class="text-3xl   font-extrabold tracking-tight pb-2 border-b mb-2 border-green-500 p-2"
     style="background-color: #f6fcf8;">View User Location History</h3>
 
-<agm-map [zoom]="zoom" style="height: 500px"
-         [latitude]="lat"
+<agm-map (mapReady)="onMapReady($event)" [latitude]="lat"
          [longitude]="lng"
          [mapTypeControl]="true"
-         (mapReady)="onMapReady($event)"
-         [restriction]="countryRestriction">
+         [restriction]="countryRestriction"
+         [zoom]="zoom"
+         style="height: 500px">
 
-    <agm-marker [latitude]="userHistory?.Latitude" style="height: 500px;"
-                [longitude]="userHistory?.Longitude"
-                [title]="userHistory?.UserId">
+    <agm-marker [latitude]="userHistory?.Latitude" [longitude]="userHistory?.Longitude"
+                [title]="userHistory?.UserId"
+                style="height: 500px;">
 
         <agm-info-window [disableAutoPan]="true" [isOpen]="false">
             <strong>{{userHistory?.UserId}}</strong>
@@ -20,14 +20,14 @@
 </agm-map>
 <div class="row pt-4 border-t ">
     <div class="col-lg-12 text-right">
-        <button type="button"
-                class="mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger"
-                mat-raised-button cdkFocusInitial value="Cancel"
-                [mat-dialog-close]="false">
+        <button [mat-dialog-close]="false"
+                cdkFocusInitial
+                class="mat-focus-indicator  btn bg-red-500 text-white rounded-md mx-2 mat-raised-button mat-button-base mat-danger" mat-raised-button type="button"
+                value="Cancel">
             Cancel
         </button>&nbsp;
-        <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="blockUser()"
-                [disabled]="viewLoading || submitted">
+        <button (click)="blockUser()" [disabled]="viewLoading || submitted" class="btn btn-primary" color="primary" mat-raised-button
+                type="button">
             Block User
         </button>
     </div>

@@ -14,7 +14,6 @@ import {Injectable} from '@angular/core';
 import {Activity} from 'app/shared/models/activity.model';
 import {BaseRequestModel} from 'app/shared/models/base_request.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
-import {Circle} from 'app/shared/models/circle.model';
 import {HttpUtilsService} from 'app/shared/services/http_utils.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {environment} from 'environments/environment';
@@ -26,16 +25,12 @@ import {map} from 'rxjs/operators';
 export class ReportsService {
     public request = new BaseRequestModel();
     public activity = new Activity();
+    userDetail = this.userUtilsService.getUserDetails();
 
     constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private userUtilsService: UserUtilsService) {
     }
 
-    userDetail = this.userUtilsService.getUserDetails();
-
-
     updatedList(user, reportsFilter) {
-
-
 
 
         var request = {
@@ -58,15 +53,15 @@ export class ReportsService {
         let final_zone = null;
         let final_branch = null;
         let final_circle = null;
-        var circles, circleIds=[];
+        var circles, circleIds = [];
 
-        if(user.UserCircleMappings){
-            user.UserCircleMappings.forEach(element=>{
+        if (user.UserCircleMappings) {
+            user.UserCircleMappings.forEach(element => {
                 circleIds.push(element.CircleId)
             })
             circles = circleIds.toString();
-        }else{
-            circles ='';
+        } else {
+            circles = '';
         }
         //let reqReportNumber = reportsFilter.ReportsNo;
 
@@ -77,8 +72,7 @@ export class ReportsService {
             if (final_branch == undefined) {
                 final_branch = null;
             }
-        }
-        else {
+        } else {
             final_zone = zone;
             final_branch = branch;
         }
@@ -96,10 +90,8 @@ export class ReportsService {
                     CircleIds: circles
                 }
             }
-        }
-
-        else if (reportsFilter.ReportsNo == '18') {
-            if(circle != null){
+        } else if (reportsFilter.ReportsNo == '18') {
+            if (circle != null) {
                 request = {
                     ReportsFilterCustom: reportsFilter,
                     User: user.User,
@@ -111,9 +103,7 @@ export class ReportsService {
                         CircleIds: circles
                     }
                 }
-            }
-
-            else{
+            } else {
                 request = {
                     ReportsFilterCustom: reportsFilter,
                     User: user.User,
@@ -122,9 +112,7 @@ export class ReportsService {
                 }
             }
 
-        }
-
-        else if (reportsFilter.ReportsNo == '24') {
+        } else if (reportsFilter.ReportsNo == '24') {
             reportsFilter.BranchId = final_branch.BranchId;
             request = {
                 ReportsFilterCustom: reportsFilter,
@@ -132,14 +120,13 @@ export class ReportsService {
                 Zone: final_zone,
                 Branch: final_branch,
             }
-        }
-        else {
-                request = {
-                    ReportsFilterCustom: reportsFilter,
-                    User: user.User,
-                    Zone: final_zone,
-                    Branch: final_branch,
-                }
+        } else {
+            request = {
+                ReportsFilterCustom: reportsFilter,
+                User: user.User,
+                Zone: final_zone,
+                Branch: final_branch,
+            }
         }
 
         return this.http.post<any>(`${environment.apiUrl}/Reports/ReportsDynamic`, request)
@@ -156,7 +143,7 @@ export class ReportsService {
         // }
     }
 
-    CustomDownloads(reportsFilter, Info,zone = null, branch = null, circle = null){
+    CustomDownloads(reportsFilter, Info, zone = null, branch = null, circle = null) {
 
         let user = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
         let final_zone = null;
@@ -168,20 +155,19 @@ export class ReportsService {
             if (final_branch == undefined) {
                 final_branch = null;
             }
-        }
-        else {
+        } else {
             final_zone = zone;
             final_branch = branch;
         }
 
         let request = null;
-        if(Info == 'LoanInfoDetail'){
+        if (Info == 'LoanInfoDetail') {
             request = {
                 ReportsFilterCustom: {
                     LoanInformation: reportsFilter,
                     ReportFormatType: '2',
                     ReportsNo: "25"
-                    },
+                },
                 User: user.User,
                 Zone: final_zone,
                 Branch: final_branch,
@@ -190,7 +176,7 @@ export class ReportsService {
                 .pipe(
                     map((res: BaseResponseModel) => res)
                 );
-        }else if(Info == 'CustomerCWR'){
+        } else if (Info == 'CustomerCWR') {
             return this.http.post<any>(`${environment.apiUrl}/Reports/DownloadCWR`, request)
                 .pipe(
                     map((res: BaseResponseModel) => res)

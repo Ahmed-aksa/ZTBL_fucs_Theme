@@ -18,11 +18,7 @@ import {BaseRequestModel} from 'app/shared/models/base_request.model';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {Branch} from 'app/shared/models/branch.model';
 import {ReschedulingList} from 'app/shared/models/Loan.model';
-import {
-    DateFormats,
-    Lov,
-    LovConfigurationKey,
-} from 'app/shared/classes/lov.class';
+import {DateFormats, Lov, LovConfigurationKey,} from 'app/shared/classes/lov.class';
 import {LovService} from 'app/shared/services/lov.service';
 import {CircleService} from 'app/shared/services/circle.service';
 import {ReschedulingService} from '../service/rescheduling.service';
@@ -32,11 +28,7 @@ import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
 import {CommonService} from '../../../shared/services/common.service';
 import {finalize} from 'rxjs/operators';
 import {DatePipe} from '@angular/common';
-import {
-    DateAdapter,
-    MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE,} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Activity} from "../../../shared/models/activity.model";
 

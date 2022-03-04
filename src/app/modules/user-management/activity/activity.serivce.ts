@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BaseRequestModel} from 'app/shared/models/base_request.model';
@@ -28,9 +28,9 @@ export class ActivityService {
     }
 
     createActivity(activity: Activity): Observable<BaseResponseModel> {
-        
-        if(activity.ParentActivityID == 0){
-            delete(activity.ParentActivityID);
+
+        if (activity.ParentActivityID == 0) {
+            delete (activity.ParentActivityID);
         }
 
         this.request = new BaseRequestModel();

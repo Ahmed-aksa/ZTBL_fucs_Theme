@@ -8,9 +8,9 @@
         </div>
         <div class="col-lg-3 col-sm-12 self-center">
             <p class="text-right">
-                <button class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary" type="button"
-                        color="primary"
-                        aria-expanded="false" aria-controls="collapseExample" onclick="toggleCollapse()">
+                <button aria-controls="collapseExample" aria-expanded="false"
+                        class="mt-1  py-2 mat-focus-indicator mat-flat-button mat-button-base mat-primary"
+                        color="primary" onclick="toggleCollapse()" type="button">
                     <mat-icon class="mr-2" id='arrow'>keyboard_arrow_down</mat-icon>
                     Advance Filter
                 </button>
@@ -25,17 +25,18 @@
 
 
                 <div class="flex mt-1" style="flex-wrap: wrap;">
-                    <app-zone-branch-circle [form]="TourPlan" [show_circle]="false" [should_hide_fields]="true" [should_filter]="false"
-                                            (branchZoneCircleData)="getAllData($event)"></app-zone-branch-circle>
+                    <app-zone-branch-circle (branchZoneCircleData)="getAllData($event)" [form]="TourPlan" [should_filter]="false"
+                                            [should_hide_fields]="true"
+                                            [show_circle]="false"></app-zone-branch-circle>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
 
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">From</mat-label>
-                                <input matInput [matDatepicker]="picker" placeholder="ddMMyyyy" autocomplete="off"
-                                       formControlName="StartDate" (dateChange)="setFromDate()"
-                                       autocomplete="off">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <input (dateChange)="setFromDate()" [matDatepicker]="picker" autocomplete="off" autocomplete="off"
+                                       formControlName="StartDate" matInput
+                                       placeholder="ddMMyyyy">
+                                <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
                         </div>
@@ -43,19 +44,19 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label class="customMatLabel">To</mat-label>
-                                <input matInput [matDatepicker]="picker1" placeholder="ddMMyyyy"
-                                       formControlName="EndDate" [min]="minDate"
-                                       (dateChange)="setToDate()" autocomplete="off">
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <input (dateChange)="setToDate()" [matDatepicker]="picker1" [min]="minDate"
+                                       autocomplete="off" formControlName="EndDate"
+                                       matInput placeholder="ddMMyyyy">
+                                <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                            <mat-form-field appearance="outline" class="mat-form-field-fluid w-full">
                                 <mat-label>Select Tour Plan Status <strong class="matMandatory">*</strong></mat-label>
                                 <mat-select formControlName="Status">
                                     <mat-option value="">
@@ -70,8 +71,8 @@
                     </div>
                     <div class="mx-2">
                         <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0" style="width: 225px;">
-                            <button (click)="SearchTourPlan(true)" type="button"
-                                    class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary">
+                            <button (click)="SearchTourPlan(true)" class=" mt-2 mat-raised-button mat-button-base bg-gray-500 kt-login__btn-primary btn-block mat-primary"
+                                    type="button">
                                 <mat-icon class="mr-2">search</mat-icon>
                                 Search
                             </button>
@@ -87,110 +88,110 @@
 
     <!-- Header -->
     <mat-tab-group [ngClass]="{'dash-tab': TourPlans?.length == 1}"
+                   animationDuration="200ms"
                    class="pt-3 flex  flex-auto dash-ttab  shadow-xs rounded-sm pb-3"
-                   style="flex-direction: column; overflow-y: scroll"
-                   animationDuration="200ms" style="background-color: white;">
+                   style="flex-direction: column; overflow-y: scroll" style="background-color: white;">
 
 
         <ng-container *ngFor="let item of TourPlans;let i=index;">
             <mat-tab [label]="item?.Heading">
-                <app-search-tour-plan-tab [TourPlan]="item" [branch]="branch" [zone]="zone"
-                                          [circle]="circle"
-                                          [tab_number]="i"></app-search-tour-plan-tab>
+                <app-search-tour-plan-tab [TourPlan]="item" [branch]="branch" [circle]="circle"
+                                          [tab_number]="i"
+                                          [zone]="zone"></app-search-tour-plan-tab>
             </mat-tab>
         </ng-container>
     </mat-tab-group>
 
-<!--    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50"-->
-<!--         style="flex-direction: column;overflow-y: scroll">-->
-<!--        <div class="example-table-container  px-2">-->
+    <!--    <div class="flex flex-auto border shadow-xs rounded-sm bg-gray-50"-->
+    <!--         style="flex-direction: column;overflow-y: scroll">-->
+    <!--        <div class="example-table-container  px-2">-->
 
-<!--            &lt;!&ndash;           table &ndash;&gt;-->
+    <!--            &lt;!&ndash;           table &ndash;&gt;-->
 
-<!--            <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border"-->
-<!--                 *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">-->
-<!--                <div class="custom-accordion-head border-0" (click)="toggleAccordion(i)"-->
-<!--                     style="cursor: pointer">-->
-<!--                    <div class=" self-center ml-8">-->
-<!--                        <span class=" text-green">-->
-<!--                            {{dateChange(activity.VisitedDate)}}-->
-<!--                        </span>-->
-<!--                    </div>-->
-
-
-<!--                    <div class="mr-5">-->
-<!--                        <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">-->
-<!--                            <mat-icon>expand_more</mat-icon>-->
-<!--                        </button>-->
-<!--                        <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">-->
-<!--                            <mat-icon>expand_less</mat-icon>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">-->
-<!--                    <table class="table table-responsive" style="display: inline-table !important;">-->
-<!--                        <thead class="thead-light">-->
-<!--                        <tr class="table-header-background">-->
-<!--                            <th>Zone</th>-->
-<!--                            <th>Branch</th>-->
-<!--                            <th>Circle</th>-->
-<!--                            <th>Visit Date</th>-->
-<!--                            <th>Purpose</th>-->
-<!--                            <th>Remarks</th>-->
-<!--                            <th>Status</th>-->
-<!--                            <th>Actions</th>-->
-
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr *ngFor="let child of activity.TourPlans">-->
-<!--                            <td style="width: 20%">{{child?.ZoneName ? child?.ZoneName : "-"}}</td>-->
-<!--                            <td style="width: 20%">{{child?.BranchName ? child?.BranchName : "-"}}</td>-->
-<!--                            <td style="width: 20%">{{child?.CircleCode ? child?.CircleCode : "-"}}</td>-->
-<!--                            <td style="width: 20%">{{dateChange(child.VisitedDate)}}</td>-->
-<!--                            <td style="width: 20%">{{child.PurposeName}}</td>-->
-<!--                            <td [title]="child.Remarks">-->
-<!--                                <p class="remarks-box">-->
-<!--                                    {{child.Remarks.slice(0, 30)}}-->
-<!--                                </p>-->
-<!--                            </td>-->
-<!--                            <td style="width: 20%">{{child.StatusName}}</td>-->
-
-<!--                            <td style="width: 20%">-->
-<!--                                <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child) && currentActivity.U"-->
-<!--                                        (click)="editTourPlan(child)">-->
-<!--                                    <mat-icon style="margin-left: 5px;" title="Edit Tour Plan">edit</mat-icon>-->
-<!--                                </button>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
-
-<!--            </div>-->
+    <!--            <div class="custom-accordion   rounded-lg my-2 bg-white shadow-sm border"-->
+    <!--                 *ngFor="let activity of TourPlans | paginate: {itemsPerPage: itemsPerPage, currentPage: pageIndex, totalItems: totalItems} ; let i = index;">-->
+    <!--                <div class="custom-accordion-head border-0" (click)="toggleAccordion(i)"-->
+    <!--                     style="cursor: pointer">-->
+    <!--                    <div class=" self-center ml-8">-->
+    <!--                        <span class=" text-green">-->
+    <!--                            {{dateChange(activity.VisitedDate)}}-->
+    <!--                        </span>-->
+    <!--                    </div>-->
 
 
-<!--            <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>-->
-<!--            <div class="mat-table__message" *ngIf="loading">Please wait....</div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">-->
-<!--        &lt;!&ndash; This mat select is customized, not a part of Ngx Paginator, used for selected items per page &ndash;&gt;-->
-<!--        <span class="font-bold text-green">Items per page:</span>-->
+    <!--                    <div class="mr-5">-->
+    <!--                        <button mat-icon-button id="{{'arrow_down_'+i}}" style="display: block">-->
+    <!--                            <mat-icon>expand_more</mat-icon>-->
+    <!--                        </button>-->
+    <!--                        <button mat-icon-button id="{{'arrow_up_'+i}}" style="display:none;">-->
+    <!--                            <mat-icon>expand_less</mat-icon>-->
+    <!--                        </button>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--                <div class="custom-accordion-body" id="{{'table_'+i}}" style="display: none">-->
+    <!--                    <table class="table table-responsive" style="display: inline-table !important;">-->
+    <!--                        <thead class="thead-light">-->
+    <!--                        <tr class="table-header-background">-->
+    <!--                            <th>Zone</th>-->
+    <!--                            <th>Branch</th>-->
+    <!--                            <th>Circle</th>-->
+    <!--                            <th>Visit Date</th>-->
+    <!--                            <th>Purpose</th>-->
+    <!--                            <th>Remarks</th>-->
+    <!--                            <th>Status</th>-->
+    <!--                            <th>Actions</th>-->
 
-<!--        <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage"-->
-<!--                    (valueChange)="paginate(1,$event)"-->
-<!--                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">-->
-<!--            <mat-option [value]="5">5</mat-option>-->
-<!--            <mat-option [value]="10">10</mat-option>-->
-<!--            <mat-option [value]="25">25</mat-option>-->
-<!--            <mat-option [value]="50">50</mat-option>-->
-<!--        </mat-select>-->
-<!--        <button (click)="paginate(1)">First</button>-->
-<!--        <pagination-controls display="inline" (pageChange)="paginate($event)"-->
-<!--                             style="display: inline-block;"></pagination-controls>-->
-<!--        <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>-->
-<!--        <p style="float:right;">Total <b class="text-green">{{totalItems}}</b> items</p>-->
+    <!--                        </tr>-->
+    <!--                        </thead>-->
+    <!--                        <tbody>-->
+    <!--                        <tr *ngFor="let child of activity.TourPlans">-->
+    <!--                            <td style="width: 20%">{{child?.ZoneName ? child?.ZoneName : "-"}}</td>-->
+    <!--                            <td style="width: 20%">{{child?.BranchName ? child?.BranchName : "-"}}</td>-->
+    <!--                            <td style="width: 20%">{{child?.CircleCode ? child?.CircleCode : "-"}}</td>-->
+    <!--                            <td style="width: 20%">{{dateChange(child.VisitedDate)}}</td>-->
+    <!--                            <td style="width: 20%">{{child.PurposeName}}</td>-->
+    <!--                            <td [title]="child.Remarks">-->
+    <!--                                <p class="remarks-box">-->
+    <!--                                    {{child.Remarks.slice(0, 30)}}-->
+    <!--                                </p>-->
+    <!--                            </td>-->
+    <!--                            <td style="width: 20%">{{child.StatusName}}</td>-->
 
-<!--    </div>-->
+    <!--                            <td style="width: 20%">-->
+    <!--                                <button class="ml-2" mat-icon-button color="primary" *ngIf="CheckEditStatus(child) && currentActivity.U"-->
+    <!--                                        (click)="editTourPlan(child)">-->
+    <!--                                    <mat-icon style="margin-left: 5px;" title="Edit Tour Plan">edit</mat-icon>-->
+    <!--                                </button>-->
+    <!--                            </td>-->
+    <!--                        </tr>-->
+    <!--                        </tbody>-->
+    <!--                    </table>-->
+    <!--                </div>-->
+
+    <!--            </div>-->
+
+
+    <!--            <div class="mat-table__message" *ngIf="!loading && !matTableLenght">No records found</div>-->
+    <!--            <div class="mat-table__message" *ngIf="loading">Please wait....</div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--    <div *ngIf="matTableLenght" class="mat-select" style="padding:0px 5px; font-size: 13px; margin-top:10px;">-->
+    <!--        &lt;!&ndash; This mat select is customized, not a part of Ngx Paginator, used for selected items per page &ndash;&gt;-->
+    <!--        <span class="font-bold text-green">Items per page:</span>-->
+
+    <!--        <mat-select class="border-2 pl-1 py-2" display="inline" [(value)]="itemsPerPage"-->
+    <!--                    (valueChange)="paginate(1,$event)"-->
+    <!--                    style="width: 50px; margin-left: 15px; display: inline-block; margin-right: 10px;">-->
+    <!--            <mat-option [value]="5">5</mat-option>-->
+    <!--            <mat-option [value]="10">10</mat-option>-->
+    <!--            <mat-option [value]="25">25</mat-option>-->
+    <!--            <mat-option [value]="50">50</mat-option>-->
+    <!--        </mat-select>-->
+    <!--        <button (click)="paginate(1)">First</button>-->
+    <!--        <pagination-controls display="inline" (pageChange)="paginate($event)"-->
+    <!--                             style="display: inline-block;"></pagination-controls>-->
+    <!--        <button (click)="paginate(Math.ceil(totalItems/itemsPerPage))">Last</button>-->
+    <!--        <p style="float:right;">Total <b class="text-green">{{totalItems}}</b> items</p>-->
+
+    <!--    </div>-->
 </div>

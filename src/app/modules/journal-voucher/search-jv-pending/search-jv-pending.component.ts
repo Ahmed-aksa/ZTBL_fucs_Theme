@@ -252,7 +252,7 @@ export class SearchJvPendingComponent implements OnInit {
 
     }
 
-    ngAfterViewInit(){
+    ngAfterViewInit() {
         if (this.zone) {
             setTimeout(() => this.SearchJvData(), 1000);
         }

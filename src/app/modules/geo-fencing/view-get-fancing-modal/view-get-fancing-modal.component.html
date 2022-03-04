@@ -8,7 +8,7 @@
             <h3 class="heading w-11/12">Location</h3>
 
 
-            <button class="w-1/12 text-end" color="danger" (click)="close(0)">
+            <button (click)="close(0)" class="w-1/12 text-end" color="danger">
                 <mat-icon class="text-danger">cancel</mat-icon>
             </button>
         </div>
@@ -24,14 +24,14 @@
                 <!--                       placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off"-->
                 <!--                       spellcheck="off" type="text"-->
                 <!--                       #search>-->
-                <agm-map #gm [zoom]="zoom" [latitude]="lat" [longitude]="lng" [restriction]="countryRestriction"
-                         [fullscreenControl]='true' [mapTypeControl]='true' [fitBounds]="true"
-                         (mapReady)="onMapReady($event)"
+                <agm-map #gm (mapReady)="onMapReady($event)" [fitBounds]="true" [fullscreenControl]='true' [latitude]="lat"
+                         [longitude]="lng" [mapTypeControl]='true' [restriction]="countryRestriction"
+                         [zoom]="zoom"
                          style="height: 85vh !important;">
-                    <agm-marker [iconUrl]="iconChange(i)" *ngFor="let coordinate of start_end_mark; let i=index"
+                    <agm-marker *ngFor="let coordinate of start_end_mark; let i=index" [agmFitBounds]="true"
 
-                                [latitude]="isNumber(coordinate?.Latitude)"
-                                [longitude]="isNumber(coordinate?.Longitude)" [agmFitBounds]="true">
+                                [iconUrl]="iconChange(i)"
+                                [latitude]="isNumber(coordinate?.Latitude)" [longitude]="isNumber(coordinate?.Longitude)">
 
                         <agm-info-window [isOpen]="true">
                             <strong>{{Heading(i)}}</strong>
@@ -52,7 +52,7 @@
                     <!--                   </agm-marker>-->
 
 
-                    <agm-polyline [visible]="true" [strokeWeight]="3" [strokeColor]="'#07b57a'">
+                    <agm-polyline [strokeColor]="'#07b57a'" [strokeWeight]="3" [visible]="true">
                         <agm-polyline-point
                             *ngFor="let coordinate of latlong; let i=index"
                             [latitude]="isNumber(coordinate?.Latitude)"

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -88,6 +88,8 @@ export class TourPlanComponent implements OnInit {
     final_cricle: any;
 
     //End ZBC
+    //Start ZBC
+    userInfo = this.userUtilsService.getUserDetails();
 
     constructor(
         private fb: FormBuilder,
@@ -120,9 +122,6 @@ export class TourPlanComponent implements OnInit {
         this.setValuesForEdit();
     }
 
-    //Start ZBC
-    userInfo = this.userUtilsService.getUserDetails();
-
     settingZBC() {
 
         this.LoggedInUserInfo = this.userUtilsService.getSearchResultsDataOfZonesBranchCircle();
@@ -151,35 +150,6 @@ export class TourPlanComponent implements OnInit {
         }
     }
 
-    private assignBranchAndZone() {
-
-        //Circle
-        if (this.SelectedCircles.length) {
-            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
-            this.userInfo.Circles = this.final_cricle;
-        } else {
-            this.final_cricle = this.SelectedCircles;
-            this.userInfo.Circles = this.final_cricle;
-        }
-        //Branch
-        if (this.SelectedBranches.length) {
-            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
-            this.userInfo.Branch = this.final_branch;
-        } else {
-            this.final_branch = this.SelectedBranches;
-            this.userInfo.Branch = this.final_branch;
-        }
-        //Zone
-        if (this.SelectedZones.length) {
-            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
-            this.userInfo.Zone = this.final_zone;
-        } else {
-            this.final_zone = this.SelectedZones;
-            this.userInfo.Zone = this.final_zone;
-        }
-
-    }
-
     changeZone(changedValue) {
         let changedZone = {Zone: {ZoneId: changedValue.value}}
         this.userUtilsService.getBranch(changedZone).subscribe((data: any) => {
@@ -189,7 +159,6 @@ export class TourPlanComponent implements OnInit {
             this.disable_branch = false;
         });
     }
-
 
     changeBranch(changedValue) {
 
@@ -209,9 +178,6 @@ export class TourPlanComponent implements OnInit {
             }
         });
     }
-
-    //End ZBC
-
 
     setValuesForEdit() {
         if (this.TourPlan.TourPlanId) {
@@ -233,6 +199,8 @@ export class TourPlanComponent implements OnInit {
         }
     }
 
+    //End ZBC
+
     setValues() {
         var circleId = [], circleCode = [], name, ppno, circleName, circleNo, date, branch, zone;
 
@@ -252,7 +220,6 @@ export class TourPlanComponent implements OnInit {
         this.TourForm.controls['CircleName'].setValue(circleName);
         this.TourForm.controls['CircleId'].setValue(circleNo);
     }
-
 
     createForm() {
         this.TourForm = this.fb.group({
@@ -428,7 +395,6 @@ export class TourPlanComponent implements OnInit {
         this.TourPlan.Status = value;
 
 
-
         this.spinner.show();
         this.tourPlanService
             .ChanageTourStatus(this.TourPlan, null)
@@ -473,5 +439,34 @@ export class TourPlanComponent implements OnInit {
 
                     }
                 });
+    }
+
+    private assignBranchAndZone() {
+
+        //Circle
+        if (this.SelectedCircles.length) {
+            this.final_cricle = this.SelectedCircles?.filter((circ) => circ.Id == this.selected_c)[0]
+            this.userInfo.Circles = this.final_cricle;
+        } else {
+            this.final_cricle = this.SelectedCircles;
+            this.userInfo.Circles = this.final_cricle;
+        }
+        //Branch
+        if (this.SelectedBranches.length) {
+            this.final_branch = this.SelectedBranches?.filter((circ) => circ.BranchCode == this.selected_b)[0];
+            this.userInfo.Branch = this.final_branch;
+        } else {
+            this.final_branch = this.SelectedBranches;
+            this.userInfo.Branch = this.final_branch;
+        }
+        //Zone
+        if (this.SelectedZones.length) {
+            this.final_zone = this.SelectedZones?.filter((circ) => circ.ZoneId == this.selected_z)[0]
+            this.userInfo.Zone = this.final_zone;
+        } else {
+            this.final_zone = this.SelectedZones;
+            this.userInfo.Zone = this.final_zone;
+        }
+
     }
 }

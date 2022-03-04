@@ -1,5 +1,5 @@
-import {Component, OnInit, ChangeDetectorRef, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Lov, LovConfigurationKey} from 'app/shared/classes/lov.class';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
@@ -13,11 +13,7 @@ import {LovService} from 'app/shared/services/lov.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {finalize} from 'rxjs/operators';
-import {
-    ClGlSchemeCropConfigurationComponent
-} from "../cl-gl-scheme-crop-configuration/cl-gl-scheme-crop-configuration.component";
 import {MatDialog} from "@angular/material/dialog";
-import {CustomerListComponent} from "../../customer/customer-list/customer-list.component";
 import {CustLoanlistComponent} from "../customer-list/cust-list.component";
 import {Activity} from "../../../shared/models/activity.model";
 
@@ -42,7 +38,7 @@ export class ClCustomersComponent implements OnInit {
     public customerLoanApp = new CustomersLoanApp();
 
 
-    loan_data=[];
+    loan_data = [];
 
 
     @Input() loanDetail: Loan;
@@ -116,7 +112,7 @@ export class ClCustomersComponent implements OnInit {
             return;
         }
 
-        if (this.loan_data?.length == 0 || this.loan_data ==undefined) {
+        if (this.loan_data?.length == 0 || this.loan_data == undefined) {
             if (this.loanCustomerForm.controls.AGPS.value != "A") {
                 this.layoutUtilsService.alertElement("", "First time AGPS must be Applicant");
                 return
@@ -134,7 +130,7 @@ export class ClCustomersComponent implements OnInit {
             return;
         }
         this.customerLoanApp.LoanAppID = this.loanDetail?.ApplicationHeader?.LoanAppID;
-        if(!this.customerLoanApp.LoanAppID){
+        if (!this.customerLoanApp.LoanAppID) {
             this.layoutUtilsService.alertMessage("", "Add Application Header First");
             return;
         }

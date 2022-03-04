@@ -22,14 +22,14 @@
         <div class="mat-table__wrapper  border shadow-xs rounded-sm bg-gray-50 ">
             <!--[style.height]="gridHeight"-->
             <mat-table
-                class="lmat-elevation-z8 overflow-scroll"
-                [style.height]="gridHeight"
+                #sort1="matSort"
                 #table
                 [dataSource]="
                     dataSource
                 "
+                [style.height]="gridHeight"
+                class="lmat-elevation-z8 overflow-scroll"
                 matSort
-                #sort1="matSort"
                 matSortActive="id"
                 matSortDirection="asc"
                 matSortDisableClear
@@ -63,8 +63,6 @@
                     *matRowDef="let row; columns: displayedColumns"
                 ></mat-row>
             </mat-table>
-
-
 
 
         </div>

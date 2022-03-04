@@ -1,7 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {
-    ChartComponent
-} from "ng-apexcharts";
+import {ChartComponent} from "ng-apexcharts";
 import {finalize} from "rxjs/operators";
 import {DashboardService} from "../../../shared/services/dashboard.service";
 import {NgxSpinnerService} from "ngx-spinner";
@@ -31,7 +29,7 @@ export class RecoveryAvailableComponent implements OnInit {
     ngOnInit(): void {
         this.getYears();
         this.getData();
-        this.year=(new Date()).getFullYear().toString();
+        this.year = (new Date()).getFullYear().toString();
     }
 
     getData() {

@@ -1,11 +1,10 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {finalize} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MatDialog} from '@angular/material/dialog';
 import {LayoutUtilsService} from 'app/shared/services/layout_utils.service';
-import {KtDialogService} from 'app/shared/services/kt-dialog.service';
 import {UserUtilsService} from 'app/shared/services/users_utils.service';
 import {BaseResponseModel} from 'app/shared/models/base_response.model';
 import {RecoveryService} from 'app/shared/services/recovery.service';
@@ -45,8 +44,8 @@ export class LoanInquiryComponent implements OnInit {
         this.RecoveryForm = this.formBuilder.group({
             TransactionId: [''],
             LoanCaseNo: [''],
-            UncultivatedLand:[],
-            NocultivatedLand:[]
+            UncultivatedLand: [],
+            NocultivatedLand: []
         });
     }
 

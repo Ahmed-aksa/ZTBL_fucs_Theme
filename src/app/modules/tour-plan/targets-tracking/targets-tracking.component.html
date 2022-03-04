@@ -9,30 +9,33 @@
     <div class="flex flex-auto overflow-y-scroll overflow-x-hidden" style="flex-direction: column;">
         <form [formGroup]="targetTrackingForm">
             <div class="row pt-2">
-                  <div class="col-lg-3">
-                        <mat-form-field class="w-full" appearance="fill">
-                              <!-- <mat-label>Month and Year</mat-label> -->
-                              <input matInput [matDatepicker]="dp" placeholder="Month" [formControl]="date">
-                              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                          </mat-form-field>
-                          <mat-datepicker #dp startView="multi-year" (yearSelected)="_yearSelectedHandler($event,dp)"
-                                          panelClass="example-month-picker">
-                          </mat-datepicker>
-                  </div>
-                  <div class="col-lg-3">
-                        <mat-form-field class="w-full">
-                              <input matInput placeholder="Search" formControlName="search">
-                          </mat-form-field>
-                  </div>
-                  <div class="col-lg-3 pt-2">
-                        <button class="mat-focus-indicator mat-flat-button mat-button-base rounded  bg-green" (click)="getTargetTracks()"><mat-icon class="mr-2">check_circle</mat-icon>Submit</button>
-                  </div>
+                <div class="col-lg-3">
+                    <mat-form-field appearance="fill" class="w-full">
+                        <!-- <mat-label>Month and Year</mat-label> -->
+                        <input [formControl]="date" [matDatepicker]="dp" matInput placeholder="Month">
+                        <mat-datepicker-toggle [for]="dp" matSuffix></mat-datepicker-toggle>
+                    </mat-form-field>
+                    <mat-datepicker #dp (yearSelected)="_yearSelectedHandler($event,dp)" panelClass="example-month-picker"
+                                    startView="multi-year">
+                    </mat-datepicker>
+                </div>
+                <div class="col-lg-3">
+                    <mat-form-field class="w-full">
+                        <input formControlName="search" matInput placeholder="Search">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-3 pt-2">
+                    <button (click)="getTargetTracks()"
+                            class="mat-focus-indicator mat-flat-button mat-button-base rounded  bg-green">
+                        <mat-icon class="mr-2">check_circle</mat-icon>
+                        Submit
+                    </button>
+                </div>
             </div>
 
 
-
         </form>
-        <section matSort class="mat-elevation-z2 mat-header-row bg-green api-table">
+        <section class="mat-elevation-z2 mat-header-row bg-green api-table" matSort>
             <span class="mat-header-cell text-white" mat-sort-header="Name"
                   style="width: 10px;">{{target_0?.Heading?.Name}}</span>
             <span class="mat-header-cell text-white"
@@ -46,16 +49,16 @@
             <span class="mat-header-cell text-white"
                   mat-sort-header="SamRecoveryAmount">{{target_0?.Heading?.SamRecoveryAmount}}</span>
         </section>
-        <mat-accordion displayMode="flat" multi class="mat-table  border shadow-xs rounded-sm bg-white px-1"
+        <mat-accordion class="mat-table  border shadow-xs rounded-sm bg-white px-1" displayMode="flat" multi
                        style="overflow-y:scroll;">
 
 
-            <mat-expansion-panel class="api-table shadow-none mb-4 p-0"
-                                 *ngFor="let single_provincial_target of target_0?.Targets ;let i=index"
-                                 (click)="getTargetTracks(single_provincial_target.Id,1,i,target_0?.Targets)" #exppanel
+            <mat-expansion-panel #exppanel
+                                 (click)="getTargetTracks(single_provincial_target.Id,1,i,target_0?.Targets)"
+                                 *ngFor="let single_provincial_target of target_0?.Targets ;let i=index" class="api-table shadow-none mb-4 p-0"
                                  style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
-                <mat-expansion-panel-header style="font-size: 12px;"
-                                            class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                <mat-expansion-panel-header class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border"
+                                            style="font-size: 12px;">
                 <span class="mat-cell py-6 self-center font-bold"
                       style="width: 10px; font-size: 12px;">{{single_provincial_target?.Name ? single_provincial_target.Name : '-'}}</span>
                     <span class="mat-cell py-6 self-center font-bold"
@@ -72,7 +75,7 @@
                 <div>
                     <div class="custom-accordion-body border-t rounded">
                         <!--            LEVEL 1             -->
-                        <section matSort class=" bg-gray-800 mat-elevation-z2 mat-header-row bg-green api-table">
+                        <section class=" bg-gray-800 mat-elevation-z2 mat-header-row bg-green api-table" matSort>
             <span class="mat-header-cell text-white" mat-sort-header="Name"
                   style="width: 10px;">{{target_1?.Name}}</span>
                             <span class="mat-header-cell text-white"
@@ -86,18 +89,18 @@
                             <span class="mat-header-cell text-white"
                                   mat-sort-header="SamRecoveryAmount">{{target_1?.SamRecoveryAmount}}</span>
                         </section>
-                        <mat-accordion displayMode="flat" multi
-                                       class="mat-table  border shadow-xs rounded-sm bg-white mt-2 px-1  px-3"
+                        <mat-accordion class="mat-table  border shadow-xs rounded-sm bg-white mt-2 px-1  px-3" displayMode="flat"
+                                       multi
                                        style="overflow-y:scroll;">
 
 
-                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0 mt-2"
-                                                 *ngFor="let target_1 of single_provincial_target?.Target ;let i1=index"
+                            <mat-expansion-panel #exppanel1
                                                  (click)="$event.stopPropagation();getTargetTracks(target_1.Id,2,i1,single_provincial_target?.Target)"
-                                                 #exppanel1
+                                                 *ngFor="let target_1 of single_provincial_target?.Target ;let i1=index"
+                                                 class="api-table shadow-none mb-4 p-0 mt-2"
                                                  style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
-                                <mat-expansion-panel-header style="font-size: 12px;"
-                                                            class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                                <mat-expansion-panel-header class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border"
+                                                            style="font-size: 12px;">
                                     <span class="mat-cell py-6 self-center font-bold"
                                           style="width: 10px; font-size: 12px;">{{target_1?.Name ? target_1?.Name : '-'}}</span>
                                     <span class="mat-cell py-6 self-center font-bold"
@@ -115,7 +118,8 @@
                                     <div class="custom-accordion-body  border-t rounded">
 
                                         <!--                     LEVEL 2                   -->
-                                        <section matSort class=" bg-gray-700 mat-elevation-z2 mat-header-row bg-green api-table">
+                                        <section class=" bg-gray-700 mat-elevation-z2 mat-header-row bg-green api-table"
+                                                 matSort>
                                             <span class="mat-header-cell text-white" mat-sort-header="Name"
                                                   style="width: 10px;">{{target_2?.Name}}</span>
                                             <span class="mat-header-cell text-white"
@@ -129,17 +133,17 @@
                                             <span class="mat-header-cell text-white"
                                                   mat-sort-header="SamRecoveryAmount">{{target_2?.SamRecoveryAmount}}</span>
                                         </section>
-                                        <mat-accordion displayMode="flat" multi
-                                                       class="mat-table  border shadow-xs rounded-sm bg-white mt-2  px-1  px-3"
+                                        <mat-accordion class="mat-table  border shadow-xs rounded-sm bg-white mt-2  px-1  px-3" displayMode="flat"
+                                                       multi
                                                        style="overflow-y:scroll;">
 
-                                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0 mt-2"
-                                                                 *ngFor="let target_2 of target_1?.Target ;let i2=index"
+                                            <mat-expansion-panel #exppanel2
                                                                  (click)="$event.stopPropagation();getTargetTracks(target_2.Id,3,i2,target_1?.Target)"
-                                                                 #exppanel2
+                                                                 *ngFor="let target_2 of target_1?.Target ;let i2=index"
+                                                                 class="api-table shadow-none mb-4 p-0 mt-2"
                                                                  style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
-                                                <mat-expansion-panel-header style="font-size: 12px;"
-                                                                            class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                                                <mat-expansion-panel-header class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border"
+                                                                            style="font-size: 12px;">
                                                     <span class="mat-cell py-6 self-center font-bold"
                                                           style="width: 10px; font-size: 12px;">{{target_2?.Name ? target_2?.Name : '-'}}</span>
                                                     <span class="mat-cell py-6 self-center font-bold"
@@ -156,8 +160,8 @@
                                                 <div>
                                                     <div class="custom-accordion-body  border-t rounded">
                                                         <!--                                                        <!  LEVEL 3 -->
-                                                        <section matSort
-                                                                 class="mat-elevation-z2 bg-gray-500 mat-header-row bg-green api-table">
+                                                        <section class="mat-elevation-z2 bg-gray-500 mat-header-row bg-green api-table"
+                                                                 matSort>
             <span class="mat-header-cell text-white" mat-sort-header="Name"
                   style="width: 10px;">{{target_3?.Name}}</span>
                                                             <span class="mat-header-cell text-white"
@@ -171,18 +175,19 @@
                                                             <span class="mat-header-cell text-white"
                                                                   mat-sort-header="SamRecoveryAmount">{{target_3?.SamRecoveryAmount}}</span>
                                                         </section>
-                                                        <mat-accordion displayMode="flat" multi
-                                                                       class="mat-table  border shadow-xs bg-white mt-2 rounded-sm px-3 px-1"
+                                                        <mat-accordion class="mat-table  border shadow-xs bg-white mt-2 rounded-sm px-3 px-1" displayMode="flat"
+                                                                       multi
                                                                        style="overflow-y:scroll;">
 
 
-                                                            <mat-expansion-panel class="api-table shadow-none mb-4 p-0 mt-2"
-                                                                                 *ngFor="let target_3 of target_2?.Target ;let i3=index"
-                                                                                 (click)="$event.stopPropagation();getTargetTracks(target_3.Id,1,i3,target_2?.Target)"
-                                                                                 #exppanel
-                                                                                 style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
-                                                                <mat-expansion-panel-header style="font-size: 12px;"
-                                                                                            class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                                                            <mat-expansion-panel
+                                                                #exppanel
+                                                                (click)="$event.stopPropagation();getTargetTracks(target_3.Id,1,i3,target_2?.Target)"
+                                                                *ngFor="let target_3 of target_2?.Target ;let i3=index"
+                                                                class="api-table shadow-none mb-4 p-0 mt-2"
+                                                                style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
+                                                                <mat-expansion-panel-header class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border"
+                                                                                            style="font-size: 12px;">
                 <span class="mat-cell py-6 self-center font-bold"
                       style="width: 10px; font-size: 12px;">{{single_provincial_target?.Name}}</span>
                                                                     <span class="mat-cell py-6 self-center font-bold"
@@ -203,8 +208,8 @@
                                                                     <div
                                                                         class="custom-accordion-body bg-gray-50 border-t rounded">
                                                                         <!--                                                                      <! Level 4 -->
-                                                                        <section matSort
-                                                                                 class="mat-elevation-z2 bg-gray-400 mat-header-row bg-green api-table">
+                                                                        <section class="mat-elevation-z2 bg-gray-400 mat-header-row bg-green api-table"
+                                                                                 matSort>
             <span class="mat-header-cell text-white" mat-sort-header="Name"
                   style="width: 10px;">{{target_4?.Name}}</span>
                                                                             <span class="mat-header-cell text-white"
@@ -218,20 +223,20 @@
                                                                             <span class="mat-header-cell text-white"
                                                                                   mat-sort-header="SamRecoveryAmount">{{target_4?.SamRecoveryAmount}}</span>
                                                                         </section>
-                                                                        <mat-accordion displayMode="flat" multi
-                                                                                       class="mat-table  border  px-3 shadow-xs rounded-sm bg-white mt-2 px-1"
+                                                                        <mat-accordion class="mat-table  border  px-3 shadow-xs rounded-sm bg-white mt-2 px-1" displayMode="flat"
+                                                                                       multi
                                                                                        style="overflow-y:scroll;">
 
 
                                                                             <mat-expansion-panel
-                                                                                class="api-table shadow-none mb-4 mt-2 p-0"
-                                                                                *ngFor="let target_4 of target_3?.Targets ;let i4=index"
-                                                                                (click)="$event.stopPropagation();getTargetTracks(target_4.Id,1,i4,target_3?.Target)"
                                                                                 #exppanel
+                                                                                (click)="$event.stopPropagation();getTargetTracks(target_4.Id,1,i4,target_3?.Target)"
+                                                                                *ngFor="let target_4 of target_3?.Targets ;let i4=index"
+                                                                                class="api-table shadow-none mb-4 mt-2 p-0"
                                                                                 style="box-shadow: none !important; margin-bottom: 5px !important; font-size: 12px;">
                                                                                 <mat-expansion-panel-header
-                                                                                    style="font-size: 12px;"
-                                                                                    class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border">
+                                                                                    class="mat-row custom-accordion py-2 h-10  rounded-lg my-1 shadow-sm border"
+                                                                                    style="font-size: 12px;">
                 <span class="mat-cell py-6 self-center font-bold"
                       style="width: 10px; font-size: 12px;">{{single_provincial_target?.Name}}</span>
                                                                                     <span
@@ -285,8 +290,8 @@
         <mat-paginator #paginator
                        [length]="target_0?.Targets?.length"
                        [pageIndex]="0"
-                       [pageSize]="10"
                        [pageSizeOptions]="[5, 10, 25, 100]"
+                       [pageSize]="10"
         ></mat-paginator>
 
 

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {HttpUtilsService} from '../../../shared/services/http_utils.service';
 import {environment} from '../../../../environments/environment';
 import {map} from 'rxjs/operators';
@@ -8,11 +8,7 @@ import {BaseResponseModel} from '../../../shared/models/base_response.model';
 import {BaseRequestModel} from '../../../shared/models/base_request.model';
 import {UserUtilsService} from '../../../shared/services/users_utils.service';
 // import { LoanApplicationLegalHeirs, PersonalSureties, CorporateSurety, LoanRefrences, LoanWitness, LoanPastPaid, LoanDocumentCheckList, CurrentLoans, GlConfigrationsDetail, ORR, CropProduction, AppraisalProposed, LoanDocuments, SearchLoan, LoanDbr, SearchLoanDbr  } from '../_models/loan-application-header.model';
-
-import {
-    Customer,
-    DeceasedCustomer,
-} from '../../../shared/models/deceased_customer.model';
+import {Customer,} from '../../../shared/models/deceased_customer.model';
 import {Observable} from 'rxjs';
 import {CommonService} from '../../../shared/services/common.service';
 import {DatePipe} from '@angular/common';

@@ -47,6 +47,10 @@ export class LocationHistoryListComponent implements OnInit {
         private _reportservice: ReportService) {
     }
 
+    get f(): any {
+        return this.FilterForm.controls;
+    }
+
     ngOnInit() {
 
         this.createForm();
@@ -60,7 +64,6 @@ export class LocationHistoryListComponent implements OnInit {
         });
     }
 
-
     ngAfterViewInit() {
 
         this.dataSource.paginator = this.paginator;
@@ -68,19 +71,16 @@ export class LocationHistoryListComponent implements OnInit {
         this.gridHeight = window.innerHeight - 200 + 'px';
     }
 
-
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
     }
 
-
     loadUserHistoryPage() {
         this.dataSource.data = [];
         this.loadUserHistory();
     }
-
 
     keyPress(event: any) {
 
@@ -92,16 +92,9 @@ export class LocationHistoryListComponent implements OnInit {
         }
     }
 
-
     hasError(controlName: string, errorName: string): boolean {
         return this.FilterForm.controls[controlName].hasError(errorName);
     }
-
-
-    get f(): any {
-        return this.FilterForm.controls;
-    }
-
 
     loadUserHistory() {
 
