@@ -237,7 +237,7 @@ export class TourDiaryZmComponent implements OnInit {
 
     getBranches(changedValue) {
         let changedZone = null;
-        if (changedValue.value) {
+        if (changedValue?.value) {
             changedZone = {Zone: {ZoneId: changedValue.value}}
         } else {
             changedZone = {Zone: {ZoneId: changedValue}}
@@ -446,7 +446,7 @@ export class TourDiaryZmComponent implements OnInit {
         this.branch = data.final_branch;
         this.circle = data.final_circle;
 
-        var zoneId = this.zone.ZoneId;
+        var zoneId = this.zone?.ZoneId;
         console.log(zoneId)
         this.getBranches(zoneId);
 

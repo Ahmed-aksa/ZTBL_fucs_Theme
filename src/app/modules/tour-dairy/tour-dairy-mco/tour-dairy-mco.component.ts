@@ -177,6 +177,10 @@ export class TourDiaryMcoComponent implements OnInit {
             TOTFarmersContacted: [null],
             TOTNoOfFarmersVisisted: [null],
             AnyOtherWorkDone: [null],
+            NoOfMutationPendingASOPM: [null],
+            MutationVerifiedDuringMnth: [null],
+            UtilizationPendingLastDate: [null],
+            UtilizationVerifiedDuringMnth: [null],
             Remarks: [null],
             Status: [null]
         })

@@ -353,12 +353,59 @@
                                                autocomplete="off"/>
                                     </mat-form-field>
                                 </div>
+
                                 <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 235px;">
                                     <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
                                         <mat-label class="customMatLabel">No. Of Sanctioned Mutations Verified
                                         </mat-label>
                                         <input matInput appNumberOnly placeholder="No. Of Sanctioned Mutations Verified"
                                                formControlName="NoOfSanctnMutationVerified" maxlength="30"
+                                               [readonly]="!edit_mode && currentActivity.R"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 255px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">No. Of Mutations Pending As Previous Month
+                                        </mat-label>
+                                        <input matInput appNumberOnly placeholder="No. Of Mutations Pending As Previous Month"
+                                               formControlName="NoOfMutationPendingASOPM" maxlength="30"
+                                               [readonly]="!edit_mode && currentActivity.R"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 235px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Mutations Verified During Month
+                                        </mat-label>
+                                        <input matInput appNumberOnly placeholder="Mutations Verified During Month"
+                                               formControlName="MutationVerifiedDuringMnth" maxlength="30"
+                                               [readonly]="!edit_mode && currentActivity.R"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 235px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Utilization Pending Last Date
+                                        </mat-label>
+                                        <input matInput appNumberOnly placeholder="Utilization Pending Last Date"
+                                               formControlName="UtilizationPendingLastDate" maxlength="30"
+                                               [readonly]="!edit_mode && currentActivity.R"
+                                               autocomplete="off"/>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="flex flex-shrink-0 items-center mt-6 sm:mt-0 mx-2" style="width: 235px;">
+                                    <mat-form-field class="mat-form-field-fluid w-full" appearance="outline">
+                                        <mat-label class="customMatLabel">Utilization Verified During Month
+                                        </mat-label>
+                                        <input matInput appNumberOnly placeholder="Utilization Verified During Month"
+                                               formControlName="UtilizationVerifiedDuringMnth" maxlength="30"
                                                [readonly]="!edit_mode && currentActivity.R"
                                                autocomplete="off"/>
                                     </mat-form-field>
@@ -703,7 +750,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr *ngFor="let mcoDiary of TourDiaryList">
                     <td>{{systemGenerated?.DAnnualTarget}}</td>
                     <td>{{systemGenerated?.DPropoTargetEOM}}</td>
                     <td></td>
@@ -711,21 +758,12 @@
                     <td>{{systemGenerated?.DTotalDisbDuringMonth }}</td>
                     <td>{{systemGenerated?.DIncreaseDeficit}}</td>
                     <!-- Mutations -->
-                    <td>{{systemGenerated?.MNoMutationPendingPM }}</td>
-                    <td>{{systemGenerated?.MNoDisbDuringMonth}}
-                        <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
-                        <!--                                        appearance="outline">-->
-                        <!--                            <input matInput [value]=" ">-->
-                        <!--                        </mat-form-field>-->
-                    </td>
+<!--                    <td>{{systemGenerated?.MNoMutationPendingPM }}</td>-->
+                    <td>{{mcoDiary?.NoOfMutationPendingASOPM}}</td>
+                    <td>{{systemGenerated?.MNoDisbDuringMonth}}</td>
                     <td>{{systemGenerated?.MMutationToBeVerified}}</td>
+                    <td>{{mcoDiary?.MutationVerifiedDuringMnth}}</td>
                     <td>{{systemGenerated?.MMutationPending}}</td>
-                    <td>{{systemGenerated?.MMutationToBeVerified}}
-                        <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
-                        <!--                                        appearance="outline">-->
-                        <!--                            <input matInput [value]="">-->
-                        <!--                        </mat-form-field>-->
-                    </td>
                 </tr>
 
                 </tbody>
@@ -779,20 +817,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>{{systemGenerated?.UUtilizationPendingPM}}
-                        <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
-                        <!--                                        appearance="outline">-->
-                        <!--                            <input matInput>-->
-                        <!--                        </mat-form-field>-->
-                    </td>
+                <tr *ngFor="let mcoDiary of TourDiaryList">
+                    <td>{{mcoDiary?.UtilizationPendingLastDate}}</td>
+<!--                    <td>{{systemGenerated?.UUtilizationPendingPM}}</td>-->
                     <td>{{systemGenerated?.UNoOfCasesDisbursed }}</td>
                     <td>{{systemGenerated?.UNoOfUtliztionToVerify }}</td>
-                    <td>
-                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
-                                        appearance="outline">
-                            <input matInput [value]="systemGenerated?.UUtilizationVerified">
-                        </mat-form-field>
+                    <td>{{mcoDiary?.UtilizationVerifiedDuringMnth}}
+<!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
+<!--                                        appearance="outline">-->
+<!--                            <input matInput [value]="systemGenerated?.UUtilizationVerified">-->
+<!--                        </mat-form-field>-->
                     </td>
                     <td>{{systemGenerated?.UPendingCasesChecking }}</td>
                     <td>{{systemGenerated?.RTPastDuesNo  }}</td>

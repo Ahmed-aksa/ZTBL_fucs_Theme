@@ -152,14 +152,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr *ngFor="let mcoDiary of TourDiaryList">
                     <td>{{systemGenerated?.DAnnualTarget}}</td>
                     <td>{{systemGenerated?.DPropoTargetEOM}}</td>
                     <td>{{systemGenerated?.DDisbDuringMonth}}</td>
                     <td>{{systemGenerated?.DTotalDisbDuringMonth }}</td>
                     <td>{{systemGenerated?.DIncreaseDeficit}}</td>
                     <!-- Mutations -->
-                    <td>{{systemGenerated?.MNoMutationPendingPM }}</td>
+                    <td>{{mcoDiary?.NoOfMutationPendingASOPM}}</td>
                     <td>{{systemGenerated?.MNoDisbDuringMonth}}
 <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
 <!--                                        appearance="outline">-->
@@ -167,8 +167,8 @@
 <!--                        </mat-form-field>-->
                     </td>
                     <td>{{systemGenerated?.MMutationToBeVerified}}</td>
-                    <td>{{systemGenerated?.MMutationPending}}</td>
-                    <td>{{systemGenerated?.MMutationToBeVerified}}
+                    <td>{{mcoDiary?.MutationVerifiedDuringMnth}}</td>
+                    <td>{{systemGenerated?.MMutationPending}}
 <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
 <!--                                        appearance="outline">-->
 <!--                            <input matInput [value]="">-->
@@ -227,8 +227,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>{{systemGenerated?.UUtilizationPendingPM}}
+                <tr *ngFor="let mcoDiary of TourDiaryList">
+                    <td>{{mcoDiary?.UtilizationPendingLastDate}}
 <!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
 <!--                                        appearance="outline">-->
 <!--                            <input matInput>-->
@@ -236,11 +236,11 @@
                     </td>
                     <td>{{systemGenerated?.UNoOfCasesDisbursed }}</td>
                     <td>{{systemGenerated?.UNoOfUtliztionToVerify }}</td>
-                    <td>
-                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"
-                                        appearance="outline">
-                            <input matInput [value]="systemGenerated?.UUtilizationVerified">
-                        </mat-form-field>
+                    <td>{{mcoDiary?.UtilizationVerifiedDuringMnth}}
+<!--                        <mat-form-field class=" mat-form-field-fluid w-full" style="width: 12rem !important"-->
+<!--                                        appearance="outline">-->
+<!--                            <input matInput [value]="systemGenerated?.UUtilizationVerified">-->
+<!--                        </mat-form-field>-->
                     </td>
                     <td>{{systemGenerated?.UPendingCasesChecking }}</td>
                     <td>{{systemGenerated?.RTPastDuesNo  }}</td>
